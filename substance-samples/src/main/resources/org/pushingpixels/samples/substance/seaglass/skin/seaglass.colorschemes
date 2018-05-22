@@ -1,0 +1,154 @@
+Sea Glass Enabled {
+    kind=Light
+    colorUltraLight=#EBF6FE
+    colorExtraLight=#E6F1F9
+    colorLight=#CFE7F8
+    colorMid=#CDE5F7
+    colorDark=#A1C2ED
+    colorUltraDark=#8FB4E2
+    colorForeground=#070707
+}
+
+Sea Glass Pressed {
+    kind=Light
+    colorUltraLight=#AFDAF6
+    colorExtraLight=#B6CBDD
+    colorLight=#7EA7CD
+    colorMid=#79A4CB
+    colorDark=#648BC6
+    colorUltraDark=#618AC5
+    colorForeground=#1C1C1C
+}
+
+Sea Glass Enabled Border {
+    kind=Dark
+    colorUltraLight=#ABC8EE
+    colorExtraLight=#A1C2ED
+    colorLight=#A1C2ED
+    colorMid=#A1C2ED
+    colorDark=#7EA5D7
+    colorUltraDark=#5786C0
+    colorForeground=#070707
+}
+
+Sea Glass Pressed Border {
+    kind=Dark
+    colorUltraLight=#648BC6
+    colorExtraLight=#4E7DBF
+    colorLight=#4E7DBF
+    colorMid=#4E7DBF
+    colorDark=#467ABF
+    colorUltraDark=#3D77BF
+    colorForeground=#070707
+}
+
+Sea Glass Disabled {
+    kind=Light
+    colorUltraLight=#DEE8F1
+    colorExtraLight=#E3EAF3
+    colorLight=#DBE4F0
+    colorMid=#D9E3EF
+    colorDark=#CADBF1
+    colorUltraDark=#C4D7EF
+    colorForeground=#989A9E
+}
+
+Sea Glass Disabled Border {
+    kind=Light
+    colorUltraLight=#D0DDEC
+    colorExtraLight=#D3DEED
+    colorLight=#D2DEED
+    colorMid=#D2DEED
+    colorDark=#C4D3E6
+    colorUltraDark=#BACBDD
+    colorForeground=#DFE7EF
+}
+
+Sea Glass Selected {
+    kind=Dark
+    colorUltraLight=#A5C4E7
+    colorExtraLight=#A4C3E7
+    colorLight=#81A9DC
+    colorMid=#78A4DB
+    colorDark=#719CD7
+    colorUltraDark=#539ADC
+    colorForeground=#1C1C1C
+}
+
+Sea Glass Selected Border {
+    kind=Dark
+    colorUltraLight=#7798DA
+    colorExtraLight=#7698DB
+    colorLight=#7698DB
+    colorMid=#7698DA
+    colorDark=#698DC6
+    colorUltraDark=#336CB6
+    colorForeground=#1C1C1C
+}
+
+Sea Glass Default {
+    kind=Light
+    colorUltraLight=#31B0F3
+    colorExtraLight=#98C3ED
+    colorLight=#4DA4E9
+    colorMid=#66A0E2
+    colorDark=#6B85DD
+    colorUltraDark=#5677D8
+    colorForeground=#010101
+}
+
+Sea Glass Default Border {
+    kind=Dark
+    colorUltraLight=#5776D9
+    colorExtraLight=#5776D9
+    colorLight=#5776D9
+    colorMid=#4E75DD
+    colorDark=#235AC3
+    colorUltraDark=#0041AB
+    colorForeground=#070707
+}
+
+Sea Glass Header Background {
+    kind=Light
+    colorUltraLight=#7393B3
+    colorExtraLight=#6F90B2
+    colorLight=#6A8CB0
+    colorMid=#6588AD
+    colorDark=#5980A8
+    colorUltraDark=#577EA7
+    colorForeground=#000000
+}
+
+Sea Glass Background {
+    kind=Light
+    colorUltraLight=#FFFFFF
+    colorExtraLight=#FFFFFF
+    colorLight=#FFFFFF
+    colorMid=#FFFFFF
+    colorDark=#FFFFFF
+    colorUltraDark=#FFFFFF
+    colorForeground=#000000
+}
+
+Sea Glass Active {
+    kind=Light
+    colorUltraLight=#A4DCF7
+    colorExtraLight=#B4CEE0
+    colorLight=#86B3D4
+    colorMid=#72ACD2
+    colorDark=#6D9FC8
+    colorUltraDark=#6691C2
+    colorForeground=#000000
+}
+
+Sea Glass Active Border {
+    kind=Dark
+    colorUltraLight=#4486C5
+    colorExtraLight=#3F84C4
+    colorLight=#397DC2
+    colorMid=#397DC2
+    colorDark=#2D7AC2
+    colorUltraDark=#2178C2
+    colorForeground=#A3DCF7
+}
+

@@ -1,0 +1,33 @@
+Autumn Active {
+    kind=Light
+    colorUltraLight=#FDDDAC
+    colorExtraLight=#FCEF9F
+    colorLight=#FCD592
+    colorMid=#F9BE84
+    colorDark=#F8B87A
+    colorUltraDark=#AC623B
+    colorForeground=#AC623B
+}
+
+Autumn Enabled {
+    kind=Light
+    colorUltraLight=#FFF2DF
+    colorExtraLight=#FFE3C5
+    colorLight=#FDD1A4
+    colorMid=#FBCD9C
+    colorDark=#FCC896
+    colorUltraDark=#AC623B
+    colorForeground=#AC623B
+}
+
+Autumn Watermark {
+    kind=Light
+    colorUltraLight=#FFF2DF
+    colorExtraLight=#FFE3C5
+    colorLight=#FEDAB5
+    colorMid=#FED8B2
+    colorDark=#FDD4AA
+    colorUltraDark=#FDD1A5
+    colorForeground=#AC623B
+}
+

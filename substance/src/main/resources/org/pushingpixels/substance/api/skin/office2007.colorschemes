@@ -1,0 +1,505 @@
+Office Blue Watermark {
+    kind=Light
+    colorUltraLight=#DEE8F5
+    colorExtraLight=#D2DFF0
+    colorLight=#D0E0F0
+    colorMid=#CAD9ED
+    colorDark=#BACAD9
+    colorUltraDark=#AEC2D5
+    colorForeground=#15428B
+}
+
+Office Blue Header Watermark {
+    kind=Light
+    colorUltraLight=#BFDBFF
+    colorExtraLight=#BFDBFF
+    colorLight=#BFDBFF
+    colorMid=#BDD8FC
+    colorDark=#B9D3F4
+    colorUltraDark=#ADC7E7
+    colorForeground=#15428B
+}
+
+Office Blue Active {
+    kind=Light
+    colorUltraLight=#9DBDE7
+    colorExtraLight=#BBD5F8
+    colorLight=#ABCCF6
+    colorMid=#AACBF6
+    colorDark=#8CB8F3
+    colorUltraDark=#79ADF1
+    colorForeground=#15428B
+}
+
+Office Blue Title Watermark {
+    kind=Light
+    colorUltraLight=#E3EEFD
+    colorExtraLight=#DBE9FB
+    colorLight=#D7E6FA
+    colorMid=#D3E4F9
+    colorDark=#CCDFF8
+    colorUltraDark=#CADEF7
+    colorForeground=#15428B
+}
+
+Office Blue Border Active {
+    kind=Light
+    colorUltraLight=#7F96BA
+    colorExtraLight=#63779E
+    colorLight=#576890
+    colorMid=#596991
+    colorDark=#576890
+    colorUltraDark=#566890
+    colorForeground=#15428B
+}
+
+Office Blue Enabled {
+    kind=Light
+    colorUltraLight=#D0E1F7
+    colorExtraLight=#C8DBEE
+    colorLight=#C5D7F0
+    colorMid=#C1D3EC
+    colorDark=#C0D4ED
+    colorUltraDark=#BCD0E9
+    colorForeground=#15428B
+}
+
+Office Blue Border Enabled {
+    kind=Light
+    colorUltraLight=#9EBAE1
+    colorExtraLight=#8AADDB
+    colorLight=#84A8D7
+    colorMid=#81A3D0
+    colorDark=#6E90B8
+    colorUltraDark=#537BAE
+    colorForeground=#15428B
+}
+
+Office Blue Pressed {
+    kind=Light
+    colorUltraLight=#FDA661
+    colorExtraLight=#FC963C
+    colorLight=#FD9D3E
+    colorMid=#FC923C
+    colorDark=#FC8F3C
+    colorUltraDark=#FC923D
+    colorForeground=#15428B
+}
+
+Office Blue Pressed Selected {
+    kind=Light
+    colorUltraLight=#FEB96C
+    colorExtraLight=#FC963C
+    colorLight=#FDA962
+    colorMid=#FD953C
+    colorDark=#FC923D
+    colorUltraDark=#FC8F3D
+    colorForeground=#15428B
+}
+
+Office Blue Rollover {
+    kind=Light
+    colorUltraLight=#FEF7D5
+    colorExtraLight=#FCEFC3
+    colorLight=#FFE59F
+    colorMid=#FFD560
+    colorDark=#FFD14E
+    colorUltraDark=#FFD048
+    colorForeground=#15428B
+}
+
+Office Blue Rollover Selected {
+    kind=Light
+    colorUltraLight=#FDBD79
+    colorExtraLight=#FEE069
+    colorLight=#FFBD79
+    colorMid=#FFC64C
+    colorDark=#FEAA38
+    colorUltraDark=#FEA335
+    colorForeground=#15428B
+}
+
+Office Blue Selected {
+    kind=Light
+    colorUltraLight=#FBDBB5
+    colorExtraLight=#FDEB9F
+    colorLight=#FEC778
+    colorMid=#FDD07C
+    colorDark=#FDB759
+    colorUltraDark=#FEB456
+    colorForeground=#15428B
+}
+
+Office Blue Separator {
+    kind=Light
+    colorUltraLight=#D5E3F1
+    colorExtraLight=#D0E1F7
+    colorLight=#C2D5ED
+    colorMid=#C1D3EC
+    colorDark=#8DACD3
+    colorUltraDark=#7797C1
+    colorForeground=#F8FAFC
+}
+
+Office Blue Tab Rollover {
+    kind=Light
+    colorUltraLight=#E0E3DC
+    colorExtraLight=#E4E6E0
+    colorLight=#D8DBD0
+    colorMid=#E0D4A8
+    colorDark=#E2D19E
+    colorUltraDark=#E3D198
+    colorForeground=#15428B
+}
+
+Office Blue Tab Selected {
+    kind=Light
+    colorUltraLight=#F5FAFF
+    colorExtraLight=#EBF3FE
+    colorLight=#EAF2FD
+    colorMid=#E9F1FA
+    colorDark=#E8F0F9
+    colorUltraDark=#E1EAF6
+    colorForeground=#15428B
+}
+
+Office Silver Watermark {
+    kind=Light
+    colorUltraLight=#EEF4F4
+    colorExtraLight=#EBF1F1
+    colorLight=#E9EEEE
+    colorMid=#E5E8EA
+    colorDark=#E1E5E9
+    colorUltraDark=#DFE3E9
+    colorForeground=#4C535C
+}
+
+Office Silver Header Watermark {
+    kind=Light
+    colorUltraLight=#D0D4DD
+    colorExtraLight=#D0D4DD
+    colorLight=#D0D4DD
+    colorMid=#D0D4DD
+    colorDark=#D0D4DD
+    colorUltraDark=#D0D4DD
+    colorForeground=#4C535C
+}
+
+Office Silver Title Watermark {
+    kind=Light
+    colorUltraLight=#E3E7ED
+    colorExtraLight=#E5E6E9
+    colorLight=#DEE0E3
+    colorMid=#CFCFD0
+    colorDark=#C7CBD1
+    colorUltraDark=#BCC1CA
+    colorForeground=#4C535C
+}
+
+Office Silver Active {
+    kind=Light
+    colorUltraLight=#DFE2E8
+    colorExtraLight=#DBDFE4
+    colorLight=#CED3D9
+    colorMid=#C6CACF
+    colorDark=#C2C6CC
+    colorUltraDark=#BBC1C9
+    colorForeground=#4C535C
+}
+
+Office Silver Border Active {
+    kind=Light
+    colorUltraLight=#A9B1B8
+    colorExtraLight=#A9B1B8
+    colorLight=#A9B1B8
+    colorMid=#A9B1B8
+    colorDark=#A9B0B9
+    colorUltraDark=#A9B1B8
+    colorForeground=#15428B
+}
+
+Office Silver Enabled {
+    kind=Light
+    colorUltraLight=#F0F2F2
+    colorExtraLight=#F3F5F5
+    colorLight=#F1F3F3
+    colorMid=#EFF1F3
+    colorDark=#E9ECEF
+    colorUltraDark=#E7EAEE
+    colorForeground=#4C535C
+}
+
+Office Silver Border Enabled {
+    kind=Light
+    colorUltraLight=#C6C7CA
+    colorExtraLight=#B8C4C8
+    colorLight=#A0ACB3
+    colorMid=#B1BBC1
+    colorDark=#949FA4
+    colorUltraDark=#939FA4
+    colorForeground=#7C7C7C
+}
+
+Office Silver Mark Enabled {
+    kind=Light
+    colorUltraLight=#7C7C7C
+    colorExtraLight=#7C7C7C
+    colorLight=#7C7C7C
+    colorMid=#7C7C7C
+    colorDark=#7C7C7C
+    colorUltraDark=#7C7C7C
+    colorForeground=#4C535C
+}
+
+Office Silver Pressed {
+    kind=Light
+    colorUltraLight=#FDA661
+    colorExtraLight=#FC963C
+    colorLight=#FD9D3E
+    colorMid=#FC923C
+    colorDark=#FC8F3C
+    colorUltraDark=#FC923D
+    colorForeground=#4C535C
+}
+
+Office Silver Pressed Selected {
+    kind=Light
+    colorUltraLight=#FEB96C
+    colorExtraLight=#FC963C
+    colorLight=#FDA962
+    colorMid=#FD953C
+    colorDark=#FC923D
+    colorUltraDark=#FC8F3D
+    colorForeground=#4C535C
+}
+
+Office Silver Rollover {
+    kind=Light
+    colorUltraLight=#FEF7D5
+    colorExtraLight=#FCEFC3
+    colorLight=#FFE59F
+    colorMid=#FFD560
+    colorDark=#FFD14E
+    colorUltraDark=#FFD048
+    colorForeground=#4C535C
+}
+
+Office Silver Rollover Selected {
+    kind=Light
+    colorUltraLight=#FDBD79
+    colorExtraLight=#FEE069
+    colorLight=#FFBD79
+    colorMid=#FFC64C
+    colorDark=#FEAA38
+    colorUltraDark=#FEA335
+    colorForeground=#4C535C
+}
+
+Office Silver Selected {
+    kind=Light
+    colorUltraLight=#FBDBB5
+    colorExtraLight=#FDEB9F
+    colorLight=#FEC778
+    colorMid=#FDD07C
+    colorDark=#FDB759
+    colorUltraDark=#FEB456
+    colorForeground=#4C535C
+}
+
+Office Silver Separator {
+    kind=Light
+    colorUltraLight=#EAECEF
+    colorExtraLight=#D5DBE7
+    colorLight=#B3B7BA
+    colorMid=#AFB4B8
+    colorDark=#ADB1B5
+    colorUltraDark=#ADB1B5
+    colorForeground=#7C7C7C
+}
+
+Office Silver Tab Rollover {
+    kind=Light
+    colorUltraLight=#E0E3DC
+    colorExtraLight=#E4E6E0
+    colorLight=#D8DBD0
+    colorMid=#E0D4A8
+    colorDark=#E2D19E
+    colorUltraDark=#E3D198
+    colorForeground=#15428B
+}
+
+Office Silver Tab Selected {
+    kind=Light
+    colorUltraLight=#F7F8FA
+    colorExtraLight=#F5F5F6
+    colorLight=#EFF1F5
+    colorMid=#EEF1F5
+    colorDark=#E8ECF2
+    colorUltraDark=#E5EAF1
+    colorForeground=#4C535C
+}
+
+Office Border Selected {
+    kind=Light
+    colorUltraLight=#C6C0B1
+    colorExtraLight=#AEA590
+    colorLight=#8E8165
+    colorMid=#8E8064
+    colorDark=#9A7057
+    colorUltraDark=#9F7559
+    colorForeground=#15428B
+}
+
+Office Border Pressed {
+    kind=Light
+    colorUltraLight=#C8BAA4
+    colorExtraLight=#BDB19E
+    colorLight=#A6957B
+    colorMid=#8B7654
+    colorDark=#8B7654
+    colorUltraDark=#8B7654
+    colorForeground=#FEBE64
+}
+
+Office Border Rollover {
+    kind=Light
+    colorUltraLight=#DAC378
+    colorExtraLight=#D9C176
+    colorLight=#D8BB6D
+    colorMid=#D6B664
+    colorDark=#D7B867
+    colorUltraDark=#CFBA73
+    colorForeground=#FFE798
+}
+
+Office Border Rollover Selected {
+    kind=Light
+    colorUltraLight=#B1A389
+    colorExtraLight=#AE9F7D
+    colorLight=#A19476
+    colorMid=#9C8F73
+    colorDark=#9C8864
+    colorUltraDark=#8E8165
+    colorForeground=#F7C05B
+}
+
+Office Black Watermark {
+    kind=Light
+    colorUltraLight=#C1C8D6
+    colorExtraLight=#BDC5D1
+    colorLight=#B9C0C8
+    colorMid=#B5BEC7
+    colorDark=#B0B2C3
+    colorUltraDark=#A6A9B0
+    colorForeground=#4C535C
+}
+
+Office Black Header Watermark {
+    kind=Dark
+    colorUltraLight=#404040
+    colorExtraLight=#404040
+    colorLight=#404040
+    colorMid=#404040
+    colorDark=#404040
+    colorUltraDark=#404040
+    colorForeground=#FFFFFF
+}
+
+Office Black Enabled {
+    kind=Light
+    colorUltraLight=#E2E8E8
+    colorExtraLight=#D0D5D9
+    colorLight=#C3CAD0
+    colorMid=#B9C0C8
+    colorDark=#B5BEC7
+    colorUltraDark=#B4BBC5
+    colorForeground=#282828
+}
+
+Office Black Mark Enabled {
+    kind=Light
+    colorUltraLight=#595959
+    colorExtraLight=#595959
+    colorLight=#595959
+    colorMid=#595959
+    colorDark=#595959
+    colorUltraDark=#595959
+    colorForeground=#282828
+}
+
+Office Black Header Active {
+    kind=Dark
+    colorUltraLight=#515151
+    colorExtraLight=#4A4A4A
+    colorLight=#3D3D3D
+    colorMid=#2D2D2D
+    colorDark=#1D1D1D
+    colorUltraDark=#151515
+    colorForeground=#FFFFFF
+}
+
+Office Black Header Enabled {
+    kind=Dark
+    colorUltraLight=#5E5E5E
+    colorExtraLight=#545454
+    colorLight=#464646
+    colorMid=#333333
+    colorDark=#202020
+    colorUltraDark=#161616
+    colorForeground=#FFFFFF
+}
+
+Office Black Header Disabled {
+    kind=Dark
+    colorUltraLight=#5E5E5E
+    colorExtraLight=#545454
+    colorLight=#464646
+    colorMid=#333333
+    colorDark=#202020
+    colorUltraDark=#161616
+    colorForeground=#A0A0A0
+}
+
+Office Black Header Mark Enabled {
+    kind=Light
+    colorUltraLight=#B4BBC5
+    colorExtraLight=#B4BBC5
+    colorLight=#B4BBC5
+    colorMid=#B4BBC5
+    colorDark=#B4BBC5
+    colorUltraDark=#B4BBC5
+    colorForeground=#B4BBC5
+}
+
+Office Black Footer Enabled {
+    kind=Dark
+    colorUltraLight=#575757
+    colorExtraLight=#545454
+    colorLight=#505050
+    colorMid=#444444
+    colorDark=#404040
+    colorUltraDark=#323232
+    colorForeground=#FFFFFF
+}
+
+Office Black Footer Border Enabled {
+    kind=Dark
+    colorUltraLight=#373737
+    colorExtraLight=#343434
+    colorLight=#303030
+    colorMid=#242424
+    colorDark=#202020
+    colorUltraDark=#121212
+    colorForeground=#FFFFFF
+}
+
+Office Black Footer Separator {
+    kind=Dark
+    colorUltraLight=#444444
+    colorExtraLight=#424242
+    colorLight=#404040
+    colorMid=#383838
+    colorDark=#151515
+    colorUltraDark=#111111
+    colorForeground=#B4B4B4
+}

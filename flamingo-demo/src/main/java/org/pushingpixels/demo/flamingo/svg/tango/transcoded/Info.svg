@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" style="enable-background:new 0 0 80 80;" viewBox="0 0 80 80" x="0px" y="0px" width="80" height="80" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g>
+	<path style="fill:#8BB7F0;" d="M 40 77.5 C 19.322 77.5 2.5 60.678 2.5 40 S 19.322 2.5 40 2.5 S 77.5 19.322 77.5 40 S 60.678 77.5 40 77.5 Z"/>
+	<g>
+		<path style="fill:#4E7AB5;" d="M 40 3 c 20.402 0 37 16.598 37 37 S 60.402 77 40 77 S 3 60.402 3 40 S 19.598 3 40 3 M 40 2 C 19.013 2 2 19.013 2 40 s 17.013 38 38 38 s 38 -17.013 38 -38 S 60.987 2 40 2 L 40 2 Z"/>
+	</g>
+</g>
+<circle style="fill:#FFFFFF;" cx="40" cy="24" r="3"/>
+<g>
+	<polygon style="fill:#FFFFFF;" points="43,56 43,31 35,31 35,33 37,33 37,56 35,56 35,58 45,58 45,56"/>
+</g>
+</svg>

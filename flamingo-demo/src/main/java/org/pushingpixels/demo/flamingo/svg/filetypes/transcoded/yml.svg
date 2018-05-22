@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 72 100" style="enable-background:new 0 0 72 100;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill-opacity:0;stroke:#7191A1;stroke-width:2;}
+	.st2{enable-background:new    ;}
+	.st3{fill:#4C6C7B;}
+	.st4{fill:url(#SVGID_2_);}
+	.st5{fill-opacity:0;stroke:#7191A1;stroke-width:2;stroke-linejoin:bevel;}
+</style>
+<g>
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="36" y1="2.2646" x2="36" y2="100.25" gradientTransform="matrix(1 0 0 -1 0 101)">
+		<stop  offset="0" style="stop-color:#C8D4DB"/>
+		<stop  offset="0.139" style="stop-color:#D8E1E6"/>
+		<stop  offset="0.359" style="stop-color:#EBF0F3"/>
+		<stop  offset="0.617" style="stop-color:#F9FAFB"/>
+		<stop  offset="1" style="stop-color:#FFFFFF"/>
+	</linearGradient>
+	<path class="st0" d="M45,0.8l27,26.7v71.3H0v-98H45z"/>
+	<path class="st1" d="M45,0.8l27,26.7v71.3H0v-98H45z"/>
+</g>
+<g class="st2">
+	<path class="st3" d="M13.9,89.8v-8.3L6.6,70h4.7l4.7,7.8l4.6-7.8h4.7L18,81.5v8.3H13.9z"/>
+	<path class="st3" d="M27.3,89.8V70h6.1L37,83.5L40.6,70h6.1v19.8h-3.8V74.2l-4,15.6H35l-4-15.6v15.6H27.3z"/>
+	<path class="st3" d="M50.8,89.8V70.1h4v16.3h10.1v3.3H50.8z"/>
+</g>
+<g>
+	
+		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="45.0692" y1="73.4575" x2="58.5692" y2="86.9575" gradientTransform="matrix(1 0 0 -1 0 101)">
+		<stop  offset="0" style="stop-color:#FFFFFF"/>
+		<stop  offset="0.35" style="stop-color:#FAFBFB"/>
+		<stop  offset="0.532" style="stop-color:#EDF1F4"/>
+		<stop  offset="0.675" style="stop-color:#DDE5E9"/>
+		<stop  offset="0.799" style="stop-color:#C7D3DA"/>
+		<stop  offset="0.908" style="stop-color:#ADBDC7"/>
+		<stop  offset="1" style="stop-color:#92A5B0"/>
+	</linearGradient>
+	<path class="st4" d="M45,0.8l27,26.7H45V0.8z"/>
+	<path class="st5" d="M45,0.8l27,26.7H45V0.8z"/>
+</g>
+</svg>

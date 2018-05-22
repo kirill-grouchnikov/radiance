@@ -1,0 +1,110 @@
+Nebula Active {
+    kind=Light
+    colorUltraLight=#F6F8FA
+    colorExtraLight=#DFE6ED
+    colorLight=#C1D6E9
+    colorMid=#A3B8CB
+    colorDark=#62778A
+    colorUltraDark=#42576A
+    colorForeground=#000000
+}
+
+Nebula Enabled {
+    kind=Light
+    colorUltraLight=#FBFBFC
+    colorExtraLight=#F4F7FC
+    colorLight=#F1F2F4
+    colorMid=#D6D9DF
+    colorDark=#95989E
+    colorUltraDark=#75787E
+    colorForeground=#2A2E36
+}
+
+Nebula Disabled {
+    kind=Light
+    colorUltraLight=#E3EFE9
+    colorExtraLight=#DFE2E6
+    colorLight=#DADDE3
+    colorMid=#D6D9DF
+    colorDark=#C9CCD2
+    colorUltraDark=#BCBFC5
+    colorForeground=#848B98
+}
+
+Nebula Pressed {
+    kind=Dark
+    colorUltraLight=#8FA9C0
+    colorExtraLight=#7695B2
+    colorLight=#5B89B4
+    colorMid=#33628C
+    colorDark=#1C3851
+    colorUltraDark=#000000
+    colorForeground=#FFFFFF
+}
+
+Nebula Rollover Selected {
+    kind=Light
+    colorUltraLight=#F8FAFC
+    colorExtraLight=#E8FDFF
+    colorLight=#D4E9FC
+    colorMid=#B6CBDE
+    colorDark=#3B556D
+    colorUltraDark=#00051D
+    colorForeground=#000000
+}
+
+Nebula Rollover Unselected {
+    kind=Light
+    colorUltraLight=#FFFFFF
+    colorExtraLight=#FDFDFE
+    colorLight=#F7F8FA
+    colorMid=#E9ECF2
+    colorDark=#7A7E86
+    colorUltraDark=#55585E
+    colorForeground=#2A2E36
+}
+
+Nebula Determinate {
+    kind=Light
+    colorUltraLight=#ECD1B3
+    colorExtraLight=#DEAE77
+    colorLight=#CF8838
+    colorMid=#D97F19
+    colorDark=#CA700A
+    colorUltraDark=#C26802
+    colorForeground=#18130E
+}
+
+Nebula Determinate Disabled {
+    kind=Light
+    colorUltraLight=#DCD7D3
+    colorExtraLight=#D8CDC2
+    colorLight=#D6C7B9
+    colorMid=#D5BEA6
+    colorDark=#D1BAA2
+    colorUltraDark=#D1BAA2
+    colorForeground=#8E8F91
+}
+
+Nebula Determinate Border {
+    kind=Dark
+    colorUltraLight=#A74E04
+    colorExtraLight=#A74D00
+    colorLight=#A94F00
+    colorMid=#A94F00
+    colorDark=#983E00
+    colorUltraDark=#862E0B
+    colorForeground=#ECD1B3
+}
+
+Nebula Determinate Disabled Border {
+    kind=Dark
+    colorUltraLight=#CAB3A1
+    colorExtraLight=#CAB3A1
+    colorLight=#CAB3A1
+    colorMid=#CAB3A1
+    colorDark=#C5AEA1
+    colorUltraDark=#C0AAA4
+    colorForeground=#DCD7D3
+}
+

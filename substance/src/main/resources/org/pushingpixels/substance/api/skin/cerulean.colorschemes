@@ -1,0 +1,175 @@
+Cerulean Active {
+    kind=Light
+    colorUltraLight=#F6F8FA
+    colorExtraLight=#DFE6ED
+    colorLight=#C1D6E9
+    colorMid=#A3B8CB
+    colorDark=#62778A
+    colorUltraDark=#42576A
+    colorForeground=#000000
+}
+
+Cerulean Enabled {
+    kind=Light
+    colorUltraLight=#FBFBFC
+    colorExtraLight=#FBFCFC
+    colorLight=#F4F4F4
+    colorMid=#DEDEDF
+    colorDark=#9D9D9E
+    colorUltraDark=#7D7D7E
+    colorForeground=#2A2E36
+}
+
+Cerulean Rollover Selected {
+    kind=Light
+    colorUltraLight=#F8FAFC
+    colorExtraLight=#E8FDFF
+    colorLight=#D4E9FC
+    colorMid=#B6CBDE
+    colorDark=#3B556D
+    colorUltraDark=#00051D
+    colorForeground=#000000
+}
+
+Cerulean Disabled {
+    kind=Light
+    colorUltraLight=#EEEFEE
+    colorExtraLight=#E5E6E6
+    colorLight=#E2E2E3
+    colorMid=#DEDEDF
+    colorDark=#D1D1D2
+    colorUltraDark=#C4C4C5
+    colorForeground=#848B98
+}
+
+Cerulean Border {
+    kind=Light
+    colorUltraLight=#C8DDEA
+    colorExtraLight=#C1D7E6
+    colorLight=#BDCFDE
+    colorMid=#BAC8D5
+    colorDark=#ACB2BB
+    colorUltraDark=#ADB1B7
+    colorForeground=#2A2E36
+}
+
+Cerulean Pressed {
+    kind=Light
+    colorUltraLight=#ACCBDF
+    colorExtraLight=#A6C6DC
+    colorLight=#A2BDD4
+    colorMid=#9FB6CB
+    colorDark=#94A0B2
+    colorUltraDark=#959FAF
+    colorForeground=#292D35
+}
+
+Cerulean Highlight {
+    kind=Light
+    colorUltraLight=#FDE5A7
+    colorExtraLight=#F8DC89
+    colorLight=#F7D85D
+    colorMid=#F0BB48
+    colorDark=#974720
+    colorUltraDark=#733520
+    colorForeground=#000000
+}
+
+Cerulean Disabled Selected {
+    kind=Light
+    colorUltraLight=#E5EBED
+    colorExtraLight=#DDE2E6
+    colorLight=#DADDE2
+    colorMid=#D6D9DD
+    colorDark=#C9CACD
+    colorUltraDark=#BFBFC2
+    colorForeground=#757C88
+}
+
+Cerulean Selected {
+    kind=Light
+    colorUltraLight=#CAE2F3
+    colorExtraLight=#C7DFF0
+    colorLight=#C5DAEC
+    colorMid=#C3D5E7
+    colorDark=#BDC8DA
+    colorUltraDark=#BEC8D8
+    colorForeground=#2A2E36
+}
+
+Cerulean Rollover Selected {
+    kind=Light
+    colorUltraLight=#B9D4E5
+    colorExtraLight=#B4CEE1
+    colorLight=#B0C6D9
+    colorMid=#ADBED0
+    colorDark=#A0A9B7
+    colorUltraDark=#A1A8B3
+    colorForeground=#292D35
+}
+
+Cerulean Rollover Unselected {
+    kind=Light
+    colorUltraLight=#CAE0EE
+    colorExtraLight=#C5DCEB
+    colorLight=#C2D6E5
+    colorMid=#C0D0DE
+    colorDark=#B6C0CB
+    colorUltraDark=#B7BEC8
+    colorForeground=#626366
+}
+
+Cerulean Mark {
+    kind=Light
+    colorUltraLight=#92A2AC
+    colorExtraLight=#8D9EA9
+    colorLight=#8A98A3
+    colorMid=#88929C
+    colorDark=#7D8289
+    colorUltraDark=#7E8186
+    colorForeground=#24272E
+}
+
+Cerulean Active Header {
+    kind=Dark
+    colorUltraLight=#8FA9C0
+    colorExtraLight=#7695B2
+    colorLight=#5B89B4
+    colorMid=#33628C
+    colorDark=#1C3851
+    colorUltraDark=#000000
+    colorForeground=#FFFFFF
+}
+
+Cerulean Header {
+    kind=Dark
+    colorUltraLight=#8FA9C0
+    colorExtraLight=#7695B2
+    colorLight=#5B89B4
+    colorMid=#33628C
+    colorDark=#1C3851
+    colorUltraDark=#7695B2
+    colorForeground=#FFFFFF
+}
+
+Cerulean Header Disabled {
+    kind=Dark
+    colorUltraLight=#8CA2B5
+    colorExtraLight=#7891A9
+    colorLight=#6487AB
+    colorMid=#4B698A
+    colorDark=#414D5D
+    colorUltraDark=#7891A9
+    colorForeground=#F6F6F6
+}
+
+Cerulean Footer {
+    kind=Light
+    colorUltraLight=#F9FAFA
+    colorExtraLight=#EAEBED
+    colorLight=#DFE4E9
+    colorMid=#C1C6CB
+    colorDark=#80858A
+    colorUltraDark=#60656A
+    colorForeground=#000000
+}

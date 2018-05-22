@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 72 100" style="enable-background:new 0 0 72 100;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill-opacity:0;stroke:#DB007B;stroke-width:2;}
+	.st2{fill:#FFFFFF;}
+	.st3{font-family:'Arial-BoldMT';}
+	.st4{font-size:24px;}
+	.st5{fill:url(#SVGID_2_);}
+	.st6{fill-opacity:0;stroke:#DB007B;stroke-width:2;stroke-linejoin:bevel;}
+	.st7{fill:#DB007B;stroke:#DB007B;stroke-width:1.25;stroke-miterlimit:10;}
+	.st8{font-family:'DaxPro';}
+	.st9{font-size:39px;}
+</style>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="36.2" y1="100.9998" x2="36.2" y2="3.0054" gradientTransform="matrix(1 0 0 -1 0 102)">
+	<stop  offset="0.3123" style="stop-color:#FFEAF6"/>
+	<stop  offset="1" style="stop-color:#DB007B"/>
+</linearGradient>
+<path class="st0" d="M45.2,1l27,26.7V99h-72V1H45.2z"/>
+<path class="st1" d="M45.2,1l27,26.7V99h-72V1H45.2z"/>
+<text transform="matrix(1.0103 0 0 1 7.0283 91.0659)" class="st2 st3 st4">INDD</text>
+<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="45.2686" y1="74.2055" x2="58.7686" y2="87.7055" gradientTransform="matrix(1 0 0 -1 0 102)">
+	<stop  offset="0" style="stop-color:#F9EFF6"/>
+	<stop  offset="0.378" style="stop-color:#F8EDF5"/>
+	<stop  offset="0.515" style="stop-color:#F3E6F1"/>
+	<stop  offset="0.612" style="stop-color:#ECDBEB"/>
+	<stop  offset="0.69" style="stop-color:#E3CCE2"/>
+	<stop  offset="0.757" style="stop-color:#D7B8D7"/>
+	<stop  offset="0.817" style="stop-color:#CAA1C9"/>
+	<stop  offset="0.871" style="stop-color:#BC88BB"/>
+	<stop  offset="0.921" style="stop-color:#AE6CAB"/>
+	<stop  offset="0.965" style="stop-color:#9F4D9B"/>
+	<stop  offset="1" style="stop-color:#932A8E"/>
+</linearGradient>
+<path class="st5" d="M45.2,1l27,26.7h-27V1z"/>
+<path class="st6" d="M45.2,1l27,26.7h-27V1z"/>
+<text transform="matrix(1 0 0 1 21.4764 61.333)" class="st7 st8 st9">I</text>
+<text transform="matrix(1 0 0 0.88 31.3045 61.333)" class="st7 st8 st9">d</text>
+</svg>

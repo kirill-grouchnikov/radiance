@@ -1,0 +1,73 @@
+TOKEN_PACKAGE
+
+import java.awt.*;
+import java.awt.geom.*;
+
+/**
+ * This class has been automatically generated using <a
+ * href="https://github.com/kirill-grouchnikov/ibis">Ibis SVG transcoder</a>.
+ */
+public class TOKEN_CLASSNAME {
+	/**
+	 * Paints the transcoded SVG image on the specified graphics context. You
+	 * can install a custom transformation on the graphics context to scale the
+	 * image.
+	 * 
+	 * @param g
+	 *            Graphics context.
+	 */
+    @SuppressWarnings("unused")
+	public static void paint(Graphics2D g) {
+        Shape shape = null;
+        Paint paint = null;
+        Stroke stroke = null;
+        
+        float origAlpha = 1.0f;
+        Composite origComposite = ((Graphics2D)g).getComposite();
+        if (origComposite instanceof AlphaComposite) {
+            AlphaComposite origAlphaComposite = 
+                (AlphaComposite)origComposite;
+            if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
+                origAlpha = origAlphaComposite.getAlpha();
+            }
+        }
+        
+        TOKEN_PAINTING_CODE
+	}
+
+    /**
+     * Returns the X of the bounding box of the original SVG image.
+     * 
+     * @return The X of the bounding box of the original SVG image.
+     */
+    public static double getOrigX() {
+        return TOKEN_ORIG_X;
+    }
+
+    /**
+     * Returns the Y of the bounding box of the original SVG image.
+     * 
+     * @return The Y of the bounding box of the original SVG image.
+     */
+    public static double getOrigY() {
+        return TOKEN_ORIG_Y;
+    }
+
+    /**
+     * Returns the width of the bounding box of the original SVG image.
+     * 
+     * @return The width of the bounding box of the original SVG image.
+     */
+    public static double getOrigWidth() {
+        return TOKEN_ORIG_WIDTH;
+    }
+
+    /**
+     * Returns the height of the bounding box of the original SVG image.
+     * 
+     * @return The height of the bounding box of the original SVG image.
+     */
+    public static double getOrigHeight() {
+        return TOKEN_ORIG_HEIGHT;
+    }
+}
