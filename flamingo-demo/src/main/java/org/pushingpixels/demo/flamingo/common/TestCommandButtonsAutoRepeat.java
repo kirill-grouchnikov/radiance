@@ -39,6 +39,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class TestCommandButtonsAutoRepeat extends TestCommandButtons {
     @Override
@@ -80,6 +82,8 @@ public class TestCommandButtonsAutoRepeat extends TestCommandButtons {
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
             TestCommandButtonsAutoRepeat frame = new TestCommandButtonsAutoRepeat();
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);

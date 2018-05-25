@@ -1,60 +1,53 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.api.ribbon;
-
-import java.awt.Component;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.JComponent;
-import javax.swing.JSeparator;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.FlamingoCommand;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
-import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonUI;
+import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.*;
+import java.util.List;
 
 /**
  * The ribbon component.
- * 
+ *
  * <p>
  * The ribbon has the following major parts:
  * </p>
@@ -66,14 +59,14 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
  * <li>Taskbar panel populated by {@link #addTaskbarComponent(Component)}</li>
  * <li>Help button set by {@link #configureHelp(ResizableIcon, ActionListener)}</li>
  * </ul>
- * 
+ *
  * <p>
  * While multiple ribbon tasks can be added to the ribbon, only one is visible at any given time.
  * This task is called the <strong>selected</strong> task. Tasks can be switched with the task
  * buttons placed along the top part of the ribbon. Once a task has been added to the ribbon, it
  * cannot be removed.
  * </p>
- * 
+ *
  * <p>
  * The contextual ribbon task groups allow showing and hiding ribbon tasks based on the current
  * selection in the application. For example, Word only shows the table tasks when a table is
@@ -82,21 +75,21 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
  * belonging to the specific group, call {@link #setVisible(RibbonContextualTaskGroup, boolean)}
  * API. Note that you can have multiple task groups visible at the same time.
  * </p>
- * 
+ *
  * <p>
  * The application menu button is a big round button shown in the top left corner of the ribbon. If
  * the {@link #setApplicationMenu(RibbonApplicationMenu)} is not called, or called with the
  * <code>null</code> value, the application menu button is not shown, and ribbon task buttons are
  * shifted to the left.
  * </p>
- * 
+ *
  * <p>
  * The taskbar panel allows showing controls that are visible no matter what ribbon task is
  * selected. To add a taskbar component use the {@link #addTaskbarComponent(Component)} API. The
  * taskbar panel lives to the right of the application menu button. Taskbar components can be
  * removed with the {@link #removeTaskbarComponent(Component)} API.
  * </p>
- * 
+ *
  * <p>
  * The ribbon can be minimized in one of the following ways:
  * </p>
@@ -105,19 +98,19 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
  * <li>User double-clicking on a task button.</li>
  * <li>User pressing <code>Ctrl+F1</code> key combination.</li>
  * </ul>
- * 
+ *
  * <p>
  * A minimized ribbon shows the application menu button, taskbar panel, task buttons and help
  * button, but not the ribbon bands of the selected task. Clicking a task button shows the ribbon
  * bands of that task in a popup <strong>without</strong> shifting the application content down.
  * </p>
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class JRibbon extends JComponent {
     /**
      * The general tasks.
-     * 
+     *
      * @see #addTask(RibbonTask)
      * @see #getTaskCount()
      * @see #getTask(int)
@@ -126,7 +119,7 @@ public class JRibbon extends JComponent {
 
     /**
      * The contextual task groups.
-     * 
+     *
      * @see #addContextualTaskGroup(RibbonContextualTaskGroup)
      * @see #setVisible(RibbonContextualTaskGroup, boolean)
      * @see #isVisible(RibbonContextualTaskGroup)
@@ -157,7 +150,7 @@ public class JRibbon extends JComponent {
     /**
      * Commands anchored to the far edge of the task toggle strip (right under LTR and left under
      * RTL).
-     * 
+     *
      * @see #addAnchoredCommand(FlamingoCommand)
      * @see #getAnchoredCommands()
      */
@@ -166,7 +159,7 @@ public class JRibbon extends JComponent {
     /**
      * Visibility status of the contextual task group. Must contain a value for each group in
      * {@link #contextualTaskGroups}.
-     * 
+     *
      * @see #setVisible(RibbonContextualTaskGroup, boolean)
      * @see #isVisible(RibbonContextualTaskGroup)
      */
@@ -174,7 +167,7 @@ public class JRibbon extends JComponent {
 
     /**
      * The application menu.
-     * 
+     *
      * @see #setApplicationMenu(RibbonApplicationMenu)
      * @see #getApplicationMenu()
      */
@@ -182,7 +175,7 @@ public class JRibbon extends JComponent {
 
     /**
      * The rich tooltip of {@link #applicationMenu} button.
-     * 
+     *
      * @see #applicationMenu
      * @see #setApplicationMenuRichTooltip(RichTooltip)
      * @see #getApplicationMenuRichTooltip()
@@ -191,7 +184,7 @@ public class JRibbon extends JComponent {
 
     /**
      * The key tip of {@link #applicationMenu} button.
-     * 
+     *
      * @see #applicationMenu
      * @see #setApplicationMenuKeyTip(String)
      * @see #getApplicationMenuKeyTip()
@@ -200,7 +193,7 @@ public class JRibbon extends JComponent {
 
     /**
      * Indicates whether the ribbon is currently minimized.
-     * 
+     *
      * @see #setMinimized(boolean)
      * @see #isMinimized()
      */
@@ -237,9 +230,8 @@ public class JRibbon extends JComponent {
 
     /**
      * Creates an empty ribbon for the specified ribbon frame.
-     * 
-     * @param ribbonFrame
-     *            Host ribbon frame.
+     *
+     * @param ribbonFrame Host ribbon frame.
      */
     JRibbon(JRibbonFrame ribbonFrame) {
         this();
@@ -248,9 +240,8 @@ public class JRibbon extends JComponent {
 
     /**
      * Adds the specified taskbar command to this ribbon.
-     * 
-     * @param comp
-     *            The taskbar command to add.
+     *
+     * @param comp The taskbar command to add.
      * @see #removeTaskbarCommand(FlamingoCommand)
      * @see #getTaskbarCommands()
      * @see #addTaskbarSeparator()
@@ -273,7 +264,7 @@ public class JRibbon extends JComponent {
 
     /**
      * Adds a taskbar separator to this ribbon.
-     * 
+     *
      * @see #addTaskbarCommand(FlamingoCommand)
      * @see #removeTaskbarCommand(FlamingoCommand)
      * @see #getTaskbarCommands()
@@ -290,9 +281,8 @@ public class JRibbon extends JComponent {
 
     /**
      * Removes the specified taskbar command from this ribbon.
-     * 
-     * @param command
-     *            The taskbar command to remove.
+     *
+     * @param command The taskbar command to remove.
      * @see #addTaskbarCommand(FlamingoCommand)
      * @see #getTaskbarCommands()
      * @see #clearTaskbar()
@@ -309,9 +299,8 @@ public class JRibbon extends JComponent {
 
     /**
      * Removes the specified taskbar command from this ribbon.
-     * 
-     * @param command
-     *            The taskbar command to remove.
+     *
+     * @param command The taskbar command to remove.
      * @see #addTaskbarCommand(FlamingoCommand)
      * @see #removeTaskbarCommand(FlamingoCommand)
      * @see #clearTaskbar()
@@ -324,7 +313,7 @@ public class JRibbon extends JComponent {
 
     /**
      * Removes all taskbar content from this ribbon.
-     * 
+     *
      * @see #addTaskbarCommand(FlamingoCommand)
      * @see #addTaskbarSeparator()
      * @see #removeTaskbarCommand(FlamingoCommand)
@@ -339,9 +328,8 @@ public class JRibbon extends JComponent {
 
     /**
      * Adds the specified task to this ribbon.
-     * 
-     * @param task
-     *            The ribbon task to add.
+     *
+     * @param task The ribbon task to add.
      * @see #addContextualTaskGroup(RibbonContextualTaskGroup)
      * @see #getTaskCount()
      * @see #getTask(int)
@@ -361,10 +349,8 @@ public class JRibbon extends JComponent {
     /**
      * Adds the specified ribbon command to the trailing edge of the task toggle strip of this
      * ribbon.
-     * 
-     * @param ribbonCommand
-     *            Command to add.
-     * 
+     *
+     * @param ribbonCommand Command to add.
      * @see #getAnchoredCommands()
      * @see #removeAnchoredCommand(FlamingoCommand)
      */
@@ -376,10 +362,8 @@ public class JRibbon extends JComponent {
     /**
      * Removes the specified ribbon command from the trailing edge of the task toggle strip of this
      * ribbon.
-     * 
-     * @param ribbonCommand
-     *            Command to remove.
-     * 
+     *
+     * @param ribbonCommand Command to remove.
      * @see #getAnchoredCommands()
      * @see #addAnchoredCommand(FlamingoCommand)
      */
@@ -390,9 +374,8 @@ public class JRibbon extends JComponent {
 
     /**
      * Returns the anchored commands for this ribbon.
-     * 
+     *
      * @return This ribbon's anchored commands.
-     * 
      * @see #addAnchoredCommand(FlamingoCommand)
      * @see #removeAnchoredCommand(FlamingoCommand)
      */
@@ -402,9 +385,8 @@ public class JRibbon extends JComponent {
 
     /**
      * Adds the specified contextual task group to this ribbon.
-     * 
-     * @param group
-     *            Task group to add.
+     *
+     * @param group Task group to add.
      * @see #addTask(RibbonTask)
      * @see #setVisible(RibbonContextualTaskGroup, boolean)
      * @see #isVisible(RibbonContextualTaskGroup)
@@ -420,7 +402,7 @@ public class JRibbon extends JComponent {
 
     /**
      * Returns the number of regular tasks in <code>this</code> ribbon.
-     * 
+     *
      * @return Number of regular tasks in <code>this</code> ribbon.
      * @see #getTask(int)
      * @see #addTask(RibbonTask)
@@ -431,9 +413,8 @@ public class JRibbon extends JComponent {
 
     /**
      * Retrieves the regular task at specified index.
-     * 
-     * @param index
-     *            Task index.
+     *
+     * @param index Task index.
      * @return Task that matches the specified index.
      * @see #getTaskCount()
      * @see #addTask(RibbonTask)
@@ -444,7 +425,7 @@ public class JRibbon extends JComponent {
 
     /**
      * Returns the number of contextual task groups in <code>this</code> ribbon.
-     * 
+     *
      * @return Number of contextual task groups in <code>this</code> ribbon.
      * @see #addContextualTaskGroup(RibbonContextualTaskGroup)
      * @see #getContextualTaskGroup(int)
@@ -455,9 +436,8 @@ public class JRibbon extends JComponent {
 
     /**
      * Retrieves contextual task group at specified index.
-     * 
-     * @param index
-     *            Group index.
+     *
+     * @param index Group index.
      * @return Group that matches the specified index.
      * @see #addContextualTaskGroup(RibbonContextualTaskGroup)
      * @see #getContextualTaskGroupCount()
@@ -471,11 +451,9 @@ public class JRibbon extends JComponent {
      * {@link #addTask(RibbonTask)}) or a task in a visible contextual task group (added with
      * {@link #addContextualTaskGroup(RibbonContextualTaskGroup)}. Fires a <code>selectedTask</code>
      * property change event.
-     * 
-     * @param task
-     *            Task to select.
-     * @throws IllegalArgumentException
-     *             If the specified task is not in the ribbon or not visible.
+     *
+     * @param task Task to select.
+     * @throws IllegalArgumentException If the specified task is not in the ribbon or not visible.
      * @see #getSelectedTask()
      */
     public synchronized void setSelectedTask(RibbonTask task) {
@@ -522,7 +500,7 @@ public class JRibbon extends JComponent {
 
     /**
      * Returns the currently selected task.
-     * 
+     *
      * @return The currently selected task.
      * @see #setSelectedTask(RibbonTask)
      */
@@ -532,16 +510,12 @@ public class JRibbon extends JComponent {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.JComponent#updateUI()
      */
     @Override
     public void updateUI() {
-        if (UIManager.get(getUIClassID()) != null) {
-            setUI(UIManager.getUI(this));
-        } else {
-            setUI(new BasicRibbonUI());
-        }
+        setUI(new SubstanceRibbonUI());
         for (Component comp : this.taskbarComponents) {
             SwingUtilities.updateComponentTreeUI(comp);
         }
@@ -549,7 +523,7 @@ public class JRibbon extends JComponent {
 
     /**
      * Returns the UI object which implements the L&F for this component.
-     * 
+     *
      * @return a <code>RibbonUI</code> object
      * @see #setUI
      */
@@ -559,7 +533,7 @@ public class JRibbon extends JComponent {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.JComponent#getUIClassID()
      */
     @Override
@@ -569,7 +543,7 @@ public class JRibbon extends JComponent {
 
     /**
      * Gets an unmodifiable list of all taskbar commands of <code>this</code> ribbon.
-     * 
+     *
      * @return All taskbar commands of <code>this</code> ribbon.
      * @see #addTaskbarCommand(FlamingoCommand)
      * @see #removeTaskbarCommand(FlamingoCommand)
@@ -577,16 +551,15 @@ public class JRibbon extends JComponent {
     public synchronized List<FlamingoCommand> getTaskbarCommands() {
         return Collections.unmodifiableList(this.taskbarCommands);
     }
-    
+
     public synchronized List<Component> getTaskbarComponents() {
         return Collections.unmodifiableList(this.taskbarComponents);
     }
 
     /**
      * Adds the specified change listener to track changes to this ribbon.
-     * 
-     * @param l
-     *            Change listener to add.
+     *
+     * @param l Change listener to add.
      * @see #removeChangeListener(ChangeListener)
      */
     public void addChangeListener(ChangeListener l) {
@@ -595,9 +568,8 @@ public class JRibbon extends JComponent {
 
     /**
      * Removes the specified change listener from tracking changes to this ribbon.
-     * 
-     * @param l
-     *            Change listener to remove.
+     *
+     * @param l Change listener to remove.
      * @see #addChangeListener(ChangeListener)
      */
     public void removeChangeListener(ChangeListener l) {
@@ -624,12 +596,10 @@ public class JRibbon extends JComponent {
      * Sets the visibility of ribbon tasks in the specified contextual task group. Visibility of all
      * ribbon tasks in the specified group is affected. Note that the ribbon can show ribbon tasks
      * of multiple groups at the same time.
-     * 
-     * @param group
-     *            Contextual task group.
-     * @param isVisible
-     *            If <code>true</code>, all ribbon tasks in the specified group will be visible. If
-     *            <code>false</code>, all ribbon tasks in the specified group will be hidden.
+     *
+     * @param group     Contextual task group.
+     * @param isVisible If <code>true</code>, all ribbon tasks in the specified group will be visible. If
+     *                  <code>false</code>, all ribbon tasks in the specified group will be hidden.
      * @see #isVisible(RibbonContextualTaskGroup)
      */
     public synchronized void setVisible(RibbonContextualTaskGroup group, boolean isVisible) {
@@ -656,11 +626,10 @@ public class JRibbon extends JComponent {
 
     /**
      * Returns the visibility of ribbon tasks in the specified contextual task group.
-     * 
-     * @param group
-     *            Contextual task group.
+     *
+     * @param group Contextual task group.
      * @return <code>true</code> if the ribbon tasks in the specified group are visible,
-     *         <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      */
     public synchronized boolean isVisible(RibbonContextualTaskGroup group) {
         return this.groupVisibilityMap.get(group);
@@ -669,9 +638,8 @@ public class JRibbon extends JComponent {
     /**
      * Sets the application menu for this ribbon. If <code>null</code> is passed, the application
      * menu button is hidden. Fires an <code>applicationMenu</code> property change event.
-     * 
-     * @param applicationMenu
-     *            The new application menu. Can be <code>null</code>.
+     *
+     * @param applicationMenu The new application menu. Can be <code>null</code>.
      * @see #getApplicationMenu()
      */
     public synchronized void setApplicationMenu(RibbonApplicationMenu applicationMenu) {
@@ -687,7 +655,7 @@ public class JRibbon extends JComponent {
 
     /**
      * Returns the application menu of this ribbon.
-     * 
+     *
      * @return The application menu of this ribbon.
      * @see #setApplicationMenu(RibbonApplicationMenu)
      */
@@ -698,9 +666,8 @@ public class JRibbon extends JComponent {
     /**
      * Sets the rich tooltip of the application menu button. Fires an
      * <code>applicationMenuRichTooltip</code> property change event.
-     * 
-     * @param tooltip
-     *            The rich tooltip of the application menu button.
+     *
+     * @param tooltip The rich tooltip of the application menu button.
      * @see #getApplicationMenuRichTooltip()
      * @see #setApplicationMenu(RibbonApplicationMenu)
      */
@@ -712,7 +679,7 @@ public class JRibbon extends JComponent {
 
     /**
      * Returns the rich tooltip of the application menu button.
-     * 
+     *
      * @return The rich tooltip of the application menu button.
      * @see #setApplicationMenuRichTooltip(RichTooltip)
      * @see #setApplicationMenu(RibbonApplicationMenu)
@@ -724,9 +691,8 @@ public class JRibbon extends JComponent {
     /**
      * Sets the key tip of the application menu button. Fires an <code>applicationMenuKeyTip</code>
      * property change event.
-     * 
-     * @param keyTip
-     *            The new key tip for the application menu button.
+     *
+     * @param keyTip The new key tip for the application menu button.
      * @see #setApplicationMenu(RibbonApplicationMenu)
      * @see #getApplicationMenuKeyTip()
      */
@@ -738,7 +704,7 @@ public class JRibbon extends JComponent {
 
     /**
      * Returns the key tip of the application menu button.
-     * 
+     *
      * @return The key tip of the application menu button.
      * @see #setApplicationMenuKeyTip(String)
      * @see #setApplicationMenu(RibbonApplicationMenu)
@@ -749,7 +715,7 @@ public class JRibbon extends JComponent {
 
     /**
      * Returns the indication whether this ribbon is minimized.
-     * 
+     *
      * @return <code>true</code> if this ribbon is minimized, <code>false</code> otherwise.
      * @see #setMinimized(boolean)
      */
@@ -760,9 +726,8 @@ public class JRibbon extends JComponent {
     /**
      * Changes the minimized state of this ribbon. Fires a <code>minimized</code> property change
      * event.
-     * 
-     * @param isMinimized
-     *            if <code>true</code>, this ribbon becomes minimized, otherwise it is unminimized.
+     *
+     * @param isMinimized if <code>true</code>, this ribbon becomes minimized, otherwise it is unminimized.
      */
     public synchronized void setMinimized(boolean isMinimized) {
         // System.out.println("Ribbon minimized -> " + isMinimized);
@@ -775,7 +740,7 @@ public class JRibbon extends JComponent {
 
     /**
      * Returns the ribbon frame that hosts this ribbon. The result can be <code>null</code>.
-     * 
+     *
      * @return The ribbon frame that hosts this ribbon.
      */
     public JRibbonFrame getRibbonFrame() {
@@ -784,7 +749,7 @@ public class JRibbon extends JComponent {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.JComponent#setVisible(boolean)
      */
     @Override

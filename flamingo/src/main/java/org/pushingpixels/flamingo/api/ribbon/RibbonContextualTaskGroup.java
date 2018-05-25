@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**

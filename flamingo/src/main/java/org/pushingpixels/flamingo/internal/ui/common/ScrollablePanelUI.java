@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import javax.swing.plaf.PanelUI;
-
 import org.pushingpixels.flamingo.api.common.JScrollablePanel;
+
+import javax.swing.plaf.PanelUI;
 
 /**
  * UI for scrollable panel ({@link JScrollablePanel}).

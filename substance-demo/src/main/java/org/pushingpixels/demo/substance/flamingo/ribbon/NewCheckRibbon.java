@@ -29,10 +29,18 @@
  */
 package org.pushingpixels.demo.substance.flamingo.ribbon;
 
-import java.awt.ComponentOrientation;
-import java.awt.Dimension;
-import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon;
+import org.pushingpixels.flamingo.internal.substance.ribbon.gallery.oob.SubstanceRibbonTask;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
+import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
+import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.io.BufferedReader;
@@ -44,25 +52,6 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
-
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.LookAndFeel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
-import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
-import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
-import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
-import org.pushingpixels.substance.flamingo.ribbon.gallery.oob.SubstanceRibbonTask;
-
-import com.jgoodies.forms.builder.DefaultFormBuilder;
 
 public class NewCheckRibbon extends BasicCheckRibbon {
     @Override
@@ -116,7 +105,6 @@ public class NewCheckRibbon extends BasicCheckRibbon {
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
-        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
 
         UIManager.addPropertyChangeListener((PropertyChangeEvent evt) -> {
             if ("lookAndFeel".equals(evt.getPropertyName())) {

@@ -37,7 +37,6 @@ dependencies {
     compile project(':substance')
     compile project(':flamingo')
     compile project(':substance-swingx')
-    compile project(':substance-flamingo')
     compile project(':substance-demo')
 }
 

@@ -29,91 +29,42 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.FontMetrics;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Paint;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-import java.awt.geom.Arc2D;
-import java.awt.geom.GeneralPath;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
-import javax.swing.plaf.basic.BasicGraphicsUtils;
-
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.CommandToggleButtonGroup;
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.JScrollablePanel;
-import org.pushingpixels.flamingo.api.common.RichTooltip;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
-import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.JRibbon;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
-import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
-import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
+import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizeSequencingPolicy;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
-import org.pushingpixels.flamingo.internal.utils.RenderingUtils;
+import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.plaf.BorderUIResource;
+import javax.swing.plaf.UIResource;
+import javax.swing.plaf.basic.BasicGraphicsUtils;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.Arc2D;
+import java.awt.geom.GeneralPath;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.*;
+import java.util.List;
 
 /**
  * Basic UI for ribbon {@link JRibbon}.
  * 
  * @author Kirill Grouchnikov
  */
-public class BasicRibbonUI extends RibbonUI {
+public abstract class BasicRibbonUI extends RibbonUI {
     /**
      * Client property marking the ribbon component to indicate whether the task bar and contextual
      * task group headers should be shown on the title pane of the window. This is only relevant for
@@ -168,15 +119,6 @@ public class BasicRibbonUI extends RibbonUI {
     protected ContainerListener ribbonContainerListener;
 
     protected ComponentListener ribbonComponentListener;
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
-    public static ComponentUI createUI(JComponent c) {
-        return new BasicRibbonUI();
-    }
 
     /**
      * Creates a new basic ribbon UI delegate.
@@ -334,10 +276,7 @@ public class BasicRibbonUI extends RibbonUI {
     protected void installDefaults() {
         Border b = this.ribbon.getBorder();
         if (b == null || b instanceof UIResource) {
-            Border toSet = UIManager.getBorder("Ribbon.border");
-            if (toSet == null)
-                toSet = new BorderUIResource.EmptyBorderUIResource(1, 2, 1, 2);
-            this.ribbon.setBorder(toSet);
+            this.ribbon.setBorder(new BorderUIResource.EmptyBorderUIResource(1, 1, 1, 1));
         }
     }
 
@@ -395,13 +334,9 @@ public class BasicRibbonUI extends RibbonUI {
         return new TaskToggleButtonsHostPanelLayout();
     }
 
-    protected TaskToggleButtonsHostPanel createTaskToggleButtonsHostPanel() {
-        return new TaskToggleButtonsHostPanel();
-    }
+    protected abstract TaskToggleButtonsHostPanel createTaskToggleButtonsHostPanel();
 
-    protected BandHostPanel createBandHostPanel() {
-        return new BandHostPanel();
-    }
+    protected abstract BandHostPanel createBandHostPanel();
 
     protected LayoutManager createBandHostPanelLayoutManager() {
         return new BandHostPanelLayout();
@@ -442,7 +377,7 @@ public class BasicRibbonUI extends RibbonUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        RenderingUtils.installDesktopHints(g2d);
+        RenderingUtils.installDesktopHints(g2d, c);
         super.update(g2d, c);
         g2d.dispose();
     }
@@ -468,13 +403,7 @@ public class BasicRibbonUI extends RibbonUI {
         }
     }
 
-    protected void paintMinimizedRibbonSeparator(Graphics g) {
-        Color borderColor = FlamingoUtilities.getBorderColor();
-        g.setColor(borderColor);
-        Insets ins = ribbon.getInsets();
-        g.drawLine(0, ribbon.getHeight() - ins.bottom, ribbon.getWidth(),
-                ribbon.getHeight() - ins.bottom);
-    }
+    protected abstract void paintMinimizedRibbonSeparator(Graphics g);
 
     /**
      * Paints the ribbon background.
@@ -505,55 +434,7 @@ public class BasicRibbonUI extends RibbonUI {
      * @param height
      *            Height of the tasks band bounds.
      */
-    protected void paintTaskArea(Graphics g, int x, int y, int width, int height) {
-        if (ribbon.getTaskCount() == 0)
-            return;
-
-        JRibbonTaskToggleButton selectedTaskButton = this.taskToggleButtons
-                .get(this.ribbon.getSelectedTask());
-        Rectangle selectedTaskButtonBounds = selectedTaskButton.getBounds();
-        Point converted = SwingUtilities.convertPoint(selectedTaskButton.getParent(),
-                selectedTaskButtonBounds.getLocation(), this.ribbon);
-        // System.out.println("Painted " + selectedTaskButtonBounds.x + "->" +
-        // converted.x);
-        Rectangle taskToggleButtonsViewportBounds = taskToggleButtonsScrollablePanel.getView()
-                .getParent().getBounds();
-        taskToggleButtonsViewportBounds
-                .setLocation(SwingUtilities.convertPoint(taskToggleButtonsScrollablePanel,
-                        taskToggleButtonsViewportBounds.getLocation(), this.ribbon));
-        int startSelectedX = Math.max(converted.x + 1,
-                (int) taskToggleButtonsViewportBounds.getMinX());
-        startSelectedX = Math.min(startSelectedX, (int) taskToggleButtonsViewportBounds.getMaxX());
-        int endSelectedX = Math.min(converted.x + selectedTaskButtonBounds.width - 1,
-                (int) taskToggleButtonsViewportBounds.getMaxX());
-        endSelectedX = Math.max(endSelectedX, (int) taskToggleButtonsViewportBounds.getMinX());
-        Shape outerContour = FlamingoUtilities.getRibbonBorderOutline(x + 1, x + width - 3,
-                startSelectedX, endSelectedX, converted.y, y, y + height, 2);
-
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setColor(FlamingoUtilities.getBorderColor());
-        g2d.draw(outerContour);
-
-        // check whether the currently selected task is a contextual task
-        RibbonTask selected = this.ribbon.getSelectedTask();
-        RibbonContextualTaskGroup contextualGroup = selected.getContextualGroup();
-        if (contextualGroup != null) {
-            // paint a small gradient directly below the task area
-            Insets ins = this.ribbon.getInsets();
-            int topY = ins.top + getTaskbarHeight();
-            int bottomY = topY + 5;
-            Color hueColor = contextualGroup.getHueColor();
-            Paint paint = new GradientPaint(0, topY,
-                    FlamingoUtilities.getAlphaColor(hueColor,
-                            (int) (255 * RibbonContextualTaskGroup.HUE_ALPHA)),
-                    0, bottomY, FlamingoUtilities.getAlphaColor(hueColor, 0));
-            g2d.setPaint(paint);
-            g2d.clip(outerContour);
-            g2d.fillRect(0, topY, width, bottomY - topY + 1);
-        }
-
-        g2d.dispose();
-    }
+    protected abstract void paintTaskArea(Graphics g, int x, int y, int width, int height);
 
     /*
      * (non-Javadoc)
@@ -621,18 +502,14 @@ public class BasicRibbonUI extends RibbonUI {
      * 
      * @return The height of the taskbar area.
      */
-    public int getTaskbarHeight() {
-        return FlamingoUtilities.getScaledSize(24, this.ribbon.getFont().getSize(), 1.5f, 1);
-    }
+    public abstract int getTaskbarHeight();
 
     /**
      * Returns the height of the task toggle button area.
      * 
      * @return The height of the task toggle button area.
      */
-    public int getTaskToggleButtonHeight() {
-        return 22;
-    }
+    public abstract int getTaskToggleButtonHeight();
 
     /**
      * Layout for the ribbon.
@@ -1014,7 +891,7 @@ public class BasicRibbonUI extends RibbonUI {
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
-            RenderingUtils.installDesktopHints(g2d);
+            RenderingUtils.installDesktopHints(g2d, this);
 
             if (contour != null) {
                 g2d.setComposite(AlphaComposite.SrcOver.derive(0.6f));
@@ -1124,8 +1001,6 @@ public class BasicRibbonUI extends RibbonUI {
         /**
          * Returns the outline of this taskbar panel.
          * 
-         * @param insets
-         *            Insets.
          * @return The outline of this taskbar panel.
          */
         protected Shape getOutline(TaskbarPanel taskbarPanel) {
@@ -1226,7 +1101,7 @@ public class BasicRibbonUI extends RibbonUI {
         }
     }
 
-    protected static class BandHostPanel extends JPanel {
+    protected abstract static class BandHostPanel extends JPanel {
     }
 
     /**
@@ -1470,7 +1345,7 @@ public class BasicRibbonUI extends RibbonUI {
         }
     }
 
-    protected class TaskToggleButtonsHostPanel extends JPanel {
+    protected abstract class TaskToggleButtonsHostPanel extends JPanel {
         public static final String IS_SQUISHED = "flamingo.internal.ribbon.taskToggleButtonsHostPanel.isSquished";
 
         @Override
@@ -1483,45 +1358,7 @@ public class BasicRibbonUI extends RibbonUI {
             }
         }
 
-        protected void paintTaskOutlines(Graphics g) {
-            Graphics2D g2d = (Graphics2D) g.create();
-            Color color = FlamingoUtilities.getBorderColor();
-            Paint paint = new GradientPaint(0, 0, FlamingoUtilities.getAlphaColor(color, 0), 0,
-                    getHeight(), color);
-            g2d.setPaint(paint);
-
-            Set<RibbonTask> tasksWithTrailingSeparators = new HashSet<RibbonTask>();
-            // add all regular tasks except the last
-            for (int i = 0; i < ribbon.getTaskCount() - 1; i++) {
-                RibbonTask task = ribbon.getTask(i);
-                tasksWithTrailingSeparators.add(task);
-                // System.out.println("Added " + task.getTitle());
-            }
-            // add all tasks of visible contextual groups except last task in
-            // each group
-            for (int i = 0; i < ribbon.getContextualTaskGroupCount(); i++) {
-                RibbonContextualTaskGroup group = ribbon.getContextualTaskGroup(i);
-                if (ribbon.isVisible(group)) {
-                    for (int j = 0; j < group.getTaskCount() - 1; j++) {
-                        RibbonTask task = group.getTask(j);
-                        tasksWithTrailingSeparators.add(task);
-                        // System.out.println("Added " + task.getTitle());
-                    }
-                }
-            }
-
-            for (RibbonTask taskWithTrailingSeparator : tasksWithTrailingSeparators) {
-                JRibbonTaskToggleButton taskToggleButton = taskToggleButtons
-                        .get(taskWithTrailingSeparator);
-                Rectangle bounds = taskToggleButton.getBounds();
-                int x = bounds.x + bounds.width + getTabButtonGap() / 2 - 1;
-                g2d.drawLine(x, 0, x, getHeight());
-                // System.out.println(taskWithTrailingSeparator.getTitle() + ":"
-                // + x);
-            }
-
-            g2d.dispose();
-        }
+        protected abstract void paintTaskOutlines(Graphics g);
 
         /**
          * Paints the outline of the contextual task groups.
@@ -1553,23 +1390,8 @@ public class BasicRibbonUI extends RibbonUI {
          * @param groupBounds
          *            Contextual task group bounds.
          */
-        protected void paintContextualTaskGroupOutlines(Graphics g, RibbonContextualTaskGroup group,
-                Rectangle groupBounds) {
-            Graphics2D g2d = (Graphics2D) g.create();
-            Color color = FlamingoUtilities.getBorderColor();
-
-            Paint paint = new GradientPaint(0, groupBounds.y, color, 0,
-                    groupBounds.y + groupBounds.height, FlamingoUtilities.getAlphaColor(color, 0));
-            g2d.setPaint(paint);
-            // left line
-            int x = groupBounds.x;
-            g2d.drawLine(x, groupBounds.y, x, groupBounds.y + groupBounds.height);
-            // right line
-            x = groupBounds.x + groupBounds.width;
-            g2d.drawLine(x, groupBounds.y, x, groupBounds.y + groupBounds.height);
-
-            g2d.dispose();
-        }
+        protected abstract void paintContextualTaskGroupOutlines(Graphics g, RibbonContextualTaskGroup group,
+                Rectangle groupBounds);
 
         // @Override
         // protected void paintComponent(Graphics g) {
@@ -2007,10 +1829,7 @@ public class BasicRibbonUI extends RibbonUI {
         return Boolean.TRUE.equals(ribbon.getClientProperty(IS_USING_TITLE_PANE));
     }
 
-    protected void syncApplicationMenuTips() {
-        this.applicationMenuButton.setPopupRichTooltip(this.ribbon.getApplicationMenuRichTooltip());
-        this.applicationMenuButton.setPopupKeyTip(this.ribbon.getApplicationMenuKeyTip());
-    }
+    protected abstract void syncApplicationMenuTips();
 
     @Override
     public boolean isShowingScrollsForTaskToggleButtons() {

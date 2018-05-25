@@ -29,38 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
-import java.awt.AlphaComposite;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-import java.awt.geom.AffineTransform;
-
-import javax.swing.CellRendererPane;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.ComponentUI;
-
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
-import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.flamingo.api.common.JCommandToggleMenuButton;
-import org.pushingpixels.flamingo.api.common.JScrollablePanel;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
@@ -69,7 +38,14 @@ import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonPanelUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonLayoutManagerMedium;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 
-public class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+
+public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 	/**
 	 * The associated popup menu
 	 */
@@ -278,15 +254,6 @@ public class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 				return new Dimension(w, h);
 			}
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
-	public static ComponentUI createUI(JComponent c) {
-		return new BasicCommandPopupMenuUI();
 	}
 
 	/*
@@ -509,9 +476,7 @@ public class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 		super.uninstallListeners();
 	}
 
-	protected JPanel createMenuPanel() {
-		return new MenuPanel();
-	}
+	protected abstract JPanel createMenuPanel();
 
 	protected LayoutManager createLayoutManager() {
 		return new PopupMenuLayoutManager();
@@ -573,7 +538,7 @@ public class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 		}
 	}
 
-	protected static class MenuPanel extends JPanel {
+	protected abstract static class MenuPanel extends JPanel {
 		@Override
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
@@ -581,7 +546,6 @@ public class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 					.getAncestorOfClass(JCommandPopupMenu.class, this);
 			if (Boolean.TRUE.equals(menu.getClientProperty(FORCE_ICON))) {
 				this.paintIconGutterBackground(g);
-				this.paintIconGutterSeparator(g);
 			}
 		}
 
@@ -627,46 +591,6 @@ public class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 			throw new IllegalStateException("Menu marked to show icons but no menu buttons in it");
 		}
 
-		protected void paintIconGutterSeparator(Graphics g) {
-			CellRendererPane buttonRendererPane = new CellRendererPane();
-			JSeparator rendererSeparator = new JSeparator(JSeparator.VERTICAL);
-
-			buttonRendererPane.setBounds(0, 0, this.getWidth(), this.getHeight());
-			int sepX = this.getSeparatorX();
-			if (this.getComponentOrientation().isLeftToRight()) {
-				buttonRendererPane.paintComponent(g, rendererSeparator, this, sepX, 2, 2,
-						this.getHeight() - 4, true);
-			} else {
-				buttonRendererPane.paintComponent(g, rendererSeparator, this, sepX, 2, 2,
-						this.getHeight() - 4, true);
-			}
-		}
-
-		protected void paintIconGutterBackground(Graphics g) {
-			Graphics2D g2d = (Graphics2D) g.create();
-			g2d.setComposite(AlphaComposite.SrcOver.derive(0.7f));
-
-			int sepX = this.getSeparatorX();
-			if (this.getComponentOrientation().isLeftToRight()) {
-				g2d.clipRect(0, 0, sepX + 2, this.getHeight());
-				AffineTransform at = AffineTransform.getTranslateInstance(0, this.getHeight());
-				at.rotate(-Math.PI / 2);
-				g2d.transform(at);
-
-				FlamingoUtilities.renderSurface(g2d, this,
-						new Rectangle(0, 0, this.getHeight(), 50), false, false, false);
-			} else {
-				g2d.clipRect(this.getWidth() - sepX, 0, sepX + 2, this.getHeight());
-				AffineTransform at = AffineTransform.getTranslateInstance(0, this.getHeight());
-				at.rotate(-Math.PI / 2);
-				g2d.transform(at);
-
-				FlamingoUtilities.renderSurface(g2d, this,
-						new Rectangle(0, sepX, this.getHeight(), this.getWidth() - sepX), false,
-						false, false);
-			}
-
-			g2d.dispose();
-		}
+		protected abstract void paintIconGutterBackground(Graphics g);
 	}
 }

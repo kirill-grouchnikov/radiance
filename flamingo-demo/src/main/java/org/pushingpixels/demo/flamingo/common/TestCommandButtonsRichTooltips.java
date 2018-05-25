@@ -42,6 +42,8 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Address_book_new;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Help_browser;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class TestCommandButtonsRichTooltips extends TestCommandButtons {
 
@@ -95,10 +97,8 @@ public class TestCommandButtonsRichTooltips extends TestCommandButtons {
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(new MetalLookAndFeel());
-            } catch (Exception e) {
-            }
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
             TestCommandButtonsRichTooltips frame = new TestCommandButtonsRichTooltips();
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);

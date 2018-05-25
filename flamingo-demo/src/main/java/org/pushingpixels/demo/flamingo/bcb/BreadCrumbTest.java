@@ -51,6 +51,9 @@ import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent;
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class BreadCrumbTest extends JFrame {
     protected BreadcrumbFileSelector bar;
@@ -93,6 +96,8 @@ public class BreadCrumbTest extends JFrame {
                 }));
 
         this.setLayout(new BorderLayout());
+        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(bar,
+                SubstanceSlices.DecorationAreaType.HEADER);
         this.add(bar, BorderLayout.NORTH);
 
         this.filePanel = new ExplorerFileViewPanel<File>(bar, CommandButtonDisplayState.MEDIUM,
@@ -123,11 +128,9 @@ public class BreadCrumbTest extends JFrame {
      */
     public static void main(String... args) {
         SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(new MetalLookAndFeel());
-            } catch (Exception exc) {
-                exc.printStackTrace();
-            }
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+
             BreadCrumbTest test = new BreadCrumbTest();
             test.setSize(550, 385);
             test.setLocationRelativeTo(null);

@@ -29,13 +29,11 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.util.ArrayList;
-
 import org.pushingpixels.flamingo.api.common.AsynchronousLoadListener;
 import org.pushingpixels.flamingo.api.common.AsynchronousLoading;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Implementation of {@link ResizableIcon} that adds decorations to a main icon.

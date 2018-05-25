@@ -29,24 +29,8 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
-import javax.swing.JComponent;
-import javax.swing.plaf.ComponentUI;
-
-public class BasicColorSelectorPopupMenuUI extends BasicCommandPopupMenuUI {
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
-    public static ComponentUI createUI(JComponent c) {
-        return new BasicColorSelectorPopupMenuUI();
-    }
+public abstract class BasicColorSelectorPopupMenuUI extends BasicCommandPopupMenuUI {
+    public abstract int getColorSelectorCellSize();
     
-    public int getColorSelectorCellSize() {
-        return 13;
-    }
-    
-    public int getColorSelectorCellGap() {
-        return 4;
-    }
+    public abstract int getColorSelectorCellGap();
 }

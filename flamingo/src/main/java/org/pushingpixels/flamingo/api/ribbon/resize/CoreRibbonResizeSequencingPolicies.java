@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.resize;
 
-import java.util.List;
-
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
+
+import java.util.List;
 
 /**
  * The core resize sequencing policies. Provides the following:

@@ -72,6 +72,13 @@ task copyJars(type: Zip) {
         }
 }
 
+task getRuntimeDependencies(type: Copy) {
+    into 'build/libs'
+    from {
+        subprojects.findAll { it.designation == "core" }.collect { it.configurations.runtime }
+    }
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = "4.1"
 }

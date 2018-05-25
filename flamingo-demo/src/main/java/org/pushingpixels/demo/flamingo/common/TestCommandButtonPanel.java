@@ -48,6 +48,8 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 
 import org.pushingpixels.demo.flamingo.common.LocaleSwitcher.LocaleCallback;
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel.LayoutKind;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class TestCommandButtonPanel extends JFrame {
     protected ResourceBundle resourceBundle;
@@ -109,11 +111,8 @@ public class TestCommandButtonPanel extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(new MetalLookAndFeel());
-            } catch (Exception e) {
-            }
-
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
             new TestCommandButtonPanel().setVisible(true);
         });
     }

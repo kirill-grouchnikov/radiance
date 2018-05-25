@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import javax.swing.JPanel;
-import javax.swing.plaf.UIResource;
-
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
+
+import javax.swing.*;
+import javax.swing.plaf.UIResource;
 
 /**
  * Control panel of a single {@link JRibbonBand}. This class is for internal use

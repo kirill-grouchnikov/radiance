@@ -38,7 +38,6 @@ dependencies {
     compile ('org.swinglabs:jxlayer:3.0.4')
     compile project(':substance')
     compile project(':flamingo')
-    compile project(':substance-flamingo')
     compile project(':spoonbill')
     compile project(':ibis')
 }

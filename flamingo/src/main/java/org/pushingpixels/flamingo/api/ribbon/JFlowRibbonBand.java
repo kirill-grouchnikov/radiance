@@ -29,13 +29,12 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import java.awt.event.ActionListener;
-
-import javax.swing.JComponent;
-
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JFlowBandControlPanel;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
 
 /**
  * Flow ribbon band component. Hosts components added with

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.utils;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**

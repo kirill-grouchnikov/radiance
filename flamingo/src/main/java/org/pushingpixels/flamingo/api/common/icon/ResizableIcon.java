@@ -29,9 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import java.awt.Dimension;
-
-import javax.swing.Icon;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Interface for icons that have resizability behaviour.

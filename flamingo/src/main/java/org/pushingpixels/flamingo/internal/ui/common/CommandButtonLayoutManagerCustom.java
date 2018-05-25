@@ -29,15 +29,12 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import java.awt.Dimension;
-import java.awt.FontMetrics;
-import java.awt.Insets;
-
-import javax.swing.JSeparator;
-
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class CommandButtonLayoutManagerCustom extends
 		CommandButtonLayoutManagerBig {

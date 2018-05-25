@@ -43,6 +43,8 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class TestCommandToggleButtonsNoIcon extends TestCommandToggleButtons {
     @Override
@@ -99,10 +101,8 @@ public class TestCommandToggleButtonsNoIcon extends TestCommandToggleButtons {
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(new MetalLookAndFeel());
-            } catch (Exception e) {
-            }
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
             TestCommandToggleButtonsNoIcon frame = new TestCommandToggleButtonsNoIcon();
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);

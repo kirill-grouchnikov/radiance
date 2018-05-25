@@ -29,130 +29,11 @@
  */
 package org.pushingpixels.demo.flamingo.ribbon;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Random;
-import java.util.ResourceBundle;
-import java.util.TreeMap;
-
-import javax.imageio.ImageIO;
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.KeyStroke;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
-import javax.swing.RepaintManager;
-import javax.swing.SpinnerDateModel;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.demo.flamingo.common.LookAndFeelSwitcher;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Address_book_new;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Applications_games;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Applications_internet;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Applications_office;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Applications_other;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Appointment_new;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Bookmark_new;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Contact_new;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Document_new;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Document_open;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Document_print;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Document_print_preview;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Document_properties;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Document_save;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Document_save_as;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_clear;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_copy;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_cut;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_find;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_find_replace;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_select_all;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Folder;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Folder_remote;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Folder_saved_search;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Font_x_generic;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_indent_less;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_indent_more;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_center;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_fill;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_left;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_right;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_text_bold;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_text_italic;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_text_strikethrough;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_text_underline;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Help_browser;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Image_x_generic;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Internet_group_chat;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Internet_mail;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Mail_forward;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Mail_message_new;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Network_wireless;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Preferences_desktop_accessibility;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Preferences_desktop_assistive_technology;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Preferences_desktop_font;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Preferences_desktop_keyboard_shortcuts;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Preferences_desktop_locale;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Preferences_desktop_screensaver;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Preferences_desktop_theme;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Printer;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.System_log_out;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.System_search;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Text_html;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Text_x_generic;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.X_office_document;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.CommandToggleButtonGroup;
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
-import org.pushingpixels.flamingo.api.common.HorizontalAlignment;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
-import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
-import org.pushingpixels.flamingo.api.common.JCommandToggleMenuButton;
-import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.flamingo.api.common.StringValuePair;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandBuilder;
 import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandToggleGroup;
 import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon;
@@ -165,26 +46,32 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupListener;
-import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.JRibbon;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonComponent;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand;
-import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
-import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
-import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
+import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.PrimaryClearRolloverCallback;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.RibbonApplicationMenuPrimaryCommandBuilder;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
-import org.pushingpixels.flamingo.internal.utils.RenderingUtils;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
+import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.*;
+import java.util.List;
 
 public class BasicCheckRibbon extends JRibbonFrame {
     protected Locale currLocale;
@@ -219,7 +106,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                     Graphics2D g2d = (Graphics2D) g.create();
                                     g2d.setColor(Color.black);
                                     g2d.setFont(UIManager.getFont("Label.font"));
-                                    RenderingUtils.installDesktopHints(g2d);
+                                    RenderingUtils.installDesktopHints(g2d, c);
                                     g2d.drawString("" + index, x + 2, y + height - 2);
                                     g2d.dispose();
                                 }
@@ -791,7 +678,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 int width, int height) {
                             Graphics2D g2d = (Graphics2D) g.create();
                             g2d.setColor(Color.black);
-                            RenderingUtils.installDesktopHints(g2d);
+                            RenderingUtils.installDesktopHints(g2d, c);
                             g2d.setFont(UIManager.getFont("Label.font"));
                             g2d.drawString("" + index, x + 2, y + height - 2);
                             g2d.dispose();
@@ -1149,7 +1036,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         public void paintIconDecoration(Component c, Graphics g, int x, int y,
                                 int width, int height) {
                             Graphics2D g2d = (Graphics2D) g.create();
-                            RenderingUtils.installDesktopHints(g2d);
+                            RenderingUtils.installDesktopHints(g2d, c);
                             g2d.setFont(UIManager.getFont("Label.font").deriveFont(9.0f));
                             g2d.setColor(Color.black);
                             g2d.drawString("" + index, x + 1, y + height - 2);
@@ -1182,7 +1069,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         public void paintIconDecoration(Component c, Graphics g, int x, int y,
                                 int width, int height) {
                             Graphics2D g2d = (Graphics2D) g.create();
-                            RenderingUtils.installDesktopHints(g2d);
+                            RenderingUtils.installDesktopHints(g2d, c);
                             g2d.setFont(UIManager.getFont("Label.font").deriveFont(9.0f));
                             g2d.setColor(Color.black);
                             g2d.drawString("" + index, x + 1, y + height - 2);
@@ -1870,56 +1757,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
      *            Ignored.
      */
     public static void main(String[] args) {
-        UIManager.installLookAndFeel("JGoodies Plastic",
-                "com.jgoodies.looks.plastic.PlasticLookAndFeel");
-        UIManager.installLookAndFeel("JGoodies PlasticXP",
-                "com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        UIManager.installLookAndFeel("JGoodies Plastic3D",
-                "com.jgoodies.looks.plastic.Plastic3DLookAndFeel");
-        UIManager.installLookAndFeel("JGoodies Windows",
-                "com.jgoodies.looks.windows.WindowsLookAndFeel");
-
-        UIManager.installLookAndFeel("Synthetica base",
-                "de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlackEye",
-                "de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlackMoon",
-                "de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlackStar",
-                "de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlueIce",
-                "de.javasoft.plaf.synthetica.SyntheticaBlueIceLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlueMoon",
-                "de.javasoft.plaf.synthetica.SyntheticaBlueMoonLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlueSteel",
-                "de.javasoft.plaf.synthetica.SyntheticaBlueSteelLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica GreenDream",
-                "de.javasoft.plaf.synthetica.SyntheticaGreenDreamLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica MauveMetallic",
-                "de.javasoft.plaf.synthetica.SyntheticaMauveMetallicLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica OrangeMetallic",
-                "de.javasoft.plaf.synthetica.SyntheticaOrangeMetallicLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica SkyMetallic",
-                "de.javasoft.plaf.synthetica.SyntheticaSkyMetallicLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica SilverMoon",
-                "de.javasoft.plaf.synthetica.SyntheticaSilverMoonLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica WhiteVision",
-                "de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica Simple2D",
-                "de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel");
-
-        UIManager.installLookAndFeel("A03", "a03.swing.plaf.A03LookAndFeel");
-        UIManager.installLookAndFeel("Liquid", "com.birosoft.liquid.LiquidLookAndFeel");
-        UIManager.installLookAndFeel("Napkin", "net.sourceforge.napkinlaf.NapkinLookAndFeel");
-        UIManager.installLookAndFeel("Pagosoft", "com.pagosoft.plaf.PgsLookAndFeel");
-        UIManager.installLookAndFeel("Squareness", "net.beeger.squareness.SquarenessLookAndFeel");
-
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        try {
-            UIManager.setLookAndFeel(new MetalLookAndFeel());
-        } catch (Exception exc) {
-        }
         SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+
             final BasicCheckRibbon c = new BasicCheckRibbon();
             c.configureRibbon();
             c.applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
@@ -2055,7 +1896,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             super.paintComponent(g);
 
             Graphics2D g2d = (Graphics2D) g.create();
-            RenderingUtils.installDesktopHints(g2d);
+            RenderingUtils.installDesktopHints(g2d, this);
             g2d.setColor(Color.gray);
 
             if (getComponentOrientation().isLeftToRight()) {

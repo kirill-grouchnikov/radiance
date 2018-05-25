@@ -29,18 +29,15 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import org.pushingpixels.flamingo.api.common.AsynchronousLoading;
+import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.pushingpixels.flamingo.api.common.AsynchronousLoading;
-import org.pushingpixels.flamingo.internal.hidpi.UIUtil;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 
 /**
  * Implementation of {@link ResizableIcon} that allows applying a
@@ -132,7 +129,7 @@ public class FilteredResizableIcon implements ResizableIcon {
 				if (asyncDelegate.isLoading())
 					return;
 			}
-			BufferedImage offscreen = FlamingoUtilities.getBlankImage(this.getIconWidth(),
+			BufferedImage offscreen = SubstanceCoreUtilities.getBlankImage(this.getIconWidth(),
 					this.getIconHeight());
 			Graphics2D g2d = offscreen.createGraphics();
 			this.delegate.paintIcon(c, g2d, 0, 0);

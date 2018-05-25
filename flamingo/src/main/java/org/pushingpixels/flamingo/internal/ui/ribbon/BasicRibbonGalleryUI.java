@@ -29,39 +29,8 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.JComponent;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
-
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
-import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip.StripOrientation;
-import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
@@ -74,12 +43,22 @@ import org.pushingpixels.flamingo.internal.utils.DoubleArrowResizableIcon;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
 
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.BorderUIResource;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 /**
  * Basic UI for ribbon gallery {@link JRibbonGallery}.
  * 
  * @author Kirill Grouchnikov
  */
-public class BasicRibbonGalleryUI extends RibbonGalleryUI {
+public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     /**
      * The associated ribbon gallery.
      */
@@ -182,15 +161,6 @@ public class BasicRibbonGalleryUI extends RibbonGalleryUI {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
-    public static ComponentUI createUI(JComponent c) {
-        return new BasicRibbonGalleryUI();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
      */
     @Override
@@ -284,15 +254,10 @@ public class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * Installs defaults on the associated ribbon gallery.
      */
     protected void installDefaults() {
-        this.margin = UIManager.getInsets("RibbonGallery.margin");
-        if (this.margin == null)
-            this.margin = new Insets(3, 3, 3, 3);
+        this.margin = new Insets(3, 3, 3, 3);
         Border b = this.ribbonGallery.getBorder();
         if (b == null || b instanceof UIResource) {
-            Border toSet = UIManager.getBorder("RibbonGallery.border");
-            if (toSet == null)
-                toSet = new BorderUIResource.EmptyBorderUIResource(2, 2, 2, 2);
-            this.ribbonGallery.setBorder(toSet);
+            this.ribbonGallery.setBorder(new BorderUIResource.EmptyBorderUIResource(2, 2, 2, 2));
         }
         this.ribbonGallery.setOpaque(false);
     }
@@ -662,27 +627,8 @@ public class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * 
      * @param graphics
      *            Graphics context.
-     * @param toFill
-     *            Rectangle for the background.
      */
-    protected void paintRibbonGalleryBorder(Graphics graphics) {
-        Graphics2D g2d = (Graphics2D) graphics.create();
-        g2d.setColor(FlamingoUtilities.getBorderColor());
-        Shape outerContour = FlamingoUtilities.getRibbonGalleryOutline(this.margin.left,
-                this.ribbonGallery.getWidth() - margin.right, this.margin.top,
-                this.ribbonGallery.getHeight() - this.margin.bottom, 2);
-        if (this.ribbonGallery.getComponentOrientation().isLeftToRight()) {
-            g2d.clipRect(0, 0,
-                    this.ribbonGallery.getWidth() - margin.right - buttonStrip.getWidth() / 2,
-                    this.ribbonGallery.getHeight());
-        } else {
-            g2d.clipRect(margin.left + buttonStrip.getWidth() / 2, 0,
-                    this.ribbonGallery.getWidth() - margin.left - buttonStrip.getWidth() / 2,
-                    this.ribbonGallery.getHeight());
-        }
-        g2d.draw(outerContour);
-        g2d.dispose();
-    }
+    protected abstract void paintRibbonGalleryBorder(Graphics graphics);
 
     /**
      * Returns the layout gap for the controls in the associated ribbon gallery.

@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import javax.swing.plaf.ComponentUI;
-
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
+
+import javax.swing.plaf.ComponentUI;
 
 /**
  * UI for button strip ({@link JCommandButtonStrip}).

@@ -74,6 +74,8 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class TestCommandButtons extends JFrame {
     private enum PopupKind {
@@ -437,10 +439,8 @@ public class TestCommandButtons extends JFrame {
         UIManager.installLookAndFeel("Squareness", "net.beeger.squareness.SquarenessLookAndFeel");
 
         SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(new NimbusLookAndFeel());
-            } catch (Exception e) {
-            }
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
             TestCommandButtons frame = new TestCommandButtons();
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);

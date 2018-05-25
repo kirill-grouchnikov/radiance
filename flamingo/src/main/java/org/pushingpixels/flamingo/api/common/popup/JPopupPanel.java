@@ -29,14 +29,11 @@
  */
 package org.pushingpixels.flamingo.api.common.popup;
 
-import java.awt.Rectangle;
-
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-
-import org.pushingpixels.flamingo.internal.ui.common.popup.BasicPopupPanelUI;
+import org.pushingpixels.flamingo.internal.substance.common.ui.SubstancePopupPanelUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.PopupPanelUI;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Base class for popup panels.
@@ -119,11 +116,7 @@ public abstract class JPopupPanel extends JPanel {
 	 */
 	@Override
 	public void updateUI() {
-		if (UIManager.get(getUIClassID()) != null) {
-			setUI((PopupPanelUI) UIManager.getUI(this));
-		} else {
-			setUI(BasicPopupPanelUI.createUI(this));
-		}
+		setUI(SubstancePopupPanelUI.createUI(this));
 	}
 
 	/**

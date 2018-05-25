@@ -29,19 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.RenderingHints;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
-import javax.swing.plaf.ComponentUI;
-
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.Timeline.TimelineState;
@@ -49,12 +36,17 @@ import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
 import org.pushingpixels.trident.ease.Spline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
+import javax.swing.*;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 /**
  * Basic UI for circular progress {@link JCircularProgress}.
  * 
  * @author Kirill Grouchnikov
  */
-public class BasicCircularProgressUI extends CircularProgressUI {
+public abstract class BasicCircularProgressUI extends CircularProgressUI {
     protected JCircularProgress circularProgress;
 
     protected double arcStart;
@@ -72,10 +64,6 @@ public class BasicCircularProgressUI extends CircularProgressUI {
     protected float alpha = 0.0f;
 
     private PropertyChangeListener propertyChangeListener;
-
-    public static ComponentUI createUI(JComponent c) {
-        return new BasicCircularProgressUI();
-    }
 
     public BasicCircularProgressUI() {
     }
@@ -248,7 +236,5 @@ public class BasicCircularProgressUI extends CircularProgressUI {
         graphics.dispose();
     }
 
-    protected Color getColor() {
-        return Color.black;
-    }
+    protected abstract Color getColor();
 }

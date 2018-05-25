@@ -29,19 +29,16 @@
  */
 package org.pushingpixels.demo.substance.flamingo.svg;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.demo.flamingo.svg.SvgViewer;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
-import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
+
+import javax.swing.*;
 
 public class SubstanceSvgViewer extends SvgViewer {
     public static void main(String... args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
         SubstanceCortex.GlobalScope.allowAnimations(AnimationFacet.GHOSTING_ICON_ROLLOVER);
 
         SwingUtilities.invokeLater(() -> {

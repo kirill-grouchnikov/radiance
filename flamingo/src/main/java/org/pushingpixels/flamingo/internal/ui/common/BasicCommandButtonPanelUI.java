@@ -29,38 +29,25 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
-
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel.LayoutKind;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.substance.api.SubstanceCortex;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * Basic UI for command button panel {@link JCommandButtonPanel}.
  * 
  * @author Kirill Grouchnikov
  */
-public class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
+public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
     /**
      * The associated command button panel.
      */
@@ -94,15 +81,6 @@ public class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
-    public static ComponentUI createUI(JComponent c) {
-        return new BasicCommandButtonPanelUI();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
      */
     @Override
@@ -121,9 +99,9 @@ public class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         this.buttonPanel.setLayout(this.createLayoutManager());
         Font currFont = this.buttonPanel.getFont();
         if ((currFont == null) || (currFont instanceof UIResource)) {
-            Font titleFont = FlamingoUtilities.getFont(null, "CommandButtonPanel.font",
-                    "Button.font", "Panel.font");
-            this.buttonPanel.setFont(titleFont);
+            Font controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(
+                    "Substance", null).getControlFont();
+            this.buttonPanel.setFont(controlFont.deriveFont(Font.BOLD, controlFont.getSize() + 1));
         }
     }
 
@@ -270,22 +248,8 @@ public class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      * @param height
      *            Height of the button group bounds.
      */
-    protected void paintGroupBackground(Graphics g, int groupIndex, int x, int y, int width,
-            int height) {
-        Color c = this.buttonPanel.getBackground();
-        if ((c == null) || (c instanceof UIResource)) {
-            c = UIManager.getColor("Panel.background");
-            if (c == null)
-                c = new Color(190, 190, 190);
-            if (groupIndex % 2 == 1) {
-                double coef = 0.95;
-                c = new Color((int) (c.getRed() * coef), (int) (c.getGreen() * coef),
-                        (int) (c.getBlue() * coef));
-            }
-        }
-        g.setColor(c);
-        g.fillRect(x, y, width, height);
-    }
+    protected abstract void paintGroupBackground(Graphics g, int groupIndex, int x, int y, int width,
+            int height);
 
     /**
      * Paints the background of the title of specified button panel group.
@@ -303,11 +267,8 @@ public class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      * @param height
      *            Height of the button group title bounds.
      */
-    protected void paintGroupTitleBackground(Graphics g, int groupIndex, int x, int y, int width,
-            int height) {
-        FlamingoUtilities.renderSurface(g, this.buttonPanel, new Rectangle(x, y, width, height),
-                false, (groupIndex > 0), true);
-    }
+    protected abstract void paintGroupTitleBackground(Graphics g, int groupIndex, int x, int y, int width,
+            int height);
 
     /**
      * Returns the height of the group title strip.
@@ -316,18 +277,14 @@ public class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      *            Group index.
      * @return The height of the title strip of the specified group.
      */
-    protected int getGroupTitleHeight(int groupIndex) {
-        return this.groupLabels[groupIndex].getPreferredSize().height;
-    }
+    protected abstract int getGroupTitleHeight(int groupIndex);
 
     /**
      * Returns the insets of button panel groups.
      * 
      * @return The insets of button panel groups.
      */
-    protected Insets getGroupInsets() {
-        return GROUP_INSETS;
-    }
+    protected abstract Insets getGroupInsets();
 
     /**
      * Row-fill layout for the button panel.

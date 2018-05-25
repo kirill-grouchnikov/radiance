@@ -29,16 +29,16 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.LayoutManager;
+import org.pushingpixels.flamingo.api.common.RichTooltip;
+import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.LineBreakMeasurer;
 import java.awt.font.TextAttribute;
@@ -47,28 +47,12 @@ import java.awt.geom.AffineTransform;
 import java.text.AttributedString;
 import java.util.ArrayList;
 
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JSeparator;
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
-
-import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-
 /**
  * Basic UI for rich tooltip panel {@link JRichTooltipPanel}.
  * 
  * @author Kirill Grouchnikov
  */
-public class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
+public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 	/**
 	 * The associated tooltip panel.
 	 */
@@ -85,15 +69,6 @@ public class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 	protected JLabel footerImageLabel;
 
 	protected java.util.List<JLabel> footerLabels;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
-	public static ComponentUI createUI(JComponent c) {
-		return new BasicRichTooltipPanelUI();
-	}
 
 	public BasicRichTooltipPanelUI() {
 		this.titleLabels = new ArrayList<JLabel>();
@@ -136,19 +111,14 @@ public class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 	protected void installDefaults() {
 		Border b = this.richTooltipPanel.getBorder();
 		if (b == null || b instanceof UIResource) {
-			Border toSet = UIManager.getBorder("RichTooltipPanel.border");
-			if (toSet == null)
-				toSet = new BorderUIResource.CompoundBorderUIResource(
-						new LineBorder(FlamingoUtilities.getBorderColor()),
-						new EmptyBorder(2, 4, 3, 4));
-			this.richTooltipPanel.setBorder(toSet);
+			this.richTooltipPanel.setBorder(new SubstanceBorder(new Insets(3, 5, 4, 5)));
 		}
 		LookAndFeel.installProperty(this.richTooltipPanel, "opaque",
 				Boolean.TRUE);
 		Font f = this.richTooltipPanel.getFont();
 		if (f == null || f instanceof UIResource) {
-		    this.richTooltipPanel.setFont(FlamingoUtilities.getFont(this.richTooltipPanel,
-	                "Ribbon.font", "Button.font", "Panel.font"));
+		    this.richTooltipPanel.setFont(
+					SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null).getControlFont());
 		}
 	}
 
@@ -190,19 +160,7 @@ public class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 		this.paint(g, c);
 	}
 
-	protected void paintBackground(Graphics g) {
-		Color main = FlamingoUtilities.getColor(Color.gray,
-				"Label.disabledForeground").brighter();
-		Graphics2D g2d = (Graphics2D) g.create();
-		g2d.setPaint(new GradientPaint(0, 0, FlamingoUtilities.getLighterColor(
-				main, 0.9), 0, this.richTooltipPanel.getHeight(),
-				FlamingoUtilities.getLighterColor(main, 0.4)));
-		g2d.fillRect(0, 0, this.richTooltipPanel.getWidth(),
-				this.richTooltipPanel.getHeight());
-		g2d.setFont(FlamingoUtilities.getFont(this.richTooltipPanel,
-				"Ribbon.font", "Button.font", "Panel.font"));
-		g2d.dispose();
-	}
+	protected abstract void paintBackground(Graphics g);
 
 	@Override
 	public void paint(Graphics g, JComponent c) {
@@ -230,8 +188,7 @@ public class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 		public Dimension preferredLayoutSize(Container parent) {
 			Insets ins = parent.getInsets();
 			int gap = getLayoutGap();
-			Font font = FlamingoUtilities.getFont(parent, "Ribbon.font",
-					"Button.font", "Panel.font");
+			Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null).getControlFont();
 			Font titleFont = font.deriveFont(Font.BOLD);
 
 			// The overall width is defined by the width of the text 
@@ -368,8 +325,7 @@ public class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 		public void layoutContainer(Container parent) {
 			removeExistingComponents();
 
-			Font font = FlamingoUtilities.getFont(parent, "Ribbon.font",
-					"Button.font", "Panel.font");
+			Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null).getControlFont();
 			Insets ins = richTooltipPanel.getInsets();
 			int y = ins.top;
 			RichTooltip tooltipInfo = richTooltipPanel.getTooltipInfo();

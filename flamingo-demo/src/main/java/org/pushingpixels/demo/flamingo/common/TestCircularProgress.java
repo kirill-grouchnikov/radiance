@@ -12,6 +12,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.pushingpixels.flamingo.internal.ui.common.JCircularProgress;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class TestCircularProgress extends JFrame {
     public TestCircularProgress() {
@@ -35,8 +37,9 @@ public class TestCircularProgress extends JFrame {
     }
 
     public static void main(String[] args) throws Exception {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
             new TestCircularProgress().setVisible(true);
         });
     }

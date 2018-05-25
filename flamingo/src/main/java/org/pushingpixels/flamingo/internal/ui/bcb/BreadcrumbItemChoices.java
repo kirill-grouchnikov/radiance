@@ -32,12 +32,11 @@
  */
 package org.pushingpixels.flamingo.internal.ui.bcb;
 
-import java.util.List;
-
-import javax.swing.Icon;
-
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
+
+import javax.swing.*;
+import java.util.List;
 
 /**
  * This is the model for the popup that is shown by clicking on the path

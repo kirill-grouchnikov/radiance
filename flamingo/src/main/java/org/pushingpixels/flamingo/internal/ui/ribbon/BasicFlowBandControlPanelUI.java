@@ -29,44 +29,21 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
-import javax.swing.plaf.ComponentUI;
-
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI.CollapsedButtonPopupPanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
 /**
  * Basic UI for control panel of ribbon band {@link JBandControlPanel}.
  * 
  * @author Kirill Grouchnikov
  */
-public class BasicFlowBandControlPanelUI extends AbstractBandControlPanelUI {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
-	public static ComponentUI createUI(JComponent c) {
-		return new BasicFlowBandControlPanelUI();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.ribbon.ui.AbstractBandControlPanelUI#createLayoutManager
-	 * ()
-	 */
+public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPanelUI {
 	@Override
 	protected LayoutManager createLayoutManager() {
 		return new FlowControlPanelLayout();

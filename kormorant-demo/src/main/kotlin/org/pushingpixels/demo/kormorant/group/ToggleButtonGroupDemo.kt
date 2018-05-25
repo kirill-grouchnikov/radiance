@@ -35,6 +35,8 @@ import org.pushingpixels.demo.kormorant.svg.Format_justify_left
 import org.pushingpixels.demo.kormorant.svg.Format_justify_right
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip
 import org.pushingpixels.kormorant.commandToggleButtonStrip
+import org.pushingpixels.substance.api.SubstanceCortex
+import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.FlowLayout
@@ -43,6 +45,7 @@ import java.awt.image.BufferedImage
 import javax.swing.JFrame
 import javax.swing.JPanel
 import javax.swing.JTextPane
+import javax.swing.SwingUtilities
 import javax.swing.border.EmptyBorder
 import javax.swing.text.SimpleAttributeSet
 import javax.swing.text.StyleConstants
@@ -55,60 +58,64 @@ fun JTextPane.setAlignment(alignment: Int) {
 }
 
 fun main(args: Array<String>) {
-    val frame = JFrame("Text alignment demo")
-    frame.layout = BorderLayout()
+    SwingUtilities.invokeLater({
+        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
-    // Configure and populate "Lorem ipsum" multiline content
-    val textPane = JTextPane()
-    textPane.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    textPane.isEditable = false
-    textPane.border = EmptyBorder(12, 12, 12, 12)
+        val frame = JFrame("Text alignment demo")
+        frame.layout = BorderLayout()
 
-    frame.add(textPane, BorderLayout.CENTER)
+        // Configure and populate "Lorem ipsum" multiline content
+        val textPane = JTextPane()
+        textPane.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        textPane.isEditable = false
+        textPane.border = EmptyBorder(12, 12, 12, 12)
 
-    val alignButtonPanel = JPanel(FlowLayout())
-    frame.add(alignButtonPanel, BorderLayout.LINE_END)
+        frame.add(textPane, BorderLayout.CENTER)
 
-    // Create a toggle button strip to change the text alignment in our text pane.
-    val commandAlignStrip = commandToggleButtonStrip {
-        command {
-            icon = Format_justify_left.of(16, 16)
-            isToggleSelected = true
-            action = ActionListener {
-                textPane.setAlignment(StyleConstants.ALIGN_LEFT)
+        val alignButtonPanel = JPanel(FlowLayout())
+        frame.add(alignButtonPanel, BorderLayout.LINE_END)
+
+        // Create a toggle button strip to change the text alignment in our text pane.
+        val commandAlignStrip = commandToggleButtonStrip {
+            command {
+                icon = Format_justify_left.of(16, 16)
+                isToggleSelected = true
+                action = ActionListener {
+                    textPane.setAlignment(StyleConstants.ALIGN_LEFT)
+                }
+            }
+            command {
+                icon = Format_justify_center.of(16, 16)
+                action = ActionListener {
+                    textPane.setAlignment(StyleConstants.ALIGN_CENTER)
+                }
+            }
+            command {
+                icon = Format_justify_right.of(16, 16)
+                action = ActionListener {
+                    textPane.setAlignment(StyleConstants.ALIGN_RIGHT)
+                }
+            }
+            command {
+                icon = Format_justify_fill.of(16, 16)
+                action = ActionListener {
+                    textPane.setAlignment(StyleConstants.ALIGN_JUSTIFIED)
+                }
+            }
+            display {
+                orientation = JCommandButtonStrip.StripOrientation.VERTICAL
+                horizontalGapScaleFactor = 0.8
+                verticalGapScaleFactor = 1.4
             }
         }
-        command {
-            icon = Format_justify_center.of(16, 16)
-            action = ActionListener {
-                textPane.setAlignment(StyleConstants.ALIGN_CENTER)
-            }
-        }
-        command {
-            icon = Format_justify_right.of(16, 16)
-            action = ActionListener {
-                textPane.setAlignment(StyleConstants.ALIGN_RIGHT)
-            }
-        }
-        command {
-            icon = Format_justify_fill.of(16, 16)
-            action = ActionListener {
-                textPane.setAlignment(StyleConstants.ALIGN_JUSTIFIED)
-            }
-        }
-        display {
-            orientation = JCommandButtonStrip.StripOrientation.VERTICAL
-            horizontalGapScaleFactor = 0.8
-            verticalGapScaleFactor = 1.4
-        }
-    }
 
-    alignButtonPanel.add(commandAlignStrip.asButtonStrip())
+        alignButtonPanel.add(commandAlignStrip.asButtonStrip())
 
-    // Show our frame in the center of the screen
-    frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
-    frame.size = Dimension(600, 300)
-    frame.setLocationRelativeTo(null)
-    frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
-    frame.isVisible = true
+        // Show our frame in the center of the screen
+        frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
+        frame.size = Dimension(600, 300)
+        frame.setLocationRelativeTo(null)
+        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.isVisible = true
+    })
 }

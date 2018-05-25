@@ -37,6 +37,8 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.ActionModelChangeInterface
 import org.pushingpixels.kormorant.colorSelectorPopupMenu
 import org.pushingpixels.kormorant.commandButton
+import org.pushingpixels.substance.api.SubstanceCortex
+import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.*
 import java.awt.event.ActionListener
 import java.awt.image.BufferedImage
@@ -76,137 +78,141 @@ class ColorIcon(private var color: Color) : ResizableIcon {
 }
 
 fun main(args: Array<String>) {
-    val resourceBundle = ResourceBundle
-            .getBundle("org.pushingpixels.demo.kormorant.resources.Resources", Locale.getDefault())
+    SwingUtilities.invokeLater({
+        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
-    val frame = JFrame("Test")
-    frame.layout = BorderLayout()
+        val resourceBundle = ResourceBundle
+                .getBundle("org.pushingpixels.demo.kormorant.resources.Resources", Locale.getDefault())
 
-    val centerPanel = JPanel()
-    var backgroundColor = centerPanel.background
-    frame.add(centerPanel, BorderLayout.CENTER)
+        val frame = JFrame("Test")
+        frame.layout = BorderLayout()
 
-    val controlPanel = JPanel(FlowLayout())
-    frame.add(controlPanel, BorderLayout.NORTH)
+        val centerPanel = JPanel()
+        var backgroundColor = centerPanel.background
+        frame.add(centerPanel, BorderLayout.CENTER)
 
-    // Icon for our button
-    val colorIcon = ColorIcon(backgroundColor)
-    // Color selector callback to update the background fill of the main panel
-    // and keep the button icon in sync
-    val callback = object : JColorSelectorPopupMenu.ColorSelectorCallback {
-        override fun onColorSelected(color: Color) {
-            backgroundColor = color
-            centerPanel.background = backgroundColor
-            colorIcon.setColor(backgroundColor)
-        }
+        val controlPanel = JPanel(FlowLayout())
+        frame.add(controlPanel, BorderLayout.NORTH)
 
-        override fun onColorRollover(color: Color?) {
-            if (color != null) {
-                centerPanel.background = color
-            } else {
+        // Icon for our button
+        val colorIcon = ColorIcon(backgroundColor)
+        // Color selector callback to update the background fill of the main panel
+        // and keep the button icon in sync
+        val callback = object : JColorSelectorPopupMenu.ColorSelectorCallback {
+            override fun onColorSelected(color: Color) {
+                backgroundColor = color
                 centerPanel.background = backgroundColor
                 colorIcon.setColor(backgroundColor)
             }
-        }
-    }
 
-    val defaultPanelColor = centerPanel.background
-    val commandButton = commandButton {
-        command {
-            icon = colorIcon
-            popupCallback = PopupPanelCallback {
-                colorSelectorPopupMenu {
-                    colorSelectorCallback = callback
-
-                    command {
-                        title = resourceBundle.getString("ColorSelector.textAutomatic")
-                        icon = ColorIcon(defaultPanelColor)
-                        action = ActionListener {
-                            callback.onColorSelected(defaultPanelColor)
-                            JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor)
-                        }
-                        // Register a listener on the action model
-                        actionModelChangeListener = object: ActionModelChangeInterface {
-                            var wasRollover = false
-                            override fun stateChanged(model: ActionButtonModel) {
-                                val isRollover = model.isRollover
-                                if (wasRollover && !isRollover) {
-                                    // Notify the callback that there is no rollover
-                                    callback.onColorRollover(null)
-                                }
-                                if (!wasRollover && isRollover) {
-                                    // Notify the callback that there is rollover with automatic (black) color
-                                    callback.onColorRollover(Color.black)
-                                }
-                                wasRollover = isRollover
-                            }
-                        }
-                    }
-
-                    colorSectionWithDerived {
-                        title = resourceBundle.getString("ColorSelector.textThemeCaption")
-                        colors {
-                            +Color(255, 255, 255)
-                            +Color(0, 0, 0)
-                            +Color(160, 160, 160)
-                            +Color(16, 64, 128)
-                            +Color(80, 128, 192)
-                            +Color(180, 80, 80)
-                            +Color(160, 192, 80)
-                            +Color(128, 92, 160)
-                            +Color(80, 160, 208)
-                            +Color(255, 144, 64)
-                        }
-                    }
-
-                    colorSection {
-                        title = resourceBundle.getString("ColorSelector.textStandardCaption")
-                        colors {
-                            +Color(140, 0, 0)
-                            +Color(253, 0, 0)
-                            +Color(255, 160, 0)
-                            +Color(255, 255, 0)
-                            +Color(144, 240, 144)
-                            +Color(0, 128, 0)
-                            +Color(160, 224, 224)
-                            +Color(0, 0, 255)
-                            +Color(0, 0, 128)
-                            +Color(128, 0, 128)
-                        }
-                    }
-
-                    recentSection {
-                        title = resourceBundle.getString("ColorSelector.textRecentCaption")
-                    }
-
-                    command {
-                        title = resourceBundle.getString("ColorSelector.textMoreColor")
-                        action = ActionListener {
-                            SwingUtilities.invokeLater({
-                                val color = JColorChooser.showDialog(it.source as Component,
-                                        "Color chooser", backgroundColor)
-                                if (color != null) {
-                                    callback.onColorSelected(color)
-                                    JColorSelectorPopupMenu.addColorToRecentlyUsed(color)
-                                }
-                            })
-                        }
-                    }
-                }.asColorSelectorPopupMenu()
+            override fun onColorRollover(color: Color?) {
+                if (color != null) {
+                    centerPanel.background = color
+                } else {
+                    centerPanel.background = backgroundColor
+                    colorIcon.setColor(backgroundColor)
+                }
             }
         }
-        display {
-            state = CommandButtonDisplayState.SMALL
-            isFlat = false
+
+        val defaultPanelColor = centerPanel.background
+        val commandButton = commandButton {
+            command {
+                icon = colorIcon
+                popupCallback = PopupPanelCallback {
+                    colorSelectorPopupMenu {
+                        colorSelectorCallback = callback
+
+                        command {
+                            title = resourceBundle.getString("ColorSelector.textAutomatic")
+                            icon = ColorIcon(defaultPanelColor)
+                            action = ActionListener {
+                                callback.onColorSelected(defaultPanelColor)
+                                JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor)
+                            }
+                            // Register a listener on the action model
+                            actionModelChangeListener = object : ActionModelChangeInterface {
+                                var wasRollover = false
+                                override fun stateChanged(model: ActionButtonModel) {
+                                    val isRollover = model.isRollover
+                                    if (wasRollover && !isRollover) {
+                                        // Notify the callback that there is no rollover
+                                        callback.onColorRollover(null)
+                                    }
+                                    if (!wasRollover && isRollover) {
+                                        // Notify the callback that there is rollover with automatic (black) color
+                                        callback.onColorRollover(Color.black)
+                                    }
+                                    wasRollover = isRollover
+                                }
+                            }
+                        }
+
+                        colorSectionWithDerived {
+                            title = resourceBundle.getString("ColorSelector.textThemeCaption")
+                            colors {
+                                +Color(255, 255, 255)
+                                +Color(0, 0, 0)
+                                +Color(160, 160, 160)
+                                +Color(16, 64, 128)
+                                +Color(80, 128, 192)
+                                +Color(180, 80, 80)
+                                +Color(160, 192, 80)
+                                +Color(128, 92, 160)
+                                +Color(80, 160, 208)
+                                +Color(255, 144, 64)
+                            }
+                        }
+
+                        colorSection {
+                            title = resourceBundle.getString("ColorSelector.textStandardCaption")
+                            colors {
+                                +Color(140, 0, 0)
+                                +Color(253, 0, 0)
+                                +Color(255, 160, 0)
+                                +Color(255, 255, 0)
+                                +Color(144, 240, 144)
+                                +Color(0, 128, 0)
+                                +Color(160, 224, 224)
+                                +Color(0, 0, 255)
+                                +Color(0, 0, 128)
+                                +Color(128, 0, 128)
+                            }
+                        }
+
+                        recentSection {
+                            title = resourceBundle.getString("ColorSelector.textRecentCaption")
+                        }
+
+                        command {
+                            title = resourceBundle.getString("ColorSelector.textMoreColor")
+                            action = ActionListener {
+                                SwingUtilities.invokeLater({
+                                    val color = JColorChooser.showDialog(it.source as Component,
+                                            "Color chooser", backgroundColor)
+                                    if (color != null) {
+                                        callback.onColorSelected(color)
+                                        JColorSelectorPopupMenu.addColorToRecentlyUsed(color)
+                                    }
+                                })
+                            }
+                        }
+                    }.asColorSelectorPopupMenu()
+                }
+            }
+            display {
+                state = CommandButtonDisplayState.SMALL
+                isFlat = false
+            }
         }
-    }
 
-    controlPanel.add(commandButton.asButton())
+        controlPanel.add(commandButton.asButton())
 
-    frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
-    frame.size = Dimension(250, 200)
-    frame.setLocationRelativeTo(null)
-    frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
+        frame.size = Dimension(250, 200)
+        frame.setLocationRelativeTo(null)
+        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
-    frame.isVisible = true
+        frame.isVisible = true
+    })
 }

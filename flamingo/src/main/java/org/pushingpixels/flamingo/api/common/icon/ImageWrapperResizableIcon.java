@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import java.awt.Dimension;
-import java.awt.Image;
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;

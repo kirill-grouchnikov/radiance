@@ -29,10 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
 
 /**
  * Implementation of {@link ResizableIcon} that fills the icon with a solid

@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import java.awt.Image;
+import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+
+import java.awt.*;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 
 /**
  * Rich tooltip for command buttons.

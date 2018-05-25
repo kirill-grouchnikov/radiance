@@ -29,34 +29,23 @@
  */
 package org.pushingpixels.demo.substance.flamingo.ribbon;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
-
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon;
 import org.pushingpixels.demo.substance.flamingo.svg.transcoded.Help_browser;
-import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandBuilder;
+import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
-import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class SmallCheckRibbon extends BasicCheckRibbon {
     public SmallCheckRibbon() {
@@ -139,7 +128,6 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
-        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
 
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());

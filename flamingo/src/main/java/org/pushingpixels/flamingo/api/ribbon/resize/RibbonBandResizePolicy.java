@@ -31,11 +31,7 @@ package org.pushingpixels.flamingo.api.ribbon.resize;
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
-import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
+import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.BaseCoreRibbonBandResizePolicy;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.FlowThreeRows;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.FlowTwoRows;

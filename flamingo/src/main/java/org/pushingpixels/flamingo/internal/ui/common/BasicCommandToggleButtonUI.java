@@ -29,11 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import javax.swing.AbstractButton;
-import javax.swing.JComponent;
-import javax.swing.JToggleButton;
-import javax.swing.plaf.ComponentUI;
-
 import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
 
 /**
@@ -41,22 +36,7 @@ import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
  * 
  * @author Kirill Grouchnikov
  */
-public class BasicCommandToggleButtonUI extends BasicCommandButtonUI {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
-	public static ComponentUI createUI(JComponent c) {
-		return new BasicCommandToggleButtonUI();
-	}
-
-	/**
-	 * Creates a new UI delegate.
-	 */
-	public BasicCommandToggleButtonUI() {
-	}
-
+public abstract class BasicCommandToggleButtonUI extends BasicCommandButtonUI {
 	@Override
 	protected void updatePopupActionIcon() {
 	}
@@ -64,10 +44,5 @@ public class BasicCommandToggleButtonUI extends BasicCommandButtonUI {
 	@Override
 	protected boolean isPaintingSeparators() {
 		return false;
-	}
-
-	@Override
-	protected AbstractButton createRendererButton() {
-		return new JToggleButton("");
 	}
 }

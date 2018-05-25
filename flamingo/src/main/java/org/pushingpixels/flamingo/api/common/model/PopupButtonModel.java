@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import javax.swing.ButtonModel;
-
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.PopupActionListener;
+
+import javax.swing.*;
 
 /**
  * Model for the popup area of {@link JCommandButton} component.

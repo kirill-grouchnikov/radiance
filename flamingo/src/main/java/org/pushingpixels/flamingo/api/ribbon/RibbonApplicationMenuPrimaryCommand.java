@@ -29,13 +29,12 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
+import org.pushingpixels.flamingo.api.common.FlamingoCommand;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import javax.swing.JPanel;
-
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
 
 /**
  * Metadata description for the primary menu entries of the {@link RibbonApplicationMenu}. The

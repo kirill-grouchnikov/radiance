@@ -29,25 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JSeparator;
-import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.ComponentUI;
-
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
@@ -57,26 +38,26 @@ import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI.CollapsedButtonPopupPanel;
 
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Basic UI for control panel of ribbon band {@link JBandControlPanel}.
  * 
  * @author Kirill Grouchnikov
  */
-public class BasicBandControlPanelUI extends AbstractBandControlPanelUI {
+public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI {
     private JSeparator[] groupSeparators;
 
     private JLabel[] groupLabels;
 
     protected ChangeListener changeListener;
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
-    public static ComponentUI createUI(JComponent c) {
-        return new BasicBandControlPanelUI();
-    }
 
     /**
      * Invoked by <code>installUI</code> to create a layout manager object to manage the

@@ -29,12 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import javax.swing.UIManager;
-
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
-import org.pushingpixels.flamingo.internal.ui.common.BasicCommandToggleMenuButtonUI;
-import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
+import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandToggleMenuButtonUI;
 
 /**
  * A command toggle button that can be placed in {@link JCommandPopupMenu}.
@@ -77,10 +74,6 @@ public class JCommandToggleMenuButton extends JCommandToggleButton {
 	 */
 	@Override
 	public void updateUI() {
-		if (UIManager.get(getUIClassID()) != null) {
-			setUI((CommandButtonUI) UIManager.getUI(this));
-		} else {
-			setUI(BasicCommandToggleMenuButtonUI.createUI(this));
-		}
+		setUI(SubstanceCommandToggleMenuButtonUI.createUI(this));
 	}
 }

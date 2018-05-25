@@ -49,6 +49,8 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_select_all;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class TestCommandButtonsNoText extends TestCommandButtons {
     @Override
@@ -138,10 +140,8 @@ public class TestCommandButtonsNoText extends TestCommandButtons {
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(new MetalLookAndFeel());
-            } catch (Exception e) {
-            }
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
             TestCommandButtonsNoText frame = new TestCommandButtonsNoText();
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);

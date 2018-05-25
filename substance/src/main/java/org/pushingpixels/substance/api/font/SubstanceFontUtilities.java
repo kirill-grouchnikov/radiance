@@ -44,13 +44,13 @@ import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 /**
  * Font-related utilities.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceFontUtilities {
     /**
      * Font set implementation for Substance. This is used to make the window title font bold.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class SubstanceFontSet implements FontSet {
@@ -61,9 +61,8 @@ public class SubstanceFontUtilities {
 
         /**
          * Creates a new font set for Substance.
-         * 
-         * @param systemFontSet
-         *            The default system font set.
+         *
+         * @param systemFontSet The default system font set.
          */
         public SubstanceFontSet(FontSet systemFontSet) {
             this.systemFontSet = systemFontSet;
@@ -71,9 +70,8 @@ public class SubstanceFontUtilities {
 
         /**
          * Returns Substance-specific font resource.
-         * 
-         * @param systemFont
-         *            The default system font.
+         *
+         * @param systemFont The default system font.
          * @return Substance-specific font resource.
          */
         private FontUIResource getSubstanceFont(FontUIResource systemFont) {
@@ -82,13 +80,10 @@ public class SubstanceFontUtilities {
 
         /**
          * Returns Substance-specific font resource.
-         * 
-         * @param systemFont
-         *            The default system font.
-         * @param toBoldify
-         *            If <code>true</code>, the original font (the first parameter) is boldified.
-         * @param extraFontSize
-         *            Extra font size in pixels.
+         *
+         * @param systemFont    The default system font.
+         * @param toBoldify     If <code>true</code>, the original font (the first parameter) is boldified.
+         * @param extraFontSize Extra font size in pixels.
          * @return Substance-specific font resource.
          */
         private FontUIResource getSubstanceFont(FontUIResource systemFont, boolean toBoldify,
@@ -133,7 +128,7 @@ public class SubstanceFontUtilities {
 
     /**
      * Returns the default platform-specific font policy.
-     * 
+     *
      * @return Default platform-specific font policy.
      */
     public static FontPolicy getDefaultFontPolicy() {
@@ -141,20 +136,20 @@ public class SubstanceFontUtilities {
 
         FontPolicy defaultPolicy;
         switch (platform) {
-        case MACOS:
-            defaultPolicy = new DefaultMacFontPolicy();
-            break;
-        case KDE:
-            defaultPolicy = new DefaultKDEFontPolicy();
-            break;
-        case GNOME:
-            defaultPolicy = new DefaultGnomeFontPolicy();
-            break;
-        case WINDOWS:
-            defaultPolicy = FontPolicies.getDefaultWindowsPolicy();
-            break;
-        default:
-            defaultPolicy = FontPolicies.getDefaultPlasticPolicy();
+            case MACOS:
+                defaultPolicy = new DefaultMacFontPolicy();
+                break;
+            case KDE:
+                defaultPolicy = new DefaultKDEFontPolicy();
+                break;
+            case GNOME:
+                defaultPolicy = new DefaultGnomeFontPolicy();
+                break;
+            case WINDOWS:
+                defaultPolicy = FontPolicies.getDefaultWindowsPolicy();
+                break;
+            default:
+                defaultPolicy = FontPolicies.getDefaultPlasticPolicy();
         }
 
         SubstanceSizeUtils.resetPointsToPixelsRatio(defaultPolicy);
@@ -162,31 +157,22 @@ public class SubstanceFontUtilities {
         if ((platform == SubstanceCoreUtilities.Platform.MACOS)
                 || (platform == SubstanceCoreUtilities.Platform.KDE))
             return fontPolicy;
-        return new FontPolicy() {
-            public FontSet getFontSet(String lafName, UIDefaults table) {
-                FontSet baseResult = fontPolicy.getFontSet(lafName, table);
-                FontSet substanceFontSet = new SubstanceFontSet(baseResult);
-                return substanceFontSet;
-            }
-        };
+        return (String lafName, UIDefaults table) ->
+                new SubstanceFontSet(fontPolicy.getFontSet(lafName, table));
     }
 
     /**
      * Returns scaled platform-specific font policy.
-     * 
-     * @param scaleFactor
-     *            Scale factor. Should be positive.
+     *
+     * @param scaleFactor Scale factor. Should be positive.
      * @return Scaled platform-specific font policy.
      */
     public static FontPolicy getScaledFontPolicy(final float scaleFactor) {
         final FontSet substanceCoreFontSet = SubstanceFontUtilities.getDefaultFontPolicy()
                 .getFontSet("Substance", null);
         // Create the scaled font set
-        FontPolicy newFontPolicy = new FontPolicy() {
-            public FontSet getFontSet(String lafName, UIDefaults table) {
-                return new ScaledFontSet(substanceCoreFontSet, scaleFactor);
-            }
-        };
+        FontPolicy newFontPolicy = (String lafName, UIDefaults table) ->
+                new ScaledFontSet(substanceCoreFontSet, scaleFactor);
         return newFontPolicy;
     }
 }

@@ -29,30 +29,18 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.SwingWorker;
-import javax.swing.event.EventListenerList;
-
 import org.pushingpixels.flamingo.api.common.AsynchronousLoadListener;
 import org.pushingpixels.flamingo.api.common.AsynchronousLoading;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.event.EventListenerList;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
+import java.util.*;
 
 /**
  * Helper class to load image planes from .ICO files.

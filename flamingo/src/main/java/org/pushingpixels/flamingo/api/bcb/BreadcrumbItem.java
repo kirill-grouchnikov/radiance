@@ -32,7 +32,7 @@
  */
 package org.pushingpixels.flamingo.api.bcb;
 
-import javax.swing.Icon;
+import javax.swing.*;
 
 /**
  * A single item in the {@link JBreadcrumbBar} model.

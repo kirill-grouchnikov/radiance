@@ -29,10 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 

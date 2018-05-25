@@ -29,47 +29,6 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import java.awt.AWTEvent;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.HeadlessException;
-import java.awt.Image;
-import java.awt.LayoutManager;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.Toolkit;
-import java.awt.event.AWTEventListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.JMenuBar;
-import javax.swing.JPopupMenu;
-import javax.swing.JRootPane;
-import javax.swing.SwingUtilities;
-import javax.swing.ToolTipManager;
-
 import org.pushingpixels.flamingo.api.common.AsynchronousLoadListener;
 import org.pushingpixels.flamingo.api.common.AsynchronousLoading;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
@@ -82,7 +41,18 @@ import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager.KeyTipEvent;
 import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
-import org.pushingpixels.flamingo.internal.utils.RenderingUtils;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * <p>
@@ -199,7 +169,7 @@ public class JRibbonFrame extends JFrame {
                     .getCurrentlyShownKeyTips();
             if (keyTips != null) {
                 Graphics2D g2d = (Graphics2D) g.create();
-                RenderingUtils.installDesktopHints(g2d);
+                RenderingUtils.installDesktopHints(g2d, this);
 
                 for (KeyTipManager.KeyTipLink keyTip : keyTips) {
                     // don't display keytips on components in popup panels
@@ -521,7 +491,7 @@ public class JRibbonFrame extends JFrame {
         ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
         JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 
-        super.setIconImages(Arrays.asList(FlamingoUtilities.getBlankImage(16, 16)));
+        super.setIconImages(Arrays.asList(SubstanceCoreUtilities.getBlankImage(16, 16)));
     }
 
     /**
@@ -660,7 +630,7 @@ public class JRibbonFrame extends JFrame {
                 }
             }
         }
-        Image result = FlamingoUtilities.getBlankImage(size, size);
+        Image result = SubstanceCoreUtilities.getBlankImage(size, size);
         Graphics2D g2d = (Graphics2D) result.getGraphics().create();
         icon.paintIcon(null, g2d, 0, 0);
         g2d.dispose();

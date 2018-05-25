@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import javax.swing.plaf.ComponentUI;
-
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
+
+import javax.swing.plaf.ComponentUI;
 
 /**
  * UI for ribbon band ({@link JRibbonBand}).

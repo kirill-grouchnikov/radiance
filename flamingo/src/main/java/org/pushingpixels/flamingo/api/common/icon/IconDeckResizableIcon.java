@@ -29,13 +29,11 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.util.Map;
-
 import org.pushingpixels.flamingo.api.common.AsynchronousLoadListener;
 import org.pushingpixels.flamingo.api.common.AsynchronousLoading;
+
+import java.awt.*;
+import java.util.Map;
 
 /**
  * Implementation of the {@link ResizableIcon} that allows switching the icon

@@ -29,30 +29,17 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Point;
-import java.awt.color.ColorSpace;
-import java.awt.image.ColorConvertOp;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.Icon;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.plaf.ComponentUI;
-
 import org.pushingpixels.flamingo.api.common.HorizontalAlignment;
-import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonComponent;
 import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
 
-public class BasicRibbonComponentUI extends RibbonComponentUI {
+import javax.swing.*;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
     /**
      * The associated ribbon component.
      */
@@ -63,15 +50,6 @@ public class BasicRibbonComponentUI extends RibbonComponentUI {
     protected PropertyChangeListener propertyChangeListener;
 
     protected ResizableIcon disabledIcon;
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
-    public static ComponentUI createUI(JComponent c) {
-        return new BasicRibbonComponentUI();
-    }
 
     /*
      * (non-Javadoc)
@@ -381,18 +359,13 @@ public class BasicRibbonComponentUI extends RibbonComponentUI {
         }
     }
 
-    protected void paintIcon(Graphics g, JRibbonComponent ribbonComp, Icon icon, int x, int y) {
-        icon.paintIcon(ribbonComp, g, x, y);
-    }
+    protected abstract void paintIcon(Graphics g, JRibbonComponent ribbonComp, Icon icon, int x, int y);
 
     protected int getLayoutGap() {
         return 4;
     }
 
-    protected ResizableIcon createDisabledIcon() {
-        return new FilteredResizableIcon(this.ribbonComponent.getIcon(),
-                new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null));
-    }
+    protected abstract ResizableIcon createDisabledIcon();
 
     protected boolean isIconVisible(RibbonElementPriority displayPriority) {
         if (this.ribbonComponent.isSimpleWrapper())

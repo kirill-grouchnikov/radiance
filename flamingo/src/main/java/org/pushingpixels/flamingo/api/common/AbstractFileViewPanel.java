@@ -29,20 +29,14 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import java.awt.Dimension;
-import java.io.InputStream;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.InputStream;
+import java.util.*;
+import java.util.List;
 
 /**
  * Panel that hosts file-related command buttons with progress indication and cancellation

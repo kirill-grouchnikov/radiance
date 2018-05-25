@@ -29,14 +29,12 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
+import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceScrollablePanelUI;
+import org.pushingpixels.flamingo.internal.ui.common.ScrollablePanelUI;
+
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import org.pushingpixels.flamingo.internal.ui.common.BasicScrollablePanelUI;
-import org.pushingpixels.flamingo.internal.ui.common.ScrollablePanelUI;
 
 /**
  * ScrollablePanel allows to have scrolling buttons on each side.
@@ -94,11 +92,7 @@ public class JScrollablePanel<T extends JComponent> extends JPanel {
 	 */
 	@Override
 	public void updateUI() {
-		if (UIManager.get(getUIClassID()) != null) {
-			setUI((ScrollablePanelUI) UIManager.getUI(this));
-		} else {
-			setUI(BasicScrollablePanelUI.createUI(this));
-		}
+		setUI(SubstanceScrollablePanelUI.createUI(this));
 	}
 
 	public void setScrollOnRollover(boolean toScrollOnRollover) {

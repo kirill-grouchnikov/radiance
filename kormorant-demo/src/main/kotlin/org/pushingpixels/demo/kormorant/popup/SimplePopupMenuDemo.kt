@@ -34,6 +34,8 @@ import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
+import org.pushingpixels.substance.api.SubstanceCortex
+import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.event.ActionListener
@@ -41,74 +43,79 @@ import java.awt.image.BufferedImage
 import java.text.MessageFormat
 import java.util.*
 import javax.swing.JFrame
+import javax.swing.SwingUtilities
 
 fun main(args: Array<String>) {
-    val resourceBundle = ResourceBundle
-            .getBundle("org.pushingpixels.demo.kormorant.resources.Resources", Locale.getDefault())
+    SwingUtilities.invokeLater({
+        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
-    val frame = JFrame("Test")
-    frame.layout = FlowLayout()
+        val resourceBundle = ResourceBundle
+                .getBundle("org.pushingpixels.demo.kormorant.resources.Resources", Locale.getDefault())
 
-    val commandButton = commandButton {
-        command {
-            title = resourceBundle.getString("Paste.text")
-            icon = Help_browser.of(16, 16)
-            extraText = resourceBundle.getString("Paste.textExtra")
-            popupCallback = PopupPanelCallback {
-                val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
-                val popupMenuCommand = commandPopupMenu {
-                    command {
-                        title = mf.format(arrayOf("1"))
-                        icon = Applications_games.of(16, 16)
-                        action = ActionListener {
-                            println("First!")
+        val frame = JFrame("Test")
+        frame.layout = FlowLayout()
+
+        val commandButton = commandButton {
+            command {
+                title = resourceBundle.getString("Paste.text")
+                icon = Help_browser.of(16, 16)
+                extraText = resourceBundle.getString("Paste.textExtra")
+                popupCallback = PopupPanelCallback {
+                    val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
+                    val popupMenuCommand = commandPopupMenu {
+                        command {
+                            title = mf.format(arrayOf("1"))
+                            icon = Applications_games.of(16, 16)
+                            action = ActionListener {
+                                println("First!")
+                            }
+                        }
+                        command {
+                            title = mf.format(arrayOf("2"))
+                            icon = Applications_graphics.of(16, 16)
+                            action = ActionListener {
+                                println("Second!")
+                            }
+                        }
+                        command {
+                            title = mf.format(arrayOf("3"))
+                            icon = Applications_internet.of(16, 16)
+                            action = ActionListener {
+                                println("Third!")
+                            }
+                        }
+                        separator()
+                        command {
+                            title = mf.format(arrayOf("4"))
+                            icon = Applications_multimedia.of(16, 16)
+                            action = ActionListener {
+                                println("Fourth!")
+                            }
+                        }
+                        command {
+                            title = mf.format(arrayOf("5"))
+                            icon = Applications_office.of(16, 16)
+                            action = ActionListener {
+                                println("Fifth!")
+                            }
                         }
                     }
-                    command {
-                        title = mf.format(arrayOf("2"))
-                        icon = Applications_graphics.of(16, 16)
-                        action = ActionListener {
-                            println("Second!")
-                        }
-                    }
-                    command {
-                        title = mf.format(arrayOf("3"))
-                        icon = Applications_internet.of(16, 16)
-                        action = ActionListener {
-                            println("Third!")
-                        }
-                    }
-                    separator()
-                    command {
-                        title = mf.format(arrayOf("4"))
-                        icon = Applications_multimedia.of(16, 16)
-                        action = ActionListener {
-                            println("Fourth!")
-                        }
-                    }
-                    command {
-                        title = mf.format(arrayOf("5"))
-                        icon = Applications_office.of(16, 16)
-                        action = ActionListener {
-                            println("Fifth!")
-                        }
-                    }
+                    popupMenuCommand.asCommandPopupMenu()
                 }
-                popupMenuCommand.asCommandPopupMenu()
+            }
+            display {
+                state = CommandButtonDisplayState.TILE
+                isFlat = false
             }
         }
-        display {
-            state = CommandButtonDisplayState.TILE
-            isFlat = false
-        }
-    }
 
-    frame.add(commandButton.asButton())
+        frame.add(commandButton.asButton())
 
-    frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
-    frame.size = Dimension(250, 200)
-    frame.setLocationRelativeTo(null)
-    frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
+        frame.size = Dimension(250, 200)
+        frame.setLocationRelativeTo(null)
+        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
-    frame.isVisible = true
+        frame.isVisible = true
+    })
 }

@@ -28,6 +28,8 @@ import org.pushingpixels.flamingo.api.common.JCommandButtonStrip.StripOrientatio
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class TestButtonStripVertical extends JFrame {
     protected Locale currLocale;
@@ -104,7 +106,10 @@ public class TestButtonStripVertical extends JFrame {
     }
 
     public static void main(String[] args) throws Exception {
-        UIManager.setLookAndFeel(new NimbusLookAndFeel());
-        SwingUtilities.invokeLater(() -> new TestButtonStripVertical().setVisible(true));
+        SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            new TestButtonStripVertical().setVisible(true);
+        });
     }
 }

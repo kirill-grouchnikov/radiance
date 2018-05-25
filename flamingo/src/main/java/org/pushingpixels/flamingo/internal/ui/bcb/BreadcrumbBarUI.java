@@ -32,9 +32,9 @@
  */
 package org.pushingpixels.flamingo.internal.ui.bcb;
 
-import javax.swing.plaf.ComponentUI;
-
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
+
+import javax.swing.plaf.ComponentUI;
 
 /**
  * UI for breadcrumb bar ({@link JBreadcrumbBar}).

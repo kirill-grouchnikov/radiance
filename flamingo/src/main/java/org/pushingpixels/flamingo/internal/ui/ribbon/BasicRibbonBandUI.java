@@ -1,77 +1,35 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import java.awt.AWTEvent;
-import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.event.AWTEventListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseWheelEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.LookAndFeel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
-
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
-import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
@@ -79,19 +37,29 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
-import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.flamingo.internal.utils.RenderingUtils;
+import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonBandBorder;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
+import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.List;
+
 /**
  * Basic UI for ribbon band {@link JRibbonBand}.
- * 
+ *
  * @author Kirill Grouchnikov
  * @author Matt Nathan
  */
-public class BasicRibbonBandUI extends RibbonBandUI {
+public abstract class BasicRibbonBandUI extends RibbonBandUI {
     /**
      * The associated ribbon band.
      */
@@ -129,7 +97,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
     /**
      * Popup panel that shows the contents of the ribbon band when it is in a collapsed state.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     protected static class CollapsedButtonPopupPanel extends JPopupPanel {
@@ -140,11 +108,9 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
         /**
          * Creates popup gallery with the specified component.
-         * 
-         * @param component
-         *            The main component of the popup gallery.
-         * @param originalSize
-         *            The original dimension of the main component.
+         *
+         * @param component    The main component of the popup gallery.
+         * @param originalSize The original dimension of the main component.
          */
         public CollapsedButtonPopupPanel(Component component, Dimension originalSize) {
             this.component = component;
@@ -157,7 +123,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
         /**
          * Removes the main component of <code>this</code> popup gallery.
-         * 
+         *
          * @return The removed main component.
          */
         public Component removeComponent() {
@@ -167,7 +133,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
         /**
          * Returns the main component of <code>this</code> popup gallery.
-         * 
+         *
          * @return The main component.
          */
         public Component getComponent() {
@@ -177,16 +143,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
     /*
      * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
-    public static ComponentUI createUI(JComponent c) {
-        return new BasicRibbonBandUI();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
      */
     @Override
@@ -207,7 +164,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
      */
     @Override
@@ -227,17 +184,15 @@ public class BasicRibbonBandUI extends RibbonBandUI {
     protected void installDefaults() {
         Color bg = this.ribbonBand.getBackground();
         if (bg == null || bg instanceof UIResource) {
-            this.ribbonBand.setBackground(FlamingoUtilities.getColor(Color.lightGray,
-                    "RibbonBand.background", "Panel.background"));
+            this.ribbonBand.setBackground(new ColorUIResource(
+                    SubstanceCortex.ComponentScope.getCurrentSkin(this.ribbonBand).
+                            getActiveColorScheme(SubstanceSlices.DecorationAreaType.NONE).
+                            getBackgroundFillColor()));
         }
 
         Border b = this.ribbonBand.getBorder();
         if (b == null || b instanceof UIResource) {
-            Border toSet = UIManager.getBorder("RibbonBand.border");
-            if (toSet == null)
-                toSet = new BorderUIResource(new RoundBorder(FlamingoUtilities.getBorderColor(),
-                        new Insets(2, 2, 2, 2)));
-            this.ribbonBand.setBorder(toSet);
+            this.ribbonBand.setBorder(new SubstanceRibbonBandBorder());
         }
     }
 
@@ -260,23 +215,12 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
     /**
      * Creates the expand button for the associated ribbon band.
-     * 
+     *
      * @return Expand button for the associated ribbon band.
      */
-    protected JCommandButton createExpandButton() {
-        ResizableIcon icon = FlamingoUtilities.getRibbonBandExpandIcon(this.ribbonBand);
-        JCommandButton result = new JCommandButton(null, icon);
-        result.setFlat(true);
-        result.putClientProperty(BasicCommandButtonUI.EMULATE_SQUARE_BUTTON, Boolean.TRUE);
-        result.setBorder(new EmptyBorder(3, 2, 3, 2));
-        result.setActionKeyTip(this.ribbonBand.getExpandButtonKeyTip());
-        result.setActionRichTooltip(this.ribbonBand.getExpandButtonRichTooltip());
-        return result;
-    }
+    protected abstract JCommandButton createExpandButton();
 
-    protected void syncExpandButtonIcon() {
-        this.expandButton.setIcon(FlamingoUtilities.getRibbonBandExpandIcon(this.ribbonBand));
-    }
+    protected abstract void syncExpandButtonIcon();
 
     /**
      * Installs listeners on the associated ribbon band.
@@ -367,7 +311,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
             CollapsedButtonPopupPanel popupPanel = (collapsedButton.getPopupCallback() == null)
                     ? null
                     : (CollapsedButtonPopupPanel) collapsedButton.getPopupCallback()
-                            .getPopupPanel(collapsedButton);
+                    .getPopupPanel(collapsedButton);
             if (popupPanel != null) {
                 AbstractRibbonBand bandFromPopup = (AbstractRibbonBand) popupPanel
                         .removeComponent();
@@ -411,7 +355,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
     /**
      * Invoked by <code>installUI</code> to create a layout manager object to manage the
      * {@link JCommandButtonStrip}.
-     * 
+     *
      * @return a layout manager object
      */
     protected LayoutManager createLayoutManager() {
@@ -420,14 +364,14 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
     /**
      * Layout for the ribbon band.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class RibbonBandLayout implements LayoutManager {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
          */
         public void addLayoutComponent(String name, Component c) {
@@ -435,7 +379,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
          */
         public void removeLayoutComponent(Component c) {
@@ -443,7 +387,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
          */
         public Dimension preferredLayoutSize(Container c) {
@@ -469,7 +413,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
          */
         public Dimension minimumLayoutSize(Container c) {
@@ -494,7 +438,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
          */
         public void layoutContainer(Container c) {
@@ -525,8 +469,8 @@ public class BasicRibbonBandUI extends RibbonBandUI {
                                     + largest.getPreferredWidth(availableHeight, gap),
                             ins.top + ins.bottom
                                     + Math.max(c.getHeight(),
-                                            ribbonBand.getControlPanel().getPreferredSize().height
-                                                    + getBandTitleHeight()));
+                                    ribbonBand.getControlPanel().getPreferredSize().height
+                                            + getBandTitleHeight()));
                     collapsedButton.setPopupCallback(
                             (JCommandButton commandButton) -> new CollapsedButtonPopupPanel(
                                     popupBand, size));
@@ -545,7 +489,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
                 // control panel
                 CollapsedButtonPopupPanel popupPanel = (collapsedButton.getPopupCallback() != null)
                         ? (CollapsedButtonPopupPanel) collapsedButton.getPopupCallback()
-                                .getPopupPanel(collapsedButton)
+                        .getPopupPanel(collapsedButton)
                         : null;
                 if (popupPanel != null) {
                     AbstractRibbonBand bandFromPopup = (AbstractRibbonBand) popupPanel
@@ -636,7 +580,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
                 AbstractRibbonBand band = (component instanceof AbstractRibbonBand)
                         ? ((AbstractRibbonBand) component)
                         : (AbstractRibbonBand) SwingUtilities
-                                .getAncestorOfClass(AbstractRibbonBand.class, component);
+                        .getAncestorOfClass(AbstractRibbonBand.class, component);
                 setHoveredBand(band);
             }
 
@@ -680,20 +624,7 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
     /*
      * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
-     */
-    @Override
-    public void update(Graphics g, JComponent c) {
-        Graphics2D g2d = (Graphics2D) g.create();
-        RenderingUtils.installDesktopHints(g2d);
-        super.update(g2d, c);
-        g2d.dispose();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics, javax.swing.JComponent)
      */
     @Override
@@ -733,149 +664,38 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 
     /**
      * Paints band title pane.
-     * 
-     * @param g
-     *            Graphics context.
-     * @param titleRectangle
-     *            Rectangle for the title pane.
-     * @param title
-     *            Title string.
+     *
+     * @param g              Graphics context.
+     * @param titleRectangle Rectangle for the title pane.
+     * @param title          Title string.
      */
-    protected void paintBandTitle(Graphics g, Rectangle titleRectangle, String title) {
-        // fix for issue 10 - empty ribbon band
-        if (titleRectangle.width <= 0)
-            return;
-
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setFont(FlamingoUtilities.getFont(this.ribbonBand, "Ribbon.font", "Button.font",
-                "Panel.font"));
-
-        FontMetrics fm = graphics.getFontMetrics();
-        int y = titleRectangle.y - 2 + (titleRectangle.height + fm.getAscent()) / 2;
-
-        int currLength = (int) fm.getStringBounds(title, g).getWidth();
-        String titleToPaint = title;
-        while (currLength > titleRectangle.width) {
-            title = title.substring(0, title.length() - 1);
-            titleToPaint = title + "...";
-            currLength = (int) fm.getStringBounds(titleToPaint, g).getWidth();
-        }
-
-        int x = titleRectangle.x + (titleRectangle.width - currLength) / 2;
-        graphics.setColor(this.ribbonBand.getForeground());
-        graphics.drawString(titleToPaint, x, y);
-        graphics.dispose();
-    }
+    protected abstract void paintBandTitle(Graphics g, Rectangle titleRectangle, String title);
 
     /**
      * Paints band title pane.
-     * 
-     * @param g
-     *            Graphics context.
-     * @param titleRectangle
-     *            Rectangle for the title pane.
-     * @param title
-     *            Title string.
+     *
+     * @param g              Graphics context.
+     * @param titleRectangle Rectangle for the title pane.
+     * @param title          Title string.
      */
-    protected void paintBandTitleBackground(Graphics g, Rectangle titleRectangle, String title) {
-
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setComposite(AlphaComposite.SrcOver.derive(0.7f + 0.3f * this.rolloverAmount));
-
-        FlamingoUtilities.renderSurface(g2d, this.ribbonBand, titleRectangle,
-                this.rolloverAmount > 0.0f, true, false);
-
-        g2d.dispose();
-    }
-
-    public void setRolloverAmount(float rolloverAmount) {
-        this.rolloverAmount = rolloverAmount;
-    }
+    protected abstract void paintBandTitleBackground(Graphics g, Rectangle titleRectangle, String title);
 
     /**
      * Paints band background.
-     * 
-     * @param graphics
-     *            Graphics context.
-     * @param toFill
-     *            Rectangle for the background.
+     *
+     * @param graphics Graphics context.
+     * @param toFill   Rectangle for the background.
      */
-    protected void paintBandBackground(Graphics graphics, Rectangle toFill) {
-        graphics.setColor(ribbonBand.getBackground());
-        graphics.fillRect(toFill.x, toFill.y, toFill.width, toFill.height);
-    }
+    protected abstract void paintBandBackground(Graphics graphics, Rectangle toFill);
 
     @Override
     public float getRolloverAmount() {
         return this.rolloverAmount;
     }
 
-    /**
-     * Returns the height of the ribbon band title area.
-     * 
-     * @return The height of the ribbon band title area.
-     */
-    @Override
-    public int getBandTitleHeight() {
-        Font font = FlamingoUtilities.getFont(this.ribbonBand, "Ribbon.font", "Button.font",
-                "Panel.font");
-        if (font == null) {
-            // Nimbus - is that you?
-            font = new JLabel().getFont();
-        }
-        int result = font.getSize() + 5;
-        if (result % 2 == 0)
-            result++;
-        return result;
-    }
-
-    /**
-     * Round border for the ribbon bands.
-     * 
-     * @author Kirill Grouchnikov
-     */
-    protected static class RoundBorder implements Border {
-        /**
-         * Border color.
-         */
-        protected Color color;
-
-        /**
-         * Border insets.
-         */
-        protected Insets insets;
-
-        /**
-         * Creates the new border.
-         * 
-         * @param color
-         *            Border color.
-         * @param insets
-         *            Border insets.
-         */
-        public RoundBorder(Color color, Insets insets) {
-            this.color = color;
-            this.insets = insets;
-        }
-
-        @Override
-        public Insets getBorderInsets(Component c) {
-            return this.insets;
-        }
-
-        @Override
-        public boolean isBorderOpaque() {
-            return false;
-        }
-
-        @Override
-        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-            Graphics2D g2d = (Graphics2D) g.create();
-            g2d.setColor(this.color);
-            g2d.drawRoundRect(x, y, width - 1, height - 1, 3, 3);
-            g2d.dispose();
-        }
-
+    // This is needed for running the rollover animation tracked by rolloverTimeline.
+    public void setRolloverAmount(float rolloverAmount) {
+        this.rolloverAmount = rolloverAmount;
     }
 
     @Override
@@ -894,14 +714,5 @@ public class BasicRibbonBandUI extends RibbonBandUI {
             this.rolloverTimeline.playReverse();
         }
         this.ribbonBand.repaint();
-    }
-
-    /**
-     * This method is for unit tests only and should not be called by the application code.
-     * 
-     * @return The expand button of the matching ribbon band.
-     */
-    public AbstractCommandButton getExpandButton() {
-        return this.expandButton;
     }
 }

@@ -29,13 +29,11 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import java.awt.Dimension;
-import java.awt.Point;
-
-import javax.swing.plaf.ComponentUI;
-
 import org.pushingpixels.flamingo.api.ribbon.JRibbonComponent;
 import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
+
+import javax.swing.plaf.ComponentUI;
+import java.awt.*;
 
 /**
  * UI for extended components ({@link JRibbonComponent}).

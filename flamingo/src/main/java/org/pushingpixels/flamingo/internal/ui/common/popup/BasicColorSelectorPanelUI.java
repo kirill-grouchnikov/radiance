@@ -29,42 +29,20 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.plaf.ComponentUI;
-
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Basic UI for color selector panel {@link JColorSelectorPanel}.
  * 
  * @author Kirill Grouchnikov
  */
-public class BasicColorSelectorPanelUI extends ColorSelectorPanelUI {
+public abstract class BasicColorSelectorPanelUI extends ColorSelectorPanelUI {
 	protected JColorSelectorPanel colorSelectorPanel;
 
 	protected JLabel captionLabel;
 
 	protected JPanel colorSelectorContainer;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
-	public static ComponentUI createUI(JComponent c) {
-		return new BasicColorSelectorPanelUI();
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -165,26 +143,18 @@ public class BasicColorSelectorPanelUI extends ColorSelectorPanelUI {
 		}
 	}
 
-	protected void paintBottomDivider(Graphics g, int x, int y, int width,
-			int height) {
-		g.setColor(FlamingoUtilities.getBorderColor());
-		g.drawLine(x, y + height - 1, x + width - 1, y + height - 1);
-	}
+	protected abstract void paintBottomDivider(Graphics g, int x, int y, int width,
+			int height);
 
-	protected void paintCaptionBackground(Graphics g, int x, int y, int width,
-			int height) {
-		FlamingoUtilities.renderSurface(g, this.colorSelectorPanel,
-				new Rectangle(x, y, width, height), false, true, true);
-	}
+	protected abstract void paintCaptionBackground(Graphics g, int x, int y, int width,
+			int height);
 
 	/**
 	 * Returns the layout gap for button panel components.
 	 * 
 	 * @return The layout gap for button panel components.
 	 */
-	protected int getLayoutGap() {
-		return 4;
-	}
+	protected abstract int getLayoutGap();
 
 	protected class PanelLayout implements LayoutManager {
 		@Override

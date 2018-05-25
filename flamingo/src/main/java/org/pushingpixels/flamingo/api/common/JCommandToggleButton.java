@@ -29,13 +29,11 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import javax.swing.JComponent;
-import javax.swing.UIManager;
-
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.ActionToggleButtonModel;
-import org.pushingpixels.flamingo.internal.ui.common.BasicCommandToggleButtonUI;
-import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
+import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandToggleButtonUI;
+
+import javax.swing.*;
 
 /**
  * Command button.
@@ -89,11 +87,7 @@ public class JCommandToggleButton extends AbstractCommandButton {
 	 */
 	@Override
 	public void updateUI() {
-		if (UIManager.get(getUIClassID()) != null) {
-			setUI((CommandButtonUI) UIManager.getUI(this));
-		} else {
-			setUI(BasicCommandToggleButtonUI.createUI(this));
-		}
+		setUI(SubstanceCommandToggleButtonUI.createUI(this));
 	}
 
 	/*

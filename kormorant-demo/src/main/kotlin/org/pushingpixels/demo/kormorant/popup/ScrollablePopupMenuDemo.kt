@@ -35,6 +35,8 @@ import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
+import org.pushingpixels.substance.api.SubstanceCortex
+import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.event.ActionListener
@@ -42,48 +44,53 @@ import java.awt.image.BufferedImage
 import java.text.MessageFormat
 import java.util.*
 import javax.swing.JFrame
+import javax.swing.SwingUtilities
 
 fun main(args: Array<String>) {
-    val resourceBundle = ResourceBundle
-            .getBundle("org.pushingpixels.demo.kormorant.resources.Resources", Locale.getDefault())
+    SwingUtilities.invokeLater({
+        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
-    val frame = JFrame("Test")
-    frame.layout = FlowLayout()
+        val resourceBundle = ResourceBundle
+                .getBundle("org.pushingpixels.demo.kormorant.resources.Resources", Locale.getDefault())
 
-    val commandButton = commandButton {
-        command {
-            title = resourceBundle.getString("Paste.text")
-            icon = Help_browser.of(16, 16)
-            extraText = resourceBundle.getString("Paste.textExtra")
-            popupCallback = PopupPanelCallback {
-                val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
-                val popupMenuCommand = commandPopupMenu {
-                    for (i in 0 until 20) {
-                        command {
-                            title = mf.format(arrayOf<Any>(i))
-                            icon = Text_x_generic.of(16, 16)
-                            action = ActionListener {
-                                println("Invoked action on '$i'")
+        val frame = JFrame("Test")
+        frame.layout = FlowLayout()
+
+        val commandButton = commandButton {
+            command {
+                title = resourceBundle.getString("Paste.text")
+                icon = Help_browser.of(16, 16)
+                extraText = resourceBundle.getString("Paste.textExtra")
+                popupCallback = PopupPanelCallback {
+                    val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
+                    val popupMenuCommand = commandPopupMenu {
+                        for (i in 0 until 20) {
+                            command {
+                                title = mf.format(arrayOf<Any>(i))
+                                icon = Text_x_generic.of(16, 16)
+                                action = ActionListener {
+                                    println("Invoked action on '$i'")
+                                }
                             }
                         }
+                        maxVisibleMenuButtons = 8
                     }
-                    maxVisibleMenuButtons = 8
+                    popupMenuCommand.asCommandPopupMenu()
                 }
-                popupMenuCommand.asCommandPopupMenu()
+            }
+            display {
+                state = CommandButtonDisplayState.TILE
+                isFlat = false
             }
         }
-        display {
-            state = CommandButtonDisplayState.TILE
-            isFlat = false
-        }
-    }
 
-    frame.add(commandButton.asButton())
+        frame.add(commandButton.asButton())
 
-    frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
-    frame.size = Dimension(250, 200)
-    frame.setLocationRelativeTo(null)
-    frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
+        frame.size = Dimension(250, 200)
+        frame.setLocationRelativeTo(null)
+        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
-    frame.isVisible = true
+        frame.isVisible = true
+    })
 }

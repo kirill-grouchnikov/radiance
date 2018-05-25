@@ -29,16 +29,13 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import java.awt.Component;
-
-import javax.swing.JComponent;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonStripUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonStripUI;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 
 /**
  * Button strip component. Provides visual appearance of a strip. The buttons in

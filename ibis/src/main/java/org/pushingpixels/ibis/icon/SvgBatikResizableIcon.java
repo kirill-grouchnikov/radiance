@@ -51,7 +51,7 @@ import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
  * SVG-based implementation of {@link ResizableIcon} based on Apache Batik
  * library.
  * 
- * @author Kirill Grouchnikov.
+ * @author Kirill Grouchnikov
  */
 public class SvgBatikResizableIcon extends SvgBatikIcon implements
 		ResizableIcon, AsynchronousLoading {

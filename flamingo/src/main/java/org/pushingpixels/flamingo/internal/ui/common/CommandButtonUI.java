@@ -29,12 +29,11 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import java.awt.Point;
-
-import javax.swing.plaf.ButtonUI;
-
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
+
+import javax.swing.plaf.ButtonUI;
+import java.awt.*;
 
 /**
  * UI for command button ({@link JCommandButton}).

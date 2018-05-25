@@ -32,10 +32,10 @@
  */
 package org.pushingpixels.flamingo.api.bcb;
 
+import org.pushingpixels.flamingo.api.common.StringValuePair;
+
 import java.io.InputStream;
 import java.util.List;
-
-import org.pushingpixels.flamingo.api.common.StringValuePair;
 
 /**
  * The application callback that can be set on {@link JBreadcrumbBar}.

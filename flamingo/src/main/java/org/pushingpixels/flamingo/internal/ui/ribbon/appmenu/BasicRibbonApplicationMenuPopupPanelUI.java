@@ -29,49 +29,32 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.util.List;
-
-import javax.swing.CellRendererPane;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
-import javax.swing.plaf.ComponentUI;
-
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.flamingo.api.common.JScrollablePanel;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicPopupPanelUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
+import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.List;
 
 /**
  * Basic UI for ribbon application menu button {@link JRibbonApplicationMenuButton}.
  * 
  * @author Kirill Grouchnikov
  */
-public class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupPanelUI {
+public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupPanelUI {
     protected JPanel panelLevel1;
 
     protected JScrollablePanel<JPanel> panelScrollerLevel2;
@@ -87,15 +70,6 @@ public class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupPanelUI {
             return new CommandButtonLayoutManagerMenuTileLevel1();
         }
     };
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
-    public static ComponentUI createUI(JComponent c) {
-        return new BasicRibbonApplicationMenuPopupPanelUI();
-    }
 
     /**
      * The associated application menu button.
@@ -302,9 +276,13 @@ public class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupPanelUI {
         this.footerPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING)) {
             @Override
             protected void paintComponent(Graphics g) {
-                FlamingoUtilities.renderSurface(g, footerPanel,
+                SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(null);
+                SubstanceColorScheme baseFillScheme = SubstanceColorSchemeUtilities.getColorScheme(null,
+                        ComponentState.ENABLED);
+                fillPainter.paintContourBackground(g, null,
+                        footerPanel.getWidth(), footerPanel.getHeight(),
                         new Rectangle(0, 0, footerPanel.getWidth(), footerPanel.getHeight()), false,
-                        false, false);
+                        baseFillScheme, true);
             }
         };
         if (ribbonAppMenu != null) {
@@ -317,50 +295,6 @@ public class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupPanelUI {
         }
 
         this.applicationMenuPopupPanel.add(this.footerPanel, BorderLayout.SOUTH);
-
-        this.applicationMenuPopupPanel.setBorder(new Border() {
-            @Override
-            public Insets getBorderInsets(Component c) {
-                return new Insets(20, 2, 2, 2);
-            }
-
-            @Override
-            public boolean isBorderOpaque() {
-                return true;
-            }
-
-            @Override
-            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-                g.setColor(FlamingoUtilities.getColor(Color.gray, "Label.disabledForeground"));
-                g.drawRect(x, y, width - 1, height - 1);
-                g.setColor(FlamingoUtilities.getColor(Color.gray, "Label.disabledForeground")
-                        .brighter().brighter());
-                g.drawRect(x + 1, y + 1, width - 3, height - 3);
-                FlamingoUtilities.renderSurface(g, applicationMenuPopupPanel,
-                        new Rectangle(x + 2, y + 2, width - 4, 24), false, false, false);
-
-                // draw the application menu button
-                JRibbonApplicationMenuButton button = applicationMenuPopupPanel.getAppMenuButton();
-                JRibbonApplicationMenuButton rendererButton = new JRibbonApplicationMenuButton(
-                        applicationMenuPopupPanel.getAppMenuButton().getRibbon());
-                rendererButton.setPopupKeyTip(button.getPopupKeyTip());
-                rendererButton.setIcon(button.getIcon());
-                rendererButton.getPopupModel().setRollover(false);
-                rendererButton.getPopupModel().setPressed(true);
-                rendererButton.getPopupModel().setArmed(true);
-                rendererButton.getPopupModel().setPopupShowing(true);
-
-                CellRendererPane buttonRendererPane = new CellRendererPane();
-                Point buttonLoc = button.getLocationOnScreen();
-                Point panelLoc = c.getLocationOnScreen();
-
-                buttonRendererPane.setBounds(panelLoc.x - buttonLoc.x, panelLoc.y - buttonLoc.y,
-                        button.getWidth(), button.getHeight());
-                buttonRendererPane.paintComponent(g, rendererButton, (Container) c,
-                        -panelLoc.x + buttonLoc.x, -panelLoc.y + buttonLoc.y, button.getWidth(),
-                        button.getHeight(), true);
-            }
-        });
     }
 
     protected JPanel createMainPanel() {

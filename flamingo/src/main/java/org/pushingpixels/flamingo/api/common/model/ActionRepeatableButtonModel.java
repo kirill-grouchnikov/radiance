@@ -29,16 +29,13 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import java.awt.AWTEvent;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
-
-import javax.swing.DefaultButtonModel;
-import javax.swing.Timer;
-
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 
 /**
  * Extension of the default button model that supports the

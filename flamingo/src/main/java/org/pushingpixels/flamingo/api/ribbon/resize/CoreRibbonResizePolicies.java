@@ -29,14 +29,6 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.resize;
 
-import java.awt.Insets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.JComponent;
-
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand;
@@ -46,6 +38,13 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JBandControlPanel;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JFlowBandControlPanel;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonGallery;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The core resize policies. Provides a number of built in resize policies that

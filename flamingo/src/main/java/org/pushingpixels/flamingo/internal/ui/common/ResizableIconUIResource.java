@@ -29,13 +29,10 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 
 import javax.swing.plaf.UIResource;
-
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import java.awt.*;
 
 public class ResizableIconUIResource implements ResizableIcon, UIResource {
     private ResizableIcon delegate;

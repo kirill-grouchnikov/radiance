@@ -30,6 +30,8 @@ import org.pushingpixels.ibis.icon.SvgBatikResizableIcon;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class TestCommandButtonsSizing extends JPanel {
     private static interface Creator {
@@ -143,6 +145,8 @@ public class TestCommandButtonsSizing extends JPanel {
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
             JFrame frame = new JFrame("Testing command button fonts");
             frame.setSize(800, 600);
             frame.add(new TestCommandButtonsSizing());

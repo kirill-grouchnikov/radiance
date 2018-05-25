@@ -29,19 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import java.awt.event.ActionListener;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.SwingConstants;
-
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.flamingo.api.common.StringValuePair;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
@@ -49,6 +37,12 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.CommandButtonLayoutManagerB
 import org.pushingpixels.flamingo.internal.ui.ribbon.CommandButtonLayoutManagerBigFixedLandscape;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JBandControlPanel;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonGallery;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Ribbon band component. Can host three types of content:

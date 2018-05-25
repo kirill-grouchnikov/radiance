@@ -29,20 +29,17 @@
  */
 package org.pushingpixels.flamingo.api.bcb.core;
 
-import java.awt.Component;
-import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.swing.Icon;
-import javax.swing.JLabel;
-import javax.swing.JTree;
-import javax.swing.tree.TreeModel;
-
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarCallBack;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
+
+import javax.swing.*;
+import javax.swing.tree.TreeModel;
+import java.awt.*;
+import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Breadcrumb bar that allows wrapping an existing {@link JTree} or a

@@ -29,23 +29,14 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import java.awt.Event;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
-import javax.swing.JLayeredPane;
-import javax.swing.JRootPane;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.plaf.RootPaneUI;
-
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
+import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonRootPaneUI;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 /**
  * Root pane for the {@link JRibbonFrame}.
@@ -79,13 +70,11 @@ public class JRibbonRootPane extends JRootPane {
 
 	@Override
 	public void updateUI() {
-		setUI((RootPaneUI) UIManager.getUI(this));
+		setUI(SubstanceRibbonRootPaneUI.createUI(this));
 	}
 
 	@Override
 	public String getUIClassID() {
-		if (UIManager.get(uiClassID) != null)
-			return uiClassID;
-		return "RootPaneUI";
+		return uiClassID;
 	}
 }

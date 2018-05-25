@@ -38,85 +38,92 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
 import org.pushingpixels.kormorant.commandToggleGroup
+import org.pushingpixels.substance.api.SubstanceCortex
+import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.event.ActionListener
 import java.awt.image.BufferedImage
 import javax.swing.JFrame
+import javax.swing.SwingUtilities
 import javax.swing.text.StyleConstants
 
 fun main(args: Array<String>) {
-    val frame = JFrame("Test")
-    frame.layout = FlowLayout()
+    SwingUtilities.invokeLater({
+        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
-    var currentAlignment = StyleConstants.ALIGN_LEFT
+        val frame = JFrame("Test")
+        frame.layout = FlowLayout()
 
-    val singleChoice = commandButton {
-        command {
-            title = "single"
-            popupCallback = PopupPanelCallback {
-                val menuToggleGroup = commandToggleGroup()
+        var currentAlignment = StyleConstants.ALIGN_LEFT
 
-                commandPopupMenu {
-                    command {
-                        title = "left"
-                        icon = Format_justify_left.of(16, 16)
-                        action = ActionListener {
-                            println("Justify left")
-                            currentAlignment = StyleConstants.ALIGN_LEFT
+        val singleChoice = commandButton {
+            command {
+                title = "single"
+                popupCallback = PopupPanelCallback {
+                    val menuToggleGroup = commandToggleGroup()
+
+                    commandPopupMenu {
+                        command {
+                            title = "left"
+                            icon = Format_justify_left.of(16, 16)
+                            action = ActionListener {
+                                println("Justify left")
+                                currentAlignment = StyleConstants.ALIGN_LEFT
+                            }
+                            isToggle = true
+                            isToggleSelected = currentAlignment == StyleConstants.ALIGN_LEFT
+                            toggleGroup = menuToggleGroup
                         }
-                        isToggle = true
-                        isToggleSelected = currentAlignment == StyleConstants.ALIGN_LEFT
-                        toggleGroup = menuToggleGroup
-                    }
-                    command {
-                        title = "center"
-                        icon = Format_justify_center.of(16, 16)
-                        action = ActionListener {
-                            println("Justify center")
-                            currentAlignment = StyleConstants.ALIGN_CENTER
+                        command {
+                            title = "center"
+                            icon = Format_justify_center.of(16, 16)
+                            action = ActionListener {
+                                println("Justify center")
+                                currentAlignment = StyleConstants.ALIGN_CENTER
+                            }
+                            isToggle = true
+                            isToggleSelected = currentAlignment == StyleConstants.ALIGN_CENTER
+                            toggleGroup = menuToggleGroup
                         }
-                        isToggle = true
-                        isToggleSelected = currentAlignment == StyleConstants.ALIGN_CENTER
-                        toggleGroup = menuToggleGroup
-                    }
-                    command {
-                        title = "right"
-                        icon = Format_justify_right.of(16, 16)
-                        action = ActionListener {
-                            println("Justify right")
-                            currentAlignment = StyleConstants.ALIGN_RIGHT
+                        command {
+                            title = "right"
+                            icon = Format_justify_right.of(16, 16)
+                            action = ActionListener {
+                                println("Justify right")
+                                currentAlignment = StyleConstants.ALIGN_RIGHT
+                            }
+                            isToggle = true
+                            isToggleSelected = currentAlignment == StyleConstants.ALIGN_RIGHT
+                            toggleGroup = menuToggleGroup
                         }
-                        isToggle = true
-                        isToggleSelected = currentAlignment == StyleConstants.ALIGN_RIGHT
-                        toggleGroup = menuToggleGroup
-                    }
-                    command {
-                        title = "fill"
-                        icon = Format_justify_fill.of(16, 16)
-                        action = ActionListener {
-                            println("Justify fill")
-                            currentAlignment = StyleConstants.ALIGN_JUSTIFIED
+                        command {
+                            title = "fill"
+                            icon = Format_justify_fill.of(16, 16)
+                            action = ActionListener {
+                                println("Justify fill")
+                                currentAlignment = StyleConstants.ALIGN_JUSTIFIED
+                            }
+                            isToggle = true
+                            isToggleSelected = currentAlignment == StyleConstants.ALIGN_JUSTIFIED
+                            toggleGroup = menuToggleGroup
                         }
-                        isToggle = true
-                        isToggleSelected = currentAlignment == StyleConstants.ALIGN_JUSTIFIED
-                        toggleGroup = menuToggleGroup
-                    }
-                }.asCommandPopupMenu()
+                    }.asCommandPopupMenu()
+                }
+            }
+            display {
+                isFlat = false
+                state = CommandButtonDisplayState.MEDIUM
             }
         }
-        display {
-            isFlat = false
-            state = CommandButtonDisplayState.MEDIUM
-        }
-    }
 
-    frame.add(singleChoice.asButton())
+        frame.add(singleChoice.asButton())
 
-    frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
-    frame.size = Dimension(250, 200)
-    frame.setLocationRelativeTo(null)
-    frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
+        frame.size = Dimension(250, 200)
+        frame.setLocationRelativeTo(null)
+        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
-    frame.isVisible = true
+        frame.isVisible = true
+    })
 }

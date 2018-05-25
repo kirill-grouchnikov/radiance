@@ -29,20 +29,14 @@
  */
 package org.pushingpixels.flamingo.api.common.popup;
 
-import java.awt.Component;
-import java.awt.event.ComponentEvent;
-import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.JComponent;
-import javax.swing.Popup;
-import javax.swing.event.EventListenerList;
-
 import org.pushingpixels.flamingo.api.common.JCommandButton;
+
+import javax.swing.*;
+import javax.swing.event.EventListenerList;
+import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.util.*;
+import java.util.List;
 
 /**
  * Manager for showing and hiding {@link JPopupPanel}s.

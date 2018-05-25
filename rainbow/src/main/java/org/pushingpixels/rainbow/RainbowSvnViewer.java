@@ -39,7 +39,6 @@ import org.pushingpixels.spoonbill.svn.BreadcrumbMultiSvnSelector;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
-import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
 /**
  * SVG viewer application.
@@ -75,7 +74,6 @@ public class RainbowSvnViewer extends RainbowViewer {
     public static void main(String... args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SubstanceCortex.GlobalScope.setTimelineDuration(1000);
-        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
         SubstanceCortex.GlobalScope.allowAnimations(AnimationFacet.GHOSTING_ICON_ROLLOVER);
 
         SwingUtilities.invokeLater(() -> {

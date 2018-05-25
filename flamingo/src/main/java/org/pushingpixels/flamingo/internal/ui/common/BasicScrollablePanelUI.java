@@ -29,38 +29,23 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.plaf.ComponentUI;
-
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel.ScrollType;
 import org.pushingpixels.flamingo.internal.utils.DoubleArrowResizableIcon;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * Basic UI for scrollable panel {@link JScrollablePanel}.
  * 
  * @author Kirill Grouchnikov
  */
-public class BasicScrollablePanelUI extends ScrollablePanelUI {
+public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
     /**
      * The associated scrollable panel.
      */
@@ -79,15 +64,6 @@ public class BasicScrollablePanelUI extends ScrollablePanelUI {
     private PropertyChangeListener propertyChangeListener;
 
     private ComponentListener componentListener;
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
-    public static ComponentUI createUI(JComponent c) {
-        return new BasicScrollablePanelUI();
-    }
 
     /*
      * (non-Javadoc)

@@ -29,16 +29,10 @@
  */
 package org.pushingpixels.demo.flamingo.ribbon;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
-import org.pushingpixels.flamingo.internal.utils.RenderingUtils;
+import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
+
+import java.awt.*;
 
 public class NumberedResizableIcon implements ResizableIcon {
 	private int currWidth;
@@ -88,7 +82,7 @@ public class NumberedResizableIcon implements ResizableIcon {
 		Graphics2D graphics = (Graphics2D) g.create();
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-		RenderingUtils.installDesktopHints(graphics);
+		RenderingUtils.installDesktopHints(graphics, c);
 
 		graphics.setColor(new Color(40, 70, 20));
 		graphics.setFont(new Font("Tahoma", Font.BOLD, 14));

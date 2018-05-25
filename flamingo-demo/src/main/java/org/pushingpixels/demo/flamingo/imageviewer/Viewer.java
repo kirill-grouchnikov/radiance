@@ -23,6 +23,8 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class Viewer extends JFrame {
     private BreadcrumbFileSelector bar;
@@ -144,10 +146,15 @@ public class Viewer extends JFrame {
      *            Ignored.
      */
     public static void main(String... args) {
-        Viewer test = new Viewer();
-        test.setSize(400, 400);
-        test.setLocationRelativeTo(null);
-        test.setVisible(true);
-        test.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+
+            Viewer test = new Viewer();
+            test.setSize(400, 400);
+            test.setLocationRelativeTo(null);
+            test.setVisible(true);
+            test.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        });
     }
 }

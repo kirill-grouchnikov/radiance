@@ -32,16 +32,23 @@
  */
 package org.pushingpixels.flamingo.internal.ui.bcb;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Insets;
-import java.awt.LayoutManager;
+import org.pushingpixels.flamingo.api.bcb.*;
+import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
+import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
+import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
+import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.internal.ui.common.JCircularProgress;
+import org.pushingpixels.substance.api.SubstanceCortex;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -51,37 +58,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.swing.Icon;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-import javax.swing.Timer;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
-
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarModel;
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent;
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathListener;
-import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.flamingo.api.common.JScrollablePanel;
-import org.pushingpixels.flamingo.api.common.StringValuePair;
-import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
-import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
-import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
-import org.pushingpixels.flamingo.internal.ui.common.JCircularProgress;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-
 /**
  * Basic UI for breadcrumb bar ({@link JBreadcrumbBar}).
  * 
@@ -89,7 +65,7 @@ import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
  * @author Kirill Grouchnikov
  * @author Pawel Hajda
  */
-public class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
+public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     /**
      * The associated breadcrumb bar.
      */
@@ -119,15 +95,6 @@ public class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     private Timer loadingTimer;
 
     private boolean isShowingProgress;
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
-    public static ComponentUI createUI(JComponent c) {
-        return new BasicBreadcrumbBarUI();
-    }
 
     /*
      * (non-Javadoc)
@@ -195,9 +162,8 @@ public class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     protected void installDefaults(JBreadcrumbBar bar) {
         Font currFont = bar.getFont();
         if ((currFont == null) || (currFont instanceof UIResource)) {
-            Font font = FlamingoUtilities.getFont(null, "BreadcrumbBar.font", "Button.font",
-                    "Panel.font");
-            bar.setFont(font);
+            bar.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(
+                    "Substance", null).getControlFont());
         }
     }
 

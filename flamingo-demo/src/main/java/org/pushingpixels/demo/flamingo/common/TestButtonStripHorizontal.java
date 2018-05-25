@@ -28,6 +28,8 @@ import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class TestButtonStripHorizontal extends JFrame {
     protected Locale currLocale;
@@ -101,8 +103,11 @@ public class TestButtonStripHorizontal extends JFrame {
         return buttonStrip2;
     }
 
-    public static void main(String[] args) throws Exception {
-        UIManager.setLookAndFeel(new NimbusLookAndFeel());
-        SwingUtilities.invokeLater(() -> new TestButtonStripHorizontal().setVisible(true));
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            new TestButtonStripHorizontal().setVisible(true);
+        });
     }
 }

@@ -29,27 +29,18 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.Transparency;
+import org.pushingpixels.flamingo.api.common.AsynchronousLoadListener;
+import org.pushingpixels.flamingo.api.common.AsynchronousLoading;
+import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.event.EventListenerList;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.SwingWorker;
-import javax.swing.event.EventListenerList;
-
-import org.pushingpixels.flamingo.api.common.AsynchronousLoadListener;
-import org.pushingpixels.flamingo.api.common.AsynchronousLoading;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 
 /**
  * Helper class to load images and expose them as icons of dynamic size.

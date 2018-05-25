@@ -29,14 +29,12 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import java.awt.AWTEvent;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
+import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
 
 import javax.swing.JToggleButton.ToggleButtonModel;
-
-import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 
 /**
  * Extension of the default toggle button model that supports the

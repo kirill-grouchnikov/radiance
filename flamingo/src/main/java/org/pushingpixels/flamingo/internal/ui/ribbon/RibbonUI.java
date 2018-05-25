@@ -29,13 +29,12 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import java.awt.Rectangle;
-import java.awt.event.MouseWheelEvent;
-
-import javax.swing.plaf.ComponentUI;
-
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
+
+import javax.swing.plaf.ComponentUI;
+import java.awt.*;
+import java.awt.event.MouseWheelEvent;
 
 /**
  * UI for ribbon ({@link JRibbon}).

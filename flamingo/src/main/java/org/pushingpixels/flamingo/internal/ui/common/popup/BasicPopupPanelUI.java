@@ -29,41 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
-import java.applet.Applet;
-import java.awt.AWTEvent;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Toolkit;
-import java.awt.Window;
-import java.awt.event.AWTEventListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.util.List;
-
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
-import javax.swing.JRootPane;
-import javax.swing.KeyStroke;
-import javax.swing.LookAndFeel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.plaf.ActionMapUIResource;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.ComponentInputMapUIResource;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
-import javax.swing.plaf.basic.ComboPopup;
-
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
@@ -73,26 +38,29 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
+import org.pushingpixels.substance.internal.utils.border.SubstancePopupMenuBorder;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.ActionMapUIResource;
+import javax.swing.plaf.ComponentInputMapUIResource;
+import javax.swing.plaf.UIResource;
+import javax.swing.plaf.basic.ComboPopup;
+import java.applet.Applet;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.List;
 
 /**
  * Basic UI for popup panel {@link JPopupPanel}.
  * 
  * @author Kirill Grouchnikov
  */
-public class BasicPopupPanelUI extends PopupPanelUI {
+public abstract class BasicPopupPanelUI extends PopupPanelUI {
 	/**
 	 * The associated popup panel.
 	 */
 	protected JPopupPanel popupPanel;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
-	public static ComponentUI createUI(JComponent c) {
-		return new BasicPopupPanelUI();
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -134,12 +102,7 @@ public class BasicPopupPanelUI extends PopupPanelUI {
 
 		Border b = this.popupPanel.getBorder();
 		if (b == null || b instanceof UIResource) {
-			Border toSet = UIManager.getBorder("PopupPanel.border");
-			if (toSet == null)
-				toSet = new BorderUIResource.CompoundBorderUIResource(
-						new LineBorder(FlamingoUtilities.getBorderColor()),
-						new EmptyBorder(1, 1, 1, 1));
-			this.popupPanel.setBorder(toSet);
+			this.popupPanel.setBorder(new SubstancePopupMenuBorder());
 		}
 		LookAndFeel.installProperty(this.popupPanel, "opaque", Boolean.TRUE);
 	}

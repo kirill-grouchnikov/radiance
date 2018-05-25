@@ -29,12 +29,8 @@
  */
 package org.pushingpixels.tools.substance.flamingo.docrobot;
 
+import javax.swing.*;
 import java.lang.reflect.Method;
-
-import javax.swing.JFrame;
-
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
 /**
  * The main method for taking screenshots for Substance documentation. Expects one parameter - fully
@@ -54,7 +50,6 @@ public class RobotMain {
      */
     public static void main(String[] args) throws Exception {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
 
         String mainClassName = args[0];
         Class<?> robotClass = Class.forName(mainClassName);

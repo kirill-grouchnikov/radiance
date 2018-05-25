@@ -37,86 +37,93 @@ import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
+import org.pushingpixels.substance.api.SubstanceCortex
+import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.event.ActionListener
 import java.awt.image.BufferedImage
 import java.util.*
 import javax.swing.JFrame
+import javax.swing.SwingUtilities
 
 fun main(args: Array<String>) {
-    val frame = JFrame("Test")
-    frame.layout = FlowLayout()
+    SwingUtilities.invokeLater({
+        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
-    var isBold = false
-    var isItalic = false
-    var isUnderline = false
-    var isStrikeThrough = false
+        val frame = JFrame("Test")
+        frame.layout = FlowLayout()
 
-    val resourceBundle = ResourceBundle
-            .getBundle("org.pushingpixels.demo.kormorant.resources.Resources", Locale.getDefault())
+        var isBold = false
+        var isItalic = false
+        var isUnderline = false
+        var isStrikeThrough = false
 
-    val singleChoice = commandButton {
-        command {
-            title = "multi"
-            popupCallback = PopupPanelCallback {
-                commandPopupMenu {
-                    command {
-                        title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
-                        icon = Format_text_bold.of(16, 16)
-                        action = ActionListener {
-                            println("Toggle bold")
-                            isBold = !isBold
+        val resourceBundle = ResourceBundle
+                .getBundle("org.pushingpixels.demo.kormorant.resources.Resources", Locale.getDefault())
+
+        val singleChoice = commandButton {
+            command {
+                title = "multi"
+                popupCallback = PopupPanelCallback {
+                    commandPopupMenu {
+                        command {
+                            title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
+                            icon = Format_text_bold.of(16, 16)
+                            action = ActionListener {
+                                println("Toggle bold")
+                                isBold = !isBold
+                            }
+                            isToggle = true
+                            isToggleSelected = isBold
                         }
-                        isToggle = true
-                        isToggleSelected = isBold
-                    }
-                    command {
-                        title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
-                        icon = Format_text_italic.of(16, 16)
-                        action = ActionListener {
-                            println("Toggle italic")
-                            isItalic = !isItalic
+                        command {
+                            title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
+                            icon = Format_text_italic.of(16, 16)
+                            action = ActionListener {
+                                println("Toggle italic")
+                                isItalic = !isItalic
+                            }
+                            isToggle = true
+                            isToggleSelected = isItalic
                         }
-                        isToggle = true
-                        isToggleSelected = isItalic
-                    }
-                    command {
-                        title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
-                        icon = Format_text_underline.of(16, 16)
-                        action = ActionListener {
-                            println("Toggle underline")
-                            isUnderline = !isUnderline
+                        command {
+                            title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
+                            icon = Format_text_underline.of(16, 16)
+                            action = ActionListener {
+                                println("Toggle underline")
+                                isUnderline = !isUnderline
+                            }
+                            isToggle = true
+                            isToggleSelected = isUnderline
                         }
-                        isToggle = true
-                        isToggleSelected = isUnderline
-                    }
-                    command {
-                        title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
-                        icon = Format_text_strikethrough.of(16, 16)
-                        action = ActionListener {
-                            println("Toggle strikethrough")
-                            isStrikeThrough = !isStrikeThrough
+                        command {
+                            title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
+                            icon = Format_text_strikethrough.of(16, 16)
+                            action = ActionListener {
+                                println("Toggle strikethrough")
+                                isStrikeThrough = !isStrikeThrough
+                            }
+                            isToggle = true
+                            isToggleSelected = isStrikeThrough
                         }
-                        isToggle = true
-                        isToggleSelected = isStrikeThrough
-                    }
-                    toDismissOnChildClick = false
-                }.asCommandPopupMenu()
+                        toDismissOnChildClick = false
+                    }.asCommandPopupMenu()
+                }
+            }
+            display {
+                isFlat = false
+                state = CommandButtonDisplayState.MEDIUM
             }
         }
-        display {
-            isFlat = false
-            state = CommandButtonDisplayState.MEDIUM
-        }
-    }
 
-    frame.add(singleChoice.asButton())
+        frame.add(singleChoice.asButton())
 
-    frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
-    frame.size = Dimension(250, 200)
-    frame.setLocationRelativeTo(null)
-    frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
+        frame.size = Dimension(250, 200)
+        frame.setLocationRelativeTo(null)
+        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
-    frame.isVisible = true
+        frame.isVisible = true
+    })
 }

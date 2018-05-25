@@ -42,6 +42,8 @@ import javax.swing.UIManager;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class TestCommandButtonsText extends TestCommandButtons {
     private class CounterActionListener implements ActionListener {
@@ -89,10 +91,8 @@ public class TestCommandButtonsText extends TestCommandButtons {
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(new MetalLookAndFeel());
-            } catch (Exception e) {
-            }
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
             TestCommandButtonsText frame = new TestCommandButtonsText();
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);

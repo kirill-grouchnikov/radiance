@@ -29,27 +29,17 @@
  */
 package org.pushingpixels.samples.substance.cookbook;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.LayoutManager2;
-
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.border.CompoundBorder;
-
-import org.pushingpixels.samples.substance.cookbook.panels.CategoryListPanel;
-import org.pushingpixels.samples.substance.cookbook.panels.LightsHolderPanel;
-import org.pushingpixels.samples.substance.cookbook.panels.RecipeListPanel;
-import org.pushingpixels.samples.substance.cookbook.panels.RecipePanel;
-import org.pushingpixels.samples.substance.cookbook.panels.SingleContentPanel;
+import org.pushingpixels.samples.substance.cookbook.panels.*;
 import org.pushingpixels.samples.substance.cookbook.skin.CookbookSkin;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
-import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
+
+import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import java.awt.*;
 
 public class CookbookFrame extends JFrame {
     public static final int TITLE_PANE_PREF_HEIGHT = 40;
@@ -170,7 +160,6 @@ public class CookbookFrame extends JFrame {
     public static void main(String[] args) throws Exception {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
             SubstanceCortex.GlobalScope.setSkin(new CookbookSkin());
             SubstanceCortex.GlobalScope.setFocusKind(FocusKind.NONE);
             SubstanceCortex.GlobalScope.configureTitleContentGravity(

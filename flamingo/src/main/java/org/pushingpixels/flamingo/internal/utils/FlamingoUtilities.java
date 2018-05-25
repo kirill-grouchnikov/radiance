@@ -29,34 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.utils;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Insets;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Transparency;
-import java.awt.geom.GeneralPath;
-import java.awt.image.BufferedImage;
-import java.util.List;
-
-import javax.swing.CellRendererPane;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.plaf.UIResource;
-
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
@@ -66,11 +38,17 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
-import org.pushingpixels.flamingo.internal.hidpi.JBHiDPIScaledImage;
-import org.pushingpixels.flamingo.internal.hidpi.UIUtil;
 import org.pushingpixels.flamingo.internal.ui.ribbon.AbstractBandControlPanel;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
+
+import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.List;
 
 /**
  * Helper utilities for Flamingo project. This class is for internal use only.
@@ -127,34 +105,6 @@ public class FlamingoUtilities {
     }
 
     /**
-     * Returns a ribbon band expand icon.
-     * 
-     * @return Ribbon band expand icon.
-     */
-    public static ResizableIcon getRibbonBandExpandIcon(AbstractRibbonBand ribbonBand) {
-        boolean ltr = ribbonBand.getComponentOrientation().isLeftToRight();
-        return new ArrowResizableIcon(9, ltr ? SwingConstants.EAST : SwingConstants.WEST);
-    }
-
-    /**
-     * Returns a popup action icon for the specific command button.
-     */
-    public static ResizableIcon getCommandButtonPopupActionIcon(JCommandButton commandButton) {
-        JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind = ((JCommandButton) commandButton)
-                .getPopupOrientationKind();
-        switch (popupOrientationKind) {
-            case DOWNWARD:
-                return new ArrowResizableIcon.CommandButtonPopupIcon(9, SwingConstants.SOUTH);
-            case SIDEWARD:
-                return new ArrowResizableIcon.CommandButtonPopupIcon(9,
-                        commandButton.getComponentOrientation().isLeftToRight()
-                                ? SwingConstants.EAST
-                                : SwingConstants.WEST);
-        }
-        return null;
-    }
-
-    /**
      * Creates a thumbnail of the specified width.
      * 
      * @param image
@@ -187,220 +137,6 @@ public class FlamingoUtilities {
         } while (width != requestedThumbWidth);
 
         return thumb;
-    }
-
-    /**
-     * Returns the outline of the ribbon border.
-     * 
-     * @param startX
-     *            The starting X of the ribbon area.
-     * @param endX
-     *            The ending X of the ribbon area.
-     * @param startSelectedX
-     *            The starting X of the toggle tab button of the selected task.
-     * @param endSelectedX
-     *            The ending X of the toggle tab button of the selected task.
-     * @param topY
-     *            The top Y of the ribbon area.
-     * @param bandTopY
-     *            The top Y of the ribbon band area.
-     * @param bottomY
-     *            The bottom Y of the ribbon area.
-     * @param radius
-     *            Corner radius.
-     * @return The outline of the ribbon border.
-     */
-    public static GeneralPath getRibbonBorderOutline(int startX, int endX, int startSelectedX,
-            int endSelectedX, int topY, int bandTopY, int bottomY, float radius) {
-        int height = bottomY - topY;
-        GeneralPath result = new GeneralPath();
-        float radius3 = (float) (radius / (1.5 * Math.pow(height, 0.5)));
-
-        // start in the top left corner at the end of the curve
-        result.moveTo(startX + radius, bandTopY);
-
-        // move to the bottom start of the selected tab and curve up
-        result.lineTo(startSelectedX - radius, bandTopY);
-        // result.quadTo(startSelectedX - radius3, bandTopY - radius3,
-        // startSelectedX, bandTopY - radius);
-
-        // move to the top start of the selected tab and curve right
-        // result.lineTo(startSelectedX, topY + radius);
-        // result.quadTo(startSelectedX + radius3, topY + radius3,
-        // startSelectedX
-        // + radius, topY);
-
-        // move to the top end of the selected tab and curve down
-        // result.lineTo(endSelectedX - radius - 1, topY);
-        // result.quadTo(endSelectedX + radius3 - 1, topY + radius3,
-        // endSelectedX - 1, topY + radius);
-
-        // move to the bottom end of the selected tab and curve right
-        // result.lineTo(endSelectedX - 1, bandTopY - radius);
-        // result.quadTo(endSelectedX + radius3 - 1, bandTopY - radius3,
-        // endSelectedX + radius - 1, bandTopY);
-        result.moveTo(endSelectedX + radius - 1, bandTopY);
-
-        // move to the top right corner and curve down
-        result.lineTo(endX - radius - 1, bandTopY);
-        result.quadTo(endX - radius3 - 1, bandTopY + radius3, endX - 1, bandTopY + radius);
-
-        // move to the bottom right corner and curve left
-        result.lineTo(endX - 1, bottomY - radius - 1);
-        result.quadTo(endX - radius3 - 1, bottomY - 1 - radius3, endX - radius - 1, bottomY - 1);
-
-        // move to the bottom left corner and curve up
-        result.lineTo(startX + radius, bottomY - 1);
-        result.quadTo(startX + radius3, bottomY - 1 - radius3, startX, bottomY - radius - 1);
-
-        // move to the top left corner and curve right
-        result.lineTo(startX, bandTopY + radius);
-        result.quadTo(startX + radius3, bandTopY + radius3, startX + radius, bandTopY);
-
-        return result;
-    }
-
-    /**
-     * Returns the clip area of a task toggle button in ribbon component.
-     * 
-     * @param width
-     *            Toggle tab button width.
-     * @param height
-     *            Toggle tab button height.
-     * @param radius
-     *            Toggle tab button corner radius.
-     * @return Clip area of a toggle tab button in ribbon component.
-     */
-    public static GeneralPath getRibbonTaskToggleButtonOutline(int width, int height,
-            float radius) {
-        GeneralPath result = new GeneralPath();
-        float radius3 = (float) (radius / (1.5 * Math.pow(height, 0.5)));
-
-        // start at the bottom left
-        result.moveTo(0, height);
-
-        // move to the top start and curve right
-        result.lineTo(0, radius);
-        result.quadTo(radius3, radius3, radius, 0);
-
-        // move to the top end and curve down
-        result.lineTo(width - radius - 1, 0);
-        result.quadTo(width + radius3 - 1, radius3, width - 1, radius);
-
-        // move to the bottom right end
-        result.lineTo(width - 1, height);
-
-        // move to the bottom left end
-        result.lineTo(0, height);
-
-        return result;
-    }
-
-    /**
-     * Returns the outline of in-ribbon gallery.
-     * 
-     * @param startX
-     *            Start X of the in-ribbon gallery.
-     * @param endX
-     *            End X of the in-ribbon gallery.
-     * @param topY
-     *            Top Y of the in-ribbon gallery.
-     * @param bottomY
-     *            Bottom Y of the in-ribbon gallery.
-     * @param radius
-     *            Corner radius.
-     * @return The outline of in-ribbon gallery.
-     */
-    public static GeneralPath getRibbonGalleryOutline(int startX, int endX, int topY, int bottomY,
-            float radius) {
-
-        int height = bottomY - topY;
-        GeneralPath result = new GeneralPath();
-        float radius3 = (float) (radius / (1.5 * Math.pow(height, 0.5)));
-
-        // start in the top left corner at the end of the curve
-        result.moveTo(startX + radius, topY);
-
-        // move to the top right corner and curve down
-        result.lineTo(endX - radius - 1, topY);
-        result.quadTo(endX - radius3 - 1, topY + radius3, endX - 1, topY + radius);
-
-        // move to the bottom right corner and curve left
-        result.lineTo(endX - 1, bottomY - radius - 1);
-        result.quadTo(endX - radius3 - 1, bottomY - 1 - radius3, endX - radius - 1, bottomY - 1);
-
-        // move to the bottom left corner and curve up
-        result.lineTo(startX + radius, bottomY - 1);
-        result.quadTo(startX + radius3, bottomY - 1 - radius3, startX, bottomY - radius - 1);
-
-        // move to the top left corner and curve right
-        result.lineTo(startX, topY + radius);
-        result.quadTo(startX + radius3, topY + radius3, startX + radius, topY);
-
-        return result;
-    }
-
-    /**
-     * Clips string based on specified font metrics and available width (in pixels). Returns the
-     * clipped string, which contains the beginning and the end of the input string separated by
-     * ellipses (...) in case the string is too long to fit into the specified width, and the
-     * origianl string otherwise.
-     * 
-     * @param metrics
-     *            Font metrics.
-     * @param availableWidth
-     *            Available width in pixels.
-     * @param fullText
-     *            String to clip.
-     * @return The clipped string, which contains the beginning and the end of the input string
-     *         separated by ellipses (...) in case the string is too long to fit into the specified
-     *         width, and the origianl string otherwise.
-     */
-    public static String clipString(FontMetrics metrics, int availableWidth, String fullText) {
-
-        if (metrics.stringWidth(fullText) <= availableWidth)
-            return fullText;
-
-        String ellipses = "...";
-        int ellipsesWidth = metrics.stringWidth(ellipses);
-        if (ellipsesWidth > availableWidth)
-            return "";
-
-        String starter = "";
-
-        int w = fullText.length();
-        String prevText = "";
-        for (int i = 0; i < w; i++) {
-            String newStarter = starter + fullText.charAt(i);
-            String newText = newStarter + ellipses;
-            if (metrics.stringWidth(newText) <= availableWidth) {
-                starter = newStarter;
-                prevText = newText;
-                continue;
-            }
-            return prevText;
-        }
-        return fullText;
-    }
-
-    /**
-     * Retrieves transparent image of specified dimension.
-     * 
-     * @param width
-     *            Image width.
-     * @param height
-     *            Image height.
-     * @return Transparent image of specified dimension.
-     */
-    public static BufferedImage getBlankImage(int width, int height) {
-        if (UIUtil.getScaleFactor() > 1.0) {
-            return new JBHiDPIScaledImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        } else {
-            GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            GraphicsDevice d = e.getDefaultScreenDevice();
-            GraphicsConfiguration c = d.getDefaultConfiguration();
-            return c.createCompatibleImage(width, height, Transparency.TRANSLUCENT);
-        }
     }
 
     /**
@@ -465,46 +201,6 @@ public class FlamingoUtilities {
         return null;
     }
 
-    public static void renderSurface(Graphics g, Container c, Rectangle rect,
-            boolean toSimulateRollover, boolean hasTopBorder, boolean hasBottomBorder) {
-        CellRendererPane buttonRendererPane = new CellRendererPane();
-        JButton rendererButton = new JButton("");
-        rendererButton.getModel().setRollover(toSimulateRollover);
-
-        buttonRendererPane.setBounds(rect.x, rect.y, rect.width, rect.height);
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.clipRect(rect.x, rect.y, rect.width, rect.height);
-        buttonRendererPane.paintComponent(g2d, rendererButton, c, rect.x - rect.width / 2,
-                rect.y - rect.height / 2, 2 * rect.width, 2 * rect.height, true);
-
-        g2d.setColor(FlamingoUtilities.getBorderColor());
-        if (hasTopBorder) {
-            g2d.drawLine(rect.x, rect.y, rect.x + rect.width - 1, rect.y);
-        }
-        if (hasBottomBorder) {
-            g2d.drawLine(rect.x, rect.y + rect.height - 1, rect.x + rect.width - 1,
-                    rect.y + rect.height - 1);
-        }
-        g2d.dispose();
-    }
-
-    /**
-     * Returns lighter version of the specified color.
-     * 
-     * @param color
-     *            Color.
-     * @param diff
-     *            Difference factor (values closer to 1.0 will produce results closer to white
-     *            color).
-     * @return Lighter version of the specified color.
-     */
-    public static Color getLighterColor(Color color, double diff) {
-        int r = color.getRed() + (int) (diff * (255 - color.getRed()));
-        int g = color.getGreen() + (int) (diff * (255 - color.getGreen()));
-        int b = color.getBlue() + (int) (diff * (255 - color.getBlue()));
-        return new Color(r, g, b);
-    }
-
     public static Color getBorderColor() {
         return FlamingoUtilities.getColor(Color.gray, "TextField.inactiveForeground",
                 "Button.disabledText", "ComboBox.disabledForeground");
@@ -521,21 +217,6 @@ public class FlamingoUtilities {
             if (originator instanceof JRibbonTaskToggleButton) {
                 return (ribbon == SwingUtilities.getAncestorOfClass(JRibbon.class, originator));
             }
-        }
-        return false;
-    }
-
-    public static boolean isShowingMinimizedRibbonInPopup(
-            JRibbonTaskToggleButton taskToggleButton) {
-        List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager()
-                .getShownPath();
-        if (popups.size() == 0)
-            return false;
-
-        for (PopupPanelManager.PopupInfo popup : popups) {
-            JComponent originator = popup.getPopupOriginator();
-            if (originator == taskToggleButton)
-                return true;
         }
         return false;
     }

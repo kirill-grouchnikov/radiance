@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
-import javax.swing.plaf.PanelUI;
-
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
+
+import javax.swing.plaf.PanelUI;
 
 /**
  * UI for popup panel ({@link JPopupPanel}).

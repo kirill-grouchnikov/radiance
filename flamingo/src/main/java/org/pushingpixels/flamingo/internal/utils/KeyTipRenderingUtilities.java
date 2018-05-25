@@ -29,32 +29,17 @@
  */
 package org.pushingpixels.flamingo.internal.utils;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.font.LineMetrics;
-import java.awt.geom.RoundRectangle2D;
-import java.util.Collection;
-
-import javax.swing.CellRendererPane;
-import javax.swing.JButton;
-import javax.swing.UIManager;
-
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.flamingo.internal.hidpi.UIUtil;
+import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.font.LineMetrics;
+import java.awt.geom.RoundRectangle2D;
+import java.util.Collection;
 
 public class KeyTipRenderingUtilities {
 	private static int INSETS = 3;

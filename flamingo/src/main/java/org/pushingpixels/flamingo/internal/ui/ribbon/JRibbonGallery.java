@@ -1,64 +1,52 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import java.beans.PropertyChangeEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
-
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.CommandToggleButtonGroup;
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
-import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
-import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
-import org.pushingpixels.flamingo.api.common.StringValuePair;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.RibbonGalleryPopupCallback;
 import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
+import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonGalleryUI;
+
+import javax.swing.*;
+import java.beans.PropertyChangeEvent;
+import java.util.*;
 
 /**
  * In-ribbon gallery. This class is for internal use only and should not be directly used by the
  * applications.
- * 
+ *
  * @author Kirill Grouchnikov
  * @see JRibbonBand#addRibbonGallery(String, List, Map, int, int, RibbonElementPriority)
  * @see JRibbonBand#addRibbonGallery(String, List, Map, int, int, CommandButtonDisplayState,
- *      RibbonElementPriority)
+ * RibbonElementPriority)
  */
 public class JRibbonGallery extends JComponent {
     /**
@@ -146,9 +134,8 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Sets the new UI delegate.
-     * 
-     * @param ui
-     *            New UI delegate.
+     *
+     * @param ui New UI delegate.
      */
     public void setUI(RibbonGalleryUI ui) {
         super.setUI(ui);
@@ -156,21 +143,17 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Resets the UI property to a value from the current look and feel.
-     * 
+     *
      * @see JComponent#updateUI
      */
     @Override
     public void updateUI() {
-        if (UIManager.get(getUIClassID()) != null) {
-            setUI((RibbonGalleryUI) UIManager.getUI(this));
-        } else {
-            setUI(new BasicRibbonGalleryUI());
-        }
+        setUI(SubstanceRibbonGalleryUI.createUI(this));
     }
 
     /**
      * Returns the UI object which implements the L&F for this component.
-     * 
+     *
      * @return a <code>RibbonGalleryUI</code> object
      * @see #setUI
      */
@@ -180,7 +163,7 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Returns the name of the UI class that implements the L&F for this component.
-     * 
+     *
      * @return the string "RibbonGalleryUI"
      * @see JComponent#getUIClassID
      * @see UIDefaults#getUI
@@ -192,11 +175,9 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Adds new gallery command to <code>this</code> in-ribbon gallery.
-     * 
-     * @param commandGroup
-     *            Command group.
-     * @param command
-     *            Command to add.
+     *
+     * @param commandGroup Command group.
+     * @param command      Command to add.
      */
     private void addGalleryCommand(StringValuePair<List<FlamingoCommand>> commandGroup,
             FlamingoCommand command) {
@@ -228,9 +209,8 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Removes an existing gallery command from <code>this</code> in-ribbon gallery.
-     * 
-     * @param command
-     *            Gallery command to remove.
+     *
+     * @param command Gallery command to remove.
      */
     private void removeGalleryCommand(FlamingoCommand command) {
         int index = this.commands.indexOf(command);
@@ -244,11 +224,9 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Set preferred width of <code>this</code> in-ribbon gallery for the specified display state.
-     * 
-     * @param state
-     *            Display state.
-     * @param visibleButtonCount
-     *            Preferred width for the specified state.
+     *
+     * @param state              Display state.
+     * @param visibleButtonCount Preferred width for the specified state.
      */
     public void setPreferredVisibleButtonCount(RibbonElementPriority state,
             int visibleButtonCount) {
@@ -258,13 +236,11 @@ public class JRibbonGallery extends JComponent {
     /**
      * Returns the preferred width of <code>this</code> in-ribbon gallery for the specified display
      * state.
-     * 
-     * @param state
-     *            Display state.
-     * @param availableHeight
-     *            Available height in pixels.
+     *
+     * @param state           Display state.
+     * @param availableHeight Available height in pixels.
      * @return The preferred width of <code>this</code> in-ribbon gallery for the specified display
-     *         state.
+     * state.
      */
     public int getPreferredWidth(RibbonElementPriority state, int availableHeight) {
         int preferredVisibleButtonCount = this.preferredVisibleIconCount.get(state);
@@ -275,9 +251,8 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Sets new display priority for <code>this</code> in-ribbon gallery.
-     * 
-     * @param displayPriority
-     *            New display priority for <code>this</code> in-ribbon gallery.
+     *
+     * @param displayPriority New display priority for <code>this</code> in-ribbon gallery.
      */
     public void setDisplayPriority(RibbonElementPriority displayPriority) {
         this.displayPriority = displayPriority;
@@ -285,7 +260,7 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Returns the current display priority for <code>this</code> in-ribbon gallery.
-     * 
+     *
      * @return The current display priority for <code>this</code> in-ribbon gallery.
      */
     public RibbonElementPriority getDisplayPriority() {
@@ -294,7 +269,7 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Returns the number of command groups in <code>this</code> in-ribbon gallery.
-     * 
+     *
      * @return The number of command groups in <code>this</code> in-ribbon gallery.
      */
     public int getCommandGroupCount() {
@@ -303,9 +278,8 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Returns the list of commands in the specified command group.
-     * 
-     * @param commandGroupName
-     *            Command group name.
+     *
+     * @param commandGroupName Command group name.
      * @return The list of commands in the specified command group.
      */
     public List<FlamingoCommand> getCommandGroup(String commandGroupName) {
@@ -318,7 +292,7 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Returns the number of gallery commands in <code>this</code> in-ribbon gallery.
-     * 
+     *
      * @return The number of gallery commands in <code>this</code> in-ribbon gallery.
      */
     public int getCommandCount() {
@@ -327,9 +301,8 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Returns the gallery command at specified index.
-     * 
-     * @param index
-     *            Gallery command index.
+     *
+     * @param index Gallery command index.
      * @return Gallery command at specified index.
      */
     public FlamingoCommand getCommandAt(int index) {
@@ -338,15 +311,14 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Returns the gallery button at specified index.
-     * 
-     * @param index
-     *            Gallery button index.
+     *
+     * @param index Gallery button index.
      * @return Gallery button at specified index.
      */
     public JCommandToggleButton getButtonAt(int index) {
         return this.buttons.get(index);
     }
-    
+
     public JCommandToggleButton getButtonForCommand(FlamingoCommand command) {
         int index = this.commands.indexOf(command);
         if (index < 0) {
@@ -357,7 +329,7 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Returns the currently selected gallery button.
-     * 
+     *
      * @return The currently selected gallery button.
      */
     public JCommandToggleButton getSelectedButton() {
@@ -366,7 +338,7 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Returns the currently selected gallery command.
-     * 
+     *
      * @return The currently selected gallery command.
      */
     public FlamingoCommand getSelectedCommand() {
@@ -380,9 +352,8 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Changes the selection to the specified button.
-     * 
-     * @param selectedButton
-     *            New value for the currently selected gallery button.
+     *
+     * @param selectedButton New value for the currently selected gallery button.
      */
     public void setSelectedButton(JCommandToggleButton selectedButton) {
         this.buttonSelectionGroup.setSelected(selectedButton, true);
@@ -390,9 +361,8 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Changes the selection to the specified button.
-     * 
-     * @param selectedButton
-     *            New value for the currently selected gallery button.
+     *
+     * @param selectedButton New value for the currently selected gallery button.
      */
     public void setSelectedCommand(FlamingoCommand selectedCommand) {
         int buttonIndex = this.commands.indexOf(selectedCommand);
@@ -401,7 +371,7 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Returns the associated popup gallery.
-     * 
+     *
      * @return The associated popup gallery.
      */
     public JCommandButtonPanel getPopupButtonPanel() {
@@ -430,9 +400,8 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Sets indication whether the popup panel is showing.
-     * 
-     * @param isShowingPopupPanel
-     *            Indication whether the popup panel is showing.
+     *
+     * @param isShowingPopupPanel Indication whether the popup panel is showing.
      */
     public void setShowingPopupPanel(boolean isShowingPopupPanel) {
         this.isShowingPopupPanel = isShowingPopupPanel;
@@ -453,7 +422,7 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Returns indication whether the popup panel is showing.
-     * 
+     *
      * @return <code>true</code> if the popup panel is showing, <code>false</code> otherwise.
      */
     public boolean isShowingPopupPanel() {
@@ -462,9 +431,8 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Sets the command groups for this ribbon gallery.
-     * 
-     * @param buttons
-     *            Button groups.
+     *
+     * @param buttons Button groups.
      */
     public void setGroupMapping(List<StringValuePair<List<FlamingoCommand>>> commands) {
         for (StringValuePair<List<FlamingoCommand>> commandGroupPair : commands) {
@@ -505,11 +473,9 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Adds commands to the specified command group in this ribbon gallery.
-     * 
-     * @param commandGroupName
-     *            Command group name.
-     * @param commands
-     *            Commands to add to the specified command group.
+     *
+     * @param commandGroupName Command group name.
+     * @param commands         Commands to add to the specified command group.
      */
     public void addRibbonGalleryCommands(String commandGroupName, FlamingoCommand... commands) {
         for (StringValuePair<List<FlamingoCommand>> commandGroup : this.commandGroups) {
@@ -526,14 +492,13 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Removes the specified commands from this ribbon gallery.
-     * 
-     * @param commands
-     *            Commands to remove from this gallery.
+     *
+     * @param commands Commands to remove from this gallery.
      */
     public void removeRibbonGalleryCommands(FlamingoCommand... commands) {
         for (StringValuePair<List<FlamingoCommand>> commandGroup : this.commandGroups) {
             for (Iterator<FlamingoCommand> it = commandGroup.getValue().iterator(); it
-                    .hasNext();) {
+                    .hasNext(); ) {
                 FlamingoCommand currCommandInGroup = it.next();
                 for (FlamingoCommand toRemove : commands) {
                     if (toRemove == currCommandInGroup) {
@@ -549,11 +514,9 @@ public class JRibbonGallery extends JComponent {
 
     /**
      * Sets the preferred dimension of the popup panel.
-     * 
-     * @param preferredPopupMaxButtonColumns
-     *            Preferred maximum number of button columns for the popup panel.
-     * @param preferredPopupMaxVisibleButtonRows
-     *            Preferred maximum number of visible button rows for the popup panel.
+     *
+     * @param preferredPopupMaxButtonColumns     Preferred maximum number of button columns for the popup panel.
+     * @param preferredPopupMaxVisibleButtonRows Preferred maximum number of visible button rows for the popup panel.
      */
     public void setPreferredPopupPanelDimension(int preferredPopupMaxButtonColumns,
             int preferredPopupMaxVisibleButtonRows) {

@@ -46,6 +46,8 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
 import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class TestCommandToggleButtonsNoText extends TestCommandToggleButtons {
     @Override
@@ -104,10 +106,8 @@ public class TestCommandToggleButtonsNoText extends TestCommandToggleButtons {
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(new MetalLookAndFeel());
-            } catch (Exception e) {
-            }
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
             TestCommandToggleButtonsNoText frame = new TestCommandToggleButtonsNoText();
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);

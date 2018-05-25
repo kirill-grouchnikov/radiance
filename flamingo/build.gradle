@@ -32,6 +32,7 @@ apply plugin: 'java'
 
 dependencies {
     compile project(':trident')
+    compile project(':substance')
 }
 
 sourceCompatibility = 1.8

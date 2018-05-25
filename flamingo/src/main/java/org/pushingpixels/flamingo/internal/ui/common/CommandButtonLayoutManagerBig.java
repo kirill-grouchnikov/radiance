@@ -29,20 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import java.awt.Dimension;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-
-import javax.swing.JSeparator;
-
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
@@ -50,6 +36,13 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager {
 	protected AbstractCommandButton commandButton;

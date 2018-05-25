@@ -66,14 +66,12 @@ import org.pushingpixels.flamingo.api.common.ProgressEvent;
 import org.pushingpixels.flamingo.api.common.ProgressListener;
 import org.pushingpixels.rainbow.layout.TransitionLayout;
 import org.pushingpixels.rainbow.layout.TransitionLayoutEvent;
-import org.pushingpixels.rainbow.layout.TransitionLayoutListener;
 import org.pushingpixels.rainbow.svg.ic_search_black_24px;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
-import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -352,7 +350,6 @@ public class RainbowViewer extends JFrame implements ProgressListener {
     public static void main(String... args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SubstanceCortex.GlobalScope.setTimelineDuration(1000);
-        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
         SubstanceCortex.GlobalScope.allowAnimations(AnimationFacet.GHOSTING_ICON_ROLLOVER);
 
         SwingUtilities.invokeLater(() -> {

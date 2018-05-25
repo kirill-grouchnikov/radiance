@@ -29,36 +29,24 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.geom.Rectangle2D;
-
-import javax.swing.ButtonModel;
-import javax.swing.DefaultButtonModel;
-import javax.swing.JComponent;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.ComponentUI;
-
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
-import org.pushingpixels.flamingo.internal.hidpi.UIUtil;
+import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Basic UI for color selector component {@link JColorSelectorComponent}.
  * 
  * @author Kirill Grouchnikov
  */
-public class BasicColorSelectorComponentUI extends ColorSelectorComponentUI {
+public abstract class BasicColorSelectorComponentUI extends ColorSelectorComponentUI {
     protected JColorSelectorComponent colorSelectorComponent;
 
     protected ButtonModel buttonModel;
@@ -72,15 +60,6 @@ public class BasicColorSelectorComponentUI extends ColorSelectorComponentUI {
     protected Timeline rolloverTimeline;
 
     protected float rollover;
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
-    public static ComponentUI createUI(JComponent c) {
-        return new BasicColorSelectorComponentUI();
-    }
 
     /*
      * (non-Javadoc)
@@ -238,19 +217,5 @@ public class BasicColorSelectorComponentUI extends ColorSelectorComponentUI {
         g2d.dispose();
     }
 
-    protected void paintRolloverIndication(Graphics g) {
-        int w = this.colorSelectorComponent.getWidth();
-        int h = this.colorSelectorComponent.getHeight();
-        float borderThickness = 1.0f / (float) UIUtil.getScaleFactor();
-
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setComposite(AlphaComposite.SrcOver.derive(this.rollover));
-        g2d.setColor(new Color(207, 186, 115));
-        g2d.draw(new Rectangle2D.Double(0, 0, w - borderThickness, h - borderThickness));
-        g2d.setColor(new Color(230, 212, 150));
-        g2d.draw(new Rectangle2D.Double(borderThickness, borderThickness, w - 3 * borderThickness,
-                h - 3 * borderThickness));
-
-        g2d.dispose();
-    }
+    protected abstract void paintRolloverIndication(Graphics g);
 }
