@@ -29,11 +29,10 @@
  */
 package org.pushingpixels.substance.api.tabbed;
 
-import java.awt.event.MouseEvent;
-
-import javax.swing.JTabbedPane;
-
 import org.pushingpixels.substance.api.SubstanceSlices.TabCloseKind;
+
+import javax.swing.*;
+import java.awt.event.MouseEvent;
 
 /**
  * Callback for registering app-specific behaviour on tab close buttons. This

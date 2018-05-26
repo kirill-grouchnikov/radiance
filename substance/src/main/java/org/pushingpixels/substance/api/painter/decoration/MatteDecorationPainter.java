@@ -29,17 +29,13 @@
  */
 package org.pushingpixels.substance.api.painter.decoration;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.Point;
-
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import java.awt.*;
 
 /**
  * Implementation of {@link SubstanceDecorationPainter} that uses matte painting

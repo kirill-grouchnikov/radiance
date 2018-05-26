@@ -29,24 +29,17 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import javax.swing.JComponent;
-import javax.swing.JPopupMenu;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.BasicSeparatorUI;
-
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 import org.pushingpixels.substance.internal.utils.menu.MenuUtilities;
 import org.pushingpixels.substance.internal.utils.menu.SubstanceMenuBackgroundDelegate;
+
+import javax.swing.*;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicSeparatorUI;
+import java.awt.*;
 
 /**
  * UI for separators in <b>Substance</b> look and feel.

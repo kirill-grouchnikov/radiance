@@ -29,14 +29,9 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import javax.swing.Icon;
-import javax.swing.JMenu;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.plaf.UIResource;
+import java.awt.*;
 
 /**
  * Icon for the cascading {@link JMenu}s.

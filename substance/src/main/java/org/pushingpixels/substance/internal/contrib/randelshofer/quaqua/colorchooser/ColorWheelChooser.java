@@ -14,16 +14,14 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-
-import javax.swing.UIManager;
-import javax.swing.event.ChangeEvent;
-import javax.swing.plaf.UIResource;
-
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
 
 /**
  * A HSB color chooser, which displays a hue/saturation color wheel, and a
@@ -85,7 +83,7 @@ public class ColorWheelChooser extends SubstanceColorChooserPanel implements UIR
 	}
 
     @Override
-    public SubstanceIconUIResource getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
+    public NeonIconUIResource getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
         return SubstanceCortex.GlobalScope.getIconPack().getColorChooserColorWheelIcon(size,
                 colorScheme);
     }

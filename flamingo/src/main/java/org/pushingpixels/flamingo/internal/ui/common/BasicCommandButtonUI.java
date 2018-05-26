@@ -31,15 +31,16 @@ package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager.CommandButtonLayoutInfo;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -408,7 +409,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        RenderingUtils.installDesktopHints(g2d, c);
+        NeonUtil.installDesktopHints(g2d, c);
         super.update(g2d, c);
         g2d.dispose();
     }

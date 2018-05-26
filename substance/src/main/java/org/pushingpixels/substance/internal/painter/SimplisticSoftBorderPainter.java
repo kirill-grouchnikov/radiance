@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.substance.internal.painter;
 
-import java.awt.Color;
-
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.StandardBorderPainter;
+
+import java.awt.*;
 
 /**
  * Border painter that returns images with classic appearance. This class is

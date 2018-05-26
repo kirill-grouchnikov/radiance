@@ -18,13 +18,6 @@
  */
 package org.pushingpixels.substance.swingx;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.plaf.ComponentUI;
-
 import org.jdesktop.swingx.JXTaskPaneContainer;
 import org.jdesktop.swingx.VerticalLayout;
 import org.jdesktop.swingx.plaf.basic.BasicTaskPaneContainerUI;
@@ -33,6 +26,10 @@ import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
+
+import javax.swing.*;
+import javax.swing.plaf.ComponentUI;
+import java.awt.*;
 
 /**
  * Substance-consistent UI delegate for {@link JXTaskPaneContainer}.

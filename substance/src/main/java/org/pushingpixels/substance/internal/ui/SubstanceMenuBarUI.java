@@ -29,14 +29,6 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import java.awt.Graphics;
-import java.util.Set;
-
-import javax.swing.JComponent;
-import javax.swing.JMenuBar;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.BasicMenuBarUI;
-
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceWidget;
@@ -45,6 +37,12 @@ import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
+
+import javax.swing.*;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicMenuBarUI;
+import java.awt.*;
+import java.util.Set;
 
 /**
  * UI for menu bars in <b>Substance</b> look and feel.

@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.pushingpixels.substance.internal.contrib.intellij;
+package org.pushingpixels.neon.internal.contrib.intellij;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
+import org.pushingpixels.neon.icon.IsHiDpiAware;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.ImageObserver;
 import java.awt.image.WritableRaster;
 import java.util.Hashtable;
-
-import org.pushingpixels.substance.api.icon.IsHiDpiAware;
 
 /**
  * @author Konstantin Bulenkov

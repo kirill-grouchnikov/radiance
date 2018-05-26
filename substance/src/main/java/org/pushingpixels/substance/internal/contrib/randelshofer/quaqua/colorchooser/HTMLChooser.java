@@ -14,21 +14,15 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.util.HashMap;
+import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.VisualMargin;
 
-import javax.swing.Icon;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.UIResource;
-
-import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.VisualMargin;
+import java.awt.*;
+import java.util.HashMap;
 /**
  * HTMLChooser.
  *

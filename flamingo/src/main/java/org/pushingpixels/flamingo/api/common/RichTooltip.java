@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.*;
 import java.util.Collections;
@@ -173,7 +173,7 @@ public class RichTooltip {
     /**
      * The footer image of this tooltip. Can be <code>null</code>.
      * 
-     * @see #getFooterImage()
+     * @see #getFooterIcon()
      */
     private ResizableIcon footerIcon;
 

@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.flamingo.internal.substance.utils;
 
-import org.pushingpixels.flamingo.api.common.AsynchronousLoading;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.utils.*;
 
 import java.awt.*;

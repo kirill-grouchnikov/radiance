@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 

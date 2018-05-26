@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2018 Radiance Neon Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation 
  *    and/or other materials provided with the distribution. 
  *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
+ *  o Neither the name of Radiance Neon Kirill Grouchnikov nor the names of
  *    its contributors may be used to endorse or promote products derived 
  *    from this software without specific prior written permission. 
  *     
@@ -27,22 +27,28 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.flamingo.api.common.icon;
+package org.pushingpixels.neon;
 
-import javax.swing.*;
-import java.awt.*;
+import java.util.EventListener;
+import java.util.concurrent.ExecutorService;
 
 /**
- * Interface for icons that have resizability behaviour.
+ * This interface is used for asynchronously-loaded contents. For example, the
+ *  * SVG-based implementation of {@link org.pushingpixels.neon.icon.ResizableIcon}
+ *  * in Ibis uses the {@link ExecutorService} to load the
+ *  * SVG image in the background. When the image is loaded, the component that
+ *  * contains this image (command button from Flamingo, for example) is notified to
+ *  * repaint itself.
  * 
- * @author Kirill Grouchnikov
+ * @author Kirill Grouchnikov.
  */
-public interface ResizableIcon extends Icon {
+public interface AsynchronousLoadListener extends EventListener {
 	/**
-	 * Changes the dimension of <code>this</code> icon.
+	 * Indicates that the asynchronous load has been completed.
 	 * 
-	 * @param newDimension
-	 *            New dimension for <code>this</code> icon.
+	 * @param success
+	 *            If <code>true</code>, the load has been completed
+	 *            successfully.
 	 */
-	public void setDimension(Dimension newDimension);
+	void completed(boolean success);
 }

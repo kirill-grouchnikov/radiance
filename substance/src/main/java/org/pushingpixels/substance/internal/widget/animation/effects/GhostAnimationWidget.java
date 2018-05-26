@@ -29,12 +29,11 @@
  */
 package org.pushingpixels.substance.internal.widget.animation.effects;
 
+import org.pushingpixels.substance.api.SubstanceWidget;
+
+import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import javax.swing.AbstractButton;
-
-import org.pushingpixels.substance.api.SubstanceWidget;
 
 /**
  * Widget that tracks changes to the button for ghost effects.

@@ -18,17 +18,6 @@
  */
 package org.pushingpixels.substance.swingx;
 
-import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.plaf.ComponentUI;
-
 import org.jdesktop.swingx.JXHeader;
 import org.jdesktop.swingx.JXTipOfTheDay;
 import org.jdesktop.swingx.plaf.UIManagerExt;
@@ -36,12 +25,17 @@ import org.jdesktop.swingx.plaf.basic.BasicTipOfTheDayUI;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.icon.SubstanceIcon;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.animation.IconGlowTracker;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.icon.GlowingIcon;
 import org.pushingpixels.substance.swingx.svg.dialog_information;
+
+import javax.swing.*;
+import javax.swing.plaf.ComponentUI;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Substance-consistent UI delegate for {@link JXTipOfTheDay}.
@@ -87,7 +81,7 @@ public class SubstanceTipOfTheDayUI extends BasicTipOfTheDayUI {
                 UIManagerExt.getString("TipOfTheDay.didYouKnowText", tipPane.getLocale()));
         ComponentOrParentChainScope.setDecorationType(didYouKnow, DecorationAreaType.GENERAL);
 
-        SubstanceIcon origIcon = dialog_information.of(32, 32);
+        Icon origIcon = dialog_information.of(32, 32);
         Icon infoIcon = SubstanceCoreUtilities.shouldUseThemedIconsOnOptionPanes() ? origIcon
                 : SubstanceCoreUtilities.getThemedIcon(this.tipPane, origIcon);
 

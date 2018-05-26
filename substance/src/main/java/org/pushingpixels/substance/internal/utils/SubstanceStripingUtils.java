@@ -29,11 +29,10 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.Color;
-
-import javax.swing.JComponent;
-
 import org.pushingpixels.substance.internal.ui.SubstanceTableUI;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * <p>

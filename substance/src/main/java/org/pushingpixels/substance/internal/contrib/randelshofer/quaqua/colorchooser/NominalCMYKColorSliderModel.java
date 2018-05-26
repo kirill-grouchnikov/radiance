@@ -1,6 +1,6 @@
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.*;
 /**
  * A ColorSliderModel for CMYK color models (cyan, magenta, yellow, black) with
  * nominally converted color components from/to an RGB color model.

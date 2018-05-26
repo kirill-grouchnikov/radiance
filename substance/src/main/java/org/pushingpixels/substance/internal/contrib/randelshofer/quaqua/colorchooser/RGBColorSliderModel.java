@@ -14,7 +14,7 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.*;
 /**
  * A ColorSliderModel for RGB color components (red, green, blue).
  *

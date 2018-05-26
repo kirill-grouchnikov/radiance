@@ -29,16 +29,10 @@
  */
 package org.pushingpixels.tools.substance.jitterbug;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import org.pushingpixels.neon.NeonUtil;
 
-import javax.swing.JComponent;
-import javax.swing.UIManager;
-
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
+import javax.swing.*;
+import java.awt.*;
 
 public class JHsvGraph extends JComponent {
 	private static Color COLOR_HUE = new Color(159, 41, 54);
@@ -61,7 +55,7 @@ public class JHsvGraph extends JComponent {
 		int h = getHeight();
 
 		Graphics2D g2d = (Graphics2D) g.create();
-		RenderingUtils.installDesktopHints(g2d, this);
+		NeonUtil.installDesktopHints(g2d, this);
 
 		g2d.setColor(Color.black);
 

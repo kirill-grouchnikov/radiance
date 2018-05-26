@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.substance.internal.utils.menu;
 
-import java.awt.Font;
-
-import javax.swing.Icon;
-import javax.swing.JMenuItem;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Base interface for all menu-related UI delegates.

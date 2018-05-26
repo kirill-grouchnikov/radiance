@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.substance.internal.fonts;
 
-import javax.swing.plaf.FontUIResource;
-
 import org.pushingpixels.substance.api.font.FontSet;
+
+import javax.swing.plaf.FontUIResource;
 
 /**
  * Wrapper around the base Substance font set. Is used to create larger /

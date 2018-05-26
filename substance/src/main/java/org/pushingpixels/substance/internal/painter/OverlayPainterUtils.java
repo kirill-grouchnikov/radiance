@@ -29,14 +29,12 @@
  */
 package org.pushingpixels.substance.internal.painter;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.util.List;
-
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.painter.overlay.SubstanceOverlayPainter;
+
+import java.awt.*;
+import java.util.List;
 
 /**
  * Contains utility methods related to overlay painters. This class is for

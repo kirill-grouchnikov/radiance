@@ -29,21 +29,6 @@
  */
 package org.pushingpixels.substance.api.renderer;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.util.Map;
-
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.ComboBoxUI;
-import javax.swing.plaf.ListUI;
-
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
@@ -53,11 +38,15 @@ import org.pushingpixels.substance.internal.animation.StateTransitionTracker.Mod
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker.StateContributionInfo;
 import org.pushingpixels.substance.internal.ui.SubstanceComboBoxUI;
 import org.pushingpixels.substance.internal.ui.SubstanceListUI;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceStripingUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
-import org.pushingpixels.substance.internal.utils.UpdateOptimizationInfo;
+import org.pushingpixels.substance.internal.utils.*;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.ComboBoxUI;
+import javax.swing.plaf.ListUI;
+import java.awt.*;
+import java.util.Map;
 
 /**
  * Renderer for combo boxes.

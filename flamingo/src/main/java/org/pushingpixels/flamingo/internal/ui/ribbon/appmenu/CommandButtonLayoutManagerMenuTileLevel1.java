@@ -32,8 +32,8 @@ package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 import java.awt.*;

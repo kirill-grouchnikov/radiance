@@ -29,11 +29,9 @@
  */
 package org.pushingpixels.substance.internal.utils.border;
 
-import java.awt.Component;
-import java.awt.Graphics;
-
 import javax.swing.border.Border;
 import javax.swing.plaf.UIResource;
+import java.awt.*;
 
 /**
  * Base class for button borders in <b>Substance </b> look-and-feel. This class

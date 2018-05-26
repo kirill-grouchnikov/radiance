@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.FlamingoCommand
 import org.pushingpixels.flamingo.api.common.JCommandButton
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon
+import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback

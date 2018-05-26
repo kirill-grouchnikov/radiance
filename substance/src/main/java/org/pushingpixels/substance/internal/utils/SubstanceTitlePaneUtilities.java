@@ -29,16 +29,12 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.Component;
-import java.awt.Rectangle;
-
-import javax.swing.JComponent;
-import javax.swing.JRootPane;
-import javax.swing.UIManager;
-
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Various utility functions for title panes. This class is <b>for internal use only</b>.

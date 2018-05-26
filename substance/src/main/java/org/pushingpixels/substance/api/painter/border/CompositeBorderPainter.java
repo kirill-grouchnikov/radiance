@@ -29,12 +29,9 @@
  */
 package org.pushingpixels.substance.api.painter.border;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Shape;
-
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+
+import java.awt.*;
 
 /**
  * Composite border painter that delegates the painting of outer and inner

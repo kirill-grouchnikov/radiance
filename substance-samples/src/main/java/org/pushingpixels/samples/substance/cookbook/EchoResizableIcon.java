@@ -29,18 +29,15 @@
  */
 package org.pushingpixels.samples.substance.cookbook;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.Kernel;
-
-import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
-
 import com.jhlabs.image.BlurFilter;
 import com.jhlabs.image.CompoundFilter;
 import com.jhlabs.image.InvertFilter;
+import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
+import org.pushingpixels.neon.icon.ResizableIcon;
+
+import java.awt.*;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.Kernel;
 
 public class EchoResizableIcon implements ResizableIcon {
     private ResizableIcon echo;

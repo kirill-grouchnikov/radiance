@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.shaper;
 
-import javax.swing.AbstractButton;
+import javax.swing.*;
 
 /**
  * Interface for rectangular-based button shapers.

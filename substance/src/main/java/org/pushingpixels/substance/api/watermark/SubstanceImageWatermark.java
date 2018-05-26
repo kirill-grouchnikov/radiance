@@ -29,30 +29,19 @@
  */
 package org.pushingpixels.substance.api.watermark;
 
-import java.awt.AlphaComposite;
-import java.awt.Component;
-import java.awt.Composite;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
-
-import javax.imageio.IIOException;
-import javax.imageio.ImageIO;
-import javax.swing.JComponent;
-
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ImageWatermarkKind;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import javax.imageio.IIOException;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 
 /**
  * Implementation of {@link SubstanceWatermark}, drawing specified image as

@@ -29,24 +29,18 @@
  */
 package org.pushingpixels.substance.api.painter.decoration;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.LinearGradientPaint;
-import java.awt.MultipleGradientPaint;
-import java.awt.MultipleGradientPaint.CycleMethod;
-import java.awt.Point;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.FractionBasedPainter;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.MultipleGradientPaint.CycleMethod;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Decoration painter with fraction-based stops and a color query associated

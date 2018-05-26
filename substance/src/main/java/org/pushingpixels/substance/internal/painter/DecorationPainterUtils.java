@@ -29,15 +29,6 @@
  */
 package org.pushingpixels.substance.internal.painter;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import javax.swing.CellRendererPane;
-import javax.swing.JComponent;
-import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
@@ -45,6 +36,9 @@ import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPai
 import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Contains utility methods related to decoration painters. This class is for internal use only.

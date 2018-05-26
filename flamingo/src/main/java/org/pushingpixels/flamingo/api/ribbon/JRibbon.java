@@ -33,7 +33,6 @@ import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.FlamingoCommand;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
 
@@ -41,7 +40,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 
@@ -56,8 +54,8 @@ import java.util.List;
  * <li>Contextual ribbon task groups added with
  * {@link #addContextualTaskGroup(RibbonContextualTaskGroup)}</li>
  * <li>Application menu button set by {@link #setApplicationMenu(RibbonApplicationMenu)}</li>
- * <li>Taskbar panel populated by {@link #addTaskbarComponent(Component)}</li>
- * <li>Help button set by {@link #configureHelp(ResizableIcon, ActionListener)}</li>
+ * <li>Taskbar panel populated by {@link #addTaskbarCommand(FlamingoCommand)}</li>
+ * <li>Anchored content set by {@link #addAnchoredCommand(FlamingoCommand)}</li>
  * </ul>
  *
  * <p>
@@ -85,9 +83,9 @@ import java.util.List;
  *
  * <p>
  * The taskbar panel allows showing controls that are visible no matter what ribbon task is
- * selected. To add a taskbar component use the {@link #addTaskbarComponent(Component)} API. The
+ * selected. To add a taskbar component use the {@link #addTaskbarCommand(FlamingoCommand)} API. The
  * taskbar panel lives to the right of the application menu button. Taskbar components can be
- * removed with the {@link #removeTaskbarComponent(Component)} API.
+ * removed with the {@link #removeTaskbarCommand(FlamingoCommand)} API.
  * </p>
  *
  * <p>

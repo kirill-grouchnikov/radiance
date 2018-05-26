@@ -32,9 +32,9 @@ package org.pushingpixels.flamingo.api.ribbon;
 import org.pushingpixels.flamingo.api.common.HorizontalAlignment;
 import org.pushingpixels.flamingo.api.common.RichToolTipManager;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonComponentUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonComponentUI;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;

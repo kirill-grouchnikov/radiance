@@ -29,53 +29,27 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.LinearGradientPaint;
-import java.awt.MultipleGradientPaint.CycleMethod;
-import java.awt.Polygon;
-import java.awt.RadialGradientPaint;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-
-import javax.swing.AbstractButton;
-import javax.swing.CellRendererPane;
-import javax.swing.Icon;
-import javax.swing.JComponent;
-import javax.swing.JFileChooser;
-import javax.swing.JTree;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.text.JTextComponent;
-
+import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
 import org.pushingpixels.substance.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.painter.SimplisticFillPainter;
 import org.pushingpixels.substance.internal.utils.filters.ColorFilter;
 import org.pushingpixels.substance.internal.utils.filters.ColorSchemeFilter;
 import org.pushingpixels.substance.internal.utils.filters.GrayscaleFilter;
 import org.pushingpixels.substance.internal.utils.filters.TranslucentFilter;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
+import java.awt.MultipleGradientPaint.CycleMethod;
+import java.awt.geom.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Provides utility functions for creating various images for <b>Substance </b> look and feel. This
@@ -218,7 +192,7 @@ public final class SubstanceImageCreator {
      *            Arrow icon color scheme.
      * @return Arrow icon.
      */
-    public static SubstanceIconUIResource getArrowIcon(int fontSize, int direction,
+    public static NeonIconUIResource getArrowIcon(int fontSize, int direction,
             SubstanceColorScheme colorScheme) {
         float origWidth = SubstanceSizeUtils.getArrowIconWidth(fontSize);
         float origHeight = SubstanceSizeUtils.getArrowIconHeight(fontSize);
@@ -227,7 +201,7 @@ public final class SubstanceImageCreator {
         if (direction == SwingConstants.CENTER)
             height *= 2;
         float strokeWidth = SubstanceSizeUtils.getArrowStrokeWidth(fontSize);
-        SubstanceIconUIResource result = new SubstanceIconUIResource(
+        NeonIconUIResource result = new NeonIconUIResource(
                 getArrow(width, height, strokeWidth, direction, colorScheme));
         int finalWidth = (int) (Math.max(origWidth, origHeight) + 2);
         int finalHeight = (int) (Math.max(origWidth, height) + 2);
@@ -254,9 +228,9 @@ public final class SubstanceImageCreator {
      * @see SwingConstants#SOUTH
      * @see SwingConstants#EAST
      */
-    public static SubstanceIconUIResource getArrowIcon(float width, float height, float strokeWidth,
+    public static NeonIconUIResource getArrowIcon(float width, float height, float strokeWidth,
             int direction, SubstanceColorScheme scheme) {
-        return new SubstanceIconUIResource(getArrow(width, height, strokeWidth, direction, scheme));
+        return new NeonIconUIResource(getArrow(width, height, strokeWidth, direction, scheme));
     }
 
     /**
@@ -362,7 +336,7 @@ public final class SubstanceImageCreator {
      *            Color scheme for the arrow.
      * @return Double arrow icon.
      */
-    public static SubstanceIconUIResource getDoubleArrowIcon(int fontSize, int direction,
+    public static NeonIconUIResource getDoubleArrowIcon(int fontSize, int direction,
             SubstanceColorScheme colorScheme) {
         float arrowWidth = SubstanceSizeUtils.getArrowIconWidth(fontSize);
         float arrowHeight = SubstanceSizeUtils.getArrowIconHeight(fontSize);
@@ -391,7 +365,7 @@ public final class SubstanceImageCreator {
      * @see SwingConstants#SOUTH
      * @see SwingConstants#EAST
      */
-    public static SubstanceIconUIResource getDoubleArrowIcon(int fontSize, float fullWidth,
+    public static NeonIconUIResource getDoubleArrowIcon(int fontSize, float fullWidth,
             float fullHeight, float arrowGap, float strokeWidth, int direction,
             SubstanceColorScheme colorScheme) {
         boolean toggle = (direction == SwingConstants.WEST) || (direction == SwingConstants.EAST);
@@ -428,7 +402,7 @@ public final class SubstanceImageCreator {
                     (int) (arrowHeight / scaleFactor), null);
         }
 
-        return new SubstanceIconUIResource(downArrowImage);
+        return new NeonIconUIResource(downArrowImage);
     }
 
     /**
@@ -502,7 +476,7 @@ public final class SubstanceImageCreator {
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
 
         icon.paintIcon(null, result.getGraphics(), 0, 0);
-        Icon resultIcon = new SubstanceIconUIResource(new GrayscaleFilter().filter(result, null));
+        Icon resultIcon = new NeonIconUIResource(new GrayscaleFilter().filter(result, null));
         // System.out.println("Orig " + icon.getIconWidth() + "x" +
         // icon.getIconHeight() + " -> " +
         // resultIcon.getIconWidth() + "x" + resultIcon.getIconHeight());
@@ -531,7 +505,7 @@ public final class SubstanceImageCreator {
 
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
         icon.paintIcon(c, result.getGraphics(), 0, 0);
-        return new SubstanceIconUIResource(new TranslucentFilter(alpha).filter(result, null));
+        return new NeonIconUIResource(new TranslucentFilter(alpha).filter(result, null));
     }
 
     /**
@@ -754,7 +728,7 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Minimize</code> icon.
      */
-    public static SubstanceIconUIResource getMinimizeIcon(SubstanceColorScheme scheme,
+    public static NeonIconUIResource getMinimizeIcon(SubstanceColorScheme scheme,
             SubstanceColorScheme backgroundScheme) {
         int iSize = SubstanceSizeUtils.getTitlePaneIconSize();
         return getMinimizeIcon(iSize, scheme, backgroundScheme);
@@ -769,10 +743,10 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Minimize</code> icon.
      */
-    public static SubstanceIconUIResource getMinimizeIcon(int iSize, SubstanceColorScheme scheme,
+    public static NeonIconUIResource getMinimizeIcon(int iSize, SubstanceColorScheme scheme,
             SubstanceColorScheme backgroundScheme) {
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(iSize, iSize);
-        Graphics2D graphics = (Graphics2D) image.createGraphics();
+        Graphics2D graphics = image.createGraphics();
         int start = iSize / 4 - 2;
         int end = 3 * iSize / 4;
         int size = end - start - 3;
@@ -787,7 +761,7 @@ public final class SubstanceImageCreator {
         int fgStrength = SubstanceColorUtilities.getColorBrightness(color.getRGB());
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());
         boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
-        return new SubstanceIconUIResource(SubstanceImageCreator.overlayEcho(image,
+        return new NeonIconUIResource(SubstanceImageCreator.overlayEcho(image,
                 noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor, 1, 1));
     }
 
@@ -798,11 +772,11 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Restore</code> icon.
      */
-    public static SubstanceIconUIResource getRestoreIcon(SubstanceColorScheme scheme,
+    public static NeonIconUIResource getRestoreIcon(SubstanceColorScheme scheme,
             SubstanceColorScheme backgroundScheme) {
         int iSize = SubstanceSizeUtils.getTitlePaneIconSize();
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(iSize, iSize);
-        Graphics2D graphics = (Graphics2D) image.createGraphics();
+        Graphics2D graphics = image.createGraphics();
         int start = iSize / 4 - 1;
         int end = iSize - start;
         int smallSquareSize = end - start - 3;
@@ -841,7 +815,7 @@ public final class SubstanceImageCreator {
         int fgStrength = SubstanceColorUtilities.getColorBrightness(color.getRGB());
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());
         boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
-        return new SubstanceIconUIResource(SubstanceImageCreator.overlayEcho(image,
+        return new NeonIconUIResource(SubstanceImageCreator.overlayEcho(image,
                 noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor, 1, 1));
     }
 
@@ -852,7 +826,7 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Maximize</code> icon.
      */
-    public static SubstanceIconUIResource getMaximizeIcon(SubstanceColorScheme scheme,
+    public static NeonIconUIResource getMaximizeIcon(SubstanceColorScheme scheme,
             SubstanceColorScheme backgroundScheme) {
         int iSize = SubstanceSizeUtils.getTitlePaneIconSize();
         return getMaximizeIcon(iSize, scheme, backgroundScheme);
@@ -867,10 +841,10 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Maximize</code> icon.
      */
-    public static SubstanceIconUIResource getMaximizeIcon(int iSize, SubstanceColorScheme scheme,
+    public static NeonIconUIResource getMaximizeIcon(int iSize, SubstanceColorScheme scheme,
             SubstanceColorScheme backgroundScheme) {
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(iSize, iSize);
-        Graphics2D graphics = (Graphics2D) image.createGraphics();
+        Graphics2D graphics = image.createGraphics();
         int start = iSize / 4 - 1;
         int end = iSize - start;
         Color color = SubstanceColorUtilities.getMarkColor(scheme, true);
@@ -892,7 +866,7 @@ public final class SubstanceImageCreator {
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());
         boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
 
-        return new SubstanceIconUIResource(SubstanceImageCreator.overlayEcho(image,
+        return new NeonIconUIResource(SubstanceImageCreator.overlayEcho(image,
                 noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor, 1, 1));
     }
 
@@ -903,7 +877,7 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Close</code> icon.
      */
-    public static SubstanceIconUIResource getCloseIcon(SubstanceColorScheme scheme,
+    public static NeonIconUIResource getCloseIcon(SubstanceColorScheme scheme,
             SubstanceColorScheme backgroundScheme) {
         return SubstanceImageCreator.getCloseIcon(SubstanceSizeUtils.getTitlePaneIconSize(), scheme,
                 backgroundScheme);
@@ -918,10 +892,10 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Close</code> icon.
      */
-    public static SubstanceIconUIResource getCloseIcon(int iSize, SubstanceColorScheme colorScheme,
+    public static NeonIconUIResource getCloseIcon(int iSize, SubstanceColorScheme colorScheme,
             SubstanceColorScheme backgroundScheme) {
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(iSize, iSize);
-        Graphics2D graphics = (Graphics2D) image.createGraphics();
+        Graphics2D graphics = image.createGraphics();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
@@ -948,7 +922,7 @@ public final class SubstanceImageCreator {
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());
         boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
 
-        return new SubstanceIconUIResource(SubstanceImageCreator.overlayEcho(image,
+        return new NeonIconUIResource(SubstanceImageCreator.overlayEcho(image,
                 noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor, 1, 1));
     }
 
@@ -1629,7 +1603,7 @@ public final class SubstanceImageCreator {
      *            Icon color scheme.
      * @return Icon representation of the specified integer value.
      */
-    public static SubstanceIconUIResource getHexaMarker(int value,
+    public static NeonIconUIResource getHexaMarker(int value,
             SubstanceColorScheme colorScheme) {
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(9, 9);
 
@@ -1637,7 +1611,7 @@ public final class SubstanceImageCreator {
         Color offColor = null;
         Color onColor = null;
         if (colorScheme == null) {
-            return new SubstanceIconUIResource(result);
+            return new NeonIconUIResource(result);
         }
         boolean isDark = colorScheme.isDark();
         offColor = isDark
@@ -1668,27 +1642,7 @@ public final class SubstanceImageCreator {
         graphics.fillOval(0, 0, 4, 4);
 
         graphics.dispose();
-        return new SubstanceIconUIResource(result);
-    }
-
-    /**
-     * Returns an icon that matches the specified watermark.
-     * 
-     * @param watermark
-     *            Watermark instance.
-     * @return Icon that matches the specified watermark.
-     */
-    public static Icon getWatermarkIcon(SubstanceWatermark watermark) {
-        int iSize = SubstanceSizeUtils.getTitlePaneIconSize();
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(iSize, iSize);
-        Graphics2D graphics = (Graphics2D) result.getGraphics().create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-
-        watermark.previewWatermark(graphics, SubstanceColorSchemeUtilities.METALLIC_SKIN, 0, 0,
-                iSize, iSize);
-        graphics.dispose();
-        return new SubstanceIconUIResource(result);
+        return new NeonIconUIResource(result);
     }
 
     /**
@@ -1734,30 +1688,6 @@ public final class SubstanceImageCreator {
 
         BufferedImage result = getColorSchemeImage(origImage, colorScheme,
                 originalBrightnessFactor);
-        return result;
-    }
-
-    /**
-     * Creates a new version of the specified icon that is rendered in the colors of the specified
-     * color scheme.
-     * 
-     * @param comp
-     *            Component.
-     * @param original
-     *            The original icon.
-     * @param colorScheme
-     *            Color scheme.
-     * @return Scheme-based version of the original icon.
-     */
-    public static BufferedImage getColoredImage(Component comp, Icon original, Color color) {
-        int w = original.getIconWidth();
-        int h = original.getIconHeight();
-        BufferedImage origImage = SubstanceCoreUtilities.getBlankImage(w, h);
-        Graphics2D g2d = (Graphics2D) origImage.getGraphics().create();
-        original.paintIcon(comp, origImage.getGraphics(), 0, 0);
-        g2d.dispose();
-
-        BufferedImage result = new ColorFilter(color).filter(origImage, null);
         return result;
     }
 

@@ -18,13 +18,13 @@
  */
 package org.pushingpixels.substance.swingx;
 
-import javax.swing.JComponent;
+import org.jdesktop.swingx.JXPanel;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
-
-import org.jdesktop.swingx.JXPanel;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 /**
  * Substance-consistent UI delegate for {@link JXPanel}.

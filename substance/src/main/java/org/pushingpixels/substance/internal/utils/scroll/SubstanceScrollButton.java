@@ -29,15 +29,14 @@
  */
 package org.pushingpixels.substance.internal.utils.scroll;
 
-import java.awt.Insets;
-
-import javax.swing.JButton;
-import javax.swing.plaf.UIResource;
-
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.SubstanceInternalArrowButton;
 import org.pushingpixels.substance.internal.utils.SubstanceInternalButton;
+
+import javax.swing.*;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
 
 /**
  * Scroll bar button in <b>Substance</b> look and feel.

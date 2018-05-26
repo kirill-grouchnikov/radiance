@@ -29,17 +29,15 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.MouseInfo;
-import java.awt.PointerInfo;
+import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
+
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicButtonListener;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseEvent;
 import java.security.AccessControlException;
-
-import javax.swing.AbstractButton;
-import javax.swing.plaf.basic.BasicButtonListener;
-
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 
 /**
  * Button listener for rollover effects. Tracks the mouse motion and focus

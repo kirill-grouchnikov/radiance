@@ -29,17 +29,14 @@
  */
 package org.pushingpixels.substance.extras.api.painterpack.fill;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Shape;
-import java.awt.image.BufferedImage;
-
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.extras.api.colorschemepack.MixColorScheme;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Fill painter that wraps any other fill painter to support mixed color schemes

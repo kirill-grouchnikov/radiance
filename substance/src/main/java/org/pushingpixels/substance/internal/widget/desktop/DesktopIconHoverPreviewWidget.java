@@ -29,32 +29,24 @@
  */
 package org.pushingpixels.substance.internal.widget.desktop;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Insets;
+import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.internal.ui.SubstanceDesktopIconUI;
+import org.pushingpixels.substance.internal.utils.WidgetUtilities;
+
+import javax.swing.*;
+import javax.swing.JInternalFrame.JDesktopIcon;
+import javax.swing.border.Border;
+import javax.swing.event.MouseInputAdapter;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.JComponent;
-import javax.swing.JInternalFrame;
-import javax.swing.JInternalFrame.JDesktopIcon;
-import javax.swing.JLabel;
-import javax.swing.JWindow;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.event.MouseInputAdapter;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-
-import org.pushingpixels.substance.api.SubstanceWidget;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
-import org.pushingpixels.substance.internal.ui.SubstanceDesktopIconUI;
-import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 /**
  * Adds internal frame thumbnail preview on desktop icon mouse hover.
@@ -106,7 +98,7 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
             if (previewImage != null) {
                 double scaleFactor = UIUtil.getScaleFactor();
                 DesktopIconHoverPreviewWidget.this.previewWindow.getContentPane().removeAll();
-                JLabel previewLabel = new JLabel(new SubstanceIconUIResource(previewImage));
+                JLabel previewLabel = new JLabel(new NeonIconUIResource(previewImage));
                 DesktopIconHoverPreviewWidget.this.previewWindow.getContentPane().add(previewLabel,
                         BorderLayout.CENTER);
                 DesktopIconHoverPreviewWidget.this.previewWindow.setSize(

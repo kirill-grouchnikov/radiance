@@ -30,9 +30,9 @@
 
 package org.pushingpixels.substance.api.font;
 
-import javax.swing.UIDefaults;
-
 import org.pushingpixels.substance.internal.fonts.FontPolicies;
+
+import javax.swing.*;
 
 /**
  * Looks up and returns a FontSet.

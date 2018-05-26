@@ -29,9 +29,19 @@
  */
 package org.pushingpixels.demo.flamingo.bcb;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Cursor;
+import org.pushingpixels.demo.flamingo.MessageListDialog;
+import org.pushingpixels.demo.flamingo.common.ExplorerFileViewPanel;
+import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarModel;
+import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
+import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent;
+import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.StringValuePair;
+import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.spoonbill.svn.BreadcrumbSvnSelector;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
@@ -43,31 +53,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JToolBar;
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-
-import org.pushingpixels.demo.flamingo.MessageListDialog;
-import org.pushingpixels.demo.flamingo.common.ExplorerFileViewPanel;
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarModel;
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.StringValuePair;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
-import org.pushingpixels.spoonbill.svn.BreadcrumbSvnSelector;
 
 public class SvnBreadCrumbTest extends JFrame {
     private ExplorerFileViewPanel<String> filePanel;

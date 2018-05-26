@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.gallery.oob;
 
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;

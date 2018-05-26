@@ -18,11 +18,11 @@
  */
 package org.pushingpixels.substance.swingx;
 
-import javax.swing.JComponent;
-import javax.swing.plaf.ComponentUI;
-
 import org.jdesktop.swingx.JXPanel;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import javax.swing.*;
+import javax.swing.plaf.ComponentUI;
 
 /**
  * Substance-consistent UI delegate for {@link JXPanel}.

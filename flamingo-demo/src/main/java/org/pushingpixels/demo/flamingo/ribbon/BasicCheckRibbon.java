@@ -39,7 +39,6 @@ import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandTogg
 import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
@@ -53,9 +52,10 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
+import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -106,7 +106,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                     Graphics2D g2d = (Graphics2D) g.create();
                                     g2d.setColor(Color.black);
                                     g2d.setFont(UIManager.getFont("Label.font"));
-                                    RenderingUtils.installDesktopHints(g2d, c);
+                                    NeonUtil.installDesktopHints(g2d, c);
                                     g2d.drawString("" + index, x + 2, y + height - 2);
                                     g2d.dispose();
                                 }
@@ -678,7 +678,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 int width, int height) {
                             Graphics2D g2d = (Graphics2D) g.create();
                             g2d.setColor(Color.black);
-                            RenderingUtils.installDesktopHints(g2d, c);
+                            NeonUtil.installDesktopHints(g2d, c);
                             g2d.setFont(UIManager.getFont("Label.font"));
                             g2d.drawString("" + index, x + 2, y + height - 2);
                             g2d.dispose();
@@ -1036,7 +1036,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         public void paintIconDecoration(Component c, Graphics g, int x, int y,
                                 int width, int height) {
                             Graphics2D g2d = (Graphics2D) g.create();
-                            RenderingUtils.installDesktopHints(g2d, c);
+                            NeonUtil.installDesktopHints(g2d, c);
                             g2d.setFont(UIManager.getFont("Label.font").deriveFont(9.0f));
                             g2d.setColor(Color.black);
                             g2d.drawString("" + index, x + 1, y + height - 2);
@@ -1069,7 +1069,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         public void paintIconDecoration(Component c, Graphics g, int x, int y,
                                 int width, int height) {
                             Graphics2D g2d = (Graphics2D) g.create();
-                            RenderingUtils.installDesktopHints(g2d, c);
+                            NeonUtil.installDesktopHints(g2d, c);
                             g2d.setFont(UIManager.getFont("Label.font").deriveFont(9.0f));
                             g2d.setColor(Color.black);
                             g2d.drawString("" + index, x + 1, y + height - 2);
@@ -1896,7 +1896,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             super.paintComponent(g);
 
             Graphics2D g2d = (Graphics2D) g.create();
-            RenderingUtils.installDesktopHints(g2d, this);
+            NeonUtil.installDesktopHints(g2d, this);
             g2d.setColor(Color.gray);
 
             if (getComponentOrientation().isLeftToRight()) {

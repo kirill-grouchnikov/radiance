@@ -29,10 +29,9 @@
  */
 package org.pushingpixels.substance.internal.widget.tree.dnd;
 
-import java.util.EventObject;
-
-import javax.swing.JTree;
+import javax.swing.*;
 import javax.swing.tree.TreeNode;
+import java.util.EventObject;
 
 /**
  * StringTreeDnDEvent is an event fired whenever a String is about to be dropped

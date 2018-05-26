@@ -29,20 +29,17 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.Component;
-import java.awt.Insets;
-import java.awt.Toolkit;
-
-import javax.swing.border.Border;
-import javax.swing.plaf.BorderUIResource;
-
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.font.FontPolicy;
 import org.pushingpixels.substance.api.font.FontSet;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.fonts.DefaultGnomeFontPolicy;
+
+import javax.swing.border.Border;
+import javax.swing.plaf.BorderUIResource;
+import java.awt.*;
 
 /**
  * This class is responsible for computing DPI-aware insets, stroke widths,

@@ -29,22 +29,17 @@
  */
 package org.pushingpixels.substance.internal.widget.tree.dnd;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.border.Border;
-
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SunsetColorScheme;
 import org.pushingpixels.substance.api.icon.SubstanceIconPack;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 
 /**
  * DnDBorderFactory is responsible for creating node borders used under different drag and drop
@@ -73,7 +68,7 @@ class DnDBorderFactory {
             SubstanceIconPack iconPack = SubstanceCortex.GlobalScope.getIconPack();
             SubstanceColorScheme colorScheme = SubstanceCoreUtilities.getSkin(c)
                     .getEnabledColorScheme(ComponentOrParentChainScope.getDecorationType(c));
-            SubstanceIconUIResource icon = iconPack.getAllowedIcon(12, colorScheme);
+            NeonIconUIResource icon = iconPack.getAllowedIcon(12, colorScheme);
 
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.translate(x, yh - icon.getIconHeight());

@@ -29,20 +29,16 @@
  */
 package org.pushingpixels.substance.internal.animation;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.lang.ref.WeakReference;
-import java.util.WeakHashMap;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.ref.WeakReference;
+import java.util.WeakHashMap;
 
 /**
  * Tracker for pulsating (default and focused) <code>JButton</code>s. This class

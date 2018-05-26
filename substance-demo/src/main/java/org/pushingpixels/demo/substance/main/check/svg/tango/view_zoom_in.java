@@ -2,19 +2,18 @@ package org.pushingpixels.demo.substance.main.check.svg.tango;
 
 import java.awt.*;
 import java.awt.geom.*;
-import javax.swing.Icon;
 import javax.swing.plaf.UIResource;
 
-import org.pushingpixels.substance.api.icon.IsHiDpiAware;
-import org.pushingpixels.substance.api.icon.IsResizable;
-import org.pushingpixels.substance.api.icon.SubstanceIcon;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
+import org.pushingpixels.neon.icon.IsHiDpiAware;
+import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.NeonIcon;
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/ibis">Ibis SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/radiance">Ibis SVG transcoder</a>.
  */
-public class view_zoom_in implements Icon, IsResizable, IsHiDpiAware, UIResource {
+public class view_zoom_in implements ResizableIcon, IsHiDpiAware {
     @SuppressWarnings("unused")
 	private void innerPaint(Graphics2D g) {
         Shape shape = null;
@@ -22,7 +21,7 @@ public class view_zoom_in implements Icon, IsResizable, IsHiDpiAware, UIResource
         Stroke stroke = null;
          
         float origAlpha = 1.0f;
-        Composite origComposite = ((Graphics2D)g).getComposite();
+        Composite origComposite = g.getComposite();
         if (origComposite instanceof AlphaComposite) {
             AlphaComposite origAlphaComposite = 
                 (AlphaComposite)origComposite;
@@ -398,16 +397,16 @@ g.setTransform(defaultTransform_);
 		return 44.014102935791016;
 	}
 
-    /** The current width of this resizable icon. */
-    private int width;
+	/** The current width of this resizable icon. */
+	private int width;
 
     /** The current height of this resizable icon. */
-    private int height;
+	private int height;
 
-    /**
-     * Creates a new transcoded SVG image. It is recommended to use the 
-     * {@link #of(int, int)} method to obtain a pre-configured instance.
-     */
+	/**
+	 * Creates a new transcoded SVG image. It is recommended to use the 
+	 * {@link #of(int, int)} method to obtain a pre-configured instance.
+	 */
 	public view_zoom_in() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
@@ -424,11 +423,11 @@ g.setTransform(defaultTransform_);
 	}
 
 	@Override
-    public void setDimension(Dimension newDimension) {
-        this.width = newDimension.width;
-        this.height = newDimension.height;
-    }
-    
+	public void setDimension(Dimension newDimension) {
+		this.width = newDimension.width;
+		this.height = newDimension.height;
+	}
+
     @Override
     public boolean isHiDpiAware() {
         return true;
@@ -441,11 +440,11 @@ g.setTransform(defaultTransform_);
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.translate(x, y);
 
-		double coef1 = (double) this.width / (double) getOrigWidth();
-		double coef2 = (double) this.height / (double) getOrigHeight();
-		double coef = Math.min(coef1, coef2);
+        double coef1 = (double) this.width / getOrigWidth();
+        double coef2 = (double) this.height / getOrigHeight();
+        double coef = Math.min(coef1, coef2);
         g2d.clipRect(0, 0, this.width, this.height);
-		g2d.scale(coef, coef);
+        g2d.scale(coef, coef);
         g2d.translate(-getOrigX(), -getOrigY());
         if (coef1 != coef2) {
             if (coef1 < coef2) {
@@ -459,27 +458,27 @@ g.setTransform(defaultTransform_);
         Graphics2D g2ForInner = (Graphics2D) g2d.create();
         innerPaint(g2ForInner);
         g2ForInner.dispose();
-		g2d.dispose();
+        g2d.dispose();
 	}
     
     /**
      * Returns an instance of this icon with specified dimensions.
      */
-    public static SubstanceIcon of(int width, int height) {
+    public static NeonIcon of(int width, int height) {
        view_zoom_in base = new view_zoom_in();
        base.width = width;
        base.height = height;
-       return new SubstanceIcon(base);
+       return new NeonIcon(base);
     }
-    
+
     /**
      * Returns a {@link UIResource} instance of this icon with specified dimensions.
      */
-    public static SubstanceIconUIResource uiResourceOf(int width, int height) {
+    public static NeonIconUIResource uiResourceOf(int width, int height) {
        view_zoom_in base = new view_zoom_in();
        base.width = width;
        base.height = height;
-       return new SubstanceIconUIResource(base);
+       return new NeonIconUIResource(base);
     }
 }
 

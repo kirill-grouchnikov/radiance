@@ -13,13 +13,13 @@ package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorch
  * accordance with the terms of the license agreement you entered into
  * with Werner Randelshofer.
  */
-import java.awt.Color;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.color.ICC_ColorSpace;
 import java.awt.color.ICC_Profile;
 import java.io.IOException;
 import java.io.InputStream;
-
-import javax.swing.DefaultBoundedRangeModel;
 /**
  * A ColorSliderModel for CMYK color models (cyan, magenta, yellow, black) in
  * a color space defined by a ICC color profile (International Color Consortium).

@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.Component;
+import org.pushingpixels.substance.api.SubstanceSlices.Side;
+
+import java.awt.*;
 import java.awt.geom.Arc2D;
 import java.awt.geom.GeneralPath;
 import java.util.Set;
-
-import org.pushingpixels.substance.api.SubstanceSlices.Side;
 
 /**
  * Provides common functionality that can be used by button shapers. This class

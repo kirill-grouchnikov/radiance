@@ -18,12 +18,6 @@
  */
 package org.pushingpixels.substance.swingx;
 
-import java.awt.Graphics2D;
-import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.JSeparator;
-
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -31,6 +25,10 @@ import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.painter.overlay.SubstanceOverlayPainter;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
 public class SubstanceSwingxFillBackgroundDelegate {
     public void paint(JComponent component, Graphics2D graphics, boolean paintSeparator) {

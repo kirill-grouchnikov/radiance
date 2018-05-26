@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.colorscheme;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * <b>Steel Blue</b> color scheme.

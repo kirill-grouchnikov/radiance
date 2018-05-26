@@ -29,35 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.Set;
-
-import javax.swing.AbstractButton;
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JRadioButton;
-import javax.swing.LookAndFeel;
-import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.BasicButtonListener;
-import javax.swing.plaf.basic.BasicButtonUI;
-import javax.swing.plaf.basic.BasicHTML;
-import javax.swing.text.View;
-
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceWidget;
@@ -69,20 +41,27 @@ import org.pushingpixels.substance.internal.animation.ModificationAwareUI;
 import org.pushingpixels.substance.internal.animation.RootPaneDefaultButtonTracker;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
-import org.pushingpixels.substance.internal.utils.ButtonBackgroundDelegate;
-import org.pushingpixels.substance.internal.utils.ButtonVisualStateTracker;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
-import org.pushingpixels.substance.internal.utils.WidgetUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.border.SubstanceButtonBorder;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 import org.pushingpixels.substance.internal.utils.icon.GlowingIcon;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostingListener;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicButtonListener;
+import javax.swing.plaf.basic.BasicButtonUI;
+import javax.swing.plaf.basic.BasicHTML;
+import javax.swing.text.View;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Set;
 
 /**
  * UI for buttons in <b>Substance</b> look and feel.
@@ -568,7 +547,7 @@ public class SubstanceButtonUI extends BasicButtonUI implements
 	@Override
 	public void update(Graphics g, JComponent c) {
 		Graphics2D g2d = (Graphics2D) g.create();
-		RenderingUtils.installDesktopHints(g2d, c);
+		NeonUtil.installDesktopHints(g2d, c);
 		this.paint(g2d, c);
 //		g2d.setColor(new Color(255, 0, 0, 96));
 //		g2d.fillRect(0, 0, c.getWidth(), c.getHeight());

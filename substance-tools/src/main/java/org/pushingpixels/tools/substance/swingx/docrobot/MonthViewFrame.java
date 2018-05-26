@@ -18,15 +18,12 @@
  */
 package org.pushingpixels.tools.substance.swingx.docrobot;
 
-import java.awt.FlowLayout;
-import java.util.Calendar;
-
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
 import org.jdesktop.swingx.JXMonthView;
 import org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Calendar;
 
 public class MonthViewFrame extends JFrame {
 	public MonthViewFrame() {

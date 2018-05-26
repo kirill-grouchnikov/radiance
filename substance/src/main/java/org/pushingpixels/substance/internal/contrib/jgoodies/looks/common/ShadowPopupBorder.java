@@ -30,14 +30,9 @@
 
 package org.pushingpixels.substance.internal.contrib.jgoodies.looks.common;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Insets;
-
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
+import javax.swing.*;
 import javax.swing.border.AbstractBorder;
+import java.awt.*;
 
 /**
  * A border with a drop shadow intended to be used as the outer border

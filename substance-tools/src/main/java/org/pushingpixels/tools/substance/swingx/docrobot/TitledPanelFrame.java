@@ -18,16 +18,11 @@
  */
 package org.pushingpixels.tools.substance.swingx.docrobot;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
 import org.jdesktop.swingx.JXTitledPanel;
 import org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class TitledPanelFrame extends JFrame {
 	public TitledPanelFrame() {

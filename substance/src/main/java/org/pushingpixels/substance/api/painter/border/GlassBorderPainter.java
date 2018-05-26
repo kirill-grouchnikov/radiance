@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.substance.api.painter.border;
 
-import java.awt.Color;
-
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+
+import java.awt.*;
 
 /**
  * Border painter that returns images with glass appearance. This class is part

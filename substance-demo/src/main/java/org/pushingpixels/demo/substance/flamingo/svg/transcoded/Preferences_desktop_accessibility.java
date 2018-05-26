@@ -2,13 +2,18 @@ package org.pushingpixels.demo.substance.flamingo.svg.transcoded;
 
 import java.awt.*;
 import java.awt.geom.*;
+import javax.swing.plaf.UIResource;
+
+import org.pushingpixels.neon.icon.IsHiDpiAware;
+import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.NeonIcon;
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/ibis">Ibis SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/radiance">Ibis SVG transcoder</a>.
  */
-public class Preferences_desktop_accessibility implements
-		org.pushingpixels.flamingo.api.common.icon.ResizableIcon {
+public class Preferences_desktop_accessibility implements ResizableIcon, IsHiDpiAware {
     @SuppressWarnings("unused")
 	private void innerPaint(Graphics2D g) {
         Shape shape = null;
@@ -16,7 +21,7 @@ public class Preferences_desktop_accessibility implements
         Stroke stroke = null;
          
         float origAlpha = 1.0f;
-        Composite origComposite = ((Graphics2D)g).getComposite();
+        Composite origComposite = g.getComposite();
         if (origComposite instanceof AlphaComposite) {
             AlphaComposite origAlphaComposite = 
                 (AlphaComposite)origComposite;
@@ -227,14 +232,19 @@ g.setTransform(defaultTransform_);
 	}
 
     @Override
+    public boolean isHiDpiAware() {
+        return true;
+    }
+
+    @Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.translate(x, y);
 
-        double coef1 = (double) this.width / (double) getOrigWidth();
-        double coef2 = (double) this.height / (double) getOrigHeight();
+        double coef1 = (double) this.width / getOrigWidth();
+        double coef2 = (double) this.height / getOrigHeight();
         double coef = Math.min(coef1, coef2);
         g2d.clipRect(0, 0, this.width, this.height);
         g2d.scale(coef, coef);
@@ -257,11 +267,21 @@ g.setTransform(defaultTransform_);
     /**
      * Returns an instance of this icon with specified dimensions.
      */
-    public static Preferences_desktop_accessibility of(int width, int height) {
-       Preferences_desktop_accessibility result = new Preferences_desktop_accessibility();
-       result.width = width;
-       result.height = height;
-       return result;
+    public static NeonIcon of(int width, int height) {
+       Preferences_desktop_accessibility base = new Preferences_desktop_accessibility();
+       base.width = width;
+       base.height = height;
+       return new NeonIcon(base);
+    }
+
+    /**
+     * Returns a {@link UIResource} instance of this icon with specified dimensions.
+     */
+    public static NeonIconUIResource uiResourceOf(int width, int height) {
+       Preferences_desktop_accessibility base = new Preferences_desktop_accessibility();
+       base.width = width;
+       base.height = height;
+       return new NeonIconUIResource(base);
     }
 }
 

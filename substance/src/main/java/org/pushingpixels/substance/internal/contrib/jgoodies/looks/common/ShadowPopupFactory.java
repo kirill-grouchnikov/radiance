@@ -30,14 +30,11 @@
 
 package org.pushingpixels.substance.internal.contrib.jgoodies.looks.common;
 
-import java.awt.Component;
-
-import javax.swing.LookAndFeel;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
-
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.Options;
+
+import javax.swing.*;
+import java.awt.*;
 
 
 /**

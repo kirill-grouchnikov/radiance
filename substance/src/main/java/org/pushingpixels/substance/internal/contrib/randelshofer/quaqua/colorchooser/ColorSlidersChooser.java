@@ -14,19 +14,15 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.event.ItemEvent;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JColorChooser;
-import javax.swing.UIManager;
-import javax.swing.colorchooser.AbstractColorChooserPanel;
-import javax.swing.plaf.UIResource;
-
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
+
+import javax.swing.*;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
+import java.awt.event.ItemEvent;
 /**
  * The ColorSlidersChooser contains four individual color slider pages: gray
  * slider, RGB sliders, CMYK sliders, and HTML sliders.
@@ -127,7 +123,7 @@ implements UIResource {
     }
     
     @Override
-    public SubstanceIconUIResource getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
+    public NeonIconUIResource getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
         return SubstanceCortex.GlobalScope.getIconPack().getColorChooserColorSlidersIcon(size,
                 colorScheme);
     }

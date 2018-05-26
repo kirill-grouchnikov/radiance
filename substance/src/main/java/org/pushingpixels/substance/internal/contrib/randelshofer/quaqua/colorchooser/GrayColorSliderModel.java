@@ -14,7 +14,7 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.*;
 /**
  * A ColorSliderModel for a gray color model (brightness).
  *

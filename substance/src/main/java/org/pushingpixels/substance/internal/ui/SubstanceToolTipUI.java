@@ -29,24 +29,16 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.Rectangle;
+import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
 
-import javax.swing.JComponent;
-import javax.swing.JToolTip;
+import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicHTML;
 import javax.swing.plaf.basic.BasicToolTipUI;
 import javax.swing.text.View;
-
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
+import java.awt.*;
 
 /**
  * UI for tool tips in <b>Substance</b> look and feel.
@@ -131,7 +123,7 @@ public class SubstanceToolTipUI extends BasicToolTipUI {
 	@Override
 	public void update(Graphics g, JComponent c) {
 		Graphics2D g2d = (Graphics2D) g.create();
-		RenderingUtils.installDesktopHints(g2d, c);
+		NeonUtil.installDesktopHints(g2d, c);
 		super.update(g2d, c);
 		g2d.dispose();
 	}

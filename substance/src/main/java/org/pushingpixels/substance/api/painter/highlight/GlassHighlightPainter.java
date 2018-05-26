@@ -29,12 +29,10 @@
  */
 package org.pushingpixels.substance.api.painter.highlight;
 
-import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
+
+import java.awt.*;
 
 /**
  * Highlight painter that paints a glass gradient. This class is part of

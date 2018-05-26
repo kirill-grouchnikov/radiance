@@ -29,36 +29,25 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.AbstractButton;
-import javax.swing.ButtonModel;
-import javax.swing.Icon;
-import javax.swing.JComponent;
-import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.SwingUtilities;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
-import javax.swing.plaf.basic.BasicRadioButtonMenuItemUI;
-
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.utils.RolloverMenuItemListener;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 import org.pushingpixels.substance.internal.utils.icon.RadioButtonMenuItemIcon;
 import org.pushingpixels.substance.internal.utils.menu.MenuUtilities;
 import org.pushingpixels.substance.internal.utils.menu.MenuUtilities.MenuPropertyListener;
 import org.pushingpixels.substance.internal.utils.menu.SubstanceMenu;
+
+import javax.swing.*;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.UIResource;
+import javax.swing.plaf.basic.BasicRadioButtonMenuItemUI;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * UI for radio button menu items in <b>Substance</b> look and feel.
@@ -229,7 +218,7 @@ public class SubstanceRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
 	@Override
 	public void update(Graphics g, JComponent c) {
 		Graphics2D g2d = (Graphics2D) g.create();
-		RenderingUtils.installDesktopHints(g2d, c);
+        NeonUtil.installDesktopHints(g2d, c);
 		super.update(g2d, c);
 		g2d.dispose();
 	}

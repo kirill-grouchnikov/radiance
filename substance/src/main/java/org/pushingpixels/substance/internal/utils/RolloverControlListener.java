@@ -29,15 +29,14 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.Component;
+import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
+import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
-import javax.swing.ButtonModel;
-
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 
 /**
  * Control listener for rollover effects. Tracks the mouse motion interaction

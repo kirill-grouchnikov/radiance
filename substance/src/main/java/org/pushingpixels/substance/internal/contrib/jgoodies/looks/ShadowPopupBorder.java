@@ -30,16 +30,12 @@
 
 package org.pushingpixels.substance.internal.contrib.jgoodies.looks;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Insets;
-
-import javax.swing.ImageIcon;
-import javax.swing.border.AbstractBorder;
-
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopup;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopupFactory;
+
+import javax.swing.*;
+import javax.swing.border.AbstractBorder;
+import java.awt.*;
 
 /**
  * A border with a drop shadow intended to be used as the outer border of

@@ -29,15 +29,10 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import javax.swing.JTabbedPane;
-
 import org.pushingpixels.substance.api.tabbed.BaseTabCloseListener;
+
+import javax.swing.*;
+import java.util.*;
 
 /**
  * Manages the listeners registered on tab-close events. This class is <b>for

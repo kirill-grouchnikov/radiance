@@ -29,33 +29,22 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import java.awt.AlphaComposite;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.util.Map;
-
-import javax.swing.Icon;
-import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.plaf.UIResource;
-
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
-import org.pushingpixels.substance.internal.utils.HashMapKey;
-import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.*;
+
+import javax.swing.*;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Map;
 
 /**
  * Icon for the {@link JRadioButtonMenuItem}s.
@@ -76,8 +65,8 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 	/**
 	 * Icon cache to speed up the painting.
 	 */
-	private static LazyResettableHashMap<SubstanceIconUIResource> iconMap =
-			new LazyResettableHashMap<SubstanceIconUIResource>("RadioButtonMenuItemIcon");
+	private static LazyResettableHashMap<NeonIconUIResource> iconMap =
+			new LazyResettableHashMap<>("RadioButtonMenuItemIcon");
 
 	/**
 	 * Creates a new icon.
@@ -97,7 +86,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 	 * 
 	 * @return Icon to paint.
 	 */
-	private SubstanceIconUIResource getIconToPaint() {
+	private NeonIconUIResource getIconToPaint() {
 		if (this.menuItem == null)
 			return null;
 		TransitionAwareUI transitionAwareUI = (TransitionAwareUI) this.menuItem
@@ -136,9 +125,9 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 				checkMarkSize, fillPainter.getDisplayName(), borderPainter.getDisplayName(),
 				baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
 				baseBorderColorScheme.getDisplayName(), visibility, alpha);
-        SubstanceIconUIResource iconBase = iconMap.get(keyBase);
+		NeonIconUIResource iconBase = iconMap.get(keyBase);
 		if (iconBase == null) {
-			iconBase = new SubstanceIconUIResource(SubstanceImageCreator.getRadioButton(
+			iconBase = new NeonIconUIResource(SubstanceImageCreator.getRadioButton(
 					this.menuItem, fillPainter, borderPainter, checkMarkSize,
 					currState, 0, baseFillColorScheme, baseMarkColorScheme,
 					baseBorderColorScheme, visibility, alpha));
@@ -181,9 +170,9 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 						fontSize, checkMarkSize, fillPainter.getDisplayName(), borderPainter.getDisplayName(),
 						fillColorScheme.getDisplayName(), markColorScheme.getDisplayName(),
 						borderColorScheme.getDisplayName(), visibility, alpha);
-				SubstanceIconUIResource iconLayer = iconMap.get(keyLayer);
+				NeonIconUIResource iconLayer = iconMap.get(keyLayer);
 				if (iconLayer == null) {
-					iconLayer = new SubstanceIconUIResource(SubstanceImageCreator
+					iconLayer = new NeonIconUIResource(SubstanceImageCreator
 							.getRadioButton(this.menuItem, fillPainter,
 									borderPainter, checkMarkSize, currState, 0,
 									fillColorScheme, markColorScheme,
@@ -196,7 +185,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 		}
 
 		g2d.dispose();
-		return new SubstanceIconUIResource(result);
+		return new NeonIconUIResource(result);
 	}
 
 	@Override

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.combo;
 
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.plaf.basic.BasicComboBoxEditor;
 
 /**

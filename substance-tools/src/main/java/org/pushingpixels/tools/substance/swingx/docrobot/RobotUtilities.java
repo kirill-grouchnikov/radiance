@@ -18,11 +18,9 @@
  */
 package org.pushingpixels.tools.substance.swingx.docrobot;
 
-import java.awt.Component;
-import java.awt.Container;
+import javax.swing.*;
+import java.awt.*;
 import java.util.Map;
-
-import javax.swing.JComponent;
 
 public class RobotUtilities {
 	/**

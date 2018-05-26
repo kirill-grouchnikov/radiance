@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.ActionRepeatableButtonModel;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

@@ -29,17 +29,9 @@
  */
 package org.pushingpixels.substance.internal.widget.scroll;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.Rectangle;
-
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneLayout;
-import javax.swing.Scrollable;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.*;
 
 /**
  * A hideous hack to allow the display of the selector's button even when only

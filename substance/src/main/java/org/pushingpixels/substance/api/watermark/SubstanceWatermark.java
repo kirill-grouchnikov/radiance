@@ -29,11 +29,10 @@
  */
 package org.pushingpixels.substance.api.watermark;
 
-import java.awt.Component;
-import java.awt.Graphics;
-
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
+
+import java.awt.*;
 
 /**
  * Interface for watermarks. This class is part of officially supported API.

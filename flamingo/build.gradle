@@ -32,6 +32,7 @@ apply plugin: 'java'
 
 dependencies {
     compile project(':trident')
+    compile project(':neon')
     compile project(':substance')
 }
 

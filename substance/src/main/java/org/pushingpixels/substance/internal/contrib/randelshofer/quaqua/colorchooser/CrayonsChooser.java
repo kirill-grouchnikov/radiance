@@ -15,16 +15,16 @@
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
 
-import java.awt.Color;
-//import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-
-import javax.swing.UIManager;
-import javax.swing.plaf.UIResource;
-
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
+
+import javax.swing.*;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+
+//import java.awt.event.*;
 
 
 /**
@@ -71,7 +71,7 @@ public class CrayonsChooser extends SubstanceColorChooserPanel implements UIReso
     }    
     
     @Override
-    public SubstanceIconUIResource getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
+    public NeonIconUIResource getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
         return SubstanceCortex.GlobalScope.getIconPack().getColorChooserCrayonsIcon(size,
                 colorScheme);
     }

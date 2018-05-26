@@ -29,19 +29,17 @@
  */
 package org.pushingpixels.substance.api.painter.decoration;
 
-import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.utils.HashMapKey;
 import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Decoration painter that paints a classic gradient. This class is part of
@@ -115,10 +113,6 @@ public class ClassicDecorationPainter implements SubstanceDecorationPainter {
 	 *            Width.
 	 * @param height
 	 *            Height.
-	 * @param leftTitleX
-	 *            Title start poisition.
-	 * @param rightTitleX
-	 *            Title end position.
 	 * @param scheme
 	 *            Substance color scheme for painting the area.
 	 */

@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.substance.api.colorscheme;
 
-import java.awt.Color;
-
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+
+import java.awt.*;
 
 /**
  * Resolver of derived colors for light color schemes. This class is not

@@ -29,13 +29,10 @@
  */
 package org.pushingpixels.substance.internal.utils.scroll;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Insets;
-
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.UIResource;
+import java.awt.*;
 
 /**
  * Default border on {@link JScrollPane}s.

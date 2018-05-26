@@ -29,13 +29,11 @@
  */
 package org.pushingpixels.substance.api.shaper;
 
-import java.awt.Dimension;
-import java.awt.Shape;
-
-import javax.swing.AbstractButton;
-import javax.swing.border.Border;
-
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 
 /**
  * Button shaper interface for <b>Substance</b> look and feel. This class is

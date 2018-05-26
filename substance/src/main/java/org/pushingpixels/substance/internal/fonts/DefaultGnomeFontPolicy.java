@@ -29,19 +29,15 @@
  */
 package org.pushingpixels.substance.internal.fonts;
 
-import java.awt.Font;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsEnvironment;
-import java.awt.Toolkit;
+import org.pushingpixels.substance.api.font.FontPolicy;
+import org.pushingpixels.substance.api.font.FontSet;
+
+import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.lang.reflect.Method;
 import java.util.StringTokenizer;
-
-import javax.swing.UIDefaults;
-import javax.swing.plaf.FontUIResource;
-
-import org.pushingpixels.substance.api.font.FontPolicy;
-import org.pushingpixels.substance.api.font.FontSet;
 
 /**
  * The default font policy for Gnome OS.

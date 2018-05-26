@@ -29,20 +29,18 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.Quaqua14ColorChooserUI;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import javax.swing.*;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
+import javax.swing.plaf.ComponentUI;
 import java.lang.reflect.Method;
 import java.security.AccessControlException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import javax.swing.JComponent;
-import javax.swing.UIManager;
-import javax.swing.colorchooser.AbstractColorChooserPanel;
-import javax.swing.plaf.ComponentUI;
-
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.Quaqua14ColorChooserUI;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 
 /**

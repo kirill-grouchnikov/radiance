@@ -29,27 +29,21 @@
  */
 package org.pushingpixels.samples.substance.cookbook.panels;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JLabel;
-import javax.swing.border.EmptyBorder;
-
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.samples.substance.cookbook.EchoResizableIcon;
 import org.pushingpixels.samples.substance.cookbook.ScaledResizableIcon;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_bookmark_border_white_24px;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_help_outline_white_24px;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_print_white_24px;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_send_white_24px;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_star_border_white_24px;
+import org.pushingpixels.samples.substance.cookbook.svg.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class RecipePanel extends SingleContentPanel {
     public RecipePanel(int mainPanelTopOffset) {

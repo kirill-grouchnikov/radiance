@@ -40,7 +40,7 @@ import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
+import org.pushingpixels.neon.NeonUtil;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -377,7 +377,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        RenderingUtils.installDesktopHints(g2d, c);
+        NeonUtil.installDesktopHints(g2d, c);
         super.update(g2d, c);
         g2d.dispose();
     }
@@ -891,7 +891,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
-            RenderingUtils.installDesktopHints(g2d, this);
+            NeonUtil.installDesktopHints(g2d, this);
 
             if (contour != null) {
                 g2d.setComposite(AlphaComposite.SrcOver.derive(0.6f));

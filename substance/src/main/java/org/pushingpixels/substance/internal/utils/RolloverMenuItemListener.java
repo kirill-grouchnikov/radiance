@@ -29,13 +29,11 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.event.MouseEvent;
-
-import javax.swing.ButtonModel;
-import javax.swing.JMenuItem;
-import javax.swing.event.MouseInputListener;
-
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
+
+import javax.swing.*;
+import javax.swing.event.MouseInputListener;
+import java.awt.event.MouseEvent;
 
 /**
  * Menu item listener for rollover effects. Tracks the mouse motion interaction

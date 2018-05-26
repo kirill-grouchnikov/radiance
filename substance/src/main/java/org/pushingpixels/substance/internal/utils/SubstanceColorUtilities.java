@@ -29,23 +29,6 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.util.Map;
-
-import javax.swing.AbstractButton;
-import javax.swing.CellRendererPane;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JMenuItem;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollBar;
-import javax.swing.JSlider;
-import javax.swing.SwingUtilities;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.UIResource;
-import javax.swing.text.JTextComponent;
-
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
@@ -55,6 +38,13 @@ import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+
+import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.UIResource;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
+import java.util.Map;
 
 /**
  * Various color-related utilities. This class is <b>for internal use only</b>.

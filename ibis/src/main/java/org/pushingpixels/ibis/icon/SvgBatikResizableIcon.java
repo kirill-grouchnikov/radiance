@@ -29,7 +29,15 @@
  */
 package org.pushingpixels.ibis.icon;
 
-import java.awt.Dimension;
+import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
+import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
+import org.apache.batik.util.EventDispatcher.Dispatcher;
+import org.pushingpixels.neon.AsynchronousLoadListener;
+import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.neon.icon.ResizableIcon;
+
+import javax.swing.event.EventListenerList;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -37,15 +45,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.zip.GZIPInputStream;
-
-import javax.swing.event.EventListenerList;
-
-import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
-import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
-import org.apache.batik.util.EventDispatcher.Dispatcher;
-import org.pushingpixels.flamingo.api.common.AsynchronousLoadListener;
-import org.pushingpixels.flamingo.api.common.AsynchronousLoading;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 
 /**
  * SVG-based implementation of {@link ResizableIcon} based on Apache Batik

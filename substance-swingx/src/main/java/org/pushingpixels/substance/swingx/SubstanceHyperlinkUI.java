@@ -18,16 +18,14 @@
  */
 package org.pushingpixels.substance.swingx;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import javax.swing.JComponent;
-import javax.swing.plaf.ComponentUI;
-
 import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.plaf.basic.BasicHyperlinkUI;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
+
+import javax.swing.*;
+import javax.swing.plaf.ComponentUI;
+import java.awt.*;
 
 /**
  * Substance-consistent UI delegate for {@link JXHyperlink}.
@@ -43,7 +41,7 @@ public class SubstanceHyperlinkUI extends BasicHyperlinkUI {
 	@Override
 	public void update(Graphics g, JComponent c) {
 		Graphics2D g2d = (Graphics2D) g.create();
-		RenderingUtils.installDesktopHints(g2d, c);
+		NeonUtil.installDesktopHints(g2d, c);
 		super.update(g2d, c);
 		g2d.dispose();
 	}

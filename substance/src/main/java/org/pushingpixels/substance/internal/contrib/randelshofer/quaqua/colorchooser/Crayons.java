@@ -14,20 +14,14 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
+import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-
-import javax.swing.UIManager;
-
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 
 /**
  * A panel which displays a selection of color crayons. The user can click at a crayon to pick a
@@ -172,7 +166,7 @@ public class Crayons extends javax.swing.JPanel {
 
     public void paintComponent(Graphics gr) {
         Graphics2D g2d = (Graphics2D) gr.create();
-        RenderingUtils.installDesktopHints(g2d, this);
+        NeonUtil.installDesktopHints(g2d, this);
         double scaleFactor = UIUtil.getScaleFactor();
         g2d.drawImage(crayonsImage, 0, 0, (int) (crayonsImage.getWidth() / scaleFactor),
                 (int) (crayonsImage.getHeight() / scaleFactor), this);

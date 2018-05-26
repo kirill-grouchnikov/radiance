@@ -14,19 +14,15 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Insets;
+import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.VisualMargin;
 
-import javax.swing.Icon;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.plaf.UIResource;
-
-import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.VisualMargin;
+import java.awt.*;
 
 /**
  * A ColorChooser with HSB sliders.

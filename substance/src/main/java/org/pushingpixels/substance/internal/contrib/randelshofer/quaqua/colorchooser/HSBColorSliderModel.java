@@ -13,9 +13,8 @@
  */
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import java.awt.Color;
-
-import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.*;
+import java.awt.*;
 /**
  * ColorSliderModel for the HSB color model (hue, saturation, brightness).
  *

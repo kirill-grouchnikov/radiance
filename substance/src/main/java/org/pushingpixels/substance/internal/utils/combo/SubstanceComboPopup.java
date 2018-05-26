@@ -29,24 +29,13 @@
  */
 package org.pushingpixels.substance.internal.utils.combo;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GraphicsConfiguration;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-
-import javax.swing.JComboBox;
-import javax.swing.JScrollBar;
-import javax.swing.ListCellRenderer;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.plaf.basic.BasicComboPopup;
-
 import org.pushingpixels.substance.internal.ui.SubstanceListUI;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
+
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicComboPopup;
+import java.awt.*;
 
 /**
  * Combo popup implementation in <b>Substance</b> look-and-feel. This class is

@@ -14,20 +14,17 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.text.MessageFormat;
-import java.util.Vector;
+import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.plaf.UIResource;
-
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
+import java.awt.*;
+import java.text.MessageFormat;
+import java.util.Vector;
 
 /**
  * ColorPalettesChooser.
@@ -149,7 +146,7 @@ public class ColorPalettesChooser extends SubstanceColorChooserPanel implements 
     }
     
     @Override
-    public SubstanceIconUIResource getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
+    public NeonIconUIResource getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
         return SubstanceCortex.GlobalScope.getIconPack().getColorChooserColorPalettesIcon(size,
                 colorScheme);
     }

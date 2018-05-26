@@ -29,15 +29,15 @@
  */
 package org.pushingpixels.substance.internal;
 
-import java.awt.Component;
+import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
+import org.pushingpixels.trident.Timeline;
+import org.pushingpixels.trident.ease.Spline;
+
+import java.awt.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.ease.Spline;
 
 /**
  * Animation configuration manager. Note that while this class provides a variety of ways to enable

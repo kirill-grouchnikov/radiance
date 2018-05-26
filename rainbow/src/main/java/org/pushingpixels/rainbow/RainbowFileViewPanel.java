@@ -31,22 +31,16 @@
  */
 package org.pushingpixels.rainbow;
 
-import java.awt.Dimension;
+import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
+import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.ibis.icon.SvgBatikResizableIcon;
+import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.rainbow.layout.TransitionLayoutManager;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.InputStream;
-
-import javax.swing.SwingUtilities;
-
-import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
-import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.ProgressListener;
-import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.flamingo.api.common.StringValuePair;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
-import org.pushingpixels.ibis.icon.SvgBatikResizableIcon;
-import org.pushingpixels.rainbow.layout.TransitionLayoutManager;
 
 /**
  * Panel that hosts SVG-based gallery buttons.

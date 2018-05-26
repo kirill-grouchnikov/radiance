@@ -29,21 +29,13 @@
  */
 package org.pushingpixels.substance.api.painter.border;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.LinearGradientPaint;
-import java.awt.MultipleGradientPaint;
-import java.awt.MultipleGradientPaint.CycleMethod;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceInternalArrowButton;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+
+import java.awt.*;
+import java.awt.MultipleGradientPaint.CycleMethod;
 
 /**
  * The default border painter. This class is part of officially supported API.

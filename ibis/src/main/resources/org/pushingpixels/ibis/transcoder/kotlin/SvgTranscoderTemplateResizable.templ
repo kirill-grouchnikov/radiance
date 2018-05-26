@@ -2,13 +2,18 @@ TOKEN_PACKAGE
 
 import java.awt.*
 import java.awt.geom.*
+import javax.swing.plaf.UIResource
+
+import org.pushingpixels.neon.icon.IsHiDpiAware
+import org.pushingpixels.neon.icon.NeonIcon
+import org.pushingpixels.neon.icon.NeonIconUIResource
+import org.pushingpixels.neon.icon.ResizableIcon
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/ibis">Ibis SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/radiance">Ibis SVG transcoder</a>.
  */
-class TOKEN_CLASSNAME(private var width: Int, private var height: Int) : 
-        org.pushingpixels.flamingo.api.common.icon.ResizableIcon {
+class TOKEN_CLASSNAME(private var width: Int, private var height: Int) : ResizableIcon, IsHiDpiAware {
 	private fun innerPaint(g : Graphics2D) {
         @Suppress("UNUSED_VARIABLE") var shape: Shape?
         @Suppress("UNUSED_VARIABLE") var paint: Paint?
@@ -65,8 +70,15 @@ class TOKEN_CLASSNAME(private var width: Int, private var height: Int) :
         /**
          * Returns an instance of this icon with specified dimensions.
          */
-        fun of(width: Int, height: Int): TOKEN_CLASSNAME {
-            return TOKEN_CLASSNAME(width, height)
+        fun of(width: Int, height: Int): NeonIcon {
+            return NeonIcon(TOKEN_CLASSNAME(width, height))
+        }
+
+        /**
+         * Returns a [UIResource] instance of this icon with specified dimensions.
+         */
+        fun uiResourceOf(width: Int, height: Int): NeonIconUIResource {
+            return NeonIconUIResource(TOKEN_CLASSNAME(width, height))
         }
     }
 
@@ -81,6 +93,10 @@ class TOKEN_CLASSNAME(private var width: Int, private var height: Int) :
     override fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
+    }
+
+    override fun isHiDpiAware(): Boolean {
+        return true
     }
 
     override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
@@ -101,7 +117,7 @@ class TOKEN_CLASSNAME(private var width: Int, private var height: Int) :
                 g2d.translate(0, extraDy)
             } else {
                 val extraDx = ((getOrigHeight() - getOrigWidth()) / 2.0).toInt()
-                g2d.translate(extraDx, 0);
+                g2d.translate(extraDx, 0)
             }
         }
         val g2ForInner = g2d.create() as Graphics2D

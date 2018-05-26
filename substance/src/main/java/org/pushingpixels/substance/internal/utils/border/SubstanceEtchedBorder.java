@@ -29,25 +29,18 @@
  */
 package org.pushingpixels.substance.internal.utils.border;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.RenderingHints;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-
-import javax.swing.border.Border;
-
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
+
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Custom implementation of etched border.
@@ -139,7 +132,7 @@ public class SubstanceEtchedBorder implements Border {
 		// this is a fix for defect 248 - in order to paint the TitledBorder
 		// text respecting the AA settings of the display, we have to
 		// set rendering hints on the passed Graphics object.
-		RenderingUtils.installDesktopHints((Graphics2D) g, c);
+        NeonUtil.installDesktopHints((Graphics2D) g, c);
 	}
 
 	/*

@@ -14,14 +14,12 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import java.awt.Color;
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import javax.swing.DefaultBoundedRangeModel;
-import javax.swing.JSlider;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * Abstract super class for ColorModels which can be used in conjunction with

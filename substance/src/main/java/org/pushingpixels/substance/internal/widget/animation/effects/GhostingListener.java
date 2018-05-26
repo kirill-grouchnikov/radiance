@@ -29,19 +29,6 @@
  */
 package org.pushingpixels.substance.internal.widget.animation.effects;
 
-import java.awt.Component;
-import java.awt.Rectangle;
-import java.awt.Window;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.ButtonModel;
-import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
@@ -51,6 +38,14 @@ import org.pushingpixels.trident.callback.TimelineCallback;
 import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Listener for the "ghosting image" effects on buttons.

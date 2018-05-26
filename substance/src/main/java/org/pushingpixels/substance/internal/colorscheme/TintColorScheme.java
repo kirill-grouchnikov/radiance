@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.substance.internal.colorscheme;
 
-import java.awt.Color;
-
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+
+import java.awt.*;
 
 /**
  * Tinted color scheme. A tinted color scheme is a color scheme that is shifted

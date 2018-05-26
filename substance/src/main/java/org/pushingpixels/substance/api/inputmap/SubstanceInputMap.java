@@ -29,10 +29,9 @@
  */
 package org.pushingpixels.substance.api.inputmap;
 
+import javax.swing.UIDefaults.LazyInputMap;
 import java.util.Map;
 import java.util.TreeMap;
-
-import javax.swing.UIDefaults.LazyInputMap;
 
 public final class SubstanceInputMap {
 	private Map<String, String> mapping;

@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.ActionButtonModel;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.accessibility.AccessibleContext;
 import javax.swing.*;

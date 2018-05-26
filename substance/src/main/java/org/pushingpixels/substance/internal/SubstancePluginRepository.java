@@ -29,17 +29,16 @@
  */
 package org.pushingpixels.substance.internal;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.swing.UIDefaults;
-
 import org.pushingpixels.substance.api.SubstanceComponentPlugin;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSkinPlugin;
 import org.pushingpixels.substance.internal.plugin.BasePlugin;
 import org.pushingpixels.substance.internal.plugin.BaseSkinPlugin;
+
+import javax.swing.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SubstancePluginRepository {
     private Set<SubstanceComponentPlugin> componentPlugins = new HashSet<>();

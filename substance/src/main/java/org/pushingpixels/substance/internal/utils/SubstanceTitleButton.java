@@ -29,12 +29,11 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import javax.accessibility.AccessibleContext;
-import javax.swing.JButton;
-import javax.swing.UIManager;
-
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
+
+import javax.accessibility.AccessibleContext;
+import javax.swing.*;
 
 /**
  * Title button in <b>Substance</b> look and feel.

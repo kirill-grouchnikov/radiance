@@ -29,39 +29,11 @@
  */
 package org.pushingpixels.substance.internal.plugin;
 
+import org.pushingpixels.substance.api.SubstanceSkinPlugin;
+import org.pushingpixels.substance.api.skin.*;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import org.pushingpixels.substance.api.SubstanceSkinPlugin;
-import org.pushingpixels.substance.api.skin.AutumnSkin;
-import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin;
-import org.pushingpixels.substance.api.skin.BusinessSkin;
-import org.pushingpixels.substance.api.skin.CeruleanSkin;
-import org.pushingpixels.substance.api.skin.CremeCoffeeSkin;
-import org.pushingpixels.substance.api.skin.CremeSkin;
-import org.pushingpixels.substance.api.skin.DustCoffeeSkin;
-import org.pushingpixels.substance.api.skin.DustSkin;
-import org.pushingpixels.substance.api.skin.GeminiSkin;
-import org.pushingpixels.substance.api.skin.GraphiteAquaSkin;
-import org.pushingpixels.substance.api.skin.GraphiteChalkSkin;
-import org.pushingpixels.substance.api.skin.GraphiteGlassSkin;
-import org.pushingpixels.substance.api.skin.GraphiteGoldSkin;
-import org.pushingpixels.substance.api.skin.GraphiteSkin;
-import org.pushingpixels.substance.api.skin.MagellanSkin;
-import org.pushingpixels.substance.api.skin.MarinerSkin;
-import org.pushingpixels.substance.api.skin.MistAquaSkin;
-import org.pushingpixels.substance.api.skin.MistSilverSkin;
-import org.pushingpixels.substance.api.skin.ModerateSkin;
-import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
-import org.pushingpixels.substance.api.skin.NebulaSkin;
-import org.pushingpixels.substance.api.skin.OfficeBlack2007Skin;
-import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
-import org.pushingpixels.substance.api.skin.OfficeSilver2007Skin;
-import org.pushingpixels.substance.api.skin.RavenSkin;
-import org.pushingpixels.substance.api.skin.SaharaSkin;
-import org.pushingpixels.substance.api.skin.SkinInfo;
-import org.pushingpixels.substance.api.skin.TwilightSkin;
 
 /**
  * Core plugin for skins. See

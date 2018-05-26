@@ -29,18 +29,12 @@
  */
 package org.pushingpixels.samples.substance.cookbook.panels;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.LinearGradientPaint;
+import org.pushingpixels.neon.NeonUtil;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
-
-import javax.swing.JComponent;
-
-import org.pushingpixels.substance.api.SubstanceCortex;
 
 public class LightsHolderPanel extends JComponent {
     @Override
@@ -51,8 +45,7 @@ public class LightsHolderPanel extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
-        float borderStrokeWidth = 1.0f
-                / (float) SubstanceCortex.GlobalScope.getScaleFactor();
+        float borderStrokeWidth = 1.0f / (float) NeonUtil.getScaleFactor();
         g2d.setStroke(new BasicStroke(borderStrokeWidth));
 
         LinearGradientPaint lgp = new LinearGradientPaint(0, 0, getWidth(), 0,

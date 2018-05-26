@@ -29,23 +29,17 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.util.EnumSet;
-
-import javax.swing.JButton;
-import javax.swing.JSpinner;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.border.SubstanceButtonBorder;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.util.EnumSet;
 
 /**
  * Spinner button in <b>Substance</b> look and feel.

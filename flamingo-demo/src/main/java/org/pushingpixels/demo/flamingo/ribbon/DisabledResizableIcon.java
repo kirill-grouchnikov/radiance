@@ -29,15 +29,10 @@
  */
 package org.pushingpixels.demo.flamingo.ribbon;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
+import org.pushingpixels.neon.icon.ResizableIcon;
+
+import java.awt.*;
 
 public class DisabledResizableIcon implements ResizableIcon {
 	private int currWidth;

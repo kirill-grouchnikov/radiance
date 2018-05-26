@@ -29,30 +29,22 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
+import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
+import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
+import org.pushingpixels.substance.internal.SubstanceSynapse;
+import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
+import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities.TextComponentAware;
+import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
+import org.pushingpixels.substance.internal.utils.combo.ComboBoxBackgroundDelegate;
+import org.pushingpixels.substance.internal.utils.combo.SubstanceComboBoxEditor;
+import org.pushingpixels.substance.internal.utils.combo.SubstanceComboPopup;
 
-import javax.swing.ButtonModel;
-import javax.swing.ComboBoxEditor;
-import javax.swing.DefaultButtonModel;
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.ListCellRenderer;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.BorderUIResource;
@@ -61,26 +53,9 @@ import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import javax.swing.plaf.basic.ComboPopup;
 import javax.swing.text.JTextComponent;
-
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
-import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
-import org.pushingpixels.substance.internal.utils.RolloverTextControlListener;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities.TextComponentAware;
-import org.pushingpixels.substance.internal.utils.SubstanceDropDownButton;
-import org.pushingpixels.substance.internal.utils.SubstanceOutlineUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
-import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
-import org.pushingpixels.substance.internal.utils.combo.ComboBoxBackgroundDelegate;
-import org.pushingpixels.substance.internal.utils.combo.SubstanceComboBoxEditor;
-import org.pushingpixels.substance.internal.utils.combo.SubstanceComboPopup;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
 
 /**
  * UI for combo boxes in <b>Substance </b> look and feel.
@@ -711,7 +686,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        RenderingUtils.installDesktopHints(g2d, c);
+        NeonUtil.installDesktopHints(g2d, c);
         this.paint(g2d, c);
         g2d.dispose();
     }

@@ -29,16 +29,15 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.DataBufferInt;
 import java.awt.image.Kernel;
-
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 
 /**
  * Factory for creating noise images. This class is part of officially supported

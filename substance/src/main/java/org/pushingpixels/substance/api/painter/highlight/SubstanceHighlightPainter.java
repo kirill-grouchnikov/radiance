@@ -29,11 +29,10 @@
  */
 package org.pushingpixels.substance.api.painter.highlight;
 
-import java.awt.Component;
-import java.awt.Graphics2D;
-
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
+
+import java.awt.*;
 
 /**
  * Highlight painter interface for <b>Substance</b> look and feel. This class is

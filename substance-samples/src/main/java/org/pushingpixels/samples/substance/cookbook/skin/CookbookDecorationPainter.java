@@ -29,24 +29,8 @@
  */
 package org.pushingpixels.samples.substance.cookbook.skin;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.LinearGradientPaint;
-import java.awt.MultipleGradientPaint.CycleMethod;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.geom.GeneralPath;
-import java.awt.image.BufferedImage;
-
-import javax.swing.SwingUtilities;
-
+import com.jhlabs.image.*;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -54,13 +38,11 @@ import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter;
 
-import com.jhlabs.image.BrushedMetalFilter;
-import com.jhlabs.image.CompoundFilter;
-import com.jhlabs.image.GaussianFilter;
-import com.jhlabs.image.Gradient;
-import com.jhlabs.image.HSBAdjustFilter;
-import com.jhlabs.image.LookupFilter;
-import com.jhlabs.image.WoodFilter;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.MultipleGradientPaint.CycleMethod;
+import java.awt.geom.GeneralPath;
+import java.awt.image.BufferedImage;
 
 class CookbookDecorationPainter implements SubstanceDecorationPainter {
     private BufferedImage brushedMetalImage;
@@ -180,7 +162,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
             int offsetY = comp.getLocationOnScreen().y
                     - farthestOfTheSameAreaType.getLocationOnScreen().y;
 
-            final double scaleFactor = SubstanceCortex.GlobalScope.getScaleFactor();
+            final double scaleFactor = NeonUtil.getScaleFactor();
             int lightImageScaledWidth = (int) (this.lightImage.getWidth() / scaleFactor);
             int lightImageScaledHeight = (int) (this.lightImage.getHeight() / scaleFactor);
 
@@ -233,7 +215,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         GaussianFilter gaussianFilter = new GaussianFilter(29.0f);
         lightConeImage = gaussianFilter.filter(lightConeImage, null);
 
-        final double scaleFactor = SubstanceCortex.GlobalScope.getScaleFactor();
+        final double scaleFactor = NeonUtil.getScaleFactor();
 
         BufferedImage finalImage = SubstanceCortex.GlobalScope.getBlankImage(150, 100);
         Graphics2D finalGraphics = finalImage.createGraphics();

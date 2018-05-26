@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.kormorant.popup
 
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon
+import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback

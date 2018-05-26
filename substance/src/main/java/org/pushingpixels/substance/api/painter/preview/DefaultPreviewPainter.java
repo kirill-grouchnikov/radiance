@@ -29,17 +29,12 @@
  */
 package org.pushingpixels.substance.api.painter.preview;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-
-import javax.swing.JViewport;
-
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Default implementation of the component preview painter. The component preview is a scaled-down

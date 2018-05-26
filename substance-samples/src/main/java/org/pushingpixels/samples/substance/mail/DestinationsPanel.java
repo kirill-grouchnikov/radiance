@@ -29,27 +29,10 @@
  */
 package org.pushingpixels.samples.substance.mail;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Window;
-import java.awt.geom.Rectangle2D;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import org.pushingpixels.samples.substance.mail.svg.ic_delete_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_drafts_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_inbox_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_refresh_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_send_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_star_border_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_watch_later_black_24px;
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.layout.FormLayout;
+import org.pushingpixels.neon.icon.NeonIcon;
+import org.pushingpixels.samples.substance.mail.svg.*;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
@@ -59,12 +42,13 @@ import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SunGlareColorScheme;
 import org.pushingpixels.substance.api.colorscheme.TerracottaColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIcon;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.highlight.SubstanceHighlightPainter;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Main destinations panel (leftmost under LTR). In the real app this will probably be a JList
@@ -160,7 +144,7 @@ public class DestinationsPanel extends PanelWithRightLine {
         }
     }
 
-    private HighlightablePanel getSelectorDestinationRow(SubstanceIcon icon, String title,
+    private HighlightablePanel getSelectorDestinationRow(NeonIcon icon, String title,
             int count) {
         FormLayout lm = new FormLayout("center:pref, 4dlu, fill:pref:grow, 4dlu, center:pref", "");
         DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(new EmptyBorder(8, 8, 8, 8));
@@ -181,7 +165,7 @@ public class DestinationsPanel extends PanelWithRightLine {
         return result;
     }
 
-    private JPanel getRefreshAction(Window window, SubstanceIcon icon) {
+    private JPanel getRefreshAction(Window window, NeonIcon icon) {
         FormLayout lm = new FormLayout("right:pref:grow", "");
         DefaultFormBuilder builder = new DefaultFormBuilder(lm)
                 .border(new EmptyBorder(12, 8, 12, 8));

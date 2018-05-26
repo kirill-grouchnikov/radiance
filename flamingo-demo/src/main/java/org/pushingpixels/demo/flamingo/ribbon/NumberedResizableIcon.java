@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.demo.flamingo.ribbon;
 
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
+import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.*;
 
@@ -82,7 +82,7 @@ public class NumberedResizableIcon implements ResizableIcon {
 		Graphics2D graphics = (Graphics2D) g.create();
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-		RenderingUtils.installDesktopHints(graphics, c);
+		NeonUtil.installDesktopHints(graphics, c);
 
 		graphics.setColor(new Color(40, 70, 20));
 		graphics.setFont(new Font("Tahoma", Font.BOLD, 14));

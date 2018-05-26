@@ -29,14 +29,11 @@
  */
 package org.pushingpixels.substance.api.painter.border;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Shape;
-
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
+
+import java.awt.*;
 
 /**
  * Border painter interface for <b>Substance</b> look and feel. This class is

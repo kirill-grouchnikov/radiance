@@ -29,12 +29,10 @@
  */
 package org.pushingpixels.substance.api.painter.fill;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Shape;
-
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
+
+import java.awt.*;
 
 /**
  * Fill painter interface for <b>Substance</b> look and feel. This class is part

@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.substance.api;
 
-import java.util.Set;
-
 import org.pushingpixels.substance.api.skin.SkinInfo;
+
+import java.util.Set;
 
 /**
  * Plugin for skin extension. 

@@ -18,18 +18,8 @@
  */
 package org.pushingpixels.tools.substance.swingx.docrobot;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.layout.FormLayout;
 import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.JXTaskPane;
 import org.jdesktop.swingx.JXTaskPaneContainer;
@@ -38,8 +28,8 @@ import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer
 import org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import java.awt.*;
 
 public class TaskPaneFrame extends JFrame {
     public TaskPaneFrame() {

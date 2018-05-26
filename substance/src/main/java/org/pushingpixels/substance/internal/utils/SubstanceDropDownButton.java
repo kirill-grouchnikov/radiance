@@ -29,19 +29,15 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.util.EnumSet;
-
-import javax.swing.DefaultButtonModel;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.border.EmptyBorder;
-
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.util.EnumSet;
 
 /**
  * Drop down button in <b>Substance</b> look and feel.

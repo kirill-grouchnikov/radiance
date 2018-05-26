@@ -29,17 +29,16 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.JComponent;
-
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+
+import javax.swing.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UpdateOptimizationInfo {
 	private JComponent component;

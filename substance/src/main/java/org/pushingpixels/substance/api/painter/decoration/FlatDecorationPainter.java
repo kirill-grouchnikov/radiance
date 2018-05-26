@@ -29,11 +29,10 @@
  */
 package org.pushingpixels.substance.api.painter.decoration;
 
-import java.awt.Component;
-import java.awt.Graphics2D;
-
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+
+import java.awt.*;
 
 /**
  * Decoration painter that paints a flat appearance. This class is part of

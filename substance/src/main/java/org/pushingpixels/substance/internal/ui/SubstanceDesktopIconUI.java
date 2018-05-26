@@ -29,25 +29,21 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.util.Set;
-
-import javax.swing.JComponent;
-import javax.swing.JInternalFrame.JDesktopIcon;
-import javax.swing.UIManager;
-import javax.swing.event.MouseInputListener;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
-import javax.swing.plaf.basic.BasicDesktopIconUI;
-
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceInternalFrameTitlePane;
+
+import javax.swing.*;
+import javax.swing.JInternalFrame.JDesktopIcon;
+import javax.swing.event.MouseInputListener;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.UIResource;
+import javax.swing.plaf.basic.BasicDesktopIconUI;
+import java.awt.*;
+import java.util.Set;
 
 /**
  * UI for desktop icons in <b>Substance</b> look and feel.

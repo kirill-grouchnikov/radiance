@@ -14,13 +14,10 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua;
 
-import java.awt.Component;
-import java.awt.Insets;
-
-import javax.swing.JComponent;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import javax.swing.plaf.UIResource;
+import java.awt.*;
 
 /**
  * The VisualMargin is used to visually align components using bounds

@@ -14,15 +14,11 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-
-import javax.swing.Icon;
-import javax.swing.JList;
-
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 import org.pushingpixels.substance.internal.utils.SubstanceStripingUtils;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * PaletteEntryCellRenderer.

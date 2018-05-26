@@ -29,17 +29,10 @@
  */
 package org.pushingpixels.substance.api.colorscheme;
 
-import java.awt.Color;
-
-import org.pushingpixels.substance.internal.colorscheme.HueShiftColorScheme;
-import org.pushingpixels.substance.internal.colorscheme.InvertedColorScheme;
-import org.pushingpixels.substance.internal.colorscheme.NegatedColorScheme;
-import org.pushingpixels.substance.internal.colorscheme.SaturatedColorScheme;
-import org.pushingpixels.substance.internal.colorscheme.ShadeColorScheme;
-import org.pushingpixels.substance.internal.colorscheme.ShiftColorScheme;
-import org.pushingpixels.substance.internal.colorscheme.TintColorScheme;
-import org.pushingpixels.substance.internal.colorscheme.ToneColorScheme;
+import org.pushingpixels.substance.internal.colorscheme.*;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+
+import java.awt.*;
 
 /**
  * Base class for <b>Substance</b> color schemes.

@@ -36,6 +36,7 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
@@ -48,7 +49,6 @@ import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI;
 import org.pushingpixels.substance.internal.utils.*;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -121,7 +121,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             // task group title
             FontMetrics fm = this.getFontMetrics(ribbon.getFont());
             int yOffset = (height - fm.getHeight()) / 2;
-            RenderingUtils.installDesktopHints(g2d, this);
+            NeonUtil.installDesktopHints(g2d, this);
 
             int offset = SubstanceSizeUtils
                     .getAdjustedSize(SubstanceSizeUtils.getComponentFontSize(this), 5, 2, 1, false);

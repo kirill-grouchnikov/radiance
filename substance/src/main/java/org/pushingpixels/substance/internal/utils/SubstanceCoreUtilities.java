@@ -29,90 +29,13 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dialog;
-import java.awt.FontMetrics;
-import java.awt.Frame;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Transparency;
-import java.awt.Window;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.util.EnumSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
-import javax.swing.AbstractButton;
-import javax.swing.ButtonModel;
-import javax.swing.Icon;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JPopupMenu;
-import javax.swing.JRadioButton;
-import javax.swing.JRootPane;
-import javax.swing.JScrollBar;
-import javax.swing.JSpinner;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JToolBar;
-import javax.swing.JTree;
-import javax.swing.MenuElement;
-import javax.swing.MenuSelectionManager;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.plaf.ButtonUI;
-import javax.swing.plaf.UIResource;
-import javax.swing.text.JTextComponent;
-
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
-import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
-import org.pushingpixels.substance.api.SubstanceSlices.Side;
-import org.pushingpixels.substance.api.SubstanceSlices.TabContentPaneBorderKind;
-import org.pushingpixels.substance.api.UiThreadingViolationException;
-import org.pushingpixels.substance.api.colorscheme.BottleGreenColorScheme;
-import org.pushingpixels.substance.api.colorscheme.LightAquaColorScheme;
+import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.icon.IsHiDpiAware;
+import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SunfireRedColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SunsetColorScheme;
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
-import org.pushingpixels.substance.api.icon.IsHiDpiAware;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
@@ -120,8 +43,6 @@ import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
-import org.pushingpixels.substance.internal.contrib.intellij.JBHiDPIScaledImage;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.substance.internal.fonts.DefaultKDEFontPolicy;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
@@ -134,6 +55,21 @@ import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
 import org.pushingpixels.substance.internal.utils.menu.SubstanceMenu;
 import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollButton;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
+
+import javax.swing.*;
+import javax.swing.plaf.ButtonUI;
+import javax.swing.plaf.UIResource;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Various utility functions. This class is <b>for internal use only</b>.
@@ -621,14 +557,7 @@ public class SubstanceCoreUtilities {
             }
         }
 
-        if (UIUtil.getScaleFactor() > 1.0) {
-            return new JBHiDPIScaledImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        } else {
-            GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            GraphicsDevice d = e.getDefaultScreenDevice();
-            GraphicsConfiguration c = d.getDefaultConfiguration();
-            return c.createCompatibleImage(width, height, Transparency.TRANSLUCENT);
-        }
+        return NeonUtil.getBlankImage(width, height);
     }
 
     /**
@@ -659,17 +588,7 @@ public class SubstanceCoreUtilities {
             }
         }
 
-        if (UIUtil.getScaleFactor() > 1.0) {
-            JBHiDPIScaledImage result = new JBHiDPIScaledImage(null, width, height,
-                    BufferedImage.TYPE_INT_ARGB);
-            result.setIgnoreScaling();
-            return result;
-        } else {
-            GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            GraphicsDevice d = e.getDefaultScreenDevice();
-            GraphicsConfiguration c = d.getDefaultConfiguration();
-            return c.createCompatibleImage(width, height, Transparency.TRANSLUCENT);
-        }
+        return NeonUtil.getBlankUnscaledImage(width, height);
     }
 
     /**
@@ -699,17 +618,7 @@ public class SubstanceCoreUtilities {
             }
         }
 
-        if (UIUtil.getScaleFactor() > 1.0) {
-            JBHiDPIScaledImage result = new JBHiDPIScaledImage(null, imageWidth, imageHeight,
-                    BufferedImage.TYPE_INT_ARGB);
-            result.setIgnoreScaling();
-            return result;
-        } else {
-            GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            GraphicsDevice d = e.getDefaultScreenDevice();
-            GraphicsConfiguration c = d.getDefaultConfiguration();
-            return c.createCompatibleImage(imageWidth, imageHeight, Transparency.TRANSLUCENT);
-        }
+        return NeonUtil.getBlankUnscaledImage(imageWidth, imageHeight);
     }
 
     public static boolean isHiDpiAwareImage(Image image) {
@@ -1292,22 +1201,22 @@ public class SubstanceCoreUtilities {
         return Boolean.TRUE.equals(UIManager.get(SubstanceSynapse.SHOW_EXTRA_WIDGETS));
     }
 
-    public static SubstanceIconUIResource getThemedIcon(Component comp, Icon orig) {
+    public static NeonIconUIResource getThemedIcon(Component comp, Icon orig) {
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(comp,
                 ComponentState.ENABLED);
         return getThemedIcon(comp, orig, colorScheme);
     }
 
-    public static SubstanceIconUIResource getThemedIcon(JTabbedPane tab, int tabIndex, Icon orig) {
+    public static NeonIconUIResource getThemedIcon(JTabbedPane tab, int tabIndex, Icon orig) {
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(tab,
                 tabIndex, ColorSchemeAssociationKind.TAB, ComponentState.ENABLED);
         return getThemedIcon(tab, orig, colorScheme);
     }
 
-    public static SubstanceIconUIResource getThemedIcon(Component comp, Icon orig,
+    public static NeonIconUIResource getThemedIcon(Component comp, Icon orig,
             SubstanceColorScheme colorScheme) {
         float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
-        return new SubstanceIconUIResource(SubstanceImageCreator.getColorSchemeImage(comp, orig,
+        return new NeonIconUIResource(SubstanceImageCreator.getColorSchemeImage(comp, orig,
                 colorScheme, brightnessFactor));
     }
 

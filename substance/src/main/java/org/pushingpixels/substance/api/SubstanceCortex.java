@@ -29,50 +29,10 @@
  */
 package org.pushingpixels.substance.api;
 
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.Insets;
-import java.awt.Window;
-import java.awt.image.BufferedImage;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.TreeMap;
-
-import javax.swing.AbstractButton;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JPasswordField;
-import javax.swing.JRootPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
-import javax.swing.JTree;
-import javax.swing.LookAndFeel;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.UIResource;
-import javax.swing.text.JTextComponent;
-
-import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
-import org.pushingpixels.substance.api.SubstanceSlices.ButtonOrder;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
-import org.pushingpixels.substance.api.SubstanceSlices.LocaleChangeListener;
-import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
-import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
-import org.pushingpixels.substance.api.SubstanceSlices.TabContentPaneBorderKind;
+import org.pushingpixels.neon.icon.NeonIcon;
+import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
 import org.pushingpixels.substance.api.font.FontPolicy;
 import org.pushingpixels.substance.api.font.FontSet;
@@ -93,16 +53,17 @@ import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.SubstancePluginRepository;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.fonts.FontPolicies;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI;
-import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceTitlePaneUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceWidgetManager;
-import org.pushingpixels.substance.internal.utils.TabCloseListenerManager;
+import org.pushingpixels.substance.internal.utils.*;
+
+import javax.swing.*;
+import javax.swing.plaf.UIResource;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.*;
 
 /**
  * This class is the only officially-supported entry point into configuring the behavior of
@@ -1390,8 +1351,15 @@ public class SubstanceCortex {
             return SubstanceCoreUtilities.getBlankImage(width, height);
         }
 
-        public static double getScaleFactor() {
-            return UIUtil.getScaleFactor();
+        public static NeonIconUIResource colorize(Icon source, SubstanceColorScheme colorScheme) {
+            float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
+            return new NeonIconUIResource(SubstanceImageCreator.getColorSchemeImage(null, source, colorScheme,
+                    brightnessFactor));
+        }
+
+        public static NeonIconUIResource colorize(Icon source, SubstanceColorScheme colorScheme, float brightnessFactor) {
+            return new NeonIconUIResource(SubstanceImageCreator.getColorSchemeImage(null, source, colorScheme,
+                    brightnessFactor));
         }
     }
 

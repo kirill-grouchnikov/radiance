@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.substance.api.colorscheme;
 
-import java.awt.Color;
-
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
+
+import java.awt.*;
 
 /**
  * General interface for color schemes.

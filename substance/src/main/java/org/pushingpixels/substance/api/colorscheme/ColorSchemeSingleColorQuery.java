@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.colorscheme;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * Defines a query that returns a single color based on a color scheme.

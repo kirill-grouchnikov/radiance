@@ -29,29 +29,14 @@
  */
 package org.pushingpixels.tools.substance.electra;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.LinearGradientPaint;
-import java.awt.Point;
-import java.awt.RadialGradientPaint;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Transparency;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.tools.substance.common.JImageComponent;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
@@ -67,21 +52,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
-import javax.imageio.ImageIO;
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
-
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
-import org.pushingpixels.tools.substance.common.JImageComponent;
 
 public class JElectrifiedImageComponent extends JComponent {
     private JImageComponent originalImageComponent;
@@ -736,7 +706,7 @@ public class JElectrifiedImageComponent extends JComponent {
 
                     g2d.translate(-x, -y);
 
-                    RenderingUtils.installDesktopHints(g2d, this);
+                    NeonUtil.installDesktopHints(g2d, this);
                     int textY = y + 4 + g2d.getFontMetrics().getAscent();
                     int textX = (zoomBubble.captionOffsetX < 0) ? x + captionHeight / 6 + 4
                             : x + captionHeight / 3 + 4;

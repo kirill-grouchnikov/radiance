@@ -29,21 +29,16 @@
  */
 package org.pushingpixels.substance.internal.widget.text;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Insets;
-import java.awt.Rectangle;
-
-import javax.swing.Icon;
-import javax.swing.JViewport;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.UIResource;
-
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
 import org.pushingpixels.substance.internal.utils.border.BorderWrapper;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
 
 /**
  * Border with "lock" indication.

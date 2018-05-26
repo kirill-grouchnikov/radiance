@@ -18,37 +18,25 @@
  */
 package org.pushingpixels.substance.swingx;
 
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.Transparency;
-import java.awt.Window;
-import java.awt.event.HierarchyEvent;
-import java.awt.event.HierarchyListener;
-import java.awt.image.BufferedImage;
-
-import javax.swing.Icon;
-import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.plaf.ComponentUI;
-
 import org.jdesktop.swingx.JXLoginPane;
 import org.jdesktop.swingx.plaf.basic.BasicLoginPaneUI;
+import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 import org.pushingpixels.substance.swingx.svg.window_new;
+
+import javax.swing.*;
+import javax.swing.plaf.ComponentUI;
+import java.awt.*;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
+import java.awt.image.BufferedImage;
 
 /**
  * Substance-consistent UI delegate for {@link JXLoginPane}.
@@ -156,7 +144,7 @@ public class SubstanceLoginPaneUI extends BasicLoginPaneUI {
                             originalGraphics.getFontRenderContext()).getWidth()) + width * .05f);
         }
 
-        RenderingUtils.installDesktopHints(graphics, this.loginPanel);
+        NeonUtil.installDesktopHints(graphics, this.loginPanel);
 
         originalGraphics.setColor(SubstanceColorUtilities.getForegroundColor(SubstanceCoreUtilities
                 .getSkin(this.loginPanel).getEnabledColorScheme(DecorationAreaType.HEADER)));

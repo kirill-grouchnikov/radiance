@@ -29,16 +29,12 @@
  */
 package org.pushingpixels.substance.api.painter.highlight;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.LinearGradientPaint;
-import java.awt.MultipleGradientPaint;
-import java.awt.MultipleGradientPaint.CycleMethod;
-
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.FractionBasedPainter;
+
+import java.awt.*;
+import java.awt.MultipleGradientPaint.CycleMethod;
 
 /**
  * Highlight painter with fraction-based stops and a color query associated with

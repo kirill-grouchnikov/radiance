@@ -18,15 +18,14 @@
  */
 package org.pushingpixels.tools.substance.swingx.docrobot;
 
-import java.util.Map;
-
-import javax.swing.JFrame;
-
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.skin.SkinInfo;
+
+import javax.swing.*;
+import java.util.Map;
 
 /**
  * The main method for taking screenshots for Substance documentation.

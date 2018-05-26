@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2018 Ibis Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Ibis Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Ibis Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.ibis.transcoder;
 
@@ -67,7 +67,7 @@ import org.apache.batik.gvt.StrokeShapePainter;
 
 /**
  * SVG to Java2D transcoder.
- * 
+ *
  * @author Kirill Grouchnikov.
  */
 abstract class SvgBaseTranscoder {
@@ -117,10 +117,8 @@ abstract class SvgBaseTranscoder {
     /**
      * Creates a new transcoder.
      *
-     * @param classname
-     *            Classname for the generated Java2D code.
-     * @param languageRenderer
-     *            Language renderer (Java, Kotlin, ...)
+     * @param classname        Classname for the generated Java2D code.
+     * @param languageRenderer Language renderer (Java, Kotlin, ...)
      */
     public SvgBaseTranscoder(String classname, LanguageRenderer languageRenderer) {
         this.classname = classname;
@@ -133,9 +131,8 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Sets the listener.
-     * 
-     * @param listener
-     *            Listener.
+     *
+     * @param listener Listener.
      */
     public void setListener(TranscoderListener listener) {
         this.listener = listener;
@@ -206,9 +203,8 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Transcodes the specified path iterator.
-     * 
-     * @param pathIterator
-     *            Path iterator.
+     *
+     * @param pathIterator Path iterator.
      */
     private void transcodePathIterator(PathIterator pathIterator) {
         float[] coords = new float[6];
@@ -262,11 +258,9 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Transcodes the specified shape.
-     * 
-     * @param shape
-     *            Shape.
-     * @throws UnsupportedOperationException
-     *             if the shape is unsupported.
+     *
+     * @param shape Shape.
+     * @throws UnsupportedOperationException if the shape is unsupported.
      */
     private void transcodeShape(Shape shape) throws UnsupportedOperationException {
         if (shape instanceof ExtendedGeneralPath) {
@@ -313,11 +307,9 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Transcodes the specified linear gradient paint.
-     * 
-     * @param paint
-     *            Linear gradient paint.
-     * @throws IllegalArgumentException
-     *             if the fractions are not strictly increasing.
+     *
+     * @param paint Linear gradient paint.
+     * @throws IllegalArgumentException if the fractions are not strictly increasing.
      */
     private void transcodeLinearGradientPaint(LinearGradientPaint paint)
             throws IllegalArgumentException {
@@ -431,11 +423,9 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Transcodes the specified radial gradient paint.
-     * 
-     * @param paint
-     *            Radial gradient paint.
-     * @throws IllegalArgumentException
-     *             if the fractions are not strictly increasing.
+     *
+     * @param paint Radial gradient paint.
+     * @throws IllegalArgumentException if the fractions are not strictly increasing.
      */
     private void transcodeRadialGradientPaint(RadialGradientPaint paint)
             throws IllegalArgumentException {
@@ -554,11 +544,9 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Transcodes the specified paint.
-     * 
-     * @param paint
-     *            Paint.
-     * @throws UnsupportedOperationException
-     *             if the paint is unsupported.
+     *
+     * @param paint Paint.
+     * @throws UnsupportedOperationException if the paint is unsupported.
      */
     private void transcodePaint(Paint paint) throws UnsupportedOperationException {
         if (paint instanceof RadialGradientPaint) {
@@ -589,11 +577,9 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Transcodes the specified shape painter.
-     * 
-     * @param painter
-     *            Shape painter.
-     * @throws UnsupportedOperationException
-     *             if the shape painter is unsupported.
+     *
+     * @param painter Shape painter.
+     * @throws UnsupportedOperationException if the shape painter is unsupported.
      */
     private void transcodeShapePainter(ShapePainter painter) throws UnsupportedOperationException {
         if (painter == null)
@@ -615,9 +601,8 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Transcodes the specified composite shape painter.
-     * 
-     * @param painter
-     *            Composite shape painter.
+     *
+     * @param painter Composite shape painter.
      */
     private void transcodeCompositeShapePainter(CompositeShapePainter painter) {
         // offset(offset);
@@ -629,21 +614,14 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Transcodes the specified fill shape painter.
-     * 
-     * @param painter
-     *            Fill shape painter.
+     *
+     * @param painter Fill shape painter.
      */
     private void transcodeFillShapePainter(FillShapePainter painter) {
-        try {
-            Field paintFld = FillShapePainter.class.getDeclaredField("paint");
-            paintFld.setAccessible(true);
-            Paint paint = (Paint) paintFld.get(painter);
-            if (paint == null)
-                return;
-            transcodePaint(paint);
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
+        Paint paint = painter.getPaint();
+        if (paint == null)
+            return;
+        transcodePaint(paint);
         Shape shape = painter.getShape();
         // offset(offset);
         // printWriter.println("FillShapePainter");
@@ -655,59 +633,46 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Transcodes the specified stroke shape painter.
-     * 
-     * @param painter
-     *            Stroke shape painter.
+     *
+     * @param painter Stroke shape painter.
      */
     private void transcodeStrokeShapePainter(StrokeShapePainter painter) {
         Shape shape = painter.getShape();
         // offset(offset);
         // printWriter.println("StrokeShapePainter");
-        try {
-            Field paintFld = StrokeShapePainter.class.getDeclaredField("paint");
-            paintFld.setAccessible(true);
-            Paint paint = (Paint) paintFld.get(painter);
-            if (paint == null)
-                return;
-            transcodePaint(paint);
-            // offset(offset + 1);
-            // printWriter.println(paint);
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
-        try {
-            Field strokeFld = StrokeShapePainter.class.getDeclaredField("stroke");
-            strokeFld.setAccessible(true);
-            Stroke stroke = (Stroke) strokeFld.get(painter);
-            // offset(offset + 1);
+        Paint paint = painter.getPaint();
+        if (paint == null)
+            return;
+        transcodePaint(paint);
+        // offset(offset + 1);
+        // printWriter.println(paint);
+        Stroke stroke = painter.getStroke();
+        // offset(offset + 1);
 
-            BasicStroke bStroke = (BasicStroke) stroke;
-            float width = bStroke.getLineWidth();
-            int cap = bStroke.getEndCap();
-            int join = bStroke.getLineJoin();
-            float miterlimit = bStroke.getMiterLimit();
-            float[] dash = bStroke.getDashArray();
-            float dash_phase = bStroke.getDashPhase();
+        BasicStroke bStroke = (BasicStroke) stroke;
+        float width = bStroke.getLineWidth();
+        int cap = bStroke.getEndCap();
+        int join = bStroke.getLineJoin();
+        float miterlimit = bStroke.getMiterLimit();
+        float[] dash = bStroke.getDashArray();
+        float dash_phase = bStroke.getDashPhase();
 
-            StringBuffer dashRep = new StringBuffer();
-            if (dash == null) {
-                dashRep.append("null");
-            } else {
-                String sep = "";
-                dashRep.append(languageRenderer.startPrimitiveArrayOf("float"));
-                for (float _dash : dash) {
-                    dashRep.append(sep);
-                    dashRep.append(_dash + "f");
-                    sep = ",";
-                }
-                dashRep.append("}");
+        StringBuffer dashRep = new StringBuffer();
+        if (dash == null) {
+            dashRep.append("null");
+        } else {
+            String sep = "";
+            dashRep.append(languageRenderer.startPrimitiveArrayOf("float"));
+            for (float _dash : dash) {
+                dashRep.append(sep);
+                dashRep.append(_dash + "f");
+                sep = ",";
             }
-            printWriter.println("stroke = " + languageRenderer.getObjectCreation("BasicStroke")
-                    + "(" + width + "f," + cap + "," + join + "," + miterlimit + "f," + dashRep
-                    + "," + dash_phase + "f)" + languageRenderer.getStatementEnd());
-        } catch (Exception exc) {
-            exc.printStackTrace();
+            dashRep.append("}");
         }
+        printWriter.println("stroke = " + languageRenderer.getObjectCreation("BasicStroke")
+                + "(" + width + "f," + cap + "," + join + "," + miterlimit + "f," + dashRep
+                + "," + dash_phase + "f)" + languageRenderer.getStatementEnd());
 
         transcodeShape(shape);
         printWriter.println("g" + languageRenderer.startSetterAssignment("paint") + "paint"
@@ -719,11 +684,9 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Transcodes the specified shape node.
-     * 
-     * @param node
-     *            Shape node.
-     * @param comment
-     *            Comment (for associating the Java2D section with the corresponding SVG section).
+     *
+     * @param node    Shape node.
+     * @param comment Comment (for associating the Java2D section with the corresponding SVG section).
      */
     private void transcodeShapeNode(ShapeNode node, String comment) {
         // offset(offset);
@@ -736,11 +699,9 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Transcodes the specified composite graphics node.
-     * 
-     * @param node
-     *            Composite graphics node.
-     * @param comment
-     *            Comment (for associating the Java2D section with the corresponding SVG section).
+     *
+     * @param node    Composite graphics node.
+     * @param comment Comment (for associating the Java2D section with the corresponding SVG section).
      */
     private void transcodeCompositeGraphicsNode(CompositeGraphicsNode node, String comment) {
         printWriter.println("// " + comment);
@@ -755,13 +716,10 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Transcodes the specified graphics node.
-     * 
-     * @param node
-     *            Graphics node.
-     * @param comment
-     *            Comment (for associating the Java2D section with the corresponding SVG section).
-     * @throws UnsupportedOperationException
-     *             if the graphics node is unsupported.
+     *
+     * @param node    Graphics node.
+     * @param comment Comment (for associating the Java2D section with the corresponding SVG section).
+     * @throws UnsupportedOperationException if the graphics node is unsupported.
      */
     private void transcodeGraphicsNode(GraphicsNode node, String comment)
             throws UnsupportedOperationException {

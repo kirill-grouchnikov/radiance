@@ -29,18 +29,13 @@
  */
 package org.pushingpixels.substance.api.painter.overlay;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.Point;
-
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Overlay painter that paints a few pixel-high drop shadow at the top edge of

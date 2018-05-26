@@ -1,5 +1,5 @@
 /*
- * $Id: AbstractFilter.java 657 2010-05-29 02:06:24Z kirillcool $
+ * $Id: AbstractFilter.java 2254 2009-10-15 04:00:12Z kirillcool $
  *
  * Dual-licensed under LGPL (Sun and Romain Guy) and BSD (Romain Guy).
  *
@@ -32,7 +32,10 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.pushingpixels.flamingo.internal.utils;
+package org.pushingpixels.neon.filter;
+
+import org.pushingpixels.neon.icon.IsHiDpiAware;
+import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -48,23 +51,19 @@ import java.awt.image.*;
  * 
  * @author Romain Guy <romain.guy@mac.com>
  */
-public abstract class AbstractFilter implements BufferedImageOp {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * java.awt.image.BufferedImageOp#getBounds2D(java.awt.image.BufferedImage)
+
+public abstract class NeonAbstractFilter implements BufferedImageOp {
+	public abstract BufferedImage filter(BufferedImage src, BufferedImage dest);
+
+	/**
+	 * {@inheritDoc}
 	 */
 	public Rectangle2D getBounds2D(BufferedImage src) {
 		return new Rectangle(0, 0, src.getWidth(), src.getHeight());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * java.awt.image.BufferedImageOp#createCompatibleDestImage(java.awt.image
-	 * .BufferedImage, java.awt.image.ColorModel)
+	/**
+	 * {@inheritDoc}
 	 */
 	public BufferedImage createCompatibleDestImage(BufferedImage src,
 			ColorModel destCM) {
@@ -72,49 +71,30 @@ public abstract class AbstractFilter implements BufferedImageOp {
 			destCM = src.getColorModel();
 		}
 
-		return new BufferedImage(destCM, destCM.createCompatibleWritableRaster(
-				src.getWidth(), src.getHeight()),
-				destCM.isAlphaPremultiplied(), null);
+		WritableRaster raster = destCM.createCompatibleWritableRaster(
+				src.getWidth(), src.getHeight());
+		if (src instanceof IsHiDpiAware) {
+			return new JBHiDPIScaledImage(destCM, raster, destCM.isAlphaPremultiplied(), null,
+					src.getWidth(), src.getHeight());
+		} else {
+			return new BufferedImage(destCM, raster, destCM.isAlphaPremultiplied(), null);
+		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.image.BufferedImageOp#getPoint2D(java.awt.geom.Point2D,
-	 * java.awt.geom.Point2D)
+	/**
+	 * {@inheritDoc}
 	 */
 	public Point2D getPoint2D(Point2D srcPt, Point2D dstPt) {
 		return (Point2D) srcPt.clone();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.image.BufferedImageOp#getRenderingHints()
+	/**
+	 * {@inheritDoc}
 	 */
 	public RenderingHints getRenderingHints() {
 		return null;
 	}
 
-	/**
-	 * Returns an array of integer pixels in the default RGB color model
-	 * (TYPE_INT_ARGB) and default sRGB color space, from a portion of the image
-	 * data.
-	 * 
-	 * @param img
-	 *            Image.
-	 * @param x
-	 *            The starting X coordinate
-	 * @param y
-	 *            The starting Y coordinate
-	 * @param w
-	 *            Width of region.
-	 * @param h
-	 *            Height of region.
-	 * @param pixels
-	 *            If not <code>null</code>, the pixels are written here.
-	 * @return Array or RGB pixels.
-	 */
 	protected int[] getPixels(BufferedImage img, int x, int y, int w, int h,
 			int[] pixels) {
 		if (w == 0 || h == 0) {

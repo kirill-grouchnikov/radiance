@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.colorscheme;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * <b>Dark gray</b> color scheme. The primary use of this color scheme is for

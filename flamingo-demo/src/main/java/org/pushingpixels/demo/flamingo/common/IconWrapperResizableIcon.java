@@ -29,13 +29,10 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
-import javax.swing.Icon;
-
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import javax.swing.*;
+import java.awt.*;
 
 public class IconWrapperResizableIcon implements ResizableIcon {
 	protected Icon delegate;

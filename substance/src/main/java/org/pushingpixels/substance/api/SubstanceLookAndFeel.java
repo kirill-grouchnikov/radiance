@@ -29,35 +29,19 @@
  */
 package org.pushingpixels.substance.api;
 
-import java.awt.AlphaComposite;
-import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.KeyboardFocusManager;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JRootPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
-import javax.swing.plaf.basic.BasicLookAndFeel;
-
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
 import org.pushingpixels.substance.internal.SubstancePluginRepository;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopupFactory;
-import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
-import org.pushingpixels.substance.internal.utils.MemoryAnalyzer;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
-import org.pushingpixels.substance.internal.utils.SubstanceTitlePane;
+import org.pushingpixels.substance.internal.utils.*;
+
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicLookAndFeel;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * <p>
@@ -345,7 +329,7 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
                 ComponentState.DISABLED_UNSELECTED);
         if (alpha < 1.0f) {
             BufferedImage intermediate = SubstanceCoreUtilities
-                    .getBlankUnscaledImage(icon.getIconWidth(), icon.getIconHeight());
+                    .getBlankUnscaledImage(result.getWidth(), result.getHeight());
             Graphics2D g2d = intermediate.createGraphics();
             g2d.setComposite(AlphaComposite.SrcOver.derive(alpha));
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
@@ -355,6 +339,6 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
             result = intermediate;
         }
 
-        return new SubstanceIconUIResource(result);
+        return new NeonIconUIResource(result);
     }
 }

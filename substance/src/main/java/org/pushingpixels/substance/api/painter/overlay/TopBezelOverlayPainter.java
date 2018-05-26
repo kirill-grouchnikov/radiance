@@ -29,20 +29,16 @@
  */
 package org.pushingpixels.substance.api.painter.overlay;
 
-import java.awt.BasicStroke;
-import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.geom.Line2D;
-
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Line2D;
 
 /**
  * Overlay painter that paints a bezel line at the top edge of the relevant

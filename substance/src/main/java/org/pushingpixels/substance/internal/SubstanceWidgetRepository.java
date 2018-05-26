@@ -29,23 +29,11 @@
  */
 package org.pushingpixels.substance.internal;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JInternalFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.JToggleButton;
-import javax.swing.JTree;
-import javax.swing.text.JTextComponent;
-
 import org.pushingpixels.substance.api.SubstanceWidget;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.util.*;
 
 /**
  * Repository of Substance widgets.

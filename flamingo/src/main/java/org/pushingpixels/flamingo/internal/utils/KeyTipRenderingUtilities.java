@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;

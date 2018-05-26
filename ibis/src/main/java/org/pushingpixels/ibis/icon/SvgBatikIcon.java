@@ -39,7 +39,7 @@ import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.apache.batik.util.EventDispatcher;
 import org.apache.batik.util.EventDispatcher.Dispatcher;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;

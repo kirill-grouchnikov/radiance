@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.substance.internal.animation;
 
-import java.util.EventObject;
-
 import org.pushingpixels.trident.Timeline.TimelineState;
+
+import java.util.EventObject;
 
 public class StateTransitionEvent extends EventObject {
 	private TimelineState newState;

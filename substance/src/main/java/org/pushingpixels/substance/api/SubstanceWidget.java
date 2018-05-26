@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api;
 
-import javax.swing.JComponent;
+import javax.swing.*;
 
 /**
  * Interface for Substance widgets (behavioral traits).

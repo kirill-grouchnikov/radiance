@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.plaf.UIResource;
 import java.awt.*;

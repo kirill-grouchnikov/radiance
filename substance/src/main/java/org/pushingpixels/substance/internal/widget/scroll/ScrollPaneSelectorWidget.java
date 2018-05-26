@@ -29,19 +29,18 @@
  */
 package org.pushingpixels.substance.internal.widget.scroll;
 
-import java.awt.event.HierarchyEvent;
-import java.awt.event.HierarchyListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.JScrollPane;
-import javax.swing.plaf.basic.ComboPopup;
-
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.painter.preview.PreviewPainter;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
+
+import javax.swing.*;
+import javax.swing.plaf.basic.ComboPopup;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * Widget that decorates scroll panes with selector.

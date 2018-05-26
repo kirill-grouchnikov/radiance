@@ -29,9 +29,8 @@
  */
 package org.pushingpixels.tools.substance.main.docrobot;
 
+import javax.swing.*;
 import java.lang.reflect.Method;
-
-import javax.swing.JFrame;
 
 /**
  * The main method for taking screenshots for Substance documentation. Expects

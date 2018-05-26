@@ -29,15 +29,14 @@
  */
 package org.pushingpixels.substance.internal.widget.text;
 
+import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.internal.utils.WidgetUtilities;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-
-import javax.swing.SwingUtilities;
-import javax.swing.text.JTextComponent;
-
-import org.pushingpixels.substance.api.SubstanceWidget;
-import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 /**
  * Adds "select all on focus gain" behaviour on text components.

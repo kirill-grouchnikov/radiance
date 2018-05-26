@@ -18,30 +18,7 @@
  */
 package org.pushingpixels.substance.swingx;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-
-import javax.swing.JComponent;
-import javax.swing.SwingConstants;
-import javax.swing.UIDefaults;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.plaf.IconUIResource;
-
-import org.jdesktop.swingx.JXDatePicker;
-import org.jdesktop.swingx.JXErrorPane;
-import org.jdesktop.swingx.JXHeader;
-import org.jdesktop.swingx.JXHyperlink;
-import org.jdesktop.swingx.JXLoginPane;
-import org.jdesktop.swingx.JXMonthView;
-import org.jdesktop.swingx.JXStatusBar;
-import org.jdesktop.swingx.JXTaskPane;
-import org.jdesktop.swingx.JXTaskPaneContainer;
-import org.jdesktop.swingx.JXTipOfTheDay;
-import org.jdesktop.swingx.JXTitledPanel;
+import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.painter.Painter;
 import org.jdesktop.swingx.plaf.PainterUIResource;
 import org.pushingpixels.substance.api.ComponentState;
@@ -61,6 +38,12 @@ import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
 import org.pushingpixels.substance.swingx.svg.ic_search_black_24px;
+
+import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.IconUIResource;
+import java.awt.*;
 
 /**
  * Substance plugin for <a href="https://swingx.dev.java.net">SwingX</a>

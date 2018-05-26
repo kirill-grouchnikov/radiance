@@ -29,33 +29,19 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import java.awt.AlphaComposite;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.util.Map;
-
-import javax.swing.AbstractButton;
-import javax.swing.Icon;
-import javax.swing.JComponent;
-import javax.swing.JMenu;
-import javax.swing.SwingConstants;
-
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
-import org.pushingpixels.substance.internal.utils.HashMapKey;
-import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Map;
 
 /**
  * Transition aware implementation of arrow button icons. Used for implementing
@@ -70,8 +56,8 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
 	 * is that the {@link #delegate} returns an icon that paints the same for
 	 * the same parameters.
 	 */
-	private static LazyResettableHashMap<SubstanceIconUIResource> iconMap =
-			new LazyResettableHashMap<SubstanceIconUIResource>("ButtonArrowTransitionAwareIcon");
+	private static LazyResettableHashMap<NeonIconUIResource> iconMap =
+			new LazyResettableHashMap<>("ButtonArrowTransitionAwareIcon");
 
 	/**
 	 * Arrow icon orientation. Must be one of {@link SwingConstants#NORTH},
@@ -143,7 +129,7 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
 	 *            Arrow button.
 	 * @return Icon to be painted.
 	 */
-	private SubstanceIconUIResource getIconToPaint() {
+	private NeonIconUIResource getIconToPaint() {
 		boolean isMenu = (this.component instanceof JMenu);
 		StateTransitionTracker stateTransitionTracker = this.transitionAwareUIDelegate
 				.getTransitionAwareUI().getTransitionTracker();
@@ -168,9 +154,9 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
 				this.component.getClass().getName(), this.orientation, 
 				SubstanceSizeUtils.getComponentFontSize(this.component), 
 				baseScheme.getDisplayName(), baseAlpha);
-		SubstanceIconUIResource layerBase = iconMap.get(keyBase);
+		NeonIconUIResource layerBase = iconMap.get(keyBase);
 		if (layerBase == null) {
-		    SubstanceIconUIResource baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
+			NeonIconUIResource baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
 			if (baseAlpha == 1.0f) {
 				layerBase = baseFullOpacity;
 				iconMap.put(keyBase, layerBase);
@@ -182,7 +168,7 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
 				g2base.setComposite(AlphaComposite.SrcOver.derive(baseAlpha));
 				baseFullOpacity.paintIcon(this.component, g2base, 0, 0);
 				g2base.dispose();
-				layerBase = new SubstanceIconUIResource(baseImage);
+				layerBase = new NeonIconUIResource(baseImage);
 				iconMap.put(keyBase, layerBase);
 			}
 		}
@@ -236,9 +222,9 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
 								this.orientation, SubstanceSizeUtils
 										.getComponentFontSize(this.component),
 								scheme.getDisplayName(), alpha);
-				SubstanceIconUIResource layer = iconMap.get(key);
+				NeonIconUIResource layer = iconMap.get(key);
 				if (layer == null) {
-				    SubstanceIconUIResource fullOpacity = this.delegate.getColorSchemeIcon(scheme);
+					NeonIconUIResource fullOpacity = this.delegate.getColorSchemeIcon(scheme);
 					if (alpha == 1.0f) {
 						layer = fullOpacity;
 						iconMap.put(key, layer);
@@ -250,7 +236,7 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
 						g2layer.setComposite(AlphaComposite.SrcOver.derive(alpha));
 						fullOpacity.paintIcon(this.component, g2layer, 0, 0);
 						g2layer.dispose();
-						layer = new SubstanceIconUIResource(image);
+						layer = new NeonIconUIResource(image);
 						iconMap.put(key, layer);
 					}
 				}
@@ -258,7 +244,7 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
 			}
 		}
 		g2d.dispose();
-		return new SubstanceIconUIResource(result);
+		return new NeonIconUIResource(result);
 	}
 
 	/*

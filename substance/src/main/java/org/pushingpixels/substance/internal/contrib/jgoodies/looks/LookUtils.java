@@ -30,8 +30,7 @@
 
 package org.pushingpixels.substance.internal.contrib.jgoodies.looks;
 
-import java.awt.Component;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.util.Locale;
 
 /**

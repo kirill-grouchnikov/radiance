@@ -29,19 +29,15 @@
  */
 package org.pushingpixels.substance.api;
 
-import java.awt.Component;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.colorscheme.BlendBiColorScheme;
+
+import java.awt.*;
+import java.util.*;
 
 /**
  * Color scheme bundle. Defines the visual appearance of a single decoration

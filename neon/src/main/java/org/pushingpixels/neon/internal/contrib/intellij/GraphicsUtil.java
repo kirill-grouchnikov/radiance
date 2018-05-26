@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.pushingpixels.substance.internal.contrib.intellij;
+package org.pushingpixels.neon.internal.contrib.intellij;
 
 import java.awt.AlphaComposite;
 import java.awt.Font;
@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * @author Konstantin Bulenkov
  */
-public class GraphicsUtil {
+class GraphicsUtil {
   private static final Graphics2D ourGraphics = new BufferedImage(1,1,BufferedImage.TYPE_INT_ARGB).createGraphics();
   static {
     setupFractionalMetrics(ourGraphics);

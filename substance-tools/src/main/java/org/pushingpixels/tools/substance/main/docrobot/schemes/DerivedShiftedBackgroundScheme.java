@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.tools.substance.main.docrobot.schemes;
 
-import java.awt.Color;
-
 import org.pushingpixels.substance.api.colorscheme.PurpleColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.tools.substance.main.docrobot.ColorSchemeRobot;
+
+import java.awt.*;
 
 /**
  * Screenshot robot for the

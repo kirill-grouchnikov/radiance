@@ -29,19 +29,6 @@
  */
 package org.pushingpixels.substance.internal.utils.menu;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.LinearGradientPaint;
-import java.awt.MultipleGradientPaint.CycleMethod;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.util.Map;
-
-import javax.swing.JComponent;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
@@ -56,6 +43,11 @@ import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 import org.pushingpixels.substance.internal.utils.menu.MenuUtilities.MenuLayoutMetrics;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.MultipleGradientPaint.CycleMethod;
+import java.util.Map;
 
 /**
  * Delegate for painting background of menu items.

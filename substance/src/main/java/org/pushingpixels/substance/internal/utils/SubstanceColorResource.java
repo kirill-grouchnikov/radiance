@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * This class is used to propagate a color set by the application code to the

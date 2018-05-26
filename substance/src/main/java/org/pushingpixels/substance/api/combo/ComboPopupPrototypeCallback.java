@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.combo;
 
-import javax.swing.JComboBox;
+import javax.swing.*;
 
 /**
  * Interface for specifying a prototype entry for a combo popup. This class is

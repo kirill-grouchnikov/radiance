@@ -29,13 +29,11 @@
  */
 package org.pushingpixels.substance.internal.widget.tree.dnd;
 
-import java.awt.Component;
-
-import javax.swing.JComponent;
-import javax.swing.JTree;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
+import java.awt.*;
 
 /**
  * DnDCellRendererProxy is a TreeCellRenderer that proxies operations to a true

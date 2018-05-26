@@ -29,26 +29,6 @@
  */
 package org.pushingpixels.substance.api;
 
-import java.awt.BasicStroke;
-import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.geom.GeneralPath;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.swing.AbstractButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JProgressBar;
-import javax.swing.JRadioButton;
-import javax.swing.JRootPane;
-import javax.swing.JSpinner;
-import javax.swing.JTabbedPane;
-import javax.swing.text.JTextComponent;
-
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
@@ -56,6 +36,14 @@ import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceOutlineUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Various constants and data classes used in scope-defined APIs provided by

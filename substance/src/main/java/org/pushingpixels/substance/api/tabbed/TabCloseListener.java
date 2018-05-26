@@ -29,9 +29,8 @@
  */
 package org.pushingpixels.substance.api.tabbed;
 
-import java.awt.Component;
-
-import javax.swing.JTabbedPane;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Listener on tab closing. This class is part of officially supported API.

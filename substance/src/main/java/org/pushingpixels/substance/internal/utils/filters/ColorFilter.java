@@ -29,13 +29,15 @@
  */
 package org.pushingpixels.substance.internal.utils.filters;
 
-import java.awt.Color;
+import org.pushingpixels.neon.filter.NeonAbstractFilter;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
  * @author Kirill Grouchnikov
  */
-public class ColorFilter extends AbstractFilter {
+public class ColorFilter extends NeonAbstractFilter {
 	private int color;
 	
 	public ColorFilter(Color color) {

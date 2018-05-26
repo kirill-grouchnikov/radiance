@@ -14,13 +14,10 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Insets;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.plaf.UIResource;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 /**
  * QuaquaColorPreviewPanel.

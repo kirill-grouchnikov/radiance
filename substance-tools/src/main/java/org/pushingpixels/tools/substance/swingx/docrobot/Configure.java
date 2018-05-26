@@ -18,7 +18,7 @@
  */
 package org.pushingpixels.tools.substance.swingx.docrobot;
 
-import java.awt.Window;
+import java.awt.*;
 
 public interface Configure {
 	public void configure(Window window);

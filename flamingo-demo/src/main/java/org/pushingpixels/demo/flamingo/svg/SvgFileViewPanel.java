@@ -29,11 +29,17 @@
  */
 package org.pushingpixels.demo.flamingo.svg;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.LayoutManager;
+import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarCallBack;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.RichTooltip;
+import org.pushingpixels.flamingo.api.common.StringValuePair;
+import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
+import org.pushingpixels.ibis.icon.SvgBatikResizableIcon;
+import org.pushingpixels.ibis.transcoder.SvgStreamTranscoder;
+import org.pushingpixels.ibis.transcoder.java.JavaLanguageRenderer;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -43,21 +49,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarCallBack;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.flamingo.api.common.StringValuePair;
-import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
-import org.pushingpixels.ibis.icon.SvgBatikResizableIcon;
-import org.pushingpixels.ibis.transcoder.SvgStreamTranscoder;
-import org.pushingpixels.ibis.transcoder.java.JavaLanguageRenderer;
 
 /**
  * Panel that hosts SVG-based gallery buttons.
@@ -103,7 +94,7 @@ public class SvgFileViewPanel extends JPanel {
     /**
      * Sets the current files to show. The current contents of the panel are discarded. The file
      * list is scanned for files ending with <code>.svg</code>. For each such file a new
-     * {@link JCommandButton} hosting an SVG-based implementation of {@link ResizableIcon} is added
+     * {@link JCommandButton} hosting an SVG-based implementation of {@link org.pushingpixels.neon.icon.ResizableIcon} is added
      * to the panel.
      * 
      * @param leafs

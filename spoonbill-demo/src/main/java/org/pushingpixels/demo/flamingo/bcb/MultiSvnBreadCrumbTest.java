@@ -29,20 +29,6 @@
  */
 package org.pushingpixels.demo.flamingo.bcb;
 
-import java.awt.BorderLayout;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
-import javax.swing.AbstractListModel;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-
 import org.pushingpixels.demo.flamingo.MessageListDialog;
 import org.pushingpixels.demo.flamingo.common.ExplorerFileViewPanel;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
@@ -50,8 +36,16 @@ import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.spoonbill.svn.BreadcrumbMultiSvnSelector;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 public class MultiSvnBreadCrumbTest extends JFrame {
     private ExplorerFileViewPanel<String> filePanel;

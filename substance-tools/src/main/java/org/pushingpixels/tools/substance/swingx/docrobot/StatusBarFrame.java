@@ -18,38 +18,20 @@
  */
 package org.pushingpixels.tools.substance.swingx.docrobot;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JToggleButton;
-import javax.swing.JToolBar;
-import javax.swing.SwingUtilities;
-
 import org.jdesktop.swingx.JXStatusBar;
 import org.pushingpixels.demo.substance.main.RadianceLogo;
-import org.pushingpixels.demo.substance.main.check.svg.tango.edit_copy;
-import org.pushingpixels.demo.substance.main.check.svg.tango.edit_cut;
-import org.pushingpixels.demo.substance.main.check.svg.tango.edit_delete;
-import org.pushingpixels.demo.substance.main.check.svg.tango.edit_paste;
-import org.pushingpixels.demo.substance.main.check.svg.tango.edit_select_all;
-import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_center;
-import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_fill;
-import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_left;
-import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_right;
-import org.pushingpixels.demo.substance.main.check.svg.tango.process_stop;
+import org.pushingpixels.demo.substance.main.check.svg.tango.*;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class StatusBarFrame extends JFrame {
     public StatusBarFrame() {

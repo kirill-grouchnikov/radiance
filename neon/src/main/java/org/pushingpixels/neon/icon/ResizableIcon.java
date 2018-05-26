@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2018 Radiance Neon Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation 
  *    and/or other materials provided with the distribution. 
  *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
+ *  o Neither the name of Radiance Neon Kirill Grouchnikov nor the names of
  *    its contributors may be used to endorse or promote products derived 
  *    from this software without specific prior written permission. 
  *     
@@ -27,27 +27,22 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.flamingo.api.common;
+package org.pushingpixels.neon.icon;
 
-import java.util.EventListener;
-import java.util.concurrent.ExecutorService;
+import javax.swing.*;
+import java.awt.*;
 
 /**
- * This interface is used for asynchronously-loaded contents. For example, the
- * {@link SvgBatikResizableIcon} uses the {@link ExecutorService} to load the
- * SVG image in the background. When the image is loaded, the component that
- * contains this image ({@link JCommandButton} for example) is notified to
- * repaint itself.
+ * Interface for icons that have resizability behaviour.
  * 
- * @author Kirill Grouchnikov.
+ * @author Kirill Grouchnikov
  */
-public interface AsynchronousLoadListener extends EventListener {
+public interface ResizableIcon extends Icon {
 	/**
-	 * Indicates that the asynchronous load has been completed.
+	 * Changes the dimension of <code>this</code> icon.
 	 * 
-	 * @param success
-	 *            If <code>true</code>, the load has been completed
-	 *            successfully.
+	 * @param newDimension
+	 *            New dimension for <code>this</code> icon.
 	 */
-	public void completed(boolean success);
+	void setDimension(Dimension newDimension);
 }

@@ -29,25 +29,12 @@
  */
 package org.pushingpixels.tools.substance.jitterbug;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.LayoutManager;
+import org.pushingpixels.neon.NeonUtil;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.JColorChooser;
-import javax.swing.JComponent;
-import javax.swing.JRadioButton;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 
 public class JColorComponent extends JComponent {
     private JRadioButton radio;
@@ -105,7 +92,7 @@ public class JColorComponent extends JComponent {
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2d = (Graphics2D) g.create();
-            RenderingUtils.installDesktopHints(g2d, this);
+            NeonUtil.installDesktopHints(g2d, this);
             g2d.setFont(UIManager.getFont("Label.font"));
 
             if (selectedColor != null) {

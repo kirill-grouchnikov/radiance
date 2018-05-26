@@ -29,11 +29,10 @@
  */
 package org.pushingpixels.substance.api.painter.decoration;
 
-import java.net.URL;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.imageio.ImageIO;
-
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import java.net.URL;
 
 /**
  * Implementation of {@link SubstanceDecorationPainter} that uses brushed metal

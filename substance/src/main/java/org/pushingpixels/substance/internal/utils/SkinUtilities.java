@@ -29,46 +29,30 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Graphics;
-import java.awt.Insets;
-import java.util.Locale;
-
-import javax.swing.Icon;
-import javax.swing.SwingConstants;
-import javax.swing.UIDefaults;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.DimensionUIResource;
-import javax.swing.plaf.IconUIResource;
-import javax.swing.plaf.InsetsUIResource;
-import javax.swing.plaf.basic.BasicBorders;
-import javax.swing.plaf.basic.BasicBorders.MarginBorder;
-
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
 import org.pushingpixels.substance.api.inputmap.InputMapSet;
 import org.pushingpixels.substance.api.inputmap.SubstanceInputMapUtilities;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
-import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
-import org.pushingpixels.substance.internal.utils.border.SubstanceEtchedBorder;
-import org.pushingpixels.substance.internal.utils.border.SubstancePaneBorder;
-import org.pushingpixels.substance.internal.utils.border.SubstancePopupMenuBorder;
-import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
-import org.pushingpixels.substance.internal.utils.border.SubstanceToolBarBorder;
+import org.pushingpixels.substance.internal.utils.border.*;
 import org.pushingpixels.substance.internal.utils.icon.CheckBoxMenuItemIcon;
 import org.pushingpixels.substance.internal.utils.icon.MenuArrowIcon;
 import org.pushingpixels.substance.internal.utils.icon.RadioButtonMenuItemIcon;
 import org.pushingpixels.substance.internal.utils.icon.SubstanceIconFactory;
 import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollPaneBorder;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.*;
+import javax.swing.plaf.basic.BasicBorders;
+import javax.swing.plaf.basic.BasicBorders.MarginBorder;
+import java.awt.*;
+import java.util.Locale;
 
 public class SkinUtilities {
 	/**
@@ -1201,7 +1185,7 @@ public class SkinUtilities {
 				"Tree.collapsedIcon",
 				new UIDefaults.LazyValue() {
 					public Object createValue(UIDefaults table) {
-						return new SubstanceIconUIResource(
+						return new NeonIconUIResource(
 								SubstanceIconFactory.getTreeIcon(null, true));
 					}
 				},
@@ -1209,7 +1193,7 @@ public class SkinUtilities {
 				"Tree.expandedIcon",
 				new UIDefaults.LazyValue() {
 					public Object createValue(UIDefaults table) {
-						return new SubstanceIconUIResource(
+						return new NeonIconUIResource(
 								SubstanceIconFactory.getTreeIcon(null, false));
 					}
 				},

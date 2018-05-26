@@ -30,13 +30,12 @@
 
 package org.pushingpixels.substance.internal.fonts;
 
-import java.awt.Font;
-
-import javax.swing.UIDefaults;
-
 import org.pushingpixels.substance.api.font.FontPolicy;
 import org.pushingpixels.substance.api.font.FontSet;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Provides predefined FontPolicy implementations.

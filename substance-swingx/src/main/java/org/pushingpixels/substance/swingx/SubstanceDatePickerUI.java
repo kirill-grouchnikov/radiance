@@ -18,41 +18,26 @@
  */
 package org.pushingpixels.substance.swingx;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Shape;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import org.jdesktop.swingx.JXDatePicker;
+import org.jdesktop.swingx.JXMonthView;
+import org.jdesktop.swingx.plaf.MonthViewUI;
+import org.jdesktop.swingx.plaf.basic.BasicDatePickerUI;
+import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices.Side;
+import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities.TextComponentAware;
+import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
 
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
 import javax.swing.text.JTextComponent;
-
-import org.jdesktop.swingx.JXDatePicker;
-import org.jdesktop.swingx.JXMonthView;
-import org.jdesktop.swingx.plaf.MonthViewUI;
-import org.jdesktop.swingx.plaf.basic.BasicDatePickerUI;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices.Side;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities.TextComponentAware;
-import org.pushingpixels.substance.internal.utils.SubstanceDropDownButton;
-import org.pushingpixels.substance.internal.utils.SubstanceOutlineUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
-import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * Substance-consistent UI delegate for {@link JXDatePicker}.
@@ -260,7 +245,7 @@ public class SubstanceDatePickerUI extends BasicDatePickerUI {
 	@Override
 	public void update(Graphics g, JComponent c) {
 		Graphics2D g2d = (Graphics2D) g.create();
-		RenderingUtils.installDesktopHints(g2d, c);
+		NeonUtil.installDesktopHints(g2d, c);
 		super.update(g2d, c);
 		g2d.dispose();
 	}

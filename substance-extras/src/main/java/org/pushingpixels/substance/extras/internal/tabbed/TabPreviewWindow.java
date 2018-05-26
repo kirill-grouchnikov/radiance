@@ -29,35 +29,20 @@
  */
 package org.pushingpixels.substance.extras.internal.tabbed;
 
-import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.image.BufferedImage;
-
-import javax.swing.Icon;
-import javax.swing.JLabel;
-import javax.swing.JTabbedPane;
-import javax.swing.JWindow;
-import javax.swing.SwingConstants;
-import javax.swing.Timer;
-
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter;
 import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.TabPreviewInfo;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.ui.SubstanceTabbedPaneUI;
 import org.pushingpixels.trident.Timeline;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
 
 /**
  * Tab preview window. Is displayed when the mouse hovers over relevant (previewable) tabs.
@@ -200,7 +185,7 @@ public class TabPreviewWindow extends JWindow implements ActionListener {
                         currTabPreviewInfo.getPreviewHeight());
                 TabPreviewWindow.this.getContentPane().removeAll();
                 final JLabel previewLabel = new PreviewLabel(
-                        new SubstanceIconUIResource(componentSnap));
+                        new NeonIconUIResource(componentSnap));
                 TabPreviewWindow.this.addComponentListener(new ComponentAdapter() {
                     @Override
                     public void componentShown(ComponentEvent e) {

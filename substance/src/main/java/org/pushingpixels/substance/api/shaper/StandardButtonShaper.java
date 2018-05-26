@@ -29,27 +29,17 @@
  */
 package org.pushingpixels.substance.api.shaper;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.geom.GeneralPath;
-import java.util.Set;
-
-import javax.swing.AbstractButton;
-import javax.swing.Icon;
-import javax.swing.JComponent;
-import javax.swing.border.Border;
-
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.utils.HashMapKey;
-import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceInternalArrowButton;
-import org.pushingpixels.substance.internal.utils.SubstanceOutlineUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
 import org.pushingpixels.substance.internal.utils.border.SubstanceButtonBorder;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.util.Set;
 
 /**
  * Button shaper that returns buttons with completely rounded corners (ala Mac 10.4). This class is

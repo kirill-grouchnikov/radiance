@@ -29,40 +29,26 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import java.awt.AlphaComposite;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.util.Map;
-
-import javax.swing.AbstractButton;
-import javax.swing.Icon;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JToggleButton;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
-import javax.swing.plaf.basic.BasicButtonListener;
-
+import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.utils.HashMapKey;
-import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
-import org.pushingpixels.substance.internal.utils.RolloverButtonListener;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
+import org.pushingpixels.substance.internal.utils.*;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.UIResource;
+import javax.swing.plaf.basic.BasicButtonListener;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Map;
 
 /**
  * UI for check boxes in <b>Substance</b> look and feel.
@@ -88,7 +74,7 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
     /**
      * Hash map for storing icons.
      */
-    private static LazyResettableHashMap<SubstanceIconUIResource> icons = new LazyResettableHashMap<SubstanceIconUIResource>(
+    private static LazyResettableHashMap<NeonIconUIResource> icons = new LazyResettableHashMap<>(
             "SubstanceCheckBoxUI");
 
     /**
@@ -170,9 +156,9 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
                 fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                 baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
                 baseBorderColorScheme.getDisplayName(), visibility, isCheckMarkFadingOut, alpha);
-        SubstanceIconUIResource iconBase = icons.get(keyBase);
+        NeonIconUIResource iconBase = icons.get(keyBase);
         if (iconBase == null) {
-            iconBase = new SubstanceIconUIResource(
+            iconBase = new NeonIconUIResource(
                     SubstanceImageCreator.getCheckBox(button, fillPainter, borderPainter,
                             checkMarkSize, currState, baseFillColorScheme, baseMarkColorScheme,
                             baseBorderColorScheme, visibility, isCheckMarkFadingOut, alpha));
@@ -211,9 +197,9 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
                         fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                         fillColorScheme.getDisplayName(), markColorScheme.getDisplayName(),
                         borderColorScheme.getDisplayName(), visibility);
-                SubstanceIconUIResource iconLayer = icons.get(keyLayer);
+                NeonIconUIResource iconLayer = icons.get(keyLayer);
                 if (iconLayer == null) {
-                    iconLayer = new SubstanceIconUIResource(
+                    iconLayer = new NeonIconUIResource(
                             SubstanceImageCreator.getCheckBox(button, fillPainter, borderPainter,
                                     checkMarkSize, currState, fillColorScheme, markColorScheme,
                                     borderColorScheme, visibility, isCheckMarkFadingOut, alpha));
@@ -225,7 +211,7 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
         }
 
         g2d.dispose();
-        return new SubstanceIconUIResource(result);
+        return new NeonIconUIResource(result);
     }
 
     /*
@@ -259,7 +245,7 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        RenderingUtils.installDesktopHints(g2d, c);
+        NeonUtil.installDesktopHints(g2d, c);
         super.update(g2d, c);
         g2d.dispose();
     }

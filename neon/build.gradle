@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2018 Radiance Neon Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of
+ *  o Neither the name of Radiance Neon Kirill Grouchnikov nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
@@ -27,43 +27,17 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.substance.internal.utils.filters;
 
-import java.awt.image.BufferedImage;
+apply plugin: 'java'
 
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+sourceCompatibility = 1.8
 
-/**
- * @author Kirill Grouchnikov
- */
-public class NegatedFilter extends AbstractFilter {
-	public NegatedFilter() {
-	}
+ext.designation = "core"
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public BufferedImage filter(BufferedImage src, BufferedImage dst) {
-		if (dst == null) {
-			dst = createCompatibleDestImage(src, null);
-		}
-
-		int width = src.getWidth();
-		int height = src.getHeight();
-
-		int[] pixels = new int[width * height];
-		getPixels(src, 0, 0, width, height, pixels);
-		negateColor(pixels);
-		setPixels(dst, 0, 0, width, height, pixels);
-
-		return dst;
-	}
-
-	private void negateColor(int[] pixels) {
-		for (int i = 0; i < pixels.length; i++) {
-			int argb = pixels[i];
-			pixels[i] = SubstanceColorUtilities.getNegativeColor(argb);
-		}
-	}
+jar {
+    baseName = "${rootProject.name}-neon"
+    manifest {
+        attributes("Radiance-Version": "${version}")
+    }
 }
+

@@ -18,13 +18,6 @@
  */
 package org.pushingpixels.substance.swingx;
 
-import java.awt.Font;
-import java.awt.Graphics2D;
-
-import javax.swing.JComponent;
-import javax.swing.UIManager;
-import javax.swing.plaf.ComponentUI;
-
 import org.jdesktop.swingx.JXHeader;
 import org.jdesktop.swingx.painter.Painter;
 import org.jdesktop.swingx.plaf.PainterUIResource;
@@ -34,6 +27,10 @@ import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import javax.swing.*;
+import javax.swing.plaf.ComponentUI;
+import java.awt.*;
 
 /**
  * Substance-consistent UI delegate for {@link JXHeader}.

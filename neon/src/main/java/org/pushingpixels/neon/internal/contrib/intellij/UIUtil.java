@@ -13,22 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.pushingpixels.substance.internal.contrib.intellij;
+package org.pushingpixels.neon.internal.contrib.intellij;
 
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.lang.reflect.Method;
+import java.util.Locale;
 import java.util.WeakHashMap;
-
-import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
 
 /**
  * @author max
  */
 public class UIUtil {
+    /**
+     * Tries to look up the System property for the given key. In untrusted
+     * environments this may throw a SecurityException. In this case we catch
+     * the exception and answer <code>null</code>.
+     *
+     * @param key
+     *            the name of the system property
+     * @return the system property's String value, or <code>null</code> if
+     *         there's no such value, or a SecurityException has been caught
+     */
+    public static String getSystemProperty(String key) {
+        try {
+            return System.getProperty(key);
+        } catch (SecurityException e) {
+            // log("Can't read the System property " + key + ".");
+            return null;
+        }
+    }
+
+    private static boolean containsIgnoreCase(String str, String searchFor) {
+        return str != null
+                && str.toUpperCase(Locale.ENGLISH).contains(
+                searchFor.toUpperCase(Locale.ENGLISH));
+    }
+
+    private static boolean startsWith(String str, String prefix) {
+        return str != null && str.startsWith(prefix);
+    }
+
+    private static final String JAVA_VENDOR = getSystemProperty("java.vendor");
+    public static final boolean IS_VENDOR_APPLE = containsIgnoreCase(JAVA_VENDOR, "Apple");
+    private static final String JAVA_SPEC_VERSION = getSystemProperty("java.specification.version");
+    public static final boolean IS_JAVA_9 = startsWith(JAVA_SPEC_VERSION, "9");
+    public static final boolean IS_JAVA_10 = startsWith(JAVA_SPEC_VERSION, "10");
+
     /**
      * Utility class for retina routine
      */
@@ -73,7 +104,7 @@ public class UIUtil {
         }
 
         private static double getScaleFactor(GraphicsDevice device) {
-            if (LookUtils.IS_VENDOR_APPLE) {
+            if (IS_VENDOR_APPLE) {
                 return 1.0;
             }
 
@@ -81,7 +112,7 @@ public class UIUtil {
                 return devicesScaleFactorCacheMap.get(device);
             }
 
-            double result = LookUtils.IS_JAVA_9 || LookUtils.IS_JAVA_10 ? getScaleFactorModern(device)
+            double result = IS_JAVA_9 || IS_JAVA_10 ? getScaleFactorModern(device)
                     : getScaleFactorLegacy(device);
 
             devicesScaleFactorCacheMap.put(device, result);
@@ -111,7 +142,7 @@ public class UIUtil {
          * @return true if at least one device is a retina device
          */
         private static double getScaleFactor() {
-            if (LookUtils.IS_VENDOR_APPLE) {
+            if (IS_VENDOR_APPLE) {
                 return 1.0f;
             }
 
@@ -143,12 +174,7 @@ public class UIUtil {
             return cachedScaleFactorReply;
         }
 
-        double result = 1.0;
-        if (GraphicsEnvironment.isHeadless()) {
-            result = 1.0;
-        } else {
-            result = DetectRetinaKit.getScaleFactor();
-        }
+        double result = GraphicsEnvironment.isHeadless() ? 1.0 : DetectRetinaKit.getScaleFactor();
         cachedScaleFactorReply = Double.valueOf(result);
         return cachedScaleFactorReply;
     }

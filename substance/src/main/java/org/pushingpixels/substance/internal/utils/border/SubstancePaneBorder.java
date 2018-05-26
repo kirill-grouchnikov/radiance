@@ -29,23 +29,18 @@
  */
 package org.pushingpixels.substance.internal.utils.border;
 
-import java.awt.BasicStroke;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-
-import javax.swing.SwingUtilities;
-import javax.swing.border.AbstractBorder;
-import javax.swing.plaf.UIResource;
-
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import javax.swing.*;
+import javax.swing.border.AbstractBorder;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
 
 /**
  * Root pane and internal frame border in <b>Substance</b> look and feel. This class is <b>for

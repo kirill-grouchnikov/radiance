@@ -31,7 +31,7 @@ package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.FlamingoCommand
 import org.pushingpixels.flamingo.api.common.RichTooltip
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon
+import org.pushingpixels.neon.icon.ResizableIcon
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 import java.awt.Color

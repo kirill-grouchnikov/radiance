@@ -29,14 +29,11 @@
  */
 package org.pushingpixels.substance.internal.widget.tree.dnd;
 
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetListener;
-
-import javax.swing.JTree;
-import javax.swing.JViewport;
-import javax.swing.SwingUtilities;
 
 class AutoScrollingTreeDropTarget extends DropTarget {
 	private JViewport viewport;

@@ -29,21 +29,18 @@
  */
 package org.pushingpixels.substance.api.painter.decoration;
 
-import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.image.BufferedImage;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
-
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 /**
  * Implementation of {@link SubstanceDecorationPainter} that uses an image source to paint on
@@ -138,8 +135,6 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
      * 
      * @param graphics
      *            Graphics context.
-     * @param parent
-     *            Component ancestor for computing the correct offset of the background painting.
      * @param comp
      *            Component.
      * @param decorationAreaType

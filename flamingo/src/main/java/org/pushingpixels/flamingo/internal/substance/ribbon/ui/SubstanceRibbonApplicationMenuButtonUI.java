@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.GlowingResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonBackgroundDelegate;
@@ -37,12 +36,13 @@ import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonVisualSt
 import org.pushingpixels.flamingo.internal.substance.utils.RibbonApplicationMenuButtonBackgroundDelegate;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.BasicRibbonApplicationMenuButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
+import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
@@ -133,7 +133,8 @@ public class SubstanceRibbonApplicationMenuButtonUI extends BasicRibbonApplicati
      * Tracks possible usage of glowing icon.
      */
     protected void trackGlowingIcon() {
-        ResizableIcon currIcon = this.commandButton.getIcon();
+        ResizableIcon
+                currIcon = this.commandButton.getIcon();
         if (currIcon instanceof GlowingResizableIcon)
             return;
         if (currIcon == null)

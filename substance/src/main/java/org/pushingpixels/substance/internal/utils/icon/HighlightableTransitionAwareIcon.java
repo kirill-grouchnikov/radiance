@@ -29,27 +29,18 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import java.awt.AlphaComposite;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.util.Map;
-
-import javax.swing.Icon;
-import javax.swing.JComponent;
-
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.utils.HashMapKey;
-import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Map;
 
 /**
  * Transition aware implementation of highlightable icons.
@@ -62,7 +53,7 @@ public class HighlightableTransitionAwareIcon implements Icon {
      * Icon cache to speed up the subsequent icon painting. The basic assumption is that the
      * {@link #delegate} returns an icon that paints the same for the same parameters.
      */
-    private static LazyResettableHashMap<SubstanceIconUIResource> iconMap = new LazyResettableHashMap<SubstanceIconUIResource>(
+    private static LazyResettableHashMap<NeonIconUIResource> iconMap = new LazyResettableHashMap<>(
             "HighlightableTransitionAwareIcon");
 
     /**
@@ -109,7 +100,7 @@ public class HighlightableTransitionAwareIcon implements Icon {
         this.getIconToPaint().paintIcon(c, g, x, y);
     }
 
-    private SubstanceIconUIResource getIconToPaint() {
+    private NeonIconUIResource getIconToPaint() {
         StateTransitionTracker stateTransitionTracker = this.transitionAwareUIDelegate
                 .getTransitionAwareUI().getTransitionTracker();
         StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
@@ -129,9 +120,9 @@ public class HighlightableTransitionAwareIcon implements Icon {
         HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(this.component.getClass().getName(),
                 this.uniqueIconTypeId, SubstanceSizeUtils.getComponentFontSize(this.component),
                 baseScheme.getDisplayName(), baseAlpha);
-        SubstanceIconUIResource layerBase = iconMap.get(keyBase);
+        NeonIconUIResource layerBase = iconMap.get(keyBase);
         if (layerBase == null) {
-            SubstanceIconUIResource baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
+            NeonIconUIResource baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
             if (baseAlpha == 1.0f) {
                 layerBase = baseFullOpacity;
                 iconMap.put(keyBase, layerBase);
@@ -142,7 +133,7 @@ public class HighlightableTransitionAwareIcon implements Icon {
                 g2base.setComposite(AlphaComposite.SrcOver.derive(baseAlpha));
                 baseFullOpacity.paintIcon(this.component, g2base, 0, 0);
                 g2base.dispose();
-                layerBase = new SubstanceIconUIResource(baseImage);
+                layerBase = new NeonIconUIResource(baseImage);
                 iconMap.put(keyBase, layerBase);
             }
         }
@@ -180,9 +171,9 @@ public class HighlightableTransitionAwareIcon implements Icon {
                         this.component.getClass().getName(), this.uniqueIconTypeId,
                         SubstanceSizeUtils.getComponentFontSize(this.component),
                         scheme.getDisplayName(), alpha);
-                SubstanceIconUIResource layer = iconMap.get(key);
+                NeonIconUIResource layer = iconMap.get(key);
                 if (layer == null) {
-                    SubstanceIconUIResource fullOpacity = this.delegate.getColorSchemeIcon(scheme);
+                    NeonIconUIResource fullOpacity = this.delegate.getColorSchemeIcon(scheme);
                     if (alpha == 1.0f) {
                         layer = fullOpacity;
                         iconMap.put(key, layer);
@@ -193,7 +184,7 @@ public class HighlightableTransitionAwareIcon implements Icon {
                         g2layer.setComposite(AlphaComposite.SrcOver.derive(alpha));
                         fullOpacity.paintIcon(this.component, g2layer, 0, 0);
                         g2layer.dispose();
-                        layer = new SubstanceIconUIResource(image);
+                        layer = new NeonIconUIResource(image);
                         iconMap.put(key, layer);
                     }
                 }
@@ -201,7 +192,7 @@ public class HighlightableTransitionAwareIcon implements Icon {
             }
         }
         g2d.dispose();
-        return new SubstanceIconUIResource(result);
+        return new NeonIconUIResource(result);
     }
 
     /*

@@ -14,17 +14,11 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.security.AccessControlException;
-import java.util.ArrayList;
+import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser.ColorChooserMainPanel;
+import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser.QuaquaColorPreviewPanel;
+import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser.SubstanceColorChooserPanel;
 
-import javax.swing.JColorChooser;
-import javax.swing.JComponent;
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.event.ChangeEvent;
@@ -32,10 +26,11 @@ import javax.swing.event.ChangeListener;
 import javax.swing.plaf.ColorChooserUI;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
-
-import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser.ColorChooserMainPanel;
-import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser.QuaquaColorPreviewPanel;
-import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser.SubstanceColorChooserPanel;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.security.AccessControlException;
+import java.util.ArrayList;
 /**
  * QuaquaColorChooserUI.
  *

@@ -34,26 +34,24 @@
 
 package org.pushingpixels.substance.internal.utils.filters;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
+import org.pushingpixels.neon.filter.NeonAbstractFilter;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.HashMapKey;
 import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.*;
+import java.util.List;
+
 /**
  * @author Romain Guy <romain.guy@mac.com>
  * @author Kirill Grouchnikov
  */
 
-public class ColorSchemeFilter extends AbstractFilter {
+public class ColorSchemeFilter extends NeonAbstractFilter {
 	private int[] interpolated;
 
 	public static final int MAPSTEPS = 512;

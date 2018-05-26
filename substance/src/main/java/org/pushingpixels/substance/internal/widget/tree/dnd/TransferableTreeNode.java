@@ -29,13 +29,12 @@
  */
 package org.pushingpixels.substance.internal.widget.tree.dnd;
 
+import javax.swing.*;
+import javax.swing.tree.MutableTreeNode;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-
-import javax.swing.JTree;
-import javax.swing.tree.MutableTreeNode;
 
 /**
  * TransferableTreeNode is a Transferable object used to transfer TreeNodes or

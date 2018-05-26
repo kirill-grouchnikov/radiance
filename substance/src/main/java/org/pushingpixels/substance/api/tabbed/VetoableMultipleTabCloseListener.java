@@ -29,10 +29,9 @@
  */
 package org.pushingpixels.substance.api.tabbed;
 
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 import java.util.Set;
-
-import javax.swing.JTabbedPane;
 
 /**
  * Vetoable listener on tabs closing. This class is part of officially supported

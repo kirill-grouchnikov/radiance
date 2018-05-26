@@ -29,16 +29,16 @@
  */
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import javax.swing.Icon;
-import javax.swing.colorchooser.AbstractColorChooserPanel;
-
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
+import javax.swing.*;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
+
 public abstract class SubstanceColorChooserPanel extends AbstractColorChooserPanel {
-    public abstract SubstanceIconUIResource getHiDpiAwareIcon(int size,
+    public abstract NeonIconUIResource getHiDpiAwareIcon(int size,
             SubstanceColorScheme colorScheme);
 
     @Override

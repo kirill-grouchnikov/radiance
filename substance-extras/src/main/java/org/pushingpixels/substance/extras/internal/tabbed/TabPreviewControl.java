@@ -1,28 +1,16 @@
 package org.pushingpixels.substance.extras.internal.tabbed;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.image.BufferedImage;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.substance.internal.AnimationConfigurationManager;
+import org.pushingpixels.substance.internal.contrib.jgoodies.looks.ShadowPopupBorder;
+import org.pushingpixels.trident.Timeline;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
-
-import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
-import org.pushingpixels.substance.internal.contrib.jgoodies.looks.ShadowPopupBorder;
-import org.pushingpixels.trident.Timeline;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Control to display the a single tab preview.

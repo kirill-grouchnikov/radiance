@@ -3,20 +3,17 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.text.MessageFormat;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Font_x_generic;
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
 import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.ResizableIcon;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class QuickStylesPanel extends JCommandButtonPanel {
     public QuickStylesPanel(ResourceBundle resourceBundle, Locale locale) {

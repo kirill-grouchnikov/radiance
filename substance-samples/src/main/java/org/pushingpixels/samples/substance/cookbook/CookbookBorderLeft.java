@@ -29,22 +29,15 @@
  */
 package org.pushingpixels.samples.substance.cookbook;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.geom.Line2D;
-
-import javax.swing.border.Border;
-
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.geom.Line2D;
 
 /**
  * Custom border to provide separation lines between the main application panels.
@@ -96,7 +89,7 @@ public class CookbookBorderLeft implements Border {
                         baseColor.getBlue(), (int) (baseColor.getAlpha() * this.alphaBottom))));
         // start one pixel lower so that the top border painted by the
         // decoration painter on footers doesn't get overriden
-        float borderStrokeWidth = 1.0f / (float) SubstanceCortex.GlobalScope.getScaleFactor();
+        float borderStrokeWidth = 1.0f / (float) NeonUtil.getScaleFactor();
         g2d.setStroke(new BasicStroke(borderStrokeWidth));
         float topY = y + (skipTopPixel ? borderStrokeWidth : 0);
         float bottomY = y + height - borderStrokeWidth - (skipBottomPixel ? borderStrokeWidth : 0);

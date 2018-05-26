@@ -29,30 +29,10 @@
  */
 package org.pushingpixels.samples.substance.mail;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.LayoutManager;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.AbstractListModel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.ListCellRenderer;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.EmptyBorder;
-
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.layout.FormLayout;
 import org.jdesktop.swingx.JXSearchField;
+import org.pushingpixels.neon.icon.NeonIcon;
 import org.pushingpixels.samples.substance.mail.svg.ic_mail_outline_black_24px;
 import org.pushingpixels.samples.substance.mail.svg.ic_mode_edit_black_24px;
 import org.pushingpixels.samples.substance.mail.svg.ic_person_outline_black_24px;
@@ -65,13 +45,16 @@ import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.substance.api.colorscheme.LightAquaColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SteelBlueColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIcon;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.highlight.FractionBasedHighlightPainter;
 import org.pushingpixels.substance.api.painter.highlight.SubstanceHighlightPainter;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main destinations panel (leftmost under LTR). In the real app this will probably be a JList
@@ -244,7 +227,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         }
     }
 
-    private JPanel getInboxLabel(String title, SubstanceIcon icon, Color background) {
+    private JPanel getInboxLabel(String title, NeonIcon icon, Color background) {
         FormLayout lm = new FormLayout("center:pref, 4dlu, fill:pref:grow", "");
         DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(new EmptyBorder(4, 8, 4, 8));
         builder.append(new JLabel(icon));
@@ -298,7 +281,7 @@ public class ThreadListPanel extends PanelWithRightLine {
 
     }
 
-    private JPanel getTitlePanel(SubstanceIcon icon) {
+    private JPanel getTitlePanel(NeonIcon icon) {
         FormLayout lm = new FormLayout("fill:pref:grow, 8dlu, center:pref", "");
         DefaultFormBuilder builder = new DefaultFormBuilder(lm)
                 .border(new EmptyBorder(8, 8, 12, 8));

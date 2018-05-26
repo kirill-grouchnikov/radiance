@@ -32,7 +32,7 @@ apply plugin: 'java'
 
 dependencies {
     compile ('org.apache.xmlgraphics:batik-all:1.9.1')
-    compile project(':flamingo')
+    compile project(':neon')
 }
 
 sourceCompatibility = 1.8

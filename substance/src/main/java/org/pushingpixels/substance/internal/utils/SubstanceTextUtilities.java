@@ -29,30 +29,8 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import java.awt.Color;
-import java.awt.FontMetrics;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
-import java.util.Map;
-
-import javax.swing.AbstractButton;
-import javax.swing.ButtonModel;
-import javax.swing.CellRendererPane;
-import javax.swing.JComponent;
-import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.BasicGraphicsUtils;
-import javax.swing.text.JTextComponent;
-
+import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -62,10 +40,20 @@ import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
-import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
-import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
+
+import javax.swing.*;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicGraphicsUtils;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
+import java.util.Map;
 
 /**
  * Text-related utilities. This class if for internal use only.
@@ -98,7 +86,7 @@ public class SubstanceTextUtilities {
     public static void paintTextWithDropShadow(JComponent c, Graphics g, Color foregroundColor,
             Color echoColor, String text, int width, int height, int xOffset, int yOffset) {
         Graphics2D graphics = (Graphics2D) g.create();
-        RenderingUtils.installDesktopHints(graphics, c);
+        NeonUtil.installDesktopHints(graphics, c);
 
         // blur the text shadow
         BufferedImage blurred = SubstanceCoreUtilities.getBlankImage(width, height);

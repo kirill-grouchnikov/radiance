@@ -2,13 +2,18 @@ package org.pushingpixels.demo.kormorant.svg
 
 import java.awt.*
 import java.awt.geom.*
+import javax.swing.plaf.UIResource
+
+import org.pushingpixels.neon.icon.IsHiDpiAware
+import org.pushingpixels.neon.icon.NeonIcon
+import org.pushingpixels.neon.icon.NeonIconUIResource
+import org.pushingpixels.neon.icon.ResizableIcon
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/ibis">Ibis SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/radiance">Ibis SVG transcoder</a>.
  */
-class Info(private var width: Int, private var height: Int) : 
-        org.pushingpixels.flamingo.api.common.icon.ResizableIcon {
+class Info(private var width: Int, private var height: Int) : ResizableIcon, IsHiDpiAware {
 	private fun innerPaint(g : Graphics2D) {
         @Suppress("UNUSED_VARIABLE") var shape: Shape?
         @Suppress("UNUSED_VARIABLE") var paint: Paint?
@@ -153,8 +158,15 @@ g.transform = defaultTransform_
         /**
          * Returns an instance of this icon with specified dimensions.
          */
-        fun of(width: Int, height: Int): Info {
-            return Info(width, height)
+        fun of(width: Int, height: Int): NeonIcon {
+            return NeonIcon(Info(width, height))
+        }
+
+        /**
+         * Returns a [UIResource] instance of this icon with specified dimensions.
+         */
+        fun uiResourceOf(width: Int, height: Int): NeonIconUIResource {
+            return NeonIconUIResource(Info(width, height))
         }
     }
 
@@ -169,6 +181,10 @@ g.transform = defaultTransform_
     override fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
+    }
+
+    override fun isHiDpiAware(): Boolean {
+        return true
     }
 
     override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
@@ -189,7 +205,7 @@ g.transform = defaultTransform_
                 g2d.translate(0, extraDy)
             } else {
                 val extraDx = ((getOrigHeight() - getOrigWidth()) / 2.0).toInt()
-                g2d.translate(extraDx, 0);
+                g2d.translate(extraDx, 0)
             }
         }
         val g2ForInner = g2d.create() as Graphics2D

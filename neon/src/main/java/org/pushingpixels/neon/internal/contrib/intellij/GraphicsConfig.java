@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.pushingpixels.substance.internal.contrib.intellij;
+package org.pushingpixels.neon.internal.contrib.intellij;
 
 import java.awt.AlphaComposite;
 import java.awt.Composite;
@@ -23,7 +23,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.Map;
 
-public class GraphicsConfig {
+class GraphicsConfig {
 
   private final Graphics2D myG;
   private final Map myHints;

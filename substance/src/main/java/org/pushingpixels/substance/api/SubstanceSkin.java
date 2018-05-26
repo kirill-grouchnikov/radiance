@@ -29,20 +29,6 @@
  */
 package org.pushingpixels.substance.api;
 
-import java.awt.Component;
-import java.awt.Graphics2D;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.swing.JTabbedPane;
-import javax.swing.UIDefaults;
-
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
@@ -60,6 +46,12 @@ import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.utils.SkinUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.net.URL;
+import java.util.*;
+import java.util.List;
 
 /**
  * Base abstract class for Substance skins.

@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.substance.internal.colorscheme;
 
-import java.awt.Color;
-
 import org.pushingpixels.substance.api.colorscheme.BaseColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+
+import java.awt.*;
 
 /**
  * Blended color scheme.

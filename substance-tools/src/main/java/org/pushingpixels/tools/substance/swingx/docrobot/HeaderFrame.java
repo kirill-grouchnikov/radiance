@@ -18,20 +18,15 @@
  */
 package org.pushingpixels.tools.substance.swingx.docrobot;
 
-import java.awt.BorderLayout;
-import java.net.URL;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
 import org.jdesktop.swingx.JXHeader;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
+
+import javax.swing.*;
+import java.awt.*;
+import java.net.URL;
 
 public class HeaderFrame extends JFrame {
 	public HeaderFrame() {

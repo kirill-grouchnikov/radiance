@@ -29,12 +29,10 @@
  */
 package org.pushingpixels.substance.api.combo;
 
-import java.awt.Component;
-
-import javax.swing.JComboBox;
-import javax.swing.JList;
-
 import org.pushingpixels.substance.internal.ui.SubstanceComboBoxUI;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Sample core implementation of {@link ComboPopupPrototypeCallback} interface

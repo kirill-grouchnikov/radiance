@@ -29,14 +29,15 @@
  */
 package org.pushingpixels.substance.internal.utils.filters;
 
-import java.awt.image.BufferedImage;
-
+import org.pushingpixels.neon.filter.NeonAbstractFilter;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+
+import java.awt.image.BufferedImage;
 
 /**
  * @author Kirill Grouchnikov
  */
-public class GrayscaleFilter extends AbstractFilter {
+public class GrayscaleFilter extends NeonAbstractFilter {
 	public GrayscaleFilter() {
 	}
 

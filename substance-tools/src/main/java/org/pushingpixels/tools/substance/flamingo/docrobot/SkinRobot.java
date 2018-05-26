@@ -29,20 +29,6 @@
  */
 package org.pushingpixels.tools.substance.flamingo.docrobot;
 
-import java.awt.ComponentOrientation;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GraphicsEnvironment;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Locale;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
 import org.fest.swing.edt.GuiActionRunner;
@@ -52,6 +38,14 @@ import org.pushingpixels.demo.substance.flamingo.ribbon.NewCheckRibbon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
 
 /**
  * The base class for taking screenshots of skins for Substance documentation.

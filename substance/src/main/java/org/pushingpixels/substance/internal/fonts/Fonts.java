@@ -30,13 +30,12 @@
 
 package org.pushingpixels.substance.internal.fonts;
 
-import java.awt.Font;
-import java.awt.Toolkit;
-import java.util.Locale;
-
 import org.pushingpixels.substance.api.font.FontPolicy;
 import org.pushingpixels.substance.api.font.FontSet;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
+
+import java.awt.*;
+import java.util.Locale;
 
 /**
  * Provides static access to popular Windows fonts. The sizes of the font

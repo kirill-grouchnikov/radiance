@@ -32,13 +32,13 @@ package org.pushingpixels.flamingo.internal.substance.common.ui;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel.ScrollType;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
 import org.pushingpixels.flamingo.internal.ui.common.BasicScrollablePanelUI;
+import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
@@ -94,7 +94,7 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
         ResizableIcon arrowIcon = new TransitionAwareResizableIcon(result,
                 () -> ((ActionPopupTransitionAwareUI) result.getUI()).getActionTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> {
-                    SubstanceIconUIResource doubleArrowIcon = SubstanceImageCreator
+                    NeonIconUIResource doubleArrowIcon = SubstanceImageCreator
                             .getDoubleArrowIcon(SubstanceSizeUtils.getComponentFontSize(result),
                                     width, height,
                                     SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
@@ -124,7 +124,7 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
         ResizableIcon arrowIcon = new TransitionAwareResizableIcon(result,
                 () -> ((ActionPopupTransitionAwareUI) result.getUI()).getActionTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> {
-                    SubstanceIconUIResource doubleArrowIcon = SubstanceImageCreator
+                    NeonIconUIResource doubleArrowIcon = SubstanceImageCreator
                             .getDoubleArrowIcon(SubstanceSizeUtils.getComponentFontSize(result),
                                     width, height,
                                     SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),

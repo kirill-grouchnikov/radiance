@@ -1,6 +1,6 @@
 package org.pushingpixels.substance.internal.contrib.xoetrope.editor.color;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * A RYB Color model $Revision: 2254 $
