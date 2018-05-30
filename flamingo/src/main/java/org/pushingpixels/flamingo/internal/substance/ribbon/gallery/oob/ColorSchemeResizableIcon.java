@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.gallery.oob;
 
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import java.awt.*;
@@ -148,7 +148,7 @@ public class ColorSchemeResizableIcon implements ResizableIcon {
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
 				RenderingHints.VALUE_STROKE_PURE);
-		graphics.setStroke(new BasicStroke(1.0f / (float) UIUtil.getScaleFactor(),
+		graphics.setStroke(new BasicStroke(1.0f / (float) NeonUtil.getScaleFactor(),
 				BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
 		this.paintCircle(graphics, cx, R, R, color1, true);
 		if (this.currHeight > 16)

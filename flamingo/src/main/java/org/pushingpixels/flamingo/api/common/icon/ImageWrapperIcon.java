@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.AsynchronousLoadListener;
 import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -81,7 +81,7 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
 	/**
 	 * The listeners.
 	 */
-	protected EventListenerList listenerList = new EventListenerList();
+	protected EventListenerList listenerList;
 
 	/**
 	 * Create a new image-wrapper icon.
@@ -134,52 +134,27 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
 		this.renderImage(this.width, this.height);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.AsynchronousLoading#addAsynchronousLoadListener
-	 * (org.jvnet.flamingo.common.AsynchronousLoadListener)
-	 */
+	@Override
 	public void addAsynchronousLoadListener(AsynchronousLoadListener l) {
 		this.listenerList.add(AsynchronousLoadListener.class, l);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.AsynchronousLoading#removeAsynchronousLoadListener
-	 * (org.jvnet.flamingo.common.AsynchronousLoadListener)
-	 */
+    @Override
 	public void removeAsynchronousLoadListener(AsynchronousLoadListener l) {
 		this.listenerList.remove(AsynchronousLoadListener.class, l);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconWidth()
-	 */
+    @Override
 	public int getIconWidth() {
 		return width;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconHeight()
-	 */
+    @Override
 	public int getIconHeight() {
 		return height;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-	 * int, int)
-	 */
+    @Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		BufferedImage image = this.cachedImages.get(this.getIconWidth() + ":"
 				+ this.getIconHeight());
@@ -254,7 +229,7 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
 				float scale = Math.max(scaleX, scaleY);
 				if (scale > 1.0f) {
 					int finalWidth = (int) (originalImage.getWidth() / scale);
-					result = FlamingoUtilities.createThumbnail(originalImage,
+					result = WidgetUtilities.createThumbnail(originalImage,
 							finalWidth);
 				}
 

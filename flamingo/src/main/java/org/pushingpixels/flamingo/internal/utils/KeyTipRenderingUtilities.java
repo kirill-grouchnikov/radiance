@@ -33,12 +33,17 @@ import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
+import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
+import org.pushingpixels.substance.internal.utils.*;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.font.LineMetrics;
-import java.awt.geom.RoundRectangle2D;
 import java.util.Collection;
 
 public class KeyTipRenderingUtilities {
@@ -52,38 +57,45 @@ public class KeyTipRenderingUtilities {
 
 	public static void renderKeyTip(Graphics g, Container c, Rectangle rect, String keyTip,
 			boolean toPaintEnabled) {
-		CellRendererPane buttonRendererPane = new CellRendererPane();
-		JButton rendererButton = new JButton("");
-		rendererButton.setEnabled(toPaintEnabled);
+		SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(c);
+		SubstanceBorderPainter borderPainter = SubstanceCoreUtilities
+				.getBorderPainter(c);
 
-		buttonRendererPane.setBounds(rect.x, rect.y, rect.width, rect.height);
-		Graphics2D g2d = (Graphics2D) g.create();
+		ComponentState state = toPaintEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
+		float alpha = SubstanceColorSchemeUtilities.getAlpha(c, state);
+        SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities
+                .getColorScheme(c, state);
+        SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
+                .getColorScheme(c, SubstanceSlices.ColorSchemeAssociationKind.BORDER, state);
+        float radius = SubstanceSizeUtils.getClassicButtonCornerRadius(
+                SubstanceSizeUtils.getComponentFontSize(c));
 
-		g2d.setComposite(AlphaComposite.SrcOver.derive(toPaintEnabled ? 1.0f : 0.5f));
-		g2d.setStroke(new BasicStroke(1.0f / (float) UIUtil.getScaleFactor()));
+        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
 
-		Shape clip = g2d.getClip();
-		RoundRectangle2D.Double roundRect = new RoundRectangle2D.Double(rect.x, rect.y,
-				rect.width - 1, rect.height - 1, 6, 6);
-		g2d.clip(roundRect);
-		buttonRendererPane.paintComponent(g2d, rendererButton, c, rect.x - rect.width / 2,
-				rect.y - rect.height / 2, 2 * rect.width, 2 * rect.height, true);
-		g2d.setClip(clip);
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setComposite(WidgetUtilities.getAlphaComposite(c, alpha, g));
+        g2d.translate(rect.x, rect.y);
+        Shape contour = SubstanceOutlineUtilities.getBaseOutline(rect.width, rect.height, radius,
+                null, borderDelta);
+        fillPainter.paintContourBackground(g2d, c, rect.width, rect.height,
+                contour, false, fillScheme, true);
 
-		g2d.setColor(FlamingoUtilities.getBorderColor());
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.draw(roundRect);
+        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        Shape contourInner = SubstanceOutlineUtilities.getBaseOutline(rect.width, rect.height,
+                radius, null, borderDelta + borderThickness);
+        borderPainter.paintBorder(g2d, c, rect.width, rect.height, contour,
+                contourInner, borderScheme);
 
-		g2d.setColor(FlamingoUtilities.getColor(Color.black, "Button.foreground"));
-		Font font = UIManager.getFont("Button.font");
+		g2d.setColor(SubstanceColorSchemeUtilities.getColorScheme(c, state).getForegroundColor());
+		Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null).
+               getControlFont();
 		font = font.deriveFont(font.getSize() + 1.0f);
 		g2d.setFont(font);
 		int strWidth = g2d.getFontMetrics().stringWidth(keyTip);
-		// int strHeight = g2d.getFontMetrics().getHeight();
 
-		g2d.translate(rect.x, rect.y);
 		LineMetrics lineMetrics = g2d.getFontMetrics().getLineMetrics(keyTip, g2d);
 		int strHeight = (int) lineMetrics.getHeight();
+		NeonUtil.installDesktopHints(g2d, c);
 		g2d.drawString(keyTip, (rect.width - strWidth) / 2,
 				(rect.height + strHeight) / 2 - g2d.getFontMetrics().getDescent());
 

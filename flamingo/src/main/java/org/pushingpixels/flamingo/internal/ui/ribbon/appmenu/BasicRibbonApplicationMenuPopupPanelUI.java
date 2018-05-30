@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
@@ -38,6 +38,7 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicPopupPanelUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
@@ -51,7 +52,7 @@ import java.util.List;
 
 /**
  * Basic UI for ribbon application menu button {@link JRibbonApplicationMenuButton}.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupPanelUI {
@@ -80,7 +81,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.basic.BasicButtonUI#installUI(javax.swing.JComponent)
      */
     @Override
@@ -97,7 +98,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
      */
     @Override
@@ -113,7 +114,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
     protected void installComponents() {
         super.installComponents();
 
-        this.mainPanel = createMainPanel();
+        this.mainPanel = new JPanel(new BorderLayout());
 
         this.panelLevel1 = new JPanel();
         this.panelLevel1.setLayout(new LayoutManager() {
@@ -238,30 +239,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         this.panelLevel2 = new JPanel();
         this.panelScrollerLevel2 = new JScrollablePanel<JPanel>(this.panelLevel2,
                 JScrollablePanel.ScrollType.VERTICALLY);
-        this.panelLevel2.setBorder(new Border() {
-
-            @Override
-            public Insets getBorderInsets(Component c) {
-                boolean ltr = c.getComponentOrientation().isLeftToRight();
-                return new Insets(0, ltr ? 1 : 0, 0, ltr ? 0 : 1);
-            }
-
-            @Override
-            public boolean isBorderOpaque() {
-                return true;
-            }
-
-            @Override
-            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-                g.setColor(FlamingoUtilities.getColor(Color.gray, "Label.disabledForeground"));
-                boolean ltr = c.getComponentOrientation().isLeftToRight();
-                int xToPaint = ltr ? x : x + width - 1;
-                g.drawLine(xToPaint, y, xToPaint, y + height);
-            }
-        });
-        this.panelScrollerLevel2.setPreferredSize(new Dimension(30 * FlamingoUtilities
-                .getFont(this.panelLevel1, "Ribbon.font", "Button.font", "Panel.font").getSize()
-                - 30, 10));
+        this.panelScrollerLevel2.setPreferredSize(new Dimension(30 *
+                this.panelLevel1.getFont().getSize() - 30, 10));
 
         mainPanel.add(this.panelScrollerLevel2, BorderLayout.CENTER);
 
@@ -295,31 +274,6 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         }
 
         this.applicationMenuPopupPanel.add(this.footerPanel, BorderLayout.SOUTH);
-    }
-
-    protected JPanel createMainPanel() {
-        JPanel result = new JPanel(new BorderLayout());
-        result.setBorder(new Border() {
-            @Override
-            public Insets getBorderInsets(Component c) {
-                return new Insets(2, 2, 2, 2);
-            }
-
-            @Override
-            public boolean isBorderOpaque() {
-                return true;
-            }
-
-            @Override
-            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-                g.setColor(FlamingoUtilities.getColor(Color.gray, "Label.disabledForeground")
-                        .brighter().brighter());
-                g.drawRect(x, y, width - 1, height - 1);
-                g.setColor(FlamingoUtilities.getColor(Color.gray, "Label.disabledForeground"));
-                g.drawRect(x + 1, y + 1, width - 3, height - 3);
-            }
-        });
-        return result;
     }
 
     @Override

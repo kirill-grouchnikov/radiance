@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -182,7 +182,7 @@ public class PairwiseButtonBackgroundDelegate {
             }
         }
         if (extraAlpha > 0.0f) {
-            double scaleFactor = UIUtil.getScaleFactor();
+            double scaleFactor = NeonUtil.getScaleFactor();
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, g));
             graphics.drawImage(fullOpacity, 0, 0, (int) (fullOpacity.getWidth() / scaleFactor),
@@ -197,24 +197,16 @@ public class PairwiseButtonBackgroundDelegate {
      * 
      * @param button
      *            Button.
-     * @param kind
-     *            Color scheme kind.
      * @param fillPainter
      *            Gradient painter.
      * @param width
      *            Button width.
      * @param height
      *            Button height.
-     * @param side
-     *            Button orientation.
-     * @param cyclePos
-     *            Cycle position.
      * @param colorScheme
      *            The fill color scheme.
      * @param borderScheme
      *            The border color scheme.
-     * @param graphicsComposite
-     *            Composite to apply before painting the button.
      * @param toIgnoreOpenSides
      *            If <code>true</code>, the open side setting (controlled by the
      *            {@link SubstanceLookAndFeel#BUTTON_OPEN_SIDE} is ignored.
@@ -273,7 +265,7 @@ public class PairwiseButtonBackgroundDelegate {
                 AffineTransform at = AffineTransform.getTranslateInstance(0, translateY);
                 at.rotate(-Math.PI / 2);
 
-                double scaleFactor = UIUtil.getScaleFactor();
+                double scaleFactor = NeonUtil.getScaleFactor();
                 finalGraphics.scale(1, 1);
                 finalGraphics.setTransform(at);
                 finalGraphics.scale(scaleFactor, scaleFactor);

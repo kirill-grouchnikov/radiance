@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.gallery.oob;
 
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
@@ -182,7 +182,7 @@ public class WatermarkResizableIcon implements ResizableIcon {
 
 		graphics.translate(x, y);
 		graphics.clipRect(0, 0, this.currWidth, this.currHeight);
-		double scaleFactor = UIUtil.getScaleFactor();
+		double scaleFactor = NeonUtil.getScaleFactor();
 		if (this.watermark != null) {
 			graphics.setColor(SubstanceCoreUtilities.getSkin(c)
 					.getEnabledColorScheme(ComponentOrParentChainScope.getDecorationType(c))

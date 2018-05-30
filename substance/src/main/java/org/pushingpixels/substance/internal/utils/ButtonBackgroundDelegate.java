@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -57,36 +57,26 @@ import java.util.Set;
 /**
  * Delegate class for painting backgrounds of buttons in <b>Substance </b> look and feel. This class
  * is <b>for internal use only</b>.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class ButtonBackgroundDelegate {
     /**
-     * Cache for background images. Each time
-     * {@link #getBackground(AbstractButton, SubstanceButtonShaper, SubstanceFillPainter, int, int)}
-     * is called, it checks <code>this</code> map to see if it already contains such background. If
-     * so, the background from the map is returned.
+     * Cache for background images.
      */
     private static LazyResettableHashMap<BufferedImage> regularBackgrounds = new LazyResettableHashMap<BufferedImage>(
             "ButtonBackgroundDelegate");
 
     /**
      * Retrieves the background for the specified button.
-     * 
-     * @param button
-     *            Button.
-     * @param model
-     *            Button model.
-     * @param shaper
-     *            Button shaper.
-     * @param fillPainter
-     *            Button fill painter.
-     * @param borderPainter
-     *            Button border painter.
-     * @param width
-     *            Button width.
-     * @param height
-     *            Button height.
+     *
+     * @param button        Button.
+     * @param model         Button model.
+     * @param shaper        Button shaper.
+     * @param fillPainter   Button fill painter.
+     * @param borderPainter Button border painter.
+     * @param width         Button width.
+     * @param height        Button height.
      * @return Button background.
      */
     public static BufferedImage getFullAlphaBackground(AbstractButton button, ButtonModel model,
@@ -277,7 +267,7 @@ public class ButtonBackgroundDelegate {
             SubstanceColorScheme colorScheme, SubstanceColorScheme borderScheme,
             Set<Side> openSides, boolean isContentAreaFilled, boolean isBorderPainted) {
         int openDelta = (int) (Math.ceil(3.0 * SubstanceSizeUtils.getBorderStrokeWidth()));
-        openDelta *= UIUtil.getScaleFactor();
+        openDelta *= NeonUtil.getScaleFactor();
         int deltaLeft = ((openSides != null) && openSides.contains(Side.LEFT)) ? openDelta : 0;
         int deltaRight = ((openSides != null) && openSides.contains(Side.RIGHT)) ? openDelta : 0;
         int deltaTop = ((openSides != null) && openSides.contains(Side.TOP)) ? openDelta : 0;
@@ -301,7 +291,7 @@ public class ButtonBackgroundDelegate {
             float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
             Shape contourInner = borderPainter.isPaintingInnerContour()
                     ? shaper.getButtonOutline(button, borderDelta + borderThickness,
-                            width + deltaLeft + deltaRight, height + deltaTop + deltaBottom, true)
+                    width + deltaLeft + deltaRight, height + deltaTop + deltaBottom, true)
                     : null;
             borderPainter.paintBorder(finalGraphics, button, width + deltaLeft + deltaRight,
                     height + deltaTop + deltaBottom, contour, contourInner, borderScheme);
@@ -318,11 +308,9 @@ public class ButtonBackgroundDelegate {
 
     /**
      * Updates background of the specified button.
-     * 
-     * @param g
-     *            Graphic context.
-     * @param button
-     *            Button to update.
+     *
+     * @param g      Graphic context.
+     * @param button Button to update.
      */
     public void updateBackground(Graphics g, AbstractButton button) {
         // failsafe for LAF change
@@ -386,7 +374,7 @@ public class ButtonBackgroundDelegate {
         if (extraAlpha > 0.0f) {
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, g));
-            double factor = UIUtil.getScaleFactor();
+            double factor = NeonUtil.getScaleFactor();
             graphics.drawImage(bgImage, 0, y, (int) (bgImage.getWidth() / factor),
                     (int) (bgImage.getHeight() / factor), null);
             graphics.dispose();
@@ -395,11 +383,10 @@ public class ButtonBackgroundDelegate {
 
     /**
      * Checks whether the specified button has round corners.
-     * 
-     * @param button
-     *            Button to check.
+     *
+     * @param button Button to check.
      * @return <code>true</code> if the specified button has round corners, <code>false</code>
-     *         otherwise.
+     * otherwise.
      */
     public static boolean isRoundButton(AbstractButton button) {
         return (!SubstanceCoreUtilities.isComboBoxButton(button))
@@ -411,15 +398,12 @@ public class ButtonBackgroundDelegate {
      * Returns <code>true</code> if the specified <i>x,y </i> location is contained within the look
      * and feel's defined shape of the specified component. <code>x</code> and <code>y</code> are
      * defined to be relative to the coordinate system of the specified component.
-     * 
-     * @param button
-     *            the component where the <i>x,y </i> location is being queried;
-     * @param x
-     *            the <i>x </i> coordinate of the point
-     * @param y
-     *            the <i>y </i> coordinate of the point
+     *
+     * @param button the component where the <i>x,y </i> location is being queried;
+     * @param x      the <i>x </i> coordinate of the point
+     * @param y      the <i>y </i> coordinate of the point
      * @return <code>true</code> if the specified <i>x,y </i> location is contained within the look
-     *         and feel's defined shape of the specified component, <code>false</code> otherwise.
+     * and feel's defined shape of the specified component, <code>false</code> otherwise.
      */
     public static boolean contains(AbstractButton button, int x, int y) {
         // failsafe for LAF change
@@ -436,7 +420,7 @@ public class ButtonBackgroundDelegate {
 
     /**
      * Returns the memory usage string.
-     * 
+     *
      * @return Memory usage string.
      */
     static String getMemoryUsage() {

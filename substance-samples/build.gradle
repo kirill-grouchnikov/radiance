@@ -36,7 +36,6 @@ dependencies {
     compile ('com.jhlabs:filters:2.0.235')
     compile project(':substance')
     compile project(':flamingo')
-    compile project(':substance-swingx')
     compile project(':substance-demo')
 }
 

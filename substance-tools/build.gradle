@@ -36,7 +36,6 @@ dependencies {
     compile ('org.easytesting:fest-swing:1.2.1')
     compile project(':substance')
     compile project(':substance-extras')
-    compile project(':substance-swingx')
     compile project(':flamingo')
     compile project(':substance-demo')
 }

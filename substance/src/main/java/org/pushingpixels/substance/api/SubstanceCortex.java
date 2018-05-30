@@ -1361,6 +1361,10 @@ public class SubstanceCortex {
             return new NeonIconUIResource(SubstanceImageCreator.getColorSchemeImage(null, source, colorScheme,
                     brightnessFactor));
         }
+
+        public static void setUseDefaultColorChooser() {
+            UIManager.put(SubstanceSynapse.USE_DEFAULT_COLOR_CHOOSER, Boolean.TRUE);
+        }
     }
 
     /**

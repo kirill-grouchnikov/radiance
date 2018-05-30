@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.AsynchronousLoadListener;
 import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -277,7 +277,7 @@ abstract class IcoWrapperIcon implements Icon, AsynchronousLoading {
 				float scale = Math.max(scaleX, scaleY);
 				if (scale > 1.0f) {
 					int finalWidth = (int) (bestMatchPlane.getWidth() / scale);
-					result = FlamingoUtilities.createThumbnail(bestMatchPlane,
+					result = WidgetUtilities.createThumbnail(bestMatchPlane,
 							finalWidth);
 				}
 

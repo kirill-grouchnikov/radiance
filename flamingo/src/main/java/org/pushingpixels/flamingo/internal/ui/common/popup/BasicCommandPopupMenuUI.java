@@ -36,7 +36,9 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonPanelUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonLayoutManagerMedium;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -153,7 +155,9 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 				@Override
 				public void paintBorder(Component c, Graphics g, int x, int y, int width,
 						int height) {
-					g.setColor(FlamingoUtilities.getBorderColor());
+					g.setColor(SubstanceColorSchemeUtilities.getColorScheme(c,
+							SubstanceSlices.ColorSchemeAssociationKind.FILL,
+							ComponentState.ENABLED).getDarkColor());
 					g.drawLine(x, y + height - 1, x + width, y + height - 1);
 				}
 			});

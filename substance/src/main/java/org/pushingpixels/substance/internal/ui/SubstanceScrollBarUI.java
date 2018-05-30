@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -255,18 +255,10 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      *            Thumb width.
      * @param height
      *            Thumb height.
-     * @param kind
-     *            Color scheme kind.
-     * @param cyclePos
-     *            Cycle position.
      * @param scheme
      *            The first color scheme.
-     * @param scheme2
-     *            The second color scheme.
      * @param borderScheme
      *            The first border color scheme.
-     * @param borderScheme2
-     *            The second border color scheme.
      * @return Image for vertical thumb.
      */
     private static BufferedImage getThumbVertical(JScrollBar scrollBar, int width, int height,
@@ -377,18 +369,10 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      *            Thumb width.
      * @param height
      *            Thumb height.
-     * @param kind
-     *            Color scheme kind.
-     * @param cyclePos
-     *            Cycle position.
      * @param scheme
      *            The first color scheme.
-     * @param scheme2
-     *            The second color scheme.
      * @param borderScheme
      *            The first border color scheme.
-     * @param borderScheme2
-     *            The second border color scheme.
      * @return Image for horizontal thumb.
      */
     private static BufferedImage getThumbHorizontal(JScrollBar scrollBar, int width, int height,
@@ -479,7 +463,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
 
         this.thumbModel.setSelected(this.thumbModel.isSelected() || this.isDragging);
         this.thumbModel.setEnabled(c.isEnabled());
-        double scaleFactor = UIUtil.getScaleFactor();
+        double scaleFactor = NeonUtil.getScaleFactor();
         boolean isVertical = (this.scrollbar.getOrientation() == Adjustable.VERTICAL);
         if (isVertical) {
             Rectangle adjustedBounds = new Rectangle(thumbBounds.x, thumbBounds.y,

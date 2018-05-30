@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
@@ -116,7 +116,7 @@ public class NoiseFactory {
 		}
 		
 		// and now returning an image that is hi DPI aware if needed
-		if (UIUtil.getScaleFactor() > 1.0) {
+		if (NeonUtil.getScaleFactor() > 1.0) {
 			BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
 			Graphics2D g2d = result.createGraphics();
 			g2d.drawImage(dst, 0, 0, null);

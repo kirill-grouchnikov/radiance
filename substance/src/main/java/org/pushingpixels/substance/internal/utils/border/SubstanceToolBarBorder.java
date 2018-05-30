@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.border;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -65,7 +65,7 @@ public class SubstanceToolBarBorder extends AbstractBorder implements
 
 		Graphics2D graphics = (Graphics2D) g.create();
 		graphics.translate(x, y);
-		double scaleFactor = UIUtil.getScaleFactor();
+		double scaleFactor = NeonUtil.getScaleFactor();
 		graphics.scale(1.0f / scaleFactor, 1.0f / scaleFactor);
 
 		if (((JToolBar) c).isFloatable()) {

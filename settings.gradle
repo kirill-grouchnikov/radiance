@@ -32,5 +32,5 @@ rootProject.name = "radiance"
 
 include 'trident', 'trident-demo', 'neon', 'ibis', 'spoonbill',
         'flamingo-demo', 'kormorant', 'kormorant-demo', 'spoonbill-demo',
-        'substance', 'flamingo', 'substance-swingx', 'substance-extras', 'substance-demo',
+        'substance', 'flamingo', 'substance-extras', 'substance-demo',
         'substance-samples', 'substance-tools', 'rainbow'

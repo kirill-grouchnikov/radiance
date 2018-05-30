@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.painter.decoration;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -93,7 +93,7 @@ public class ClassicDecorationPainter implements SubstanceDecorationPainter {
 						width, height, scheme);
 				smallImageCache.put(key, result);
 			}
-			double imageScale = UIUtil.getScaleFactor();
+			double imageScale = NeonUtil.getScaleFactor();
 			graphics.drawImage(result, 0, 0, (int) (result.getWidth() / imageScale), 
 			        (int) (result.getHeight() / imageScale), null);
 			return;

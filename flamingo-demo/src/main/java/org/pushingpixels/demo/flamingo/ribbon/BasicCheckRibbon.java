@@ -31,7 +31,7 @@ package org.pushingpixels.demo.flamingo.ribbon;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
-import org.pushingpixels.demo.flamingo.common.LookAndFeelSwitcher;
+import org.pushingpixels.demo.flamingo.common.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandBuilder;
@@ -1582,7 +1582,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         builder.append("Group 1", group1Visible);
         builder.append("Group 2", group2Visible);
 
-        builder.append("Look & feel", LookAndFeelSwitcher.getLookAndFeelSwitcher(this));
+        builder.append("Skins", SkinSwitcher.getSkinSwitcher(this));
 
         final JCheckBox appMenuVisible = new JCheckBox("visible");
         appMenuVisible.setSelected(true);

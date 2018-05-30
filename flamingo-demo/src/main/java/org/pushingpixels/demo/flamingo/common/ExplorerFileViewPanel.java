@@ -103,24 +103,11 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
         this.useNativeIcons = useNativeIcons;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.AbstractFileViewPanel#toShowFile(org.jvnet.
-     * flamingo.bcb.BreadcrumbBarCallBack.KeyValuePair)
-     */
     @Override
     protected boolean toShowFile(StringValuePair<T> pair) {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.AbstractFileViewPanel#getResizableIcon(org.
-     * jvnet.flamingo.common.AbstractFileViewPanel.Leaf, java.io.InputStream,
-     * org.jvnet.flamingo.common.ElementState, java.awt.Dimension)
-     */
     @Override
     protected ResizableIcon getResizableIcon(
             org.pushingpixels.flamingo.api.common.AbstractFileViewPanel.Leaf leaf,
@@ -183,13 +170,6 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
         return icon;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.AbstractFileViewPanel#configureCommandButton
-     * (org.jvnet.flamingo.common.AbstractFileViewPanel.Leaf,
-     * org.jvnet.flamingo.common.JCommandButton, org.jvnet.flamingo.common.icon.ResizableIcon)
-     */
     @Override
     protected void configureCommandButton(
             org.pushingpixels.flamingo.api.common.AbstractFileViewPanel.Leaf leaf,
@@ -202,11 +182,6 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
         button.setExtraText(ext + " file");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.AbstractFileViewPanel#getLeafContent(java.lang .Object)
-     */
     @Override
     protected InputStream getLeafContent(T leaf) {
         return bar.getCallback().getLeafContent(leaf);

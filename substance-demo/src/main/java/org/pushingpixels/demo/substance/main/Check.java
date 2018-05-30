@@ -29,97 +29,8 @@
  */
 package org.pushingpixels.demo.substance.main;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.EnumSet;
-import java.util.Enumeration;
-import java.util.Set;
-
-import javax.swing.Box;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.JTabbedPane;
-import javax.swing.JToggleButton;
-import javax.swing.JToolBar;
-import javax.swing.LookAndFeel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import org.jdesktop.swingx.JXPanel;
-import org.jdesktop.swingx.JXStatusBar;
-import org.jdesktop.swingx.JXTaskPane;
-import org.jdesktop.swingx.JXTaskPaneContainer;
-import org.pushingpixels.demo.substance.main.check.ButtonsPanel;
-import org.pushingpixels.demo.substance.main.check.CardPanel;
-import org.pushingpixels.demo.substance.main.check.CellsPanel;
-import org.pushingpixels.demo.substance.main.check.ColoredControlsPanel;
-import org.pushingpixels.demo.substance.main.check.ColorizedControlsPanel;
-import org.pushingpixels.demo.substance.main.check.CombosPanel;
-import org.pushingpixels.demo.substance.main.check.ControlPanelFactory;
-import org.pushingpixels.demo.substance.main.check.Controllable;
-import org.pushingpixels.demo.substance.main.check.Deferrable;
-import org.pushingpixels.demo.substance.main.check.DesktopPanel;
-import org.pushingpixels.demo.substance.main.check.FileTreePanel;
-import org.pushingpixels.demo.substance.main.check.HAlignmentPanel;
-import org.pushingpixels.demo.substance.main.check.ListPanel;
-import org.pushingpixels.demo.substance.main.check.ProgressBarPanel;
-import org.pushingpixels.demo.substance.main.check.SampleMenuFactory;
-import org.pushingpixels.demo.substance.main.check.ScrollPanel;
-import org.pushingpixels.demo.substance.main.check.SizesPanel;
-import org.pushingpixels.demo.substance.main.check.SliderPanel;
-import org.pushingpixels.demo.substance.main.check.SpinnerPanel;
-import org.pushingpixels.demo.substance.main.check.SplitPanel;
-import org.pushingpixels.demo.substance.main.check.TabPanel;
-import org.pushingpixels.demo.substance.main.check.TablePanel;
-import org.pushingpixels.demo.substance.main.check.TextFieldsPanel;
-import org.pushingpixels.demo.substance.main.check.TreePanel;
-import org.pushingpixels.demo.substance.main.check.VAlignmentPanel;
-import org.pushingpixels.demo.substance.main.check.svg.tango.edit_copy;
-import org.pushingpixels.demo.substance.main.check.svg.tango.edit_cut;
-import org.pushingpixels.demo.substance.main.check.svg.tango.edit_delete;
-import org.pushingpixels.demo.substance.main.check.svg.tango.edit_paste;
-import org.pushingpixels.demo.substance.main.check.svg.tango.edit_select_all;
-import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_center;
-import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_fill;
-import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_left;
-import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_right;
-import org.pushingpixels.demo.substance.main.check.svg.tango.format_text_bold;
-import org.pushingpixels.demo.substance.main.check.svg.tango.format_text_italic;
-import org.pushingpixels.demo.substance.main.check.svg.tango.format_text_strikethrough;
-import org.pushingpixels.demo.substance.main.check.svg.tango.format_text_underline;
-import org.pushingpixels.demo.substance.main.check.svg.tango.process_stop;
+import org.pushingpixels.demo.substance.main.check.*;
+import org.pushingpixels.demo.substance.main.check.svg.tango.*;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
@@ -136,18 +47,35 @@ import org.pushingpixels.substance.api.tabbed.VetoableTabCloseListener;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasCortex;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
 import org.pushingpixels.substance.extras.api.tabbed.DefaultTabPreviewPainter;
-import org.pushingpixels.substance.swingx.SubstanceSwingxPlugin;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.EnumSet;
+import java.util.Enumeration;
+import java.util.Set;
 
 public class Check extends JFrame {
     private JTabbedPane jtp;
 
     private MyMainTabPreviewPainter mainTabPreviewPainter;
 
-    private JXTaskPaneContainer taskPaneContainer;
+    private FakeAccordion.FakeAccordionPanel currentSpecificTaskPane;
 
-    private JXTaskPane currentSpecificTaskPane;
+    private FakeAccordion.FakeAccordionPanel mainTaskPane;
 
-    private JXTaskPane mainTaskPane;
+    private FakeAccordion accordion;
 
     private JToolBar toolbar;
 
@@ -173,46 +101,30 @@ public class Check extends JFrame {
         SubstanceExtrasCortex.ComponentScope.setTabPanePreviewPainter(jtp, mainTabPreviewPainter);
         jtp.getModel().addChangeListener(new TabSwitchListener());
 
-        final JXPanel jxPanel = new JXPanel(new BorderLayout());
+        final JPanel contentPanel = new JPanel(new BorderLayout());
         toolbar = getToolbar("", 22, true);
-        jxPanel.add(toolbar, BorderLayout.NORTH);
+        contentPanel.add(toolbar, BorderLayout.NORTH);
 
-        JXStatusBar statusBar = getStatusBar(jxPanel, jtp);
+        JPanel statusBar = getStatusBar(jtp);
         this.add(statusBar, BorderLayout.SOUTH);
 
-        taskPaneContainer = new JXTaskPaneContainer() {
-            @Override
-            public boolean getScrollableTracksViewportWidth() {
-                return false;
-            }
-        };
-        taskPaneContainer.setScrollableTracksViewportHeight(false);
-        taskPaneContainer.setScrollableTracksViewportWidth(false);
+        this.accordion = new FakeAccordion();
 
-        mainTaskPane = new JXTaskPane();
-        mainTaskPane.setLayout(new BorderLayout());
         JPanel mainControlPanel = ControlPanelFactory.getMainControlPanel(this, jtp,
                 mainTabPreviewPainter, toolbar);
-        // mainControlPanel.setOpaque(false);
-        mainTaskPane.add(mainControlPanel, BorderLayout.CENTER);
-        mainTaskPane.setTitle("General settings");
-        mainTaskPane.setIcon(getIcon("JFrameColor16"));
+        mainTaskPane = this.accordion.addPanel("General settings",
+                getIcon("JFrameColor16"), mainControlPanel);
         mainTaskPane.setCollapsed(true);
-        taskPaneContainer.add(mainTaskPane);
 
         JPanel dialogControlPanel = ControlPanelFactory.getDialogControlPanel(this);
-        JXTaskPane dialogTaskPane = new JXTaskPane();
-        dialogTaskPane.setLayout(new BorderLayout());
-        dialogTaskPane.add(dialogControlPanel, BorderLayout.CENTER);
-        dialogTaskPane.setTitle("Frames & Dialogs");
-        dialogTaskPane.setIcon(getIcon("JDialogColor16"));
+        FakeAccordion.FakeAccordionPanel dialogTaskPane =
+                this.accordion.addPanel("Frames & Dialogs", getIcon("JDialogColor16"),
+                        dialogControlPanel);
         dialogTaskPane.setCollapsed(true);
-        // dialogTaskPane.setOpaque(false);
-        taskPaneContainer.add(dialogTaskPane);
 
         currentSpecificTaskPane = null;
 
-        final JScrollPane scrollPane = new JScrollPane(taskPaneContainer,
+        final JScrollPane scrollPane = new JScrollPane(accordion,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         ComponentOrParentChainScope.setDecorationType(scrollPane, DecorationAreaType.GENERAL);
         // scrollPane.setOpaque(false);
@@ -249,9 +161,9 @@ public class Check extends JFrame {
             public void removeLayoutComponent(Component comp) {
             }
         });
-        jxPanel.add(mainPanel, BorderLayout.CENTER);
+        contentPanel.add(mainPanel, BorderLayout.CENTER);
 
-        this.add(jxPanel, BorderLayout.CENTER);
+        this.add(contentPanel, BorderLayout.CENTER);
 
         setPreferredSize(new Dimension(400, 400));
         this.setSize(getPreferredSize());
@@ -464,7 +376,7 @@ public class Check extends JFrame {
                         int userCloseAnswer = JOptionPane.showConfirmDialog(Check.this,
                                 "Are you sure you want to close '"
                                         + tabbedPane.getTitleAt(
-                                                tabbedPane.indexOfComponent(tabComponent))
+                                        tabbedPane.indexOfComponent(tabComponent))
                                         + "' tab?",
                                 "Confirm dialog", JOptionPane.YES_NO_OPTION);
                         return (userCloseAnswer == JOptionPane.NO_OPTION);
@@ -491,9 +403,9 @@ public class Check extends JFrame {
                 });
     }
 
-    protected static JXStatusBar getStatusBar(final JXPanel jxPanel,
-            final JTabbedPane mainTabbedPane) {
-        JXStatusBar statusBar = new JXStatusBar();
+    protected static JPanel getStatusBar(final JTabbedPane mainTabbedPane) {
+        JPanel statusBar = new JPanel(new BorderLayout());
+        statusBar.setBorder(new EmptyBorder(4, 5, 4, 5));
 
         try {
             ClassLoader cl = Thread.currentThread().getContextClassLoader();
@@ -512,9 +424,9 @@ public class Check extends JFrame {
                         continue;
                     String name = line.substring(0, firstColonIndex).trim();
                     String val = line.substring(firstColonIndex + 1).trim();
-                    if (name.compareTo("Substance-Version") == 0)
+                    if (name.compareTo("Radiance-Version") == 0)
                         substanceVer = val;
-                    if (name.compareTo("Substance-BuildStamp") == 0)
+                    if (name.compareTo("Radiance-BuildStamp") == 0)
                         substanceBuildStamp = val;
                 }
                 try {
@@ -528,17 +440,13 @@ public class Check extends JFrame {
                     stamp += " [built on " + substanceBuildStamp + "]";
                 }
                 JLabel statusLabel = new JLabel(stamp);
-                JXStatusBar.Constraint cStatusLabel = new JXStatusBar.Constraint();
-                cStatusLabel.setFixedWidth(400);
-                statusBar.add(statusLabel, cStatusLabel);
+                statusBar.add(statusLabel, BorderLayout.LINE_START);
             }
         } catch (IOException ioe) {
         }
 
-        JXStatusBar.Constraint c2 = new JXStatusBar.Constraint(
-                JXStatusBar.Constraint.ResizeBehavior.FILL);
         final JLabel tabLabel = new JLabel("");
-        statusBar.add(tabLabel, c2);
+        statusBar.add(tabLabel, BorderLayout.CENTER);
         mainTabbedPane.getModel().addChangeListener((ChangeEvent e) -> {
             int selectedIndex = mainTabbedPane.getSelectedIndex();
             if (selectedIndex < 0)
@@ -547,30 +455,12 @@ public class Check extends JFrame {
                 tabLabel.setText("Tab " + mainTabbedPane.getTitleAt(selectedIndex) + " selected");
         });
 
-        JPanel alphaPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
+        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(statusBar, DecorationAreaType.FOOTER);
 
-        final JLabel alphaLabel = new JLabel("100%");
-        final JSlider alphaSlider = new JSlider(0, 100, 100);
-        alphaSlider.setFocusable(false);
-        alphaSlider.addChangeListener((ChangeEvent e) -> {
-            int currValue = alphaSlider.getValue();
-            alphaLabel.setText(currValue + "%");
-            jxPanel.setAlpha(currValue / 100.0f);
-        });
-        alphaSlider.setToolTipText("Changes the global opacity. Is not Substance-specific");
-        alphaSlider.setPreferredSize(new Dimension(120, alphaSlider.getPreferredSize().height));
-
-        alphaPanel.add(alphaLabel);
-        alphaPanel.add(alphaSlider);
-
-        JXStatusBar.Constraint alphaPanelConstraints = new JXStatusBar.Constraint();
-        alphaPanelConstraints.setFixedWidth(160);
-        statusBar.add(alphaPanel, alphaPanelConstraints);
         return statusBar;
     }
 
     public static void main(String[] args) {
-        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceSwingxPlugin());
         SubstanceCortex.GlobalScope.registerWidget(
                 "org.pushingpixels.substance.extras.api.tabbed.TabHoverPreviewWidget",
                 JTabbedPane.class, false);
@@ -581,50 +471,50 @@ public class Check extends JFrame {
                 "org.pushingpixels.substance.extras.api.tabbed.TabPagerWidget", JTabbedPane.class,
                 false);
         SwingUtilities.invokeLater(() -> {
-                try {
-                    out(" CREATING LAF ");
-                    long time0 = System.currentTimeMillis();
-                    LookAndFeel laf = new SubstanceGeminiLookAndFeel();
-                    long time1 = System.currentTimeMillis();
-                    out(" LAF CREATED " + (time1 - time0));
-                    out(" SETTING LAF ");
-                    long time2 = System.currentTimeMillis();
-                    UIManager.setLookAndFeel(laf);
-                    long time3 = System.currentTimeMillis();
-                    out(" LAF SET " + (time3 - time2));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                SubstanceCortex.GlobalScope.setUseConstantThemesOnOptionPanes(true);
-                SubstanceCortex.GlobalScope.setTabCloseButtonsVisible(true);
-                SubstanceCortex.GlobalScope.setExtraWidgetsPresence(true);
-                JFrame.setDefaultLookAndFeelDecorated(true);
-                JDialog.setDefaultLookAndFeelDecorated(true);
-
+            try {
+                out(" CREATING LAF ");
+                long time0 = System.currentTimeMillis();
+                LookAndFeel laf = new SubstanceGeminiLookAndFeel();
+                long time1 = System.currentTimeMillis();
+                out(" LAF CREATED " + (time1 - time0));
+                out(" SETTING LAF ");
                 long time2 = System.currentTimeMillis();
-
-                Check c = new Check();
-                c.addComponentListener(new ComponentAdapter() {
-                    @Override
-                    public void componentResized(ComponentEvent e) {
-                        super.componentResized(e);
-                        ((JFrame) e.getComponent()).getRootPane().repaint();
-                    }
-                });
-                c.setPreferredSize(new Dimension(1080, 800));
-                c.setMinimumSize(new Dimension(150, 100));
-                c.pack();
-                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-                // center the frame in the physical screen
-                c.setLocation((d.width - c.getWidth()) / 2, (d.height - c.getHeight()) / 2);
-
-                c.setVisible(true);
-                c.setDefaultCloseOperation(
-                        System.getProperty("javawebstart.version") != null ? JFrame.EXIT_ON_CLOSE
-                                : JFrame.DISPOSE_ON_CLOSE);
+                UIManager.setLookAndFeel(laf);
                 long time3 = System.currentTimeMillis();
-                out("App " + (time3 - time2));
+                out(" LAF SET " + (time3 - time2));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            SubstanceCortex.GlobalScope.setUseConstantThemesOnOptionPanes(true);
+            SubstanceCortex.GlobalScope.setTabCloseButtonsVisible(true);
+            SubstanceCortex.GlobalScope.setExtraWidgetsPresence(true);
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            JDialog.setDefaultLookAndFeelDecorated(true);
+
+            long time2 = System.currentTimeMillis();
+
+            Check c = new Check();
+            c.addComponentListener(new ComponentAdapter() {
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    super.componentResized(e);
+                    ((JFrame) e.getComponent()).getRootPane().repaint();
+                }
+            });
+            c.setPreferredSize(new Dimension(1080, 800));
+            c.setMinimumSize(new Dimension(150, 100));
+            c.pack();
+            Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+            // center the frame in the physical screen
+            c.setLocation((d.width - c.getWidth()) / 2, (d.height - c.getHeight()) / 2);
+
+            c.setVisible(true);
+            c.setDefaultCloseOperation(
+                    System.getProperty("javawebstart.version") != null ? JFrame.EXIT_ON_CLOSE
+                            : JFrame.DISPOSE_ON_CLOSE);
+            long time3 = System.currentTimeMillis();
+            out("App " + (time3 - time2));
         });
     }
 
@@ -732,28 +622,19 @@ public class Check extends JFrame {
     }
 
     public void setSpecificTaskPane(JPanel contents, String title, Icon icon) {
-        if (currentSpecificTaskPane != null) {
-            taskPaneContainer.remove(currentSpecificTaskPane);
+        if (this.currentSpecificTaskPane != null) {
+            this.accordion.removeLastPanel();
         }
-        currentSpecificTaskPane = new JXTaskPane();
-        currentSpecificTaskPane.setLayout(new BorderLayout());
-        currentSpecificTaskPane.setTitle(title);
-        currentSpecificTaskPane.setIcon(icon);
-        // contents.setOpaque(false);
-        SwingUtilities.updateComponentTreeUI(contents);
-        // currentSpecificTaskPane.setOpaque(false);
-        currentSpecificTaskPane.add(contents, BorderLayout.CENTER);
 
-        // this.mainTaskPane.setExpanded(false);
-        taskPaneContainer.add(currentSpecificTaskPane);
+        this.currentSpecificTaskPane = this.accordion.addPanel(title, icon, contents);
+        SwingUtilities.updateComponentTreeUI(contents);
     }
 
     public void clearSpecificTaskPane() {
-        if (currentSpecificTaskPane != null) {
-            taskPaneContainer.remove(currentSpecificTaskPane);
+        if (this.currentSpecificTaskPane != null) {
+            this.accordion.removeLastPanel();
         }
-        currentSpecificTaskPane = null;
-        // this.mainTaskPane.setExpanded(true);
+        this.currentSpecificTaskPane = null;
     }
 
     public class TabSwitchListener implements ChangeListener {

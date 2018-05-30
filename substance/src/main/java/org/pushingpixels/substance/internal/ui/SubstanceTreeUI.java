@@ -31,6 +31,7 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -177,8 +178,8 @@ public class SubstanceTreeUI extends BasicTreeUI {
 			}
 		}
 
-		Icon expandedIcon = SubstanceIconFactory.getTreeIcon(this.tree, false);
-		Icon collapsedIcon = SubstanceIconFactory.getTreeIcon(this.tree, true);
+		ResizableIcon expandedIcon = SubstanceIconFactory.getTreeIcon(this.tree, false);
+		ResizableIcon collapsedIcon = SubstanceIconFactory.getTreeIcon(this.tree, true);
 		setExpandedIcon(new NeonIconUIResource(expandedIcon));
 		setCollapsedIcon(new NeonIconUIResource(collapsedIcon));
 

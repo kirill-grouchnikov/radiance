@@ -29,16 +29,13 @@
  */
 package org.pushingpixels.samples.substance.mail;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
 import org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin;
-import org.pushingpixels.substance.swingx.SubstanceSwingxPlugin;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class VisorMail extends JFrame {
     public VisorMail() {
@@ -54,9 +51,6 @@ public class VisorMail extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            // Register SwingX plugin (since we're using JXSearchField)
-            SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceSwingxPlugin());
-
             // Configure the main skin
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlueSteelSkin());
             SubstanceCortex.GlobalScope.setFocusKind(FocusKind.NONE);

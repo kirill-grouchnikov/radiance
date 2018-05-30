@@ -38,6 +38,8 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.border.SubstancePopupMenuBorder;
 
 import javax.swing.*;
@@ -95,9 +97,9 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 	protected void installDefaults() {
 		Color bg = this.popupPanel.getBackground();
 		if (bg == null || bg instanceof UIResource) {
-			this.popupPanel.setBackground(FlamingoUtilities.getColor(
-					Color.lightGray, "PopupPanel.background",
-					"Panel.background"));
+			this.popupPanel.setBackground(
+					SubstanceColorUtilities.getDefaultBackgroundColor(
+							false, SubstanceCortex.GlobalScope.getCurrentSkin(), false));
 		}
 
 		Border b = this.popupPanel.getBorder();

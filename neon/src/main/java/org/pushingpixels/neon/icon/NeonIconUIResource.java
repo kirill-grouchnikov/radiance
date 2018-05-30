@@ -32,7 +32,6 @@ package org.pushingpixels.neon.icon;
 import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.neon.internal.ColorFilter;
 import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -59,19 +58,21 @@ public class NeonIconUIResource implements ResizableIcon, IsHiDpiAware, UIResour
 
     public NeonIconUIResource(BufferedImage image) {
         this.imageSource = image;
-        this.factor = UIUtil.getScaleFactor();
+        this.factor = NeonUtil.getScaleFactor();
         this.isHiDpiAwareSource = image instanceof JBHiDPIScaledImage;
         this.width = getInternalWidth();
         this.height = getInternalHeight();
     }
 
-    public NeonIconUIResource(Icon icon) {
+    public NeonIconUIResource(ResizableIcon icon) {
+        if (icon instanceof NeonIcon) {
+            throw new IllegalArgumentException("Can't wrap another instance of NeonIcon");
+        }
         if (icon instanceof NeonIconUIResource) {
-            throw new IllegalArgumentException(
-                    "Can't wrap another instance of NeonIconUIResource");
+            throw new IllegalArgumentException("Can't wrap another instance of NeonIconUIResource");
         }
         this.iconSource = icon;
-        this.factor = UIUtil.getScaleFactor();
+        this.factor = NeonUtil.getScaleFactor();
         this.isHiDpiAwareSource = (icon instanceof IsHiDpiAware)
                 && ((IsHiDpiAware) icon).isHiDpiAware();
         this.width = getInternalWidth();
@@ -153,9 +154,7 @@ public class NeonIconUIResource implements ResizableIcon, IsHiDpiAware, UIResour
     }
 
     public NeonIconUIResource colorize(Color color, float alpha) {
-        return new NeonIconUIResource(
-                new ColorFilter(new Color(color.getRed(), color.getGreen(), color.getBlue(), (int) (alpha * 255)))
-                        .filter(this.toImage(), null));
+        return colorize(new Color(color.getRed(), color.getGreen(), color.getBlue(), (int) (alpha * 255)));
     }
 
 }

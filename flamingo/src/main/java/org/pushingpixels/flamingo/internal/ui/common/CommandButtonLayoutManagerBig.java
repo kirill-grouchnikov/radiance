@@ -160,8 +160,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
 		// is minimal between all possible space characters
 		BufferedImage tempImage = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) tempImage.getGraphics();
-		g.setFont(FlamingoUtilities.getFont(this.commandButton, "Ribbon.font", "Button.font",
-				"Panel.font"));
+		g.setFont(this.commandButton.getFont());
 		FontMetrics fm = g.getFontMetrics();
 
 		String title = (this.commandButton == null) ? null : this.commandButton.getText();

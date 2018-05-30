@@ -36,7 +36,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButtonStrip.StripOrientatio
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
 import org.pushingpixels.flamingo.internal.substance.common.GlowingResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
@@ -44,7 +44,6 @@ import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKin
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
@@ -66,10 +65,7 @@ import java.util.Set;
  */
 public class CommandButtonBackgroundDelegate {
     /**
-     * Cache for background images. Each time
-     * {@link #getBackground(AbstractButton, SubstanceButtonShaper, SubstanceFillPainter, int, int)}
-     * is called, it checks <code>this</code> map to see if it already contains such background. If
-     * so, the background from the map is returned.
+     * Cache for background images.
      */
     private static LazyResettableHashMap<BufferedImage> imageCache = new LazyResettableHashMap<BufferedImage>(
             "Substance.Flamingo.CommandButtonBackgroundDelegate");
@@ -79,8 +75,8 @@ public class CommandButtonBackgroundDelegate {
      * 
      * @param commandButton
      *            Button.
-     * @param shaper
-     *            Button shaper.
+     * @param buttonModel
+     *            Button model.
      * @param fillPainter
      *            Button fill painter.
      * @param borderPainter
@@ -186,7 +182,7 @@ public class CommandButtonBackgroundDelegate {
 
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
         Graphics2D g2d = result.createGraphics();
-        double factor = UIUtil.getScaleFactor();
+        double factor = NeonUtil.getScaleFactor();
 
         g2d.drawImage(baseLayer, 0, 0, (int) (baseLayer.getWidth() / factor),
                 (int) (baseLayer.getHeight() / factor), null);
@@ -334,7 +330,7 @@ public class CommandButtonBackgroundDelegate {
         BufferedImage layers = SubstanceCoreUtilities.getBlankImage(fullAlphaBackground.getWidth(),
                 fullAlphaBackground.getHeight());
         Graphics2D combinedGraphics = layers.createGraphics();
-        double scaleFactor = UIUtil.getScaleFactor();
+        double scaleFactor = NeonUtil.getScaleFactor();
         combinedGraphics.drawImage(fullAlphaBackground, 0, 0,
                 (int) (fullAlphaBackground.getWidth() / scaleFactor),
                 (int) (fullAlphaBackground.getHeight() / scaleFactor), null);
@@ -455,7 +451,7 @@ public class CommandButtonBackgroundDelegate {
         if (useRegularVersion) {
             regular.paintIcon(commandButton, g2d, 0, 0);
         } else {
-            double scaleFactor = UIUtil.getScaleFactor();
+            double scaleFactor = NeonUtil.getScaleFactor();
             if (alpha < 1.0f) {
                 // paint the themed image full opaque on a separate image
                 BufferedImage themedImage = SubstanceCoreUtilities

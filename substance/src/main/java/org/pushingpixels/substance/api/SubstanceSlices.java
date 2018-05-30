@@ -30,6 +30,7 @@
 package org.pushingpixels.substance.api;
 
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
+import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
@@ -61,17 +62,17 @@ public final class SubstanceSlices {
         /**
          * Called when the locale is changed.
          */
-        public void localeChanged();
+        void localeChanged();
     }
 
     /**
      * Enumerates available sides.
      * 
      * @author Kirill Grouchnikov
-     * @see SubstanceLookAndFeel#BUTTON_OPEN_SIDE
-     * @see SubstanceLookAndFeel#BUTTON_STRAIGHT_SIDE
+     * @see SubstanceCortex.ComponentScope#setButtonOpenSide(JComponent, Side)
+     * @see SubstanceCortex.ComponentScope#setButtonStraightSide(JComponent, Side)
      */
-    public static enum Side {
+    public enum Side {
         /**
          * Left side.
          */
@@ -97,9 +98,9 @@ public final class SubstanceSlices {
      * Enumerates focus indication kinds.
      * 
      * @author Kirill Grouchnikov
-     * @see SubstanceLookAndFeel#FOCUS_KIND
+     * @see SubstanceCortex.GlobalScope#setFocusKind(FocusKind)
      */
-    public static enum FocusKind {
+    public enum FocusKind {
         /**
          * No focus indication.
          */
@@ -435,9 +436,7 @@ public final class SubstanceSlices {
      * Enumerates of image-based watermarks kinds.
      * 
      * @author Kirill Grouchnikov
-     * @see SubstanceLookAndFeel#setImageWatermarkKind(org.pushingpixels.substance.utils.
-     *      SubstanceSlices.ImageWatermarkKind)
-     * @see SubstanceLookAndFeel#getImageWatermarkKind()
+     * @see org.pushingpixels.substance.api.watermark.SubstanceImageWatermark#setKind(ImageWatermarkKind)
      */
     public enum ImageWatermarkKind {
         /**
@@ -471,7 +470,7 @@ public final class SubstanceSlices {
      * Enumerates possible modes of closing tabs.
      * 
      * @author Kirill Grouchnikov
-     * @see SubstanceLookAndFeel#TABBED_PANE_CLOSE_CALLBACK
+     * @see SubstanceCortex.ComponentScope#setTabCloseCallback(JTabbedPane, TabCloseCallback)
      */
     public enum TabCloseKind {
         /**
@@ -499,7 +498,7 @@ public final class SubstanceSlices {
      * Enumerates possible values for menu gutter fill kind.
      * 
      * @author Kirill Grouchnikov
-     * @see SubstanceLookAndFeel#MENU_GUTTER_FILL_KIND
+     * @see SubstanceCortex.GlobalScope#setMenuGutterFillKind(MenuGutterFillKind)
      */
     public enum MenuGutterFillKind {
         /**

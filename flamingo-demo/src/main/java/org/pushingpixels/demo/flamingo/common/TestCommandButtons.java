@@ -29,53 +29,33 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.Window;
-import java.awt.color.ColorSpace;
-import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
-import java.awt.image.ColorConvertOp;
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
+import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.demo.flamingo.common.LocaleSwitcher.LocaleCallback;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Address_book_new;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_copy;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_cut;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Text_x_generic;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.X_office_document;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
-import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
-
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class TestCommandButtons extends JFrame {
     private enum PopupKind {
@@ -247,8 +227,10 @@ public class TestCommandButtons extends JFrame {
     protected JCommandButton createActionButton(CommandButtonDisplayState state) {
         JCommandButton mainButton = new JCommandButton(resourceBundle.getString("Paste.text"),
                 new Edit_paste());
-        mainButton.setDisabledIcon(new FilteredResizableIcon(new Edit_paste(),
-                new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)));
+        mainButton.setDisabledIcon(
+                SubstanceCortex.GlobalScope.colorize(Edit_paste.of(16, 16),
+                    SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(mainButton,
+                            ComponentState.DISABLED_UNSELECTED)));
         mainButton.setExtraText(resourceBundle.getString("Paste.textExtra"));
         mainButton
                 .addActionListener((ActionEvent e) -> System.out.println(stamp() + ": Main paste"));
@@ -259,7 +241,7 @@ public class TestCommandButtons extends JFrame {
     }
 
     protected void configureControlPanel(JPanel controlPanel) {
-        controlPanel.add(LookAndFeelSwitcher.getLookAndFeelSwitcher(this));
+        controlPanel.add(SkinSwitcher.getSkinSwitcher(this));
 
         final JCheckBox enabled = new JCheckBox("enabled");
         enabled.setSelected(true);
@@ -398,46 +380,6 @@ public class TestCommandButtons extends JFrame {
      *            Ignored.
      */
     public static void main(String[] args) {
-        UIManager.installLookAndFeel("JGoodies Plastic",
-                "com.jgoodies.looks.plastic.PlasticLookAndFeel");
-        UIManager.installLookAndFeel("JGoodies PlasticXP",
-                "com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        UIManager.installLookAndFeel("JGoodies Plastic3D",
-                "com.jgoodies.looks.plastic.Plastic3DLookAndFeel");
-        UIManager.installLookAndFeel("JGoodies Windows",
-                "com.jgoodies.looks.windows.WindowsLookAndFeel");
-
-        UIManager.installLookAndFeel("Synthetica base",
-                "de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlackMoon",
-                "de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlackStar",
-                "de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlueIce",
-                "de.javasoft.plaf.synthetica.SyntheticaBlueIceLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlueMoon",
-                "de.javasoft.plaf.synthetica.SyntheticaBlueMoonLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlueSteel",
-                "de.javasoft.plaf.synthetica.SyntheticaBlueSteelLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica GreenDream",
-                "de.javasoft.plaf.synthetica.SyntheticaGreenDreamLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica MauveMetallic",
-                "de.javasoft.plaf.synthetica.SyntheticaMauveMetallicLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica OrangeMetallic",
-                "de.javasoft.plaf.synthetica.SyntheticaOrangeMetallicLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica SkyMetallic",
-                "de.javasoft.plaf.synthetica.SyntheticaSkyMetallicLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica SilverMoon",
-                "de.javasoft.plaf.synthetica.SyntheticaSilverMoonLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica WhiteVision",
-                "de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel");
-
-        UIManager.installLookAndFeel("A03", "a03.swing.plaf.A03LookAndFeel");
-        UIManager.installLookAndFeel("Liquid", "com.birosoft.liquid.LiquidLookAndFeel");
-        UIManager.installLookAndFeel("Napkin", "net.sourceforge.napkinlaf.NapkinLookAndFeel");
-        UIManager.installLookAndFeel("Pagosoft", "com.pagosoft.plaf.PgsLookAndFeel");
-        UIManager.installLookAndFeel("Squareness", "net.beeger.squareness.SquarenessLookAndFeel");
-
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());

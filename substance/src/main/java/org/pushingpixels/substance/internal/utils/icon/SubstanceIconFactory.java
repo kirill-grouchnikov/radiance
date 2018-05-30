@@ -31,6 +31,7 @@ package org.pushingpixels.substance.internal.utils.icon;
 
 import org.pushingpixels.neon.icon.IsHiDpiAware;
 import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -78,7 +79,7 @@ public class SubstanceIconFactory {
     /**
      * Icons for tree collapse / expand in {@link SubstanceTreeUI}.
      */
-    private static LazyResettableHashMap<Icon> treeIcons = new LazyResettableHashMap<Icon>(
+    private static LazyResettableHashMap<ResizableIcon> treeIcons = new LazyResettableHashMap<ResizableIcon>(
             "SubstanceIconFactory.treeIcon");
 
     /**
@@ -133,13 +134,13 @@ public class SubstanceIconFactory {
         return SubstanceIconFactory.sliderVerticalIcons.get(key);
     }
 
-    public static Icon getTreeIcon(JTree tree, boolean isCollapsed) {
+    public static ResizableIcon getTreeIcon(JTree tree, boolean isCollapsed) {
         int fontSize = SubstanceSizeUtils.getComponentFontSize(tree);
         int size = SubstanceSizeUtils.getTreeIconSize(fontSize);
 
         HashMapKey key = SubstanceCoreUtilities.getHashKey(size, isCollapsed);
         if (SubstanceIconFactory.treeIcons.get(key) == null) {
-            Icon icon = new TreeIcon(size, isCollapsed);
+            ResizableIcon icon = new TreeIcon(size, isCollapsed);
             SubstanceIconFactory.treeIcons.put(key, icon);
         }
         return SubstanceIconFactory.treeIcons.get(key);
@@ -351,14 +352,8 @@ public class SubstanceIconFactory {
         /**
          * Retrieves icon that matches the specified state of the slider thumb.
          * 
-         * @param state
-         *            Slider state.
-         * @param prevState
-         *            The previous slider state.
          * @param slider
          *            The slider itself.
-         * @param sliderIcon
-         *            The slider icon.
          * @return Icon that matches the specified state of the slider thumb.
          */
         private NeonIconUIResource getIcon(JSlider slider,
@@ -540,14 +535,8 @@ public class SubstanceIconFactory {
         /**
          * Retrieves icon that matches the specified state of the slider thumb.
          * 
-         * @param state
-         *            Slider state.
-         * @param prevState
-         *            The previous slider state.
          * @param slider
          *            The slider itself.
-         * @param sliderIcon
-         *            The slider icon.
          * @return Icon that matches the specified state of the slider thumb.
          */
         private NeonIconUIResource getIcon(JSlider slider,
@@ -706,7 +695,7 @@ public class SubstanceIconFactory {
      * 
      * @author Kirill Grouchnikov
      */
-    private static class TreeIcon implements Icon, UIResource, IsHiDpiAware {
+    private static class TreeIcon implements ResizableIcon, UIResource, IsHiDpiAware {
         /**
          * Icon hash.
          */
@@ -732,22 +721,17 @@ public class SubstanceIconFactory {
         }
 
         @Override
+        public void setDimension(Dimension newDimension) {
+            this.size = newDimension.width;
+        }
+
+        @Override
         public boolean isHiDpiAware() {
             return true;
         }
 
         /**
-         * Retrieves icon that matches the specified state of the slider thumb.
-         * 
-         * @param state
-         *            Slider state.
-         * @param prevState
-         *            The previous slider state.
-         * @param slider
-         *            The slider itself.
-         * @param sliderIcon
-         *            The slider icon.
-         * @return Icon that matches the specified state of the slider thumb.
+         * Retrieves icon that matches the specified state of the tree.
          */
         private static NeonIconUIResource getIcon(JTree tree, boolean isCollapsed) {
             ComponentState state = ((tree == null) || tree.isEnabled()) ? ComponentState.ENABLED

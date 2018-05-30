@@ -116,13 +116,7 @@ public class ImageWrapperResizableIcon extends ImageWrapperIcon implements
 		super(inputStream, initialDim.width, initialDim.height);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.icon.ResizableIcon#setDimension(java.awt.Dimension
-	 * )
-	 */
+	@Override
 	public void setDimension(Dimension dim) {
 		this.setPreferredSize(dim);
 	}

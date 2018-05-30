@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.widget.scroll;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -202,7 +202,7 @@ public class ScrollPaneSelector extends JComponent {
         if (theImage == null || theRectangle == null)
             return new Dimension();
         Insets insets = getInsets();
-        double scaleFactor = UIUtil.getScaleFactor();
+        double scaleFactor = NeonUtil.getScaleFactor();
         return new Dimension((int) (theImage.getWidth() / scaleFactor) + insets.left + insets.right,
                 (int) (theImage.getHeight() / scaleFactor) + insets.top + insets.bottom);
     }
@@ -218,7 +218,7 @@ public class ScrollPaneSelector extends JComponent {
         int yOffset = insets.top;
         int availableWidth = getWidth() - insets.left - insets.right;
         int availableHeight = getHeight() - insets.top - insets.bottom;
-        double scaleFactor = UIUtil.getScaleFactor();
+        double scaleFactor = NeonUtil.getScaleFactor();
         g2d.drawImage(theImage, xOffset, yOffset, (int) (theImage.getWidth() / scaleFactor),
                 (int) (theImage.getHeight() / scaleFactor), null);
 

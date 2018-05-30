@@ -30,8 +30,8 @@
 package org.pushingpixels.flamingo.internal.substance.common;
 
 import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.animation.IconGlowTracker;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -137,7 +137,7 @@ public class GlowingResizableIcon implements ResizableIcon {
             }
             this.cachedImages.put(key, offscreen);
         }
-        double scaleFactor = UIUtil.getScaleFactor();
+        double scaleFactor = NeonUtil.getScaleFactor();
         BufferedImage toDraw = this.cachedImages.get(key);
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.translate(x, y);

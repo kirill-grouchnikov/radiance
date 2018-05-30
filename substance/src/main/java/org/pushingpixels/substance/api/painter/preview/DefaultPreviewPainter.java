@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.painter.preview;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
@@ -63,7 +63,7 @@ public class DefaultPreviewPainter extends PreviewPainter {
             Graphics tempCanvasGraphics = tempCanvas.getGraphics();
             component.paint(tempCanvasGraphics);
 
-            double scaleFactor = UIUtil.getScaleFactor();
+            double scaleFactor = NeonUtil.getScaleFactor();
             // check if need to scale down
             double coef = Math.min((double) w / (double) compWidth,
                     (double) h / (double) compHeight) / scaleFactor;

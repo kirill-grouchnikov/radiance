@@ -43,11 +43,7 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationM
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
 /**
@@ -56,113 +52,13 @@ import java.util.List;
  * @author Kirill Grouchnikov
  */
 public class FlamingoUtilities {
-    /**
-     * Gets the component font.
-     * 
-     * @param comp
-     *            Component.
-     * @param keys
-     *            {@link UIManager} keys.
-     * @return If the component is not <code>null</code>, its font is returned. Otherwise the first
-     *         entry in {@link UIManager} which is a {@link Font} is returned.
-     */
-    public static FontUIResource getFont(Component comp, String... keys) {
-        if (comp != null) {
-            Font compFont = comp.getFont();
-            if ((compFont != null) && !(compFont instanceof UIResource)) {
-                return new FontUIResource(compFont);
-            }
-        }
-        for (String key : keys) {
-            Font font = UIManager.getFont(key);
-            if (font != null) {
-                if (font instanceof UIResource)
-                    return (FontUIResource) font;
-                else
-                    return new FontUIResource(font);
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Gets the color based on the specified {@link UIManager} keys.
-     * 
-     * @param defaultColor
-     *            Default color to return if none of the {@link UIManager} keys are present.
-     * @param keys
-     *            {@link UIManager} keys.
-     * @return The first entry in {@link UIManager} which is a color. If none, then the default
-     *         color is returned.
-     */
-    public static Color getColor(Color defaultColor, String... keys) {
-        for (String key : keys) {
-            Color color = UIManager.getColor(key);
-            if (color != null)
-                return color;
-        }
-        return new ColorUIResource(defaultColor);
-    }
-
-    /**
-     * Creates a thumbnail of the specified width.
-     * 
-     * @param image
-     *            The original image.
-     * @param requestedThumbWidth
-     *            The width of the resulting thumbnail.
-     * @return Thumbnail of the specified width.
-     * @author Romain Guy
-     */
-    public static BufferedImage createThumbnail(BufferedImage image, int requestedThumbWidth) {
-        float ratio = (float) image.getWidth() / (float) image.getHeight();
-        int width = image.getWidth();
-        BufferedImage thumb = image;
-
-        do {
-            width /= 2;
-            if (width < requestedThumbWidth) {
-                width = requestedThumbWidth;
-            }
-
-            BufferedImage temp = new BufferedImage(width, (int) (width / ratio),
-                    BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = temp.createGraphics();
-            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                    RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            g2.drawImage(thumb, 0, 0, temp.getWidth(), temp.getHeight(), null);
-            g2.dispose();
-
-            thumb = temp;
-        } while (width != requestedThumbWidth);
-
-        return thumb;
-    }
-
-    /**
-     * Returns the alpha version of the specified color.
-     * 
-     * @param color
-     *            Original color.
-     * @param alpha
-     *            Alpha channel value.
-     * @return Alpha version of the specified color.
-     */
-    public static Color getAlphaColor(Color color, int alpha) {
-        return new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
-    }
-
     public static int getHLayoutGap(AbstractCommandButton commandButton) {
         Font font = commandButton.getFont();
-        if (font == null)
-            font = UIManager.getFont("Button.font");
         return (int) Math.ceil(commandButton.getHGapScaleFactor() * (font.getSize() - 4) / 4);
     }
 
     public static int getVLayoutGap(AbstractCommandButton commandButton) {
         Font font = commandButton.getFont();
-        if (font == null)
-            font = UIManager.getFont("Button.font");
         return (int) Math.ceil(commandButton.getVGapScaleFactor() * (font.getSize() - 4) / 4);
     }
 
@@ -199,11 +95,6 @@ public class FlamingoUtilities {
             }
         }
         return null;
-    }
-
-    public static Color getBorderColor() {
-        return FlamingoUtilities.getColor(Color.gray, "TextField.inactiveForeground",
-                "Button.disabledText", "ComboBox.disabledForeground");
     }
 
     public static boolean isShowingMinimizedRibbonInPopup(JRibbon ribbon) {

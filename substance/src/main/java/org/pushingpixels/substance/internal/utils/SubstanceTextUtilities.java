@@ -30,7 +30,6 @@
 package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.NeonUtil;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -104,7 +103,7 @@ public class SubstanceTextUtilities {
         blurred = convolve.filter(blurred, null);
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(c, luminFactor, g));
-        double scaleFactor = UIUtil.getScaleFactor();
+        double scaleFactor = NeonUtil.getScaleFactor();
         graphics.drawImage(blurred, 0, 0, (int) (blurred.getWidth() / scaleFactor),
                 (int) (blurred.getHeight() / scaleFactor), null);
         graphics.setComposite(WidgetUtilities.getAlphaComposite(c, g));

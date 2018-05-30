@@ -307,16 +307,13 @@ public class CommandButtonLayoutManagerTile implements
 					result.separatorArea.y = 0;
 					result.separatorArea.width = verticalSeparatorWidth;
 					result.separatorArea.height = height;
-
-					result.isTextInActionArea = true;
 				} else {
 					result.popupClickArea.x = 0;
 					result.popupClickArea.y = 0;
 					result.popupClickArea.width = width;
 					result.popupClickArea.height = height;
-
-					result.isTextInActionArea = true;
 				}
+				result.isTextInActionArea = true;
 				break;
 			case ACTION_AND_POPUP_MAIN_POPUP:
 				// 1. break after icon if button has icon
@@ -357,16 +354,13 @@ public class CommandButtonLayoutManagerTile implements
 					result.separatorArea.y = 0;
 					result.separatorArea.width = verticalSeparatorWidth;
 					result.separatorArea.height = height;
-
-					result.isTextInActionArea = true;
 				} else {
 					result.popupClickArea.x = 0;
 					result.popupClickArea.y = 0;
 					result.popupClickArea.width = width;
 					result.popupClickArea.height = height;
-
-					result.isTextInActionArea = true;
 				}
+				result.isTextInActionArea = false;
 				break;
 			}
 		} else {
@@ -486,16 +480,13 @@ public class CommandButtonLayoutManagerTile implements
 					result.separatorArea.y = 0;
 					result.separatorArea.width = verticalSeparatorWidth;
 					result.separatorArea.height = height;
-
-					result.isTextInActionArea = true;
 				} else {
 					result.popupClickArea.x = 0;
 					result.popupClickArea.y = 0;
 					result.popupClickArea.width = width;
 					result.popupClickArea.height = height;
-
-					result.isTextInActionArea = true;
 				}
+				result.isTextInActionArea = true;
 				break;
 			case ACTION_AND_POPUP_MAIN_POPUP:
 				// 1. break after icon if button has icon
@@ -536,15 +527,13 @@ public class CommandButtonLayoutManagerTile implements
 					result.separatorArea.width = verticalSeparatorWidth;
 					result.separatorArea.height = height;
 
-					result.isTextInActionArea = true;
 				} else {
 					result.popupClickArea.x = 0;
 					result.popupClickArea.y = 0;
 					result.popupClickArea.width = width;
 					result.popupClickArea.height = height;
-
-					result.isTextInActionArea = true;
 				}
+				result.isTextInActionArea = false;
 				break;
 			}
 		}

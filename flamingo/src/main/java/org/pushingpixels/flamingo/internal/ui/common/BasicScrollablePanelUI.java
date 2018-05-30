@@ -32,7 +32,6 @@ package org.pushingpixels.flamingo.internal.ui.common;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel.ScrollType;
-import org.pushingpixels.flamingo.internal.utils.DoubleArrowResizableIcon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -209,11 +208,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
     }
 
     protected JCommandButton createLeadingScroller() {
-        JCommandButton b = new JCommandButton(null,
-                new DoubleArrowResizableIcon(new Dimension(9, 9),
-                        this.scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY
-                                ? SwingConstants.WEST
-                                : SwingConstants.NORTH));
+        JCommandButton b = new JCommandButton(null, null);
 
         b.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         b.setFocusable(false);
@@ -224,11 +219,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
     }
 
     protected JCommandButton createTrailingScroller() {
-        JCommandButton b = new JCommandButton(null,
-                new DoubleArrowResizableIcon(new Dimension(9, 9),
-                        this.scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY
-                                ? SwingConstants.EAST
-                                : SwingConstants.SOUTH));
+        JCommandButton b = new JCommandButton(null, null);
 
         b.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         b.setFocusable(false);

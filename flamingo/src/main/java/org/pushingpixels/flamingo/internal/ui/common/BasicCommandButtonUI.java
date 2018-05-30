@@ -36,7 +36,6 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.AsynchronousLoading;
 import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -412,14 +411,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         NeonUtil.installDesktopHints(g2d, c);
         super.update(g2d, c);
         g2d.dispose();
-    }
-
-    protected Color getForegroundColor(boolean isTextPaintedEnabled) {
-        if (isTextPaintedEnabled) {
-            return FlamingoUtilities.getColor(Color.black, "Button.foreground");
-        } else {
-            return FlamingoUtilities.getColor(Color.gray, "Label.disabledForeground");
-        }
     }
 
     /**

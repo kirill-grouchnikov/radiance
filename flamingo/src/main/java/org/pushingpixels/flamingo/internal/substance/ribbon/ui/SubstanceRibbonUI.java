@@ -35,7 +35,6 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonRootPane;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
@@ -47,6 +46,7 @@ import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
@@ -180,17 +180,9 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
     @Override
     protected void installComponents() {
         super.installComponents();
-        ComponentOrParentChainScope.setDecorationType(this.taskBarPanel,
-                DecorationAreaType.PRIMARY_TITLE_PANE);
         ComponentOrParentChainScope.setDecorationType(this.ribbon, DecorationAreaType.HEADER);
         ComponentOrParentChainScope.setDecorationType(this.bandScrollablePanel,
                 DecorationAreaType.GENERAL);
-    }
-
-    @Override
-    protected void uninstallComponents() {
-        DecorationPainterUtils.clearDecorationType(this.taskBarPanel);
-        super.uninstallComponents();
     }
 
     @Override
@@ -284,9 +276,9 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
             int bottomY = topY + 5;
             Color hueColor = contextualGroup.getHueColor();
             Paint paint = new GradientPaint(0, topY,
-                    FlamingoUtilities.getAlphaColor(hueColor,
+                    SubstanceColorUtilities.getAlphaColor(hueColor,
                             (int) (255 * RibbonContextualTaskGroup.HUE_ALPHA)),
-                    0, bottomY, FlamingoUtilities.getAlphaColor(hueColor, 0));
+                    0, bottomY, SubstanceColorUtilities.getAlphaColor(hueColor, 0));
             g2d.setPaint(paint);
             g2d.clip(outerContour);
             g2d.fillRect(0, topY, width, bottomY - topY + 1);

@@ -66,14 +66,9 @@ public class SubstanceExtrasSkinPlugin implements SubstanceSkinPlugin {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.substance.plugin.SubstanceSkinPlugin#getSkins()
-     */
     @Override
     public Set<SkinInfo> getSkins() {
-        Set<SkinInfo> result = new HashSet<SkinInfo>();
+        Set<SkinInfo> result = new HashSet<>();
         result.add(create(FieldOfWheatSkin.NAME, FieldOfWheatSkin.class, false));
         result.add(create(FindingNemoSkin.NAME, FindingNemoSkin.class, false));
         result.add(create(GreenMagicSkin.NAME, GreenMagicSkin.class, false));

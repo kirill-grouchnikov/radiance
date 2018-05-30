@@ -17,6 +17,8 @@ import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 /**
  * Test application for {@link JCommandButtonStrip} component.
@@ -69,8 +71,9 @@ public class ButtonStripTest extends JFrame {
 	 *            Ignored.
 	 */
 	public static void main(String[] args) throws Exception {
-		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		SwingUtilities.invokeLater(() -> {
+			JFrame.setDefaultLookAndFeelDecorated(true);
+			SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
 			ButtonStripTest bst = new ButtonStripTest();
 			bst.setVisible(true);
 		});

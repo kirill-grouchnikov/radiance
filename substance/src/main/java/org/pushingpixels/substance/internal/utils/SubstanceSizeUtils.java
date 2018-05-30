@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.font.FontPolicy;
@@ -217,14 +217,12 @@ public class SubstanceSizeUtils {
 	}
 
 	/**
-	 * Returns the stroke width of borders under the specified font size.
+	 * Returns the stroke width of borders.
 	 * 
-	 * @param fontSize
-	 *            Font size.
-	 * @return Stroke width of borders under the specified font size.
+	 * @return Stroke width of borders.
 	 */
 	public static float getBorderStrokeWidth() {
-		return 1.0f / (float) UIUtil.getScaleFactor();
+		return 1.0f / (float) NeonUtil.getScaleFactor();
 	}
 
 	/**
@@ -451,7 +449,7 @@ public class SubstanceSizeUtils {
 	 * Returns the stroke width of focus rings.
 	 */
 	public static float getFocusStrokeWidth() {
-        return 1.0f / (float) UIUtil.getScaleFactor();
+        return 1.0f / (float) NeonUtil.getScaleFactor();
 	}
 
 	/**

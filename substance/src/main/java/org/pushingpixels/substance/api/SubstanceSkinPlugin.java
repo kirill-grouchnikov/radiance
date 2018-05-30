@@ -44,5 +44,5 @@ public interface SubstanceSkinPlugin {
 	 * 
 	 * @return Information on all available skins in <code>this</code> plugin.
 	 */
-	public Set<SkinInfo> getSkins();
+	Set<SkinInfo> getSkins();
 }

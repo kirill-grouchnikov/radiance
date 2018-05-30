@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.substance.internal.widget.desktop;
 
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.neon.icon.NeonIconUIResource;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.internal.ui.SubstanceDesktopIconUI;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
@@ -96,7 +96,7 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
                 return;
             BufferedImage previewImage = snapshot;
             if (previewImage != null) {
-                double scaleFactor = UIUtil.getScaleFactor();
+                double scaleFactor = NeonUtil.getScaleFactor();
                 DesktopIconHoverPreviewWidget.this.previewWindow.getContentPane().removeAll();
                 JLabel previewLabel = new JLabel(new NeonIconUIResource(previewImage));
                 DesktopIconHoverPreviewWidget.this.previewWindow.getContentPane().add(previewLabel,

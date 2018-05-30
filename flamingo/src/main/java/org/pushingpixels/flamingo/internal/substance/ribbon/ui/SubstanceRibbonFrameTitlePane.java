@@ -340,7 +340,6 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         super.addNotify();
 
         JRibbon ribbon = this.getRibbon();
-        ribbon.putClientProperty(BasicRibbonUI.IS_USING_TITLE_PANE, Boolean.TRUE);
 
         this.syncRibbonState();
 
@@ -356,7 +355,6 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
     @Override
     public void removeNotify() {
         JRibbon ribbon = this.getRibbon();
-        ribbon.putClientProperty(BasicRibbonUI.IS_USING_TITLE_PANE, null);
 
         for (SubstanceContextualGroupComponent groupComp : this.taskComponentMap.values()) {
             this.remove(groupComp);

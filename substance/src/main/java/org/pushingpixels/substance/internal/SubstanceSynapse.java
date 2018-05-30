@@ -230,9 +230,9 @@ public class SubstanceSynapse {
      * Client property name for specifying the preferred height of the title pane.
      */
     public final static String ROOT_PANE_PREFERRED_TITLE_PANE_HEIGHT = "substancelaf.internal.rootPanePreferredTitlePaneHeight";
-    
+
     /**
-     * Client property name for specifying the horizontal gravity of the button bar content. 
+     * Client property name for specifying the horizontal gravity of the button bar content.
      */
     public final static String BUTTON_BAR_GRAVITY = "substancelaf.internal.buttonBarGravity";
 
@@ -255,4 +255,9 @@ public class SubstanceSynapse {
      * Client property name for specifying the horizontal gravity of the title pane icon.
      */
     public final static String TITLE_ICON_HORIZONTAL_GRAVITY = "substancelaf.internal.titleIconHorizontalGravity";
+
+    /**
+     * Client property name for specifying the horizontal gravity of the title pane icon.
+     */
+    public final static String USE_DEFAULT_COLOR_CHOOSER = "substancelaf.internal.useDefaultColorChooser";
 }

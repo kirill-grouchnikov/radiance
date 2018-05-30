@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
@@ -202,7 +202,7 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
         float brightness = hsb[2] * 0.7f;
         g2d.setColor(new Color(brightness, brightness, brightness));
 
-        float borderThickness = 1.0f / (float) UIUtil.getScaleFactor();
+        float borderThickness = 1.0f / (float) NeonUtil.getScaleFactor();
         float ty = this.colorSelectorComponent.isTopOpen() ? borderThickness : 0;
         float by = this.colorSelectorComponent.isBottomOpen() ? borderThickness : 0;
         g2d.setStroke(

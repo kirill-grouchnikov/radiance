@@ -37,9 +37,8 @@ import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonVisualSt
 import org.pushingpixels.flamingo.internal.substance.utils.SubstanceDisabledResizableIcon;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandToggleButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.ResizableIconUIResource;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
@@ -256,17 +255,10 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.ui.BasicCommandButtonUI#paint(java.awt.Graphics ,
-     * javax.swing.JComponent)
-     */
     @Override
     public void paint(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setFont(FlamingoUtilities.getFont(this.commandButton, "Ribbon.font", "Button.font",
-                "Panel.font"));
+        g2d.setFont(this.commandButton.getFont());
 
         this.layoutInfo = this.layoutManager.getLayoutInfo(this.commandButton, g);
         commandButton.putClientProperty("icon.bounds", layoutInfo.iconRect);
@@ -433,7 +425,7 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setComposite(
                     WidgetUtilities.getAlphaComposite(this.commandButton, extraAlpha, graphics));
-            double factor = UIUtil.getScaleFactor();
+            double factor = NeonUtil.getScaleFactor();
             g2d.drawImage(fullAlphaBackground, 0, 0, (int) (fullAlphaBackground.getWidth() / factor),
                     (int) (fullAlphaBackground.getHeight() / factor), null);
             g2d.dispose();

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.painter.preview.PreviewPainter;
 import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
@@ -77,7 +77,7 @@ public class WidgetUtilities {
         int width = image.getWidth();
         BufferedImage thumb = image;
 
-        double scaleFactor = UIUtil.getScaleFactor();
+        double scaleFactor = NeonUtil.getScaleFactor();
         do {
             width /= 2;
             if (width < requestedThumbWidth) {

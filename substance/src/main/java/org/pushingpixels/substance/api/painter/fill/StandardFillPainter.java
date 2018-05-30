@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.painter.fill;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -108,7 +108,7 @@ public class StandardFillPainter implements SubstanceFillPainter {
 
             // millis003 = System.nanoTime();
 
-            double scaleFactor = UIUtil.getScaleFactor();
+            double scaleFactor = NeonUtil.getScaleFactor();
 
             BufferedImage reverseGhostContour = SubstanceCoreUtilities
                     .getBlankImage(iWidth + 2 * kernelSize, iHeight + 2 * kernelSize);

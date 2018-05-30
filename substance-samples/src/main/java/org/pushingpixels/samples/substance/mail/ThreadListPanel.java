@@ -31,7 +31,6 @@ package org.pushingpixels.samples.substance.mail;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
-import org.jdesktop.swingx.JXSearchField;
 import org.pushingpixels.neon.icon.NeonIcon;
 import org.pushingpixels.samples.substance.mail.svg.ic_mail_outline_black_24px;
 import org.pushingpixels.samples.substance.mail.svg.ic_mode_edit_black_24px;
@@ -286,7 +285,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         DefaultFormBuilder builder = new DefaultFormBuilder(lm)
                 .border(new EmptyBorder(8, 8, 12, 8));
 
-        JXSearchField searchBox = new JXSearchField("Search");
+        JTextField searchBox = new JTextField("Search");
         builder.append(searchBox);
 
         JButton actionButton = new JButton(icon);

@@ -29,12 +29,19 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.Window;
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
+import com.jgoodies.forms.layout.FormLayout;
+import org.pushingpixels.demo.flamingo.common.LocaleSwitcher.LocaleCallback;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
+import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
+import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
+import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
@@ -43,26 +50,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-
-import org.pushingpixels.demo.flamingo.common.LocaleSwitcher.LocaleCallback;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
-import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
-
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class TestCommandToggleButtons extends JFrame {
     protected ResourceBundle resourceBundle;
@@ -136,7 +123,7 @@ public class TestCommandToggleButtons extends JFrame {
     }
 
     protected void configureControlPanel(JPanel controlPanel) {
-        controlPanel.add(LookAndFeelSwitcher.getLookAndFeelSwitcher(this));
+        controlPanel.add(SkinSwitcher.getSkinSwitcher(this));
 
         final JCheckBox enabled = new JCheckBox("enabled");
         enabled.setSelected(true);

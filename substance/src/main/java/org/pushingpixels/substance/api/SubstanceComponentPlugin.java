@@ -42,12 +42,12 @@ public interface SubstanceComponentPlugin {
     /**
      * Initializes <code>this</code> plugin.
      */
-    public void initialize();
+    default void initialize() {}
 
     /**
      * Unitializes <code>this</code> plugin.
      */
-    public void uninitialize();
+    default void uninitialize() {}
 
     /**
      * Retrieves a collection of custom settings based on the specified skin. The entries in the
@@ -60,5 +60,5 @@ public interface SubstanceComponentPlugin {
      *         should be pairwise, odd being symbolic name of a setting, and even being the setting
      *         value.
      */
-    public Object[] getDefaults(SubstanceSkin skin);
+    Object[] getDefaults(SubstanceSkin skin);
 }

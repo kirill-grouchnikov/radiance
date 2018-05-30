@@ -30,7 +30,6 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonUtil;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -1088,7 +1087,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
         finalAlpha *= SubstanceColorSchemeUtilities.getAlpha(this.tabPane.getComponentAt(tabIndex),
                 currState);
-        double scaleFactor = UIUtil.getScaleFactor();
+        double scaleFactor = NeonUtil.getScaleFactor();
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane, finalAlpha, g));
         graphics.drawImage(fullOpacity, x, y, (int) (fullOpacity.getWidth() / scaleFactor),

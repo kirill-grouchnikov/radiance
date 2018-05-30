@@ -30,8 +30,8 @@
 package org.pushingpixels.flamingo.api.common.icon;
 
 import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import java.awt.*;
@@ -138,7 +138,7 @@ public class FilteredResizableIcon implements ResizableIcon {
 			BufferedImage filtered = this.operation.filter(offscreen, null);
 			this.cachedImages.put(key, filtered);
 		}
-		double scaleFactor = UIUtil.getScaleFactor();
+		double scaleFactor = NeonUtil.getScaleFactor();
 		BufferedImage toDraw = this.cachedImages.get(key);
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.translate(x, y);

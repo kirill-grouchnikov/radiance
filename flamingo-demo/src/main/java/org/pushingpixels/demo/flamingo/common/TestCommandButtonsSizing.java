@@ -108,12 +108,10 @@ public class TestCommandButtonsSizing extends JPanel {
     private JCommandButton createActionOnlyButton(String text, CommandButtonDisplayState state,
             CommandButtonKind commandButtonKind, int fontSize) {
         ResizableIcon mainPasteIcon = SvgBatikResizableIcon.getSvgIcon(
-                TestCommandButtons.class.getClassLoader().getResource("test/svg/edit-paste.svg"),
+                TestCommandButtons.class.getClassLoader().getResource(
+                        "org/pushingpixels/demo/flamingo/svg/tango/transcoded/Edit-paste.svg"),
                 new Dimension(32, 32));
         JCommandButton mainButton = new JCommandButton(text, mainPasteIcon);
-        mainButton.setDisabledIcon(new FilteredResizableIcon(mainPasteIcon,
-                new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)));
-        // mainButton.setMnemonic('P');
         mainButton.setExtraText("Extra for " + text.toLowerCase());
         mainButton.addActionListener((ActionEvent e) -> System.out.println("Action invoked"));
         mainButton.setPopupCallback((JCommandButton commandButton) -> new SamplePopupMenu(

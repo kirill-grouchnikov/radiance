@@ -1,20 +1,6 @@
 package org.pushingpixels.demo.flamingo.common;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_center;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_fill;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_left;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_right;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_text_bold;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_text_italic;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_text_strikethrough;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_text_underline;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.CommandToggleButtonGroup;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
@@ -23,6 +9,9 @@ import org.pushingpixels.flamingo.api.common.JCommandToggleMenuButton;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class TestToggleMenuButtons extends JFrame {
     public TestToggleMenuButtons() {
@@ -90,7 +79,7 @@ public class TestToggleMenuButtons extends JFrame {
         this.add(main, BorderLayout.CENTER);
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        controlPanel.add(LookAndFeelSwitcher.getLookAndFeelSwitcher(this));
+        controlPanel.add(SkinSwitcher.getSkinSwitcher(this));
         this.add(controlPanel, BorderLayout.SOUTH);
 
         this.setSize(300, 200);

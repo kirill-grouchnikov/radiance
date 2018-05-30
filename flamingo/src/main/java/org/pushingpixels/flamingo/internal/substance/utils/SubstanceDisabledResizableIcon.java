@@ -30,8 +30,8 @@
 package org.pushingpixels.flamingo.internal.substance.utils;
 
 import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.*;
@@ -126,7 +126,7 @@ public class SubstanceDisabledResizableIcon implements ResizableIcon {
             this.cachedImages.put(key, filtered);
         }
         Graphics2D g2d = (Graphics2D) g.create();
-        double scaleFactor = UIUtil.getScaleFactor();
+        double scaleFactor = NeonUtil.getScaleFactor();
         g2d.drawImage(filtered, x, y, (int) (filtered.getWidth() / scaleFactor),
                 (int) (filtered.getHeight() / scaleFactor), null);
         g2d.dispose();

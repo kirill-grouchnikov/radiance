@@ -32,13 +32,12 @@ package org.pushingpixels.flamingo.internal.substance.utils;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.utils.*;
 
@@ -57,7 +56,7 @@ import java.util.Map;
 public class RibbonApplicationMenuButtonBackgroundDelegate {
 	/**
 	 * Cache for background images. Each time
-	 * {@link #getBackground(AbstractButton, SubstanceButtonShaper, SubstanceFillPainter, int, int)}
+	 * {@link #getFullAlphaBackground(JRibbonApplicationMenuButton, SubstanceFillPainter, SubstanceBorderPainter, int, int)}
 	 * is called, it checks <code>this</code> map to see if it already contains
 	 * such background. If so, the background from the map is returned.
 	 */
@@ -69,8 +68,6 @@ public class RibbonApplicationMenuButtonBackgroundDelegate {
 	 * 
 	 * @param menuButton
 	 *            Button.
-	 * @param shaper
-	 *            Button shaper.
 	 * @param painter
 	 *            Button gradient painter.
 	 * @param borderPainter
@@ -127,7 +124,7 @@ public class RibbonApplicationMenuButtonBackgroundDelegate {
 
 		BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
 		Graphics2D g2d = result.createGraphics();
-		double scaleFactor = UIUtil.getScaleFactor();
+		double scaleFactor = NeonUtil.getScaleFactor();
 
 		g2d.drawImage(baseLayer, 0, 0, (int) (baseLayer.getWidth() / scaleFactor),
 		        (int) (baseLayer.getHeight() / scaleFactor), null);

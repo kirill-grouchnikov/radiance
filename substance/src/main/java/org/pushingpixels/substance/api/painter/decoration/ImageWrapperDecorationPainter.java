@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.painter.decoration;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -195,7 +195,7 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
 
         Image colorizedTile = this.getColorizedTile(tileScheme);
         float scaleFactor = SubstanceCoreUtilities.isHiDpiAwareImage(this.originalTile)
-                ? (float) UIUtil.getScaleFactor()
+                ? (float) NeonUtil.getScaleFactor()
                 : 1;
         int tileWidth = (int) (colorizedTile.getWidth(null) / scaleFactor);
         int tileHeight = (int) (colorizedTile.getHeight(null) / scaleFactor);
@@ -247,7 +247,7 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
         BufferedImage result = this.colorizedTileMap.get(scheme.getDisplayName());
         if (result == null) {
             float scaleFactor = SubstanceCoreUtilities.isHiDpiAwareImage(this.originalTile)
-                    ? (float) UIUtil.getScaleFactor()
+                    ? (float) NeonUtil.getScaleFactor()
                     : 1;
             int tileWidth = this.originalTile.getWidth(null);
             int tileHeight = this.originalTile.getHeight(null);

@@ -37,8 +37,6 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
-import org.pushingpixels.flamingo.internal.utils.ArrowResizableIcon;
-import org.pushingpixels.flamingo.internal.utils.DoubleArrowResizableIcon;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -200,7 +198,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * @return Scroll-down button.
      */
     protected JCommandButton createScrollDownButton() {
-        JCommandButton result = new JCommandButton(new ArrowResizableIcon(9, SwingConstants.SOUTH));
+        JCommandButton result = new JCommandButton(null, null);
         result.setFocusable(false);
         result.setName("RibbonGallery.scrollDownButton");
         result.setFlat(false);
@@ -215,7 +213,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * @return Scroll-up button.
      */
     protected JCommandButton createScrollUpButton() {
-        JCommandButton result = new JCommandButton(new ArrowResizableIcon(9, SwingConstants.NORTH));
+        JCommandButton result = new JCommandButton(null, null);
         result.setFocusable(false);
         result.setName("RibbonGallery.scrollUpButton");
         result.setFlat(false);
@@ -230,8 +228,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * @return Expand button.
      */
     protected ExpandCommandButton createExpandButton() {
-        ExpandCommandButton result = new ExpandCommandButton(
-                new DoubleArrowResizableIcon(9, SwingConstants.SOUTH));
+        ExpandCommandButton result = new ExpandCommandButton(null);
         result.getActionModel().setFireActionOnPress(true);
         result.setFocusable(false);
         result.setName("RibbonGallery.expandButton");

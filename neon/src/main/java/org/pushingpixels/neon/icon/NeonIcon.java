@@ -32,7 +32,6 @@ package org.pushingpixels.neon.icon;
 import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.neon.internal.ColorFilter;
 import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,18 +56,21 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
 
     public NeonIcon(BufferedImage image) {
         this.imageSource = image;
-        this.factor = UIUtil.getScaleFactor();
+        this.factor = NeonUtil.getScaleFactor();
         this.isHiDpiAwareSource = image instanceof JBHiDPIScaledImage;
         this.width = getInternalWidth();
         this.height = getInternalHeight();
     }
 
-    public NeonIcon(Icon icon) {
+    public NeonIcon(ResizableIcon icon) {
         if (icon instanceof NeonIcon) {
             throw new IllegalArgumentException("Can't wrap another instance of NeonIcon");
         }
+        if (icon instanceof NeonIconUIResource) {
+            throw new IllegalArgumentException("Can't wrap another instance of NeonIconUIResource");
+        }
         this.iconSource = icon;
-        this.factor = UIUtil.getScaleFactor();
+        this.factor = NeonUtil.getScaleFactor();
         this.isHiDpiAwareSource = (icon instanceof IsHiDpiAware)
                 && ((IsHiDpiAware) icon).isHiDpiAware();
         this.width = getInternalWidth();
@@ -150,9 +152,6 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
     }
 
     public NeonIcon colorize(Color color, float alpha) {
-        return new NeonIcon(
-                new ColorFilter(
-                        new Color(color.getRed(), color.getGreen(), color.getBlue(), (int) (alpha * 255)))
-                        .filter(this.toImage(), null));
+        return colorize(new Color(color.getRed(), color.getGreen(), color.getBlue(), (int) (alpha * 255)));
     }
 }

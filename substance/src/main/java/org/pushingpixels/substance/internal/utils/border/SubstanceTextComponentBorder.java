@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.border;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -109,7 +109,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
         Graphics2D graphics = (Graphics2D) g.create();
         JTextComponent componentForTransitions = SubstanceCoreUtilities
                 .getTextComponentForTransitions(c);
-        double scaleFactor = UIUtil.getScaleFactor();
+        double scaleFactor = NeonUtil.getScaleFactor();
         boolean useCache = (width * height < 100000);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(c);
         if (componentForTransitions != null) {

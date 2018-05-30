@@ -102,7 +102,6 @@ public class BreadCrumbTest extends JFrame {
 
         this.filePanel = new ExplorerFileViewPanel<File>(bar, CommandButtonDisplayState.MEDIUM,
                 null);
-        this.filePanel.setUseNativeIcons(true);
         fileListScrollPane = new JScrollPane(this.filePanel);
         this.add(fileListScrollPane, BorderLayout.CENTER);
 

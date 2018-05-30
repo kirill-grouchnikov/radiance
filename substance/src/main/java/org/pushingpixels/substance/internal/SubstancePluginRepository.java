@@ -32,7 +32,7 @@ package org.pushingpixels.substance.internal;
 import org.pushingpixels.substance.api.SubstanceComponentPlugin;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSkinPlugin;
-import org.pushingpixels.substance.internal.plugin.BasePlugin;
+import org.pushingpixels.substance.internal.plugin.ColorChooserPlugin;
 import org.pushingpixels.substance.internal.plugin.BaseSkinPlugin;
 
 import javax.swing.*;
@@ -48,7 +48,7 @@ public class SubstancePluginRepository {
 
     public static SubstancePluginRepository getInstance() {
         if (instance.componentPlugins.isEmpty()) {
-            instance.componentPlugins.add(new BasePlugin());
+            instance.componentPlugins.add(new ColorChooserPlugin());
         }
         if (instance.skinPlugins.isEmpty()) {
             instance.skinPlugins.add(new BaseSkinPlugin());
@@ -101,8 +101,8 @@ public class SubstancePluginRepository {
     }
 
     /**
-     * Helper function to process the (possibly) theme-dependent default settings of all available
-     * component plugins. Calls the {@link SubstanceComponentPlugin#getDefaults(Object)} of all
+     * Helper function to process the (possibly) skin-dependent default settings of all available
+     * component plugins. Calls the {@link SubstanceComponentPlugin#getDefaults(SubstanceSkin)} of all
      * available plugins and puts the respective results in the specified table.
      * 
      * @param table

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.combo;
 
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -54,33 +54,11 @@ import java.util.Map;
  */
 public class ComboBoxBackgroundDelegate {
     /**
-     * Cache for background images. Each time
-     * {@link #getBackground(AbstractButton, SubstanceButtonShaper, SubstanceFillPainter, int, int)}
-     * is called, it checks <code>this</code> map to see if it already contains such background. If
-     * so, the background from the map is returned.
+     * Cache for background images.
      */
     private static LazyResettableHashMap<BufferedImage> regularBackgrounds = new LazyResettableHashMap<BufferedImage>(
             "ComboBoxBackgroundDelegate");
 
-    /**
-     * Retrieves the background for the specified button.
-     * 
-     * @param button
-     *            Button.
-     * @param model
-     *            Button model.
-     * @param shaper
-     *            Button shaper.
-     * @param fillPainter
-     *            Button fill painter.
-     * @param borderPainter
-     *            Button border painter.
-     * @param width
-     *            Button width.
-     * @param height
-     *            Button height.
-     * @return Button background.
-     */
     public static BufferedImage getFullAlphaBackground(JComboBox combo, ButtonModel model,
             SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter, int width,
             int height) {
@@ -184,14 +162,6 @@ public class ComboBoxBackgroundDelegate {
         super();
     }
 
-    /**
-     * Updates background of the specified button.
-     * 
-     * @param g
-     *            Graphic context.
-     * @param button
-     *            Button to update.
-     */
     public void updateBackground(Graphics g, JComboBox combo, ButtonModel comboModel) {
         // failsafe for LAF change
         if (!SubstanceCoreUtilities.isCurrentLookAndFeel())
@@ -244,7 +214,7 @@ public class ComboBoxBackgroundDelegate {
         if (extraAlpha > 0.0f) {
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(combo, extraAlpha, g));
-            double factor = UIUtil.getScaleFactor();
+            double factor = NeonUtil.getScaleFactor();
             graphics.drawImage(bgImage, 0, y, (int) (bgImage.getWidth() / factor),
                     (int) (bgImage.getHeight() / factor), null);
             graphics.dispose();

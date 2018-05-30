@@ -30,7 +30,6 @@
 package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.NeonUtil;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
@@ -1236,7 +1235,7 @@ public class SubstanceTitlePane extends JComponent {
             // g.fillRect(0, 0, getWidth(), getHeight());
             if (appIcon != null) {
                 float scaleFactor = SubstanceCoreUtilities.isHiDpiAwareImage(appIcon)
-                        ? (float) UIUtil.getScaleFactor()
+                        ? (float) NeonUtil.getScaleFactor()
                         : 1;
                 g.drawImage(appIcon, 0, 0, (int) (appIcon.getWidth(null) / scaleFactor),
                         (int) (appIcon.getHeight(null) / scaleFactor), null);

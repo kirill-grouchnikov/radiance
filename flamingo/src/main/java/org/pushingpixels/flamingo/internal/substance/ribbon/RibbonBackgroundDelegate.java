@@ -35,7 +35,7 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.RibbonBorderShaper;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.NeonUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -63,7 +63,7 @@ import java.util.Set;
 public class RibbonBackgroundDelegate {
     /**
      * Cache for background images of ribbon buttons. Each time
-     * {@link #getTaskToggleButtonBackground(AbstractButton, int, int)} is called with
+     * {@link #getTaskToggleButtonBackground(JRibbonTaskToggleButton, int, int)} is called with
      * <code>isRoundCorners</code> equal to <code>true</code>, it checks <code>this</code> map to
      * see if it already contains such background. If so, the background from the map is returned.
      */
@@ -128,7 +128,7 @@ public class RibbonBackgroundDelegate {
 
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
         Graphics2D g2d = result.createGraphics();
-        double scaleFactor = UIUtil.getScaleFactor();
+        double scaleFactor = NeonUtil.getScaleFactor();
 
         g2d.drawImage(baseLayer, 0, 0, (int) (baseLayer.getWidth() / scaleFactor),
                 (int) (baseLayer.getHeight() / scaleFactor), null);
@@ -239,8 +239,6 @@ public class RibbonBackgroundDelegate {
      *            Graphic context.
      * @param button
      *            Button to update.
-     * @param cycleCount
-     *            Cycle count for transition effects.
      */
     public void updateTaskToggleButtonBackground(Graphics g, JRibbonTaskToggleButton button) {
         Graphics2D g2d = (Graphics2D) g.create();
@@ -265,7 +263,7 @@ public class RibbonBackgroundDelegate {
         }
 
         g2d.setComposite(WidgetUtilities.getAlphaComposite(button, extraActionAlpha, g));
-        double scaleFactor = UIUtil.getScaleFactor();
+        double scaleFactor = NeonUtil.getScaleFactor();
         g2d.drawImage(ribbonBackground, 0, 0, (int) (ribbonBackground.getWidth() / scaleFactor),
                 (int) (ribbonBackground.getHeight() / scaleFactor), null);
 
