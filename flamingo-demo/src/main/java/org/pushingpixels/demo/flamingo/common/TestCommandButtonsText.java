@@ -29,21 +29,15 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.MessageFormat;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.MessageFormat;
 
 public class TestCommandButtonsText extends TestCommandButtons {
     private class CounterActionListener implements ActionListener {
@@ -57,7 +51,6 @@ public class TestCommandButtonsText extends TestCommandButtons {
                 MessageFormat mf = new MessageFormat(resourceBundle.getString("Clicked.text"));
                 mf.setLocale(currLocale);
                 acb.setText(mf.format(new Object[] { count }));
-                // System.out.println(acb.getText());
             });
         }
     }
@@ -93,6 +86,7 @@ public class TestCommandButtonsText extends TestCommandButtons {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+
             TestCommandButtonsText frame = new TestCommandButtonsText();
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);

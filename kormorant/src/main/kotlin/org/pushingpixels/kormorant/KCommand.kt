@@ -114,7 +114,7 @@ class KCommand {
         (popupRichTooltip as KRichTooltip).init()
     }
 
-    private fun toFlamingoCommand(): FlamingoCommand {
+    fun toFlamingoCommand(): FlamingoCommand {
         builder.setTitle(title)
         builder.setIcon(icon)
         builder.setDisabledIcon(disabledIcon)
@@ -132,6 +132,13 @@ class KCommand {
             builder.setPopupOrientationKind(popupOrientationKind)
         }
         builder.setPopupCallback(popupCallback)
+
+        if (isTitleClickAction) {
+            builder.setTitleClickAction()
+        }
+        if (isTitleClickPopup) {
+            builder.setTitleClickPopup()
+        }
 
         if (isToggleSelected) {
             builder.setToggleSelected(isToggleSelected)

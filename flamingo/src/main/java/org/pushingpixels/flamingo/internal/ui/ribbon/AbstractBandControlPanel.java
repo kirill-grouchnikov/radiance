@@ -47,11 +47,6 @@ public class AbstractBandControlPanel extends JPanel implements UIResource {
 	public AbstractBandControlPanel() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JPanel#getUI()
-	 */
 	@Override
 	public BandControlPanelUI getUI() {
 		return (BandControlPanelUI) ui;

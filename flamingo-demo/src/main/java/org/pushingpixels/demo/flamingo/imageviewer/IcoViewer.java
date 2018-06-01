@@ -1,5 +1,6 @@
 package org.pushingpixels.demo.flamingo.imageviewer;
 
+import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent;
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector;
@@ -9,6 +10,10 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
 import org.pushingpixels.flamingo.api.common.icon.IcoWrapperResizableIcon;
 import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -27,8 +32,13 @@ public class IcoViewer extends JFrame {
 
     private int currIconSize;
 
-    public IcoViewer() {
+    private IcoViewer() {
         super("ICO Viewer");
+        this.setIconImage(RadianceLogo.getLogoImage(
+                SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                        ComponentState.ENABLED)));
 
         this.bar = new BreadcrumbFileSelector();
 
@@ -42,20 +52,21 @@ public class IcoViewer extends JFrame {
                     }
 
                     if (newPath.size() > 0) {
-                        SwingWorker<List<StringValuePair<File>>, Void> worker = new SwingWorker<List<StringValuePair<File>>, Void>() {
-                            @Override
-                            protected List<StringValuePair<File>> doInBackground() {
-                                return bar.getCallback().getLeafs(newPath);
-                            }
+                        SwingWorker<List<StringValuePair<File>>, Void> worker = new
+                                SwingWorker<List<StringValuePair<File>>, Void>() {
+                                    @Override
+                                    protected List<StringValuePair<File>> doInBackground() {
+                                        return bar.getCallback().getLeafs(newPath);
+                                    }
 
-                            @Override
-                            protected void done() {
-                                try {
-                                    fileViewPanel.setFolder(get());
-                                } catch (Exception exc) {
-                                }
-                            }
-                        };
+                                    @Override
+                                    protected void done() {
+                                        try {
+                                            fileViewPanel.setFolder(get());
+                                        } catch (Exception exc) {
+                                        }
+                                    }
+                                };
                         worker.execute();
                     }
                 }));
@@ -66,8 +77,7 @@ public class IcoViewer extends JFrame {
         int initialSize = 32;
         this.fileViewPanel = new AbstractFileViewPanel<File>(32, null) {
             @Override
-            protected void configureCommandButton(
-                    org.pushingpixels.flamingo.api.common.AbstractFileViewPanel.Leaf leaf,
+            protected void configureCommandButton(AbstractFileViewPanel.Leaf leaf,
                     JCommandButton button, ResizableIcon icon) {
             }
 
@@ -82,8 +92,7 @@ public class IcoViewer extends JFrame {
             }
 
             @Override
-            protected ResizableIcon getResizableIcon(
-                    org.pushingpixels.flamingo.api.common.AbstractFileViewPanel.Leaf leaf,
+            protected ResizableIcon getResizableIcon(AbstractFileViewPanel.Leaf leaf,
                     InputStream stream, CommandButtonDisplayState state, Dimension dimension) {
                 int prefSize = state.getPreferredIconSize();
                 if (prefSize > 0) {
@@ -132,15 +141,19 @@ public class IcoViewer extends JFrame {
 
     /**
      * Main method for testing.
-     * 
-     * @param args
-     *            Ignored.
+     *
+     * @param args Ignored.
      */
     public static void main(String... args) {
-        IcoViewer test = new IcoViewer();
-        test.setSize(800, 650);
-        test.setLocationRelativeTo(null);
-        test.setVisible(true);
-        test.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+
+            IcoViewer test = new IcoViewer();
+            test.setSize(800, 650);
+            test.setLocationRelativeTo(null);
+            test.setVisible(true);
+            test.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        });
     }
 }

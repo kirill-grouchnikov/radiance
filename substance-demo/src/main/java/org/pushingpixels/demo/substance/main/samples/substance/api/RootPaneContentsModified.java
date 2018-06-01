@@ -33,12 +33,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextPane;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -47,10 +42,10 @@ import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.RootPaneScope#setContentsModified(javax.swing.JRootPane, boolean)} API.
+ * {@link SubstanceCortex.RootPaneScope#setContentsModified(JRootPane, Boolean)} API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.RootPaneScope#setContentsModified(javax.swing.JRootPane, boolean)
+ * @see SubstanceCortex.RootPaneScope#setContentsModified(JRootPane, Boolean)
  */
 public class RootPaneContentsModified extends JFrame {
     /**

@@ -3,35 +3,36 @@ package org.pushingpixels.demo.flamingo.common;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
+import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
-import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
 import org.pushingpixels.ibis.icon.SvgBatikResizableIcon;
 import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
-import java.awt.color.ColorSpace;
 import java.awt.event.ActionEvent;
-import java.awt.image.ColorConvertOp;
 import java.util.LinkedList;
 import java.util.List;
 
 public class TestCommandButtonsSizing extends JPanel {
-    private static interface Creator {
-        public JComponent create(int fontSize);
+    private interface Creator {
+        JComponent create(int fontSize);
     }
 
     private static class Mapping {
-        public String caption;
+        private String caption;
 
-        public Creator creator;
+        private Creator creator;
 
-        public Mapping(String caption, Creator creator) {
+        private Mapping(String caption, Creator creator) {
             super();
             this.caption = caption;
             this.creator = creator;
@@ -42,19 +43,16 @@ public class TestCommandButtonsSizing extends JPanel {
 
     private JScrollPane central;
 
-    public TestCommandButtonsSizing() {
-        this.model = new LinkedList<Mapping>();
-        for (final CommandButtonDisplayState state : new CommandButtonDisplayState[] {
-                        CommandButtonDisplayState.BIG, CommandButtonDisplayState.MEDIUM,
-                        CommandButtonDisplayState.TILE, CommandButtonDisplayState.SMALL }) {
+    private TestCommandButtonsSizing() {
+        this.model = new LinkedList<>();
+        for (final CommandButtonDisplayState state : new CommandButtonDisplayState[]{
+                CommandButtonDisplayState.BIG, CommandButtonDisplayState.MEDIUM,
+                CommandButtonDisplayState.TILE, CommandButtonDisplayState.SMALL}) {
             for (final CommandButtonKind commandButtonKind : CommandButtonKind.values()) {
                 this.model.add(new Mapping(
-                        state.getDisplayName() + " + " + commandButtonKind.name(), new Creator() {
-                            public JComponent create(int fontSize) {
-                                return createActionOnlyButton("Sample", state, commandButtonKind,
-                                        fontSize);
-                            }
-                        }));
+                        state.getDisplayName() + " + " + commandButtonKind.name(), (int fontSize) ->
+                        createActionOnlyButton("Sample", state, commandButtonKind,
+                                fontSize)));
             }
         }
 
@@ -67,7 +65,7 @@ public class TestCommandButtonsSizing extends JPanel {
                 return model.size();
             }
         });
-        list.setCellRenderer(new DefaultListCellRenderer() {
+        list.setCellRenderer(new SubstanceDefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
                     boolean isSelected, boolean cellHasFocus) {
@@ -125,16 +123,22 @@ public class TestCommandButtonsSizing extends JPanel {
 
     /**
      * Main method for testing.
-     * 
-     * @param args
-     *            Ignored.
+     *
+     * @param args Ignored.
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+
             JFrame frame = new JFrame("Testing command button fonts");
             frame.setSize(800, 600);
+            frame.setIconImage(RadianceLogo.getLogoImage(
+                    SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                            SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                            SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                            ComponentState.ENABLED)));
+
             frame.add(new TestCommandButtonsSizing());
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);

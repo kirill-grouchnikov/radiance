@@ -92,7 +92,7 @@ g.setTransform(defaultTransform__0_2_0);
 g.setTransform(defaultTransform__0_2);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_3 = g.getTransform();
-g.transform(new AffineTransform(-3.609726894426369f, -25.344227967703123f, 25.344227967703123f, -3.609726894426369f, 307.19519708753614f, 102.38619879841089f));
+g.transform(new AffineTransform(-3.609726894426375f, -25.344227967703123f, 25.344227967703123f, -3.609726894426375f, 307.19519708753626f, 102.38619879841085f));
 // _0_3
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_3_0 = g.getTransform();

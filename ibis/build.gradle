@@ -44,6 +44,5 @@ jar {
     manifest {
         attributes("Radiance-Version": "${version}")
     }
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 

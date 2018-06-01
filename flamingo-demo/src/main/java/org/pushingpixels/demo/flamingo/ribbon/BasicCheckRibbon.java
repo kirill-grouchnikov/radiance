@@ -1,37 +1,37 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.flamingo.ribbon;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
-import org.pushingpixels.demo.flamingo.common.SkinSwitcher;
+import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandBuilder;
@@ -46,8 +46,10 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupListener;
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.PrimaryClearRolloverCallback;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.RibbonApplicationMenuPrimaryCommandBuilder;
+import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand
+        .PrimaryClearRolloverCallback;
+import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand
+        .RibbonApplicationMenuPrimaryCommandBuilder;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
@@ -400,8 +402,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         JRibbonComponent multimedia = new JRibbonComponent(null,
                 resourceBundle.getString("Multimedia.text"),
                 new JComboBox(new Object[] { resourceBundle.getString("Pictures.text"),
-                                resourceBundle.getString("Video.text"),
-                                resourceBundle.getString("Audio.text") }));
+                        resourceBundle.getString("Video.text"),
+                        resourceBundle.getString("Audio.text") }));
         multimedia.setKeyTip("AM");
         multimedia.setResizingAware(true);
         multimedia.setHorizontalAlignment(HorizontalAlignment.FILL);
@@ -449,9 +451,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
         result.startGroup();
 
         result.addRibbonCommand(new FlamingoCommandBuilder()
-                .setTitle(resourceBundle.getString("DocumentNew.text"))
-                .setIcon(Document_new.of(16, 16))
-                .setAction((ActionEvent e) -> System.out.println("Document New activated")).build(),
+                        .setTitle(resourceBundle.getString("DocumentNew.text"))
+                        .setIcon(Document_new.of(16, 16))
+                        .setAction((ActionEvent e) -> System.out.println("Document New " +
+                                "activated")).build(),
                 RibbonElementPriority.MEDIUM);
 
         result.addRibbonCommand(
@@ -591,15 +594,19 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setTitle(resourceBundle.getString("Format.text")).setIcon(Edit_paste.of(16, 16))
                 .setPopupCallback(formatButtonPopupCallback)
                 .setPopupRichTooltip(new RichTooltip.RichTooltipBuilder().setTitle(
-                        "Main title that can go over multiple lines of text even exceeding the bigger")
+                        "Main title that can go over multiple lines of text even exceeding the " +
+                                "bigger")
                         .addDescriptionSection(
-                                "Simple description that can go over multiple lines of text even exceeding the bigger")
+                                "Simple description that can go over multiple lines of text even " +
+                                        "exceeding the bigger")
                         .addDescriptionSection(
-                                "Second paragraph that can be multiline as well to test this feature")
+                                "Second paragraph that can be multiline as well to test this " +
+                                        "feature")
                         .setMainIcon(Address_book_new.of(32, 32))
                         .setFooterIcon(Help_browser.of(16, 16))
                         .addFooterSection(
-                                "Multiline footer description to provide a little bit more information on this subject")
+                                "Multiline footer description to provide a little bit more " +
+                                        "information on this subject")
                         .build())
                 .setPopupKeyTip("FP").build(), RibbonElementPriority.MEDIUM);
 
@@ -635,9 +642,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 RibbonElementPriority.MEDIUM);
 
         findBand.addRibbonCommand(new FlamingoCommandBuilder()
-                .setTitle(resourceBundle.getString("SelectAll.text"))
-                .setIcon(Edit_select_all.of(16, 16))
-                .setAction((ActionEvent e) -> System.out.println("Select All activated")).build(),
+                        .setTitle(resourceBundle.getString("SelectAll.text"))
+                        .setIcon(Edit_select_all.of(16, 16))
+                        .setAction((ActionEvent e) -> System.out.println("Select All activated"))
+                        .build(),
                 RibbonElementPriority.MEDIUM);
 
         List<RibbonBandResizePolicy> resizePolicies = new ArrayList<RibbonBandResizePolicy>();
@@ -657,12 +665,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
         quickStylesBand.setResizePolicies(
                 CoreRibbonResizePolicies.getCorePoliciesRestrictive(quickStylesBand));
 
-        Map<RibbonElementPriority, Integer> stylesGalleryVisibleCommandCounts = new HashMap<RibbonElementPriority, Integer>();
+        Map<RibbonElementPriority, Integer> stylesGalleryVisibleCommandCounts = new
+                HashMap<RibbonElementPriority, Integer>();
         stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.LOW, 1);
         stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.MEDIUM, 2);
         stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.TOP, 2);
 
-        List<StringValuePair<List<FlamingoCommand>>> stylesGalleryCommands = new ArrayList<StringValuePair<List<FlamingoCommand>>>();
+        List<StringValuePair<List<FlamingoCommand>>> stylesGalleryCommands = new
+                ArrayList<StringValuePair<List<FlamingoCommand>>>();
         List<FlamingoCommand> stylesGalleryCommandsList = new ArrayList<FlamingoCommand>();
         List<FlamingoCommand> stylesGalleryCommandsList2 = new ArrayList<FlamingoCommand>();
         MessageFormat mfButtonText = new MessageFormat(
@@ -748,7 +758,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setActionKeyTip("SB").build(),
                 RibbonElementPriority.MEDIUM);
 
-        final JColorSelectorPopupMenu.ColorSelectorCallback callback = new JColorSelectorPopupMenu.ColorSelectorCallback() {
+        final JColorSelectorPopupMenu.ColorSelectorCallback callback = new
+                JColorSelectorPopupMenu.ColorSelectorCallback() {
             @Override
             public void onColorSelected(Color color) {
                 System.out.println("Selected color " + color);
@@ -790,17 +801,17 @@ public class BasicCheckRibbon extends JRibbonFrame {
             result.addColorSectionWithDerived(
                     resourceBundle.getString("ColorSelector.textThemeCaption"),
                     new Color[] { new Color(255, 255, 255), new Color(0, 0, 0),
-                                    new Color(160, 160, 160), new Color(16, 64, 128),
-                                    new Color(80, 128, 192), new Color(180, 80, 80),
-                                    new Color(160, 192, 80), new Color(128, 92, 160),
-                                    new Color(80, 160, 208), new Color(255, 144, 64) });
+                            new Color(160, 160, 160), new Color(16, 64, 128),
+                            new Color(80, 128, 192), new Color(180, 80, 80),
+                            new Color(160, 192, 80), new Color(128, 92, 160),
+                            new Color(80, 160, 208), new Color(255, 144, 64) });
 
             result.addColorSection(resourceBundle.getString("ColorSelector.textStandardCaption"),
                     new Color[] { new Color(140, 0, 0), new Color(253, 0, 0),
-                                    new Color(255, 160, 0), new Color(255, 255, 0),
-                                    new Color(144, 240, 144), new Color(0, 128, 0),
-                                    new Color(160, 224, 224), new Color(0, 0, 255),
-                                    new Color(0, 0, 128), new Color(128, 0, 128) });
+                            new Color(255, 160, 0), new Color(255, 255, 0),
+                            new Color(144, 240, 144), new Color(0, 128, 0),
+                            new Color(160, 224, 224), new Color(0, 0, 255),
+                            new Color(0, 0, 128), new Color(128, 0, 128) });
             result.addRecentSection(resourceBundle.getString("ColorSelector.textRecentCaption"));
 
             JCommandMenuButton moreButton = new JCommandMenuButton(
@@ -819,8 +830,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
         };
 
         quickStylesBand.addRibbonCommand(new FlamingoCommandBuilder()
-                .setTitle(resourceBundle.getString("Styles3.text")).setIcon(Text_html.of(16, 16))
-                .setPopupCallback(popupCallback).setPopupKeyTip("SC").build(),
+                        .setTitle(resourceBundle.getString("Styles3.text")).setIcon(Text_html.of
+                                (16, 16))
+                        .setPopupCallback(popupCallback).setPopupKeyTip("SC").build(),
                 RibbonElementPriority.MEDIUM);
 
         return quickStylesBand;
@@ -833,9 +845,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
         previewBand.setResizePolicies(CoreRibbonResizePolicies.getCorePoliciesNone(previewBand));
 
         previewBand.addRibbonCommand(new FlamingoCommandBuilder()
-                .setTitle(resourceBundle.getString("Preview.text"))
-                .setIcon(new SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32))
-                .setAction((ActionEvent e) -> System.out.println("Preview activated")).build(),
+                        .setTitle(resourceBundle.getString("Preview.text"))
+                        .setIcon(new SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32))
+                        .setAction((ActionEvent e) -> System.out.println("Preview activated"))
+                        .build(),
                 RibbonElementPriority.TOP);
         previewBand
                 .addRibbonCommand(
@@ -1019,12 +1032,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 resourceBundle.getString("TransitionToThis.textBandTitle"),
                 new SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32));
 
-        Map<RibbonElementPriority, Integer> transitionGalleryVisibleCommandCounts = new HashMap<RibbonElementPriority, Integer>();
+        Map<RibbonElementPriority, Integer> transitionGalleryVisibleCommandCounts = new
+                HashMap<RibbonElementPriority, Integer>();
         transitionGalleryVisibleCommandCounts.put(RibbonElementPriority.LOW, 2);
         transitionGalleryVisibleCommandCounts.put(RibbonElementPriority.MEDIUM, 4);
         transitionGalleryVisibleCommandCounts.put(RibbonElementPriority.TOP, 6);
 
-        List<StringValuePair<List<FlamingoCommand>>> transitionGalleryCommands = new ArrayList<StringValuePair<List<FlamingoCommand>>>();
+        List<StringValuePair<List<FlamingoCommand>>> transitionGalleryCommands = new
+                ArrayList<StringValuePair<List<FlamingoCommand>>>();
 
         List<FlamingoCommand> transitionGalleryCommandsList = new ArrayList<FlamingoCommand>();
         for (int i = 1; i <= 40; i++) {
@@ -1100,7 +1115,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         transitionBand.addRibbonComponent(new JRibbonComponent(
                 new SimpleResizableIcon(RibbonElementPriority.TOP, 16, 16),
                 resourceBundle.getString("Sound.text"), new JComboBox(new Object[] {
-                                "[" + resourceBundle.getString("NoSound.text") + "]     " })));
+                "[" + resourceBundle.getString("NoSound.text") + "]     " })));
         transitionBand.addRibbonComponent(
                 new JRibbonComponent(null, resourceBundle.getString("Speed.text"), new JComboBox(
                         new Object[] { resourceBundle.getString("Medium.text") + "           " })));
@@ -1283,14 +1298,16 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
     protected void configureApplicationMenu() {
         // "Create new" primary
-        RibbonApplicationMenuPrimaryCommand amEntryNew = new RibbonApplicationMenuPrimaryCommandBuilder()
+        RibbonApplicationMenuPrimaryCommand amEntryNew = new
+                RibbonApplicationMenuPrimaryCommandBuilder()
                 .setTitle(resourceBundle.getString("AppMenuNew.text"))
                 .setIcon(Document_new.of(16, 16))
                 .setAction((ActionEvent ae) -> System.out.println("Invoked creating new document"))
                 .setActionKeyTip("N").build();
 
         // "Open" primary
-        RibbonApplicationMenuPrimaryCommand amEntryOpen = new RibbonApplicationMenuPrimaryCommandBuilder()
+        RibbonApplicationMenuPrimaryCommand amEntryOpen = new
+                RibbonApplicationMenuPrimaryCommandBuilder()
                 .setTitle(resourceBundle.getString("AppMenuOpen.text"))
                 .setIcon(Document_open.of(16, 16))
                 .setAction((ActionEvent ae) -> System.out.println("Invoked opening document"))
@@ -1317,7 +1334,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 }).setActionKeyTip("O").build();
 
         // "Save" primary
-        RibbonApplicationMenuPrimaryCommand amEntrySave = new RibbonApplicationMenuPrimaryCommandBuilder()
+        RibbonApplicationMenuPrimaryCommand amEntrySave = new
+                RibbonApplicationMenuPrimaryCommandBuilder()
                 .setTitle(resourceBundle.getString("AppMenuSave.text"))
                 .setIcon(Document_save.of(16, 16))
                 .setAction((ActionEvent ae) -> System.out.println("Invoked saving document"))
@@ -1345,7 +1363,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setAction((ActionEvent ae) -> System.out.println("Invoked saved as other"))
                 .setActionKeyTip("O").build();
 
-        RibbonApplicationMenuPrimaryCommand amEntrySaveAs = new RibbonApplicationMenuPrimaryCommandBuilder()
+        RibbonApplicationMenuPrimaryCommand amEntrySaveAs = new
+                RibbonApplicationMenuPrimaryCommandBuilder()
                 .setTitle(resourceBundle.getString("AppMenuSaveAs.text"))
                 .setIcon(Document_save_as.of(16, 16))
                 .setAction((ActionEvent ae) -> System.out.println("Invoked saving document as"))
@@ -1389,7 +1408,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setAction((ActionEvent ae) -> System.out.println("Invoked custom"))
                 .setActionKeyTip("C").build();
 
-        RibbonApplicationMenuPrimaryCommand amEntryPrint = new RibbonApplicationMenuPrimaryCommandBuilder()
+        RibbonApplicationMenuPrimaryCommand amEntryPrint = new
+                RibbonApplicationMenuPrimaryCommandBuilder()
                 .setTitle(resourceBundle.getString("AppMenuPrint.text"))
                 .setIcon(Document_print.of(16, 16))
                 .setAction((ActionEvent ae) -> System.out.println("Invoked printing as"))
@@ -1449,7 +1469,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     return wirelessChoices;
                 }).setPopupKeyTip("X").build();
 
-        RibbonApplicationMenuPrimaryCommand amEntrySend = new RibbonApplicationMenuPrimaryCommandBuilder()
+        RibbonApplicationMenuPrimaryCommand amEntrySend = new
+                RibbonApplicationMenuPrimaryCommandBuilder()
                 .setTitle(resourceBundle.getString("AppMenuSend.text"))
                 .setIcon(Mail_forward.of(16, 16)).setPopupKeyTip("D")
                 .addSecondaryMenuGroup(
@@ -1458,7 +1479,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .build();
 
         // "Exit" primary
-        RibbonApplicationMenuPrimaryCommand amEntryExit = new RibbonApplicationMenuPrimaryCommandBuilder()
+        RibbonApplicationMenuPrimaryCommand amEntryExit = new
+                RibbonApplicationMenuPrimaryCommandBuilder()
                 .setTitle(resourceBundle.getString("AppMenuExit.text"))
                 .setIcon(System_log_out.of(16, 16)).setAction((ActionEvent ae) -> System.exit(0))
                 .setActionKeyTip("X").setRolloverCallback(new PrimaryClearRolloverCallback())
@@ -1514,13 +1536,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
         try {
             final BufferedImage appMenuButtonTooltipImage = ImageIO
                     .read(BasicCheckRibbon.class.getResource(
-                            "/org/pushingpixels/demo/flamingo/ribbon/appmenubutton-tooltip-main.png"));
+                            "/org/pushingpixels/demo/flamingo/ribbon/appmenubutton-tooltip-main" +
+                                    ".png"));
             final int appMenuButtonTooltipImageWidth = appMenuButtonTooltipImage.getWidth();
             final int appMenuButtonTooltipImageHeight = appMenuButtonTooltipImage.getHeight();
             final float appMenuButtonTooltipImageRatio = (float) appMenuButtonTooltipImageWidth
                     / (float) appMenuButtonTooltipImageHeight;
             final int appMenuButtonTooltipImageInitialWidth = 160;
-            final int appMenuButtonTooltipImageInitialHeight = (int) (appMenuButtonTooltipImageInitialWidth
+            final int appMenuButtonTooltipImageInitialHeight = (int)
+                    (appMenuButtonTooltipImageInitialWidth
                     / appMenuButtonTooltipImageRatio);
             appMenuRichTooltipMainIcon = new ResizableIcon() {
                 private int width;
@@ -1648,9 +1672,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
         fontBand.setCollapsedStateKeyTip("ZF");
 
         JComboBox fontCombo = new JComboBox(new Object[] { "+ Minor (Calibri)   ",
-                        "+ Minor (Columbus)   ", "+ Minor (Consolas)   ", "+ Minor (Cornelius)   ",
-                        "+ Minor (Cleopatra)   ", "+ Minor (Cornucopia)   ",
-                        "+ Minor (Candella)   ", "+ Minor (Cambria)   " });
+                "+ Minor (Columbus)   ", "+ Minor (Consolas)   ", "+ Minor (Cornelius)   ",
+                "+ Minor (Cleopatra)   ", "+ Minor (Cornucopia)   ",
+                "+ Minor (Candella)   ", "+ Minor (Cambria)   " });
         JRibbonComponent fontComboWrapper = new JRibbonComponent(fontCombo);
         fontComboWrapper.setKeyTip("SF");
         fontBand.addFlowComponent(fontComboWrapper);
@@ -1752,9 +1776,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
     /**
      * Main method for testing.
-     * 
-     * @param args
-     *            Ignored.
+     *
+     * @param args Ignored.
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -1831,7 +1854,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 if (e.isPopupTrigger()) {
                     processPopup(e);
                 }
-            };
+            }
+
+            ;
 
             @Override
             public void mouseReleased(MouseEvent e) {

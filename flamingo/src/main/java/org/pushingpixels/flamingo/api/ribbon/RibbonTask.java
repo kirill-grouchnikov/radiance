@@ -76,7 +76,7 @@ public class RibbonTask {
 
 	/**
 	 * Creates a ribbon task that contains the specified bands.
-	 * 
+	 *
 	 * @param title
 	 *            Ribbon task title.
 	 * @param bands
@@ -87,11 +87,36 @@ public class RibbonTask {
 			throw new IllegalArgumentException("Cannot have empty ribbon task");
 		}
 		this.title = title;
-		this.bands = new ArrayList<AbstractRibbonBand<?>>();
+		this.bands = new ArrayList<>();
 		for (AbstractRibbonBand<?> band : bands) {
 			band.setRibbonTask(this);
 			this.bands.add(band);
 		}
+		this.resizeSequencingPolicy = new CoreRibbonResizeSequencingPolicies.RoundRobin(
+				this);
+	}
+
+	/**
+	 * Creates a ribbon task that contains the specified bands.
+	 *
+	 * @param title
+	 *            Ribbon task title.
+	 * @param bands
+	 *            Bands to add to the ribbon task.
+	 */
+	public RibbonTask(String title, Iterable<AbstractRibbonBand<?>> bands) {
+		if (bands == null) {
+			throw new IllegalArgumentException("Cannot have empty ribbon task");
+		}
+		this.title = title;
+		this.bands = new ArrayList<>();
+		for (AbstractRibbonBand<?> band : bands) {
+			band.setRibbonTask(this);
+			this.bands.add(band);
+		}
+		if (this.bands.size() == 0) {
+            throw new IllegalArgumentException("Cannot have empty ribbon task");
+        }
 		this.resizeSequencingPolicy = new CoreRibbonResizeSequencingPolicies.RoundRobin(
 				this);
 	}

@@ -1,24 +1,22 @@
 package org.pushingpixels.demo.flamingo.bcb;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
+import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileSystemView;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeNode;
+import java.awt.*;
 import java.io.File;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-
-import javax.swing.Icon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileSystemView;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.TreeNode;
 
 /**
  * @author Kirill Grouchnikov
@@ -27,27 +25,43 @@ public class FileTreePanel extends JPanel {
     /**
      * File system view.
      */
-    protected static FileSystemView fsv = FileSystemView.getFileSystemView();
+    private static FileSystemView fsv = FileSystemView.getFileSystemView();
+
+    /**
+     * Creates the file tree panel.
+     */
+    private FileTreePanel() {
+        this.setLayout(new BorderLayout());
+
+        final File[] roots = File.listRoots();
+        final FileTreeNode rootTreeNode = new FileTreeNode(roots);
+        final JTree tree = new JTree(rootTreeNode);
+        tree.setCellRenderer(new FileTreeCellRenderer());
+        tree.setRootVisible(false);
+        final JScrollPane jsp = new JScrollPane(tree);
+        jsp.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.add(jsp, BorderLayout.CENTER);
+    }
 
     /**
      * Renderer for the file tree.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class FileTreeCellRenderer extends DefaultTreeCellRenderer {
         /**
          * Icon cache to speed the rendering.
          */
-        private Map<String, Icon> iconCache = new HashMap<String, Icon>();
+        private Map<String, Icon> iconCache = new HashMap<>();
 
         /**
          * Root name cache to speed the rendering.
          */
-        private Map<File, String> rootNameCache = new HashMap<File, String>();
+        private Map<File, String> rootNameCache = new HashMap<>();
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see javax.swing.tree.DefaultTreeCellRenderer#getTreeCellRendererComponent
          * (javax.swing.JTree, java.lang.Object, boolean, boolean, boolean, int, boolean)
          */
@@ -88,7 +102,7 @@ public class FileTreePanel extends JPanel {
 
     /**
      * A node in the file tree.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class FileTreeNode implements TreeNode {
@@ -114,15 +128,12 @@ public class FileTreePanel extends JPanel {
 
         /**
          * Creates a new file tree node.
-         * 
-         * @param file
-         *            Node file
-         * @param isFileSystemRoot
-         *            Indicates whether the file is a file system root.
-         * @param parent
-         *            Parent node.
+         *
+         * @param file             Node file
+         * @param isFileSystemRoot Indicates whether the file is a file system root.
+         * @param parent           Parent node.
          */
-        public FileTreeNode(File file, boolean isFileSystemRoot, TreeNode parent) {
+        private FileTreeNode(File file, boolean isFileSystemRoot, TreeNode parent) {
             this.file = file;
             this.isFileSystemRoot = isFileSystemRoot;
             this.parent = parent;
@@ -133,40 +144,27 @@ public class FileTreePanel extends JPanel {
 
         /**
          * Creates a new file tree node.
-         * 
-         * @param children
-         *            Children files.
+         *
+         * @param children Children files.
          */
-        public FileTreeNode(File[] children) {
+        private FileTreeNode(File[] children) {
             this.file = null;
             this.parent = null;
             this.children = children;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#children()
-         */
+        @Override
         public Enumeration children() {
             final int elementCount = this.children.length;
             return new Enumeration<File>() {
                 int count = 0;
 
-                /*
-                 * (non-Javadoc)
-                 * 
-                 * @see java.util.Enumeration#hasMoreElements()
-                 */
+                @Override
                 public boolean hasMoreElements() {
                     return this.count < elementCount;
                 }
 
-                /*
-                 * (non-Javadoc)
-                 * 
-                 * @see java.util.Enumeration#nextElement()
-                 */
+                @Override
                 public File nextElement() {
                     if (this.count < elementCount) {
                         return FileTreeNode.this.children[this.count++];
@@ -177,38 +175,22 @@ public class FileTreePanel extends JPanel {
 
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#getAllowsChildren()
-         */
+        @Override
         public boolean getAllowsChildren() {
             return true;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#getChildAt(int)
-         */
+        @Override
         public TreeNode getChildAt(int childIndex) {
             return new FileTreeNode(this.children[childIndex], this.parent == null, this);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#getChildCount()
-         */
+        @Override
         public int getChildCount() {
             return this.children.length;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#getIndex(javax.swing.tree.TreeNode)
-         */
+        @Override
         public int getIndex(TreeNode node) {
             FileTreeNode ftn = (FileTreeNode) node;
             for (int i = 0; i < this.children.length; i++) {
@@ -218,59 +200,37 @@ public class FileTreePanel extends JPanel {
             return -1;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#getParent()
-         */
+        @Override
         public TreeNode getParent() {
             return this.parent;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#isLeaf()
-         */
+        @Override
         public boolean isLeaf() {
             return (this.getChildCount() == 0);
         }
     }
 
     /**
-     * The file tree.
-     */
-    private JTree tree;
-
-    /**
-     * Creates the file tree panel.
-     */
-    public FileTreePanel() {
-        this.setLayout(new BorderLayout());
-
-        File[] roots = File.listRoots();
-        FileTreeNode rootTreeNode = new FileTreeNode(roots);
-        this.tree = new JTree(rootTreeNode);
-        this.tree.setCellRenderer(new FileTreeCellRenderer());
-        this.tree.setRootVisible(false);
-        final JScrollPane jsp = new JScrollPane(this.tree);
-        jsp.setBorder(new EmptyBorder(0, 0, 0, 0));
-        this.add(jsp, BorderLayout.CENTER);
-    }
-
-    /**
      * Main method for testing.
-     * 
-     * @param args
-     *            Ignored.
+     *
+     * @param args Ignored.
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+
             JFrame frame = new JFrame("File tree");
+            frame.setIconImage(RadianceLogo.getLogoImage(
+                    SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                            SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                            SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                            ComponentState.ENABLED)));
             frame.setSize(500, 400);
             frame.setLocationRelativeTo(null);
             frame.add(new FileTreePanel());
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setVisible(true);
         });
     }

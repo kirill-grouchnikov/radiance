@@ -1,38 +1,40 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.flamingo.common;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
-import org.pushingpixels.demo.flamingo.common.LocaleSwitcher.LocaleCallback;
+import org.pushingpixels.demo.flamingo.LocaleSwitcher;
+import org.pushingpixels.demo.flamingo.SkinSwitcher;
+import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
@@ -45,12 +47,12 @@ import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -64,20 +66,41 @@ public class TestCommandButtons extends JFrame {
         @Override
         public String toString() {
             return name().toLowerCase();
-        };
+        }
     }
 
-    protected ResourceBundle resourceBundle;
+    ResourceBundle resourceBundle;
 
-    protected Locale currLocale;
+    Locale currLocale;
 
     private JPanel buttonPanel;
 
     private JComboBox popupCombo;
 
-    public TestCommandButtons() {
+    interface Command {
+        void apply(JCommandButton button);
+    }
+
+    static void apply(Container cont, Command cmd) {
+        for (int i = 0; i < cont.getComponentCount(); i++) {
+            Component comp = cont.getComponent(i);
+            if (comp instanceof JCommandButton) {
+                JCommandButton cb = (JCommandButton) comp;
+                cmd.apply(cb);
+            }
+            if (comp instanceof Container) {
+                apply((Container) comp, cmd);
+            }
+        }
+    }
+
+    TestCommandButtons() {
         super("Command button test");
-        this.setIconImage(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB));
+        this.setIconImage(RadianceLogo.getLogoImage(
+                SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                        ComponentState.ENABLED)));
 
         this.setLayout(new BorderLayout());
 
@@ -110,11 +133,10 @@ public class TestCommandButtons extends JFrame {
         addButtons(builder, CommandButtonDisplayState.MEDIUM);
         addButtons(builder, CommandButtonDisplayState.SMALL);
 
-        JPanel buttonsPanel = builder.getPanel();
-        return buttonsPanel;
+        return builder.getPanel();
     }
 
-    protected static String stamp() {
+    static String stamp() {
         return new SimpleDateFormat("HH:mm:ss.SSS").format(new Date());
     }
 
@@ -126,49 +148,56 @@ public class TestCommandButtons extends JFrame {
 
             PopupKind popupKind = (PopupKind) popupCombo.getSelectedItem();
             switch (popupKind) {
-            case SIMPLE:
-                JCommandPopupMenu simpleMenu = new JCommandPopupMenu();
+                case SIMPLE:
+                    JCommandPopupMenu simpleMenu = new JCommandPopupMenu();
 
-                simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[] { "1" }),
-                        new Address_book_new()));
-                simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[] { "2" }),
-                        new EmptyResizableIcon(16)));
-                simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[] { "3" }),
-                        new EmptyResizableIcon(16)));
-                simpleMenu.addMenuSeparator();
-                simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[] { "4" }),
-                        new EmptyResizableIcon(16)));
-                simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[] { "5" }),
-                        new Text_x_generic()));
-                return simpleMenu;
-            case SCROLLABLE:
-                JCommandPopupMenu scrollableMenu = new JCommandPopupMenu();
+                    simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[]{"1"}),
+                            new Address_book_new()));
+                    simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[]{"2"}),
+                            new EmptyResizableIcon(16)));
+                    simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[]{"3"}),
+                            new EmptyResizableIcon(16)));
+                    simpleMenu.addMenuSeparator();
+                    simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[]{"4"}),
+                            new EmptyResizableIcon(16)));
+                    simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[]{"5"}),
+                            new Text_x_generic()));
+                    return simpleMenu;
+                case SCROLLABLE:
+                    JCommandPopupMenu scrollableMenu = new JCommandPopupMenu();
 
-                for (int i = 0; i < 20; i++) {
-                    final JCommandMenuButton smb = new JCommandMenuButton(
-                            mf.format(new Object[] { i }), new Text_x_generic());
-                    smb.addActionListener((ActionEvent e) -> System.out
-                            .println("Invoked action on '" + smb.getText() + "'"));
-                    scrollableMenu.addMenuButton(smb);
-                }
-                scrollableMenu.setMaxVisibleMenuButtons(8);
-                return scrollableMenu;
+                    for (int i = 0; i < 20; i++) {
+                        final JCommandMenuButton smb = new JCommandMenuButton(
+                                mf.format(new Object[]{i}), new Text_x_generic());
+                        smb.addActionListener((ActionEvent e) -> System.out
+                                .println("Invoked action on '" + smb.getText() + "'"));
+                        scrollableMenu.addMenuButton(smb);
+                    }
+                    scrollableMenu.setMaxVisibleMenuButtons(8);
+                    return scrollableMenu;
 
-            case COMPLEX:
-                JCommandPopupMenu complexMenu = new JCommandPopupMenu(
-                        new QuickStylesPanel(resourceBundle, currLocale), 5, 3);
-                complexMenu.addMenuButton(new JCommandMenuButton(
-                        resourceBundle.getString("SaveSelection.text"), new X_office_document()));
-                complexMenu.addMenuButton(
-                        new JCommandMenuButton(resourceBundle.getString("ClearSelection.text"),
-                                new EmptyResizableIcon(16)));
-                complexMenu.addMenuSeparator();
-                complexMenu.addMenuButton(new JCommandMenuButton(
-                        resourceBundle.getString("ApplyStyles.text"), new EmptyResizableIcon(16)));
-                return complexMenu;
+                case COMPLEX:
+                    JCommandPopupMenu complexMenu = new JCommandPopupMenu(
+                            new QuickStylesPanel(resourceBundle, currLocale), 5, 3);
+                    complexMenu.addMenuButton(new JCommandMenuButton(
+                            resourceBundle.getString("SaveSelection.text"),
+                            new X_office_document()));
+                    complexMenu.addMenuButton(
+                            new JCommandMenuButton(resourceBundle.getString("ClearSelection.text"),
+                                    new EmptyResizableIcon(16)));
+                    complexMenu.addMenuSeparator();
+                    complexMenu.addMenuButton(new JCommandMenuButton(
+                            resourceBundle.getString("ApplyStyles.text"),
+                            new EmptyResizableIcon(16)));
+                    return complexMenu;
             }
             return null;
         }
+    }
+
+    protected void wireCommandTo(JCheckBox checkbox, Command command) {
+        checkbox.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
+                () -> apply(TestCommandButtons.this, command)));
     }
 
     private void addButtons(DefaultFormBuilder builder, CommandButtonDisplayState state) {
@@ -229,8 +258,8 @@ public class TestCommandButtons extends JFrame {
                 new Edit_paste());
         mainButton.setDisabledIcon(
                 SubstanceCortex.GlobalScope.colorize(Edit_paste.of(16, 16),
-                    SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(mainButton,
-                            ComponentState.DISABLED_UNSELECTED)));
+                        SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(mainButton,
+                                ComponentState.DISABLED_UNSELECTED)));
         mainButton.setExtraText(resourceBundle.getString("Paste.textExtra"));
         mainButton
                 .addActionListener((ActionEvent e) -> System.out.println(stamp() + ": Main paste"));
@@ -345,7 +374,7 @@ public class TestCommandButtons extends JFrame {
                     if (child instanceof JCommandButton)
                         ((JCommandButton) child).setPopupOrientationKind(
                                 downward.isSelected() ? CommandButtonPopupOrientationKind.DOWNWARD
-                                        : CommandButtonPopupOrientationKind.SIDEWARD);
+                                                      : CommandButtonPopupOrientationKind.SIDEWARD);
                     if (child instanceof Container)
                         scan((Container) child);
                 }
@@ -357,27 +386,23 @@ public class TestCommandButtons extends JFrame {
         popupCombo.setSelectedItem(PopupKind.SIMPLE);
         controlPanel.add(popupCombo);
 
-        JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher(new LocaleCallback() {
-            @Override
-            public void onLocaleSelected(Locale selected) {
-                currLocale = selected;
-                resourceBundle = ResourceBundle.getBundle("test.resource.Resources", currLocale);
-                remove(buttonPanel);
-                buttonPanel = getButtonPanel();
-                add(buttonPanel, BorderLayout.CENTER);
-                Window window = SwingUtilities.getWindowAncestor(buttonPanel);
-                window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
-                SwingUtilities.updateComponentTreeUI(window);
-            }
+        JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
+            currLocale = selected;
+            resourceBundle = ResourceBundle.getBundle("test.resource.Resources", currLocale);
+            remove(buttonPanel);
+            buttonPanel = getButtonPanel();
+            add(buttonPanel, BorderLayout.CENTER);
+            Window window = SwingUtilities.getWindowAncestor(buttonPanel);
+            window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
+            SwingUtilities.updateComponentTreeUI(window);
         });
         controlPanel.add(localeSwitcher);
     }
 
     /**
      * Main method for testing.
-     * 
-     * @param args
-     *            Ignored.
+     *
+     * @param args Ignored.
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -387,7 +412,7 @@ public class TestCommandButtons extends JFrame {
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         });
     }
 }

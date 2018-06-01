@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.flamingo.bcb;
 
 import org.pushingpixels.demo.flamingo.MessageListDialog;
-import org.pushingpixels.demo.flamingo.common.ExplorerFileViewPanel;
+import org.pushingpixels.demo.flamingo.ExplorerFileViewPanel;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;

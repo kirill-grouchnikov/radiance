@@ -34,14 +34,12 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import org.pushingpixels.trident.Timeline;
 
 public class ButtonFg extends JFrame {
-    public ButtonFg() {
+    private ButtonFg() {
         JButton button = new JButton("sample");
         button.setForeground(Color.blue);
 
@@ -65,7 +63,7 @@ public class ButtonFg extends JFrame {
 
         this.setSize(400, 200);
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {

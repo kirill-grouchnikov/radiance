@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.flamingo.svg;
 
@@ -52,24 +52,24 @@ import java.util.Map;
 
 /**
  * Panel that hosts SVG-based gallery buttons.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SvgFileViewPanel extends JPanel {
     /**
      * All icon groups.
      */
-    protected ArrayList<JCommandButton> allButtons;
+    private ArrayList<JCommandButton> allButtons;
 
     /**
      * Current icon dimension.
      */
-    protected int currDimension;
+    private int currDimension;
 
     /**
      * Callback into the underlying breadcrumb bar.
      */
-    protected BreadcrumbBarCallBack<File> callback;
+    private BreadcrumbBarCallBack<File> callback;
 
     /**
      * The main worker that loads the SVG images off EDT.
@@ -78,34 +78,32 @@ public class SvgFileViewPanel extends JPanel {
 
     /**
      * Creates a new panel.
-     * 
-     * @param callback
-     *            Callback into the underlying breadcrumb bar.
-     * @param startingDimension
-     *            Initial dimension for SVG icons.
+     *
+     * @param callback          Callback into the underlying breadcrumb bar.
+     * @param startingDimension Initial dimension for SVG icons.
      */
     public SvgFileViewPanel(BreadcrumbBarCallBack<File> callback, int startingDimension) {
         this.callback = callback;
         this.currDimension = startingDimension;
-        this.allButtons = new ArrayList<JCommandButton>();
+        this.allButtons = new ArrayList<>();
         this.setLayout(new SvgFileViewPanelLayout());
     }
 
     /**
      * Sets the current files to show. The current contents of the panel are discarded. The file
      * list is scanned for files ending with <code>.svg</code>. For each such file a new
-     * {@link JCommandButton} hosting an SVG-based implementation of {@link org.pushingpixels.neon.icon.ResizableIcon} is added
+     * {@link JCommandButton} hosting an SVG-based implementation of
+     * {@link org.pushingpixels.neon.icon.ResizableIcon} is added
      * to the panel.
-     * 
-     * @param leafs
-     *            Information on the files to show in the panel.
+     *
+     * @param leafs Information on the files to show in the panel.
      */
     public void setFolder(final java.util.List<StringValuePair<File>> leafs) {
         for (JCommandButton rb : this.allButtons)
             this.remove(rb);
         this.allButtons.clear();
 
-        final Map<String, JCommandButton> newButtons = new HashMap<String, JCommandButton>();
+        final Map<String, JCommandButton> newButtons = new HashMap<>();
         for (StringValuePair<File> leaf : leafs) {
             String name = leaf.getKey();
             if (!name.endsWith(".svg") && !name.endsWith(".svgz"))
@@ -150,8 +148,10 @@ public class SvgFileViewPanel extends JPanel {
                     InputStream svgStream = pair.getValue();
                     Dimension svgDim = new Dimension(currDimension, currDimension);
                     final SvgBatikResizableIcon svgIcon = name.endsWith(".svg")
-                            ? SvgBatikResizableIcon.getSvgIcon(svgStream, svgDim)
-                            : SvgBatikResizableIcon.getSvgzIcon(svgStream, svgDim);
+                                                          ? SvgBatikResizableIcon.getSvgIcon(
+                            svgStream, svgDim)
+                                                          : SvgBatikResizableIcon.getSvgzIcon(
+                            svgStream, svgDim);
                     JCommandButton svgButton = newButtons.get(name);
                     svgButton.setIcon(svgIcon);
 
@@ -176,7 +176,8 @@ public class SvgFileViewPanel extends JPanel {
 
                             transcoder.setPrintWriter(pw);
                             transcoder.transcode(this.getClass()
-                                    .getResourceAsStream("SvgTranscoderTemplateResizable.templ"));
+                                    .getResourceAsStream(
+                                            "/org/pushingpixels/ibis/transcoder/kotlin/SvgTranscoderTemplateResizable.templ"));
                             JOptionPane.showMessageDialog(
                                     SwingUtilities.getWindowAncestor(SvgFileViewPanel.this),
                                     "Finished with '" + javaClassFilename + "'");
@@ -194,7 +195,7 @@ public class SvgFileViewPanel extends JPanel {
 
     /**
      * Changes the current dimension of all displayed icons.
-     * 
+     *
      * @param dimension
      */
     public void setIconDimension(int dimension) {
@@ -211,7 +212,7 @@ public class SvgFileViewPanel extends JPanel {
 
     /**
      * Layout manager for <code>this</code> popup gallery.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     protected class SvgFileViewPanelLayout implements LayoutManager {
@@ -222,7 +223,7 @@ public class SvgFileViewPanel extends JPanel {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
          */
         public void addLayoutComponent(String name, Component comp) {
@@ -230,7 +231,7 @@ public class SvgFileViewPanel extends JPanel {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
          */
         public void removeLayoutComponent(Component comp) {
@@ -238,7 +239,7 @@ public class SvgFileViewPanel extends JPanel {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
          */
         public void layoutContainer(Container parent) {
@@ -270,7 +271,7 @@ public class SvgFileViewPanel extends JPanel {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
          */
         public Dimension minimumLayoutSize(Container parent) {
@@ -279,7 +280,7 @@ public class SvgFileViewPanel extends JPanel {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
          */
         public Dimension preferredLayoutSize(Container parent) {

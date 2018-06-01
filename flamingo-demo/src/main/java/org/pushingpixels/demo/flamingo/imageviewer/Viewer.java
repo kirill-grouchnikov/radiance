@@ -1,5 +1,6 @@
 package org.pushingpixels.demo.flamingo.imageviewer;
 
+import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent;
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector;
@@ -9,7 +10,9 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon;
 import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -29,8 +32,13 @@ public class Viewer extends JFrame {
 
     private int currIconSize;
 
-    public Viewer() {
+    private Viewer() {
         super("Image Viewer");
+        this.setIconImage(RadianceLogo.getLogoImage(
+                SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                        ComponentState.ENABLED)));
 
         this.bar = new BreadcrumbFileSelector();
 
@@ -44,7 +52,8 @@ public class Viewer extends JFrame {
                     }
 
                     if (newPath.size() > 0) {
-                        SwingWorker<List<StringValuePair<File>>, Void> worker = new SwingWorker<List<StringValuePair<File>>, Void>() {
+                        SwingWorker<List<StringValuePair<File>>, Void> worker = new
+                                SwingWorker<List<StringValuePair<File>>, Void>() {
                             @Override
                             protected List<StringValuePair<File>> doInBackground() {
                                 return bar.getCallback().getLeafs(newPath);
@@ -68,8 +77,7 @@ public class Viewer extends JFrame {
         int initialSize = 100;
         this.fileViewPanel = new AbstractFileViewPanel<File>(64, null) {
             @Override
-            protected void configureCommandButton(
-                    org.pushingpixels.flamingo.api.common.AbstractFileViewPanel.Leaf leaf,
+            protected void configureCommandButton(AbstractFileViewPanel.Leaf leaf,
                     JCommandButton button, ResizableIcon icon) {
             }
 
@@ -84,8 +92,7 @@ public class Viewer extends JFrame {
             }
 
             @Override
-            protected ResizableIcon getResizableIcon(
-                    org.pushingpixels.flamingo.api.common.AbstractFileViewPanel.Leaf leaf,
+            protected ResizableIcon getResizableIcon(AbstractFileViewPanel.Leaf leaf,
                     InputStream stream, CommandButtonDisplayState state, Dimension dimension) {
                 int prefSize = state.getPreferredIconSize();
                 if (prefSize > 0) {
@@ -135,9 +142,8 @@ public class Viewer extends JFrame {
 
     /**
      * Main method for testing.
-     * 
-     * @param args
-     *            Ignored.
+     *
+     * @param args Ignored.
      */
     public static void main(String... args) {
         SwingUtilities.invokeLater(() -> {

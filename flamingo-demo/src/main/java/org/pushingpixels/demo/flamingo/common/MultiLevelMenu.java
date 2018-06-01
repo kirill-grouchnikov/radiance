@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
+import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
@@ -36,7 +37,9 @@ import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 
 import javax.swing.*;
@@ -46,6 +49,11 @@ public class MultiLevelMenu extends JFrame {
 
     public MultiLevelMenu() {
         super("Multi level menu");
+        this.setIconImage(RadianceLogo.getLogoImage(
+                SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                        ComponentState.ENABLED)));
 
         JCommandButton main = new JCommandButton("click me");
         main.setCommandButtonKind(CommandButtonKind.POPUP_ONLY);

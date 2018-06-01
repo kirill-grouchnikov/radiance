@@ -38,7 +38,7 @@ import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.TimelinePropertyBuilder.PropertyAccessor;
 
 public class CustomAccessor {
-    private Map<String, Float> values = new HashMap<String, Float>();
+    private Map<String, Float> values = new HashMap<>();
 
     public static void main(String[] args) {
         final CustomAccessor helloWorld = new CustomAccessor();

@@ -399,7 +399,7 @@ g.setTransform(defaultTransform_);
 	 * @return The height of the bounding box of the original SVG image.
 	 */
 	public static double getOrigHeight() {
-		return 0.9989998936653137;
+		return 0.9990000128746033;
 	}
 
 	/** The current width of this resizable icon. */

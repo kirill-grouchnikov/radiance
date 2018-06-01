@@ -34,15 +34,13 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 
 public class ButtonFgLoop extends JFrame {
-    public ButtonFgLoop() {
+    private ButtonFgLoop() {
         this.setLayout(new FlowLayout());
 
         JButton buttonWithCancel = createButton("button w/cancel");
@@ -77,7 +75,7 @@ public class ButtonFgLoop extends JFrame {
 
         this.setSize(400, 200);
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     private JButton createButton(String label) {

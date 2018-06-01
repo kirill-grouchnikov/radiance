@@ -114,41 +114,6 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandToggleBu
         super.uninstallListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * javax.swing.plaf.basic.BasicButtonUI#getPreferredSize(javax.swing.JComponent
-     * )
-     */
-    @Override
-    public Dimension getPreferredSize(JComponent c) {
-        JRibbonTaskToggleButton b = (JRibbonTaskToggleButton) c;
-
-        Icon icon = b.getIcon();
-        String text = b.getText();
-
-        Font font = b.getFont();
-        FontMetrics fm = b.getFontMetrics(font);
-
-        Rectangle iconR = new Rectangle();
-        Rectangle textR = new Rectangle();
-        Rectangle viewR = new Rectangle(Short.MAX_VALUE, Short.MAX_VALUE);
-
-        SwingUtilities.layoutCompoundLabel(b, fm, text, icon,
-                SwingUtilities.CENTER, b.getHorizontalAlignment(),
-                SwingUtilities.CENTER, SwingUtilities.CENTER, viewR, iconR,
-                textR, (text == null ? 0 : 6));
-
-        Rectangle r = iconR.union(textR);
-
-        Insets insets = b.getInsets();
-        r.width += insets.left + insets.right;
-        r.height += insets.top + insets.bottom;
-
-        return r.getSize();
-    }
-
     @Override
     public Dimension getMinimumSize(JComponent c) {
         JRibbonTaskToggleButton b = (JRibbonTaskToggleButton) c;

@@ -34,7 +34,7 @@ import org.fest.swing.core.Robot;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiTask;
 import org.fest.swing.timing.Pause;
-import org.pushingpixels.demo.substance.flamingo.ribbon.NewCheckRibbon;
+import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -66,7 +66,7 @@ public abstract class SkinRobot {
 	/**
 	 * The frame instance.
 	 */
-	protected NewCheckRibbon ribbonFrame;
+	protected BasicCheckRibbon ribbonFrame;
 
 	/**
 	 * Creates the new screenshot robot.
@@ -103,7 +103,7 @@ public abstract class SkinRobot {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() throws Throwable {
-				ribbonFrame = new NewCheckRibbon();
+				ribbonFrame = new BasicCheckRibbon();
 				ribbonFrame.configureRibbon();
 				ribbonFrame.applyComponentOrientation(ComponentOrientation
 						.getOrientation(Locale.getDefault()));
@@ -151,9 +151,6 @@ public abstract class SkinRobot {
 
 	/**
 	 * Creates the screenshot and saves it on the disk.
-	 * 
-	 * @param count
-	 *            Sequence number for the screenshot.
 	 */
 	public void makeScreenshot() {
 		BufferedImage bi = SubstanceCoreUtilities.getBlankImage(ribbonFrame.getWidth(),

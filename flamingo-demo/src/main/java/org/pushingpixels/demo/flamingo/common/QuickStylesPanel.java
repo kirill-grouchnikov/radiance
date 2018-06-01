@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.pushingpixels.demo.flamingo.common;
 
@@ -23,27 +23,24 @@ public class QuickStylesPanel extends JCommandButtonPanel {
         mf.setLocale(locale);
 
         for (int groupIndex = 0; groupIndex < 4; groupIndex++) {
-            String iconGroupName = mf.format(new Object[] { groupIndex });
+            String iconGroupName = mf.format(new Object[]{groupIndex});
             this.addButtonGroup(iconGroupName, groupIndex);
             for (int i = 0; i < 15; i++) {
                 final String deco = groupIndex + "/" + i;
                 ResizableIcon fontIcon = new Font_x_generic();
                 ResizableIcon finalIcon = new DecoratedResizableIcon(fontIcon,
-                        new DecoratedResizableIcon.IconDecorator() {
-                            @Override
-                            public void paintIconDecoration(Component c, Graphics g, int x, int y,
-                                    int width, int height) {
-                                Graphics2D g2d = (Graphics2D) g.create();
-                                g2d.setColor(Color.black);
-                                if (getComponentOrientation().isLeftToRight()) {
-                                    g2d.drawString(deco, x + 2, y + height - 2);
-                                } else {
-                                    g2d.drawString(deco,
-                                            x + width - g2d.getFontMetrics().stringWidth(deco) - 2,
-                                            y + height - 2);
-                                }
-                                g2d.dispose();
+                        (Component c, Graphics g, int x, int y,
+                                int width, int height) -> {
+                            Graphics2D g2d = (Graphics2D) g.create();
+                            g2d.setColor(Color.black);
+                            if (getComponentOrientation().isLeftToRight()) {
+                                g2d.drawString(deco, x + 2, y + height - 2);
+                            } else {
+                                g2d.drawString(deco,
+                                        x + width - g2d.getFontMetrics().stringWidth(deco) - 2,
+                                        y + height - 2);
                             }
+                            g2d.dispose();
                         });
                 JCommandToggleButton jrb = new JCommandToggleButton(null, finalIcon);
                 jrb.setName("Group " + groupIndex + ", index " + i);

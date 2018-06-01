@@ -30,17 +30,19 @@
 package org.pushingpixels.demo.kormorant.popup
 
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
-import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.ActionModelChangeInterface
 import org.pushingpixels.kormorant.colorSelectorPopupMenu
 import org.pushingpixels.kormorant.commandButton
+import org.pushingpixels.neon.NeonUtil
+import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.*
 import java.awt.event.ActionListener
+import java.awt.geom.Rectangle2D
 import java.awt.image.BufferedImage
 import java.util.*
 import javax.swing.JColorChooser
@@ -57,10 +59,17 @@ class ColorIcon(private var color: Color) : ResizableIcon {
     }
 
     override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
-        g.color = color
-        g.fillRect(x, y, w, h)
-        g.color = color.darker()
-        g.drawRect(x, y, w - 1, h - 1)
+        val g2d = g.create() as Graphics2D
+        g2d.color = color
+        g2d.fillRect(x, y, w, h)
+        val borderThickness = 1.0f / NeonUtil.getScaleFactor().toFloat()
+        g2d.color = color.darker()
+        g2d.stroke = BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
+                BasicStroke.JOIN_ROUND)
+        g2d.draw(
+                Rectangle2D.Double(x.toDouble(), y.toDouble(),
+                        (w - borderThickness).toDouble(), (h - borderThickness).toDouble()))
+        g2d.dispose()
     }
 
     override fun getIconWidth(): Int {
@@ -88,6 +97,7 @@ fun main(args: Array<String>) {
         frame.layout = BorderLayout()
 
         val centerPanel = JPanel()
+        SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(centerPanel, 1.0)
         var backgroundColor = centerPanel.background
         frame.add(centerPanel, BorderLayout.CENTER)
 

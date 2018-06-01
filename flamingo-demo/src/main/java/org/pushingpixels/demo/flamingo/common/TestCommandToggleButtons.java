@@ -32,19 +32,22 @@ package org.pushingpixels.demo.flamingo.common;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
-import org.pushingpixels.demo.flamingo.common.LocaleSwitcher.LocaleCallback;
+import org.pushingpixels.demo.flamingo.LocaleSwitcher;
+import org.pushingpixels.demo.flamingo.SkinSwitcher;
+import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
 import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -52,20 +55,42 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class TestCommandToggleButtons extends JFrame {
-    protected ResourceBundle resourceBundle;
+    ResourceBundle resourceBundle;
 
-    protected Locale currLocale;
+    private Locale currLocale;
 
     private JPanel buttonPanel;
 
-    public TestCommandToggleButtons() {
+    interface Command {
+        void apply(JCommandToggleButton button);
+    }
+
+    static void apply(Container cont, Command cmd) {
+        for (int i = 0; i < cont.getComponentCount(); i++) {
+            Component comp = cont.getComponent(i);
+            if (comp instanceof JCommandToggleButton) {
+                JCommandToggleButton cb = (JCommandToggleButton) comp;
+                cmd.apply(cb);
+            }
+            if (comp instanceof Container) {
+                apply((Container) comp, cmd);
+            }
+        }
+    }
+
+    TestCommandToggleButtons() {
         super("Command button test");
-        this.setIconImage(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB));
+        this.setIconImage(RadianceLogo.getLogoImage(
+                SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                        ComponentState.ENABLED)));
 
         this.setLayout(new BorderLayout());
 
         currLocale = Locale.getDefault();
-        resourceBundle = ResourceBundle.getBundle("test.resource.Resources", currLocale);
+        resourceBundle = ResourceBundle.getBundle(
+                "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
 
         buttonPanel = getButtonPanel();
         this.add(buttonPanel, BorderLayout.CENTER);
@@ -89,11 +114,10 @@ public class TestCommandToggleButtons extends JFrame {
         addButtons(builder, CommandButtonDisplayState.MEDIUM);
         addButtons(builder, CommandButtonDisplayState.SMALL);
 
-        JPanel buttonsPanel = builder.getPanel();
-        return buttonsPanel;
+        return builder.getPanel();
     }
 
-    protected static String stamp() {
+    static String stamp() {
         return new SimpleDateFormat("HH:mm:ss.SSS").format(new Date());
     }
 
@@ -212,20 +236,23 @@ public class TestCommandToggleButtons extends JFrame {
         }));
         controlPanel.add(flat);
 
-        JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher(new LocaleCallback() {
-            @Override
-            public void onLocaleSelected(Locale selected) {
-                currLocale = selected;
-                resourceBundle = ResourceBundle.getBundle("test.resource.Resources", currLocale);
-                remove(buttonPanel);
-                buttonPanel = getButtonPanel();
-                add(buttonPanel, BorderLayout.CENTER);
-                Window window = SwingUtilities.getWindowAncestor(buttonPanel);
-                window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
-                SwingUtilities.updateComponentTreeUI(window);
-            }
+        JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
+            currLocale = selected;
+            resourceBundle = ResourceBundle.getBundle(
+                    "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
+            remove(buttonPanel);
+            buttonPanel = getButtonPanel();
+            add(buttonPanel, BorderLayout.CENTER);
+            Window window = SwingUtilities.getWindowAncestor(buttonPanel);
+            window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
+            SwingUtilities.updateComponentTreeUI(window);
         });
         controlPanel.add(localeSwitcher);
+    }
+
+    protected void wireCommandTo(JCheckBox checkbox, Command command) {
+        checkbox.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
+                () -> apply(TestCommandToggleButtons.this, command)));
     }
 
     /**
@@ -234,49 +261,10 @@ public class TestCommandToggleButtons extends JFrame {
      * @param args Ignored.
      */
     public static void main(String[] args) {
-        UIManager.installLookAndFeel("JGoodies Plastic",
-                "com.jgoodies.looks.plastic.PlasticLookAndFeel");
-        UIManager.installLookAndFeel("JGoodies PlasticXP",
-                "com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        UIManager.installLookAndFeel("JGoodies Plastic3D",
-                "com.jgoodies.looks.plastic.Plastic3DLookAndFeel");
-        UIManager.installLookAndFeel("JGoodies Windows",
-                "com.jgoodies.looks.windows.WindowsLookAndFeel");
-
-        UIManager.installLookAndFeel("Synthetica base",
-                "de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlackMoon",
-                "de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlackStar",
-                "de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlueIce",
-                "de.javasoft.plaf.synthetica.SyntheticaBlueIceLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlueMoon",
-                "de.javasoft.plaf.synthetica.SyntheticaBlueMoonLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica BlueSteel",
-                "de.javasoft.plaf.synthetica.SyntheticaBlueSteelLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica GreenDream",
-                "de.javasoft.plaf.synthetica.SyntheticaGreenDreamLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica MauveMetallic",
-                "de.javasoft.plaf.synthetica.SyntheticaMauveMetallicLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica OrangeMetallic",
-                "de.javasoft.plaf.synthetica.SyntheticaOrangeMetallicLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica SkyMetallic",
-                "de.javasoft.plaf.synthetica.SyntheticaSkyMetallicLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica SilverMoon",
-                "de.javasoft.plaf.synthetica.SyntheticaSilverMoonLookAndFeel");
-        UIManager.installLookAndFeel("Synthetica WhiteVision",
-                "de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel");
-
-        UIManager.installLookAndFeel("A03", "a03.swing.plaf.A03LookAndFeel");
-        UIManager.installLookAndFeel("Liquid", "com.birosoft.liquid.LiquidLookAndFeel");
-        UIManager.installLookAndFeel("Napkin", "net.sourceforge.napkinlaf.NapkinLookAndFeel");
-        UIManager.installLookAndFeel("Pagosoft", "com.pagosoft.plaf.PgsLookAndFeel");
-        UIManager.installLookAndFeel("Squareness", "net.beeger.squareness.SquarenessLookAndFeel");
-
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+
             TestCommandToggleButtons frame = new TestCommandToggleButtons();
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);
