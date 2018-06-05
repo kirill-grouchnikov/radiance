@@ -260,13 +260,6 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.ui.BasicPopupPanelUI#installUI(javax.swing.
-	 * JComponent)
-	 */
 	@Override
 	public void installUI(JComponent c) {
 		this.popupMenu = (JCommandPopupMenu) c;
@@ -275,11 +268,6 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 		this.popupMenu.setLayout(this.createLayoutManager());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.flamingo.common.ui.BasicPopupPanelUI#installComponents()
-	 */
 	@Override
 	protected void installComponents() {
 		super.installComponents();
@@ -427,11 +415,6 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 				this.popupMenu.getMaxButtonColumns(), this.popupMenu.getMaxVisibleButtonRows());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.flamingo.common.ui.BasicPopupPanelUI#uninstallComponents()
-	 */
 	@Override
 	protected void uninstallComponents() {
 		this.popupMenu.removeAll();
@@ -464,11 +447,6 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 		PopupPanelManager.defaultManager().addPopupListener(this.popupListener);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.flamingo.common.ui.BasicPopupPanelUI#uninstallListeners()
-	 */
 	@Override
 	protected void uninstallListeners() {
 		this.popupMenu.removeChangeListener(this.popupMenuChangeListener);

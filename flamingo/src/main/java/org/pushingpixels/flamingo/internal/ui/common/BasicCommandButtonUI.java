@@ -670,11 +670,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.ui.CommandButtonUI#getKeyTipAnchorCenterPoint()
-     */
     @Override
     public Point getKeyTipAnchorCenterPoint() {
         return this.layoutManager.getKeyTipAnchorCenterPoint(this.commandButton);

@@ -73,7 +73,7 @@ public class SubstanceBrushedMetalWatermark implements SubstanceWatermark {
 			ClassLoader cl = SubstanceCoreUtilities
 					.getClassLoaderForResources();
 			URL metalUrl = cl
-					.getResource("org/jvnet/substance/watermarkpack/brushed.gif");
+					.getResource("org/pushingpixels/substance/extras/api/watermarkpack/brushed.gif");
 			this.brushedMetalTile = ImageIO.read(metalUrl);
 		} catch (Exception exc) {
 			// ignore - probably specified incorrect file
@@ -81,14 +81,8 @@ public class SubstanceBrushedMetalWatermark implements SubstanceWatermark {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.watermark.SubstanceWatermark#drawWatermarkImage(java
-	 * .awt.Graphics, int, int, int, int)
-	 */
-	public void drawWatermarkImage(Graphics graphics, Component c, int x,
+    @Override
+    public void drawWatermarkImage(Graphics graphics, Component c, int x,
 			int y, int width, int height) {
 		int dx = c.getLocationOnScreen().x;
 		int dy = c.getLocationOnScreen().y;
@@ -97,13 +91,6 @@ public class SubstanceBrushedMetalWatermark implements SubstanceWatermark {
 						+ height, null);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.watermark.SubstanceWatermark#updateWatermarkImage
-	 * (org.pushingpixels.substance.api.SubstanceSkin)
-	 */
 	@Override
 	public boolean updateWatermarkImage(SubstanceSkin skin) {
 		// fix by Chris for bug 67 - support for multiple screens
@@ -133,14 +120,6 @@ public class SubstanceBrushedMetalWatermark implements SubstanceWatermark {
 		return status;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.watermark.SubstanceWatermark#previewWatermark
-	 * (java.awt.Graphics, org.pushingpixels.substance.api.SubstanceSkin, int, int, int,
-	 * int)
-	 */
 	@Override
 	public void previewWatermark(Graphics g, SubstanceSkin skin, int x, int y,
 			int width, int height) {
@@ -182,20 +161,12 @@ public class SubstanceBrushedMetalWatermark implements SubstanceWatermark {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.trait.SubstanceTrait#getDisplayName()
-	 */
+    @Override
 	public String getDisplayName() {
 		return "Brushed Metal";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.watermark.SubstanceWatermark#dispose()
-	 */
+    @Override
 	public void dispose() {
 		watermarkImage = null;
 	}

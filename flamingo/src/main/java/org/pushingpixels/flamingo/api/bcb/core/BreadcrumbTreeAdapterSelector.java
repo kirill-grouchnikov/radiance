@@ -133,13 +133,6 @@ public class BreadcrumbTreeAdapterSelector extends JBreadcrumbBar<Object> {
 			this.isRootVisible = isRootVisible;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * org.jvnet.flamingo.bcb.BreadcrumbBarCallBack#getPathChoices(java.
-		 * util.List)
-		 */
 		@Override
 		public List<StringValuePair<Object>> getPathChoices(
 				List<BreadcrumbItem<Object>> path) {
@@ -182,12 +175,6 @@ public class BreadcrumbTreeAdapterSelector extends JBreadcrumbBar<Object> {
 			return lResult;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * org.jvnet.flamingo.bcb.BreadcrumbBarCallBack#getLeafs(java.util.List)
-		 */
 		@Override
 		public List<StringValuePair<Object>> getLeafs(
 				List<BreadcrumbItem<Object>> path) {
@@ -207,13 +194,6 @@ public class BreadcrumbTreeAdapterSelector extends JBreadcrumbBar<Object> {
 			return lResult;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * org.jvnet.flamingo.bcb.BreadcrumbBarCallBack#getLeafContent(java.
-		 * lang.Object)
-		 */
 		@Override
 		public InputStream getLeafContent(Object leaf) {
 			return null;

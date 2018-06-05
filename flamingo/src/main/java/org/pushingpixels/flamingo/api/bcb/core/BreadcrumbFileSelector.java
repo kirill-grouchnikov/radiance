@@ -95,11 +95,6 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
 			this.useNativeIcons = useNativeIcons;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.jvnet.flamingo.bcb.BreadcrumbBarCallBack#setup()
-		 */
 		@Override
 		public void setup() {
 		}
@@ -172,13 +167,6 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
 			}
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * org.jvnet.flamingo.bcb.BreadcrumbBarCallBack#getLeafs(org.jvnet.flamingo
-		 * .bcb.BreadcrumbItem<T>[])
-		 */
 		@Override
 		public List<StringValuePair<File>> getLeafs(
 				List<BreadcrumbItem<File>> path) {
@@ -224,13 +212,6 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
 			}
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * org.jvnet.flamingo.bcb.BreadcrumbBarCallBack#getLeafContent(java.
-		 * lang.Object)
-		 */
 		@Override
 		public InputStream getLeafContent(File leaf) {
 			try {

@@ -386,12 +386,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
      */
     protected abstract void paintTaskArea(Graphics g, int x, int y, int width, int height);
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.ribbon.ui.RibbonUI#getContextualGroupTabBounds(org
-     * .jvnet.flamingo.ribbon.RibbonContextualTaskGroup)
-     */
     @Override
     public Rectangle getContextualTaskGroupBounds(RibbonContextualTaskGroup group) {
         Rectangle rect = null;

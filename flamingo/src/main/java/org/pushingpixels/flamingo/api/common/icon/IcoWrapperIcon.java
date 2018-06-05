@@ -103,52 +103,27 @@ abstract class IcoWrapperIcon implements Icon, AsynchronousLoading {
 		this.renderImage(this.width, this.height);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.AsynchronousLoading#addAsynchronousLoadListener
-	 * (org.jvnet.flamingo.common.AsynchronousLoadListener)
-	 */
+	@Override
 	public void addAsynchronousLoadListener(AsynchronousLoadListener l) {
 		this.listenerList.add(AsynchronousLoadListener.class, l);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.AsynchronousLoading#removeAsynchronousLoadListener
-	 * (org.jvnet.flamingo.common.AsynchronousLoadListener)
-	 */
+	@Override
 	public void removeAsynchronousLoadListener(AsynchronousLoadListener l) {
 		this.listenerList.remove(AsynchronousLoadListener.class, l);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconWidth()
-	 */
+	@Override
 	public int getIconWidth() {
 		return width;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconHeight()
-	 */
+	@Override
 	public int getIconHeight() {
 		return height;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-	 * int, int)
-	 */
+	@Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		BufferedImage image = this.cachedImages.get(this.getIconWidth() + ":"
 				+ this.getIconHeight());
@@ -317,11 +292,6 @@ abstract class IcoWrapperIcon implements Icon, AsynchronousLoading {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.flamingo.common.AsynchronousLoading#isLoading()
-	 */
 	@Override
 	public synchronized boolean isLoading() {
 		BufferedImage image = this.cachedImages.get(this.getIconWidth() + ":"

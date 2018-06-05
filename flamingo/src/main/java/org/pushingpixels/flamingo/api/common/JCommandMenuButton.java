@@ -99,11 +99,6 @@ public class JCommandMenuButton extends JCommandButton {
         setUI(SubstanceCommandMenuButtonUI.createUI(this));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.jvnet.flamingo.common.JCommandButton#canHaveBothKeyTips()
-     */
     @Override
     boolean canHaveBothKeyTips() {
         return true;

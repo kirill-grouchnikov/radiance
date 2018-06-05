@@ -79,41 +79,23 @@ public class ColorResizableIcon implements ResizableIcon {
 		this(new Dimension(initialDim, initialDim), color);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.flamingo.common.icon.ResizableIcon#setDimension(java.awt.
-	 * Dimension )
-	 */
+	@Override
 	public void setDimension(Dimension newDimension) {
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconHeight()
-	 */
+    @Override
 	public int getIconHeight() {
 		return this.height;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconWidth()
-	 */
+    @Override
 	public int getIconWidth() {
 		return this.width;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-	 * int, int)
-	 */
+    @Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		g.setColor(this.color);
 		g.fillRect(x, y, this.getIconWidth(), this.getIconHeight());

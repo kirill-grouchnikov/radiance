@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
+
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -89,7 +91,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
 		/**
 		 * The popup area. A mouse click in this area will trigger the listener
 		 * associated with the command button popup model
-		 * {@link JCommandButton#setPopupCallback(org.jvnet.flamingo.common.popup.PopupPanelCallback)}
+		 * {@link JCommandButton#setPopupCallback(PopupPanelCallback)}
 		 */
 		public Rectangle popupClickArea;
 

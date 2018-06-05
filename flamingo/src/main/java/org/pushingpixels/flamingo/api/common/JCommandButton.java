@@ -271,25 +271,11 @@ public class JCommandButton extends AbstractCommandButton {
             super();
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see
-         * org.jvnet.flamingo.common.PopupButtonModel#addPopupActionListener
-         * (org.jvnet.flamingo.common.PopupActionListener)
-         */
         @Override
         public void addPopupActionListener(PopupActionListener l) {
             listenerList.add(PopupActionListener.class, l);
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see
-         * org.jvnet.flamingo.common.PopupButtonModel#removePopupActionListener
-         * (org.jvnet.flamingo.common.PopupActionListener)
-         */
         @Override
         public void removePopupActionListener(PopupActionListener l) {
             listenerList.remove(PopupActionListener.class, l);
@@ -349,22 +335,11 @@ public class JCommandButton extends AbstractCommandButton {
             fireStateChanged();
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see org.jvnet.flamingo.common.PopupButtonModel#isPopupShowing()
-         */
         @Override
         public boolean isPopupShowing() {
             return (stateMask & POPUP_SHOWING) != 0;
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see
-         * org.jvnet.flamingo.common.PopupButtonModel#setPopupShowing(boolean)
-         */
         @Override
         public void setPopupShowing(boolean b) {
             // System.out.println(this.isPopupShowing() + "-->" + b);
@@ -667,11 +642,6 @@ public class JCommandButton extends AbstractCommandButton {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.jvnet.flamingo.common.AbstractCommandButton#setEnabled(boolean)
-     */
     @Override
     public void setEnabled(boolean b) {
         if (!b && popupModel.isRollover()) {
@@ -748,13 +718,6 @@ public class JCommandButton extends AbstractCommandButton {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.jvnet.flamingo.common.AbstractCommandButton#getRichTooltip(java.awt
-     * .event.MouseEvent)
-     */
     @Override
     public RichTooltip getRichTooltip(MouseEvent event) {
         CommandButtonUI ui = this.getUI();
@@ -796,13 +759,6 @@ public class JCommandButton extends AbstractCommandButton {
         this.firePropertyChange("popupKeyTip", old, this.popupKeyTip);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.jvnet.flamingo.common.AbstractCommandButton#setActionKeyTip(java.
-     * lang.String)
-     */
     @Override
     public void setActionKeyTip(String actionKeyTip) {
         if (!canHaveBothKeyTips() && (popupKeyTip != null)

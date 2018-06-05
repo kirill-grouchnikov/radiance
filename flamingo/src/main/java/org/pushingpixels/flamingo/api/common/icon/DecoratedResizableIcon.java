@@ -109,30 +109,17 @@ public class DecoratedResizableIcon implements ResizableIcon,
 		this(delegate, (IconDecorator) null);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconHeight()
-	 */
+	@Override
 	public int getIconHeight() {
 		return this.delegate.getIconHeight();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconWidth()
-	 */
+	@Override
 	public int getIconWidth() {
 		return this.delegate.getIconWidth();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-	 * int, int)
-	 */
+	@Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		this.delegate.paintIcon(c, g, x, y);
 		for (IconDecorator decorator : this.decorators) {
@@ -141,13 +128,7 @@ public class DecoratedResizableIcon implements ResizableIcon,
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.icon.ResizableIcon#setDimension(java.awt.Dimension
-	 * )
-	 */
+	@Override
 	public void setDimension(Dimension newDimension) {
 		this.delegate.setDimension(newDimension);
 	}
@@ -176,13 +157,6 @@ public class DecoratedResizableIcon implements ResizableIcon,
 		this.decorators.remove(decorator);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.AsynchronousLoading#addAsynchronousLoadListener
-	 * (org.jvnet.flamingo.common.AsynchronousLoadListener)
-	 */
 	@Override
 	public void addAsynchronousLoadListener(AsynchronousLoadListener l) {
 		if (this.delegate instanceof AsynchronousLoading) {
@@ -191,13 +165,6 @@ public class DecoratedResizableIcon implements ResizableIcon,
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.AsynchronousLoading#removeAsynchronousLoadListener
-	 * (org.jvnet.flamingo.common.AsynchronousLoadListener)
-	 */
 	@Override
 	public void removeAsynchronousLoadListener(AsynchronousLoadListener l) {
 		if (this.delegate instanceof AsynchronousLoading) {
@@ -206,11 +173,6 @@ public class DecoratedResizableIcon implements ResizableIcon,
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.flamingo.common.AsynchronousLoading#isLoading()
-	 */
 	@Override
 	public synchronized boolean isLoading() {
 		if (this.delegate instanceof AsynchronousLoading) {

@@ -320,21 +320,11 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         this.add(this.taskbarPanel);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.substance.utils.SubstanceTitlePane#createLayout()
-     */
     @Override
     protected LayoutManager createLayout() {
         return new RibbonFrameTitlePaneLayout();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.substance.utils.SubstanceTitlePane#addNotify()
-     */
     @Override
     public void addNotify() {
         super.addNotify();
@@ -347,11 +337,6 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         ribbon.addChangeListener(this.ribbonFrameChangeListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.substance.utils.SubstanceTitlePane#removeNotify()
-     */
     @Override
     public void removeNotify() {
         JRibbon ribbon = this.getRibbon();
@@ -404,12 +389,6 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
      * @author Kirill Grouchnikov
      */
     protected class RibbonFrameTitlePaneLayout extends TitlePaneLayout {
-        /*
-         * (non-Javadoc)
-         * 
-         * @seeorg.jvnet.substance.utils.SubstanceTitlePane.TitlePaneLayout#
-         * layoutContainer(java.awt.Container)
-         */
         @Override
         public void layoutContainer(Container c) {
             super.layoutContainer(c);
@@ -582,27 +561,15 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
      * @author Kirill Grouchnikov
      */
     private class TaskbarLayout implements LayoutManager {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container c) {
             Insets ins = c.getInsets();
             int pw = 0;
@@ -614,20 +581,12 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             return new Dimension(pw + ins.left + ins.right, c.getParent().getHeight());
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container c) {
             return this.preferredLayoutSize(c);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container c) {
             Insets ins = c.getInsets();
             int gap = getTaskBarLayoutGap(c);
@@ -669,11 +628,6 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                 1, false);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.substance.utils.SubstanceTitlePane#paintComponent(java.awt. Graphics)
-     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

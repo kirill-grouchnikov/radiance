@@ -235,11 +235,6 @@ public class BreadcrumbMultiSvnSelector extends JBreadcrumbBar<String> {
 			this.repositories.add(repositoryInfo);
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.jvnet.flamingo.bcb.BreadcrumbBarCallBack#setup()
-		 */
 		@Override
 		public void setup() {
 			DAVRepositoryFactory.setup();
@@ -247,13 +242,6 @@ public class BreadcrumbMultiSvnSelector extends JBreadcrumbBar<String> {
 			FSRepositoryFactory.setup();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * org.jvnet.flamingo.bcb.BreadcrumbBarCallBack#getPathChoices(java.
-		 * util.List)
-		 */
 		@Override
 		public List<StringValuePair<String>> getPathChoices(List<BreadcrumbItem<String>> path)
 				throws BreadcrumbBarException {
@@ -287,12 +275,6 @@ public class BreadcrumbMultiSvnSelector extends JBreadcrumbBar<String> {
 			}
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * org.jvnet.flamingo.bcb.BreadcrumbBarCallBack#getLeafs(java.util.List)
-		 */
 		@Override
 		public List<StringValuePair<String>> getLeafs(List<BreadcrumbItem<String>> path)
 				throws BreadcrumbBarException {
@@ -317,13 +299,6 @@ public class BreadcrumbMultiSvnSelector extends JBreadcrumbBar<String> {
 			}
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * org.jvnet.flamingo.bcb.BreadcrumbBarCallBack#getLeafContent(java.
-		 * lang.Object)
-		 */
 		@Override
 		public InputStream getLeafContent(String leaf) throws BreadcrumbBarException {
 			try {

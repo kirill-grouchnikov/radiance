@@ -97,7 +97,7 @@ public class IconSizePanel {
         builder.append(sizeLabel);
 
         Icon zoomOutIcon = new ImageIcon(Thread.currentThread().getContextClassLoader()
-                .getResource("org/jvnet/rainbow/zoom_out.png"));
+                .getResource("org/pushingpixels/rainbow/zoom_out.png"));
         JLabel zoomOutLabel = new JLabel(zoomOutIcon);
         builder.append(zoomOutLabel);
 
@@ -125,7 +125,7 @@ public class IconSizePanel {
         builder.append(iconSizeSlider);
 
         Icon zoomInIcon = new ImageIcon(Thread.currentThread().getContextClassLoader()
-                .getResource("org/jvnet/rainbow/zoom_in.png"));
+                .getResource("org/pushingpixels/rainbow/zoom_in.png"));
         JLabel zoomInLabel = new JLabel(zoomInIcon);
         builder.append(zoomInLabel);
 

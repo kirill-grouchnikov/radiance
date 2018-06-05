@@ -30,7 +30,6 @@
 package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
-import org.pushingpixels.flamingo.api.ribbon.RibbonTask
 import org.pushingpixels.kormorant.FlamingoElementMarker
 import org.pushingpixels.kormorant.NullableDelegate
 import org.pushingpixels.neon.icon.ResizableIcon

@@ -666,15 +666,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 CoreRibbonResizePolicies.getCorePoliciesRestrictive(quickStylesBand));
 
         Map<RibbonElementPriority, Integer> stylesGalleryVisibleCommandCounts = new
-                HashMap<RibbonElementPriority, Integer>();
+                HashMap<>();
         stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.LOW, 1);
         stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.MEDIUM, 2);
         stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.TOP, 2);
 
         List<StringValuePair<List<FlamingoCommand>>> stylesGalleryCommands = new
-                ArrayList<StringValuePair<List<FlamingoCommand>>>();
-        List<FlamingoCommand> stylesGalleryCommandsList = new ArrayList<FlamingoCommand>();
-        List<FlamingoCommand> stylesGalleryCommandsList2 = new ArrayList<FlamingoCommand>();
+                ArrayList<>();
+        List<FlamingoCommand> stylesGalleryCommandsList = new ArrayList<>();
+        List<FlamingoCommand> stylesGalleryCommandsList2 = new ArrayList<>();
         MessageFormat mfButtonText = new MessageFormat(
                 resourceBundle.getString("StylesGallery.textButton"));
         mfButtonText.setLocale(currLocale);
@@ -682,17 +682,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
             final int index = i;
             ResizableIcon fontIcon = new Font_x_generic();
             ResizableIcon finalIcon = new DecoratedResizableIcon(fontIcon,
-                    new DecoratedResizableIcon.IconDecorator() {
-                        @Override
-                        public void paintIconDecoration(Component c, Graphics g, int x, int y,
-                                int width, int height) {
-                            Graphics2D g2d = (Graphics2D) g.create();
-                            g2d.setColor(Color.black);
-                            NeonUtil.installDesktopHints(g2d, c);
-                            g2d.setFont(UIManager.getFont("Label.font"));
-                            g2d.drawString("" + index, x + 2, y + height - 2);
-                            g2d.dispose();
-                        }
+                    (Component c, Graphics g, int x, int y,
+                            int width, int height) -> {
+                        Graphics2D g2d = (Graphics2D) g.create();
+                        g2d.setColor(Color.black);
+                        NeonUtil.installDesktopHints(g2d, c);
+                        g2d.setFont(UIManager.getFont("Label.font"));
+                        g2d.drawString("" + index, x + 2, y + height - 2);
+                        g2d.dispose();
                     });
 
             FlamingoCommand ribbonCommand = new FlamingoCommandBuilder()
@@ -707,10 +704,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 stylesGalleryCommandsList2.add(ribbonCommand);
         }
 
-        stylesGalleryCommands.add(new StringValuePair<List<FlamingoCommand>>(
+        stylesGalleryCommands.add(new StringValuePair<>(
                 resourceBundle.getString("StylesGallery.textGroupTitle1"),
                 stylesGalleryCommandsList));
-        stylesGalleryCommands.add(new StringValuePair<List<FlamingoCommand>>(
+        stylesGalleryCommands.add(new StringValuePair<>(
                 resourceBundle.getString("StylesGallery.textGroupTitle2"),
                 stylesGalleryCommandsList2));
 
@@ -760,16 +757,16 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         final JColorSelectorPopupMenu.ColorSelectorCallback callback = new
                 JColorSelectorPopupMenu.ColorSelectorCallback() {
-            @Override
-            public void onColorSelected(Color color) {
-                System.out.println("Selected color " + color);
-            }
+                    @Override
+                    public void onColorSelected(Color color) {
+                        System.out.println("Selected color " + color);
+                    }
 
-            @Override
-            public void onColorRollover(Color color) {
-                System.out.println("Rollover color " + color);
-            }
-        };
+                    @Override
+                    public void onColorRollover(Color color) {
+                        System.out.println("Rollover color " + color);
+                    }
+                };
 
         final PopupPanelCallback popupCallback = (JCommandButton commandButton) -> {
             JColorSelectorPopupMenu result = new JColorSelectorPopupMenu(callback);
@@ -1545,7 +1542,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             final int appMenuButtonTooltipImageInitialWidth = 160;
             final int appMenuButtonTooltipImageInitialHeight = (int)
                     (appMenuButtonTooltipImageInitialWidth
-                    / appMenuButtonTooltipImageRatio);
+                            / appMenuButtonTooltipImageRatio);
             appMenuRichTooltipMainIcon = new ResizableIcon() {
                 private int width;
                 private int height;

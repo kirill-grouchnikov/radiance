@@ -68,38 +68,21 @@ public class SubstanceDisabledResizableIcon implements ResizableIcon {
                 "FlamingoSubstanceDisabledIcons");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.Icon#getIconHeight()
-     */
+    @Override
     public int getIconHeight() {
         return delegate.getIconHeight();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.Icon#getIconWidth()
-     */
+    @Override
     public int getIconWidth() {
         return delegate.getIconWidth();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.icon.ResizableIcon#setDimension(java.awt .Dimension )
-     */
+    @Override
     public void setDimension(Dimension newDimension) {
         delegate.setDimension(newDimension);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics, int, int)
-     */
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         // check if loading

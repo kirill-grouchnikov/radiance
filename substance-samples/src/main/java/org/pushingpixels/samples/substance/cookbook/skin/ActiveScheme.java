@@ -83,65 +83,37 @@ class ActiveScheme extends BaseLightColorScheme {
 		super("Cookbook Active");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.substance.color.ColorScheme#getForegroundColor()
-	 */
+	@Override
 	public Color getForegroundColor() {
 		return ActiveScheme.foregroundColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.substance.color.ColorScheme#getUltraLightColor()
-	 */
+	@Override
 	public Color getUltraLightColor() {
 		return ActiveScheme.mainUltraLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.substance.color.ColorScheme#getExtraLightColor()
-	 */
+	@Override
 	public Color getExtraLightColor() {
 		return ActiveScheme.mainExtraLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.substance.color.ColorScheme#getLightColor()
-	 */
+	@Override
 	public Color getLightColor() {
 		return ActiveScheme.mainLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.substance.color.ColorScheme#getMidColor()
-	 */
+	@Override
 	public Color getMidColor() {
 		return ActiveScheme.mainMidColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.substance.color.ColorScheme#getDarkColor()
-	 */
+	@Override
 	public Color getDarkColor() {
 		return ActiveScheme.mainDarkColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.substance.color.ColorScheme#getUltraDarkColor()
-	 */
+	@Override
 	public Color getUltraDarkColor() {
 		return ActiveScheme.mainUltraDarkColor;
 	}

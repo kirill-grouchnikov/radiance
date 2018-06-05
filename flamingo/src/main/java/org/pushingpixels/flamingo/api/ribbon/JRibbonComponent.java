@@ -262,12 +262,6 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
         this.firePropertyChange("keyTip", old, this.keyTip);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.jvnet.flamingo.common.RichToolTipManager.JTrackableComponent#
-     * getRichTooltip(java.awt.event.MouseEvent)
-     */
     @Override
     public RichTooltip getRichTooltip(MouseEvent mouseEvent) {
         return this.richTooltip;

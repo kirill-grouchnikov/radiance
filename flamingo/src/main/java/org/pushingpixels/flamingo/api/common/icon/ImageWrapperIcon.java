@@ -269,11 +269,6 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.flamingo.common.AsynchronousLoading#isLoading()
-	 */
 	@Override
 	public synchronized boolean isLoading() {
 		BufferedImage image = this.cachedImages.get(this.getIconWidth() + ":"

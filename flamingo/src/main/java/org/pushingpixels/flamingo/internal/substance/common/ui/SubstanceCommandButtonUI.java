@@ -151,11 +151,6 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         this.substanceVisualStateTracker = new CommandButtonVisualStateTracker();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.ribbon.ui.BasiccommandButtonUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -165,11 +160,6 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         this.commandButton.setOpaque(false);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.ui.BasicCommandButtonUI#updateBorder()
-     */
     @Override
     protected void updateBorder() {
         Border currBorder = this.commandButton.getBorder();
@@ -188,11 +178,6 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.ribbon.ui.BasiccommandButtonUI#installListeners()
-     */
     @Override
     protected void installListeners() {
         super.installListeners();
@@ -230,11 +215,6 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         this.trackGlowingIcon();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.ribbon.ui.BasiccommandButtonUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         this.substanceVisualStateTracker.uninstallListeners(this.commandButton);

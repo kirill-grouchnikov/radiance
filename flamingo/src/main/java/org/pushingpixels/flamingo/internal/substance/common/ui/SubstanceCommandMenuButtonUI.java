@@ -64,11 +64,6 @@ public class SubstanceCommandMenuButtonUI extends SubstanceCommandButtonUI {
         super(button);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.ui.BasicCommandButtonUI#installListeners()
-     */
     @Override
     protected void installListeners() {
         super.installListeners();

@@ -175,7 +175,7 @@ public class CoreRibbonResizePolicies {
 	 */
 	public static List<RibbonBandResizePolicy> getCorePoliciesRestrictive(
 			JRibbonBand ribbonBand) {
-		List<RibbonBandResizePolicy> result = new ArrayList<RibbonBandResizePolicy>();
+		List<RibbonBandResizePolicy> result = new ArrayList<>();
 		result.add(new CoreRibbonResizePolicies.Mirror(ribbonBand
 				.getControlPanel()));
 		result.add(new CoreRibbonResizePolicies.Mid2Low(ribbonBand

@@ -76,11 +76,6 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         return new SubstanceRibbonBandUI();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.ribbon.ui.BasicRibbonBandUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -96,22 +91,12 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.ribbon.ui.BasicRibbonBandUI#uninstallDefaults()
-     */
     @Override
     protected void uninstallDefaults() {
         DecorationPainterUtils.clearDecorationType(this.ribbonBand);
         super.uninstallDefaults();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.ribbon.ui.BasicRibbonBandUI#installComponents()
-     */
     @Override
     protected void installComponents() {
         super.installComponents();

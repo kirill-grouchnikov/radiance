@@ -767,22 +767,11 @@ public abstract class AbstractCommandButton extends
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.jvnet.flamingo.common.RichToolTipManager.JTrackableComponent#
-	 * getRichTooltip(java.awt.event.MouseEvent)
-	 */
 	@Override
 	public RichTooltip getRichTooltip(MouseEvent mouseEvent) {
 		return this.actionRichTooltip;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JComponent#setToolTipText(java.lang.String)
-	 */
 	@Override
 	public void setToolTipText(String text) {
 		throw new UnsupportedOperationException("Use rich tooltip APIs");

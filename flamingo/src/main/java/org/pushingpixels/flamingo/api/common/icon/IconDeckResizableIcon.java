@@ -82,13 +82,7 @@ public class IconDeckResizableIcon<T> implements ResizableIcon,
 		this.currentIcon = iconDeck.get(key);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.icon.ResizableIcon#setDimension(java.awt.Dimension
-	 * )
-	 */
+	@Override
 	public void setDimension(Dimension dim) {
 		for (ResizableIcon icon : iconDeck.values()) {
 			int currH = icon.getIconHeight();
@@ -98,41 +92,22 @@ public class IconDeckResizableIcon<T> implements ResizableIcon,
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconHeight()
-	 */
+	@Override
 	public int getIconHeight() {
 		return currentIcon.getIconHeight();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconWidth()
-	 */
+	@Override
 	public int getIconWidth() {
 		return currentIcon.getIconWidth();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-	 * int, int)
-	 */
+	@Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		currentIcon.paintIcon(c, g, x, y);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.AsynchronousLoading#addAsynchronousLoadListener
-	 * (org.jvnet.flamingo.common.AsynchronousLoadListener)
-	 */
+	@Override
 	public void addAsynchronousLoadListener(AsynchronousLoadListener l) {
 		for (ResizableIcon icon : iconDeck.values()) {
 			if (icon instanceof AsynchronousLoading)
@@ -140,11 +115,7 @@ public class IconDeckResizableIcon<T> implements ResizableIcon,
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jvnet.flamingo.common.AsynchronousLoading#isLoading()
-	 */
+	@Override
 	public boolean isLoading() {
 		for (ResizableIcon icon : iconDeck.values()) {
 			if (icon instanceof AsynchronousLoading) {
@@ -156,13 +127,7 @@ public class IconDeckResizableIcon<T> implements ResizableIcon,
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.AsynchronousLoading#removeAsynchronousLoadListener
-	 * (org.jvnet.flamingo.common.AsynchronousLoadListener)
-	 */
+	@Override
 	public void removeAsynchronousLoadListener(AsynchronousLoadListener l) {
 		for (ResizableIcon icon : iconDeck.values()) {
 			if (icon instanceof AsynchronousLoading)

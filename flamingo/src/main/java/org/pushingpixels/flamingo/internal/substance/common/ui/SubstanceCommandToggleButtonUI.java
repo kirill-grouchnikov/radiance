@@ -121,11 +121,6 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
         this.substanceVisualStateTracker = new CommandButtonVisualStateTracker();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.ribbon.ui.BasiccommandButtonUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -135,11 +130,6 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
         this.commandButton.setOpaque(false);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.ui.BasicCommandButtonUI#updateBorder()
-     */
     @Override
     protected void updateBorder() {
         Border currBorder = this.commandButton.getBorder();
@@ -158,11 +148,6 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.ribbon.ui.BasiccommandButtonUI#installListeners()
-     */
     @Override
     protected void installListeners() {
         super.installListeners();
@@ -232,11 +217,6 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.ui.BasicCommandButtonUI#isPaintingBackground()
-     */
     @Override
     protected boolean isPaintingBackground() {
         if (super.isPaintingBackground())
@@ -245,11 +225,6 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
                 .getFacetStrength(ComponentStateFacet.ROLLOVER) > 0.0f);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.ui.BasicCommandButtonUI#isPaintingSeparators()
-     */
     @Override
     protected boolean isPaintingSeparators() {
         return false;
@@ -327,12 +302,6 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
         return fgColor;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.ui.BasicCommandButtonUI#getPreferredSize(javax
-     * .swing.JComponent)
-     */
     @Override
     public Dimension getPreferredSize(JComponent c) {
         AbstractCommandButton button = (AbstractCommandButton) c;
@@ -432,11 +401,6 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jvnet.flamingo.common.ui.BasicCommandButtonUI#syncDisabledIcon()
-     */
     @Override
     protected void syncDisabledIcon() {
         ResizableIcon currDisabledIcon = this.commandButton.getDisabledIcon();

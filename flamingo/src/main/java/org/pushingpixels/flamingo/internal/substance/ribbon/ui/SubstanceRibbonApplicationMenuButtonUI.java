@@ -110,11 +110,6 @@ public class SubstanceRibbonApplicationMenuButtonUI extends BasicRibbonApplicati
         this.trackGlowingIcon();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.jvnet.flamingo.common.ui.BasicCommandButtonUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         this.substanceVisualStateTracker.uninstallListeners(this.commandButton);
