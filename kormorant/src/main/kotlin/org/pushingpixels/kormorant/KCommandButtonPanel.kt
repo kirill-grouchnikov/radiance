@@ -45,8 +45,8 @@ class KCommandButtonPanelDisplay {
 @FlamingoElementMarker
 class KCommandButtonPanel {
     class KCommandButtonPanelGroup {
-        var title : String by NonNullDelegate(null)
-        val commands = arrayListOf<KCommand>()
+        var title: String by NonNullDelegate(null)
+        internal val commands = arrayListOf<KCommand>()
 
         fun command(init: KCommand.() -> Unit): KCommand {
             val command = KCommand()
@@ -59,7 +59,7 @@ class KCommandButtonPanel {
     private var buttonPanel: JCommandButtonPanel? = null
 
     private val commandGroups = arrayListOf<KCommandButtonPanelGroup>()
-    val display: KCommandButtonPanelDisplay = KCommandButtonPanelDisplay()
+    internal val display: KCommandButtonPanelDisplay = KCommandButtonPanelDisplay()
     var isSingleSelectionMode: Boolean by NonNullDelegate(false)
 
     fun commandGroup(init: KCommandButtonPanelGroup.() -> Unit): KCommandButtonPanelGroup {
@@ -86,7 +86,7 @@ class KCommandButtonPanel {
         }
 
         buttonPanel = if (hasInitialState) JCommandButtonPanel(display.state)
-            else JCommandButtonPanel(display.dimension)
+        else JCommandButtonPanel(display.dimension)
 
         if (display.maxButtonColumns > 0) {
             buttonPanel!!.maxButtonColumns = display.maxButtonColumns

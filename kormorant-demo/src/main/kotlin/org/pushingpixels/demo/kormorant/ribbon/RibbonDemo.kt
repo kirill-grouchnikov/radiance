@@ -29,19 +29,25 @@
  */
 package org.pushingpixels.demo.kormorant.ribbon
 
+import org.pushingpixels.demo.kormorant.popup.ColorIcon
 import org.pushingpixels.demo.kormorant.svg.*
 import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
+import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
+import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
+import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
+import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies
+import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy
 import org.pushingpixels.flamingo.internal.ui.ribbon.JBandControlPanel
-import org.pushingpixels.kormorant.commandPopupMenu
+import org.pushingpixels.kormorant.*
 import org.pushingpixels.kormorant.ribbon.*
 import org.pushingpixels.neon.NeonUtil
 import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.skin.BusinessSkin
+import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin
 import java.awt.*
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
@@ -200,7 +206,7 @@ private class RibbonDemoBuilder {
                                     for (i in 0 until 15) {
                                         command {
                                             icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
-                                                    DecoratedResizableIcon.IconDecorator { component, graphics, x, y, width, height ->
+                                                    DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
                                                         val g2d = graphics.create() as Graphics2D
                                                         g2d.color = Color.black
                                                         g2d.font = UIManager.getFont("Label.font")
@@ -282,6 +288,471 @@ private class RibbonDemoBuilder {
         }
     }
 
+    fun getQuickStylesBand(): KRibbonBand {
+        val mfButtonText = MessageFormat(
+                resourceBundle.getString("StylesGallery.textButton"))
+        mfButtonText.locale = currLocale
+
+        val defaultColor = Color(0xEE, 0xEE, 0xEE)
+        val myColorSelectorCallback = object : JColorSelectorPopupMenu.ColorSelectorCallback {
+            override fun onColorSelected(color: Color) {
+                println("Selected color $color")
+            }
+
+            override fun onColorRollover(color: Color?) {
+                println("Rollover color $color")
+            }
+        }
+
+        return ribbonBand {
+            title = resourceBundle.getString("QuickStyles.textBandTitle")
+            icon = Preferences_desktop_theme.of(16, 16)
+            collapsedStateKeyTip = "ZS"
+
+            gallery(RibbonElementPriority.TOP) {
+                title = "Styles"
+                display {
+                    state = JRibbonBand.BIG_FIXED_LANDSCAPE
+                    preferredPopupMaxCommandColumns = 3
+                    preferredPopupMaxVisibleCommandRows = 3
+                    commandVisibilities {
+                        1 at RibbonElementPriority.LOW
+                        2 at RibbonElementPriority.MEDIUM
+                        2 at RibbonElementPriority.TOP
+                    }
+                }
+                commandGroup {
+                    title = resourceBundle.getString("StylesGallery.textGroupTitle1")
+                    for (i in 0 until 10) {
+                        command {
+                            title = mfButtonText.format(arrayOf<Any>(i))
+                            icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
+                                    DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
+                                        val g2d = graphics.create() as Graphics2D
+                                        g2d.color = Color.black
+                                        NeonUtil.installDesktopHints(g2d, component)
+                                        g2d.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                .getFontSet("Substance", null).controlFont
+                                        g2d.drawString("$i", x + 2, y + height - 2)
+                                        g2d.dispose()
+                                    }
+                            )
+                            action = ActionListener { println("Invoked action on $i") }
+                            isToggle = (i != 1)
+                            isToggleSelected = (i == 1)
+                        }
+                    }
+                }
+                commandGroup {
+                    title = resourceBundle.getString("StylesGallery.textGroupTitle2")
+                    for (i in 10 until 30) {
+                        command {
+                            title = mfButtonText.format(arrayOf<Any>(i))
+                            icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
+                                    DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
+                                        val g2d = graphics.create() as Graphics2D
+                                        g2d.color = Color.black
+                                        NeonUtil.installDesktopHints(g2d, component)
+                                        g2d.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                .getFontSet("Substance", null).controlFont
+                                        g2d.drawString("$i", x + 2, y + height - 2)
+                                        g2d.dispose()
+                                    }
+                            )
+                            action = ActionListener { println("Invoked action on $i") }
+                            isToggle = true
+                        }
+                    }
+                }
+                extraPopupContent {
+                    command {
+                        title = resourceBundle.getString("Format.menuSaveSelection.text")
+                        icon = EmptyResizableIcon(16)
+                        action = ActionListener { println("Save Selection activated") }
+                        actionKeyTip = "SS"
+                    }
+
+                    command {
+                        title = resourceBundle.getString("Format.menuClearSelection.text")
+                        icon = EmptyResizableIcon(16)
+                        action = ActionListener { println("Clear Selection activated") }
+                        actionKeyTip = "SC"
+                    }
+
+                    separator()
+
+                    command {
+                        title = resourceBundle.getString("Format.applyStyles.text")
+                        icon = Font_x_generic.of(16, 16)
+                        action = ActionListener { println("Apply Styles activated") }
+                        actionKeyTip = "SA"
+                    }
+                }
+                expandKeyTip = "L"
+            }
+
+            command(RibbonElementPriority.MEDIUM) {
+                title = resourceBundle.getString("Styles1.text")
+                icon = Font_x_generic.of(16, 16)
+                action = ActionListener { println("Generic activated") }
+                actionKeyTip = "SA"
+            }
+
+            command(RibbonElementPriority.MEDIUM) {
+                title = resourceBundle.getString("Styles2.text")
+                icon = Image_x_generic.of(16, 16)
+                action = ActionListener { println("Image activated") }
+                actionKeyTip = "SB"
+            }
+
+            command(RibbonElementPriority.MEDIUM) {
+                title = resourceBundle.getString("Styles3.text")
+                icon = Text_html.of(16, 16)
+                popupCallback = PopupPanelCallback {
+                    colorSelectorPopupMenu {
+                        colorSelectorCallback = myColorSelectorCallback
+
+                        command {
+                            title = resourceBundle.getString("ColorSelector.textAutomatic")
+                            icon = ColorIcon(defaultColor)
+                            action = ActionListener {
+                                myColorSelectorCallback.onColorSelected(defaultColor)
+                                JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultColor)
+                            }
+                            // Register a listener on the action model
+                            actionModelChangeListener = object : ActionModelChangeInterface {
+                                var wasRollover = false
+                                override fun stateChanged(model: ActionButtonModel) {
+                                    val isRollover = model.isRollover
+                                    if (wasRollover && !isRollover) {
+                                        // Notify the callback that there is no rollover
+                                        myColorSelectorCallback.onColorRollover(null)
+                                    }
+                                    if (!wasRollover && isRollover) {
+                                        // Notify the callback that there is rollover with automatic (black) color
+                                        myColorSelectorCallback.onColorRollover(Color.black)
+                                    }
+                                    wasRollover = isRollover
+                                }
+                            }
+                        }
+
+                        colorSectionWithDerived {
+                            title = resourceBundle.getString("ColorSelector.textThemeCaption")
+                            colors {
+                                +Color(255, 255, 255)
+                                +Color(0, 0, 0)
+                                +Color(160, 160, 160)
+                                +Color(16, 64, 128)
+                                +Color(80, 128, 192)
+                                +Color(180, 80, 80)
+                                +Color(160, 192, 80)
+                                +Color(128, 92, 160)
+                                +Color(80, 160, 208)
+                                +Color(255, 144, 64)
+                            }
+                        }
+
+                        colorSection {
+                            title = resourceBundle.getString("ColorSelector.textStandardCaption")
+                            colors {
+                                +Color(140, 0, 0)
+                                +Color(253, 0, 0)
+                                +Color(255, 160, 0)
+                                +Color(255, 255, 0)
+                                +Color(144, 240, 144)
+                                +Color(0, 128, 0)
+                                +Color(160, 224, 224)
+                                +Color(0, 0, 255)
+                                +Color(0, 0, 128)
+                                +Color(128, 0, 128)
+                            }
+                        }
+
+                        recentSection {
+                            title = resourceBundle.getString("ColorSelector.textRecentCaption")
+                        }
+
+                        command {
+                            title = resourceBundle.getString("ColorSelector.textMoreColor")
+                            action = ActionListener {
+                                SwingUtilities.invokeLater({
+                                    val newColor = JColorChooser.showDialog(it.source as Component,
+                                            "Color chooser", defaultColor)
+                                    if (newColor != null) {
+                                        myColorSelectorCallback.onColorSelected(newColor)
+                                        JColorSelectorPopupMenu.addColorToRecentlyUsed(newColor)
+                                    }
+                                })
+                            }
+                        }
+                    }.asColorSelectorPopupMenu()
+                }
+                popupKeyTip = "SC"
+            }
+
+            resizePolicies {
+                +object : ResizePoliciesSource {
+                    override fun getResizePolicies(ribbonBand: JRibbonBand): List<RibbonBandResizePolicy> {
+                        return CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand)
+                    }
+                }
+            }
+        }
+    }
+
+    fun getFontBand(): KFlowRibbonBand {
+        return flowRibbonBand {
+            title = resourceBundle.getString("Font.textBandTitle")
+            icon = Preferences_desktop_font.of(16, 16)
+            collapsedStateKeyTip = "ZF"
+            expandCommand {
+                keyTip = "FN"
+                action = ExpandActionListener()
+            }
+
+            ribbonComponent {
+                component = JComboBox(arrayOf("+ Minor (Calibri)   ", "+ Minor (Columbus)   ", "+ Minor (Consolas)   ",
+                        "+ Minor (Cornelius)   ", "+ Minor (Cleopatra)   ", "+ Minor (Cornucopia)   ",
+                        "+ Minor (Candella)   ", "+ Minor (Cambria)   "))
+                keyTip = "SF"
+            }
+
+            ribbonComponent {
+                component = JComboBox(arrayOf("11  "))
+                keyTip = "SS"
+            }
+
+            flowCommandButtonStrip {
+                command {
+                    icon = Format_indent_less.of(16, 16)
+                    action = ActionListener { println("Indent less") }
+                    actionKeyTip = "AO"
+                }
+
+                command {
+                    icon = Format_indent_more.of(16, 16)
+                    action = ActionListener { println("Indent more") }
+                    actionKeyTip = "AI"
+                }
+            }
+
+            flowCommandButtonStrip {
+                command {
+                    icon = Format_text_bold.of(16, 16)
+                    isToggleSelected = true
+                    action = ActionListener { println("Bold toggled") }
+                    actionRichTooltip {
+                        title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
+                        description {
+                            +resourceBundle.getString("FontBold.tooltip.textActionParagraph1")
+                        }
+                    }
+                    actionKeyTip = "1"
+                }
+
+                command {
+                    icon = Format_text_italic.of(16, 16)
+                    isToggle = true
+                    action = ActionListener { println("Italic toggled") }
+                    actionRichTooltip {
+                        title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
+                        description {
+                            +resourceBundle.getString("FontItalic.tooltip.textActionParagraph1")
+                        }
+                    }
+                    actionKeyTip = "2"
+                }
+
+                command {
+                    icon = Format_text_underline.of(16, 16)
+                    isToggle = true
+                    action = ActionListener { println("Underline toggled") }
+                    actionRichTooltip {
+                        title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
+                        description {
+                            +resourceBundle.getString("FontUnderline.tooltip.textActionParagraph1")
+                        }
+                    }
+                    actionKeyTip = "3"
+                }
+
+                command {
+                    icon = Format_text_strikethrough.of(16, 16)
+                    isToggle = true
+                    action = ActionListener { println("Strikethrough toggled") }
+                    actionRichTooltip {
+                        title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
+                        description {
+                            +resourceBundle.getString("FontStrikethrough.tooltip.textActionParagraph1")
+                        }
+                    }
+                    actionKeyTip = "4"
+                }
+            }
+
+            flowCommandToggleButtonStrip {
+                command {
+                    icon = Format_justify_left.of(16, 16)
+                    action = ActionListener { println("Align left!") }
+                    actionKeyTip = "AL"
+                }
+
+                command {
+                    icon = Format_justify_center.of(16, 16)
+                    isToggleSelected = true
+                    action = ActionListener { println("Align center!") }
+                    actionKeyTip = "AC"
+                }
+
+                command {
+                    icon = Format_justify_right.of(16, 16)
+                    action = ActionListener { println("Align right!") }
+                    actionKeyTip = "AR"
+                }
+
+                command {
+                    icon = Format_justify_fill.of(16, 16)
+                    action = ActionListener { println("Align justified!") }
+                    actionKeyTip = "AF"
+                }
+            }
+        }
+    }
+
+    fun getDocumentBand(): KRibbonBand {
+        return ribbonBand {
+            title = resourceBundle.getString("Document.textBandTitle")
+            icon = Applications_office.of(16, 16)
+            expandCommand {
+                action = ExpandActionListener()
+                keyTip = "FY"
+            }
+            collapsedStateKeyTip = "ZD"
+
+            group {
+                val documentLocationToggleGroup = KCommandToggleGroup()
+
+                command(RibbonElementPriority.TOP) {
+                    title = resourceBundle.getString("DocumentLocal.text")
+                    icon = Folder.of(16, 16)
+                    action = ActionListener { println("Document Local activated") }
+                    isToggle = true
+                    toggleGroup = documentLocationToggleGroup
+                }
+
+                command(RibbonElementPriority.TOP) {
+                    title = resourceBundle.getString("DocumentRemote.text")
+                    icon = Folder_remote.of(16, 16)
+                    action = ActionListener { println("Document Remote activated") }
+                    isToggle = true
+                    toggleGroup = documentLocationToggleGroup
+                }
+                command(RibbonElementPriority.TOP) {
+                    title = resourceBundle.getString("DocumentSaved.text")
+                    icon = Folder_saved_search.of(16, 16)
+                    action = ActionListener { println("Document Saved activated") }
+                    isToggle = true
+                    toggleGroup = documentLocationToggleGroup
+                }
+            }
+
+            group {
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("DocumentNew.text")
+                    icon = Document_new.of(16, 16)
+                    action = ActionListener { println("Document New activated") }
+                }
+
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("DocumentOpen.text")
+                    icon = Document_open.of(16, 16)
+                    action = ActionListener { println("Document Open activated") }
+                }
+
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("DocumentSave.text")
+                    icon = Document_save.of(16, 16)
+                    action = ActionListener { println("Document Save activated") }
+                }
+
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("DocumentPrint.text")
+                    icon = Document_print.of(16, 16)
+                    action = ActionListener { println("Document Print activated") }
+                }
+
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("DocumentPrintPreview.text")
+                    icon = Document_print_preview.of(16, 16)
+                    action = ActionListener { println("Document Print Preview activated") }
+                }
+
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("DocumentProperties.text")
+                    icon = Document_properties.of(16, 16)
+                    action = ActionListener { println("Document Properties activated") }
+                }
+            }
+
+            resizePolicies {
+                +object : ResizePoliciesSource {
+                    override fun getResizePolicies(ribbonBand: JRibbonBand): List<RibbonBandResizePolicy> {
+                        return CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand)
+                    }
+                }
+            }
+        }
+    }
+
+    fun getFindBand(): KRibbonBand {
+        return ribbonBand {
+            title = resourceBundle.getString("Find.textBandTitle")
+            icon = Edit_find.of(16, 16)
+            collapsedStateKeyTip = "ZY"
+
+            command(RibbonElementPriority.TOP) {
+                title = resourceBundle.getString("Search.text")
+                icon = System_search.of(16, 16)
+                action = ActionListener { println("Search activated") }
+                actionKeyTip = "FD"
+            }
+
+            command(RibbonElementPriority.MEDIUM) {
+                title = resourceBundle.getString("Find.text")
+                icon = Edit_find.of(16, 16)
+                action = ActionListener { println("Find activated") }
+            }
+
+            command(RibbonElementPriority.MEDIUM) {
+                title = resourceBundle.getString("FindReplace.text")
+                icon = Edit_find_replace.of(16, 16)
+                action = ActionListener { println("Find Replace activated") }
+                isEnabled = false
+            }
+
+            command(RibbonElementPriority.MEDIUM) {
+                title = resourceBundle.getString("SelectAll.text")
+                icon = Edit_select_all.of(16, 16)
+                action = ActionListener { println("Select All activated") }
+            }
+
+            // This is kind of ugly for now
+            resizePolicies {
+                +object : ResizePolicySource {
+                    override fun getResizePolicy(controlPanel: JBandControlPanel): RibbonBandResizePolicy {
+                        return CoreRibbonResizePolicies.Mirror(controlPanel)
+                    }
+                }
+                +object : ResizePolicySource {
+                    override fun getResizePolicy(controlPanel: JBandControlPanel): RibbonBandResizePolicy {
+                        return IconRibbonBandResizePolicy(controlPanel)
+                    }
+                }
+            }
+        }
+    }
+
     fun getPageLayoutTask(): KRibbonTask {
         return ribbonTask {
             title = resourceBundle.getString("PageLayout.textTaskTitle")
@@ -289,6 +760,10 @@ private class RibbonDemoBuilder {
 
             bands {
                 +getClipboardBand()
+                +getQuickStylesBand()
+                +getFontBand()
+                +getDocumentBand()
+                +getFindBand()
             }
         }
     }
@@ -299,7 +774,7 @@ fun main(args: Array<String>) {
         JFrame.setDefaultLookAndFeelDecorated(true)
         JDialog.setDefaultLookAndFeelDecorated(true)
 
-        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
+        SubstanceCortex.GlobalScope.setSkin(OfficeBlue2007Skin())
 
         val builder = RibbonDemoBuilder()
 

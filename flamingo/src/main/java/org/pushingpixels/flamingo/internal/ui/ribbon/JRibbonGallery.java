@@ -362,7 +362,7 @@ public class JRibbonGallery extends JComponent {
     /**
      * Changes the selection to the specified button.
      *
-     * @param selectedButton New value for the currently selected gallery button.
+     * @param selectedCommand New value for the currently selected gallery command.
      */
     public void setSelectedCommand(FlamingoCommand selectedCommand) {
         int buttonIndex = this.commands.indexOf(selectedCommand);
@@ -432,7 +432,7 @@ public class JRibbonGallery extends JComponent {
     /**
      * Sets the command groups for this ribbon gallery.
      *
-     * @param buttons Button groups.
+     * @param commands Command groups.
      */
     public void setGroupMapping(List<StringValuePair<List<FlamingoCommand>>> commands) {
         for (StringValuePair<List<FlamingoCommand>> commandGroupPair : commands) {
@@ -447,7 +447,7 @@ public class JRibbonGallery extends JComponent {
             }
         }
 
-        this.commandGroups = new ArrayList<StringValuePair<List<FlamingoCommand>>>();
+        this.commandGroups = new ArrayList<>();
         boolean hasGroupWithNullTitle = false;
         for (StringValuePair<List<FlamingoCommand>> commandGroupPair : commands) {
             if (commandGroupPair.getKey() == null) {
@@ -459,9 +459,9 @@ public class JRibbonGallery extends JComponent {
             }
 
             // create the list of commands for this group
-            List<FlamingoCommand> commandGroupCopy = new ArrayList<FlamingoCommand>();
+            List<FlamingoCommand> commandGroupCopy = new ArrayList<>();
             // add it to the groups list
-            StringValuePair<List<FlamingoCommand>> commandGroupInfo = new StringValuePair<List<FlamingoCommand>>(
+            StringValuePair<List<FlamingoCommand>> commandGroupInfo = new StringValuePair<>(
                     commandGroupPair.getKey(), commandGroupCopy);
             this.commandGroups.add(commandGroupInfo);
             // add all the commands to the control
@@ -515,8 +515,10 @@ public class JRibbonGallery extends JComponent {
     /**
      * Sets the preferred dimension of the popup panel.
      *
-     * @param preferredPopupMaxButtonColumns     Preferred maximum number of button columns for the popup panel.
-     * @param preferredPopupMaxVisibleButtonRows Preferred maximum number of visible button rows for the popup panel.
+     * @param preferredPopupMaxButtonColumns     Preferred maximum number of button columns for
+     *                                           the popup panel.
+     * @param preferredPopupMaxVisibleButtonRows Preferred maximum number of visible button rows
+     *                                           for the popup panel.
      */
     public void setPreferredPopupPanelDimension(int preferredPopupMaxButtonColumns,
             int preferredPopupMaxVisibleButtonRows) {

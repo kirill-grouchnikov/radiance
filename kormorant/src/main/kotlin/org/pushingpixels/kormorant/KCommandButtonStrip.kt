@@ -44,7 +44,7 @@ class KCommandButtonStripDisplay {
 @FlamingoElementMarker
 class KCommandStrip(private val isToggleGroup: Boolean) {
     private val commands = arrayListOf<KCommand>()
-    val display: KCommandButtonStripDisplay = KCommandButtonStripDisplay()
+    internal val display: KCommandButtonStripDisplay = KCommandButtonStripDisplay()
     private val commandToggleGroup = KCommandToggleGroup()
     var isEnabled: Boolean
         get() = throw UnsupportedOperationException()
@@ -60,7 +60,8 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
         if (isToggleGroup) {
             // Our button strip is marked as a single toggle group
             if (command.toggleGroup != null) {
-                throw IllegalStateException("Command with an explicitly declared toggle group is in a button strip with an implicit toggle group")
+                throw IllegalStateException(
+                        "Command with an explicitly declared toggle group is in a button strip with an implicit toggle group")
             }
             // Mark the command explicitly as toggle
             command.isToggle = true

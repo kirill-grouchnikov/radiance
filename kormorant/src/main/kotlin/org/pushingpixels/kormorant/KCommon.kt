@@ -32,9 +32,9 @@ package org.pushingpixels.kormorant
 import org.pushingpixels.flamingo.api.common.FlamingoCommand
 import org.pushingpixels.flamingo.api.common.RichTooltip
 import org.pushingpixels.neon.icon.ResizableIcon
+import java.awt.Color
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
-import java.awt.Color
 
 class NullableDelegate<T>(private val gate: Any?) : ReadWriteProperty<Any, T?> {
     private var value: T? = null
@@ -52,8 +52,8 @@ class NullableDelegate<T>(private val gate: Any?) : ReadWriteProperty<Any, T?> {
 }
 
 class NonNullDelegate<T : Any>(private val gate: Any?) {
-    lateinit var value: T
-    var isInitialized = false
+    private lateinit var value: T
+    private var isInitialized = false
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
         if (!this.isInitialized) {
@@ -77,7 +77,7 @@ annotation class FlamingoElementMarker
 
 @FlamingoElementMarker
 class TextContainer {
-    val strings = arrayListOf<String>()
+    internal val strings = arrayListOf<String>()
 
     operator fun String.unaryPlus() {
         strings.add(this)
@@ -86,7 +86,7 @@ class TextContainer {
 
 @FlamingoElementMarker
 class ColorContainer {
-    val colors = arrayListOf<Color>()
+    internal val colors = arrayListOf<Color>()
 
     operator fun Color.unaryPlus() {
         colors.add(this)
@@ -126,10 +126,10 @@ class KRichTooltip {
 }
 
 class KCommandToggleGroup {
-    val flamingoCommandToggleGroup = FlamingoCommand.FlamingoCommandToggleGroup()
+    internal val flamingoCommandToggleGroup = FlamingoCommand.FlamingoCommandToggleGroup()
 }
 
-fun commandToggleGroup() : KCommandToggleGroup {
+fun commandToggleGroup(): KCommandToggleGroup {
     return KCommandToggleGroup()
 }
 

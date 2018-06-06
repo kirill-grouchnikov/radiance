@@ -40,8 +40,8 @@ class KCommandButtonDisplay {
 
 @FlamingoElementMarker
 class KCommandButton {
-    val command: KCommand = KCommand()
-    val display: KCommandButtonDisplay = KCommandButtonDisplay()
+    internal val command: KCommand = KCommand()
+    internal val display: KCommandButtonDisplay = KCommandButtonDisplay()
 
     fun command(init: KCommand.() -> Unit) {
         command.init()

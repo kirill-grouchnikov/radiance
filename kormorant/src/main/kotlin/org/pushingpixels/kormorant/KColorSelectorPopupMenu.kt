@@ -32,12 +32,11 @@ package org.pushingpixels.kormorant
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton
 import org.pushingpixels.flamingo.api.common.JCommandToggleMenuButton
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
-import java.awt.Color
 
 @FlamingoElementMarker
-class KColorSelectorPopupMenuColorSection(val isDerived : Boolean) {
+class KColorSelectorPopupMenuColorSection(val isDerived: Boolean) {
     var title: String by NonNullDelegate(null)
-    var colors = ColorContainer()
+    internal var colors = ColorContainer()
 
     fun colors(init: ColorContainer.() -> Unit) {
         colors.init()
@@ -76,7 +75,8 @@ class KColorSelectorPopupMenu {
         return colorSection
     }
 
-    fun colorSectionWithDerived(init: KColorSelectorPopupMenuColorSection.() -> Unit): KColorSelectorPopupMenuColorSection {
+    fun colorSectionWithDerived(
+            init: KColorSelectorPopupMenuColorSection.() -> Unit): KColorSelectorPopupMenuColorSection {
         val colorSection = KColorSelectorPopupMenuColorSection(true)
         colorSection.init()
         components.add(colorSection)

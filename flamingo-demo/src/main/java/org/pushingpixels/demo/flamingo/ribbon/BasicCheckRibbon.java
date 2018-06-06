@@ -648,7 +648,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build(),
                 RibbonElementPriority.MEDIUM);
 
-        List<RibbonBandResizePolicy> resizePolicies = new ArrayList<RibbonBandResizePolicy>();
+        List<RibbonBandResizePolicy> resizePolicies = new ArrayList<>();
         resizePolicies.add(new CoreRibbonResizePolicies.Mirror(findBand.getControlPanel()));
         resizePolicies.add(new IconRibbonBandResizePolicy(findBand.getControlPanel()));
         findBand.setResizePolicies(resizePolicies);
@@ -1668,7 +1668,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         fontBand.setExpandButtonKeyTip("FN");
         fontBand.setCollapsedStateKeyTip("ZF");
 
-        JComboBox fontCombo = new JComboBox(new Object[] { "+ Minor (Calibri)   ",
+        JComboBox fontCombo = new JComboBox<>(new String[] { "+ Minor (Calibri)   ",
                 "+ Minor (Columbus)   ", "+ Minor (Consolas)   ", "+ Minor (Cornelius)   ",
                 "+ Minor (Cleopatra)   ", "+ Minor (Cornucopia)   ",
                 "+ Minor (Candella)   ", "+ Minor (Cambria)   " });
@@ -1676,7 +1676,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         fontComboWrapper.setKeyTip("SF");
         fontBand.addFlowComponent(fontComboWrapper);
 
-        JComboBox sizeCombo = new JComboBox(new Object[] { "11  " });
+        JComboBox sizeCombo = new JComboBox<>(new String[] { "11  " });
         JRibbonComponent sizeComboWrapper = new JRibbonComponent(sizeCombo);
         sizeComboWrapper.setKeyTip("SS");
         fontBand.addFlowComponent(sizeComboWrapper);
@@ -1744,13 +1744,13 @@ public class BasicCheckRibbon extends JRibbonFrame {
         JCommandToggleButton alignLeftButton = new JCommandToggleButton("",
                 new Format_justify_left());
         alignLeftButton.setActionKeyTip("AL");
-        alignLeftButton.getActionModel().setSelected(true);
         alignGroup.add(alignLeftButton);
         alignStrip.add(alignLeftButton);
 
         JCommandToggleButton alignCenterButton = new JCommandToggleButton("",
                 new Format_justify_center());
         alignCenterButton.setActionKeyTip("AC");
+        alignCenterButton.getActionModel().setSelected(true);
         alignGroup.add(alignCenterButton);
         alignStrip.add(alignCenterButton);
 

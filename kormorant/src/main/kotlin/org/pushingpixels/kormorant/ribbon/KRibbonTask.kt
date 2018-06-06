@@ -35,9 +35,9 @@ import org.pushingpixels.kormorant.NullableDelegate
 
 @FlamingoElementMarker
 class KRibbonTaskBandContainer {
-    val bands = arrayListOf<KRibbonBand>()
+    internal val bands = arrayListOf<KBaseRibbonBand<*, *>>()
 
-    operator fun KRibbonBand.unaryPlus() {
+    operator fun KBaseRibbonBand<*, *>.unaryPlus() {
         this@KRibbonTaskBandContainer.bands.add(this)
     }
 }
@@ -60,6 +60,7 @@ class KRibbonTask {
         }
         val javaBands = bands.bands.map { it -> it.asRibbonBand() }
         ribbonTask = RibbonTask(title, javaBands.asIterable())
+        ribbonTask!!.keyTip = keyTip
         return ribbonTask!!
     }
 }

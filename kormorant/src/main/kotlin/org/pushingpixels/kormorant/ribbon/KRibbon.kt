@@ -36,7 +36,7 @@ import org.pushingpixels.neon.icon.ResizableIcon
 
 @FlamingoElementMarker
 class KRibbonTaskContainer {
-    val tasks = arrayListOf<KRibbonTask>()
+    internal val tasks = arrayListOf<KRibbonTask>()
 
     operator fun KRibbonTask.unaryPlus() {
         this@KRibbonTaskContainer.tasks.add(this)
