@@ -32,10 +32,7 @@ package org.pushingpixels.kormorant.ribbon
 import org.pushingpixels.flamingo.api.common.HorizontalAlignment
 import org.pushingpixels.flamingo.api.ribbon.JRibbonComponent
 import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority
-import org.pushingpixels.kormorant.FlamingoElementMarker
-import org.pushingpixels.kormorant.KRichTooltip
-import org.pushingpixels.kormorant.NonNullDelegate
-import org.pushingpixels.kormorant.NullableDelegate
+import org.pushingpixels.kormorant.*
 import org.pushingpixels.neon.icon.ResizableIcon
 import javax.swing.JComponent
 
@@ -45,18 +42,40 @@ class KRibbonComponent {
 
     var caption: String? by NullableDelegate(ribbonComponent)
     var icon: ResizableIcon? by NullableDelegate(ribbonComponent)
-    var component: JComponent by NonNullDelegate(ribbonComponent)
+    var component: JComponent? by NullableDelegate(ribbonComponent)
+    var commandButton: KCommandButton? by NullableDelegate(ribbonComponent)
     var keyTip: String? by NullableDelegate(ribbonComponent)
     private var richTooltip: KRichTooltip? by NullableDelegate(ribbonComponent)
     var horizontalAlignment: HorizontalAlignment? by NullableDelegate(ribbonComponent)
     var displayPriority: RibbonElementPriority? by NullableDelegate(ribbonComponent)
     var isResizingAware: Boolean? by NullableDelegate(ribbonComponent)
+    var isEnabled: Boolean by NonNullDelegate(ribbonComponent)
+
+    init {
+        isEnabled = true
+    }
+
+    fun commandButton(init: KCommandButton.() -> Unit): KCommandButton {
+        commandButton = KCommandButton()
+        commandButton!!.init()
+        return commandButton!!
+    }
+
+    fun richTooltip(init: KRichTooltip.() -> Unit) {
+        if (richTooltip == null) {
+            richTooltip = KRichTooltip()
+        }
+        (richTooltip as KRichTooltip).init()
+    }
 
     fun asRibbonComponent(): JRibbonComponent {
         if (ribbonComponent != null) {
             throw IllegalStateException("This method can only be called once")
         }
-        ribbonComponent = if ((caption != null) && (icon != null))
+        if (commandButton != null) {
+            component = commandButton!!.asButton()
+        }
+        ribbonComponent = if (caption != null)
             JRibbonComponent(icon, caption, component) else
             JRibbonComponent(component)
         ribbonComponent!!.keyTip = keyTip
@@ -70,6 +89,7 @@ class KRibbonComponent {
         if (isResizingAware != null) {
             ribbonComponent!!.isResizingAware = isResizingAware!!
         }
+        ribbonComponent!!.isEnabled = isEnabled
         return ribbonComponent!!
     }
 }

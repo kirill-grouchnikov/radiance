@@ -29,8 +29,12 @@
  */
 package org.pushingpixels.demo.kormorant.ribbon
 
+import com.jgoodies.forms.builder.DefaultFormBuilder
+import com.jgoodies.forms.layout.FormLayout
 import org.pushingpixels.demo.kormorant.popup.ColorIcon
 import org.pushingpixels.demo.kormorant.svg.*
+import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.HorizontalAlignment
 import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
@@ -38,14 +42,16 @@ import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
+import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
+import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand
 import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies
+import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies
 import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy
-import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy
-import org.pushingpixels.flamingo.internal.ui.ribbon.JBandControlPanel
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.kormorant.ribbon.*
 import org.pushingpixels.neon.NeonUtil
+import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin
 import java.awt.*
@@ -53,11 +59,203 @@ import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import java.text.MessageFormat
 import java.util.*
+import javax.imageio.ImageIO
 import javax.swing.*
+import javax.swing.border.EmptyBorder
+
+object SkinSwitcher {
+    fun getSkinSwitcher(frame: JFrame): JComboBox<*> {
+        val skinInfoMap = SubstanceCortex.GlobalScope.getAllSkins()
+        val skinNames = skinInfoMap.keys.toTypedArray()
+        val result = JComboBox(skinNames)
+        for (i in skinNames.indices) {
+            if (skinNames[i] == SubstanceCortex.GlobalScope.getCurrentSkin()!!.displayName) {
+                result.selectedIndex = i
+                break
+            }
+        }
+
+        result.addItemListener {
+            SwingUtilities.invokeLater {
+                val selected = result.selectedItem as String
+                SubstanceCortex.GlobalScope.setSkin(
+                        SubstanceCortex.GlobalScope.getAllSkins()[selected]!!.className)
+                SwingUtilities.updateComponentTreeUI(frame)
+            }
+        }
+
+        return result
+    }
+}
+
+class RulerPanel : JPanel() {
+    override fun paintComponent(g: Graphics) {
+        super.paintComponent(g)
+
+        val g2d = g.create() as Graphics2D
+        NeonUtil.installDesktopHints(g2d, this)
+        g2d.color = Color.gray
+
+        if (componentOrientation.isLeftToRight) {
+            // horizontal ruler on top
+            val offset = 20
+            run {
+                var i = offset
+                while (i < this.width) {
+                    if ((i - offset) % 100 == 0) {
+                        i += 10
+                        continue
+                    }
+                    g2d.drawLine(i, 9, i, 11)
+                    i += 10
+                }
+            }
+            run {
+                var i = offset + 50
+                while (i < this.width) {
+                    g2d.drawLine(i, 7, i, 13)
+                    i += 100
+                }
+            }
+            run {
+                var i = offset
+                while (i < this.width) {
+                    val c = (i - offset) / 100 % 10
+                    g2d.drawString("" + c, i - 2, 15)
+                    i += 100
+                }
+            }
+
+            // vertical ruler on left
+            run {
+                var i = offset
+                while (i < this.height) {
+                    if ((i - offset) % 100 == 0) {
+                        i += 10
+                        continue
+                    }
+                    g2d.drawLine(9, i, 11, i)
+                    i += 10
+                }
+            }
+            run {
+                var i = offset + 50
+                while (i < this.height) {
+                    g2d.drawLine(7, i, 13, i)
+                    i += 100
+                }
+            }
+            var i = offset
+            while (i < this.height) {
+                val c = (i - offset) / 100 % 10
+                g2d.drawString("" + c, 8, i + 4)
+                i += 100
+            }
+        } else {
+            // horizontal ruler on top
+            val offset = 20
+            run {
+                var i = width - offset
+                while (i > 0) {
+                    if ((width - offset - i) % 100 == 0) {
+                        i -= 10
+                        continue
+                    }
+                    g2d.drawLine(i, 9, i, 11)
+                    i -= 10
+                }
+            }
+            run {
+                var i = width - offset - 50
+                while (i > 0) {
+                    g2d.drawLine(i, 7, i, 13)
+                    i -= 100
+                }
+            }
+            run {
+                var i = width - offset
+                while (i > 0) {
+                    val c = (width - offset - i) / 100 % 10
+                    g2d.drawString("" + c, i - 2, 15)
+                    i -= 100
+                }
+            }
+
+            // vertical ruler on right
+            run {
+                var i = offset
+                while (i < this.height) {
+                    if ((i - offset) % 100 == 0) {
+                        i += 10
+                        continue
+                    }
+                    g2d.drawLine(width - 9, i, width - 11, i)
+                    i += 10
+                }
+            }
+            run {
+                var i = offset + 50
+                while (i < this.height) {
+                    g2d.drawLine(width - 7, i, width - 13, i)
+                    i += 100
+                }
+            }
+            var i = offset
+            while (i < this.height) {
+                val c = (i - offset) / 100 % 10
+                g2d.drawString("" + c, width - 14, i + 4)
+                i += 100
+            }
+        }
+        g2d.dispose()
+    }
+}
 
 private class ExpandActionListener : ActionListener {
     override fun actionPerformed(e: ActionEvent) {
         JOptionPane.showMessageDialog(null, "Expand button clicked")
+    }
+}
+
+private class SimpleResizableIcon(private val priority: RibbonElementPriority, private var currWidth: Int,
+                                  private var currHeight: Int) : ResizableIcon {
+
+    override fun setDimension(newDimension: Dimension) {
+        this.currWidth = newDimension.width
+        this.currHeight = newDimension.height
+    }
+
+    override fun getIconHeight(): Int {
+        return this.currHeight
+    }
+
+    override fun getIconWidth(): Int {
+        return this.currWidth
+    }
+
+    override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
+        val graphics = g.create() as Graphics2D
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON)
+
+        val rx = this.currWidth / 3
+        val ry = this.currHeight / 3
+        val cx = x + this.currWidth / 2 - 1
+        val cy = y + this.currHeight / 2 - 1
+        var color: Color? = null
+        when (this.priority) {
+            RibbonElementPriority.TOP -> color = Color(0, 0, 128)
+            RibbonElementPriority.MEDIUM -> color = Color.blue
+            RibbonElementPriority.LOW -> color = Color(128, 128, 255)
+        }
+
+        graphics.color = color
+        graphics.fillOval(cx - rx, cy - ry, 2 * rx, 2 * ry)
+        graphics.color = color!!.darker()
+        graphics.drawOval(cx - rx, cy - ry, 2 * rx, 2 * ry)
+        graphics.drawRect(x, y, this.currWidth - 2, this.currHeight - 2)
+
+        graphics.dispose()
     }
 }
 
@@ -272,18 +470,9 @@ private class RibbonDemoBuilder {
                 popupKeyTip = "FP"
             }
 
-            // This is kind of ugly for now
-            resizePolicies {
-                +object : ResizePolicySource {
-                    override fun getResizePolicy(controlPanel: JBandControlPanel): RibbonBandResizePolicy {
-                        return CoreRibbonResizePolicies.Mirror(controlPanel)
-                    }
-                }
-                +object : ResizePolicySource {
-                    override fun getResizePolicy(controlPanel: JBandControlPanel): RibbonBandResizePolicy {
-                        return CoreRibbonResizePolicies.Mid2Low(controlPanel)
-                    }
-                }
+            resizePolicies = { ribbonBand ->
+                listOf(CoreRibbonResizePolicies.Mirror(ribbonBand.controlPanel),
+                        CoreRibbonResizePolicies.Mid2Low(ribbonBand.controlPanel))
             }
         }
     }
@@ -491,13 +680,7 @@ private class RibbonDemoBuilder {
                 popupKeyTip = "SC"
             }
 
-            resizePolicies {
-                +object : ResizePoliciesSource {
-                    override fun getResizePolicies(ribbonBand: JRibbonBand): List<RibbonBandResizePolicy> {
-                        return CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand)
-                    }
-                }
-            }
+            resizePolicies = { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand) }
         }
     }
 
@@ -648,6 +831,7 @@ private class RibbonDemoBuilder {
                     isToggle = true
                     toggleGroup = documentLocationToggleGroup
                 }
+
                 command(RibbonElementPriority.TOP) {
                     title = resourceBundle.getString("DocumentSaved.text")
                     icon = Folder_saved_search.of(16, 16)
@@ -695,13 +879,7 @@ private class RibbonDemoBuilder {
                 }
             }
 
-            resizePolicies {
-                +object : ResizePoliciesSource {
-                    override fun getResizePolicies(ribbonBand: JRibbonBand): List<RibbonBandResizePolicy> {
-                        return CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand)
-                    }
-                }
-            }
+            resizePolicies = { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand) }
         }
     }
 
@@ -737,18 +915,9 @@ private class RibbonDemoBuilder {
                 action = ActionListener { println("Select All activated") }
             }
 
-            // This is kind of ugly for now
-            resizePolicies {
-                +object : ResizePolicySource {
-                    override fun getResizePolicy(controlPanel: JBandControlPanel): RibbonBandResizePolicy {
-                        return CoreRibbonResizePolicies.Mirror(controlPanel)
-                    }
-                }
-                +object : ResizePolicySource {
-                    override fun getResizePolicy(controlPanel: JBandControlPanel): RibbonBandResizePolicy {
-                        return IconRibbonBandResizePolicy(controlPanel)
-                    }
-                }
+            resizePolicies = { ribbonBand ->
+                listOf(CoreRibbonResizePolicies.Mirror(ribbonBand.controlPanel),
+                        IconRibbonBandResizePolicy(ribbonBand.controlPanel))
             }
         }
     }
@@ -767,6 +936,693 @@ private class RibbonDemoBuilder {
             }
         }
     }
+
+    fun getActionBand(): KRibbonBand {
+        return ribbonBand {
+            title = resourceBundle.getString("Action.textBandTitle")
+            icon = Document_new.of(16, 16)
+            expandCommand {
+                action = ExpandActionListener()
+            }
+
+            group {
+                command(RibbonElementPriority.TOP) {
+                    title = resourceBundle.getString("AddressBook.text")
+                    icon = Address_book_new.of(16, 16)
+                    action = ActionListener { println("Address Book activated") }
+                    actionKeyTip = "NA"
+                }
+            }
+
+            group {
+                command(RibbonElementPriority.TOP) {
+                    title = resourceBundle.getString("Document.text")
+                    icon = Document_new.of(16, 16)
+                    action = ActionListener { println("Document activated") }
+                    actionKeyTip = "ND"
+                }
+
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("Appointment.text")
+                    icon = Appointment_new.of(16, 16)
+                    action = ActionListener { println("Appointment activated") }
+                    actionKeyTip = "NP"
+                }
+
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("Bookmark.text")
+                    icon = Bookmark_new.of(16, 16)
+                    action = ActionListener { println("Bookmark activated") }
+                    actionKeyTip = "NB"
+                }
+
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("Contact.text")
+                    icon = Contact_new.of(16, 16)
+                    action = ActionListener { println("Contact activated") }
+                    actionKeyTip = "NC"
+                }
+            }
+
+            resizePolicies = { ribbonBand ->
+                listOf(CoreRibbonResizePolicies.Mirror(ribbonBand.controlPanel),
+                        CoreRibbonResizePolicies.Mid2Low(ribbonBand.controlPanel),
+                        IconRibbonBandResizePolicy(ribbonBand.controlPanel))
+            }
+        }
+    }
+
+    fun getPreferencesBand(): KRibbonBand {
+        return ribbonBand {
+            title = resourceBundle.getString("Preferences.textBandTitle")
+            icon = Preferences_desktop_font.of(16, 16)
+            expandCommand {
+                action = ExpandActionListener()
+            }
+
+            group {
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("Accessibility.text")
+                    icon = Preferences_desktop_accessibility.of(16, 16)
+                    action = ActionListener { println("Accessibility activated") }
+                    actionKeyTip = "Y"
+                }
+
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("Assistive.text")
+                    icon = Preferences_desktop_assistive_technology.of(16, 16)
+                    action = ActionListener { println("Assistive activated") }
+                    actionKeyTip = "E"
+                }
+
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("KeyboardShortcuts.text")
+                    icon = Preferences_desktop_keyboard_shortcuts.of(16, 16)
+                    popupCallback = getSimplePopupMenu()
+                    popupKeyTip = "H"
+                }
+            }
+
+            group {
+                command(RibbonElementPriority.TOP) {
+                    title = resourceBundle.getString("Font.text")
+                    icon = Preferences_desktop_font.of(16, 16)
+                    action = ActionListener { println("Font activated") }
+                    actionKeyTip = "Z"
+                }
+
+                command(RibbonElementPriority.TOP) {
+                    title = resourceBundle.getString("Locale.text")
+                    icon = Preferences_desktop_locale.of(16, 16)
+                    action = ActionListener { println("Locale activated") }
+                    actionKeyTip = "L"
+                }
+            }
+
+            group {
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("Screensaver.text")
+                    icon = Preferences_desktop_screensaver.of(16, 16)
+                    action = ActionListener { println("Screensaver activated") }
+                    actionKeyTip = "V"
+                }
+
+                command(RibbonElementPriority.MEDIUM) {
+                    title = resourceBundle.getString("Themes.text")
+                    icon = Preferences_desktop_theme.of(16, 16)
+                    action = ActionListener { println("Themes activated") }
+                    actionKeyTip = "T"
+                }
+            }
+
+            resizePolicies = { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand) }
+        }
+    }
+
+    fun getApplicationsBand(): KRibbonBand {
+        return ribbonBand {
+            title = resourceBundle.getString("Applications.textBandTitle")
+            icon = Applications_other.of(16, 16)
+            expandCommand {
+                action = ExpandActionListener()
+            }
+
+            wrapper {
+                caption = resourceBundle.getString("Games.text")
+                icon = Applications_games.of(16, 16)
+                component = JComboBox(arrayOf<Any>("Tetris", "Minesweeper", "Doom"))
+                keyTip = "AG"
+                isResizingAware = true
+                horizontalAlignment = HorizontalAlignment.FILL
+            }
+
+            wrapper {
+                caption = resourceBundle.getString("Internet.text")
+                icon = Applications_internet.of(16, 16)
+                component = JComboBox(arrayOf<Any>("Firefox", "Opera", "Konqueror"))
+                keyTip = "AI"
+                isEnabled = false
+                isResizingAware = true
+                horizontalAlignment = HorizontalAlignment.FILL
+            }
+
+            wrapper {
+                caption = resourceBundle.getString("Multimedia.text")
+                component = JComboBox(arrayOf<Any>(resourceBundle.getString("Pictures.text"),
+                        resourceBundle.getString("Video.text"), resourceBundle.getString("Audio.text")))
+                keyTip = "AM"
+                isResizingAware = true
+                horizontalAlignment = HorizontalAlignment.FILL
+            }
+        }
+    }
+
+    fun getParagraphBand(): KRibbonBand {
+        return ribbonBand {
+            title = resourceBundle.getString("Paragraph.textBandTitle")
+            icon = Format_justify_left.of(16, 16)
+
+            group {
+                title = resourceBundle.getString("Indent.text")
+
+                wrapper {
+                    caption = resourceBundle.getString("IndentLeft.text")
+                    icon = Format_justify_left.of(16, 16)
+                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
+                    keyTip = "PL"
+                    richTooltip {
+                        title = resourceBundle.getString("IndentLeft.tooltip.title")
+                        description {
+                            +resourceBundle.getString("IndentLeft.tooltip.actionParagraph1")
+                            +resourceBundle.getString("IndentLeft.tooltip.actionParagraph2")
+                        }
+                    }
+                }
+
+                wrapper {
+                    caption = resourceBundle.getString("IndentRight.text")
+                    icon = Format_justify_right.of(16, 16)
+                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
+                    keyTip = "PR"
+                    richTooltip {
+                        title = resourceBundle.getString("IndentRight.tooltip.title")
+                        description {
+                            +resourceBundle.getString("IndentRight.tooltip.actionParagraph1")
+                            +resourceBundle.getString("IndentRight.tooltip.actionParagraph2")
+                        }
+                    }
+                }
+            }
+
+            group {
+                title = resourceBundle.getString("Spacing.text")
+
+                wrapper {
+                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
+                    keyTip = "PB"
+                }
+
+                wrapper {
+                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
+                    keyTip = "PA"
+                }
+            }
+        }
+    }
+
+    fun getShowHideBand(): KRibbonBand {
+        return ribbonBand {
+            title = resourceBundle.getString("ShowHide.textBandTitle")
+            icon = Format_justify_left.of(16, 16)
+
+            wrapper {
+                val ruler = JCheckBox(resourceBundle.getString("Ruler.text"))
+                ruler.isSelected = true
+
+                component = ruler
+                keyTip = "SR"
+            }
+
+            wrapper {
+                component = JCheckBox(resourceBundle.getString("Gridlines.text"))
+                keyTip = "SG"
+            }
+
+            wrapper {
+                component = JCheckBox(resourceBundle.getString("MessageBar.text"))
+                isEnabled = false
+                keyTip = "SM"
+            }
+
+            wrapper {
+                component = JCheckBox(resourceBundle.getString("DocumentMap.text"))
+                keyTip = "SD"
+            }
+
+            wrapper {
+                component = JCheckBox(resourceBundle.getString("Thumbnails.text"))
+                keyTip = "ST"
+            }
+        }
+    }
+
+    fun getWriteTask(): KRibbonTask {
+        return ribbonTask {
+            title = resourceBundle.getString("Write.textTaskTitle")
+            keyTip = "W"
+
+            bands {
+                +getActionBand()
+                +getPreferencesBand()
+                +getApplicationsBand()
+                +getParagraphBand()
+                +getShowHideBand()
+            }
+
+            bandResizeSequencingPolicySource = { task -> CoreRibbonResizeSequencingPolicies.CollapseFromLast(task) }
+        }
+    }
+
+    fun getPreviewBand(): KRibbonBand {
+        return ribbonBand {
+            title = resourceBundle.getString("Preview.textBandTitle")
+            icon = SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32)
+
+            command(RibbonElementPriority.TOP) {
+                title = resourceBundle.getString("Preview.text")
+                icon = SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32)
+                action = ActionListener { println("Preview activated") }
+            }
+
+            command(RibbonElementPriority.TOP) {
+                title = resourceBundle.getString("SlideShow.text")
+                icon = SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32)
+                action = ActionListener { println("Slide Show activated") }
+            }
+
+            resizePolicies = { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesNone(ribbonBand) }
+        }
+    }
+
+    fun getAnimationBand(): KRibbonBand {
+        return ribbonBand {
+            title = resourceBundle.getString("Animation.textBandTitle")
+            icon = SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32)
+
+            command(RibbonElementPriority.TOP) {
+                title = resourceBundle.getString("CustomAnimation.text")
+                icon = SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32)
+                action = ActionListener { println("Animation 1 activated") }
+            }
+
+            command(RibbonElementPriority.TOP) {
+                title = resourceBundle.getString("CustomAnimation.text")
+                icon = SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32)
+                action = ActionListener { println("Animation 2 activated") }
+            }
+
+            command(RibbonElementPriority.TOP) {
+                title = resourceBundle.getString("CustomAnimation.text")
+                icon = SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32)
+                action = ActionListener { println("Animation 3 activated") }
+            }
+
+            resizePolicies = { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesNone(ribbonBand) }
+        }
+    }
+
+    fun getTransitionBand(): KRibbonBand {
+        return ribbonBand {
+            title = resourceBundle.getString("TransitionToThis.textBandTitle")
+            icon = SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32)
+
+            gallery(RibbonElementPriority.TOP) {
+                title = "Transitions"
+                display {
+                    state = CommandButtonDisplayState.SMALL
+                    preferredPopupMaxCommandColumns = 6
+                    preferredPopupMaxVisibleCommandRows = 6
+                    commandVisibilities {
+                        2 at RibbonElementPriority.LOW
+                        4 at RibbonElementPriority.MEDIUM
+                        6 at RibbonElementPriority.TOP
+                    }
+                }
+
+                commandGroup {
+                    title = resourceBundle.getString("TransitionGallery.textGroupTitle1")
+                    for (i in 1..40) {
+                        command {
+                            icon = DecoratedResizableIcon(Appointment_new.of(16, 16),
+                                    DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
+                                        val g2d = g.create() as Graphics2D
+                                        NeonUtil.installDesktopHints(g2d, c)
+                                        g2d.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                .getFontSet("Substance", null).controlFont.deriveFont(9.0f)
+                                        g2d.color = Color.black
+                                        g2d.drawString("" + i, x + 1, y + height - 2)
+                                        g2d.drawString("" + i, x + 3, y + height - 2)
+                                        g2d.drawString("" + i, x + 2, y + height - 1)
+                                        g2d.drawString("" + i, x + 2, y + height - 3)
+                                        g2d.color = Color.white
+                                        g2d.drawString("" + i, x + 2, y + height - 2)
+                                        g2d.dispose()
+                                    })
+                            action = ActionListener { println("Activated action $i") }
+                            isToggle = true
+                        }
+                    }
+                }
+
+                commandGroup {
+                    title = resourceBundle.getString("TransitionGallery.textGroupTitle2")
+                    for (i in 41..70) {
+                        command {
+                            icon = DecoratedResizableIcon(Appointment_new.of(16, 16),
+                                    DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
+                                        val g2d = g.create() as Graphics2D
+                                        NeonUtil.installDesktopHints(g2d, c)
+                                        g2d.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                .getFontSet("Substance", null).controlFont.deriveFont(9.0f)
+                                        g2d.color = Color.black
+                                        g2d.drawString("" + i, x + 1, y + height - 2)
+                                        g2d.drawString("" + i, x + 3, y + height - 2)
+                                        g2d.drawString("" + i, x + 2, y + height - 1)
+                                        g2d.drawString("" + i, x + 2, y + height - 3)
+                                        g2d.color = Color.white
+                                        g2d.drawString("" + i, x + 2, y + height - 2)
+                                        g2d.dispose()
+                                    })
+                            action = ActionListener { println("Activated action $i") }
+                            isToggle = true
+                        }
+                    }
+                }
+            }
+
+            group {
+                wrapper {
+                    caption = resourceBundle.getString("Sound.text")
+                    icon = SimpleResizableIcon(RibbonElementPriority.TOP, 16, 16)
+                    component = JComboBox(arrayOf<Any>("[" + resourceBundle.getString("NoSound.text") + "]     "))
+                }
+
+                wrapper {
+                    caption = resourceBundle.getString("Speed.text")
+                    component = JComboBox(arrayOf<Any>(resourceBundle.getString("Medium.text") + "           "))
+                }
+
+                wrapper {
+                    commandButton {
+                        display {
+                            state = CommandButtonDisplayState.MEDIUM
+                            verticalGapScaleFactor = 0.5
+                        }
+                        command {
+                            title = resourceBundle.getString("ApplyToAll.text")
+                            icon = SimpleResizableIcon(RibbonElementPriority.TOP, 16, 16)
+                            action = ActionListener { println("Apply To All activated") }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun getTransitionNextBand(): KRibbonBand {
+        return ribbonBand {
+            title = resourceBundle.getString("TransitionToNext.textBandTitle")
+            icon = SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32)
+
+            wrapper {
+                val mouseClick = JCheckBox(resourceBundle.getString("OnMouseClick.text"))
+                mouseClick.isSelected = true
+
+                component = mouseClick
+            }
+
+            wrapper {
+                component = JCheckBox(resourceBundle.getString("AutoAfter.text"))
+            }
+
+            wrapper {
+                icon = SimpleResizableIcon(RibbonElementPriority.TOP, 16, 16)
+                component = JSpinner(SpinnerDateModel())
+            }
+        }
+    }
+
+    fun getAnimationsTask(): KRibbonTask {
+        return ribbonTask {
+            title = resourceBundle.getString("Animations.textTaskTitle")
+            keyTip = "A"
+
+            bands {
+                +getPreviewBand()
+                +getAnimationBand()
+                +getTransitionBand()
+                +getTransitionNextBand()
+            }
+        }
+    }
+
+    fun getRowSpanBand(): KRibbonBand {
+        return ribbonBand {
+            title = resourceBundle.getString("RowSpans.textBandTitle")
+            icon = SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32)
+
+            wrapper(rowSpan = 3) {
+                val textPane1 = JTextPane()
+                textPane1.text = resourceBundle.getString("ThreeRows.text")
+                val scrollPane1 = JScrollPane(textPane1)
+                scrollPane1.preferredSize = Dimension(120, 100)
+
+                component = scrollPane1
+            }
+
+            wrapper(rowSpan = 1) {
+                component = JTextField(resourceBundle.getString("OneRow.text"), 8)
+            }
+
+            wrapper(rowSpan = 2) {
+                val textPane3 = JTextPane()
+                textPane3.text = resourceBundle.getString("TwoRows.text")
+                val scrollPane3 = JScrollPane(textPane3)
+                scrollPane3.preferredSize = Dimension(80, 100)
+
+                component = scrollPane3
+            }
+
+            wrapper(rowSpan = 2) {
+                val textPane4 = JTextPane()
+                textPane4.text = resourceBundle.getString("TwoRows.text")
+                val scrollPane4 = JScrollPane(textPane4)
+                scrollPane4.preferredSize = Dimension(80, 100)
+
+                component = scrollPane4
+            }
+
+            wrapper(rowSpan = 1) {
+                component = JTextField(resourceBundle.getString("OneRow.text"), 8)
+            }
+
+            wrapper(rowSpan = 2) {
+                val textPane6 = JTextPane()
+                textPane6.text = resourceBundle.getString("TwoRows.text")
+                val scrollPane6 = JScrollPane(textPane6)
+                scrollPane6.preferredSize = Dimension(80, 100)
+
+                component = scrollPane6
+            }
+
+            wrapper(rowSpan = 2) {
+                val textPane7 = JTextPane()
+                textPane7.text = resourceBundle.getString("TwoRows.text")
+                val scrollPane7 = JScrollPane(textPane7)
+                scrollPane7.preferredSize = Dimension(80, 100)
+
+                component = scrollPane7
+            }
+
+            resizePolicies = { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesNone(ribbonBand) }
+        }
+    }
+
+    fun getAlignmentBand(): KRibbonBand {
+        return ribbonBand {
+            title = resourceBundle.getString("Alignment.textTaskTitle")
+            icon = Format_justify_left.of(16, 16)
+
+            group {
+                wrapper {
+                    component = JLabel(resourceBundle.getString("VeryLong.text"))
+                }
+
+                wrapper {
+                    caption = resourceBundle.getString("Leading.text")
+                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
+                    horizontalAlignment = HorizontalAlignment.LEADING
+                }
+
+                wrapper {
+                    caption = resourceBundle.getString("Trailing.text")
+                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
+                    horizontalAlignment = HorizontalAlignment.TRAILING
+                }
+
+                wrapper {
+                    component = JLabel(resourceBundle.getString("VeryLong.text"))
+                }
+
+                wrapper {
+                    caption = resourceBundle.getString("Center.text")
+                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
+                    horizontalAlignment = HorizontalAlignment.CENTER
+                }
+
+                wrapper {
+                    caption = resourceBundle.getString("Fill.text")
+                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
+                    horizontalAlignment = HorizontalAlignment.FILL
+                }
+            }
+
+            group {
+                wrapper {
+                    component = JLabel(resourceBundle.getString("Long.text"))
+                }
+
+                wrapper {
+                    caption = resourceBundle.getString("Leading.text")
+                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
+                    horizontalAlignment = HorizontalAlignment.LEADING
+                }
+
+                wrapper {
+                    caption = resourceBundle.getString("Trailing.text")
+                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
+                    horizontalAlignment = HorizontalAlignment.TRAILING
+                }
+
+                wrapper {
+                    component = JLabel(resourceBundle.getString("Long.text"))
+                }
+
+                wrapper {
+                    caption = resourceBundle.getString("Center.text")
+                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
+                    horizontalAlignment = HorizontalAlignment.CENTER
+                }
+
+                wrapper {
+                    caption = resourceBundle.getString("Fill.text")
+                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
+                    horizontalAlignment = HorizontalAlignment.FILL
+                }
+            }
+        }
+    }
+
+
+    fun getWrappedTask(): KRibbonTask {
+        return ribbonTask {
+            title = resourceBundle.getString("Wrapped.textTaskTitle")
+            keyTip = "R"
+
+            bands {
+                +getRowSpanBand()
+                +getAlignmentBand()
+            }
+        }
+    }
+
+    fun getContextualRibbonTask(taskTitle: String, taskKeyTip: String): KRibbonTask {
+        return ribbonTask {
+            title = taskTitle
+            keyTip = taskKeyTip
+
+            bands {
+                +getActionBand()
+                +getApplicationsBand()
+                +getPreviewBand()
+                +getTransitionBand()
+            }
+        }
+    }
+}
+
+fun getApplicationMenuRichTooltipIcon(): ResizableIcon {
+    val appMenuButtonTooltipImage = ImageIO
+            .read(RibbonDemoBuilder::class.java.classLoader.getResource(
+                    "org.pushingpixels.demo.kormorant.ribbon/appmenubutton-tooltip-main.png"))
+    val appMenuButtonTooltipImageWidth = appMenuButtonTooltipImage.getWidth()
+    val appMenuButtonTooltipImageHeight = appMenuButtonTooltipImage.getHeight()
+    val appMenuButtonTooltipImageRatio =
+            appMenuButtonTooltipImageWidth.toFloat() / appMenuButtonTooltipImageHeight.toFloat()
+    val appMenuButtonTooltipImageInitialWidth = 160
+    val appMenuButtonTooltipImageInitialHeight =
+            (appMenuButtonTooltipImageInitialWidth / appMenuButtonTooltipImageRatio).toInt()
+    val appMenuRichTooltipMainIcon = object : ResizableIcon {
+        private var width: Int = 0
+        private var height: Int = 0
+
+        override fun getIconWidth(): Int {
+            return this.width
+        }
+
+        override fun getIconHeight(): Int {
+            return this.height
+        }
+
+        override fun setDimension(newDimension: Dimension) {
+            this.width = newDimension.width
+            this.height = newDimension.height
+        }
+
+        override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
+            g.drawImage(appMenuButtonTooltipImage, x, y, iconWidth, iconHeight,
+                    null)
+        }
+    }
+    appMenuRichTooltipMainIcon.setDimension(Dimension(
+            appMenuButtonTooltipImageInitialWidth, appMenuButtonTooltipImageInitialHeight))
+    return appMenuRichTooltipMainIcon
+}
+
+fun configureControlPanel(ribbonFrame: JRibbonFrame, builder: DefaultFormBuilder) {
+    val ribbon = ribbonFrame.ribbon
+
+    val group1Visible = JCheckBox("visible")
+    val group2Visible = JCheckBox("visible")
+    group1Visible.addActionListener {
+        SwingUtilities.invokeLater {
+            ribbon.setVisible(ribbon.getContextualTaskGroup(0), group1Visible.isSelected)
+        }
+    }
+    group2Visible.addActionListener {
+        SwingUtilities.invokeLater {
+            ribbon.setVisible(ribbon.getContextualTaskGroup(1), group2Visible.isSelected)
+        }
+    }
+    builder.append("Group 1", group1Visible)
+    builder.append("Group 2", group2Visible)
+
+    builder.append("Skins", SkinSwitcher.getSkinSwitcher(ribbonFrame))
+
+    val taskbarEnabled = JCheckBox("enabled")
+    taskbarEnabled.isSelected = true
+    taskbarEnabled.addActionListener {
+        SwingUtilities.invokeLater {
+            for (command in ribbon.taskbarCommands) {
+                command.isEnabled = taskbarEnabled.isSelected
+            }
+        }
+    }
+    val taskbarPanel = JPanel()
+    taskbarPanel.layout = BorderLayout()
+    taskbarPanel.add(taskbarEnabled, BorderLayout.LINE_END)
+    builder.append("Taskbar", taskbarPanel)
+
 }
 
 fun main(args: Array<String>) {
@@ -784,10 +1640,393 @@ fun main(args: Array<String>) {
 
             tasks {
                 +builder.getPageLayoutTask()
+                +builder.getWriteTask()
+                +builder.getAnimationsTask()
+                +builder.getWrappedTask()
+            }
+
+            contextualTaskGroups {
+                taskGroup {
+                    title = builder.resourceBundle.getString("Group1.textTaskGroupTitle")
+                    color = Color.red
+
+                    tasks {
+                        +builder.getContextualRibbonTask(
+                                builder.resourceBundle.getString("Task11.textTaskTitle"), "XA")
+                        +builder.getContextualRibbonTask(
+                                builder.resourceBundle.getString("Task12.textTaskTitle"), "XB")
+                    }
+                }
+
+                taskGroup {
+                    title = builder.resourceBundle.getString("Group2.textTaskGroupTitle")
+                    color = Color.green
+
+                    tasks {
+                        +builder.getContextualRibbonTask(
+                                builder.resourceBundle.getString("Task21.textTaskTitle"), "YA")
+                    }
+                }
+            }
+
+            anchored {
+                command {
+                    title = builder.resourceBundle.getString("Share.title")
+                    icon = Internet_mail.of(16, 16)
+                    actionKeyTip = "GS"
+                    action = ActionListener { JOptionPane.showMessageDialog(null, "Share button clicked") }
+                }
+
+                command {
+                    icon = Internet_group_chat.of(16, 16)
+                    actionKeyTip = "GC"
+                    action = ActionListener { JOptionPane.showMessageDialog(null, "Chat button clicked") }
+                }
+
+                command {
+                    icon = Help_browser.of(16, 16)
+                    actionKeyTip = "GH"
+                    action = ActionListener { JOptionPane.showMessageDialog(null, "Help button clicked") }
+                    actionRichTooltip {
+                        title = builder.resourceBundle.getString("Help.tooltip.title")
+                        description {
+                            +builder.resourceBundle.getString("Help.tooltip.actionParagraph")
+                        }
+                    }
+                }
+            }
+
+            taskbar {
+                command {
+                    icon = Edit_paste.of(16, 16)
+                    action = ActionListener { println("Taskbar Paste activated") }
+                    actionRichTooltip {
+                        title = builder.resourceBundle.getString("Paste.text")
+                        description {
+                            +builder.resourceBundle.getString("Paste.tooltip.actionParagraph1")
+                        }
+                    }
+                    actionKeyTip = "1"
+                    popupCallback = builder.getSimplePopupMenu()
+                    popupRichTooltip {
+                        title = builder.resourceBundle.getString("Paste.text")
+                        description {
+                            +builder.resourceBundle.getString("Paste.tooltip.actionParagraph1")
+                        }
+                    }
+                    isTitleClickAction = true
+                }
+
+                command {
+                    icon = Edit_clear.of(16, 16)
+                    action = ActionListener { println("Taskbar Clear activated") }
+                    actionKeyTip = "2"
+                    isEnabled = false
+                }
+
+                command {
+                    icon = Edit_copy.of(16, 16)
+                    action = ActionListener { println("Taskbar Copy activated") }
+                    actionKeyTip = "3"
+                }
+
+                separator()
+
+                command {
+                    icon = Edit_find.of(16, 16)
+                    action = ActionListener { println("Taskbar Find activated") }
+                    actionKeyTip = "4"
+                }
+            }
+
+            applicationMenu {
+                richTooltip {
+                    title = builder.resourceBundle.getString("AppMenu.tooltip.title")
+                    description {
+                        +builder.resourceBundle.getString("AppMenu.tooltip.paragraph1")
+                    }
+                    mainIcon = getApplicationMenuRichTooltipIcon()
+                    footer {
+                        +builder.resourceBundle.getString("AppMenu.tooltip.footer1")
+                    }
+                    footerIcon = Help_browser.of(16, 16)
+                }
+                keyTip = "F"
+
+                defaultCallback = RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback { targetPanel ->
+                    targetPanel.removeAll()
+
+                    val openHistoryPanel = commandButtonPanel {
+                        display {
+                            state = CommandButtonDisplayState.MEDIUM
+                            maxButtonColumns = 1
+                            buttonHorizontalAlignment = SwingConstants.LEADING
+                        }
+                        commandGroup {
+                            title = builder.resourceBundle.getString("AppMenu.default.textGroupTitle1")
+
+                            val mf = MessageFormat(
+                                    builder.resourceBundle.getString("AppMenu.default.textButton"))
+                            mf.locale = builder.currLocale
+                            for (i in 0..4) {
+                                command {
+                                    title = mf.format(arrayOf<Any>(i))
+                                    icon = Text_html.of(16, 16)
+                                    action = ActionListener { println("Action $i activated") }
+                                }
+                            }
+                        }
+                    }
+
+                    targetPanel.layout = BorderLayout()
+                    targetPanel.add(openHistoryPanel.asButtonPanel(), BorderLayout.CENTER)
+                }
+
+                // "Create new" primary
+                primaryCommand {
+                    title = builder.resourceBundle.getString("AppMenuNew.text")
+                    icon = Document_new.of(16, 16)
+                    action = ActionListener { println("Invoked creating new document") }
+                    actionKeyTip = "N"
+                }
+
+                // "Open" primary
+                primaryCommand {
+                    title = builder.resourceBundle.getString("AppMenuOpen.text")
+                    icon = Document_open.of(16, 16)
+                    action = ActionListener { println("Invoked opening document") }
+                    actionKeyTip = "O"
+                    rolloverCallback = RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback { targetPanel ->
+                        targetPanel.removeAll()
+
+                        val openHistoryPanel = commandButtonPanel {
+                            display {
+                                state = CommandButtonDisplayState.MEDIUM
+                                maxButtonColumns = 1
+                                buttonHorizontalAlignment = SwingConstants.LEADING
+                            }
+                            commandGroup {
+                                title = builder.resourceBundle.getString("AppMenuOpen.secondary.textGroupTitle1")
+
+                                val mf = MessageFormat(
+                                        builder.resourceBundle.getString("AppMenuOpen.secondary.textButton"))
+                                mf.locale = builder.currLocale
+                                for (i in 0..4) {
+                                    command {
+                                        title = mf.format(arrayOf<Any>(i))
+                                        icon = Text_html.of(16, 16)
+                                        action = ActionListener { println("Action $i activated") }
+                                    }
+                                }
+                            }
+                        }
+
+                        targetPanel.layout = BorderLayout()
+                        targetPanel.add(openHistoryPanel.asButtonPanel(), BorderLayout.CENTER)
+                    }
+                }
+
+                // "Save" primary
+                primaryCommand {
+                    title = builder.resourceBundle.getString("AppMenuSave.text")
+                    icon = Document_save.of(16, 16)
+                    action = ActionListener { println("Invoked saving document") }
+                    actionKeyTip = "S"
+                    isEnabled = false
+                }
+
+                // "Save as" primary + secondaries
+                primaryCommand {
+                    title = builder.resourceBundle.getString("AppMenuSaveAs.text")
+                    icon = Document_save_as.of(16, 16)
+                    action = ActionListener { println("Invoked saving document as") }
+                    actionKeyTip = "A"
+                    popupKeyTip = "F"
+                    isTitleClickAction = true
+
+                    secondaryGroup {
+                        title = builder.resourceBundle.getString("AppMenuSaveAs.secondary.textGroupTitle1")
+
+                        command {
+                            title = builder.resourceBundle.getString("AppMenuSaveAs.word.text")
+                            icon = X_office_document.of(16, 16)
+                            extraText = builder.resourceBundle.getString("AppMenuSaveAs.word.description")
+                            action = ActionListener { println("Invoked saved as Word") }
+                            actionKeyTip = "W"
+                        }
+
+                        command {
+                            title = builder.resourceBundle.getString("AppMenuSaveAs.html.text")
+                            icon = Text_html.of(16, 16)
+                            extraText = builder.resourceBundle.getString("AppMenuSaveAs.html.description")
+                            action = ActionListener { println("Invoked saved as HTML") }
+                            actionKeyTip = "H"
+                            isEnabled = false
+                        }
+
+                        command {
+                            title = builder.resourceBundle.getString("AppMenuSaveAs.other.text")
+                            icon = Document_save_as.of(16, 16)
+                            extraText = builder.resourceBundle.getString("AppMenuSaveAs.other.description")
+                            action = ActionListener { println("Invoked saved as other") }
+                            actionKeyTip = "O"
+                        }
+                    }
+                }
+
+                primarySeparator()
+
+                // "Print" primary + secondaries
+                primaryCommand {
+                    title = builder.resourceBundle.getString("AppMenuPrint.text")
+                    icon = Document_print.of(16, 16)
+                    action = ActionListener { println("Invoked printing as") }
+                    actionKeyTip = "P"
+                    popupKeyTip = "W"
+                    isTitleClickAction = true
+
+                    secondaryGroup {
+                        title = builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle1")
+
+                        command {
+                            title = builder.resourceBundle.getString("AppMenuPrint.print.text")
+                            icon = Printer.of(16, 16)
+                            extraText = builder.resourceBundle.getString("AppMenuPrint.print.description")
+                            action = ActionListener { println("Invoked print") }
+                            actionKeyTip = "P"
+                        }
+
+                        command {
+                            title = builder.resourceBundle.getString("AppMenuPrint.quick.text")
+                            icon = Printer.of(16, 16)
+                            extraText = builder.resourceBundle.getString("AppMenuPrint.quick.description")
+                            action = ActionListener { println("Invoked quick") }
+                            actionKeyTip = "Q"
+                        }
+
+                        command {
+                            title = builder.resourceBundle.getString("AppMenuPrint.preview.text")
+                            icon = Document_print_preview.of(16, 16)
+                            extraText = builder.resourceBundle.getString("AppMenuPrint.preview.description")
+                            action = ActionListener { println("Invoked preview") }
+                            actionKeyTip = "V"
+                        }
+                    }
+
+                    secondaryGroup {
+                        title = builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle2")
+
+                        command {
+                            title = builder.resourceBundle.getString("AppMenuPrint.memo.text")
+                            icon = Text_x_generic.of(16, 16)
+                            action = ActionListener { println("Invoked memo") }
+                            actionKeyTip = "M"
+                        }
+
+                        command {
+                            title = builder.resourceBundle.getString("AppMenuPrint.custom.text")
+                            icon = Text_x_generic.of(16, 16)
+                            action = ActionListener { println("Invoked custom") }
+                            actionKeyTip = "C"
+                        }
+                    }
+                }
+
+                // "Send" primary + secondaries
+                primaryCommand {
+                    title = builder.resourceBundle.getString("AppMenuSend.text")
+                    icon = Mail_forward.of(16, 16)
+                    popupKeyTip = "D"
+
+                    secondaryGroup {
+                        title = builder.resourceBundle.getString("AppMenuSend.secondary.textGroupTitle1")
+
+                        command {
+                            title = builder.resourceBundle.getString("AppMenuSend.email.text")
+                            icon = Mail_message_new.of(16, 16)
+                            extraText = builder.resourceBundle.getString("AppMenuSend.email.description")
+                            action = ActionListener { println("Invoked email") }
+                            actionKeyTip = "E"
+                        }
+
+                        command {
+                            title = builder.resourceBundle.getString("AppMenuSend.html.text")
+                            icon = Text_html.of(16, 16)
+                            extraText = builder.resourceBundle.getString("AppMenuSend.html.description")
+                            action = ActionListener { println("Invoked HTML") }
+                            actionKeyTip = "H"
+                        }
+
+                        command {
+                            title = builder.resourceBundle.getString("AppMenuSend.word.text")
+                            icon = X_office_document.of(16, 16)
+                            extraText = builder.resourceBundle.getString("AppMenuSend.word.description")
+                            action = ActionListener { println("Invoked Word") }
+                            actionKeyTip = "W"
+                        }
+
+                        command {
+                            title = builder.resourceBundle.getString("AppMenuSend.wireless.text")
+                            icon = Mail_message_new.of(16, 16)
+                            extraText = builder.resourceBundle.getString("AppMenuSend.wireless.description")
+                            popupCallback = PopupPanelCallback {
+                                commandPopupMenu {
+                                    command {
+                                        title = builder.resourceBundle.getString("AppMenuSend.wireless.wifi.text")
+                                        icon = EmptyResizableIcon(16)
+                                        action = ActionListener { println("WiFi activated") }
+                                        actionKeyTip = "W"
+                                    }
+
+                                    command {
+                                        title = builder.resourceBundle.getString("AppMenuSend.wireless.bluetooth.text")
+                                        icon = EmptyResizableIcon(16)
+                                        action = ActionListener { println("Bluetooth activated") }
+                                        actionKeyTip = "B"
+                                    }
+                                }.asCommandPopupMenu()
+                            }
+                            popupKeyTip = "X"
+                        }
+
+                    }
+                }
+
+                // "Exit" primary
+                primaryCommand {
+                    title = builder.resourceBundle.getString("AppMenuExit.text")
+                    icon = System_log_out.of(16, 16)
+                    action = ActionListener { System.exit(0) }
+                    actionKeyTip = "X"
+                    rolloverCallback = RibbonApplicationMenuPrimaryCommand.PrimaryClearRolloverCallback()
+                }
+
+                footer {
+                    command {
+                        title = builder.resourceBundle.getString("AppMenuOptions.text")
+                        icon = Document_properties.of(16, 16)
+                        action = ActionListener { println("Invoked Options") }
+                    }
+
+                    command {
+                        title = builder.resourceBundle.getString("AppMenuExit.text")
+                        icon = System_log_out.of(16, 16)
+                        action = ActionListener { System.exit(0) }
+                    }
+                }
             }
         }
 
         val javaRibbonFrame = ribbonFrame.asRibbonFrame()
+
+        val controlPanel = JPanel()
+        controlPanel.border = EmptyBorder(20, 0, 0, 5)
+        val lm = FormLayout("right:pref, 4dlu, fill:pref:grow", "")
+        val formBuilder = DefaultFormBuilder(lm, controlPanel)
+        configureControlPanel(javaRibbonFrame, formBuilder)
+
+        javaRibbonFrame.add(controlPanel, BorderLayout.EAST)
+        javaRibbonFrame.add(RulerPanel(), BorderLayout.CENTER)
 
         javaRibbonFrame.applyComponentOrientation(
                 ComponentOrientation.getOrientation(builder.currLocale))

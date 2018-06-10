@@ -273,7 +273,7 @@ g.setTransform(defaultTransform_);
      * @return The Y of the bounding box of the original SVG image.
      */
     public static double getOrigY() {
-        return 0.02462729811668396;
+        return 0.024627327919006348;
     }
 
 	/**

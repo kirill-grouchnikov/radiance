@@ -35,7 +35,10 @@ import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 @FlamingoElementMarker
 class KCommandButtonDisplay {
     var state: CommandButtonDisplayState = CommandButtonDisplayState.FIT_TO_ICON
-    var isFlat: Boolean = false
+    var isFlat: Boolean = true
+    var horizontalAlignment: Int = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
+    var horizontalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
+    var verticalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
 }
 
 @FlamingoElementMarker
@@ -55,6 +58,9 @@ class KCommandButton {
         val result = command.asButton()
         result.displayState = display.state
         result.isFlat = display.isFlat
+        result.horizontalAlignment = display.horizontalAlignment
+        result.hGapScaleFactor = display.horizontalGapScaleFactor
+        result.vGapScaleFactor = display.verticalGapScaleFactor
         return result
     }
 
@@ -62,6 +68,9 @@ class KCommandButton {
         val result = command.asMenuButton()
         result.displayState = display.state
         result.isFlat = display.isFlat
+        result.horizontalAlignment = display.horizontalAlignment
+        result.hGapScaleFactor = display.horizontalGapScaleFactor
+        result.vGapScaleFactor = display.verticalGapScaleFactor
         return result
     }
 }

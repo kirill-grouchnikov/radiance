@@ -48,8 +48,9 @@ import java.awt.event.MouseEvent;
  * 
  * @author Kirill Grouchnikov
  */
-public abstract class AbstractCommandButton extends
-		RichToolTipManager.JTrackableComponent {
+public abstract class AbstractCommandButton extends RichToolTipManager.JTrackableComponent {
+	public static final int DEFAULT_HORIZONTAL_ALIGNMENT = SwingConstants.CENTER;
+	public static final double DEFAULT_GAP_SCALE_FACTOR = 1.0;
 	/**
 	 * Associated icon.
 	 * 
@@ -211,11 +212,11 @@ public abstract class AbstractCommandButton extends
 		this.icon = icon;
 		this.customDimension = -1;
 		this.displayState = CommandButtonDisplayState.FIT_TO_ICON;
-		this.horizontalAlignment = SwingConstants.CENTER;
+		this.horizontalAlignment = DEFAULT_HORIZONTAL_ALIGNMENT;
 		this.actionHandler = new ActionHandler();
 		this.isFlat = true;
-		this.hgapScaleFactor = 1.0;
-		this.vgapScaleFactor = 1.0;
+		this.hgapScaleFactor = DEFAULT_GAP_SCALE_FACTOR;
+		this.vgapScaleFactor = DEFAULT_GAP_SCALE_FACTOR;
 		this.setText(text);
 		this.setOpaque(false);
 	}

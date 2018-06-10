@@ -46,16 +46,14 @@ import java.util.List;
  * </p>
  * 
  * <ul>
- * <li>Associated {@link PrimaryRolloverCallback} set by the
- * {@link #setRolloverCallback(PrimaryRolloverCallback)} . When this entry is armed (with mouse
+ * <li>Associated {@link PrimaryRolloverCallback}. When this entry is armed (with mouse
  * rollover or via keyboard navigation), the contents of the secondary area are populated by the
  * application callback implementation of
  * {@link PrimaryRolloverCallback#menuEntryActivated(javax.swing.JPanel)}. The <code>Open</code>
  * menu item is an example of such a primary menu entry, showing a list of recently opened files.
  * For a primary entry that is action-only, pass {@link PrimaryClearRolloverCallback} as the primary
  * rollover callback to clear the secondary area.</li>
- * <li>Associated list of {@link FlamingoCommand}s added with the
- * {@link #addSecondaryMenuGroup(String, FlamingoCommand...)} API. When this entry is armed (with
+ * <li>Associated list of {@link FlamingoCommand}s. When this entry is armed (with
  * mouse rollover or via keyboard navigation), the secondary area shows menu buttons for the
  * registered secondary menu commands. The <code>Save As</code> menu item is an example of such a
  * primary menu item, showing a list of default save formats.</li>
@@ -69,7 +67,6 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
      * secondary panel of the {@link RibbonApplicationMenu} when this primary menu entry is
      * activated.
      * 
-     * @see #setRolloverCallback(PrimaryRolloverCallback)
      * @see #getRolloverCallback()
      */
     private PrimaryRolloverCallback rolloverCallback;
@@ -119,7 +116,7 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
      * 
      * @return The number of secondary menu groups of this primary menu entry.
      * @see #getSecondaryGroupTitleAt(int)
-     * @see #getSecondaryGroupEntries(int)
+     * @see #getSecondaryGroupCommands(int)
      */
     public int getSecondaryGroupCount() {
         return this.groupTitles.size();
@@ -132,7 +129,7 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
      *            The index of a secondary menu group.
      * @return The title of the secondary menu group at the specified index.
      * @see #getSecondaryGroupCount()
-     * @see #getSecondaryGroupEntries(int)
+     * @see #getSecondaryGroupCommands(int)
      */
     public String getSecondaryGroupTitleAt(int groupIndex) {
         return this.groupTitles.get(groupIndex);
@@ -195,7 +192,7 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
 
         /**
          * Adds a titled group of secondary menu commands.
-         * 
+         *
          * @param groupTitle
          *            The title of the group.
          * @param secondaryCommands
@@ -204,7 +201,26 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
         public synchronized RibbonApplicationMenuPrimaryCommandBuilder addSecondaryMenuGroup(
                 String groupTitle, FlamingoCommand... secondaryCommands) {
             this.groupTitles.add(groupTitle);
-            List<FlamingoCommand> entryList = new ArrayList<FlamingoCommand>();
+            List<FlamingoCommand> entryList = new ArrayList<>();
+            this.groupEntries.add(entryList);
+            for (FlamingoCommand entry : secondaryCommands) {
+                entryList.add(entry);
+            }
+            return this;
+        }
+
+        /**
+         * Adds a titled group of secondary menu commands.
+         *
+         * @param groupTitle
+         *            The title of the group.
+         * @param secondaryCommands
+         *            The secondary menu commands belonging to this group.
+         */
+        public synchronized RibbonApplicationMenuPrimaryCommandBuilder addSecondaryMenuGroup(
+                String groupTitle, Iterable<FlamingoCommand> secondaryCommands) {
+            this.groupTitles.add(groupTitle);
+            List<FlamingoCommand> entryList = new ArrayList<>();
             this.groupEntries.add(entryList);
             for (FlamingoCommand entry : secondaryCommands) {
                 entryList.add(entry);

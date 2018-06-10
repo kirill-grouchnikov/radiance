@@ -58,28 +58,6 @@ class KRibbonBandExpandCommand {
     }
 }
 
-interface ResizePolicySource {
-    fun getResizePolicy(controlPanel: JBandControlPanel): RibbonBandResizePolicy
-}
-
-interface ResizePoliciesSource {
-    fun getResizePolicies(ribbonBand: JRibbonBand): List<RibbonBandResizePolicy>
-}
-
-@FlamingoElementMarker
-class ResizePolicyContainer {
-    internal val singleSourcePolicies = arrayListOf<ResizePolicySource>()
-    internal val multiSourcePolicies = arrayListOf<ResizePoliciesSource>()
-
-    operator fun ResizePolicySource.unaryPlus() {
-        singleSourcePolicies.add(this)
-    }
-
-    operator fun ResizePoliciesSource.unaryPlus() {
-        multiSourcePolicies.add(this)
-    }
-}
-
 @FlamingoElementMarker
 class GalleryCommandVisibilityContainer {
     internal val policies = arrayListOf<Pair<Int, RibbonElementPriority>>()
@@ -153,8 +131,7 @@ class KRibbonGallery {
     }
 }
 
-sealed class KBaseRibbonBand<V : AbstractBandControlPanel,
-        T : AbstractRibbonBand<V>> {
+sealed class KBaseRibbonBand<V : AbstractBandControlPanel, T : AbstractRibbonBand<V>> {
     protected var ribbonBand: T? = null
 
     var title: String? by NullableDelegate(ribbonBand)
@@ -162,17 +139,14 @@ sealed class KBaseRibbonBand<V : AbstractBandControlPanel,
     protected var expandCommand: KRibbonBandExpandCommand? by NullableDelegate(ribbonBand)
     var collapsedStateKeyTip: String? by NullableDelegate(null)
 
-    protected val resizePolicies = ResizePolicyContainer()
+    var resizePolicies: ((ribbonBand: JRibbonBand) -> List<RibbonBandResizePolicy>)?
+            by NullableDelegate(ribbonBand)
 
     fun expandCommand(init: KRibbonBandExpandCommand.() -> Unit) {
         if (expandCommand == null) {
             expandCommand = KRibbonBandExpandCommand()
         }
         (expandCommand as KRibbonBandExpandCommand).init()
-    }
-
-    fun resizePolicies(init: ResizePolicyContainer.() -> Unit) {
-        resizePolicies.init()
     }
 
     abstract fun asRibbonBand(): AbstractRibbonBand<out AbstractBandControlPanel>
@@ -182,21 +156,29 @@ sealed class KBaseRibbonBand<V : AbstractBandControlPanel,
 class KRibbonBandGroup {
     var title: String? by NullableDelegate(null)
 
-    internal val commands = arrayListOf<Pair<RibbonElementPriority, KCommand>>()
-    internal val galleries = arrayListOf<Pair<RibbonElementPriority, KRibbonGallery>>()
+    internal val content = arrayListOf<Pair<RibbonElementPriority?, Any>>()
+    internal val spans = hashMapOf<KRibbonComponent, Int>()
 
     fun command(priority: RibbonElementPriority, init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        commands.add(Pair(priority, command))
+        content.add(Pair(priority, command))
         return command
     }
 
     fun gallery(priority: RibbonElementPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {
         val gallery = KRibbonGallery()
         gallery.init()
-        galleries.add(Pair(priority, gallery))
+        content.add(Pair(priority, gallery))
         return gallery
+    }
+
+    fun wrapper(rowSpan: Int = 1, init: KRibbonComponent.() -> Unit): KRibbonComponent {
+        val component = KRibbonComponent()
+        component.init()
+        content.add(Pair(null, component))
+        spans[component] = rowSpan
+        return component
     }
 }
 
@@ -215,7 +197,7 @@ class KRibbonBand : KBaseRibbonBand<JBandControlPanel, JRibbonBand>() {
         }
         val command = KCommand()
         command.init()
-        defaultGroup.commands.add(Pair(priority, command))
+        defaultGroup.content.add(Pair(priority, command))
         return command
     }
 
@@ -225,8 +207,19 @@ class KRibbonBand : KBaseRibbonBand<JBandControlPanel, JRibbonBand>() {
         }
         val gallery = KRibbonGallery()
         gallery.init()
-        defaultGroup.galleries.add(Pair(priority, gallery))
+        defaultGroup.content.add(Pair(priority, gallery))
         return gallery
+    }
+
+    fun wrapper(rowSpan : Int = 1, init: KRibbonComponent.() -> Unit): KRibbonComponent {
+        if (groups.size > 1) {
+            throw IllegalStateException("Can't add a component to default group after starting another group")
+        }
+        val component = KRibbonComponent()
+        component.init()
+        defaultGroup.content.add(Pair(null, component))
+        defaultGroup.spans[component] = rowSpan
+        return component
     }
 
     fun group(init: KRibbonBandGroup.() -> Unit): KRibbonBandGroup {
@@ -251,54 +244,58 @@ class KRibbonBand : KBaseRibbonBand<JBandControlPanel, JRibbonBand>() {
         ribbonBand!!.collapsedStateKeyTip = collapsedStateKeyTip
 
         for (group in groups) {
-            ribbonBand!!.startGroup(group.title)
-            for ((priority, command) in group.commands) {
-                val commandButton = command.asButton()
-                commandButton.isFlat = false
-                ribbonBand!!.addRibbonCommand(command.toFlamingoCommand(), priority)
+            // skip empty default group
+            if ((group == defaultGroup) && group.content.isEmpty()) {
+                continue
             }
 
-            for ((priority, gallery) in group.galleries) {
-                val stylesGalleryCommands = ArrayList<StringValuePair<List<FlamingoCommand>>>()
-                for (commandGroup in gallery.commandGroups) {
-                    stylesGalleryCommands.add(StringValuePair(commandGroup.title,
-                            commandGroup.commands.map { it -> it.toFlamingoCommand() }))
-                }
-                ribbonBand!!.addRibbonGallery(gallery.title, stylesGalleryCommands,
-                        gallery.display.commandVisibilityContainer.policies.map { it.second to it.first }.toMap(),
-                        gallery.display.preferredPopupMaxCommandColumns!!,
-                        gallery.display.preferredPopupMaxVisibleCommandRows!!,
-                        gallery.display.state,
-                        priority)
-                ribbonBand!!.setRibbonGalleryExpandKeyTip(gallery.title, gallery.expandKeyTip)
-                if (!gallery.extraPopupContent.components.isEmpty()) {
-                    // A null entry in the mapped list means that the entry is a separator
-                    val javaExtraPopupContent =
-                            gallery.extraPopupContent.components.map { it -> (it as? KCommand)?.asMenuButton() }
-                    ribbonBand!!.setRibbonGalleryPopupCallback(gallery.title,
-                            { menu ->
-                                for (javaComponent in javaExtraPopupContent) {
-                                    when (javaComponent) {
-                                        is JCommandMenuButton -> menu.addMenuButton(javaComponent)
-                                        is JCommandToggleMenuButton -> menu.addMenuButton(javaComponent)
-                                        else -> menu.addMenuSeparator()
-                                    }
-                                }
-                            })
+            ribbonBand!!.startGroup(group.title)
+            for ((priority, content) in group.content) {
+                when (content) {
+                    is KCommand -> {
+                        val commandButton = content.asButton()
+                        commandButton.isFlat = false
+                        ribbonBand!!.addRibbonCommand(content.toFlamingoCommand(), priority)
+                    }
+                    is KRibbonComponent -> {
+                        ribbonBand!!.addRibbonComponent(content.asRibbonComponent(),
+                                group.spans[content]!!)
+                    }
+                    is KRibbonGallery -> {
+                        val stylesGalleryCommands = ArrayList<StringValuePair<List<FlamingoCommand>>>()
+                        for (commandGroup in content.commandGroups) {
+                            stylesGalleryCommands.add(StringValuePair(commandGroup.title,
+                                    commandGroup.commands.map { it -> it.toFlamingoCommand() }))
+                        }
+                        ribbonBand!!.addRibbonGallery(content.title, stylesGalleryCommands,
+                                content.display.commandVisibilityContainer.policies.map { it.second to it.first }.toMap(),
+                                content.display.preferredPopupMaxCommandColumns!!,
+                                content.display.preferredPopupMaxVisibleCommandRows!!,
+                                content.display.state,
+                                priority)
+                        ribbonBand!!.setRibbonGalleryExpandKeyTip(content.title, content.expandKeyTip)
+                        if (!content.extraPopupContent.components.isEmpty()) {
+                            // A null entry in the mapped list means that the entry is a separator
+                            val javaExtraPopupContent =
+                                    content.extraPopupContent.components.map { it -> (it as? KCommand)?.asMenuButton() }
+                            ribbonBand!!.setRibbonGalleryPopupCallback(content.title,
+                                    { menu ->
+                                        for (javaComponent in javaExtraPopupContent) {
+                                            when (javaComponent) {
+                                                is JCommandMenuButton -> menu.addMenuButton(javaComponent)
+                                                is JCommandToggleMenuButton -> menu.addMenuButton(javaComponent)
+                                                else -> menu.addMenuSeparator()
+                                            }
+                                        }
+                                    })
+                        }
+                    }
                 }
             }
         }
 
-        if (!resizePolicies.singleSourcePolicies.isEmpty() || !resizePolicies.multiSourcePolicies.isEmpty()) {
-            val javaResizePolicies = ArrayList<RibbonBandResizePolicy>()
-            for (resizePolicy in resizePolicies.singleSourcePolicies) {
-                javaResizePolicies.add(resizePolicy.getResizePolicy(ribbonBand!!.controlPanel))
-            }
-            for (resizePolicy in resizePolicies.multiSourcePolicies) {
-                javaResizePolicies.addAll(resizePolicy.getResizePolicies(ribbonBand!!))
-            }
-
-            ribbonBand!!.resizePolicies = javaResizePolicies
+        if (resizePolicies != null) {
+            ribbonBand!!.resizePolicies = resizePolicies!!(ribbonBand!!)
         }
 
         return ribbonBand!!

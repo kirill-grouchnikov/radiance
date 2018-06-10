@@ -430,7 +430,7 @@ g.transform = defaultTransform_
          * @return The width of the bounding box of the original SVG image.
          */
         fun getOrigWidth(): Double {
-            return 44.3132209777832
+            return 44.37505340576172
         }
 
         /**

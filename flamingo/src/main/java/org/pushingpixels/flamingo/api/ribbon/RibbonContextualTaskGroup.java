@@ -86,7 +86,7 @@ public class RibbonContextualTaskGroup {
 
 	/**
 	 * Creates a task contextual group that contains the specified tasks.
-	 * 
+	 *
 	 * @param title
 	 *            Group title.
 	 * @param hueColor
@@ -99,7 +99,29 @@ public class RibbonContextualTaskGroup {
 			RibbonTask... tasks) {
 		this.title = title;
 		this.hueColor = hueColor;
-		this.tasks = new ArrayList<RibbonTask>();
+		this.tasks = new ArrayList<>();
+		for (RibbonTask ribbonTask : tasks) {
+			ribbonTask.setContextualGroup(this);
+			this.tasks.add(ribbonTask);
+		}
+	}
+
+	/**
+	 * Creates a task contextual group that contains the specified tasks.
+	 *
+	 * @param title
+	 *            Group title.
+	 * @param hueColor
+	 *            Hue color for this group. Should be a saturated non-dark color
+	 *            for good visuals.
+	 * @param tasks
+	 *            Tasks to add to the group.
+	 */
+	public RibbonContextualTaskGroup(String title, Color hueColor,
+			Iterable<RibbonTask> tasks) {
+		this.title = title;
+		this.hueColor = hueColor;
+		this.tasks = new ArrayList<>();
 		for (RibbonTask ribbonTask : tasks) {
 			ribbonTask.setContextualGroup(this);
 			this.tasks.add(ribbonTask);

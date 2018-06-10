@@ -600,7 +600,7 @@ g.setTransform(defaultTransform_);
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 4.074917316436768;
+        return 4.046209812164307;
     }
 
     /**
@@ -618,7 +618,7 @@ g.setTransform(defaultTransform_);
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 40.664737701416016;
+		return 40.6575813293457;
 	}
 
 	/**

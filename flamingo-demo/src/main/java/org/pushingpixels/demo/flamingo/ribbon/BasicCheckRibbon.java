@@ -182,8 +182,6 @@ public class BasicCheckRibbon extends JRibbonFrame {
     protected JRibbonBand getActionBand() {
         JRibbonBand actionBand = new JRibbonBand(resourceBundle.getString("Action.textBandTitle"),
                 new Document_new(), new ExpandActionListener());
-        actionBand
-                .setResizePolicies(CoreRibbonResizePolicies.getCorePoliciesRestrictive(actionBand));
 
         actionBand.startGroup();
         actionBand.addRibbonCommand(
@@ -610,7 +608,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build())
                 .setPopupKeyTip("FP").build(), RibbonElementPriority.MEDIUM);
 
-        List<RibbonBandResizePolicy> resizePolicies = new ArrayList<RibbonBandResizePolicy>();
+        List<RibbonBandResizePolicy> resizePolicies = new ArrayList<>();
         resizePolicies.add(new CoreRibbonResizePolicies.Mirror(clipboardBand.getControlPanel()));
         resizePolicies.add(new CoreRibbonResizePolicies.Mid2Low(clipboardBand.getControlPanel()));
         clipboardBand.setResizePolicies(resizePolicies);
@@ -1599,7 +1597,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         group1Visible.addActionListener((ActionEvent e) -> SwingUtilities
                 .invokeLater(() -> getRibbon().setVisible(group1, group1Visible.isSelected())));
         group2Visible.addActionListener((ActionEvent e) -> SwingUtilities
-                .invokeLater(() -> getRibbon().setVisible(group2, group1Visible.isSelected())));
+                .invokeLater(() -> getRibbon().setVisible(group2, group2Visible.isSelected())));
         builder.append("Group 1", group1Visible);
         builder.append("Group 2", group2Visible);
 

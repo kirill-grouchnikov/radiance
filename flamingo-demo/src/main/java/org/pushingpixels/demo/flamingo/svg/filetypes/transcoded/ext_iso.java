@@ -314,7 +314,7 @@ g.setTransform(defaultTransform_);
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 0.7410314083099365;
+		return 0.7410274147987366;
 	}
 
 	/**

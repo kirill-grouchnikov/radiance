@@ -191,7 +191,7 @@ g.transform = defaultTransform_
          * @return The Y of the bounding box of the original SVG image.
          */
         fun getOrigY(): Double {
-            return 2.0
+            return 1.9994829893112183
         }
 
         /**
@@ -209,7 +209,7 @@ g.transform = defaultTransform_
          * @return The height of the bounding box of the original SVG image.
          */
         fun getOrigHeight(): Double {
-            return 43.13629913330078
+            return 43.13681411743164
         }
 
         /**

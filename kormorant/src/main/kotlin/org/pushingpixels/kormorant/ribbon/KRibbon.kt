@@ -30,9 +30,10 @@
 package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
-import org.pushingpixels.kormorant.FlamingoElementMarker
-import org.pushingpixels.kormorant.NullableDelegate
+import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup
+import org.pushingpixels.kormorant.*
 import org.pushingpixels.neon.icon.ResizableIcon
+import java.awt.Color
 
 @FlamingoElementMarker
 class KRibbonTaskContainer {
@@ -44,15 +45,98 @@ class KRibbonTaskContainer {
 }
 
 @FlamingoElementMarker
+class KRibbonAnchoredCommandContainer {
+    internal val commands = arrayListOf<KCommand>()
+
+    operator fun KCommand.unaryPlus() {
+        this@KRibbonAnchoredCommandContainer.commands.add(this)
+    }
+
+    fun command(init: KCommand.() -> Unit): KCommand {
+        val command = KCommand()
+        command.init()
+        commands.add(command)
+        return command
+    }
+}
+
+@FlamingoElementMarker
+class KRibbonTaskbar {
+    internal val components = arrayListOf<Any>()
+
+    operator fun KCommand.unaryPlus() {
+        this@KRibbonTaskbar.components.add(this)
+    }
+
+    fun command(init: KCommand.() -> Unit): KCommand {
+        val command = KCommand()
+        command.init()
+        components.add(command)
+        return command
+    }
+
+    fun separator() {
+        components.add(KCommandPopupMenu.KCommandPopupMenuSeparator())
+    }
+}
+
+@FlamingoElementMarker
+class KRibbonContextualTaskContainer {
+    var title: String by NonNullDelegate(null)
+    var color: Color by NonNullDelegate(null)
+    internal val tasks = KRibbonTaskContainer()
+
+    fun tasks(init: KRibbonTaskContainer.() -> Unit) {
+        tasks.init()
+    }
+}
+
+@FlamingoElementMarker
+class KRibbonContextualTaskGroupContainer {
+    internal val taskGroups = arrayListOf<KRibbonContextualTaskContainer>()
+
+    operator fun KRibbonContextualTaskContainer.unaryPlus() {
+        this@KRibbonContextualTaskGroupContainer.taskGroups.add(this)
+    }
+
+    fun taskGroup(init: KRibbonContextualTaskContainer.() -> Unit): KRibbonContextualTaskContainer {
+        val taskGroup = KRibbonContextualTaskContainer()
+        taskGroup.init()
+        taskGroups.add(taskGroup)
+        return taskGroup
+    }
+}
+
+@FlamingoElementMarker
 class KRibbonFrame {
     private var ribbonFrame: JRibbonFrame? = null
 
     var title: String? by NullableDelegate(ribbonFrame)
     var applicationIcon: ResizableIcon? by NullableDelegate(ribbonFrame)
     private val tasks = KRibbonTaskContainer()
+    private val contextualTaskGroups = KRibbonContextualTaskGroupContainer()
+    private val anchoredCommands = KRibbonAnchoredCommandContainer()
+    private val taskbar = KRibbonTaskbar()
+    private val applicationMenu = KRibbonApplicationMenu()
 
     fun tasks(init: KRibbonTaskContainer.() -> Unit) {
         tasks.init()
+    }
+
+    fun contextualTaskGroups(init: KRibbonContextualTaskGroupContainer.() -> Unit) {
+        contextualTaskGroups.init()
+    }
+
+    fun anchored(init: KRibbonAnchoredCommandContainer.() -> Unit) {
+        anchoredCommands.init()
+    }
+
+    fun taskbar(init: KRibbonTaskbar.() -> Unit) {
+        taskbar.init()
+    }
+
+    fun applicationMenu(init: KRibbonApplicationMenu.() -> Unit) {
+        applicationMenu.init()
     }
 
     fun asRibbonFrame(): JRibbonFrame {
@@ -65,6 +149,29 @@ class KRibbonFrame {
         for (task in tasks.tasks) {
             ribbonFrame!!.ribbon.addTask(task.asRibbonTask())
         }
+
+        for (anchoredCommand in anchoredCommands.commands) {
+            ribbonFrame!!.ribbon.addAnchoredCommand(anchoredCommand.toFlamingoCommand())
+        }
+
+        for (taskbarComponent in taskbar.components) {
+            when (taskbarComponent) {
+                is KCommand -> ribbonFrame!!.ribbon.addTaskbarCommand(taskbarComponent.toFlamingoCommand())
+                is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonFrame!!.ribbon.addTaskbarSeparator()
+            }
+        }
+
+        for (contextualTaskGroup in contextualTaskGroups.taskGroups) {
+            ribbonFrame!!.ribbon.addContextualTaskGroup(
+                    RibbonContextualTaskGroup(contextualTaskGroup.title,
+                            contextualTaskGroup.color,
+                            contextualTaskGroup.tasks.tasks.map { it -> it.asRibbonTask() })
+            )
+        }
+
+        ribbonFrame!!.ribbon.applicationMenu = applicationMenu.asRibbonApplicationMenu()
+        ribbonFrame!!.ribbon.applicationMenuKeyTip = applicationMenu.keyTip
+        ribbonFrame!!.ribbon.applicationMenuRichTooltip = applicationMenu.getRichTooltip()
 
         return ribbonFrame!!
     }

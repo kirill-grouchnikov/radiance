@@ -30,6 +30,7 @@
 package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask
+import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizeSequencingPolicy
 import org.pushingpixels.kormorant.FlamingoElementMarker
 import org.pushingpixels.kormorant.NullableDelegate
 
@@ -47,8 +48,10 @@ class KRibbonTask {
     private var ribbonTask: RibbonTask? = null
 
     var title: String? by NullableDelegate(ribbonTask)
-    var keyTip: String? by NullableDelegate(null)
+    var keyTip: String? by NullableDelegate(ribbonTask)
     private val bands = KRibbonTaskBandContainer()
+    var bandResizeSequencingPolicySource: ((task: RibbonTask) -> RibbonBandResizeSequencingPolicy)?
+            by NullableDelegate(ribbonTask)
 
     fun bands(init: KRibbonTaskBandContainer.() -> Unit) {
         bands.init()
@@ -61,6 +64,10 @@ class KRibbonTask {
         val javaBands = bands.bands.map { it -> it.asRibbonBand() }
         ribbonTask = RibbonTask(title, javaBands.asIterable())
         ribbonTask!!.keyTip = keyTip
+        if (bandResizeSequencingPolicySource != null) {
+            ribbonTask!!.resizeSequencingPolicy =
+                    bandResizeSequencingPolicySource!!(ribbonTask!!)
+        }
         return ribbonTask!!
     }
 }

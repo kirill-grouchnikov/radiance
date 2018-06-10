@@ -40,7 +40,7 @@ class NullableDelegate<T>(private val gate: Any?) : ReadWriteProperty<Any, T?> {
     private var value: T? = null
 
     override fun getValue(thisRef: Any, property: KProperty<*>): T? {
-        return value
+        return this.value
     }
 
     override fun setValue(thisRef: Any, property: KProperty<*>, value: T?) {
@@ -59,7 +59,7 @@ class NonNullDelegate<T : Any>(private val gate: Any?) {
         if (!this.isInitialized) {
             throw UninitializedPropertyAccessException(property.name)
         }
-        return value
+        return this.value
     }
 
     operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {

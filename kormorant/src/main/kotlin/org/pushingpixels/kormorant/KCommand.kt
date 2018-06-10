@@ -49,7 +49,7 @@ interface PopupModelChangeInterface {
 }
 
 @FlamingoElementMarker
-class KCommand {
+open class KCommand {
     private val builder = FlamingoCommand.FlamingoCommandBuilder()
     private var button: AbstractCommandButton? = null
 
@@ -114,44 +114,87 @@ class KCommand {
         (popupRichTooltip as KRichTooltip).init()
     }
 
-    fun toFlamingoCommand(): FlamingoCommand {
-        builder.setTitle(title)
-        builder.setIcon(icon)
-        builder.setDisabledIcon(disabledIcon)
-        builder.setExtraText(extraText)
-        builder.setAction(action)
-        builder.setAutoRepeatAction(isAutoRepeatAction)
+    companion object {
+        fun populateBuilder(builder: FlamingoCommand.BaseFlamingoCommandBuilder<*, *>, command: KCommand) {
+            builder.setTitle(command.title)
+            builder.setIcon(command.icon)
+            builder.setDisabledIcon(command.disabledIcon)
+            builder.setExtraText(command.extraText)
+            builder.setAction(command.action)
+            builder.setAutoRepeatAction(command.isAutoRepeatAction)
 
-        builder.setActionRichTooltip(actionRichTooltip?.buildRichTooltip())
-        builder.setPopupRichTooltip(popupRichTooltip?.buildRichTooltip())
+            builder.setActionRichTooltip(command.actionRichTooltip?.buildRichTooltip())
+            builder.setPopupRichTooltip(command.popupRichTooltip?.buildRichTooltip())
 
-        builder.setActionKeyTip(actionKeyTip)
-        builder.setPopupKeyTip(popupKeyTip)
+            builder.setActionKeyTip(command.actionKeyTip)
+            builder.setPopupKeyTip(command.popupKeyTip)
 
-        if (popupOrientationKind != null) {
-            builder.setPopupOrientationKind(popupOrientationKind)
-        }
-        builder.setPopupCallback(popupCallback)
-
-        if (isTitleClickAction) {
-            builder.setTitleClickAction()
-        }
-        if (isTitleClickPopup) {
-            builder.setTitleClickPopup()
-        }
-
-        if (isToggleSelected) {
-            builder.setToggleSelected(isToggleSelected)
-        } else {
-            if (isToggle) {
-                builder.setToggle()
+            if (command.popupOrientationKind != null) {
+                builder.setPopupOrientationKind(command.popupOrientationKind)
             }
-        }
-        if (toggleGroup != null) {
-            builder.inToggleGroup(toggleGroup!!.flamingoCommandToggleGroup)
-        }
+            builder.setPopupCallback(command.popupCallback)
 
-        builder.setEnabled(isEnabled)
+            if (command.isTitleClickAction) {
+                builder.setTitleClickAction()
+            }
+            if (command.isTitleClickPopup) {
+                builder.setTitleClickPopup()
+            }
+
+            if (command.isToggleSelected) {
+                builder.setToggleSelected(command.isToggleSelected)
+            } else {
+                if (command.isToggle) {
+                    builder.setToggle()
+                }
+            }
+            if (command.toggleGroup != null) {
+                builder.inToggleGroup(command.toggleGroup!!.flamingoCommandToggleGroup)
+            }
+
+            builder.setEnabled(command.isEnabled)
+        }
+    }
+
+    fun toFlamingoCommand(): FlamingoCommand {
+        populateBuilder(builder, this)
+//        builder.setTitle(title)
+//        builder.setIcon(icon)
+//        builder.setDisabledIcon(disabledIcon)
+//        builder.setExtraText(extraText)
+//        builder.setAction(action)
+//        builder.setAutoRepeatAction(isAutoRepeatAction)
+//
+//        builder.setActionRichTooltip(actionRichTooltip?.buildRichTooltip())
+//        builder.setPopupRichTooltip(popupRichTooltip?.buildRichTooltip())
+//
+//        builder.setActionKeyTip(actionKeyTip)
+//        builder.setPopupKeyTip(popupKeyTip)
+//
+//        if (popupOrientationKind != null) {
+//            builder.setPopupOrientationKind(popupOrientationKind)
+//        }
+//        builder.setPopupCallback(popupCallback)
+//
+//        if (isTitleClickAction) {
+//            builder.setTitleClickAction()
+//        }
+//        if (isTitleClickPopup) {
+//            builder.setTitleClickPopup()
+//        }
+//
+//        if (isToggleSelected) {
+//            builder.setToggleSelected(isToggleSelected)
+//        } else {
+//            if (isToggle) {
+//                builder.setToggle()
+//            }
+//        }
+//        if (toggleGroup != null) {
+//            builder.inToggleGroup(toggleGroup!!.flamingoCommandToggleGroup)
+//        }
+//
+//        builder.setEnabled(isEnabled)
 
         return builder.build()
     }

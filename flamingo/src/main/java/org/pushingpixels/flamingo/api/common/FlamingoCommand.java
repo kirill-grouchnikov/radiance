@@ -327,7 +327,8 @@ public class FlamingoCommand {
         private CommandToggleButtonGroup toggleButtonGroup = new CommandToggleButtonGroup();
     }
 
-    protected abstract static class BaseFlamingoCommandBuilder<T extends FlamingoCommand, B extends BaseFlamingoCommandBuilder> {
+    public abstract static class BaseFlamingoCommandBuilder<T extends FlamingoCommand,
+            B extends BaseFlamingoCommandBuilder> {
         protected String title;
         protected ResizableIcon icon;
         protected ResizableIcon disabledIcon;
