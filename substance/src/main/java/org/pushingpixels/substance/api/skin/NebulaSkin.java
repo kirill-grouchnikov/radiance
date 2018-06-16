@@ -50,7 +50,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
  * <code>Nebula</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 4.0
  */
 public class NebulaSkin extends SubstanceSkin {
 	/**

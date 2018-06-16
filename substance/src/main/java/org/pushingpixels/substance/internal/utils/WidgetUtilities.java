@@ -418,7 +418,6 @@ public class WidgetUtilities {
      * @param comp
      *            Component.
      * @return Preview painter for the specified component.
-     * @since 2.1
      */
     public static PreviewPainter getComponentPreviewPainter(Component comp) {
         if (comp == null)

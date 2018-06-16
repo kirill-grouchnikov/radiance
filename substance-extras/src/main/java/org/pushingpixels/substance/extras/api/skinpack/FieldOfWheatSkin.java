@@ -52,7 +52,6 @@ import org.pushingpixels.substance.internal.colorscheme.SaturatedColorScheme;
  * API.
  * 
  * @author Kirill Grouchnikov
- * @since version 3.1
  */
 public class FieldOfWheatSkin extends SubstanceSkin {
 	/**

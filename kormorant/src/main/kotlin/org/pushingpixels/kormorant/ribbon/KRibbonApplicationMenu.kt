@@ -36,7 +36,7 @@ import org.pushingpixels.kormorant.*
 
 @FlamingoElementMarker
 class KRibbonApplicationMenuCommandContainer {
-    var title : String? by NullableDelegate(null)
+    var title: String? by NullableDelegate2({ false })
     internal val commands = arrayListOf<KCommand>()
 
     operator fun KCommand.unaryPlus() {
@@ -55,7 +55,7 @@ class KRibbonApplicationMenuCommandContainer {
 class KRibbonApplicationMenuPrimaryCommand : KCommand() {
     private val builder = RibbonApplicationMenuPrimaryCommand.RibbonApplicationMenuPrimaryCommandBuilder()
 
-    var rolloverCallback: RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback? by NullableDelegate(null)
+    var rolloverCallback: RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback? by NullableDelegate2({ false })
     private var secondaryCommands = arrayListOf<KRibbonApplicationMenuCommandContainer>()
 
     fun secondaryGroup(init: KRibbonApplicationMenuCommandContainer.() -> Unit) {
@@ -78,12 +78,14 @@ class KRibbonApplicationMenuPrimaryCommand : KCommand() {
 
 @FlamingoElementMarker
 class KRibbonApplicationMenu {
-    private var ribbonApplicationMenu: RibbonApplicationMenu? = null
+    private lateinit var ribbonApplicationMenu: RibbonApplicationMenu
+    private var hasBeenConverted: Boolean = false
 
-    private var richTooltip: KRichTooltip? by NullableDelegate(ribbonApplicationMenu)
-    var keyTip: String? by NullableDelegate(ribbonApplicationMenu)
+    private var richTooltip: KRichTooltip? by NullableDelegate2({ hasBeenConverted })
+    var keyTip: String? by NullableDelegate2({ hasBeenConverted })
     private val footerCommands = KRibbonApplicationMenuCommandContainer()
-    var defaultCallback: RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback? by NullableDelegate(ribbonApplicationMenu)
+    var defaultCallback: RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback?
+            by NullableDelegate2({ hasBeenConverted })
     private var primaryContent = arrayListOf<Any>()
 
     fun richTooltip(init: KRichTooltip.() -> Unit) {
@@ -108,28 +110,29 @@ class KRibbonApplicationMenu {
     }
 
     fun asRibbonApplicationMenu(): RibbonApplicationMenu {
-        if (ribbonApplicationMenu != null) {
+        if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
 
         ribbonApplicationMenu = RibbonApplicationMenu()
         for (primaryEntry in primaryContent) {
             when (primaryEntry) {
-                is KRibbonApplicationMenuPrimaryCommand -> ribbonApplicationMenu!!.addMenuCommand(
+                is KRibbonApplicationMenuPrimaryCommand -> ribbonApplicationMenu.addMenuCommand(
                         primaryEntry.toFlamingoApplicationMenuPrimaryCommand())
-                is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonApplicationMenu!!.addMenuSeparator()
+                is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonApplicationMenu.addMenuSeparator()
             }
         }
 
-        ribbonApplicationMenu!!.defaultCallback = defaultCallback
+        ribbonApplicationMenu.defaultCallback = defaultCallback
 
         for (footerCommand in footerCommands.commands) {
-            ribbonApplicationMenu!!.addFooterCommand(footerCommand.toFlamingoCommand())
+            ribbonApplicationMenu.addFooterCommand(footerCommand.toFlamingoCommand())
         }
-        return ribbonApplicationMenu!!
+        hasBeenConverted = true
+        return ribbonApplicationMenu
     }
 
-    fun getRichTooltip() : RichTooltip? {
+    fun getRichTooltip(): RichTooltip? {
         return richTooltip?.buildRichTooltip()
     }
 }

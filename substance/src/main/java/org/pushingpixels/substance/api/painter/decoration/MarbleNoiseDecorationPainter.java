@@ -37,7 +37,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
  * painting on decoration areas.
  * 
  * @author Kirill Grouchnikov
- * @since version 4.3
  */
 public class MarbleNoiseDecorationPainter extends ImageWrapperDecorationPainter {
 	/**

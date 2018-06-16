@@ -40,7 +40,6 @@ import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
  * supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 7.0
  */
 public class GraphiteChalkSkin extends GraphiteSkin {
 	/**

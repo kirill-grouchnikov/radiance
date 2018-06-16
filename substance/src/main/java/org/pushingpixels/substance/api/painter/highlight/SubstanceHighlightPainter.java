@@ -40,7 +40,6 @@ import java.awt.*;
  * <br>
  * 
  * @author Kirill Grouchnikov
- * @since version 4.3
  */
 public interface SubstanceHighlightPainter extends SubstanceTrait {
 	/**

@@ -40,7 +40,6 @@ import java.awt.*;
  * is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 4.3
  */
 public interface SubstanceDecorationPainter extends SubstanceTrait {
 	/**

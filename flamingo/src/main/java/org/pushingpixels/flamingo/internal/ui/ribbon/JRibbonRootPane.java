@@ -32,11 +32,10 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonRootPaneUI;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 
 /**
  * Root pane for the {@link JRibbonFrame}.
@@ -64,8 +63,10 @@ public class JRibbonRootPane extends JRootPane {
 				ribbon.setMinimized(!ribbon.isMinimized());
 			}
 		});
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F1, Event.CTRL_MASK),
-				"toggleMinimized");
+		KeyStroke keyStroke = (SubstanceCoreUtilities.getPlatform() == SubstanceCoreUtilities
+                .Platform.MACOS) ? KeyStroke.getKeyStroke("meta alt R") :
+                              KeyStroke.getKeyStroke("ctrl F1");
+		inputMap.put(keyStroke, "toggleMinimized");
 	}
 
 	@Override

@@ -223,7 +223,6 @@ public abstract class TabPreviewPainter {
 	 * @param tabPane
 	 *            Tabbed pane.
 	 * @return Tab overview kind for the specified tabbed pane.
-	 * @since version 3.0
 	 */
 	public TabOverviewKind getOverviewKind(JTabbedPane tabPane) {
 		return TabOverviewKind.GRID;

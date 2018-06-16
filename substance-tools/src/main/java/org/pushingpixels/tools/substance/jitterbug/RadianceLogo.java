@@ -38,9 +38,9 @@ public class RadianceLogo {
     public static NeonIcon getLogoIcon(SubstanceColorScheme scheme) {
         // Step 1 - create a new instance of the transcoded Radiance logo with
         // base size of 16x16
-        NeonIcon hiDpiAwareIcon = radiance_menu.of(16, 16);
+        NeonIcon neonIcon = radiance_menu.of(16, 16);
         // Step 2 - return the colorized version of the icon
-        return hiDpiAwareIcon.colorize(scheme.getForegroundColor());
+        return neonIcon.colorize(scheme.getForegroundColor());
     }
     
     public static BufferedImage getLogoImage(SubstanceColorScheme scheme) {

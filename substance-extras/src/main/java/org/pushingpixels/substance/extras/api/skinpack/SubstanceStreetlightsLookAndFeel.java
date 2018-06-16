@@ -43,7 +43,6 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
  * </ul>
  * 
  * @author Kirill Grouchnikov
- * @since version 5.0
  */
 public class SubstanceStreetlightsLookAndFeel extends SubstanceLookAndFeel {
 	/**

@@ -51,23 +51,24 @@ interface PopupModelChangeInterface {
 @FlamingoElementMarker
 open class KCommand {
     private val builder = FlamingoCommand.FlamingoCommandBuilder()
-    private var button: AbstractCommandButton? = null
+    private lateinit var button: AbstractCommandButton
+    private var hasBeenConverted: Boolean = false
 
-    var title: String? by NullableDelegate(button)
-    var icon: ResizableIcon? by NullableDelegate(button)
-    var disabledIcon: ResizableIcon? by NullableDelegate(button)
-    var extraText: String? by NullableDelegate(button)
-    var action: ActionListener? by NullableDelegate(button)
-    var actionModelChangeListener: ActionModelChangeInterface? by NullableDelegate(button)
-    private var actionRichTooltip: KRichTooltip? by NullableDelegate(button)
-    var actionKeyTip: String? by NullableDelegate(button)
-    var popupCallback: PopupPanelCallback? by NullableDelegate(button)
-    var popupModelChangeListener: PopupModelChangeInterface? by NullableDelegate(button)
-    private var popupRichTooltip: KRichTooltip? by NullableDelegate(button)
-    var popupOrientationKind: CommandButtonPopupOrientationKind? by NullableDelegate(button)
-    var popupKeyTip: String? by NullableDelegate(button)
-    var isTitleClickAction: Boolean by NonNullDelegate(button)
-    var isTitleClickPopup: Boolean by NonNullDelegate(button)
+    var title: String? by NullableDelegate2({ hasBeenConverted })
+    var icon: ResizableIcon? by NullableDelegate2({ hasBeenConverted })
+    var disabledIcon: ResizableIcon? by NullableDelegate2({ hasBeenConverted })
+    var extraText: String? by NullableDelegate2({ hasBeenConverted })
+    var action: ActionListener? by NullableDelegate2({ hasBeenConverted })
+    var actionModelChangeListener: ActionModelChangeInterface? by NullableDelegate2({ hasBeenConverted })
+    private var actionRichTooltip: KRichTooltip? by NullableDelegate2({ hasBeenConverted })
+    var actionKeyTip: String? by NullableDelegate2({ hasBeenConverted })
+    var popupCallback: PopupPanelCallback? by NullableDelegate2({ hasBeenConverted })
+    var popupModelChangeListener: PopupModelChangeInterface? by NullableDelegate2({ hasBeenConverted })
+    private var popupRichTooltip: KRichTooltip? by NullableDelegate2({ hasBeenConverted })
+    var popupOrientationKind: CommandButtonPopupOrientationKind? by NullableDelegate2({ hasBeenConverted })
+    var popupKeyTip: String? by NullableDelegate2({ hasBeenConverted })
+    var isTitleClickAction: Boolean by NonNullDelegate2({ hasBeenConverted })
+    var isTitleClickPopup: Boolean by NonNullDelegate2({ hasBeenConverted })
 
     // This is the only property that can be modified after a button has been
     // created from this command. The setter propagates the new value to the underlying
@@ -78,16 +79,18 @@ open class KCommand {
         set(value) {
             _isEnabled = value
             builder.setEnabled(value)
-            button?.isEnabled = value
+            if (hasBeenConverted) {
+                button.isEnabled = value
+            }
         }
 
-    var isToggle: Boolean by NonNullDelegate(button)
-    var isToggleSelected: Boolean by NonNullDelegate(button)
-    var toggleGroup: KCommandToggleGroup? by NullableDelegate<KCommandToggleGroup?>(button)
-    var isAutoRepeatAction: Boolean by NonNullDelegate(button)
-    var autoRepeatInitialInterval: Int by NonNullDelegate(button)
-    var autoRepeatSubsequentInterval: Int by NonNullDelegate(button)
-    var isFireActionOnRollover: Boolean by NonNullDelegate(button)
+    var isToggle: Boolean by NonNullDelegate2({ hasBeenConverted })
+    var isToggleSelected: Boolean by NonNullDelegate2({ hasBeenConverted })
+    var toggleGroup: KCommandToggleGroup? by NullableDelegate2({ hasBeenConverted })
+    var isAutoRepeatAction: Boolean by NonNullDelegate2({ hasBeenConverted })
+    var autoRepeatInitialInterval: Int by NonNullDelegate2({ hasBeenConverted })
+    var autoRepeatSubsequentInterval: Int by NonNullDelegate2({ hasBeenConverted })
+    var isFireActionOnRollover: Boolean by NonNullDelegate2({ hasBeenConverted })
 
     init {
         isTitleClickAction = false
@@ -158,81 +161,45 @@ open class KCommand {
 
     fun toFlamingoCommand(): FlamingoCommand {
         populateBuilder(builder, this)
-//        builder.setTitle(title)
-//        builder.setIcon(icon)
-//        builder.setDisabledIcon(disabledIcon)
-//        builder.setExtraText(extraText)
-//        builder.setAction(action)
-//        builder.setAutoRepeatAction(isAutoRepeatAction)
-//
-//        builder.setActionRichTooltip(actionRichTooltip?.buildRichTooltip())
-//        builder.setPopupRichTooltip(popupRichTooltip?.buildRichTooltip())
-//
-//        builder.setActionKeyTip(actionKeyTip)
-//        builder.setPopupKeyTip(popupKeyTip)
-//
-//        if (popupOrientationKind != null) {
-//            builder.setPopupOrientationKind(popupOrientationKind)
-//        }
-//        builder.setPopupCallback(popupCallback)
-//
-//        if (isTitleClickAction) {
-//            builder.setTitleClickAction()
-//        }
-//        if (isTitleClickPopup) {
-//            builder.setTitleClickPopup()
-//        }
-//
-//        if (isToggleSelected) {
-//            builder.setToggleSelected(isToggleSelected)
-//        } else {
-//            if (isToggle) {
-//                builder.setToggle()
-//            }
-//        }
-//        if (toggleGroup != null) {
-//            builder.inToggleGroup(toggleGroup!!.flamingoCommandToggleGroup)
-//        }
-//
-//        builder.setEnabled(isEnabled)
-
         return builder.build()
     }
 
-    fun asButton(): AbstractCommandButton {
-        if (button != null) {
+    internal fun asBaseButton(): AbstractCommandButton {
+        if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
         button = toFlamingoCommand().buildButton()
         if (actionModelChangeListener != null) {
-            button!!.actionModel.addChangeListener({
-                actionModelChangeListener!!.stateChanged(button!!.actionModel)
-            })
+            button.actionModel.addChangeListener {
+                actionModelChangeListener!!.stateChanged(button.actionModel)
+            }
         }
         if ((popupModelChangeListener != null) && (button is JCommandButton)) {
-            (button as JCommandButton).popupModel.addChangeListener({
+            (button as JCommandButton).popupModel.addChangeListener {
                 popupModelChangeListener!!.stateChanged((button as JCommandButton).popupModel)
-            })
+            }
         }
-        return button!!
+        hasBeenConverted = true
+        return button
     }
 
-    fun asMenuButton(): AbstractCommandButton {
-        if (button != null) {
+    internal fun asBaseMenuButton(): AbstractCommandButton {
+        if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
         button = toFlamingoCommand().buildMenuButton()
         if (actionModelChangeListener != null) {
-            button!!.actionModel.addChangeListener({
-                actionModelChangeListener!!.stateChanged(button!!.actionModel)
-            })
+            button.actionModel.addChangeListener {
+                actionModelChangeListener!!.stateChanged(button.actionModel)
+            }
         }
         if ((popupModelChangeListener != null) && (button is JCommandMenuButton)) {
-            (button as JCommandMenuButton).popupModel.addChangeListener({
+            (button as JCommandMenuButton).popupModel.addChangeListener {
                 popupModelChangeListener!!.stateChanged((button as JCommandMenuButton).popupModel)
-            })
+            }
         }
-        return button!!
+        hasBeenConverted = true
+        return button
     }
 }
 

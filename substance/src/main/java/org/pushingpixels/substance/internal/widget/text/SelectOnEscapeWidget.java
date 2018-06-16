@@ -44,7 +44,6 @@ import java.beans.PropertyChangeListener;
  * Adds "select / deselect on Escape key press" behaviour on text components.
  * 
  * @author Kirill Grouchnikov
- * @since 2.1
  */
 public class SelectOnEscapeWidget extends SubstanceWidget<JTextComponent> {
     protected PropertyChangeListener propertyChangeListener;
@@ -102,11 +101,6 @@ public class SelectOnEscapeWidget extends SubstanceWidget<JTextComponent> {
         this.jcomp.getActionMap().remove("flipTextSelection");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installListeners()
-     */
     @Override
     public void installListeners() {
         this.propertyChangeListener = (PropertyChangeEvent evt) -> {
@@ -125,11 +119,6 @@ public class SelectOnEscapeWidget extends SubstanceWidget<JTextComponent> {
         this.jcomp.addPropertyChangeListener(this.propertyChangeListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallListeners()
-     */
     @Override
     public void uninstallListeners() {
         this.jcomp.removePropertyChangeListener(this.propertyChangeListener);

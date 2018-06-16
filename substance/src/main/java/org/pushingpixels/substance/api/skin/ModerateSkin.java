@@ -48,7 +48,6 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
  * <code>Moderate</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 3.1
  */
 public class ModerateSkin extends SubstanceSkin {
     /**

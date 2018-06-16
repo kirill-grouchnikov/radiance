@@ -40,7 +40,6 @@ import org.pushingpixels.substance.extras.internal.SubstanceExtrasSynapse;
  * This class is the only officially-supported entry point into configuring the extra behavior of
  * Substance-powered UIs and for querying the state of such UIs.
  * 
- * @since version 8.0
  * @author Kirill Grouchnikov
  */
 public class SubstanceExtrasCortex {

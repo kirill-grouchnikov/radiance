@@ -54,7 +54,6 @@ import org.pushingpixels.substance.internal.colorscheme.SaturatedColorScheme;
  * <code>Mango</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 3.1
  */
 public class MangoSkin extends SubstanceSkin {
 	/**

@@ -1618,11 +1618,17 @@ fun configureControlPanel(ribbonFrame: JRibbonFrame, builder: DefaultFormBuilder
             }
         }
     }
-    val taskbarPanel = JPanel()
-    taskbarPanel.layout = BorderLayout()
-    taskbarPanel.add(taskbarEnabled, BorderLayout.LINE_END)
-    builder.append("Taskbar", taskbarPanel)
+    builder.append("Taskbar", taskbarEnabled)
 
+
+    val toggleMinimize = JCheckBox("minimized")
+    toggleMinimize.isSelected = false
+    toggleMinimize.addActionListener {
+        SwingUtilities.invokeLater {
+            ribbon.isMinimized = !ribbon.isMinimized
+        }
+    }
+    builder.append("Minimize", toggleMinimize)
 }
 
 fun main(args: Array<String>) {

@@ -39,7 +39,6 @@ import java.net.URL;
  * painting on decoration areas.
  * 
  * @author Kirill Grouchnikov
- * @since version 4.0
  */
 public class BrushedMetalDecorationPainter extends
 		ImageWrapperDecorationPainter {

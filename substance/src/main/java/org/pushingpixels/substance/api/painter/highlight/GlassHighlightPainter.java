@@ -39,7 +39,6 @@ import java.awt.*;
  * officially supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 4.3
  */
 public class GlassHighlightPainter implements SubstanceHighlightPainter {
 	/**

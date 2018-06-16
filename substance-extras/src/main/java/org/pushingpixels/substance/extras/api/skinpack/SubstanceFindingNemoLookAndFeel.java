@@ -43,7 +43,6 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
  * </ul>
  * 
  * @author Kirill Grouchnikov
- * @since version 4.2
  */
 public class SubstanceFindingNemoLookAndFeel extends SubstanceLookAndFeel {
 	/**

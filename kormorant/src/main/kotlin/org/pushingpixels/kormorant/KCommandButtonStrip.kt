@@ -86,7 +86,7 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
             result.setVGapScaleFactor(display.verticalGapScaleFactor)
         }
         for (command in commands) {
-            val commandButton = command.asButton()
+            val commandButton = command.asBaseButton()
             if (isToggleGroup && (commandButton !is JCommandToggleButton)) {
                 throw IllegalStateException("Command button should be toggle")
             }

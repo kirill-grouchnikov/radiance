@@ -47,7 +47,7 @@ import javax.swing.JFrame
 import javax.swing.SwingUtilities
 
 fun main(args: Array<String>) {
-    SwingUtilities.invokeLater({
+    SwingUtilities.invokeLater {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
         val resourceBundle = ResourceBundle
@@ -130,5 +130,5 @@ fun main(args: Array<String>) {
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
         frame.isVisible = true
-    })
+    }
 }

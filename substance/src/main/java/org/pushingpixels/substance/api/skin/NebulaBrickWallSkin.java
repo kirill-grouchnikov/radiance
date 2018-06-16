@@ -37,7 +37,6 @@ import org.pushingpixels.substance.api.colorscheme.OrangeColorScheme;
  * supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 4.0
  */
 public class NebulaBrickWallSkin extends NebulaSkin {
 	/**

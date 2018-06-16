@@ -47,7 +47,6 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
  * <code>Cerulean</code> skin. This class is part of officially supported API.
  * 
  * @author Danno Ferrin
- * @since version 6.2
  */
 public class CeruleanSkin extends SubstanceSkin {
 	/**

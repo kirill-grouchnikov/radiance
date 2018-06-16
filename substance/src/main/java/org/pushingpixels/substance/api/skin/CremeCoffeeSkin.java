@@ -47,7 +47,6 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
  * API.
  * 
  * @author Kirill Grouchnikov
- * @since version 4.1
  */
 public class CremeCoffeeSkin extends SubstanceSkin {
 	/**

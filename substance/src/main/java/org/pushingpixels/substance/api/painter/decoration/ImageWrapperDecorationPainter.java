@@ -47,7 +47,6 @@ import java.util.Map.Entry;
  * decoration areas.
  * 
  * @author Kirill Grouchnikov
- * @since version 4.3
  */
 public abstract class ImageWrapperDecorationPainter implements SubstanceDecorationPainter {
     /**

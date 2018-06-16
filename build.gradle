@@ -29,7 +29,7 @@
  */
 
 allprojects {
-    version = '1.0.00-dev'
+    version = '0.9-dev'
     ext.codename = 'Antimony'
 
     buildscript {
@@ -50,7 +50,7 @@ allprojects {
 
 buildscript {
     ext {
-        kotlin_version = '1.2.41'
+        kotlin_version = '1.2.50'
     }
 }
 
@@ -58,6 +58,9 @@ mkdir {
     "drop/${version}"
 }
 
+// Copies the compiled jars from all the sub-projects into the drop folder. The compiled
+// jars are grouped into two folders: core for app-facing sub-projects (such as Trident,
+// Neon, Substance, Flamingo) and demo for sub-projects that have demo or tools functionality.
 task copyJars(type: Zip) {
     t ->
         delete "drop/${project.version}"
@@ -72,13 +75,41 @@ task copyJars(type: Zip) {
         }
 }
 
-task getRuntimeDependencies(type: Copy) {
-    into 'build/libs'
+// Collects all the dependencies of the core sub-projects in build/libs-core
+task getCoreDependencies(type: Copy) {
+    into 'build/libs-core'
     from {
         subprojects.findAll { it.designation == "core" }.collect { it.configurations.runtime }
     }
 }
 
+// Collects all the dependencies of the demo sub-projects in build/libs-demo
+task getDemoDependencies(type: Copy) {
+    into 'build/libs-demo'
+    from {
+        subprojects.findAll { it.designation == "demo" }.collect { it.configurations.runtime }
+    }
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = "4.1"
+}
+
+task printRuntimeDependencies {
+    doLast {
+        println "Project runtime dependencies:"
+        allprojects.each { p ->
+            println()
+            println " $p.name ".center(45, '-')
+            p.configurations.findAll { it.name == "runtime" }.findAll { !it.allDependencies.empty }.each { c ->
+                c.allDependencies.each { dep ->
+                    println "$dep.group:$dep.name:$dep.version"
+                }
+            }
+        }
+        subprojects.each { p ->
+            println " $p.name ".center(45, '-')
+            p.collect { it.configurations.runtime }.each { r -> println "$r.name" }
+        }
+    }
 }

@@ -45,7 +45,6 @@ import org.pushingpixels.substance.api.shaper.StandardButtonShaper;
  * <code>Mist Silver</code> skin. This class is experimental.
  * 
  * @author Kirill Grouchnikov
- * @since version 4.0
  */
 public class MistSilverSkin extends SubstanceSkin {
 	/**

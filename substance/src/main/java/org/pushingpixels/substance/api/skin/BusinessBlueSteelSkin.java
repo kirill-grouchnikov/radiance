@@ -46,7 +46,6 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
  * supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 3.3
  */
 public class BusinessBlueSteelSkin extends SubstanceSkin {
 	/**

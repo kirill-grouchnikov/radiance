@@ -50,7 +50,6 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
  * <code>Autumn</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 4.0
  */
 public class AutumnSkin extends SubstanceSkin {
 	/**

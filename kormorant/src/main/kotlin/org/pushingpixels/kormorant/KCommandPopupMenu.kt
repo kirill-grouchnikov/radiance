@@ -37,11 +37,11 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu
 
 @FlamingoElementMarker
 class KCommandPopupMenuButtonPanelDisplay {
-    var maxButtonColumns: Int by NonNullDelegate(null)
-    var maxVisibleButtonRows: Int by NonNullDelegate(null)
-    var isShowingGroupTitles: Boolean by NonNullDelegate(null)
-    var state: CommandButtonDisplayState? by NullableDelegate(null)
-    var dimension: Int by NonNullDelegate(null)
+    var maxButtonColumns: Int by NonNullDelegate2({ false })
+    var maxVisibleButtonRows: Int by NonNullDelegate2({ false })
+    var isShowingGroupTitles: Boolean by NonNullDelegate2({ false })
+    var state: CommandButtonDisplayState? by NullableDelegate2({ false })
+    var dimension: Int by NonNullDelegate2({ false })
 
     init {
         isShowingGroupTitles = true
@@ -53,7 +53,7 @@ class KCommandPopupMenuButtonPanelDisplay {
 class KCommandPopupMenuButtonPanel {
     private val commandGroups = arrayListOf<KCommandButtonPanel.KCommandButtonPanelGroup>()
     internal val display: KCommandPopupMenuButtonPanelDisplay = KCommandPopupMenuButtonPanelDisplay()
-    var isSingleSelectionMode: Boolean by NonNullDelegate(null)
+    var isSingleSelectionMode: Boolean by NonNullDelegate2({ false })
 
     init {
         isSingleSelectionMode = false
@@ -93,7 +93,7 @@ class KCommandPopupMenuButtonPanel {
         for (commandGroup in commandGroups) {
             buttonPanel.addButtonGroup(commandGroup.title)
             for (command in commandGroup.commands) {
-                buttonPanel.addButtonToLastGroup(command.asButton())
+                buttonPanel.addButtonToLastGroup(command.asBaseButton())
             }
         }
 
@@ -103,11 +103,12 @@ class KCommandPopupMenuButtonPanel {
 
 @FlamingoElementMarker
 class KCommandPopupMenu {
-    private var popupMenu: JCommandPopupMenu? = null
+    private lateinit var popupMenu: JCommandPopupMenu
+    private var hasBeenConverted: Boolean = false
 
     private val components = arrayListOf<Any>()
-    var maxVisibleMenuButtons: Int by NonNullDelegate(popupMenu)
-    var toDismissOnChildClick: Boolean by NonNullDelegate(popupMenu)
+    var maxVisibleMenuButtons: Int by NonNullDelegate2({ hasBeenConverted })
+    var toDismissOnChildClick: Boolean by NonNullDelegate2({ hasBeenConverted })
 
     private var commandPanel: KCommandPopupMenuButtonPanel? = null
 
@@ -138,7 +139,7 @@ class KCommandPopupMenu {
     }
 
     fun asCommandPopupMenu(): JCommandPopupMenu {
-        if (popupMenu != null) {
+        if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
 
@@ -151,12 +152,12 @@ class KCommandPopupMenu {
 
         for (component in components) {
             when (component) {
-                is KCommandPopupMenuSeparator -> popupMenu!!.addMenuSeparator()
+                is KCommandPopupMenuSeparator -> popupMenu.addMenuSeparator()
                 is KCommand -> {
-                    val commandMenuButton = component.asMenuButton()
+                    val commandMenuButton = component.asBaseMenuButton()
                     when (commandMenuButton) {
-                        is JCommandMenuButton -> popupMenu!!.addMenuButton(commandMenuButton)
-                        is JCommandToggleMenuButton -> popupMenu!!.addMenuButton(commandMenuButton)
+                        is JCommandMenuButton -> popupMenu.addMenuButton(commandMenuButton)
+                        is JCommandToggleMenuButton -> popupMenu.addMenuButton(commandMenuButton)
                         else -> throw IllegalStateException("Unsupported content")
                     }
                 }
@@ -164,10 +165,11 @@ class KCommandPopupMenu {
             }
         }
         if (maxVisibleMenuButtons > 0) {
-            popupMenu!!.maxVisibleMenuButtons = maxVisibleMenuButtons
+            popupMenu.maxVisibleMenuButtons = maxVisibleMenuButtons
         }
-        popupMenu!!.isToDismissOnChildClick = toDismissOnChildClick
-        return popupMenu!!
+        popupMenu.isToDismissOnChildClick = toDismissOnChildClick
+        hasBeenConverted = true
+        return popupMenu
     }
 }
 

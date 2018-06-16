@@ -73,7 +73,7 @@ fun JTextPane.toggleStyleInSelection(style: Any) {
 }
 
 fun main(args: Array<String>) {
-    SwingUtilities.invokeLater({
+    SwingUtilities.invokeLater {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
         val frame = JFrame("Text styling demo")
@@ -81,7 +81,8 @@ fun main(args: Array<String>) {
 
         // Configure and populate "Lorem ipsum" multiline content
         val textPane = JTextPane()
-        textPane.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        textPane.text =
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         textPane.isEditable = false
         textPane.border = EmptyBorder(12, 12, 12, 12)
 
@@ -169,5 +170,5 @@ fun main(args: Array<String>) {
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         frame.isVisible = true
-    })
+    }
 }

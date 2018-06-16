@@ -533,25 +533,21 @@ public final class SubstanceSlices {
      * Tab content pane border kind.
      * 
      * @author Kirill Grouchnikov
-     * @since version 4.1
      */
     public enum TabContentPaneBorderKind {
         /**
          * The content pane has full border on all sides plus an additional line along the tab
-         * placement side (as in Firefox 2.0, Internet Explorer 7.0 and Nimbus). This is the default
-         * kind starting in versions 4.1-6.1.
+         * placement side (as in Firefox 2.0, Internet Explorer 7.0 and Nimbus).
          */
         DOUBLE_FULL,
 
         /**
-         * The content pane has full single border on all sides. This has been the default kind
-         * prior to version 4.1.
+         * The content pane has full single border on all sides.
          */
         SINGLE_FULL,
 
         /**
-         * The content pane has double border along the tab placement side. This is the default kind
-         * starting from version 6.2.
+         * The content pane has double border along the tab placement side. This is the default.
          */
         DOUBLE_PLACEMENT,
 
@@ -751,8 +747,6 @@ public final class SubstanceSlices {
          * Focus loop animation. Disabled by default, use
          * {@link SubstanceCortex.GlobalScope#allowAnimations(AnimationFacet)} to enable.
          * </p>
-         * 
-         * @since version 3.0
          */
         public static final AnimationFacet FOCUS_LOOP_ANIMATION = new AnimationFacet(
                 "substancelaf.core.focusLoopAnimation", false);
@@ -801,8 +795,6 @@ public final class SubstanceSlices {
          * automatically scrolls the tree horizontally when the viewport shows mainly empty area
          * (especially relevant for multi-level trees with narrow viewports).
          * </p>
-         * 
-         * @since 4.0
          */
         public final static AnimationFacet TREE_SMART_SCROLL_ANIMATION_KIND = new AnimationFacet(
                 "substancelaf.treeSmartScrollAnimationKind", false);
@@ -823,7 +815,6 @@ public final class SubstanceSlices {
      * API.
      * 
      * @author Kirill Grouchnikov
-     * @since version 4.3
      */
     public final static class DecorationAreaType {
         String displayName;
@@ -901,7 +892,6 @@ public final class SubstanceSlices {
      * kinds.
      * 
      * @author Kirill Grouchnikov
-     * @since version 5.1
      */
     public final static class ColorSchemeAssociationKind {
         /**

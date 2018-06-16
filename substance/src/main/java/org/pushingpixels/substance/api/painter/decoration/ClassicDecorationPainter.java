@@ -46,7 +46,6 @@ import java.awt.image.BufferedImage;
  * officially supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 4.3
  */
 public class ClassicDecorationPainter implements SubstanceDecorationPainter {
 	/**

@@ -49,11 +49,6 @@ public class SelectAllOnFocusGainWidget extends SubstanceWidget<JTextComponent> 
      */
     protected FocusListener focusListener;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installListeners()
-     */
     @Override
     public void installListeners() {
         this.focusListener = new FocusAdapter() {
@@ -69,11 +64,6 @@ public class SelectAllOnFocusGainWidget extends SubstanceWidget<JTextComponent> 
         this.jcomp.addFocusListener(this.focusListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallListeners()
-     */
     @Override
     public void uninstallListeners() {
         this.jcomp.removeFocusListener(this.focusListener);

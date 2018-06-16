@@ -54,7 +54,6 @@ import org.pushingpixels.substance.internal.colorscheme.BlendBiColorScheme;
  * API.
  * 
  * @author Kirill Grouchnikov
- * @since version 5.0
  */
 public class StreetlightsSkin extends SubstanceSkin {
 	/**

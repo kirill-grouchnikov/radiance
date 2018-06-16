@@ -41,8 +41,6 @@ import javax.swing.*;
  * 
  * @see FontSet
  * @see FontPolicies
- * 
- * @since 2.0
  */
 public interface FontPolicy {
 

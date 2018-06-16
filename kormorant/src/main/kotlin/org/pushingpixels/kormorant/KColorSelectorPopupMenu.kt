@@ -35,7 +35,7 @@ import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 
 @FlamingoElementMarker
 class KColorSelectorPopupMenuColorSection(val isDerived: Boolean) {
-    var title: String by NonNullDelegate(null)
+    var title: String by NonNullDelegate2({ false })
     internal var colors = ColorContainer()
 
     fun colors(init: ColorContainer.() -> Unit) {
@@ -50,10 +50,11 @@ class KColorSelectorPopupMenuRecentSection {
 
 @FlamingoElementMarker
 class KColorSelectorPopupMenu {
-    private var colorSelectorPopupMenu: JColorSelectorPopupMenu? = null
+    private lateinit var colorSelectorPopupMenu: JColorSelectorPopupMenu
+    private var hasBeenConverted: Boolean = false
 
     var colorSelectorCallback: JColorSelectorPopupMenu.ColorSelectorCallback
-            by NonNullDelegate(colorSelectorPopupMenu)
+            by NonNullDelegate2({ hasBeenConverted })
 
     private val components = arrayListOf<Any>()
 
@@ -91,7 +92,7 @@ class KColorSelectorPopupMenu {
     }
 
     fun asColorSelectorPopupMenu(): JColorSelectorPopupMenu {
-        if (colorSelectorPopupMenu != null) {
+        if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
 
@@ -99,31 +100,32 @@ class KColorSelectorPopupMenu {
 
         for (component in components) {
             when (component) {
-                is KCommandPopupMenu.KCommandPopupMenuSeparator -> colorSelectorPopupMenu!!.addMenuSeparator()
+                is KCommandPopupMenu.KCommandPopupMenuSeparator -> colorSelectorPopupMenu.addMenuSeparator()
                 is KCommand -> {
-                    val commandMenuButton = component.asMenuButton()
+                    val commandMenuButton = component.asBaseMenuButton()
                     when (commandMenuButton) {
-                        is JCommandMenuButton -> colorSelectorPopupMenu!!.addMenuButton(commandMenuButton)
-                        is JCommandToggleMenuButton -> colorSelectorPopupMenu!!.addMenuButton(commandMenuButton)
+                        is JCommandMenuButton -> colorSelectorPopupMenu.addMenuButton(commandMenuButton)
+                        is JCommandToggleMenuButton -> colorSelectorPopupMenu.addMenuButton(commandMenuButton)
                         else -> throw IllegalStateException("Unsupported content")
                     }
                 }
                 is KColorSelectorPopupMenuColorSection -> {
                     if (component.isDerived) {
-                        colorSelectorPopupMenu!!.addColorSectionWithDerived(component.title,
+                        colorSelectorPopupMenu.addColorSectionWithDerived(component.title,
                                 component.colors.colors.toTypedArray())
                     } else {
-                        colorSelectorPopupMenu!!.addColorSection(component.title,
+                        colorSelectorPopupMenu.addColorSection(component.title,
                                 component.colors.colors.toTypedArray())
                     }
                 }
                 is KColorSelectorPopupMenuRecentSection -> {
-                    colorSelectorPopupMenu!!.addRecentSection(component.title)
+                    colorSelectorPopupMenu.addRecentSection(component.title)
                 }
                 else -> throw IllegalStateException("Unsupported content")
             }
         }
-        return colorSelectorPopupMenu!!
+        hasBeenConverted = true
+        return colorSelectorPopupMenu
     }
 }
 

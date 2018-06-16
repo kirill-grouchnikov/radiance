@@ -38,7 +38,6 @@ import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
  * <code>Graphite</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 3.3
  */
 public class GraphiteSkin extends GraphiteBaseSkin {
 	/**

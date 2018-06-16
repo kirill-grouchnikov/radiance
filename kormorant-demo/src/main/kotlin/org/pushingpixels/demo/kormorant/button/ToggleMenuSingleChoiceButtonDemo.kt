@@ -49,7 +49,7 @@ import javax.swing.SwingUtilities
 import javax.swing.text.StyleConstants
 
 fun main(args: Array<String>) {
-    SwingUtilities.invokeLater({
+    SwingUtilities.invokeLater {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
         val frame = JFrame("Test")
@@ -125,5 +125,5 @@ fun main(args: Array<String>) {
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
         frame.isVisible = true
-    })
+    }
 }

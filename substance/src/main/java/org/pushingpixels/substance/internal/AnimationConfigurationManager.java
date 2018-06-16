@@ -55,7 +55,6 @@ import java.util.Set;
  * this class.
  * 
  * @author Kirill Grouchnikov
- * @since 2.1
  */
 public class AnimationConfigurationManager {
     private static final Spline DEFAULT_EASE = new Spline(0.5f);

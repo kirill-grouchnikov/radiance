@@ -87,7 +87,7 @@ class ColorIcon(private var color: Color) : ResizableIcon {
 }
 
 fun main(args: Array<String>) {
-    SwingUtilities.invokeLater({
+    SwingUtilities.invokeLater {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
         val resourceBundle = ResourceBundle
@@ -197,14 +197,14 @@ fun main(args: Array<String>) {
                         command {
                             title = resourceBundle.getString("ColorSelector.textMoreColor")
                             action = ActionListener {
-                                SwingUtilities.invokeLater({
+                                SwingUtilities.invokeLater {
                                     val color = JColorChooser.showDialog(it.source as Component,
                                             "Color chooser", backgroundColor)
                                     if (color != null) {
                                         callback.onColorSelected(color)
                                         JColorSelectorPopupMenu.addColorToRecentlyUsed(color)
                                     }
-                                })
+                                }
                             }
                         }
                     }.asColorSelectorPopupMenu()
@@ -224,5 +224,5 @@ fun main(args: Array<String>) {
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
         frame.isVisible = true
-    })
+    }
 }

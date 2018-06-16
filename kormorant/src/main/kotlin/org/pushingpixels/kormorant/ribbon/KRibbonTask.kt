@@ -32,7 +32,7 @@ package org.pushingpixels.kormorant.ribbon
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizeSequencingPolicy
 import org.pushingpixels.kormorant.FlamingoElementMarker
-import org.pushingpixels.kormorant.NullableDelegate
+import org.pushingpixels.kormorant.NullableDelegate2
 
 @FlamingoElementMarker
 class KRibbonTaskBandContainer {
@@ -45,30 +45,32 @@ class KRibbonTaskBandContainer {
 
 @FlamingoElementMarker
 class KRibbonTask {
-    private var ribbonTask: RibbonTask? = null
+    private lateinit var ribbonTask: RibbonTask
+    private var hasBeenConverted: Boolean = false
 
-    var title: String? by NullableDelegate(ribbonTask)
-    var keyTip: String? by NullableDelegate(ribbonTask)
+    var title: String? by NullableDelegate2({ hasBeenConverted })
+    var keyTip: String? by NullableDelegate2({ hasBeenConverted })
     private val bands = KRibbonTaskBandContainer()
     var bandResizeSequencingPolicySource: ((task: RibbonTask) -> RibbonBandResizeSequencingPolicy)?
-            by NullableDelegate(ribbonTask)
+            by NullableDelegate2({ hasBeenConverted })
 
     fun bands(init: KRibbonTaskBandContainer.() -> Unit) {
         bands.init()
     }
 
     fun asRibbonTask(): RibbonTask {
-        if (ribbonTask != null) {
+        if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
         val javaBands = bands.bands.map { it -> it.asRibbonBand() }
         ribbonTask = RibbonTask(title, javaBands.asIterable())
-        ribbonTask!!.keyTip = keyTip
+        ribbonTask.keyTip = keyTip
         if (bandResizeSequencingPolicySource != null) {
-            ribbonTask!!.resizeSequencingPolicy =
-                    bandResizeSequencingPolicySource!!(ribbonTask!!)
+            ribbonTask.resizeSequencingPolicy =
+                    bandResizeSequencingPolicySource!!(ribbonTask)
         }
-        return ribbonTask!!
+        hasBeenConverted = true
+        return ribbonTask
     }
 }
 

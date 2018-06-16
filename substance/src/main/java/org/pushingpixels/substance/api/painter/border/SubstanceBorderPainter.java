@@ -48,7 +48,6 @@ import java.awt.*;
  * border painter.
  * 
  * @author Kirill Grouchnikov
- * @since version 4.0
  */
 public interface SubstanceBorderPainter extends SubstanceTrait {
 	/**

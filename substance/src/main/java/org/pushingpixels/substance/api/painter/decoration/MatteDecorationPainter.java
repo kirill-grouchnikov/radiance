@@ -42,7 +42,6 @@ import java.awt.*;
  * on decoration areas.
  * 
  * @author Kirill Grouchnikov
- * @since version 4.3
  */
 public class MatteDecorationPainter implements SubstanceDecorationPainter {
 	/**

@@ -38,7 +38,6 @@ import java.awt.*;
  * contours.
  * 
  * @author Kirill Grouchnikov
- * @since version 5.2
  */
 public class CompositeBorderPainter implements SubstanceBorderPainter {
 	/**

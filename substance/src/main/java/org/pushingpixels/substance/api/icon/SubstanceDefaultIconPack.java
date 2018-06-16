@@ -39,7 +39,6 @@ import org.pushingpixels.substance.internal.svg.*;
  * supported API.<br>
  *
  * @author Kirill Grouchnikov
- * @since version 8.0
  */
 public class SubstanceDefaultIconPack implements SubstanceIconPack {
     @Override

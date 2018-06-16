@@ -104,8 +104,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      * Listener on adjustments made to the scrollbar model - this is for the overlay mode (see
      * {@link SubstanceLookAndFeel#OVERLAY_PROPERTY} and repaiting both scrollbars with the
      * viewport.
-     * 
-     * @since version 3.2
      */
     protected AdjustmentListener substanceAdjustmentListener;
 

@@ -40,13 +40,13 @@ class KCommandButtonPanelDisplay {
     var state: CommandButtonDisplayState? = null
     var dimension: Int = -1
     var layoutKind: JCommandButtonPanel.LayoutKind = JCommandButtonPanel.LayoutKind.ROW_FILL
-    var buttonHorizontalAlignment : Int? by NullableDelegate(null)
+    var buttonHorizontalAlignment: Int? by NullableDelegate2({ false })
 }
 
 @FlamingoElementMarker
 class KCommandButtonPanel {
     class KCommandButtonPanelGroup {
-        var title: String by NonNullDelegate(null)
+        var title: String by NonNullDelegate2({ false })
         internal val commands = arrayListOf<KCommand>()
 
         fun command(init: KCommand.() -> Unit): KCommand {
@@ -57,11 +57,12 @@ class KCommandButtonPanel {
         }
     }
 
-    private var buttonPanel: JCommandButtonPanel? = null
+    private lateinit var buttonPanel: JCommandButtonPanel
+    private var hasBeenConverted: Boolean = false
 
     private val commandGroups = arrayListOf<KCommandButtonPanelGroup>()
     internal val display: KCommandButtonPanelDisplay = KCommandButtonPanelDisplay()
-    var isSingleSelectionMode: Boolean by NonNullDelegate(buttonPanel)
+    var isSingleSelectionMode: Boolean by NonNullDelegate2({ hasBeenConverted })
 
     init {
         isSingleSelectionMode = false
@@ -79,7 +80,7 @@ class KCommandButtonPanel {
     }
 
     fun asButtonPanel(): JCommandButtonPanel {
-        if (buttonPanel != null) {
+        if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
 
@@ -94,28 +95,29 @@ class KCommandButtonPanel {
         else JCommandButtonPanel(display.dimension)
 
         if (display.maxButtonColumns > 0) {
-            buttonPanel!!.maxButtonColumns = display.maxButtonColumns
+            buttonPanel.maxButtonColumns = display.maxButtonColumns
         }
         if (display.maxButtonRows > 0) {
-            buttonPanel!!.maxButtonRows = display.maxButtonRows
+            buttonPanel.maxButtonRows = display.maxButtonRows
         }
-        buttonPanel!!.isToShowGroupLabels = display.isShowingGroupTitles
-        buttonPanel!!.layoutKind = display.layoutKind
+        buttonPanel.isToShowGroupLabels = display.isShowingGroupTitles
+        buttonPanel.layoutKind = display.layoutKind
 
-        buttonPanel!!.setSingleSelectionMode(isSingleSelectionMode)
+        buttonPanel.setSingleSelectionMode(isSingleSelectionMode)
 
         for (commandGroup in commandGroups) {
-            buttonPanel!!.addButtonGroup(commandGroup.title)
+            buttonPanel.addButtonGroup(commandGroup.title)
             for (command in commandGroup.commands) {
-                val javaButton = command.asButton()
+                val javaButton = command.asBaseButton()
                 if (display.buttonHorizontalAlignment != null) {
                     javaButton.horizontalAlignment = display.buttonHorizontalAlignment!!
                 }
-                buttonPanel!!.addButtonToLastGroup(javaButton)
+                buttonPanel.addButtonToLastGroup(javaButton)
             }
         }
+        hasBeenConverted = true
 
-        return buttonPanel!!
+        return buttonPanel
     }
 }
 

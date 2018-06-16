@@ -45,7 +45,6 @@ import java.awt.geom.Line2D;
  * decoration area. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 5.3
  */
 public final class TopBezelOverlayPainter implements SubstanceOverlayPainter {
 	/**

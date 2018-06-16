@@ -51,7 +51,6 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
  * <code>Mariner</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 6.1
  */
 public class MarinerSkin extends SubstanceSkin {
 	/**

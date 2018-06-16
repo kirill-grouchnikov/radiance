@@ -43,7 +43,6 @@ import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
  * iconography language that maintains visual consistency across the entire app.
  * 
  * @author Kirill Grouchnikov
- * @since version 8.0
  * @see {@link SubstanceCortex.GlobalScope#setIconPack(SubstanceIconPack)}
  */
 public interface SubstanceIconPack {

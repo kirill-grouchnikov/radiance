@@ -715,7 +715,6 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 	 *            Component state.
 	 * @return Color scheme to be used for painting the specified visual area of
 	 *         components in the specified decoration area.
-	 * @since version 5.3
 	 */
 	public final SubstanceColorScheme getColorScheme(
 			DecorationAreaType decorationAreaType,
@@ -743,7 +742,6 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 	 *            Component state.
 	 * @return Color scheme to be used for painting the specified visual area of
 	 *         the component under the specified component state.
-	 * @since version 5.1
 	 */
 	public final SubstanceColorScheme getColorScheme(Component comp,
 			ColorSchemeAssociationKind associationKind,
@@ -774,7 +772,6 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 	 *            Component state.
 	 * @return Color scheme to be used for painting the specified visual area of
 	 *         the component under the specified component state.
-	 * @since version 5.1
 	 */
 	public final SubstanceColorScheme getDirectColorScheme(Component comp,
 			ColorSchemeAssociationKind associationKind,
@@ -1114,7 +1111,6 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 	 *            URL that points to a resource containing the description of
 	 *            Substance color schemes.
 	 * @return The collection of color schemes in the specified URL.
-	 * @since version 5.2
 	 */
 	public static ColorSchemes getColorSchemes(URL url) {
 		return SubstanceColorSchemeUtilities.getColorSchemes(url);
@@ -1127,7 +1123,6 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 	 *            Name of the resource containing the description of Substance
 	 *            color schemes.
 	 * @return The collection of color schemes in the specified URL.
-	 * @since version 6.0
 	 */
 	public static ColorSchemes getColorSchemes(String resourceName) {
 		ClassLoader cl = SubstanceCoreUtilities.getClassLoaderForResources();

@@ -49,7 +49,7 @@ import javax.swing.JFrame
 import javax.swing.SwingUtilities
 
 fun main(args: Array<String>) {
-    SwingUtilities.invokeLater({
+    SwingUtilities.invokeLater {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
         val resourceBundle = ResourceBundle
@@ -89,7 +89,8 @@ fun main(args: Array<String>) {
                                                             g2d.drawString(decoration, x + 2, y + height - 2)
                                                         } else {
                                                             g2d.drawString(decoration,
-                                                                    x + width - g2d.fontMetrics.stringWidth(decoration) - 2,
+                                                                    x + width - g2d.fontMetrics.stringWidth(
+                                                                            decoration) - 2,
                                                                     y + height - 2)
                                                         }
                                                         g2d.dispose()
@@ -162,5 +163,5 @@ fun main(args: Array<String>) {
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
         frame.isVisible = true
-    })
+    }
 }

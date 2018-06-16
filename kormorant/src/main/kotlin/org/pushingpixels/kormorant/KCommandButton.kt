@@ -55,7 +55,7 @@ class KCommandButton {
     }
 
     fun asButton(): AbstractCommandButton {
-        val result = command.asButton()
+        val result = command.asBaseButton()
         result.displayState = display.state
         result.isFlat = display.isFlat
         result.horizontalAlignment = display.horizontalAlignment
@@ -65,7 +65,7 @@ class KCommandButton {
     }
 
     fun asMenuButton(): AbstractCommandButton {
-        val result = command.asMenuButton()
+        val result = command.asBaseMenuButton()
         result.displayState = display.state
         result.isFlat = display.isFlat
         result.horizontalAlignment = display.horizontalAlignment

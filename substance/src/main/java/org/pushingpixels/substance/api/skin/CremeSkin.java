@@ -46,7 +46,6 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
  * <code>Creme</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 3.1
  */
 public class CremeSkin extends SubstanceSkin {
 	/**

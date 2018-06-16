@@ -51,6 +51,21 @@ class NullableDelegate<T>(private val gate: Any?) : ReadWriteProperty<Any, T?> {
     }
 }
 
+class NullableDelegate2<T>(private val shouldBlockUpdates: () -> Boolean) : ReadWriteProperty<Any, T?> {
+    private var value: T? = null
+
+    override fun getValue(thisRef: Any, property: KProperty<*>): T? {
+        return this.value
+    }
+
+    override fun setValue(thisRef: Any, property: KProperty<*>, value: T?) {
+        if (shouldBlockUpdates.invoke()) {
+            throw IllegalStateException("Cannot modify field after converting to Swing component")
+        }
+        this.value = value
+    }
+}
+
 class NonNullDelegate<T : Any>(private val gate: Any?) {
     private lateinit var value: T
     private var isInitialized = false
@@ -64,6 +79,26 @@ class NonNullDelegate<T : Any>(private val gate: Any?) {
 
     operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         if (gate != null) {
+            throw IllegalStateException("Cannot modify field after converting to Swing component")
+        }
+        this.isInitialized = true
+        this.value = value
+    }
+}
+
+class NonNullDelegate2<T : Any>(private val shouldBlockUpdates: () -> Boolean) {
+    private lateinit var value: T
+    private var isInitialized = false
+
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
+        if (!this.isInitialized) {
+            throw UninitializedPropertyAccessException(property.name)
+        }
+        return this.value
+    }
+
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+        if (shouldBlockUpdates.invoke()) {
             throw IllegalStateException("Cannot modify field after converting to Swing component")
         }
         this.isInitialized = true

@@ -283,8 +283,6 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
     /**
      * Overridden for performance reasons. See the <a href="#override">Implementation Note</a> for
      * more information.
-     * 
-     * @since 1.5
      */
     @Override
     public void invalidate() {
@@ -317,8 +315,6 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
     /**
      * Overridden for performance reasons. See the <a href="#override">Implementation Note</a> for
      * more information.
-     * 
-     * @since 1.5
      */
     @Override
     public void repaint() {

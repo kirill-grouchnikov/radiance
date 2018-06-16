@@ -46,7 +46,7 @@ import javax.swing.JComponent
 
 @FlamingoElementMarker
 class KRibbonBandExpandCommand {
-    var action: ActionListener? by NullableDelegate(null)
+    var action: ActionListener? by NullableDelegate2({ false })
     internal var richTooltip: KRichTooltip? by NullableDelegate(null)
     var keyTip: String? by NullableDelegate(null)
 
@@ -70,8 +70,8 @@ class GalleryCommandVisibilityContainer {
 @FlamingoElementMarker
 class KRibbonGalleryDisplay {
     var state: CommandButtonDisplayState = CommandButtonDisplayState.FIT_TO_ICON
-    var preferredPopupMaxCommandColumns: Int? by NullableDelegate(null)
-    var preferredPopupMaxVisibleCommandRows: Int? by NullableDelegate(null)
+    var preferredPopupMaxCommandColumns: Int? by NullableDelegate2({ false })
+    var preferredPopupMaxVisibleCommandRows: Int? by NullableDelegate2({ false })
     internal val commandVisibilityContainer = GalleryCommandVisibilityContainer()
 
     fun commandVisibilities(init: GalleryCommandVisibilityContainer.() -> Unit) {
@@ -98,7 +98,7 @@ class KRibbonGalleryExtraPopupContent {
 @FlamingoElementMarker
 class KRibbonGallery {
     class KRibbonGalleryCommandGroup {
-        var title: String by NonNullDelegate(null)
+        var title: String by NonNullDelegate2({ false })
         internal val commands = arrayListOf<KCommand>()
 
         fun command(init: KCommand.() -> Unit): KCommand {
@@ -109,9 +109,9 @@ class KRibbonGallery {
         }
     }
 
-    var title: String by NonNullDelegate(null)
+    var title: String by NonNullDelegate2({ false })
     internal val display: KRibbonGalleryDisplay = KRibbonGalleryDisplay()
-    var expandKeyTip: String? by NullableDelegate(null)
+    var expandKeyTip: String? by NullableDelegate2({ false })
     internal val commandGroups = arrayListOf<KRibbonGalleryCommandGroup>()
     internal val extraPopupContent: KRibbonGalleryExtraPopupContent = KRibbonGalleryExtraPopupContent()
 
@@ -132,15 +132,16 @@ class KRibbonGallery {
 }
 
 sealed class KBaseRibbonBand<V : AbstractBandControlPanel, T : AbstractRibbonBand<V>> {
-    protected var ribbonBand: T? = null
+    protected lateinit var ribbonBand: T
+    protected var hasBeenConverted: Boolean = false
 
-    var title: String? by NullableDelegate(ribbonBand)
-    var icon: ResizableIcon? by NullableDelegate(ribbonBand)
-    protected var expandCommand: KRibbonBandExpandCommand? by NullableDelegate(ribbonBand)
-    var collapsedStateKeyTip: String? by NullableDelegate(null)
+    var title: String? by NullableDelegate2({ hasBeenConverted })
+    var icon: ResizableIcon? by NullableDelegate2({ hasBeenConverted })
+    protected var expandCommand: KRibbonBandExpandCommand? by NullableDelegate2({ hasBeenConverted })
+    var collapsedStateKeyTip: String? by NullableDelegate2({ hasBeenConverted })
 
     var resizePolicies: ((ribbonBand: JRibbonBand) -> List<RibbonBandResizePolicy>)?
-            by NullableDelegate(ribbonBand)
+            by NullableDelegate2({ hasBeenConverted })
 
     fun expandCommand(init: KRibbonBandExpandCommand.() -> Unit) {
         if (expandCommand == null) {
@@ -154,7 +155,7 @@ sealed class KBaseRibbonBand<V : AbstractBandControlPanel, T : AbstractRibbonBan
 
 @FlamingoElementMarker
 class KRibbonBandGroup {
-    var title: String? by NullableDelegate(null)
+    var title: String? by NullableDelegate2({ false })
 
     internal val content = arrayListOf<Pair<RibbonElementPriority?, Any>>()
     internal val spans = hashMapOf<KRibbonComponent, Int>()
@@ -211,7 +212,7 @@ class KRibbonBand : KBaseRibbonBand<JBandControlPanel, JRibbonBand>() {
         return gallery
     }
 
-    fun wrapper(rowSpan : Int = 1, init: KRibbonComponent.() -> Unit): KRibbonComponent {
+    fun wrapper(rowSpan: Int = 1, init: KRibbonComponent.() -> Unit): KRibbonComponent {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a component to default group after starting another group")
         }
@@ -230,18 +231,18 @@ class KRibbonBand : KBaseRibbonBand<JBandControlPanel, JRibbonBand>() {
     }
 
     override fun asRibbonBand(): AbstractRibbonBand<out AbstractBandControlPanel> {
-        if (ribbonBand != null) {
+        if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
         ribbonBand = JRibbonBand(title, icon)
         if (expandCommand != null) {
-            ribbonBand!!.expandActionListener = expandCommand!!.action
-            ribbonBand!!.expandButtonKeyTip = expandCommand!!.keyTip
+            ribbonBand.expandActionListener = expandCommand!!.action
+            ribbonBand.expandButtonKeyTip = expandCommand!!.keyTip
             if (expandCommand!!.richTooltip != null) {
-                ribbonBand!!.expandButtonRichTooltip = expandCommand!!.richTooltip!!.buildRichTooltip()
+                ribbonBand.expandButtonRichTooltip = expandCommand!!.richTooltip!!.buildRichTooltip()
             }
         }
-        ribbonBand!!.collapsedStateKeyTip = collapsedStateKeyTip
+        ribbonBand.collapsedStateKeyTip = collapsedStateKeyTip
 
         for (group in groups) {
             // skip empty default group
@@ -249,16 +250,14 @@ class KRibbonBand : KBaseRibbonBand<JBandControlPanel, JRibbonBand>() {
                 continue
             }
 
-            ribbonBand!!.startGroup(group.title)
+            ribbonBand.startGroup(group.title)
             for ((priority, content) in group.content) {
                 when (content) {
                     is KCommand -> {
-                        val commandButton = content.asButton()
-                        commandButton.isFlat = false
-                        ribbonBand!!.addRibbonCommand(content.toFlamingoCommand(), priority)
+                        ribbonBand.addRibbonCommand(content.toFlamingoCommand(), priority)
                     }
                     is KRibbonComponent -> {
-                        ribbonBand!!.addRibbonComponent(content.asRibbonComponent(),
+                        ribbonBand.addRibbonComponent(content.asRibbonComponent(),
                                 group.spans[content]!!)
                     }
                     is KRibbonGallery -> {
@@ -267,18 +266,18 @@ class KRibbonBand : KBaseRibbonBand<JBandControlPanel, JRibbonBand>() {
                             stylesGalleryCommands.add(StringValuePair(commandGroup.title,
                                     commandGroup.commands.map { it -> it.toFlamingoCommand() }))
                         }
-                        ribbonBand!!.addRibbonGallery(content.title, stylesGalleryCommands,
+                        ribbonBand.addRibbonGallery(content.title, stylesGalleryCommands,
                                 content.display.commandVisibilityContainer.policies.map { it.second to it.first }.toMap(),
                                 content.display.preferredPopupMaxCommandColumns!!,
                                 content.display.preferredPopupMaxVisibleCommandRows!!,
                                 content.display.state,
                                 priority)
-                        ribbonBand!!.setRibbonGalleryExpandKeyTip(content.title, content.expandKeyTip)
+                        ribbonBand.setRibbonGalleryExpandKeyTip(content.title, content.expandKeyTip)
                         if (!content.extraPopupContent.components.isEmpty()) {
                             // A null entry in the mapped list means that the entry is a separator
                             val javaExtraPopupContent =
-                                    content.extraPopupContent.components.map { it -> (it as? KCommand)?.asMenuButton() }
-                            ribbonBand!!.setRibbonGalleryPopupCallback(content.title,
+                                    content.extraPopupContent.components.map { it -> (it as? KCommand)?.asBaseMenuButton() }
+                            ribbonBand.setRibbonGalleryPopupCallback(content.title,
                                     { menu ->
                                         for (javaComponent in javaExtraPopupContent) {
                                             when (javaComponent) {
@@ -295,10 +294,10 @@ class KRibbonBand : KBaseRibbonBand<JBandControlPanel, JRibbonBand>() {
         }
 
         if (resizePolicies != null) {
-            ribbonBand!!.resizePolicies = resizePolicies!!(ribbonBand!!)
+            ribbonBand.resizePolicies = resizePolicies!!(ribbonBand)
         }
-
-        return ribbonBand!!
+        hasBeenConverted = true
+        return ribbonBand
     }
 }
 
@@ -329,29 +328,29 @@ class KFlowRibbonBand : KBaseRibbonBand<JFlowBandControlPanel, JFlowRibbonBand>(
     }
 
     override fun asRibbonBand(): AbstractRibbonBand<out AbstractBandControlPanel> {
-        if (ribbonBand != null) {
+        if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
         ribbonBand = JFlowRibbonBand(title, icon)
         if (expandCommand != null) {
-            ribbonBand!!.expandActionListener = expandCommand!!.action
-            ribbonBand!!.expandButtonKeyTip = expandCommand!!.keyTip
+            ribbonBand.expandActionListener = expandCommand!!.action
+            ribbonBand.expandButtonKeyTip = expandCommand!!.keyTip
             if (expandCommand!!.richTooltip != null) {
-                ribbonBand!!.expandButtonRichTooltip = expandCommand!!.richTooltip!!.buildRichTooltip()
+                ribbonBand.expandButtonRichTooltip = expandCommand!!.richTooltip!!.buildRichTooltip()
             }
         }
-        ribbonBand!!.collapsedStateKeyTip = collapsedStateKeyTip
+        ribbonBand.collapsedStateKeyTip = collapsedStateKeyTip
 
         for (component in components) {
             when (component) {
-                is JComponent -> ribbonBand!!.addFlowComponent(component)
-                is KCommandStrip -> ribbonBand!!.addFlowComponent(component.asButtonStrip())
-                is KRibbonComponent -> ribbonBand!!.addFlowComponent(component.asRibbonComponent())
+                is JComponent -> ribbonBand.addFlowComponent(component)
+                is KCommandStrip -> ribbonBand.addFlowComponent(component.asButtonStrip())
+                is KRibbonComponent -> ribbonBand.addFlowComponent(component.asRibbonComponent())
                 else -> throw IllegalStateException("Unknown ${component.javaClass}")
             }
         }
-
-        return ribbonBand!!
+        hasBeenConverted = true
+        return ribbonBand
     }
 }
 

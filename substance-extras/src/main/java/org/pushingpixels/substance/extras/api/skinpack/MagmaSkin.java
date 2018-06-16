@@ -11,8 +11,8 @@
  *    this list of conditions and the following disclaimer in the documentation 
  *    and/or other materials provided with the distribution. 
  *     
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
+ *  o Neither the name of Substance Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission. 
  *     
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
@@ -52,7 +52,6 @@ import org.pushingpixels.substance.internal.colorscheme.ShiftColorScheme;
  * <code>Magma</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 3.1
  */
 public class MagmaSkin extends SubstanceSkin {
 	/**

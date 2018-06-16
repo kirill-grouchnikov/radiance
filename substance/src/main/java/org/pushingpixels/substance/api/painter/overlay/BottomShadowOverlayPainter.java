@@ -43,7 +43,6 @@ import java.awt.*;
  * API.
  * 
  * @author Kirill Grouchnikov
- * @since version 5.3
  */
 public final class BottomShadowOverlayPainter implements
 		SubstanceOverlayPainter {

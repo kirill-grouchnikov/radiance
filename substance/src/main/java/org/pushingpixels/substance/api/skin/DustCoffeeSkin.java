@@ -42,7 +42,6 @@ import org.pushingpixels.substance.api.painter.fill.MatteFillPainter;
  * API.
  * 
  * @author Kirill Grouchnikov
- * @since version 5.2
  */
 public class DustCoffeeSkin extends DustSkin {
 	/**

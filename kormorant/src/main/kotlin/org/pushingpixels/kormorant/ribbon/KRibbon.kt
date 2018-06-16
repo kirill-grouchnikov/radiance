@@ -82,8 +82,8 @@ class KRibbonTaskbar {
 
 @FlamingoElementMarker
 class KRibbonContextualTaskContainer {
-    var title: String by NonNullDelegate(null)
-    var color: Color by NonNullDelegate(null)
+    var title: String by NonNullDelegate2({ false })
+    var color: Color by NonNullDelegate2({ false })
     internal val tasks = KRibbonTaskContainer()
 
     fun tasks(init: KRibbonTaskContainer.() -> Unit) {
@@ -109,15 +109,16 @@ class KRibbonContextualTaskGroupContainer {
 
 @FlamingoElementMarker
 class KRibbonFrame {
-    private var ribbonFrame: JRibbonFrame? = null
-
-    var title: String? by NullableDelegate(ribbonFrame)
-    var applicationIcon: ResizableIcon? by NullableDelegate(ribbonFrame)
+    var title: String? by NullableDelegate2({ hasBeenConverted })
+    var applicationIcon: ResizableIcon? by NullableDelegate2({ hasBeenConverted })
     private val tasks = KRibbonTaskContainer()
     private val contextualTaskGroups = KRibbonContextualTaskGroupContainer()
     private val anchoredCommands = KRibbonAnchoredCommandContainer()
     private val taskbar = KRibbonTaskbar()
     private val applicationMenu = KRibbonApplicationMenu()
+
+    private lateinit var ribbonFrame: JRibbonFrame
+    private var hasBeenConverted: Boolean = false
 
     fun tasks(init: KRibbonTaskContainer.() -> Unit) {
         tasks.init()
@@ -140,40 +141,42 @@ class KRibbonFrame {
     }
 
     fun asRibbonFrame(): JRibbonFrame {
-        if (ribbonFrame != null) {
+        if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
 
         ribbonFrame = JRibbonFrame(title)
-        ribbonFrame!!.applicationIcon = applicationIcon
+        ribbonFrame.applicationIcon = applicationIcon
         for (task in tasks.tasks) {
-            ribbonFrame!!.ribbon.addTask(task.asRibbonTask())
+            ribbonFrame.ribbon.addTask(task.asRibbonTask())
         }
 
         for (anchoredCommand in anchoredCommands.commands) {
-            ribbonFrame!!.ribbon.addAnchoredCommand(anchoredCommand.toFlamingoCommand())
+            ribbonFrame.ribbon.addAnchoredCommand(anchoredCommand.toFlamingoCommand())
         }
 
         for (taskbarComponent in taskbar.components) {
             when (taskbarComponent) {
-                is KCommand -> ribbonFrame!!.ribbon.addTaskbarCommand(taskbarComponent.toFlamingoCommand())
-                is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonFrame!!.ribbon.addTaskbarSeparator()
+                is KCommand -> ribbonFrame.ribbon.addTaskbarCommand(taskbarComponent.toFlamingoCommand())
+                is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonFrame.ribbon.addTaskbarSeparator()
             }
         }
 
         for (contextualTaskGroup in contextualTaskGroups.taskGroups) {
-            ribbonFrame!!.ribbon.addContextualTaskGroup(
+            ribbonFrame.ribbon.addContextualTaskGroup(
                     RibbonContextualTaskGroup(contextualTaskGroup.title,
                             contextualTaskGroup.color,
                             contextualTaskGroup.tasks.tasks.map { it -> it.asRibbonTask() })
             )
         }
 
-        ribbonFrame!!.ribbon.applicationMenu = applicationMenu.asRibbonApplicationMenu()
-        ribbonFrame!!.ribbon.applicationMenuKeyTip = applicationMenu.keyTip
-        ribbonFrame!!.ribbon.applicationMenuRichTooltip = applicationMenu.getRichTooltip()
+        ribbonFrame.ribbon.applicationMenu = applicationMenu.asRibbonApplicationMenu()
+        ribbonFrame.ribbon.applicationMenuKeyTip = applicationMenu.keyTip
+        ribbonFrame.ribbon.applicationMenuRichTooltip = applicationMenu.getRichTooltip()
 
-        return ribbonFrame!!
+        hasBeenConverted = true
+
+        return ribbonFrame
     }
 }
 

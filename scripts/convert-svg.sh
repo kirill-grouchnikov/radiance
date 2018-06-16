@@ -1,5 +1,5 @@
 RADIANCE_VERSION=0.9-dev
-CLASSPATH=../drop/$RADIANCE_VERSION/core/radiance-ibis-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.9.1.jar:../build/libs-core/xml-apis-1.3.04.jar:../build/libs-core/xml-apis-ext-1.3.04.jar:../build/libs-core/xmlgraphics-commons-2.2.jar
+CLASSPATH=../drop/$RADIANCE_VERSION/core/radiance-ibis-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.10.jar:../build/libs-core/xml-apis-1.3.04.jar:../build/libs-core/xml-apis-ext-1.3.04.jar:../build/libs-core/xmlgraphics-commons-2.2.jar
 
 java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFolder=../kormorant-demo/src/main/kotlin/org/pushingpixels/demo/kormorant/svg outputPackageName=org.pushingpixels.demo.kormorant.svg templateFile=/org/pushingpixels/ibis/transcoder/kotlin/SvgTranscoderTemplateResizable.templ outputLanguage=kotlin
 

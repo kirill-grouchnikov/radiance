@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Radiance Ibis Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2018 Radiance Kormorant Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- *  o Neither the name of Radiance Ibis Kirill Grouchnikov nor the names of
+ *  o Neither the name of Radiance Kormorant Kirill Grouchnikov nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
@@ -27,22 +27,23 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.demo.kormorant
 
-apply plugin: 'java'
+import org.pushingpixels.demo.kormorant.svg.radiance_menu
+import org.pushingpixels.neon.icon.NeonIcon
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
+import java.awt.image.BufferedImage
 
-dependencies {
-    compile ('org.apache.xmlgraphics:batik-all:1.10')
-    compile project(':neon')
-}
+object RadianceLogo {
+    fun getLogoIcon(scheme: SubstanceColorScheme): NeonIcon {
+        // Step 1 - create a new instance of the transcoded Radiance logo with
+        // base size of 16x16
+        val neonIcon = radiance_menu.of(16, 16)
+        // Step 2 - return the colorized version of the icon
+        return neonIcon.colorize(scheme.foregroundColor)
+    }
 
-sourceCompatibility = 1.8
-
-ext.designation = "core"
-
-jar {
-    baseName = "${rootProject.name}-ibis"
-    manifest {
-        attributes("Radiance-Version": "${version}")
+    fun getLogoImage(scheme: SubstanceColorScheme): BufferedImage {
+        return getLogoIcon(scheme).toImage()
     }
 }
-

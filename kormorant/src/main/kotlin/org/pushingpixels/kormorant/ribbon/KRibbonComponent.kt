@@ -38,18 +38,19 @@ import javax.swing.JComponent
 
 @FlamingoElementMarker
 class KRibbonComponent {
-    private var ribbonComponent: JRibbonComponent? = null
+    private lateinit var ribbonComponent: JRibbonComponent
+    private var hasBeenConverted: Boolean = false
 
-    var caption: String? by NullableDelegate(ribbonComponent)
-    var icon: ResizableIcon? by NullableDelegate(ribbonComponent)
-    var component: JComponent? by NullableDelegate(ribbonComponent)
-    var commandButton: KCommandButton? by NullableDelegate(ribbonComponent)
-    var keyTip: String? by NullableDelegate(ribbonComponent)
-    private var richTooltip: KRichTooltip? by NullableDelegate(ribbonComponent)
-    var horizontalAlignment: HorizontalAlignment? by NullableDelegate(ribbonComponent)
-    var displayPriority: RibbonElementPriority? by NullableDelegate(ribbonComponent)
-    var isResizingAware: Boolean? by NullableDelegate(ribbonComponent)
-    var isEnabled: Boolean by NonNullDelegate(ribbonComponent)
+    var caption: String? by NullableDelegate2({ hasBeenConverted })
+    var icon: ResizableIcon? by NullableDelegate2({ hasBeenConverted })
+    var component: JComponent? by NullableDelegate2({ hasBeenConverted })
+    var commandButton: KCommandButton? by NullableDelegate2({ hasBeenConverted })
+    var keyTip: String? by NullableDelegate2({ hasBeenConverted })
+    private var richTooltip: KRichTooltip? by NullableDelegate2({ hasBeenConverted })
+    var horizontalAlignment: HorizontalAlignment? by NullableDelegate2({ hasBeenConverted })
+    var displayPriority: RibbonElementPriority? by NullableDelegate2({ hasBeenConverted })
+    var isResizingAware: Boolean? by NullableDelegate2({ hasBeenConverted })
+    var isEnabled: Boolean by NonNullDelegate2({ hasBeenConverted })
 
     init {
         isEnabled = true
@@ -69,7 +70,7 @@ class KRibbonComponent {
     }
 
     fun asRibbonComponent(): JRibbonComponent {
-        if (ribbonComponent != null) {
+        if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
         if (commandButton != null) {
@@ -78,19 +79,20 @@ class KRibbonComponent {
         ribbonComponent = if (caption != null)
             JRibbonComponent(icon, caption, component) else
             JRibbonComponent(component)
-        ribbonComponent!!.keyTip = keyTip
-        ribbonComponent!!.setRichTooltip(richTooltip?.buildRichTooltip())
+        ribbonComponent.keyTip = keyTip
+        ribbonComponent.setRichTooltip(richTooltip?.buildRichTooltip())
         if (horizontalAlignment != null) {
-            ribbonComponent!!.horizontalAlignment = horizontalAlignment
+            ribbonComponent.horizontalAlignment = horizontalAlignment
         }
         if (displayPriority != null) {
-            ribbonComponent!!.displayPriority = displayPriority
+            ribbonComponent.displayPriority = displayPriority
         }
         if (isResizingAware != null) {
-            ribbonComponent!!.isResizingAware = isResizingAware!!
+            ribbonComponent.isResizingAware = isResizingAware!!
         }
-        ribbonComponent!!.isEnabled = isEnabled
-        return ribbonComponent!!
+        ribbonComponent.isEnabled = isEnabled
+        hasBeenConverted = true
+        return ribbonComponent
     }
 }
 

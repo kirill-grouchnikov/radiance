@@ -462,7 +462,6 @@ public class SubstanceColorSchemeBundle {
 	 * @param states
 	 *            Component states that further restrict the usage of the
 	 *            specified color scheme.
-	 * @since version 5.1
 	 */
 	public void registerColorScheme(SubstanceColorScheme scheme,
 			ColorSchemeAssociationKind associationKind,
@@ -488,8 +487,6 @@ public class SubstanceColorSchemeBundle {
 	 * Returns the color scheme to be used for painting the specified visual
 	 * area of the component under the specified component state.
 	 * 
-	 * @param comp
-	 *            Component.
 	 * @param associationKind
 	 *            Color scheme association kind.
 	 * @param componentState
@@ -497,7 +494,6 @@ public class SubstanceColorSchemeBundle {
 	 * @return Color scheme to be used for painting the specified visual area of
 	 *         the component under the specified component state.
 	 * @see #registerColorScheme(SubstanceColorScheme, ComponentState...)
-	 * @since version 5.1
 	 */
 	public SubstanceColorScheme getColorScheme(
 			ColorSchemeAssociationKind associationKind,

@@ -39,7 +39,6 @@ import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
  * API.
  * 
  * @author Kirill Grouchnikov
- * @since version 7.0
  */
 public class GraphiteGoldSkin extends GraphiteSkin {
 	/**

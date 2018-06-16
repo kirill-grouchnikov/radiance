@@ -276,7 +276,6 @@ public class SubstanceCortex {
          * @see #setSkin(SubstanceSkin)
          * @see RootPaneScope#setSkin(JRootPane, SubstanceSkin)
          * @see SubstanceSkin#isValid()
-         * @since version 8.0
          */
         public static boolean setSkin(String skinClassName) {
             try {
@@ -751,7 +750,6 @@ public class SubstanceCortex {
          * Sets the class loader for {@link #labelBundle}.
          *
          * @param labelBundleClassLoader Class loader for {@link #labelBundle}.
-         * @since version 8.0
          */
         public static void setLabelBundleClassLoader(ClassLoader labelBundleClassLoader) {
             GlobalScope.labelBundleClassLoader = labelBundleClassLoader;
@@ -943,7 +941,6 @@ public class SubstanceCortex {
          *
          * @param visible          Visibility indication.
          * @param substanceWidgets Widget types.
-         * @since version 8.0
          */
         public static void setWidgetVisible(boolean visible,
                 SubstanceWidgetType... substanceWidgets) {
@@ -962,7 +959,6 @@ public class SubstanceCortex {
          *                will show a lock icon. Pass <code>null</code> to reset to the default
          *                behavior.
          * @see ComponentScope#setLockIconVisible(JComponent, Boolean)
-         * @since version 8.0
          */
         public static void setLockIconVisible(Boolean visible) {
             UIManager.put(SubstanceSynapse.HAS_LOCK_ICON, visible);
@@ -974,7 +970,6 @@ public class SubstanceCortex {
          *
          * @param previewPainter Global preview painter. Can be <code>null</code>.
          * @see ComponentOrParentScope#setComponentPreviewPainter(JComponent, PreviewPainter)
-         * @since version 8.0
          */
         public static void setComponentPreviewPainter(PreviewPainter previewPainter) {
             UIManager.put(SubstanceSynapse.COMPONENT_PREVIEW_PAINTER, previewPainter);
@@ -986,7 +981,6 @@ public class SubstanceCortex {
          * @param selectTextOnFocus If <code>true</code>, the contents of text components will be selected on
          *                          focus gain. Pass <code>null</code> to reset to the default behavior.
          * @see ComponentOrParentChainScope#setSelectTextOnFocus(JComponent, Boolean)
-         * @since version 8.0
          */
         public static void setSelectTextOnFocus(Boolean selectTextOnFocus) {
             UIManager.put(SubstanceSynapse.TEXT_SELECT_ON_FOCUS, selectTextOnFocus);
@@ -1000,7 +994,6 @@ public class SubstanceCortex {
          *                           Cut / Copy / Paste / ... menu items). Pass <code>null</code> to reset to the
          *                           default behavior.
          * @see ComponentScope#setTextEditContextMenuPresence(JTextComponent, Boolean)
-         * @since version 8.0
          */
         public static void setTextEditContextMenuPresence(Boolean hasEditContextMenu) {
             UIManager.put(SubstanceSynapse.TEXT_EDIT_CONTEXT_MENU, hasEditContextMenu);
@@ -1012,7 +1005,6 @@ public class SubstanceCortex {
          * @param hasAutomaticDragAndDropSupport If <code>true</code>, trees will have automatic drag and drop support. Pass
          *                                       <code>null</code> to reset to the default behavior.
          * @see ComponentScope#setAutomaticDragAndDropSupportPresence(JTree, Boolean)
-         * @since version 8.0
          */
         public static void setAutomaticDragAndDropSupportPresence(
                 Boolean hasAutomaticDragAndDropSupport) {
@@ -1027,7 +1019,6 @@ public class SubstanceCortex {
          *                           on mouse button click that triggers popups. Pass <code>null</code> to reset to
          *                           the default behavior.
          * @see ComponentScope#setAutomaticScrollPresence(JScrollPane, Boolean)
-         * @since version 8.0
          */
         public static void setAutomaticScrollPresence(Boolean hasAutomaticScroll) {
             UIManager.put(SubstanceSynapse.AUTO_SCROLL, hasAutomaticScroll);
@@ -1045,7 +1036,6 @@ public class SubstanceCortex {
          *                         {@link ComponentOrParentChainScope#setWatermarkVisible(JComponent, Boolean)}.
          *                         Pass <code>null</code> to reset to the default behavior.
          * @see ComponentOrParentChainScope#setWatermarkVisible(JComponent, Boolean)
-         * @since version 8.0
          */
         public static void setWatermarkVisible(Boolean watermarkVisible) {
             UIManager.put(SubstanceSynapse.WATERMARK_VISIBLE, watermarkVisible);
@@ -1061,7 +1051,6 @@ public class SubstanceCortex {
          *                                button shapers that respect this setting. Pass <code>null</code> to reset to
          *                                the default behavior.
          * @see ComponentOrParentScope#setButtonIgnoreMinimumSize(JComponent, Boolean)
-         * @since version 8.0
          */
         public static void setButtonIgnoreMinimumSize(Boolean buttonIgnoreMinimumSize) {
             UIManager.put(SubstanceSynapse.BUTTON_NO_MIN_SIZE, buttonIgnoreMinimumSize);
@@ -1074,7 +1063,6 @@ public class SubstanceCortex {
          *                                   <code>null</code> to reset to the default behavior.
          * @see ComponentOrParentScope#setButtonNeverPaintBackground(JComponent, Boolean)
          * @see #setFlatBackground(Boolean)
-         * @since version 8.0
          */
         public static void setButtonNeverPaintBackground(Boolean neverPaintButtonBackground) {
             UIManager.put(SubstanceSynapse.BUTTON_NEVER_PAINT_BACKGROUND,
@@ -1090,7 +1078,6 @@ public class SubstanceCortex {
          *                       the default behavior.
          * @see ComponentOrParentScope#setFlatBackground(JComponent, Boolean)
          * @see #setButtonNeverPaintBackground(Boolean)
-         * @since version 8.0
          */
         public static void setFlatBackground(Boolean flatBackground) {
             UIManager.put(SubstanceSynapse.FLAT_LOOK, flatBackground);
@@ -1116,7 +1103,6 @@ public class SubstanceCortex {
          *                             lock borders) will be shown. Pass <code>null</code> to reset to the default
          *                             behavior.
          * @see ComponentOrParentChainScope#setExtraWidgetsPresence(JComponent, Boolean)
-         * @since version 8.0
          */
         public static void setExtraWidgetsPresence(Boolean extraWidgetsPresence) {
             UIManager.put(SubstanceSynapse.SHOW_EXTRA_WIDGETS, extraWidgetsPresence);
@@ -1163,7 +1149,6 @@ public class SubstanceCortex {
          *
          * @param colorizationFactor Colorization factor to apply to the component and its nested children.
          * @see ComponentOrParentChainScope#setColorizationFactor(JComponent, double)
-         * @since version 8.0
          */
         public static void setColorizationFactor(double colorizationFactor) {
             UIManager.put(SubstanceSynapse.COLORIZATION_FACTOR, Double.valueOf(colorizationFactor));
@@ -1175,7 +1160,6 @@ public class SubstanceCortex {
          * @param tabCloseButtonsVisible If <code>true</code>, tabs in tabbed panes will show close buttons.
          * @see ComponentScope#setTabCloseButtonVisible(JComponent, Boolean)
          * @see ComponentScope#setTabCloseButtonsVisible(JTabbedPane, Boolean)
-         * @since version 8.0
          */
         public static void setTabCloseButtonsVisible(Boolean tabCloseButtonsVisible) {
             UIManager.put(SubstanceSynapse.TABBED_PANE_CLOSE_BUTTONS, tabCloseButtonsVisible);
@@ -1191,7 +1175,6 @@ public class SubstanceCortex {
          * @param tabCloseCallback Callback for deciding on the tab close type on tabbed pane tabs.
          * @see ComponentScope#setTabCloseCallback(JComponent, TabCloseCallback)
          * @see ComponentScope#setTabCloseCallback(JTabbedPane, TabCloseCallback)
-         * @since version 8.0
          */
         public static void setTabCloseCallback(TabCloseCallback tabCloseCallback) {
             UIManager.put(SubstanceSynapse.TABBED_PANE_CLOSE_BUTTONS, tabCloseCallback);
@@ -1207,7 +1190,6 @@ public class SubstanceCortex {
          *                                             tab close button.
          * @see ComponentScope#setRunModifiedAnimationOnTabCloseButton(JTabbedPane, Boolean)
          * @see ComponentScope#setRunModifiedAnimationOnTabCloseButton(JComponent, Boolean)
-         * @since version 8.0
          */
         public static void setRunModifiedAnimationOnTabCloseButton(
                 Boolean runModifiedAnimationOnTabCloseButton) {
@@ -1220,7 +1202,6 @@ public class SubstanceCortex {
          *
          * @param tabContentPaneBorderKind Content pane border kind for tabbed panes.
          * @see ComponentScope#setTabContentPaneBorderKind(JTabbedPane, TabContentPaneBorderKind)
-         * @since version 8.0
          */
         public static void setTabContentPaneBorderKind(
                 TabContentPaneBorderKind tabContentPaneBorderKind) {
@@ -1233,7 +1214,6 @@ public class SubstanceCortex {
          *
          * @param echoCount Number of echo characters for each password character in password fields.
          * @see ComponentScope#setNumberOfPasswordEchoesPerCharacter(JPasswordField, int)
-         * @since version 8.0
          */
         public static void setNumberOfPasswordEchoesPerCharacter(int echoCount) {
             UIManager.put(SubstanceSynapse.PASSWORD_ECHO_PER_CHAR, Integer.valueOf(echoCount));
@@ -1245,7 +1225,6 @@ public class SubstanceCortex {
          * {@link MenuGutterFillKind#HARD_FILL}.
          *
          * @param menuGutterFillKind Menu gutter fill kind.
-         * @since version 8.0
          */
         public static void setMenuGutterFillKind(MenuGutterFillKind menuGutterFillKind) {
             UIManager.put(SubstanceSynapse.MENU_GUTTER_FILL_KIND, menuGutterFillKind);
@@ -1256,7 +1235,6 @@ public class SubstanceCortex {
          * which can be used to pinpoint the memory leaks.
          *
          * @param traceFilename Filename for tracing the memory allocations.
-         * @since version 8.0
          */
         public static void setTraceFilename(String traceFilename) {
             UIManager.put(SubstanceSynapse.TRACE_FILE, traceFilename);
@@ -1267,7 +1245,6 @@ public class SubstanceCortex {
          * status of heap.
          *
          * @param heapStatusTraceFilename Filename for tracing the heap status.
-         * @since version 8.0
          */
         public static void setHeapStatusTraceFilename(String heapStatusTraceFilename) {
             UIManager.put(SubstanceSynapse.HEAP_STATUS_TRACE_FILE, heapStatusTraceFilename);
@@ -1278,7 +1255,6 @@ public class SubstanceCortex {
          *
          * @param focusKind Kind of focus indication to be used on application components.
          * @see ComponentOrParentChainScope#setFocusKind(JComponent, FocusKind)
-         * @since version 8.0
          */
         public static void setFocusKind(FocusKind focusKind) {
             UIManager.put(SubstanceSynapse.FOCUS_KIND, focusKind);
@@ -1291,7 +1267,6 @@ public class SubstanceCortex {
          * @param comboPopupPrototypeCallback Popup prototype callback which is used to compute the width of the popups at
          *                                    runtime.
          * @see ComponentScope#setComboBoxPrototypeCallback(JComboBox, ComboPopupPrototypeCallback)
-         * @since version 8.0
          */
         public static void setComboBoxPrototypeCallback(
                 ComboPopupPrototypeCallback comboPopupPrototypeCallback) {
@@ -1307,7 +1282,6 @@ public class SubstanceCortex {
          *                                        at runtime.
          * @see ComponentScope#setComboBoxPrototypeDisplayValue(JComboBox, Object)
          * @see #setComboBoxPrototypeCallback(ComboPopupPrototypeCallback)
-         * @since version 8.0
          */
         public static void setComboBoxPrototypeDisplayValue(
                 Object comboPopupPrototypeDisplayValue) {
@@ -1340,7 +1314,6 @@ public class SubstanceCortex {
          *
          * @param comboPopupFlyoutOrientation Flyout orientation for combobox popups.
          * @see ComponentScope#setComboBoxPopupFlyoutOrientation(JComboBox, Integer)
-         * @since version 8.0
          */
         public static void setComboBoxPopupFlyoutOrientation(int comboPopupFlyoutOrientation) {
             UIManager.put(SubstanceSynapse.COMBO_BOX_POPUP_FLYOUT_ORIENTATION,
@@ -1509,7 +1482,6 @@ public class SubstanceCortex {
          *                it is in non-editable mode. Pass <code>null</code> to reset to the default
          *                behavior.
          * @see GlobalScope#setLockIconVisible(Boolean)
-         * @since version 8.0
          */
         public static void setLockIconVisible(JComponent comp, Boolean visible) {
             comp.putClientProperty(SubstanceSynapse.HAS_LOCK_ICON, visible);
@@ -1520,7 +1492,6 @@ public class SubstanceCortex {
          *
          * @param passwordField           Password field.
          * @param passwordStrengthChecker Password strength checker
-         * @since version 8.0
          */
         public static void setPasswordStrengthChecker(JPasswordField passwordField,
                 PasswordStrengthChecker passwordStrengthChecker) {
@@ -1535,7 +1506,6 @@ public class SubstanceCortex {
          * @param flipTextSelectionOnEscape If <code>true</code>, the contents of the specified text component will flip
          *                                  selection on ESCAPE key press. Pass <code>null</code> to reset to the default
          *                                  behavior.
-         * @since version 8.0
          */
         public static void setFlipTextSelectionOnEscape(JTextComponent comp,
                 Boolean flipTextSelectionOnEscape) {
@@ -1552,7 +1522,6 @@ public class SubstanceCortex {
          *                           Cut / Copy / Paste / ... menu items). Pass <code>null</code> to reset to the
          *                           default behavior.
          * @see GlobalScope#setTextEditContextMenuPresence(Boolean)
-         * @since version 8.0
          */
         public static void setTextEditContextMenuPresence(JTextComponent comp,
                 Boolean hasEditContextMenu) {
@@ -1566,7 +1535,6 @@ public class SubstanceCortex {
          * @param hasAutomaticDragAndDropSupport If <code>true</code>, the tree will have automatic drag and drop support. Pass
          *                                       <code>null</code> to reset to the default behavior.
          * @see GlobalScope#setAutomaticDragAndDropSupportPresence(Boolean)
-         * @since version 8.0
          */
         public static void setAutomaticDragAndDropSupportPresence(JTree tree,
                 Boolean hasAutomaticDragAndDropSupport) {
@@ -1583,7 +1551,6 @@ public class SubstanceCortex {
          *                           invoked on mouse button click that triggers popups. Pass <code>null</code> to
          *                           reset to the default behavior.
          * @see GlobalScope#setAutomaticScrollPresence(Boolean)
-         * @since version 8.0
          */
         public static void setAutomaticScrollPresence(JScrollPane scrollPane,
                 Boolean hasAutomaticScroll) {
@@ -1600,7 +1567,6 @@ public class SubstanceCortex {
          * @see #setButtonOpenSides(JComponent, Set)
          * @see #setButtonStraightSide(JComponent,
          * org.pushingpixels.substance.api.SubstanceSlices.Side)
-         * @since version 8.0
          */
         public static void setButtonOpenSide(JComponent comp, SubstanceSlices.Side openSide) {
             comp.putClientProperty(SubstanceSynapse.BUTTON_OPEN_SIDE, openSide);
@@ -1615,7 +1581,6 @@ public class SubstanceCortex {
          * @param openSides Open sides.
          * @see #setButtonOpenSide(JComponent, org.pushingpixels.substance.api.SubstanceSlices.Side)
          * @see #setButtonStraightSides(JComponent, Set)
-         * @since version 8.0
          */
         public static void setButtonOpenSides(JComponent comp,
                 Set<SubstanceSlices.Side> openSides) {
@@ -1631,7 +1596,6 @@ public class SubstanceCortex {
          * @param straightSide Straight side.
          * @see #setButtonOpenSide(JComponent, org.pushingpixels.substance.api.SubstanceSlices.Side)
          * @see #setButtonStraightSides(JComponent, Set)
-         * @since version 8.0
          */
         public static void setButtonStraightSide(JComponent comp,
                 SubstanceSlices.Side straightSide) {
@@ -1648,7 +1612,6 @@ public class SubstanceCortex {
          * @see #setButtonStraightSide(JComponent,
          * org.pushingpixels.substance.api.SubstanceSlices.Side)
          * @see #setButtonOpenSides(JComponent, Set)
-         * @since version 8.0
          */
         public static void setButtonStraightSides(JComponent comp,
                 Set<SubstanceSlices.Side> straightSides) {
@@ -1663,7 +1626,6 @@ public class SubstanceCortex {
          * @param toolbarButtonCornerRadius Corner radius for the button when it is in a {@link JToolBar}.
          * @see ComponentOrParentChainScope#setToolbarButtonCornerRadius(JToolBar, float)
          * @see GlobalScope#setToolbarButtonCornerRadius(float)
-         * @since version 8.0
          */
         public static void setToolbarButtonCornerRadius(AbstractButton button,
                 float toolbarButtonCornerRadius) {
@@ -1695,7 +1657,6 @@ public class SubstanceCortex {
          * @param contentsModified If <code>true</code>, the <b>close</b> button of the matching tab of the
          *                         matching frame / dialog will be animated.
          * @see RootPaneScope#setContentsModified(JRootPane, Boolean)
-         * @since version 8.0
          */
         public static void setTabContentsModified(JComponent tabComponent,
                 Boolean contentsModified) {
@@ -1709,7 +1670,6 @@ public class SubstanceCortex {
          * @param tabCloseButtonsVisible If <code>true</code>, all tabs in the tabbed pane will show close buttons.
          * @see #setTabCloseButtonVisible(JComponent, Boolean)
          * @see GlobalScope#setTabCloseButtonsVisible(Boolean)
-         * @since version 8.0
          */
         public static void setTabCloseButtonsVisible(JTabbedPane tabbedPane,
                 Boolean tabCloseButtonsVisible) {
@@ -1724,7 +1684,6 @@ public class SubstanceCortex {
          * @param tabCloseButtonVisible If <code>true</code>, the tab will show close button.
          * @see #setTabCloseButtonsVisible(JTabbedPane, Boolean)
          * @see GlobalScope#setTabCloseButtonsVisible(Boolean)
-         * @since version 8.0
          */
         public static void setTabCloseButtonVisible(JComponent tabComponent,
                 Boolean tabCloseButtonVisible) {
@@ -1743,7 +1702,6 @@ public class SubstanceCortex {
          * @param tabCloseCallback Callback for deciding on the tab close type on all tabs in the tabbed pane.
          * @see #setTabCloseCallback(JComponent, TabCloseCallback)
          * @see GlobalScope#setTabCloseCallback(TabCloseCallback)
-         * @since version 8.0
          */
         public static void setTabCloseCallback(JTabbedPane tabbedPane,
                 TabCloseCallback tabCloseCallback) {
@@ -1762,7 +1720,6 @@ public class SubstanceCortex {
          * @param tabCloseCallback Callback for deciding on the tab close type on the tab component.
          * @see #setTabCloseCallback(JTabbedPane, TabCloseCallback)
          * @see GlobalScope#setTabCloseCallback(TabCloseCallback)
-         * @since version 8.0
          */
         public static void setTabCloseCallback(JComponent tabComponent,
                 TabCloseCallback tabCloseCallback) {
@@ -1781,7 +1738,6 @@ public class SubstanceCortex {
          *                                             tab close button.
          * @see #setRunModifiedAnimationOnTabCloseButton(JComponent, Boolean)
          * @see GlobalScope#setRunModifiedAnimationOnTabCloseButton(Boolean)
-         * @since version 8.0
          */
         public static void setRunModifiedAnimationOnTabCloseButton(JTabbedPane tabbedPane,
                 Boolean runModifiedAnimationOnTabCloseButton) {
@@ -1801,7 +1757,6 @@ public class SubstanceCortex {
          *                                             tab close button.
          * @see #setRunModifiedAnimationOnTabCloseButton(JTabbedPane, Boolean)
          * @see GlobalScope#setRunModifiedAnimationOnTabCloseButton(Boolean)
-         * @since version 8.0
          */
         public static void setRunModifiedAnimationOnTabCloseButton(JComponent tabComponent,
                 Boolean runModifiedAnimationOnTabCloseButton) {
@@ -1816,7 +1771,6 @@ public class SubstanceCortex {
          * @param tabbedPane               Tabbed pane.
          * @param tabContentPaneBorderKind Content pane border kind for the specified tabbed pane.
          * @see GlobalScope#setTabContentPaneBorderKind(TabContentPaneBorderKind)
-         * @since version 8.0
          */
         public static void setTabContentPaneBorderKind(JTabbedPane tabbedPane,
                 TabContentPaneBorderKind tabContentPaneBorderKind) {
@@ -1829,7 +1783,6 @@ public class SubstanceCortex {
          *
          * @param comp         Component.
          * @param buttonShaper Button shaper to be used for the component.
-         * @since version 8.0
          */
         public static void setButtonShaper(JComponent comp, SubstanceButtonShaper buttonShaper) {
             comp.putClientProperty(SubstanceSynapse.BUTTON_SHAPER, buttonShaper);
@@ -1842,7 +1795,6 @@ public class SubstanceCortex {
          * @param passwordField Password field.
          * @param echoCount     Number of echo characters for each password character in the password field.
          * @see GlobalScope#setNumberOfPasswordEchoesPerCharacter(int)
-         * @since version 8.0
          */
         public static void setNumberOfPasswordEchoesPerCharacter(JPasswordField passwordField,
                 int echoCount) {
@@ -1859,7 +1811,6 @@ public class SubstanceCortex {
          *                                    runtime.
          * @see #setComboBoxPrototypeDisplayValue(JComboBox, Object)
          * @see GlobalScope#setComboBoxPrototypeCallback(ComboPopupPrototypeCallback)
-         * @since version 8.0
          */
         public static void setComboBoxPrototypeCallback(JComboBox comboBox,
                 ComboPopupPrototypeCallback comboPopupPrototypeCallback) {
@@ -1876,7 +1827,6 @@ public class SubstanceCortex {
          *                                        at runtime.
          * @see #setComboBoxPrototypeCallback(JComboBox, ComboPopupPrototypeCallback)
          * @see GlobalScope#setComboBoxPrototypeCallback(ComboPopupPrototypeCallback)
-         * @since version 8.0
          */
         public static void setComboBoxPrototypeDisplayValue(JComboBox comboBox,
                 Object comboPopupPrototypeDisplayValue) {
@@ -1910,7 +1860,6 @@ public class SubstanceCortex {
          * @param comboBox                    Combobox.
          * @param comboPopupFlyoutOrientation Flyout orientation for combobox popup.
          * @see GlobalScope#setComboBoxPopupFlyoutOrientation(int)
-         * @since version 8.0
          */
         public static void setComboBoxPopupFlyoutOrientation(JComboBox comboBox,
                 Integer comboPopupFlyoutOrientation) {
@@ -1931,7 +1880,6 @@ public class SubstanceCortex {
          *
          * @param previewPainter Preview painter. Can be <code>null</code>.
          * @see GlobalScope#setComponentPreviewPainter(PreviewPainter)
-         * @since version 8.0
          */
         public static void setComponentPreviewPainter(JComponent comp,
                 PreviewPainter previewPainter) {
@@ -1950,7 +1898,6 @@ public class SubstanceCortex {
          *                                default (minimum) dimension for buttons under button shapers that respect this
          *                                setting. Pass <code>null</code> to reset to the default behavior.
          * @see GlobalScope#setButtonIgnoreMinimumSize(Boolean)
-         * @since version 8.0
          */
         public static void setButtonIgnoreMinimumSize(JComponent comp,
                 Boolean buttonIgnoreMinimumSize) {
@@ -1966,7 +1913,6 @@ public class SubstanceCortex {
          *                                   button backgrounds. Pass <code>null</code> to reset to the default behavior.
          * @see GlobalScope#setButtonNeverPaintBackground(Boolean)
          * @see #setFlatBackground(JComponent, Boolean)
-         * @since version 8.0
          */
         public static void setButtonNeverPaintBackground(JComponent comp,
                 Boolean neverPaintButtonBackground) {
@@ -1984,7 +1930,6 @@ public class SubstanceCortex {
          *                       <code>null</code> to reset to the default behavior.
          * @see GlobalScope#setFlatBackground(Boolean)
          * @see #setButtonNeverPaintBackground(JComponent, Boolean)
-         * @since version 8.0
          */
         public static void setFlatBackground(JComponent comp, Boolean flatBackground) {
             comp.putClientProperty(SubstanceSynapse.FLAT_LOOK, flatBackground);
@@ -2004,7 +1949,6 @@ public class SubstanceCortex {
          *                          nested children will be selected on focus gain. Pass <code>null</code> to
          *                          reset to the default behavior.
          * @see GlobalScope#setSelectTextOnFocus(Boolean)
-         * @since version 8.0
          */
         public static void setSelectTextOnFocus(JComponent comp, Boolean selectTextOnFocus) {
             comp.putClientProperty(SubstanceSynapse.TEXT_SELECT_ON_FOCUS, selectTextOnFocus);
@@ -2021,7 +1965,6 @@ public class SubstanceCortex {
          * @param watermarkVisible If <code>true</code>, watermark will be painted on the component and its
          *                         nested children. Pass <code>null</code> to reset to the default behavior.
          * @see GlobalScope#setWatermarkVisible(Boolean)
-         * @since version 8.0
          */
         public static void setWatermarkVisible(JComponent comp, Boolean watermarkVisible) {
             comp.putClientProperty(SubstanceSynapse.WATERMARK_VISIBLE, watermarkVisible);
@@ -2050,7 +1993,6 @@ public class SubstanceCortex {
          *                             to the default behavior.
          * @comp Component.
          * @see GlobalScope#setExtraWidgetsPresence(Boolean)
-         * @since version 8.0
          */
         public static void setExtraWidgetsPresence(JComponent comp, Boolean extraWidgetsPresence) {
             comp.putClientProperty(SubstanceSynapse.SHOW_EXTRA_WIDGETS, extraWidgetsPresence);
@@ -2097,7 +2039,6 @@ public class SubstanceCortex {
          * @param comp               Component.
          * @param colorizationFactor Colorization factor to apply to the component and its nested children.
          * @see GlobalScope#setColorizationFactor(double)
-         * @since version 8.0
          */
         public static void setColorizationFactor(JComponent comp, double colorizationFactor) {
             comp.putClientProperty(SubstanceSynapse.COLORIZATION_FACTOR,
@@ -2111,7 +2052,6 @@ public class SubstanceCortex {
          * @param focusKind Kind of focus indication to be used on the component and its nested children.
          * @comp Component.
          * @see GlobalScope#setFocusKind(FocusKind)
-         * @since version 8.0
          */
         public static void setFocusKind(JComponent comp, FocusKind focusKind) {
             comp.putClientProperty(SubstanceSynapse.FOCUS_KIND, focusKind);
@@ -2170,7 +2110,6 @@ public class SubstanceCortex {
          * @param skin     Skin to use on all the controls in the root pane.
          * @see GlobalScope#setSkin(String)
          * @see GlobalScope#setSkin(SubstanceSkin)
-         * @since version 8.0
          */
         public static void setSkin(JRootPane rootPane, SubstanceSkin skin) {
             if (rootPane == null) {
@@ -2201,7 +2140,6 @@ public class SubstanceCortex {
          * @param contentsModified If <code>true</code>, the <b>close</b> button of the title pane of the
          *                         matching frame / dialog will be animated.
          * @see ComponentScope#setTabContentsModified(JComponent, Boolean)
-         * @since version 8.0
          */
         public static void setContentsModified(JRootPane rootPane, Boolean contentsModified) {
             if (rootPane == null) {
@@ -2225,7 +2163,6 @@ public class SubstanceCortex {
          * @param window           Window. May not be <code>null</code>.
          * @param visible          Visibility indication.
          * @param substanceWidgets Widget types.
-         * @since version 8.0
          */
         public static void setWidgetVisible(Window window, boolean visible,
                 SubstanceWidgetType... substanceWidgets) {

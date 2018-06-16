@@ -45,7 +45,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
  * API.
  * 
  * @author Kirill Grouchnikov
- * @since version 3.3
  */
 public class GraphiteGlassSkin extends GraphiteBaseSkin {
 	/**

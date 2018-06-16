@@ -52,7 +52,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
  * <code>Magellan</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
- * @since version 5.3
  */
 public class MagellanSkin extends SubstanceSkin {
 	/**

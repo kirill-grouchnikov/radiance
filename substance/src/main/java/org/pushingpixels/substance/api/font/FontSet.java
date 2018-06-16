@@ -37,8 +37,6 @@ import javax.swing.plaf.FontUIResource;
  * implement the UIResource marker interface.
  * 
  * @author Karsten Lentzsch
- * 
- * @since 2.0
  */
 public interface FontSet {
 
