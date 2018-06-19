@@ -54,7 +54,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
@@ -108,7 +108,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                     Graphics2D g2d = (Graphics2D) g.create();
                                     g2d.setColor(Color.black);
                                     g2d.setFont(UIManager.getFont("Label.font"));
-                                    NeonUtil.installDesktopHints(g2d, c);
+                                    NeonCortex.installDesktopHints(g2d, c);
                                     g2d.drawString("" + index, x + 2, y + height - 2);
                                     g2d.dispose();
                                 }
@@ -684,7 +684,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                             int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(Color.black);
-                        NeonUtil.installDesktopHints(g2d, c);
+                        NeonCortex.installDesktopHints(g2d, c);
                         g2d.setFont(UIManager.getFont("Label.font"));
                         g2d.drawString("" + index, x + 2, y + height - 2);
                         g2d.dispose();
@@ -1046,7 +1046,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         public void paintIconDecoration(Component c, Graphics g, int x, int y,
                                 int width, int height) {
                             Graphics2D g2d = (Graphics2D) g.create();
-                            NeonUtil.installDesktopHints(g2d, c);
+                            NeonCortex.installDesktopHints(g2d, c);
                             g2d.setFont(UIManager.getFont("Label.font").deriveFont(9.0f));
                             g2d.setColor(Color.black);
                             g2d.drawString("" + index, x + 1, y + height - 2);
@@ -1079,7 +1079,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         public void paintIconDecoration(Component c, Graphics g, int x, int y,
                                 int width, int height) {
                             Graphics2D g2d = (Graphics2D) g.create();
-                            NeonUtil.installDesktopHints(g2d, c);
+                            NeonCortex.installDesktopHints(g2d, c);
                             g2d.setFont(UIManager.getFont("Label.font").deriveFont(9.0f));
                             g2d.setColor(Color.black);
                             g2d.drawString("" + index, x + 1, y + height - 2);
@@ -1916,7 +1916,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             super.paintComponent(g);
 
             Graphics2D g2d = (Graphics2D) g.create();
-            NeonUtil.installDesktopHints(g2d, this);
+            NeonCortex.installDesktopHints(g2d, this);
             g2d.setColor(Color.gray);
 
             if (getComponentOrientation().isLeftToRight()) {

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -737,7 +737,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
         HighlightPainterUtils.paintHighlight(g, null, c, clip, 0.0f, null, fillScheme,
                 borderScheme);
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonUtil.installDesktopHints(g2d, c);
+        NeonCortex.installDesktopHints(g2d, c);
         paint(g2d, c);
         g2d.dispose();
     }

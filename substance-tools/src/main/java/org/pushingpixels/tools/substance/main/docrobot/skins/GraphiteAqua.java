@@ -43,6 +43,6 @@ public class GraphiteAqua extends SkinRobot {
 	 */
 	public GraphiteAqua() {
 		super(new GraphiteAquaSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/graphiteaqua");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/graphiteaqua");
 	}
 }

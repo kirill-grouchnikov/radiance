@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceWidget;
@@ -245,7 +245,7 @@ public class SubstanceTextPaneUI extends BasicTextPaneUI implements TransitionAw
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonUtil.installDesktopHints(g2d, c);
+        NeonCortex.installDesktopHints(g2d, c);
         super.update(g2d, c);
         g2d.dispose();
     }

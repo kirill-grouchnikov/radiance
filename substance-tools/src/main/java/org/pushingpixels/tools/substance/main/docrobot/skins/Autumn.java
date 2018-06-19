@@ -43,6 +43,6 @@ public class Autumn extends SkinRobot {
 	 */
 	public Autumn() {
 		super(new AutumnSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/autumn");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/autumn");
 	}
 }

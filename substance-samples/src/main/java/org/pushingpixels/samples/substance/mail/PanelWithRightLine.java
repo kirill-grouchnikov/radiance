@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.samples.substance.mail;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -56,7 +56,7 @@ public class PanelWithRightLine extends JPanel {
             g2d.setColor(this.rightLineColor);
             int width = getWidth();
 
-            float borderStrokeWidth = 1.0f / (float) NeonUtil.getScaleFactor();
+            float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor();
             g2d.setStroke(new BasicStroke(borderStrokeWidth));
             Line2D.Float line = new Line2D.Float(width - borderStrokeWidth, 0,
                     width - borderStrokeWidth, getHeight());

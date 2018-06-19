@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.border;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -132,7 +132,7 @@ public class SubstanceEtchedBorder implements Border {
 		// this is a fix for defect 248 - in order to paint the TitledBorder
 		// text respecting the AA settings of the display, we have to
 		// set rendering hints on the passed Graphics object.
-        NeonUtil.installDesktopHints((Graphics2D) g, c);
+        NeonCortex.installDesktopHints((Graphics2D) g, c);
 	}
 
 	/*

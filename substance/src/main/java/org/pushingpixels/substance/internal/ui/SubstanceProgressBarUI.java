@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
@@ -397,7 +397,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
                 fillState);
 
         SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(progressBar);
-        double scaleFactor = NeonUtil.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor();
         if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
             BufferedImage back = getDeterminateBackground(progressBar, barRectWidth, barRectHeight,
                     fillScheme, fillPainter, progressBar.getOrientation(),
@@ -772,7 +772,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonUtil.installDesktopHints(g2d, c);
+        NeonCortex.installDesktopHints(g2d, c);
         super.update(g2d, c);
         g2d.dispose();
     }

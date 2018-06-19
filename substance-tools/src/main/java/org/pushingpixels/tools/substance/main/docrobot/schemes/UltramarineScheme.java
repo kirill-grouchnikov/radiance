@@ -44,6 +44,6 @@ public class UltramarineScheme extends ColorSchemeRobot {
 	public UltramarineScheme() {
 		super(
 				new UltramarineColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/ultramarine.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/ultramarine.png");
 	}
 }

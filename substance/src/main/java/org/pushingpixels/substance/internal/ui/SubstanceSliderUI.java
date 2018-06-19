@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -303,7 +303,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height, radius, borderDelta,
 				borderThickness, fillColorScheme.getDisplayName(), borderScheme.getDisplayName());
 
-		double scaleFactor = NeonUtil.getScaleFactor();
+		double scaleFactor = NeonCortex.getScaleFactor();
 		BufferedImage trackImage = trackCache.get(key);
 		if (trackImage == null) {
 			trackImage = SubstanceCoreUtilities.getBlankImage(width + 1, height + 1);
@@ -559,7 +559,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		Font f = slider.getFont();
 		if (f == null || f instanceof UIResource) {
 			slider.setFont(new FontUIResource(SubstanceCortex.GlobalScope.getFontPolicy()
-					.getFontSet("Substance", null).getControlFont()));
+					.getFontSet(null).getControlFont()));
 		}
 		int size = SubstanceSizeUtils
 				.getSliderIconSize(SubstanceSizeUtils.getComponentFontSize(slider));

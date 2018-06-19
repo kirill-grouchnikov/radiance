@@ -43,6 +43,6 @@ public class Creme extends SkinRobot {
 	 */
 	public Creme() {
 		super(new CremeSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/creme");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/creme");
 	}
 }

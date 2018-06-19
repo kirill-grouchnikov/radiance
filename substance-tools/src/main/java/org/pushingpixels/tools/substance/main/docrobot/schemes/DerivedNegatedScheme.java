@@ -45,6 +45,6 @@ public class DerivedNegatedScheme extends ColorSchemeRobot {
 	public DerivedNegatedScheme() {
 		super(
 				new PurpleColorScheme().negate(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/derived-negate.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/derived-negate.png");
 	}
 }

@@ -44,6 +44,6 @@ public class LimeGreenScheme extends ColorSchemeRobot {
 	public LimeGreenScheme() {
 		super(
 				new LimeGreenColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/lime-green.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/lime-green.png");
 	}
 }

@@ -43,6 +43,6 @@ public class OfficeBlack2007 extends SkinRobot {
 	 */
 	public OfficeBlack2007() {
 		super(new OfficeBlack2007Skin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/officeblack2007");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/officeblack2007");
 	}
 }

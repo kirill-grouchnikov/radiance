@@ -43,6 +43,6 @@ public class Graphite extends SkinRobot {
 	 */
 	public Graphite() {
 		super(new GraphiteSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/graphite");
+				"/Users/kirillg/Projects/radiance/docs/substance/skins/graphite");
 	}
 }

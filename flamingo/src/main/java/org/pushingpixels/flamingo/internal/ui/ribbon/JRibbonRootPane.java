@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonRootPaneUI;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.neon.NeonCortex;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -63,7 +63,7 @@ public class JRibbonRootPane extends JRootPane {
 				ribbon.setMinimized(!ribbon.isMinimized());
 			}
 		});
-		KeyStroke keyStroke = (SubstanceCoreUtilities.getPlatform() == SubstanceCoreUtilities
+		KeyStroke keyStroke = (NeonCortex.getPlatform() == NeonCortex
                 .Platform.MACOS) ? KeyStroke.getKeyStroke("meta alt R") :
                               KeyStroke.getKeyStroke("ctrl F1");
 		inputMap.put(keyStroke, "toggleMinimized");

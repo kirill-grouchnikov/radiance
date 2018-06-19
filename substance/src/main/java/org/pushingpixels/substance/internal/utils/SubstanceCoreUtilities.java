@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.IsHiDpiAware;
 import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.*;
@@ -44,7 +44,6 @@ import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
-import org.pushingpixels.substance.internal.fonts.DefaultKDEFontPolicy;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.ui.SubstanceButtonUI;
 import org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI;
@@ -64,8 +63,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -86,15 +83,9 @@ public class SubstanceCoreUtilities {
 
     public static final String TEXT_COMPONENT_AWARE = "substancelaf.internal.textComponentAware";
 
-    public static enum Platform {
-        MACOS, GNOME, KDE, WINDOWS, DEFAULT
+    public interface TextComponentAware<T> {
+        JTextComponent getTextComponent(T t);
     }
-
-    public static interface TextComponentAware<T> {
-        public JTextComponent getTextComponent(T t);
-    }
-
-    private static Platform platform;
 
     /**
      * Private constructor. Is here to enforce using static methods only.
@@ -557,7 +548,7 @@ public class SubstanceCoreUtilities {
             }
         }
 
-        return NeonUtil.getBlankImage(width, height);
+        return NeonCortex.getBlankImage(width, height);
     }
 
     /**
@@ -588,7 +579,7 @@ public class SubstanceCoreUtilities {
             }
         }
 
-        return NeonUtil.getBlankUnscaledImage(width, height);
+        return NeonCortex.getBlankUnscaledImage(width, height);
     }
 
     /**
@@ -618,7 +609,7 @@ public class SubstanceCoreUtilities {
             }
         }
 
-        return NeonUtil.getBlankUnscaledImage(imageWidth, imageHeight);
+        return NeonCortex.getBlankUnscaledImage(imageWidth, imageHeight);
     }
 
     public static boolean isHiDpiAwareImage(Image image) {
@@ -1948,40 +1939,6 @@ public class SubstanceCoreUtilities {
                 return isLeftToRight ? SwingConstants.RIGHT : SwingConstants.LEFT;
         }
         throw new IllegalStateException("Unknown button alignment " + buttonBarGravity);
-    }
-
-    public static synchronized Platform getPlatform() {
-        if (platform != null) {
-            return platform;
-        }
-
-        if (LookUtils.IS_OS_WINDOWS) {
-            return (platform = Platform.WINDOWS);
-        }
-        if (LookUtils.IS_OS_MAC) {
-            return (platform = Platform.MACOS);
-        }
-        try {
-            if (DefaultKDEFontPolicy.isKDERunning()) {
-                return (platform = Platform.KDE);
-            }
-        } catch (Throwable t) {
-            // security access - too bad for KDE desktops.
-        }
-        try {
-            String desktop = AccessController.doPrivileged(new PrivilegedAction<String>() {
-                public String run() {
-                    return System.getProperty("sun.desktop");
-                }
-            });
-            if ("gnome".equals(desktop)) {
-                return (platform = Platform.GNOME);
-            }
-        } catch (Throwable t) {
-            // security access - too bad for Gnome desktops.
-        }
-
-        return (platform = Platform.DEFAULT);
     }
 
     /**

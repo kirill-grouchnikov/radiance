@@ -44,6 +44,6 @@ public class DarkVioletScheme extends ColorSchemeRobot {
 	public DarkVioletScheme() {
 		super(
 				new DarkVioletColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/dark-violet.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/dark-violet.png");
 	}
 }

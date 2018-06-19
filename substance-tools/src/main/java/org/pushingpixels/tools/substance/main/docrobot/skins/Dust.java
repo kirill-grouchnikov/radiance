@@ -43,6 +43,6 @@ public class Dust extends SkinRobot {
 	 */
 	public Dust() {
 		super(new DustSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/dust");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/dust");
 	}
 }

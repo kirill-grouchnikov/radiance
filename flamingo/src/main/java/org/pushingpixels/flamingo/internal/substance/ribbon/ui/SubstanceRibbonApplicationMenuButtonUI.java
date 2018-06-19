@@ -36,7 +36,7 @@ import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonVisualSt
 import org.pushingpixels.flamingo.internal.substance.utils.RibbonApplicationMenuButtonBackgroundDelegate;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.BasicRibbonApplicationMenuButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
@@ -152,7 +152,7 @@ public class SubstanceRibbonApplicationMenuButtonUI extends BasicRibbonApplicati
         BufferedImage fullAlphaBackground = RibbonApplicationMenuButtonBackgroundDelegate
                 .getFullAlphaBackground(b, fillPainter, borderPainter, commandButton.getWidth() - 2,
                         commandButton.getHeight() - 2);
-        double scaleFactor = NeonUtil.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor();
         g2d.drawImage(fullAlphaBackground, 0, 0, (int) (fullAlphaBackground.getWidth() / scaleFactor),
                 (int) (fullAlphaBackground.getHeight() / scaleFactor), null);
 

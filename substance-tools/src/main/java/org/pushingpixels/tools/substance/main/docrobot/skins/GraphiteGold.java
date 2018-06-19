@@ -43,6 +43,6 @@ public class GraphiteGold extends SkinRobot {
 	 */
 	public GraphiteGold() {
 		super(new GraphiteGoldSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/graphitegold");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/graphitegold");
 	}
 }

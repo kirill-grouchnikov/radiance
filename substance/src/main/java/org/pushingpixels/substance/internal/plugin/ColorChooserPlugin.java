@@ -34,7 +34,7 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.font.FontSet;
+import org.pushingpixels.neon.font.FontSet;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
@@ -200,8 +200,7 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
             };
 
             Object[] colorDefaults = null;
-            FontSet substanceFontSet = SubstanceCortex.GlobalScope.getFontPolicy()
-                    .getFontSet("Substance", null);
+            FontSet substanceFontSet = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null);
             Font controlFont = substanceFontSet.getControlFont();
 
             Font fontBoldBaseP1 = new FontUIResource(controlFont.deriveFont(

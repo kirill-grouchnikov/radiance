@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
@@ -1026,7 +1026,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		boolean isWatermarkBleed = SubstanceCoreUtilities.toDrawWatermark(tree) || !tree.isOpaque();
 
 		Graphics2D g2d = (Graphics2D) g.create();
-		NeonUtil.installDesktopHints(g2d, c);
+		NeonCortex.installDesktopHints(g2d, c);
 
 		SubstanceStripingUtils.setup(c);
 		if (initialPath != null && paintingEnumerator != null) {

@@ -42,8 +42,6 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
  * "org.pushingpixels.substance.api.skin.SubstanceCeruleanLookAndFeel" );</li>
  * <li>UIManager.setLookAndFeel(new SubstanceCeruleanLookAndFeel());</li>
  * </ul>
- *
- * @since version 7.0
  */
 public class SubstanceCeruleanLookAndFeel extends SubstanceLookAndFeel {
 	/**

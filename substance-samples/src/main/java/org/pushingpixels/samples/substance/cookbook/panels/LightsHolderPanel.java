@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.samples.substance.cookbook.panels;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +45,7 @@ public class LightsHolderPanel extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
-        float borderStrokeWidth = 1.0f / (float) NeonUtil.getScaleFactor();
+        float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor();
         g2d.setStroke(new BasicStroke(borderStrokeWidth));
 
         LinearGradientPaint lgp = new LinearGradientPaint(0, 0, getWidth(), 0,

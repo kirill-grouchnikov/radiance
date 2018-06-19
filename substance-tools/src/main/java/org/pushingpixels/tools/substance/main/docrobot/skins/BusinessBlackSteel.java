@@ -44,6 +44,6 @@ public class BusinessBlackSteel extends SkinRobot {
 	public BusinessBlackSteel() {
 		super(
 				new BusinessBlackSteelSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/businessblacksteel");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/businessblacksteel");
 	}
 }

@@ -43,6 +43,6 @@ public class Twilight extends SkinRobot {
 	 */
 	public Twilight() {
 		super(new TwilightSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/twilight");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/twilight");
 	}
 }

@@ -43,6 +43,6 @@ public class OfficeSilver2007 extends SkinRobot {
 	 */
 	public OfficeSilver2007() {
 		super(new OfficeSilver2007Skin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/officesilver2007");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/officesilver2007");
 	}
 }

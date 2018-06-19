@@ -49,7 +49,7 @@ public class FakeAccordion extends JPanel {
             titleLabel.setIcon(icon);
             titleLabel.setBorder(new EmptyBorder(4, 4, 4, 4));
             titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().
-                    getFontSet("Substance", null).getControlFont().deriveFont(Font.BOLD));
+                    getFontSet(null).getControlFont().deriveFont(Font.BOLD));
             //SubstanceCortex.ComponentOrParentScope.setFlatBackground(titleLabel, true);
             titleLabel.addActionListener((ActionEvent ae) ->
                     setCollapsed(this.content.isVisible())

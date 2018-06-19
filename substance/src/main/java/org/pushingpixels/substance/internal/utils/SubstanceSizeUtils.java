@@ -29,13 +29,12 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.font.FontPolicy;
-import org.pushingpixels.substance.api.font.FontSet;
+import org.pushingpixels.neon.font.FontPolicy;
+import org.pushingpixels.neon.font.FontSet;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.internal.fonts.DefaultGnomeFontPolicy;
 
 import javax.swing.border.Border;
 import javax.swing.plaf.BorderUIResource;
@@ -54,11 +53,6 @@ public class SubstanceSizeUtils {
 	private static int controlFontSize = -1;
 
 	/**
-	 * The points to pixels ratio of the current font policy.
-	 */
-	private static double pointsToPixelsRatio = 1.0;
-
-	/**
 	 * Gets the current control font size.
 	 * 
 	 * @return Control font size.
@@ -67,7 +61,7 @@ public class SubstanceSizeUtils {
 		if (controlFontSize > 0)
 			return controlFontSize;
 		FontPolicy fPolicy = SubstanceCortex.GlobalScope.getFontPolicy();
-		FontSet fSet = fPolicy.getFontSet("Substance", null);
+		FontSet fSet = fPolicy.getFontSet(null);
 		controlFontSize = fSet.getControlFont().getSize();
 		return controlFontSize;
 	}
@@ -222,7 +216,7 @@ public class SubstanceSizeUtils {
 	 * @return Stroke width of borders.
 	 */
 	public static float getBorderStrokeWidth() {
-		return 1.0f / (float) NeonUtil.getScaleFactor();
+		return 1.0f / (float) NeonCortex.getScaleFactor();
 	}
 
 	/**
@@ -449,7 +443,7 @@ public class SubstanceSizeUtils {
 	 * Returns the stroke width of focus rings.
 	 */
 	public static float getFocusStrokeWidth() {
-        return 1.0f / (float) NeonUtil.getScaleFactor();
+        return 1.0f / (float) NeonCortex.getScaleFactor();
 	}
 
 	/**
@@ -734,17 +728,6 @@ public class SubstanceSizeUtils {
 				borderStrokeWidth, borderStrokeWidth);
 	}
 
-	// /**
-	// * Returns the spinner button width under the specified font size.
-	// *
-	// * @param fontSize
-	// * Font size.
-	// * @return Spinner button width under the specified font size.
-	// */
-	// public static int getSpinnerButtonWidth(int fontSize) {
-	// return (int)(getArrowIconWidth(fontSize) * 3 / 2);
-	// }
-
 	/**
 	 * Returns the spinner text border insets under the specified font size.
 	 * 
@@ -802,13 +785,11 @@ public class SubstanceSizeUtils {
 	}
 
 	/**
-	 * Returns the tabbed pane content insets under the specified size. The
+	 * Returns the tabbed pane content insets. The
 	 * {@link SubstanceSlices.TabContentPaneBorderKind#SINGLE_FULL} is
 	 * assumed.
 	 * 
-	 * @param fontSize
-	 *            Font size.
-	 * @return Tabbed pane content insets under the specified size.
+	 * @return Tabbed pane content insets.
 	 */
 	public static Insets getTabbedPaneContentInsets() {
 		float borderStrokeWidth = getBorderStrokeWidth();
@@ -817,11 +798,9 @@ public class SubstanceSizeUtils {
 	}
 
 	/**
-	 * Returns the stroke width of tab close buttons under the specified size.
+	 * Returns the stroke width of tab close buttons.
 	 * 
-	 * @param fontSize
-	 *            Font size.
-	 * @return Stroke width of tab close buttons under the specified size.
+	 * @return Stroke width of tab close buttons.
 	 */
 	public static float getTabCloseButtonStrokeWidth() {
 		return getBorderStrokeWidth();
@@ -893,11 +872,9 @@ public class SubstanceSizeUtils {
 	}
 
 	/**
-	 * Returns the icon size of title pane buttons under the specified size.
+	 * Returns the icon size of title pane buttons.
 	 * 
-	 * @param fontSize
-	 *            Font size.
-	 * @return Icon size of title pane buttons under the specified size.
+	 * @return Icon size of title pane buttons.
 	 */
 	public static int getTitlePaneIconSize() {
 		return 5 + getControlFontSize();
@@ -969,30 +946,6 @@ public class SubstanceSizeUtils {
 		return 10 + extraPadding2;
 	}
 
-	/**
-	 * Returns the points to pixels ratio of the current font policy.
-	 * 
-	 * @return The points to pixels ratio of the current font policy.
-	 */
-	public static double getPointsToPixelsRatio() {
-		return pointsToPixelsRatio;
-	}
-
-	/**
-	 * Resets the points to pixels ratio based on the specified font policy.
-	 * 
-	 * @param fontPolicy
-	 *            Font policy.
-	 */
-	public static void resetPointsToPixelsRatio(FontPolicy fontPolicy) {
-		if (fontPolicy instanceof DefaultGnomeFontPolicy) {
-			pointsToPixelsRatio = DefaultGnomeFontPolicy
-					.getPointsToPixelsRatio();
-		} else {
-			pointsToPixelsRatio = Toolkit.getDefaultToolkit()
-					.getScreenResolution() / 72.0;
-		}
-	}
 
     /**
      * Returns the size of the lookup button. 

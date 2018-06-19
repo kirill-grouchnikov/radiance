@@ -49,6 +49,6 @@ public class DerivedShiftedBackgroundScheme extends ColorSchemeRobot {
 		super(
 				new PurpleColorScheme().shiftBackground(
 						new Color(255, 128, 128), 0.8),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/derived-shiftedbackground.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/derived-shiftedbackground.png");
 	}
 }

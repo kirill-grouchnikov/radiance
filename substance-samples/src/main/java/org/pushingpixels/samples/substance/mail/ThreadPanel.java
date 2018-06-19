@@ -118,7 +118,7 @@ public class ThreadPanel extends JPanel {
         result.setBorder(new EmptyBorder(6, 12, 16, 12));
 
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getControlFont().deriveFont(Font.BOLD, 19.0f));
         result.add(titleLabel);
 
@@ -132,7 +132,7 @@ public class ThreadPanel extends JPanel {
         DefaultFormBuilder builder = new DefaultFormBuilder(
                 new FormLayout("center:pref, 8dlu, 0dlu:grow, 8dlu, right:pref", ""))
                         .border(new EmptyBorder(8, 16, 8, 16));
-        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getControlFont();
 
         JLabel senderLabel = new JLabel(from);
@@ -162,7 +162,7 @@ public class ThreadPanel extends JPanel {
         DefaultFormBuilder firstRow = new DefaultFormBuilder(new FormLayout(
                 "0dlu:grow, 8dlu, right:pref, 8dlu, center:pref, 8dlu, center:pref", ""))
                         .border(new EmptyBorder(8, 16, 2, 16));
-        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getControlFont();
 
         JLabel senderLabel = new JLabel(from);

@@ -44,6 +44,6 @@ public class AquaScheme extends ColorSchemeRobot {
 	public AquaScheme() {
 		super(
 				new AquaColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/aqua.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/aqua.png");
 	}
 }

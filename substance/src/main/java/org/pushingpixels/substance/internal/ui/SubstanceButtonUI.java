@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceWidget;
@@ -542,7 +542,7 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonUtil.installDesktopHints(g2d, c);
+        NeonCortex.installDesktopHints(g2d, c);
         this.paint(g2d, c);
 //		g2d.setColor(new Color(255, 0, 0, 96));
 //		g2d.fillRect(0, 0, c.getWidth(), c.getHeight());

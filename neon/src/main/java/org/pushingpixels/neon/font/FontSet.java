@@ -28,7 +28,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package org.pushingpixels.substance.api.font;
+package org.pushingpixels.neon.font;
 
 import javax.swing.plaf.FontUIResource;
 

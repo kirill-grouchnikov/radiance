@@ -29,14 +29,13 @@
  */
 package org.pushingpixels.substance.api;
 
-import org.pushingpixels.neon.icon.NeonIcon;
+import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.font.FontPolicy;
+import org.pushingpixels.neon.font.FontSet;
 import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
-import org.pushingpixels.substance.api.font.FontPolicy;
-import org.pushingpixels.substance.api.font.FontSet;
-import org.pushingpixels.substance.api.font.SubstanceFontUtilities;
 import org.pushingpixels.substance.api.icon.SubstanceDefaultIconPack;
 import org.pushingpixels.substance.api.icon.SubstanceIconPack;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
@@ -53,7 +52,6 @@ import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.SubstancePluginRepository;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
-import org.pushingpixels.substance.internal.fonts.FontPolicies;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI;
 import org.pushingpixels.substance.internal.utils.*;
@@ -87,7 +85,6 @@ import java.util.*;
  * </ul>
  *
  * @author Kirill Grouchnikov
- * @since version 8.0
  */
 public class SubstanceCortex {
     /**
@@ -114,18 +111,22 @@ public class SubstanceCortex {
         /**
          * List of all listeners on skin changes.
          */
-        private final static Set<SkinChangeListener> skinChangeListeners = new HashSet<SkinChangeListener>();
+        private final static Set<SkinChangeListener> skinChangeListeners = new
+                HashSet<SkinChangeListener>();
 
         /**
          * List of all listeners on changing locales.
          */
-        private final static Set<LocaleChangeListener> localeChangeListeners = new HashSet<LocaleChangeListener>();
+        private final static Set<LocaleChangeListener> localeChangeListeners = new
+                HashSet<LocaleChangeListener>();
 
         private static SubstanceIconPack iconPack;
 
-        private static SubstanceSlices.ButtonOrder buttonBarButtonOrder = SubstanceSlices.ButtonOrder.PLATFORM;
+        private static SubstanceSlices.ButtonOrder buttonBarButtonOrder = SubstanceSlices
+                .ButtonOrder.PLATFORM;
 
-        private static SubstanceSlices.HorizontalGravity buttonBarGravity = SubstanceSlices.HorizontalGravity.PLATFORM;
+        private static SubstanceSlices.HorizontalGravity buttonBarGravity = SubstanceSlices
+                .HorizontalGravity.PLATFORM;
 
         /**
          * Sets the specified skin. If the current look-and-feel is not Substance, this method will
@@ -135,7 +136,8 @@ public class SubstanceCortex {
          *
          * @param newSkin         Skin to set.
          * @param toUpdateWindows if <code>true</code>, the
-         *                        {@link SwingUtilities#updateComponentTreeUI(Component)} is called on all
+         *                        {@link SwingUtilities#updateComponentTreeUI(Component)} is
+         *                        called on all
          *                        windows returned by {@link Window#getWindows()} API.
          * @return <code>true</code> if the specified skin has been set successfully,
          * <code>false</code> otherwise.
@@ -194,7 +196,7 @@ public class SubstanceCortex {
                 // The table will be null when the skin is set using a custom
                 // LAF
                 if (defaults != null) {
-                    initFontDefaults(lafDefaults, getFontPolicy().getFontSet("Substance", null));
+                    initFontDefaults(lafDefaults, getFontPolicy().getFontSet(null));
                     newSkin.addCustomEntriesToTable(lafDefaults);
                     SubstancePluginRepository.getInstance()
                             .processAllDefaultsEntriesComponentPlugins(lafDefaults, newSkin);
@@ -317,7 +319,7 @@ public class SubstanceCortex {
          * @param table The UI defaults table.
          */
         static void initFontDefaults(UIDefaults table) {
-            FontSet substanceFontSet = getFontPolicy().getFontSet("Substance", null);
+            FontSet substanceFontSet = getFontPolicy().getFontSet(null);
             initFontDefaults(table, substanceFontSet);
         }
 
@@ -418,7 +420,7 @@ public class SubstanceCortex {
 
                     "RadioButtonMenuItem.font", menuFont,
 
-                    "RadioButtonMenuItem.acceleratorFont", menuFont,};
+                    "RadioButtonMenuItem.acceleratorFont", menuFont, };
             table.putDefaults(defaults);
         }
 
@@ -492,14 +494,13 @@ public class SubstanceCortex {
          * be the current look-and-feel, and will cause Substance to be set as the current
          * application look-and-feel.
          *
-         * @param fontPolicy The {@link FontPolicy} to be used with Substance family, or <code>null</code>
-         *                   to reset to the default
+         * @param fontPolicy The {@link FontPolicy} to be used with Substance family, or
+         *                   <code>null</code> to reset to the default
          * @see #getFontPolicy()
          */
         public static void setFontPolicy(FontPolicy fontPolicy) {
             UIManager.put(SUBSTANCE_FONT_POLICY_KEY, fontPolicy);
             SubstanceSizeUtils.setControlFontSize(-1);
-            SubstanceSizeUtils.resetPointsToPixelsRatio(fontPolicy);
             setSkin(getCurrentSkin());
         }
 
@@ -510,8 +511,6 @@ public class SubstanceCortex {
          *
          * @return the {@link FontPolicy} set for Substance, or the default Substance font policy.
          * @see #setFontPolicy
-         * @see FontPolicies
-         * @see FontPolicies#customSettingsPolicy(FontPolicy)
          */
         public static FontPolicy getFontPolicy() {
             FontPolicy policy = (FontPolicy) UIManager.get(SUBSTANCE_FONT_POLICY_KEY);
@@ -519,7 +518,7 @@ public class SubstanceCortex {
                 return policy;
 
             // return default policy
-            return SubstanceFontUtilities.getDefaultFontPolicy();
+            return NeonCortex.getDefaultFontPolicy();
         }
 
         /**
@@ -765,8 +764,10 @@ public class SubstanceCortex {
          * scheme). To use color scheme-consistent coloring, call this method and pass
          * <code>false</code>.
          *
-         * @param useConstantThemesOnOptionPanes if <code>true</code>, the <code>JOptionPane</code>s created with predefined
-         *                                       message types will use constant color schemes for the icons.
+         * @param useConstantThemesOnOptionPanes if <code>true</code>, the
+         *                                       <code>JOptionPane</code>s created with predefined
+         *                                       message types will use constant color schemes
+         *                                       for the icons.
          */
         public static void setUseConstantThemesOnOptionPanes(
                 Boolean useConstantThemesOnOptionPanes) {
@@ -781,8 +782,10 @@ public class SubstanceCortex {
          * The control is in default state when it's not pressed, not selected, not armed and not
          * rolled over. By default, all controls show regular (full-color original) icons.
          *
-         * @param useThemedDefaultIcons if <code>true</code>, icons on controls such as buttons, toggle buttons,
-         *                              labels, tabs and menu items will match the color of the current color scheme
+         * @param useThemedDefaultIcons if <code>true</code>, icons on controls such as buttons,
+         *                              toggle buttons,
+         *                              labels, tabs and menu items will match the color of the
+         *                              current color scheme
          *                              when they are in default state.
          */
         public static void setUseThemedDefaultIcons(Boolean useThemedDefaultIcons) {
@@ -805,7 +808,8 @@ public class SubstanceCortex {
          * <code>JOptionPane</code>s, for example. The default order is
          * {@link SubstanceSlices.ButtonOrder#PLATFORM}.
          *
-         * @param buttonBarButtonOrder The new button order for all containers that display grouped buttons. The
+         * @param buttonBarButtonOrder The new button order for all containers that display
+         *                             grouped buttons. The
          *                             value cannot be <code>null</code>.
          * @see #getButtonBarOrder()
          */
@@ -824,7 +828,7 @@ public class SubstanceCortex {
          *
          * @return The currently set button bar gravity for all containers that display grouped
          * buttons.
-         * @see #setButtonBarGravity(org.pushingpixels.substance.api.SubstanceSlices.HorizontalGravity)
+         * @see #setButtonBarGravity(HorizontalGravity)
          */
         public static SubstanceSlices.HorizontalGravity getButtonBarGravity() {
             return buttonBarGravity;
@@ -835,7 +839,8 @@ public class SubstanceCortex {
          * <code>JOptionPane</code>s, for example. The default gravity is
          * {@link SubstanceSlices.HorizontalGravity#PLATFORM}.
          *
-         * @param buttonBarGravity The new button alignment for all containers that display grouped buttons. The
+         * @param buttonBarGravity The new button alignment for all containers that display
+         *                         grouped buttons. The
          *                         value cannot be <code>null</code>.
          * @see #getButtonBarGravity()
          */
@@ -859,10 +864,14 @@ public class SubstanceCortex {
          * {@link WindowScope#extendContentIntoTitlePane(Window, org.pushingpixels.substance.api.SubstanceSlices.HorizontalGravity, org.pushingpixels.substance.api.SubstanceSlices.VerticalGravity)}
          * API.
          *
-         * @param titleTextHorizontalGravity               Horizontal gravity for the title text. The value cannot be <code>null</code>.
-         * @param titleControlButtonGroupHorizontalGravity Horizontal gravity for the control button group. The value cannot be
-         *                                                 <code>null</code> or {@link SubstanceSlices.HorizontalGravity#CENTERED}.
-         * @param titleIconHorizontalGravity               Horizontal gravity for the icon. The value cannot be <code>null</code>.
+         * @param titleTextHorizontalGravity               Horizontal gravity for the title text.
+         *                                                 The value cannot be <code>null</code>.
+         * @param titleControlButtonGroupHorizontalGravity Horizontal gravity for the control
+         *                                                 button group. The value cannot be
+         *                                                 <code>null</code> or
+         *                                                 {@link SubstanceSlices.HorizontalGravity#CENTERED}.
+         * @param titleIconHorizontalGravity               Horizontal gravity for the icon. The
+         *                                                 value cannot be <code>null</code>.
          * @see WindowScope#extendContentIntoTitlePane(Window,
          * org.pushingpixels.substance.api.SubstanceSlices.HorizontalGravity,
          * org.pushingpixels.substance.api.SubstanceSlices.VerticalGravity)
@@ -878,19 +887,24 @@ public class SubstanceCortex {
                 SubstanceSlices.TitleIconHorizontalGravity titleIconHorizontalGravity) {
             if (titleTextHorizontalGravity == null) {
                 throw new IllegalArgumentException(
-                        "Cannot pass null for text gravity. Did you mean PLATFORM or SWING_DEFAULT?");
+                        "Cannot pass null for text gravity. Did you mean PLATFORM or " +
+                                "SWING_DEFAULT?");
             }
             if (titleControlButtonGroupHorizontalGravity == null) {
                 throw new IllegalArgumentException(
-                        "Cannot pass null for control button group horizontal gravity. Did you mean PLATFORM or SWING_DEFAULT?");
+                        "Cannot pass null for control button group horizontal gravity. Did you " +
+                                "mean PLATFORM or SWING_DEFAULT?");
             }
             if (titleIconHorizontalGravity == null) {
                 throw new IllegalArgumentException(
-                        "Cannot pass null for icon horizontal gravity. Did you mean PLATFORM or SWING_DEFAULT?");
+                        "Cannot pass null for icon horizontal gravity. Did you mean PLATFORM or " +
+                                "SWING_DEFAULT?");
             }
-            if (titleControlButtonGroupHorizontalGravity == SubstanceSlices.HorizontalGravity.CENTERED) {
+            if (titleControlButtonGroupHorizontalGravity == SubstanceSlices.HorizontalGravity
+                    .CENTERED) {
                 throw new IllegalArgumentException(
-                        "Cannot pass CENTERED for control button group horizontal gravity. Did you mean PLATFORM or SWING_DEFAULT?");
+                        "Cannot pass CENTERED for control button group horizontal gravity. Did " +
+                                "you mean PLATFORM or SWING_DEFAULT?");
             }
 
             UIManager.put(SubstanceSynapse.TITLE_TEXT_HORIZONTAL_GRAVITY,
@@ -908,9 +922,8 @@ public class SubstanceCortex {
          *
          * @return HorizontalGravity for the title text in title panes of all decorated application
          * windows.
-         * @see #configureTitleContentGravity(org.pushingpixels.substance.api.SubstanceSlices.HorizontalGravity,
-         * org.pushingpixels.substance.api.SubstanceSlices.HorizontalGravity,
-         * org.pushingpixels.substance.api.SubstanceSlices.TitleIconHorizontalGravity)
+         * @see #configureTitleContentGravity(HorizontalGravity, HorizontalGravity,
+         * TitleIconHorizontalGravity)
          * @see WindowScope#getTitleControlButtonGroupHorizontalGravity(Window)
          * @see #getTitleIconHorizontalGravity()
          */
@@ -923,9 +936,8 @@ public class SubstanceCortex {
          *
          * @return Horizontal gravity for the icon in title panes of all decorated application
          * windows.
-         * @see #configureTitleContentGravity(org.pushingpixels.substance.api.SubstanceSlices.HorizontalGravity,
-         * org.pushingpixels.substance.api.SubstanceSlices.HorizontalGravity,
-         * org.pushingpixels.substance.api.SubstanceSlices.TitleIconHorizontalGravity)
+         * @see #configureTitleContentGravity(HorizontalGravity, HorizontalGravity,
+         * TitleIconHorizontalGravity)
          * @see WindowScope#getTitleControlButtonGroupHorizontalGravity(Window)
          * @see #getTitleIconHorizontalGravity()
          */
@@ -955,7 +967,8 @@ public class SubstanceCortex {
          * Specifies global visibility of the lock icon on non-editable text components.
          *
          * @param visible If <code>true</code>, all non-editable text components not explicitly
-         *                configured with {@link ComponentScope#setLockIconVisible(JComponent, Boolean)}
+         *                configured with
+         *                {@link ComponentScope#setLockIconVisible(JComponent, Boolean)}
          *                will show a lock icon. Pass <code>null</code> to reset to the default
          *                behavior.
          * @see ComponentScope#setLockIconVisible(JComponent, Boolean)
@@ -978,8 +991,10 @@ public class SubstanceCortex {
         /**
          * Specifies whether the contents of text components should be selected on focus gain.
          *
-         * @param selectTextOnFocus If <code>true</code>, the contents of text components will be selected on
-         *                          focus gain. Pass <code>null</code> to reset to the default behavior.
+         * @param selectTextOnFocus If <code>true</code>, the contents of text components will be
+         *                          selected on
+         *                          focus gain. Pass <code>null</code> to reset to the default
+         *                          behavior.
          * @see ComponentOrParentChainScope#setSelectTextOnFocus(JComponent, Boolean)
          */
         public static void setSelectTextOnFocus(Boolean selectTextOnFocus) {
@@ -990,8 +1005,10 @@ public class SubstanceCortex {
          * Specifies whether text components should have the edit context menu (with Cut / Copy /
          * Paste / ... menu items)
          *
-         * @param hasEditContextMenu If <code>true</code>, text components will have the edit context menu (with
-         *                           Cut / Copy / Paste / ... menu items). Pass <code>null</code> to reset to the
+         * @param hasEditContextMenu If <code>true</code>, text components will have the edit
+         *                           context menu (with
+         *                           Cut / Copy / Paste / ... menu items). Pass <code>null</code>
+         *                           to reset to the
          *                           default behavior.
          * @see ComponentScope#setTextEditContextMenuPresence(JTextComponent, Boolean)
          */
@@ -1002,7 +1019,8 @@ public class SubstanceCortex {
         /**
          * Specifies whether trees should have should have automatic drag and drop support.
          *
-         * @param hasAutomaticDragAndDropSupport If <code>true</code>, trees will have automatic drag and drop support. Pass
+         * @param hasAutomaticDragAndDropSupport If <code>true</code>, trees will have automatic
+         *                                       drag and drop support. Pass
          *                                       <code>null</code> to reset to the default behavior.
          * @see ComponentScope#setAutomaticDragAndDropSupportPresence(JTree, Boolean)
          */
@@ -1015,8 +1033,10 @@ public class SubstanceCortex {
          * Specifies whether scroll panes should have have auto-scroll support invoked on mouse
          * button click that triggers popups.
          *
-         * @param hasAutomaticScroll If <code>true</code>, scroll panes will have have auto-scroll support invoked
-         *                           on mouse button click that triggers popups. Pass <code>null</code> to reset to
+         * @param hasAutomaticScroll If <code>true</code>, scroll panes will have have
+         *                           auto-scroll support invoked
+         *                           on mouse button click that triggers popups. Pass
+         *                           <code>null</code> to reset to
          *                           the default behavior.
          * @see ComponentScope#setAutomaticScrollPresence(JScrollPane, Boolean)
          */
@@ -1031,7 +1051,8 @@ public class SubstanceCortex {
          * with <code>true</code> on component itself or one of its ancestors, or this method is
          * called with <code>true</code>.
          *
-         * @param watermarkVisible If <code>true</code>, watermark will be painted on all components not
+         * @param watermarkVisible If <code>true</code>, watermark will be painted on all
+         *                         components not
          *                         explicitly configured with
          *                         {@link ComponentOrParentChainScope#setWatermarkVisible(JComponent, Boolean)}.
          *                         Pass <code>null</code> to reset to the default behavior.
@@ -1047,8 +1068,10 @@ public class SubstanceCortex {
          * current implementations of the default {@link StandardButtonShaper} and
          * {@link ClassicButtonShaper} respect this setting.
          *
-         * @param buttonIgnoreMinimumSize If <code>true</code>, buttons will ignore the default (minimum) size under
-         *                                button shapers that respect this setting. Pass <code>null</code> to reset to
+         * @param buttonIgnoreMinimumSize If <code>true</code>, buttons will ignore the default
+         *                                (minimum) size under
+         *                                button shapers that respect this setting. Pass
+         *                                <code>null</code> to reset to
          *                                the default behavior.
          * @see ComponentOrParentScope#setButtonIgnoreMinimumSize(JComponent, Boolean)
          */
@@ -1059,7 +1082,8 @@ public class SubstanceCortex {
         /**
          * Specifies whether buttons should never paint backgrounds.
          *
-         * @param neverPaintButtonBackground If <code>true</code>, buttons will never paint backgrounds. Pass
+         * @param neverPaintButtonBackground If <code>true</code>, buttons will never paint
+         *                                   backgrounds. Pass
          *                                   <code>null</code> to reset to the default behavior.
          * @see ComponentOrParentScope#setButtonNeverPaintBackground(JComponent, Boolean)
          * @see #setFlatBackground(Boolean)
@@ -1073,8 +1097,10 @@ public class SubstanceCortex {
          * Specifies whether components should not paint backgrounds unless selected, armed, pressed
          * or (possibly) hovered over.
          *
-         * @param flatBackground If <code>true</code>, components will not paint backgrounds unless selected,
-         *                       armed, pressed or (possibly) hovered over.. Pass <code>null</code> to reset to
+         * @param flatBackground If <code>true</code>, components will not paint backgrounds
+         *                       unless selected,
+         *                       armed, pressed or (possibly) hovered over.. Pass
+         *                       <code>null</code> to reset to
          *                       the default behavior.
          * @see ComponentOrParentScope#setFlatBackground(JComponent, Boolean)
          * @see #setButtonNeverPaintBackground(Boolean)
@@ -1099,8 +1125,10 @@ public class SubstanceCortex {
          * Specifies that extra UI elements (such as menu items in system menu or lock borders)
          * should be shown.
          *
-         * @param extraWidgetsPresence If <code>true</code>, extra UI elements (such as menu items in system menu or
-         *                             lock borders) will be shown. Pass <code>null</code> to reset to the default
+         * @param extraWidgetsPresence If <code>true</code>, extra UI elements (such as menu
+         *                             items in system menu or
+         *                             lock borders) will be shown. Pass <code>null</code> to
+         *                             reset to the default
          *                             behavior.
          * @see ComponentOrParentChainScope#setExtraWidgetsPresence(JComponent, Boolean)
          */
@@ -1147,7 +1175,8 @@ public class SubstanceCortex {
          * controls will see them colorized with 50% "strength", even without calling this method.
          * </p>
          *
-         * @param colorizationFactor Colorization factor to apply to the component and its nested children.
+         * @param colorizationFactor Colorization factor to apply to the component and its nested
+         *                           children.
          * @see ComponentOrParentChainScope#setColorizationFactor(JComponent, double)
          */
         public static void setColorizationFactor(double colorizationFactor) {
@@ -1157,7 +1186,8 @@ public class SubstanceCortex {
         /**
          * Configures visibility of close buttons on tabbed pane tabs.
          *
-         * @param tabCloseButtonsVisible If <code>true</code>, tabs in tabbed panes will show close buttons.
+         * @param tabCloseButtonsVisible If <code>true</code>, tabs in tabbed panes will show
+         *                               close buttons.
          * @see ComponentScope#setTabCloseButtonVisible(JComponent, Boolean)
          * @see ComponentScope#setTabCloseButtonsVisible(JTabbedPane, Boolean)
          */
@@ -1186,7 +1216,9 @@ public class SubstanceCortex {
          * that this is only relevant for tabs configured with
          * {@link ComponentScope#setTabContentsModified(JComponent, Boolean)}
          *
-         * @param runModifiedAnimationOnTabCloseButton If <code>true</code>, the marked-as-modified animation will run only on the
+         * @param runModifiedAnimationOnTabCloseButton If <code>true</code>, the
+         *                                             marked-as-modified animation will run only
+         *                                             on the
          *                                             tab close button.
          * @see ComponentScope#setRunModifiedAnimationOnTabCloseButton(JTabbedPane, Boolean)
          * @see ComponentScope#setRunModifiedAnimationOnTabCloseButton(JComponent, Boolean)
@@ -1212,7 +1244,8 @@ public class SubstanceCortex {
         /**
          * Specifies the number of echo characters for each password character in password fields.
          *
-         * @param echoCount Number of echo characters for each password character in password fields.
+         * @param echoCount Number of echo characters for each password character in password
+         *                  fields.
          * @see ComponentScope#setNumberOfPasswordEchoesPerCharacter(JPasswordField, int)
          */
         public static void setNumberOfPasswordEchoesPerCharacter(int echoCount) {
@@ -1264,7 +1297,8 @@ public class SubstanceCortex {
          * Specifies the combobox popup prototype callback which is used to compute the width of the
          * popups at runtime.
          *
-         * @param comboPopupPrototypeCallback Popup prototype callback which is used to compute the width of the popups at
+         * @param comboPopupPrototypeCallback Popup prototype callback which is used to compute
+         *                                    the width of the popups at
          *                                    runtime.
          * @see ComponentScope#setComboBoxPrototypeCallback(JComboBox, ComboPopupPrototypeCallback)
          */
@@ -1278,7 +1312,8 @@ public class SubstanceCortex {
          * Specifies the combobox popup prototype display value which is used to compute the width
          * of the popups at runtime.
          *
-         * @param comboPopupPrototypeDisplayValue Popup prototype display value which is used to compute the width of the popups
+         * @param comboPopupPrototypeDisplayValue Popup prototype display value which is used to
+         *                                        compute the width of the popups
          *                                        at runtime.
          * @see ComponentScope#setComboBoxPrototypeDisplayValue(JComboBox, Object)
          * @see #setComboBoxPrototypeCallback(ComboPopupPrototypeCallback)
@@ -1326,13 +1361,16 @@ public class SubstanceCortex {
 
         public static NeonIconUIResource colorize(Icon source, SubstanceColorScheme colorScheme) {
             float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
-            return new NeonIconUIResource(SubstanceImageCreator.getColorSchemeImage(null, source, colorScheme,
-                    brightnessFactor));
+            return new NeonIconUIResource(
+                    SubstanceImageCreator.getColorSchemeImage(null, source, colorScheme,
+                            brightnessFactor));
         }
 
-        public static NeonIconUIResource colorize(Icon source, SubstanceColorScheme colorScheme, float brightnessFactor) {
-            return new NeonIconUIResource(SubstanceImageCreator.getColorSchemeImage(null, source, colorScheme,
-                    brightnessFactor));
+        public static NeonIconUIResource colorize(Icon source, SubstanceColorScheme colorScheme,
+                float brightnessFactor) {
+            return new NeonIconUIResource(
+                    SubstanceImageCreator.getColorSchemeImage(null, source, colorScheme,
+                            brightnessFactor));
         }
 
         public static void setUseDefaultColorChooser() {
@@ -1478,7 +1516,8 @@ public class SubstanceCortex {
          * Specifies component-level visibility of the lock icon on the specific component.
          *
          * @param comp    Component.
-         * @param visible If <code>true</code>, the specific text component will show a lock icon when
+         * @param visible If <code>true</code>, the specific text component will show a lock icon
+         *                when
          *                it is in non-editable mode. Pass <code>null</code> to reset to the default
          *                behavior.
          * @see GlobalScope#setLockIconVisible(Boolean)
@@ -1503,8 +1542,10 @@ public class SubstanceCortex {
          * Specifies whether the text component contents should flip selection on ESCAPE key press.
          *
          * @param comp                      Text component.
-         * @param flipTextSelectionOnEscape If <code>true</code>, the contents of the specified text component will flip
-         *                                  selection on ESCAPE key press. Pass <code>null</code> to reset to the default
+         * @param flipTextSelectionOnEscape If <code>true</code>, the contents of the specified
+         *                                  text component will flip
+         *                                  selection on ESCAPE key press. Pass <code>null</code>
+         *                                  to reset to the default
          *                                  behavior.
          */
         public static void setFlipTextSelectionOnEscape(JTextComponent comp,
@@ -1518,8 +1559,10 @@ public class SubstanceCortex {
          * Paste / ... menu items).
          *
          * @param comp               Text component.
-         * @param hasEditContextMenu If <code>true</code>, the text component will have the edit context menu (with
-         *                           Cut / Copy / Paste / ... menu items). Pass <code>null</code> to reset to the
+         * @param hasEditContextMenu If <code>true</code>, the text component will have the edit
+         *                           context menu (with
+         *                           Cut / Copy / Paste / ... menu items). Pass <code>null</code>
+         *                           to reset to the
          *                           default behavior.
          * @see GlobalScope#setTextEditContextMenuPresence(Boolean)
          */
@@ -1532,7 +1575,8 @@ public class SubstanceCortex {
          * Specifies whether the tree should have automatic drag and drop support.
          *
          * @param tree                           Tree component.
-         * @param hasAutomaticDragAndDropSupport If <code>true</code>, the tree will have automatic drag and drop support. Pass
+         * @param hasAutomaticDragAndDropSupport If <code>true</code>, the tree will have
+         *                                       automatic drag and drop support. Pass
          *                                       <code>null</code> to reset to the default behavior.
          * @see GlobalScope#setAutomaticDragAndDropSupportPresence(Boolean)
          */
@@ -1547,8 +1591,10 @@ public class SubstanceCortex {
          * button click that triggers popups.
          *
          * @param scrollPane         Scroll pane component.
-         * @param hasAutomaticScroll If <code>true</code>, the scroll pane will have have auto-scroll support
-         *                           invoked on mouse button click that triggers popups. Pass <code>null</code> to
+         * @param hasAutomaticScroll If <code>true</code>, the scroll pane will have have
+         *                           auto-scroll support
+         *                           invoked on mouse button click that triggers popups. Pass
+         *                           <code>null</code> to
          *                           reset to the default behavior.
          * @see GlobalScope#setAutomaticScrollPresence(Boolean)
          */
@@ -1623,7 +1669,8 @@ public class SubstanceCortex {
          * button is in a {@link JToolBar}.
          *
          * @param button                    Button.
-         * @param toolbarButtonCornerRadius Corner radius for the button when it is in a {@link JToolBar}.
+         * @param toolbarButtonCornerRadius Corner radius for the button when it is in a
+         *                                  {@link JToolBar}.
          * @see ComponentOrParentChainScope#setToolbarButtonCornerRadius(JToolBar, float)
          * @see GlobalScope#setToolbarButtonCornerRadius(float)
          */
@@ -1654,7 +1701,8 @@ public class SubstanceCortex {
          * </p>
          *
          * @param tabComponent     Tab component.
-         * @param contentsModified If <code>true</code>, the <b>close</b> button of the matching tab of the
+         * @param contentsModified If <code>true</code>, the <b>close</b> button of the matching
+         *                         tab of the
          *                         matching frame / dialog will be animated.
          * @see RootPaneScope#setContentsModified(JRootPane, Boolean)
          */
@@ -1667,7 +1715,8 @@ public class SubstanceCortex {
          * Configures visibility of close buttons on all tabs in the specified tabbed pane.
          *
          * @param tabbedPane             Tabbed pane.
-         * @param tabCloseButtonsVisible If <code>true</code>, all tabs in the tabbed pane will show close buttons.
+         * @param tabCloseButtonsVisible If <code>true</code>, all tabs in the tabbed pane will
+         *                               show close buttons.
          * @see #setTabCloseButtonVisible(JComponent, Boolean)
          * @see GlobalScope#setTabCloseButtonsVisible(Boolean)
          */
@@ -1699,7 +1748,8 @@ public class SubstanceCortex {
          * {@link GlobalScope#setTabCloseButtonsVisible(Boolean)} APIs.
          *
          * @param tabbedPane       Tabbed pane.
-         * @param tabCloseCallback Callback for deciding on the tab close type on all tabs in the tabbed pane.
+         * @param tabCloseCallback Callback for deciding on the tab close type on all tabs in the
+         *                         tabbed pane.
          * @see #setTabCloseCallback(JComponent, TabCloseCallback)
          * @see GlobalScope#setTabCloseCallback(TabCloseCallback)
          */
@@ -1734,7 +1784,9 @@ public class SubstanceCortex {
          * {@link #setTabContentsModified(JComponent, Boolean)}.
          *
          * @param tabbedPane                           Tabbed pane.
-         * @param runModifiedAnimationOnTabCloseButton If <code>true</code>, the marked-as-modified animation will run only on the
+         * @param runModifiedAnimationOnTabCloseButton If <code>true</code>, the
+         *                                             marked-as-modified animation will run only
+         *                                             on the
          *                                             tab close button.
          * @see #setRunModifiedAnimationOnTabCloseButton(JComponent, Boolean)
          * @see GlobalScope#setRunModifiedAnimationOnTabCloseButton(Boolean)
@@ -1753,7 +1805,9 @@ public class SubstanceCortex {
          * {@link #setTabContentsModified(JComponent, Boolean)}.
          *
          * @param tabComponent                         Tab component.
-         * @param runModifiedAnimationOnTabCloseButton If <code>true</code>, the marked-as-modified animation will run only on the
+         * @param runModifiedAnimationOnTabCloseButton If <code>true</code>, the
+         *                                             marked-as-modified animation will run only
+         *                                             on the
          *                                             tab close button.
          * @see #setRunModifiedAnimationOnTabCloseButton(JTabbedPane, Boolean)
          * @see GlobalScope#setRunModifiedAnimationOnTabCloseButton(Boolean)
@@ -1793,7 +1847,8 @@ public class SubstanceCortex {
          * password field.
          *
          * @param passwordField Password field.
-         * @param echoCount     Number of echo characters for each password character in the password field.
+         * @param echoCount     Number of echo characters for each password character in the
+         *                      password field.
          * @see GlobalScope#setNumberOfPasswordEchoesPerCharacter(int)
          */
         public static void setNumberOfPasswordEchoesPerCharacter(JPasswordField passwordField,
@@ -1807,7 +1862,8 @@ public class SubstanceCortex {
          * popup at runtime.
          *
          * @param comboBox                    Combobox.
-         * @param comboPopupPrototypeCallback Popup prototype callback which is used to compute the width of the popup at
+         * @param comboPopupPrototypeCallback Popup prototype callback which is used to compute
+         *                                    the width of the popup at
          *                                    runtime.
          * @see #setComboBoxPrototypeDisplayValue(JComboBox, Object)
          * @see GlobalScope#setComboBoxPrototypeCallback(ComboPopupPrototypeCallback)
@@ -1823,7 +1879,8 @@ public class SubstanceCortex {
          * of the popup at runtime.
          *
          * @param comboBox                        Combobox.
-         * @param comboPopupPrototypeDisplayValue Popup prototype display value which is used to compute the width of the popup
+         * @param comboPopupPrototypeDisplayValue Popup prototype display value which is used to
+         *                                        compute the width of the popup
          *                                        at runtime.
          * @see #setComboBoxPrototypeCallback(JComboBox, ComboPopupPrototypeCallback)
          * @see GlobalScope#setComboBoxPrototypeCallback(ComboPopupPrototypeCallback)
@@ -1894,9 +1951,12 @@ public class SubstanceCortex {
          * setting.
          *
          * @param comp                    Component.
-         * @param buttonIgnoreMinimumSize If <code>true</code>, the component or its immediate children will ignore the
-         *                                default (minimum) dimension for buttons under button shapers that respect this
-         *                                setting. Pass <code>null</code> to reset to the default behavior.
+         * @param buttonIgnoreMinimumSize If <code>true</code>, the component or its immediate
+         *                                children will ignore the
+         *                                default (minimum) dimension for buttons under button
+         *                                shapers that respect this
+         *                                setting. Pass <code>null</code> to reset to the default
+         *                                behavior.
          * @see GlobalScope#setButtonIgnoreMinimumSize(Boolean)
          */
         public static void setButtonIgnoreMinimumSize(JComponent comp,
@@ -1909,8 +1969,10 @@ public class SubstanceCortex {
          * button backgrounds.
          *
          * @param comp                       Component.
-         * @param neverPaintButtonBackground If <code>true</code>, the component or its immediate children will never paint
-         *                                   button backgrounds. Pass <code>null</code> to reset to the default behavior.
+         * @param neverPaintButtonBackground If <code>true</code>, the component or its immediate
+         *                                   children will never paint
+         *                                   button backgrounds. Pass <code>null</code> to reset
+         *                                   to the default behavior.
          * @see GlobalScope#setButtonNeverPaintBackground(Boolean)
          * @see #setFlatBackground(JComponent, Boolean)
          */
@@ -1925,8 +1987,10 @@ public class SubstanceCortex {
          * backgrounds unless selected, armed, pressed or (possibly) hovered over.
          *
          * @param comp           Component.
-         * @param flatBackground If <code>true</code>, the component or its immediate children will not paint
-         *                       backgrounds unless selected, armed, pressed or (possibly) hovered over.. Pass
+         * @param flatBackground If <code>true</code>, the component or its immediate children
+         *                       will not paint
+         *                       backgrounds unless selected, armed, pressed or (possibly)
+         *                       hovered over.. Pass
          *                       <code>null</code> to reset to the default behavior.
          * @see GlobalScope#setFlatBackground(Boolean)
          * @see #setButtonNeverPaintBackground(JComponent, Boolean)
@@ -1945,8 +2009,10 @@ public class SubstanceCortex {
          * Specifies whether the contents of the specified text component or its nested children
          * should be selected on focus gain.
          *
-         * @param selectTextOnFocus If <code>true</code>, the contents of the specified text component or its
-         *                          nested children will be selected on focus gain. Pass <code>null</code> to
+         * @param selectTextOnFocus If <code>true</code>, the contents of the specified text
+         *                          component or its
+         *                          nested children will be selected on focus gain. Pass
+         *                          <code>null</code> to
          *                          reset to the default behavior.
          * @see GlobalScope#setSelectTextOnFocus(Boolean)
          */
@@ -1962,8 +2028,10 @@ public class SubstanceCortex {
          * {@link GlobalScope#setWatermarkVisible(Boolean)} is called with
          * <code>true</code>.
          *
-         * @param watermarkVisible If <code>true</code>, watermark will be painted on the component and its
-         *                         nested children. Pass <code>null</code> to reset to the default behavior.
+         * @param watermarkVisible If <code>true</code>, watermark will be painted on the
+         *                         component and its
+         *                         nested children. Pass <code>null</code> to reset to the
+         *                         default behavior.
          * @see GlobalScope#setWatermarkVisible(Boolean)
          */
         public static void setWatermarkVisible(JComponent comp, Boolean watermarkVisible) {
@@ -1988,8 +2056,10 @@ public class SubstanceCortex {
          * Specifies that extra UI elements (such as menu items in system menu or lock borders)
          * should be shown in the specified component.
          *
-         * @param extraWidgetsPresence If <code>true</code>, extra UI elements (such as menu items in system menu or
-         *                             lock borders) will be shown in the component. Pass <code>null</code> to reset
+         * @param extraWidgetsPresence If <code>true</code>, extra UI elements (such as menu
+         *                             items in system menu or
+         *                             lock borders) will be shown in the component. Pass
+         *                             <code>null</code> to reset
          *                             to the default behavior.
          * @comp Component.
          * @see GlobalScope#setExtraWidgetsPresence(Boolean)
@@ -2037,7 +2107,8 @@ public class SubstanceCortex {
          * </p>
          *
          * @param comp               Component.
-         * @param colorizationFactor Colorization factor to apply to the component and its nested children.
+         * @param colorizationFactor Colorization factor to apply to the component and its nested
+         *                           children.
          * @see GlobalScope#setColorizationFactor(double)
          */
         public static void setColorizationFactor(JComponent comp, double colorizationFactor) {
@@ -2049,7 +2120,8 @@ public class SubstanceCortex {
          * Specifies the kind of focus indication to be used on the specified component and its
          * nested children.
          *
-         * @param focusKind Kind of focus indication to be used on the component and its nested children.
+         * @param focusKind Kind of focus indication to be used on the component and its nested
+         *                  children.
          * @comp Component.
          * @see GlobalScope#setFocusKind(FocusKind)
          */
@@ -2137,7 +2209,8 @@ public class SubstanceCortex {
          * </p>
          *
          * @param rootPane         Root pane.
-         * @param contentsModified If <code>true</code>, the <b>close</b> button of the title pane of the
+         * @param contentsModified If <code>true</code>, the <b>close</b> button of the title
+         *                         pane of the
          *                         matching frame / dialog will be animated.
          * @see ComponentScope#setTabContentsModified(JComponent, Boolean)
          */
@@ -2191,10 +2264,12 @@ public class SubstanceCortex {
          * </ul>
          *
          * @param window                              Window. May not be <code>null</code>.
-         * @param controlButtonGroupHorizontalGravity Horizontal gravity for the title control buttons. Must be either
+         * @param controlButtonGroupHorizontalGravity Horizontal gravity for the title control
+         *                                            buttons. Must be either
          *                                            {@link SubstanceSlices.HorizontalGravity#LEADING} or
          *                                            {@link SubstanceSlices.HorizontalGravity#TRAILING}.
-         * @param controlButtonGroupVerticalGravity   Vertical gravity for the title control buttons. May not be <code>null</code>.
+         * @param controlButtonGroupVerticalGravity   Vertical gravity for the title control
+         *                                            buttons. May not be <code>null</code>.
          * @see #getTitlePaneControlInsets(Window)
          * @see #setPreferredTitlePaneHeight(Window, int)
          * @see #getTitleControlButtonGroupHorizontalGravity(Window)
@@ -2207,13 +2282,16 @@ public class SubstanceCortex {
                 throw new IllegalArgumentException("Window scope APIs do not accept null windows");
             }
             if ((controlButtonGroupHorizontalGravity != SubstanceSlices.HorizontalGravity.LEADING)
-                    && (controlButtonGroupHorizontalGravity != SubstanceSlices.HorizontalGravity.TRAILING)) {
+                    && (controlButtonGroupHorizontalGravity != SubstanceSlices.HorizontalGravity
+                    .TRAILING)) {
                 throw new IllegalArgumentException(
-                        "Can only pass LEADING or TRAILING for control button group horizontal gravity.");
+                        "Can only pass LEADING or TRAILING for control button group horizontal " +
+                                "gravity.");
             }
             if (controlButtonGroupVerticalGravity == null) {
                 throw new IllegalArgumentException(
-                        "Cannot pass null for control button group vertical gravity. Did you mean CENTERED?");
+                        "Cannot pass null for control button group vertical gravity. Did you mean" +
+                                " CENTERED?");
             }
             JRootPane rootPane = SwingUtilities.getRootPane(window);
             if (rootPane != null) {
@@ -2234,13 +2312,15 @@ public class SubstanceCortex {
          * Returns a new instance of a button that has consistent visuals and preferred size to be
          * used in application content that is extended into the title pane area with
          * {@link #extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity, SubstanceSlices.VerticalGravity)}
-         * API. If the content of the button will need more space (horizontally and / or vertically),
+         * API. If the content of the button will need more space (horizontally and / or
+         * vertically),
          * you can query the preferred size and then tweak it.
          *
          * @param window Window. May not be <code>null</code>.
          * @return A new instance of a button that has consistent visuals and preferred size to be
          * used in application content that is extended into the title pane area.
-         * @see #extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity, SubstanceSlices.VerticalGravity)
+         * @see #extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity,
+         * SubstanceSlices.VerticalGravity)
          * @see #getTitlePaneControlInsets(Window)
          * @see #setPreferredTitlePaneHeight(Window, int)
          */
@@ -2260,14 +2340,16 @@ public class SubstanceCortex {
          * Queries the insets that should be reserved for the main control buttons (close / maximize
          * / minimize) in application content that is extended into the title pane area with
          * {@link #extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity, SubstanceSlices.VerticalGravity)}
-         * API. {@link Insets#left} and {@link Insets#right} give the horizontal insets of the control buttons.
+         * API. {@link Insets#left} and {@link Insets#right} give the horizontal insets of the
+         * control buttons.
          * {@link Insets#top} and {@link Insets#right} give the vertical insets within the matching
          * horizontal insets.
          *
          * @param window Window. May not be <code>null</code>.
          * @return The insets that should be reserved for the main control buttons (close / maximize
          * / minimize) in application content that is extended into the title pane area.
-         * @see #extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity, SubstanceSlices.VerticalGravity)
+         * @see #extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity,
+         * SubstanceSlices.VerticalGravity)
          * @see #createTitlePaneControlButton(Window)
          * @see #setPreferredTitlePaneHeight(Window, int)
          */
@@ -2285,13 +2367,16 @@ public class SubstanceCortex {
 
         /**
          * Increase the preferred height of the title pane area in case the content you extend into
-         * that area with {@link #extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity, SubstanceSlices.VerticalGravity)}
+         * that area with
+         * {@link #extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity, SubstanceSlices.VerticalGravity)}
          * API is taller than the main
          * control buttons.
          *
          * @param window                   Window. May not be <code>null</code>.
-         * @param preferredTitlePaneHeight Preferred height of the title pane area. Must be a positive value.
-         * @see #extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity, SubstanceSlices.VerticalGravity)
+         * @param preferredTitlePaneHeight Preferred height of the title pane area. Must be a
+         *                                 positive value.
+         * @see #extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity,
+         * SubstanceSlices.VerticalGravity)
          * @see #createTitlePaneControlButton(Window)
          * @see #getTitlePaneControlInsets(Window)
          */
@@ -2318,9 +2403,8 @@ public class SubstanceCortex {
          *
          * @return Horizontal gravity for the control button group in the title pane of the specific
          * window.
-         * @see GlobalScope#configureTitleContentGravity(org.pushingpixels.substance.api.SubstanceSlices.HorizontalGravity,
-         * org.pushingpixels.substance.api.SubstanceSlices.HorizontalGravity,
-         * org.pushingpixels.substance.api.SubstanceSlices.TitleIconHorizontalGravity)
+         * @see GlobalScope#configureTitleContentGravity(HorizontalGravity, HorizontalGravity,
+         * TitleIconHorizontalGravity)
          * @see #extendContentIntoTitlePane(Window,
          * org.pushingpixels.substance.api.SubstanceSlices.HorizontalGravity,
          * org.pushingpixels.substance.api.SubstanceSlices.VerticalGravity)

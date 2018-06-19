@@ -1,65 +1,55 @@
 /*
  * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Substance Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
-import java.awt.BorderLayout;
-import java.awt.Cursor;
-import java.awt.FlowLayout;
+import org.pushingpixels.neon.font.FontPolicy;
+import org.pushingpixels.neon.font.FontSet;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.SwingUtilities;
-import javax.swing.UIDefaults;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.plaf.FontUIResource;
-
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.font.FontPolicy;
-import org.pushingpixels.substance.api.font.FontSet;
-import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
+import java.awt.*;
 
 /**
  * Test application that shows the use of the
  * {@link SubstanceCortex.GlobalScope#setFontPolicy(FontPolicy)} API.
- * 
+ *
  * @author Kirill Grouchnikov
  * @see SubstanceCortex.GlobalScope#setFontPolicy(FontPolicy)
  */
 public class SetFontPolicy extends JFrame {
     /**
      * Wrapper around the base Substance font set. Is used to create larger / smaller font sets.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class WrapperFontSet implements FontSet {
@@ -75,11 +65,9 @@ public class SetFontPolicy extends JFrame {
 
         /**
          * Creates a wrapper font set.
-         * 
-         * @param delegate
-         *            The base Substance font set.
-         * @param extra
-         *            Extra size in pixels. Can be positive or negative.
+         *
+         * @param delegate The base Substance font set.
+         * @param extra    Extra size in pixels. Can be positive or negative.
          */
         public WrapperFontSet(FontSet delegate, int extra) {
             super();
@@ -89,9 +77,8 @@ public class SetFontPolicy extends JFrame {
 
         /**
          * Returns the wrapped font.
-         * 
-         * @param systemFont
-         *            Original font.
+         *
+         * @param systemFont Original font.
          * @return Wrapped font.
          */
         private FontUIResource getWrappedFont(FontUIResource systemFont) {
@@ -150,13 +137,10 @@ public class SetFontPolicy extends JFrame {
                     SubstanceCortex.GlobalScope.setFontPolicy(null);
                     // Get the default font set
                     final FontSet substanceCoreFontSet = SubstanceCortex.GlobalScope.getFontPolicy()
-                            .getFontSet("Substance", null);
+                            .getFontSet(null);
                     // Create the wrapper font set
-                    FontPolicy newFontPolicy = new FontPolicy() {
-                        public FontSet getFontSet(String lafName, UIDefaults table) {
-                            return new WrapperFontSet(substanceCoreFontSet, newValue);
-                        }
-                    };
+                    FontPolicy newFontPolicy = (UIDefaults table) ->
+                            new WrapperFontSet(substanceCoreFontSet, newValue);
 
                     try {
                         SetFontPolicy.this
@@ -184,9 +168,8 @@ public class SetFontPolicy extends JFrame {
 
     /**
      * The main method for <code>this</code> sample. The arguments are ignored.
-     * 
-     * @param args
-     *            Ignored.
+     *
+     * @param args Ignored.
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);

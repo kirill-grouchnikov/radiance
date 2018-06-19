@@ -1,66 +1,56 @@
 /*
  * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Substance Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
-import java.awt.BorderLayout;
-import java.awt.Cursor;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
+import org.pushingpixels.neon.font.FontPolicy;
+import org.pushingpixels.neon.font.FontSet;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.SwingUtilities;
-import javax.swing.UIDefaults;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.plaf.FontUIResource;
-
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.font.FontPolicy;
-import org.pushingpixels.substance.api.font.FontSet;
-import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Test application that shows the use of the {@link SubstanceCortex.GlobalScope#getFontPolicy()}
  * API.
- * 
+ *
  * @author Kirill Grouchnikov
  * @see SubstanceCortex.GlobalScope#getFontPolicy()
  */
 public class GetFontPolicy extends JFrame {
     /**
      * Wrapper around the base Substance font set. Is used to create larger / smaller font sets.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class WrapperFontSet implements FontSet {
@@ -76,11 +66,9 @@ public class GetFontPolicy extends JFrame {
 
         /**
          * Creates a wrapper font set.
-         * 
-         * @param delegate
-         *            The base Substance font set.
-         * @param extra
-         *            Extra size in pixels. Can be positive or negative.
+         *
+         * @param delegate The base Substance font set.
+         * @param extra    Extra size in pixels. Can be positive or negative.
          */
         public WrapperFontSet(FontSet delegate, int extra) {
             super();
@@ -90,9 +78,8 @@ public class GetFontPolicy extends JFrame {
 
         /**
          * Returns the wrapped font.
-         * 
-         * @param systemFont
-         *            Original font.
+         *
+         * @param systemFont Original font.
          * @return Wrapped font.
          */
         private FontUIResource getWrappedFont(FontUIResource systemFont) {
@@ -150,14 +137,11 @@ public class GetFontPolicy extends JFrame {
                     // restores the original font policy (default size).
                     SubstanceCortex.GlobalScope.setFontPolicy(null);
                     // Get the default font set
-                    final FontSet substanceCoreFontSet = SubstanceCortex.GlobalScope.getFontPolicy()
-                            .getFontSet("Substance", null);
+                    final FontSet substanceCoreFontSet = SubstanceCortex.GlobalScope
+                            .getFontPolicy().getFontSet(null);
                     // Create the wrapper font set
-                    FontPolicy newFontPolicy = new FontPolicy() {
-                        public FontSet getFontSet(String lafName, UIDefaults table) {
-                            return new WrapperFontSet(substanceCoreFontSet, newValue);
-                        }
-                    };
+                    FontPolicy newFontPolicy = (UIDefaults table) -> new WrapperFontSet(
+                            substanceCoreFontSet, newValue);
 
                     try {
                         GetFontPolicy.this
@@ -176,12 +160,12 @@ public class GetFontPolicy extends JFrame {
         JButton jb = new JButton("Show font info");
         jb.addActionListener((ActionEvent e) -> {
             FontPolicy fontPolicy = SubstanceCortex.GlobalScope.getFontPolicy();
-            FontSet fontSet = fontPolicy.getFontSet("Substance", null);
+            FontSet fontSet = fontPolicy.getFontSet(null);
             String[] infoArray = new String[] { "Control: " + fontSet.getControlFont(),
-                            "Menu: " + fontSet.getMenuFont(),
-                            "Message: " + fontSet.getMessageFont(),
-                            "Small: " + fontSet.getSmallFont(), "Title: " + fontSet.getTitleFont(),
-                            "Window title: " + fontSet.getWindowTitleFont() };
+                    "Menu: " + fontSet.getMenuFont(),
+                    "Message: " + fontSet.getMessageFont(),
+                    "Small: " + fontSet.getSmallFont(), "Title: " + fontSet.getTitleFont(),
+                    "Window title: " + fontSet.getWindowTitleFont() };
             JList infoList = new JList(infoArray);
             JDialog infoDialog = new JDialog(GetFontPolicy.this, "Font set info", true);
             infoDialog.setLayout(new BorderLayout());
@@ -201,9 +185,8 @@ public class GetFontPolicy extends JFrame {
 
     /**
      * The main method for <code>this</code> sample. The arguments are ignored.
-     * 
-     * @param args
-     *            Ignored.
+     *
+     * @param args Ignored.
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);

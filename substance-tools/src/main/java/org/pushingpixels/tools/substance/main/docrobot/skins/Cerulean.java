@@ -43,6 +43,6 @@ public class Cerulean extends SkinRobot {
 	 */
 	public Cerulean() {
 		super(new CeruleanSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/cerulean");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/cerulean");
 	}
 }

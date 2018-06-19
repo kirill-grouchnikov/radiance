@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2018 Neon Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of
+ *  o Neither the name of Neon Kirill Grouchnikov nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
@@ -27,10 +27,10 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.substance.internal.fonts;
+package org.pushingpixels.neon.internal.font;
 
-import org.pushingpixels.substance.api.font.FontPolicy;
-import org.pushingpixels.substance.api.font.FontSet;
+import org.pushingpixels.neon.font.FontPolicy;
+import org.pushingpixels.neon.font.FontSet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,14 +80,15 @@ public class DefaultKDEFontPolicy implements FontPolicy {
 	private static final String SANS_SERIF = "SansSerif";
 	private static FontSet fontSet = null;
 
-	public synchronized FontSet getFontSet(String lafName, UIDefaults table) {
+	@Override
+	public synchronized FontSet getFontSet(UIDefaults table) {
 		if (fontSet == null) {
-			fontSet = getInternalFontSet(lafName, table);
+			fontSet = getInternalFontSet(table);
 		}
 		return fontSet;
 	}
 
-	private FontSet getInternalFontSet(String lafName, UIDefaults table) {
+	private FontSet getInternalFontSet(UIDefaults table) {
 
 		// size is the most important, then family and then style
 		int commonSize = 10;

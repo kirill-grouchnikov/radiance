@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -182,7 +182,7 @@ public class PairwiseButtonBackgroundDelegate {
             }
         }
         if (extraAlpha > 0.0f) {
-            double scaleFactor = NeonUtil.getScaleFactor();
+            double scaleFactor = NeonCortex.getScaleFactor();
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, g));
             graphics.drawImage(fullOpacity, 0, 0, (int) (fullOpacity.getWidth() / scaleFactor),
@@ -265,7 +265,7 @@ public class PairwiseButtonBackgroundDelegate {
                 AffineTransform at = AffineTransform.getTranslateInstance(0, translateY);
                 at.rotate(-Math.PI / 2);
 
-                double scaleFactor = NeonUtil.getScaleFactor();
+                double scaleFactor = NeonCortex.getScaleFactor();
                 finalGraphics.scale(1, 1);
                 finalGraphics.setTransform(at);
                 finalGraphics.scale(scaleFactor, scaleFactor);

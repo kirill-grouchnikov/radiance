@@ -39,7 +39,7 @@ import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.apache.batik.util.EventDispatcher;
 import org.apache.batik.util.EventDispatcher.Dispatcher;
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -201,7 +201,7 @@ abstract class SvgBatikIcon extends UserAgentAdapter implements Icon {
         BufferedImage image = this.cachedImages.get(this.getIconWidth() + ":"
                 + this.getIconHeight());
         if (image != null) {
-            double scaleFactor = NeonUtil.getScaleFactor();
+            double scaleFactor = NeonCortex.getScaleFactor();
             int dx = (int) ((this.width - image.getWidth() / scaleFactor) / 2);
             int dy = (int) ((this.height - image.getHeight() / scaleFactor) / 2);
             g.drawImage(image, x + dx, y + dy, (int) (image.getWidth() / scaleFactor),
@@ -275,7 +275,7 @@ abstract class SvgBatikIcon extends UserAgentAdapter implements Icon {
                     fireEvent(startedDispatcher, ev);
 
                     BufferedImageTranscoder t =
-                            new BufferedImageTranscoder((float) NeonUtil.getScaleFactor());
+                            new BufferedImageTranscoder((float) NeonCortex.getScaleFactor());
                     if (renderWidth != 0 && renderHeight != 0) {
                         t.setDimensions(renderWidth, renderHeight);
                     }

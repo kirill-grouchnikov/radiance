@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.colorscheme.SteelBlueColorScheme;
@@ -135,7 +135,7 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
     @Override
     protected Icon getIconForType(int messageType) {
         SubstanceIconPack iconPack = SubstanceCortex.GlobalScope.getIconPack();
-        int size = (int) (ICON_SIZE * NeonUtil.getScaleFactor());
+        int size = (int) (ICON_SIZE * NeonCortex.getScaleFactor());
         switch (messageType) {
         case JOptionPane.ERROR_MESSAGE:
             return iconPack.getOptionPaneErrorIcon(size, new SunsetColorScheme());

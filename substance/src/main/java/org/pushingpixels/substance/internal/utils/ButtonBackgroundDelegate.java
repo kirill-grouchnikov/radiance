@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -267,7 +267,7 @@ public class ButtonBackgroundDelegate {
             SubstanceColorScheme colorScheme, SubstanceColorScheme borderScheme,
             Set<Side> openSides, boolean isContentAreaFilled, boolean isBorderPainted) {
         int openDelta = (int) (Math.ceil(3.0 * SubstanceSizeUtils.getBorderStrokeWidth()));
-        openDelta *= NeonUtil.getScaleFactor();
+        openDelta *= NeonCortex.getScaleFactor();
         int deltaLeft = ((openSides != null) && openSides.contains(Side.LEFT)) ? openDelta : 0;
         int deltaRight = ((openSides != null) && openSides.contains(Side.RIGHT)) ? openDelta : 0;
         int deltaTop = ((openSides != null) && openSides.contains(Side.TOP)) ? openDelta : 0;
@@ -374,7 +374,7 @@ public class ButtonBackgroundDelegate {
         if (extraAlpha > 0.0f) {
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, g));
-            double factor = NeonUtil.getScaleFactor();
+            double factor = NeonCortex.getScaleFactor();
             graphics.drawImage(bgImage, 0, y, (int) (bgImage.getWidth() / factor),
                     (int) (bgImage.getHeight() / factor), null);
             graphics.dispose();

@@ -44,6 +44,6 @@ public class BrownScheme extends ColorSchemeRobot {
 	public BrownScheme() {
 		super(
 				new BrownColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/brown.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/brown.png");
 	}
 }

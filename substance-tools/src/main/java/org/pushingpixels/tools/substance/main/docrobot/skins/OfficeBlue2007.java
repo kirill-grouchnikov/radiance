@@ -43,6 +43,6 @@ public class OfficeBlue2007 extends SkinRobot {
 	 */
 	public OfficeBlue2007() {
 		super(new OfficeBlue2007Skin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/officeblue2007");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/officeblue2007");
 	}
 }

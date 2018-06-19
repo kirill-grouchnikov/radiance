@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.combo;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -214,7 +214,7 @@ public class ComboBoxBackgroundDelegate {
         if (extraAlpha > 0.0f) {
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(combo, extraAlpha, g));
-            double factor = NeonUtil.getScaleFactor();
+            double factor = NeonCortex.getScaleFactor();
             graphics.drawImage(bgImage, 0, y, (int) (bgImage.getWidth() / factor),
                     (int) (bgImage.getHeight() / factor), null);
             graphics.dispose();

@@ -231,7 +231,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(new EmptyBorder(4, 8, 4, 8));
         builder.append(new JLabel(icon));
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getControlFont().deriveFont(Font.BOLD));
         builder.append(titleLabel);
         JPanel inside = builder.build();
@@ -243,7 +243,7 @@ public class ThreadListPanel extends PanelWithRightLine {
     }
 
     private HighlightablePanel getThreadSummaryPanel(ThreadInfo threadInfo, boolean isSelected) {
-        Font bold = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+        Font bold = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getControlFont().deriveFont(Font.BOLD);
 
         DefaultFormBuilder firstRow = new DefaultFormBuilder(

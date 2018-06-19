@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2018 Neon Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation 
  *    and/or other materials provided with the distribution. 
  *     
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of 
+ *  o Neither the name of Neon Kirill Grouchnikov nor the names of
  *    its contributors may be used to endorse or promote products derived 
  *    from this software without specific prior written permission. 
  *     
@@ -27,15 +27,14 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.substance.internal.fonts;
+package org.pushingpixels.neon.internal.font;
 
-import org.pushingpixels.substance.api.font.FontSet;
+import org.pushingpixels.neon.font.FontSet;
 
 import javax.swing.plaf.FontUIResource;
 
 /**
- * Wrapper around the base Substance font set. Is used to create larger /
- * smaller font sets.
+ * Wrapper around the base font set. Is used to create larger / smaller font sets.
  * 
  * @author Kirill Grouchnikov
  */
@@ -46,7 +45,7 @@ public class ScaledFontSet implements FontSet {
 	private float scaleFactor;
 
 	/**
-	 * The base Substance font set.
+	 * The base font set.
 	 */
 	private FontSet delegate;
 
@@ -54,7 +53,7 @@ public class ScaledFontSet implements FontSet {
 	 * Creates a wrapper font set.
 	 * 
 	 * @param delegate
-	 *            The base Substance font set.
+	 *            The base font set.
 	 * @param scaleFactor
 	 *            Scale factor. Should be positive.
 	 */

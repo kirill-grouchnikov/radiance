@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.painter;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -300,7 +300,7 @@ public class SeparatorPainterUtils {
 		}
 
 		Graphics2D g2d = (Graphics2D) g.create();
-		double scaleFactor = NeonUtil.getScaleFactor();
+		double scaleFactor = NeonCortex.getScaleFactor();
 		g2d.drawImage(singleLine, 0, 0, (int) (singleLine.getWidth() / scaleFactor),
 		        (int) (singleLine.getHeight() / scaleFactor), null);
 		g2d.dispose();
@@ -389,7 +389,7 @@ public class SeparatorPainterUtils {
 		}
 
 		Graphics2D g2d = (Graphics2D) g.create();
-		double scaleFactor = NeonUtil.getScaleFactor();
+		double scaleFactor = NeonCortex.getScaleFactor();
 		for (int lineX : x) {
 			g2d.drawImage(singleLine, lineX, y, (int) (singleLine.getWidth() / scaleFactor),
 			        (int) (singleLine.getHeight() / scaleFactor), null);
@@ -467,7 +467,7 @@ public class SeparatorPainterUtils {
 		}
 
 		Graphics2D g2d = (Graphics2D) g.create();
-		double scaleFactor = NeonUtil.getScaleFactor();
+		double scaleFactor = NeonCortex.getScaleFactor();
 		for (int lineY : y) {
 			g2d.drawImage(singleLine, x, lineY, (int) (singleLine.getWidth() / scaleFactor),
 			        (int) (singleLine.getHeight() / scaleFactor), null);

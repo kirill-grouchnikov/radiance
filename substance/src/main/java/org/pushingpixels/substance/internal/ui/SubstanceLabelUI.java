@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
@@ -169,7 +169,7 @@ public class SubstanceLabelUI extends BasicLabelUI {
         if (!SubstanceCoreUtilities.isCurrentLookAndFeel())
             return;
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonUtil.installDesktopHints(g2d, c);
+        NeonCortex.installDesktopHints(g2d, c);
         this.paint(g2d, c);
         g2d.dispose();
     }

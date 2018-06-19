@@ -29,24 +29,112 @@
  */
 package org.pushingpixels.neon;
 
+import org.pushingpixels.neon.font.FontPolicy;
+import org.pushingpixels.neon.font.FontSet;
 import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
 import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
+import org.pushingpixels.neon.internal.font.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.print.PrinterGraphics;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A collection of utility methods.
+ * Provides the public API surface for working with platform-consistent fonts,
+ * text rendering and offscreen bitmap rendering.
  *
  * @author Kirill Grouchnikov.
  */
-public class NeonUtil {
+public class NeonCortex {
     private static final String PROP_DESKTOPHINTS = "awt.font.desktophints";
+    private static Platform platform;
 
     private static Map<String, Map> desktopHintsCache = new HashMap<>();
+
+    public static synchronized Platform getPlatform() {
+        if (platform != null) {
+            return platform;
+        }
+
+        if (LookUtils.IS_OS_WINDOWS) {
+            return (platform = Platform.WINDOWS);
+        }
+        if (LookUtils.IS_OS_MAC) {
+            return (platform = Platform.MACOS);
+        }
+        try {
+            if (DefaultKDEFontPolicy.isKDERunning()) {
+                return (platform = Platform.KDE);
+            }
+        } catch (Throwable t) {
+            // security access - too bad for KDE desktops.
+        }
+        try {
+            PrivilegedAction<String> desktopAction = () -> System.getProperty("sun.desktop");
+            String desktop = AccessController.doPrivileged(desktopAction);
+            if ("gnome".equals(desktop)) {
+                return (platform = Platform.GNOME);
+            }
+        } catch (Throwable t) {
+            // security access - too bad for Gnome desktops.
+        }
+
+        return (platform = Platform.DEFAULT);
+    }
+
+    /**
+     * Returns the default platform-specific font policy.
+     *
+     * @return Default platform-specific font policy.
+     */
+    public static FontPolicy getDefaultFontPolicy() {
+        Platform platform = getPlatform();
+
+        FontPolicy defaultPolicy;
+        switch (platform) {
+            case MACOS:
+                defaultPolicy = new DefaultMacFontPolicy();
+                break;
+            case KDE:
+                defaultPolicy = new DefaultKDEFontPolicy();
+                break;
+            case GNOME:
+                defaultPolicy = new DefaultGnomeFontPolicy();
+                break;
+            case WINDOWS:
+                defaultPolicy = FontPolicies.getDefaultWindowsPolicy();
+                break;
+            default:
+                defaultPolicy = FontPolicies.getDefaultPlasticPolicy();
+        }
+
+        return (UIDefaults table) -> new NeonFontSet(defaultPolicy.getFontSet(table));
+    }
+
+    /**
+     * Returns scaled platform-specific font policy.
+     *
+     * @param scaleFactor Scale factor. Should be positive.
+     * @return Scaled platform-specific font policy.
+     */
+    public static FontPolicy getScaledFontPolicy(final float scaleFactor) {
+        final FontSet substanceCoreFontSet = getDefaultFontPolicy()
+                .getFontSet(null);
+        // Create the scaled font set
+        FontPolicy newFontPolicy = (UIDefaults table) ->
+                new ScaledFontSet(substanceCoreFontSet, scaleFactor);
+        return newFontPolicy;
+    }
+
+    public enum Platform {
+        MACOS, GNOME, KDE, WINDOWS, DEFAULT
+    }
 
     public static void installDesktopHints(Graphics2D g2, Component c) {
         Map desktopHints = desktopHints(g2);
@@ -131,5 +219,4 @@ public class NeonUtil {
             return c.createCompatibleImage(width, height, Transparency.TRANSLUCENT);
         }
     }
-
 }

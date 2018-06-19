@@ -43,6 +43,6 @@ public class GraphiteChalk extends SkinRobot {
 	 */
 	public GraphiteChalk() {
 		super(new GraphiteChalkSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/graphitechalk");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/graphitechalk");
 	}
 }

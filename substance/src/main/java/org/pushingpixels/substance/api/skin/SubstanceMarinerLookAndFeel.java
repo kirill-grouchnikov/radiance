@@ -44,7 +44,6 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
  * </ul>
  * 
  * @author Kirill Grouchnikov
- * @since version 6.1
  */
 public class SubstanceMarinerLookAndFeel extends SubstanceLookAndFeel {
 	/**

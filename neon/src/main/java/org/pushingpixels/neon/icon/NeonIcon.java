@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.neon.icon;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.internal.ColorFilter;
 import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
 
@@ -56,7 +56,7 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
 
     public NeonIcon(BufferedImage image) {
         this.imageSource = image;
-        this.factor = NeonUtil.getScaleFactor();
+        this.factor = NeonCortex.getScaleFactor();
         this.isHiDpiAwareSource = image instanceof JBHiDPIScaledImage;
         this.width = getInternalWidth();
         this.height = getInternalHeight();
@@ -70,7 +70,7 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
             throw new IllegalArgumentException("Can't wrap another instance of NeonIconUIResource");
         }
         this.iconSource = icon;
-        this.factor = NeonUtil.getScaleFactor();
+        this.factor = NeonCortex.getScaleFactor();
         this.isHiDpiAwareSource = (icon instanceof IsHiDpiAware)
                 && ((IsHiDpiAware) icon).isHiDpiAware();
         this.width = getInternalWidth();
@@ -141,7 +141,7 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
     }
 
     public BufferedImage toImage() {
-        BufferedImage result = NeonUtil.getBlankImage(this.getIconWidth(),
+        BufferedImage result = NeonCortex.getBlankImage(this.getIconWidth(),
                 this.getIconHeight());
         this.paintIcon(null, result.getGraphics(), 0, 0);
         return result;

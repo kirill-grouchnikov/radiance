@@ -28,9 +28,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package org.pushingpixels.substance.api.font;
-
-import org.pushingpixels.substance.internal.fonts.FontPolicies;
+package org.pushingpixels.neon.font;
 
 import javax.swing.*;
 
@@ -40,7 +38,6 @@ import javax.swing.*;
  * @author Karsten Lentzsch
  * 
  * @see FontSet
- * @see FontPolicies
  */
 public interface FontPolicy {
 
@@ -52,18 +49,13 @@ public interface FontPolicy {
 	 * This method is invoked during the L&amp;F component initialization. And
 	 * the invoker hands over the UIDefaults object used to define the component
 	 * settings. Hence, the UIDefaults object may be used to look up a font as
-	 * initialized by a super Look&amp;Feel. For example the JGoodies Windows
-	 * L&amp;F could use the defaults set by the super L&amp;F, the Sun Windows
-	 * L&amp;F.
+	 * initialized by a super Look&amp;Feel.
 	 * 
-	 * @param lafName
-	 *            the name of the Look&amp;Feel that requests the fonts
 	 * @param table
 	 *            the UIDefaults table that can be used to look up fonts of a
 	 *            super L&amp;F
 	 * 
 	 * @return a set of fonts used as default for the component.
 	 */
-	FontSet getFontSet(String lafName, UIDefaults table);
-
+	FontSet getFontSet(UIDefaults table);
 }

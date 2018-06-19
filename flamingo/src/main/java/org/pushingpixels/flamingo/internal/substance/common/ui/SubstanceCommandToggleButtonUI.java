@@ -37,7 +37,7 @@ import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonVisualSt
 import org.pushingpixels.flamingo.internal.substance.utils.SubstanceDisabledResizableIcon;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandToggleButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.ResizableIconUIResource;
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -394,7 +394,7 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setComposite(
                     WidgetUtilities.getAlphaComposite(this.commandButton, extraAlpha, graphics));
-            double factor = NeonUtil.getScaleFactor();
+            double factor = NeonCortex.getScaleFactor();
             g2d.drawImage(fullAlphaBackground, 0, 0, (int) (fullAlphaBackground.getWidth() / factor),
                     (int) (fullAlphaBackground.getHeight() / factor), null);
             g2d.dispose();

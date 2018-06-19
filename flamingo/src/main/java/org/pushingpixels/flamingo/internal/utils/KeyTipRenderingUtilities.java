@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -87,7 +87,7 @@ public class KeyTipRenderingUtilities {
                 contourInner, borderScheme);
 
 		g2d.setColor(SubstanceColorSchemeUtilities.getColorScheme(c, state).getForegroundColor());
-		Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null).
+		Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
                getControlFont();
 		font = font.deriveFont(font.getSize() + 1.0f);
 		g2d.setFont(font);
@@ -95,7 +95,7 @@ public class KeyTipRenderingUtilities {
 
 		LineMetrics lineMetrics = g2d.getFontMetrics().getLineMetrics(keyTip, g2d);
 		int strHeight = (int) lineMetrics.getHeight();
-		NeonUtil.installDesktopHints(g2d, c);
+		NeonCortex.installDesktopHints(g2d, c);
 		g2d.drawString(keyTip, (rect.width - strWidth) / 2,
 				(rect.height + strHeight) / 2 - g2d.getFontMetrics().getDescent());
 

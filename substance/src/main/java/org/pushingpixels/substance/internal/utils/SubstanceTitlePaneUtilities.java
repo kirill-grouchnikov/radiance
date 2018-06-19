@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
@@ -74,7 +75,7 @@ public class SubstanceTitlePaneUtilities {
                 return ExtraComponentKind.TRAILING;
             case PLATFORM:
             default: {
-                SubstanceCoreUtilities.Platform platform = SubstanceCoreUtilities.getPlatform();
+                NeonCortex.Platform platform = NeonCortex.getPlatform();
                 switch (platform) {
                     case MACOS:
                         return ExtraComponentKind.LEADING;
@@ -145,7 +146,7 @@ public class SubstanceTitlePaneUtilities {
                 return isLtr ? true : false;
             case PLATFORM:
             default: {
-                SubstanceCoreUtilities.Platform platform = SubstanceCoreUtilities.getPlatform();
+                NeonCortex.Platform platform = NeonCortex.getPlatform();
                 switch (platform) {
                     case MACOS:
                         return isLtr ? false : true;
@@ -168,7 +169,7 @@ public class SubstanceTitlePaneUtilities {
                 return SubstanceSlices.HorizontalGravity.LEADING;
             case PLATFORM:
             default: {
-                SubstanceCoreUtilities.Platform platform = SubstanceCoreUtilities.getPlatform();
+                NeonCortex.Platform platform = NeonCortex.getPlatform();
                 switch (platform) {
                     case WINDOWS:
                         return SubstanceSlices.HorizontalGravity.LEADING;
@@ -191,7 +192,7 @@ public class SubstanceTitlePaneUtilities {
                 return SubstanceSlices.TitleIconHorizontalGravity.OPPOSITE_CONTROL_BUTTONS;
             case PLATFORM:
             default: {
-                SubstanceCoreUtilities.Platform platform = SubstanceCoreUtilities.getPlatform();
+                NeonCortex.Platform platform = NeonCortex.getPlatform();
                 switch (platform) {
                     case MACOS:
                         return SubstanceSlices.TitleIconHorizontalGravity.NEXT_TO_TITLE;

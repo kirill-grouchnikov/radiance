@@ -29,15 +29,15 @@
  */
 package org.pushingpixels.substance.api.inputmap;
 
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.internal.inputmaps.AquaInputMapSet;
 import org.pushingpixels.substance.internal.inputmaps.BaseInputMapSet;
 import org.pushingpixels.substance.internal.inputmaps.GnomeInputMapSet;
 import org.pushingpixels.substance.internal.inputmaps.WindowsInputMapSet;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 public class SubstanceInputMapUtilities {
     public static InputMapSet getSystemInputMapSet() {
-        SubstanceCoreUtilities.Platform platform = SubstanceCoreUtilities.getPlatform();
+        NeonCortex.Platform platform = NeonCortex.getPlatform();
         switch (platform) {
         case MACOS:
             return new AquaInputMapSet();

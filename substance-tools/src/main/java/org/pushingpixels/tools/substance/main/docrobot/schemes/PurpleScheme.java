@@ -44,6 +44,6 @@ public class PurpleScheme extends ColorSchemeRobot {
 	public PurpleScheme() {
 		super(
 				new PurpleColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/purple.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/purple.png");
 	}
 }

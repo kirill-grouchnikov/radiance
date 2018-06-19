@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
@@ -272,7 +272,7 @@ public class SubstanceTitlePane extends JComponent {
             int strH = fm.getAscent() + fm.getDescent();
 
             graphics.setColor(scheme.getForegroundColor());
-            NeonUtil.installDesktopHints(graphics, this);
+            NeonCortex.installDesktopHints(graphics, this);
             if (strW < (w - 5)) {
                 graphics.drawString(longFormat.toString(), (w - strW) / 2, (h + strH) / 2 - 2);
             } else {
@@ -293,7 +293,7 @@ public class SubstanceTitlePane extends JComponent {
         public int getPreferredWidth() {
             BufferedImage dummy = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2d = dummy.createGraphics();
-            NeonUtil.installDesktopHints(g2d, this);
+            NeonCortex.installDesktopHints(g2d, this);
             g2d.setFont(UIManager.getFont("Panel.font"));
             FontMetrics fm = g2d.getFontMetrics();
             int result = fm.stringWidth("100.9MB / 200.9MB");
@@ -1016,7 +1016,7 @@ public class SubstanceTitlePane extends JComponent {
             return null;
         }
 
-        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getWindowTitleFont();
 
         Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
@@ -1062,7 +1062,7 @@ public class SubstanceTitlePane extends JComponent {
         Graphics2D graphics = (Graphics2D) g.create();
         BackgroundPaintingUtils.update(graphics, SubstanceTitlePane.this, false);
 
-        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getWindowTitleFont();
         graphics.setFont(font);
 
@@ -1235,7 +1235,7 @@ public class SubstanceTitlePane extends JComponent {
             // g.fillRect(0, 0, getWidth(), getHeight());
             if (appIcon != null) {
                 float scaleFactor = SubstanceCoreUtilities.isHiDpiAwareImage(appIcon)
-                        ? (float) NeonUtil.getScaleFactor()
+                        ? (float) NeonCortex.getScaleFactor()
                         : 1;
                 g.drawImage(appIcon, 0, 0, (int) (appIcon.getWidth(null) / scaleFactor),
                         (int) (appIcon.getHeight(null) / scaleFactor), null);
@@ -1356,7 +1356,7 @@ public class SubstanceTitlePane extends JComponent {
                         String displayTitle = getDisplayTitle();
 
                         Font font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                .getFontSet("Substance", null).getWindowTitleFont();
+                                .getFontSet(null).getWindowTitleFont();
                         int displayTitleWidth = rootPane.getFontMetrics(font)
                                 .stringWidth(displayTitle);
                         switch (titleTextHorizontalGravity) {

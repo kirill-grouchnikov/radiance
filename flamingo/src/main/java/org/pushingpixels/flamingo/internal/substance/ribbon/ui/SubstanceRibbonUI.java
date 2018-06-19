@@ -299,7 +299,7 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
 
     @Override
     public int getTaskbarHeight() {
-        Font titleFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+        Font titleFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getWindowTitleFont();
         FontMetrics fm = this.ribbon.getFontMetrics(titleFont);
         int fontHeight = fm.getHeight();

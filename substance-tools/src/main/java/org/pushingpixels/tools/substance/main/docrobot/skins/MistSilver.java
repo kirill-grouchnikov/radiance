@@ -43,6 +43,6 @@ public class MistSilver extends SkinRobot {
 	 */
 	public MistSilver() {
 		super(new MistSilverSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/mistsilver");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/mistsilver");
 	}
 }

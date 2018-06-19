@@ -35,7 +35,7 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.RibbonBorderShaper;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -128,7 +128,7 @@ public class RibbonBackgroundDelegate {
 
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
         Graphics2D g2d = result.createGraphics();
-        double scaleFactor = NeonUtil.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor();
 
         g2d.drawImage(baseLayer, 0, 0, (int) (baseLayer.getWidth() / scaleFactor),
                 (int) (baseLayer.getHeight() / scaleFactor), null);
@@ -263,7 +263,7 @@ public class RibbonBackgroundDelegate {
         }
 
         g2d.setComposite(WidgetUtilities.getAlphaComposite(button, extraActionAlpha, g));
-        double scaleFactor = NeonUtil.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor();
         g2d.drawImage(ribbonBackground, 0, 0, (int) (ribbonBackground.getWidth() / scaleFactor),
                 (int) (ribbonBackground.getHeight() / scaleFactor), null);
 

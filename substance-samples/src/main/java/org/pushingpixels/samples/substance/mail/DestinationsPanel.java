@@ -158,7 +158,7 @@ public class DestinationsPanel extends PanelWithRightLine {
         FormLayout lm = new FormLayout("fill:pref:grow", "");
         DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(new EmptyBorder(8, 8, 8, 8));
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getControlFont().deriveFont(Font.BOLD));
         builder.append(titleLabel);
         JPanel result = builder.build();

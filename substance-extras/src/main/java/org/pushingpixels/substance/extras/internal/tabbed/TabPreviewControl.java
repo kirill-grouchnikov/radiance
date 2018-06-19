@@ -1,6 +1,6 @@
 package org.pushingpixels.substance.extras.internal.tabbed;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.ShadowPopupBorder;
 import org.pushingpixels.trident.Timeline;
@@ -97,7 +97,7 @@ public class TabPreviewControl extends JPanel {
             int w = this.previewImagePanel.getWidth();
             int h = this.previewImagePanel.getHeight();
 
-            double scaleFactor = NeonUtil.getScaleFactor();
+            double scaleFactor = NeonCortex.getScaleFactor();
             Graphics2D g2 = (Graphics2D) g.create();
             g2.setComposite(AlphaComposite.SrcOver.derive(alpha));
             int dx = (w - (int) (pw / scaleFactor)) / 2;

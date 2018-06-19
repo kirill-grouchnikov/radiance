@@ -44,6 +44,6 @@ public class OrangeScheme extends ColorSchemeRobot {
 	public OrangeScheme() {
 		super(
 				new OrangeColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/orange.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/orange.png");
 	}
 }

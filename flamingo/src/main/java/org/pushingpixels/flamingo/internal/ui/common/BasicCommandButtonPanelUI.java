@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
@@ -44,7 +44,7 @@ import java.beans.PropertyChangeListener;
 
 /**
  * Basic UI for command button panel {@link JCommandButtonPanel}.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
@@ -80,7 +80,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
      */
     @Override
@@ -100,7 +100,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         Font currFont = this.buttonPanel.getFont();
         if ((currFont == null) || (currFont instanceof UIResource)) {
             Font controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(
-                    "Substance", null).getControlFont();
+                    null).getControlFont();
             this.buttonPanel.setFont(controlFont.deriveFont(Font.BOLD, controlFont.getSize() + 1));
         }
     }
@@ -151,7 +151,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
      */
     @Override
@@ -197,7 +197,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
     /**
      * Returns the layout manager for the associated button panel.
-     * 
+     *
      * @return The layout manager for the associated button panel.
      */
     protected LayoutManager createLayoutManager() {
@@ -209,7 +209,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics, javax.swing.JComponent)
      */
     @Override
@@ -234,67 +234,56 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
     /**
      * Paints the background of the specified button panel group.
-     * 
-     * @param g
-     *            Graphics context.
-     * @param groupIndex
-     *            Group index.
-     * @param x
-     *            X coordinate of the button group bounds.
-     * @param y
-     *            Y coordinate of the button group bounds.
-     * @param width
-     *            Width of the button group bounds.
-     * @param height
-     *            Height of the button group bounds.
+     *
+     * @param g          Graphics context.
+     * @param groupIndex Group index.
+     * @param x          X coordinate of the button group bounds.
+     * @param y          Y coordinate of the button group bounds.
+     * @param width      Width of the button group bounds.
+     * @param height     Height of the button group bounds.
      */
-    protected abstract void paintGroupBackground(Graphics g, int groupIndex, int x, int y, int width,
+    protected abstract void paintGroupBackground(Graphics g, int groupIndex, int x, int y, int
+            width,
             int height);
 
     /**
      * Paints the background of the title of specified button panel group.
-     * 
-     * @param g
-     *            Graphics context.
-     * @param groupIndex
-     *            Group index.
-     * @param x
-     *            X coordinate of the button group title bounds.
-     * @param y
-     *            Y coordinate of the button group title bounds.
-     * @param width
-     *            Width of the button group title bounds.
-     * @param height
-     *            Height of the button group title bounds.
+     *
+     * @param g          Graphics context.
+     * @param groupIndex Group index.
+     * @param x          X coordinate of the button group title bounds.
+     * @param y          Y coordinate of the button group title bounds.
+     * @param width      Width of the button group title bounds.
+     * @param height     Height of the button group title bounds.
      */
-    protected abstract void paintGroupTitleBackground(Graphics g, int groupIndex, int x, int y, int width,
+    protected abstract void paintGroupTitleBackground(Graphics g, int groupIndex, int x, int y,
+            int width,
             int height);
 
     /**
      * Returns the height of the group title strip.
-     * 
-     * @param groupIndex
-     *            Group index.
+     *
+     * @param groupIndex Group index.
      * @return The height of the title strip of the specified group.
      */
     protected abstract int getGroupTitleHeight(int groupIndex);
 
     /**
      * Returns the insets of button panel groups.
-     * 
+     *
      * @return The insets of button panel groups.
      */
     protected abstract Insets getGroupInsets();
 
     /**
      * Row-fill layout for the button panel.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     protected class RowFillLayout implements LayoutManager {
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
          */
         public void addLayoutComponent(String name, Component comp) {
@@ -302,7 +291,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
          */
         public void removeLayoutComponent(Component comp) {
@@ -310,7 +299,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
          */
         public void layoutContainer(Container parent) {
@@ -342,7 +331,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             // for N buttons, there are N-1 gaps. Add the gap to the
             // available width and divide by the max button width + gap.
             int buttonsInRow = (maxButtonWidth == 0) ? 0
-                    : (maxWidth + gap) / (maxButtonWidth + gap);
+                                                     : (maxWidth + gap) / (maxButtonWidth + gap);
             int maxButtonColumnsToUse = panel.getMaxButtonColumns();
             if (maxButtonColumnsToUse > 0) {
                 buttonsInRow = Math.min(buttonsInRow, maxButtonColumnsToUse);
@@ -368,8 +357,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 }
 
                 int buttonRows = (buttonsInRow == 0) ? 0
-                        : (int) (Math
-                                .ceil((double) panel.getGroupButtons(i).size() / buttonsInRow));
+                                                     : (int) (Math
+                        .ceil((double) panel.getGroupButtons(i).size() / buttonsInRow));
                 if (maxButtonColumnsToUse > 0) {
                     buttonsInRow = Math.min(buttonsInRow, maxButtonColumnsToUse);
                 }
@@ -377,8 +366,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 // spread the buttons so that we don't have extra space
                 // on the right
                 int actualButtonWidth = (buttonRows > 1)
-                        ? (maxWidth - (buttonsInRow - 1) * gap) / buttonsInRow
-                        : maxButtonWidth;
+                                        ? (maxWidth - (buttonsInRow - 1) * gap) / buttonsInRow
+                                        : maxButtonWidth;
                 if (maxButtonColumnsToUse == 1)
                     actualButtonWidth = maxWidth;
 
@@ -424,7 +413,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
          */
         public Dimension minimumLayoutSize(Container parent) {
@@ -433,7 +422,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
          */
         public Dimension preferredLayoutSize(Container parent) {
@@ -482,8 +471,11 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 // System.out.print(" " + height);
             }
             int prefWidth = usePanelWidth ? availableWidth
-                    : maxButtonColumnsToUse * maxButtonWidth + (maxButtonColumnsToUse - 1) * gap
-                            + bInsets.left + bInsets.right + groupInsets.left + groupInsets.right;
+                                          :
+                            maxButtonColumnsToUse * maxButtonWidth + (maxButtonColumnsToUse - 1)
+                                    * gap
+                                    + bInsets.left + bInsets.right + groupInsets.left +
+                                    groupInsets.right;
             // System.out.println(" : " + height);
             return new Dimension(Math.max(10, prefWidth), Math.max(10, height));
         }
@@ -491,13 +483,13 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
     /**
      * Column-fill layout for the button panel.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     protected class ColumnFillLayout implements LayoutManager {
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
          */
         public void addLayoutComponent(String name, Component comp) {
@@ -505,7 +497,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
          */
         public void removeLayoutComponent(Component comp) {
@@ -513,7 +505,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
          */
         public void layoutContainer(Container parent) {
@@ -543,7 +535,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             // for N buttons, there are N-1 gaps. Add the gap to the
             // available width and divide by the max button width + gap.
             int buttonsInRow = (maxButtonHeight == 0) ? 0
-                    : (maxHeight + gap) / (maxButtonHeight + gap);
+                                                      : (maxHeight + gap) / (maxButtonHeight + gap);
 
             if (ltr) {
                 int x = bInsets.left + groupInsets.left;
@@ -553,13 +545,13 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                     int currY = top + groupInsets.top;
 
                     int buttonColumns = (buttonsInRow == 0) ? 0
-                            : (int) (Math
-                                    .ceil((double) panel.getGroupButtons(i).size() / buttonsInRow));
+                                                            : (int) (Math
+                            .ceil((double) panel.getGroupButtons(i).size() / buttonsInRow));
                     // spread the buttons so that we don't have extra space
                     // on the bottom
                     int actualButtonHeight = (buttonColumns > 1)
-                            ? (maxHeight - (buttonsInRow - 1) * gap) / buttonsInRow
-                            : maxButtonWidth;
+                                             ? (maxHeight - (buttonsInRow - 1) * gap) / buttonsInRow
+                                             : maxButtonWidth;
 
                     for (AbstractCommandButton button : panel.getGroupButtons(i)) {
                         int endY = currY + actualButtonHeight;
@@ -587,13 +579,13 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                     int currY = top + groupInsets.top;
 
                     int buttonColumns = (buttonsInRow == 0) ? 0
-                            : (int) (Math
-                                    .ceil((double) panel.getGroupButtons(i).size() / buttonsInRow));
+                                                            : (int) (Math
+                            .ceil((double) panel.getGroupButtons(i).size() / buttonsInRow));
                     // spread the buttons so that we don't have extra space
                     // on the bottom
                     int actualButtonHeight = (buttonColumns > 1)
-                            ? (maxHeight - (buttonsInRow - 1) * gap) / buttonsInRow
-                            : maxButtonWidth;
+                                             ? (maxHeight - (buttonsInRow - 1) * gap) / buttonsInRow
+                                             : maxButtonWidth;
 
                     for (AbstractCommandButton button : panel.getGroupButtons(i)) {
                         int endY = currY + actualButtonHeight;
@@ -619,7 +611,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
          */
         public Dimension minimumLayoutSize(Container parent) {
@@ -628,7 +620,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
          */
         public Dimension preferredLayoutSize(Container parent) {
@@ -672,15 +664,17 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 width += buttonColumns * maxButtonWidth + (buttonColumns - 1) * gap;
             }
             int prefHeight = usePanelHeight ? availableHeight
-                    : maxButtonRowsToUse * maxButtonWidth + (maxButtonRowsToUse - 1) * gap
-                            + bInsets.top + bInsets.bottom + groupInsets.top + groupInsets.bottom;
+                                            :
+                             maxButtonRowsToUse * maxButtonWidth + (maxButtonRowsToUse - 1) * gap
+                                     + bInsets.top + bInsets.bottom + groupInsets.top +
+                                     groupInsets.bottom;
             return new Dimension(Math.max(10, width), Math.max(10, prefHeight));
         }
     }
 
     /**
      * Returns the layout gap for button panel components.
-     * 
+     *
      * @return The layout gap for button panel components.
      */
     protected int getLayoutGap() {
@@ -711,11 +705,9 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
     /**
      * Returns the preferred size of the associated button panel for the specified parameters.
-     * 
-     * @param buttonVisibleRows
-     *            Target number of visible button rows.
-     * @param titleVisibleRows
-     *            Target number of visible group title rows.
+     *
+     * @param buttonVisibleRows Target number of visible button rows.
+     * @param titleVisibleRows  Target number of visible group title rows.
      * @return The preferred size of the associated button panel for the specified parameters.
      */
     public int getPreferredHeight(int buttonVisibleRows, int titleVisibleRows) {

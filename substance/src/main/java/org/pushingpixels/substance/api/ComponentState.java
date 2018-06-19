@@ -175,7 +175,7 @@ import java.util.*;
  * @author Kirill Grouchnikov
  */
 public final class ComponentState {
-	private static Set<ComponentState> allStates = new HashSet<ComponentState>();
+	private static Set<ComponentState> allStates = new HashSet<>();
 
 	/**
 	 * Disabled default. Used for disabled buttons that have been marked as

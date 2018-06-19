@@ -155,7 +155,7 @@ public class HAlignmentPanel extends ControllablePanel implements Deferrable {
         String fontName = "Tahoma";
         Font font = new Font(fontName, Font.PLAIN, size);
         if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-            Font base = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+            Font base = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                     .getControlFont();
             fontName = base.getFamily();
             font = base.deriveFont((float) size);

@@ -45,6 +45,6 @@ public class DerivedInvertedScheme extends ColorSchemeRobot {
 	public DerivedInvertedScheme() {
 		super(
 				new PurpleColorScheme().invert(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/derived-invert.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/derived-invert.png");
 	}
 }

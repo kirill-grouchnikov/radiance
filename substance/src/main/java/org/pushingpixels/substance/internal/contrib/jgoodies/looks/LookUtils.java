@@ -30,9 +30,6 @@
 
 package org.pushingpixels.substance.internal.contrib.jgoodies.looks;
 
-import java.awt.*;
-import java.util.Locale;
-
 /**
  * Provides convenience behavior used by the JGoodies Looks.
  * 
@@ -41,18 +38,6 @@ import java.util.Locale;
 public final class LookUtils {
 
 	// Basics System Properties **********************************************
-
-	/**
-	 * The <code>java.vendor</code> System Property.
-	 * <p>
-	 * 
-	 * Defaults to <code>null</code> if the runtime does not have security
-	 * access to read this property or the property does not exist.
-	 */
-	private static final String JAVA_VENDOR = getSystemProperty("java.vendor");
-	
-	private static final String JAVA_SPEC_VERSION = getSystemProperty("java.specification.version");
-
 	/**
 	 * The <code>os.name</code> System Property. Operating system name.
 	 * <p>
@@ -74,31 +59,9 @@ public final class LookUtils {
 	// Requesting the Operating System Name ***********************************
 
 	/**
-	 * True if this is FreeBSD.
-	 */
-	public static final boolean IS_OS_FREEBSD = startsWithIgnoreCase(OS_NAME,
-			"FreeBSD");
-
-	/**
-	 * True if this is Linux.
-	 */
-	public static final boolean IS_OS_LINUX = startsWithIgnoreCase(OS_NAME,
-			"Linux");
-
-	/**
-	 * True if this is OS/2.
-	 */
-	public static final boolean IS_OS_OS2 = startsWith(OS_NAME, "OS/2");
-
-	/**
 	 * True if this is the Mac OS X.
 	 */
 	public static final boolean IS_OS_MAC = startsWith(OS_NAME, "Mac");
-
-	/**
-	 * True if this is Windows.
-	 */
-	public static final boolean IS_OS_WINDOWS = startsWith(OS_NAME, "Windows");
 
 	/**
 	 * True if this is Windows 98/ME/2000/XP/VISTA.
@@ -106,99 +69,6 @@ public final class LookUtils {
 	public static final boolean IS_OS_WINDOWS_MODERN = startsWith(OS_NAME,
 			"Windows")
 			&& !startsWith(OS_VERSION, "4.0");
-
-	/**
-	 * True if this is Windows 95.
-	 * 
-	 * @since 2.0
-	 */
-	public static final boolean IS_OS_WINDOWS_95 = startsWith(OS_NAME,
-			"Windows 9")
-			&& startsWith(OS_VERSION, "4.0");
-
-	/**
-	 * True if this is Windows 98.
-	 * 
-	 * @since 2.0
-	 */
-	public static final boolean IS_OS_WINDOWS_98 = startsWith(OS_NAME,
-			"Windows 9")
-			&& startsWith(OS_VERSION, "4.1");
-
-	/**
-	 * True if this is Windows NT.
-	 * 
-	 * @since 2.0
-	 */
-	public static final boolean IS_OS_WINDOWS_NT = startsWith(OS_NAME,
-			"Windows NT");
-
-	/**
-	 * True if this is Windows ME.
-	 * 
-	 * @since 2.0
-	 */
-	public static final boolean IS_OS_WINDOWS_ME = startsWith(OS_NAME,
-			"Windows")
-			&& startsWith(OS_VERSION, "4.9");
-
-	/**
-	 * True if this is Windows 2000.
-	 * 
-	 * @since 2.0
-	 */
-	public static final boolean IS_OS_WINDOWS_2000 = startsWith(OS_NAME,
-			"Windows")
-			&& startsWith(OS_VERSION, "5.0");
-
-	/**
-	 * True if this is Windows XP.
-	 */
-	public static final boolean IS_OS_WINDOWS_XP = startsWith(OS_NAME,
-			"Windows")
-			&& startsWith(OS_VERSION, "5.1");
-
-	/**
-	 * True if this is Windows Vista.
-	 * 
-	 * @since 2.0
-	 */
-	public static final boolean IS_OS_WINDOWS_VISTA = startsWith(OS_NAME,
-			"Windows")
-			&& startsWith(OS_VERSION, "6.0");
-
-	/**
-	 * True if this is Mac Yosemite.
-	 */
-	public static final boolean IS_OS_MAC_YOSEMITE = IS_OS_MAC 
-			&& startsWith(OS_VERSION, "10.10");
-
-	/**
-	 * True if this is Mac El Capitan or later (Sierra + High Sierra for now)
-	 */
-	public static final boolean IS_OS_MAC_EL_CAPITAN_OR_LATER = IS_OS_MAC 
-			&& (startsWith(OS_VERSION, "10.11") || startsWith(OS_VERSION, "10.12")
-			 || startsWith(OS_VERSION, "10.13"));
-
-	/**
-	 * True if this is Solaris.
-	 */
-	public static final boolean IS_OS_SOLARIS = startsWith(OS_NAME, "Solaris");
-	
-	public static final boolean IS_VENDOR_APPLE = containsIgnoreCase(JAVA_VENDOR, "Apple");
-	
-    public static final boolean IS_JAVA_8 = startsWith(JAVA_SPEC_VERSION, "8");
-    public static final boolean IS_JAVA_9 = startsWith(JAVA_SPEC_VERSION, "9");
-    public static final boolean IS_JAVA_10 = startsWith(JAVA_SPEC_VERSION, "10");
-
-	// Other Properties *******************************************************
-
-	/**
-	 * True if if the screen resolution is smaller than 120 dpi.
-	 * 
-	 * @see Toolkit#getScreenResolution()
-	 */
-	public static final boolean IS_LOW_RESOLUTION = isLowResolution();
 
 	private LookUtils() {
 		// Override default constructor; prevents instantiation.
@@ -273,17 +143,6 @@ public final class LookUtils {
 	}
 
 	/**
-	 * Checks and answers whether we have a true color system.
-	 * 
-	 * @param c
-	 *            the component used to determine the toolkit
-	 * @return true if the component's toolkit has a pixel size >= 24
-	 */
-	public static boolean isTrueColor(Component c) {
-		return c.getToolkit().getColorModel().getPixelSize() >= 24;
-	}
-
-	/**
 	 * Checks and answers whether this toolkit provides native drop shadows for
 	 * popups such as the Mac OS X. Currently this is used to determine if the
 	 * Looks' popup drop shadow feature is active or not - even if it's enabled.
@@ -298,30 +157,7 @@ public final class LookUtils {
 
 	// Private Helper Methods ***********************************************
 
-	/**
-	 * Checks and answers whether the screen resolution is low or high.
-	 * Resolutions below 120 dpi are considere low, all others are high.
-	 * 
-	 * @return true if the screen resolution is smaller than 120 dpi
-	 */
-	private static boolean isLowResolution() {
-		return Toolkit.getDefaultToolkit().getScreenResolution() < 120;
-	}
-
 	private static boolean startsWith(String str, String prefix) {
 		return str != null && str.startsWith(prefix);
 	}
-
-	private static boolean startsWithIgnoreCase(String str, String prefix) {
-		return str != null
-				&& str.toUpperCase(Locale.ENGLISH).startsWith(
-						prefix.toUpperCase(Locale.ENGLISH));
-	}
-	
-	private static boolean containsIgnoreCase(String str, String searchFor) {
-		return str != null
-				&& str.toUpperCase(Locale.ENGLISH).contains(
-						searchFor.toUpperCase(Locale.ENGLISH));
-	}
-
 }

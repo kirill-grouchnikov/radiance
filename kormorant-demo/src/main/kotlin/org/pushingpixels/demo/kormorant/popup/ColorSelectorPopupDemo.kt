@@ -36,7 +36,7 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.ActionModelChangeInterface
 import org.pushingpixels.kormorant.colorSelectorPopupMenu
 import org.pushingpixels.kormorant.commandButton
-import org.pushingpixels.neon.NeonUtil
+import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
@@ -62,7 +62,7 @@ class ColorIcon(private var color: Color) : ResizableIcon {
         val g2d = g.create() as Graphics2D
         g2d.color = color
         g2d.fillRect(x, y, w, h)
-        val borderThickness = 1.0f / NeonUtil.getScaleFactor().toFloat()
+        val borderThickness = 1.0f / NeonCortex.getScaleFactor().toFloat()
         g2d.color = color.darker()
         g2d.stroke = BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
                 BasicStroke.JOIN_ROUND)

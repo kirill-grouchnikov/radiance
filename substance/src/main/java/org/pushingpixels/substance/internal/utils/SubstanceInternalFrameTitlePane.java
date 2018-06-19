@@ -202,7 +202,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
             return null;
         }
 
-        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getWindowTitleFont();
 
         Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
@@ -251,7 +251,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
         String theTitle = this.frame.getTitle();
         String displayTitle = getDisplayTitle();
 
-        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getWindowTitleFont();
         graphics.setFont(font);
 
@@ -569,7 +569,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
                         String displayTitle = getDisplayTitle();
 
                         Font font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                .getFontSet("Substance", null).getWindowTitleFont();
+                                .getFontSet(null).getWindowTitleFont();
                         int displayTitleWidth = frame.getFontMetrics(font)
                                 .stringWidth(displayTitle);
                         switch (titleTextGravity) {

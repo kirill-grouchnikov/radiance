@@ -44,6 +44,6 @@ public class EbonyScheme extends ColorSchemeRobot {
 	public EbonyScheme() {
 		super(
 				new EbonyColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/ebony.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/ebony.png");
 	}
 }

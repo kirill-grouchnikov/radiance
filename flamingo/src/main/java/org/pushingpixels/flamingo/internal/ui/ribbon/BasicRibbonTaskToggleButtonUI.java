@@ -54,7 +54,7 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandToggleBu
         super.installDefaults();
         Font f = this.commandButton.getFont();
         if (f == null || f instanceof UIResource) {
-            this.commandButton.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null).getControlFont());
+            this.commandButton.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).getControlFont());
         }
 
         Border border = this.commandButton.getBorder();

@@ -43,6 +43,6 @@ public class Raven extends SkinRobot {
 	 */
 	public Raven() {
 		super(new RavenSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/raven");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/raven");
 	}
 }

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.painter;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -110,7 +110,7 @@ public class HighlightPainterUtils {
                         borderScheme, highlightPainter, highlightBorderPainter);
                 smallCache.put(key, result);
             }
-            double scaleFactor = NeonUtil.getScaleFactor();
+            double scaleFactor = NeonCortex.getScaleFactor();
             g2d.drawImage(result, 0, 0, (int) (result.getWidth() / scaleFactor),
                     (int) (result.getHeight() / scaleFactor), null);
         }

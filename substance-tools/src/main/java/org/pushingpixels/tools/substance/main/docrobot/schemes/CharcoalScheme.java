@@ -44,6 +44,6 @@ public class CharcoalScheme extends ColorSchemeRobot {
 	public CharcoalScheme() {
 		super(
 				new CharcoalColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/charcoal.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/charcoal.png");
 	}
 }

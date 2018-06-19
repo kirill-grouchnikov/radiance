@@ -45,7 +45,7 @@ import javax.swing.plaf.FontUIResource;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.font.FontSet;
+import org.pushingpixels.neon.font.FontSet;
 
 /**
  * Listener to change the current locale.
@@ -171,9 +171,9 @@ public class MyLocaleChangeListener implements ActionListener {
                 SubstanceCortex.GlobalScope.resetLabelBundle();
                 if ("CN".equals(countryCode)) {
                     final FontSet currFontSet = SubstanceCortex.GlobalScope.getFontPolicy()
-                            .getFontSet("Substance", null);
+                            .getFontSet(null);
                     SubstanceCortex.GlobalScope.setFontPolicy(
-                            (String lafName, UIDefaults table) -> new DialogFontSet(currFontSet));
+                            (UIDefaults table) -> new DialogFontSet(currFontSet));
                 } else {
                     SubstanceCortex.GlobalScope.setFontPolicy(null);
                 }

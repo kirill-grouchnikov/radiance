@@ -43,6 +43,6 @@ public class Sahara extends SkinRobot {
 	 */
 	public Sahara() {
 		super(new SaharaSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/sahara");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/sahara");
 	}
 }

@@ -44,6 +44,6 @@ public class BarbyPinkScheme extends ColorSchemeRobot {
 	public BarbyPinkScheme() {
 		super(
 				new BarbyPinkColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/barby-pink.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/barby-pink.png");
 	}
 }

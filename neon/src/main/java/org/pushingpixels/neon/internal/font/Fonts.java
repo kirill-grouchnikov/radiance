@@ -28,11 +28,11 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package org.pushingpixels.substance.internal.fonts;
+package org.pushingpixels.neon.internal.font;
 
-import org.pushingpixels.substance.api.font.FontPolicy;
-import org.pushingpixels.substance.api.font.FontSet;
-import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
+import org.pushingpixels.neon.font.FontPolicy;
+import org.pushingpixels.neon.font.FontSet;
+import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
 
 import java.awt.*;
 import java.util.Locale;
@@ -202,7 +202,7 @@ public final class Fonts {
 
 	static Font getDefaultGUIFontWesternModernWindowsNormal() {
 		return LookUtils.IS_LOW_RESOLUTION ? WINDOWS_XP_96DPI_DEFAULT_GUI
-				: WINDOWS_XP_120DPI_DEFAULT_GUI;
+										   : WINDOWS_XP_120DPI_DEFAULT_GUI;
 	}
 
 	static Font getDefaultIconFontWesternModernWindowsNormal() {

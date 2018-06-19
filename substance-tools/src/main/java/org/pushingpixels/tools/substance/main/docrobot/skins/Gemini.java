@@ -43,6 +43,6 @@ public class Gemini extends SkinRobot {
 	 */
 	public Gemini() {
 		super(new GeminiSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/gemini");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/gemini");
 	}
 }

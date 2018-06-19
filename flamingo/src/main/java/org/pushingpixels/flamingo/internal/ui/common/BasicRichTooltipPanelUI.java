@@ -118,7 +118,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 		Font f = this.richTooltipPanel.getFont();
 		if (f == null || f instanceof UIResource) {
 		    this.richTooltipPanel.setFont(
-					SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null).getControlFont());
+					SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).getControlFont());
 		}
 	}
 
@@ -188,7 +188,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 		public Dimension preferredLayoutSize(Container parent) {
 			Insets ins = parent.getInsets();
 			int gap = getLayoutGap();
-			Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null).getControlFont();
+			Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).getControlFont();
 			Font titleFont = font.deriveFont(Font.BOLD);
 
 			// The overall width is defined by the width of the text 
@@ -325,7 +325,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 		public void layoutContainer(Container parent) {
 			removeExistingComponents();
 
-			Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null).getControlFont();
+			Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).getControlFont();
 			Insets ins = richTooltipPanel.getInsets();
 			int y = ins.top;
 			RichTooltip tooltipInfo = richTooltipPanel.getTooltipInfo();

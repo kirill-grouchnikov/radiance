@@ -37,7 +37,7 @@ import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.neon.AsynchronousLoading;
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
@@ -162,7 +162,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         Font currFont = this.commandButton.getFont();
         if ((currFont == null) || (currFont instanceof UIResource)) {
             this.commandButton.setFont(SubstanceCortex.GlobalScope.getFontPolicy().
-                    getFontSet("Substance", null).getControlFont());
+                    getFontSet(null).getControlFont());
         }
     }
 
@@ -408,7 +408,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonUtil.installDesktopHints(g2d, c);
+        NeonCortex.installDesktopHints(g2d, c);
         super.update(g2d, c);
         g2d.dispose();
     }

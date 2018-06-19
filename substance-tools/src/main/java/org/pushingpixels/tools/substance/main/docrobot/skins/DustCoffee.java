@@ -43,6 +43,6 @@ public class DustCoffee extends SkinRobot {
 	 */
 	public DustCoffee() {
 		super(new DustCoffeeSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/dustcoffee");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/dustcoffee");
 	}
 }

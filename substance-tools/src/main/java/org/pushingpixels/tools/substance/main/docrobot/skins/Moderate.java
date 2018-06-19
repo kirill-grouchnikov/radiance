@@ -43,6 +43,6 @@ public class Moderate extends SkinRobot {
 	 */
 	public Moderate() {
 		super(new ModerateSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/moderate");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/moderate");
 	}
 }

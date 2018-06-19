@@ -45,7 +45,7 @@ import org.pushingpixels.substance.api.skin.SkinInfo;
 public class SubstanceSkinComboSelector extends JComboBox {
     public SubstanceSkinComboSelector() {
         // populate the combobox
-        super(new ArrayList<SkinInfo>(SubstanceCortex.GlobalScope.getAllSkins().values())
+        super(new ArrayList<>(SubstanceCortex.GlobalScope.getAllSkins().values())
                 .toArray());
         // set the current skin as the selected item
         SubstanceSkin currentSkin = SubstanceCortex.GlobalScope.getCurrentSkin();

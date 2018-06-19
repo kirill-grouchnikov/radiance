@@ -44,7 +44,6 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
  * </ul>
  * 
  * @author Kirill Grouchnikov
- * @since version 4.0
  */
 public class SubstanceMistSilverLookAndFeel extends SubstanceLookAndFeel {
 	/**

@@ -43,6 +43,6 @@ public class MistAqua extends SkinRobot {
 	 */
 	public MistAqua() {
 		super(new MistAquaSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/mistaqua");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/mistaqua");
 	}
 }

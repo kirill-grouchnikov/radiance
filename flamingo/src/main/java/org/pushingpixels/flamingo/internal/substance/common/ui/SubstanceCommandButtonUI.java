@@ -48,7 +48,7 @@ import org.pushingpixels.flamingo.internal.substance.utils.SubstanceDisabledResi
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.ResizableIconUIResource;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
@@ -311,7 +311,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setComposite(
                     WidgetUtilities.getAlphaComposite(this.commandButton, extraAlpha, graphics));
-            double factor = NeonUtil.getScaleFactor();
+            double factor = NeonCortex.getScaleFactor();
             g2d.drawImage(fullAlphaBackground, 0, 0,
                     (int) (fullAlphaBackground.getWidth() / factor),
                     (int) (fullAlphaBackground.getHeight() / factor), null);

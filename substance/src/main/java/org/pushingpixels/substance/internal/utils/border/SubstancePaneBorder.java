@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.border;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -82,7 +82,7 @@ public class SubstancePaneBorder extends AbstractBorder implements UIResource {
 
         Graphics2D graphics = (Graphics2D) g.create();
 
-        double scaleFactor = NeonUtil.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor();
         float strokeWidth = (scaleFactor <= 2.0f) ? 0.5f + (float) scaleFactor / 2.0f
                 : (float) scaleFactor;
         graphics.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE,

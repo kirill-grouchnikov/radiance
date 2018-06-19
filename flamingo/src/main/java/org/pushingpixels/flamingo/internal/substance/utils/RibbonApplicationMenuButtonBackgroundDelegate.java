@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.internal.substance.utils;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -124,7 +124,7 @@ public class RibbonApplicationMenuButtonBackgroundDelegate {
 
 		BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
 		Graphics2D g2d = result.createGraphics();
-		double scaleFactor = NeonUtil.getScaleFactor();
+		double scaleFactor = NeonCortex.getScaleFactor();
 
 		g2d.drawImage(baseLayer, 0, 0, (int) (baseLayer.getWidth() / scaleFactor),
 		        (int) (baseLayer.getHeight() / scaleFactor), null);

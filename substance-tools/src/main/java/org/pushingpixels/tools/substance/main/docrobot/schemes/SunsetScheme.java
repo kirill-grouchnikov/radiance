@@ -44,6 +44,6 @@ public class SunsetScheme extends ColorSchemeRobot {
 	public SunsetScheme() {
 		super(
 				new SunsetColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/sunset.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/sunset.png");
 	}
 }

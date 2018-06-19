@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -287,7 +287,7 @@ public final class SubstanceImageCreator {
                     scheme);
             BufferedImage bottom = getArrow(width, smallHeight, strokeWidth, SwingConstants.SOUTH,
                     scheme);
-            double factor = NeonUtil.getScaleFactor();
+            double factor = NeonCortex.getScaleFactor();
             graphics.drawImage(top, 0, 0, (int) (top.getWidth() / factor),
                     (int) (top.getHeight() / factor), null);
             graphics.drawImage(bottom, 0, (int) (height / 2.0), (int) (bottom.getWidth() / factor),
@@ -386,7 +386,7 @@ public final class SubstanceImageCreator {
         // graphics.setColor(new Color(255, 0, 0, 128));
         // graphics.fillRect(0, 0, downArrowImage.getWidth(), downArrowImage.getHeight());
 
-        double scaleFactor = NeonUtil.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor();
         int arrowHeight = singleArrow.getHeight();
         int arrowWidth = singleArrow.getWidth();
         if (!toggle) {
@@ -426,7 +426,7 @@ public final class SubstanceImageCreator {
             width = bi.getHeight();
             height = bi.getWidth();
         }
-        double factor = NeonUtil.getScaleFactor();
+        double factor = NeonCortex.getScaleFactor();
         BufferedImage biRot = SubstanceCoreUtilities.getBlankImage((int) (width / factor),
                 (int) (height / factor));
         AffineTransform at = null;
@@ -668,7 +668,7 @@ public final class SubstanceImageCreator {
 
             BufferedImage checkMark = SubstanceImageCreator.getCheckMark(dimension - yOffset / 2,
                     !componentState.isDisabled(), markColorScheme, checkMarkVisibility);
-            double factor = NeonUtil.getScaleFactor();
+            double factor = NeonCortex.getScaleFactor();
             graphics.drawImage(checkMark, 1 + 2 * xOffset / 3, (dimension < 14) ? 0 : -1,
                     (int) (checkMark.getWidth() / factor), (int) (checkMark.getHeight() / factor),
                     null);
@@ -697,7 +697,7 @@ public final class SubstanceImageCreator {
 
         offsetX = offsetY = 0;
         BufferedImage echo = new ColorFilter(echoColor).filter(image, null);
-        double factor = NeonUtil.getScaleFactor();
+        double factor = NeonCortex.getScaleFactor();
         int tweakedWidth = (int) (width / factor);
         int tweakedHeight = (int) (height / factor);
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(tweakedWidth, tweakedHeight);
@@ -1052,7 +1052,7 @@ public final class SubstanceImageCreator {
             int startY, int width, int height, SubstanceColorScheme colorScheme,
             BufferedImage stripeImage, int stripeOffset, float borderAlpha, boolean isVertical) {
         Graphics2D graphics = (Graphics2D) g.create(startX, startY, width, height);
-        double scaleFactor = NeonUtil.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor();
         if (!isVertical) {
             LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, height,
                     new float[] { 0.0f, 0.2f, 0.5f, 0.8f, 1.0f },
@@ -1268,7 +1268,7 @@ public final class SubstanceImageCreator {
                 new Ellipse2D.Float(0, 0, bumpDotDiameter, bumpDotDiameter), null, colorScheme);
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(divider, 0.8f, g));
-        double scaleFactor = NeonUtil.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor();
         for (int col = 0; col < bumpColumns; col++) {
             int cx = bumpColOffset + col * bumpCellSize;
             for (int row = 0; row < bumpRows; row++) {
@@ -1579,7 +1579,7 @@ public final class SubstanceImageCreator {
         graphics.setColor(new Color(240, 240, 240));
         graphics.fillRect(0, 0, iw, ih);
 
-        double scaleFactor = NeonUtil.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor();
         for (int i = 0; i < SubstanceImageCreator.crayonColors.length; i++) {
             Color crayonColor = new Color(0xff000000 | SubstanceImageCreator.crayonColors[i]);
             BufferedImage crayonImage = SubstanceImageCreator.getSingleCrayon(crayonColor, 22, 120);

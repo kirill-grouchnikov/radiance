@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.substance.jitterbug;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,7 +55,7 @@ public class JHsvGraph extends JComponent {
 		int h = getHeight();
 
 		Graphics2D g2d = (Graphics2D) g.create();
-		NeonUtil.installDesktopHints(g2d, this);
+		NeonCortex.installDesktopHints(g2d, this);
 
 		g2d.setColor(Color.black);
 

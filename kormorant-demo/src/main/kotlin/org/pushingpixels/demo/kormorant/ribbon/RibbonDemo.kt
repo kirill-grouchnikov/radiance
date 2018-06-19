@@ -50,7 +50,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPo
 import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.kormorant.ribbon.*
-import org.pushingpixels.neon.NeonUtil
+import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin
@@ -93,7 +93,7 @@ class RulerPanel : JPanel() {
         super.paintComponent(g)
 
         val g2d = g.create() as Graphics2D
-        NeonUtil.installDesktopHints(g2d, this)
+        NeonCortex.installDesktopHints(g2d, this)
         g2d.color = Color.gray
 
         if (componentOrientation.isLeftToRight) {
@@ -408,7 +408,7 @@ private class RibbonDemoBuilder {
                                                         val g2d = graphics.create() as Graphics2D
                                                         g2d.color = Color.black
                                                         g2d.font = UIManager.getFont("Label.font")
-                                                        NeonUtil.installDesktopHints(g2d, component)
+                                                        NeonCortex.installDesktopHints(g2d, component)
                                                         g2d.drawString("" + i, x + 2, y + height - 2)
                                                         g2d.dispose()
                                                     }
@@ -519,9 +519,9 @@ private class RibbonDemoBuilder {
                                     DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
                                         val g2d = graphics.create() as Graphics2D
                                         g2d.color = Color.black
-                                        NeonUtil.installDesktopHints(g2d, component)
+                                        NeonCortex.installDesktopHints(g2d, component)
                                         g2d.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                .getFontSet("Substance", null).controlFont
+                                                .getFontSet(null).controlFont
                                         g2d.drawString("$i", x + 2, y + height - 2)
                                         g2d.dispose()
                                     }
@@ -541,9 +541,9 @@ private class RibbonDemoBuilder {
                                     DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
                                         val g2d = graphics.create() as Graphics2D
                                         g2d.color = Color.black
-                                        NeonUtil.installDesktopHints(g2d, component)
+                                        NeonCortex.installDesktopHints(g2d, component)
                                         g2d.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                .getFontSet("Substance", null).controlFont
+                                                .getFontSet(null).controlFont
                                         g2d.drawString("$i", x + 2, y + height - 2)
                                         g2d.dispose()
                                     }
@@ -1276,9 +1276,9 @@ private class RibbonDemoBuilder {
                             icon = DecoratedResizableIcon(Appointment_new.of(16, 16),
                                     DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
                                         val g2d = g.create() as Graphics2D
-                                        NeonUtil.installDesktopHints(g2d, c)
+                                        NeonCortex.installDesktopHints(g2d, c)
                                         g2d.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                .getFontSet("Substance", null).controlFont.deriveFont(9.0f)
+                                                .getFontSet(null).controlFont.deriveFont(9.0f)
                                         g2d.color = Color.black
                                         g2d.drawString("" + i, x + 1, y + height - 2)
                                         g2d.drawString("" + i, x + 3, y + height - 2)
@@ -1301,9 +1301,9 @@ private class RibbonDemoBuilder {
                             icon = DecoratedResizableIcon(Appointment_new.of(16, 16),
                                     DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
                                         val g2d = g.create() as Graphics2D
-                                        NeonUtil.installDesktopHints(g2d, c)
+                                        NeonCortex.installDesktopHints(g2d, c)
                                         g2d.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                .getFontSet("Substance", null).controlFont.deriveFont(9.0f)
+                                                .getFontSet(null).controlFont.deriveFont(9.0f)
                                         g2d.color = Color.black
                                         g2d.drawString("" + i, x + 1, y + height - 2)
                                         g2d.drawString("" + i, x + 3, y + height - 2)

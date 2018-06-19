@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -1087,7 +1087,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
         finalAlpha *= SubstanceColorSchemeUtilities.getAlpha(this.tabPane.getComponentAt(tabIndex),
                 currState);
-        double scaleFactor = NeonUtil.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor();
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane, finalAlpha, g));
         graphics.drawImage(fullOpacity, x, y, (int) (fullOpacity.getWidth() / scaleFactor),
@@ -1395,7 +1395,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 // BasicTabbedPaneUI.ScrollableTabPanel
                 // which does not have the right rendering hints
                 Graphics2D g2d = (Graphics2D) g.create();
-                NeonUtil.installDesktopHints(g2d, tabPane);
+                NeonCortex.installDesktopHints(g2d, tabPane);
                 super.paintTab(g2d, tabPlacement, rects, tabIndex, iconRect, textRect);
                 g2d.dispose();
             }
@@ -2560,7 +2560,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonUtil.installDesktopHints(g2d, c);
+        NeonCortex.installDesktopHints(g2d, c);
         super.update(g2d, c);
         g2d.dispose();
     }

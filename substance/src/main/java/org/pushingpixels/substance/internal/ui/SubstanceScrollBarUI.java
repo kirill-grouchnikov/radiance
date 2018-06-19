@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -461,7 +461,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
 
         this.thumbModel.setSelected(this.thumbModel.isSelected() || this.isDragging);
         this.thumbModel.setEnabled(c.isEnabled());
-        double scaleFactor = NeonUtil.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor();
         boolean isVertical = (this.scrollbar.getOrientation() == Adjustable.VERTICAL);
         if (isVertical) {
             Rectangle adjustedBounds = new Rectangle(thumbBounds.x, thumbBounds.y,

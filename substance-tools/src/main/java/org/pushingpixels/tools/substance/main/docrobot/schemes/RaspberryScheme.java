@@ -44,6 +44,6 @@ public class RaspberryScheme extends ColorSchemeRobot {
 	public RaspberryScheme() {
 		super(
 				new RaspberryColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/raspberry.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/raspberry.png");
 	}
 }

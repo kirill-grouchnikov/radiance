@@ -28,10 +28,10 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package org.pushingpixels.substance.internal.fonts;
+package org.pushingpixels.neon.internal.font;
 
-import org.pushingpixels.substance.api.font.FontPolicy;
-import org.pushingpixels.substance.api.font.FontSet;
+import org.pushingpixels.neon.font.FontPolicy;
+import org.pushingpixels.neon.font.FontSet;
 
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;

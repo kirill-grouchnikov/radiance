@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.extras.api.tabbed;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
@@ -87,7 +87,7 @@ public class DefaultTabPreviewPainter extends TabPreviewPainter {
 			// fix for issue 177 in Substance - disabled tabs painted in
 			// 50% opacity.
 			Graphics2D g2 = bufferedImage.createGraphics();
-			double scaleFactor = NeonUtil.getScaleFactor();
+			double scaleFactor = NeonCortex.getScaleFactor();
 			if (!tabPane.isEnabledAt(tabIndex)) {
 				g2.setComposite(AlphaComposite.getInstance(
 						AlphaComposite.SRC_OVER, 0.5f));

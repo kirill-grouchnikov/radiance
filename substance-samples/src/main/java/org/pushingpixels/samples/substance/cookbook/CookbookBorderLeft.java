@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.samples.substance.cookbook;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -89,7 +89,7 @@ public class CookbookBorderLeft implements Border {
                         baseColor.getBlue(), (int) (baseColor.getAlpha() * this.alphaBottom))));
         // start one pixel lower so that the top border painted by the
         // decoration painter on footers doesn't get overriden
-        float borderStrokeWidth = 1.0f / (float) NeonUtil.getScaleFactor();
+        float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor();
         g2d.setStroke(new BasicStroke(borderStrokeWidth));
         float topY = y + (skipTopPixel ? borderStrokeWidth : 0);
         float bottomY = y + height - borderStrokeWidth - (skipBottomPixel ? borderStrokeWidth : 0);

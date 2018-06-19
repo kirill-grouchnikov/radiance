@@ -43,6 +43,6 @@ public class Mariner extends SkinRobot {
 	 */
 	public Mariner() {
 		super(new MarinerSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/mariner");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/mariner");
 	}
 }

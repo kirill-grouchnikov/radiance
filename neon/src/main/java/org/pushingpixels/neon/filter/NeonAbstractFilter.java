@@ -53,18 +53,12 @@ import java.awt.image.*;
  */
 
 public abstract class NeonAbstractFilter implements BufferedImageOp {
-	public abstract BufferedImage filter(BufferedImage src, BufferedImage dest);
-
-	/**
-	 * {@inheritDoc}
-	 */
+	@Override
 	public Rectangle2D getBounds2D(BufferedImage src) {
 		return new Rectangle(0, 0, src.getWidth(), src.getHeight());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+    @Override
 	public BufferedImage createCompatibleDestImage(BufferedImage src,
 			ColorModel destCM) {
 		if (destCM == null) {
@@ -81,16 +75,12 @@ public abstract class NeonAbstractFilter implements BufferedImageOp {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+    @Override
 	public Point2D getPoint2D(Point2D srcPt, Point2D dstPt) {
 		return (Point2D) srcPt.clone();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+    @Override
 	public RenderingHints getRenderingHints() {
 		return null;
 	}

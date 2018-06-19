@@ -65,7 +65,7 @@ public class JRibbonApplicationMenuButton extends JCommandButton {
                     return new CommandButtonLayoutManager() {
                         public int getPreferredIconSize(AbstractCommandButton commandButton) {
                             return FlamingoUtilities.getScaledSize(24,
-                                    SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null).
+                                    SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
                                             getControlFont().getSize(),
                                     1.5, 4);
                         }

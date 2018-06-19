@@ -36,7 +36,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -219,7 +219,7 @@ public class TestColorSelector extends JFrame {
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.setColor(color);
             g2d.fillRect(x, y, w, h);
-            float borderThickness = 1.0f / (float) NeonUtil.getScaleFactor();
+            float borderThickness = 1.0f / (float) NeonCortex.getScaleFactor();
             g2d.setColor(color.darker());
             g2d.setStroke(
                     new BasicStroke(borderThickness, BasicStroke.CAP_ROUND,

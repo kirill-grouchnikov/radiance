@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -85,7 +85,7 @@ public class SubstanceTextUtilities {
     public static void paintTextWithDropShadow(JComponent c, Graphics g, Color foregroundColor,
             Color echoColor, String text, int width, int height, int xOffset, int yOffset) {
         Graphics2D graphics = (Graphics2D) g.create();
-        NeonUtil.installDesktopHints(graphics, c);
+        NeonCortex.installDesktopHints(graphics, c);
 
         // blur the text shadow
         BufferedImage blurred = SubstanceCoreUtilities.getBlankImage(width, height);
@@ -103,7 +103,7 @@ public class SubstanceTextUtilities {
         blurred = convolve.filter(blurred, null);
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(c, luminFactor, g));
-        double scaleFactor = NeonUtil.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor();
         graphics.drawImage(blurred, 0, 0, (int) (blurred.getWidth() / scaleFactor),
                 (int) (blurred.getHeight() / scaleFactor), null);
         graphics.setComposite(WidgetUtilities.getAlphaComposite(c, g));

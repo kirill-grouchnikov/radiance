@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -116,7 +116,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
             return;
 
         Graphics2D g2d = (Graphics2D) graphics.create();
-        Font controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+        Font controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getControlFont();
         g2d.setFont(controlFont);
 
@@ -300,7 +300,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonUtil.installDesktopHints(g2d, c);
+        NeonCortex.installDesktopHints(g2d, c);
         GhostPaintingUtils.paintGhostImages(c, g2d);
         super.update(g2d, c);
         g2d.dispose();

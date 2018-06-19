@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.substance.common;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
 
 import javax.imageio.ImageIO;
@@ -353,7 +353,7 @@ public class JImageComponent extends JPanel {
 			g2d.translate(-this.leftX, -this.topY);
 			g2d.drawImage(this.image, 0, 0, null);
 		} else {
-			NeonUtil.installDesktopHints(g2d, this);
+			NeonCortex.installDesktopHints(g2d, this);
 			g2d.setFont(UIManager.getFont("Label.font"));
 			g2d.setColor(Color.black);
 

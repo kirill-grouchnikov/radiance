@@ -44,6 +44,6 @@ public class SunGlareScheme extends ColorSchemeRobot {
 	public SunGlareScheme() {
 		super(
 				new SunGlareColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/sun-glare.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/sun-glare.png");
 	}
 }

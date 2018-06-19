@@ -43,6 +43,6 @@ public class Business extends SkinRobot {
 	 */
 	public Business() {
 		super(new BusinessSkin(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/skins/business");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/skins/business");
 	}
 }

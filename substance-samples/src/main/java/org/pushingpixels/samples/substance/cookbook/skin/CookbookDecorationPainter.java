@@ -30,7 +30,7 @@
 package org.pushingpixels.samples.substance.cookbook.skin;
 
 import com.jhlabs.image.*;
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -162,7 +162,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
             int offsetY = comp.getLocationOnScreen().y
                     - farthestOfTheSameAreaType.getLocationOnScreen().y;
 
-            final double scaleFactor = NeonUtil.getScaleFactor();
+            final double scaleFactor = NeonCortex.getScaleFactor();
             int lightImageScaledWidth = (int) (this.lightImage.getWidth() / scaleFactor);
             int lightImageScaledHeight = (int) (this.lightImage.getHeight() / scaleFactor);
 
@@ -215,7 +215,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         GaussianFilter gaussianFilter = new GaussianFilter(29.0f);
         lightConeImage = gaussianFilter.filter(lightConeImage, null);
 
-        final double scaleFactor = NeonUtil.getScaleFactor();
+        final double scaleFactor = NeonCortex.getScaleFactor();
 
         BufferedImage finalImage = SubstanceCortex.GlobalScope.getBlankImage(150, 100);
         Graphics2D finalGraphics = finalImage.createGraphics();

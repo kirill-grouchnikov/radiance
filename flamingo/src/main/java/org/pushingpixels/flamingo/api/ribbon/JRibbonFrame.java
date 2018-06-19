@@ -40,7 +40,7 @@ import org.pushingpixels.flamingo.internal.utils.KeyTipManager.KeyTipEvent;
 import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.neon.AsynchronousLoadListener;
 import org.pushingpixels.neon.AsynchronousLoading;
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
@@ -169,7 +169,7 @@ public class JRibbonFrame extends JFrame {
                     .getCurrentlyShownKeyTips();
             if (keyTips != null) {
                 Graphics2D g2d = (Graphics2D) g.create();
-                NeonUtil.installDesktopHints(g2d, this);
+                NeonCortex.installDesktopHints(g2d, this);
 
                 for (KeyTipManager.KeyTipLink keyTip : keyTips) {
                     // don't display keytips on components in popup panels

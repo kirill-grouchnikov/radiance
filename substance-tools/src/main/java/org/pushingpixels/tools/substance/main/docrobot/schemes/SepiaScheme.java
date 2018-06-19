@@ -44,6 +44,6 @@ public class SepiaScheme extends ColorSchemeRobot {
 	public SepiaScheme() {
 		super(
 				new SepiaColorScheme(),
-				"/Users/kirillg/Projects/radiance/docs/images/screenshots/core/colorschemes/sepia.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance/colorschemes/sepia.png");
 	}
 }

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.substance.electra;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.tools.substance.common.JImageComponent;
 
@@ -649,7 +649,7 @@ public class JElectrifiedImageComponent extends JComponent {
                 // caption
                 if (zoomBubble.caption != null && !zoomBubble.isInTextEdit) {
                     Font font = SubstanceCortex.GlobalScope.getFontPolicy()
-                            .getFontSet("Substance", null).getControlFont();
+                            .getFontSet(null).getControlFont();
                     g2d.setFont(font);
                     int strWidth = g2d.getFontMetrics().stringWidth(zoomBubble.caption);
                     int fontHeight = g2d.getFontMetrics().getHeight();
@@ -706,7 +706,7 @@ public class JElectrifiedImageComponent extends JComponent {
 
                     g2d.translate(-x, -y);
 
-                    NeonUtil.installDesktopHints(g2d, this);
+                    NeonCortex.installDesktopHints(g2d, this);
                     int textY = y + 4 + g2d.getFontMetrics().getAscent();
                     int textX = (zoomBubble.captionOffsetX < 0) ? x + captionHeight / 6 + 4
                             : x + captionHeight / 3 + 4;

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.border;
 
-import org.pushingpixels.neon.NeonUtil;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -187,7 +187,7 @@ public class SubstanceBorder implements Border, UIResource {
 				g2d.dispose();
 				smallImageCache.put(hashKey, result);
 			}
-			double scaleFactor = NeonUtil.getScaleFactor();
+			double scaleFactor = NeonCortex.getScaleFactor();
 			graphics.drawImage(result, x, y, (int) (result.getWidth() / scaleFactor),
 			        (int) (result.getHeight() / scaleFactor), null);
 		} else {
