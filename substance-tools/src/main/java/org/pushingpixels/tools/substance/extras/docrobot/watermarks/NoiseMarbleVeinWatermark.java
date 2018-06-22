@@ -42,8 +42,7 @@ public class NoiseMarbleVeinWatermark extends WatermarkRobot {
 	 * Creates the screenshot robot.
 	 */
 	public NoiseMarbleVeinWatermark() {
-		super(
-				new SubstanceMarbleVeinWatermark(),
-				"C:/jprojects/substance-extras/www/images/screenshots/watermarks/noise-marble-vein.png");
+		super(new SubstanceMarbleVeinWatermark(),
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/noise-marble-vein.png");
 	}
 }

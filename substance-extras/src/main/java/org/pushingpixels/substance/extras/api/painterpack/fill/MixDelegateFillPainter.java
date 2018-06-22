@@ -108,10 +108,8 @@ public class MixDelegateFillPainter implements SubstanceFillPainter {
 				current = SubstanceCoreUtilities.blendImagesHorizontal(current,
 						components[i], start, end);
 			}
-			double scaleFactor = NeonCortex.getScaleFactor();
 			Graphics2D g2d = (Graphics2D) g.create();
-			g2d.drawImage(current, 0, 0, (int) (current.getWidth() / scaleFactor),
-			        (int) (current.getHeight() / scaleFactor), null);
+			NeonCortex.drawImage(g2d, current, 0, 0);
 			g2d.dispose();
 			return;
 		}

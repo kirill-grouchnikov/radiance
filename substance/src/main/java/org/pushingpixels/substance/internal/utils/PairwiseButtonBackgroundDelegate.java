@@ -182,11 +182,9 @@ public class PairwiseButtonBackgroundDelegate {
             }
         }
         if (extraAlpha > 0.0f) {
-            double scaleFactor = NeonCortex.getScaleFactor();
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, g));
-            graphics.drawImage(fullOpacity, 0, 0, (int) (fullOpacity.getWidth() / scaleFactor),
-                    (int) (fullOpacity.getHeight() / scaleFactor), null);
+            NeonCortex.drawImage(graphics, fullOpacity, 0, 0);
             graphics.dispose();
         }
     }

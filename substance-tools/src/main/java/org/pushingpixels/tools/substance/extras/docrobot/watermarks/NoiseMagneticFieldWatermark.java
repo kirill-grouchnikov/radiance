@@ -42,8 +42,7 @@ public class NoiseMagneticFieldWatermark extends WatermarkRobot {
 	 * Creates the screenshot robot.
 	 */
 	public NoiseMagneticFieldWatermark() {
-		super(
-				new SubstanceMagneticFieldWatermark(),
-				"C:/jprojects/substance-extras/www/images/screenshots/watermarks/noise-magnetic-field.png");
+		super(new SubstanceMagneticFieldWatermark(),
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/noise-magnetic-field.png");
 	}
 }

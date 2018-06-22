@@ -1087,11 +1087,9 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
         finalAlpha *= SubstanceColorSchemeUtilities.getAlpha(this.tabPane.getComponentAt(tabIndex),
                 currState);
-        double scaleFactor = NeonCortex.getScaleFactor();
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane, finalAlpha, g));
-        graphics.drawImage(fullOpacity, x, y, (int) (fullOpacity.getWidth() / scaleFactor),
-                (int) (fullOpacity.getHeight() / scaleFactor), null);
+        NeonCortex.drawImage(graphics, fullOpacity, x, y);
 
         // Check if requested to paint close buttons.
         if (SubstanceCoreUtilities.hasCloseButton(this.tabPane, tabIndex) && isEnabled) {
@@ -1144,15 +1142,11 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                             baseMarkScheme);
 
                     if (cyclePos < 1.0f) {
-                        graphics.drawImage(layer1, orig.x, orig.y,
-                                (int) (layer1.getWidth() / scaleFactor),
-                                (int) (layer1.getHeight() / scaleFactor), null);
+                        NeonCortex.drawImage(graphics, layer1, orig.x, orig.y);
                     }
                     if (cyclePos > 0.0f) {
                         graphics.setComposite(AlphaComposite.SrcOver.derive(cyclePos));
-                        graphics.drawImage(layer2, orig.x, orig.y,
-                                (int) (layer1.getWidth() / scaleFactor),
-                                (int) (layer1.getHeight() / scaleFactor), null);
+                        NeonCortex.drawImage(graphics, layer2, orig.x, orig.y);
                     }
                 } else {
                     BufferedImage layerBase = SubstanceTabbedPaneUI.getCloseButtonImage(
@@ -1161,9 +1155,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
                     if ((modelStateInfo == null) || currState.isDisabled()
                             || (modelStateInfo.getStateContributionMap().size() == 1)) {
-                        graphics.drawImage(layerBase, orig.x, orig.y,
-                                (int) (layerBase.getWidth() / scaleFactor),
-                                (int) (layerBase.getHeight() / scaleFactor), null);
+                        NeonCortex.drawImage(graphics, layerBase, orig.x, orig.y);
                     } else {
                         BufferedImage complete = SubstanceCoreUtilities.getBlankUnscaledImage(layerBase);
                         Graphics2D g2d = complete.createGraphics();
@@ -1201,9 +1193,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                             }
                         }
                         g2d.dispose();
-                        graphics.drawImage(complete, orig.x, orig.y,
-                                (int) (complete.getWidth() / scaleFactor),
-                                (int) (complete.getHeight() / scaleFactor), null);
+                        NeonCortex.drawImage(graphics, complete, orig.x, orig.y);
                     }
                 }
             }

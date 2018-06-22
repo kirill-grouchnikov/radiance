@@ -287,11 +287,8 @@ public final class SubstanceImageCreator {
                     scheme);
             BufferedImage bottom = getArrow(width, smallHeight, strokeWidth, SwingConstants.SOUTH,
                     scheme);
-            double factor = NeonCortex.getScaleFactor();
-            graphics.drawImage(top, 0, 0, (int) (top.getWidth() / factor),
-                    (int) (top.getHeight() / factor), null);
-            graphics.drawImage(bottom, 0, (int) (height / 2.0), (int) (bottom.getWidth() / factor),
-                    (int) (bottom.getHeight() / factor), null);
+            NeonCortex.drawImage(graphics, top, 0, 0);
+            NeonCortex.drawImage(graphics, bottom, 0, (int) (height / 2.0));
             return arrowImage;
         } else {
             float cushion = strokeWidth / 2.0f;
@@ -386,19 +383,14 @@ public final class SubstanceImageCreator {
         // graphics.setColor(new Color(255, 0, 0, 128));
         // graphics.fillRect(0, 0, downArrowImage.getWidth(), downArrowImage.getHeight());
 
-        double scaleFactor = NeonCortex.getScaleFactor();
         int arrowHeight = singleArrow.getHeight();
         int arrowWidth = singleArrow.getWidth();
         if (!toggle) {
-            graphics.drawImage(singleArrow, 0, 0, (int) (arrowWidth / scaleFactor),
-                    (int) (arrowHeight / scaleFactor), null);
-            graphics.drawImage(singleArrow, 0, (int) arrowGap, (int) (arrowWidth / scaleFactor),
-                    (int) (arrowHeight / scaleFactor), null);
+            NeonCortex.drawImage(graphics, singleArrow, 0, 0);
+            NeonCortex.drawImage(graphics, singleArrow, 0, (int) arrowGap);
         } else {
-            graphics.drawImage(singleArrow, 0, 0, (int) (arrowWidth / scaleFactor),
-                    (int) (arrowHeight / scaleFactor), null);
-            graphics.drawImage(singleArrow, (int) arrowGap, 0, (int) (arrowWidth / scaleFactor),
-                    (int) (arrowHeight / scaleFactor), null);
+            NeonCortex.drawImage(graphics, singleArrow, 0, 0);
+            NeonCortex.drawImage(graphics, singleArrow, (int) arrowGap, 0);
         }
 
         return new NeonIconUIResource(downArrowImage);
@@ -668,10 +660,9 @@ public final class SubstanceImageCreator {
 
             BufferedImage checkMark = SubstanceImageCreator.getCheckMark(dimension - yOffset / 2,
                     !componentState.isDisabled(), markColorScheme, checkMarkVisibility);
-            double factor = NeonCortex.getScaleFactor();
-            graphics.drawImage(checkMark, 1 + 2 * xOffset / 3, (dimension < 14) ? 0 : -1,
-                    (int) (checkMark.getWidth() / factor), (int) (checkMark.getHeight() / factor),
-                    null);
+
+            NeonCortex.drawImage(graphics, checkMark, 1 + 2 * xOffset / 3,
+                    (dimension < 14) ? 0 : -1);
         }
 
         return offBackground;
@@ -1070,9 +1061,7 @@ public final class SubstanceImageCreator {
                 for (int stripe = -2; stripe <= stripeCount; stripe += 2) {
                     int stripePos = (int) (stripe * stripeSize / scaleFactor + stripeOffset);
 
-                    graphics.drawImage(stripeImage, stripePos, 0,
-                            (int) (stripeImage.getWidth() / scaleFactor),
-                            (int) (stripeImage.getHeight() / scaleFactor), null);
+                    NeonCortex.drawImage(graphics, stripeImage, stripePos, 0);
                 }
             }
         } else {
@@ -1092,9 +1081,7 @@ public final class SubstanceImageCreator {
                 for (int stripe = -2; stripe <= stripeCount; stripe += 2) {
                     int stripePos = (int) (stripe * stripeSize / scaleFactor + stripeOffset);
 
-                    graphics.drawImage(stripeImage, 0, stripePos,
-                            (int) (stripeImage.getWidth() / scaleFactor),
-                            (int) (stripeImage.getHeight() / scaleFactor), null);
+                    NeonCortex.drawImage(graphics, stripeImage, 0, stripePos);
                 }
             }
         }
@@ -1268,13 +1255,11 @@ public final class SubstanceImageCreator {
                 new Ellipse2D.Float(0, 0, bumpDotDiameter, bumpDotDiameter), null, colorScheme);
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(divider, 0.8f, g));
-        double scaleFactor = NeonCortex.getScaleFactor();
         for (int col = 0; col < bumpColumns; col++) {
             int cx = bumpColOffset + col * bumpCellSize;
             for (int row = 0; row < bumpRows; row++) {
                 int cy = bumpRowOffset + row * bumpCellSize + (bumpCellSize - bumpDotDiameter) / 2;
-                graphics.drawImage(singleDot, cx, cy, (int) (singleDot.getWidth() / scaleFactor),
-                        (int) (singleDot.getHeight() / scaleFactor), null);
+                NeonCortex.drawImage(graphics, singleDot, cx, cy);
             }
         }
         graphics.dispose();
@@ -1579,13 +1564,11 @@ public final class SubstanceImageCreator {
         graphics.setColor(new Color(240, 240, 240));
         graphics.fillRect(0, 0, iw, ih);
 
-        double scaleFactor = NeonCortex.getScaleFactor();
         for (int i = 0; i < SubstanceImageCreator.crayonColors.length; i++) {
             Color crayonColor = new Color(0xff000000 | SubstanceImageCreator.crayonColors[i]);
             BufferedImage crayonImage = SubstanceImageCreator.getSingleCrayon(crayonColor, 22, 120);
-            graphics.drawImage(crayonImage, SubstanceImageCreator.crayonX(i),
-                    SubstanceImageCreator.crayonY(i), (int) (crayonImage.getWidth() / scaleFactor),
-                    (int) (crayonImage.getHeight() / scaleFactor), null);
+            NeonCortex.drawImage(graphics, crayonImage, SubstanceImageCreator.crayonX(i),
+                    SubstanceImageCreator.crayonY(i));
         }
 
         graphics.dispose();

@@ -29,20 +29,20 @@
  */
 package org.pushingpixels.tools.substance.extras.docrobot.watermarks;
 
-import org.pushingpixels.substance.extras.api.watermarkpack.SubstanceMosaicWatermark;
+import org.pushingpixels.substance.extras.api.watermarkpack.SubstanceCrosshatchWatermark;
 import org.pushingpixels.tools.substance.main.docrobot.WatermarkRobot;
 
 /**
- * Screenshot robot for {@link SubstanceMosaicWatermark}.
- * 
+ * Screenshot robot for {@link SubstanceCrosshatchWatermark}.
+ *
  * @author Kirill Grouchnikov
  */
-public class SquareMosaicWatermark extends WatermarkRobot {
-	/**
-	 * Creates the screenshot robot.
-	 */
-	public SquareMosaicWatermark() {
-		super(new SubstanceMosaicWatermark(),
-				"C:/jprojects/substance-extras/www/images/screenshots/watermarks/square-mosaic.png");
-	}
+public class CrosshatchWatermark extends WatermarkRobot {
+    /**
+     * Creates the screenshot robot.
+     */
+    public CrosshatchWatermark() {
+        super(new SubstanceCrosshatchWatermark(),
+                "/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/crosshatch.png");
+    }
 }

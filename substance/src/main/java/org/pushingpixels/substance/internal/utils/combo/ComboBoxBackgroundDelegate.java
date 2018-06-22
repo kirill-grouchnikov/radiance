@@ -214,9 +214,7 @@ public class ComboBoxBackgroundDelegate {
         if (extraAlpha > 0.0f) {
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(combo, extraAlpha, g));
-            double factor = NeonCortex.getScaleFactor();
-            graphics.drawImage(bgImage, 0, y, (int) (bgImage.getWidth() / factor),
-                    (int) (bgImage.getHeight() / factor), null);
+            NeonCortex.drawImage(graphics, bgImage, 0, y);
             graphics.dispose();
         }
     }

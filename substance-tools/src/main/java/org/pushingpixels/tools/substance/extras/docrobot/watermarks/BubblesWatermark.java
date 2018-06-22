@@ -43,6 +43,6 @@ public class BubblesWatermark extends WatermarkRobot {
 	 */
 	public BubblesWatermark() {
 		super(new SubstanceBubblesWatermark(),
-				"C:/jprojects/substance-extras/www/images/screenshots/watermarks/bubbles.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/bubbles.png");
 	}
 }

@@ -29,20 +29,22 @@
  */
 package org.pushingpixels.tools.substance.extras.docrobot.watermarks;
 
-import org.pushingpixels.substance.extras.api.watermarkpack.SubstanceMetalWallWatermark;
+import org.pushingpixels.substance.extras.api.watermarkpack.flamefractal
+        .SubstanceSingularityWatermark;
 import org.pushingpixels.tools.substance.main.docrobot.WatermarkRobot;
 
 /**
- * Screenshot robot for {@link SubstanceMetalWallWatermark}.
- * 
+ * Screenshot robot for {@link SubstanceSingularityWatermark}.
+ *
  * @author Kirill Grouchnikov
  */
-public class MetalWallWatermark extends WatermarkRobot {
-	/**
-	 * Creates the screenshot robot.
-	 */
-	public MetalWallWatermark() {
-		super(new SubstanceMetalWallWatermark(),
-				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/metal-wall.png");
-	}
+public class FlameFractalSingularityWatermark extends WatermarkRobot {
+    /**
+     * Creates the screenshot robot.
+     */
+    public FlameFractalSingularityWatermark() {
+        super(new SubstanceSingularityWatermark(),
+                "/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/flame" +
+                        "-fractal-singularity.png");
+    }
 }

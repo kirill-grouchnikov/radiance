@@ -160,7 +160,6 @@ public class WatermarkResizableIcon implements ResizableIcon {
 
 		graphics.translate(x, y);
 		graphics.clipRect(0, 0, this.currWidth, this.currHeight);
-		double scaleFactor = NeonCortex.getScaleFactor();
 		if (this.watermark != null) {
 			graphics.setColor(SubstanceCoreUtilities.getSkin(c)
 					.getEnabledColorScheme(ComponentOrParentChainScope.getDecorationType(c))
@@ -175,15 +174,13 @@ public class WatermarkResizableIcon implements ResizableIcon {
 
 			int waterSize = this.currHeight / 2;
 			BufferedImage watermarkSign = getWatermarkSign(waterSize);
-			graphics.drawImage(watermarkSign, this.currWidth - waterSize - 2,
-					this.currHeight - waterSize - 2, (int) (watermarkSign.getWidth() / scaleFactor),
-					(int) (watermarkSign.getHeight() / scaleFactor), null);
+			NeonCortex.drawImage(graphics, watermarkSign, this.currWidth - waterSize - 2,
+					this.currHeight - waterSize - 2);
 		} else {
 			int waterSize = Math.min(this.currHeight, this.currWidth) - 2;
 			BufferedImage watermarkSign = getWatermarkSign(waterSize);
-			graphics.drawImage(watermarkSign, (this.currWidth - waterSize) / 2,
-					(this.currHeight - waterSize) / 2, (int) (watermarkSign.getWidth() / scaleFactor),
-					(int) (watermarkSign.getHeight() / scaleFactor), null);
+			NeonCortex.drawImage(graphics, watermarkSign, (this.currWidth - waterSize) / 2,
+					(this.currHeight - waterSize) / 2);
 		}
 		graphics.setColor(Color.black);
 		graphics.draw(new Rectangle2D.Float(0, 0, 

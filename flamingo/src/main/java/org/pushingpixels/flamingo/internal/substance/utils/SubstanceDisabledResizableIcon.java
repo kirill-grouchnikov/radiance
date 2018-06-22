@@ -109,9 +109,7 @@ public class SubstanceDisabledResizableIcon implements ResizableIcon {
             this.cachedImages.put(key, filtered);
         }
         Graphics2D g2d = (Graphics2D) g.create();
-        double scaleFactor = NeonCortex.getScaleFactor();
-        g2d.drawImage(filtered, x, y, (int) (filtered.getWidth() / scaleFactor),
-                (int) (filtered.getHeight() / scaleFactor), null);
+        NeonCortex.drawImage(g2d, filtered, 0, 0);
         g2d.dispose();
     }
 }

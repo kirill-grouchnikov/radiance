@@ -34,16 +34,16 @@ import org.pushingpixels.tools.substance.main.docrobot.WatermarkRobot;
 
 /**
  * Screenshot robot for {@link SubstanceCopperplateEngravingWatermark}.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class NoiseCopperplateEngravingWatermark extends WatermarkRobot {
-	/**
-	 * Creates the screenshot robot.
-	 */
-	public NoiseCopperplateEngravingWatermark() {
-		super(
-				new SubstanceCopperplateEngravingWatermark(),
-				"C:/jprojects/substance-extras/www/images/screenshots/watermarks/noise-copperplate-engraving.png");
-	}
+    /**
+     * Creates the screenshot robot.
+     */
+    public NoiseCopperplateEngravingWatermark() {
+        super(new SubstanceCopperplateEngravingWatermark(),
+                "/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/noise" +
+                        "-copperplate-engraving.png");
+    }
 }

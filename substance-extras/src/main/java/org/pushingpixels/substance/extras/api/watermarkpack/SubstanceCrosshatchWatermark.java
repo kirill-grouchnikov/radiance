@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -33,20 +33,19 @@ import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 import java.awt.*;
-import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 
 /**
  * Simple implementation of {@link SubstanceWatermark}, drawing cross hatches as
- * watermark. This class is part of officially supported API.
+ * watermark. This implementation is inspired by Office 12 background. This
+ * class is part of officially supported API.
  *
  * @author Kirill Grouchnikov
  * @author Chris Hall
  */
-public class SubstanceLatchWatermark implements SubstanceWatermark {
+public class SubstanceCrosshatchWatermark implements SubstanceWatermark {
     /**
      * Watermark image (screen-sized).
      */
@@ -59,7 +58,7 @@ public class SubstanceLatchWatermark implements SubstanceWatermark {
             return;
         int dx = c.getLocationOnScreen().x;
         int dy = c.getLocationOnScreen().y;
-        NeonCortex.drawImage(graphics, SubstanceLatchWatermark.watermarkImage, x, y, width,
+        NeonCortex.drawImage(graphics, SubstanceCrosshatchWatermark.watermarkImage, x, y, width,
                 height, dx, dy);
     }
 
@@ -77,11 +76,10 @@ public class SubstanceLatchWatermark implements SubstanceWatermark {
 
         int screenWidth = virtualBounds.width;
         int screenHeight = virtualBounds.height;
-        SubstanceLatchWatermark.watermarkImage = NeonCortex
-                .getBlankImage(screenWidth, screenHeight);
+        SubstanceCrosshatchWatermark.watermarkImage = NeonCortex.getBlankImage(screenWidth,
+                screenHeight);
 
-        Graphics2D graphics = SubstanceLatchWatermark.watermarkImage.createGraphics();
-
+        Graphics2D graphics = SubstanceCrosshatchWatermark.watermarkImage.createGraphics();
         boolean status = this.drawWatermarkImage(skin, graphics, 0, 0,
                 screenWidth, screenHeight, false);
         graphics.dispose();
@@ -110,70 +108,51 @@ public class SubstanceLatchWatermark implements SubstanceWatermark {
             int x, int y, int width, int height, boolean isPreview) {
         Color stampColorDark = null;
         Color stampColorAll = null;
+        Color stampColorLight = null;
         SubstanceColorScheme scheme = skin.getWatermarkColorScheme();
         if (isPreview) {
             stampColorDark = scheme.isDark() ? Color.white : Color.black;
             stampColorAll = Color.lightGray;
+            stampColorLight = scheme.isDark() ? Color.black : Color.white;
         } else {
             stampColorDark = scheme.getWatermarkDarkColor();
             stampColorAll = scheme.getWatermarkStampColor();
+            stampColorLight = scheme.getWatermarkLightColor();
         }
 
-        Color c1 = stampColorDark;
-        Color c2 = SubstanceColorUtilities.getInterpolatedColor(stampColorDark,
-                stampColorAll, 0.5);
         graphics.setColor(stampColorAll);
         graphics.fillRect(0, 0, width, height);
 
-        int dimension = 12;
-        BufferedImage tile = NeonCortex.getBlankUnscaledImage(dimension, dimension);
-        GeneralPath latch1 = new GeneralPath();
-        latch1.moveTo(0.45f * dimension, 0);
-        latch1.quadTo(0.45f * dimension, 0.45f * dimension, 0.05f * dimension, 0.45f * dimension);
-        latch1.quadTo(0.15f * dimension, 0.15f * dimension, 0.45f * dimension, 0);
-        this.drawLatch(tile, latch1, c1, c2);
+        BufferedImage tile = NeonCortex.getBlankUnscaledImage(4, 4);
+        tile.setRGB(0, 0, stampColorDark.getRGB());
+        tile.setRGB(2, 2, stampColorDark.getRGB());
+        tile.setRGB(0, 1, stampColorLight.getRGB());
+        tile.setRGB(2, 3, stampColorLight.getRGB());
 
-        GeneralPath latch2 = new GeneralPath();
-        latch2.moveTo(0.55f * dimension, 0.55f * dimension);
-        latch2.quadTo(0.75f * dimension, 0.4f * dimension, dimension, dimension);
-        latch2.quadTo(0.4f * dimension, 0.75f * dimension, 0.5f * dimension, 0.5f * dimension);
-        this.drawLatch(tile, latch2, c1, c2);
-
-        for (int row = 0; row < height; row += dimension) {
-            for (int col = 0; col < width; col += dimension) {
-                graphics.drawImage(tile, x + col, y + row, null);
+        Graphics2D g2d = (Graphics2D) graphics.create();
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
+                0.4f));
+        for (int row = y; row < (y + height); row += 4) {
+            for (int col = x; col < (x + width); col += 4) {
+                g2d.drawImage(tile, col, row, null);
             }
         }
+        g2d.dispose();
         return true;
-    }
-
-    /**
-     * Draws a single latch.
-     *
-     * @param tile         Tile to draw on.
-     * @param latchOutline Latch outline path.
-     * @param colorLight   Light color.
-     * @param colorDark    Dark color.
-     */
-    private void drawLatch(BufferedImage tile, GeneralPath latchOutline,
-            Color colorLight, Color colorDark) {
-
-        Graphics2D graphics = (Graphics2D) tile.getGraphics().create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-
-        graphics.setColor(colorLight);
-        graphics.draw(latchOutline);
-        graphics.setColor(colorDark);
-        graphics.setStroke(new BasicStroke(1.5f));
-        graphics.fill(latchOutline);
-
-        graphics.dispose();
     }
 
     @Override
     public String getDisplayName() {
-        return "Latch";
+        return SubstanceCrosshatchWatermark.getName();
+    }
+
+    /**
+     * Returns the name of all watermarks of <code>this</code> class.
+     *
+     * @return The name of all watermarks of <code>this</code> class.
+     */
+    public static String getName() {
+        return "Crosshatch";
     }
 
     @Override

@@ -152,9 +152,7 @@ public class SubstanceRibbonApplicationMenuButtonUI extends BasicRibbonApplicati
         BufferedImage fullAlphaBackground = RibbonApplicationMenuButtonBackgroundDelegate
                 .getFullAlphaBackground(b, fillPainter, borderPainter, commandButton.getWidth() - 2,
                         commandButton.getHeight() - 2);
-        double scaleFactor = NeonCortex.getScaleFactor();
-        g2d.drawImage(fullAlphaBackground, 0, 0, (int) (fullAlphaBackground.getWidth() / scaleFactor),
-                (int) (fullAlphaBackground.getHeight() / scaleFactor), null);
+        NeonCortex.drawImage(g2d, fullAlphaBackground, 0, 0);
 
         // Paint the icon
         ResizableIcon icon = b.getIcon();

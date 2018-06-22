@@ -112,7 +112,7 @@ public class StandardFillPainter implements SubstanceFillPainter {
 
             BufferedImage reverseGhostContour = SubstanceCoreUtilities
                     .getBlankImage(iWidth + 2 * kernelSize, iHeight + 2 * kernelSize);
-            Graphics2D reverseGraphics = (Graphics2D) reverseGhostContour.createGraphics();
+            Graphics2D reverseGraphics = reverseGhostContour.createGraphics();
             reverseGraphics.scale(1.0f / scaleFactor, 1.0f / scaleFactor);
             Color bottomShineColorTransp = new Color(bottomShineColor.getRed(),
                     bottomShineColor.getGreen(), bottomShineColor.getBlue(), 64);

@@ -394,9 +394,7 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setComposite(
                     WidgetUtilities.getAlphaComposite(this.commandButton, extraAlpha, graphics));
-            double factor = NeonCortex.getScaleFactor();
-            g2d.drawImage(fullAlphaBackground, 0, 0, (int) (fullAlphaBackground.getWidth() / factor),
-                    (int) (fullAlphaBackground.getHeight() / factor), null);
+            NeonCortex.drawImage(g2d, fullAlphaBackground, 0, 0);
             g2d.dispose();
         }
     }

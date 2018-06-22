@@ -40,13 +40,14 @@ import java.awt.*;
 public class VisorMail extends JFrame {
     public VisorMail() {
         BorderLayout mainLayout = new BorderLayout();
-        this.getContentPane().setLayout(mainLayout);
+        Container contentPane = this.getContentPane();
+        contentPane.setLayout(mainLayout);
 
         // In the real app the space allocation between the panels will probably be
         // more intelligent, allowing the user to reallocate the available space.
-        this.getContentPane().add(new DestinationsPanel(this), BorderLayout.LINE_START);
-        this.getContentPane().add(new ThreadListPanel(), BorderLayout.CENTER);
-        this.getContentPane().add(new ThreadPanel(), BorderLayout.LINE_END);
+        contentPane.add(new DestinationsPanel(this), BorderLayout.LINE_START);
+        contentPane.add(new ThreadListPanel(), BorderLayout.CENTER);
+        contentPane.add(new ThreadPanel(), BorderLayout.LINE_END);
     }
 
     public static void main(String[] args) {

@@ -110,9 +110,7 @@ public class HighlightPainterUtils {
                         borderScheme, highlightPainter, highlightBorderPainter);
                 smallCache.put(key, result);
             }
-            double scaleFactor = NeonCortex.getScaleFactor();
-            g2d.drawImage(result, 0, 0, (int) (result.getWidth() / scaleFactor),
-                    (int) (result.getHeight() / scaleFactor), null);
+            NeonCortex.drawImage(g2d, result, 0, 0);
         }
     }
 

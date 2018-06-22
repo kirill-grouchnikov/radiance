@@ -164,13 +164,11 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
 
             final double scaleFactor = NeonCortex.getScaleFactor();
             int lightImageScaledWidth = (int) (this.lightImage.getWidth() / scaleFactor);
-            int lightImageScaledHeight = (int) (this.lightImage.getHeight() / scaleFactor);
 
             int currTileX = -offsetX;
             graphics.translate(currTileX, -offsetY);
             while (currTileX < width) {
-                graphics.drawImage(this.lightImage, 0, 0, lightImageScaledWidth,
-                        lightImageScaledHeight, null);
+                NeonCortex.drawImage(graphics, this.lightImage, 0, 0);
                 currTileX += lightImageScaledWidth;
                 graphics.translate(lightImageScaledWidth, 0);
             }
@@ -215,22 +213,18 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         GaussianFilter gaussianFilter = new GaussianFilter(29.0f);
         lightConeImage = gaussianFilter.filter(lightConeImage, null);
 
-        final double scaleFactor = NeonCortex.getScaleFactor();
-
         BufferedImage finalImage = SubstanceCortex.GlobalScope.getBlankImage(150, 100);
         Graphics2D finalGraphics = finalImage.createGraphics();
         finalGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         finalGraphics.translate(-25, -10);
-        finalGraphics.drawImage(lightConeImage, 0, 0,
-                (int) (lightConeImage.getWidth() / scaleFactor),
-                (int) (lightConeImage.getHeight() / scaleFactor), null);
+        NeonCortex.drawImage(finalGraphics, lightConeImage, 0, 0);
 
         // Emulate the appearance of the light bulb itself
         finalGraphics.setColor(new Color(200, 200, 255, 96));
         finalGraphics.fillOval(97, 6, 8, 8);
         finalGraphics.setColor(new Color(200, 200, 255, 128));
-        float borderStrokeWidth = 1.0f / (float) scaleFactor;
+        float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor();
         finalGraphics.setStroke(new BasicStroke(borderStrokeWidth));
         finalGraphics.drawOval(97, 6, 8, 8);
         finalGraphics.dispose();

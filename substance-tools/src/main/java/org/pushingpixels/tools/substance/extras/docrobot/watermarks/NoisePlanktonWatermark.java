@@ -42,8 +42,7 @@ public class NoisePlanktonWatermark extends WatermarkRobot {
 	 * Creates the screenshot robot.
 	 */
 	public NoisePlanktonWatermark() {
-		super(
-				new SubstancePlanktonWatermark(),
-				"C:/jprojects/substance-extras/www/images/screenshots/watermarks/noise-plankton.png");
+		super(new SubstancePlanktonWatermark(),
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/noise-plankton.png");
 	}
 }

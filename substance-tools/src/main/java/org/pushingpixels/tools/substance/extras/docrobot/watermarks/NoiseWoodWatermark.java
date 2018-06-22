@@ -43,6 +43,6 @@ public class NoiseWoodWatermark extends WatermarkRobot {
 	 */
 	public NoiseWoodWatermark() {
 		super(new SubstanceWoodWatermark(),
-				"C:/jprojects/substance-extras/www/images/screenshots/watermarks/noise-wood.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/noise-wood.png");
 	}
 }

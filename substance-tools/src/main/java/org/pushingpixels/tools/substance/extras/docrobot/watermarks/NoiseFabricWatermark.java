@@ -43,6 +43,6 @@ public class NoiseFabricWatermark extends WatermarkRobot {
 	 */
 	public NoiseFabricWatermark() {
 		super(new SubstanceFabricWatermark(),
-				"C:/jprojects/substance-extras/www/images/screenshots/watermarks/noise-fabric.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/noise-fabric.png");
 	}
 }

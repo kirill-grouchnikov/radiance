@@ -87,7 +87,6 @@ public class DefaultTabPreviewPainter extends TabPreviewPainter {
 			// fix for issue 177 in Substance - disabled tabs painted in
 			// 50% opacity.
 			Graphics2D g2 = bufferedImage.createGraphics();
-			double scaleFactor = NeonCortex.getScaleFactor();
 			if (!tabPane.isEnabledAt(tabIndex)) {
 				g2.setComposite(AlphaComposite.getInstance(
 						AlphaComposite.SRC_OVER, 0.5f));
@@ -99,9 +98,7 @@ public class DefaultTabPreviewPainter extends TabPreviewPainter {
 				int dy = (h - sdHeight) / 2;
 
 				BufferedImage thumbnail = WidgetUtilities.createThumbnail(tempCanvas, sdWidth);
-				g2.drawImage(thumbnail, dx, dy, (int) (thumbnail.getWidth() / scaleFactor),
-				        (int) (thumbnail.getHeight() / scaleFactor), null);
-
+				NeonCortex.drawImage(g2, thumbnail, dx, dy);
 			} else {
 				// System.out.println("Putting " + frame.hashCode() + "
 				// -> " + snapshot.hashCode());

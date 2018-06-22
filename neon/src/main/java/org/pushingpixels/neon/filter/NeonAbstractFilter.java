@@ -58,21 +58,26 @@ public abstract class NeonAbstractFilter implements BufferedImageOp {
 		return new Rectangle(0, 0, src.getWidth(), src.getHeight());
 	}
 
+	public static BufferedImage createCompatibleDestImageForFilter(BufferedImage src,
+            ColorModel destCM) {
+        if (destCM == null) {
+            destCM = src.getColorModel();
+        }
+
+        WritableRaster raster = destCM.createCompatibleWritableRaster(
+                src.getWidth(), src.getHeight());
+        if (src instanceof IsHiDpiAware) {
+            return new JBHiDPIScaledImage(destCM, raster, destCM.isAlphaPremultiplied(), null,
+                    src.getWidth(), src.getHeight());
+        } else {
+            return new BufferedImage(destCM, raster, destCM.isAlphaPremultiplied(), null);
+        }
+    }
+
     @Override
 	public BufferedImage createCompatibleDestImage(BufferedImage src,
 			ColorModel destCM) {
-		if (destCM == null) {
-			destCM = src.getColorModel();
-		}
-
-		WritableRaster raster = destCM.createCompatibleWritableRaster(
-				src.getWidth(), src.getHeight());
-		if (src instanceof IsHiDpiAware) {
-			return new JBHiDPIScaledImage(destCM, raster, destCM.isAlphaPremultiplied(), null,
-					src.getWidth(), src.getHeight());
-		} else {
-			return new BufferedImage(destCM, raster, destCM.isAlphaPremultiplied(), null);
-		}
+	    return createCompatibleDestImageForFilter(src, destCM);
 	}
 
     @Override

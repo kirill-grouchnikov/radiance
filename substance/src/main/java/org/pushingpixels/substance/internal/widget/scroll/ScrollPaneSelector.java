@@ -218,9 +218,7 @@ public class ScrollPaneSelector extends JComponent {
         int yOffset = insets.top;
         int availableWidth = getWidth() - insets.left - insets.right;
         int availableHeight = getHeight() - insets.top - insets.bottom;
-        double scaleFactor = NeonCortex.getScaleFactor();
-        g2d.drawImage(theImage, xOffset, yOffset, (int) (theImage.getWidth() / scaleFactor),
-                (int) (theImage.getHeight() / scaleFactor), null);
+        NeonCortex.drawImage(g2d, theImage, xOffset, yOffset);
 
         Color tmpColor = g2d.getColor();
         Area area = new Area(new Rectangle(xOffset, yOffset, availableWidth, availableHeight));

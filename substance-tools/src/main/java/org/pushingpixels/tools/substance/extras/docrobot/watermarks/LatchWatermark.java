@@ -43,6 +43,6 @@ public class LatchWatermark extends WatermarkRobot {
 	 */
 	public LatchWatermark() {
 		super(new SubstanceLatchWatermark(),
-				"C:/jprojects/substance-extras/www/images/screenshots/watermarks/latch.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/latch.png");
 	}
 }

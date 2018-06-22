@@ -43,6 +43,6 @@ public class BinaryWatermark extends WatermarkRobot {
 	 */
 	public BinaryWatermark() {
 		super(new SubstanceBinaryWatermark(),
-				"C:/jprojects/substance-extras/www/images/screenshots/watermarks/binary.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/binary.png");
 	}
 }

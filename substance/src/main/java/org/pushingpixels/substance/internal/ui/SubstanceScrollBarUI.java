@@ -38,6 +38,7 @@ import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
+import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
@@ -425,12 +426,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#paintTrack(java.awt.Graphics,
-     * javax.swing.JComponent, java.awt.Rectangle)
-     */
     @Override
     protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
         Graphics2D graphics = (Graphics2D) g.create();
@@ -441,19 +436,20 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
             graphics.translate(trackBounds.x - THUMB_DELTA, trackBounds.y);
         }
         graphics.setColor(SubstanceColorUtilities.getBackgroundFillColorScrollBar(this.scrollbar));
-        // graphics.setColor(Color.red);
         graphics.fillRect(0, 0, this.scrollbar.getWidth(), this.scrollbar.getHeight());
+        SubstanceWatermark watermark = SubstanceCoreUtilities
+                .getSkin(c).getWatermark();
+        if ((watermark != null)
+                && !Boolean.TRUE.equals(c.getClientProperty(WidgetUtilities.PREVIEW_MODE))
+                && SubstanceCoreUtilities.toDrawWatermark(c)) {
+            watermark.drawWatermarkImage(graphics, c, 0, 0, c.getWidth(), c.getHeight());
+        }
+
         GhostPaintingUtils.paintGhostImages(this.scrollbar, g);
 
         graphics.dispose();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#paintThumb(java.awt.Graphics,
-     * javax.swing.JComponent, java.awt.Rectangle)
-     */
     @Override
     protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
         // System.out.println("Thumb");
@@ -468,17 +464,13 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
                     thumbBounds.width, thumbBounds.height);
             BufferedImage thumbImage = this.getThumbVertical(adjustedBounds);
             int xdelta = (thumbBounds.width - (int) (thumbImage.getWidth() / scaleFactor)) / 2;
-            graphics.drawImage(thumbImage, adjustedBounds.x + xdelta, adjustedBounds.y,
-                    (int) (thumbImage.getWidth() / scaleFactor),
-                    (int) (thumbImage.getHeight() / scaleFactor), null);
+            NeonCortex.drawImage(graphics, thumbImage, adjustedBounds.x + xdelta, adjustedBounds.y);
         } else {
             Rectangle adjustedBounds = new Rectangle(thumbBounds.x, thumbBounds.y,
                     thumbBounds.width, thumbBounds.height);
             BufferedImage thumbImage = this.getThumbHorizontal(adjustedBounds);
             int ydelta = (thumbBounds.height - (int) (thumbImage.getHeight() / scaleFactor)) / 2;
-            graphics.drawImage(thumbImage, adjustedBounds.x, adjustedBounds.y + ydelta,
-                    (int) (thumbImage.getWidth() / scaleFactor),
-                    (int) (thumbImage.getHeight() / scaleFactor), null);
+            NeonCortex.drawImage(graphics, thumbImage, adjustedBounds.x, adjustedBounds.y + ydelta);
         }
         graphics.dispose();
     }
@@ -494,11 +486,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         graphics.dispose();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -519,11 +506,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         super.uninstallDefaults();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#installComponents()
-     */
     @Override
     protected void installComponents() {
         this.compositeStateTransitionTracker = new StateTransitionTracker(this.scrollbar,
@@ -535,11 +517,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#uninstallComponents()
-     */
     @Override
     protected void uninstallComponents() {
         this.compositeStateTransitionTracker.unregisterModelListeners();

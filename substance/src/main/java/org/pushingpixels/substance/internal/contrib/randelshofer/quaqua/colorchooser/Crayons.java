@@ -167,8 +167,7 @@ public class Crayons extends javax.swing.JPanel {
         Graphics2D g2d = (Graphics2D) gr.create();
         NeonCortex.installDesktopHints(g2d, this);
         double scaleFactor = NeonCortex.getScaleFactor();
-        g2d.drawImage(crayonsImage, 0, 0, (int) (crayonsImage.getWidth() / scaleFactor),
-                (int) (crayonsImage.getHeight() / scaleFactor), this);
+        NeonCortex.drawImage(g2d, crayonsImage, 0, 0);
 
         if (selectedCrayon != null) {
             g2d.setColor(getForeground());

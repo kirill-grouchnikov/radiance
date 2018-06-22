@@ -43,6 +43,6 @@ public class KatakanaWatermark extends WatermarkRobot {
 	 */
 	public KatakanaWatermark() {
 		super(new SubstanceKatakanaWatermark(),
-				"C:/jprojects/substance-extras/www/images/screenshots/watermarks/katakana.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/katakana.png");
 	}
 }

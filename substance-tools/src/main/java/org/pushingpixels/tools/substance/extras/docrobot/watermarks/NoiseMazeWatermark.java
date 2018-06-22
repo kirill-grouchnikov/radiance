@@ -43,6 +43,6 @@ public class NoiseMazeWatermark extends WatermarkRobot {
 	 */
 	public NoiseMazeWatermark() {
 		super(new SubstanceMazeWatermark(),
-				"C:/jprojects/substance-extras/www/images/screenshots/watermarks/noise-maze.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/watermarks/noise-maze.png");
 	}
 }

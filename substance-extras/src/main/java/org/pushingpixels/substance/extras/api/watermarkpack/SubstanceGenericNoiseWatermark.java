@@ -42,7 +42,6 @@ public class SubstanceGenericNoiseWatermark extends SubstanceNoiseWatermark {
 	 * Creates a new generic noise watermark.
 	 */
 	public SubstanceGenericNoiseWatermark() {
-		super("Generic Noise", 0.1, 0.1, false, null,
-				false);
+		super("Generic Noise", 0.1, 0.1, false, null, false);
 	}
 }

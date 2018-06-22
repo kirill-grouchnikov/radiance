@@ -92,9 +92,7 @@ public class ClassicDecorationPainter implements SubstanceDecorationPainter {
 						width, height, scheme);
 				smallImageCache.put(key, result);
 			}
-			double imageScale = NeonCortex.getScaleFactor();
-			graphics.drawImage(result, 0, 0, (int) (result.getWidth() / imageScale), 
-			        (int) (result.getHeight() / imageScale), null);
+			NeonCortex.drawImage(graphics, result, 0, 0);
 			return;
 		}
 

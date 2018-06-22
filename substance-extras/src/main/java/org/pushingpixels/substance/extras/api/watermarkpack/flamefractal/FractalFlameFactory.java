@@ -34,6 +34,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
@@ -50,22 +51,10 @@ public class FractalFlameFactory {
 	 *            The first color scheme to use for rendering the image.
 	 * @param colorScheme2
 	 *            The second color scheme to use for rendering the image.
-	 * @param interpolationFactor
-	 *            Interpolation factor.
 	 * @param width
 	 *            Image width.
 	 * @param height
 	 *            Image height.
-	 * @param xFactor
-	 *            X stretch factor.
-	 * @param yFactor
-	 *            Y stretch factor.
-	 * @param hasConstantZ
-	 *            Indication whether the Z is constant.
-	 * @param noiseFilter
-	 *            Noise filter to apply.
-	 * @param toBlur
-	 *            Indication whether the resulting image should be blurred.
 	 * @return Noise image.
 	 */
 	public static BufferedImage getFractalFlameImage(
@@ -88,15 +77,16 @@ public class FractalFlameFactory {
 		Color c3 = SubstanceColorUtilities
 				.getInterpolatedColor(c3_1, c3_2, 0.9);
 
-		BufferedImage dst = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_ARGB);
+		BufferedImage dst = NeonCortex.getBlankImage(width, height);
 
 		// Borrow from Sebastien Petrucci fast blur code - direct access
 		// to the raster data
 		int[] dstBuffer = ((DataBufferInt) dst.getRaster().getDataBuffer())
 				.getData();
 
-		long[] vals = new long[width * height];
+		int imageWidth = dst.getWidth();
+		int imageHeight = dst.getHeight();
+		long[] vals = new long[imageWidth * imageHeight];
 
 		long valMax = 0;
 
@@ -106,10 +96,10 @@ public class FractalFlameFactory {
 			ifs.apply(bc);
 			count++;
 			if (count > 20) {
-				int x = (int) (width * (1.0 + bc.getX()) / 2);
-				int y = (int) (height * (1.0 + bc.getY()) / 2);
-				if ((x >= 0) && (x < width) && (y >= 0) && (y < height)) {
-					int pos = y * width + x;
+				int x = (int) (imageWidth * (1.0 + bc.getX()) / 2);
+				int y = (int) (imageHeight * (1.0 + bc.getY()) / 2);
+				if ((x >= 0) && (x < imageWidth) && (y >= 0) && (y < imageHeight)) {
+					int pos = y * imageWidth + x;
 					vals[pos]++;
 					valMax = Math.max(valMax, vals[pos]);
 				}
@@ -119,9 +109,9 @@ public class FractalFlameFactory {
 			}
 		}
 
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				int pos = y * width + x;
+		for (int x = 0; x < imageWidth; x++) {
+			for (int y = 0; y < imageHeight; y++) {
+				int pos = y * imageWidth + x;
 				double a = vals[pos] / (0.9 * valMax);
 				double ai = Math.sqrt(Math.sqrt(a));
 				if (ai > 1.0)
@@ -139,26 +129,12 @@ public class FractalFlameFactory {
 	/**
 	 * Returns a noise image.
 	 * 
-	 * @param colorScheme1
-	 *            The first color scheme to use for rendering the image.
-	 * @param colorScheme2
-	 *            The second color scheme to use for rendering the image.
-	 * @param interpolationFactor
-	 *            Interpolation factor.
+	 * @param colorScheme
+	 *            The color scheme to use for rendering the image.
 	 * @param width
 	 *            Image width.
 	 * @param height
 	 *            Image height.
-	 * @param xFactor
-	 *            X stretch factor.
-	 * @param yFactor
-	 *            Y stretch factor.
-	 * @param hasConstantZ
-	 *            Indication whether the Z is constant.
-	 * @param noiseFilter
-	 *            Noise filter to apply.
-	 * @param toBlur
-	 *            Indication whether the resulting image should be blurred.
 	 * @return Noise image.
 	 */
 	public static BufferedImage getFractalFlameImage(
@@ -167,8 +143,7 @@ public class FractalFlameFactory {
 		Color c2 = colorScheme.getLightColor();
 		Color c3 = colorScheme.getMidColor();
 
-		BufferedImage dst = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_ARGB);
+		BufferedImage dst = NeonCortex.getBlankImage(width, height);
 		dst.getGraphics().setColor(Color.black);
 		dst.getGraphics().fillRect(0, 0, width, height);
 
@@ -250,26 +225,10 @@ public class FractalFlameFactory {
 	/**
 	 * Returns a noise image.
 	 * 
-	 * @param colorScheme1
-	 *            The first color scheme to use for rendering the image.
-	 * @param colorScheme2
-	 *            The second color scheme to use for rendering the image.
-	 * @param interpolationFactor
-	 *            Interpolation factor.
 	 * @param width
 	 *            Image width.
 	 * @param height
 	 *            Image height.
-	 * @param xFactor
-	 *            X stretch factor.
-	 * @param yFactor
-	 *            Y stretch factor.
-	 * @param hasConstantZ
-	 *            Indication whether the Z is constant.
-	 * @param noiseFilter
-	 *            Noise filter to apply.
-	 * @param toBlur
-	 *            Indication whether the resulting image should be blurred.
 	 * @return Noise image.
 	 */
 	public static BufferedImage getFractalFlameImage(int width, int height,
@@ -279,8 +238,7 @@ public class FractalFlameFactory {
 				Color.green, Color.orange, Color.orange, Color.yellow,
 				Color.red };
 
-		BufferedImage dst = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_ARGB);
+		BufferedImage dst = NeonCortex.getBlankImage(width, height);
 		dst.getGraphics().setColor(Color.black);
 		dst.getGraphics().fillRect(0, 0, width, height);
 

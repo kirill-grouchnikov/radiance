@@ -39,6 +39,7 @@ import org.pushingpixels.neon.internal.font.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.awt.print.PrinterGraphics;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -217,6 +218,32 @@ public class NeonCortex {
             GraphicsDevice d = e.getDefaultScreenDevice();
             GraphicsConfiguration c = d.getDefaultConfiguration();
             return c.createCompatibleImage(width, height, Transparency.TRANSLUCENT);
+        }
+    }
+
+    public static void drawImage(Graphics g, Image img, int x, int y) {
+        if (img instanceof JBHiDPIScaledImage) {
+            double scaleFactor = UIUtil.getScaleFactor();
+            g.drawImage(img, x, y, (int) (img.getWidth(null) / scaleFactor),
+                    (int) (img.getHeight(null) / scaleFactor), null);
+        } else {
+            g.drawImage(img, x, y, img.getWidth(null), img.getHeight(null), null);
+        }
+    }
+
+    public static void drawImage(Graphics g, Image img, int x, int y,
+            int width, int height, int offsetX, int offsetY) {
+        if (img instanceof JBHiDPIScaledImage) {
+            double scaleFactor = UIUtil.getScaleFactor();
+            g.drawImage(img, x, y, x + width, y + height,
+                    x + (int) (offsetX * scaleFactor), y + (int) (offsetY * scaleFactor),
+                    x + (int) ((offsetX + width) * scaleFactor),
+                    y + (int) ((offsetY + height) * scaleFactor), null);
+        } else {
+            g.drawImage(img, x, y, x + width, y + height,
+                    x + offsetX, y + offsetY,
+                    x + offsetX + width,
+                    y + offsetY + height, null);
         }
     }
 }

@@ -77,7 +77,6 @@ public class WidgetUtilities {
         int width = image.getWidth();
         BufferedImage thumb = image;
 
-        double scaleFactor = NeonCortex.getScaleFactor();
         do {
             width /= 2;
             if (width < requestedThumbWidth) {
@@ -88,8 +87,7 @@ public class WidgetUtilities {
             Graphics2D g2 = temp.createGraphics();
             g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            g2.drawImage(thumb, 0, 0, (int) (temp.getWidth() / scaleFactor),
-                    (int) (temp.getHeight() / scaleFactor), null);
+            NeonCortex.drawImage(g2, thumb, 0, 0);
             g2.dispose();
 
             thumb = temp;

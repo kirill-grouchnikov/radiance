@@ -109,7 +109,6 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
         Graphics2D graphics = (Graphics2D) g.create();
         JTextComponent componentForTransitions = SubstanceCoreUtilities
                 .getTextComponentForTransitions(c);
-        double scaleFactor = NeonCortex.getScaleFactor();
         boolean useCache = (width * height < 100000);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(c);
         if (componentForTransitions != null) {
@@ -146,8 +145,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
                         g2base.dispose();
                         smallImageCache.put(baseHashKey, baseLayer);
                     }
-                    graphics.drawImage(baseLayer, 0, 0, (int) (baseLayer.getWidth() / scaleFactor),
-                            (int) (baseLayer.getHeight() / scaleFactor), null);
+                    NeonCortex.drawImage(graphics, baseLayer, 0, 0);
                 } else {
                     SubstanceImageCreator.paintSimpleBorder(c, graphics, width, height,
                             baseBorderScheme);
@@ -190,9 +188,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
                                 smallImageCache.put(extraHashKey, extraLayer);
                             }
 
-                            graphics.drawImage(extraLayer, 0, 0,
-                                    (int) (extraLayer.getWidth() / scaleFactor),
-                                    (int) (extraLayer.getHeight() / scaleFactor), null);
+                            NeonCortex.drawImage(graphics, extraLayer, 0, 0);
                         } else {
                             SubstanceImageCreator.paintSimpleBorder(c, graphics, width, height,
                                     borderScheme);
@@ -223,8 +219,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
                 smallImageCache.put(baseHashKey, baseLayer);
             }
 
-            graphics.drawImage(baseLayer, 0, 0, (int) (baseLayer.getWidth() / scaleFactor),
-                    (int) (baseLayer.getHeight() / scaleFactor), null);
+            NeonCortex.drawImage(graphics, baseLayer, 0, 0);
         } else {
             SubstanceImageCreator.paintSimpleBorder(c, graphics, width, height, borderColorScheme);
         }

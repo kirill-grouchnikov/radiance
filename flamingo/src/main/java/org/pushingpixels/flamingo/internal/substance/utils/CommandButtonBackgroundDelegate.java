@@ -182,10 +182,8 @@ public class CommandButtonBackgroundDelegate {
 
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
         Graphics2D g2d = result.createGraphics();
-        double factor = NeonCortex.getScaleFactor();
 
-        g2d.drawImage(baseLayer, 0, 0, (int) (baseLayer.getWidth() / factor),
-                (int) (baseLayer.getHeight() / factor), null);
+        NeonCortex.drawImage(g2d, baseLayer, 0, 0);
 
         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
                 .entrySet()) {
@@ -219,8 +217,7 @@ public class CommandButtonBackgroundDelegate {
             }
 
             g2d.setComposite(AlphaComposite.SrcOver.derive(contribution));
-            g2d.drawImage(layer, 0, 0, (int) (layer.getWidth() / factor),
-                    (int) (layer.getHeight() / factor), null);
+            NeonCortex.drawImage(g2d, layer, 0, 0);
         }
 
         g2d.dispose();
@@ -330,10 +327,7 @@ public class CommandButtonBackgroundDelegate {
         BufferedImage layers = SubstanceCoreUtilities.getBlankImage(fullAlphaBackground.getWidth(),
                 fullAlphaBackground.getHeight());
         Graphics2D combinedGraphics = layers.createGraphics();
-        double scaleFactor = NeonCortex.getScaleFactor();
-        combinedGraphics.drawImage(fullAlphaBackground, 0, 0,
-                (int) (fullAlphaBackground.getWidth() / scaleFactor),
-                (int) (fullAlphaBackground.getHeight() / scaleFactor), null);
+        NeonCortex.drawImage(combinedGraphics, fullAlphaBackground, 0, 0);
 
         ActionPopupTransitionAwareUI ui = (ActionPopupTransitionAwareUI) commandButton.getUI();
 
@@ -350,9 +344,7 @@ public class CommandButtonBackgroundDelegate {
                     .getFullAlphaBackground(commandButton, backgroundModel, fillPainter,
                             borderPainter, commandButton.getWidth(), commandButton.getHeight(),
                             ui.getTransitionTracker(), false);
-            combinedGraphics.drawImage(rolloverBackground, 0, 0,
-                    (int) (rolloverBackground.getWidth() / scaleFactor),
-                    (int) (rolloverBackground.getHeight() / scaleFactor), null);
+            NeonCortex.drawImage(combinedGraphics, rolloverBackground, 0, 0);
         }
 
         // Shape currClip = combinedGraphics.getClip();
@@ -373,9 +365,7 @@ public class CommandButtonBackgroundDelegate {
                     .getFullAlphaBackground(commandButton, null, fillPainter, borderPainter,
                             commandButton.getWidth(), commandButton.getHeight(),
                             ui.getActionTransitionTracker(), false);
-            graphicsAction.drawImage(actionAreaBackground, 0, 0,
-                    (int) (actionAreaBackground.getWidth() / scaleFactor),
-                    (int) (actionAreaBackground.getHeight() / scaleFactor), null);
+            NeonCortex.drawImage(graphicsAction, actionAreaBackground, 0, 0);
             // graphicsAction.setColor(Color.red);
             // graphicsAction.fill(toFill);
             graphicsAction.dispose();
@@ -400,9 +390,7 @@ public class CommandButtonBackgroundDelegate {
                     .getFullAlphaBackground(commandButton, null, fillPainter, borderPainter,
                             commandButton.getWidth(), commandButton.getHeight(),
                             ui.getPopupTransitionTracker(), false);
-            graphicsPopup.drawImage(popupAreaBackground, 0, 0,
-                    (int) (popupAreaBackground.getWidth() / scaleFactor),
-                    (int) (popupAreaBackground.getHeight() / scaleFactor), null);
+            NeonCortex.drawImage(graphicsPopup, popupAreaBackground, 0, 0);
             // graphicsPopup.setColor(Color.blue);
             // graphicsPopup.fill(toFill);
             graphicsPopup.dispose();

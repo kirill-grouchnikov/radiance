@@ -29,11 +29,14 @@
  */
 package org.pushingpixels.substance.api.watermark;
 
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
 
 /**
  * Simple implementation of
@@ -48,21 +51,17 @@ public class SubstanceStripeWatermark implements SubstanceWatermark {
 	/**
 	 * Watermark image (screen-sized).
 	 */
-	private static Image watermarkImage = null;
+	private static BufferedImage watermarkImage = null;
 
     @Override
 	public void drawWatermarkImage(Graphics graphics, Component c, int x,
 			int y, int width, int height) {
 		if (!c.isShowing())
 			return;
-		// System.err.println(System.currentTimeMillis() + ":"
-		// + c.getClass().getName() + ":" + x + ":" + y + ":" + width
-		// + ":" + height);
 		int dx = c.getLocationOnScreen().x;
 		int dy = c.getLocationOnScreen().y;
-		graphics.drawImage(SubstanceStripeWatermark.watermarkImage, x, y, x
-				+ width, y + height, x + dx, y + dy, x + dx + width, y + dy
-				+ height, null);
+        NeonCortex.drawImage(graphics, SubstanceStripeWatermark.watermarkImage, x, y, width,
+                height, dx, dy);
 	}
 
     @Override
@@ -82,8 +81,7 @@ public class SubstanceStripeWatermark implements SubstanceWatermark {
 		SubstanceStripeWatermark.watermarkImage = SubstanceCoreUtilities
 				.getBlankImage(screenWidth, screenHeight);
 
-		Graphics2D graphics = (Graphics2D) SubstanceStripeWatermark.watermarkImage
-				.getGraphics().create();
+		Graphics2D graphics = SubstanceStripeWatermark.watermarkImage.createGraphics();
 
 		boolean status = this.drawWatermarkImage(skin, graphics, 0, 0,
 				screenWidth, screenHeight, false);
@@ -94,9 +92,7 @@ public class SubstanceStripeWatermark implements SubstanceWatermark {
 	@Override
 	public void previewWatermark(Graphics g, SubstanceSkin skin, int x, int y,
 			int width, int height) {
-		this
-				.drawWatermarkImage(skin, (Graphics2D) g, x, y, width, height,
-						true);
+		this.drawWatermarkImage(skin, (Graphics2D) g, x, y, width, height, true);
 	}
 
 	/**
@@ -128,15 +124,24 @@ public class SubstanceStripeWatermark implements SubstanceWatermark {
 			stampColor = scheme.getWatermarkStampColor();
 		}
 
+		double scaleFactor = NeonCortex.getScaleFactor();
+		double borderStrokeWidth = 1.0f / scaleFactor;
 		graphics.setColor(stampColor);
-		for (int row = y; row < (y + height); row += 2) {
-			graphics.drawLine(x, row, x + width, row);
-		}
+		graphics.setStroke(new BasicStroke(1.0f / (float) scaleFactor,
+				BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
+		double row = y;
+		while (row < (y + height)) {
+		    graphics.draw(new Line2D.Double(x, row, x + width, row));
+		    row += 2 * borderStrokeWidth;
+        }
+
 		if (isPreview) {
 			graphics.setColor(Color.gray);
-			for (int row = y + 1; row < (y + height); row += 2) {
-				graphics.drawLine(x, row, x + width, row);
-			}
+            row = y + 1;
+            while (row < (y + height)) {
+                graphics.draw(new Line2D.Double(x, row, x + width, row));
+                row += 2 * borderStrokeWidth;
+            }
 		}
 		return true;
 	}

@@ -32,6 +32,7 @@ package org.pushingpixels.flamingo.api.common.icon;
 import org.pushingpixels.neon.AsynchronousLoading;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import java.awt.*;
@@ -98,12 +99,6 @@ public class FilteredResizableIcon implements ResizableIcon {
 		delegate.setDimension(newDimension);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-	 * int, int)
-	 */
 	@Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		// check cache
@@ -116,7 +111,7 @@ public class FilteredResizableIcon implements ResizableIcon {
 				if (asyncDelegate.isLoading())
 					return;
 			}
-			BufferedImage offscreen = SubstanceCoreUtilities.getBlankImage(this.getIconWidth(),
+			BufferedImage offscreen = NeonCortex.getBlankImage(this.getIconWidth(),
 					this.getIconHeight());
 			Graphics2D g2d = offscreen.createGraphics();
 			this.delegate.paintIcon(c, g2d, 0, 0);
@@ -124,12 +119,14 @@ public class FilteredResizableIcon implements ResizableIcon {
 			BufferedImage filtered = this.operation.filter(offscreen, null);
 			this.cachedImages.put(key, filtered);
 		}
-		double scaleFactor = NeonCortex.getScaleFactor();
 		BufferedImage toDraw = this.cachedImages.get(key);
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.translate(x, y);
-		g2d.drawImage(toDraw, 0, 0, (int) (toDraw.getWidth(null) / scaleFactor), 
-				(int) (toDraw.getHeight(null) / scaleFactor), null);
+		// Note that here we shouldn't use NeonCortex.drawImage as the result of applying
+        // a filter is not going to be a high-DPI wrapper.
+        double scaleFactor = UIUtil.getScaleFactor();
+        g2d.drawImage(toDraw, 0, 0, (int) (toDraw.getWidth(null) / scaleFactor),
+                (int) (toDraw.getHeight(null) / scaleFactor), null);
 		g2d.dispose();
 	}
 }
