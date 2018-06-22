@@ -10,8 +10,8 @@ Available in the `org.pushingpixels.substance.api.skin.BusinessSkin`. In additio
 * `UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel");`
 
-<img alt="Business" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/business1.png" width="340" height="254">
-<img alt="Business" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/business2.png" width="340" height="254">
+<img alt="Business" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/business1.png" width="340" height="254">
+<img alt="Business" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/business2.png" width="340" height="254">
 
 ### Business Blue Steel
 
@@ -23,8 +23,8 @@ Available in the `org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin`. I
 * `UIManager.setLookAndFeel(new SubstanceBusinessBlueSteelLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceBusinessBlueSteelLookAndFeel");`
 
-<img alt="BusinessBlueSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/businessbluesteel1.png" width="340" height="254">
-<img alt="BusinessBlueSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/businessbluesteel2.png" width="340" height="254">
+<img alt="BusinessBlueSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/businessbluesteel1.png" width="340" height="254">
+<img alt="BusinessBlueSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/businessbluesteel2.png" width="340" height="254">
 
 ### Business Black Steel
 
@@ -36,8 +36,8 @@ Available in the `org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin`. 
 * `UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel");`
 
-<img alt="BusinessBlackSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/businessblacksteel1.png" width="340" height="254">
-<img alt="BusinessBlackSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/businessblacksteel2.png" width="340" height="254">
+<img alt="BusinessBlackSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/businessblacksteel1.png" width="340" height="254">
+<img alt="BusinessBlackSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/businessblacksteel2.png" width="340" height="254">
 
 ### Creme
 
@@ -49,8 +49,8 @@ Available in the `org.pushingpixels.substance.api.skin.CremeSkin`. In addition, 
 * `UIManager.setLookAndFeel(new SubstanceCremeLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceCremeLookAndFeel");`
 
-<img alt="Creme" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/creme1.png" width="340" height="254">
-<img alt="Creme" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/creme2.png" width="340" height="254">
+<img alt="Creme" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/creme1.png" width="340" height="254">
+<img alt="Creme" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/creme2.png" width="340" height="254">
 
 ### Creme Coffee
 
@@ -62,8 +62,8 @@ Available in the `org.pushingpixels.substance.api.skin.CremeCoffeeSkin`. In addi
 * `UIManager.setLookAndFeel(new SubstanceCremeCoffeeLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceCremeCoffeeLookAndFeel");`
 
-<img alt="CremeCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/cremecoffee1.png" width="340" height="254">
-<img alt="CremeCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/cremecoffee2.png" width="340" height="254">
+<img alt="CremeCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/cremecoffee1.png" width="340" height="254">
+<img alt="CremeCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/cremecoffee2.png" width="340" height="254">
 
 ### Sahara
 
@@ -75,8 +75,8 @@ Available in the `org.pushingpixels.substance.api.skin.SaharaSkin`. In addition,
 * `UIManager.setLookAndFeel(new SubstanceSaharaLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceSaharaLookAndFeel");`
 
-<img alt="Sahara" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/sahara1.png" width="340" height="254">
-<img alt="Sahara" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/sahara2.png" width="340" height="254">
+<img alt="Sahara" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/sahara1.png" width="340" height="254">
+<img alt="Sahara" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/sahara2.png" width="340" height="254">
 
 ### Moderate
 
@@ -88,8 +88,8 @@ Available in the `org.pushingpixels.substance.api.skin.ModerateSkin`. In additio
 * `UIManager.setLookAndFeel(new SubstanceModerateLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceModerateLookAndFeel");`
 
-<img alt="Moderate" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/moderate1.png" width="340" height="254">
-<img alt="Moderate" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/moderate2.png" width="340" height="254">
+<img alt="Moderate" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/moderate1.png" width="340" height="254">
+<img alt="Moderate" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/moderate2.png" width="340" height="254">
 
 ### Nebula
 
@@ -101,8 +101,8 @@ Available in the `org.pushingpixels.substance.api.skin.NebulaSkin`. In addition,
 * `UIManager.setLookAndFeel(new SubstanceNebulaLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceNebulaLookAndFeel");`
 
-<img alt="Nebula" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/nebula1.png" width="340" height="254">
-<img alt="Nebula" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/nebula2.png" width="340" height="254">
+<img alt="Nebula" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebula1.png" width="340" height="254">
+<img alt="Nebula" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebula2.png" width="340" height="254">
 
 ### Nebula Brick Wall
 
@@ -114,8 +114,8 @@ Available in the `org.pushingpixels.substance.api.skin.NebulaBrickWallSkin`. In 
 * `UIManager.setLookAndFeel(new SubstanceNebulaBrickWallLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceNebulaBrickWallLookAndFeel");`
 
-<img alt="NebulaBrickWall" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/nebulabrickwall1.png" width="340" height="254">
-<img alt="NebulaBrickWall" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/nebulabrickwall2.png" width="340" height="254">
+<img alt="NebulaBrickWall" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulabrickwall1.png" width="340" height="254">
+<img alt="NebulaBrickWall" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulabrickwall2.png" width="340" height="254">
 
 ### Autumn
 
@@ -127,8 +127,8 @@ Available in the `org.pushingpixels.substance.api.skin.AutumnSkin`. In addition,
 * `UIManager.setLookAndFeel(new SubstanceAutumnLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceAutumnLookAndFeel");`
 
-<img alt="Autumn" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/autumn1.png" width="340" height="254">
-<img alt="Autumn" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/autumn2.png" width="340" height="254">
+<img alt="Autumn" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/autumn1.png" width="340" height="254">
+<img alt="Autumn" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/autumn2.png" width="340" height="254">
 
 ### Mist Silver
 
@@ -140,8 +140,8 @@ Available in the `org.pushingpixels.substance.api.skin.MistSilverSkin`. In addit
 * `UIManager.setLookAndFeel(new SubstanceMistSilverLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceMistSilverLookAndFeel");`
 
-<img alt="MistSilver" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/mistsilver1.png" width="340" height="254">
-<img alt="MistSilver" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/mistsilver2.png" width="340" height="254">
+<img alt="MistSilver" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/mistsilver1.png" width="340" height="254">
+<img alt="MistSilver" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/mistsilver2.png" width="340" height="254">
 
 ### Mist Aqua
 
@@ -153,8 +153,8 @@ Available in the `org.pushingpixels.substance.api.skin.MistAquaSkin`. In additio
 * `UIManager.setLookAndFeel(new SubstanceMistAquaLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceMistAquaLookAndFeel");`
 
-<img alt="MistAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/mistaqua1.png" width="340" height="254">
-<img alt="MistAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/mistaqua2.png" width="340" height="254">
+<img alt="MistAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/mistaqua1.png" width="340" height="254">
+<img alt="MistAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/mistaqua2.png" width="340" height="254">
 
 ### Dust
 
@@ -166,8 +166,8 @@ Available in the `org.pushingpixels.substance.api.skin.DustSkin`. In addition, t
 * `UIManager.setLookAndFeel(new SubstanceDustLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceDustLookAndFeel");`
 
-<img alt="Dust" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/dust1.png" width="340" height="254">
-<img alt="Dust" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/dust2.png" width="340" height="254">
+<img alt="Dust" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/dust1.png" width="340" height="254">
+<img alt="Dust" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/dust2.png" width="340" height="254">
 
 ### Dust Coffee
 
@@ -179,8 +179,8 @@ Available in the `org.pushingpixels.substance.api.skin.DustCoffeeSkin`. In addit
 * `UIManager.setLookAndFeel(new SubstanceDustCoffeeLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceDustCoffeeLookAndFeel");`
 
-<img alt="DustCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/dustcoffee1.png" width="340" height="254">
-<img alt="DustCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/dustcoffee2.png" width="340" height="254">
+<img alt="DustCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/dustcoffee1.png" width="340" height="254">
+<img alt="DustCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/dustcoffee2.png" width="340" height="254">
 
 ### Gemini
 
@@ -192,8 +192,8 @@ Available in the `org.pushingpixels.substance.api.skin.GeminiSkin`. In addition,
 * `UIManager.setLookAndFeel(new SubstanceGeminiLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGeminiLookAndFeel");`
 
-<img alt="Gemini" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/gemini1.png" width="340" height="254">
-<img alt="Gemini" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/gemini2.png" width="340" height="254">
+<img alt="Gemini" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/gemini1.png" width="340" height="254">
+<img alt="Gemini" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/gemini2.png" width="340" height="254">
 
 ### Mariner
 
@@ -205,8 +205,8 @@ Available in the `org.pushingpixels.substance.api.skin.MarinerSkin`. In addition
 * `UIManager.setLookAndFeel(new SubstanceMarinerLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceMarinerLookAndFeel");`
 
-<img alt="Mariner" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/mariner1.png" width="340" height="254">
-<img alt="Mariner" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/mariner2.png" width="340" height="254">
+<img alt="Mariner" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/mariner1.png" width="340" height="254">
+<img alt="Mariner" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/mariner2.png" width="340" height="254">
 
 
 ### Cerulean
@@ -219,12 +219,12 @@ Available in the `org.pushingpixels.substance.api.skin.CeruleanSkin`. In additio
 * `UIManager.setLookAndFeel(new SubstanceCeruleanLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceCeruleanLookAndFeel");`
 
-<img alt="Cerulean" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/cerulean1.png" width="340" height="254">
-<img alt="Cerulean" src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/cerulean2.png" width="340" height="254">
+<img alt="Cerulean" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/cerulean1.png" width="340" height="254">
+<img alt="Cerulean" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/cerulean2.png" width="340" height="254">
 
-## Skins for use with [Flamingo ribbon component](https://github.com/kirill-grouchnikov/flamingo)
+## Skins for use with [Flamingo ribbon component](../../flamingo/flamingo.md)
 
-Note that while these three skins can be used in regular Swing applications as any other Substance skin, the primary use case is to be used with the Flamingo ribbon component and the matching [Substance Flamingo plugin](https://github.com/kirill-grouchnikov/substance-flamingo).
+Note that while these three skins can be used in regular Swing applications as any other Substance skin, the primary use case is to be used with the Flamingo ribbon component.
 
 ### Office Silver 2007
 
@@ -236,7 +236,7 @@ Available in the `org.pushingpixels.substance.api.skin.OfficeSilver2007Skin`. In
 * `UIManager.setLookAndFeel(new SubstanceOfficeSilver2007LookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceOfficeSilver2007LookAndFeel");`
 
-<img alt="OfficeBlue2007" src="https://github.com/kirill-grouchnikov/substance-flamingo/blob/master/www/images/screenshots/skins/officesilver2007.png?raw=true" width="680" height="210">
+<img alt="OfficeSilver2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/ribbon/officesilver2007.png" width="680" height="210">
 
 ### Office Blue 2007
 
@@ -248,7 +248,7 @@ Available in the `org.pushingpixels.substance.api.skin.OfficeBlue2007Skin`. In a
 * `UIManager.setLookAndFeel(new SubstanceOfficeBlue2007LookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceOfficeBlue2007LookAndFeel");`
 
-<img alt="OfficeBlue2007" src="https://github.com/kirill-grouchnikov/substance-flamingo/blob/master/www/images/screenshots/skins/officeblue2007.png?raw=true" width="680" height="210">
+<img alt="OfficeBlue2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/ribbon/officeblue2007.png" width="680" height="210">
 
 ### Office Black 2007
 
@@ -260,4 +260,4 @@ Available in the `org.pushingpixels.substance.api.skin.OfficeBlack2007Skin`. In 
 * `UIManager.setLookAndFeel(new SubstanceOfficeBlack2007LookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceOfficeBlack2007LookAndFeel");`
 
-<img alt="OfficeBlue2007" src="https://github.com/kirill-grouchnikov/substance-flamingo/blob/master/www/images/screenshots/skins/officeblack2007.png?raw=true" width="680" height="210">
+<img alt="OfficeBlue2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/ribbon/officeblack2007.png" width="680" height="210">

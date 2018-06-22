@@ -26,11 +26,11 @@ The **timeline position** is a fractional number between `0.0` and `1.0` that in
 
 The `org.pushingpixels.trident.ease` package has a number of core ease functions. To illustrate the difference between the different ease functions, we will use the core `Spline` ease function. The following screenshot shows the mapping between duration fraction and timeline position under `Spline` with factor of `0.5`:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/trident/master/www/images/ease-50.png" width="500" height="289" />
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/trident/ease-50.png" width="500" height="289" />
 
 Here, the timeline position close to linear rate of change throughout the entire duration of the timeline, with little acceleration in the beginning, and little deceleration at the end. Here is the mapping between duration fraction and timeline position under `Spline` with factor of `0.9`:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/trident/master/www/images/ease-90.png" width="501" height="289" />
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/trident/ease-90.png" width="501" height="289" />
 
 Here, the acceleration phase is longer, and the rate of change between the acceleration and deceleration phases is higher. As you can see, you can simulate different physical processes using different factors of `Spline` ease function. Application code can create custom implementation of the `TimelineEase` interface as well.
 

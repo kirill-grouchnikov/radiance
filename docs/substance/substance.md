@@ -2,7 +2,7 @@
 
 ### Getting started
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/walkthrough/all.png" width="279" height="324" border=0 align="right">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/walkthrough/all.png" width="279" height="324" border=0 align="right">
 
 If you are new to Swing, start with the general [Swing tutorial](http://java.sun.com/docs/books/tutorial/uiswing/). If you are new to look-and-feels, read the [getting started](getting-started.md) first.
 
@@ -27,7 +27,7 @@ For earlier versions of Substance, see [this page](../drop/archive/older-release
 
 ### Configure and customize
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/skins/nebulabrickwall1.png" width="340" height="254" border=0 align="left">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulabrickwall1.png" width="340" height="254" border=0 align="left">
 It is easy to customize and extend Substance to fit your visual needs.
 
 Substance comes with an extensive set of [APIs](api.md) to add custom functionality to your components. The overall visuals are controlled by [skins](skins/overview.md), with each skin defined by [color scheme bundles](skins/colorschemebundles.md) and [painters](painters/overview.md).
@@ -36,7 +36,7 @@ The [skinning primer](painters/custom-skinning.md) has a few tips on how to use 
 
 ### Plugins
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/learn/ribbon.png" width="340" height="210" border=0 align="right">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/ribbon.png" width="340" height="210" border=0 align="right">
 
 While the core Swing components cover the base UI functionality that most applications require, modern UIs need modern UI components. To address this need, Substance comes with a built-in support to define and load plugins that provide consistent appearance and interaction patterns for third-party components.
 

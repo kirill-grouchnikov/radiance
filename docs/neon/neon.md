@@ -2,7 +2,7 @@
 
 ### Resizable icons
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/flamingo/master/www/images/thumbs/learn/resizable-icon.png" width="248" height="274" border=0 align="right">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/neon/resizable-icon.png" width="248" height="274" border=0 align="right">
 
 The `ResizableIcon` extends the core `Icon` interface to allow scaling the icon visuals at runtime. This is especially relevant for controls that can be dynamically resized. This class is used extensively in Flamingo for such controls as ribbon buttons or file viewer panel, but can be used in core and third-party components as well.
 

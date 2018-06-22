@@ -2,7 +2,7 @@
 
 Color scheme association kinds in Substance are best illustrated by a simple example:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/color-scheme-association-kinds.png" width="96" height="96"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/color-scheme-association-kinds.png" width="96" height="96"/>
 
 This is a screenshot of a `JCheckBox` icon under 72 point font. This checkmark icon has three different visual areas: inner fill, border and the "V" mark. Each one of these areas is painted with a different [color scheme](colorschemes.md), and this is allowed by using the relevant **color scheme association kinds**.
 
@@ -53,7 +53,7 @@ In our case, we want to specify different color schemes for different visual are
 
 Going back once again to the original image:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/color-scheme-association-kinds.png" width="96" height="96"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/color-scheme-association-kinds.png" width="96" height="96"/>
 
 Here is the outline of the relevant configuration code:
 

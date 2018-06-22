@@ -2,7 +2,7 @@
 
 ### Breadcrumb bar
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/flamingo/master/www/images/thumbs/learn/breadcrumb-bar.png" width="310" height="170" border=0 align="left">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/breadcrumb-bar.png" width="310" height="170" border=0 align="left">
 
 `BreadcrumbBar` facilitates quick navigation of multi-level hierarchies, such as file systems or XML documents. This functionality is commonly found in many web sites and is the main navigation tool in the Windows Explorer application.
 
@@ -15,7 +15,7 @@ Want to learn more? Browse the following packages:
 
 ### Command buttons
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/flamingo/master/www/images/thumbs/learn/command-button.png" width="372" height="367" border=0 align="right">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/command-button.png" width="372" height="367" border=0 align="right">
 
 The `JCommandButton` and `JCommandToggleButton` provide a broad spectrum of functionality expected from modern UI button components. A short list of features available in Flamingo command buttons includes:
 
@@ -29,7 +29,7 @@ Want to learn more? Browse the [test applications](https://github.com/kirill-gro
 
 ### Command button strips and panels
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/flamingo/master/www/images/thumbs/learn/command-button-strip-panel.png" width="336" height="367" border=0 align="left">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/command-button-strip-panel.png" width="336" height="367" border=0 align="left">
 
 `JCommandButtonStrip` allows hosting a number of command buttons in a single row or column, providing continuous visuals for the buttons.
 
@@ -47,7 +47,7 @@ Want to learn more? Browse the [test applications](https://github.com/kirill-gro
 
 ### Ribbon
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/flamingo/master/www/images/thumbs/learn/ribbon.png" width="340" height="210" border=0 align="right">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/ribbon.png" width="340" height="210" border=0 align="right">
 
 `JRibbon` provides the functionality of Microsoft Office 2007 Command Bar. A short list of features includes:
 

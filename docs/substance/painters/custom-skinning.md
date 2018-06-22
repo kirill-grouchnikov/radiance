@@ -25,30 +25,30 @@ Most of the Substance UI delegates use a combination of the above APIs. And even
 
 [Decoration painters](decoration.md) are used to provide distinct painting to some containers, this setting them "apart" from the rest of the application. As the pattern name implies, this works best on specialized containers and visual areas that are situated along the window edges. Here is an example of SwingX `JXHeader` component:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/painters/jxheader.png" width="442" height="322"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/jxheader.png" width="442" height="322"/>
 
 In this scenario, the entire `JXHeader` component is marked to have decoration area type of `header`. SwingX's painter that is set on the component in its custom UI delegate calls the painting method that respects the decoration area type, resulting in consistent visual appearance across all Substance skins.
 
 Here is another example of this pattern, this time on a status bar component. Assuming that this component will be placed along the bottom side of the frame, the matching code uses the current decoration painter to provide a distinct appearance of status bar which is consistent with the title pane and menu bar:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/painters/overlay/nebulabrickwall-skeleton.png" width="534" height="384"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/overlay/nebulabrickwall-skeleton.png" width="534" height="384"/>
 
 ### Border tracing
 
 Components that require consistent painting of borders or contours can use the border painter with the matching contour. Here is an example of border tracing in the `JRibbon` component from [Flamingo](../../flamingo/flamingo.md) component library:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/painters/jribbon.png" width="600" height="210"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/jribbon.png" width="600" height="210"/>
 
 The UI delegates for the main `JRibbon` components and inner parts use the border painter extensively to create the required visuals. Note the outer contour of the ribbon that also includes the selected tab button, and the inner contours of the ribbon tasks.
 
 Here is another example of this pattern, this time on the `JCommandButton` component from Flamingo library. The custom UI delegate uses the border painter to paint the button border (a simpler contour in this case):
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/painters/jcommandbutton.png" width="600" height="210"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/jcommandbutton.png" width="600" height="210"/>
 
 ### Inner fills
 
 This pattern is used to paint the inner fill of custom components (along with the border tracing pattern to paint the component contour). This pattern uses the fill painter with the matching contour. Here is an example of the `JRibbon` component from [Flamingo](../../flamingo/flamingo.md) component library:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/substance/master/www/images/screenshots/painters/jtoggletabbutton.png" width="600" height="210"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/jtoggletabbutton.png" width="600" height="210"/>
 
 In this example, the first toggle tab button (`Page Layout`) is painted by the current fill painter, providing a consistent appearance with the rest of the application controls. Another example is the `Style 1` command button, where the button fill is painted by the current fill painter as well.
