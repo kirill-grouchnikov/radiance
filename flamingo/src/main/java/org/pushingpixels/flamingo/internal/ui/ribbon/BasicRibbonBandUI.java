@@ -37,16 +37,8 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonBandBorder;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
@@ -76,10 +68,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      */
     protected AbstractCommandButton expandButton;
 
-    protected float rolloverAmount;
-
-    protected Timeline rolloverTimeline;
-
     /**
      * Mouse listener on the associated ribbon band.
      */
@@ -89,11 +77,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      * Listens to property changes on the associated ribbon band.
      */
     protected PropertyChangeListener propertyChangeListener;
-
-    /**
-     * Action listener on the expand button.
-     */
-    protected ActionListener expandButtonActionListener;
 
     /**
      * Popup panel that shows the contents of the ribbon band when it is in a collapsed state.
@@ -150,11 +133,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
     public void installUI(JComponent c) {
         this.ribbonBand = (AbstractRibbonBand) c;
 
-        this.rolloverTimeline = new Timeline(this);
-        this.rolloverTimeline.addPropertyToInterpolate("rolloverAmount", 0.0f, 1.0f);
-        this.rolloverTimeline.addCallback(new SwingRepaintCallback(this.ribbonBand));
-        this.rolloverTimeline.setDuration(250);
-
         installDefaults();
         installComponents();
         installListeners();
@@ -182,18 +160,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      * Installs default parameters on the associated ribbon band.
      */
     protected void installDefaults() {
-        Color bg = this.ribbonBand.getBackground();
-        if (bg == null || bg instanceof UIResource) {
-            this.ribbonBand.setBackground(new ColorUIResource(
-                    SubstanceCortex.ComponentScope.getCurrentSkin(this.ribbonBand).
-                            getActiveColorScheme(SubstanceSlices.DecorationAreaType.NONE).
-                            getBackgroundFillColor()));
-        }
-
-        Border b = this.ribbonBand.getBorder();
-        if (b == null || b instanceof UIResource) {
-            this.ribbonBand.setBorder(new SubstanceRibbonBandBorder());
-        }
+        this.ribbonBand.setBackground(null);
+        this.ribbonBand.setBorder(null);
     }
 
     /**
@@ -288,10 +256,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
     protected void configureExpandButton() {
         if (this.expandButton != null) {
             this.expandButton.addActionListener(this.ribbonBand.getExpandActionListener());
-
-            this.expandButtonActionListener = (ActionEvent e) -> SwingUtilities
-                    .invokeLater(() -> trackMouseCrossing(false));
-            this.expandButton.addActionListener(this.expandButtonActionListener);
         }
     }
 
@@ -346,8 +310,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
 
     protected void unconfigureExpandButton() {
         if (this.expandButton != null) {
-            this.expandButton.removeActionListener(this.expandButtonActionListener);
-            this.expandButtonActionListener = null;
             this.expandButton.removeActionListener(this.ribbonBand.getExpandActionListener());
         }
     }
@@ -531,14 +493,12 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
     /**
      * Event listener to handle global ribbon events. Currently handles:
      * <ul>
-     * <li>Marking a ribbon band to be hovered when the mouse moves over it.</li>
      * <li>Mouse wheel events anywhere in the ribbon to rotate the selected task.</li>
      * </ul>
      */
     private static class AWTRibbonEventListener implements AWTEventListener {
         private static AWTRibbonEventListener instance;
         private int installCount = 0;
-        private AbstractRibbonBand lastHovered;
 
         public static void install() {
             if (instance == null) {
@@ -571,18 +531,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
 
         public void eventDispatched(AWTEvent event) {
             MouseEvent mouseEvent = (MouseEvent) event;
-            if (mouseEvent.getID() == MouseEvent.MOUSE_ENTERED) {
-                Object object = event.getSource();
-                if (!(object instanceof Component)) {
-                    return;
-                }
-                Component component = (Component) object;
-                AbstractRibbonBand band = (component instanceof AbstractRibbonBand)
-                        ? ((AbstractRibbonBand) component)
-                        : (AbstractRibbonBand) SwingUtilities
-                        .getAncestorOfClass(AbstractRibbonBand.class, component);
-                setHoveredBand(band);
-            }
 
             if (mouseEvent.getID() == MouseEvent.MOUSE_WHEEL) {
                 if (PopupPanelManager.defaultManager().getShownPath().size() > 0)
@@ -606,34 +554,16 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 }
             }
         }
-
-        private void setHoveredBand(AbstractRibbonBand band) {
-            if (lastHovered == band) {
-                return; // nothing to do as we are already over
-            }
-            if (lastHovered != null) {
-                // RibbonBandUI ui = lastHovered.getUI();
-                lastHovered.getUI().trackMouseCrossing(false);
-            }
-            lastHovered = band;
-            if (band != null) {
-                band.getUI().trackMouseCrossing(true);
-            }
-        }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void paint(Graphics g, JComponent c) {
         Graphics2D graphics = (Graphics2D) g.create();
 
         Insets ins = ribbonBand.getInsets();
 
-        this.paintBandBackground(graphics, new Rectangle(0, 0, c.getWidth(), c.getHeight()));
+        this.paintBandTrailingSeparator(graphics,
+                new Rectangle(0, 0, c.getWidth(), c.getHeight()));
 
         if (!(ribbonBand.getCurrentResizePolicy() instanceof IconRibbonBandResizePolicy)) {
             String title = ribbonBand.getTitle();
@@ -641,8 +571,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
 
             int bandTitleTopY = c.getHeight() - titleHeight;
 
-            this.paintBandTitleBackground(graphics,
-                    new Rectangle(0, bandTitleTopY, c.getWidth(), titleHeight), title);
             boolean ltr = ribbonBand.getComponentOrientation().isLeftToRight();
             int titleWidth = c.getWidth() - 2 * ins.left - 2 * ins.right;
             int titleX = 2 * ins.left;
@@ -672,31 +600,12 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
     protected abstract void paintBandTitle(Graphics g, Rectangle titleRectangle, String title);
 
     /**
-     * Paints band title pane.
-     *
-     * @param g              Graphics context.
-     * @param titleRectangle Rectangle for the title pane.
-     * @param title          Title string.
-     */
-    protected abstract void paintBandTitleBackground(Graphics g, Rectangle titleRectangle, String title);
-
-    /**
      * Paints band background.
      *
      * @param graphics Graphics context.
      * @param toFill   Rectangle for the background.
      */
-    protected abstract void paintBandBackground(Graphics graphics, Rectangle toFill);
-
-    @Override
-    public float getRolloverAmount() {
-        return this.rolloverAmount;
-    }
-
-    // This is needed for running the rollover animation tracked by rolloverTimeline.
-    public void setRolloverAmount(float rolloverAmount) {
-        this.rolloverAmount = rolloverAmount;
-    }
+    protected abstract void paintBandTrailingSeparator(Graphics graphics, Rectangle toFill);
 
     @Override
     public int getPreferredCollapsedWidth() {
@@ -704,15 +613,5 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         Dimension collapsedPreferredSize = this.collapsedButton.getPreferredSize();
         return Math.min((int) (collapsedPreferredSize.height * 1.25),
                 collapsedPreferredSize.width + 2);
-    }
-
-    @Override
-    public void trackMouseCrossing(boolean isMouseIn) {
-        if (isMouseIn) {
-            this.rolloverTimeline.play();
-        } else {
-            this.rolloverTimeline.playReverse();
-        }
-        this.ribbonBand.repaint();
     }
 }

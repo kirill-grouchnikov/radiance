@@ -27,22 +27,27 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.demo.trident;
+package org.pushingpixels.demo.kontos;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
+class HelloWorld {
+    private var value = 0.0f
+        set(value) {
+            println(field.toString() + " -> " + value)
+            field = value
+        }
 
-public class SimpleProp {
-    public void setValue(float value) {
-        System.out.println("Cool " + value);
-    }
+    fun main(args: Array<String>) {
+        timeline {
+            mainObject = HelloWorld()
+            property(mainObject::value) {
+                from = 0.0f
+                to = 1.0f
+            }
+        }.play()
 
-    public static void main(String[] args) throws Exception {
-        SimpleProp prop = new SimpleProp();
-        PropertyDescriptor desc = new PropertyDescriptor("value", prop.getClass(), null,
-                "setValue");
-        Method writer = desc.getWriteMethod();
-        writer.invoke(prop, new Float(2.0));
-        System.out.println(Float.class.isAssignableFrom(float.class));
+        try {
+            Thread.sleep(3000)
+        } catch (exc: Exception) {
+        }
     }
 }

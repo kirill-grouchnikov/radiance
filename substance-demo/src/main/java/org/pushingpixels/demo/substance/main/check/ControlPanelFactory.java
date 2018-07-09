@@ -106,6 +106,7 @@ import org.pushingpixels.trident.Timeline.RepeatBehavior;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 /**
  * Factory for creating the global control panels (for global settings and testing the dialogs).
@@ -700,7 +701,7 @@ public class ControlPanelFactory {
 
                     // create a looping animation to change the label foreground
                     // from black to blue and back to draw some attention.
-                    Timeline instructionalTimeline = new Timeline(instructional);
+                    Timeline instructionalTimeline = new SwingComponentTimeline(instructional);
                     instructionalTimeline.addPropertyToInterpolate("foreground", Color.black, Color.blue);
                     instructionalTimeline.setDuration(1000);
                     instructionalTimeline.playLoop(RepeatBehavior.REVERSE);
@@ -740,7 +741,7 @@ public class ControlPanelFactory {
 
                     // create a looping animation to change the label foreground
                     // from black to blue and back to draw some attention.
-                    Timeline instructionalTimeline = new Timeline(instructional);
+                    Timeline instructionalTimeline = new SwingComponentTimeline(instructional);
                     instructionalTimeline.addPropertyToInterpolate("foreground", Color.black, Color.blue);
                     instructionalTimeline.setDuration(1000);
                     instructionalTimeline.playLoop(RepeatBehavior.REVERSE);

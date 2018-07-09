@@ -41,16 +41,16 @@ class KRibbonComponent {
     private lateinit var ribbonComponent: JRibbonComponent
     private var hasBeenConverted: Boolean = false
 
-    var caption: String? by NullableDelegate2({ hasBeenConverted })
-    var icon: ResizableIcon? by NullableDelegate2({ hasBeenConverted })
-    var component: JComponent? by NullableDelegate2({ hasBeenConverted })
-    var commandButton: KCommandButton? by NullableDelegate2({ hasBeenConverted })
-    var keyTip: String? by NullableDelegate2({ hasBeenConverted })
-    private var richTooltip: KRichTooltip? by NullableDelegate2({ hasBeenConverted })
-    var horizontalAlignment: HorizontalAlignment? by NullableDelegate2({ hasBeenConverted })
-    var displayPriority: RibbonElementPriority? by NullableDelegate2({ hasBeenConverted })
-    var isResizingAware: Boolean? by NullableDelegate2({ hasBeenConverted })
-    var isEnabled: Boolean by NonNullDelegate2({ hasBeenConverted })
+    var caption: String? by NullableDelegate({ hasBeenConverted })
+    var icon: ResizableIcon? by NullableDelegate({ hasBeenConverted })
+    var component: JComponent? by NullableDelegate({ hasBeenConverted })
+    var commandButton: KCommandButton? by NullableDelegate({ hasBeenConverted })
+    var keyTip: String? by NullableDelegate({ hasBeenConverted })
+    private var richTooltip: KRichTooltip? by NullableDelegate({ hasBeenConverted })
+    var horizontalAlignment: HorizontalAlignment? by NullableDelegate({ hasBeenConverted })
+    var displayPriority: RibbonElementPriority? by NullableDelegate({ hasBeenConverted })
+    var isResizingAware: Boolean? by NullableDelegate({ hasBeenConverted })
+    var isEnabled: Boolean by NonNullDelegate({ hasBeenConverted })
 
     init {
         isEnabled = true

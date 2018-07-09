@@ -40,12 +40,8 @@ import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.fill.MatteFillPainter;
-import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.substance.internal.utils.*;
@@ -57,8 +53,6 @@ import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.geom.Arc2D;
-import java.awt.geom.GeneralPath;
 
 /**
  * UI for ribbon bands in <b>Substance</b> look and feel.
@@ -89,6 +83,9 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
                     .getBackgroundFillColor();
             this.ribbonBand.setBackground(new ColorUIResource(toSet));
         }
+
+        this.ribbonBand.setBorder(new EmptyBorder(SubstanceSizeUtils
+                .getDefaultBorderInsets(SubstanceSizeUtils.getComponentFontSize(this.ribbonBand))));
     }
 
     @Override
@@ -107,6 +104,18 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         if (this.expandButton != null) {
             this.expandButton.setFocusable(false);
         }
+    }
+
+    @Override
+    protected void paintBandTrailingSeparator(Graphics graphics, Rectangle toFill) {
+        Graphics2D g2d = (Graphics2D) graphics.create();
+        if (this.ribbonBand.getComponentOrientation() == ComponentOrientation.LEFT_TO_RIGHT) {
+            g2d.translate(toFill.width - 2, 0);
+        }
+        SeparatorPainterUtils.paintSeparator(this.ribbonBand, g2d, 0, toFill.height,
+                JSeparator.VERTICAL, true, 5);
+        g2d.dispose();
+
     }
 
     @Override
@@ -154,99 +163,6 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         SubstanceTextUtilities.paintText(g2d, this.ribbonBand, smallTitleRectangle, titleToPaint,
                 -1, g2d.getFont(), g2d.getColor(), g2d.getClipBounds());
 
-        g2d.dispose();
-    }
-
-    @Override
-    protected void paintBandTitleBackground(Graphics g, Rectangle titleRectangle, String title) {
-        SubstanceFillPainter gradientPainter = new MatteFillPainter();
-
-        Graphics2D g2d = (Graphics2D) g.create();
-
-        SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.ribbonBand);
-        SubstanceColorScheme colorScheme = skin.getBackgroundColorScheme(DecorationAreaType.HEADER);
-
-        boolean isDark = colorScheme.isDark();
-        float alpha = 0.85f - (isDark ? 0.15f : 0.35f) * this.rolloverAmount;
-        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.ribbonBand, alpha, g));
-
-        SubstanceRibbonBandBorder border = (SubstanceRibbonBandBorder) this.ribbonBand.getBorder();
-        float cornerRadius = border.getCornerRadius(this.ribbonBand);
-
-        GeneralPath outline = new GeneralPath();
-
-        float outlineDelta = SubstanceSizeUtils.getBorderStrokeWidth();
-        // top left
-        outline.moveTo(0, 0);
-        // top right
-        outline.lineTo(titleRectangle.width - outlineDelta, 0);
-        // bottom right
-        outline.lineTo(titleRectangle.width - outlineDelta,
-                titleRectangle.height - cornerRadius - outlineDelta);
-        outline.append(new Arc2D.Double(titleRectangle.width - 2 * cornerRadius - outlineDelta,
-                titleRectangle.height - outlineDelta - 2 * cornerRadius, 2 * cornerRadius,
-                2 * cornerRadius, 0, -90, Arc2D.OPEN), true);
-        // bottom left
-        outline.lineTo(cornerRadius, titleRectangle.height - outlineDelta);
-        outline.append(new Arc2D.Double(0, titleRectangle.height - 2 * cornerRadius - outlineDelta,
-                2 * cornerRadius, 2 * cornerRadius, 270, -90, Arc2D.OPEN), true);
-        // top left
-        outline.lineTo(0, 0);
-
-        g2d.translate(titleRectangle.x, titleRectangle.y);
-
-        gradientPainter.paintContourBackground(g2d, this.ribbonBand, titleRectangle.width,
-                titleRectangle.height, outline, false, colorScheme, false);
-
-        // outline
-        g2d.setColor(colorScheme.getMidColor());
-        g2d.setStroke(new BasicStroke(outlineDelta));
-        g2d.draw(outline);
-
-        // top line
-        SubstanceColorScheme separatorScheme = SubstanceCortex.ComponentScope
-                .getCurrentSkin(this.ribbonBand).getColorScheme(DecorationAreaType.HEADER,
-                        ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.ribbonBand, alpha * 0.7f, g));
-        SeparatorPainterUtils.paintSeparator(this.ribbonBand, g2d, separatorScheme,
-                titleRectangle.width, 1, SwingConstants.HORIZONTAL, false, 0, 0, true);
-        g2d.dispose();
-    }
-
-    @Override
-    protected void paintBandBackground(Graphics graphics, Rectangle toFill) {
-        paintRibbonBandBackground(graphics, this.ribbonBand, this.rolloverAmount, 0);
-    }
-
-    public static void paintRibbonBandBackground(Graphics graphics, Component comp,
-            float rolloverAmount, int dy) {
-
-        SubstanceSkin skin = SubstanceCoreUtilities.getSkin(comp);
-        SubstanceColorScheme bgScheme = skin
-                .getBackgroundColorScheme(ComponentOrParentChainScope.getDecorationType(comp));
-
-        int offset = 20 - dy;
-        float bp = (float) offset / (float) comp.getHeight();
-
-        Color c1 = bgScheme.getUltraLightColor();
-        Color c2 = SubstanceColorUtilities.getInterpolatedColor(bgScheme.getUltraLightColor(),
-                bgScheme.getExtraLightColor(), rolloverAmount);
-        Color c3 = SubstanceColorUtilities.getInterpolatedColor(bgScheme.getExtraLightColor(),
-                bgScheme.getLightColor(), rolloverAmount);
-        Color c4 = SubstanceColorUtilities.getInterpolatedColor(bgScheme.getUltraLightColor(),
-                bgScheme.getExtraLightColor(), rolloverAmount);
-
-        LinearGradientPaint fillPaint = new LinearGradientPaint(0, 0, 0, comp.getHeight(),
-                new float[] { 0.0f, bp - 0.00001f, bp, 1.0f }, new Color[] { c1, c2, c3, c4 });
-
-        Graphics2D g2d = (Graphics2D) graphics.create();
-        g2d.setPaint(fillPaint);
-        g2d.fillRect(0, 0, comp.getWidth(), comp.getHeight());
-
-        // stamp watermark
-        SubstanceWatermark watermark = skin.getWatermark();
-        if ((watermark != null) && SubstanceCoreUtilities.toDrawWatermark(comp))
-            watermark.drawWatermarkImage(g2d, comp, 0, 0, comp.getWidth(), comp.getHeight());
         g2d.dispose();
     }
 

@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.flamingo.internal.substance.ribbon.gallery.oob;
+package org.pushingpixels.demo.flamingo.ribbon;
 
 import org.pushingpixels.flamingo.api.common.icon.LayeredIcon;
 import org.pushingpixels.substance.api.SubstanceSkin;

@@ -36,7 +36,7 @@ import org.pushingpixels.kormorant.*
 
 @FlamingoElementMarker
 class KRibbonApplicationMenuCommandContainer {
-    var title: String? by NullableDelegate2({ false })
+    var title: String? by NullableDelegate({ false })
     internal val commands = arrayListOf<KCommand>()
 
     operator fun KCommand.unaryPlus() {
@@ -55,7 +55,7 @@ class KRibbonApplicationMenuCommandContainer {
 class KRibbonApplicationMenuPrimaryCommand : KCommand() {
     private val builder = RibbonApplicationMenuPrimaryCommand.RibbonApplicationMenuPrimaryCommandBuilder()
 
-    var rolloverCallback: RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback? by NullableDelegate2({ false })
+    var rolloverCallback: RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback? by NullableDelegate({ false })
     private var secondaryCommands = arrayListOf<KRibbonApplicationMenuCommandContainer>()
 
     fun secondaryGroup(init: KRibbonApplicationMenuCommandContainer.() -> Unit) {
@@ -81,11 +81,11 @@ class KRibbonApplicationMenu {
     private lateinit var ribbonApplicationMenu: RibbonApplicationMenu
     private var hasBeenConverted: Boolean = false
 
-    private var richTooltip: KRichTooltip? by NullableDelegate2({ hasBeenConverted })
-    var keyTip: String? by NullableDelegate2({ hasBeenConverted })
+    private var richTooltip: KRichTooltip? by NullableDelegate({ hasBeenConverted })
+    var keyTip: String? by NullableDelegate({ hasBeenConverted })
     private val footerCommands = KRibbonApplicationMenuCommandContainer()
     var defaultCallback: RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback?
-            by NullableDelegate2({ hasBeenConverted })
+            by NullableDelegate({ hasBeenConverted })
     private var primaryContent = arrayListOf<Any>()
 
     fun richTooltip(init: KRichTooltip.() -> Unit) {

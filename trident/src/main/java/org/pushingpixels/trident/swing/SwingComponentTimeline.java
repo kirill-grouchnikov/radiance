@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2018 Trident Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation 
  *    and/or other materials provided with the distribution. 
  *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
+ *  o Neither the name of Trident Kirill Grouchnikov nor the names of 
  *    its contributors may be used to endorse or promote products derived 
  *    from this software without specific prior written permission. 
  *     
@@ -27,43 +27,17 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.demo.substance.main.check;
+package org.pushingpixels.trident.swing;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
+import org.pushingpixels.trident.Timeline;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
+import java.awt.*;
 
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-
-public class AnimateProgressBar extends JFrame {
-    public AnimateProgressBar() {
-        this.setLayout(new BorderLayout());
-        final JProgressBar jpb = new JProgressBar(0, 15);
-        this.add(jpb, BorderLayout.CENTER);
-
-        JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton forw = new JButton("Increment");
-        forw.addActionListener((ActionEvent e) -> jpb.setValue(jpb.getValue() + 1));
-        controls.add(forw);
-        this.add(controls, BorderLayout.SOUTH);
-
-        this.setSize(300, 100);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+public class SwingComponentTimeline extends Timeline {
+    public SwingComponentTimeline(Component mainTimelineComp) {
+        super(mainTimelineComp);
+        if (mainTimelineComp == null) {
+            throw new IllegalArgumentException("Must have non-null component");
+        }
     }
-
-    public static void main(String[] args) throws Exception {
-        SwingUtilities.invokeLater(() -> {
-            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new AnimateProgressBar().setVisible(true);
-        });
-    }
-
 }

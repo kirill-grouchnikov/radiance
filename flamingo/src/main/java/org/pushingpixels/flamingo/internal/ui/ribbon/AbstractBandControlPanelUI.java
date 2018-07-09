@@ -127,13 +127,7 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
      * band.
      */
     protected void installDefaults() {
-        Color bg = this.controlPanel.getBackground();
-        if (bg == null || bg instanceof UIResource) {
-            this.controlPanel.setBackground(new ColorUIResource(
-                    SubstanceCortex.ComponentScope.getCurrentSkin(this.controlPanel).
-                            getActiveColorScheme(SubstanceSlices.DecorationAreaType.NONE).
-                            getBackgroundFillColor()));
-        }
+        this.controlPanel.setBackground(null);
 
         Border b = this.controlPanel.getBorder();
         if (b == null || b instanceof UIResource) {
@@ -142,7 +136,8 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
 
         Font font = this.controlPanel.getFont();
         if (font == null || font instanceof UIResource) {
-            Font toSet = UIManager.getFont("Panel.font");
+            Font toSet = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
+                    getControlFont();
             this.controlPanel.setFont(toSet);
         }
     }
@@ -161,26 +156,6 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
      * @return a layout manager object
      */
     protected abstract LayoutManager createLayoutManager();
-
-    @Override
-    public void paint(Graphics g, JComponent c) {
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_OFF);
-
-        this.paintBandBackground(graphics, new Rectangle(0, 0, c.getWidth(), c
-                .getHeight()));
-
-        graphics.dispose();
-    }
-
-    /**
-     * Paints band background.
-     *
-     * @param graphics Graphics context.
-     * @param toFill   Rectangle for the background.
-     */
-    protected abstract void paintBandBackground(Graphics graphics, Rectangle toFill);
 
     @Override
     public int getLayoutGap() {

@@ -45,6 +45,7 @@ import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.TimelinePropertyBuilder.PropertySetter;
 import org.pushingpixels.trident.callback.TimelineCallback;
 import org.pushingpixels.trident.ease.Spline;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -61,19 +62,19 @@ import java.util.Set;
 
 /**
  * UI for progress bars in <b>Substance</b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceProgressBarUI extends BasicProgressBarUI {
     private static final ComponentState DETERMINATE_SELECTED = new ComponentState(
             "determinate enabled", new ComponentStateFacet[] { ComponentStateFacet.ENABLE,
-                            ComponentStateFacet.DETERMINATE, ComponentStateFacet.SELECTION },
+            ComponentStateFacet.DETERMINATE, ComponentStateFacet.SELECTION },
             null);
 
     private static final ComponentState DETERMINATE_SELECTED_DISABLED = new ComponentState(
             "determinate disabled",
             new ComponentStateFacet[] { ComponentStateFacet.DETERMINATE,
-                            ComponentStateFacet.SELECTION },
+                    ComponentStateFacet.SELECTION },
             new ComponentStateFacet[] { ComponentStateFacet.ENABLE });
 
     private static final ComponentState INDETERMINATE_SELECTED = new ComponentState(
@@ -84,12 +85,12 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     private static final ComponentState INDETERMINATE_SELECTED_DISABLED = new ComponentState(
             "indeterminate disabled", null,
             new ComponentStateFacet[] { ComponentStateFacet.DETERMINATE, ComponentStateFacet.ENABLE,
-                            ComponentStateFacet.SELECTION });
+                    ComponentStateFacet.SELECTION });
 
     private static final SubstanceFillPainter progressFillPainter = new FractionBasedFillPainter(
             "Progress fill (internal)", new float[] { 0.0f, 0.5f, 1.0f },
             new ColorSchemeSingleColorQuery[] { ColorSchemeSingleColorQuery.EXTRALIGHT,
-                            ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.MID });
+                    ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.MID });
 
     private final class SubstanceChangeListener implements ChangeListener {
         public void stateChanged(ChangeEvent e) {
@@ -101,8 +102,8 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             int barRectWidth = progressBar.getWidth() - 2 * margin;
             int barRectHeight = progressBar.getHeight() - 2 * margin;
             int totalPixels = (progressBar.getOrientation() == JProgressBar.HORIZONTAL)
-                    ? barRectWidth
-                    : barRectHeight;
+                              ? barRectWidth
+                              : barRectHeight;
             // fix for defect 223 (min and max on the model are the
             // same).
             int pixelDelta = (span <= 0) ? 0 : (currValue - displayedValue) * totalPixels / span;
@@ -110,7 +111,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             if (displayTimeline != null) {
                 displayTimeline.abort();
             }
-            displayTimeline = new Timeline(progressBar);
+            displayTimeline = new SwingComponentTimeline(progressBar);
             displayTimeline.addPropertyToInterpolate(Timeline.<Integer>property("displayedValue")
                     .from(displayedValue).to(currValue).setWith(new PropertySetter<Integer>() {
                         @Override
@@ -144,19 +145,22 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     /**
      * Hash for computed stripe images.
      */
-    private static LazyResettableHashMap<BufferedImage> stripeMap = new LazyResettableHashMap<BufferedImage>(
+    private static LazyResettableHashMap<BufferedImage> stripeMap = new
+            LazyResettableHashMap<BufferedImage>(
             "SubstanceProgressBarUI.stripeMap");
 
     /**
      * Hash for computed background images.
      */
-    private static LazyResettableHashMap<BufferedImage> backgroundMap = new LazyResettableHashMap<BufferedImage>(
+    private static LazyResettableHashMap<BufferedImage> backgroundMap = new
+            LazyResettableHashMap<BufferedImage>(
             "SubstanceProgressBarUI.backgroundMap");
 
     /**
      * Hash for computed progress images.
      */
-    private static LazyResettableHashMap<BufferedImage> progressMap = new LazyResettableHashMap<BufferedImage>(
+    private static LazyResettableHashMap<BufferedImage> progressMap = new
+            LazyResettableHashMap<BufferedImage>(
             "SubstanceProgressBarUI.progressMap");
 
     /**
@@ -194,7 +198,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
      */
     public static ComponentUI createUI(JComponent comp) {
@@ -235,7 +239,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.basic.BasicProgressBarUI#uninstallListeners()
      */
     @Override
@@ -251,13 +255,10 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /**
      * Retrieves stripe image.
-     * 
-     * @param baseSize
-     *            Stripe base in pixels.
-     * @param isRotated
-     *            if <code>true</code>, the resulting stripe image will be rotated.
-     * @param colorScheme
-     *            Color scheme to paint the stripe image.
+     *
+     * @param baseSize    Stripe base in pixels.
+     * @param isRotated   if <code>true</code>, the resulting stripe image will be rotated.
+     * @param colorScheme Color scheme to paint the stripe image.
      * @return Stripe image.
      */
     private static BufferedImage getStripe(int baseSize, boolean isRotated,
@@ -277,21 +278,14 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /**
      * Returns the background of a determinate progress bar.
-     * 
-     * @param bar
-     *            Progress bar.
-     * @param width
-     *            Progress bar width.
-     * @param height
-     *            Progress bar height.
-     * @param scheme
-     *            Color scheme for the background.
-     * @param fillPainter
-     *            Fill painter.
-     * @param orientation
-     *            Progress bar orientation (vertical / horizontal).
-     * @param componentOrientation
-     *            Progress bar LTR / RTL orientation.
+     *
+     * @param bar                  Progress bar.
+     * @param width                Progress bar width.
+     * @param height               Progress bar height.
+     * @param scheme               Color scheme for the background.
+     * @param fillPainter          Fill painter.
+     * @param orientation          Progress bar orientation (vertical / horizontal).
+     * @param componentOrientation Progress bar LTR / RTL orientation.
      * @return Background image.
      */
     private static BufferedImage getDeterminateBackground(JProgressBar bar, int width, int height,
@@ -320,21 +314,14 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /**
      * Returns the background of a determinate progress bar.
-     * 
-     * @param bar
-     *            Progress bar.
-     * @param width
-     *            Progress bar width.
-     * @param height
-     *            Progress bar height.
-     * @param scheme
-     *            Color scheme for the background.
-     * @param fillPainter
-     *            Fill painter.
-     * @param orientation
-     *            Progress bar orientation (vertical / horizontal).
-     * @param componentOrientation
-     *            Progress bar LTR / RTL orientation.
+     *
+     * @param bar                  Progress bar.
+     * @param width                Progress bar width.
+     * @param height               Progress bar height.
+     * @param scheme               Color scheme for the background.
+     * @param fillPainter          Fill painter.
+     * @param orientation          Progress bar orientation (vertical / horizontal).
+     * @param componentOrientation Progress bar LTR / RTL orientation.
      * @return Background image.
      */
     private static BufferedImage getDeterminateProgress(JProgressBar bar, int width, int height,
@@ -349,7 +336,8 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             float radius = 0.5f * SubstanceSizeUtils
                     .getClassicButtonCornerRadius(SubstanceSizeUtils.getComponentFontSize(bar));
             Side straightSide = (orientation == SwingConstants.VERTICAL) ? Side.RIGHT
-                    : (componentOrientation.isLeftToRight() ? Side.RIGHT : Side.LEFT);
+                                                                         :
+                                (componentOrientation.isLeftToRight() ? Side.RIGHT : Side.LEFT);
             Set<Side> straightSides = isFull ? null : EnumSet.of(straightSide);
             Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height, radius,
                     straightSides);
@@ -367,7 +355,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.basic.BasicProgressBarUI#paintDeterminate(java.awt.Graphics ,
      * javax.swing.JComponent)
      */
@@ -441,7 +429,8 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
                             progressWidth, isFull, progressColorScheme, progressFillPainter,
                             progressBar.getOrientation(),
                             this.progressBar.getComponentOrientation());
-                    NeonCortex.drawImage(g2d, progress, margin, margin + barRectHeight - progressHeight);
+                    NeonCortex.drawImage(g2d, progress, margin,
+                            margin + barRectHeight - progressHeight);
                 }
             }
         }
@@ -457,7 +446,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.basic.BasicProgressBarUI#getSelectionBackground()
      */
     @Override
@@ -471,7 +460,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.basic.BasicProgressBarUI#getSelectionForeground()
      */
     @Override
@@ -485,7 +474,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.basic.BasicProgressBarUI#paintIndeterminate(java.awt .Graphics,
      * javax.swing.JComponent)
      */
@@ -544,13 +533,13 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     private ComponentState getFillState() {
         return progressBar.isEnabled() ? ComponentState.ENABLED
-                : ComponentState.DISABLED_UNSELECTED;
+                                       : ComponentState.DISABLED_UNSELECTED;
     }
 
     private ComponentState getProgressState() {
         if (progressBar.isIndeterminate()) {
             return progressBar.isEnabled() ? INDETERMINATE_SELECTED
-                    : INDETERMINATE_SELECTED_DISABLED;
+                                           : INDETERMINATE_SELECTED_DISABLED;
         } else {
             return progressBar.isEnabled() ? DETERMINATE_SELECTED : DETERMINATE_SELECTED_DISABLED;
         }
@@ -558,7 +547,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.basic.BasicProgressBarUI#getBox(java.awt.Rectangle)
      */
     @Override
@@ -571,7 +560,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     @Override
     protected void startAnimationTimer() {
-        this.indeterminateLoopTimeline = new Timeline(this);
+        this.indeterminateLoopTimeline = new SwingComponentTimeline(this.progressBar);
         int cycleDuration = UIManager.getInt("ProgressBar.cycleTime");
         if (cycleDuration == 0)
             cycleDuration = 1000;
@@ -592,12 +581,10 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         });
         this.indeterminateLoopTimeline
                 .addPropertyToInterpolate(Timeline.<Float>property("animationPosition").from(0.0f)
-                        .to(1.0f).setWith(new PropertySetter<Float>() {
-                            @Override
-                            public void set(Object obj, String fieldName, Float value) {
-                                animationPosition = value;
-                            }
-                        }));
+                        .to(1.0f).setWith(
+                                (Object obj, String fieldName, Float value) -> {
+                                    animationPosition = value;
+                                }));
         this.indeterminateLoopTimeline.playLoop(RepeatBehavior.LOOP);
     }
 
@@ -608,7 +595,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /**
      * Returns the memory usage string.
-     * 
+     *
      * @return The memory usage string.
      */
     public static String getMemoryUsage() {
@@ -639,7 +626,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.basic.BasicProgressBarUI#getPreferredInnerHorizontal()
      */
     @Override
@@ -651,7 +638,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.basic.BasicProgressBarUI#getPreferredInnerVertical()
      */
     @Override
@@ -687,24 +674,17 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /**
      * Paints the progress string.
-     * 
-     * @param g
-     *            Graphics used for drawing.
-     * @param x
-     *            x location of bounding box
-     * @param y
-     *            y location of bounding box
-     * @param width
-     *            width of bounding box
-     * @param height
-     *            height of bounding box
-     * @param fillStart
-     *            start location, in x or y depending on orientation, of the filled portion of the
-     *            progress bar.
-     * @param amountFull
-     *            size of the fill region, either width or height depending upon orientation.
-     * @param b
-     *            Insets of the progress bar.
+     *
+     * @param g          Graphics used for drawing.
+     * @param x          x location of bounding box
+     * @param y          y location of bounding box
+     * @param width      width of bounding box
+     * @param height     height of bounding box
+     * @param fillStart  start location, in x or y depending on orientation, of the filled
+     *                   portion of the
+     *                   progress bar.
+     * @param amountFull size of the fill region, either width or height depending upon orientation.
+     * @param b          Insets of the progress bar.
      */
     private void paintString(Graphics g, int x, int y, int width, int height, int fillStart,
             int amountFull, Insets b) {
@@ -732,17 +712,12 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     /**
      * Returns the rectangle for the progress bar string.
-     * 
-     * @param progressString
-     *            Progress bar string.
-     * @param x
-     *            x location of bounding box
-     * @param y
-     *            y location of bounding box
-     * @param width
-     *            width of bounding box
-     * @param height
-     *            height of bounding box
+     *
+     * @param progressString Progress bar string.
+     * @param x              x location of bounding box
+     * @param y              y location of bounding box
+     * @param width          width of bounding box
+     * @param height         height of bounding box
      * @return The rectangle for the progress bar string.
      */
     protected Rectangle getStringRectangle(String progressString, int x, int y, int width,

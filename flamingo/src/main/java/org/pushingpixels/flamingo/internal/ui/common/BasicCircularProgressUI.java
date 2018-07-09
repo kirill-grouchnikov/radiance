@@ -34,6 +34,7 @@ import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
 import org.pushingpixels.trident.ease.Spline;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
@@ -103,7 +104,7 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
         // degrees. The constant pace of advancing one of the ends creates a continuous
         // motion around the circle. The expanding / shrinking arc span creates the second
         // dimension of the overall indeterminate progress.
-        this.arcTimeline = new Timeline(this.circularProgress);
+        this.arcTimeline = new SwingComponentTimeline(this.circularProgress);
         this.arcTimeline.addPropertyToInterpolate(Timeline.<Double>property("arcSpan")
                 .getWith((Object obj, String fieldName) -> arcSpan)
                 .setWith((Object obj, String fieldName, Double value) -> arcSpan = value).from(30.0)
@@ -154,7 +155,7 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
                     }
                     
                     // The fade-in timeline
-                    alphaTimeline = new Timeline(this.circularProgress);
+                    alphaTimeline = new SwingComponentTimeline(this.circularProgress);
                     alphaTimeline.addPropertyToInterpolate(Timeline.<Float>property("alpha")
                             .getWith((Object obj, String fieldName) -> alpha)
                             .setWith((Object obj, String fieldName, Float value) -> alpha = value)

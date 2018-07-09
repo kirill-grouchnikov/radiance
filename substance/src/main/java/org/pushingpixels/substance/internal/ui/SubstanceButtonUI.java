@@ -48,6 +48,7 @@ import org.pushingpixels.substance.internal.widget.animation.effects.GhostPainti
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostingListener;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
@@ -560,7 +561,7 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     }
 
     private void trackModificationFlag() {
-        this.modifiedTimeline = new Timeline(this.button);
+        this.modifiedTimeline = new SwingComponentTimeline(this.button);
         AnimationConfigurationManager.getInstance().configureModifiedTimeline(
                 modifiedTimeline);
         this.modifiedTimeline

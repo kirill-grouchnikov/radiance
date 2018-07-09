@@ -125,11 +125,11 @@ public class NeonCortex {
      * @return Scaled platform-specific font policy.
      */
     public static FontPolicy getScaledFontPolicy(final float scaleFactor) {
-        final FontSet substanceCoreFontSet = getDefaultFontPolicy()
+        final FontSet defaultFontSet = getDefaultFontPolicy()
                 .getFontSet(null);
         // Create the scaled font set
         FontPolicy newFontPolicy = (UIDefaults table) ->
-                new ScaledFontSet(substanceCoreFontSet, scaleFactor);
+                new ScaledFontSet(defaultFontSet, scaleFactor);
         return newFontPolicy;
     }
 

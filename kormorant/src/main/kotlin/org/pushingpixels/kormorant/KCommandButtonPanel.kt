@@ -40,13 +40,13 @@ class KCommandButtonPanelDisplay {
     var state: CommandButtonDisplayState? = null
     var dimension: Int = -1
     var layoutKind: JCommandButtonPanel.LayoutKind = JCommandButtonPanel.LayoutKind.ROW_FILL
-    var buttonHorizontalAlignment: Int? by NullableDelegate2({ false })
+    var buttonHorizontalAlignment: Int? by NullableDelegate({ false })
 }
 
 @FlamingoElementMarker
 class KCommandButtonPanel {
     class KCommandButtonPanelGroup {
-        var title: String by NonNullDelegate2({ false })
+        var title: String by NonNullDelegate({ false })
         internal val commands = arrayListOf<KCommand>()
 
         fun command(init: KCommand.() -> Unit): KCommand {
@@ -62,7 +62,7 @@ class KCommandButtonPanel {
 
     private val commandGroups = arrayListOf<KCommandButtonPanelGroup>()
     internal val display: KCommandButtonPanelDisplay = KCommandButtonPanelDisplay()
-    var isSingleSelectionMode: Boolean by NonNullDelegate2({ hasBeenConverted })
+    var isSingleSelectionMode: Boolean by NonNullDelegate({ hasBeenConverted })
 
     init {
         isSingleSelectionMode = false

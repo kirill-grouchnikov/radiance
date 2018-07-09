@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonUI;
@@ -41,12 +40,10 @@ import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainSco
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
@@ -129,26 +126,6 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
         }
     }
 
-    /**
-     * Panel for hosting ribbon bands.
-     * 
-     * @author Kirill Grouchnikov
-     */
-    protected class SubstanceBandHostPanel extends BandHostPanel {
-        @Override
-        protected void paintComponent(Graphics g) {
-            int dy = 0;
-            for (int i = 0; i < getComponentCount(); i++) {
-                Component child = getComponent(i);
-                if (child instanceof AbstractRibbonBand) {
-                    dy = child.getBounds().y;
-                    break;
-                }
-            }
-            SubstanceRibbonBandUI.paintRibbonBandBackground(g, this, 0.0f, dy);
-        }
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -191,103 +168,8 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
     }
 
     @Override
-    protected BandHostPanel createBandHostPanel() {
-        return new SubstanceBandHostPanel();
-    }
-
-    @Override
     protected void paintBackground(Graphics g) {
         BackgroundPaintingUtils.update(g, this.ribbon, false);
-    }
-
-    @Override
-    protected void paintTaskArea(Graphics g, int x, int y, int width, int height) {
-        if (this.ribbon.getTaskCount() == 0)
-            return;
-
-        Graphics2D g2d = (Graphics2D) g.create();
-
-        RibbonTask selectedTask = this.ribbon.getSelectedTask();
-        JRibbonTaskToggleButton selectedTaskButton = this.taskToggleButtons.get(selectedTask);
-        Rectangle selectedTaskButtonBounds = selectedTaskButton.getBounds();
-        Point converted = SwingUtilities.convertPoint(selectedTaskButton.getParent(),
-                selectedTaskButtonBounds.getLocation(), this.ribbon);
-        float radius = SubstanceSizeUtils
-                .getClassicButtonCornerRadius(SubstanceSizeUtils.getComponentFontSize(this.ribbon));
-
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
-
-        SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(this.ribbon);
-        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
-
-        AbstractRibbonBand band = (selectedTask.getBandCount() == 0) ? null
-                : selectedTask.getBand(0);
-        SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities.getColorScheme(band,
-                ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
-
-        Rectangle taskToggleButtonsViewportBounds = taskToggleButtonsScrollablePanel.getView()
-                .getParent().getBounds();
-        taskToggleButtonsViewportBounds
-                .setLocation(SwingUtilities.convertPoint(taskToggleButtonsScrollablePanel,
-                        taskToggleButtonsViewportBounds.getLocation(), this.ribbon));
-        int startSelectedX = Math.max(converted.x + 1,
-                (int) taskToggleButtonsViewportBounds.getMinX());
-        startSelectedX = Math.min(startSelectedX, (int) taskToggleButtonsViewportBounds.getMaxX());
-        int endSelectedX = Math.min(converted.x + selectedTaskButtonBounds.width - 1,
-                (int) taskToggleButtonsViewportBounds.getMaxX());
-        endSelectedX = Math.max(endSelectedX, (int) taskToggleButtonsViewportBounds.getMinX());
-
-        Shape outerContour = RibbonBorderShaper.getRibbonBorderOutline(this.ribbon, x + borderDelta,
-                x + width - borderDelta, startSelectedX - borderThickness,
-                endSelectedX + borderThickness, converted.y + borderDelta, y + borderDelta,
-                y + height - borderDelta, radius);
-
-        Shape innerContour = RibbonBorderShaper.getRibbonBorderOutline(this.ribbon,
-                x + borderDelta + borderThickness, x + width - borderThickness - borderDelta,
-                startSelectedX - borderThickness, endSelectedX + borderThickness,
-                converted.y + borderDelta + borderThickness, y + borderDelta + borderThickness,
-                y + height - borderThickness - borderDelta, radius);
-
-        g2d.setColor(SubstanceColorSchemeUtilities.getColorScheme(band, ComponentState.ENABLED)
-                .getBackgroundFillColor());
-        g2d.clipRect(x, y, width, height + 2);
-        g2d.fill(outerContour);
-
-        // g2d.setColor(Color.red);
-        // g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-        // RenderingHints.VALUE_ANTIALIAS_ON);
-        // g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-        // RenderingHints.VALUE_STROKE_PURE);
-        // g2d.setStroke(new BasicStroke(0.5f));
-        // g2d.draw(outerContour);
-        // g2d.setColor(Color.blue);
-        // g2d.draw(innerContour);
-        borderPainter.paintBorder(g2d, this.ribbon, width,
-                height + selectedTaskButtonBounds.height + 1, outerContour, innerContour,
-                borderScheme);
-
-        // check whether the currently selected task is a contextual task
-        RibbonTask selected = selectedTask;
-        RibbonContextualTaskGroup contextualGroup = selected.getContextualGroup();
-        if (contextualGroup != null) {
-            // paint a small gradient directly below the task area
-            Insets ins = this.ribbon.getInsets();
-            int topY = ins.top + getTaskbarHeight();
-            int bottomY = topY + 5;
-            Color hueColor = contextualGroup.getHueColor();
-            Paint paint = new GradientPaint(0, topY,
-                    SubstanceColorUtilities.getAlphaColor(hueColor,
-                            (int) (255 * RibbonContextualTaskGroup.HUE_ALPHA)),
-                    0, bottomY, SubstanceColorUtilities.getAlphaColor(hueColor, 0));
-            g2d.setPaint(paint);
-            g2d.clip(outerContour);
-            g2d.fillRect(0, topY, width, bottomY - topY + 1);
-        }
-
-        // paint outlines of the contextual task groups
-        // paintContextualTaskGroupsOutlines(g);
-
-        g2d.dispose();
     }
 
     @Override

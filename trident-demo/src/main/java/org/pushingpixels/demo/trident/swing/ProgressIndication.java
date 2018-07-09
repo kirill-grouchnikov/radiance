@@ -52,6 +52,7 @@ import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.interpolator.KeyFrames;
 import org.pushingpixels.trident.interpolator.KeyTimes;
 import org.pushingpixels.trident.interpolator.KeyValues;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.swing.SwingRepaintTimeline;
 
 public class ProgressIndication extends JFrame {
@@ -101,7 +102,7 @@ public class ProgressIndication extends JFrame {
         }
 
         public void start() {
-            progressTimeline = new Timeline(this);
+            progressTimeline = new SwingComponentTimeline(this);
 
             int startX = (getWidth() - INNER_WIDTH) / 2 + 18 + HIGHLIGHTER_WIDTH / 2;
             int endX = (getWidth() + INNER_WIDTH) / 2 - 18 - HIGHLIGHTER_WIDTH / 2;

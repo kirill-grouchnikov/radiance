@@ -37,6 +37,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 import org.pushingpixels.trident.Timeline;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 public class ButtonFg extends JFrame {
     private ButtonFg() {
@@ -46,7 +47,7 @@ public class ButtonFg extends JFrame {
         this.setLayout(new FlowLayout());
         this.add(button);
 
-        final Timeline rolloverTimeline = new Timeline(button);
+        final Timeline rolloverTimeline = new SwingComponentTimeline(button);
         rolloverTimeline.addPropertyToInterpolate("foreground", Color.blue, Color.red);
         rolloverTimeline.setDuration(2500);
         button.addMouseListener(new MouseAdapter() {

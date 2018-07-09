@@ -35,6 +35,11 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.icon.SubstanceIconPack;
 
+/**
+ * Custom Substance icon pack based on Tango icons (license in check/icons/TangoIcons.license).
+ * Original SVG content from https://commons.wikimedia.org/wiki/Tango_icons transcoded offline
+ * into Java2D Neon icons with Ibis.
+ */
 public class TangoIconPack implements SubstanceIconPack {
 
     @Override

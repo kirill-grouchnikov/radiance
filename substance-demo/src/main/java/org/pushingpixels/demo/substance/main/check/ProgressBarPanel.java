@@ -50,6 +50,7 @@ import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 /**
  * Test application panel for testing {@link JProgressBar} component.
@@ -164,7 +165,7 @@ public class ProgressBarPanel extends JPanel {
         JPanel buttons = new JPanel();
         buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        final Timeline progressTimeline = new Timeline(this);
+        final Timeline progressTimeline = new SwingComponentTimeline(this);
         @RunOnUIThread
         class ProgressCallback extends TimelineCallbackAdapter {
             @Override

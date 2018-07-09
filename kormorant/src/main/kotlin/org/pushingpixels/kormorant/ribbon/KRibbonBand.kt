@@ -46,9 +46,9 @@ import javax.swing.JComponent
 
 @FlamingoElementMarker
 class KRibbonBandExpandCommand {
-    var action: ActionListener? by NullableDelegate2({ false })
-    internal var richTooltip: KRichTooltip? by NullableDelegate(null)
-    var keyTip: String? by NullableDelegate(null)
+    var action: ActionListener? by NullableDelegate({ false })
+    internal var richTooltip: KRichTooltip? by NullableDelegate({ false })
+    var keyTip: String? by NullableDelegate({ false })
 
     fun richTooltip(init: KRichTooltip.() -> Unit) {
         if (richTooltip == null) {
@@ -70,8 +70,8 @@ class GalleryCommandVisibilityContainer {
 @FlamingoElementMarker
 class KRibbonGalleryDisplay {
     var state: CommandButtonDisplayState = CommandButtonDisplayState.FIT_TO_ICON
-    var preferredPopupMaxCommandColumns: Int? by NullableDelegate2({ false })
-    var preferredPopupMaxVisibleCommandRows: Int? by NullableDelegate2({ false })
+    var preferredPopupMaxCommandColumns: Int? by NullableDelegate({ false })
+    var preferredPopupMaxVisibleCommandRows: Int? by NullableDelegate({ false })
     internal val commandVisibilityContainer = GalleryCommandVisibilityContainer()
 
     fun commandVisibilities(init: GalleryCommandVisibilityContainer.() -> Unit) {
@@ -98,7 +98,7 @@ class KRibbonGalleryExtraPopupContent {
 @FlamingoElementMarker
 class KRibbonGallery {
     class KRibbonGalleryCommandGroup {
-        var title: String by NonNullDelegate2({ false })
+        var title: String by NonNullDelegate({ false })
         internal val commands = arrayListOf<KCommand>()
 
         fun command(init: KCommand.() -> Unit): KCommand {
@@ -109,9 +109,9 @@ class KRibbonGallery {
         }
     }
 
-    var title: String by NonNullDelegate2({ false })
+    var title: String by NonNullDelegate({ false })
     internal val display: KRibbonGalleryDisplay = KRibbonGalleryDisplay()
-    var expandKeyTip: String? by NullableDelegate2({ false })
+    var expandKeyTip: String? by NullableDelegate({ false })
     internal val commandGroups = arrayListOf<KRibbonGalleryCommandGroup>()
     internal val extraPopupContent: KRibbonGalleryExtraPopupContent = KRibbonGalleryExtraPopupContent()
 
@@ -135,13 +135,13 @@ sealed class KBaseRibbonBand<V : AbstractBandControlPanel, T : AbstractRibbonBan
     protected lateinit var ribbonBand: T
     protected var hasBeenConverted: Boolean = false
 
-    var title: String? by NullableDelegate2({ hasBeenConverted })
-    var icon: ResizableIcon? by NullableDelegate2({ hasBeenConverted })
-    protected var expandCommand: KRibbonBandExpandCommand? by NullableDelegate2({ hasBeenConverted })
-    var collapsedStateKeyTip: String? by NullableDelegate2({ hasBeenConverted })
+    var title: String? by NullableDelegate({ hasBeenConverted })
+    var icon: ResizableIcon? by NullableDelegate({ hasBeenConverted })
+    protected var expandCommand: KRibbonBandExpandCommand? by NullableDelegate({ hasBeenConverted })
+    var collapsedStateKeyTip: String? by NullableDelegate({ hasBeenConverted })
 
     var resizePolicies: ((ribbonBand: JRibbonBand) -> List<RibbonBandResizePolicy>)?
-            by NullableDelegate2({ hasBeenConverted })
+            by NullableDelegate({ hasBeenConverted })
 
     fun expandCommand(init: KRibbonBandExpandCommand.() -> Unit) {
         if (expandCommand == null) {
@@ -155,7 +155,7 @@ sealed class KBaseRibbonBand<V : AbstractBandControlPanel, T : AbstractRibbonBan
 
 @FlamingoElementMarker
 class KRibbonBandGroup {
-    var title: String? by NullableDelegate2({ false })
+    var title: String? by NullableDelegate({ false })
 
     internal val content = arrayListOf<Pair<RibbonElementPriority?, Any>>()
     internal val spans = hashMapOf<KRibbonComponent, Int>()

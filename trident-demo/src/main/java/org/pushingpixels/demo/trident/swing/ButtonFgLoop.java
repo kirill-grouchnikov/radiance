@@ -38,6 +38,7 @@ import javax.swing.*;
 
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 public class ButtonFgLoop extends JFrame {
     private ButtonFgLoop() {
@@ -85,7 +86,7 @@ public class ButtonFgLoop extends JFrame {
     }
 
     private Timeline createTimeline(JButton button) {
-        Timeline timeline = new Timeline(button);
+        Timeline timeline = new SwingComponentTimeline(button);
         timeline.setDuration(1500);
         timeline.addPropertyToInterpolate("foreground", button.getForeground(), Color.red);
         return timeline;

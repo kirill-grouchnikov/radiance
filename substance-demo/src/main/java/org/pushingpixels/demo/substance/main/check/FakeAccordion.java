@@ -32,7 +32,6 @@ package org.pushingpixels.demo.substance.main.check;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -47,13 +46,10 @@ public class FakeAccordion extends JPanel {
 
             JButton titleLabel = new JButton(title);
             titleLabel.setIcon(icon);
-            titleLabel.setBorder(new EmptyBorder(4, 4, 4, 4));
             titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().
                     getFontSet(null).getControlFont().deriveFont(Font.BOLD));
-            //SubstanceCortex.ComponentOrParentScope.setFlatBackground(titleLabel, true);
-            titleLabel.addActionListener((ActionEvent ae) ->
-                    setCollapsed(this.content.isVisible())
-            );
+            titleLabel.addActionListener(
+                    (ActionEvent ae) -> setCollapsed(this.content.isVisible()));
 
             this.content = content;
             this.add(titleLabel, BorderLayout.NORTH);
@@ -87,16 +83,18 @@ public class FakeAccordion extends JPanel {
             for (FakeAccordionPanel panel : panels) {
                 combinedHeight += panel.getPreferredSize().height;
             }
+            combinedHeight += (panels.size() + 1) * 4;
             return new Dimension(parent.getWidth(), combinedHeight);
         }
 
         @Override
         public void layoutContainer(Container parent) {
-            int y = 0;
+            int y = 4;
             for (FakeAccordionPanel panel : panels) {
                 int prefPanelHeight = panel.getPreferredSize().height;
-                panel.setBounds(0, y, parent.getWidth(), prefPanelHeight);
+                panel.setBounds(4, y, parent.getWidth() - 8, prefPanelHeight);
                 y += prefPanelHeight;
+                y += 4;
             }
         }
     }

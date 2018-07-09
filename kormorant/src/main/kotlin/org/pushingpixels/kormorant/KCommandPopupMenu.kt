@@ -37,11 +37,11 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu
 
 @FlamingoElementMarker
 class KCommandPopupMenuButtonPanelDisplay {
-    var maxButtonColumns: Int by NonNullDelegate2({ false })
-    var maxVisibleButtonRows: Int by NonNullDelegate2({ false })
-    var isShowingGroupTitles: Boolean by NonNullDelegate2({ false })
-    var state: CommandButtonDisplayState? by NullableDelegate2({ false })
-    var dimension: Int by NonNullDelegate2({ false })
+    var maxButtonColumns: Int by NonNullDelegate({ false })
+    var maxVisibleButtonRows: Int by NonNullDelegate({ false })
+    var isShowingGroupTitles: Boolean by NonNullDelegate({ false })
+    var state: CommandButtonDisplayState? by NullableDelegate({ false })
+    var dimension: Int by NonNullDelegate({ false })
 
     init {
         isShowingGroupTitles = true
@@ -53,7 +53,7 @@ class KCommandPopupMenuButtonPanelDisplay {
 class KCommandPopupMenuButtonPanel {
     private val commandGroups = arrayListOf<KCommandButtonPanel.KCommandButtonPanelGroup>()
     internal val display: KCommandPopupMenuButtonPanelDisplay = KCommandPopupMenuButtonPanelDisplay()
-    var isSingleSelectionMode: Boolean by NonNullDelegate2({ false })
+    var isSingleSelectionMode: Boolean by NonNullDelegate({ false })
 
     init {
         isSingleSelectionMode = false
@@ -107,8 +107,8 @@ class KCommandPopupMenu {
     private var hasBeenConverted: Boolean = false
 
     private val components = arrayListOf<Any>()
-    var maxVisibleMenuButtons: Int by NonNullDelegate2({ hasBeenConverted })
-    var toDismissOnChildClick: Boolean by NonNullDelegate2({ hasBeenConverted })
+    var maxVisibleMenuButtons: Int by NonNullDelegate({ hasBeenConverted })
+    var toDismissOnChildClick: Boolean by NonNullDelegate({ hasBeenConverted })
 
     private var commandPanel: KCommandPopupMenuButtonPanel? = null
 

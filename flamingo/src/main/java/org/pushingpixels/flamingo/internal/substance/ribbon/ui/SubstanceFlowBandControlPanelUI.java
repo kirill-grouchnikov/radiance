@@ -29,15 +29,12 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicFlowBandControlPanelUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JFlowBandControlPanel;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
-import java.awt.*;
 
 /**
  * UI for {@link JFlowBandControlPanel} components in <b>Substance</b> look and
@@ -45,8 +42,7 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
-public class SubstanceFlowBandControlPanelUI extends
-		BasicFlowBandControlPanelUI {
+public class SubstanceFlowBandControlPanelUI extends BasicFlowBandControlPanelUI {
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -55,22 +51,5 @@ public class SubstanceFlowBandControlPanelUI extends
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceFlowBandControlPanelUI();
-	}
-
-	@Override
-	protected void paintBandBackground(Graphics graphics, Rectangle toFill) {
-		float rolloverAmount = 0.0f;
-		Component parent = this.controlPanel.getParent();
-		if (parent instanceof AbstractRibbonBand) {
-			// not in popup
-			AbstractRibbonBand band = (AbstractRibbonBand) this.controlPanel
-					.getParent();
-			BasicRibbonBandUI ui = (BasicRibbonBandUI) band.getUI();
-			rolloverAmount = ui.getRolloverAmount();
-		}
-
-		SubstanceRibbonBandUI.paintRibbonBandBackground(graphics,
-				this.controlPanel, rolloverAmount, this.controlPanel
-						.getBounds().y);
 	}
 }

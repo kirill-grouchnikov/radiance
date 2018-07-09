@@ -41,6 +41,7 @@ import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
@@ -351,7 +352,7 @@ public class ScrollPaneSelector extends JComponent {
 
         // Animate scrolling
         if (toAnimate) {
-            Timeline scrollTimeline = new Timeline(theComponent);
+            Timeline scrollTimeline = new SwingComponentTimeline(theComponent);
             AnimationConfigurationManager.getInstance().configureTimeline(scrollTimeline);
             scrollTimeline.addCallback(new UIThreadTimelineCallbackAdapter() {
                 @Override

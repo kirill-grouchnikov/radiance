@@ -56,6 +56,7 @@ import org.pushingpixels.trident.ease.Linear;
 import org.pushingpixels.trident.ease.Sine;
 import org.pushingpixels.trident.ease.Spline;
 import org.pushingpixels.trident.ease.TimelineEase;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.swing.SwingRepaintTimeline;
 
 public class BallTracker extends JFrame {
@@ -122,7 +123,7 @@ public class BallTracker extends JFrame {
         runTimeline.addActionListener((ActionEvent e) -> {
             if (timelineBallFalling != null)
                 timelineBallFalling.cancel();
-            timelineBallFalling = new Timeline(ballPanel);
+            timelineBallFalling = new SwingComponentTimeline(ballPanel);
             timelineBallFalling.addPropertyToInterpolate("ballY", BallPanel.RADIUS,
                     ballPanel.getHeight() - BallPanel.RADIUS);
             timelineBallFalling.setDuration(2000);

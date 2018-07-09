@@ -30,14 +30,16 @@
 package org.pushingpixels.substance.extras.api.painterpack.noise;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.filter.NeonAbstractFilter;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.PerlinNoiseGenerator;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 import java.awt.*;
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ConvolveOp;
+import java.awt.image.DataBufferInt;
+import java.awt.image.Kernel;
 
 /**
  * Factory for creating noise images. This class is part of officially supported
@@ -105,8 +107,10 @@ public class NoiseFactory {
         }
         // System.out.println((dstBuffer[0] >>> 24) & 0xFF);
         if (toBlur) {
+            float edgeBlur = 0.08f / (float) NeonCortex.getScaleFactor();
             ConvolveOp convolve = new ConvolveOp(new Kernel(3, 3, new float[] {
-                    .08f, .08f, .08f, .08f, .38f, .08f, .08f, .08f, .08f }),
+                    edgeBlur, edgeBlur, edgeBlur, edgeBlur, 1.06f - 8 * edgeBlur, edgeBlur,
+                    edgeBlur, edgeBlur, edgeBlur }),
                     ConvolveOp.EDGE_NO_OP, null);
             dst = convolve.filter(dst, NeonCortex.getBlankImage(width, height));
         }

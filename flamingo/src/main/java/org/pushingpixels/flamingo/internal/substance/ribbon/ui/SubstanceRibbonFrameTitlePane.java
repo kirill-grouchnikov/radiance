@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2018 Flamingo / Substance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
@@ -34,7 +34,6 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -42,9 +41,6 @@ import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainSco
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
-import org.pushingpixels.substance.api.painter.fill.MatteFillPainter;
-import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI;
 import org.pushingpixels.substance.internal.utils.*;
@@ -54,21 +50,19 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.geom.Arc2D;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Custom title pane for {@link JRibbonFrame} running under Substance look-and-feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
     /**
      * Custom component to paint the header of a single contextual task group.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class SubstanceContextualGroupComponent extends JComponent {
@@ -79,20 +73,14 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
         /**
          * Creates the new task group header component.
-         * 
-         * @param taskGroup
-         *            The associated contextual task group.
+         *
+         * @param taskGroup The associated contextual task group.
          */
         public SubstanceContextualGroupComponent(RibbonContextualTaskGroup taskGroup) {
             this.taskGroup = taskGroup;
             this.setOpaque(false);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-         */
         @Override
         protected void paintComponent(Graphics g) {
             int width = this.getWidth();
@@ -104,7 +92,6 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                     SubstanceColorUtilities.getAlphaColor(hueColor, 0), 0, height,
                     SubstanceColorUtilities.getAlphaColor(hueColor,
                             (int) (255 * RibbonContextualTaskGroup.HUE_ALPHA)));
-            g2d = (Graphics2D) g.create();
             // translucent gradient paint
             g2d.setPaint(paint);
             g2d.fillRect(0, 0, width, height);
@@ -134,7 +121,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                         new Rectangle(
                                 width - offset
                                         - g2d.getFontMetrics()
-                                                .stringWidth(this.taskGroup.getTitle()),
+                                        .stringWidth(this.taskGroup.getTitle()),
                                 yOffset, width, height - yOffset),
                         this.taskGroup.getTitle(), -1, ribbon.getFont(),
                         SubstanceColorUtilities.getForegroundColor(scheme), null);
@@ -155,7 +142,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
     /**
      * The taskbar panel that holds the {@link JRibbon#getTaskbarComponents()}.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class TaskbarPanel extends JPanel {
@@ -170,111 +157,10 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             this.setBorder(new EmptyBorder(2, insets, 2, insets));
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-         */
         @Override
         protected void paintComponent(Graphics g) {
         }
 
-        /**
-         * Returns the outline of this taskbar panel.
-         * 
-         * @param insets
-         *            Insets.
-         * @return The outline of this taskbar panel.
-         */
-        private Shape getOutline(boolean isOuter) {
-            if (getComponentCount() == 0) {
-                return null;
-            }
-
-            float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
-            float insets = isOuter ? borderThickness / 2.0f : 1.5f * borderThickness;
-
-            // float outlineDelta = UIUtil.isRetina() ? 0.5f : 1.0f;
-            float width = this.getWidth() - 2 * insets - borderThickness;
-            float height = this.getHeight() - 2 * insets - borderThickness;
-            // float radius = height;
-
-            float radiusBigOuter = getHeight() - 1.5f * borderThickness;
-            float radiusBigInner = radiusBigOuter + borderThickness;
-            float arcStartDeltaBigInner = (float) Math
-                    .toDegrees(Math.atan(1.5 * borderThickness / radiusBigInner));
-            float arcEndDeltaBigInner = (float) Math
-                    .toDegrees(Math.acos((getHeight() - 2.5 * borderThickness) / radiusBigInner));
-
-            GeneralPath outline = new GeneralPath();
-            JRibbonApplicationMenuButton menuButton = FlamingoUtilities
-                    .getApplicationMenuButton(SwingUtilities.getWindowAncestor(this));
-
-            boolean ltr = getComponentOrientation().isLeftToRight();
-
-            if (ltr) {
-                // top right
-                outline.moveTo(insets + width - height / 2, insets);
-
-                // right arc
-                outline.append(new Arc2D.Double(insets + width - height, insets, height, height, 90,
-                        -180, Arc2D.OPEN), true);
-                // bottom left
-                outline.lineTo(insets, insets + height);
-                if (menuButton != null) {
-                    float arcStartBigOuter = 0;
-                    float arcSpanBigOuter = 90;
-                    float arcStartBigInner = arcStartDeltaBigInner;
-                    float arcSpanBigInner = 90 - arcStartDeltaBigInner - arcEndDeltaBigInner;
-
-                    float radius = isOuter ? radiusBigOuter : radiusBigInner;
-                    float arcStart = isOuter ? arcStartBigOuter : arcStartBigInner;
-                    float arcSpan = isOuter ? arcSpanBigOuter : arcSpanBigInner;
-                    float centerX = -getHeight();
-                    float centerY = getHeight() - borderThickness;
-                    float startX = centerX - radius;
-                    float startY = centerY - radius;
-                    outline.append(new Arc2D.Float(startX, startY, 2 * radius, 2 * radius, arcStart,
-                            arcSpan, Arc2D.OPEN), true);
-                } else {
-                    outline.lineTo(insets, insets);
-                }
-            } else {
-                // top left corner
-                outline.moveTo(insets + height / 2, insets);
-                // left arc
-                outline.append(
-                        new Arc2D.Double(insets, insets, height, height, 90, 180, Arc2D.OPEN),
-                        true);
-                // bottom right corner
-                outline.lineTo(width - borderThickness, insets + height);
-                if (menuButton != null) {
-                    float arcStartBigOuter = 180;
-                    float arcSpanBigOuter = -90;
-                    float arcStartBigInner = 180 - arcStartDeltaBigInner;
-                    float arcSpanBigInner = -90 + arcStartDeltaBigInner + arcEndDeltaBigInner;
-
-                    float radius = isOuter ? radiusBigOuter : radiusBigInner;
-                    float arcStart = isOuter ? arcStartBigOuter : arcStartBigInner;
-                    float arcSpan = isOuter ? arcSpanBigOuter : arcSpanBigInner;
-                    float startX = width - borderThickness;
-                    float startY = getHeight() - borderThickness - radius;
-                    outline.append(new Arc2D.Float(startX, startY, 2 * radius, 2 * radius, arcStart,
-                            arcSpan, Arc2D.OPEN), true);
-                } else {
-                    outline.lineTo(width - borderThickness, insets);
-                }
-            }
-            outline.closePath();
-
-            return outline;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.JComponent#getPreferredSize()
-         */
         @Override
         public Dimension getPreferredSize() {
             Dimension result = super.getPreferredSize();
@@ -300,11 +186,9 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
     /**
      * Creates a new title pane for {@link JRibbonFrame}.
-     * 
-     * @param root
-     *            Root pane.
-     * @param ui
-     *            UI delegate.
+     *
+     * @param root Root pane.
+     * @param ui   UI delegate.
      */
     public SubstanceRibbonFrameTitlePane(JRootPane root, SubstanceRootPaneUI ui) {
         super(root, ui);
@@ -312,8 +196,8 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         this.taskbarPanel = new TaskbarPanel();
         SubstanceTitlePaneUtilities.markTitlePaneExtraComponent(this.taskbarPanel,
                 SubstanceTitlePaneUtilities.ExtraComponentKind.LEADING);
-        // Mark this with HEADER decoration area type even though it is in the primary title pane.
-        // Otherwise the background fill on the popup menu doesn't look good.
+        // Mark the taskbar panel with HEADER decoration area type even though it is in the
+        // primary title pane. Otherwise the background fill on the popup menu doesn't look good.
         ComponentOrParentChainScope.setDecorationType(this.taskbarPanel,
                 DecorationAreaType.HEADER);
         this.add(this.taskbarPanel);
@@ -365,7 +249,8 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             RibbonContextualTaskGroup group = ribbon.getContextualTaskGroup(i);
             if (!ribbon.isVisible(group))
                 continue;
-            SubstanceContextualGroupComponent taskGroupComponent = new SubstanceContextualGroupComponent(
+            SubstanceContextualGroupComponent taskGroupComponent = new
+                    SubstanceContextualGroupComponent(
                     group);
             taskGroupComponent
                     .applyComponentOrientation(this.getRibbon().getComponentOrientation());
@@ -384,7 +269,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
     /**
      * Custom layout manager for the title panes of {@link JRibbonFrame} under decorated mode.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     protected class RibbonFrameTitlePaneLayout extends TitlePaneLayout {
@@ -398,7 +283,8 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
             if (ltr) {
                 // headers of contextual task groups
-                for (Map.Entry<RibbonContextualTaskGroup, SubstanceContextualGroupComponent> entry : taskComponentMap
+                for (Map.Entry<RibbonContextualTaskGroup, SubstanceContextualGroupComponent>
+                        entry : taskComponentMap
                         .entrySet()) {
                     Rectangle taskGroupBounds = ribbonUI
                             .getContextualTaskGroupBounds(entry.getKey());
@@ -411,9 +297,11 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                         if (!child.isVisible())
                             continue;
                         if (child instanceof JComponent) {
-                            SubstanceTitlePaneUtilities.ExtraComponentKind kind = (SubstanceTitlePaneUtilities.ExtraComponentKind) ((JComponent) child)
-                                    .getClientProperty(
-                                            SubstanceTitlePaneUtilities.EXTRA_COMPONENT_KIND);
+                            SubstanceTitlePaneUtilities.ExtraComponentKind kind =
+                                    (SubstanceTitlePaneUtilities.ExtraComponentKind) (
+                                            (JComponent) child).getClientProperty(
+                                                    SubstanceTitlePaneUtilities
+                                                            .EXTRA_COMPONENT_KIND);
                             if (kind == SubstanceTitlePaneUtilities.ExtraComponentKind.LEADING)
                                 continue;
                             if (child instanceof SubstanceContextualGroupComponent)
@@ -474,8 +362,8 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                 }
             } else {
                 // headers of contextual task groups
-                for (Map.Entry<RibbonContextualTaskGroup, SubstanceContextualGroupComponent> entry : taskComponentMap
-                        .entrySet()) {
+                for (Map.Entry<RibbonContextualTaskGroup, SubstanceContextualGroupComponent>
+                        entry : taskComponentMap.entrySet()) {
                     Rectangle taskGroupBounds = ribbonUI
                             .getContextualTaskGroupBounds(entry.getKey());
                     // make sure that the header bounds do not overlap with the
@@ -487,8 +375,9 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                         if (!child.isVisible())
                             continue;
                         if (child instanceof JComponent) {
-                            SubstanceTitlePaneUtilities.ExtraComponentKind kind = (SubstanceTitlePaneUtilities.ExtraComponentKind) ((JComponent) child)
-                                    .getClientProperty(
+                            SubstanceTitlePaneUtilities.ExtraComponentKind kind =
+                                    (SubstanceTitlePaneUtilities.ExtraComponentKind) (
+                                            (JComponent) child).getClientProperty(
                                             SubstanceTitlePaneUtilities.EXTRA_COMPONENT_KIND);
                             if (kind == SubstanceTitlePaneUtilities.ExtraComponentKind.LEADING)
                                 continue;
@@ -556,7 +445,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
     /**
      * Layout for the task bar.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class TaskbarLayout implements LayoutManager {
@@ -606,7 +495,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
     /**
      * Retrieves the {@link JRibbon} component of the associated {@link JRibbonFrame}.
-     * 
+     *
      * @return {@link JRibbon} component of the associated {@link JRibbonFrame}.
      */
     private JRibbon getRibbon() {
@@ -617,9 +506,8 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
     /**
      * Returns the layout gap of the taskbar panel.
-     * 
-     * @param c
-     *            Container.
+     *
+     * @param c Container.
      * @return Layout gap of the taskbar panel.
      */
     private int getTaskBarLayoutGap(Container c) {
@@ -632,22 +520,14 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g.create();
-        if (taskbarPanel.getWidth() != 0) {
-            g2d.translate(taskbarPanel.getX(), taskbarPanel.getY());
-            // paint the outline of the taskbar panel to complete
-            // the correct appearance in the area behind the application
-            // menu button
-            paintTaskBarPanelOutline(g2d, this.taskbarPanel);
-            g2d.translate(-taskbarPanel.getX(), -taskbarPanel.getY());
-        }
 
         if (SubstanceCortex.ComponentScope.getCurrentSkin(this)
                 .getOverlayPainters(DecorationAreaType.PRIMARY_TITLE_PANE).isEmpty()) {
             SubstanceColorScheme compScheme = SubstanceColorSchemeUtilities.getColorScheme(this,
                     ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
             Color sepColor = compScheme.isDark()
-                    ? SeparatorPainterUtils.getSeparatorShadowColor(compScheme)
-                    : SeparatorPainterUtils.getSeparatorDarkColor(compScheme);
+                             ? SeparatorPainterUtils.getSeparatorShadowColor(compScheme)
+                             : SeparatorPainterUtils.getSeparatorDarkColor(compScheme);
             g2d.setColor(sepColor);
             float separatorThickness = SubstanceSizeUtils.getBorderStrokeWidth();
             float separatorY = getHeight() - separatorThickness;
@@ -655,54 +535,6 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                     BasicStroke.JOIN_ROUND));
             g2d.draw(new Line2D.Double(0, separatorY, getWidth(), separatorY));
         }
-        g2d.dispose();
-    }
-
-    /**
-     * Paints the outline of the taskbar panel.
-     * 
-     * @param g
-     *            Graphics context.
-     * @param taskbarPanel
-     *            Taskbar panel.
-     */
-    private void paintTaskBarPanelOutline(Graphics g, TaskbarPanel taskbarPanel) {
-        Shape contour = taskbarPanel.getOutline(true);
-        Shape contourInner = taskbarPanel.getOutline(false);
-
-        SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities
-                .getColorScheme(taskbarPanel, ComponentState.ENABLED);
-        SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities.getColorScheme(
-                taskbarPanel, ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
-        SubstanceBorderPainter borderPainter = SubstanceCoreUtilities
-                .getBorderPainter(taskbarPanel);
-
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setComposite(AlphaComposite.SrcOver.derive(0.6f));
-        if (contour != null) {
-            Shape clip = g2d.getClip();
-            g2d.clip(contour);
-            DecorationPainterUtils.paintDecorationBackground(g2d, taskbarPanel, true);
-            g2d.setComposite(WidgetUtilities.getAlphaComposite(taskbarPanel, 0.3f, g));
-            MatteFillPainter.INSTANCE.paintContourBackground(g2d, taskbarPanel,
-                    taskbarPanel.getWidth(), taskbarPanel.getHeight(), contour.getBounds(), false,
-                    colorScheme, false);
-            g2d.setComposite(WidgetUtilities.getAlphaComposite(taskbarPanel, 1.0f, g));
-            g2d.setClip(clip);
-
-        }
-        borderPainter.paintBorder(g2d, taskbarPanel, taskbarPanel.getWidth(),
-                taskbarPanel.getHeight(), contour, contourInner, borderScheme);
-        // g2d.setColor(Color.red);
-        // g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-        // RenderingHints.VALUE_ANTIALIAS_ON);
-        // g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-        // RenderingHints.VALUE_STROKE_PURE);
-        // g2d.setStroke(new BasicStroke(0.5f));
-        // g2d.draw(contour);
-        // g2d.setColor(Color.green);
-        // g2d.draw(contourInner);
-
         g2d.dispose();
     }
 }

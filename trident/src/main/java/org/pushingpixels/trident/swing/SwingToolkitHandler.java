@@ -48,9 +48,10 @@ public class SwingToolkitHandler implements UIToolkitHandler {
 
     @Override
     public void runOnUIThread(Object mainTimelineObject, Runnable runnable) {
-        if (SwingUtilities.isEventDispatchThread())
+        if (SwingUtilities.isEventDispatchThread()) {
             runnable.run();
-        else
+        } else {
             SwingUtilities.invokeLater(runnable);
+        }
     }
 }

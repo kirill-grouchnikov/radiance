@@ -128,8 +128,7 @@ public class SubstanceRibbonApplicationMenuButtonUI extends BasicRibbonApplicati
      * Tracks possible usage of glowing icon.
      */
     protected void trackGlowingIcon() {
-        ResizableIcon
-                currIcon = this.commandButton.getIcon();
+        ResizableIcon currIcon = this.commandButton.getIcon();
         if (currIcon instanceof GlowingResizableIcon)
             return;
         if (currIcon == null)

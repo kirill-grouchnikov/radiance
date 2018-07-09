@@ -68,7 +68,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
      */
     protected JRibbon ribbon;
 
-    protected JScrollablePanel<BandHostPanel> bandScrollablePanel;
+    protected JScrollablePanel<JPanel> bandScrollablePanel;
 
     protected JScrollablePanel<TaskToggleButtonsHostPanel> taskToggleButtonsScrollablePanel;
 
@@ -252,9 +252,9 @@ public abstract class BasicRibbonUI extends RibbonUI {
      */
     protected void installComponents() {
         // band scrollable panel
-        BandHostPanel bandHostPanel = createBandHostPanel();
+        JPanel bandHostPanel = new JPanel();
         bandHostPanel.setLayout(createBandHostPanelLayoutManager());
-        this.bandScrollablePanel = new JScrollablePanel<BandHostPanel>(bandHostPanel,
+        this.bandScrollablePanel = new JScrollablePanel<>(bandHostPanel,
                 JScrollablePanel.ScrollType.HORIZONTALLY);
         this.bandScrollablePanel.setScrollOnRollover(false);
         this.ribbon.add(this.bandScrollablePanel);
@@ -291,8 +291,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     protected abstract TaskToggleButtonsHostPanel createTaskToggleButtonsHostPanel();
 
-    protected abstract BandHostPanel createBandHostPanel();
-
     protected LayoutManager createBandHostPanelLayoutManager() {
         return new BandHostPanelLayout();
     }
@@ -301,7 +299,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
      * Uninstalls subcomponents from the associated ribbon.
      */
     protected void uninstallComponents() {
-        BandHostPanel bandHostPanel = this.bandScrollablePanel.getView();
+        JPanel bandHostPanel = this.bandScrollablePanel.getView();
         bandHostPanel.removeAll();
         bandHostPanel.setLayout(null);
         this.ribbon.remove(this.bandScrollablePanel);
@@ -342,12 +340,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
     public void paint(Graphics g, JComponent c) {
         this.paintBackground(g);
 
-        if (!ribbon.isMinimized()) {
-            Insets ins = c.getInsets();
-            int extraHeight = getTaskToggleButtonHeight();
-            this.paintTaskArea(g, 0, ins.top + extraHeight, c.getWidth(),
-                    c.getHeight() - extraHeight - ins.top - ins.bottom);
-        } else {
+        if (ribbon.isMinimized()) {
             this.paintMinimizedRibbonSeparator(g);
         }
     }
@@ -361,22 +354,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
      *            Graphics context.
      */
     protected abstract void paintBackground(Graphics g);
-
-    /**
-     * Paints the task border.
-     * 
-     * @param g
-     *            Graphics context.
-     * @param x
-     *            Left X of the tasks band bounds.
-     * @param y
-     *            Top Y of the tasks band bounds.
-     * @param width
-     *            Width of the tasks band bounds.
-     * @param height
-     *            Height of the tasks band bounds.
-     */
-    protected abstract void paintTaskArea(Graphics g, int x, int y, int width, int height);
 
     @Override
     public Rectangle getContextualTaskGroupBounds(RibbonContextualTaskGroup group) {
@@ -671,7 +648,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                                     - bandInsets.bottom);
                     // System.out.println("Scrollable : "
                     // + bandScrollablePanel.getBounds());
-                    BandHostPanel bandHostPanel = bandScrollablePanel.getView();
+                    JPanel bandHostPanel = bandScrollablePanel.getView();
                     int bandHostPanelMinWidth = bandHostPanel.getMinimumSize().width;
                     bandHostPanel.setPreferredSize(new Dimension(bandHostPanelMinWidth,
                             bandScrollablePanel.getBounds().height));
@@ -682,9 +659,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 }
             }
         }
-    }
-
-    protected abstract static class BandHostPanel extends JPanel {
     }
 
     /**
@@ -1187,7 +1161,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     protected void syncRibbonState() {
         // remove all existing ribbon bands
-        BandHostPanel bandHostPanel = this.bandScrollablePanel.getView();
+        JPanel bandHostPanel = this.bandScrollablePanel.getView();
         bandHostPanel.removeAll();
 
         // remove all the existing task toggle buttons

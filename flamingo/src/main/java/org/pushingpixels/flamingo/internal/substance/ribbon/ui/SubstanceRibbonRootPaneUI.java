@@ -89,13 +89,6 @@ public class SubstanceRibbonRootPaneUI extends SubstanceRootPaneUI {
 		super.uninstallListeners(root);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.basic.BasicRootPaneUI#uninstallComponents(javax.swing
-	 * .JRootPane)
-	 */
 	@Override
 	protected void uninstallComponents(JRootPane root) {
 		root.getLayeredPane().remove(this.applicationMenuButton);

@@ -42,8 +42,4 @@ public abstract class RibbonBandUI extends ComponentUI {
 	public abstract int getPreferredCollapsedWidth();
 
 	public abstract int getBandTitleHeight();
-
-	public abstract void trackMouseCrossing(boolean isMouseIn);
-
-	public abstract float getRolloverAmount();
 }

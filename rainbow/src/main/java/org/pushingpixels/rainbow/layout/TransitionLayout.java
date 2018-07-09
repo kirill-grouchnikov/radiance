@@ -48,6 +48,7 @@ import javax.swing.SwingUtilities;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 /**
  * Transition layout.
@@ -148,7 +149,7 @@ public class TransitionLayout implements LayoutManager {
 					if (boundsTimeline != null) {
 						boundsTimeline.abort();
 					}
-					boundsTimeline = new Timeline(jc);
+					boundsTimeline = new SwingComponentTimeline(jc);
 					boundsMap.put(jc, boundsTimeline);
 
 					boundsTimeline

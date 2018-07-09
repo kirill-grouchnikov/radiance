@@ -37,6 +37,7 @@ import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.TimelineCallback;
 import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
@@ -101,12 +102,12 @@ public class GhostingListener {
         this.prevStateMap.put(AnimationFacet.GHOSTING_ICON_ROLLOVER, buttonModel.isRollover());
         this.prevStateMap.put(AnimationFacet.GHOSTING_BUTTON_PRESS, buttonModel.isPressed());
 
-        this.ghostIconRolloverTimeline = new Timeline(comp);
+        this.ghostIconRolloverTimeline = new SwingComponentTimeline(comp);
         AnimationConfigurationManager.getInstance()
                 .configureTimeline(this.ghostIconRolloverTimeline);
         this.ghostIconRolloverTimeline.addCallback(new SwingRepaintCallback(comp));
 
-        this.ghostComponentPressedTimeline = new Timeline(comp);
+        this.ghostComponentPressedTimeline = new SwingComponentTimeline(comp);
         AnimationConfigurationManager.getInstance()
                 .configureTimeline(this.ghostComponentPressedTimeline);
         this.ghostComponentPressedTimeline.addCallback(new SwingRepaintCallback(comp));

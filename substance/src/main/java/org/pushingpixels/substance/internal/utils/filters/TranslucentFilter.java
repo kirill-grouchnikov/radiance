@@ -43,9 +43,6 @@ public class TranslucentFilter extends NeonAbstractFilter {
 		this.alpha = alpha;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public BufferedImage filter(BufferedImage src, BufferedImage dst) {
 		if (dst == null) {

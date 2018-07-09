@@ -82,8 +82,8 @@ class KRibbonTaskbar {
 
 @FlamingoElementMarker
 class KRibbonContextualTaskContainer {
-    var title: String by NonNullDelegate2({ false })
-    var color: Color by NonNullDelegate2({ false })
+    var title: String by NonNullDelegate({ false })
+    var color: Color by NonNullDelegate({ false })
     internal val tasks = KRibbonTaskContainer()
 
     fun tasks(init: KRibbonTaskContainer.() -> Unit) {
@@ -109,8 +109,8 @@ class KRibbonContextualTaskGroupContainer {
 
 @FlamingoElementMarker
 class KRibbonFrame {
-    var title: String? by NullableDelegate2({ hasBeenConverted })
-    var applicationIcon: ResizableIcon? by NullableDelegate2({ hasBeenConverted })
+    var title: String? by NullableDelegate({ hasBeenConverted })
+    var applicationIcon: ResizableIcon? by NullableDelegate({ hasBeenConverted })
     private val tasks = KRibbonTaskContainer()
     private val contextualTaskGroups = KRibbonContextualTaskGroupContainer()
     private val anchoredCommands = KRibbonAnchoredCommandContainer()

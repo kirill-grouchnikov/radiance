@@ -33,10 +33,6 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.SwingUtilities;
 
-/**
- * 
- * @author Administrator
- */
 public class ColorComboBox extends JComboBox {
 
 	public static final String PROP_COLOR = "color"; // NOI18N

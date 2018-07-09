@@ -40,7 +40,6 @@ import javax.swing.*;
  * @see FontSet
  */
 public interface FontPolicy {
-
 	/**
 	 * Looks up and returns a set of fonts that will be used by a Look&amp;Feel
 	 * to set the default fonts for its components.

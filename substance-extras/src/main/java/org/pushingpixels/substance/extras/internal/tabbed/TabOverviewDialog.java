@@ -89,6 +89,7 @@ import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 /**
@@ -848,7 +849,7 @@ public class TabOverviewDialog extends JDialog {
                     final TabGridOverviewPanel overviewPanel) {
                 this.index = index;
                 this.overviewPanel = overviewPanel;
-                this.rolloverTimeline = new Timeline(overviewPanel.previewControls[index]);
+                this.rolloverTimeline = new SwingComponentTimeline(overviewPanel.previewControls[index]);
                 AnimationConfigurationManager.getInstance()
                         .configureTimeline(this.rolloverTimeline);
                 this.rolloverTimeline.addPropertyToInterpolate("zoom", 1.0f, 1.2f);

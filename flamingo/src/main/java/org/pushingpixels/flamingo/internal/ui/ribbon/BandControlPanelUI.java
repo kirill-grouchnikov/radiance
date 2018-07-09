@@ -29,7 +29,9 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
+import javax.swing.*;
 import javax.swing.plaf.PanelUI;
+import java.awt.*;
 
 
 /**
@@ -44,4 +46,8 @@ public abstract class BandControlPanelUI extends PanelUI {
 	 * @return The layout gap for the controls in the associated control panel.
 	 */
 	public abstract int getLayoutGap();
+
+	@Override
+	public void update(Graphics g, JComponent c) {
+	}
 }

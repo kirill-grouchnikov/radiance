@@ -35,6 +35,7 @@ import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.TabPr
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.ui.SubstanceTabbedPaneUI;
 import org.pushingpixels.trident.Timeline;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import java.awt.*;
@@ -191,7 +192,7 @@ public class TabPreviewWindow extends JWindow implements ActionListener {
                     public void componentShown(ComponentEvent e) {
                         previewLabel.setVisible(true);
                         // Start fading-in of the image.
-                        Timeline timeline = new Timeline(previewLabel);
+                        Timeline timeline = new SwingComponentTimeline(previewLabel);
                         AnimationConfigurationManager.getInstance().configureTimeline(timeline);
                         timeline.addPropertyToInterpolate("alpha", 0.0f, 1.0f);
                         timeline.play();

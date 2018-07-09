@@ -33,6 +33,7 @@ import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.Timeline.TimelineState;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import java.awt.*;
@@ -45,7 +46,7 @@ public class IconGlowTracker {
 	public IconGlowTracker(Component component) {
 		this.component = component;
 
-		this.iconGlowTimeline = new Timeline(this.component);
+		this.iconGlowTimeline = new SwingComponentTimeline(this.component);
 		AnimationConfigurationManager.getInstance().configureTimeline(
 				this.iconGlowTimeline);
 		this.iconGlowTimeline.setDuration(10 * this.iconGlowTimeline

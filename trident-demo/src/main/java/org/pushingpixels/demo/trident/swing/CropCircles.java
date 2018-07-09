@@ -47,6 +47,7 @@ import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.TimelineScenario;
 import org.pushingpixels.trident.ease.Spline;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.swing.SwingRepaintTimeline;
 
 public class CropCircles {
@@ -225,7 +226,7 @@ public class CropCircles {
             pulseCenters.setEase(new Spline(0.9f));
             pulseCenters.playLoop(RepeatBehavior.REVERSE);
 
-            Timeline rotationTimeline = new Timeline(this);
+            Timeline rotationTimeline = new SwingComponentTimeline(this);
             rotationTimeline.addPropertyToInterpolate("rotation", 0.0f, (float) (2 * Math.PI));
             rotationTimeline.setDuration(10000);
             rotationTimeline.playLoop(RepeatBehavior.LOOP);

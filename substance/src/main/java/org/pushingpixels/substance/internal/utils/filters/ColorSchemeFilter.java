@@ -156,9 +156,6 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public BufferedImage filter(BufferedImage src, BufferedImage dst) {
 		if (dst == null) {

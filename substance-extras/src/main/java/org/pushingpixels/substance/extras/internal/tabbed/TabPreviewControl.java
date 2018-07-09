@@ -4,6 +4,7 @@ import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.ShadowPopupBorder;
 import org.pushingpixels.trident.Timeline;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -193,7 +194,7 @@ public class TabPreviewControl extends JPanel {
     public void setPreviewImage(BufferedImage previewImage, boolean toAnimate) {
         this.previewImage = previewImage;
         if (toAnimate) {
-            Timeline fadeTimeline = new Timeline(this);
+            Timeline fadeTimeline = new SwingComponentTimeline(this);
             AnimationConfigurationManager.getInstance().configureTimeline(fadeTimeline);
             fadeTimeline.addPropertyToInterpolate("alpha", 0.0f, 1.0f);
             fadeTimeline.play();

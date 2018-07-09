@@ -41,9 +41,6 @@ public class GrayscaleFilter extends NeonAbstractFilter {
 	public GrayscaleFilter() {
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public BufferedImage filter(BufferedImage src, BufferedImage dst) {
 		if (dst == null) {

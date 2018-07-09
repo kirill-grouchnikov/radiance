@@ -29,9 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicBandControlPanelUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JBandControlPanel;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
@@ -57,19 +55,7 @@ public class SubstanceBandControlPanelUI extends BasicBandControlPanelUI {
 	}
 
 	@Override
-	protected void paintBandBackground(Graphics graphics, Rectangle toFill) {
-		float rolloverAmount = 0.0f;
-		Component parent = this.controlPanel.getParent();
-		if (parent instanceof AbstractRibbonBand) {
-			// not in popup
-			AbstractRibbonBand band = (AbstractRibbonBand) this.controlPanel
-					.getParent();
-			BasicRibbonBandUI ui = (BasicRibbonBandUI) band.getUI();
-			rolloverAmount = ui.getRolloverAmount();
-		}
-
-		SubstanceRibbonBandUI.paintRibbonBandBackground(graphics,
-				this.controlPanel, rolloverAmount, this.controlPanel
-						.getBounds().y);
+	public void update(Graphics g, JComponent c) {
+		super.update(g, c);
 	}
 }

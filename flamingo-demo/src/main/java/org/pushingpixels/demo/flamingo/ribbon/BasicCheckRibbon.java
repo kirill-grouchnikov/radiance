@@ -39,6 +39,7 @@ import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandTogg
 import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.LayeredIcon;
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
@@ -57,7 +58,9 @@ import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
+import org.pushingpixels.substance.api.skin.SkinInfo;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -1144,6 +1147,40 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return transitionBand;
     }
 
+    public static void addSkinGallery(JRibbonBand ribbonBand) {
+        Map<RibbonElementPriority, Integer> prefWidths = new HashMap<RibbonElementPriority, Integer>();
+        prefWidths.put(RibbonElementPriority.LOW, 2);
+        prefWidths.put(RibbonElementPriority.MEDIUM, 4);
+        prefWidths.put(RibbonElementPriority.TOP, 8);
+
+        List<StringValuePair<List<FlamingoCommand>>> skinGroups = new ArrayList<StringValuePair<List<FlamingoCommand>>>();
+        List<FlamingoCommand> skinCommands = new ArrayList<FlamingoCommand>();
+
+        Map<String, SkinInfo> skins = SubstanceCortex.GlobalScope.getAllSkins();
+        for (Map.Entry<String, SkinInfo> entry : skins.entrySet()) {
+            try {
+                final SubstanceSkin skin = (SubstanceSkin) Class
+                        .forName(entry.getValue().getClassName()).newInstance();
+
+                FlamingoCommand skinCommand = new FlamingoCommandBuilder()
+                        .setTitle(skin.getDisplayName())
+                        .setIcon(new SkinResizableIcon(skin, 60, 40))
+                        .setAction((ActionEvent e) -> SwingUtilities
+                                .invokeLater(() -> SubstanceCortex.GlobalScope.setSkin(skin)))
+                        .setToggle()
+                        .build();
+
+                skinCommands.add(skinCommand);
+            } catch (Exception exc) {
+            }
+        }
+
+        skinGroups.add(new StringValuePair<List<FlamingoCommand>>("Skins", skinCommands));
+
+        ribbonBand.addRibbonGallery("Skins", skinGroups, prefWidths, 5, 3,
+                RibbonElementPriority.TOP);
+    }
+
     protected RibbonContextualTaskGroup group1;
     protected RibbonContextualTaskGroup group2;
 
@@ -1197,10 +1234,18 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 rowSpanBand, alignmentBand);
         wrappedTask.setKeyTip("R");
 
+        // Skin selection
+        JRibbonBand skinBand = new JRibbonBand("Skin", new LayeredIcon(
+                new WatermarkResizableIcon(null, 32, 32),
+                new ColorSchemeResizableIcon(null, 32, 32)), null);
+        addSkinGallery(skinBand);
+        RibbonTask substanceSkinTask = new RibbonTask("Look & Feel", skinBand);
+
         this.getRibbon().addTask(pageLayoutTask);
         this.getRibbon().addTask(writeTask);
         this.getRibbon().addTask(animationsTask);
         this.getRibbon().addTask(wrappedTask);
+        this.getRibbon().addTask(substanceSkinTask);
 
         this.getRibbon()
                 .addAnchoredCommand(new FlamingoCommandBuilder()
@@ -1791,15 +1836,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
             c.setVisible(true);
             c.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-            // c.addComponentListener(new ComponentAdapter() {
-            // @Override
-            // public void componentResized(ComponentEvent e) {
-            // System.out.println("Size " + c.getSize());
-            // }
-            // });
-
+            KeyStroke keyStroke = (NeonCortex.getPlatform() == NeonCortex
+                    .Platform.MACOS) ? KeyStroke.getKeyStroke("meta alt E") :
+                                  KeyStroke.getKeyStroke("alt shift E");
             c.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
-                    .put(KeyStroke.getKeyStroke("alt shift E"), "installTracingRepaintManager");
+                    .put(keyStroke, "installTracingRepaintManager");
             c.getRootPane().getActionMap().put("installTracingRepaintManager",
                     new AbstractAction() {
                         @Override

@@ -44,6 +44,7 @@ import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.TridentConfig;
 import org.pushingpixels.trident.ease.Sine;
 import org.pushingpixels.trident.interpolator.PropertyInterpolator;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.swing.SwingRepaintTimeline;
 
 public class CustomPropertyInterpolatorSource extends JFrame {
@@ -86,7 +87,7 @@ public class CustomPropertyInterpolatorSource extends JFrame {
         };
         ellipsePanel.setBackground(Color.black);
 
-        Timeline ellipseTimeline = new Timeline(this);
+        Timeline ellipseTimeline = new SwingComponentTimeline(this);
         ellipseTimeline.addPropertyToInterpolate("ellipse", from, to);
         ellipseTimeline.setEase(new Sine());
         ellipseTimeline.setDuration(2000);

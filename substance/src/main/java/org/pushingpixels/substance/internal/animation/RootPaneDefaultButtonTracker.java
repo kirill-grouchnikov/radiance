@@ -34,6 +34,7 @@ import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,7 +75,7 @@ public class RootPaneDefaultButtonTracker extends
 		// Create weak reference.
 		this.buttonRef = new WeakReference<JButton>(jbutton);
 		// Create coalesced timer.
-		this.timeline = new Timeline(jbutton);
+		this.timeline = new SwingComponentTimeline(jbutton);
 		this.timeline.addCallback(this);
 		// Store event handler and initial cycle count.
 		RootPaneDefaultButtonTracker.trackers.put(jbutton, this);

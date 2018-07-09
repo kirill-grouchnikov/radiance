@@ -37,6 +37,7 @@ import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTableCellRenderer;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -281,7 +282,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
 
         // create a looping animation to change the label foreground
         // from black to blue and back to draw some attention.
-        Timeline instructionalTimeline = new Timeline(instructional);
+        Timeline instructionalTimeline = new SwingComponentTimeline(instructional);
         instructionalTimeline.addPropertyToInterpolate("foreground", Color.black, Color.blue);
         instructionalTimeline.setDuration(1000);
         instructionalTimeline.playLoop(RepeatBehavior.REVERSE);

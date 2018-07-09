@@ -43,6 +43,7 @@ import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollPaneBorder;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -232,7 +233,7 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
                             // abort previous horizontal scroll
                             horizontalScrollTimeline.abort();
                         }
-                        horizontalScrollTimeline = new Timeline(tree);
+                        horizontalScrollTimeline = new SwingComponentTimeline(tree);
                         horizontalScrollTimeline.addCallback(new UIThreadTimelineCallbackAdapter() {
                             @Override
                             public void onTimelinePulse(float durationFraction,

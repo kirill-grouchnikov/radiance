@@ -35,7 +35,7 @@ import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 
 @FlamingoElementMarker
 class KColorSelectorPopupMenuColorSection(val isDerived: Boolean) {
-    var title: String by NonNullDelegate2({ false })
+    var title: String by NonNullDelegate({ false })
     internal var colors = ColorContainer()
 
     fun colors(init: ColorContainer.() -> Unit) {
@@ -45,7 +45,7 @@ class KColorSelectorPopupMenuColorSection(val isDerived: Boolean) {
 
 @FlamingoElementMarker
 class KColorSelectorPopupMenuRecentSection {
-    var title: String by NonNullDelegate(null)
+    var title: String by NonNullDelegate({ false })
 }
 
 @FlamingoElementMarker
@@ -54,7 +54,7 @@ class KColorSelectorPopupMenu {
     private var hasBeenConverted: Boolean = false
 
     var colorSelectorCallback: JColorSelectorPopupMenu.ColorSelectorCallback
-            by NonNullDelegate2({ hasBeenConverted })
+            by NonNullDelegate({ hasBeenConverted })
 
     private val components = arrayListOf<Any>()
 
