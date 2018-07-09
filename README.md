@@ -2,6 +2,10 @@
 
 Radiance is a collection of libraries for writing modern, elegant and well-performing Swing applications.
 
+<p align="center">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulabrickwall1.png" width="340" height="254" border=0>
+</p>
+
 ### Neon
 
 The [Neon library](docs/neon/neon.md) provides a core set of APIs to work with images and text that scale with the display resolution. Neon icons scale to maintain crisp, pixel-perfect visuals for application icons. Font APIs can be used to render platform-consistent textual content across a variety of supported platforms.
@@ -26,3 +30,11 @@ The Kormorant library exposes the entire API surface of Flamingo as a custom, ta
 ### Ibis
 
 The [Ibis library](docs/ibis/ibis.md) enables usage of vector-based icons in Swing applications. SVG icon content can be either loaded asynchronously at runtime from a variety of local and remote sources, or transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
+
+### Building Radiance
+
+[This document](building.md) is an overview of how to build Radiance artifacts locally. Remote Maven artifacts and dependency specifications will be available concurrent with the first Radiance release (planned for early Q4 2018).
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/icon/radiance_product_512.png" width="256" height="256" border=0>
+</p>
