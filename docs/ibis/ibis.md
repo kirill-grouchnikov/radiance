@@ -8,7 +8,7 @@ The goal of this project is to enable usage of vector-based icons in Java applic
 
 This is the recommended way of using Ibis. SVG has a wide feature surface which, depending on the complexity of your SVG sources, can lead to significant initial parsing and rendering time of the icon content.
 
-Ibis transcoder allows you to convert an SVG source into a corresponding Java class that contains a sequence of matching Java2D canvas draw calls to render the original content. Ibis ships with three built-in template files that create slightly different wrappers around the Java2D draw calls:
+Ibis transcoder allows you to convert an SVG source into a corresponding Java / Kotlin class that contains a sequence of matching Java2D canvas draw calls to render the original content. Ibis ships with three built-in template files that create slightly different wrappers around the Java2D draw calls:
 
 * `SvgTranscoderTemplatePlain.templ` - creates a class with a static method to paint the icon content onto the passed `Graphics2D` object. The class also has methods to query the bounding box of the original SVG content.
 * `SvgTranscoderTemplateResizable.templ` - creates a class that implements [Neon](../neon/neon.md)'s `ResizableIcon` interface. An instance of the generated class can be passed to any relevant Substance or Flamingo API, including the matching command button and ribbon calls. At runtime, the content will be automatically reconfigured based on the new display size of the icon.

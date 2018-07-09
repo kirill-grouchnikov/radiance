@@ -6,7 +6,7 @@ Substance is released under BSD license. You are free to modify any part of the 
 
 **Can i create my own look-and-feel on top of Substance?**
 
-There are two supported ways of extending Substance. To create a custom look for branding your application, start by reading the skinning documentation and the code of the core skins in the `org.pushingpixels.substance.api.skin` package. To add custom behavior to the specific control(s), start by reading the widget documentation and the code in the [laf-widget](https://github.com/kirill-grouchnikov/laf-widget) project.
+To create a custom look for branding your application, start by reading the skinning documentation and the code of the core skins in the `org.pushingpixels.substance.api.skin` package.
 
 While you can extend the UI delegates in the `org.pushingpixels.substance.internal.ui` package, it is not recommended. In fact, anything in this package is subject to change at any point in time - and frequently does so between releases. At some point down the line (let's say 2019/20) Substance will switch to require Java 9 and will use the Java module system to effectively hide the internal implementation details further.
 
@@ -34,7 +34,6 @@ This is probably not worth it. A lot of UI related bugs were fixed at the JDK le
 
 In short - if you like the features, you pay the price. In long - you have a number of options:
 
-* Use lite version (available from release 2.2). It's about 510KB less. Note that this option will be going away soon (probably in 2018).
 * Use [Proguard](https://sourceforge.net/projects/proguard/) or other similar tools. Note that if you use this option, the stack traces of Substance defects probably will not contain line numbers. This may make it very difficult to reproduce and fix the defect.
 * Set `compiler.debug` property to `off`. The result is the same as in the above option.
 * Use code obfuscators. Almost all classes and all non-private methods will need to have their names preserved.
@@ -67,12 +66,6 @@ By default, **all** Substance watermarks are screen-bound (also true under multi
 **I don't like Substance.**
 
 That's not really a question. If you don't like it, you can either help improve it by suggesting additional features in the forums and mailing lists, or use any other core or third-party look-and-feel. The landscape of third-party look-and-feels was a bit more vibrant when Substance started. Some of those are still around.
-
-**What's happening with my pull request?**
-
-Look-and-feel in general and Substance in particular require fairly advanced knowledge of Swing. This is not a playground / sandbox for experimenting with Swing - Substance aims to be a production-quality alternative to core and other third-party LAFs. As you wouldn't want a total stranger to be a part of your production team, you need first to establish yourself a worthy addition to this (or any other) project. You can start by filing bugs, suggesting new features, learning Substance codebase and proposing ways to implement new features.
-
-The bigger the pull request is, the less likely the chances are it will be handled. If you are planning to contribute something substantial (heyo), let's talk first.
 
 **Are there any known issues in Substance?**
 
@@ -127,10 +120,4 @@ Do not change the opacity of controls painted by Substance in the application co
 
 **I'm seeing something weird in my editable text boxes. The cursor is not lining up properly with the characters**
 
-This has been reported and analysed by Dale Anson, specifically on Arch Linux distribution with XFCE desktop environment. JDK [provides](https://bugs.openjdk.java.net/browse/JDK-6288260) a way [to use](https://docs.oracle.com/javase/7/docs/api/java/awt/doc-files/DesktopProperties.html) desktop-specific text rendering settings (smoothing / anti-aliasing), and that is being used in Substance. Under the particular configuration above (and possibly others) this API does not seem to be doing the right thing as far as positioning and rendering the text. If you're experiencing this issue, run your app under `-Dawt.useSystemAAFontSettings=off` flag.
-
-**I'm using custom scale factor on my Windows machine, and under Java 9 I'm seeing rendering artifacts along the edges of some widgets**
-
-Java 9 has changed the way it treats drawing images when the images need to be upscaled to match the screen resolution. Until I figure out how to make the existing Hi DPI support to work on both Java 8 and Java 9, add the following to your app:
-* Run it under `–Dsun.java2d.uiScale=1.0` flag.
-* Call `SubstanceLookAndFeel.setFontPolicy(SubstanceFontUtilities.getScaledFontPolicy((float)(SubstanceSizeUtils.getPointsToPixelsRatio()) / 1.33F))` with the factor that matches the custom scale factor that you've set on your machine
+This has been reported and analyzed by Dale Anson, specifically on Arch Linux distribution with XFCE desktop environment. JDK [provides](https://bugs.openjdk.java.net/browse/JDK-6288260) a way [to use](https://docs.oracle.com/javase/7/docs/api/java/awt/doc-files/DesktopProperties.html) desktop-specific text rendering settings (smoothing / anti-aliasing), and that is being used in Substance. Under the particular configuration above (and possibly others) this API does not seem to be doing the right thing as far as positioning and rendering the text. If you're experiencing this issue, run your app under `-Dawt.useSystemAAFontSettings=off` flag.
