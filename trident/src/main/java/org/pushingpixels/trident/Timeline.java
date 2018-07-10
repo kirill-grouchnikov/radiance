@@ -29,10 +29,6 @@
  */
 package org.pushingpixels.trident;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 import org.pushingpixels.trident.TimelineEngine.FullObjectID;
 import org.pushingpixels.trident.TimelineEngine.TimelineOperationKind;
 import org.pushingpixels.trident.TimelinePropertyBuilder.AbstractFieldInfo;
@@ -42,6 +38,10 @@ import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
 import org.pushingpixels.trident.ease.Linear;
 import org.pushingpixels.trident.ease.TimelineEase;
 import org.pushingpixels.trident.interpolator.KeyFrames;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class Timeline implements TimelineScenario.TimelineScenarioActor {
     Object mainObject;
@@ -208,9 +208,12 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         public void onTimelineStateChanged(final TimelineState oldState,
                 final TimelineState newState, final float durationFraction,
                 final float timelinePosition) {
-            if ((uiToolkitHandler != null) && !uiToolkitHandler.isInReadyState(mainObject)) {
+            if ((uiToolkitHandler != null) && !shouldForceUiUpdate() &&
+                    !uiToolkitHandler.isInReadyState(mainObject)) {
                 if (TimelineEngine.DEBUG_MODE) {
-                    System.out.println("Main object is not in ready state for " + oldState.name()
+                    System.out.println("Main object [" + mainObject.getClass().getSimpleName()
+                            + "@" + mainObject.hashCode()
+                            + "] is not in ready state for " + oldState.name()
                             + " to " + newState.name());
                 }
                 return;
@@ -251,7 +254,8 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
         @Override
         public void onTimelinePulse(final float durationFraction, final float timelinePosition) {
-            if ((uiToolkitHandler != null) && !uiToolkitHandler.isInReadyState(mainObject)) {
+            if ((uiToolkitHandler != null) && !shouldForceUiUpdate() &&
+                    !uiToolkitHandler.isInReadyState(mainObject)) {
                 if (TimelineEngine.DEBUG_MODE) {
                     System.out.println("Main object is not in ready state for pulse " + durationFraction);
                 }
@@ -360,6 +364,10 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
     public final <T> void addPropertyToInterpolate(String propName, T from, T to) {
         this.addPropertyToInterpolate(Timeline.<T>property(propName).from(from).to(to));
+    }
+
+    protected boolean shouldForceUiUpdate() {
+        return false;
     }
 
     public void play() {

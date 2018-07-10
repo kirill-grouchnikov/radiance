@@ -94,7 +94,7 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 			float[] fractions, ColorSchemeSingleColorQuery[] colorQueries,
 			DecorationAreaType... decorationAreas) {
 		super(displayName, fractions, colorQueries);
-		this.decoratedAreas = new HashSet<DecorationAreaType>();
+		this.decoratedAreas = new HashSet<>();
 		if (decorationAreas != null) {
 			for (DecorationAreaType decorationArea : decorationAreas) {
 				this.decoratedAreas.add(decorationArea);
@@ -106,14 +106,24 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
 			DecorationAreaType decorationAreaType, int width, int height,
 			SubstanceSkin skin) {
+	    SubstanceColorScheme colorScheme = skin.getBackgroundColorScheme(decorationAreaType);
 		if (this.decoratedAreas.contains(decorationAreaType)) {
 			this.paintDecoratedBackground(graphics, comp, decorationAreaType,
-					width, height, skin
-							.getBackgroundColorScheme(decorationAreaType));
+					width, height, colorScheme);
 		} else {
-			this.paintSolidBackground(graphics, comp, width, height, skin
-					.getBackgroundColorScheme(decorationAreaType));
+			this.paintSolidBackground(graphics, comp, width, height, colorScheme);
 		}
+	}
+
+	@Override
+	public void paintDecorationArea(Graphics2D graphics, Component comp, DecorationAreaType
+			decorationAreaType, Shape contour, SubstanceColorScheme colorScheme) {
+        if (this.decoratedAreas.contains(decorationAreaType)) {
+            this.paintDecoratedBackground(graphics, comp, decorationAreaType,
+                    contour, colorScheme);
+        } else {
+            this.paintSolidBackground(graphics, comp, contour, colorScheme);
+        }
 	}
 
 	private void paintDecoratedBackground(Graphics2D graphics, Component comp,
@@ -143,9 +153,42 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 		g2d.dispose();
 	}
 
+	private void paintDecoratedBackground(Graphics2D graphics, Component comp,
+			DecorationAreaType decorationAreaType, Shape contour,
+			SubstanceColorScheme scheme) {
+		Graphics2D g2d = (Graphics2D) graphics.create();
+		Color[] fillColors = new Color[this.fractions.length];
+		for (int i = 0; i < this.fractions.length; i++) {
+			ColorSchemeSingleColorQuery colorQuery = this.colorQueries[i];
+			fillColors[i] = colorQuery.query(scheme);
+		}
+
+		Component topMostWithSameDecorationAreaType = SubstanceCoreUtilities
+				.getTopMostParentWithDecorationAreaType(comp,
+						decorationAreaType);
+		Point inTopMost = SwingUtilities.convertPoint(comp, new Point(0, 0),
+				topMostWithSameDecorationAreaType);
+		int dy = inTopMost.y;
+
+		MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0,
+				topMostWithSameDecorationAreaType.getHeight(), this.fractions,
+				fillColors, CycleMethod.REPEAT);
+		g2d.setPaint(gradient);
+		g2d.translate(0, -dy);
+		g2d.fill(contour);
+
+		g2d.dispose();
+	}
+
 	private void paintSolidBackground(Graphics2D graphics, Component comp,
 			int width, int height, SubstanceColorScheme scheme) {
 		graphics.setColor(scheme.getMidColor());
 		graphics.fillRect(0, 0, width, height);
+	}
+
+	private void paintSolidBackground(Graphics2D graphics, Component comp,
+			Shape contour, SubstanceColorScheme scheme) {
+		graphics.setColor(scheme.getMidColor());
+		graphics.fill(contour);
 	}
 }

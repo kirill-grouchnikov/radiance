@@ -29,12 +29,11 @@
  */
 package org.pushingpixels.trident.swing;
 
-import java.awt.Component;
-import java.awt.Rectangle;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
+
+import java.awt.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SwingRepaintCallback extends TimelineCallbackAdapter {
     private Component comp;

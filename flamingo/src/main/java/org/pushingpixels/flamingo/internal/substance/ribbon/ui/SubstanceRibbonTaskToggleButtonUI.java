@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
-import org.pushingpixels.flamingo.internal.substance.ribbon.RibbonBackgroundDelegate;
+import org.pushingpixels.flamingo.internal.substance.utils.RibbonTaskToggleButtonBackgroundDelegate;
 import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonVisualStateTracker;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonTaskToggleButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
@@ -89,13 +89,13 @@ public class SubstanceRibbonTaskToggleButtonUI extends
 	/**
 	 * Painting delegate.
 	 */
-	private RibbonBackgroundDelegate delegate;
+	private RibbonTaskToggleButtonBackgroundDelegate delegate;
 
 	/**
 	 * Simple constructor.
 	 */
 	public SubstanceRibbonTaskToggleButtonUI() {
-		this.delegate = new RibbonBackgroundDelegate();
+		this.delegate = new RibbonTaskToggleButtonBackgroundDelegate();
 	}
 
 	@Override

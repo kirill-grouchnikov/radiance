@@ -80,16 +80,14 @@ public class ClassicDecorationPainter implements SubstanceDecorationPainter {
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
 			DecorationAreaType decorationAreaType, int width, int height,
 			SubstanceSkin skin) {
-		SubstanceColorScheme scheme = skin
-				.getBackgroundColorScheme(decorationAreaType);
+		SubstanceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
 		if (width * height < 100000) {
 			HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height,
 					scheme.getDisplayName());
 			BufferedImage result = smallImageCache.get(key);
 			if (result == null) {
 				result = SubstanceCoreUtilities.getBlankImage(width, height);
-				this.internalPaint((Graphics2D) result.getGraphics(), comp,
-						width, height, scheme);
+				this.internalPaint((Graphics2D) result.getGraphics(), comp, width, height, scheme);
 				smallImageCache.put(key, result);
 			}
 			NeonCortex.drawImage(graphics, result, 0, 0);
@@ -99,7 +97,17 @@ public class ClassicDecorationPainter implements SubstanceDecorationPainter {
 		this.internalPaint(graphics, comp, width, height, scheme);
 	}
 
-	/**
+    @Override
+    public void paintDecorationArea(Graphics2D graphics, Component comp, DecorationAreaType
+            decorationAreaType, Shape contour, SubstanceColorScheme colorScheme) {
+        Graphics2D g2d = (Graphics2D) graphics.create();
+        g2d.translate(-3, -3);
+        this.painter.paintContourBackground(g2d, comp, contour.getBounds().width,
+                contour.getBounds().height, contour, false, colorScheme, false);
+        g2d.dispose();
+    }
+
+    /**
 	 * Paints the specified area.
 	 * 
 	 * @param graphics

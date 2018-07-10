@@ -150,8 +150,7 @@ public class StateTransitionTracker {
         void sync() {
             this.activeStrength = 0.0f;
             for (Map.Entry<ComponentState, StateContributionInfo> activeEntry : this
-					.stateContributionMap
-                    .entrySet()) {
+					.stateContributionMap.entrySet()) {
                 ComponentState activeState = activeEntry.getKey();
                 if (activeState.isActive()) {
                     this.activeStrength += activeEntry.getValue()
@@ -341,7 +340,7 @@ public class StateTransitionTracker {
         if (this.transitionTimeline != null) {
             this.transitionTimeline.abort();
         }
-        this.transitionTimeline = new SwingComponentTimeline(this.component);
+        this.transitionTimeline = new SwingComponentTimeline(this.component, true);
         this.transitionTimeline.setName("Model transitions");
         this.transitionTimeline.addCallback(this.repaintCallback.getRepaintCallback());
         AnimationConfigurationManager.getInstance().configureTimeline(this.transitionTimeline);
@@ -363,7 +362,8 @@ public class StateTransitionTracker {
                     Timeline.<Float>property("transitionPosition")
                             .getWith((Object obj, String fieldName) -> transitionPosition)
                             .setWith((Object obj, String fieldName, Float value) ->
-                                    transitionPosition = value).from(this.transitionPosition)
+                                    transitionPosition = value)
+                            .from(this.transitionPosition)
                             .to(1.0f));
             this.transitionTimeline
                     .setDuration((long) (fullDuration * (1.0f - this.transitionPosition)));
@@ -389,7 +389,8 @@ public class StateTransitionTracker {
                     Timeline.<Float>property("transitionPosition")
                             .getWith((Object obj, String fieldName) -> transitionPosition)
                             .setWith((Object obj, String fieldName, Float value) ->
-                                    transitionPosition = value).from(0.0f).to(1.0f));
+                                    transitionPosition = value)
+                            .from(0.0f).to(1.0f));
             // if ((this.component instanceof JMenuItem)
             // && "Check enabled unselected"
             // .equals(((JMenuItem) this.component).getText())) {
@@ -397,8 +398,7 @@ public class StateTransitionTracker {
             // }
         }
 
-        Map<ComponentState, StateContributionInfo> newContributionMap = new
-				HashMap<ComponentState, StateContributionInfo>();
+        Map<ComponentState, StateContributionInfo> newContributionMap = new HashMap<>();
         if (this.modelStateInfo.stateContributionMap.containsKey(newState)) {
             // 1. the new state goes from current value to 1.0
             // 2. the rest go from current value to 0.0

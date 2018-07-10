@@ -29,13 +29,9 @@
  */
 package org.pushingpixels.trident;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
 import org.pushingpixels.trident.TimelineScenario.TimelineScenarioActor;
+
+import java.util.concurrent.*;
 
 public abstract class TimelineRunnable implements Runnable, TimelineScenarioActor {
     private static ExecutorService service = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 10L,

@@ -29,15 +29,15 @@
  */
 package org.pushingpixels.trident;
 
+import org.pushingpixels.trident.Timeline.TimelineState;
+import org.pushingpixels.trident.TimelineScenario.TimelineScenarioState;
+import org.pushingpixels.trident.callback.RunOnUIThread;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-
-import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.TimelineScenario.TimelineScenarioState;
-import org.pushingpixels.trident.callback.RunOnUIThread;
 
 /**
  * The Trident timeline engine. This is the main entry point to play {@link Timeline}s and
@@ -47,7 +47,8 @@ import org.pushingpixels.trident.callback.RunOnUIThread;
  */
 class TimelineEngine {
     /**
-     * Debug mode indicator. Set to <code>true</code> to have trace messages on console.
+     * Debug mode indicator. Set to <code>true</code> to print trace messages to console
+     * during development.
      */
     public static boolean DEBUG_MODE = false;
 
@@ -544,13 +545,8 @@ class TimelineEngine {
     /**
      * Returns an existing running timeline that matches the specified parameters.
      * 
-     * @param timelineKind
-     *            Timeline kind.
-     * @param object
-     *            Component.
-     * @param secondaryId
-     *            Secondary id. Relevant for such components as tabbed panes (where animation is
-     *            performed on different tabs).
+     * @param timeline
+     *            Timeline.
      * @return An existing running timeline that matches the specified parameters.
      */
     private Timeline getRunningTimeline(Timeline timeline) {

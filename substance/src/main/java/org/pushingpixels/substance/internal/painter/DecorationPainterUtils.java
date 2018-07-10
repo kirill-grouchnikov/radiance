@@ -32,6 +32,7 @@ package org.pushingpixels.substance.internal.painter;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter;
 import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -223,4 +224,33 @@ public class DecorationPainterUtils {
         }
         g2d.dispose();
     }
+
+    public static void paintDecorationArea(Graphics g, Component c,
+            Shape contour, DecorationAreaType decorationType,
+            SubstanceColorScheme colorScheme, boolean force) {
+        // System.out.println("Painting " + c.getClass().getSimpleName());
+        boolean isInCellRenderer = (SwingUtilities.getAncestorOfClass(CellRendererPane.class,
+                c) != null);
+        boolean isPreviewMode = false;
+        if (c instanceof JComponent) {
+            isPreviewMode = (Boolean.TRUE
+                    .equals(((JComponent) c).getClientProperty(WidgetUtilities.PREVIEW_MODE)));
+        }
+
+        if (!force && !isPreviewMode && !c.isShowing() && !isInCellRenderer) {
+            return;
+        }
+
+        if ((c.getHeight() == 0) || (c.getWidth() == 0))
+            return;
+
+        SubstanceSkin skin = SubstanceCoreUtilities.getSkin(c);
+        SubstanceDecorationPainter painter = skin.getDecorationPainter();
+
+        Graphics2D g2d = (Graphics2D) g.create();
+        painter.paintDecorationArea(g2d, c, decorationType, contour, colorScheme);
+
+        g2d.dispose();
+    }
+
 }

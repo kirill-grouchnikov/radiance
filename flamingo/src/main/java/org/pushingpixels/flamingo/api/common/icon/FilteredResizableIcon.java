@@ -33,7 +33,6 @@ import org.pushingpixels.neon.AsynchronousLoading;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

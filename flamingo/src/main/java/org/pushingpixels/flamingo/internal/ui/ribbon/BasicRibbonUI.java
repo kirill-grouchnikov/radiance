@@ -143,42 +143,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         this.propertyChangeListener = (PropertyChangeEvent evt) -> {
             if ("selectedTask".equals(evt.getPropertyName())) {
-                RibbonTask old = (RibbonTask) evt.getOldValue();
-                final RibbonTask curr = (RibbonTask) evt.getNewValue();
-                if ((old != null) && (taskToggleButtons.get(old) != null)) {
-                    taskToggleButtons.get(old).getActionModel().setSelected(false);
-                }
-                if ((curr != null) && (taskToggleButtons.get(curr) != null)) {
-                    taskToggleButtons.get(curr).getActionModel().setSelected(true);
-                }
-
-                if (isShowingScrollsForTaskToggleButtons() && (curr != null)) {
-                    // scroll selected task as necessary so that it's
-                    // visible
-                    JRibbonTaskToggleButton toggleButton = taskToggleButtons.get(curr);
-                    if (toggleButton != null) {
-                        scrollAndRevealTaskToggleButton(toggleButton);
-                    }
-                }
-
-                // Special case for showing key tips of ribbon tasks.
-                // When a ribbon task is selected with a key tip, its
-                // showing and layout is deferred as a separate Runnable
-                // on EDT. When the key chain for that task is created,
-                // the command buttons are not at their final size yet
-                // and no key tips are shown.
-                // Here we schedule yet another Runnable
-                // to recompute all keytips if the
-                // originator is a task toggle button.
-                SwingUtilities.invokeLater(() -> {
-                    KeyTipManager ktm = KeyTipManager.defaultManager();
-                    if (ktm.isShowingKeyTips()) {
-                        KeyTipManager.KeyTipChain chain = ktm.getCurrentlyShownKeyTipChain();
-                        if (chain.chainParentComponent == taskToggleButtons.get(curr)) {
-                            ktm.refreshCurrentChain();
-                        }
-                    }
-                });
+                syncSelectedTask();
             }
             if ("applicationMenuRichTooltip".equals(evt.getPropertyName())) {
                 syncApplicationMenuTips();
@@ -237,7 +202,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
     protected void installDefaults() {
         Border b = this.ribbon.getBorder();
         if (b == null || b instanceof UIResource) {
-            this.ribbon.setBorder(new BorderUIResource.EmptyBorderUIResource(1, 1, 1, 1));
+            this.ribbon.setBorder(new BorderUIResource.EmptyBorderUIResource(0, 0, 1, 0));
         }
     }
 
@@ -642,8 +607,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     Insets bandInsets = (ribbon.getSelectedTask().getBandCount() == 0)
                             ? new Insets(0, 0, 0, 0)
                             : ribbon.getSelectedTask().getBand(0).getInsets();
-                    bandScrollablePanel.setBounds(1 + ins.left, y + bandInsets.top,
-                            c.getWidth() - 2 * ins.left - 2 * ins.right - 1,
+                    bandScrollablePanel.setBounds(ins.left, y + bandInsets.top,
+                            c.getWidth() - 2 * ins.left - 2 * ins.right,
                             c.getHeight() - extraHeight - ins.top - ins.bottom - bandInsets.top
                                     - bandInsets.bottom);
                     // System.out.println("Scrollable : "
@@ -1159,6 +1124,46 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     }
 
+    protected void syncSelectedTask() {
+        final RibbonTask currentSelection = this.ribbon.getSelectedTask();
+        for (Map.Entry<RibbonTask, JRibbonTaskToggleButton> taskToggleButtonEntry :
+                this.taskToggleButtons.entrySet()) {
+            if (currentSelection == taskToggleButtonEntry.getKey()) {
+                taskToggleButtonEntry.getValue().getActionModel().setSelected(true);
+            } else {
+                taskToggleButtonEntry.getValue().getActionModel().setSelected(false);
+            }
+        }
+
+        if (isShowingScrollsForTaskToggleButtons() && (currentSelection != null)) {
+            // scroll selected task as necessary so that it's
+            // visible
+            JRibbonTaskToggleButton toggleButton = taskToggleButtons.get(currentSelection);
+            if (toggleButton != null) {
+                scrollAndRevealTaskToggleButton(toggleButton);
+            }
+        }
+
+        // Special case for showing key tips of ribbon tasks.
+        // When a ribbon task is selected with a key tip, its
+        // showing and layout is deferred as a separate Runnable
+        // on EDT. When the key chain for that task is created,
+        // the command buttons are not at their final size yet
+        // and no key tips are shown.
+        // Here we schedule yet another Runnable
+        // to recompute all keytips if the
+        // originator is a task toggle button.
+        SwingUtilities.invokeLater(() -> {
+            KeyTipManager ktm = KeyTipManager.defaultManager();
+            if (ktm.isShowingKeyTips()) {
+                KeyTipManager.KeyTipChain chain = ktm.getCurrentlyShownKeyTipChain();
+                if (chain.chainParentComponent == taskToggleButtons.get(currentSelection)) {
+                    ktm.refreshCurrentChain();
+                }
+            }
+        });
+    }
+
     protected void syncRibbonState() {
         // remove all existing ribbon bands
         JPanel bandHostPanel = this.bandScrollablePanel.getView();
@@ -1361,7 +1366,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
      * @return The list of currently shown ribbon tasks.
      */
     protected List<RibbonTask> getCurrentlyShownRibbonTasks() {
-        List<RibbonTask> result = new ArrayList<RibbonTask>();
+        List<RibbonTask> result = new ArrayList<>();
 
         // add all regular tasks
         for (int i = 0; i < this.ribbon.getTaskCount(); i++) {

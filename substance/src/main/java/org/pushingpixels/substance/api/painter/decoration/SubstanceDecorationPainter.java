@@ -31,6 +31,7 @@ package org.pushingpixels.substance.api.painter.decoration;
 
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
 
 import java.awt.*;
@@ -58,7 +59,12 @@ public interface SubstanceDecorationPainter extends SubstanceTrait {
 	 * @param skin
 	 *            Skin for painting the decoration area.
 	 */
-	public void paintDecorationArea(Graphics2D graphics, Component comp,
+	void paintDecorationArea(Graphics2D graphics, Component comp,
 			DecorationAreaType decorationAreaType, int width, int height,
 			SubstanceSkin skin);
+
+	default void paintDecorationArea(Graphics2D graphics, Component comp,
+            DecorationAreaType decorationAreaType, Shape contour,
+            SubstanceColorScheme colorScheme) {
+    }
 }

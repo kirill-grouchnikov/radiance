@@ -84,8 +84,9 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
             this.ribbonBand.setBackground(new ColorUIResource(toSet));
         }
 
-        this.ribbonBand.setBorder(new EmptyBorder(SubstanceSizeUtils
-                .getDefaultBorderInsets(SubstanceSizeUtils.getComponentFontSize(this.ribbonBand))));
+        Insets insets = SubstanceSizeUtils
+                .getDefaultBorderInsets(SubstanceSizeUtils.getComponentFontSize(this.ribbonBand));
+        this.ribbonBand.setBorder(new EmptyBorder(0, insets.left, 0, insets.right));
     }
 
     @Override
@@ -127,7 +128,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         Graphics2D g2d = (Graphics2D) graphics.create();
         Font controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getControlFont();
-        g2d.setFont(controlFont);
+        g2d.setFont(controlFont.deriveFont(controlFont.getSize2D() - 1.0f));
 
         FontMetrics fm = graphics.getFontMetrics();
 
@@ -150,7 +151,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
                 .getBackgroundColorScheme(DecorationAreaType.HEADER);
         Color bgFillColor = bgColorScheme.getBackgroundFillColor();
         Color fgColor = bgColorScheme.getForegroundColor();
-        fgColor = SubstanceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, 0.8f);
+        fgColor = SubstanceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, 0.9f);
 
         g2d.setColor(fgColor);
 

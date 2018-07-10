@@ -35,11 +35,10 @@ import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 
@@ -129,16 +128,18 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
     protected void installDefaults() {
         this.controlPanel.setBackground(null);
 
-        Border b = this.controlPanel.getBorder();
-        if (b == null || b instanceof UIResource) {
-            this.controlPanel.setBorder(null);
-        }
-
         Font font = this.controlPanel.getFont();
         if (font == null || font instanceof UIResource) {
             Font toSet = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
                     getControlFont();
             this.controlPanel.setFont(toSet);
+        }
+
+        Border b = this.controlPanel.getBorder();
+        if (b == null || b instanceof UIResource) {
+            Insets insets = SubstanceSizeUtils
+                    .getDefaultBorderInsets(SubstanceSizeUtils.getComponentFontSize(this.controlPanel));
+            //this.controlPanel.setBorder(new EmptyBorder(insets.top, 0, insets.bottom, 0));
         }
     }
 

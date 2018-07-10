@@ -29,10 +29,9 @@
  */
 package org.pushingpixels.trident.swing;
 
-import java.awt.Component;
-import java.awt.Rectangle;
-
 import org.pushingpixels.trident.Timeline;
+
+import java.awt.*;
 
 public class SwingRepaintTimeline extends Timeline {
     private SwingRepaintCallback repaintCallback;

@@ -31,12 +31,12 @@
 
 package org.pushingpixels.trident.interpolator;
 
+import org.pushingpixels.trident.TimelinePropertyBuilder.PropertySetter;
+import org.pushingpixels.trident.TridentConfig;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.pushingpixels.trident.TimelinePropertyBuilder.PropertySetter;
-import org.pushingpixels.trident.TridentConfig;
 
 /**
  * Stores a list of values that correspond to the times in a {@link KeyTimes}

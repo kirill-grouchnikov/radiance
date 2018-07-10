@@ -540,9 +540,9 @@ public final class ComponentState {
 		}
 
 		boolean isRolloverEnabled = true;
-		if (component instanceof AbstractButton)
-			isRolloverEnabled = ((AbstractButton) component)
-					.isRolloverEnabled();
+		if (component instanceof AbstractButton) {
+			isRolloverEnabled = ((AbstractButton) component).isRolloverEnabled();
+		}
 		if (!model.isEnabled()) {
 			if (!toIgnoreSelection && model.isSelected())
 				return DISABLED_SELECTED;

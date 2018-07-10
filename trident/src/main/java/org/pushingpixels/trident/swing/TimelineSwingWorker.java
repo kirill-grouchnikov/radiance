@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.trident.swing;
 
-import javax.swing.SwingWorker;
-
 import org.pushingpixels.trident.TimelineScenario;
+
+import javax.swing.*;
 
 public abstract class TimelineSwingWorker<T, V> extends SwingWorker<T, V>
         implements TimelineScenario.TimelineScenarioActor {

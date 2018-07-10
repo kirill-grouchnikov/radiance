@@ -175,6 +175,31 @@ public class ArcDecorationPainter implements SubstanceDecorationPainter {
             g2d.fillRect(-offset.x, 0, pWidth, height);
             g2d.dispose();
         }
+    }
 
+    @Override
+    public void paintDecorationArea(Graphics2D graphics, Component comp, DecorationAreaType
+            decorationAreaType, Shape contour, SubstanceColorScheme colorScheme) {
+        Component parent = SubstanceCoreUtilities.getHeaderParent(comp);
+        Point offset = SubstanceCoreUtilities.getOffsetInRootPaneCoords(comp);
+        JRootPane rootPane = SwingUtilities.getRootPane(parent);
+        // fix for bug 234 - Window doesn't have a root pane.
+        JLayeredPane layeredPane = rootPane.getLayeredPane();
+        Insets layeredPaneInsets = (layeredPane != null) ? layeredPane.getInsets() : null;
+
+        int pWidth = (layeredPane == null) ? parent.getWidth()
+                : layeredPane.getWidth() - layeredPaneInsets.left - layeredPaneInsets.right;
+
+        if (pWidth != 0) {
+            LinearGradientPaint gradientBottom = new LinearGradientPaint(-offset.x, 0,
+                    -offset.x + pWidth, 0, new float[] { 0.0f, 0.5f, 1.0f },
+                    new Color[] { colorScheme.getMidColor(), colorScheme.getLightColor(),
+                            colorScheme.getMidColor() },
+                    CycleMethod.REPEAT);
+            Graphics2D g2d = (Graphics2D) graphics.create();
+            g2d.setPaint(gradientBottom);
+            g2d.fill(contour);
+            g2d.dispose();
+        }
     }
 }

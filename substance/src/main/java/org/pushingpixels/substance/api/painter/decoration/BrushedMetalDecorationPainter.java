@@ -40,8 +40,7 @@ import java.net.URL;
  * 
  * @author Kirill Grouchnikov
  */
-public class BrushedMetalDecorationPainter extends
-		ImageWrapperDecorationPainter {
+public class BrushedMetalDecorationPainter extends ImageWrapperDecorationPainter {
 	/**
 	 * The display name for the decoration painters of this class.
 	 */

@@ -34,10 +34,22 @@ import org.pushingpixels.trident.Timeline;
 import java.awt.*;
 
 public class SwingComponentTimeline extends Timeline {
+    private boolean forceUiUpdate;
+
     public SwingComponentTimeline(Component mainTimelineComp) {
+        this(mainTimelineComp, false);
+    }
+
+    public SwingComponentTimeline(Component mainTimelineComp, boolean forceUiUpdate) {
         super(mainTimelineComp);
         if (mainTimelineComp == null) {
             throw new IllegalArgumentException("Must have non-null component");
         }
+        this.forceUiUpdate = forceUiUpdate;
+    }
+
+    @Override
+    protected boolean shouldForceUiUpdate() {
+        return this.forceUiUpdate;
     }
 }

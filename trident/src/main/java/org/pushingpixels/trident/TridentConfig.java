@@ -29,17 +29,17 @@
  */
 package org.pushingpixels.trident;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.pushingpixels.trident.TimelineEngine.TridentAnimationThread;
 import org.pushingpixels.trident.interpolator.CorePropertyInterpolators;
 import org.pushingpixels.trident.interpolator.PropertyInterpolator;
 import org.pushingpixels.trident.interpolator.PropertyInterpolatorSource;
 import org.pushingpixels.trident.swing.AWTPropertyInterpolators;
 import org.pushingpixels.trident.swing.SwingToolkitHandler;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TridentConfig {
     private static TridentConfig config;

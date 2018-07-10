@@ -37,6 +37,7 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -273,9 +274,11 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         if (this.collapsedButton.isVisible()) {
             // restore the control panel to the ribbon band.
             CollapsedButtonPopupPanel popupPanel = (collapsedButton.getPopupCallback() == null)
-                    ? null
-                    : (CollapsedButtonPopupPanel) collapsedButton.getPopupCallback()
-                    .getPopupPanel(collapsedButton);
+                                                   ? null
+                                                   :
+                                                   (CollapsedButtonPopupPanel) collapsedButton
+                                                           .getPopupCallback()
+                                                           .getPopupPanel(collapsedButton);
             if (popupPanel != null) {
                 AbstractRibbonBand bandFromPopup = (AbstractRibbonBand) popupPanel
                         .removeComponent();
@@ -357,9 +360,10 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             AbstractBandControlPanel controlPanel = ribbonBand.getControlPanel();
             boolean useCollapsedButton = (controlPanel == null) || !controlPanel.isVisible();
             int width = useCollapsedButton ? collapsedButton.getPreferredSize().width
-                    : controlPanel.getPreferredSize().width;
+                                           : controlPanel.getPreferredSize().width;
             int height = (useCollapsedButton ? collapsedButton.getPreferredSize().height
-                    : controlPanel.getPreferredSize().height) + getBandTitleHeight();
+                                             :
+                          controlPanel.getPreferredSize().height) + getBandTitleHeight();
 
             // System.out.println(ribbonBand.getTitle() + ":" + height);
 
@@ -370,7 +374,10 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             // System.out.println("Ribbon band pref = "
             // + (height + ins.top + ins.bottom));
 
-            return new Dimension(width + 2 + ins.left + ins.right, height + ins.top + ins.bottom);
+            int extraTop = SubstanceSizeUtils.getDefaultBorderInsets(
+                    SubstanceSizeUtils.getComponentFontSize(controlPanel)).top;
+            return new Dimension(width + ins.left + ins.right,
+                    height + extraTop + ins.top + ins.bottom);
         }
 
         /*
@@ -383,10 +390,10 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             AbstractBandControlPanel controlPanel = ribbonBand.getControlPanel();
             boolean useCollapsedButton = (controlPanel == null) || (!controlPanel.isVisible());
             int width = useCollapsedButton ? collapsedButton.getMinimumSize().width
-                    : controlPanel.getMinimumSize().width;
+                                           : controlPanel.getMinimumSize().width;
             int height = useCollapsedButton
-                    ? collapsedButton.getMinimumSize().height + getBandTitleHeight()
-                    : controlPanel.getMinimumSize().height + getBandTitleHeight();
+                         ? collapsedButton.getMinimumSize().height + getBandTitleHeight()
+                         : controlPanel.getMinimumSize().height + getBandTitleHeight();
 
             // System.out.println(useCollapsedButton + ":" + height);
 
@@ -394,7 +401,10 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             // 1. Insets on top and bottom
             // 2. Preferred height of the control panel
             // 3. Preferred height of the band title panel
-            return new Dimension(width + 2 + ins.left + ins.right, height + ins.top + ins.bottom);
+            int extraTop = SubstanceSizeUtils.getDefaultBorderInsets(
+                    SubstanceSizeUtils.getComponentFontSize(controlPanel)).top;
+            return new Dimension(width + ins.left + ins.right,
+                    height + extraTop + ins.top + ins.bottom);
 
         }
 
@@ -408,15 +418,18 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             if (!c.isVisible())
                 return;
             Insets ins = c.getInsets();
+            int extraTop = SubstanceSizeUtils.getDefaultBorderInsets(
+                    SubstanceSizeUtils.getComponentFontSize(ribbonBand.getControlPanel())).top;
 
-            int availableHeight = c.getHeight() - ins.top - ins.bottom;
+            int availableHeight = c.getHeight() - extraTop - ins.top - ins.bottom;
             RibbonBandResizePolicy resizePolicy = ((AbstractRibbonBand) c).getCurrentResizePolicy();
 
             if (resizePolicy instanceof IconRibbonBandResizePolicy) {
                 collapsedButton.setVisible(true);
                 int collapsedButtonWidth = c.getWidth() - ins.left - ins.right - 2;
-                collapsedButton.setBounds((c.getWidth() - collapsedButtonWidth) / 2, ins.top,
-                        collapsedButtonWidth, c.getHeight() - ins.top - ins.bottom);
+                collapsedButton.setBounds((c.getWidth() - collapsedButtonWidth) / 2,
+                        extraTop + ins.top,
+                        collapsedButtonWidth, c.getHeight() - extraTop - ins.top - ins.bottom);
 
                 if (collapsedButton.getPopupCallback() == null) {
                     final AbstractRibbonBand popupBand = ribbonBand.cloneBand();
@@ -450,9 +463,12 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 // was icon and now is normal band - have to restore the
                 // control panel
                 CollapsedButtonPopupPanel popupPanel = (collapsedButton.getPopupCallback() != null)
-                        ? (CollapsedButtonPopupPanel) collapsedButton.getPopupCallback()
-                        .getPopupPanel(collapsedButton)
-                        : null;
+                                                       ?
+                                                       (CollapsedButtonPopupPanel)
+                                                               collapsedButton.getPopupCallback()
+                                                                       .getPopupPanel(
+                                                                               collapsedButton)
+                                                       : null;
                 if (popupPanel != null) {
                     AbstractRibbonBand bandFromPopup = (AbstractRibbonBand) popupPanel
                             .removeComponent();
@@ -465,8 +481,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
 
             AbstractBandControlPanel controlPanel = ribbonBand.getControlPanel();
             controlPanel.setVisible(true);
-            controlPanel.setBounds(ins.left, ins.top, c.getWidth() - ins.left - ins.right,
-                    c.getHeight() - getBandTitleHeight() - ins.top - ins.bottom);
+            controlPanel.setBounds(ins.left, extraTop + ins.top, c.getWidth() - ins.left - ins.right,
+                    c.getHeight() - getBandTitleHeight() - extraTop - ins.top - ins.bottom);
             controlPanel.doLayout();
 
             if (expandButton != null) {

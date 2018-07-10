@@ -29,16 +29,9 @@
  */
 package org.pushingpixels.trident;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.pushingpixels.trident.callback.TimelineScenarioCallback;
+
+import java.util.*;
 
 public class TimelineScenario {
     private Set<TimelineScenarioActor> waitingActors;

@@ -31,10 +31,10 @@
 
 package org.pushingpixels.trident.interpolator;
 
-import java.util.ArrayList;
-
 import org.pushingpixels.trident.ease.Linear;
 import org.pushingpixels.trident.ease.TimelineEase;
+
+import java.util.ArrayList;
 
 /**
  *

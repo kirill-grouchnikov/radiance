@@ -147,7 +147,6 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
      */
     private void paintExtraBackground(Graphics2D graphics, Component comp,
             DecorationAreaType decorationAreaType, int width, int height, SubstanceSkin skin) {
-
         Point offset = SubstanceCoreUtilities.getOffsetInRootPaneCoords(comp);
 
         SubstanceColorScheme tileScheme = skin.getBackgroundColorScheme(decorationAreaType);
@@ -160,6 +159,23 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
         }
         Graphics2D temp = (Graphics2D) graphics.create();
         this.tileArea(temp, comp, tileScheme, offset.x, offset.y, 0, 0, width, height);
+        temp.dispose();
+    }
+
+    @Override
+    public void paintDecorationArea(Graphics2D graphics, Component comp, DecorationAreaType
+            decorationAreaType, Shape contour, SubstanceColorScheme colorScheme) {
+        Point offset = SubstanceCoreUtilities.getOffsetInRootPaneCoords(comp);
+        if (this.baseDecorationPainter != null) {
+            this.baseDecorationPainter.paintDecorationArea(graphics, comp, decorationAreaType,
+                    contour, colorScheme);
+        } else {
+            graphics.setColor(colorScheme.getMidColor());
+            graphics.fill(contour);
+        }
+        Graphics2D temp = (Graphics2D) graphics.create();
+        this.tileArea(temp, comp, colorScheme, offset.x, offset.y, 0, 0, comp.getWidth(),
+                comp.getHeight());
         temp.dispose();
     }
 

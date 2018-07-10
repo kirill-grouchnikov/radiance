@@ -29,11 +29,10 @@
  */
 package org.pushingpixels.trident.swing;
 
-import java.awt.Component;
-
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.trident.UIToolkitHandler;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class SwingToolkitHandler implements UIToolkitHandler {
     @Override

@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.trident;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-
 import org.pushingpixels.trident.interpolator.KeyFrames;
 import org.pushingpixels.trident.interpolator.PropertyInterpolator;
+
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 public class TimelinePropertyBuilder<T> {
 

@@ -196,7 +196,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
             // System.out.println("Control panel pref = "
             // + (buttonHeight + ins.top + ins.bottom));
 
-            return new Dimension(c.getWidth(), buttonHeight + ins.top + ins.bottom);
+            return new Dimension(c.getWidth() + ins.left + ins.right, buttonHeight + ins.top + ins.bottom);
         }
 
         /*
