@@ -30,16 +30,12 @@
 package org.pushingpixels.flamingo.internal.substance.common;
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.neon.icon.NeonIconUIResource;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.utils.HashMapKey;
-import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAware;
 
 import javax.swing.*;

@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
+import org.pushingpixels.flamingo.api.ribbon.*;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;

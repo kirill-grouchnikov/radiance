@@ -29,19 +29,15 @@
  */
 package org.pushingpixels.flamingo.api.common.popup;
 
-import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.flamingo.api.common.JCommandToggleMenuButton;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandPopupMenuUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
 
 import javax.swing.*;
 import javax.swing.JPopupMenu.Separator;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
 
 /**

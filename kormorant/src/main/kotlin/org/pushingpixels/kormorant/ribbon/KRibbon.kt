@@ -146,7 +146,7 @@ class KRibbonFrame {
         }
 
         ribbonFrame = JRibbonFrame(title)
-        ribbonFrame.applicationIcon = applicationIcon
+        ribbonFrame.setApplicationIcon(applicationIcon)
         for (task in tasks.tasks) {
             ribbonFrame.ribbon.addTask(task.asRibbonTask())
         }

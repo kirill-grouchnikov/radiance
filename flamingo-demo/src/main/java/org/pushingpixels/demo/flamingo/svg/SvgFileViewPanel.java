@@ -30,9 +30,7 @@
 package org.pushingpixels.demo.flamingo.svg;
 
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarCallBack;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.flamingo.api.common.StringValuePair;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.ibis.icon.SvgBatikResizableIcon;
 import org.pushingpixels.ibis.transcoder.SvgStreamTranscoder;
@@ -41,14 +39,9 @@ import org.pushingpixels.ibis.transcoder.java.JavaLanguageRenderer;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.*;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Panel that hosts SVG-based gallery buttons.

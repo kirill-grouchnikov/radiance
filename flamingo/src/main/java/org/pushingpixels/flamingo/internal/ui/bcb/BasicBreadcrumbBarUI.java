@@ -34,8 +34,7 @@ package org.pushingpixels.flamingo.internal.ui.bcb;
 
 import org.pushingpixels.flamingo.api.bcb.*;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
+import org.pushingpixels.flamingo.api.common.JCommandButton.*;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
@@ -44,17 +43,13 @@ import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.awt.event.*;
+import java.util.*;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 

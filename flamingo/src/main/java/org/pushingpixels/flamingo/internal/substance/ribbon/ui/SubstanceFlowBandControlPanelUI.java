@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.internal.ui.ribbon.BasicFlowBandControlPanelUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.JFlowBandControlPanel;
+import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;

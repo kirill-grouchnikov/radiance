@@ -31,23 +31,16 @@ package org.pushingpixels.flamingo.internal.substance.common.ui;
 
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonPanelUI;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.Side;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.painter.*;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * UI for {@link JCommandButtonPanel} components in <b>Substance</b> look and

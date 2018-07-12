@@ -34,8 +34,7 @@ import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceFlowBand
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Control panel of a single {@link JRibbonBand}. This class is for internal use

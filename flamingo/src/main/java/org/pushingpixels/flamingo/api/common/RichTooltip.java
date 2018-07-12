@@ -32,8 +32,7 @@ package org.pushingpixels.flamingo.api.common;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.*;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
 
 /**

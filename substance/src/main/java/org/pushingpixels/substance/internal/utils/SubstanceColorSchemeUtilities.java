@@ -65,30 +65,6 @@ public class SubstanceColorSchemeUtilities {
     }
 
     /**
-     * Metallic skin.
-     */
-    public static final SubstanceSkin METALLIC_SKIN = getMetallicSkin();
-
-    /**
-     * Returns a metallic skin.
-     * 
-     * @return Metallic skin.
-     */
-    private static SubstanceSkin getMetallicSkin() {
-        SubstanceSkin res = new SubstanceSkin() {
-            @Override
-            public String getDisplayName() {
-                return "Metallic Skin";
-            }
-        };
-        res.registerDecorationAreaSchemeBundle(
-                new SubstanceColorSchemeBundle(new MetallicColorScheme(), new MetallicColorScheme(),
-                        new LightGrayColorScheme()),
-                DecorationAreaType.NONE);
-        return res;
-    }
-
-    /**
      * Returns a colorized version of the specified color scheme.
      * 
      * @param component

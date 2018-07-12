@@ -31,32 +31,23 @@ package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
-import org.pushingpixels.flamingo.internal.substance.utils.RibbonTaskToggleButtonBackgroundDelegate;
-import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonVisualStateTracker;
-import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonTaskToggleButtonUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
+import org.pushingpixels.flamingo.internal.substance.utils.*;
+import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+import org.pushingpixels.substance.internal.animation.*;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 import java.util.Map;
 
 /**

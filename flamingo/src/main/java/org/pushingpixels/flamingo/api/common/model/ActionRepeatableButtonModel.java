@@ -34,8 +34,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
+import java.awt.event.*;
 
 /**
  * Extension of the default button model that supports the

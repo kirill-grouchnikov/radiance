@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.neon.AsynchronousLoadListener;
-import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.neon.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.*;

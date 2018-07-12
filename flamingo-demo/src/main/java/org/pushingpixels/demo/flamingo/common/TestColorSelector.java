@@ -31,26 +31,20 @@ package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.geom.Rectangle2D;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class TestColorSelector extends JFrame {
     private Color bColor;

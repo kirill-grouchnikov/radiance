@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.substance.common.ui;
 
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+import org.pushingpixels.substance.internal.animation.*;
 
 public interface ActionPopupTransitionAwareUI extends TransitionAwareUI {
 	public StateTransitionTracker getActionTransitionTracker();

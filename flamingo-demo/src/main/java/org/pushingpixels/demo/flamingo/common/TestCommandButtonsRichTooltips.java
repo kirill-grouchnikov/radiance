@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Address_book_new;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Help_browser;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.RichTooltip;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 

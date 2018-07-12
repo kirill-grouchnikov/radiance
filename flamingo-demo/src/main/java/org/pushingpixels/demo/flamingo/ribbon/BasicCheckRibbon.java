@@ -34,44 +34,24 @@ import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandBuilder;
-import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandToggleGroup;
-import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon;
-import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon;
-import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
-import org.pushingpixels.flamingo.api.common.icon.LayeredIcon;
-import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
-import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupListener;
+import org.pushingpixels.flamingo.api.common.FlamingoCommand.*;
+import org.pushingpixels.flamingo.api.common.icon.*;
+import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand
-        .PrimaryClearRolloverCallback;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand
-        .RibbonApplicationMenuPrimaryCommandBuilder;
-import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
-import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies;
-import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
-import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
+import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.*;
+import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.skin.BusinessSkin;
-import org.pushingpixels.substance.api.skin.SkinInfo;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.skin.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -1148,12 +1128,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
     }
 
     public static void addSkinGallery(JRibbonBand ribbonBand) {
-        Map<RibbonElementPriority, Integer> prefWidths = new HashMap<RibbonElementPriority, Integer>();
+        Map<RibbonElementPriority, Integer> prefWidths = new HashMap<RibbonElementPriority,
+                Integer>();
         prefWidths.put(RibbonElementPriority.LOW, 2);
         prefWidths.put(RibbonElementPriority.MEDIUM, 4);
         prefWidths.put(RibbonElementPriority.TOP, 8);
 
-        List<StringValuePair<List<FlamingoCommand>>> skinGroups = new ArrayList<StringValuePair<List<FlamingoCommand>>>();
+        List<StringValuePair<List<FlamingoCommand>>> skinGroups = new
+                ArrayList<StringValuePair<List<FlamingoCommand>>>();
         List<FlamingoCommand> skinCommands = new ArrayList<FlamingoCommand>();
 
         Map<String, SkinInfo> skins = SubstanceCortex.GlobalScope.getAllSkins();
@@ -1239,7 +1221,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 new WatermarkResizableIcon(null, 32, 32),
                 new ColorSchemeResizableIcon(null, 32, 32)), null);
         addSkinGallery(skinBand);
-        RibbonTask substanceSkinTask = new RibbonTask("Look & Feel", skinBand);
+        RibbonTask substanceSkinTask = new RibbonTask(
+                resourceBundle.getString("LookAndFeel.textTaskTitle"), skinBand);
 
         this.getRibbon().addTask(pageLayoutTask);
         this.getRibbon().addTask(writeTask);
@@ -1526,7 +1509,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setActionKeyTip("X").setRolloverCallback(new PrimaryClearRolloverCallback())
                 .build();
 
-        RibbonApplicationMenu applicationMenu = new RibbonApplicationMenu();
+        RibbonApplicationMenu applicationMenu = new RibbonApplicationMenu(
+                resourceBundle.getString("AppMenu.title"));
         applicationMenu.addMenuCommand(amEntryNew);
         applicationMenu.addMenuCommand(amEntryOpen);
         applicationMenu.addMenuCommand(amEntrySave);
@@ -1838,7 +1822,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
             KeyStroke keyStroke = (NeonCortex.getPlatform() == NeonCortex
                     .Platform.MACOS) ? KeyStroke.getKeyStroke("meta alt E") :
-                                  KeyStroke.getKeyStroke("alt shift E");
+                    KeyStroke.getKeyStroke("alt shift E");
             c.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
                     .put(keyStroke, "installTracingRepaintManager");
             c.getRootPane().getActionMap().put("installTracingRepaintManager",

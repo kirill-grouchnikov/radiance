@@ -32,16 +32,14 @@ package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand;
+import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand
         .PrimaryRolloverCallback;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicPopupPanelUI;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;

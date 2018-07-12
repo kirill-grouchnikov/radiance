@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.resize;
 
-import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
+import org.pushingpixels.flamingo.api.ribbon.*;
 
 import java.util.List;
 

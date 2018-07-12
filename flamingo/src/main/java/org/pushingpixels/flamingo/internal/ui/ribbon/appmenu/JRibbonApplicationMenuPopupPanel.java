@@ -43,14 +43,9 @@ public class JRibbonApplicationMenuPopupPanel extends JPopupPanel
      */
     public static final String uiClassID = "RibbonApplicationMenuPopupPanelUI";
 
-    protected JRibbonApplicationMenuButton appMenuButton;
-
     protected RibbonApplicationMenu ribbonAppMenu;
 
-    public JRibbonApplicationMenuPopupPanel(
-            final JRibbonApplicationMenuButton button,
-            RibbonApplicationMenu ribbonAppMenu) {
-        this.appMenuButton = button;
+    public JRibbonApplicationMenuPopupPanel(RibbonApplicationMenu ribbonAppMenu) {
         this.ribbonAppMenu = ribbonAppMenu;
 
         this.updateUI();
@@ -84,10 +79,6 @@ public class JRibbonApplicationMenuPopupPanel extends JPopupPanel
     @Override
     public String getUIClassID() {
         return uiClassID;
-    }
-
-    public JRibbonApplicationMenuButton getAppMenuButton() {
-        return appMenuButton;
     }
 
     public RibbonApplicationMenu getRibbonAppMenu() {

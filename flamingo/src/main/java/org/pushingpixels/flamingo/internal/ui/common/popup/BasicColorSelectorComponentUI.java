@@ -35,8 +35,7 @@ import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;

@@ -29,20 +29,15 @@
  */
 package org.pushingpixels.flamingo.internal.substance.common.ui;
 
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.JScrollablePanel;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel.ScrollType;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
 import org.pushingpixels.flamingo.internal.ui.common.BasicScrollablePanelUI;
-import org.pushingpixels.neon.icon.NeonIconUIResource;
-import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;

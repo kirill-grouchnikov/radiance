@@ -29,12 +29,10 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonStripUI;
-import org.pushingpixels.flamingo.internal.ui.common.CommandButtonStripUI;
+import org.pushingpixels.flamingo.internal.ui.common.*;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import java.awt.*;
 
 /**

@@ -29,15 +29,13 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.JScrollablePanel;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel.ScrollType;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 
 /**
  * Basic UI for scrollable panel {@link JScrollablePanel}.

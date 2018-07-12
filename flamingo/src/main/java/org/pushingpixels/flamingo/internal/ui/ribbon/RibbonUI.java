@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.ribbon.JRibbon;
-import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
+import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
 
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
@@ -54,7 +54,7 @@ public abstract class RibbonUI extends ComponentUI {
 
 	public abstract boolean isShowingScrollsForTaskToggleButtons();
 
-	public abstract boolean isShowingScrollsForBands();
-
 	public abstract void handleMouseWheelEvent(MouseWheelEvent e);
+
+	public abstract JRibbonApplicationMenuButton getApplicationMenuButton();
 }

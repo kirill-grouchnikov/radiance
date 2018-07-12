@@ -92,11 +92,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
      * @author Kirill Grouchnikov
      */
     public static class EditAllowCommand implements ConfigurationCommand<JComboBox> {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(JComboBox combo) {
             combo.setEditable(true);
         }
@@ -108,11 +104,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
      * @author Kirill Grouchnikov
      */
     public static class EditDisallowCommand implements ConfigurationCommand<JComboBox> {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(JComboBox combo) {
             combo.setEditable(false);
         }
@@ -159,20 +151,12 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
             doc = super.getDocument();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.ComboBoxEditor#getEditorComponent()
-         */
+        @Override
         public java.awt.Component getEditorComponent() {
             return this;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.ComboBoxEditor#setItem(java.lang.Object)
-         */
+        @Override
         public void setItem(Object anObject) {
             if (anObject instanceof EditableDocument151) {
                 super.setCaretPosition(0);
@@ -186,20 +170,11 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
 
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.ComboBoxEditor#getItem()
-         */
+        @Override
         public Object getItem() {
             return super.getText();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.Component#toString()
-         */
         @Override
         public String toString() {
             return super.getText();
@@ -219,11 +194,6 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
             this.setText("Long text to show the bug");
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#toString()
-         */
         @Override
         public String toString() {
             try {

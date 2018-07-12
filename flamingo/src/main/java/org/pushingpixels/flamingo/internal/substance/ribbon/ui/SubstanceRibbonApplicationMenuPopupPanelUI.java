@@ -29,21 +29,16 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.BasicRibbonApplicationMenuPopupPanelUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
-import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
+import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.*;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.*;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -87,33 +82,6 @@ public class SubstanceRibbonApplicationMenuPopupPanelUI
 						HighlightPainterUtils.paintHighlight(g, null, c,
 								new Rectangle(x, y, width, height), 0.0f, null, bgFillScheme,
 								bgBorderScheme);
-
-						// draw the application menu button
-						JRibbonApplicationMenuButton rendererButton = new JRibbonApplicationMenuButton(
-								applicationMenuPopupPanel.getAppMenuButton().getRibbon());
-
-						JRibbonApplicationMenuButton appMenuButton = applicationMenuPopupPanel
-								.getAppMenuButton();
-						rendererButton
-								.applyComponentOrientation(appMenuButton.getComponentOrientation());
-
-						rendererButton.setPopupKeyTip(appMenuButton.getPopupKeyTip());
-						rendererButton.setIcon(appMenuButton.getIcon());
-						rendererButton.getPopupModel().setRollover(false);
-						rendererButton.getPopupModel().setPressed(true);
-						rendererButton.getPopupModel().setArmed(true);
-						rendererButton.getPopupModel().setPopupShowing(true);
-
-						CellRendererPane buttonRendererPane = new CellRendererPane();
-						Point buttonLoc = appMenuButton.getLocationOnScreen();
-						Point panelLoc = c.getLocationOnScreen();
-
-						buttonRendererPane.setBounds(panelLoc.x - buttonLoc.x,
-								panelLoc.y - buttonLoc.y, appMenuButton.getWidth(),
-								appMenuButton.getHeight());
-						buttonRendererPane.paintComponent(g, rendererButton, (Container) c,
-								-panelLoc.x + buttonLoc.x, -panelLoc.y + buttonLoc.y,
-								appMenuButton.getWidth(), appMenuButton.getHeight(), true);
 					}
 
 				});

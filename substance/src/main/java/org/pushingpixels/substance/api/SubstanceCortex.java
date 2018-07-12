@@ -1083,8 +1083,8 @@ public class SubstanceCortex {
          * Specifies whether buttons should never paint backgrounds.
          *
          * @param neverPaintButtonBackground If <code>true</code>, buttons will never paint
-         *                                   backgrounds. Pass
-         *                                   <code>null</code> to reset to the default behavior.
+         *                                   backgrounds. Pass <code>null</code> to reset to the
+         *                                   default behavior.
          * @see ComponentOrParentScope#setButtonNeverPaintBackground(JComponent, Boolean)
          * @see #setFlatBackground(Boolean)
          */
@@ -1098,10 +1098,8 @@ public class SubstanceCortex {
          * or (possibly) hovered over.
          *
          * @param flatBackground If <code>true</code>, components will not paint backgrounds
-         *                       unless selected,
-         *                       armed, pressed or (possibly) hovered over.. Pass
-         *                       <code>null</code> to reset to
-         *                       the default behavior.
+         *                       unless selected, armed, pressed or (possibly) hovered over. Pass
+         *                       <code>null</code> to reset to the default behavior.
          * @see ComponentOrParentScope#setFlatBackground(JComponent, Boolean)
          * @see #setButtonNeverPaintBackground(Boolean)
          */

@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.neon.AsynchronousLoadListener;
-import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.neon.*;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 import javax.imageio.ImageIO;
@@ -39,8 +38,7 @@ import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Helper class to load images and expose them as icons of dynamic size.

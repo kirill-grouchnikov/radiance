@@ -32,11 +32,9 @@ package org.pushingpixels.flamingo.api.common;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonPanelUI;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
 
 /**

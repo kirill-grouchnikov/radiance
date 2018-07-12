@@ -30,17 +30,14 @@
 package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.Timeline.TimelineState;
+import org.pushingpixels.trident.Timeline.*;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
 import org.pushingpixels.trident.ease.Spline;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
-import org.pushingpixels.trident.swing.SwingRepaintCallback;
+import org.pushingpixels.trident.swing.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 
 /**
  * Basic UI for circular progress {@link JCircularProgress}.

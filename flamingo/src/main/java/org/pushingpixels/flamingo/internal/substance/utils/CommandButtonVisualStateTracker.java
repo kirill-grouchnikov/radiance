@@ -29,12 +29,10 @@
  */
 package org.pushingpixels.flamingo.internal.substance.utils;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 
 public class CommandButtonVisualStateTracker {
     /**

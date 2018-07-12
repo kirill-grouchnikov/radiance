@@ -34,10 +34,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Help_browser;
 import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandBuilder;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
-import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
+import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
 

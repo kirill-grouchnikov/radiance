@@ -4,14 +4,11 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.ibis.icon.SvgBatikResizableIcon;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -19,7 +16,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
 
 public class TestCommandButtonsSizing extends JPanel {

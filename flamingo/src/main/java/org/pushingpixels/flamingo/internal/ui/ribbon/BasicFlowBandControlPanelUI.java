@@ -30,8 +30,7 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
-import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
+import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI.CollapsedButtonPopupPanel;
 
 import javax.swing.*;

@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.PopupActionListener;
+import org.pushingpixels.flamingo.api.common.*;
 
 import javax.swing.*;
 

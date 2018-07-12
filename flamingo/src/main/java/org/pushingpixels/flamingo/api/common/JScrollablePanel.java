@@ -33,8 +33,7 @@ import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceScrollab
 import org.pushingpixels.flamingo.internal.ui.common.ScrollablePanelUI;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 
 /**
  * ScrollablePanel allows to have scrolling buttons on each side.

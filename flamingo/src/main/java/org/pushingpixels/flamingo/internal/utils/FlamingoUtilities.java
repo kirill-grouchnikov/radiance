@@ -29,18 +29,11 @@
  */
 package org.pushingpixels.flamingo.internal.utils;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
-import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.JRibbon;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
-import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
-import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
-import org.pushingpixels.flamingo.internal.ui.ribbon.AbstractBandControlPanel;
-import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
-import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.api.ribbon.resize.*;
+import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -68,33 +61,6 @@ public class FlamingoUtilities {
             return jcb.getCommandButtonKind().hasPopup();
         }
         return false;
-    }
-
-    public static void updateRibbonFrameIconImages(JRibbonFrame ribbonFrame) {
-        JRibbonApplicationMenuButton appMenuButton = getApplicationMenuButton(ribbonFrame);
-        if (appMenuButton == null) {
-            return;
-        }
-
-        ResizableIcon appIcon = ribbonFrame.getApplicationIcon();
-        if (appIcon != null) {
-            appMenuButton.setIcon(appIcon);
-        }
-    }
-
-    public static JRibbonApplicationMenuButton getApplicationMenuButton(Component comp) {
-        if (comp instanceof JRibbonApplicationMenuButton)
-            return (JRibbonApplicationMenuButton) comp;
-        if (comp instanceof Container) {
-            Container cont = (Container) comp;
-            for (int i = 0; i < cont.getComponentCount(); i++) {
-                JRibbonApplicationMenuButton result = getApplicationMenuButton(
-                        cont.getComponent(i));
-                if ((result != null) && result.isVisible())
-                    return result;
-            }
-        }
-        return null;
     }
 
     public static boolean isShowingMinimizedRibbonInPopup(JRibbon ribbon) {

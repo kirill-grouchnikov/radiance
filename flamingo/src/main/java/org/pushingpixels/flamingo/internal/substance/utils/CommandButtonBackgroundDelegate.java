@@ -29,23 +29,19 @@
  */
 package org.pushingpixels.flamingo.internal.substance.utils;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton.CommandButtonLocationOrderKind;
-import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip.StripOrientation;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
 import org.pushingpixels.flamingo.internal.substance.common.GlowingResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.substance.internal.SubstanceSynapse;
+import org.pushingpixels.substance.internal.*;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAware;
@@ -54,8 +50,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Delegate class for painting backgrounds of buttons in <b>Substance </b> look and feel. This class

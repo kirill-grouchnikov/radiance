@@ -29,59 +29,24 @@
  */
 package org.pushingpixels.demo.flamingo.svg;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.lang.reflect.Field;
-
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 import org.apache.batik.ext.awt.LinearGradientPaint;
 import org.apache.batik.ext.awt.MultipleGradientPaint;
-import org.apache.batik.ext.awt.MultipleGradientPaint.ColorSpaceEnum;
-import org.apache.batik.ext.awt.MultipleGradientPaint.CycleMethodEnum;
+import org.apache.batik.ext.awt.MultipleGradientPaint.*;
 import org.apache.batik.ext.awt.RadialGradientPaint;
 import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
-import org.apache.batik.gvt.CompositeGraphicsNode;
-import org.apache.batik.gvt.CompositeShapePainter;
-import org.apache.batik.gvt.FillShapePainter;
-import org.apache.batik.gvt.GraphicsNode;
-import org.apache.batik.gvt.ShapeNode;
-import org.apache.batik.gvt.ShapePainter;
-import org.apache.batik.gvt.StrokeShapePainter;
+import org.apache.batik.gvt.*;
 import org.apache.batik.swing.JSVGCanvas;
-import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
-import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
-import org.apache.batik.swing.svg.GVTTreeBuilderAdapter;
-import org.apache.batik.swing.svg.GVTTreeBuilderEvent;
-import org.apache.batik.swing.svg.SVGDocumentLoaderAdapter;
-import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
-import org.pushingpixels.ibis.transcoder.SvgTranscoder;
-import org.pushingpixels.ibis.transcoder.TranscoderListener;
+import org.apache.batik.swing.gvt.*;
+import org.apache.batik.swing.svg.*;
+import org.pushingpixels.ibis.transcoder.*;
 import org.pushingpixels.ibis.transcoder.java.JavaLanguageRenderer;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.*;
+import java.io.*;
+import java.lang.reflect.Field;
 
 public class SVGApplication {
 

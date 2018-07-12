@@ -29,16 +29,13 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
+import org.pushingpixels.flamingo.api.common.JCommandButton.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
-import org.pushingpixels.flamingo.api.ribbon.JRibbon;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
+import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeSupport;
+import java.beans.*;
 
 /**
  * Encapsulates metadata associated with a single command. Use a new instance of

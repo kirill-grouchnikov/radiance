@@ -36,9 +36,7 @@ import org.pushingpixels.flamingo.internal.substance.bcb.ui.SubstanceBreadcrumbB
 import org.pushingpixels.flamingo.internal.ui.bcb.BreadcrumbBarUI;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Breadcrumb bar. It is basically a way of lazily navigating around a tree, but

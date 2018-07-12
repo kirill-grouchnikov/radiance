@@ -31,25 +31,19 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip.StripOrientation;
-import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
-import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
+import org.pushingpixels.flamingo.internal.utils.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.UIResource;
+import javax.swing.plaf.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.event.*;
+import java.beans.*;
 
 /**
  * Basic UI for ribbon gallery {@link JRibbonGallery}.

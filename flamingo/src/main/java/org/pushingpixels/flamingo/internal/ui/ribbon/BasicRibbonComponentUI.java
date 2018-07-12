@@ -30,14 +30,12 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.HorizontalAlignment;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonComponent;
-import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
+import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 
 public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
     /**

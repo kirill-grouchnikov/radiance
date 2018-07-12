@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docname="mail-forward.svg"
-   sodipodi:docbase="/home/jimmac/src/cvs/tango-icon-theme/scalable/actions"
-   inkscape:version="0.43+devel"
-   sodipodi:version="0.32"
-   id="svg5816"
-   height="48px"
-   width="48px"
-   inkscape:export-filename="/home/garrett/Tango/scalable/actions/mail-forward-16.png"
-   inkscape:export-xdpi="30"
-   inkscape:export-ydpi="30">
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:cc="http://web.resource.org/cc/"
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+        sodipodi:docname="mail-forward.svg"
+        sodipodi:docbase="/home/jimmac/src/cvs/tango-icon-theme/scalable/actions"
+        inkscape:version="0.43+devel"
+        sodipodi:version="0.32"
+        id="svg5816"
+        height="48px"
+        width="48px"
+        inkscape:export-filename="/home/garrett/Tango/scalable/actions/mail-forward-16.png"
+        inkscape:export-xdpi="30"
+        inkscape:export-ydpi="30">
   <defs
      id="defs3">
     <linearGradient

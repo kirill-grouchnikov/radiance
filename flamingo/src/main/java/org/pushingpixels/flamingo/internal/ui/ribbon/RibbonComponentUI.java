@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.ribbon.JRibbonComponent;
-import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
+import org.pushingpixels.flamingo.api.ribbon.*;
 
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;

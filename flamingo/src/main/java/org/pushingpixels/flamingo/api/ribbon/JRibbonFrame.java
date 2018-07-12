@@ -1,46 +1,39 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
-import org.pushingpixels.flamingo.internal.ui.ribbon.AbstractBandControlPanel;
-import org.pushingpixels.flamingo.internal.ui.ribbon.BasicBandControlPanelUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonRootPane;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
+import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.internal.ui.ribbon.*;
+import org.pushingpixels.flamingo.internal.utils.*;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager.KeyTipEvent;
-import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
-import org.pushingpixels.neon.AsynchronousLoadListener;
-import org.pushingpixels.neon.AsynchronousLoading;
-import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
@@ -48,9 +41,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
@@ -59,13 +50,13 @@ import java.util.concurrent.CountDownLatch;
  * Ribbon frame. Provides the same functionality as a regular {@link JFrame}, but with a
  * {@link JRibbon} component in the top location.
  * </p>
- * 
+ *
  * <p>
  * This is the only officially supported way to use the {@link JRibbon} container. While
  * {@link JRibbon#JRibbon()} constructor is public, it is provided only for the applications that
  * are absolutely prevented from using {@link JRibbonFrame} class.
  * </p>
- * 
+ *
  * <p>
  * The implementation enforces that a {@link JRibbon} component is always at the
  * {@link BorderLayout#NORTH} location, throwing {@link IllegalArgumentException} on attempts to set
@@ -73,7 +64,7 @@ import java.util.concurrent.CountDownLatch;
  * {@link JRibbon} component, set a custom menu bar, content pane or any other operation that
  * inteferes with the intended hierarchy of this frame.
  * </p>
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class JRibbonFrame extends JFrame {
@@ -82,14 +73,12 @@ public class JRibbonFrame extends JFrame {
      */
     private JRibbon ribbon;
 
-    private ResizableIcon appIcon;
-
     private boolean wasSetIconImagesCalled;
 
     /**
      * Custom layout manager that enforces the {@link JRibbon} location at
      * {@link BorderLayout#NORTH}.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class RibbonFrameLayout extends BorderLayout {
@@ -118,7 +107,7 @@ public class JRibbonFrame extends JFrame {
 
     /**
      * A custom layer that shows the currently visible key tip chain.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class KeyTipLayer extends JComponent {
@@ -231,14 +220,12 @@ public class JRibbonFrame extends JFrame {
         /**
          * Checks whether the specified component or one of its ancestors has the specified client
          * property set to {@link Boolean#TRUE}.
-         * 
-         * @param c
-         *            Component.
-         * @param clientPropName
-         *            Client property name.
+         *
+         * @param c              Component.
+         * @param clientPropName Client property name.
          * @return <code>true</code> if the specified component or one of its ancestors has the
-         *         specified client property set to {@link Boolean#TRUE}, <code>false</code>
-         *         otherwise.
+         * specified client property set to {@link Boolean#TRUE}, <code>false</code>
+         * otherwise.
          */
         private boolean hasClientPropertySetToTrue(Component c, String clientPropName) {
             while (c != null) {
@@ -264,9 +251,8 @@ public class JRibbonFrame extends JFrame {
 
     /**
      * Creates a new ribbon frame with no title.
-     * 
-     * @throws HeadlessException
-     *             If GraphicsEnvironment.isHeadless() returns true.
+     *
+     * @throws HeadlessException If GraphicsEnvironment.isHeadless() returns true.
      */
     public JRibbonFrame() throws HeadlessException {
         super();
@@ -275,9 +261,8 @@ public class JRibbonFrame extends JFrame {
 
     /**
      * Creates a new ribbon frame with no title.
-     * 
-     * @param gc
-     *            Graphics configuration to use.
+     *
+     * @param gc Graphics configuration to use.
      */
     public JRibbonFrame(GraphicsConfiguration gc) {
         super(gc);
@@ -286,11 +271,9 @@ public class JRibbonFrame extends JFrame {
 
     /**
      * Creates a new ribbon frame with the specified title.
-     * 
-     * @param title
-     *            Ribbon frame title.
-     * @throws HeadlessException
-     *             If GraphicsEnvironment.isHeadless() returns true.
+     *
+     * @param title Ribbon frame title.
+     * @throws HeadlessException If GraphicsEnvironment.isHeadless() returns true.
      */
     public JRibbonFrame(String title) throws HeadlessException {
         super(title);
@@ -299,13 +282,10 @@ public class JRibbonFrame extends JFrame {
 
     /**
      * Creates a new ribbon frame with the specified title.
-     * 
-     * @param title
-     *            Ribbon frame title.
-     * @param gc
-     *            Graphics configuration to use.
-     * @throws HeadlessException
-     *             If GraphicsEnvironment.isHeadless() returns true.
+     *
+     * @param title Ribbon frame title.
+     * @param gc    Graphics configuration to use.
+     * @throws HeadlessException If GraphicsEnvironment.isHeadless() returns true.
      */
     public JRibbonFrame(String title, GraphicsConfiguration gc) {
         super(title, gc);
@@ -314,7 +294,7 @@ public class JRibbonFrame extends JFrame {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.JFrame#setLayout(java.awt.LayoutManager)
      */
     @Override
@@ -331,7 +311,7 @@ public class JRibbonFrame extends JFrame {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.JFrame#setJMenuBar(javax.swing.JMenuBar)
      */
     @Override
@@ -341,7 +321,7 @@ public class JRibbonFrame extends JFrame {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.JFrame#setContentPane(java.awt.Container)
      */
     @Override
@@ -373,56 +353,57 @@ public class JRibbonFrame extends JFrame {
                             // System.out.println(keyEvent.getID() + ":"
                             // + keyEvent.getKeyCode());
                             switch (keyEvent.getID()) {
-                            case KeyEvent.KEY_PRESSED:
-                                // if (keyEvent.getKeyCode() ==
-                                // KeyEvent.VK_ESCAPE) {
-                                // keyTipManager.showPreviousChain();
-                                // }
+                                case KeyEvent.KEY_PRESSED:
+                                    // if (keyEvent.getKeyCode() ==
+                                    // KeyEvent.VK_ESCAPE) {
+                                    // keyTipManager.showPreviousChain();
+                                    // }
 
-                                break;
-                            case KeyEvent.KEY_RELEASED:
-                                boolean wasAltModif = prevAltModif;
-                                prevAltModif = keyEvent
-                                        .getModifiersEx() == InputEvent.ALT_DOWN_MASK;
-                                if (wasAltModif && keyEvent.getKeyCode() == KeyEvent.VK_ALT)
                                     break;
-                                char keyChar = keyEvent.getKeyChar();
-                                if (Character.isLetter(keyChar) || Character.isDigit(keyChar)) {
-                                    // System.out.println("Will handle key press "
-                                    // + keyChar);
-                                    KeyTipManager.defaultManager().handleKeyPress(keyChar);
-                                }
-                                if ((keyEvent.getKeyCode() == KeyEvent.VK_ALT)
-                                        || (keyEvent.getKeyCode() == KeyEvent.VK_F10)) {
-                                    if (keyEvent.getModifiers() != 0
-                                            || keyEvent.getModifiersEx() != 0)
+                                case KeyEvent.KEY_RELEASED:
+                                    boolean wasAltModif = prevAltModif;
+                                    prevAltModif = keyEvent
+                                            .getModifiersEx() == InputEvent.ALT_DOWN_MASK;
+                                    if (wasAltModif && keyEvent.getKeyCode() == KeyEvent.VK_ALT)
                                         break;
-                                    boolean hadPopups = !PopupPanelManager.defaultManager()
-                                            .getShownPath().isEmpty();
-                                    PopupPanelManager.defaultManager().hidePopups(null);
-                                    if (hadPopups
-                                            || KeyTipManager.defaultManager().isShowingKeyTips()) {
-                                        KeyTipManager.defaultManager().hideAllKeyTips();
-                                    } else {
-                                        KeyTipManager.defaultManager()
-                                                .showRootKeyTipChain(JRibbonFrame.this);
+                                    char keyChar = keyEvent.getKeyChar();
+                                    if (Character.isLetter(keyChar) || Character.isDigit(keyChar)) {
+                                        // System.out.println("Will handle key press "
+                                        // + keyChar);
+                                        KeyTipManager.defaultManager().handleKeyPress(keyChar);
                                     }
-                                }
-                                if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                                    // System.out.println("In KTM");
-                                    KeyTipManager.defaultManager().showPreviousChain();
-                                }
-                                break;
+                                    if ((keyEvent.getKeyCode() == KeyEvent.VK_ALT)
+                                            || (keyEvent.getKeyCode() == KeyEvent.VK_F10)) {
+                                        if (keyEvent.getModifiers() != 0
+                                                || keyEvent.getModifiersEx() != 0)
+                                            break;
+                                        boolean hadPopups = !PopupPanelManager.defaultManager()
+                                                .getShownPath().isEmpty();
+                                        PopupPanelManager.defaultManager().hidePopups(null);
+                                        if (hadPopups
+                                                || KeyTipManager.defaultManager()
+                                                .isShowingKeyTips()) {
+                                            KeyTipManager.defaultManager().hideAllKeyTips();
+                                        } else {
+                                            KeyTipManager.defaultManager()
+                                                    .showRootKeyTipChain(JRibbonFrame.this);
+                                        }
+                                    }
+                                    if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                                        // System.out.println("In KTM");
+                                        KeyTipManager.defaultManager().showPreviousChain();
+                                    }
+                                    break;
                             }
                         }
                         if (event instanceof MouseEvent) {
                             MouseEvent mouseEvent = (MouseEvent) event;
                             switch (mouseEvent.getID()) {
-                            case MouseEvent.MOUSE_CLICKED:
-                            case MouseEvent.MOUSE_DRAGGED:
-                            case MouseEvent.MOUSE_PRESSED:
-                            case MouseEvent.MOUSE_RELEASED:
-                                KeyTipManager.defaultManager().hideAllKeyTips();
+                                case MouseEvent.MOUSE_CLICKED:
+                                case MouseEvent.MOUSE_DRAGGED:
+                                case MouseEvent.MOUSE_PRESSED:
+                                case MouseEvent.MOUSE_RELEASED:
+                                    KeyTipManager.defaultManager().hideAllKeyTips();
                             }
                         }
                     }
@@ -496,7 +477,7 @@ public class JRibbonFrame extends JFrame {
 
     /**
      * Returns the ribbon component.
-     * 
+     *
      * @return Ribbon component.
      */
     public JRibbon getRibbon() {
@@ -505,7 +486,7 @@ public class JRibbonFrame extends JFrame {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.JFrame#createRootPane()
      */
     @Override
@@ -522,34 +503,31 @@ public class JRibbonFrame extends JFrame {
     }
 
     public synchronized void setApplicationIcon(final ResizableIcon icon) {
-        new Thread() {
-            @Override
-            public void run() {
-                // still loading?
-                if (icon instanceof AsynchronousLoading) {
-                    AsynchronousLoading async = (AsynchronousLoading) icon;
-                    if (async.isLoading()) {
-                        final CountDownLatch latch = new CountDownLatch(1);
-                        final boolean[] status = new boolean[1];
-                        AsynchronousLoadListener all = (boolean success) -> {
-                            status[0] = success;
-                            latch.countDown();
-                        };
-                        async.addAsynchronousLoadListener(all);
-                        try {
-                            latch.await();
-                        } catch (InterruptedException ie) {
-                        }
-                        async.removeAsynchronousLoadListener(all);
+        new Thread(() -> {
+            // still loading?
+            if (icon instanceof AsynchronousLoading) {
+                AsynchronousLoading async = (AsynchronousLoading) icon;
+                if (async.isLoading()) {
+                    final CountDownLatch latch = new CountDownLatch(1);
+                    final boolean[] status = new boolean[1];
+                    AsynchronousLoadListener all = (boolean success) -> {
+                        status[0] = success;
+                        latch.countDown();
+                    };
+                    async.addAsynchronousLoadListener(all);
+                    try {
+                        latch.await();
+                    } catch (InterruptedException ie) {
                     }
+                    async.removeAsynchronousLoadListener(all);
                 }
-                setApplicationAndMenuButtonIcon(icon);
             }
-        }.start();
+            setApplicationAndMenuButtonIcon(icon);
+        }).start();
     }
 
     private void setApplicationAndMenuButtonIcon(final ResizableIcon icon) {
-        if (System.getProperty("os.name").startsWith("Mac")) {
+        if (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS) {
             final Image image16 = getImage(icon, 16);
             final Image image128 = getImage(icon, 128);
             SwingUtilities.invokeLater(() -> {
@@ -572,7 +550,6 @@ public class JRibbonFrame extends JFrame {
                         // give up
                     }
                 }
-                setMainAppIcon(icon);
             });
         } else {
             final List<Image> images = new ArrayList<Image>();
@@ -588,14 +565,8 @@ public class JRibbonFrame extends JFrame {
             SwingUtilities.invokeLater(() -> {
                 if (!images.isEmpty())
                     setLegacyIconImages(images);
-                setMainAppIcon(icon);
             });
         }
-    }
-
-    private void setMainAppIcon(ResizableIcon icon) {
-        this.appIcon = icon;
-        FlamingoUtilities.updateRibbonFrameIconImages(this);
     }
 
     private void setLegacyIconImages(List<Image> images) {
@@ -637,15 +608,11 @@ public class JRibbonFrame extends JFrame {
         return result;
     }
 
-    public synchronized ResizableIcon getApplicationIcon() {
-        return this.appIcon;
-    }
-
     /**
      * Returns indication whether this ribbon frame is showing the key tips.
-     * 
+     *
      * @return <code>true</code> if this ribbon frame is showing the key tips, <code>false</code>
-     *         otherwise.
+     * otherwise.
      */
     public boolean isShowingKeyTips() {
         return KeyTipManager.defaultManager().isShowingKeyTips();

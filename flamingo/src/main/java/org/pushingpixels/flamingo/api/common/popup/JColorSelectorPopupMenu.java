@@ -29,17 +29,13 @@
  */
 package org.pushingpixels.flamingo.api.common.popup;
 
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.flamingo.api.common.JCommandToggleMenuButton;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandPopupMenuUI;
-import org.pushingpixels.flamingo.internal.ui.common.popup.BasicColorSelectorPopupMenuUI;
-import org.pushingpixels.flamingo.internal.ui.common.popup.JColorSelectorComponent;
-import org.pushingpixels.flamingo.internal.ui.common.popup.JColorSelectorPanel;
+import org.pushingpixels.flamingo.internal.ui.common.popup.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
 
 public class JColorSelectorPopupMenu extends JCommandPopupMenu {

@@ -29,6 +29,11 @@
  */
 package org.pushingpixels.substance.api.painter.decoration;
 
+import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.colorscheme.LightGrayColorScheme;
+import org.pushingpixels.substance.api.colorscheme.MetallicColorScheme;
 import org.pushingpixels.substance.internal.utils.NoiseFactory;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 
@@ -45,12 +50,31 @@ public class MarbleNoiseDecorationPainter extends ImageWrapperDecorationPainter 
 	public static final String DISPLAY_NAME = "Marble Noise";
 
 	/**
+	 * Metallic skin.
+	 */
+	private static final SubstanceSkin METALLIC_SKIN = getMetallicSkin();
+
+	private static SubstanceSkin getMetallicSkin() {
+		SubstanceSkin res = new SubstanceSkin() {
+			@Override
+			public String getDisplayName() {
+				return "Metallic Skin";
+			}
+		};
+		res.registerDecorationAreaSchemeBundle(
+				new SubstanceColorSchemeBundle(new MetallicColorScheme(), new MetallicColorScheme(),
+						new LightGrayColorScheme()),
+				SubstanceSlices.DecorationAreaType.NONE);
+		return res;
+	}
+
+	/**
 	 * Creates a new marble noise decoration painter.
 	 */
 	public MarbleNoiseDecorationPainter() {
 		super();
 		this.originalTile = NoiseFactory.getNoiseImage(
-				SubstanceColorSchemeUtilities.METALLIC_SKIN, 400, 400, 0.8,
+				METALLIC_SKIN, 400, 400, 0.8,
 				0.8, false, true, true);
 	}
 

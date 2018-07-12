@@ -81,6 +81,7 @@ class KRibbonApplicationMenu {
     private lateinit var ribbonApplicationMenu: RibbonApplicationMenu
     private var hasBeenConverted: Boolean = false
 
+    var title: String by NonNullDelegate({ hasBeenConverted })
     private var richTooltip: KRichTooltip? by NullableDelegate({ hasBeenConverted })
     var keyTip: String? by NullableDelegate({ hasBeenConverted })
     private val footerCommands = KRibbonApplicationMenuCommandContainer()
@@ -114,7 +115,7 @@ class KRibbonApplicationMenu {
             throw IllegalStateException("This method can only be called once")
         }
 
-        ribbonApplicationMenu = RibbonApplicationMenu()
+        ribbonApplicationMenu = RibbonApplicationMenu(title)
         for (primaryEntry in primaryContent) {
             when (primaryEntry) {
                 is KRibbonApplicationMenuPrimaryCommand -> ribbonApplicationMenu.addMenuCommand(

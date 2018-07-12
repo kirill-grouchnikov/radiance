@@ -29,21 +29,16 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.model.ActionRepeatableButtonModel;
-import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.EventListenerList;
+import javax.swing.event.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 /**
  * Command button.

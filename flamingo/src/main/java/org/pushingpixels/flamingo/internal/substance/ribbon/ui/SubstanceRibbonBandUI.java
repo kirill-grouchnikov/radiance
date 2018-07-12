@@ -29,29 +29,23 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
-import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
+import org.pushingpixels.substance.internal.painter.*;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
+import javax.swing.plaf.*;
 import java.awt.*;
 
 /**
@@ -148,10 +142,10 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
 
         // make the title color blend a little with the background
         SubstanceColorScheme bgColorScheme = skin
-                .getBackgroundColorScheme(DecorationAreaType.HEADER);
+                .getBackgroundColorScheme(DecorationAreaType.GENERAL);
         Color bgFillColor = bgColorScheme.getBackgroundFillColor();
         Color fgColor = bgColorScheme.getForegroundColor();
-        fgColor = SubstanceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, 0.9f);
+        fgColor = SubstanceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, 0.95f);
 
         g2d.setColor(fgColor);
 
@@ -176,9 +170,9 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     @Override
     protected JCommandButton createExpandButton() {
         RibbonBandExpandButton result = new RibbonBandExpandButton();
-        // since paintBandTitleBackground uses HEADER, mark this button with
-        // HEADER as well to sync the mark color
-        ComponentOrParentChainScope.setDecorationType(result, DecorationAreaType.HEADER);
+        // since paintBandTitleBackground uses GENERAL, mark this button with
+        // GENERAL as well to sync the mark color
+        ComponentOrParentChainScope.setDecorationType(result, DecorationAreaType.GENERAL);
         SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.ribbonBand);
         result.setIcon(getExpandButtonIcon(skin, result));
         return result;
@@ -193,7 +187,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> {
                     SubstanceColorScheme bgColorScheme = skin
-                            .getBackgroundColorScheme(DecorationAreaType.HEADER);
+                            .getBackgroundColorScheme(DecorationAreaType.GENERAL);
                     Color bgFillColor = bgColorScheme.getBackgroundFillColor();
                     return SubstanceImageCreator.getDoubleArrowIcon(
                             SubstanceSizeUtils.getComponentFontSize(button), width, height,
@@ -202,7 +196,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
                             button.getComponentOrientation().isLeftToRight() ? SwingConstants.EAST
                                     : SwingConstants.WEST,
                             SubstanceColorSchemeUtilities.getShiftedScheme(scheme, bgFillColor,
-                                    0.0f, bgFillColor, 0.2f));
+                                    0.0f, bgFillColor, 0.3f));
                 }, new Dimension(arrowIconHeight, arrowIconWidth));
         return arrowIcon;
     }

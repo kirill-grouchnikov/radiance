@@ -29,17 +29,12 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.api.ribbon.JRibbon;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
-import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
+import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI;
@@ -47,12 +42,10 @@ import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Custom title pane for {@link JRibbonFrame} running under Substance look-and-feel.
@@ -300,8 +293,8 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                             SubstanceTitlePaneUtilities.ExtraComponentKind kind =
                                     (SubstanceTitlePaneUtilities.ExtraComponentKind) (
                                             (JComponent) child).getClientProperty(
-                                                    SubstanceTitlePaneUtilities
-                                                            .EXTRA_COMPONENT_KIND);
+                                            SubstanceTitlePaneUtilities
+                                                    .EXTRA_COMPONENT_KIND);
                             if (kind == SubstanceTitlePaneUtilities.ExtraComponentKind.LEADING)
                                 continue;
                             if (child instanceof SubstanceContextualGroupComponent)
@@ -331,35 +324,17 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                     pref.width = 0;
                 }
 
-                SubstanceRibbonRootPaneUI rootPaneUI = (SubstanceRibbonRootPaneUI) getRootPane()
-                        .getUI();
-                JRibbonApplicationMenuButton menuButton = rootPaneUI.applicationMenuButton;
-
-                if (menuButton != null) {
-                    if (menuButton.isVisible()) {
-                        int maxLeadingX = menuButton.getX() + menuButton.getWidth()
-                                + 2 * getTaskBarLayoutGap(taskbarPanel);
-                        if (taskbarPanel.isVisible()) {
-                            taskbarPanel.setBounds(maxLeadingX, 0, pref.width, c.getHeight());
-                            taskbarPanel.doLayout();
-                        }
-                        menuBar.setVisible(false);
+                if (taskbarPanel.isVisible()) {
+                    if (pref.width == 0) {
+                        taskbarPanel.setBounds(menuBar.getX() + menuBar.getWidth(), 0,
+                                pref.width, c.getHeight());
                     } else {
-                        if (taskbarPanel.isVisible()) {
-                            if (pref.width == 0) {
-                                taskbarPanel.setBounds(menuBar.getX() + menuBar.getWidth(), 0,
-                                        pref.width, c.getHeight());
-                            } else {
-                                taskbarPanel.setBounds(menuBar.getX() + menuBar.getWidth() + 5, 0,
-                                        pref.width, c.getHeight());
-                            }
-                            taskbarPanel.doLayout();
-                        }
-                        menuBar.setVisible(true);
+                        taskbarPanel.setBounds(menuBar.getX() + menuBar.getWidth() + 5, 0,
+                                pref.width, c.getHeight());
                     }
-                } else {
-                    menuBar.setVisible(true);
+                    taskbarPanel.doLayout();
                 }
+                menuBar.setVisible(true);
             } else {
                 // headers of contextual task groups
                 for (Map.Entry<RibbonContextualTaskGroup, SubstanceContextualGroupComponent>
@@ -410,35 +385,17 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                     pref.width = 0;
                 }
 
-                SubstanceRibbonRootPaneUI rootPaneUI = (SubstanceRibbonRootPaneUI) getRootPane()
-                        .getUI();
-                JRibbonApplicationMenuButton menuButton = rootPaneUI.applicationMenuButton;
-
-                if (menuButton != null) {
-                    if (menuButton.isVisible()) {
-                        int maxLeadingX = menuButton.getX() - 2 * getTaskBarLayoutGap(taskbarPanel);
-                        if (taskbarPanel.isVisible()) {
-                            taskbarPanel.setBounds(maxLeadingX - pref.width, 0, pref.width,
-                                    c.getHeight());
-                            taskbarPanel.doLayout();
-                        }
-                        menuBar.setVisible(false);
+                if (taskbarPanel.isVisible()) {
+                    if (pref.width == 0) {
+                        taskbarPanel.setBounds(menuBar.getX(), 0, pref.width,
+                                c.getHeight());
                     } else {
-                        if (taskbarPanel.isVisible()) {
-                            if (pref.width == 0) {
-                                taskbarPanel.setBounds(menuBar.getX(), 0, pref.width,
-                                        c.getHeight());
-                            } else {
-                                taskbarPanel.setBounds(menuBar.getX() - 5 - pref.width, 0,
-                                        pref.width, c.getHeight());
-                            }
-                            taskbarPanel.doLayout();
-                        }
-                        menuBar.setVisible(true);
+                        taskbarPanel.setBounds(menuBar.getX() - 5 - pref.width, 0,
+                                pref.width, c.getHeight());
                     }
-                } else {
-                    menuBar.setVisible(true);
+                    taskbarPanel.doLayout();
                 }
+                menuBar.setVisible(true);
             }
         }
     }
@@ -526,8 +483,8 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             SubstanceColorScheme compScheme = SubstanceColorSchemeUtilities.getColorScheme(this,
                     ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
             Color sepColor = compScheme.isDark()
-                             ? SeparatorPainterUtils.getSeparatorShadowColor(compScheme)
-                             : SeparatorPainterUtils.getSeparatorDarkColor(compScheme);
+                    ? SeparatorPainterUtils.getSeparatorShadowColor(compScheme)
+                    : SeparatorPainterUtils.getSeparatorDarkColor(compScheme);
             g2d.setColor(sepColor);
             float separatorThickness = SubstanceSizeUtils.getBorderStrokeWidth();
             float separatorY = getHeight() - separatorThickness;

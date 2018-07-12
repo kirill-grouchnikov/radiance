@@ -30,8 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon.resize;
 
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
-import org.pushingpixels.flamingo.internal.ui.ribbon.AbstractBandControlPanel;
-import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonBandUI;
+import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 
 /**
  * Special resize policy that is used for collapsed ribbon bands. When there is

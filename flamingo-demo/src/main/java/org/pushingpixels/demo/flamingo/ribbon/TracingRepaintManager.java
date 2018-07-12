@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.demo.flamingo.ribbon;
 
-import javax.swing.JComponent;
-import javax.swing.RepaintManager;
+import javax.swing.*;
 
 public class TracingRepaintManager extends RepaintManager {
 	@Override

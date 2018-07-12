@@ -29,23 +29,15 @@
  */
 package org.pushingpixels.flamingo.internal.substance.utils;
 
-import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.JRibbon;
-import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
-import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
+import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.Side;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+import org.pushingpixels.substance.internal.animation.*;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.*;
 
@@ -53,9 +45,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
-import java.util.EnumSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Delegate class for painting backgrounds of {@link JRibbonTaskToggleButton}s.
@@ -96,6 +86,16 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 SubstanceCortex.ComponentOrParentChainScope.getDecorationType(button);
         SubstanceDecorationPainter decorationPainter = skin.getDecorationPainter();
 
+        // To create visual continuity between the background of the selected task
+        // and its toggle button, we use the decoration painter and not fill painter.
+        // We also ignore the selected state of the toggle button to compute the
+        // color scheme to use.
+        // If we have one active state which is *not* enabled, this means that we have
+        // fully transitioned / animated to a state like rollover or pressed (no selection
+        // as mentioned before). For such a state, we use the matching FILL color scheme.
+        // Otherwise, we use the background color scheme as the base fill for the visual
+        // continuity, and let the other active states (if any) paint the additional
+        // transition visuals.
         SubstanceColorScheme baseFillScheme =
                 ((activeStates.size() == 1) && (currState != ComponentState.ENABLED)) ?
                         SubstanceColorSchemeUtilities.getColorScheme(button,
@@ -142,8 +142,11 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
                 : activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
-            if (activeState == ComponentState.ENABLED)
+            if (activeState == ComponentState.ENABLED) {
+                // See comment above on why we're skipping the contribution of the default
+                // enabled no-selection state.
                 continue;
+            }
 
             float contribution = activeEntry.getValue().getContribution();
             if (contribution == 0.0f)

@@ -29,16 +29,11 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandBuilder;
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.PrimaryClearRolloverCallback;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.RibbonApplicationMenuPrimaryCommandBuilder;
+import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Metadata description of the application menu of the {@link JRibbon} component. The ribbon
@@ -65,7 +60,7 @@ import java.util.List;
  * 
  * <ul>
  * <li>Associated {@link PrimaryRolloverCallback} configured by the
- * {@link RibbonApplicationMenuPrimaryCommandBuilder#setRolloverCallback(org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.RibbonApplicationMenuPrimaryCommandBuilder.PrimaryRolloverCallback)}
+ * {@link RibbonApplicationMenuPrimaryCommandBuilder#setRolloverCallback(PrimaryRolloverCallback)}
  * . When this entry is armed (with mouse rollover or via keyboard navigation), the contents of the
  * secondary area are populated by the application callback implementation of
  * {@link PrimaryRolloverCallback#menuEntryActivated(javax.swing.JPanel)}. The <code>Open</code>
@@ -102,14 +97,15 @@ public class RibbonApplicationMenu {
      * Indicates whether this ribbon application menu has been set on the {@link JRibbon} with the
      * {@link JRibbon#setApplicationMenu(RibbonApplicationMenu)}. Once that API is called, the
      * contents of this menu cannot be changed. An {@link IllegalStateException} will be thrown from
-     * {@link #addMenuCommand(FlamingoCommand)} and
-     * {@link #addFooterCommand(RibbonApplicationMenuEntryFooter)}.
+     * {@link #addMenuCommand(RibbonApplicationMenuPrimaryCommand)} and
+     * {@link #addFooterCommand(FlamingoCommand)}.
      * 
-     * @see #setFrozen(boolean)
-     * @see #addMenuCommand(FlamingoCommand)
-     * @see #addFooterCommand(RibbonApplicationMenuEntryFooter)
+     * @see #addMenuCommand(RibbonApplicationMenuPrimaryCommand)
+     * @see #addFooterCommand(FlamingoCommand)
      */
     private boolean isFrozen;
+
+    private String title;
 
     /**
      * Primary commands.
@@ -135,10 +131,15 @@ public class RibbonApplicationMenu {
     /**
      * Creates an empty ribbon application menu.
      */
-    public RibbonApplicationMenu() {
+    public RibbonApplicationMenu(String title) {
+        this.title = title;
         this.primaryCommands = new ArrayList<List<RibbonApplicationMenuPrimaryCommand>>();
         this.primaryCommands.add(new ArrayList<RibbonApplicationMenuPrimaryCommand>());
         this.footerCommands = new ArrayList<FlamingoCommand>();
+    }
+
+    public String getTitle() {
+        return this.title;
     }
 
     /**
@@ -150,7 +151,7 @@ public class RibbonApplicationMenu {
      *             if this ribbon application menu has already been set on the {@link JRibbon} with
      *             the {@link JRibbon#setApplicationMenu(RibbonApplicationMenu)}.
      * @see #getPrimaryCommands()
-     * @see #addFooterCommand(RibbonApplicationMenuEntryFooter)
+     * @see #addFooterCommand(FlamingoCommand)
      */
     public synchronized void addMenuCommand(RibbonApplicationMenuPrimaryCommand command) {
         if (this.isFrozen) {
@@ -240,11 +241,11 @@ public class RibbonApplicationMenu {
     /**
      * Marks this application menu as frozen. Subsequent calls to
      * {@link #addMenuCommand(RibbonApplicationMenuPrimaryCommand)} and
-     * {@link #addFooterCommand(RibbonApplicationMenuEntryFooter)} will throw an
+     * {@link #addFooterCommand(FlamingoCommand)} will throw an
      * {@link IllegalStateException}.
      * 
      * @see #addMenuCommand(RibbonApplicationMenuPrimaryCommand)
-     * @see #addFooterCommand(RibbonApplicationMenuEntryFooter)
+     * @see #addFooterCommand(FlamingoCommand)
      * @see JRibbon#setApplicationMenu(RibbonApplicationMenu)
      */
     synchronized void setFrozen() {

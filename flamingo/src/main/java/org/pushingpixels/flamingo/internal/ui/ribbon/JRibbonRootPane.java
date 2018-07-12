@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.ribbon.JRibbon;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
+import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonRootPaneUI;
 import org.pushingpixels.neon.NeonCortex;
 
@@ -47,8 +46,6 @@ public class JRibbonRootPane extends JRootPane {
 	 * The UI class ID string.
 	 */
 	public static final String uiClassID = "RibbonRootPaneUI";
-
-	public static final int RIBBON_SPECIAL_LAYER = JLayeredPane.DEFAULT_LAYER + 50;
 
 	public JRibbonRootPane() {
 		InputMap inputMap = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);

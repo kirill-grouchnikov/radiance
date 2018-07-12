@@ -1,63 +1,57 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
-import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizeSequencingPolicy;
+import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
+import org.pushingpixels.flamingo.internal.utils.*;
 import org.pushingpixels.neon.NeonCortex;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.UIResource;
+import javax.swing.event.*;
+import javax.swing.plaf.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 import java.util.*;
 import java.util.List;
 
 /**
  * Basic UI for ribbon {@link JRibbon}.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public abstract class BasicRibbonUI extends RibbonUI {
@@ -109,7 +103,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
      */
     @Override
@@ -122,7 +116,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
      */
     @Override
@@ -157,7 +151,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 ribbon.repaint();
                 Window windowAncestor = SwingUtilities.getWindowAncestor(ribbon);
                 if (windowAncestor instanceof JRibbonFrame) {
-                    FlamingoUtilities.updateRibbonFrameIconImages((JRibbonFrame) windowAncestor);
+                    applicationMenuButton.setText(ribbon.getApplicationMenu().getTitle());
                 }
             }
             if ("minimized".equals(evt.getPropertyName())) {
@@ -242,12 +236,18 @@ public abstract class BasicRibbonUI extends RibbonUI {
         this.syncRibbonState();
 
         this.applicationMenuButton = new JRibbonApplicationMenuButton(this.ribbon);
+        this.applicationMenuButton.applyComponentOrientation(this.ribbon.getComponentOrientation());
         this.syncApplicationMenuTips();
         this.ribbon.add(applicationMenuButton);
         Window windowAncestor = SwingUtilities.getWindowAncestor(this.ribbon);
         if (windowAncestor instanceof JRibbonFrame) {
-            FlamingoUtilities.updateRibbonFrameIconImages((JRibbonFrame) windowAncestor);
+            this.applicationMenuButton.setText(this.ribbon.getApplicationMenu().getTitle());
         }
+    }
+
+    @Override
+    public JRibbonApplicationMenuButton getApplicationMenuButton() {
+        return this.applicationMenuButton;
     }
 
     protected LayoutManager createTaskToggleButtonsHostPanelLayoutManager() {
@@ -269,7 +269,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
         bandHostPanel.setLayout(null);
         this.ribbon.remove(this.bandScrollablePanel);
 
-        TaskToggleButtonsHostPanel taskToggleButtonsHostPanel = this.taskToggleButtonsScrollablePanel
+        TaskToggleButtonsHostPanel taskToggleButtonsHostPanel = this
+                .taskToggleButtonsScrollablePanel
                 .getView();
         taskToggleButtonsHostPanel.removeAll();
         taskToggleButtonsHostPanel.setLayout(null);
@@ -285,7 +286,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
      */
     @Override
@@ -298,7 +299,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics, javax.swing.JComponent)
      */
     @Override
@@ -314,9 +315,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     /**
      * Paints the ribbon background.
-     * 
-     * @param g
-     *            Graphics context.
+     *
+     * @param g Graphics context.
      */
     protected abstract void paintBackground(Graphics g);
 
@@ -339,7 +339,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     /**
      * Returns the layout gap for the bands in the associated ribbon.
-     * 
+     *
      * @return The layout gap for the bands in the associated ribbon.
      */
     protected int getBandGap() {
@@ -348,7 +348,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     /**
      * Returns the layout gap for the tab buttons in the associated ribbon.
-     * 
+     *
      * @return The layout gap for the tab buttons in the associated ribbon.
      */
     protected int getTabButtonGap() {
@@ -358,7 +358,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
     /**
      * Invoked by <code>installUI</code> to create a layout manager object to manage the
      * {@link JRibbon}.
-     * 
+     *
      * @return a layout manager object
      */
     protected LayoutManager createLayoutManager() {
@@ -367,27 +367,27 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     /**
      * Returns the height of the taskbar area.
-     * 
+     *
      * @return The height of the taskbar area.
      */
     public abstract int getTaskbarHeight();
 
     /**
      * Returns the height of the task toggle button area.
-     * 
+     *
      * @return The height of the task toggle button area.
      */
     public abstract int getTaskToggleButtonHeight();
 
     /**
      * Layout for the ribbon.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class RibbonLayout implements LayoutManager {
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
          */
         public void addLayoutComponent(String name, Component c) {
@@ -395,7 +395,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
          */
         public void removeLayoutComponent(Component c) {
@@ -403,7 +403,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
          */
         public Dimension preferredLayoutSize(Container c) {
@@ -430,7 +430,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
          */
         public Dimension minimumLayoutSize(Container c) {
@@ -480,7 +480,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
          */
         public void layoutContainer(Container c) {
@@ -493,33 +493,20 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
             // the top row - task bar components
             int width = c.getWidth();
-            int taskbarHeight = getTaskbarHeight();
             int y = ins.top;
 
             int taskToggleButtonHeight = getTaskToggleButtonHeight();
 
             int x = ltr ? ins.left : width - ins.right;
-            // the application menu button
-            int appMenuButtonSize = taskbarHeight + taskToggleButtonHeight;
-//            if (!isUsingTitlePane) {
-//                applicationMenuButton.setVisible(ribbon.getApplicationMenu() != null);
-//                if (ribbon.getApplicationMenu() != null) {
-//                    if (ltr) {
-//                        applicationMenuButton.setBounds(x, ins.top, appMenuButtonSize,
-//                                appMenuButtonSize);
-//                    } else {
-//                        applicationMenuButton.setBounds(x - appMenuButtonSize, ins.top,
-//                                appMenuButtonSize, appMenuButtonSize);
-//                    }
-//                }
-//            } else {
-//                applicationMenuButton.setVisible(false);
-//            }
+
+            // the application menu button width
+            FontMetrics fm = applicationMenuButton.getFontMetrics(applicationMenuButton.getFont());
+            int appMenuButtonWidth = fm.stringWidth(ribbon.getApplicationMenu().getTitle()) + 40;
+
             x = ltr ? x + 2 : x - 2;
-            boolean isShowingAppMenuButton = (FlamingoUtilities
-                    .getApplicationMenuButton(SwingUtilities.getWindowAncestor(ribbon)) != null);
+            boolean isShowingAppMenuButton = (ribbon.getApplicationMenu() != null);
             if (isShowingAppMenuButton) {
-                x = ltr ? x + appMenuButtonSize : x - appMenuButtonSize;
+                x = ltr ? x + appMenuButtonWidth + 2 : x - appMenuButtonWidth - 2;
             }
 
             // how much horizontal space do anchored buttons need in expanded (text + icon) and
@@ -537,10 +524,10 @@ public abstract class BasicRibbonUI extends RibbonUI {
             taskToggleButtonsStrip.setPreferredSize(null);
 
             int fullPreferredContentWidth = ins.left + ins.right + 2
-                    + (isShowingAppMenuButton ? appMenuButtonSize : 0)
+                    + (isShowingAppMenuButton ? appMenuButtonWidth : 0)
                     + ((anchoredButtons.getComponentCount() > 0)
-                            ? (anchoredButtonsExpandedWidth + tabButtonGap)
-                            : 0)
+                    ? (anchoredButtonsExpandedWidth + tabButtonGap)
+                    : 0)
                     + taskToggleButtonsStrip.getPreferredSize().width;
 
             int anchoredButtonPanelWidth = 0;
@@ -587,6 +574,18 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 taskToggleButtonsScrollablePanel.setBounds(x - taskButtonsWidth, y,
                         taskButtonsWidth, taskToggleButtonHeight);
             }
+            if (ribbon.getApplicationMenu() != null) {
+                applicationMenuButton.setVisible(true);
+                if (ltr) {
+                    applicationMenuButton.setBounds(x - appMenuButtonWidth - 2, y + 1,
+                            appMenuButtonWidth, taskToggleButtonHeight - 1);
+                } else {
+                    applicationMenuButton.setBounds(x + 2, y + 1, appMenuButtonWidth,
+                            taskToggleButtonHeight - 1);
+                }
+            } else {
+                applicationMenuButton.setVisible(false);
+            }
 
             TaskToggleButtonsHostPanel taskToggleButtonsHostPanel = taskToggleButtonsScrollablePanel
                     .getView();
@@ -628,13 +627,13 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     /**
      * Layout for the band host panel.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class BandHostPanelLayout implements LayoutManager {
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
          */
         public void addLayoutComponent(String name, Component c) {
@@ -642,7 +641,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
          */
         public void removeLayoutComponent(Component c) {
@@ -650,7 +649,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
          */
         public Dimension preferredLayoutSize(Container c) {
@@ -671,7 +670,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
          */
         public Dimension minimumLayoutSize(Container c) {
@@ -695,7 +694,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 // System.out.println("\t" + ribbonBand.getTitle() + ":" +
                 // preferredCollapsedWidth);
                 maxMinBandHeight = Math.max(maxMinBandHeight, bandPrefHeight
-                // + bandInsets.top + bandInsets.bottom
+                        // + bandInsets.top + bandInsets.bottom
                 );
             }
             // add inter-band gaps
@@ -714,7 +713,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
          */
         public void layoutContainer(Container c) {
@@ -868,7 +867,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
     }
 
     protected abstract class TaskToggleButtonsHostPanel extends JPanel {
-        public static final String IS_SQUISHED = "flamingo.internal.ribbon.taskToggleButtonsHostPanel.isSquished";
+        public static final String IS_SQUISHED = "flamingo.internal.ribbon" +
+                ".taskToggleButtonsHostPanel.isSquished";
 
         @Override
         protected void paintComponent(Graphics g) {
@@ -884,9 +884,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         /**
          * Paints the outline of the contextual task groups.
-         * 
-         * @param g
-         *            Graphics context.
+         *
+         * @param g Graphics context.
          */
         protected void paintContextualTaskGroupsOutlines(Graphics g) {
             for (int i = 0; i < ribbon.getContextualTaskGroupCount(); i++) {
@@ -904,65 +903,31 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         /**
          * Paints the outline of the specified contextual task group.
-         * 
-         * @param g
-         *            Graphics context.
-         * @param group
-         *            Contextual task group.
-         * @param groupBounds
-         *            Contextual task group bounds.
+         *
+         * @param g           Graphics context.
+         * @param group       Contextual task group.
+         * @param groupBounds Contextual task group bounds.
          */
-        protected abstract void paintContextualTaskGroupOutlines(Graphics g, RibbonContextualTaskGroup group,
+        protected abstract void paintContextualTaskGroupOutlines(Graphics g,
+                RibbonContextualTaskGroup group,
                 Rectangle groupBounds);
-
-        // @Override
-        // protected void paintComponent(Graphics g) {
-        // //g.setColor(new Color(255, 200, 200));
-        // //g.fillRect(0, 0, getWidth(), getHeight());
-        // // g.setColor(Color.blue.darker());
-        // // g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
-        // //System.err.println(System.currentTimeMillis() + ": tt-repaint");
-        // }
-        //
-        // @Override
-        // protected void paintBorder(Graphics g) {
-        // }
-        //
-        // @Override
-        // public void setBounds(int x, int y, int width, int height) {
-        // System.out.println("Host : " + x + ":" + y + ":" + width + ":"
-        // + height);
-        // super.setBounds(x, y, width, height);
-        // }
     }
 
     /**
      * Layout for the band host panel.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class TaskToggleButtonsHostPanelLayout implements LayoutManager {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container c) {
             int tabButtonGap = getTabButtonGap();
             int taskToggleButtonHeight = getTaskToggleButtonHeight();
@@ -978,11 +943,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             return new Dimension(totalTaskButtonsWidth, taskToggleButtonHeight);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container c) {
             int tabButtonGap = getTabButtonGap();
             int taskToggleButtonHeight = getTaskToggleButtonHeight();
@@ -998,11 +959,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             return new Dimension(totalTaskButtonsWidth, taskToggleButtonHeight);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container c) {
             int y = 0;
             int tabButtonGap = getTabButtonGap();
@@ -1011,7 +968,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int totalPrefWidth = 0;
             int totalMinWidth = 0;
             List<RibbonTask> visibleTasks = getCurrentlyShownRibbonTasks();
-            Map<JRibbonTaskToggleButton, Integer> diffMap = new HashMap<JRibbonTaskToggleButton, Integer>();
+            Map<JRibbonTaskToggleButton, Integer> diffMap = new HashMap<>();
             int totalDiff = 0;
             for (RibbonTask task : visibleTasks) {
                 JRibbonTaskToggleButton tabButton = taskToggleButtons.get(task);
@@ -1170,7 +1127,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
         bandHostPanel.removeAll();
 
         // remove all the existing task toggle buttons
-        TaskToggleButtonsHostPanel taskToggleButtonsHostPanel = this.taskToggleButtonsScrollablePanel
+        TaskToggleButtonsHostPanel taskToggleButtonsHostPanel = this
+                .taskToggleButtonsScrollablePanel
                 .getView();
         taskToggleButtonsHostPanel.removeAll();
 
@@ -1262,7 +1220,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
                         popupPanel.setPreferredSize(new Dimension(ribbon.getWidth(), prefHeight));
                         Popup popup = PopupFactory.getSharedInstance().getPopup(taskToggleButton,
                                 popupPanel, x, y);
-                        PopupPanelManager.PopupListener tracker = new PopupPanelManager.PopupListener() {
+                        PopupPanelManager.PopupListener tracker = new PopupPanelManager
+                                .PopupListener() {
                             @Override
                             public void popupShown(PopupEvent event) {
                                 JComponent originator = event.getPopupOriginator();
@@ -1362,7 +1321,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     /**
      * Returns the list of currently shown ribbon tasks. This method is for internal use only.
-     * 
+     *
      * @return The list of currently shown ribbon tasks.
      */
     protected List<RibbonTask> getCurrentlyShownRibbonTasks() {
@@ -1392,11 +1351,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
     @Override
     public boolean isShowingScrollsForTaskToggleButtons() {
         return this.taskToggleButtonsScrollablePanel.isShowingScrollButtons();
-    }
-
-    @Override
-    public boolean isShowingScrollsForBands() {
-        return this.bandScrollablePanel.isShowingScrollButtons();
     }
 
     public Map<RibbonTask, JRibbonTaskToggleButton> getTaskToggleButtons() {

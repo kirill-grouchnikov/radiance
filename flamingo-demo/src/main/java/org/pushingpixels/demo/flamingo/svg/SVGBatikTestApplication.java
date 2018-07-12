@@ -30,22 +30,13 @@
  */
 package org.pushingpixels.demo.flamingo.svg;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.LayoutManager;
+import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.ibis.icon.SvgBatikResizableIcon;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.InputStream;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.ibis.icon.SvgBatikResizableIcon;
 
 public class SVGBatikTestApplication extends JFrame {
 

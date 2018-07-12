@@ -29,16 +29,12 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
-import org.pushingpixels.flamingo.api.common.RichTooltip;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -239,7 +235,7 @@ public class JRibbon extends JComponent {
     /**
      * Adds the specified taskbar command to this ribbon.
      *
-     * @param comp The taskbar command to add.
+     * @param command The taskbar command to add.
      * @see #removeTaskbarCommand(FlamingoCommand)
      * @see #getTaskbarCommands()
      * @see #addTaskbarSeparator()
@@ -296,9 +292,9 @@ public class JRibbon extends JComponent {
     }
 
     /**
-     * Removes the specified taskbar command from this ribbon.
+     * Removes the specified taskbar separator from this ribbon.
      *
-     * @param command The taskbar command to remove.
+     * @param separator The taskbar separator to remove.
      * @see #addTaskbarCommand(FlamingoCommand)
      * @see #removeTaskbarCommand(FlamingoCommand)
      * @see #clearTaskbar()
@@ -596,7 +592,8 @@ public class JRibbon extends JComponent {
      * of multiple groups at the same time.
      *
      * @param group     Contextual task group.
-     * @param isVisible If <code>true</code>, all ribbon tasks in the specified group will be visible. If
+     * @param isVisible If <code>true</code>, all ribbon tasks in the specified group will be
+     *                  visible. If
      *                  <code>false</code>, all ribbon tasks in the specified group will be hidden.
      * @see #isVisible(RibbonContextualTaskGroup)
      */
@@ -725,7 +722,8 @@ public class JRibbon extends JComponent {
      * Changes the minimized state of this ribbon. Fires a <code>minimized</code> property change
      * event.
      *
-     * @param isMinimized if <code>true</code>, this ribbon becomes minimized, otherwise it is unminimized.
+     * @param isMinimized if <code>true</code>, this ribbon becomes minimized, otherwise it is
+     *                    unminimized.
      */
     public synchronized void setMinimized(boolean isMinimized) {
         // System.out.println("Ribbon minimized -> " + isMinimized);

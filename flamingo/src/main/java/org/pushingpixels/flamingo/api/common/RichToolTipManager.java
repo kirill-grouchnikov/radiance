@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.flamingo.internal.ui.common.JRichTooltipPanel;
 

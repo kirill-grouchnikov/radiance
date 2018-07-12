@@ -1632,7 +1632,7 @@ fun configureControlPanel(ribbonFrame: JRibbonFrame, builder: DefaultFormBuilder
 }
 
 fun main(args: Array<String>) {
-    SwingUtilities.invokeLater({
+    SwingUtilities.invokeLater {
         JFrame.setDefaultLookAndFeelDecorated(true)
         JDialog.setDefaultLookAndFeelDecorated(true)
 
@@ -1746,6 +1746,7 @@ fun main(args: Array<String>) {
             }
 
             applicationMenu {
+                title = builder.resourceBundle.getString("AppMenu.title")
                 richTooltip {
                     title = builder.resourceBundle.getString("AppMenu.tooltip.title")
                     description {
@@ -2044,5 +2045,5 @@ fun main(args: Array<String>) {
         javaRibbonFrame.defaultCloseOperation = WindowConstants.DISPOSE_ON_CLOSE
 
         javaRibbonFrame.setVisible(true)
-    })
+    }
 }

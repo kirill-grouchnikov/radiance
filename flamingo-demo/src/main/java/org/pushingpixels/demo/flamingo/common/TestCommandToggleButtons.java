@@ -32,16 +32,12 @@ package org.pushingpixels.demo.flamingo.common;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
-import org.pushingpixels.demo.flamingo.LocaleSwitcher;
-import org.pushingpixels.demo.flamingo.SkinSwitcher;
+import org.pushingpixels.demo.flamingo.*;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
@@ -50,9 +46,7 @@ import java.awt.color.ColorSpace;
 import java.awt.event.ActionEvent;
 import java.awt.image.ColorConvertOp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class TestCommandToggleButtons extends JFrame {
     ResourceBundle resourceBundle;

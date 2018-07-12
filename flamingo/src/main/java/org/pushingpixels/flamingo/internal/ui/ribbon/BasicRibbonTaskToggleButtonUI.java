@@ -37,8 +37,7 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.UIResource;
+import javax.swing.plaf.*;
 import java.awt.*;
 
 /**

@@ -29,33 +29,22 @@
  */
 package org.pushingpixels.flamingo.internal.utils;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupInfo;
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
-import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
-import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
+import org.pushingpixels.flamingo.internal.ui.ribbon.*;
+import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.*;
 
 import javax.swing.*;
 import javax.swing.FocusManager;
 import javax.swing.event.EventListenerList;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.awt.event.*;
+import java.lang.annotation.*;
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.*;
 
 public class KeyTipManager {
     boolean isShowingKeyTips;
@@ -190,8 +179,7 @@ public class KeyTipManager {
         KeyTipChain root = new KeyTipChain(ribbon);
 
         // application menu button
-        final JRibbonApplicationMenuButton appMenuButton = FlamingoUtilities
-                .getApplicationMenuButton(ribbonFrame);
+        final JRibbonApplicationMenuButton appMenuButton = ribbon.getUI().getApplicationMenuButton();
         if ((appMenuButton != null) && (ribbon.getApplicationMenuKeyTip() != null)) {
             final KeyTipLink appMenuButtonLink = new KeyTipLink();
             appMenuButtonLink.comp = appMenuButton;

@@ -30,23 +30,19 @@
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
 import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
+import org.pushingpixels.flamingo.internal.utils.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.border.SubstancePopupMenuBorder;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.ActionMapUIResource;
-import javax.swing.plaf.ComponentInputMapUIResource;
-import javax.swing.plaf.UIResource;
+import javax.swing.plaf.*;
 import javax.swing.plaf.basic.ComboPopup;
 import java.applet.Applet;
 import java.awt.*;

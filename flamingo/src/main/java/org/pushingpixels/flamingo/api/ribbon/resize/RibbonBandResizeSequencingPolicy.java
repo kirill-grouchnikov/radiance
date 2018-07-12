@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.resize;
 
-import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
-import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies.CollapseFromLast;
-import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies.RoundRobin;
+import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies.*;
 
 /**
  * Defines the resize sequencing policies for {@link RibbonTask}s.

@@ -29,20 +29,13 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
-import org.pushingpixels.flamingo.api.ribbon.JRibbon;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonApplicationMenuButtonUI;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.ribbon.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
+import java.util.ArrayList;
 
 /**
  * The main application menu button for {@link JRibbon} component placed in a
@@ -52,45 +45,54 @@ import java.beans.PropertyChangeEvent;
  * @author Kirill Grouchnikov
  */
 public class JRibbonApplicationMenuButton extends JCommandButton {
-    private JRibbon ribbon;
-    /**
-     * The UI class ID string.
-     */
-    public static final String uiClassID = "RibbonApplicationMenuButtonUI";
-
     private final static CommandButtonDisplayState APP_MENU_BUTTON_STATE =
-            new CommandButtonDisplayState("Ribbon Application Menu Button", 24) {
+            new CommandButtonDisplayState("Ribbon Application Menu Button", 16) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton commandButton) {
+                public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton
+                        commandButton) {
                     return new CommandButtonLayoutManager() {
+                        @Override
                         public int getPreferredIconSize(AbstractCommandButton commandButton) {
-                            return FlamingoUtilities.getScaledSize(24,
-                                    SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
-                                            getControlFont().getSize(),
-                                    1.5, 4);
+                            return 0;
                         }
 
                         @Override
-                        public CommandButtonLayoutInfo getLayoutInfo(
-                                AbstractCommandButton commandButton, Graphics g) {
+                        public CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton
+                                commandButton, Graphics g) {
                             CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
                             result.actionClickArea = new Rectangle(0, 0, 0, 0);
-                            result.popupClickArea = new Rectangle(0, 0, commandButton
-                                    .getWidth(), commandButton.getHeight());
                             result.popupActionRect = new Rectangle(0, 0, 0, 0);
-                            ResizableIcon icon = commandButton.getIcon();
-                            result.iconRect = new Rectangle(
-                                    (commandButton.getWidth() - icon.getIconWidth()) / 2,
-                                    (commandButton.getHeight() - icon.getIconHeight()) / 2,
-                                    icon.getIconWidth(), icon.getIconHeight());
                             result.isTextInActionArea = false;
+
+                            FontMetrics fm = g.getFontMetrics();
+                            int labelHeight = fm.getAscent() + fm.getDescent();
+
+                            int availableWidth = commandButton.getWidth();
+                            int textWidth = (int) fm.getStringBounds(
+                                    commandButton.getText(), g).getWidth();
+
+                            TextLayoutInfo lineLayoutInfo = new TextLayoutInfo();
+                            lineLayoutInfo.text = commandButton.getText();
+                            lineLayoutInfo.textRect = new Rectangle();
+                            result.textLayoutInfoList = new ArrayList<>();
+                            result.textLayoutInfoList.add(lineLayoutInfo);
+
+                            lineLayoutInfo.textRect.x = (availableWidth - textWidth) / 2;
+                            lineLayoutInfo.textRect.y = (commandButton.getHeight() - labelHeight)
+                                    / 2;
+                            lineLayoutInfo.textRect.width = textWidth;
+                            lineLayoutInfo.textRect.height = labelHeight;
+
+                            result.popupClickArea = new Rectangle(0, 0, availableWidth,
+                                    commandButton.getHeight());
+
                             return result;
                         }
 
                         @Override
                         public Dimension getPreferredSize(
                                 AbstractCommandButton commandButton) {
-                            return new Dimension(40, 40);
+                            return new Dimension(40, 20);
                         }
 
                         @Override
@@ -100,8 +102,10 @@ public class JRibbonApplicationMenuButton extends JCommandButton {
                         @Override
                         public Point getKeyTipAnchorCenterPoint(
                                 AbstractCommandButton commandButton) {
-                            // dead center
-                            return new Point(commandButton.getWidth() / 2, commandButton.getHeight() / 2);
+                            // center at the middle of the bottom edge to be consistent with
+                            // the location of key tips of the task toggle buttons
+                            return new Point(commandButton.getWidth() / 2,
+                                    commandButton.getHeight());
                         }
                     };
                 }
@@ -111,33 +115,39 @@ public class JRibbonApplicationMenuButton extends JCommandButton {
      * Creates a new application menu button.
      */
     public JRibbonApplicationMenuButton(JRibbon ribbon) {
-        super("", new EmptyResizableIcon(16));
+        super("", null);
         this.setCommandButtonKind(CommandButtonKind.POPUP_ONLY);
         this.setDisplayState(APP_MENU_BUTTON_STATE);
-        this.ribbon = ribbon;
-    }
+        this.setHorizontalAlignment(SwingUtilities.CENTER);
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JButton#updateUI()
-     */
-    @Override
-    public void updateUI() {
-        setUI(SubstanceRibbonApplicationMenuButtonUI.createUI(this));
-    }
+        this.setPopupCallback((JCommandButton commandButton) -> {
+            RibbonApplicationMenu ribbonMenu = ribbon.getApplicationMenu();
+            final JRibbonApplicationMenuPopupPanel menuPopupPanel =
+                    new JRibbonApplicationMenuPopupPanel(ribbonMenu);
+            menuPopupPanel.applyComponentOrientation(getComponentOrientation());
+            menuPopupPanel.setCustomizer(() -> {
+                boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JButton#getUIClassID()
-     */
-    @Override
-    public String getUIClassID() {
-        return uiClassID;
-    }
+                int pw = menuPopupPanel.getPreferredSize().width;
+                int x = ltr ? ribbon.getLocationOnScreen().x
+                        : ribbon.getLocationOnScreen().x + ribbon.getWidth() - pw;
+                int y = commandButton.getLocationOnScreen().y + commandButton.getSize().height
+                        + 2;
 
-    public JRibbon getRibbon() {
-        return this.ribbon;
+                // make sure that the menu popup stays in bounds
+                Rectangle scrBounds = commandButton.getGraphicsConfiguration().getBounds();
+                if ((x + pw) > (scrBounds.x + scrBounds.width)) {
+                    x = scrBounds.x + scrBounds.width - pw;
+                }
+                int ph = menuPopupPanel.getPreferredSize().height;
+                if ((y + ph) > (scrBounds.y + scrBounds.height)) {
+                    y = scrBounds.y + scrBounds.height - ph;
+                }
+
+                return new Rectangle(x, y, menuPopupPanel.getPreferredSize().width,
+                        menuPopupPanel.getPreferredSize().height);
+            });
+            return menuPopupPanel;
+        });
     }
 }

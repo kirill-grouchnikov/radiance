@@ -35,8 +35,7 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.text.MessageFormat;
 
 public class TestCommandButtonsText extends TestCommandButtons {

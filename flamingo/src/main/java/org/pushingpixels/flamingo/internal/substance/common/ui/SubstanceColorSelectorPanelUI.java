@@ -29,15 +29,12 @@
  */
 package org.pushingpixels.flamingo.internal.substance.common.ui;
 
-import org.pushingpixels.flamingo.internal.ui.common.popup.BasicColorSelectorPanelUI;
-import org.pushingpixels.flamingo.internal.ui.common.popup.JColorSelectorPanel;
+import org.pushingpixels.flamingo.internal.ui.common.popup.*;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;

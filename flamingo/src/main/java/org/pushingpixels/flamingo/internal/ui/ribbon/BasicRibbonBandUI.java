@@ -30,20 +30,15 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
-import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.JRibbon;
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy;
-import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
+import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 import java.util.List;
 
 /**
@@ -453,8 +448,9 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                     ribbonBand.setPopupRibbonBand(popupBand);
                 }
 
-                if (expandButton != null)
+                if (expandButton != null) {
                     expandButton.setBounds(0, 0, 0, 0);
+                }
 
                 return;
             }
@@ -497,10 +493,10 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 boolean ltr = ribbonBand.getComponentOrientation().isLeftToRight();
 
                 if (ltr) {
-                    expandButton.setBounds(c.getWidth() - ins.right - ebpw,
+                    expandButton.setBounds(c.getWidth() - ins.right - ebpw - 1,
                             expandButtonBottomY - ebph, ebpw, ebph);
                 } else {
-                    expandButton.setBounds(ins.left, expandButtonBottomY - ebph, ebpw, ebph);
+                    expandButton.setBounds(ins.left + 1, expandButtonBottomY - ebph, ebpw, ebph);
                 }
             }
         }
