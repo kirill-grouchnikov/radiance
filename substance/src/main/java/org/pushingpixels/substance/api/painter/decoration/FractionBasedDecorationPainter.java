@@ -111,7 +111,7 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 			this.paintDecoratedBackground(graphics, comp, decorationAreaType,
 					width, height, colorScheme);
 		} else {
-			this.paintSolidBackground(graphics, comp, width, height, colorScheme);
+			this.paintSolidBackground(graphics, width, height, colorScheme);
 		}
 	}
 
@@ -122,7 +122,7 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
             this.paintDecoratedBackground(graphics, comp, decorationAreaType,
                     contour, colorScheme);
         } else {
-            this.paintSolidBackground(graphics, comp, contour, colorScheme);
+            this.paintSolidBackground(graphics, contour, colorScheme);
         }
 	}
 
@@ -180,13 +180,13 @@ public class FractionBasedDecorationPainter extends FractionBasedPainter
 		g2d.dispose();
 	}
 
-	private void paintSolidBackground(Graphics2D graphics, Component comp,
+	private void paintSolidBackground(Graphics2D graphics,
 			int width, int height, SubstanceColorScheme scheme) {
 		graphics.setColor(scheme.getMidColor());
 		graphics.fillRect(0, 0, width, height);
 	}
 
-	private void paintSolidBackground(Graphics2D graphics, Component comp,
+	private void paintSolidBackground(Graphics2D graphics,
 			Shape contour, SubstanceColorScheme scheme) {
 		graphics.setColor(scheme.getMidColor());
 		graphics.fill(contour);

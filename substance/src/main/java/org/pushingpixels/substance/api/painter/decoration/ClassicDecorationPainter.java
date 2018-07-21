@@ -56,8 +56,8 @@ public class ClassicDecorationPainter implements SubstanceDecorationPainter {
 	/**
 	 * Cache for small objects.
 	 */
-	protected final static LazyResettableHashMap<BufferedImage> smallImageCache = new LazyResettableHashMap<BufferedImage>(
-			"ClassicDecorationPainter");
+	protected final static LazyResettableHashMap<BufferedImage> smallImageCache =
+			new LazyResettableHashMap<>("ClassicDecorationPainter");
 
 	/**
 	 * Single gradient painter instance.

@@ -47,6 +47,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.*;
 import java.awt.*;
+import java.util.EnumSet;
 
 /**
  * UI for ribbon bands in <b>Substance</b> look and feel.
@@ -175,10 +176,13 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         ComponentOrParentChainScope.setDecorationType(result, DecorationAreaType.GENERAL);
         SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.ribbonBand);
         result.setIcon(getExpandButtonIcon(skin, result));
+        // Mark the button as rectangular
+        SubstanceCortex.ComponentScope.setButtonStraightSides(result,
+                EnumSet.allOf(SubstanceSlices.Side.class));
         return result;
     }
 
-    private static ResizableIcon getExpandButtonIcon(final SubstanceSkin skin,
+    private ResizableIcon getExpandButtonIcon(final SubstanceSkin skin,
             final AbstractCommandButton button) {
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
@@ -193,8 +197,8 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
                             SubstanceSizeUtils.getComponentFontSize(button), width, height,
                             SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
                             SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                            button.getComponentOrientation().isLeftToRight() ? SwingConstants.EAST
-                                    : SwingConstants.WEST,
+                            ribbonBand.getComponentOrientation().isLeftToRight()
+                                    ? SwingConstants.EAST : SwingConstants.WEST,
                             SubstanceColorSchemeUtilities.getShiftedScheme(scheme, bgFillColor,
                                     0.0f, bgFillColor, 0.3f));
                 }, new Dimension(arrowIconHeight, arrowIconWidth));

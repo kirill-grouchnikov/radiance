@@ -29,26 +29,20 @@
  */
 package org.pushingpixels.substance.extras.api.skinpack;
 
-import java.awt.Color;
-
-import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
-import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.AquaColorScheme;
-import org.pushingpixels.substance.api.colorscheme.BarbyPinkColorScheme;
-import org.pushingpixels.substance.api.colorscheme.LimeGreenColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SunGlareColorScheme;
+import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.substance.api.painter.decoration.Glass3DDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.StandardFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.extras.api.colorschemepack.MixColorScheme;
-import org.pushingpixels.substance.extras.api.painterpack.fill.MixDelegateFillPainter;
+import org.pushingpixels.substance.extras.api.painterpack.decoration.Glass3DDecorationPainter;
+import org.pushingpixels.substance.extras.api.painterpack.fill.*;
 import org.pushingpixels.substance.extras.api.watermarkpack.SubstanceMarbleVeinWatermark;
-import org.pushingpixels.substance.internal.colorscheme.BlendBiColorScheme;
-import org.pushingpixels.substance.internal.colorscheme.SaturatedColorScheme;
+import org.pushingpixels.substance.internal.colorscheme.*;
+
+import java.awt.*;
 
 /**
  * <code>Mango</code> skin. This class is part of officially supported API.

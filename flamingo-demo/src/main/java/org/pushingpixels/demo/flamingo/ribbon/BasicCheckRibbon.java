@@ -31,7 +31,7 @@ package org.pushingpixels.demo.flamingo.ribbon;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
-import org.pushingpixels.demo.flamingo.SkinSwitcher;
+import org.pushingpixels.demo.flamingo.*;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.FlamingoCommand.*;
@@ -1686,6 +1686,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     }
                 }));
         builder.append("Change 'Paragraph'", changeParagraph);
+
+        JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
+            currLocale = selected;
+            for (Window window : Window.getWindows()) {
+                window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
+                SwingUtilities.updateComponentTreeUI(window);
+            }
+        });
+        builder.append("Locale", localeSwitcher);
     }
 
     protected JFlowRibbonBand getFontBand() {

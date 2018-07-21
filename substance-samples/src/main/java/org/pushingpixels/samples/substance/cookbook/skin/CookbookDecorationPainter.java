@@ -175,6 +175,11 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         }
     }
 
+    @Override
+    public void paintDecorationArea(Graphics2D graphics, Component comp, DecorationAreaType
+            decorationAreaType, Shape contour, SubstanceColorScheme colorScheme) {
+    }
+
     private Component getFarthest(Component comp, DecorationAreaType type) {
         Component result = comp;
         while (true) {

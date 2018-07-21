@@ -27,46 +27,55 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.substance.api.painter.decoration;
+package org.pushingpixels.substance.extras.api.painterpack.decoration;
 
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.trait.SubstanceTrait;
+import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter;
 
 import java.awt.*;
 
 /**
- * Decoration painter interface for <b>Substance</b> look and feel. This class
- * is part of officially supported API.
+ * Decoration painter that paints a 3D glass gradient. This class is part of
+ * officially supported API.
  *
  * @author Kirill Grouchnikov
  */
-public interface SubstanceDecorationPainter extends SubstanceTrait {
+public class Glass3DDecorationPainter implements SubstanceDecorationPainter {
     /**
-     * Paints the decoration area as a fully filled rectangle.
-     *
-     * @param graphics           Graphics context.
-     * @param comp               Component.
-     * @param decorationAreaType Decoration area type. Must not be <code>null</code>.
-     * @param width              Width.
-     * @param height             Height.
-     * @param skin               Skin for painting the decoration area.
+     * The display name for the decoration painters of this class.
      */
-    void paintDecorationArea(Graphics2D graphics, Component comp,
-            DecorationAreaType decorationAreaType, int width, int height,
-            SubstanceSkin skin);
+    public static final String DISPLAY_NAME = "Glass 3D";
 
-    /**
-     * Paints the decoration area as a specified shape.
-     *
-     * @param graphics           Graphics context.
-     * @param comp               Component.
-     * @param decorationAreaType Decoration area type. Must not be <code>null</code>.
-     * @param contour            Contour to fill.
-     * @param colorScheme        Color scheme for painting the decoration area.
-     */
-    void paintDecorationArea(Graphics2D graphics, Component comp,
-            DecorationAreaType decorationAreaType, Shape contour,
-            SubstanceColorScheme colorScheme);
+    @Override
+    public String getDisplayName() {
+        return DISPLAY_NAME;
+    }
+
+    @Override
+    public void paintDecorationArea(Graphics2D graphics, Component comp,
+            DecorationAreaType decorationAreaType, int width, int height,
+            SubstanceSkin skin) {
+        SubstanceColorScheme colorScheme = skin.getBackgroundColorScheme(decorationAreaType);
+        LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, height,
+                new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
+                new Color[] { colorScheme.getUltraLightColor(), colorScheme.getLightColor(),
+                        colorScheme.getMidColor(), colorScheme.getUltraLightColor() },
+                MultipleGradientPaint.CycleMethod.REPEAT);
+        graphics.setPaint(paint);
+        graphics.fillRect(0, 0, width, height);
+    }
+
+    @Override
+    public void paintDecorationArea(Graphics2D graphics, Component comp, DecorationAreaType
+            decorationAreaType, Shape contour, SubstanceColorScheme colorScheme) {
+        LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, comp.getHeight(),
+                new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
+                new Color[] { colorScheme.getUltraLightColor(), colorScheme.getLightColor(),
+                        colorScheme.getMidColor(), colorScheme.getUltraLightColor() },
+                MultipleGradientPaint.CycleMethod.REPEAT);
+        graphics.setPaint(paint);
+        graphics.fill(contour);
+    }
 }
