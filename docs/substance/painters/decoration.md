@@ -45,7 +45,7 @@ To use the matching decoration painter in custom painting routines of your appli
 * `SubstanceCortex.ComponentOrParentChainScope.getDecorationType()` to retrieve the decoration area type of the component.
 * `SubstanceDecorationPainter.paintDecorationArea()` (see below) to paint the decoration background on the specific graphics context.
 
-The base class for Substance decoration painters is `org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter`. The only painting method in this class is:
+The base class for Substance decoration painters is `org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter`. It has two painting methods. The first paints the passed rectangular area:
 
 ```java
   /**
@@ -70,3 +70,24 @@ The base class for Substance decoration painters is `org.pushingpixels.substance
 ```
 
 The `width` and `height` parameters specify the rectangle to paint (the decoration painters can only paint rectangular areas), the skin specifies the Substance skin to be used to compute the gradient colors, while `decorationAreaType` indicates the decoration area type.
+
+The second paints the passed shape:
+```java
+/**
+ * Paints the decoration area as a specified shape.
+ *
+ * @param graphics           
+ *            Graphics context.
+ * @param comp                         
+ *            Component.
+ * @param decorationAreaType           
+ *            Decoration area type. Must not be <code>null</code>.
+ * @param contour                      
+ *            Contour to fill.
+ * @param colorScheme                  
+ *            Color scheme for painting the decoration area.
+ */
+void paintDecorationArea(Graphics2D graphics, Component comp,
+        DecorationAreaType decorationAreaType, Shape contour,
+        SubstanceColorScheme colorScheme);
+```        
