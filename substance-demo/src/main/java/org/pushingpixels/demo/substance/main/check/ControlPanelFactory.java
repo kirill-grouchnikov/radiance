@@ -29,88 +29,28 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Composite;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.LayoutManager;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.MouseAdapter;
-import java.lang.ref.Reference;
-import java.lang.ref.ReferenceQueue;
-import java.lang.ref.WeakReference;
-import java.util.Locale;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDesktopPane;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.JToolBar;
-import javax.swing.JTree;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
-import javax.swing.UIManager;
-
-import org.pushingpixels.demo.substance.main.Check;
+import org.pushingpixels.demo.substance.main.*;
 import org.pushingpixels.demo.substance.main.Check.MyMainTabPreviewPainter;
-import org.pushingpixels.demo.substance.main.RadianceLogo;
-import org.pushingpixels.demo.substance.main.check.svg.ic_error_black_24px;
-import org.pushingpixels.demo.substance.main.check.svg.ic_help_black_24px;
-import org.pushingpixels.demo.substance.main.check.svg.ic_info_black_24px;
-import org.pushingpixels.demo.substance.main.check.svg.ic_warning_black_24px;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
-import org.pushingpixels.substance.api.SubstanceSlices.ButtonOrder;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
-import org.pushingpixels.substance.api.SubstanceSlices.HorizontalGravity;
-import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
-import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
-import org.pushingpixels.substance.api.SubstanceSlices.TitleIconHorizontalGravity;
+import org.pushingpixels.demo.substance.main.check.svg.*;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.icon.SubstanceDefaultIconPack;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
-
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.lang.ref.*;
+import java.util.Locale;
 
 /**
  * Factory for creating the global control panels (for global settings and testing the dialogs).
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class ControlPanelFactory {
@@ -141,7 +81,7 @@ public class ControlPanelFactory {
 
     /**
      * Returns the main control panel.
-     * 
+     *
      * @param mainFrame
      *            The main test frame.
      * @param mainTabbedPane
@@ -155,8 +95,8 @@ public class ControlPanelFactory {
     public static JPanel getMainControlPanel(final JFrame mainFrame,
             final JTabbedPane mainTabbedPane, final MyMainTabPreviewPainter mainTabPreviewPainter,
             final JToolBar toolbar) {
-        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
+                "right:pref, 4dlu, fill:pref:grow", 2, 24);
 
         builder.appendSeparator("Title pane settings");
 
@@ -281,7 +221,7 @@ public class ControlPanelFactory {
         menuGutterFillCombo.addActionListener((
 
                 ActionEvent e) -> SubstanceCortex.GlobalScope.setMenuGutterFillKind(
-                        (MenuGutterFillKind) menuGutterFillCombo.getSelectedItem()));
+                (MenuGutterFillKind) menuGutterFillCombo.getSelectedItem()));
         builder.append("Menu fill", menuGutterFillCombo);
 
         final JComboBox focusKindCombo = new FlexiComboBox<FocusKind>(FocusKind.values()) {
@@ -408,21 +348,21 @@ public class ControlPanelFactory {
                 iconPack.isSelected() ? new TangoIconPack() : new SubstanceDefaultIconPack()));
         builder.append("Icon pack", iconPack);
 
-        JPanel result = builder.getPanel();
+        JPanel result = builder.build();
         result.setName("Main control panel");
         return result;
     }
 
     /**
      * Returns the control panel for testing dialogs.
-     * 
+     *
      * @param mainFrame
      *            The main test frame.
      * @return Control panel for testing dialogs.
      */
     public static JPanel getDialogControlPanel(final JFrame mainFrame) {
-        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
+                "right:pref, 4dlu, fill:pref:grow", 2, 30);
 
         builder.appendSeparator("Core choosers");
         JButton bfo = new JButton("Open dialog", Check.getIcon("JFileChooserColor16"));
@@ -560,7 +500,7 @@ public class ControlPanelFactory {
                     dialog.add(panel, BorderLayout.CENTER);
                     // dialog.setVisible(true);
                     String optionChoices[] = new String[] { "entry1", "entry2", "entry3",
-                                    "entry4" };
+                            "entry4" };
                     JOptionPane.showInputDialog(panel, "Sample Question Message", "Title Goes Here",
                             JOptionPane.QUESTION_MESSAGE, null, optionChoices, "entry1");
                     dialog.dispose();
@@ -877,6 +817,6 @@ public class ControlPanelFactory {
         }));
         builder.append("Text pane dialog", paneDialog);
 
-        return builder.getPanel();
+        return builder.build();
     }
 }

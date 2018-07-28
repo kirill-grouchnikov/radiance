@@ -29,45 +29,17 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import org.pushingpixels.demo.substance.main.RadianceLogo;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
+
+import javax.swing.*;
+import javax.swing.JInternalFrame.JDesktopIcon;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyVetoException;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
-import javax.swing.JInternalFrame.JDesktopIcon;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
-import javax.swing.JSeparator;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
-import javax.swing.SwingUtilities;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-
-import org.pushingpixels.demo.substance.main.RadianceLogo;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import java.util.*;
 
 /**
  * Test application panel for testing {@link JDesktopPane}, {@link JInternalFrame} and
@@ -99,8 +71,7 @@ public class DesktopPanel extends ControllablePanel {
         jdp = new JDesktopPane();
         this.add(jdp, BorderLayout.CENTER);
 
-        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, fill:pref:grow", 2, 14);
         builder.appendSeparator("New sample frame");
 
         JButton sample = new JButton("Add");
@@ -313,7 +284,7 @@ public class DesktopPanel extends ControllablePanel {
         });
         builder.append("Reshow all", reshowAll);
 
-        this.controlPanel = builder.getPanel();
+        this.controlPanel = builder.build();
 
         this.setPreferredSize(new Dimension(400, 400));
         this.setSize(this.getPreferredSize());

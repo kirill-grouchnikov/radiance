@@ -31,6 +31,7 @@ package org.pushingpixels.samples.substance.cookbook.skin;
 
 import com.jhlabs.image.*;
 import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -168,7 +169,9 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
             int currTileX = -offsetX;
             graphics.translate(currTileX, -offsetY);
             while (currTileX < width) {
-                NeonCortex.drawImage(graphics, this.lightImage, 0, 0);
+                graphics.drawImage(this.lightImage, 0, 0,
+                        (int) (this.lightImage.getWidth() / scaleFactor),
+                        (int) (this.lightImage.getHeight() / scaleFactor), null);
                 currTileX += lightImageScaledWidth;
                 graphics.translate(lightImageScaledWidth, 0);
             }
@@ -223,7 +226,10 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         finalGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         finalGraphics.translate(-25, -10);
-        NeonCortex.drawImage(finalGraphics, lightConeImage, 0, 0);
+        double scaleFactor = UIUtil.getScaleFactor();
+        finalGraphics.drawImage(lightConeImage, 0, 0,
+                (int) (lightConeImage.getWidth() / scaleFactor),
+                (int) (lightConeImage.getHeight() / scaleFactor), null);
 
         // Emulate the appearance of the light bulb itself
         finalGraphics.setColor(new Color(200, 200, 255, 96));

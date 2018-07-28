@@ -29,38 +29,17 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.AbstractListModel;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.DropMode;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JList;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
-import javax.swing.TransferHandler;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ListSelectionEvent;
-
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.*;
+import java.awt.datatransfer.*;
+import java.awt.event.ActionEvent;
+import java.util.*;
+import java.util.List;
 
 /**
  * Test application panel for testing {@link JList} component.
@@ -206,8 +185,8 @@ public class ListPanel extends ControllablePanel {
         final JScrollPane jsp = new JScrollPane(list);
         this.add(jsp, BorderLayout.CENTER);
 
-        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
+                "right:pref, 4dlu, fill:pref:grow", 2, 14);
         builder.appendSeparator("General");
 
         final JCheckBox isEnabled = new JCheckBox("is enabled");
@@ -339,7 +318,7 @@ public class ListPanel extends ControllablePanel {
         builder.append("", customRenderer);
         builder.append("", customSubstanceRenderer);
 
-        controlPanel = builder.getPanel();
+        controlPanel = builder.build();
     }
 
     /**

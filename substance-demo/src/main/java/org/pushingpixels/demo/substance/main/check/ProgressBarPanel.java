@@ -29,28 +29,15 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.callback.RunOnUIThread;
-import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
-
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import org.pushingpixels.trident.callback.*;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Test application panel for testing {@link JProgressBar} component.
@@ -78,9 +65,8 @@ public class ProgressBarPanel extends JPanel {
         GridLayout gLayout = new GridLayout(1, 2);
         bars.setLayout(gLayout);
 
-        FormLayout horizontalLm = new FormLayout("left:pref:grow", "");
-        DefaultFormBuilder horizontalBuilder = new DefaultFormBuilder(horizontalLm)
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder horizontalBuilder = new TestFormLayoutBuilder("left:pref:grow", 1, 12)
+                .border(Paddings.DIALOG);
 
         JProgressBar determinateEnHor = new JProgressBar(JProgressBar.HORIZONTAL, 0, 100);
         determinateEnHor.setIndeterminate(false);
@@ -119,12 +105,12 @@ public class ProgressBarPanel extends JPanel {
         horizontalBuilder.appendSeparator("Indeterminate disabled");
         horizontalBuilder.append(indeterminateDisHor);
 
-        bars.add(horizontalBuilder.getPanel());
+        bars.add(horizontalBuilder.build());
 
-        FormLayout verticalLm = new FormLayout("center:pref:grow, 4dlu, center:pref:grow, 4dlu, "
-                + "center:pref:grow, 4dlu, center:pref:grow, 4dlu, center:pref:grow", "");
-        DefaultFormBuilder verticalBuilder = new DefaultFormBuilder(verticalLm)
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder verticalBuilder = new TestFormLayoutBuilder(
+                "center:pref:grow, 4dlu, center:pref:grow, 4dlu, "
+                        + "center:pref:grow, 4dlu, center:pref:grow, 4dlu, center:pref:grow", 5, 2
+        ).border(Paddings.DIALOG);
         verticalBuilder.append("Enabled");
         verticalBuilder.append("RTL");
         verticalBuilder.append("Indeterm");
@@ -158,7 +144,7 @@ public class ProgressBarPanel extends JPanel {
         indeterminateDisVer.setEnabled(false);
         verticalBuilder.append(indeterminateDisVer);
 
-        bars.add(verticalBuilder.getPanel());
+        bars.add(verticalBuilder.build());
 
         this.add(new JScrollPane(bars), BorderLayout.CENTER);
 

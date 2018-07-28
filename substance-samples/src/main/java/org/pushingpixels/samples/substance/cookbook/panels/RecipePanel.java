@@ -29,15 +29,11 @@
  */
 package org.pushingpixels.samples.substance.cookbook.panels;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
+import com.jgoodies.forms.builder.FormBuilder;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
-import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.samples.substance.cookbook.EchoResizableIcon;
-import org.pushingpixels.samples.substance.cookbook.ScaledResizableIcon;
+import org.pushingpixels.samples.substance.cookbook.*;
 import org.pushingpixels.samples.substance.cookbook.svg.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
@@ -50,40 +46,42 @@ public class RecipePanel extends SingleContentPanel {
         super(mainPanelTopOffset);
 
         // Configure the title pane content
-        DefaultFormBuilder titlePaneBuilder = new DefaultFormBuilder(new FormLayout(
-                "pref, 2dlu, pref, 2dlu, pref, 2dlu, pref, 8dlu, center:pref:grow, 8dlu, pref", ""))
-                        .border(new EmptyBorder(10, 16, 0, 16));
+        FormBuilder titlePaneBuilder = FormBuilder.create().
+                columns("pref, 2dlu, pref, 2dlu, pref, 2dlu, pref, 8dlu, center:pref:grow, 8dlu, " +
+                        "pref").
+                rows("p").
+                padding(new EmptyBorder(10, 16, 0, 16));
 
-        titlePaneBuilder.append(getCommandButton(
+        titlePaneBuilder.add(getCommandButton(
                 new EchoResizableIcon(
                         new ScaledResizableIcon(ic_bookmark_border_white_24px.of(20, 20), 0.8f)),
-                "Bookmark"));
-        titlePaneBuilder.append(getCommandButton(
+                "Bookmark")).xy(1, 1);
+        titlePaneBuilder.add(getCommandButton(
                 new EchoResizableIcon(
                         new ScaledResizableIcon(ic_star_border_white_24px.of(20, 20), 0.8f)),
-                "Star"));
+                "Star")).xy(3, 1);
         titlePaneBuilder
-                .append(getCommandButton(
+                .add(getCommandButton(
                         new EchoResizableIcon(
                                 new ScaledResizableIcon(ic_print_white_24px.of(20, 20), 0.8f)),
-                        "Print"));
-        titlePaneBuilder.append(getCommandButton(
+                        "Print")).xy(5, 1);
+        titlePaneBuilder.add(getCommandButton(
                 new EchoResizableIcon(new ScaledResizableIcon(ic_send_white_24px.of(20, 20), 0.8f)),
-                "Send"));
+                "Send")).xy(7, 1);
 
         JLabel title = new JLabel("Cookbook");
         title.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getWindowTitleFont());
 
-        titlePaneBuilder.append(title);
+        titlePaneBuilder.add(title).xy(9, 1);
 
-        titlePaneBuilder.append(getCommandButton(
+        titlePaneBuilder.add(getCommandButton(
                 new EchoResizableIcon(
                         new ScaledResizableIcon(ic_help_outline_white_24px.of(20, 20), 0.8f)),
-                "Help"));
+                "Help")).xy(11, 1);
 
         this.titlePanel.setLayout(new BorderLayout());
-        this.titlePanel.add(titlePaneBuilder.getPanel(), BorderLayout.CENTER);
+        this.titlePanel.add(titlePaneBuilder.build(), BorderLayout.CENTER);
     }
 
     private JCommandButton getCommandButton(ResizableIcon icon, String tooltip) {

@@ -29,30 +29,14 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.Rectangle;
-import java.text.DecimalFormat;
-
-import javax.swing.JEditorPane;
-import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.SwingUtilities;
-
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
+import com.jgoodies.forms.factories.Paddings;
+import com.jgoodies.forms.layout.FormLayout;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import java.awt.*;
+import java.text.DecimalFormat;
 
 /**
  * Test application panel for testing {@link JTextArea}, {@link JTextField}, {@link JTextPane},
@@ -76,9 +60,10 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
     private JPanel getContents() {
         FormLayout lm = new FormLayout("right:pref, 4dlu, fill:default:grow(1), 4dlu,"
                 + "fill:default:grow(1), 4dlu, fill:default:grow(1)", "");
-        // lm.setColumnGroups(new int[][] { { 3, 5, 7 } });
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
+                "right:pref, 4dlu, fill:default:grow(1), 4dlu,"
+                + "fill:default:grow(1), 4dlu, fill:default:grow(1)", 4, 30)
+                .padding(Paddings.DIALOG);
 
         JLabel textLabel = new JLabel("Text fields");
         JLabel formattedTextLabel = new JLabel("Formatted text fields");
@@ -378,7 +363,7 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
         textAreaScrollWithLock.setEditable(false);
         builder.append("Scrollable with lock", new JScrollPane(textAreaScrollWithLock));
 
-        JPanel result = builder.getPanel();
+        JPanel result = builder.build();
         result.setName("Text fields panel");
         // result.setBackground(Color.red);
         return result;

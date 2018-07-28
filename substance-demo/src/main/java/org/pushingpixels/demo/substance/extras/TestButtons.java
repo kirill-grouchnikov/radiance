@@ -29,27 +29,15 @@
  */
 package org.pushingpixels.demo.substance.extras;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
+import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.extras.api.shaperpack.ButterflyButtonShaper;
-import org.pushingpixels.substance.extras.api.shaperpack.DolphinButtonShaper;
-import org.pushingpixels.substance.extras.api.shaperpack.FishButtonShaper;
-import org.pushingpixels.substance.extras.api.shaperpack.FootButtonShaper;
-import org.pushingpixels.substance.extras.api.shaperpack.IceCreamButtonShaper;
-import org.pushingpixels.substance.extras.api.shaperpack.RaceCarButtonShaper;
-import org.pushingpixels.substance.extras.api.shaperpack.RhinoButtonShaper;
-import org.pushingpixels.substance.extras.api.shaperpack.StegosaurusButtonShaper;
+import org.pushingpixels.substance.extras.api.shaperpack.*;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import java.awt.*;
 
 public class TestButtons extends JFrame {
     private JButton getButton(String text, SubstanceButtonShaper shaper) {
@@ -61,34 +49,36 @@ public class TestButtons extends JFrame {
     public TestButtons() {
         super("Button shapes");
 
-        FormLayout layout = new FormLayout("center:pref, 4dlu, center:pref");
-        DefaultFormBuilder builder = new DefaultFormBuilder(layout).border(Borders.DIALOG);
+        FormBuilder builder = FormBuilder.create().
+                columns("center:pref, 4dlu, center:pref").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                padding(Paddings.DIALOG);
 
-        builder.append(this.getButton("rhino", new RhinoButtonShaper()),
-                this.getButton("big rhino", new RhinoButtonShaper()));
+        builder.add(this.getButton("rhino", new RhinoButtonShaper())).xy(1, 1).
+                add(this.getButton("big rhino", new RhinoButtonShaper())).xy(3, 1);
 
-        builder.append(this.getButton("fish", new FishButtonShaper()),
-                this.getButton("big fish", new FishButtonShaper()));
+        builder.add(this.getButton("fish", new FishButtonShaper())).xy(1, 3).
+                add(this.getButton("big fish", new FishButtonShaper())).xy(3, 3);
 
-        builder.append(this.getButton("racecar", new RaceCarButtonShaper()),
-                this.getButton("big racecar", new RaceCarButtonShaper()));
+        builder.add(this.getButton("racecar", new RaceCarButtonShaper())).xy(1, 5).
+                add(this.getButton("big racecar", new RaceCarButtonShaper())).xy(3, 5);
 
-        builder.append(this.getButton("butterfly", new ButterflyButtonShaper()),
-                this.getButton("big butterfly", new ButterflyButtonShaper()));
+        builder.add(this.getButton("butterfly", new ButterflyButtonShaper())).xy(1, 7).
+                add(this.getButton("big butterfly", new ButterflyButtonShaper())).xy(3, 7);
 
-        builder.append(this.getButton("foot", new FootButtonShaper()),
-                this.getButton("big foot", new FootButtonShaper()));
+        builder.add(this.getButton("foot", new FootButtonShaper())).xy(1, 9).
+                add(this.getButton("big foot", new FootButtonShaper())).xy(3, 9);
 
-        builder.append(this.getButton("icecream", new IceCreamButtonShaper()),
-                this.getButton("big icecream", new IceCreamButtonShaper()));
+        builder.add(this.getButton("icecream", new IceCreamButtonShaper())).xy(1, 11).
+                add(this.getButton("big icecream", new IceCreamButtonShaper())).xy(3, 11);
 
-        builder.append(this.getButton("stegosaurus", new StegosaurusButtonShaper()),
-                this.getButton("big stegosaurus", new StegosaurusButtonShaper()));
+        builder.add(this.getButton("stegosaurus", new StegosaurusButtonShaper())).xy(1, 13).
+                add(this.getButton("big stegosaurus", new StegosaurusButtonShaper())).xy(3, 13);
 
-        builder.append(this.getButton("dolphin", new DolphinButtonShaper()),
-                this.getButton("big dolphin", new DolphinButtonShaper()));
+        builder.add(this.getButton("dolphin", new DolphinButtonShaper())).xy(1, 15).
+                add(this.getButton("big dolphin", new DolphinButtonShaper())).xy(3, 15);
 
-        this.add(builder.getPanel(), BorderLayout.CENTER);
+        this.add(builder.build(), BorderLayout.CENTER);
     }
 
     public static void main(String... args) {

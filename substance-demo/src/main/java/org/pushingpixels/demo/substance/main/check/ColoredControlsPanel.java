@@ -29,19 +29,10 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+import com.jgoodies.forms.factories.Paddings;
 
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Test application panel for testing components with custom background.
@@ -52,9 +43,8 @@ public class ColoredControlsPanel extends JPanel {
     public ColoredControlsPanel() {
         this.setLayout(new BorderLayout());
 
-        FormLayout lm = new FormLayout("right:pref, 4dlu, left:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
+                "right:pref, 4dlu, left:pref:grow", 2, 11).padding(Paddings.DIALOG);
 
         JLabel labelOpaque = new JLabel("Sample label");
         labelOpaque.setOpaque(true);
@@ -121,7 +111,7 @@ public class ColoredControlsPanel extends JPanel {
         colored4.setBackground(Color.cyan);
         builder.append("panel", colored4);
 
-        JPanel resultPanel = builder.getPanel();
+        JPanel resultPanel = builder.build();
         resultPanel.setBackground(new Color(200, 200, 255));
         this.add(new JScrollPane(resultPanel), BorderLayout.CENTER);
     }

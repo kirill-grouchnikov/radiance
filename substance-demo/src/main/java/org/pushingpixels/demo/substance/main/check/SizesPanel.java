@@ -29,44 +29,17 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Font;
-import java.util.LinkedList;
-import java.util.List;
+import com.jgoodies.forms.factories.Paddings;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 
-import javax.swing.AbstractListModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JProgressBar;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.JSpinner;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
-import javax.swing.JTree;
-import javax.swing.ListSelectionModel;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
-
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
-
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 public class SizesPanel extends JPanel {
     private static interface Creator {
@@ -325,14 +298,13 @@ public class SizesPanel extends JPanel {
                     int selIndex = list.getSelectedIndex();
                     if (selIndex >= 0) {
                         Mapping sel = (Mapping) list.getSelectedValue();
-                        FormLayout lm = new FormLayout("right:pref, 4dlu, left:pref:grow", "");
-                        DefaultFormBuilder builder = new DefaultFormBuilder(lm,
-                                new ScrollablePanel()).border(Borders.DIALOG);
+                        TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
+                                "right:pref, 4dlu, left:pref:grow", 2, 16).border(Paddings.DIALOG);
                         for (int fontSize = 11; fontSize < 25; fontSize++) {
                             builder.append(fontSize + " pixels", sel.creator.create(fontSize));
                         }
                         builder.append("72 pixels", sel.creator.create(72));
-                        central = new JScrollPane(builder.getPanel(),
+                        central = new JScrollPane(builder.build(),
                                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
                         add(central, BorderLayout.CENTER);

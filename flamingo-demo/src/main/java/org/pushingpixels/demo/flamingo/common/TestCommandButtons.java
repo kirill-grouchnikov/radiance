@@ -29,9 +29,8 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.flamingo.*;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
@@ -107,22 +106,23 @@ public class TestCommandButtons extends JFrame {
     }
 
     protected JPanel getButtonPanel() {
-        FormLayout lm = new FormLayout("right:pref, 10dlu, center:pref, 4dlu,"
-                + "center:pref, 4dlu, center:pref, " + "4dlu, center:pref", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(Borders.DIALOG);
+        FormBuilder builder = FormBuilder.create().
+                columns("right:pref, 10dlu, center:pref, 4dlu,"
+                        + "center:pref, 4dlu, center:pref, 4dlu, center:pref").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p").
+                padding(Paddings.DIALOG);
 
-        builder.append("");
-        builder.append("Action only");
-        builder.append("Action (main) + popup");
-        builder.append("Action + popup (main)");
-        builder.append("Popup only");
+        builder.add("Action only").xy(3, 1);
+        builder.add("Action (main) + popup").xy(5, 1);
+        builder.add("Action + popup (main)").xy(7, 1);
+        builder.add("Popup only").xy(9, 1);
 
-        addButtons(builder, CommandButtonDisplayState.BIG);
-        addButtons(builder, CommandButtonDisplayState.TILE);
-        addButtons(builder, CommandButtonDisplayState.MEDIUM);
-        addButtons(builder, CommandButtonDisplayState.SMALL);
+        addButtons(builder, CommandButtonDisplayState.BIG, 3);
+        addButtons(builder, CommandButtonDisplayState.TILE, 5);
+        addButtons(builder, CommandButtonDisplayState.MEDIUM, 7);
+        addButtons(builder, CommandButtonDisplayState.SMALL, 9);
 
-        return builder.getPanel();
+        return builder.build();
     }
 
     static String stamp() {
@@ -189,20 +189,20 @@ public class TestCommandButtons extends JFrame {
                 () -> apply(TestCommandButtons.this, command)));
     }
 
-    private void addButtons(DefaultFormBuilder builder, CommandButtonDisplayState state) {
-        builder.append(state.getDisplayName() + " state");
+    private void addButtons(FormBuilder builder, CommandButtonDisplayState state, int row) {
+        builder.add(state.getDisplayName() + " state").xy(1, row);
 
         JCommandButton actionButton = createActionButton(state);
-        builder.append(actionButton);
+        builder.add(actionButton).xy(3, row);
 
         JCommandButton actionAndPopupMainActionButton = createActionAndPopupMainActionButton(state);
-        builder.append(actionAndPopupMainActionButton);
+        builder.add(actionAndPopupMainActionButton).xy(5, row);
 
         JCommandButton actionAndPopupMainPopupButton = createActionAndPopupMainPopupButton(state);
-        builder.append(actionAndPopupMainPopupButton);
+        builder.add(actionAndPopupMainPopupButton).xy(7, row);
 
         JCommandButton popupButton = createPopupButton(state);
-        builder.append(popupButton);
+        builder.add(popupButton).xy(9, row);
     }
 
     protected JCommandButton createPopupButton(CommandButtonDisplayState state) {

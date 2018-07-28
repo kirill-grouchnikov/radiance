@@ -221,7 +221,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
         // task toggle buttons scrollable panel
         TaskToggleButtonsHostPanel taskToggleButtonsHostPanel = createTaskToggleButtonsHostPanel();
         taskToggleButtonsHostPanel.setLayout(createTaskToggleButtonsHostPanelLayoutManager());
-        this.taskToggleButtonsScrollablePanel = new JScrollablePanel<TaskToggleButtonsHostPanel>(
+        this.taskToggleButtonsScrollablePanel = new JScrollablePanel<>(
                 taskToggleButtonsHostPanel, JScrollablePanel.ScrollType.HORIZONTALLY);
         this.taskToggleButtonsScrollablePanel.setScrollOnRollover(false);
         // need to repaint the entire ribbon on change since scrolling
@@ -815,7 +815,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 }
             }
 
-            boolean ltr = c.getComponentOrientation().isLeftToRight();
+            boolean ltr = ribbon.getComponentOrientation().isLeftToRight();
             x = ltr ? 1 : c.getWidth() - 1;
             // System.out.println("Will get [" + availableWidth + "]:");
             for (AbstractRibbonBand<?> ribbonBand : selectedTask.getBands()) {
@@ -982,7 +982,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             totalPrefWidth += tabButtonGap * visibleTasks.size();
             totalMinWidth += tabButtonGap * visibleTasks.size();
 
-            boolean ltr = c.getComponentOrientation().isLeftToRight();
+            boolean ltr = ribbon.getComponentOrientation().isLeftToRight();
 
             // do we have enough width?
             if (totalPrefWidth <= c.getWidth()) {

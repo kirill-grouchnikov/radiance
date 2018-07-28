@@ -29,40 +29,16 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.Insets;
-import java.util.EnumSet;
-
-import javax.swing.AbstractButton;
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JToggleButton;
-
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.substance.main.Check;
-import org.pushingpixels.demo.substance.main.check.command.ChainCommand;
-import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
-import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
-import org.pushingpixels.demo.substance.main.check.command.SelectCommand;
-import org.pushingpixels.demo.substance.main.check.svg.flags.cn;
-import org.pushingpixels.demo.substance.main.check.svg.flags.gr;
-import org.pushingpixels.demo.substance.main.check.svg.flags.il;
-import org.pushingpixels.demo.substance.main.check.svg.flags.it;
-import org.pushingpixels.demo.substance.main.check.svg.flags.ru;
-import org.pushingpixels.demo.substance.main.check.svg.flags.se;
+import org.pushingpixels.demo.substance.main.check.command.*;
+import org.pushingpixels.demo.substance.main.check.svg.flags.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
-import org.pushingpixels.substance.api.SubstanceSlices.Side;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import java.awt.*;
+import java.util.EnumSet;
 
 /**
  * Test application panel for testing {@link JButton}, {@link JToggleButton}, {@link JRadioButton}
@@ -317,7 +293,7 @@ public class ButtonsPanel extends JPanel {
      * @param cmd
      *            Configuration command to apply.
      */
-    private void addRow(DefaultFormBuilder builder, String label, Icon icon,
+    private void addRow(TestFormLayoutBuilder builder, String label, Icon icon,
             ConfigurationCommand<? super AbstractButton> cmd) {
         AbstractButton[] row = this.getRow();
         if (cmd != null) {
@@ -327,11 +303,13 @@ public class ButtonsPanel extends JPanel {
         }
 
         JLabel jl = new JLabel(label);
-        if (icon != null)
+        if (icon != null) {
             jl.setIcon(icon);
+        }
         builder.append(jl);
-        for (AbstractButton ab : row)
+        for (AbstractButton ab : row) {
             builder.append(ab);
+        }
     }
 
     /**
@@ -341,11 +319,9 @@ public class ButtonsPanel extends JPanel {
     public ButtonsPanel() {
         this.setLayout(new BorderLayout());
 
-        FormLayout lm = new FormLayout("right:pref, 10dlu, left:pref:grow(1), 4dlu,"
-                + "left:pref:grow(1), 4dlu, left:pref:grow(1), " + "4dlu, left:pref:grow(1)", "");
-        lm.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
+                "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
+                        "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 48).padding(Paddings.DIALOG);
 
         builder.append("");
         JLabel bLabel = new JLabel("Buttons");
@@ -479,7 +455,7 @@ public class ButtonsPanel extends JPanel {
         this.addRow(builder, "Null text", null, new TextCommand(null));
         this.addRow(builder, "Empty text", null, new TextCommand(""));
 
-        JPanel panel = builder.getPanel();
+        JPanel panel = builder.build();
         JScrollPane jsp = new JScrollPane(panel);
         SubstanceCortex.ComponentScope.setAutomaticScrollPresence(jsp, true);
         this.add(jsp, BorderLayout.CENTER);

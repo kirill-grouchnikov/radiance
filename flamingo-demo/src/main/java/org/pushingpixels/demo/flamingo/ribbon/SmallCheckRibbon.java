@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.flamingo.ribbon;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.builder.*;
 import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Help_browser;
 import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandBuilder;
@@ -110,14 +110,7 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
         // application menu
         configureApplicationMenu();
 
-        JPanel controlPanel = new JPanel();
-        controlPanel.setBorder(new EmptyBorder(20, 0, 0, 5));
-        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, controlPanel);
-
-        this.configureControlPanel(builder);
-
-        this.add(controlPanel, BorderLayout.EAST);
+        this.add(getControlPanel(), BorderLayout.EAST);
         this.add(new RulerPanel(), BorderLayout.CENTER);
     }
 

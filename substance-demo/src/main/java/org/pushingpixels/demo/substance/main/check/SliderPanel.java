@@ -29,28 +29,12 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.util.Hashtable;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.Hashtable;
 
 /**
  * Test application panel for testing {@link JSlider} component.
@@ -345,8 +329,7 @@ public class SliderPanel extends ControllablePanel implements Deferrable {
         disVerticalRTL.applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         verPanel.add(disVerticalRTL);
 
-        FormLayout lm = new FormLayout("fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("fill:pref:grow", 1, 4);
 
         JButton setTitledBorderButton = new JButton("Set titled border");
         setTitledBorderButton.addActionListener((ActionEvent e) -> SwingUtilities
@@ -369,7 +352,7 @@ public class SliderPanel extends ControllablePanel implements Deferrable {
         builder.append(snapToTicksButton);
         builder.append(unsnapToTicksButton);
 
-        this.controlPanel = builder.getPanel();
+        this.controlPanel = builder.build();
         this.isInitialized = true;
     }
 

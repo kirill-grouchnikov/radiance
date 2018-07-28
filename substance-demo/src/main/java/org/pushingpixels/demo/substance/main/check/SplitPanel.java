@@ -29,17 +29,11 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JCheckBox;
-import javax.swing.JSplitPane;
-
 import org.pushingpixels.substance.api.SubstanceCortex;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Test application panel for testing {@link JSplitPane} component.
@@ -62,8 +56,7 @@ public class SplitPanel extends ControllablePanel {
         splitPane.setDividerLocation(100);
         this.add(splitPane, BorderLayout.CENTER);
 
-        FormLayout lm = new FormLayout("fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("fill:pref:grow", 1, 4);
 
         final JCheckBox isOneTouch = new JCheckBox("is one-touch");
         isOneTouch.setSelected(true);
@@ -95,7 +88,7 @@ public class SplitPanel extends ControllablePanel {
         builder.append(isFlat);
         builder.append(isVertical);
 
-        this.controlPanel = builder.getPanel();
+        this.controlPanel = builder.build();
 
         this.setPreferredSize(new Dimension(400, 400));
         this.setSize(this.getPreferredSize());

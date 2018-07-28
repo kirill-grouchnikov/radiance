@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.tools.substance.jitterbug;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.tools.substance.jitterbug.StateChangeEvent.StateChangeType;
 
@@ -53,8 +52,9 @@ public class JColorSchemeComponent extends JPanel {
     private ButtonGroup bg;
 
     public JColorSchemeComponent() {
-        FormLayout layout = new FormLayout("fill:pref", "");
-        DefaultFormBuilder formBuilder = new DefaultFormBuilder(layout, this);
+        FormBuilder formBuilder = FormBuilder.create().
+                columns("fill:pref").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p");
 
         this.bg = new ButtonGroup();
 
@@ -67,29 +67,30 @@ public class JColorSchemeComponent extends JPanel {
         this.foreground = createColorComponent("foreground");
 
         JPanel header = new JPanel();
-        FormLayout hLayout = new FormLayout(
-                "fill:pref,2dlu,fill:min(150px;pref):grow,4dlu,right:pref", "");
-        DefaultFormBuilder headerBuilder = new DefaultFormBuilder(hLayout, header);
+        FormBuilder headerBuilder = FormBuilder.create().
+                columns("fill:pref,2dlu,fill:min(150px;pref):grow,4dlu,right:pref").
+                rows("p");
+
         name = new JLabel("");
         name.setFont(name.getFont().deriveFont(Font.BOLD));
         isLight = new JCheckBox("light");
         isLight.setSelected(true);
         isLight.setFocusable(false);
-        headerBuilder.append(new JLabel("Display name:"));
-        headerBuilder.append(name);
-        headerBuilder.append(isLight);
+        headerBuilder.add(new JLabel("Display name:")).xy(1, 1);
+        headerBuilder.add(name).xy(3, 1);
+        headerBuilder.add(isLight).xy(5, 1);
 
         isLight.addActionListener((ActionEvent e) -> fireStateChanged(StateChangeType.MODIFIED));
 
-        formBuilder.append(header);
+        formBuilder.add(header).xy(1, 1);
 
-        formBuilder.append(ultraLight);
-        formBuilder.append(extraLight);
-        formBuilder.append(light);
-        formBuilder.append(mid);
-        formBuilder.append(dark);
-        formBuilder.append(ultraDark);
-        formBuilder.append(foreground);
+        formBuilder.add(ultraLight).xy(1, 3);
+        formBuilder.add(extraLight).xy(1, 5);
+        formBuilder.add(light).xy(1, 7);
+        formBuilder.add(mid).xy(1, 9);
+        formBuilder.add(dark).xy(1, 11);
+        formBuilder.add(ultraDark).xy(1, 13);
+        formBuilder.add(foreground).xy(1, 15);
     }
 
     private JColorComponent createColorComponent(String label) {

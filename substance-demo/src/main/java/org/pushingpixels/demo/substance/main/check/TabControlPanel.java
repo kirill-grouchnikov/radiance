@@ -29,34 +29,15 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.ContainerEvent;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.ListCellRenderer;
-import javax.swing.SwingUtilities;
-
+import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.TabContentPaneBorderKind;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
 
 /**
  * Control panel for the tabbed panes.
@@ -169,17 +150,16 @@ public class TabControlPanel extends JPanel {
      */
     private JPanel getContents(final JTabbedPane jtp,
             final MyTabPreviewPainter mainTabPreviewPainter) {
-        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:min:grow(1), 2dlu, fill:min:grow(1)",
-                "p, 2dlu, p, 3dlu, p, 3dlu, p, 3dlu,  p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, "
+        FormBuilder builder = FormBuilder.create().
+                columns("right:pref, 4dlu, fill:min:grow(1), 2dlu, fill:min:grow(1)").
+                rows("p, 2dlu, p, 3dlu, p, 3dlu, p, 3dlu,  p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, "
                         + "p, 3dlu, p, 7dlu, p, 2dlu, p, 0dlu, p, 0dlu, p, 0dlu, p, 7dlu,"
                         + "p, 2dlu, p, 3dlu, p, 0dlu, p, 3dlu, p, 3dlu, p, 7dlu, "
-                        + "p, 2dlu, p, 0dlu, p, 0dlu, p, 0dlu, p, 7dlu, p, 2dlu, p, 3dlu, p");
-        lm.setColumnGroups(new int[][] { { 3, 5 } });
-        PanelBuilder builder = new PanelBuilder(lm);
-        CellConstraints cc = new CellConstraints();
+                        + "p, 2dlu, p, 0dlu, p, 0dlu, p, 0dlu, p, 7dlu, p, 2dlu, p, 3dlu, p").
+                columnGroups(new int[][] { { 3, 5 } });
 
         int row = 1;
-        builder.addSeparator("General", cc.xyw(1, row, 5));
+        builder.addSeparator("General").xyw(1, row, 5);
 
         final JComboBox addKindCombo = new JComboBox(
                 new Object[] { "regular", "null", "modified" });
@@ -200,9 +180,9 @@ public class TabControlPanel extends JPanel {
         });
         row += 2;
 
-        builder.addLabel("Add tab", cc.xy(1, row));
-        builder.add(addKindCombo, cc.xy(3, row));
-        builder.add(addNewTabButton, cc.xy(5, row));
+        builder.addLabel("Add tab").xy(1, row);
+        builder.add(addKindCombo).xy(3, row);
+        builder.add(addNewTabButton).xy(5, row);
 
         final JComboBox placementCombo = new JComboBox(
                 new Object[] { "top", "bottom", "left", "right" });
@@ -218,8 +198,8 @@ public class TabControlPanel extends JPanel {
                 jtp.setTabPlacement(JTabbedPane.RIGHT);
         });
         row += 2;
-        builder.addLabel("Placement", cc.xy(1, row));
-        builder.add(placementCombo, cc.xyw(3, row, 3));
+        builder.addLabel("Placement").xy(1, row);
+        builder.add(placementCombo).xyw(3, row, 3);
 
         try {
             final JComboBox overviewKindCombo = new FlexiComboBox<TabOverviewKind>(
@@ -233,8 +213,8 @@ public class TabControlPanel extends JPanel {
             overviewKindCombo.addActionListener((ActionEvent e) -> mainTabPreviewPainter
                     .setTabOverviewKind((TabOverviewKind) overviewKindCombo.getSelectedItem()));
             row += 2;
-            builder.addLabel("Overview kind", cc.xy(1, row));
-            builder.add(overviewKindCombo, cc.xyw(3, row, 3));
+            builder.addLabel("Overview kind").xy(1, row);
+            builder.add(overviewKindCombo).xyw(3, row, 3);
         } catch (NoClassDefFoundError ncdfe) {
         }
 
@@ -244,8 +224,8 @@ public class TabControlPanel extends JPanel {
                 .setTabLayoutPolicy(useScrollLayout.isSelected() ? JTabbedPane.SCROLL_TAB_LAYOUT
                         : JTabbedPane.WRAP_TAB_LAYOUT));
         row += 2;
-        builder.addLabel("Layout", cc.xy(1, row));
-        builder.add(useScrollLayout, cc.xyw(3, row, 3));
+        builder.addLabel("Layout").xy(1, row);
+        builder.add(useScrollLayout).xyw(3, row, 3);
 
         final JComboBox contentBorderCombo = new JComboBox(new Object[] {
                         TabContentPaneBorderKind.DOUBLE_FULL, TabContentPaneBorderKind.SINGLE_FULL,
@@ -260,8 +240,8 @@ public class TabControlPanel extends JPanel {
             jtp.repaint();
         });
         row += 2;
-        builder.addLabel("Content border", cc.xy(1, row));
-        builder.add(contentBorderCombo, cc.xyw(3, row, 3));
+        builder.addLabel("Content border").xy(1, row);
+        builder.add(contentBorderCombo).xyw(3, row, 3);
 
         JButton enableAll = new JButton("+ all");
         enableAll.addActionListener((ActionEvent e) -> {
@@ -278,9 +258,9 @@ public class TabControlPanel extends JPanel {
         });
 
         row += 2;
-        builder.addLabel("Enable all", cc.xy(1, row));
-        builder.add(enableAll, cc.xy(3, row));
-        builder.add(disableAll, cc.xy(5, row));
+        builder.addLabel("Enable all").xy(1, row);
+        builder.add(enableAll).xy(3, row);
+        builder.add(disableAll).xy(5, row);
 
         JButton closeAllEnabled = new JButton("Close");
         closeAllEnabled.addActionListener((ActionEvent e) -> {
@@ -301,12 +281,12 @@ public class TabControlPanel extends JPanel {
         });
 
         row += 2;
-        builder.addLabel("Close all", cc.xy(1, row));
-        builder.add(closeAllEnabled, cc.xy(3, row));
-        builder.add(restoreClosed, cc.xy(5, row));
+        builder.addLabel("Close all").xy(1, row);
+        builder.add(closeAllEnabled).xy(3, row);
+        builder.add(restoreClosed).xy(5, row);
 
         row += 2;
-        builder.addSeparator("Single Tab", cc.xyw(1, row, 5));
+        builder.addSeparator("Single Tab").xyw(1, row, 5);
 
         final JComboBox tabSelectorCombo = new JComboBox(new TabComboBoxModel(this.jtp));
         tabSelectorCombo.setRenderer(new TabCellRenderer());
@@ -323,8 +303,8 @@ public class TabControlPanel extends JPanel {
         });
 
         row += 2;
-        builder.addLabel("Select", cc.xy(1, row));
-        builder.add(tabSelectorCombo, cc.xyw(3, row, 3));
+        builder.addLabel("Select").xy(1, row);
+        builder.add(tabSelectorCombo).xyw(3, row, 3);
 
         final JButton markAsModified = new JButton("-> modified");
         markAsModified.addActionListener((ActionEvent e) -> {
@@ -345,9 +325,9 @@ public class TabControlPanel extends JPanel {
             }
         });
         row += 2;
-        builder.addLabel("Modified", cc.xy(1, row));
-        builder.add(markAsModified, cc.xy(3, row));
-        builder.add(markAsUnmodified, cc.xy(5, row));
+        builder.addLabel("Modified").xy(1, row);
+        builder.add(markAsModified).xy(3, row);
+        builder.add(markAsUnmodified).xy(5, row);
 
         final JButton runModifiedAnimOnClose = new JButton("Animate on X");
         runModifiedAnimOnClose.addActionListener((ActionEvent e) -> {
@@ -370,8 +350,8 @@ public class TabControlPanel extends JPanel {
             }
         });
         row += 2;
-        builder.add(runModifiedAnimOnClose, cc.xy(3, row));
-        builder.add(runModifiedAnimOnTab, cc.xy(5, row));
+        builder.add(runModifiedAnimOnClose).xy(3, row);
+        builder.add(runModifiedAnimOnTab).xy(5, row);
 
         final JButton showCloseButton = new JButton("+ close button");
         showCloseButton.addActionListener((ActionEvent e) -> {
@@ -413,17 +393,17 @@ public class TabControlPanel extends JPanel {
             jtp.setSelectedIndex((Integer) tabSelectorCombo.getSelectedItem());
         }));
         row += 2;
-        builder.addLabel("Tab op", cc.xy(1, row));
-        builder.add(closeButton, cc.xy(3, row));
-        builder.add(selectButton, cc.xy(5, row));
+        builder.addLabel("Tab op").xy(1, row);
+        builder.add(closeButton).xy(3, row);
+        builder.add(selectButton).xy(5, row);
 
         row += 2;
-        builder.addSeparator("Close Button Single", cc.xyw(1, row, 5));
+        builder.addSeparator("Close Button Single").xyw(1, row, 5);
 
         row += 2;
-        builder.addLabel("Visible", cc.xy(1, row));
-        builder.add(showCloseButton, cc.xy(3, row));
-        builder.add(hideCloseButton, cc.xy(5, row));
+        builder.addLabel("Visible").xy(1, row);
+        builder.add(showCloseButton).xy(3, row);
+        builder.add(hideCloseButton).xy(5, row);
 
         return builder.getPanel();
     }

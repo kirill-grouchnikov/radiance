@@ -29,28 +29,23 @@
  */
 package org.pushingpixels.samples.substance.cookbook.panels;
 
-import java.awt.Dimension;
+import com.jgoodies.forms.builder.FormBuilder;
+import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
+import org.pushingpixels.samples.substance.cookbook.*;
+import org.pushingpixels.samples.substance.cookbook.svg.*;
 
 import javax.swing.border.EmptyBorder;
-
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
-import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
-import org.pushingpixels.samples.substance.cookbook.EchoResizableIcon;
-import org.pushingpixels.samples.substance.cookbook.ScaledResizableIcon;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_add_white_24px;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_remove_white_24px;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_settings_white_24px;
-
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import java.awt.*;
 
 public class CategoryListPanel extends SingleContentPanel {
     public CategoryListPanel(int mainPanelTopOffset) {
         super(mainPanelTopOffset);
 
-        DefaultFormBuilder footerPaneBuilder = new DefaultFormBuilder(new FormLayout("pref", ""))
-                .border(new EmptyBorder(6, 0, 4, 0));
+        FormBuilder footerPaneBuilder = FormBuilder.create().
+                columns("pref").
+                rows("p").
+                padding(new EmptyBorder(6, 0, 4, 0));
 
         JCommandButtonStrip controlButtons = new JCommandButtonStrip();
 
@@ -65,7 +60,7 @@ public class CategoryListPanel extends SingleContentPanel {
         controlButtons.add(removeButton);
         controlButtons.add(confButton);
 
-        footerPaneBuilder.append(controlButtons);
+        footerPaneBuilder.add(controlButtons).xy(1, 1);
         
         this.getFooterContentPanel().add(footerPaneBuilder.build());
     }

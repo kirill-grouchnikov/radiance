@@ -29,36 +29,15 @@
  */
 package org.pushingpixels.samples.substance.mail;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import org.pushingpixels.samples.substance.mail.svg.ic_access_alarm_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_archive_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_close_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_delete_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_forward_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_history_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_more_horiz_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_reply_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_view_list_black_24px;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import com.jgoodies.forms.builder.FormBuilder;
+import org.pushingpixels.samples.substance.mail.svg.*;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 /**
  * Main destinations panel (leftmost under LTR). In the real app this will probably be a JList
@@ -129,21 +108,22 @@ public class ThreadPanel extends JPanel {
 
     private JPanel getCollapsedMessagePanel(String from, String summary, String date,
             Color innerBackground, Color outerBackground) {
-        DefaultFormBuilder builder = new DefaultFormBuilder(
-                new FormLayout("center:pref, 8dlu, 0dlu:grow, 8dlu, right:pref", ""))
-                        .border(new EmptyBorder(8, 16, 8, 16));
+        FormBuilder builder = FormBuilder.create().
+                columns("center:pref, 8dlu, 0dlu:grow, 8dlu, right:pref").
+                rows("p").
+                padding(new EmptyBorder(8, 16, 8, 16));
         Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getControlFont();
 
         JLabel senderLabel = new JLabel(from);
         senderLabel.setFont(baseFont.deriveFont(Font.BOLD));
-        builder.append(senderLabel);
+        builder.add(senderLabel).xy(1, 1);
 
-        builder.append(new JLabel(summary));
+        builder.add(new JLabel(summary)).xy(3, 1);
 
         JLabel dateLabel = new JLabel(date);
         dateLabel.setFont(baseFont.deriveFont(baseFont.getSize() - 2.0f));
-        builder.append(dateLabel);
+        builder.add(dateLabel).xy(5, 1);
 
         JPanel result = new JPanel(new BorderLayout());
         result.setBorder(new EmptyBorder(2, 8, 2, 8));
@@ -159,22 +139,24 @@ public class ThreadPanel extends JPanel {
 
     private JPanel getFullMessagePanel(String from, String date, String to, String message,
             Color innerBackground, Color outerBackground, Color iconColor) {
-        DefaultFormBuilder firstRow = new DefaultFormBuilder(new FormLayout(
-                "0dlu:grow, 8dlu, right:pref, 8dlu, center:pref, 8dlu, center:pref", ""))
-                        .border(new EmptyBorder(8, 16, 2, 16));
+        FormBuilder firstRow = FormBuilder.create().
+                columns("0dlu:grow, 8dlu, right:pref, 8dlu, center:pref, 8dlu, center:pref").
+                rows("p").
+                padding(new EmptyBorder(8, 16, 2, 16));
         Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getControlFont();
 
         JLabel senderLabel = new JLabel(from);
         senderLabel.setFont(baseFont.deriveFont(Font.BOLD));
-        firstRow.append(senderLabel);
+        firstRow.add(senderLabel).xy(1, 1);
 
         JLabel dateLabel = new JLabel(date);
         dateLabel.setFont(baseFont.deriveFont(baseFont.getSize() - 2.0f));
-        firstRow.append(dateLabel);
+        firstRow.add(dateLabel).xy(3, 1);
 
-        firstRow.append(new JLabel(ic_reply_black_24px.of(14, 14).colorize(iconColor, 0.8f)));
-        firstRow.append(new JLabel(ic_more_horiz_black_24px.of(14, 14).colorize(iconColor, 0.8f)));
+        firstRow.add(new JLabel(ic_reply_black_24px.of(14, 14).colorize(iconColor, 0.8f))).xy(5, 1);
+        firstRow.add(new JLabel(ic_more_horiz_black_24px.of(14, 14).colorize(iconColor, 0.8f))).
+                xy(7, 1);
 
         JLabel toLabel = new JLabel("To: " + to);
         toLabel.setBorder(new EmptyBorder(0, 16, 24, 16));

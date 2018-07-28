@@ -81,7 +81,6 @@ public class SwatchPanel extends javax.swing.JPanel {
 
     public void setBounds(int x, int y, int width, int height) {
         super.setBounds(x, y, width, height);
-        System.out.println("Bounds " + x + ", " + y + ", " + width + ", " + height);
         if (width > getPreferredSize().width) {
             swatchSize.width = (width - numSwatches.width * gap.width) / numSwatches.width;
         } else {

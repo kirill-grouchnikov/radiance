@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.tools.substance.jitterbug;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -41,17 +40,11 @@ import org.pushingpixels.tools.substance.jitterbug.StateChangeEvent.StateChangeT
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.ClipboardOwner;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.*;
 import java.awt.dnd.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
-import java.io.File;
-import java.io.InputStream;
+import java.io.*;
 
 public class JitterbugEditor extends JFrame implements ClipboardOwner {
     private static final String APP_TITLE = "Jitterbug color scheme editor";
@@ -100,22 +93,22 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
         this.setIconImage(RadianceLogo.getLogoImage(SubstanceCortex.GlobalScope.getCurrentSkin()
                 .getEnabledColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)));
 
-        FormLayout leftPanelLayout = new FormLayout("fill:pref",
-                "fill:pref, fill:pref, fill:pref:grow, fill:pref");
-        DefaultFormBuilder leftPanelBuilder = new DefaultFormBuilder(leftPanelLayout);
+        FormBuilder leftPanelBuilder = FormBuilder.create().
+                columns("fill:pref").
+                rows("fill:pref, $lg, fill:pref, $lg, fill:pref:grow, $lg, fill:pref");
 
         this.colorSchemeList = new JColorSchemeList();
         this.colorSchemeList.setDropTarget(new DropTarget(this, new JitterbugDropHandler()));
-        leftPanelBuilder.append(this.colorSchemeList);
+        leftPanelBuilder.add(this.colorSchemeList).xy(1, 1);
 
         this.colorSchemeComp = new JColorSchemeComponent();
         this.colorSchemeComp.setEnabled(false);
         this.colorSchemeComp.setDropTarget(new DropTarget(this, new JitterbugDropHandler()));
-        leftPanelBuilder.append(this.colorSchemeComp);
+        leftPanelBuilder.add(this.colorSchemeComp).xy(1, 3);
 
         this.hsvGraph = new JHsvGraph();
         this.hsvGraph.setDropTarget(new DropTarget(this, new JitterbugDropHandler()));
-        leftPanelBuilder.append(this.hsvGraph);
+        leftPanelBuilder.add(this.hsvGraph).xy(1, 5);
 
         JPanel controlsPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
 
@@ -146,9 +139,9 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
         controlsPanel.add(Box.createHorizontalStrut(20));
         controlsPanel.add(newButton);
 
-        leftPanelBuilder.append(controlsPanel);
+        leftPanelBuilder.add(controlsPanel).xy(1, 7);
 
-        JPanel leftPanel = leftPanelBuilder.getPanel();
+        JPanel leftPanel = leftPanelBuilder.build();
         // wire drag and drop
         wireDragAndDrop(leftPanel);
 

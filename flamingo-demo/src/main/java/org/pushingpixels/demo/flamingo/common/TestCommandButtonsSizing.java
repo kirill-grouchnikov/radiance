@@ -1,8 +1,7 @@
 package org.pushingpixels.demo.flamingo.common;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
@@ -42,9 +41,9 @@ public class TestCommandButtonsSizing extends JPanel {
 
     private TestCommandButtonsSizing() {
         this.model = new LinkedList<>();
-        for (final CommandButtonDisplayState state : new CommandButtonDisplayState[]{
+        for (final CommandButtonDisplayState state : new CommandButtonDisplayState[] {
                 CommandButtonDisplayState.BIG, CommandButtonDisplayState.MEDIUM,
-                CommandButtonDisplayState.TILE, CommandButtonDisplayState.SMALL}) {
+                CommandButtonDisplayState.TILE, CommandButtonDisplayState.SMALL }) {
             for (final CommandButtonKind commandButtonKind : CommandButtonKind.values()) {
                 this.model.add(new Mapping(
                         state.getDisplayName() + " + " + commandButtonKind.name(), (int fontSize) ->
@@ -84,13 +83,21 @@ public class TestCommandButtonsSizing extends JPanel {
                     int selIndex = list.getSelectedIndex();
                     if (selIndex >= 0) {
                         Mapping sel = (Mapping) list.getSelectedValue();
-                        FormLayout lm = new FormLayout("right:pref, 4dlu, left:pref:grow", "");
-                        DefaultFormBuilder builder = new DefaultFormBuilder(lm)
-                                .border(Borders.DIALOG);
-                        for (int fontSize = 11; fontSize < 25; fontSize++) {
-                            builder.append(fontSize + " pixels", sel.creator.create(fontSize));
+
+                        String rowSpec = "p";
+                        for (int fontSize = 12; fontSize < 25; fontSize++) {
+                            rowSpec += ", $lg, p";
                         }
-                        central = new JScrollPane(builder.getPanel(),
+                        FormBuilder builder = FormBuilder.create().
+                                columns("right:pref, 4dlu, left:pref:grow").
+                                rows(rowSpec).
+                                padding(Paddings.DIALOG);
+                        for (int fontSize = 11; fontSize < 25; fontSize++) {
+                            int row = (fontSize - 11) * 2 + 1;
+                            builder.add(fontSize + " pixels").xy(1, row);
+                            builder.add(sel.creator.create(fontSize)).xy(3, row);
+                        }
+                        central = new JScrollPane(builder.build(),
                                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
                         add(central, BorderLayout.CENTER);
@@ -103,8 +110,8 @@ public class TestCommandButtonsSizing extends JPanel {
     private JCommandButton createActionOnlyButton(String text, CommandButtonDisplayState state,
             CommandButtonKind commandButtonKind, int fontSize) {
         ResizableIcon mainPasteIcon = SvgBatikResizableIcon.getSvgIcon(
-                TestCommandButtons.class.getClassLoader().getResource(
-                        "org/pushingpixels/demo/flamingo/svg/tango/transcoded/Edit-paste.svg"),
+                TestCommandButtonsSizing.class.getClassLoader().getResource(
+                        "org/pushingpixels/demo/flamingo/svg/tango/Edit-paste.svg"),
                 new Dimension(32, 32));
         JCommandButton mainButton = new JCommandButton(text, mainPasteIcon);
         mainButton.setExtraText("Extra for " + text.toLowerCase());

@@ -29,23 +29,14 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Locale;
-
-import javax.swing.JFrame;
-import javax.swing.LookAndFeel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
-import javax.swing.plaf.FontUIResource;
-
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.neon.font.FontSet;
+import org.pushingpixels.substance.api.*;
+
+import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Locale;
 
 /**
  * Listener to change the current locale.
@@ -140,23 +131,6 @@ public class MyLocaleChangeListener implements ActionListener {
         this.langCode = langCode;
         this.countryCode = countryCode;
         this.frame = frame;
-    }
-
-    /**
-     * Sets the specified locale on a component and all its children (recursively).
-     * 
-     * @param component
-     *            Component.
-     * @param locale
-     *            Locale to set.
-     */
-    void setLocale(Component component, Locale locale) {
-        component.setLocale(locale);
-        if (component instanceof Container) {
-            Container cont = (Container) component;
-            for (int i = 0; i < cont.getComponentCount(); i++)
-                setLocale(cont.getComponent(i), locale);
-        }
     }
 
     public void actionPerformed(ActionEvent e) {

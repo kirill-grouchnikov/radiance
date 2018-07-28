@@ -29,56 +29,37 @@
  */
 package org.pushingpixels.samples.substance.cookbook.panels;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.BoundedRangeModel;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.JTextField;
-import javax.swing.JViewport;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
-
-import org.pushingpixels.flamingo.api.common.CommandToggleButtonGroup;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
-import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
-import org.pushingpixels.samples.substance.cookbook.EchoResizableIcon;
-import org.pushingpixels.samples.substance.cookbook.ScaledResizableIcon;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_add_white_24px;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_format_size_white_24px;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_remove_white_24px;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_view_headline_white_24px;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_view_list_white_24px;
-import org.pushingpixels.samples.substance.cookbook.svg.ic_view_stream_white_24px;
+import com.jgoodies.forms.builder.FormBuilder;
+import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.samples.substance.cookbook.*;
+import org.pushingpixels.samples.substance.cookbook.svg.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class RecipeListPanel extends SingleContentPanel {
     public RecipeListPanel(int mainPanelTopOffset) {
         super(mainPanelTopOffset);
 
         // Configure the title pane content
-        DefaultFormBuilder titlePaneBuilder = new DefaultFormBuilder(
-                new FormLayout("pref, 0dlu, 0dlu:grow, 0dlu, pref, 6dlu, pref", ""))
-                        .border(new EmptyBorder(8, 4, 0, 4));
+        FormBuilder titlePaneBuilder = FormBuilder.create().
+                columns("pref, 0dlu, 0dlu:grow, 0dlu, pref, 6dlu, pref").
+                rows("p").
+                padding(new EmptyBorder(8, 4, 0, 4));
 
         JLabel smaller = new JLabel(new EchoResizableIcon(
                 new ScaledResizableIcon(ic_format_size_white_24px.of(16, 16), 0.6f)));
-        titlePaneBuilder.append(smaller);
+        titlePaneBuilder.add(smaller).xy(1, 1);
 
         JSlider slider = new JSlider(0, 100, 80);
-        titlePaneBuilder.append(slider);
+        titlePaneBuilder.add(slider).xy(3, 1);
 
         JLabel bigger = new JLabel(new EchoResizableIcon(
                 new ScaledResizableIcon(ic_format_size_white_24px.of(16, 16), 0.8f)));
-        titlePaneBuilder.append(bigger);
+        titlePaneBuilder.add(bigger).xy(5, 1);
 
         JCommandButtonStrip titlePaneControlButtons = new JCommandButtonStrip();
 
@@ -99,10 +80,10 @@ public class RecipeListPanel extends SingleContentPanel {
         group.add(streamView);
         group.setSelected(headlineView, true);
 
-        titlePaneBuilder.append(titlePaneControlButtons);
+        titlePaneBuilder.add(titlePaneControlButtons).xy(7, 1);
 
         this.titlePanel.setLayout(new BorderLayout());
-        this.titlePanel.add(titlePaneBuilder.getPanel(), BorderLayout.CENTER);
+        this.titlePanel.add(titlePaneBuilder.build(), BorderLayout.CENTER);
 
         JPanel mainPanel = this.getMainPanel();
         JPanel recipePanel = new JPanel();
@@ -120,8 +101,10 @@ public class RecipeListPanel extends SingleContentPanel {
         scroll.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
 
         // Footer content
-        DefaultFormBuilder footerPaneBuilder = new DefaultFormBuilder(
-                new FormLayout("pref, 12dlu, 0dlu:grow", "")).border(new EmptyBorder(6, 0, 4, 0));
+        FormBuilder footerPaneBuilder = FormBuilder.create().
+                columns("pref, 12dlu, 0dlu:grow").
+                rows("p").
+                padding(new EmptyBorder(6, 0, 4, 0));
 
         final JCommandButtonStrip controlButtons = new JCommandButtonStrip();
 
@@ -137,8 +120,8 @@ public class RecipeListPanel extends SingleContentPanel {
         // has white background
         ComponentOrParentChainScope.setDecorationType(searchTextField, DecorationAreaType.NONE);
 
-        footerPaneBuilder.append(controlButtons);
-        footerPaneBuilder.append(searchTextField);
+        footerPaneBuilder.add(controlButtons).xy(1, 1);
+        footerPaneBuilder.add(searchTextField).xy(3, 1);
 
         this.getFooterContentPanel().add(footerPaneBuilder.build());
 

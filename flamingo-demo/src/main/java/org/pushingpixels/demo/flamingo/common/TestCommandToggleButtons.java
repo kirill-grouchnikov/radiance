@@ -29,9 +29,8 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.flamingo.*;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
@@ -96,17 +95,18 @@ public class TestCommandToggleButtons extends JFrame {
     }
 
     private JPanel getButtonPanel() {
-        FormLayout lm = new FormLayout("right:pref, 10dlu, center:pref, 4dlu, center:pref", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(Borders.DIALOG);
+        FormBuilder builder = FormBuilder.create().
+                columns("right:pref, 10dlu, center:pref, 4dlu, center:pref").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p").
+                padding(Paddings.DIALOG);
 
-        builder.append("");
-        builder.append("Short text");
-        builder.append("Long text");
+        builder.add("Short text").xy(3, 1);
+        builder.add("Long text").xy(5, 1);
 
-        addButtons(builder, CommandButtonDisplayState.BIG);
-        addButtons(builder, CommandButtonDisplayState.TILE);
-        addButtons(builder, CommandButtonDisplayState.MEDIUM);
-        addButtons(builder, CommandButtonDisplayState.SMALL);
+        addButtons(builder, CommandButtonDisplayState.BIG, 3);
+        addButtons(builder, CommandButtonDisplayState.TILE, 5);
+        addButtons(builder, CommandButtonDisplayState.MEDIUM, 7);
+        addButtons(builder, CommandButtonDisplayState.SMALL, 9);
 
         return builder.getPanel();
     }
@@ -115,15 +115,15 @@ public class TestCommandToggleButtons extends JFrame {
         return new SimpleDateFormat("HH:mm:ss.SSS").format(new Date());
     }
 
-    private void addButtons(DefaultFormBuilder builder, CommandButtonDisplayState state) {
-        builder.append(state.getDisplayName() + " state");
+    private void addButtons(FormBuilder builder, CommandButtonDisplayState state, int row) {
+        builder.add(state.getDisplayName() + " state").xy(1, row);
 
         JCommandToggleButton buttonWithShortText = createToggleButton(state,
                 resourceBundle.getString("Short.text"));
-        builder.append(buttonWithShortText);
+        builder.add(buttonWithShortText).xy(3, row);
         JCommandToggleButton buttonWithLongText = createToggleButton(state,
                 resourceBundle.getString("LongerLines.text"));
-        builder.append(buttonWithLongText);
+        builder.add(buttonWithLongText).xy(5, row);
     }
 
     protected JCommandToggleButton createToggleButton(CommandButtonDisplayState state,

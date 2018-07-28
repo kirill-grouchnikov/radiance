@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.demo.flamingo.ribbon;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.flamingo.*;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
@@ -43,8 +42,8 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.skin.*;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -1127,42 +1126,6 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return transitionBand;
     }
 
-    public static void addSkinGallery(JRibbonBand ribbonBand) {
-        Map<RibbonElementPriority, Integer> prefWidths = new HashMap<RibbonElementPriority,
-                Integer>();
-        prefWidths.put(RibbonElementPriority.LOW, 2);
-        prefWidths.put(RibbonElementPriority.MEDIUM, 4);
-        prefWidths.put(RibbonElementPriority.TOP, 8);
-
-        List<StringValuePair<List<FlamingoCommand>>> skinGroups = new
-                ArrayList<StringValuePair<List<FlamingoCommand>>>();
-        List<FlamingoCommand> skinCommands = new ArrayList<FlamingoCommand>();
-
-        Map<String, SkinInfo> skins = SubstanceCortex.GlobalScope.getAllSkins();
-        for (Map.Entry<String, SkinInfo> entry : skins.entrySet()) {
-            try {
-                final SubstanceSkin skin = (SubstanceSkin) Class
-                        .forName(entry.getValue().getClassName()).newInstance();
-
-                FlamingoCommand skinCommand = new FlamingoCommandBuilder()
-                        .setTitle(skin.getDisplayName())
-                        .setIcon(new SkinResizableIcon(skin, 60, 40))
-                        .setAction((ActionEvent e) -> SwingUtilities
-                                .invokeLater(() -> SubstanceCortex.GlobalScope.setSkin(skin)))
-                        .setToggle()
-                        .build();
-
-                skinCommands.add(skinCommand);
-            } catch (Exception exc) {
-            }
-        }
-
-        skinGroups.add(new StringValuePair<List<FlamingoCommand>>("Skins", skinCommands));
-
-        ribbonBand.addRibbonGallery("Skins", skinGroups, prefWidths, 5, 3,
-                RibbonElementPriority.TOP);
-    }
-
     protected RibbonContextualTaskGroup group1;
     protected RibbonContextualTaskGroup group2;
 
@@ -1216,19 +1179,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 rowSpanBand, alignmentBand);
         wrappedTask.setKeyTip("R");
 
-        // Skin selection
-        JRibbonBand skinBand = new JRibbonBand("Skin", new LayeredIcon(
-                new WatermarkResizableIcon(null, 32, 32),
-                new ColorSchemeResizableIcon(null, 32, 32)), null);
-        addSkinGallery(skinBand);
-        RibbonTask substanceSkinTask = new RibbonTask(
-                resourceBundle.getString("LookAndFeel.textTaskTitle"), skinBand);
-
         this.getRibbon().addTask(pageLayoutTask);
         this.getRibbon().addTask(writeTask);
         this.getRibbon().addTask(animationsTask);
         this.getRibbon().addTask(wrappedTask);
-        this.getRibbon().addTask(substanceSkinTask);
 
         this.getRibbon()
                 .addAnchoredCommand(new FlamingoCommandBuilder()
@@ -1271,14 +1225,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         // application menu
         configureApplicationMenu();
 
-        JPanel controlPanel = new JPanel();
-        controlPanel.setBorder(new EmptyBorder(20, 0, 0, 5));
-        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, controlPanel);
-
-        this.configureControlPanel(builder);
-
-        this.add(controlPanel, BorderLayout.EAST);
+        this.add(getControlPanel(), BorderLayout.EAST);
         this.add(new RulerPanel(), BorderLayout.CENTER);
 
         this.configureStatusBar();
@@ -1620,17 +1567,22 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return task;
     }
 
-    protected void configureControlPanel(DefaultFormBuilder builder) {
+    protected JPanel getControlPanel() {
+        FormBuilder builder = FormBuilder.create().
+                columns("right:pref, 8dlu, fill:pref:grow").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                padding(new EmptyBorder(20, 4, 0, 4));
+
         final JCheckBox group1Visible = new JCheckBox("visible");
         final JCheckBox group2Visible = new JCheckBox("visible");
         group1Visible.addActionListener((ActionEvent e) -> SwingUtilities
                 .invokeLater(() -> getRibbon().setVisible(group1, group1Visible.isSelected())));
         group2Visible.addActionListener((ActionEvent e) -> SwingUtilities
                 .invokeLater(() -> getRibbon().setVisible(group2, group2Visible.isSelected())));
-        builder.append("Group 1", group1Visible);
-        builder.append("Group 2", group2Visible);
+        builder.add("Group 1").xy(1, 1).add(group1Visible).xy(3, 1);
+        builder.add("Group 2").xy(1, 3).add(group2Visible).xy(3, 3);
 
-        builder.append("Skins", SkinSwitcher.getSkinSwitcher(this));
+        builder.addLabel("Skin").xy(1, 5).add(SkinSwitcher.getSkinSwitcher(this)).xy(3, 5);
 
         final JCheckBox appMenuVisible = new JCheckBox("visible");
         appMenuVisible.setSelected(true);
@@ -1640,7 +1592,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             else
                 configureApplicationMenu();
         }));
-        builder.append("App menu", appMenuVisible);
+        builder.add("App menu").xy(1, 7).add(appMenuVisible).xy(3, 7);
 
         final JCheckBox taskbarFull = new JCheckBox("full");
         taskbarFull.setSelected(true);
@@ -1662,7 +1614,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         taskbarPanel.setLayout(new BorderLayout());
         taskbarPanel.add(taskbarFull, BorderLayout.LINE_START);
         taskbarPanel.add(taskbarEnabled, BorderLayout.LINE_END);
-        builder.append("Taskbar", taskbarPanel);
+        builder.add("Taskbar").xy(1, 9).add(taskbarPanel).xy(3, 9);
 
         JButton changeParagraph = new JButton("change");
         changeParagraph
@@ -1685,16 +1637,20 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         return newTitle;
                     }
                 }));
-        builder.append("Change 'Paragraph'", changeParagraph);
+        builder.add("Change 'Paragraph'").xy(1, 11).add(changeParagraph).xy(3, 11);
 
         JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
             currLocale = selected;
+            resourceBundle = ResourceBundle
+                    .getBundle("org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
             for (Window window : Window.getWindows()) {
                 window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
                 SwingUtilities.updateComponentTreeUI(window);
             }
         });
-        builder.append("Locale", localeSwitcher);
+        builder.add("Locale").xy(1, 13).add(localeSwitcher).xy(3, 13);
+
+        return builder.build();
     }
 
     protected JFlowRibbonBand getFontBand() {

@@ -29,38 +29,13 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerListModel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import com.jgoodies.forms.factories.Paddings;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class HAlignmentPanel extends ControllablePanel implements Deferrable {
     private boolean isInitialized;
@@ -78,19 +53,17 @@ public class HAlignmentPanel extends ControllablePanel implements Deferrable {
 
     @Override
     public synchronized void initialize() {
-        FormLayout lm = new FormLayout("left:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("left:pref:grow", 1, 15)
+                .border(Paddings.DIALOG);
 
         for (int fontSize = 11; fontSize < 25; fontSize++) {
             builder.append(getSubPanel(fontSize));
         }
 
-        this.add(new JScrollPane(builder.getPanel()));
+        this.add(new JScrollPane(builder.build()));
 
-        FormLayout controlPanelLayoutManager = new FormLayout("fill:pref:grow", "");
-        DefaultFormBuilder controlPanelBuilder = new DefaultFormBuilder(controlPanelLayoutManager,
-                new ScrollablePanel());
+        TestFormLayoutBuilder controlPanelBuilder = new TestFormLayoutBuilder("fill:pref:grow",
+                1, 2);
 
         toPaintGuiderLines = new JCheckBox("guider lines");
         toPaintGuiderLines.addActionListener((ActionEvent e) -> repaint());
@@ -99,7 +72,7 @@ public class HAlignmentPanel extends ControllablePanel implements Deferrable {
         toPaintBounds = new JCheckBox("bounds");
         toPaintBounds.addActionListener((ActionEvent e) -> repaint());
         controlPanelBuilder.append(toPaintBounds);
-        this.controlPanel = controlPanelBuilder.getPanel();
+        this.controlPanel = controlPanelBuilder.build();
 
         this.isInitialized = true;
     }

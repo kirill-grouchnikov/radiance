@@ -29,35 +29,15 @@
  */
 package org.pushingpixels.demo.substance.main;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerListModel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-
+import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import javax.swing.UIManager.LookAndFeelInfo;
+import java.awt.*;
+import java.awt.event.*;
 
 public class Alignment extends JFrame {
     private JCheckBox toPaintOverlays;
@@ -103,18 +83,22 @@ public class Alignment extends JFrame {
                 }
             }
         };
+        content.setLayout(new BorderLayout());
 
-        FormLayout lm = new FormLayout(
-                "pref,2dlu,pref,2dlu,pref,2dlu,pref,2dlu,pref,2dlu,pref,2dlu,pref,2dlu", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, content).border(Borders.DIALOG);
+        FormBuilder builder = FormBuilder.create().
+                columns("pref,2dlu,pref,2dlu,pref,2dlu,pref,2dlu,pref,2dlu,pref,2dlu,pref,2dlu").
+                rows("p").
+                padding(Paddings.DIALOG);
 
-        builder.append(textField);
-        builder.append(fTextField);
-        builder.append(passField);
-        builder.append(spinner);
-        builder.append(editableCombo);
-        builder.append(combo);
-        builder.append(button);
+        builder.add(textField).xy(1, 1);
+        builder.add(fTextField).xy(3, 1);
+        builder.add(passField).xy(5, 1);
+        builder.add(spinner).xy(7, 1);
+        builder.add(editableCombo).xy(9, 1);
+        builder.add(combo).xy(11, 1);
+        builder.add(button).xy(13, 1);
+
+        content.add(builder.build(), BorderLayout.CENTER);
 
         // FocusManager.setCurrentManager(null);
 

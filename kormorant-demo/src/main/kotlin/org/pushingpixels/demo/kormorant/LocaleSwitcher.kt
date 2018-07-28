@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2018 Kormorant Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of
+ *  o Neither the name of Kormorant Kirill Grouchnikov nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
@@ -27,15 +27,29 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.substance.extras.api.shaperpack;
+package org.pushingpixels.demo.kormorant;
 
-public class IceCreamButtonShaper extends BasePolygonShaper {
-	public IceCreamButtonShaper() {
-		super("org/pushingpixels/substance/extras/api/shaperpack/icecream.shape", 0.6, 0.4, 0.6,
-				0.4);
-	}
+import java.util.*
+import javax.swing.JComboBox
+import javax.swing.SwingUtilities
 
-	public String getDisplayName() {
-		return "Ice Cream";
-	}
+object LocaleSwitcher {
+    internal class LocaleInfo(val locale: Locale, val displayName: String) {
+        override fun toString(): String {
+            return displayName
+        }
+    }
+
+    fun getLocaleSwitcher(callback: (Locale) -> Unit): JComboBox<*> {
+        val locales = arrayOf(LocaleInfo(Locale("en", "US"), "English"),
+                LocaleInfo(Locale("iw", "IL"), "Hebrew"))
+        val result = JComboBox<LocaleInfo>(locales)
+        result.selectedIndex = 0
+        result.addActionListener {
+            SwingUtilities.invokeLater {
+                callback(result.model.getElementAt(result.selectedIndex).locale)
+            }
+        }
+        return result
+    }
 }

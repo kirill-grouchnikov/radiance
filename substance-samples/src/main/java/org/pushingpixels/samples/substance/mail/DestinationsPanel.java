@@ -29,19 +29,13 @@
  */
 package org.pushingpixels.samples.substance.mail;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.neon.icon.NeonIcon;
 import org.pushingpixels.samples.substance.mail.svg.*;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SunGlareColorScheme;
-import org.pushingpixels.substance.api.colorscheme.TerracottaColorScheme;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.highlight.SubstanceHighlightPainter;
 
@@ -146,29 +140,39 @@ public class DestinationsPanel extends PanelWithRightLine {
 
     private HighlightablePanel getSelectorDestinationRow(NeonIcon icon, String title,
             int count) {
-        FormLayout lm = new FormLayout("center:pref, 4dlu, fill:pref:grow, 4dlu, center:pref", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(new EmptyBorder(8, 8, 8, 8));
-        builder.append(new JLabel(icon), new JLabel(title),
-                new JLabel(count > 0 ? Integer.toString(count) : ""));
+        FormBuilder builder = FormBuilder.create().
+                columns("center:pref, 4dlu, fill:pref:grow, 4dlu, center:pref").
+                rows("p").
+                padding(new EmptyBorder(8, 8, 8, 8));
+
+        builder.add(new JLabel(icon)).xy(1, 1);
+        builder.add(new JLabel(title)).xy(3, 1);
+        builder.add(new JLabel(count > 0 ? Integer.toString(count) : "")).xy(5, 1);
+
         HighlightablePanel result = new HighlightablePanel(builder.build());
         return result;
     }
 
     private JPanel getMainLabel(String title) {
-        FormLayout lm = new FormLayout("fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(new EmptyBorder(8, 8, 8, 8));
+        FormBuilder builder = FormBuilder.create().
+                columns("fill:pref:grow").
+                rows("p").
+                padding(new EmptyBorder(8, 8, 8, 8));
+
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getControlFont().deriveFont(Font.BOLD));
-        builder.append(titleLabel);
+        builder.add(titleLabel).xy(1, 1);
+
         JPanel result = builder.build();
         return result;
     }
 
     private JPanel getRefreshAction(Window window, NeonIcon icon) {
-        FormLayout lm = new FormLayout("right:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm)
-                .border(new EmptyBorder(12, 8, 12, 8));
+        FormBuilder builder = FormBuilder.create().
+                columns("right:pref:grow").
+                rows("p").
+                padding(new EmptyBorder(12, 8, 12, 8));
 
         // Use Substance API to create a button that has consistent look with the
         // title pane control buttons
@@ -176,7 +180,8 @@ public class DestinationsPanel extends PanelWithRightLine {
 
         refreshButton.setIcon(icon);
         refreshButton.setToolTipText("Refresh mail");
-        builder.append(refreshButton);
+        builder.add(refreshButton).xy(1, 1);
+
         JPanel result = builder.build();
         return result;
     }

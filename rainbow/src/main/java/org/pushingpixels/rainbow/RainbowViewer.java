@@ -31,50 +31,27 @@
  */
 package org.pushingpixels.rainbow;
 
-import java.awt.BorderLayout;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-import java.awt.geom.RoundRectangle2D;
-import java.io.File;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JToolBar;
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.filechooser.FileSystemView;
-
+import com.jgoodies.forms.builder.FormBuilder;
 import org.jdesktop.jxlayer.JXLayer;
-import org.jdesktop.jxlayer.plaf.ext.MouseScrollableUI;
-import org.jdesktop.jxlayer.plaf.ext.SpotLightUI;
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent;
-import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
+import org.jdesktop.jxlayer.plaf.ext.*;
+import org.pushingpixels.flamingo.api.bcb.*;
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.KeyValuePair;
-import org.pushingpixels.flamingo.api.common.ProgressEvent;
-import org.pushingpixels.flamingo.api.common.ProgressListener;
-import org.pushingpixels.rainbow.layout.TransitionLayout;
-import org.pushingpixels.rainbow.layout.TransitionLayoutEvent;
+import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.rainbow.layout.*;
 import org.pushingpixels.rainbow.svg.ic_search_black_24px;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.filechooser.FileSystemView;
+import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
+import java.io.File;
+import java.util.List;
+import java.util.*;
 
 /**
  * SVG viewer application.
@@ -164,14 +141,15 @@ public class RainbowViewer extends JFrame implements ProgressListener {
 
         this.setLayout(new BorderLayout());
 
-        FormLayout toolbarLayout = new FormLayout(
-                "fill:pref:grow, 2dlu, fill:pref, 4dlu, fill:pref, 2dlu", "");
-        DefaultFormBuilder toolbarBuilder = new DefaultFormBuilder(toolbarLayout);
+        FormBuilder toolbarBuilder = FormBuilder.create().
+                columns("fill:pref:grow, 2dlu, fill:pref, 4dlu, fill:pref, 2dlu").
+                rows("p");
+
         JToolBar toolbar = new JToolBar();
         ComponentOrParentChainScope.setDecorationType(toolbar, DecorationAreaType.HEADER);
         toolbar.setLayout(new BorderLayout());
 
-        toolbarBuilder.append(bar);
+        toolbarBuilder.add(bar).xy(1, 1);
 
         this.findField = new JTextField();
         this.findField.setColumns(8);
@@ -193,12 +171,12 @@ public class RainbowViewer extends JFrame implements ProgressListener {
             }
         });
         this.findField.setToolTipText("Type search string");
-        toolbarBuilder.append(this.findField);
+        toolbarBuilder.add(this.findField).xy(3, 1);
 
         JLabel searchIconLabel = new JLabel(ic_search_black_24px.of(14, 14));
-        toolbarBuilder.append(searchIconLabel);
+        toolbarBuilder.add(searchIconLabel).xy(5, 1);
 
-        toolbar.add(toolbarBuilder.getPanel(), BorderLayout.CENTER);
+        toolbar.add(toolbarBuilder.build(), BorderLayout.CENTER);
 
         this.add(toolbar, BorderLayout.NORTH);
         toolbar.setFloatable(false);
@@ -228,20 +206,22 @@ public class RainbowViewer extends JFrame implements ProgressListener {
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         add(new JXLayer<JScrollPane>(jsp, new MouseScrollableUI()));
 
-        FormLayout statusBarLayout = new FormLayout("fill:pref:grow(1), 1dlu, "
-                + "fill:min(pref;100px):grow(1), 1dlu, fill:min(pref;200px):grow(1)");
-        DefaultFormBuilder statusBarBuilder = new DefaultFormBuilder(statusBarLayout);
+        FormBuilder statusBarBuilder = FormBuilder.create().
+                columns("fill:pref:grow(1), 1dlu, fill:min(pref;100px):grow(1), " +
+                        "1dlu, fill:min(pref;200px):grow(1)").
+                rows("p");
+
         this.statusLabel = new JLabel();
-        statusBarBuilder.append(this.statusLabel);
+        statusBarBuilder.add(this.statusLabel).xy(1, 1);
 
         this.statusProgressBar = new JProgressBar();
-        statusBarBuilder.append(this.statusProgressBar);
+        statusBarBuilder.add(this.statusProgressBar).xy(3, 1);
         this.statusProgressBar.setVisible(false);
 
         this.currIconSize = initialSize;
-        statusBarBuilder.append(IconSizePanel.getPanel(this, initialSize));
+        statusBarBuilder.add(IconSizePanel.getPanel(this, initialSize)).xy(5, 1);
 
-        JPanel statusBarPanel = statusBarBuilder.getPanel();
+        JPanel statusBarPanel = statusBarBuilder.build();
         ComponentOrParentChainScope.setDecorationType(statusBarPanel, DecorationAreaType.GENERAL);
         this.add(statusBarPanel, BorderLayout.SOUTH);
     }

@@ -29,8 +29,6 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
@@ -41,16 +39,11 @@ import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableRowSorter;
+import javax.swing.table.*;
 import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Calendar;
-import java.util.Date;
+import java.awt.datatransfer.*;
+import java.awt.event.*;
+import java.util.*;
 
 /**
  * Test application panel for testing {@link JTable} component.
@@ -287,8 +280,8 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         instructionalTimeline.setDuration(1000);
         instructionalTimeline.playLoop(RepeatBehavior.REVERSE);
 
-        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, fill:pref:grow",
+                2, 18);
 
         builder.appendSeparator("Table settings");
         final JCheckBox isEnabled = new JCheckBox("is enabled");
@@ -475,7 +468,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
                 (ActionEvent e) -> table.setFont(new Font("Tahoma", Font.PLAIN, 13)));
         builder.append("Set font", tahoma13);
 
-        this.controlPanel = builder.getPanel();
+        this.controlPanel = builder.build();
         this.isInitialized = true;
     }
 }

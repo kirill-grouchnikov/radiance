@@ -126,7 +126,7 @@ public class RainbowUtils {
 
             transcoder.setPrintWriter(pw);
             transcoder.transcode(RainbowUtils.class.getResourceAsStream(
-                    "/org/pushingpixels/ibis/SvgTranscoderTemplateResizable.templ"));
+                    "/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable.templ"));
 
             String javaContents = new String(javaBaos.toByteArray());
             JEditorPane javaEditorPane = new JEditorPane();

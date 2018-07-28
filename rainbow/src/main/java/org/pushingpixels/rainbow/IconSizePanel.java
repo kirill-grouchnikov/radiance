@@ -31,32 +31,24 @@
  */
 package org.pushingpixels.rainbow;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.SwingUtilities;
+import com.jgoodies.forms.builder.FormBuilder;
+import org.pushingpixels.rainbow.svg.*;
+
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
-
-import org.pushingpixels.rainbow.svg.ic_zoom_in_black_24px;
-import org.pushingpixels.rainbow.svg.ic_zoom_out_black_24px;
-
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
 
 public class IconSizePanel {
     public static JPanel getPanel(final RainbowViewer rainbowViewer, int initialSize) {
-        FormLayout lm = new FormLayout(
-                "left:pref, 8dlu, fill:pref, 0dlu, fill:min:grow, 0dlu, fill:pref, 4dlu", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm);
+        FormBuilder builder = FormBuilder.create().
+                columns("left:pref, 8dlu, fill:pref, 0dlu, fill:min:grow, 0dlu, fill:pref, 4dlu").
+                rows("p");
 
         final JLabel sizeLabel = new JLabel();
         sizeLabel.setText(initialSize + "x" + initialSize);
-        builder.append(sizeLabel);
+        builder.add(sizeLabel).xy(1, 1);
 
         JLabel zoomOutLabel = new JLabel(ic_zoom_out_black_24px.of(12, 12));
-        builder.append(zoomOutLabel);
+        builder.add(zoomOutLabel).xy(3, 1);
 
         final JSlider iconSizeSlider = new JSlider();
         iconSizeSlider.setOpaque(false);
@@ -77,29 +69,29 @@ public class IconSizePanel {
                 }
             }
         });
-        builder.append(iconSizeSlider);
+        builder.add(iconSizeSlider).xy(5, 1);
 
         JLabel zoomInLabel = new JLabel(ic_zoom_in_black_24px.of(12, 12));
-        builder.append(zoomInLabel);
+        builder.add(zoomInLabel).xy(7, 1);
 
-        JPanel result = builder.getPanel();
+        JPanel result = builder.build();
         result.setOpaque(false);
         return result;
     }
 
     public static JPanel getPanel(final RainbowSvnViewer rainbowViewer, int initialSize) {
-        FormLayout lm = new FormLayout(
-                "left:pref, 4dlu, fill:pref, 0dlu, fill:min:grow, 0dlu, fill:pref", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm);
+        FormBuilder builder = FormBuilder.create().
+                columns("left:pref, 4dlu, fill:pref, 0dlu, fill:min:grow, 0dlu, fill:pref").
+                rows("p");
 
         final JLabel sizeLabel = new JLabel();
         sizeLabel.setText(initialSize + "*" + initialSize);
-        builder.append(sizeLabel);
+        builder.add(sizeLabel).xy(1, 1);
 
         Icon zoomOutIcon = new ImageIcon(Thread.currentThread().getContextClassLoader()
                 .getResource("org/pushingpixels/rainbow/zoom_out.png"));
         JLabel zoomOutLabel = new JLabel(zoomOutIcon);
-        builder.append(zoomOutLabel);
+        builder.add(zoomOutLabel).xy(3, 1);
 
         final JSlider iconSizeSlider = new JSlider();
         iconSizeSlider.setOpaque(false);
@@ -122,14 +114,14 @@ public class IconSizePanel {
                 sizeLabel.setText(newValue + "*" + newValue);
             }
         });
-        builder.append(iconSizeSlider);
+        builder.add(iconSizeSlider).xy(5, 1);
 
         Icon zoomInIcon = new ImageIcon(Thread.currentThread().getContextClassLoader()
                 .getResource("org/pushingpixels/rainbow/zoom_in.png"));
         JLabel zoomInLabel = new JLabel(zoomInIcon);
-        builder.append(zoomInLabel);
+        builder.add(zoomInLabel).xy(7, 1);
 
-        JPanel result = builder.getPanel();
+        JPanel result = builder.build();
         result.setOpaque(false);
         return result;
     }

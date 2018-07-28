@@ -29,28 +29,12 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
-import javax.swing.SpinnerListModel;
-import javax.swing.SpinnerNumberModel;
-
-import org.pushingpixels.demo.substance.main.check.command.BackgroundColorCommand;
-import org.pushingpixels.demo.substance.main.check.command.ChainCommand;
-import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
-import org.pushingpixels.demo.substance.main.check.command.CreationCommand;
-import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
+import com.jgoodies.forms.factories.Paddings;
+import org.pushingpixels.demo.substance.main.check.command.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Test application panel for testing {@link JSpinner} component.
@@ -64,9 +48,9 @@ public class SpinnerPanel extends JPanel {
     public SpinnerPanel() {
         this.setLayout(new BorderLayout());
 
-        FormLayout lm = new FormLayout("right:pref, 4dlu, left:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
+                "right:pref, 4dlu, left:pref:grow", 2, 16)
+                .border(Paddings.DIALOG);
 
         CreationCommand<JSpinner> basicCr = () -> new JSpinner(new SpinnerNumberModel());
         CreationCommand<JSpinner> dateCr = () -> new JSpinner(new SpinnerDateModel());
@@ -111,10 +95,10 @@ public class SpinnerPanel extends JPanel {
                                 .setFlatBackground(jc, true),
                         new DisableCommand()));
 
-        this.add(new JScrollPane(builder.getPanel()), BorderLayout.CENTER);
+        this.add(new JScrollPane(builder.build()), BorderLayout.CENTER);
     }
 
-    private void addSpinner(DefaultFormBuilder builder, String label,
+    private void addSpinner(TestFormLayoutBuilder builder, String label,
             CreationCommand<JSpinner> creationCmd,
             ConfigurationCommand<JComponent> configurationCmd) {
 

@@ -15,6 +15,8 @@
  */
 package org.pushingpixels.neon.internal.contrib.intellij;
 
+import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.lang.reflect.Method;
@@ -50,15 +52,8 @@ public class UIUtil {
                 searchFor.toUpperCase(Locale.ENGLISH));
     }
 
-    private static boolean startsWith(String str, String prefix) {
-        return str != null && str.startsWith(prefix);
-    }
-
     private static final String JAVA_VENDOR = getSystemProperty("java.vendor");
     public static final boolean IS_VENDOR_APPLE = containsIgnoreCase(JAVA_VENDOR, "Apple");
-    private static final String JAVA_SPEC_VERSION = getSystemProperty("java.specification.version");
-    public static final boolean IS_JAVA_9 = startsWith(JAVA_SPEC_VERSION, "9");
-    public static final boolean IS_JAVA_10 = startsWith(JAVA_SPEC_VERSION, "10");
 
     /**
      * Utility class for retina routine
@@ -112,8 +107,8 @@ public class UIUtil {
                 return devicesScaleFactorCacheMap.get(device);
             }
 
-            double result = IS_JAVA_9 || IS_JAVA_10 ? getScaleFactorModern(device)
-                    : getScaleFactorLegacy(device);
+            double result = LookUtils.IS_JAVA_9 || LookUtils.IS_JAVA_10 || LookUtils.IS_JAVA_11 ?
+                    getScaleFactorModern(device) : getScaleFactorLegacy(device);
 
             devicesScaleFactorCacheMap.put(device, result);
 

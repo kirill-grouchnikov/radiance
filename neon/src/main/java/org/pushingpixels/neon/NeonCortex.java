@@ -29,22 +29,17 @@
  */
 package org.pushingpixels.neon;
 
-import org.pushingpixels.neon.font.FontPolicy;
-import org.pushingpixels.neon.font.FontSet;
-import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.neon.font.*;
+import org.pushingpixels.neon.internal.contrib.intellij.*;
 import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.neon.internal.font.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.awt.print.PrinterGraphics;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.util.HashMap;
-import java.util.Map;
+import java.security.*;
+import java.util.*;
 
 /**
  * Provides the public API surface for working with platform-consistent fonts,
@@ -196,6 +191,18 @@ public class NeonCortex {
         return UIUtil.getScaleFactor();
     }
 
+    /**
+     * Use {@link #drawImage(Graphics, Image, int, int)} or
+     * {@link #drawImage(Graphics, Image, int, int, int, int, int, int)} to draw the image
+     * obtained with this method. Note that applying an extension of
+     * {@link org.pushingpixels.neon.filter.NeonAbstractFilter} is a "safe" operation
+     * as far as preserving the scale-aware configuration. If you are using a custom
+     * {@link java.awt.image.BufferedImageOp} that is not a
+     * {@link org.pushingpixels.neon.filter.NeonAbstractFilter}, the resulting image will be
+     * a regular {@link BufferedImage} that will not be drawn correctly using one of the
+     * <code>drawImage</code> methods above. In such a case, use {@link #getScaleFactor()}
+     * to divide the image width and height for the purposes of drawing.
+     */
     public static BufferedImage getBlankImage(int width, int height) {
         if (UIUtil.getScaleFactor() > 1.0) {
             return new JBHiDPIScaledImage(width, height, BufferedImage.TYPE_INT_ARGB);

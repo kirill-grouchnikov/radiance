@@ -31,25 +31,16 @@ package org.pushingpixels.demo.substance.extras;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.LightGrayColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SunfireRedColorScheme;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 import org.pushingpixels.substance.api.skin.ModerateSkin;
-import org.pushingpixels.substance.api.watermark.SubstanceNullWatermark;
-import org.pushingpixels.substance.api.watermark.SubstanceStripeWatermark;
-import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
+import org.pushingpixels.substance.api.watermark.*;
 import org.pushingpixels.substance.extras.api.watermarkpack.*;
-import org.pushingpixels.substance.extras.api.watermarkpack.flamefractal
-        .SubstanceKaleidoscopeWatermark;
-import org.pushingpixels.substance.extras.api.watermarkpack.flamefractal
-        .SubstanceScripturesWatermark;
-import org.pushingpixels.substance.extras.api.watermarkpack.flamefractal
-        .SubstanceSingularityWatermark;
-import org.pushingpixels.substance.extras.api.watermarkpack.flamefractal.SubstanceVortexWatermark;
+import org.pushingpixels.substance.extras.api.watermarkpack.flamefractal.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 public class CheckWatermarks extends JFrame {

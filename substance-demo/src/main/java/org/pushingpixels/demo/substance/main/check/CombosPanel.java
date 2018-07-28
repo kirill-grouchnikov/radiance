@@ -29,49 +29,16 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.ComboBoxEditor;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.Icon;
-import javax.swing.InputMap;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-
-import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
-import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
-import org.pushingpixels.demo.substance.main.check.command.EnableCommand;
+import com.jgoodies.forms.factories.Paddings;
+import com.jgoodies.forms.layout.FormLayout;
+import org.pushingpixels.demo.substance.main.check.command.*;
 import org.pushingpixels.demo.substance.main.check.svg.flags.il;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
-import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
+import org.pushingpixels.substance.api.combo.*;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 /**
  * Test application panel for testing {@link JComboBox} component.
@@ -224,9 +191,8 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
      * @return The left panel with comboboxes.
      */
     private JPanel getLeftComboPanel() {
-        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, fill:pref:grow", 2, 14)
+                .border(Paddings.DIALOG);
 
         builder.appendSeparator("Simple combos");
 
@@ -348,7 +314,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         });
         builder.append("Defect 151", combo151);
 
-        return builder.getPanel();
+        return builder.build();
     }
 
     /**
@@ -358,8 +324,8 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
      */
     private JPanel getRightComboPanel() {
         FormLayout lm = new FormLayout("right:pref, 4dlu, left:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, left:pref:grow", 2, 18)
+                .border(Paddings.DIALOG);
 
         builder.appendSeparator("Popup flyout");
 
@@ -451,7 +417,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         spaceEditableCombo.setEditable(true);
         builder.append("Space string + editable", spaceEditableCombo);
 
-        return builder.getPanel();
+        return builder.build();
     }
 
     /**
@@ -470,8 +436,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         this.add(new JScrollPane(gridPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
 
-        FormLayout lm = new FormLayout("fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("fill:pref:grow", 1, 5);
 
         JButton checkEscape = new JButton("Check ESC key");
         checkEscape.addActionListener((ActionEvent e) -> {
@@ -523,7 +488,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         builder.append(makeAllEditableButton);
         builder.append(checkEscape);
 
-        this.controlPanel = builder.getPanel();
+        this.controlPanel = builder.build();
 
         this.isInitialized = true;
     }

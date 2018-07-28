@@ -29,14 +29,10 @@
  */
 package org.pushingpixels.demo.substance.main;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.factories.Paddings;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.skin.OfficeSilver2007Skin;
 
 import javax.swing.*;
@@ -50,37 +46,39 @@ public class ControlStatesExtended extends JFrame {
                         .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
                                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
 
-        FormLayout layout = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(layout).border(Borders.DIALOG);
+        FormBuilder builder = FormBuilder.create().
+                columns("right:pref, 4dlu, fill:pref:grow").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                padding(Paddings.DIALOG);
 
         JButton regular = new JButton("sample");
-        builder.append("Regular", regular);
+        builder.add("Regular").xy(1, 1).add(regular).xy(3, 1);
 
         JButton rollover = new JButton("sample");
         rollover.getModel().setRollover(true);
-        builder.append("Rollover", rollover);
+        builder.add("Rollover").xy(1, 3).add(rollover).xy(3, 3);
 
         JButton selected = new JButton("sample");
         selected.getModel().setSelected(true);
-        builder.append("Selected", selected);
+        builder.add("Selected").xy(1, 5).add(selected).xy(3, 5);
 
         JButton rolloverSelected = new JButton("sample");
         rolloverSelected.getModel().setRollover(true);
         rolloverSelected.getModel().setSelected(true);
-        builder.append("Rollover selected", rolloverSelected);
+        builder.add("Rollover selected").xy(1, 7).add(rolloverSelected).xy(3, 7);
 
         JButton pressed = new JButton("sample");
         pressed.getModel().setArmed(true);
         pressed.getModel().setPressed(true);
-        builder.append("Pressed", pressed);
+        builder.add("Pressed").xy(1, 9).add(pressed).xy(3, 9);
 
         JButton pressedSelected = new JButton("sample");
         pressedSelected.getModel().setArmed(true);
         pressedSelected.getModel().setPressed(true);
         pressedSelected.getModel().setSelected(true);
-        builder.append("Pressed selected", pressedSelected);
+        builder.add("Pressed selected").xy(1, 11).add(pressedSelected).xy(3, 11);
 
-        this.add(builder.getPanel());
+        this.add(builder.build());
 
         this.pack();
         this.setLocationRelativeTo(null);

@@ -29,9 +29,8 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
@@ -80,25 +79,30 @@ public class TestButtonStripVertical extends JFrame {
     }
 
     private JPanel getButtonPanel() {
-        FormLayout lm = new FormLayout(
-                "center:pref, 4dlu, center:pref, 4dlu, center:pref, 4dlu, center:pref, 4dlu, " +
-                        "center:pref, 4dlu, center:pref",
-                "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(Borders.DIALOG);
+        FormBuilder builder = FormBuilder.create().
+                columns("center:pref, 4dlu, center:pref, 4dlu, center:pref, 4dlu, center:pref, " +
+                        "4dlu, center:pref, 4dlu, center:pref").
+                rows("p, $lg, p, $lg, p").
+                padding(Paddings.DIALOG);
 
-        builder.append("h1.0-v0.5");
-        builder.append("h1.0-v0.75");
-        builder.append("h1.0-v1.0");
-        builder.append("h0.5-v0.75");
-        builder.append("h0.75-v0.75");
-        builder.append("h1.0-v0.75");
+        builder.add("h1.0-v0.5").xy(1, 1);
+        builder.add("h1.0-v0.75").xy(3, 1);
+        builder.add("h1.0-v1.0").xy(5, 1);
+        builder.add("h0.5-v0.75").xy(7, 1);
+        builder.add("h0.75-v0.75").xy(9, 1);
+        builder.add("h1.0-v0.75").xy(11, 1);
 
-        builder.append(getStrip1(1.0, 0.5), getStrip1(1.0, 0.75), getStrip1(1.0, 1.0));
-        builder.append(getStrip1(0.5, 0.75), getStrip1(0.75, 0.75), getStrip1(1.0, 0.75));
+        builder.add(getStrip1(1.0, 0.5)).xy(1, 3).add(getStrip1(1.0, 0.75)).xy(3, 3).add(
+                getStrip1(1.0, 1.0)).xy(5, 3);
+        builder.add(getStrip1(0.5, 0.75)).xy(7, 3).add(getStrip1(0.75, 0.75)).xy(9, 3).add(
+                getStrip1(1.0, 0.75)).xy(11, 3);
 
-        builder.append(getStrip2(1.0, 0.5), getStrip2(1.0, 0.75), getStrip2(1.0, 1.0));
-        builder.append(getStrip2(0.5, 0.75), getStrip2(0.75, 0.75), getStrip2(1.0, 0.75));
-        return builder.getPanel();
+        builder.add(getStrip2(1.0, 0.5)).xy(1, 5).add(getStrip2(1.0, 0.75)).xy(3, 5).add(
+                getStrip2(1.0, 1.0)).xy(5, 5);
+        builder.add(getStrip2(0.5, 0.75)).xy(7, 5).add(getStrip2(0.75, 0.75)).xy(9, 5).add(
+                getStrip2(1.0, 0.75)).xy(11, 5);
+
+        return builder.build();
     }
 
     private JCommandButtonStrip getStrip1(double hgapScaleFactor, double vgapScaleFactor) {

@@ -29,52 +29,20 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.AbstractListModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.JTree;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-import javax.swing.tree.DefaultMutableTreeNode;
-
-import org.pushingpixels.demo.substance.main.Check;
-import org.pushingpixels.demo.substance.main.RadianceLogo;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.layout.CellConstraints;
+import org.pushingpixels.demo.substance.main.*;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import java.util.List;
 
 public class SampleFrame extends JFrame {
     protected JButton prev;
@@ -218,9 +186,10 @@ public class SampleFrame extends JFrame {
         this.tabbed.addTab("Regular", transPanel);
 
         JPanel samplePanel = new JPanel(new BorderLayout());
-        FormLayout lm = new FormLayout("fill:default:grow(1), 2dlu," + "fill:default:grow(1)",
-                "pref, 3dlu, pref, 3dlu, pref, 3dlu, pref");
-        PanelBuilder builder = new PanelBuilder(lm).border(new EmptyBorder(2, 2, 2, 2));
+        FormBuilder builder = FormBuilder.create().
+                columns("fill:default:grow(1), 2dlu," + "fill:default:grow(1)").
+                rows("pref, 3dlu, pref, 3dlu, pref, 3dlu, pref").
+                border(new EmptyBorder(2, 2, 2, 2));
         CellConstraints cc = new CellConstraints();
 
         JCheckBox cbes = new JCheckBox("Enabled selected");
@@ -236,19 +205,19 @@ public class SampleFrame extends JFrame {
         rb2.setEnabled(false);
         JRadioButton rb3 = new JRadioButton("Enabled unselected");
 
-        builder.add(cbes, cc.xy(1, 1));
-        builder.add(rb1, cc.xy(3, 1));
-        builder.add(cbds, cc.xy(1, 3));
-        builder.add(rb2, cc.xy(3, 3));
-        builder.add(cbeu, cc.xy(1, 5));
-        builder.add(rb3, cc.xy(3, 5));
+        builder.add(cbes).xy(1, 1);
+        builder.add(rb1).xy(3, 1);
+        builder.add(cbds).xy(1, 3);
+        builder.add(rb2).xy(3, 3);
+        builder.add(cbeu).xy(1, 5);
+        builder.add(rb3).xy(3, 5);
 
         JComboBox combo = new JComboBox(new Object[] { "item1" });
         combo.setSelectedIndex(0);
         JTextField text = new JTextField("Text field");
 
-        builder.add(combo, cc.xy(1, 7));
-        builder.add(text, cc.xy(3, 7));
+        builder.add(combo).xy(1, 7);
+        builder.add(text).xy(3, 7);
 
         JPanel contentPanel = builder.getPanel();
         contentPanel.setPreferredSize(new Dimension(contentPanel.getPreferredSize().width,

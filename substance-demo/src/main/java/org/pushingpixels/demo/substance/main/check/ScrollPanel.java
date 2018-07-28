@@ -29,24 +29,14 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.border.LineBorder;
-
 import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Test application panel for testing {@link JScrollPane} component.
@@ -74,8 +64,8 @@ public class ScrollPanel extends ControllablePanel {
         this.setLayout(new BorderLayout());
         this.add(this.sp, BorderLayout.CENTER);
 
-        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, fill:pref:grow",
+                2, 5);
 
         builder.appendSeparator("General settings");
         final JCheckBox isEnabled = new JCheckBox("is enabled");
@@ -110,7 +100,7 @@ public class ScrollPanel extends ControllablePanel {
                 .setAutomaticScrollPresence(sp, hasAutoScroll.isSelected()));
         builder.append("Auto scroll", hasAutoScroll);
 
-        this.controlPanel = builder.getPanel();
+        this.controlPanel = builder.build();
     }
 
     /**

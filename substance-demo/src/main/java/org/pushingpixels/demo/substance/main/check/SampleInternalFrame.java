@@ -29,39 +29,14 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.util.LinkedList;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JInternalFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-
 import org.pushingpixels.demo.substance.main.RadianceLogo;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.Sizes;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.util.LinkedList;
 
 /**
  * Internal frame for the test application.
@@ -80,9 +55,9 @@ public class SampleInternalFrame extends JInternalFrame {
         tabbed.addTab("Regular", new JPanel());
 
         JPanel samplePanel = new JPanel(new BorderLayout());
-        FormLayout lm = new FormLayout("fill:default:grow(1), 4dlu," + "fill:default:grow(1)", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
-                .lineGapSize(Sizes.pixel(1)).border(new EmptyBorder(2, 2, 2, 2));
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
+                "fill:default:grow(1), 4dlu, fill:default:grow(1)", 2, 4)
+                .border(new EmptyBorder(2, 2, 2, 2));
 
         JCheckBox cb1 = new JCheckBox("Enabled selected");
         cb1.setSelected(true);
@@ -108,7 +83,7 @@ public class SampleInternalFrame extends JInternalFrame {
         JTextField text = new JTextField("Text field");
         text.setEditable(false);
         builder.append(combo, text);
-        JPanel contentPanel = builder.getPanel();
+        JPanel contentPanel = builder.build();
         contentPanel.setPreferredSize(new Dimension(contentPanel.getPreferredSize().width,
                 contentPanel.getPreferredSize().height + 100));
         contentPanel.setBorder(null);

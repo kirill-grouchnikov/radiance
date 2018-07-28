@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
+import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.factories.Paddings;
 import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
@@ -80,18 +80,26 @@ public class TestButtonStripHorizontal extends JFrame {
     }
 
     private JPanel getButtonPanel() {
-        FormLayout lm = new FormLayout("right:pref, 4dlu, left:pref, 4dlu, left:pref", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(Borders.DIALOG);
+        FormBuilder builder = FormBuilder.create().
+                columns("right:pref, 4dlu, left:pref, 4dlu, left:pref").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                padding(Paddings.DIALOG);
 
-        builder.append("hgap 0.5,  vgap 1.0", getStrip1(0.5, 1.0), getStrip2(0.5, 1.0));
-        builder.append("hgap 0.75, vgap 1.0", getStrip1(0.75, 1.0), getStrip2(0.75, 1.0));
-        builder.append("hgap 1.0,  vgap 1.0", getStrip1(1.0, 1.0), getStrip2(1.0, 1.0));
+        builder.add("hgap 0.5,  vgap 1.0").xy(1, 1).add(getStrip1(0.5, 1.0)).xy(3, 1).add(
+                getStrip2(0.5, 1.0)).xy(5, 1);
+        builder.add("hgap 0.75,  vgap 1.0").xy(1, 3).add(getStrip1(0.75, 1.0)).xy(3, 3).add(
+                getStrip2(0.75, 1.0)).xy(5, 3);
+        builder.add("hgap 1.0,  vgap 1.0").xy(1, 5).add(getStrip1(1.0, 1.0)).xy(3, 5).add(
+                getStrip2(1.0, 1.0)).xy(5, 5);
 
-        builder.append("hgap 0.75, vgap 0.5", getStrip1(0.75, 0.5), getStrip2(0.75, 0.5));
-        builder.append("hgap 0.75, vgap 0.75", getStrip1(0.75, 0.75), getStrip2(0.75, 0.75));
-        builder.append("hgap 0.75, vgap 1.0", getStrip1(0.75, 1.0), getStrip2(0.75, 1.0));
+        builder.add("hgap 0.75,  vgap 0.5").xy(1, 7).add(getStrip1(0.75, 0.5)).xy(3, 7).add(
+                getStrip2(0.75, 0.5)).xy(5, 7);
+        builder.add("hgap 0.75,  vgap 0.75").xy(1, 9).add(getStrip1(0.75, 0.75)).xy(3, 9).add(
+                getStrip2(0.75, 0.75)).xy(5, 9);
+        builder.add("hgap 0.75,  vgap 1.0").xy(1, 11).add(getStrip1(0.75, 1.0)).xy(3, 11).add(
+                getStrip2(0.75, 1.0)).xy(5, 11);
 
-        return builder.getPanel();
+        return builder.build();
     }
 
     private JCommandButtonStrip getStrip1(double hgapScaleFactor, double vgapScaleFactor) {

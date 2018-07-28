@@ -130,7 +130,8 @@ public final class LookUtils {
 			 || startsWith(OS_VERSION, "10.13"));
 
     public static final boolean IS_JAVA_9 = startsWith(JAVA_SPEC_VERSION, "9");
-    public static final boolean IS_JAVA_10 = startsWith(JAVA_SPEC_VERSION, "10");
+	public static final boolean IS_JAVA_10 = startsWith(JAVA_SPEC_VERSION, "10");
+	public static final boolean IS_JAVA_11 = startsWith(JAVA_SPEC_VERSION, "11");
 
 	// Other Properties *******************************************************
 

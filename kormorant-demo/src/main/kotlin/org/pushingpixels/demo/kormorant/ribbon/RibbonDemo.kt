@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.demo.kormorant.ribbon
 
-import com.jgoodies.forms.builder.DefaultFormBuilder
-import com.jgoodies.forms.layout.FormLayout
+import com.jgoodies.forms.builder.FormBuilder
+import org.pushingpixels.demo.kormorant.LocaleSwitcher
 import org.pushingpixels.demo.kormorant.popup.ColorIcon
 import org.pushingpixels.demo.kormorant.svg.*
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
@@ -53,6 +53,7 @@ import org.pushingpixels.kormorant.ribbon.*
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.substance.api.SubstanceCortex
+import org.pushingpixels.substance.api.skin.BusinessSkin
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin
 import java.awt.*
 import java.awt.event.ActionEvent
@@ -260,9 +261,68 @@ private class SimpleResizableIcon(private val priority: RibbonElementPriority, p
 }
 
 private class RibbonDemoBuilder {
-    val currLocale = Locale.getDefault() as Locale
-    val resourceBundle = ResourceBundle.getBundle(
-            "org.pushingpixels.demo.kormorant.resources.Resources", currLocale) as ResourceBundle
+    var currLocale = Locale.getDefault()
+    var resourceBundle = ResourceBundle.getBundle(
+            "org.pushingpixels.demo.kormorant.resources.Resources", currLocale)
+
+    fun getControlPanel(ribbonFrame: JRibbonFrame): JPanel {
+        val ribbon = ribbonFrame.ribbon
+
+        val formBuilder = FormBuilder.create()
+                .columns("right:pref, 8dlu, fill:pref:grow")
+                .rows("p, \$lg, p, \$lg, p, \$lg, p, \$lg, p, \$lg, p, \$lg, p")
+                .padding(EmptyBorder(20, 4, 0, 4))
+
+        val group1Visible = JCheckBox("visible")
+        val group2Visible = JCheckBox("visible")
+        group1Visible.addActionListener {
+            SwingUtilities.invokeLater {
+                ribbon.setVisible(ribbon.getContextualTaskGroup(0), group1Visible.isSelected)
+            }
+        }
+        group2Visible.addActionListener {
+            SwingUtilities.invokeLater {
+                ribbon.setVisible(ribbon.getContextualTaskGroup(1), group2Visible.isSelected)
+            }
+        }
+        formBuilder.add("Group 1").xy(1, 1).add(group1Visible).xy(3, 1)
+        formBuilder.add("Group 2").xy(1, 3).add(group2Visible).xy(3, 3)
+
+        formBuilder.addLabel("Skin").xy(1, 5).add(SkinSwitcher.getSkinSwitcher(ribbonFrame)).xy(3, 5)
+
+        val taskbarEnabled = JCheckBox("enabled")
+        taskbarEnabled.isSelected = true
+        taskbarEnabled.addActionListener {
+            SwingUtilities.invokeLater {
+                for (command in ribbon.taskbarCommands) {
+                    command.isEnabled = taskbarEnabled.isSelected
+                }
+            }
+        }
+        formBuilder.add("Taskbar").xy(1, 7).add(taskbarEnabled).xy(3, 7)
+
+        val toggleMinimize = JCheckBox("minimized")
+        toggleMinimize.isSelected = false
+        toggleMinimize.addActionListener {
+            SwingUtilities.invokeLater {
+                ribbon.isMinimized = !ribbon.isMinimized
+            }
+        }
+        formBuilder.add("Minimize").xy(1, 9).add(toggleMinimize).xy(3, 9)
+
+        val localeSwitcher = LocaleSwitcher.getLocaleSwitcher { selected ->
+            currLocale = selected
+            resourceBundle = ResourceBundle.getBundle(
+                    "org.pushingpixels.demo.kormorant.resources.Resources", currLocale)
+            for (window in Window.getWindows()) {
+                window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale))
+                SwingUtilities.updateComponentTreeUI(window)
+            }
+        }
+        formBuilder.add("Locale").xy(1, 13).add(localeSwitcher).xy(3, 13)
+
+        return formBuilder.build()
+    }
 
     fun getSimplePopupMenu(): PopupPanelCallback {
         return PopupPanelCallback {
@@ -1589,54 +1649,12 @@ fun getApplicationMenuRichTooltipIcon(): ResizableIcon {
     return appMenuRichTooltipMainIcon
 }
 
-fun configureControlPanel(ribbonFrame: JRibbonFrame, builder: DefaultFormBuilder) {
-    val ribbon = ribbonFrame.ribbon
-
-    val group1Visible = JCheckBox("visible")
-    val group2Visible = JCheckBox("visible")
-    group1Visible.addActionListener {
-        SwingUtilities.invokeLater {
-            ribbon.setVisible(ribbon.getContextualTaskGroup(0), group1Visible.isSelected)
-        }
-    }
-    group2Visible.addActionListener {
-        SwingUtilities.invokeLater {
-            ribbon.setVisible(ribbon.getContextualTaskGroup(1), group2Visible.isSelected)
-        }
-    }
-    builder.append("Group 1", group1Visible)
-    builder.append("Group 2", group2Visible)
-
-    builder.append("Skins", SkinSwitcher.getSkinSwitcher(ribbonFrame))
-
-    val taskbarEnabled = JCheckBox("enabled")
-    taskbarEnabled.isSelected = true
-    taskbarEnabled.addActionListener {
-        SwingUtilities.invokeLater {
-            for (command in ribbon.taskbarCommands) {
-                command.isEnabled = taskbarEnabled.isSelected
-            }
-        }
-    }
-    builder.append("Taskbar", taskbarEnabled)
-
-
-    val toggleMinimize = JCheckBox("minimized")
-    toggleMinimize.isSelected = false
-    toggleMinimize.addActionListener {
-        SwingUtilities.invokeLater {
-            ribbon.isMinimized = !ribbon.isMinimized
-        }
-    }
-    builder.append("Minimize", toggleMinimize)
-}
-
 fun main(args: Array<String>) {
     SwingUtilities.invokeLater {
         JFrame.setDefaultLookAndFeelDecorated(true)
         JDialog.setDefaultLookAndFeelDecorated(true)
 
-        SubstanceCortex.GlobalScope.setSkin(OfficeBlue2007Skin())
+        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
         val builder = RibbonDemoBuilder()
 
@@ -2026,13 +2044,7 @@ fun main(args: Array<String>) {
 
         val javaRibbonFrame = ribbonFrame.asRibbonFrame()
 
-        val controlPanel = JPanel()
-        controlPanel.border = EmptyBorder(20, 0, 0, 5)
-        val lm = FormLayout("right:pref, 4dlu, fill:pref:grow", "")
-        val formBuilder = DefaultFormBuilder(lm, controlPanel)
-        configureControlPanel(javaRibbonFrame, formBuilder)
-
-        javaRibbonFrame.add(controlPanel, BorderLayout.EAST)
+        javaRibbonFrame.add(builder.getControlPanel(javaRibbonFrame), BorderLayout.EAST)
         javaRibbonFrame.add(RulerPanel(), BorderLayout.CENTER)
 
         javaRibbonFrame.applyComponentOrientation(

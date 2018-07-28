@@ -1,62 +1,44 @@
 /*
  * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.util.Enumeration;
-
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
-
-import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
-import org.pushingpixels.demo.substance.main.check.command.CreationCommand;
-import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
-import org.pushingpixels.demo.substance.main.check.command.DisableViewportCommand;
+import com.jgoodies.forms.factories.Paddings;
+import org.pushingpixels.demo.substance.main.check.command.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import javax.swing.tree.*;
+import java.awt.*;
+import java.util.Enumeration;
 
 public class CellsPanel extends JPanel implements Deferrable {
     private boolean isInitialized;
@@ -71,11 +53,11 @@ public class CellsPanel extends JPanel implements Deferrable {
 
     @Override
     public synchronized void initialize() {
-        FormLayout lmCells = new FormLayout("right:pref, 10dlu, fill:pref:grow(1), 4dlu,"
-                + "fill:pref:grow(1), 4dlu, fill:pref:grow(1), " + "4dlu, fill:pref:grow(1)", "");
-        lmCells.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-        DefaultFormBuilder builderCells = new DefaultFormBuilder(lmCells, new ScrollablePanel())
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder builderCells = new TestFormLayoutBuilder(
+                "right:pref, 10dlu, fill:pref:grow(1), 4dlu,"
+                        + "fill:pref:grow(1), 4dlu, fill:pref:grow(1), 4dlu, fill:pref:grow(1)",
+                5, 13).columnGroups(new int[][] { { 3, 5, 7, 9 } }).
+                padding(Paddings.DIALOG);
 
         builderCells.append("");
         builderCells.append(new JLabel("NONE"), new JLabel("GENERAL"));
@@ -205,7 +187,7 @@ public class CellsPanel extends JPanel implements Deferrable {
                         .setWatermarkVisible(jc, true));
         addControlRow(builderCells, "Tree disabled", treeCreationCmd, new DisableCommand());
 
-        JPanel panelCells = builderCells.getPanel();
+        JPanel panelCells = builderCells.build();
         JScrollPane jspCells = new JScrollPane(panelCells);
         panelCells.setOpaque(false);
         jspCells.setOpaque(false);
@@ -219,7 +201,7 @@ public class CellsPanel extends JPanel implements Deferrable {
 
     /**
      * Adds a row of components configured with the specified configuration command.
-     * 
+     *
      * @param builder
      *            Form builder.
      * @param label
@@ -229,7 +211,7 @@ public class CellsPanel extends JPanel implements Deferrable {
      * @param configurationCmd
      *            Configuration command to apply.
      */
-    private void addControlRow(DefaultFormBuilder builder, String label,
+    private void addControlRow(TestFormLayoutBuilder builder, String label,
             CreationCommand<JComponent> creationCmd,
             ConfigurationCommand<JComponent> configurationCmd) {
 

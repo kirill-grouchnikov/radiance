@@ -29,30 +29,20 @@
  */
 package org.pushingpixels.samples.substance.mail;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.neon.icon.NeonIcon;
-import org.pushingpixels.samples.substance.mail.svg.ic_mail_outline_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_mode_edit_black_24px;
-import org.pushingpixels.samples.substance.mail.svg.ic_person_outline_black_24px;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.substance.api.colorscheme.LightAquaColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SteelBlueColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.samples.substance.mail.svg.*;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
-import org.pushingpixels.substance.api.painter.highlight.FractionBasedHighlightPainter;
-import org.pushingpixels.substance.api.painter.highlight.SubstanceHighlightPainter;
+import org.pushingpixels.substance.api.painter.highlight.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -227,13 +217,16 @@ public class ThreadListPanel extends PanelWithRightLine {
     }
 
     private JPanel getInboxLabel(String title, NeonIcon icon, Color background) {
-        FormLayout lm = new FormLayout("center:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(new EmptyBorder(4, 8, 4, 8));
-        builder.append(new JLabel(icon));
+        FormBuilder builder = FormBuilder.create().
+                columns("center:pref, 4dlu, fill:pref:grow").
+                rows("p").
+                padding(new EmptyBorder(4, 8, 4, 8));
+
+        builder.add(new JLabel(icon)).xy(1, 1);
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getControlFont().deriveFont(Font.BOLD));
-        builder.append(titleLabel);
+        builder.add(titleLabel).xy(3, 1);
         JPanel inside = builder.build();
 
         HeaderPanel result = new HeaderPanel(new BorderLayout());
@@ -246,27 +239,32 @@ public class ThreadListPanel extends PanelWithRightLine {
         Font bold = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                 .getControlFont().deriveFont(Font.BOLD);
 
-        DefaultFormBuilder firstRow = new DefaultFormBuilder(
-                new FormLayout("center:pref, 4dlu, fill:pref:grow, 4dlu, right:pref", ""))
-                        .border(new EmptyBorder(12, 16, 2, 16));
-        firstRow.append(new JLabel(ic_person_outline_black_24px.of(10, 10)));
+        FormBuilder firstRow = FormBuilder.create().
+                columns("center:pref, 4dlu, fill:pref:grow, 4dlu, right:pref").
+                rows("p").
+                padding(new EmptyBorder(12, 16, 2, 16));
+
+        firstRow.add(new JLabel(ic_person_outline_black_24px.of(10, 10))).xy(1, 1);
         JLabel fromLabel = new JLabel(threadInfo.from);
         fromLabel.setFont(bold.deriveFont(bold.getSize() + 1.5f));
-        firstRow.append(fromLabel);
-        firstRow.append(new JLabel(threadInfo.time));
+        firstRow.add(fromLabel).xy(3, 1);
+        firstRow.add(new JLabel(threadInfo.time)).xy(5, 1);
 
-        DefaultFormBuilder secondRow = new DefaultFormBuilder(new FormLayout("fill:pref", ""))
-                .border(new EmptyBorder(0, 16, 0, 16));
+        FormBuilder secondRow = FormBuilder.create().
+                columns("fill:pref").
+                rows("p").
+                padding(new EmptyBorder(0, 16, 0, 16));
         JLabel titleLabel = new JLabel(threadInfo.title);
         titleLabel.setFont(bold);
-        secondRow.append(titleLabel);
+        secondRow.add(titleLabel).xy(1, 1);
 
-        DefaultFormBuilder thirdRow = new DefaultFormBuilder(
-                new FormLayout("0dlu:grow, 16dlu, right:pref", ""))
-                        .border(new EmptyBorder(0, 16, 16, 16));
-        thirdRow.append(new JLabel(threadInfo.summary));
+        FormBuilder thirdRow = FormBuilder.create().
+                columns("0dlu:grow, 16dlu, right:pref").
+                rows("p").
+                padding(new EmptyBorder(0, 16, 16, 16));
+        thirdRow.add(new JLabel(threadInfo.summary)).xy(1, 1);
         if (threadInfo.unread > 0) {
-            thirdRow.append(new JLabel(Integer.toString(threadInfo.unread)));
+            thirdRow.add(new JLabel(Integer.toString(threadInfo.unread))).xy(3, 1);
         }
 
         JPanel result = new JPanel(new VerticalStackLayout());
@@ -281,18 +279,19 @@ public class ThreadListPanel extends PanelWithRightLine {
     }
 
     private JPanel getTitlePanel(NeonIcon icon) {
-        FormLayout lm = new FormLayout("fill:pref:grow, 8dlu, center:pref", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm)
-                .border(new EmptyBorder(8, 8, 12, 8));
+        FormBuilder builder = FormBuilder.create().
+                columns("fill:pref:grow, 8dlu, center:pref").
+                rows("p").
+                padding(new EmptyBorder(8, 8, 12, 8));
 
         JTextField searchBox = new JTextField("Search");
-        builder.append(searchBox);
+        builder.add(searchBox).xy(1, 1);
 
         JButton actionButton = new JButton(icon);
         SubstanceCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(actionButton,
                 Boolean.TRUE);
         SubstanceCortex.ComponentOrParentScope.setFlatBackground(actionButton, Boolean.TRUE);
-        builder.append(actionButton);
+        builder.add(actionButton).xy(3, 1);
         JPanel result = builder.build();
         return result;
     }

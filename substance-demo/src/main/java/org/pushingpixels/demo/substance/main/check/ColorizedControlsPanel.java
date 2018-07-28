@@ -29,69 +29,17 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Rectangle;
-import java.text.DecimalFormat;
-import java.util.Enumeration;
-
-import javax.swing.AbstractButton;
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDesktopPane;
-import javax.swing.JEditorPane;
-import javax.swing.JFormattedTextField;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JProgressBar;
-import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.JSpinner;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.JToggleButton;
-import javax.swing.JTree;
-import javax.swing.SpinnerListModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
-
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.substance.main.Check;
-import org.pushingpixels.demo.substance.main.check.command.BackgroundColorCommand;
-import org.pushingpixels.demo.substance.main.check.command.ChainCommand;
-import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
-import org.pushingpixels.demo.substance.main.check.command.CreationCommand;
-import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
-import org.pushingpixels.demo.substance.main.check.command.DisableViewportCommand;
-import org.pushingpixels.demo.substance.main.check.command.ForegroundColorCommand;
-import org.pushingpixels.demo.substance.main.check.command.MinimizeInternalFrameCommand;
-import org.pushingpixels.demo.substance.main.check.command.SelectCommand;
-import org.pushingpixels.demo.substance.main.check.command.SetBoundsCommand;
+import org.pushingpixels.demo.substance.main.check.command.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.tree.*;
+import java.awt.*;
+import java.text.DecimalFormat;
+import java.util.Enumeration;
 
 /**
  * Test application panel for testing colorized components.
@@ -139,7 +87,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
      * @param configurationCmd
      *            Configuration command to apply.
      */
-    private void addButtonRow(DefaultFormBuilder builder, String label, Icon icon,
+    private void addButtonRow(TestFormLayoutBuilder builder, String label, Icon icon,
             ConfigurationCommand<JComponent> configurationCmd) {
         AbstractButton[] row = this.getRow();
         if (configurationCmd != null) {
@@ -169,7 +117,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
      * @param configurationCmd
      *            Configuration command to apply.
      */
-    private void addControlRow(DefaultFormBuilder builder, String label,
+    private void addControlRow(TestFormLayoutBuilder builder, String label,
             CreationCommand<JComponent> creationCmd,
             ConfigurationCommand<JComponent> configurationCmd) {
 
@@ -217,11 +165,10 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 
     @Override
     public synchronized void initialize() {
-        FormLayout lmButtons = new FormLayout("right:pref, 10dlu, left:pref:grow(1), 4dlu,"
-                + "left:pref:grow(1), 4dlu, left:pref:grow(1), " + "4dlu, left:pref:grow(1)", "");
-        lmButtons.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-        DefaultFormBuilder builderButtons = new DefaultFormBuilder(lmButtons, new ScrollablePanel())
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder builderButtons = new TestFormLayoutBuilder(
+                "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
+                        + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 59)
+                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).border(Paddings.DIALOG);
 
         builderButtons.append("");
         JLabel bLabel = new JLabel("Buttons");
@@ -374,17 +321,16 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
                         new BackgroundColorCommand(Color.magenta), new SelectCommand(),
                         new DisableCommand()));
 
-        JPanel panelButtons = builderButtons.getPanel();
+        JPanel panelButtons = builderButtons.build();
         JScrollPane jspButtons = new JScrollPane(panelButtons);
         panelButtons.setOpaque(false);
         jspButtons.setOpaque(false);
         jspButtons.getViewport().setOpaque(false);
 
-        FormLayout lmOther = new FormLayout("right:pref, 10dlu, left:pref:grow(1), 4dlu,"
-                + "left:pref:grow(1), 4dlu, left:pref:grow(1), " + "4dlu, left:pref:grow(1)", "");
-        lmOther.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-        DefaultFormBuilder builderOther = new DefaultFormBuilder(lmOther, new ScrollablePanel())
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder builderOther = new TestFormLayoutBuilder(
+                "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
+                        + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 25)
+                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).border(Paddings.DIALOG);
 
         builderOther.append("");
         builderOther.append(new JLabel("Yellow"), new JLabel("Blue + red foreground"));
@@ -526,17 +472,16 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
                         true));
         addControlRow(builderOther, "Disabled", spinnerCreationCmd, new DisableCommand());
 
-        JPanel panelOther = builderOther.getPanel();
+        JPanel panelOther = builderOther.build();
         JScrollPane jspOther = new JScrollPane(panelOther);
         panelOther.setOpaque(false);
         jspOther.setOpaque(false);
         jspOther.getViewport().setOpaque(false);
 
-        FormLayout lmText = new FormLayout("right:pref, 10dlu, left:pref:grow(1), 4dlu,"
-                + "left:pref:grow(1), 4dlu, left:pref:grow(1), " + "4dlu, left:pref:grow(1)", "");
-        lmText.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-        DefaultFormBuilder builderText = new DefaultFormBuilder(lmText, new ScrollablePanel())
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder builderText = new TestFormLayoutBuilder(
+                "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
+                        + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 31)
+                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).border(Paddings.DIALOG);
 
         builderText.append("");
         builderText.append(new JLabel("Yellow"), new JLabel("Blue + red foreground"));
@@ -730,7 +675,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
             }
         }, null);
 
-        JPanel panelText = builderText.getPanel();
+        JPanel panelText = builderText.build();
         JScrollPane jspText = new JScrollPane(panelText);
         panelText.setOpaque(false);
         jspText.setOpaque(false);
@@ -740,11 +685,10 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         coloredScrollPane.setBackground(Color.yellow);
         coloredScrollPane.getVerticalScrollBar().setBackground(Color.green);
 
-        FormLayout lmCells = new FormLayout("right:pref, 10dlu, fill:pref:grow(1), 4dlu,"
-                + "fill:pref:grow(1), 4dlu, fill:pref:grow(1), " + "4dlu, fill:pref:grow(1)", "");
-        lmCells.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-        DefaultFormBuilder builderCells = new DefaultFormBuilder(lmCells, new ScrollablePanel())
-                .border(Borders.DIALOG);
+        TestFormLayoutBuilder builderCells = new TestFormLayoutBuilder(
+                "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
+                        + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 13)
+                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).border(Paddings.DIALOG);
 
         builderCells.append("");
         builderCells.append(new JLabel("Yellow"), new JLabel("Blue + red foreground"));
@@ -874,7 +818,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
                         .setWatermarkVisible(jc, true));
         addControlRow(builderCells, "Tree disabled", treeCreationCmd, new DisableCommand());
 
-        JPanel panelCells = builderCells.getPanel();
+        JPanel panelCells = builderCells.build();
         JScrollPane jspCells = new JScrollPane(panelCells);
         panelCells.setOpaque(false);
         jspCells.setOpaque(false);
