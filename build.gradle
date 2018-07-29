@@ -92,7 +92,7 @@ task getDemoDependencies(type: Copy) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = "4.1"
+    gradleVersion = "4.9"
 }
 
 task printRuntimeDependencies {
