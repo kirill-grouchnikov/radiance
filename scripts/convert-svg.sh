@@ -1,4 +1,4 @@
-RADIANCE_VERSION=0.9-dev
+RADIANCE_VERSION=0.9-SNAPSHOT
 CLASSPATH=../drop/$RADIANCE_VERSION/core/radiance-ibis-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.10.jar:../build/libs-core/xml-apis-1.3.04.jar:../build/libs-core/xml-apis-ext-1.3.04.jar:../build/libs-core/xmlgraphics-commons-2.2.jar
 
 java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFolder=../kormorant-demo/src/main/kotlin/org/pushingpixels/demo/kormorant/svg outputPackageName=org.pushingpixels.demo.kormorant.svg templateFile=/org/pushingpixels/ibis/transcoder/kotlin/SvgTranscoderTemplateResizable.templ outputLanguage=kotlin
@@ -19,7 +19,7 @@ java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFo
 
 java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFolder=../substance-swingx/src/main/java/org/pushingpixels/substance/swingx/svg outputPackageName=org.pushingpixels.substance.swingx.svg templateFile=/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
-java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFolder=../substance-tools/src/main/java/org/pushingpixels/tools/substance/main/docrobot/svg outputPackageName=org.pushingpixels.tools.substance.main.docrobot.svg templateFile=/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java 
+java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFolder=../substance-tools/src/main/java/org/pushingpixels/tools/substance/main/docrobot/svg outputPackageName=org.pushingpixels.tools.substance.main.docrobot.svg templateFile=/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
 java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFolder=../substance-samples/src/main/java/org/pushingpixels/samples/substance/mail/svg outputPackageName=org.pushingpixels.samples.substance.mail.svg templateFile=/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
@@ -30,4 +30,3 @@ java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFo
 java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFolder=../rainbow/src/main/java/org/pushingpixels/rainbow/svg outputPackageName=org.pushingpixels.rainbow.svg templateFile=/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
 java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFolder=../substance-tools/src/main/java/org/pushingpixels/tools/substance/jitterbug/ outputPackageName=org.pushingpixels.tools.substance.jitterbug templateFile=/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
-

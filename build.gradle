@@ -28,30 +28,30 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-allprojects {
-    version = '0.9-dev'
-    ext.codename = 'Antimony'
-
-    buildscript {
-        repositories {
-            mavenCentral()
-        }
-        dependencies {
-            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.ext.kotlin_version}"
-        }
+ buildscript {
+    ext {
+        kotlin_version = '1.2.51'
     }
+	  repositories {
+        mavenCentral()
+		    jcenter()
+	  }
+	  dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.ext.kotlin_version}"
+		    classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+	  }
+}
+
+allprojects {
+    version = '0.9-SNAPSHOT'
+    ext.codename = 'Antimony'
 
     repositories {
         mavenCentral()
+		    jcenter()
     }
 
     defaultTasks 'build'
-}
-
-buildscript {
-    ext {
-        kotlin_version = '1.2.50'
-    }
 }
 
 mkdir {

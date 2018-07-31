@@ -45,3 +45,54 @@ jar {
     }
 }
 
+apply plugin: 'com.bmuschko.nexus'
+
+archivesBaseName = 'radiance'
+group = 'org.pushing-pixels'
+
+modifyPom {
+		project {
+			name 'substance-extras'
+			description 'Substance look-and-feel extras'
+			url 'https://github.com/kirill-grouchnikov/radiance'
+			inceptionYear '2018'
+			scm {
+				url 'https://github.com/kirill-grouchnikov/radiance'
+				connection 'scm:https://github.com/kirill-grouchnikov/radiance.git'
+				developerConnection 'scm:git://github.com/kirill-grouchnikov/radiance.git'
+			}
+			licenses {
+				license {
+					name 'BSD 3-Clause License'
+					url 'https://opensource.org/licenses/BSD-3-Clause'
+					distribution 'repo'
+				}
+			}
+			developers {
+				developer {
+					id 'kirill-grouchnikov'
+					name 'Kirill Grouchnikov'
+					email 'kirill.grouchnikov@gmail.com'
+				}
+			}
+      dependencies {
+        dependency {
+          groupId = project.group
+          artifactId = project.archivesBaseName + '-substance'
+          version = project.version
+        }
+      }
+		}
+}
+
+extraArchive {
+    sources = true
+    tests = false
+    javadoc = false
+}
+
+nexus {
+    sign = false
+    repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+    snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+}
