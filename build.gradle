@@ -28,18 +28,18 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
- buildscript {
+buildscript {
     ext {
         kotlin_version = '1.2.51'
     }
-	  repositories {
+    repositories {
         mavenCentral()
-		    jcenter()
-	  }
-	  dependencies {
+        jcenter()
+    }
+    dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.ext.kotlin_version}"
-		    classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
-	  }
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+    }
 }
 
 allprojects {
@@ -48,7 +48,7 @@ allprojects {
 
     repositories {
         mavenCentral()
-		    jcenter()
+        jcenter()
     }
 
     defaultTasks 'build'

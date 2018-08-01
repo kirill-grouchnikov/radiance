@@ -51,43 +51,43 @@ archivesBaseName = 'radiance'
 group = 'org.pushing-pixels'
 
 modifyPom {
-		project {
-			name 'kormorant'
-			description 'Kormorant Kotlin wrapper for Flamingo components'
-			url 'https://github.com/kirill-grouchnikov/radiance'
-			inceptionYear '2018'
-			scm {
-				url 'https://github.com/kirill-grouchnikov/radiance'
-				connection 'scm:https://github.com/kirill-grouchnikov/radiance.git'
-				developerConnection 'scm:git://github.com/kirill-grouchnikov/radiance.git'
-			}
-			licenses {
-				license {
-					name 'BSD 3-Clause License'
-					url 'https://opensource.org/licenses/BSD-3-Clause'
-					distribution 'repo'
-				}
-			}
-			developers {
-				developer {
-					id 'kirill-grouchnikov'
-					name 'Kirill Grouchnikov'
-					email 'kirill.grouchnikov@gmail.com'
-				}
-			}
-      dependencies {
-        dependency {
-          groupId = 'org.jetbrains.kotlin'
-          artifactId = 'kotlin-stdlib'
-          version = kotlin_version
+    project {
+        name 'kormorant'
+        description 'Kormorant Kotlin wrapper for Flamingo components'
+        url 'https://github.com/kirill-grouchnikov/radiance'
+        inceptionYear '2018'
+        scm {
+            url 'https://github.com/kirill-grouchnikov/radiance'
+            connection 'scm:https://github.com/kirill-grouchnikov/radiance.git'
+            developerConnection 'scm:git://github.com/kirill-grouchnikov/radiance.git'
         }
-        dependency {
-          groupId = project.group
-          artifactId = project.archivesBaseName + '-flamingo'
-          version = project.version
+        licenses {
+            license {
+                name 'BSD 3-Clause License'
+                url 'https://opensource.org/licenses/BSD-3-Clause'
+                distribution 'repo'
+            }
         }
-      }
-		}
+        developers {
+            developer {
+                id 'kirill-grouchnikov'
+                name 'Kirill Grouchnikov'
+                email 'kirill.grouchnikov@gmail.com'
+            }
+        }
+        dependencies {
+            dependency {
+                groupId = 'org.jetbrains.kotlin'
+                artifactId = 'kotlin-stdlib'
+                version = kotlin_version
+            }
+            dependency {
+                groupId = project.group
+                artifactId = project.archivesBaseName + '-flamingo'
+                version = project.version
+            }
+        }
+    }
 }
 
 extraArchive {

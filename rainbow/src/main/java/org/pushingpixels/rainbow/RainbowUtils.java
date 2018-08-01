@@ -31,37 +31,17 @@
  */
 package org.pushingpixels.rainbow;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.net.URL;
-
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.filechooser.FileFilter;
-
+import org.fife.ui.rsyntaxtextarea.*;
+import org.fife.ui.rtextarea.RTextScrollPane;
 import org.pushingpixels.ibis.transcoder.SvgStreamTranscoder;
 import org.pushingpixels.ibis.transcoder.java.JavaLanguageRenderer;
 
-import jsyntaxpane.syntaxkits.JavaSyntaxKit;
-import jsyntaxpane.syntaxkits.XmlSyntaxKit;
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.*;
+import java.net.URL;
 
 /**
  * Utilities class.
@@ -102,14 +82,15 @@ public class RainbowUtils {
             font = font.deriveFont(1.0f + UIManager.getFont("TextArea.font").getSize2D());
 
             String svgContents = new String(svgBytes);
-            JEditorPane xmlEditorPane = new JEditorPane();
-            JScrollPane xmlScroller = new JScrollPane(xmlEditorPane);
-            xmlEditorPane.setEditorKit(new XmlSyntaxKit());
+            RSyntaxTextArea xmlEditorPane = new RSyntaxTextArea(20, 60);
+            xmlEditorPane.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
+            xmlEditorPane.setCodeFoldingEnabled(true);
             xmlEditorPane.setFont(font);
             xmlEditorPane.setEditable(false);
             xmlEditorPane.setBackground(Color.WHITE);
             xmlEditorPane.setText(svgContents);
             xmlEditorPane.moveCaretPosition(0);
+            RTextScrollPane xmlScroller = new RTextScrollPane(xmlEditorPane);
             jtp.add("SVG contents", xmlScroller);
 
             fileFrame.add(jtp, BorderLayout.CENTER);
@@ -129,19 +110,15 @@ public class RainbowUtils {
                     "/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable.templ"));
 
             String javaContents = new String(javaBaos.toByteArray());
-            JEditorPane javaEditorPane = new JEditorPane();
-            JScrollPane javaScroller = new JScrollPane(javaEditorPane);
-            javaEditorPane.setEditorKit(new JavaSyntaxKit());
+            RSyntaxTextArea javaEditorPane = new RSyntaxTextArea(20, 60);
+            javaEditorPane.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+            javaEditorPane.setCodeFoldingEnabled(true);
             javaEditorPane.setFont(font);
             javaEditorPane.setEditable(false);
             javaEditorPane.setBackground(Color.WHITE);
             javaEditorPane.setText(javaContents);
             javaEditorPane.moveCaretPosition(0);
-
-            // JTextArea javaTextArea = new JTextArea();
-            // javaTextArea.append(new String(javaBaos.toByteArray()));
-            // javaTextArea.moveCaretPosition(0);
-            // javaTextArea.setFont(font);
+            RTextScrollPane javaScroller = new RTextScrollPane(javaEditorPane);
 
             JPanel javaPanel = new JPanel(new BorderLayout());
             javaPanel.add(javaScroller, BorderLayout.CENTER);

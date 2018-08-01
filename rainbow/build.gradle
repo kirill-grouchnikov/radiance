@@ -34,7 +34,7 @@ dependencies {
     compile ('com.jgoodies:jgoodies-common:1.8.1')
     compile ('com.jgoodies:jgoodies-forms:1.9.0')
     compile ('com.jhlabs:filters:2.0.235')
-    compile ('de.sciss:jsyntaxpane:1.0.0')
+    compile ('com.fifesoft:rsyntaxtextarea:2.6.1')
     compile ('org.swinglabs:jxlayer:3.0.4')
     compile project(':substance')
     compile project(':flamingo')

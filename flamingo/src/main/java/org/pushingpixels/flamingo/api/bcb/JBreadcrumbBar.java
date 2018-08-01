@@ -73,25 +73,6 @@ public class JBreadcrumbBar<T> extends JComponent {
     public static final String uiClassID = "BreadcrumbBarUI";
 
     /**
-     * Base interface for elements in breadcrumb bar.
-     */
-    public interface BreadcrumbBarElement {
-        /**
-         * Returns the text presentation of <code>this</code> element.
-         *
-         * @return The text presentation of <code>this</code> element.
-         */
-        public String getText();
-
-        /**
-         * Returns the index of <code>this</code> element.
-         *
-         * @return The index of <code>this</code> element.
-         */
-        public int getIndex();
-    }
-
-    /**
      * Creates a new breadcrumb bar.
      *
      * @param callback The application callback.
@@ -104,7 +85,7 @@ public class JBreadcrumbBar<T> extends JComponent {
         if (this.callback != null)
             this.callback.setup();
 
-        this.exceptionHandlers = new ArrayList<BreadcrumbBarExceptionHandler>();
+        this.exceptionHandlers = new ArrayList<>();
 
         this.updateUI();
     }
