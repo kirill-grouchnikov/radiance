@@ -249,18 +249,13 @@ public class GhostPaintingUtils {
                 if (comp == mainComponent)
                     continue;
 
-                if (!(comp instanceof JComponent))
+                if (!comp.isShowing())
+                    continue;
+                if (!comp.isVisible())
                     continue;
 
-                JComponent jc = (JComponent) comp;
-
-                if (!jc.isShowing())
-                    continue;
-                if (!jc.isVisible())
-                    continue;
-
-                Rectangle compRect = jc.getBounds();
-                compRect.setLocation(jc.getLocationOnScreen());
+                Rectangle compRect = comp.getBounds();
+                compRect.setLocation(comp.getLocationOnScreen());
 
                 int dx = compRect.x - mainRect.x;
                 int dy = compRect.y - mainRect.y;
@@ -274,12 +269,12 @@ public class GhostPaintingUtils {
                     float fade = timeline.getTimelinePosition();
                     // Rectangle bounds = comp.getBounds();
                     Icon icon = null;
-                    Rectangle iconRect = (Rectangle) jc.getClientProperty("icon.bounds");
+                    Rectangle iconRect = (Rectangle) comp.getClientProperty("icon.bounds");
                     if (iconRect != null) {
-                        if (jc instanceof AbstractButton) {
-                            icon = WidgetUtilities.getIcon((AbstractButton) jc);
+                        if (comp instanceof AbstractButton) {
+                            icon = WidgetUtilities.getIcon((AbstractButton) comp);
                         } else {
-                            icon = (Icon) jc.getClientProperty("icon");
+                            icon = (Icon) comp.getClientProperty("icon");
                         }
                     }
 

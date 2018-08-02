@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2018 Rainbow Kirill Grouchnikov 
+ * Copyright (c) 2005-2018 Rainbow Kirill Grouchnikov
  * and Alexander Potochkin. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -7,16 +7,16 @@
  *
  *  o Redistributions of source code must retain the above copyright notice,
  *    this list of conditions and the following disclaimer.
- *    
+ *
  *  o Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *    
- *  o Neither the name of Rainbow, Kirill Grouchnikov 
+ *
+ *  o Neither the name of Rainbow, Kirill Grouchnikov
  *    and Alexander Potochkin nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *    
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
  * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -45,7 +45,7 @@ import java.net.URL;
 
 /**
  * Utilities class.
- * 
+ *
  * @author Kirill Grouchnikov
  * @author Alexander Potochkin
  */
@@ -55,13 +55,23 @@ public class RainbowUtils {
      */
     private static File lastChosenFolder;
 
+    private static void setFont(RSyntaxTextArea textArea, Font font) {
+        SyntaxScheme ss = textArea.getSyntaxScheme();
+        ss = (SyntaxScheme) ss.clone();
+        for (int i = 0; i < ss.getStyleCount(); i++) {
+            if (ss.getStyle(i) != null) {
+                ss.getStyle(i).font = font;
+            }
+        }
+        textArea.setSyntaxScheme(ss);
+        textArea.setFont(font);
+    }
+
     /**
      * Processes the click on SVG icon button.
-     * 
-     * @param svgBytes
-     *            SVG bytes.
-     * @param svgName
-     *            SVG file name (not necessarily on the hard disk).
+     *
+     * @param svgBytes SVG bytes.
+     * @param svgName  SVG file name (not necessarily on the hard disk).
      */
     public static void processSvgButtonClick(byte[] svgBytes, String svgName) {
         try {
@@ -85,7 +95,7 @@ public class RainbowUtils {
             RSyntaxTextArea xmlEditorPane = new RSyntaxTextArea(20, 60);
             xmlEditorPane.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
             xmlEditorPane.setCodeFoldingEnabled(true);
-            xmlEditorPane.setFont(font);
+            setFont(xmlEditorPane, font);
             xmlEditorPane.setEditable(false);
             xmlEditorPane.setBackground(Color.WHITE);
             xmlEditorPane.setText(svgContents);
@@ -107,13 +117,14 @@ public class RainbowUtils {
 
             transcoder.setPrintWriter(pw);
             transcoder.transcode(RainbowUtils.class.getResourceAsStream(
-                    "/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable.templ"));
+                    "/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable" +
+                            ".templ"));
 
             String javaContents = new String(javaBaos.toByteArray());
             RSyntaxTextArea javaEditorPane = new RSyntaxTextArea(20, 60);
             javaEditorPane.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
             javaEditorPane.setCodeFoldingEnabled(true);
-            javaEditorPane.setFont(font);
+            setFont(javaEditorPane, font);
             javaEditorPane.setEditable(false);
             javaEditorPane.setBackground(Color.WHITE);
             javaEditorPane.setText(javaContents);
@@ -172,9 +183,8 @@ public class RainbowUtils {
 
     /**
      * Returns the Java class name for the SVG file name.
-     * 
-     * @param svgName
-     *            SVG file name.
+     *
+     * @param svgName SVG file name.
      * @return Java class name for the SVG file name.
      */
     public static String getSvgClassName(String svgName) {

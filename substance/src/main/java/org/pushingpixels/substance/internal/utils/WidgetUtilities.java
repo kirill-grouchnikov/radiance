@@ -33,15 +33,13 @@ import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.painter.preview.PreviewPainter;
 import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
-import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.substance.internal.SubstanceSynapse;
+import org.pushingpixels.substance.internal.*;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 import java.util.Map;
 
 /**
@@ -77,6 +75,7 @@ public class WidgetUtilities {
         int width = image.getWidth();
         BufferedImage thumb = image;
 
+        double scaleFactor = NeonCortex.getScaleFactor();
         do {
             width /= 2;
             if (width < requestedThumbWidth) {
@@ -87,7 +86,8 @@ public class WidgetUtilities {
             Graphics2D g2 = temp.createGraphics();
             g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            NeonCortex.drawImage(g2, thumb, 0, 0);
+            g2.drawImage(thumb, 0, 0, (int) (temp.getWidth() / scaleFactor),
+                    (int) (temp.getHeight() / scaleFactor), null);
             g2.dispose();
 
             thumb = temp;

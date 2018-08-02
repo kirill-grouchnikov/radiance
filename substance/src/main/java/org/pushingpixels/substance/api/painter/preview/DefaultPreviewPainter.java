@@ -30,7 +30,7 @@
 package org.pushingpixels.substance.api.painter.preview;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.internal.utils.WidgetUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,8 +58,7 @@ public class DefaultPreviewPainter extends PreviewPainter {
 
         if ((compWidth > 0) && (compHeight > 0)) {
             // draw component
-            BufferedImage tempCanvas = new BufferedImage(compWidth, compHeight,
-                    BufferedImage.TYPE_INT_ARGB);
+            BufferedImage tempCanvas = SubstanceCoreUtilities.getBlankImage(compWidth, compHeight);
             Graphics tempCanvasGraphics = tempCanvas.getGraphics();
             component.paint(tempCanvasGraphics);
 

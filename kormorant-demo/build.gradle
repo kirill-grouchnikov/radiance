@@ -37,6 +37,7 @@ dependencies {
     compile project(':substance')
     compile project(':flamingo')
     compile project(':kormorant')
+    compile project(':flamingo-demo')
     compile ('com.jgoodies:jgoodies-common:1.8.1')
     compile ('com.jgoodies:jgoodies-forms:1.9.0')
 }
