@@ -139,7 +139,7 @@ public class RichToolTipManager extends MouseAdapter implements
         tip.applyComponentOrientation(insideComponent.getComponentOrientation());
 		size = tip.getPreferredSize();
 
-		AbstractRibbonBand<?> ribbonBand = (AbstractRibbonBand<?>) SwingUtilities
+		AbstractRibbonBand ribbonBand = (AbstractRibbonBand) SwingUtilities
 				.getAncestorOfClass(AbstractRibbonBand.class, insideComponent);
 		boolean ltr = tip.getComponentOrientation().isLeftToRight();
 		boolean isInRibbonBand = (ribbonBand != null);

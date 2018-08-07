@@ -48,7 +48,7 @@ public class RibbonTask {
 	/**
 	 * List of all bands.
 	 */
-	private ArrayList<AbstractRibbonBand<?>> bands;
+	private ArrayList<AbstractRibbonBand> bands;
 
 	/**
 	 * The title of this task.
@@ -79,13 +79,13 @@ public class RibbonTask {
 	 * @param bands
 	 *            Bands to add to the ribbon task.
 	 */
-	public RibbonTask(String title, AbstractRibbonBand<?>... bands) {
+	public RibbonTask(String title, AbstractRibbonBand... bands) {
 		if ((bands == null) || (bands.length == 0)) {
 			throw new IllegalArgumentException("Cannot have empty ribbon task");
 		}
 		this.title = title;
 		this.bands = new ArrayList<>();
-		for (AbstractRibbonBand<?> band : bands) {
+		for (AbstractRibbonBand band : bands) {
 			band.setRibbonTask(this);
 			this.bands.add(band);
 		}
@@ -101,13 +101,13 @@ public class RibbonTask {
 	 * @param bands
 	 *            Bands to add to the ribbon task.
 	 */
-	public RibbonTask(String title, Iterable<AbstractRibbonBand<?>> bands) {
+	public RibbonTask(String title, Iterable<AbstractRibbonBand> bands) {
 		if (bands == null) {
 			throw new IllegalArgumentException("Cannot have empty ribbon task");
 		}
 		this.title = title;
 		this.bands = new ArrayList<>();
-		for (AbstractRibbonBand<?> band : bands) {
+		for (AbstractRibbonBand band : bands) {
 			band.setRibbonTask(this);
 			this.bands.add(band);
 		}
@@ -138,7 +138,7 @@ public class RibbonTask {
 	 * @see #getBandCount()
 	 * @see #getBands()
 	 */
-	public AbstractRibbonBand<?> getBand(int index) {
+	public AbstractRibbonBand getBand(int index) {
 		return this.bands.get(index);
 	}
 
@@ -184,7 +184,7 @@ public class RibbonTask {
 	 * @see #getBandCount()
 	 * @see #getBand(int)
 	 */
-	public List<AbstractRibbonBand<?>> getBands() {
+	public List<AbstractRibbonBand> getBands() {
 		return Collections.unmodifiableList(this.bands);
 	}
 

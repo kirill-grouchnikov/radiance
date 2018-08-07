@@ -47,14 +47,12 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand
 import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies
-import org.pushingpixels.flamingo.api.ribbon.resize.IconRibbonBandResizePolicy
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.kormorant.ribbon.*
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
-import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin
 import java.awt.*
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
@@ -531,8 +529,8 @@ private class RibbonDemoBuilder {
             }
 
             resizePolicies = { ribbonBand ->
-                listOf(CoreRibbonResizePolicies.Mirror(ribbonBand.controlPanel),
-                        CoreRibbonResizePolicies.Mid2Low(ribbonBand.controlPanel))
+                listOf(CoreRibbonResizePolicies.Mirror(ribbonBand),
+                        CoreRibbonResizePolicies.Mid2Low(ribbonBand))
             }
         }
     }
@@ -976,8 +974,8 @@ private class RibbonDemoBuilder {
             }
 
             resizePolicies = { ribbonBand ->
-                listOf(CoreRibbonResizePolicies.Mirror(ribbonBand.controlPanel),
-                        IconRibbonBandResizePolicy(ribbonBand.controlPanel))
+                listOf(CoreRibbonResizePolicies.Mirror(ribbonBand),
+                        CoreRibbonResizePolicies.IconRibbonBandResizePolicy(ribbonBand))
             }
         }
     }
@@ -1045,9 +1043,9 @@ private class RibbonDemoBuilder {
             }
 
             resizePolicies = { ribbonBand ->
-                listOf(CoreRibbonResizePolicies.Mirror(ribbonBand.controlPanel),
-                        CoreRibbonResizePolicies.Mid2Low(ribbonBand.controlPanel),
-                        IconRibbonBandResizePolicy(ribbonBand.controlPanel))
+                listOf(CoreRibbonResizePolicies.Mirror(ribbonBand),
+                        CoreRibbonResizePolicies.Mid2Low(ribbonBand),
+                        CoreRibbonResizePolicies.IconRibbonBandResizePolicy(ribbonBand))
             }
         }
     }

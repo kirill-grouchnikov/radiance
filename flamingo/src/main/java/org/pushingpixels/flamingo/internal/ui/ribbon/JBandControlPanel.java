@@ -43,10 +43,9 @@ import java.util.*;
  *
  * @author Kirill Grouchnikov
  */
-public class JBandControlPanel extends AbstractBandControlPanel implements
-        UIResource {
+public class JBandControlPanel extends AbstractBandControlPanel implements UIResource {
     public static class ControlPanelGroup {
-        public String groupTitle;
+        private String groupTitle;
 
         /**
          * Indication whether <code>this</code> control panel has galleries.
@@ -84,14 +83,14 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
 
         public ControlPanelGroup(String groupTitle) {
             this.groupTitle = groupTitle;
-            this.ribbonButtons = new HashMap<RibbonElementPriority, java.util.List<AbstractCommandButton>>();
-            this.ribbonButtonsPriorities = new HashMap<AbstractCommandButton, RibbonElementPriority>();
-            this.ribbonGalleries = new HashMap<RibbonElementPriority, java.util.List<JRibbonGallery>>();
-            this.ribbonGalleriesPriorities = new HashMap<JRibbonGallery, RibbonElementPriority>();
+            this.ribbonButtons = new HashMap<>();
+            this.ribbonButtonsPriorities = new HashMap<>();
+            this.ribbonGalleries = new HashMap<>();
+            this.ribbonGalleriesPriorities = new HashMap<>();
             this.hasGalleries = false;
             this.galleryCount = 0;
-            this.coreComps = new ArrayList<JRibbonComponent>();
-            this.coreCompRowSpans = new HashMap<JRibbonComponent, Integer>();
+            this.coreComps = new ArrayList<>();
+            this.coreCompRowSpans = new HashMap<>();
         }
 
         public String getGroupTitle() {
@@ -132,8 +131,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
                         "Ribbon band groups do not support mixing JRibbonComponents and custom Flamingo components");
             }
             if (!this.ribbonButtons.containsKey(priority)) {
-                this.ribbonButtons.put(priority,
-                        new LinkedList<AbstractCommandButton>());
+                this.ribbonButtons.put(priority, new LinkedList<>());
             }
             List<AbstractCommandButton> al = this.ribbonButtons.get(priority);
             al.add(ribbonButton);
@@ -161,8 +159,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
             }
             // check the name
             if (!this.ribbonGalleries.containsKey(priority)) {
-                this.ribbonGalleries.put(priority,
-                        new LinkedList<JRibbonGallery>());
+                this.ribbonGalleries.put(priority, new LinkedList<>());
             }
             List<JRibbonGallery> al = this.ribbonGalleries.get(priority);
             al.add(ribbonGallery);
@@ -192,8 +189,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
             this.ribbonButtons.get(oldPriority).remove(ribbonButton);
 
             if (!this.ribbonButtons.containsKey(newPriority)) {
-                this.ribbonButtons.put(newPriority,
-                        new ArrayList<AbstractCommandButton>());
+                this.ribbonButtons.put(newPriority, new ArrayList<>());
             }
             this.ribbonButtons.get(newPriority).add(ribbonButton);
         }
@@ -215,8 +211,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
             this.ribbonGalleries.get(oldPriority).remove(ribbonGallery);
 
             if (!this.ribbonGalleries.containsKey(newPriority)) {
-                this.ribbonGalleries.put(newPriority,
-                        new ArrayList<JRibbonGallery>());
+                this.ribbonGalleries.put(newPriority, new ArrayList<>());
             }
             this.ribbonGalleries.get(newPriority).add(ribbonGallery);
         }
@@ -244,8 +239,9 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
                 RibbonElementPriority priority) {
             List<AbstractCommandButton> result = this.ribbonButtons
                     .get(priority);
-            if (result == null)
+            if (result == null) {
                 return EMPTY_GALLERY_BUTTONS_LIST;
+            }
             return result;
         }
 
@@ -260,8 +256,9 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
         public List<JRibbonGallery> getRibbonGalleries(
                 RibbonElementPriority priority) {
             List<JRibbonGallery> result = this.ribbonGalleries.get(priority);
-            if (result == null)
+            if (result == null) {
                 return EMPTY_RIBBON_GALLERIES_LIST;
+            }
             return result;
         }
 
@@ -306,12 +303,12 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
     /**
      * Empty list of buttons.
      */
-    public static final List<AbstractCommandButton> EMPTY_GALLERY_BUTTONS_LIST = new LinkedList<AbstractCommandButton>();
+    public static final List<AbstractCommandButton> EMPTY_GALLERY_BUTTONS_LIST = new LinkedList<>();
 
     /**
      * Empty list of galleries.
      */
-    public static final List<JRibbonGallery> EMPTY_RIBBON_GALLERIES_LIST = new LinkedList<JRibbonGallery>();
+    public static final List<JRibbonGallery> EMPTY_RIBBON_GALLERIES_LIST = new LinkedList<>();
 
     /**
      * The UI class ID string.
@@ -320,14 +317,12 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
 
     /**
      * Creates a control panel for specified ribbon band.
-     *
-     * @param ribbonBand Ribbon band.
      */
     public JBandControlPanel() {
         super();
 
-        this.controlPanelGroups = new LinkedList<ControlPanelGroup>();
-        this.galleryNameMap = new HashMap<String, JRibbonGallery>();
+        this.controlPanelGroups = new LinkedList<>();
+        this.galleryNameMap = new HashMap<>();
     }
 
     /**
@@ -339,31 +334,16 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
         super.setUI(ui);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JPanel#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(new SubstanceBandControlPanelUI());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JPanel#getUI()
-     */
     @Override
     public BandControlPanelUI getUI() {
         return (BandControlPanelUI) ui;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JPanel#getUIClassID()
-     */
     @Override
     public String getUIClassID() {
         return uiClassID;
@@ -377,11 +357,11 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
      */
     public synchronized void addCommandButton(
             AbstractCommandButton ribbonButton, RibbonElementPriority priority) {
-        if (this.controlPanelGroups.size() == 0)
+        if (this.controlPanelGroups.size() == 0) {
             this.startGroup();
+        }
 
-        this.controlPanelGroups.getLast().addCommandButton(ribbonButton,
-                priority);
+        this.controlPanelGroups.getLast().addCommandButton(ribbonButton, priority);
 
         super.add(ribbonButton);
     }
@@ -405,11 +385,11 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
                     "Another riboon gallery with the same name already exists");
         }
 
-        if (this.controlPanelGroups.size() == 0)
+        if (this.controlPanelGroups.size() == 0) {
             this.startGroup();
+        }
 
-        this.controlPanelGroups.getLast().addRibbonGallery(ribbonGallery,
-                priority);
+        this.controlPanelGroups.getLast().addRibbonGallery(ribbonGallery, priority);
 
         this.galleryNameMap.put(galleryName, ribbonGallery);
 
@@ -424,8 +404,9 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
      */
     public synchronized void setPriority(JCommandButton ribbonButton,
             RibbonElementPriority newPriority) {
-        if (this.controlPanelGroups.size() == 0)
+        if (this.controlPanelGroups.size() == 0) {
             this.startGroup();
+        }
 
         this.controlPanelGroups.getLast()
                 .setPriority(ribbonButton, newPriority);
@@ -440,8 +421,9 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
      */
     public synchronized void setPriority(JRibbonGallery ribbonGallery,
             RibbonElementPriority newPriority) {
-        if (this.controlPanelGroups.size() == 0)
+        if (this.controlPanelGroups.size() == 0) {
             this.startGroup();
+        }
 
         this.controlPanelGroups.getLast().setPriority(ribbonGallery,
                 newPriority);
@@ -452,8 +434,9 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
     }
 
     public void addRibbonComponent(JRibbonComponent comp, int rowSpan) {
-        if (this.controlPanelGroups.size() == 0)
+        if (this.controlPanelGroups.size() == 0) {
             this.startGroup();
+        }
 
         this.controlPanelGroups.getLast().addRibbonComponent(comp, rowSpan);
         super.add(comp);
@@ -464,14 +447,16 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
     }
 
     public int getControlPanelGroupCount() {
-        if (this.controlPanelGroups == null)
+        if (this.controlPanelGroups == null) {
             return 1;
+        }
         return this.controlPanelGroups.size();
     }
 
     public String getControlPanelGroupTitle(int controlPanelGroupIndex) {
-        if (this.controlPanelGroups == null)
+        if (this.controlPanelGroups == null) {
             return null;
+        }
         return this.controlPanelGroups.get(controlPanelGroupIndex).groupTitle;
     }
 
@@ -523,7 +508,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements
     }
 
     public List<JRibbonComponent> getRibbonComponents(int groupIndex) {
-        return Collections.unmodifiableList(this.controlPanelGroups.get(
-                groupIndex).getRibbonComps());
+        return Collections.unmodifiableList(this.controlPanelGroups.get(groupIndex)
+                .getRibbonComps());
     }
 }

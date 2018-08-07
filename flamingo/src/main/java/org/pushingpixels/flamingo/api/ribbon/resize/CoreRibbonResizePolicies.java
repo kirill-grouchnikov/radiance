@@ -122,6 +122,26 @@ public class CoreRibbonResizePolicies {
         RibbonElementPriority map(RibbonElementPriority priority);
     }
 
+    protected static abstract class BaseRibbonBandResizePolicy<B extends AbstractRibbonBand>
+            implements RibbonBandResizePolicy {
+        /**
+         * The associated ribbon band.
+         */
+        protected B ribbonBand;
+
+        protected AbstractBandControlPanel controlPanel;
+
+        /**
+         * Creates a new resize policy.
+         *
+         * @param ribbonBand The associated ribbon band.
+         */
+        protected BaseRibbonBandResizePolicy(B ribbonBand) {
+            this.ribbonBand = ribbonBand;
+            this.controlPanel = this.ribbonBand.getControlPanel();
+        }
+    }
+
     /**
      * Returns a list that starts with a resize policy that shows all command
      * buttons in the {@link CommandButtonDisplayState#BIG} and ribbon galleries
@@ -134,14 +154,14 @@ public class CoreRibbonResizePolicies {
     public static List<RibbonBandResizePolicy> getCorePoliciesPermissive(
             JRibbonBand ribbonBand) {
         List<RibbonBandResizePolicy> result = new ArrayList<>();
-        result.add(new CoreRibbonResizePolicies.None(ribbonBand.getControlPanel()));
-        result.add(new CoreRibbonResizePolicies.Low2Mid(ribbonBand.getControlPanel()));
-        result.add(new CoreRibbonResizePolicies.Mid2Mid(ribbonBand.getControlPanel()));
-        result.add(new CoreRibbonResizePolicies.Mirror(ribbonBand.getControlPanel()));
-        result.add(new CoreRibbonResizePolicies.Mid2Low(ribbonBand.getControlPanel()));
-        result.add(new CoreRibbonResizePolicies.High2Mid(ribbonBand.getControlPanel()));
-        result.add(new CoreRibbonResizePolicies.High2Low(ribbonBand.getControlPanel()));
-        result.add(new IconRibbonBandResizePolicy(ribbonBand.getControlPanel()));
+        result.add(new CoreRibbonResizePolicies.None(ribbonBand));
+        result.add(new CoreRibbonResizePolicies.Low2Mid(ribbonBand));
+        result.add(new CoreRibbonResizePolicies.Mid2Mid(ribbonBand));
+        result.add(new CoreRibbonResizePolicies.Mirror(ribbonBand));
+        result.add(new CoreRibbonResizePolicies.Mid2Low(ribbonBand));
+        result.add(new CoreRibbonResizePolicies.High2Mid(ribbonBand));
+        result.add(new CoreRibbonResizePolicies.High2Low(ribbonBand));
+        result.add(new IconRibbonBandResizePolicy(ribbonBand));
         return result;
     }
 
@@ -156,11 +176,11 @@ public class CoreRibbonResizePolicies {
     public static List<RibbonBandResizePolicy> getCorePoliciesRestrictive(
             JRibbonBand ribbonBand) {
         List<RibbonBandResizePolicy> result = new ArrayList<>();
-        result.add(new CoreRibbonResizePolicies.Mirror(ribbonBand.getControlPanel()));
-        result.add(new CoreRibbonResizePolicies.Mid2Low(ribbonBand.getControlPanel()));
-        result.add(new CoreRibbonResizePolicies.High2Mid(ribbonBand.getControlPanel()));
-        result.add(new CoreRibbonResizePolicies.High2Low(ribbonBand.getControlPanel()));
-        result.add(new IconRibbonBandResizePolicy(ribbonBand.getControlPanel()));
+        result.add(new CoreRibbonResizePolicies.Mirror(ribbonBand));
+        result.add(new CoreRibbonResizePolicies.Mid2Low(ribbonBand));
+        result.add(new CoreRibbonResizePolicies.High2Mid(ribbonBand));
+        result.add(new CoreRibbonResizePolicies.High2Low(ribbonBand));
+        result.add(new IconRibbonBandResizePolicy(ribbonBand));
         return result;
     }
 
@@ -175,8 +195,8 @@ public class CoreRibbonResizePolicies {
     public static List<RibbonBandResizePolicy> getCorePoliciesNone(
             JRibbonBand ribbonBand) {
         List<RibbonBandResizePolicy> result = new ArrayList<>();
-        result.add(new CoreRibbonResizePolicies.Mirror(ribbonBand.getControlPanel()));
-        result.add(new IconRibbonBandResizePolicy(ribbonBand.getControlPanel()));
+        result.add(new CoreRibbonResizePolicies.Mirror(ribbonBand));
+        result.add(new IconRibbonBandResizePolicy(ribbonBand));
         return result;
     }
 
@@ -186,7 +206,7 @@ public class CoreRibbonResizePolicies {
      * @author Kirill Grouchnikov
      */
     protected static abstract class BaseCoreRibbonBandResizePolicy extends
-            BaseRibbonBandResizePolicy<JBandControlPanel> {
+            BaseRibbonBandResizePolicy<JRibbonBand> {
         /**
          * The element priority mapping.
          */
@@ -195,12 +215,11 @@ public class CoreRibbonResizePolicies {
         /**
          * Creates a new resize policy.
          *
-         * @param controlPanel The control panel of the associated ribbon band.
+         * @param ribbonBand   The associated ribbon band.
          * @param mapping      The element priority mapping.
          */
-        protected BaseCoreRibbonBandResizePolicy(
-                JBandControlPanel controlPanel, Mapping mapping) {
-            super(controlPanel);
+        protected BaseCoreRibbonBandResizePolicy(JRibbonBand ribbonBand, Mapping mapping) {
+            super(ribbonBand);
             this.mapping = mapping;
         }
 
@@ -333,8 +352,8 @@ public class CoreRibbonResizePolicies {
 
             Insets ins = this.controlPanel.getInsets();
 
-            for (JBandControlPanel.ControlPanelGroup controlPanelGroup : this.controlPanel
-                    .getControlPanelGroups()) {
+            for (JBandControlPanel.ControlPanelGroup controlPanelGroup :
+                    ((JBandControlPanel) this.controlPanel).getControlPanelGroups()) {
                 boolean isCoreContent = controlPanelGroup.isCoreContent();
                 if (isCoreContent) {
                     List<JRibbonComponent> ribbonComps = controlPanelGroup.getRibbonComps();
@@ -459,8 +478,8 @@ public class CoreRibbonResizePolicies {
 
         @Override
         public void install(int availableHeight, int gap) {
-            for (JBandControlPanel.ControlPanelGroup controlPanelGroup : this.controlPanel
-                    .getControlPanelGroups()) {
+            for (JBandControlPanel.ControlPanelGroup controlPanelGroup :
+                    ((JBandControlPanel) this.controlPanel).getControlPanelGroups()) {
                 boolean isCoreContent = controlPanelGroup.isCoreContent();
                 if (isCoreContent) {
                     List<JRibbonComponent> ribbonComps = controlPanelGroup.getRibbonComps();
@@ -546,10 +565,10 @@ public class CoreRibbonResizePolicies {
         /**
          * Creates the new resize policy of type <code>NONE</code>.
          *
-         * @param controlPanel The control panel of the associated ribbon band.
+         * @param ribbonBand The associated ribbon band.
          */
-        public None(JBandControlPanel controlPanel) {
-            super(controlPanel, (RibbonElementPriority priority) -> RibbonElementPriority.TOP);
+        public None(JRibbonBand ribbonBand) {
+            super(ribbonBand, (RibbonElementPriority priority) -> RibbonElementPriority.TOP);
         }
     }
 
@@ -571,10 +590,10 @@ public class CoreRibbonResizePolicies {
         /**
          * Creates the new resize policy of type <code>LOW2MID</code>.
          *
-         * @param controlPanel The control panel of the associated ribbon band.
+         * @param ribbonBand The associated ribbon band.
          */
-        public Low2Mid(JBandControlPanel controlPanel) {
-            super(controlPanel, (RibbonElementPriority priority) -> {
+        public Low2Mid(JRibbonBand ribbonBand) {
+            super(ribbonBand, (RibbonElementPriority priority) -> {
                 switch (priority) {
                     case TOP:
                         return RibbonElementPriority.TOP;
@@ -606,10 +625,10 @@ public class CoreRibbonResizePolicies {
         /**
          * Creates the new resize policy of type <code>MID2MID</code>.
          *
-         * @param controlPanel The control panel of the associated ribbon band.
+         * @param ribbonBand The associated ribbon band.
          */
-        public Mid2Mid(JBandControlPanel controlPanel) {
-            super(controlPanel, (RibbonElementPriority priority) -> {
+        public Mid2Mid(JRibbonBand ribbonBand) {
+            super(ribbonBand, (RibbonElementPriority priority) -> {
                 switch (priority) {
                     case TOP:
                         return RibbonElementPriority.TOP;
@@ -633,10 +652,10 @@ public class CoreRibbonResizePolicies {
         /**
          * Creates the new resize policy of type <code>MIRROR</code>.
          *
-         * @param controlPanel The control panel of the associated ribbon band.
+         * @param ribbonBand The associated ribbon band.
          */
-        public Mirror(JBandControlPanel controlPanel) {
-            super(controlPanel, (RibbonElementPriority priority) -> priority);
+        public Mirror(JRibbonBand ribbonBand) {
+            super(ribbonBand, (RibbonElementPriority priority) -> priority);
         }
     }
 
@@ -658,10 +677,10 @@ public class CoreRibbonResizePolicies {
         /**
          * Creates the new resize policy of type <code>MID2LOW</code>.
          *
-         * @param controlPanel The control panel of the associated ribbon band.
+         * @param ribbonBand The associated ribbon band.
          */
-        public Mid2Low(JBandControlPanel controlPanel) {
-            super(controlPanel, (RibbonElementPriority priority) -> {
+        public Mid2Low(JRibbonBand ribbonBand) {
+            super(ribbonBand, (RibbonElementPriority priority) -> {
                 switch (priority) {
                     case TOP:
                         return RibbonElementPriority.TOP;
@@ -693,10 +712,10 @@ public class CoreRibbonResizePolicies {
         /**
          * Creates the new resize policy of type <code>HIGH2MID</code>.
          *
-         * @param controlPanel The control panel of the associated ribbon band.
+         * @param ribbonBand The associated ribbon band.
          */
-        public High2Mid(JBandControlPanel controlPanel) {
-            super(controlPanel, (RibbonElementPriority priority) -> {
+        public High2Mid(JRibbonBand ribbonBand) {
+            super(ribbonBand, (RibbonElementPriority priority) -> {
                 switch (priority) {
                     case TOP:
                         return RibbonElementPriority.MEDIUM;
@@ -720,10 +739,10 @@ public class CoreRibbonResizePolicies {
         /**
          * Creates the new resize policy of type <code>HIGH2LOW</code>.
          *
-         * @param controlPanel The control panel of the associated ribbon band.
+         * @param ribbonBand The associated ribbon band.
          */
-        public High2Low(JBandControlPanel controlPanel) {
-            super(controlPanel, (RibbonElementPriority priority) -> RibbonElementPriority.LOW);
+        public High2Low(JRibbonBand ribbonBand) {
+            super(ribbonBand, (RibbonElementPriority priority) -> RibbonElementPriority.LOW);
         }
     }
 
@@ -733,24 +752,25 @@ public class CoreRibbonResizePolicies {
      *
      * @author Kirill Grouchnikov
      */
-    public static class FlowTwoRows extends
-            BaseRibbonBandResizePolicy<JFlowBandControlPanel> {
+    public static class FlowTwoRows extends BaseRibbonBandResizePolicy<JFlowRibbonBand> {
         /**
          * Creates a new two-row resize policy for {@link JFlowRibbonBand}s.
          *
-         * @param controlPanel The control panel of the associated ribbon band.
+         * @param flowRibbonBand The associated flow ribbon band.
          */
-        public FlowTwoRows(JFlowBandControlPanel controlPanel) {
-            super(controlPanel);
+        public FlowTwoRows(JFlowRibbonBand flowRibbonBand) {
+            super(flowRibbonBand);
         }
 
         @Override
         public int getPreferredWidth(int availableHeight, int gap) {
-            int compCount = controlPanel.getFlowComponents().size();
+            JFlowBandControlPanel flowBandControlPanel =
+                    (JFlowBandControlPanel) this.controlPanel;
+            int compCount = flowBandControlPanel.getFlowComponents().size();
             int[] widths = new int[compCount];
             int index = 0;
             int currBestResult = 0;
-            for (JComponent flowComp : controlPanel.getFlowComponents()) {
+            for (JComponent flowComp : flowBandControlPanel.getFlowComponents()) {
                 int pref = flowComp.getPreferredSize().width;
                 widths[index++] = pref;
                 currBestResult += (pref + gap);
@@ -787,24 +807,25 @@ public class CoreRibbonResizePolicies {
      *
      * @author Kirill Grouchnikov
      */
-    public static class FlowThreeRows extends
-            BaseRibbonBandResizePolicy<JFlowBandControlPanel> {
+    public static class FlowThreeRows extends BaseRibbonBandResizePolicy<JFlowRibbonBand> {
         /**
          * Creates a new three-row resize policy for {@link JFlowRibbonBand}s.
          *
-         * @param controlPanel The control panel of the associated ribbon band.
+         * @param flowRibbonBand The associated flow ribbon band.
          */
-        public FlowThreeRows(JFlowBandControlPanel controlPanel) {
-            super(controlPanel);
+        public FlowThreeRows(JFlowRibbonBand flowRibbonBand) {
+            super(flowRibbonBand);
         }
 
         @Override
         public int getPreferredWidth(int availableHeight, int gap) {
-            int compCount = controlPanel.getFlowComponents().size();
+            JFlowBandControlPanel flowBandControlPanel =
+                    (JFlowBandControlPanel) this.controlPanel;
+            int compCount = flowBandControlPanel.getFlowComponents().size();
             int[] widths = new int[compCount];
             int index = 0;
             int currBestResult = 0;
-            for (JComponent flowComp : controlPanel.getFlowComponents()) {
+            for (JComponent flowComp : flowBandControlPanel.getFlowComponents()) {
                 int pref = flowComp.getPreferredSize().width;
                 widths[index++] = pref;
                 currBestResult += (pref + gap);
@@ -858,13 +879,47 @@ public class CoreRibbonResizePolicies {
             JFlowRibbonBand ribbonBand, int stepsToRepeat) {
         List<RibbonBandResizePolicy> result = new ArrayList<>();
         for (int i = 0; i < stepsToRepeat; i++) {
-            result.add(new FlowTwoRows(ribbonBand.getControlPanel()));
+            result.add(new FlowTwoRows(ribbonBand));
         }
         for (int i = 0; i < stepsToRepeat; i++) {
-            result.add(new FlowThreeRows(ribbonBand.getControlPanel()));
+            result.add(new FlowThreeRows(ribbonBand));
         }
-        result.add(new IconRibbonBandResizePolicy(ribbonBand.getControlPanel()));
+        result.add(new IconRibbonBandResizePolicy(ribbonBand));
         return result;
     }
 
+    /**
+     * Special resize policy that is used for collapsed ribbon bands. When there is
+     * not enough horizontal space to show the ribbon band content under the most
+     * restrictive {@link RibbonBandResizePolicy}, the entire ribbon band content is
+     * replaced by a single popup button. Activating the popup button will show a popup
+     * with the original content under the most permissive resize policy.
+     *
+     * <p>
+     * An instance of this policy <strong>must</strong> appear exactly once in the
+     * list passed to {@link AbstractRibbonBand#setResizePolicies(java.util.List)},
+     * and it <strong>must</strong> be the last entry in that list.
+     * </p>
+     */
+    public static class IconRibbonBandResizePolicy extends
+            BaseRibbonBandResizePolicy<AbstractRibbonBand> {
+        /**
+         * Creates a new collapsed resize policy.
+         *
+         * @param ribbonBand The associated ribbon band.
+         */
+        public IconRibbonBandResizePolicy(AbstractRibbonBand ribbonBand) {
+            super(ribbonBand);
+        }
+
+        @Override
+        public int getPreferredWidth(int availableHeight, int gap) {
+            RibbonBandUI ui = this.ribbonBand.getUI();
+            return ui.getPreferredCollapsedWidth();
+        }
+
+        @Override
+        public void install(int availableHeight, int gap) {
+        }
+    }
 }

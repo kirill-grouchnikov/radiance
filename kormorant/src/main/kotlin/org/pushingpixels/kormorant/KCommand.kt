@@ -54,21 +54,21 @@ open class KCommand {
     private lateinit var button: AbstractCommandButton
     private var hasBeenConverted: Boolean = false
 
-    var title: String? by NullableDelegate({ hasBeenConverted })
-    var icon: ResizableIcon? by NullableDelegate({ hasBeenConverted })
-    var disabledIcon: ResizableIcon? by NullableDelegate({ hasBeenConverted })
-    var extraText: String? by NullableDelegate({ hasBeenConverted })
-    var action: ActionListener? by NullableDelegate({ hasBeenConverted })
-    var actionModelChangeListener: ActionModelChangeInterface? by NullableDelegate({ hasBeenConverted })
-    private var actionRichTooltip: KRichTooltip? by NullableDelegate({ hasBeenConverted })
-    var actionKeyTip: String? by NullableDelegate({ hasBeenConverted })
-    var popupCallback: PopupPanelCallback? by NullableDelegate({ hasBeenConverted })
-    var popupModelChangeListener: PopupModelChangeInterface? by NullableDelegate({ hasBeenConverted })
-    private var popupRichTooltip: KRichTooltip? by NullableDelegate({ hasBeenConverted })
-    var popupOrientationKind: CommandButtonPopupOrientationKind? by NullableDelegate({ hasBeenConverted })
-    var popupKeyTip: String? by NullableDelegate({ hasBeenConverted })
-    var isTitleClickAction: Boolean by NonNullDelegate({ hasBeenConverted })
-    var isTitleClickPopup: Boolean by NonNullDelegate({ hasBeenConverted })
+    var title: String? by NullableDelegate { hasBeenConverted }
+    var icon: ResizableIcon? by NullableDelegate { hasBeenConverted }
+    var disabledIcon: ResizableIcon? by NullableDelegate { hasBeenConverted }
+    var extraText: String? by NullableDelegate { hasBeenConverted }
+    var action: ActionListener? by NullableDelegate { hasBeenConverted }
+    var actionModelChangeListener: ActionModelChangeInterface? by NullableDelegate { hasBeenConverted }
+    private var actionRichTooltip: KRichTooltip? by NullableDelegate { hasBeenConverted }
+    var actionKeyTip: String? by NullableDelegate { hasBeenConverted }
+    var popupCallback: PopupPanelCallback? by NullableDelegate { hasBeenConverted }
+    var popupModelChangeListener: PopupModelChangeInterface? by NullableDelegate { hasBeenConverted }
+    private var popupRichTooltip: KRichTooltip? by NullableDelegate { hasBeenConverted }
+    var popupOrientationKind: CommandButtonPopupOrientationKind? by NullableDelegate { hasBeenConverted }
+    var popupKeyTip: String? by NullableDelegate { hasBeenConverted }
+    var isTitleClickAction: Boolean by NonNullDelegate { hasBeenConverted }
+    var isTitleClickPopup: Boolean by NonNullDelegate { hasBeenConverted }
 
     // This is the only property that can be modified after a button has been
     // created from this command. The setter propagates the new value to the underlying
@@ -84,13 +84,13 @@ open class KCommand {
             }
         }
 
-    var isToggle: Boolean by NonNullDelegate({ hasBeenConverted })
-    var isToggleSelected: Boolean by NonNullDelegate({ hasBeenConverted })
-    var toggleGroup: KCommandToggleGroup? by NullableDelegate({ hasBeenConverted })
-    var isAutoRepeatAction: Boolean by NonNullDelegate({ hasBeenConverted })
-    var autoRepeatInitialInterval: Int by NonNullDelegate({ hasBeenConverted })
-    var autoRepeatSubsequentInterval: Int by NonNullDelegate({ hasBeenConverted })
-    var isFireActionOnRollover: Boolean by NonNullDelegate({ hasBeenConverted })
+    var isToggle: Boolean by NonNullDelegate { hasBeenConverted }
+    var isToggleSelected: Boolean by NonNullDelegate { hasBeenConverted }
+    var toggleGroup: KCommandToggleGroup? by NullableDelegate { hasBeenConverted }
+    var isAutoRepeatAction: Boolean by NonNullDelegate { hasBeenConverted }
+    var autoRepeatInitialInterval: Int by NonNullDelegate { hasBeenConverted }
+    var autoRepeatSubsequentInterval: Int by NonNullDelegate { hasBeenConverted }
+    var isFireActionOnRollover: Boolean by NonNullDelegate { hasBeenConverted }
 
     init {
         isTitleClickAction = false

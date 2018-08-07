@@ -136,7 +136,7 @@ public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPan
 				// panel of a collapsed ribbon band
 				resizePolicies.get(0).install(availableHeight, gap);
 			} else {
-				if (currentResizePolicy instanceof IconRibbonBandResizePolicy) {
+				if (currentResizePolicy instanceof CoreRibbonResizePolicies.IconRibbonBandResizePolicy) {
 					return;
 				}
 

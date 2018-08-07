@@ -228,7 +228,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                 List<RibbonBandResizePolicy> resizePolicies = ribbonBand.getResizePolicies();
                 resizePolicies.get(0).install(availableHeight, gap);
             } else {
-                if (currentResizePolicy instanceof IconRibbonBandResizePolicy) {
+                if (currentResizePolicy instanceof CoreRibbonResizePolicies.IconRibbonBandResizePolicy) {
                     return;
                 }
 

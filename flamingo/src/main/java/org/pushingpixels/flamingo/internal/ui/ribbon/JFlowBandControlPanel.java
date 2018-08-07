@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceFlowBandControlPanelUI;
 
 import javax.swing.*;
@@ -37,13 +36,12 @@ import javax.swing.plaf.UIResource;
 import java.util.*;
 
 /**
- * Control panel of a single {@link JRibbonBand}. This class is for internal use
- * only and should not be directly used by the applications.
+ * Control panel of a single {@link org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand}. This
+ * class is for internal use only and should not be directly used by the applications.
  *
  * @author Kirill Grouchnikov
  */
-public class JFlowBandControlPanel extends AbstractBandControlPanel implements
-        UIResource {
+public class JFlowBandControlPanel extends AbstractBandControlPanel implements UIResource {
     /**
      * List of all components of <code>this</code> control panel.
      */
@@ -56,13 +54,11 @@ public class JFlowBandControlPanel extends AbstractBandControlPanel implements
 
     /**
      * Creates a control panel for specified ribbon band.
-     *
-     * @param ribbonBand Ribbon band.
      */
     public JFlowBandControlPanel() {
         super();
 
-        this.comps = new LinkedList<JComponent>();
+        this.comps = new LinkedList<>();
     }
 
     /**
@@ -74,31 +70,16 @@ public class JFlowBandControlPanel extends AbstractBandControlPanel implements
         super.setUI(ui);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JPanel#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(new SubstanceFlowBandControlPanelUI());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JPanel#getUI()
-     */
     @Override
     public BandControlPanelUI getUI() {
         return (BandControlPanelUI) ui;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JPanel#getUIClassID()
-     */
     @Override
     public String getUIClassID() {
         return uiClassID;

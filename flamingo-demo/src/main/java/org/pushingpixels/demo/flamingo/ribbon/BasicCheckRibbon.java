@@ -201,9 +201,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setActionKeyTip("NC").build(), RibbonElementPriority.MEDIUM);
 
         List<RibbonBandResizePolicy> resizePolicies = new ArrayList<RibbonBandResizePolicy>();
-        resizePolicies.add(new CoreRibbonResizePolicies.Mirror(actionBand.getControlPanel()));
-        resizePolicies.add(new CoreRibbonResizePolicies.Mid2Low(actionBand.getControlPanel()));
-        resizePolicies.add(new IconRibbonBandResizePolicy(actionBand.getControlPanel()));
+        resizePolicies.add(new CoreRibbonResizePolicies.Mirror(actionBand));
+        resizePolicies.add(new CoreRibbonResizePolicies.Mid2Low(actionBand));
+        resizePolicies.add(new CoreRibbonResizePolicies.IconRibbonBandResizePolicy(actionBand));
         actionBand.setResizePolicies(resizePolicies);
 
         return actionBand;
@@ -591,8 +591,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setPopupKeyTip("FP").build(), RibbonElementPriority.MEDIUM);
 
         List<RibbonBandResizePolicy> resizePolicies = new ArrayList<>();
-        resizePolicies.add(new CoreRibbonResizePolicies.Mirror(clipboardBand.getControlPanel()));
-        resizePolicies.add(new CoreRibbonResizePolicies.Mid2Low(clipboardBand.getControlPanel()));
+        resizePolicies.add(new CoreRibbonResizePolicies.Mirror(clipboardBand));
+        resizePolicies.add(new CoreRibbonResizePolicies.Mid2Low(clipboardBand));
         clipboardBand.setResizePolicies(resizePolicies);
 
         return clipboardBand;
@@ -629,8 +629,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 RibbonElementPriority.MEDIUM);
 
         List<RibbonBandResizePolicy> resizePolicies = new ArrayList<>();
-        resizePolicies.add(new CoreRibbonResizePolicies.Mirror(findBand.getControlPanel()));
-        resizePolicies.add(new IconRibbonBandResizePolicy(findBand.getControlPanel()));
+        resizePolicies.add(new CoreRibbonResizePolicies.Mirror(findBand));
+        resizePolicies.add(new CoreRibbonResizePolicies.IconRibbonBandResizePolicy(findBand));
         findBand.setResizePolicies(resizePolicies);
 
         return findBand;

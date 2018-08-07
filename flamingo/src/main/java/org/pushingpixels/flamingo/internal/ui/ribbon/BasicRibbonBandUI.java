@@ -419,7 +419,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             int availableHeight = c.getHeight() - extraTop - ins.top - ins.bottom;
             RibbonBandResizePolicy resizePolicy = ((AbstractRibbonBand) c).getCurrentResizePolicy();
 
-            if (resizePolicy instanceof IconRibbonBandResizePolicy) {
+            if (resizePolicy instanceof CoreRibbonResizePolicies.IconRibbonBandResizePolicy) {
                 collapsedButton.setVisible(true);
                 int collapsedButtonWidth = c.getWidth() - ins.left - ins.right - 2;
                 collapsedButton.setBounds((c.getWidth() - collapsedButtonWidth) / 2,
@@ -577,7 +577,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         this.paintBandTrailingSeparator(graphics,
                 new Rectangle(0, 0, c.getWidth(), c.getHeight()));
 
-        if (!(ribbonBand.getCurrentResizePolicy() instanceof IconRibbonBandResizePolicy)) {
+        if (!(ribbonBand.getCurrentResizePolicy() instanceof CoreRibbonResizePolicies.IconRibbonBandResizePolicy)) {
             String title = ribbonBand.getTitle();
             int titleHeight = getBandTitleHeight();
 

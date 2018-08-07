@@ -60,12 +60,9 @@ import java.util.*;
  * <li>Associating key tip with the collapsed button of the ribbon band.</li>
  * </ul>
  *
- * @param <T> Class parameter that specifies the type of band control panel
- *            implementation.
  * @author Kirill Grouchnikov
  */
-public abstract class AbstractRibbonBand<T extends AbstractBandControlPanel>
-        extends JComponent {
+public abstract class AbstractRibbonBand extends JComponent {
     /**
      * The UI class ID string.
      */
@@ -74,7 +71,7 @@ public abstract class AbstractRibbonBand<T extends AbstractBandControlPanel>
     /**
      * The ribbon task of this ribbon band.
      */
-    RibbonTask ribbonTask;
+    private RibbonTask ribbonTask;
 
     /**
      * Band title.
@@ -106,7 +103,7 @@ public abstract class AbstractRibbonBand<T extends AbstractBandControlPanel>
      * @see #popupRibbonBand
      * @see #icon
      */
-    protected T controlPanel;
+    private AbstractBandControlPanel controlPanel;
 
     /**
      * Ribbon band shown in a popup panel when this ribbon band is in a
@@ -185,7 +182,7 @@ public abstract class AbstractRibbonBand<T extends AbstractBandControlPanel>
      * @param controlPanel         The control panel of this ribbon band.
      */
     public AbstractRibbonBand(String title, ResizableIcon icon,
-            ActionListener expandActionListener, T controlPanel) {
+            ActionListener expandActionListener, AbstractBandControlPanel controlPanel) {
         super();
         this.title = title;
         this.icon = icon;
@@ -203,7 +200,7 @@ public abstract class AbstractRibbonBand<T extends AbstractBandControlPanel>
      *
      * @return A clone of this ribbon band.
      */
-    public abstract AbstractRibbonBand<T> cloneBand();
+    public abstract AbstractRibbonBand cloneBand();
 
     /**
      * Returns the UI object which implements the L&F for this component.
@@ -224,21 +221,11 @@ public abstract class AbstractRibbonBand<T extends AbstractBandControlPanel>
         super.setUI(ui);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JComponent#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(new SubstanceRibbonBandUI());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JComponent#getUIClassID()
-     */
     @Override
     public String getUIClassID() {
         return uiClassID;
@@ -317,7 +304,7 @@ public abstract class AbstractRibbonBand<T extends AbstractBandControlPanel>
      * AbstractBandControlPanel)
      * @see #setControlPanel(AbstractBandControlPanel)
      */
-    public T getControlPanel() {
+    public AbstractBandControlPanel getControlPanel() {
         return this.controlPanel;
     }
 
@@ -331,13 +318,12 @@ public abstract class AbstractRibbonBand<T extends AbstractBandControlPanel>
      * AbstractBandControlPanel)
      * @see #getControlPanel()
      */
-    public void setControlPanel(T controlPanel) {
+    public void setControlPanel(AbstractBandControlPanel controlPanel) {
         if (controlPanel == null) {
             this.remove(this.controlPanel);
         } else {
             this.add(controlPanel);
-            controlPanel.applyComponentOrientation(this
-                    .getComponentOrientation());
+            controlPanel.applyComponentOrientation(this.getComponentOrientation());
         }
         this.controlPanel = controlPanel;
     }
@@ -366,8 +352,7 @@ public abstract class AbstractRibbonBand<T extends AbstractBandControlPanel>
     public void setPopupRibbonBand(AbstractRibbonBand popupRibbonBand) {
         this.popupRibbonBand = popupRibbonBand;
         if (this.popupRibbonBand != null) {
-            popupRibbonBand.applyComponentOrientation(this
-                    .getComponentOrientation());
+            popupRibbonBand.applyComponentOrientation(this.getComponentOrientation());
         }
     }
 
@@ -411,7 +396,8 @@ public abstract class AbstractRibbonBand<T extends AbstractBandControlPanel>
      * returns the largest value from its
      * {@link RibbonBandResizePolicy#getPreferredWidth(int, int)}. Each
      * successive entry in the list must return the value smaller than its
-     * predecessors. If {@link IconRibbonBandResizePolicy} is in the list, it
+     * predecessors. If
+     * {@link org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.IconRibbonBandResizePolicy} is in the list, it
      * <strong>must</strong> be the last entry.
      *
      * @param resizePolicies The new available resize policies of this ribbon band.
@@ -443,8 +429,7 @@ public abstract class AbstractRibbonBand<T extends AbstractBandControlPanel>
     public void setExpandButtonKeyTip(String expandButtonKeyTip) {
         String old = this.expandButtonKeyTip;
         this.expandButtonKeyTip = expandButtonKeyTip;
-        this.firePropertyChange("expandButtonKeyTip", old,
-                this.expandButtonKeyTip);
+        this.firePropertyChange("expandButtonKeyTip", old, this.expandButtonKeyTip);
     }
 
     /**
@@ -468,8 +453,7 @@ public abstract class AbstractRibbonBand<T extends AbstractBandControlPanel>
     public void setExpandButtonRichTooltip(RichTooltip expandButtonRichTooltip) {
         RichTooltip old = this.expandButtonRichTooltip;
         this.expandButtonRichTooltip = expandButtonRichTooltip;
-        this.firePropertyChange("expandButtonRichTooltip", old,
-                this.expandButtonRichTooltip);
+        this.firePropertyChange("expandButtonRichTooltip", old, this.expandButtonRichTooltip);
     }
 
     /**
@@ -496,8 +480,7 @@ public abstract class AbstractRibbonBand<T extends AbstractBandControlPanel>
     public void setCollapsedStateKeyTip(String collapsedStateKeyTip) {
         String old = this.collapsedStateKeyTip;
         this.collapsedStateKeyTip = collapsedStateKeyTip;
-        this.firePropertyChange("collapsedStateKeyTip", old,
-                this.collapsedStateKeyTip);
+        this.firePropertyChange("collapsedStateKeyTip", old, this.collapsedStateKeyTip);
     }
 
     /**

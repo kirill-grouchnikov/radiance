@@ -36,9 +36,9 @@ import org.pushingpixels.kormorant.NullableDelegate
 
 @FlamingoElementMarker
 class KRibbonTaskBandContainer {
-    internal val bands = arrayListOf<KBaseRibbonBand<*, *>>()
+    internal val bands = arrayListOf<KBaseRibbonBand<*>>()
 
-    operator fun KBaseRibbonBand<*, *>.unaryPlus() {
+    operator fun KBaseRibbonBand<*>.unaryPlus() {
         this@KRibbonTaskBandContainer.bands.add(this)
     }
 }
@@ -48,11 +48,11 @@ class KRibbonTask {
     private lateinit var ribbonTask: RibbonTask
     private var hasBeenConverted: Boolean = false
 
-    var title: String? by NullableDelegate({ hasBeenConverted })
-    var keyTip: String? by NullableDelegate({ hasBeenConverted })
+    var title: String? by NullableDelegate { hasBeenConverted }
+    var keyTip: String? by NullableDelegate { hasBeenConverted }
     private val bands = KRibbonTaskBandContainer()
     var bandResizeSequencingPolicySource: ((task: RibbonTask) -> RibbonBandResizeSequencingPolicy)?
-            by NullableDelegate({ hasBeenConverted })
+            by NullableDelegate { hasBeenConverted }
 
     fun bands(init: KRibbonTaskBandContainer.() -> Unit) {
         bands.init()

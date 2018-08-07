@@ -29,22 +29,24 @@
  */
 package org.pushingpixels.demo.kormorant.bcb
 
+import kotlinx.coroutines.experimental.future.await
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.swing.Swing
 import org.pushingpixels.demo.flamingo.ExplorerFileViewPanel
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
-import org.pushingpixels.flamingo.api.common.StringValuePair
 import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.BorderLayout
 import java.awt.FlowLayout
-import java.io.File
+import java.util.concurrent.CompletableFuture
 import javax.swing.*
 
 fun main(args: Array<String>) {
-    SwingUtilities.invokeLater {
+    launch(Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
@@ -56,30 +58,19 @@ fun main(args: Array<String>) {
         // Configure the breadcrumb bar to update the file panel every time
         // the path changes
         bar.model.addPathListener {
-            SwingUtilities.invokeLater {
+            launch(Swing) {
                 val newPath = bar.model.items
                 println("New path is ")
                 for (item in newPath) {
                     println("\t" + item.data.absolutePath)
                 }
 
-                if (newPath.size > 0) {
-                    object : SwingWorker<List<StringValuePair<File>>, Void>() {
-                        @Throws(Exception::class)
-                        override fun doInBackground(): List<StringValuePair<File>>? {
-                            return bar.callback.getLeafs(newPath)
-                        }
-
-                        override fun done() {
-                            try {
-                                val leafs = get()
-                                filePanel.setFolder(leafs)
-                            } catch (exc: Exception) {
-                            }
-
-                        }
-                    }.execute()
-                }
+                // Use the Kotlin co-routines (experimental) to kick off the
+                // loading of the path leaf content off the UI thread and then
+                // pipe it back to the UI thread in setFolder call.
+                filePanel.setFolder(CompletableFuture.supplyAsync {
+                    bar.callback.getLeafs(newPath)
+                }.await())
             }
         }
 
@@ -93,7 +84,7 @@ fun main(args: Array<String>) {
         val controls = JPanel(FlowLayout(FlowLayout.RIGHT))
         val setPath = JButton("Select and set path...")
         setPath.addActionListener {
-            SwingUtilities.invokeLater {
+            launch(Swing) {
                 val folderChooser = JFileChooser()
                 folderChooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
                 if (folderChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
@@ -103,6 +94,7 @@ fun main(args: Array<String>) {
             }
         }
         controls.add(setPath)
+
         frame.add(controls, BorderLayout.SOUTH)
 
         frame.iconImage = RadianceLogo.getLogoImage(

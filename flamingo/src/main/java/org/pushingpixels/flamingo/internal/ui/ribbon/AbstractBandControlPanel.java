@@ -43,9 +43,6 @@ import javax.swing.plaf.UIResource;
 public class AbstractBandControlPanel extends JPanel implements UIResource {
 	private AbstractRibbonBand ribbonBand;
 
-	public AbstractBandControlPanel() {
-	}
-
 	@Override
 	public BandControlPanelUI getUI() {
 		return (BandControlPanelUI) ui;

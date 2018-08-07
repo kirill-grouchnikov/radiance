@@ -413,7 +413,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             if (!isRibbonMinimized) {
                 if (ribbon.getTaskCount() > 0) {
                     RibbonTask selectedTask = ribbon.getSelectedTask();
-                    for (AbstractRibbonBand<?> ribbonBand : selectedTask.getBands()) {
+                    for (AbstractRibbonBand ribbonBand : selectedTask.getBands()) {
                         int bandPrefHeight = ribbonBand.getPreferredSize().height;
                         Insets bandInsets = ribbonBand.getInsets();
                         maxPrefBandHeight = Math.max(maxPrefBandHeight,
@@ -657,7 +657,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int maxPrefBandHeight = 0;
             if (ribbon.getTaskCount() > 0) {
                 RibbonTask selectedTask = ribbon.getSelectedTask();
-                for (AbstractRibbonBand<?> ribbonBand : selectedTask.getBands()) {
+                for (AbstractRibbonBand ribbonBand : selectedTask.getBands()) {
                     int bandPrefHeight = ribbonBand.getPreferredSize().height;
                     Insets bandInsets = ribbonBand.getInsets();
                     maxPrefBandHeight = Math.max(maxPrefBandHeight,
@@ -730,12 +730,12 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 return;
 
             // check that the resize policies are still consistent
-            for (AbstractRibbonBand<?> band : selectedTask.getBands()) {
+            for (AbstractRibbonBand band : selectedTask.getBands()) {
                 FlamingoUtilities.checkResizePoliciesConsistency(band);
             }
 
             // start with the most "permissive" resize policy for each band
-            for (AbstractRibbonBand<?> band : selectedTask.getBands()) {
+            for (AbstractRibbonBand band : selectedTask.getBands()) {
                 List<RibbonBandResizePolicy> policies = band.getResizePolicies();
                 RibbonBandResizePolicy last = policies.get(0);
                 band.setCurrentResizePolicy(last);
@@ -747,12 +747,12 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 RibbonBandResizeSequencingPolicy resizeSequencingPolicy = selectedTask
                         .getResizeSequencingPolicy();
                 resizeSequencingPolicy.reset();
-                AbstractRibbonBand<?> currToTakeFrom = resizeSequencingPolicy.next();
+                AbstractRibbonBand currToTakeFrom = resizeSequencingPolicy.next();
                 while (true) {
                     // check whether all bands have the current resize
                     // policy as their last (most restrictive) registered policy
                     boolean noMore = true;
-                    for (AbstractRibbonBand<?> band : selectedTask.getBands()) {
+                    for (AbstractRibbonBand band : selectedTask.getBands()) {
                         RibbonBandResizePolicy currentResizePolicy = band.getCurrentResizePolicy();
                         List<RibbonBandResizePolicy> resizePolicies = band.getResizePolicies();
                         if (currentResizePolicy != resizePolicies.get(resizePolicies.size() - 1)) {
@@ -766,7 +766,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     // get the current preferred width of the bands
                     int totalWidth = 0;
                     // System.out.println("Iteration");
-                    for (AbstractRibbonBand<?> ribbonBand : selectedTask.getBands()) {
+                    for (AbstractRibbonBand ribbonBand : selectedTask.getBands()) {
                         RibbonBandResizePolicy currentResizePolicy = ribbonBand
                                 .getCurrentResizePolicy();
 
@@ -818,7 +818,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             boolean ltr = ribbon.getComponentOrientation().isLeftToRight();
             x = ltr ? 1 : c.getWidth() - 1;
             // System.out.println("Will get [" + availableWidth + "]:");
-            for (AbstractRibbonBand<?> ribbonBand : selectedTask.getBands()) {
+            for (AbstractRibbonBand ribbonBand : selectedTask.getBands()) {
                 Insets ribbonBandInsets = ribbonBand.getInsets();
                 RibbonBandResizePolicy currentResizePolicy = ribbonBand.getCurrentResizePolicy();
                 AbstractBandControlPanel controlPanel = ribbonBand.getControlPanel();

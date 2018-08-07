@@ -119,13 +119,13 @@ public class FlamingoUtilities {
             throw new IllegalStateException("Must have at least one resize policy");
         }
         if ((resizePolicies.size() == 1)
-                && (resizePolicies.get(0) instanceof IconRibbonBandResizePolicy)) {
+                && (resizePolicies.get(0) instanceof CoreRibbonResizePolicies.IconRibbonBandResizePolicy)) {
             throw new IllegalStateException(
                     "When icon resize policy is present, must have at least one another resize policy.");
         }
         for (int i = 0; i < resizePolicies.size(); i++) {
             RibbonBandResizePolicy policy = resizePolicies.get(i);
-            boolean isIcon = policy instanceof IconRibbonBandResizePolicy;
+            boolean isIcon = policy instanceof CoreRibbonResizePolicies.IconRibbonBandResizePolicy;
             if (isIcon && (i < (resizePolicies.size() - 1))) {
                 throw new IllegalStateException("Icon resize policy must be the last in the list");
             }
