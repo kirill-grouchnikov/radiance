@@ -66,21 +66,11 @@ public class JRibbonTaskToggleButton extends JCommandToggleButton {
         super(ribbonTask.getTitle());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JToggleButton#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(new SubstanceRibbonTaskToggleButtonUI());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JToggleButton#getUIClassID()
-     */
     @Override
     public String getUIClassID() {
         return uiClassID;

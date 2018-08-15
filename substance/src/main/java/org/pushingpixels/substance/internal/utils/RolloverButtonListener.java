@@ -74,11 +74,6 @@ public class RolloverButtonListener extends BasicButtonListener {
 		this.stateTransitionTracker = stateTransitionTracker;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
-	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		this.stateTransitionTracker.turnOffModelChangeTracking();
@@ -94,11 +89,6 @@ public class RolloverButtonListener extends BasicButtonListener {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
-	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
 		this.stateTransitionTracker.turnOffModelChangeTracking();
@@ -111,12 +101,6 @@ public class RolloverButtonListener extends BasicButtonListener {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
-	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		this.stateTransitionTracker.turnOffModelChangeTracking();
@@ -131,13 +115,6 @@ public class RolloverButtonListener extends BasicButtonListener {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.basic.BasicButtonListener#mouseMoved(java.awt.event.
-	 * MouseEvent)
-	 */
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		this.stateTransitionTracker.turnOffModelChangeTracking();
@@ -152,13 +129,6 @@ public class RolloverButtonListener extends BasicButtonListener {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.basic.BasicButtonListener#focusGained(java.awt.event
-	 * .FocusEvent)
-	 */
 	@Override
 	public void focusGained(FocusEvent e) {
 		this.stateTransitionTracker.turnOffModelChangeTracking();
@@ -184,12 +154,6 @@ public class RolloverButtonListener extends BasicButtonListener {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seejavax.swing.plaf.basic.BasicButtonListener#focusLost(java.awt.event.
-	 * FocusEvent)
-	 */
 	@Override
 	public void focusLost(FocusEvent e) {
 		this.stateTransitionTracker.turnOffModelChangeTracking();

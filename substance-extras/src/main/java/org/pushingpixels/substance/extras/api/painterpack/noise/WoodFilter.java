@@ -58,12 +58,7 @@ public class WoodFilter implements NoiseFilter {
 		this.factor = factor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.painter.noise.NoiseFilter#apply(double, double,
-	 * double, double)
-	 */
+	@Override
 	public double apply(double x, double y, double z, double origValue) {
 		return this.factor * origValue - (int) (this.factor * origValue);
 	}

@@ -56,36 +56,37 @@ public class FileExplorerStates extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(bar, BorderLayout.NORTH);
 
-        this.filePanel = new ExplorerFileViewPanel<File>(bar, CommandButtonDisplayState.BIG, null);
+        this.filePanel = new ExplorerFileViewPanel<>(bar, CommandButtonDisplayState.BIG);
         JScrollPane fileListScrollPane = new JScrollPane(this.filePanel);
 
         this.bar.getModel()
-                .addPathListener((BreadcrumbPathEvent event) -> SwingUtilities.invokeLater(() -> {
-                    final List<BreadcrumbItem<File>> newPath = bar.getModel().getItems();
-                    if (newPath.size() > 0) {
-                        SwingWorker<List<StringValuePair<File>>, Void> worker = new
-                                SwingWorker<List<StringValuePair<File>>, Void>() {
-                                    @Override
-                                    protected List<StringValuePair<File>> doInBackground()
-                                            throws Exception {
-                                        return bar.getCallback().getLeafs(newPath);
-                                    }
+                .addPathListener(
+                        (BreadcrumbPathEvent<File> event) -> SwingUtilities.invokeLater(() -> {
+                            final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
+                            if (newPath.size() > 0) {
+                                SwingWorker<List<StringValuePair<File>>, Void> worker = new
+                                        SwingWorker<List<StringValuePair<File>>, Void>() {
+                                            @Override
+                                            protected List<StringValuePair<File>> doInBackground()
+                                                    throws Exception {
+                                                return bar.getCallback().getLeafs(newPath);
+                                            }
 
-                                    @Override
-                                    protected void done() {
-                                        try {
-                                            filePanel.setFolder(get());
-                                        } catch (Exception exc) {
-                                        }
-                                    }
-                                };
-                        worker.execute();
-                    }
-                }));
+                                            @Override
+                                            protected void done() {
+                                                try {
+                                                    filePanel.setFolder(get());
+                                                } catch (Exception exc) {
+                                                }
+                                            }
+                                        };
+                                worker.execute();
+                            }
+                        }));
 
-        final JComboBox states = new JComboBox(new DefaultComboBoxModel(new Object[]{
+        final JComboBox states = new JComboBox(new DefaultComboBoxModel(new Object[] {
                 CommandButtonDisplayState.BIG, CommandButtonDisplayState.TILE,
-                CommandButtonDisplayState.MEDIUM, CommandButtonDisplayState.SMALL}));
+                CommandButtonDisplayState.MEDIUM, CommandButtonDisplayState.SMALL }));
         states.addItemListener((ItemEvent e) -> {
             CommandButtonDisplayState selected = (CommandButtonDisplayState) states
                     .getSelectedItem();

@@ -75,11 +75,6 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      */
     protected static final Insets GROUP_INSETS = new Insets(4, 4, 4, 4);
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-     */
     @Override
     public void installUI(JComponent c) {
         this.buttonPanel = (JCommandButtonPanel) c;
@@ -146,11 +141,6 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         this.buttonPanel.addChangeListener(this.changeListener);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-     */
     @Override
     public void uninstallUI(JComponent c) {
         c.setLayout(null);
@@ -204,11 +194,6 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             return new ColumnFillLayout();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void paint(Graphics g, JComponent c) {
         Color bg = this.buttonPanel.getBackground();
@@ -278,27 +263,15 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      * @author Kirill Grouchnikov
      */
     protected class RowFillLayout implements LayoutManager {
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component comp) {
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component comp) {
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container parent) {
             Insets bInsets = parent.getInsets();
             Insets groupInsets = getGroupInsets();
@@ -408,20 +381,12 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             }
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container parent) {
             return new Dimension(20, 20);
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container parent) {
             JCommandButtonPanel panel = (JCommandButtonPanel) parent;
 
@@ -484,27 +449,15 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      * @author Kirill Grouchnikov
      */
     protected class ColumnFillLayout implements LayoutManager {
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component comp) {
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component comp) {
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container parent) {
             Insets bInsets = parent.getInsets();
             Insets groupInsets = getGroupInsets();
@@ -606,20 +559,12 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             }
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container parent) {
             return new Dimension(20, 20);
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container parent) {
             JCommandButtonPanel panel = (JCommandButtonPanel) parent;
 

@@ -252,13 +252,7 @@ public class TabOverviewDialog extends JDialog {
 
             // this.previewControls = new HashSet<Component>();
             TabPreviewThread.TabPreviewCallback previewCallback = new TabPreviewThread.TabPreviewCallback() {
-                /*
-                 * (non-Javadoc)
-                 * 
-                 * @seeorg.pushingpixels.lafwidget.tabbed.TabPreviewThread.
-                 * TabPreviewCallback#start(javax.swing.JTabbedPane, int, org.pushingpixels
-                 * .lafwidget.tabbed.TabPreviewThread.TabPreviewInfo)
-                 */
+                @Override
                 public void start(JTabbedPane tabPane, int tabCount,
                         TabPreviewInfo tabPreviewInfo) {
                     // Check if need to reallocate the preview controls.
@@ -319,13 +313,7 @@ public class TabOverviewDialog extends JDialog {
                     // repaint();
                 }
 
-                /*
-                 * (non-Javadoc)
-                 * 
-                 * @seeorg.pushingpixels.lafwidget.tabbed.TabPreviewThread.
-                 * TabPreviewCallback#offer(javax.swing.JTabbedPane, int,
-                 * java.awt.image.BufferedImage)
-                 */
+                @Override
                 public void offer(JTabbedPane tabPane, int tabIndex, BufferedImage componentSnap) {
                     int width = componentSnap.getWidth() + 4;
                     int height = componentSnap.getHeight() + 4;
@@ -480,13 +468,7 @@ public class TabOverviewDialog extends JDialog {
 
             // this.previewControls = new HashSet<Component>();
             TabPreviewThread.TabPreviewCallback previewCallback = new TabPreviewThread.TabPreviewCallback() {
-                /*
-                 * (non-Javadoc)
-                 * 
-                 * @seeorg.pushingpixels.lafwidget.tabbed.TabPreviewThread.
-                 * TabPreviewCallback#start(javax.swing.JTabbedPane, int, org.pushingpixels
-                 * .lafwidget.tabbed.TabPreviewThread.TabPreviewInfo)
-                 */
+                @Override
                 public void start(JTabbedPane tabPane, int tabCount,
                         TabPreviewInfo tabPreviewInfo) {
                     // Check if need to reallocate the preview controls.
@@ -547,13 +529,7 @@ public class TabOverviewDialog extends JDialog {
                     // repaint();
                 }
 
-                /*
-                 * (non-Javadoc)
-                 * 
-                 * @seeorg.pushingpixels.lafwidget.tabbed.TabPreviewThread.
-                 * TabPreviewCallback#offer(javax.swing.JTabbedPane, int,
-                 * java.awt.image.BufferedImage)
-                 */
+                @Override
                 public void offer(JTabbedPane tabPane, int tabIndex, BufferedImage componentSnap) {
                     int width = componentSnap.getWidth() + 4;
                     int height = componentSnap.getHeight() + 4;
@@ -606,11 +582,6 @@ public class TabOverviewDialog extends JDialog {
             TabPreviewThread.getInstance().queueTabPreviewRequest(previewInfo);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.JPanel#updateUI()
-         */
         @Override
         public void updateUI() {
             super.updateUI();
@@ -680,13 +651,7 @@ public class TabOverviewDialog extends JDialog {
             // int tabCount = TabOverviewDialog.this.tabPane.getTabCount();
 
             TabPreviewThread.TabPreviewCallback previewCallback = new TabPreviewThread.TabPreviewCallback() {
-                /*
-                 * (non-Javadoc)
-                 * 
-                 * @seeorg.pushingpixels.lafwidget.tabbed.TabPreviewThread.
-                 * TabPreviewCallback#start(javax.swing.JTabbedPane, int, org.pushingpixels
-                 * .lafwidget.tabbed.TabPreviewThread.TabPreviewInfo)
-                 */
+                @Override
                 public void start(JTabbedPane tabPane, int tabCount,
                         TabPreviewInfo tabPreviewInfo) {
                     colCount = (int) Math.sqrt(tabCount);
@@ -739,13 +704,7 @@ public class TabOverviewDialog extends JDialog {
                     glassPane.setVisible(true);
                 }
 
-                /*
-                 * (non-Javadoc)
-                 * 
-                 * @seeorg.pushingpixels.lafwidget.tabbed.TabPreviewThread.
-                 * TabPreviewCallback#offer(javax.swing.JTabbedPane, int,
-                 * java.awt.image.BufferedImage)
-                 */
+                @Override
                 public void offer(JTabbedPane tabPane, int tabIndex, BufferedImage componentSnap) {
                     TabGridOverviewPanel.this.previewControls[tabIndex]
                             .setPreviewImage(componentSnap, true);
@@ -771,27 +730,15 @@ public class TabOverviewDialog extends JDialog {
          * @author Kirill Grouchnikov
          */
         private class TabGridOverviewPanelLayout implements LayoutManager {
-            /*
-             * (non-Javadoc)
-             * 
-             * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-             */
+            @Override
             public void addLayoutComponent(String name, Component comp) {
             }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-             */
+            @Override
             public void removeLayoutComponent(Component comp) {
             }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-             */
+            @Override
             public void layoutContainer(Container parent) {
                 // int width = parent.getWidth();
                 // int height = parent.getHeight();
@@ -812,20 +759,12 @@ public class TabOverviewDialog extends JDialog {
                 }
             }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-             */
+            @Override
             public Dimension minimumLayoutSize(Container parent) {
                 return parent.getSize();
             }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-             */
+            @Override
             public Dimension preferredLayoutSize(Container parent) {
                 return this.minimumLayoutSize(parent);
             }
@@ -920,11 +859,6 @@ public class TabOverviewDialog extends JDialog {
             }
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-         */
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D graphics = (Graphics2D) g.create();
@@ -1063,22 +997,12 @@ public class TabOverviewDialog extends JDialog {
         // Cancel all pending preview requests issued by this overview
         // dialog when it closes.
         this.addWindowListener(new WindowAdapter() {
-            /*
-             * (non-Javadoc)
-             * 
-             * @see java.awt.event.WindowAdapter#windowClosing(java.awt.event. WindowEvent )
-             */
             @Override
             public void windowClosing(WindowEvent e) {
                 this.cancelRequests();
                 UIManager.removePropertyChangeListener(lafSwitchListener);
             }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see java.awt.event.WindowAdapter#windowClosed(java.awt.event. WindowEvent )
-             */
             @Override
             public void windowClosed(WindowEvent e) {
                 this.cancelRequests();

@@ -54,29 +54,15 @@ public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPan
 	 * @author Kirill Grouchnikov
 	 */
 	private class FlowControlPanelLayout implements LayoutManager {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String,
-		 * java.awt.Component)
-		 */
+		@Override
 		public void addLayoutComponent(String name, Component c) {
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-		 */
+		@Override
 		public void removeLayoutComponent(Component c) {
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-		 */
+		@Override
 		public Dimension preferredLayoutSize(Container c) {
 			// The height of ribbon band control panel is
 			// computed based on the preferred height of a command
@@ -98,20 +84,12 @@ public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPan
 					+ ins.bottom);
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-		 */
+		@Override
 		public Dimension minimumLayoutSize(Container c) {
 			return this.preferredLayoutSize(c);
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-		 */
+		@Override
 		public void layoutContainer(Container c) {
 			JFlowBandControlPanel flowBandControlPanel = (JFlowBandControlPanel) c;
 			AbstractRibbonBand ribbonBand = flowBandControlPanel

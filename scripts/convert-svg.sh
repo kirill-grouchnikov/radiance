@@ -27,6 +27,6 @@ java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFo
 
 java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFolder=../substance-samples/src/main/java/org/pushingpixels/samples/substance/chat/svg outputPackageName=org.pushingpixels.samples.substance.chat.svg templateFile=/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
-java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFolder=../rainbow/src/main/java/org/pushingpixels/rainbow/svg outputPackageName=org.pushingpixels.rainbow.svg templateFile=/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
+java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFolder=../rainbow/src/main/kotlin/org/pushingpixels/rainbow/svg outputPackageName=org.pushingpixels.rainbow.svg templateFile=/org/pushingpixels/ibis/transcoder/kotlin/SvgTranscoderTemplateResizable.templ outputLanguage=kotlin
 
 java -cp $CLASSPATH org.pushingpixels.ibis.transcoder.SvgBatchConverter sourceFolder=../substance-tools/src/main/java/org/pushingpixels/tools/substance/jitterbug/ outputPackageName=org.pushingpixels.tools.substance.jitterbug templateFile=/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java

@@ -38,11 +38,7 @@ import javax.swing.JComponent;
  * @author Kirill Grouchnikov
  */
 public class DisableCommand implements ConfigurationCommand<JComponent> {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-	 */
+	@Override
 	public void configure(JComponent ab) {
 		ab.setEnabled(false);
 	}

@@ -62,21 +62,11 @@ public class MyTabPreviewPainter extends DefaultTabPreviewPainter {
 		return this.tabOverviewKind;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.tabbed.TabPreviewPainter#toUpdatePeriodically(javax.swing.JTabbedPane)
-	 */
 	@Override
 	public boolean toUpdatePeriodically(JTabbedPane tabPane) {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.tabbed.TabPreviewPainter#getUpdateCycle(javax.swing.JTabbedPane)
-	 */
 	@Override
 	public int getUpdateCycle(JTabbedPane tabPane) {
 		return 3000;

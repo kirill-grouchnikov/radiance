@@ -68,7 +68,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
      *
      * @author Kirill Grouchnikov
      */
-    public static interface Delegate {
+    public interface Delegate {
         /**
          * Returns the icon that matches the specified theme.
          *
@@ -77,8 +77,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
          * @param height Icon height.
          * @return Icon that matches the specified theme.
          */
-        public NeonIconUIResource getColorSchemeIcon(SubstanceColorScheme scheme, int width,
-                int height);
+        NeonIconUIResource getColorSchemeIcon(SubstanceColorScheme scheme, int width, int height);
     }
 
     /**
@@ -100,8 +99,8 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
      */
     private LazyResettableHashMap<NeonIconUIResource> iconMap;
 
-    public static interface StateTransitionTrackerDelegate {
-        public StateTransitionTracker getStateTransitionTracker();
+    public interface StateTransitionTrackerDelegate {
+        StateTransitionTracker getStateTransitionTracker();
     }
 
     /**
@@ -232,25 +231,23 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
         return new NeonIconUIResource(result);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-     * int, int)
-     */
+    @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         this.getIconToPaint().paintIcon(c, g, x, y);
     }
 
+    @Override
     public void setDimension(Dimension newDimension) {
         this.width = newDimension.width;
         this.height = newDimension.height;
     }
 
+    @Override
     public int getIconHeight() {
         return this.height;
     }
 
+    @Override
     public int getIconWidth() {
         return this.width;
     }

@@ -180,29 +180,15 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 		 * @author Kirill Grouchnikov
 		 */
 		protected class IconPopupLayout implements LayoutManager {
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String,
-			 * java.awt.Component)
-			 */
+			@Override
 			public void addLayoutComponent(String name, Component comp) {
 			}
 
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see
-			 * java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-			 */
+			@Override
 			public void removeLayoutComponent(Component comp) {
 			}
 
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-			 */
+			@Override
 			public void layoutContainer(Container parent) {
 				Insets insets = parent.getInsets();
 				int left = insets.left;
@@ -213,21 +199,12 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 						parent.getHeight() - top - bottom);
 			}
 
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-			 */
+			@Override
 			public Dimension minimumLayoutSize(Container parent) {
 				return this.preferredLayoutSize(parent);
 			}
 
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see
-			 * java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-			 */
+			@Override
 			public Dimension preferredLayoutSize(Container parent) {
 				Insets insets = parent.getInsets();
 				int left = insets.left;

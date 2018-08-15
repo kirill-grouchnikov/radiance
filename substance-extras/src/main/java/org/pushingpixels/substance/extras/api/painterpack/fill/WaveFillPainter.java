@@ -49,11 +49,7 @@ import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
  * @author Kirill Grouchnikov
  */
 public class WaveFillPainter implements SubstanceFillPainter {
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.substance.painter.SubstanceGradientPainter#getDisplayName ()
-     */
+    @Override
     public String getDisplayName() {
         return "Wave";
     }

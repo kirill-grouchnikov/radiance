@@ -49,7 +49,7 @@ import java.util.List;
 public class TreeAdapterBreadCrumbTest extends JFrame {
     private JList fileList;
 
-    private BreadcrumbTreeAdapterSelector bar;
+    private BreadcrumbTreeAdapterSelector<FileTreeNode> bar;
 
     private TreeAdapterBreadCrumbTest() {
         super("BreadCrumb test");
@@ -57,45 +57,43 @@ public class TreeAdapterBreadCrumbTest extends JFrame {
         File[] roots = File.listRoots();
         FileTreeNode rootTreeNode = new FileTreeNode(roots);
 
-        this.bar = new BreadcrumbTreeAdapterSelector(new DefaultTreeModel(rootTreeNode),
-                new BreadcrumbTreeAdapterSelector.TreeAdapter() {
+        this.bar = new BreadcrumbTreeAdapterSelector<>(new DefaultTreeModel(rootTreeNode),
+                new BreadcrumbTreeAdapterSelector.TreeAdapter<FileTreeNode>() {
                     @Override
-                    public String toString(Object node) {
-                        FileTreeNode n = (FileTreeNode) node;
-                        if (n.file == null)
+                    public String toString(FileTreeNode node) {
+                        if (node.file == null)
                             return "Computer";
                         String result = FileSystemView.getFileSystemView().getSystemDisplayName(
-                                n.file);
+                                node.file);
                         if (result.length() == 0)
-                            result = n.file.getAbsolutePath();
+                            result = node.file.getAbsolutePath();
                         return result;
                     }
 
                     @Override
-                    public Icon getIcon(Object node) {
-                        FileTreeNode n = (FileTreeNode) node;
-                        if (n.file == null)
+                    public Icon getIcon(FileTreeNode node) {
+                        if (node.file == null)
                             return null;
-                        Icon result = FileSystemView.getFileSystemView().getSystemIcon(n.file);
+                        Icon result = FileSystemView.getFileSystemView().getSystemIcon(node.file);
                         return result;
                     }
                 }, false);
-        this.bar.getModel().addPathListener((BreadcrumbPathEvent event) -> {
+        this.bar.getModel().addPathListener((BreadcrumbPathEvent<FileTreeNode> event) ->
             SwingUtilities.invokeLater(() -> {
-                final List<BreadcrumbItem<Object>> newPath = bar.getModel().getItems();
+                final List<BreadcrumbItem<FileTreeNode>> newPath = event.getSource().getItems();
                 System.out.println("New path is ");
-                for (BreadcrumbItem<Object> item : newPath) {
-                    FileTreeNode node = (FileTreeNode) item.getData();
+                for (BreadcrumbItem<FileTreeNode> item : newPath) {
+                    FileTreeNode node = item.getData();
                     if (node.file == null)
                         continue;
                     System.out.println("\t" + node.file.getName());
                 }
 
                 if (newPath.size() > 0) {
-                    SwingWorker<List<StringValuePair<Object>>, Void> worker = new
-                            SwingWorker<List<StringValuePair<Object>>, Void>() {
+                    SwingWorker<List<StringValuePair<FileTreeNode>>, Void> worker = new
+                            SwingWorker<List<StringValuePair<FileTreeNode>>, Void>() {
                                 @Override
-                                protected List<StringValuePair<Object>> doInBackground() throws
+                                protected List<StringValuePair<FileTreeNode>> doInBackground() throws
                                         Exception {
                                     return bar.getCallback().getLeafs(newPath);
                                 }
@@ -104,8 +102,8 @@ public class TreeAdapterBreadCrumbTest extends JFrame {
                                 protected void done() {
                                     try {
                                         FileListModel model = new FileListModel();
-                                        List<StringValuePair<Object>> leafs = get();
-                                        for (StringValuePair<Object> leaf : leafs) {
+                                        List<StringValuePair<FileTreeNode>> leafs = get();
+                                        for (StringValuePair<FileTreeNode> leaf : leafs) {
                                             FileTreeNode node = (FileTreeNode) leaf.getValue();
                                             model.add(node.file);
                                         }
@@ -117,8 +115,8 @@ public class TreeAdapterBreadCrumbTest extends JFrame {
                             };
                     worker.execute();
                 }
-            });
-        });
+            })
+        );
 
         this.setLayout(new BorderLayout());
         this.add(bar, BorderLayout.NORTH);

@@ -50,11 +50,6 @@ public class ImageWatermarkDominic extends ImageWatermarkRobot {
 				"/Users/kirillg/Projects/substance/www/images/screenshots/watermarks/image-dominic.png");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see docrobot.ImageWatermarkRobot#apply()
-	 */
 	@Override
 	protected void apply() {
 		SubstanceImageWatermark watermark = new SubstanceImageWatermark(

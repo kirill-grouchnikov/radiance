@@ -69,12 +69,6 @@ public class TablePanel extends ControllablePanel implements Deferrable {
      * @author Kirill Grouchnikov
      */
     private static class MyColorTableRenderer extends SubstanceDefaultTableCellRenderer {
-        /*
-         * (non-Javadoc)
-         *
-         * @see javax.swing.table.TableCellRenderer#getTableCellRendererComponent
-         * (javax.swing.JTable, java.lang.Object, boolean, boolean, int, int)
-         */
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value,
                 boolean isSelected, boolean hasFocus, int row, int column) {
@@ -93,12 +87,6 @@ public class TablePanel extends ControllablePanel implements Deferrable {
      * @author Kirill Grouchnikov
      */
     private static class MyFloatTableRenderer extends SubstanceDefaultTableCellRenderer {
-        /*
-         * (non-Javadoc)
-         *
-         * @see javax.swing.table.TableCellRenderer#getTableCellRendererComponent
-         * (javax.swing.JTable, java.lang.Object, boolean, boolean, int, int)
-         */
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value,
                 boolean isSelected, boolean hasFocus, int row, int column) {

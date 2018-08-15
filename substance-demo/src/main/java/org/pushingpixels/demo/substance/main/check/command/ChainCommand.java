@@ -53,11 +53,7 @@ public class ChainCommand<T> implements ConfigurationCommand<T> {
 		this.commands = commands;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-	 */
+	@Override
 	public void configure(T component) {
 		for (ConfigurationCommand<T> cmd : this.commands)
 			cmd.configure(component);

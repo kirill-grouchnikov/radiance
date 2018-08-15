@@ -29,8 +29,12 @@
  */
 
 apply plugin: 'java'
+apply plugin: 'kotlin'
 
 dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-swing:0.22.1"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:0.22.1"
     compile ('com.jgoodies:jgoodies-common:1.8.1')
     compile ('com.jgoodies:jgoodies-forms:1.9.0')
     compile ('com.jhlabs:filters:2.0.235')
@@ -45,6 +49,12 @@ dependencies {
 sourceCompatibility = 1.8
 
 ext.designation = "demo"
+
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
+}
 
 jar {
     baseName = "${rootProject.name}-rainbow"

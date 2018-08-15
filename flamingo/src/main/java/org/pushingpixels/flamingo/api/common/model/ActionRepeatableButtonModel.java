@@ -73,11 +73,6 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
         this.toFireActionOnPress = false;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.DefaultButtonModel#setPressed(boolean)
-     */
     @Override
     public void setPressed(boolean b) {
         if ((isPressed() == b) || !isEnabled()) {

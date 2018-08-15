@@ -60,11 +60,6 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 	 */
 	protected JPopupPanel popupPanel;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-	 */
 	@Override
 	public void installUI(JComponent c) {
 		this.popupPanel = (JPopupPanel) c;
@@ -74,11 +69,6 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 		installListeners();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-	 */
 	@Override
 	public void uninstallUI(JComponent c) {
 		uninstallListeners();

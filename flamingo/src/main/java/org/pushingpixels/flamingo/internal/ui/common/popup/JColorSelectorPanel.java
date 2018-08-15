@@ -52,21 +52,11 @@ public class JColorSelectorPanel extends JPanel {
         this.updateUI();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JButton#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(SubstanceColorSelectorPanelUI.createUI(this));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JButton#getUIClassID()
-     */
     @Override
     public String getUIClassID() {
         return uiClassID;

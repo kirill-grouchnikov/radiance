@@ -50,11 +50,6 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceRibbonGalleryUI();
@@ -90,8 +85,8 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
         final ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> SubstanceImageCreator
-                        .getDoubleArrowIcon(SubstanceSizeUtils.getComponentFontSize(button), width,
-                                height, SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                        .getDoubleArrowIcon(
+                                width, height, SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
                                 SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                                 SwingConstants.SOUTH, scheme),
                 new Dimension(arrowIconWidth, arrowIconHeight));

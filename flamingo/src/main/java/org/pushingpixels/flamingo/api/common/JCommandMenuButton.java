@@ -79,21 +79,11 @@ public class JCommandMenuButton extends JCommandButton {
         this.listenerList.remove(RolloverActionListener.class, l);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JComponent#getUIClassID()
-     */
     @Override
     public String getUIClassID() {
         return uiClassID;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JComponent#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(SubstanceCommandMenuButtonUI.createUI(this));

@@ -214,27 +214,15 @@ public class SvgFileViewPanel extends JPanel {
          */
         public static final int STRUT = 2;
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component comp) {
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component comp) {
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container parent) {
             Insets bInsets = SvgFileViewPanel.this.getInsets();
             int left = bInsets.left + STRUT;
@@ -262,20 +250,12 @@ public class SvgFileViewPanel extends JPanel {
             }
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container parent) {
             return this.preferredLayoutSize(parent);
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container parent) {
             if (allButtons.size() == 0)
                 return new Dimension(0, 0);

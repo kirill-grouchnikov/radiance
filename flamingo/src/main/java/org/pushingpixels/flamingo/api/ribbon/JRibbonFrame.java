@@ -292,11 +292,6 @@ public class JRibbonFrame extends JFrame {
         this.initRibbon();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JFrame#setLayout(java.awt.LayoutManager)
-     */
     @Override
     public void setLayout(LayoutManager manager) {
         if (manager.getClass() != RibbonFrameLayout.class) {
@@ -309,21 +304,11 @@ public class JRibbonFrame extends JFrame {
         super.setLayout(manager);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JFrame#setJMenuBar(javax.swing.JMenuBar)
-     */
     @Override
     public void setJMenuBar(JMenuBar menubar) {
         throw new IllegalArgumentException("Can't set a menu bar on JRibbonFrame");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JFrame#setContentPane(java.awt.Container)
-     */
     @Override
     public void setContentPane(Container contentPane) {
         throw new IllegalArgumentException("Can't set the content pane on JRibbonFrame");
@@ -484,11 +469,6 @@ public class JRibbonFrame extends JFrame {
         return this.ribbon;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JFrame#createRootPane()
-     */
     @Override
     protected JRootPane createRootPane() {
         JRootPane rp = new JRibbonRootPane();

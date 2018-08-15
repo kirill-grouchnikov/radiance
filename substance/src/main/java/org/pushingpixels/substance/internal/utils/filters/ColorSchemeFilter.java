@@ -56,8 +56,8 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
 
 	public static final int MAPSTEPS = 512;
 
-	protected final static LazyResettableHashMap<ColorSchemeFilter> filters = new LazyResettableHashMap<ColorSchemeFilter>(
-			"ColorSchemeFilter");
+	protected final static LazyResettableHashMap<ColorSchemeFilter> filters =
+			new LazyResettableHashMap<>("ColorSchemeFilter");
 
 	protected float originalBrightnessFactor;
 

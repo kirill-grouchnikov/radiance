@@ -77,11 +77,7 @@ public class TabOverviewButton extends JButton implements UIResource {
                 (ActionEvent e) -> TabOverviewDialog.getOverviewDialog(tabPane).setVisible(true));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.awt.Component#setBounds(int, int, int, int)
-     */
+    @Override
     public void setBounds(int x, int y, int width, int height) {
         if (Boolean.TRUE.equals(this.getClientProperty(TabOverviewButton.OWN_BOUNDS)))
             super.setBounds(x, y, width, height);

@@ -146,28 +146,15 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
      * @author Kirill Grouchnikov
      */
     private class ControlPanelLayout implements LayoutManager {
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container c) {
             // The height of ribbon band control panel is
             // computed based on the preferred height of a command
@@ -192,20 +179,12 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
             return new Dimension(c.getWidth() + ins.left + ins.right, buttonHeight + ins.top + ins.bottom);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container c) {
             return this.preferredLayoutSize(c);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container c) {
             // System.out.println("Control panel real = " + c.getHeight());
 

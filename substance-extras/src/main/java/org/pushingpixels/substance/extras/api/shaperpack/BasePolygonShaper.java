@@ -178,11 +178,7 @@ public abstract class BasePolygonShaper implements SubstanceButtonShaper {
                 extraInsets);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.substance.button.SubstanceButtonShaper#isProportionate()
-     */
+    @Override
     public boolean isProportionate() {
         return false;
     }

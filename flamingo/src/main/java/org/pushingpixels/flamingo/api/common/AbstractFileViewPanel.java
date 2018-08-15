@@ -101,7 +101,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
         public Leaf(String leafName, InputStream leafStream) {
             this.leafName = leafName;
             this.leafStream = leafStream;
-            this.leafProps = new HashMap<String, Object>();
+            this.leafProps = new HashMap<>();
         }
 
         /**
@@ -160,14 +160,11 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      * 
      * @param startingDimension
      *            Initial dimension for icons.
-     * @param progressListener
-     *            Progress listener to report back on loaded icons.
      */
-    public AbstractFileViewPanel(int startingDimension, ProgressListener progressListener) {
+    public AbstractFileViewPanel(int startingDimension) {
         super(startingDimension);
-        this.buttonMap = new HashMap<String, JCommandButton>();
-        this.progressListener = progressListener;
-        this.loadedSet = new HashSet<JCommandButton>();
+        this.buttonMap = new HashMap<>();
+        this.loadedSet = new HashSet<>();
 
         this.setToShowGroupLabels(false);
     }
@@ -177,17 +174,21 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      * 
      * @param startingState
      *            Initial state for icons.
-     * @param progressListener
-     *            Progress listener to report back on loaded icons.
      */
-    public AbstractFileViewPanel(CommandButtonDisplayState startingState,
-            ProgressListener progressListener) {
+    public AbstractFileViewPanel(CommandButtonDisplayState startingState) {
         super(startingState);
-        this.buttonMap = new HashMap<String, JCommandButton>();
-        this.progressListener = progressListener;
-        this.loadedSet = new HashSet<JCommandButton>();
+        this.buttonMap = new HashMap<>();
+        this.loadedSet = new HashSet<>();
 
         this.setToShowGroupLabels(false);
+    }
+
+    public void setProgressListener(ProgressListener progressListener) {
+        this.progressListener = progressListener;
+    }
+
+    public ProgressListener getProgressListener() {
+        return this.progressListener;
     }
 
     /**
@@ -205,20 +206,23 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
         this.buttonMap.clear();
         int fileCount = 0;
 
-        final Map<String, JCommandButton> newButtons = new HashMap<String, JCommandButton>();
+        final Map<String, JCommandButton> newButtons = new HashMap<>();
         for (StringValuePair<T> leaf : leafs) {
             String name = leaf.getKey();
-            if (!toShowFile(leaf))
+            if (!toShowFile(leaf)) {
                 continue;
+            }
 
             int initialSize = currDimension;
-            if (initialSize < 0)
+            if (initialSize < 0) {
                 initialSize = currState.getPreferredIconSize();
+            }
             JCommandButton button = new JCommandButton(name, new EmptyResizableIcon(initialSize));
             button.setHorizontalAlignment(SwingUtilities.LEFT);
             button.setDisplayState(this.currState);
-            if (this.currState == CommandButtonDisplayState.FIT_TO_ICON)
+            if (this.currState == CommandButtonDisplayState.FIT_TO_ICON) {
                 button.updateCustomDimension(currDimension);
+            }
 
             this.addButtonToLastGroup(button);
 
@@ -238,11 +242,13 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                             new ProgressEvent(AbstractFileViewPanel.this, 0, totalCount, 0));
                 }
                 for (final StringValuePair<T> leafPair : leafs) {
-                    if (isCancelled())
+                    if (isCancelled()) {
                         break;
+                    }
                     final String name = leafPair.getKey();
-                    if (!toShowFile(leafPair))
+                    if (!toShowFile(leafPair)) {
                         continue;
+                    }
                     InputStream stream = getLeafContent(leafPair.getValue());
                     Leaf leaf = new Leaf(name, stream);
                     leaf.setLeafProp("source", leafPair.getValue());
@@ -261,8 +267,9 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                     InputStream stream = leaf.getLeafStream();
                     Dimension dim = new Dimension(currDimension, currDimension);
                     final ResizableIcon icon = getResizableIcon(leaf, stream, currState, dim);
-                    if (icon == null)
+                    if (icon == null) {
                         continue;
+                    }
                     final JCommandButton commandButton = newButtons.get(name);
                     commandButton.setIcon(icon);
 
@@ -291,8 +298,9 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                     configureCommandButton(leaf, commandButton, icon);
 
                     commandButton.setDisplayState(currState);
-                    if (currState == CommandButtonDisplayState.FIT_TO_ICON)
+                    if (currState == CommandButtonDisplayState.FIT_TO_ICON) {
                         commandButton.updateCustomDimension(currDimension);
+                    }
                 }
             }
         };

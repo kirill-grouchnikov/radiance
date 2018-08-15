@@ -92,12 +92,7 @@ public class MarbleFilter extends BaseNoiseFilter {
 		return new MarbleFilter(0.0, 0.0, zFactor, trigKind);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.painter.noise.NoiseFilter#apply(double, double,
-	 * double, double)
-	 */
+	@Override
 	public double apply(double x, double y, double z, double origValue) {
 		double trans = this.xFactor * x + this.yFactor * y + this.zFactor * z
 				+ origValue;

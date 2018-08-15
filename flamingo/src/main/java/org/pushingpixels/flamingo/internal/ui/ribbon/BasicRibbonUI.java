@@ -101,11 +101,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
         this.taskToggleButtonGroup.setAllowsClearingSelection(false);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-     */
     @Override
     public void installUI(JComponent c) {
         this.ribbon = (JRibbon) c;
@@ -114,11 +109,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
         installListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-     */
     @Override
     public void uninstallUI(JComponent c) {
         uninstallListeners();
@@ -284,11 +274,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
         this.ribbon.setLayout(null);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
@@ -297,11 +282,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
         g2d.dispose();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void paint(Graphics g, JComponent c) {
         this.paintBackground(g);
@@ -385,27 +365,15 @@ public abstract class BasicRibbonUI extends RibbonUI {
      * @author Kirill Grouchnikov
      */
     private class RibbonLayout implements LayoutManager {
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container c) {
             Insets ins = c.getInsets();
             int maxPrefBandHeight = 0;
@@ -428,11 +396,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             return new Dimension(c.getWidth(), prefHeight);
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container c) {
             // go over all ribbon bands and sum the width
             // of ribbon buttons (of collapsed state)
@@ -478,11 +442,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             return result;
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container c) {
             // System.out.println("Ribbon real = " + c.getHeight());
 
@@ -631,27 +591,15 @@ public abstract class BasicRibbonUI extends RibbonUI {
      * @author Kirill Grouchnikov
      */
     private class BandHostPanelLayout implements LayoutManager {
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container c) {
             // Insets ins = c.getInsets();
             int maxPrefBandHeight = 0;
@@ -668,11 +616,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             return new Dimension(c.getWidth(), maxPrefBandHeight);
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container c) {
             // go over all ribbon bands and sum the width
             // of ribbon buttons (of collapsed state)
@@ -711,11 +655,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             return new Dimension(width, maxMinBandHeight);
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container c) {
             // System.err.println("Layout of band host panel " + c.getWidth() +
             // ":" + c.getHeight());

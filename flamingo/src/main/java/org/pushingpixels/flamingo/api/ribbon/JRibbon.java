@@ -502,11 +502,6 @@ public class JRibbon extends JComponent {
         return this.currentlySelectedTask;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JComponent#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(new SubstanceRibbonUI());
@@ -525,11 +520,6 @@ public class JRibbon extends JComponent {
         return (RibbonUI) ui;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JComponent#getUIClassID()
-     */
     @Override
     public String getUIClassID() {
         return uiClassID;
@@ -743,11 +733,6 @@ public class JRibbon extends JComponent {
         return this.ribbonFrame;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JComponent#setVisible(boolean)
-     */
     @Override
     public void setVisible(boolean flag) {
         if (!flag && (getRibbonFrame() != null))

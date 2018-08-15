@@ -217,7 +217,7 @@ private class ExpandActionListener : ActionListener {
 }
 
 private class SimpleResizableIcon(private val priority: RibbonElementPriority, private var currWidth: Int,
-                                  private var currHeight: Int) : ResizableIcon {
+        private var currHeight: Int) : ResizableIcon {
 
     override fun setDimension(newDimension: Dimension) {
         this.currWidth = newDimension.width

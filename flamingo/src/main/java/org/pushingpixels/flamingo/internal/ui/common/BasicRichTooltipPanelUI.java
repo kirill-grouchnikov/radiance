@@ -73,11 +73,6 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 		this.footerLabels = new ArrayList<JLabel>();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-	 */
 	@Override
 	public void installUI(JComponent c) {
 		this.richTooltipPanel = (JRichTooltipPanel) c;
@@ -89,11 +84,6 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 		this.richTooltipPanel.setLayout(createLayoutManager());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-	 */
 	@Override
 	public void uninstallUI(JComponent c) {
 		uninstallListeners();

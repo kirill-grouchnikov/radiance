@@ -53,8 +53,8 @@ public class BreadCrumbTest extends JFrame {
 
         this.bar = new BreadcrumbFileSelector();
         this.bar.getModel().addPathListener(
-                (BreadcrumbPathEvent event) -> SwingUtilities.invokeLater(() -> {
-                    final List<BreadcrumbItem<File>> newPath = bar.getModel().getItems();
+                (BreadcrumbPathEvent<File> event) -> SwingUtilities.invokeLater(() -> {
+                    final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
                     System.out.println("New path is ");
                     for (BreadcrumbItem<File> item : newPath) {
                         System.out.println("\t" + item.getData().getAbsolutePath());
@@ -87,7 +87,7 @@ public class BreadCrumbTest extends JFrame {
                 SubstanceSlices.DecorationAreaType.HEADER);
         this.add(bar, BorderLayout.NORTH);
 
-        this.filePanel = new ExplorerFileViewPanel<>(bar, CommandButtonDisplayState.MEDIUM, null);
+        this.filePanel = new ExplorerFileViewPanel<>(bar, CommandButtonDisplayState.MEDIUM);
         JScrollPane fileListScrollPane = new JScrollPane(this.filePanel);
         this.add(fileListScrollPane, BorderLayout.CENTER);
 

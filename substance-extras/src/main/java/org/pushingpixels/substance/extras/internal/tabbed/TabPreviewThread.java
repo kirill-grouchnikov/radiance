@@ -177,11 +177,6 @@ public class TabPreviewThread extends TrackableThread {
 		this.previewQueue = new DeltaQueue();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Thread#run()
-	 */
 	@Override
 	public void run() {
 		while (!this.stopRequested) {
@@ -330,11 +325,6 @@ public class TabPreviewThread extends TrackableThread {
 		return this.previewQueue.dequeue(delay);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.utils.TrackableThread#requestStop()
-	 */
 	@Override
 	protected void requestStop() {
 		this.stopRequested = true;

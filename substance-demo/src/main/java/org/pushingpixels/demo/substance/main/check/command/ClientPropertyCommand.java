@@ -60,11 +60,7 @@ public class ClientPropertyCommand implements ConfigurationCommand<JComponent> {
         this.propValue = propValue;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-     */
+    @Override
     public void configure(JComponent ab) {
         if (ab instanceof JComponent)
             ((JComponent) ab).putClientProperty(this.propName, this.propValue);

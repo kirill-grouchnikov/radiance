@@ -35,8 +35,8 @@ public class Viewer extends JFrame {
         this.bar = new BreadcrumbFileSelector();
 
         this.bar.getModel()
-                .addPathListener((BreadcrumbPathEvent event) -> SwingUtilities.invokeLater(() -> {
-                    final List<BreadcrumbItem<File>> newPath = bar.getModel().getItems();
+                .addPathListener((BreadcrumbPathEvent<File> event) -> SwingUtilities.invokeLater(() -> {
+                    final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
                     System.out.println("New path is ");
                     for (BreadcrumbItem<File> item : newPath) {
                         // String[] values = item.getValue();
@@ -67,7 +67,7 @@ public class Viewer extends JFrame {
         this.add(bar, BorderLayout.NORTH);
 
         int initialSize = 100;
-        this.fileViewPanel = new AbstractFileViewPanel<File>(64, null) {
+        this.fileViewPanel = new AbstractFileViewPanel<File>(64) {
             @Override
             protected void configureCommandButton(AbstractFileViewPanel.Leaf leaf,
                     JCommandButton button, ResizableIcon icon) {

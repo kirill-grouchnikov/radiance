@@ -67,21 +67,11 @@ public class TabOverviewDialogWidget extends SubstanceWidget<JTabbedPane> {
      */
     protected ContainerListener containerListener;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installComponents()
-     */
     @Override
     public void installComponents() {
         this.overviewButton = new TabOverviewButton(this.jcomp);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installDefaults()
-     */
     @Override
     public void installDefaults() {
         TabPreviewPainter previewPainter = TabPreviewUtilities.getTabPreviewPainter(this.jcomp);
@@ -103,22 +93,12 @@ public class TabOverviewDialogWidget extends SubstanceWidget<JTabbedPane> {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallComponents()
-     */
     @Override
     public void uninstallComponents() {
         if (this.overviewButton.getParent() == this.jcomp)
             this.jcomp.remove(this.overviewButton);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installListeners()
-     */
     @Override
     public void installListeners() {
         this.propertyListener = (PropertyChangeEvent evt) -> {
@@ -186,11 +166,6 @@ public class TabOverviewDialogWidget extends SubstanceWidget<JTabbedPane> {
         this.jcomp.addContainerListener(this.containerListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallListeners()
-     */
     @Override
     public void uninstallListeners() {
         this.jcomp.removePropertyChangeListener(this.propertyListener);

@@ -139,8 +139,8 @@ public class SvnBreadCrumbTest extends JFrame {
 
         // "http://svn.svnkit.com/repos/svnkit", "anonymous", "anonymous");
         this.bar.getModel()
-                .addPathListener((BreadcrumbPathEvent event) -> SwingUtilities.invokeLater(() -> {
-                    final List<BreadcrumbItem<String>> newPath = bar.getModel().getItems();
+                .addPathListener((BreadcrumbPathEvent<String> event) -> SwingUtilities.invokeLater(() -> {
+                    final List<BreadcrumbItem<String>> newPath = event.getSource().getItems();
                     System.out.println("New path is ");
                     for (BreadcrumbItem<String> item : newPath) {
                         System.out.println("\t" + item.getData());
@@ -176,8 +176,7 @@ public class SvnBreadCrumbTest extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(toolbar, BorderLayout.NORTH);
 
-        this.filePanel = new ExplorerFileViewPanel<String>(bar, CommandButtonDisplayState.MEDIUM,
-                null) {
+        this.filePanel = new ExplorerFileViewPanel<String>(bar, CommandButtonDisplayState.MEDIUM) {
             @Override
             protected void configureCommandButton(
                     org.pushingpixels.flamingo.api.common.AbstractFileViewPanel.Leaf leaf,

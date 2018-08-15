@@ -56,12 +56,7 @@ public class CompoundNoiseFilter implements NoiseFilter {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.painter.noise.NoiseFilter#apply(double, double,
-	 * double, double)
-	 */
+	@Override
 	public double apply(double x, double y, double z, double origValue) {
 		double val = origValue;
 		for (NoiseFilter link : this.chain)

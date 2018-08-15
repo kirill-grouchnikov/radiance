@@ -50,7 +50,7 @@ public class RichToolTipManager extends MouseAdapter implements
 
 	private MouseEvent mouseEvent;
 
-	final static RichToolTipManager sharedInstance = new RichToolTipManager();
+	private final static RichToolTipManager sharedInstance = new RichToolTipManager();
 
 	private Popup tipWindow;
 
@@ -64,7 +64,7 @@ public class RichToolTipManager extends MouseAdapter implements
 		public abstract RichTooltip getRichTooltip(MouseEvent mouseEvent);
 	}
 
-	RichToolTipManager() {
+	private RichToolTipManager() {
 		initialDelayTimer = new Timer(750, new InitialDelayTimerAction());
 		initialDelayTimer.setRepeats(false);
 		dismissTimer = new Timer(20000, new DismissTimerAction());
@@ -116,7 +116,7 @@ public class RichToolTipManager extends MouseAdapter implements
 		return dismissTimer.getInitialDelay();
 	}
 
-	void showTipWindow(MouseEvent mouseEvent) {
+	private void showTipWindow(MouseEvent mouseEvent) {
 		if (insideComponent == null || !insideComponent.isShowing())
 			return;
 		Dimension size;
@@ -178,7 +178,7 @@ public class RichToolTipManager extends MouseAdapter implements
 		tipShowing = true;
 	}
 
-	void hideTipWindow() {
+	private void hideTipWindow() {
 		if (tipWindow != null) {
 			tipWindow.hide();
 			tipWindow = null;
@@ -211,9 +211,9 @@ public class RichToolTipManager extends MouseAdapter implements
 	 * @see JComponent#isFocusTraversable
 	 */
 	public void registerComponent(JTrackableComponent comp) {
-		if (Boolean.TRUE.equals(comp
-				.getClientProperty(TRACKED_FOR_RICH_TOOLTIP)))
+		if (Boolean.TRUE.equals(comp.getClientProperty(TRACKED_FOR_RICH_TOOLTIP))) {
 			return;
+		}
 		comp.addMouseListener(this);
 		// commandButton.addMouseMotionListener(moveBeforeEnterListener);
 		comp.putClientProperty(TRACKED_FOR_RICH_TOOLTIP, Boolean.TRUE);
@@ -251,8 +251,7 @@ public class RichToolTipManager extends MouseAdapter implements
 		List<PopupPanelManager.PopupInfo> popups = PopupPanelManager
 				.defaultManager().getShownPath();
 		if (popups.size() > 0) {
-			JPopupPanel popupPanel = popups.get(popups.size() - 1)
-					.getPopupPanel();
+			JPopupPanel popupPanel = popups.get(popups.size() - 1).getPopupPanel();
 			boolean ignore = true;
 			Component c = component;
 			while (c != null) {
@@ -262,8 +261,9 @@ public class RichToolTipManager extends MouseAdapter implements
 				}
 				c = c.getParent();
 			}
-			if (ignore)
-				return;
+			if (ignore) {
+                return;
+            }
 		}
 
 		if (insideComponent != null) {
@@ -332,7 +332,7 @@ public class RichToolTipManager extends MouseAdapter implements
 		}
 	}
 
-	protected class InitialDelayTimerAction implements ActionListener {
+	private class InitialDelayTimerAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (insideComponent != null && insideComponent.isShowing()) {
 				// Lazy lookup
@@ -364,7 +364,7 @@ public class RichToolTipManager extends MouseAdapter implements
 		}
 	}
 
-	protected class DismissTimerAction implements ActionListener {
+	private class DismissTimerAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			hideTipWindow();
 			initialDelayTimer.stop();

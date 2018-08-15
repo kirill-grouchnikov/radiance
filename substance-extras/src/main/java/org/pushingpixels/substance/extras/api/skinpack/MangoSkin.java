@@ -89,11 +89,7 @@ public class MangoSkin extends SubstanceSkin {
 		this.decorationPainter = new Glass3DDecorationPainter();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.skin.SubstanceSkin#getDisplayName()
-	 */
+	@Override
 	public String getDisplayName() {
 		return NAME;
 	}

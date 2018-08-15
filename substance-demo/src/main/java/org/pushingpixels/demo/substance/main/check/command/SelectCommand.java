@@ -40,11 +40,7 @@ import javax.swing.JComponent;
  * @author Kirill Grouchnikov
  */
 public class SelectCommand implements ConfigurationCommand<JComponent> {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-	 */
+	@Override
 	public void configure(JComponent ab) {
 		if (ab instanceof JButton)
 			return;

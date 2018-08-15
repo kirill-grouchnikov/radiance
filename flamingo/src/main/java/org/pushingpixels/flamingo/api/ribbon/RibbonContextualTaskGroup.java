@@ -182,11 +182,6 @@ public class RibbonContextualTaskGroup {
 			this.ribbon.fireStateChanged();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return getTitle() + " (" + getTaskCount() + " tasks)";

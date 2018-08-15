@@ -295,11 +295,6 @@ public class JCommandButton extends AbstractCommandButton {
             }
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see javax.swing.DefaultButtonModel#setPressed(boolean)
-         */
         @Override
         public void setPressed(boolean b) {
             if ((isPressed() == b) || !isEnabled()) {
@@ -449,21 +444,11 @@ public class JCommandButton extends AbstractCommandButton {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JComponent#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(SubstanceCommandButtonUI.createUI(this));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JComponent#getUIClassID()
-     */
     @Override
     public String getUIClassID() {
         return uiClassID;

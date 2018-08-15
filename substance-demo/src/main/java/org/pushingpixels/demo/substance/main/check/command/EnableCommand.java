@@ -37,11 +37,7 @@ import java.awt.Component;
  * @author Kirill Grouchnikov
  */
 public class EnableCommand implements ConfigurationCommand<Component> {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-	 */
+	@Override
 	public void configure(Component comp) {
 		comp.setEnabled(true);
 	}

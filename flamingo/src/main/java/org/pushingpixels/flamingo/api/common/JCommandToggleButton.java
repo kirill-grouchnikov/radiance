@@ -90,11 +90,6 @@ public class JCommandToggleButton extends AbstractCommandButton {
 		setUI(SubstanceCommandToggleButtonUI.createUI(this));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JComponent#getUIClassID()
-	 */
 	@Override
 	public String getUIClassID() {
 		return uiClassID;

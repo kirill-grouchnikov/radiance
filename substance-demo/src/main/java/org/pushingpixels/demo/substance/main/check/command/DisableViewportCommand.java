@@ -38,11 +38,7 @@ import javax.swing.JScrollPane;
  * @author Kirill Grouchnikov
  */
 public class DisableViewportCommand implements ConfigurationCommand<JComponent> {
-    /*
-     * (non-Javadoc)
-     * 
-     * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-     */
+    @Override
     public void configure(JComponent ab) {
         if (ab instanceof JScrollPane) {
             JScrollPane jsp = (JScrollPane) ab;

@@ -46,11 +46,6 @@ public class JRichTooltipPanel extends JPanel {
         this.tooltipInfo = tooltipInfo;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JPanel#getUI()
-     */
     @Override
     public RichTooltipPanelUI getUI() {
         return (RichTooltipPanelUI) ui;
@@ -65,21 +60,11 @@ public class JRichTooltipPanel extends JPanel {
         super.setUI(ui);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JPanel#getUIClassID()
-     */
     @Override
     public String getUIClassID() {
         return uiClassID;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JPanel#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(SubstanceRichTooltipPanelUI.createUI(this));

@@ -29,9 +29,10 @@
  */
 package org.pushingpixels.demo.kormorant.bcb
 
-import kotlinx.coroutines.experimental.future.await
+import kotlinx.coroutines.experimental.DefaultDispatcher
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.swing.Swing
+import kotlinx.coroutines.experimental.withContext
 import org.pushingpixels.demo.flamingo.ExplorerFileViewPanel
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
@@ -42,7 +43,6 @@ import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.BorderLayout
 import java.awt.FlowLayout
-import java.util.concurrent.CompletableFuture
 import javax.swing.*
 
 fun main(args: Array<String>) {
@@ -53,24 +53,26 @@ fun main(args: Array<String>) {
         val frame = JFrame("BreadCrumb test")
 
         val bar = BreadcrumbFileSelector()
-        val filePanel = ExplorerFileViewPanel(bar, CommandButtonDisplayState.MEDIUM, null)
+        val filePanel = ExplorerFileViewPanel(bar, CommandButtonDisplayState.MEDIUM)
 
         // Configure the breadcrumb bar to update the file panel every time
         // the path changes
-        bar.model.addPathListener {
+        bar.model.addPathListener { ev ->
             launch(Swing) {
-                val newPath = bar.model.items
+                val newPath = ev.source.items
                 println("New path is ")
                 for (item in newPath) {
                     println("\t" + item.data.absolutePath)
                 }
 
-                // Use the Kotlin co-routines (experimental) to kick off the
-                // loading of the path leaf content off the UI thread and then
-                // pipe it back to the UI thread in setFolder call.
-                filePanel.setFolder(CompletableFuture.supplyAsync {
-                    bar.callback.getLeafs(newPath)
-                }.await())
+                if (newPath.size > 0) {
+                    // Use the Kotlin coroutines (experimental) to kick the
+                    // loading of the path leaf content off the UI thread and then
+                    // pipe it back to the UI thread in setFolder call.
+                    filePanel.setFolder(withContext(DefaultDispatcher) {
+                        bar.callback.getLeafs(newPath)
+                    })
+                }
             }
         }
 

@@ -65,12 +65,7 @@ public class TabPagerMouseWheelListener implements MouseWheelListener {
 		this.tabbedPane = tabbedPane;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seejava.awt.event.MouseWheelListener#mouseWheelMoved(java.awt.event.
-	 * MouseWheelEvent)
-	 */
+	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		TabPreviewPainter tpp = TabPreviewUtilities
 				.getTabPreviewPainter(this.tabbedPane);

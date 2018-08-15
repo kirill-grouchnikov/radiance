@@ -43,11 +43,6 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public class SubstanceBandControlPanelUI extends BasicBandControlPanelUI {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceBandControlPanelUI();

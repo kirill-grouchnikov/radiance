@@ -51,20 +51,10 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
 
     protected ChangeListener changeListener;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent c) {
         return new BasicCommandButtonStripUI();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-     */
     @Override
     public void installUI(JComponent c) {
         this.buttonStrip = (JCommandButtonStrip) c;
@@ -73,11 +63,6 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
         installListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-     */
     @Override
     public void uninstallUI(JComponent c) {
         uninstallListeners();
@@ -162,27 +147,15 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
      * @author Kirill Grouchnikov
      */
     private class ButtonStripLayout implements LayoutManager {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container c) {
             int width = 0;
             int height = 0;
@@ -202,20 +175,12 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
             return new Dimension(width + ins.left + ins.right, height + ins.top + ins.bottom);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container c) {
             return this.preferredLayoutSize(c);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container c) {
             if (buttonStrip.getButtonCount() == 0)
                 return;

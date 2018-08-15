@@ -52,7 +52,7 @@ public class JTreeAdapterBreadCrumbTest extends JFrame {
      */
     private static FileSystemView fsv = FileSystemView.getFileSystemView();
     private JList fileList;
-    private BreadcrumbTreeAdapterSelector bar;
+    private BreadcrumbTreeAdapterSelector<FileTreeNode> bar;
 
     private JTreeAdapterBreadCrumbTest() {
         super("BreadCrumb test");
@@ -63,23 +63,23 @@ public class JTreeAdapterBreadCrumbTest extends JFrame {
         tree.setRootVisible(false);
         tree.setCellRenderer(new FileTreeCellRenderer());
 
-        this.bar = new BreadcrumbTreeAdapterSelector(tree);
-        this.bar.getModel().addPathListener((BreadcrumbPathEvent event) ->
+        this.bar = new BreadcrumbTreeAdapterSelector<>(tree);
+        this.bar.getModel().addPathListener((BreadcrumbPathEvent<FileTreeNode> event) ->
                 SwingUtilities.invokeLater(() -> {
-                    final List<BreadcrumbItem<Object>> newPath = bar.getModel().getItems();
+                    final List<BreadcrumbItem<FileTreeNode>> newPath = event.getSource().getItems();
                     System.out.println("New path is ");
-                    for (BreadcrumbItem<Object> item : newPath) {
-                        FileTreeNode node = (FileTreeNode) item.getData();
+                    for (BreadcrumbItem<FileTreeNode> item : newPath) {
+                        FileTreeNode node = item.getData();
                         if (node.file == null)
                             continue;
                         System.out.println("\t" + node.file.getName());
                     }
 
                     if (newPath.size() > 0) {
-                        SwingWorker<List<StringValuePair<Object>>, Void> worker = new
-                                SwingWorker<List<StringValuePair<Object>>, Void>() {
+                        SwingWorker<List<StringValuePair<FileTreeNode>>, Void> worker = new
+                                SwingWorker<List<StringValuePair<FileTreeNode>>, Void>() {
                                     @Override
-                                    protected List<StringValuePair<Object>> doInBackground() throws
+                                    protected List<StringValuePair<FileTreeNode>> doInBackground() throws
                                             Exception {
                                         return bar.getCallback().getLeafs(newPath);
                                     }
@@ -88,9 +88,9 @@ public class JTreeAdapterBreadCrumbTest extends JFrame {
                                     protected void done() {
                                         try {
                                             FileListModel model = new FileListModel();
-                                            List<StringValuePair<Object>> leafs = get();
-                                            for (StringValuePair<Object> leaf : leafs) {
-                                                FileTreeNode node = (FileTreeNode) leaf.getValue();
+                                            List<StringValuePair<FileTreeNode>> leafs = get();
+                                            for (StringValuePair<FileTreeNode> leaf : leafs) {
+                                                FileTreeNode node = leaf.getValue();
                                                 model.add(node.file);
                                             }
                                             model.sort();

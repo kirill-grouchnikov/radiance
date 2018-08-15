@@ -40,11 +40,7 @@ import javax.swing.JInternalFrame;
  * @author Kirill Grouchnikov
  */
 public class MinimizeInternalFrameCommand implements ConfigurationCommand<JComponent> {
-    /*
-     * (non-Javadoc)
-     * 
-     * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-     */
+    @Override
     public void configure(JComponent ab) {
         if (ab instanceof JInternalFrame) {
             JInternalFrame jif = (JInternalFrame) ab;

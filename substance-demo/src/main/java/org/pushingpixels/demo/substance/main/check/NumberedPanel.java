@@ -74,11 +74,6 @@ public class NumberedPanel extends JPanel {
                     255 - (int) (50.0 * Math.random()), 255 - (int) (50.0 * Math.random())));
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-         */
         @Override
         protected void paintComponent(Graphics g) {
             int w = this.getWidth();

@@ -112,11 +112,7 @@ public class StreetlightsSkin extends SubstanceSkin {
 		this.decorationPainter = new ArcDecorationPainter();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.skin.SubstanceSkin#getDisplayName()
-	 */
+	@Override
 	public String getDisplayName() {
 		return NAME;
 	}

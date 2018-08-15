@@ -47,11 +47,6 @@ import java.util.*;
  */
 public class JBreadcrumbBar<T> extends JComponent {
     /**
-     * Serial version ID.
-     */
-    private static final long serialVersionUID = 3258407339731400502L;
-
-    /**
      * The breadcrumb bar model.
      */
     protected BreadcrumbBarModel<T> model;
@@ -117,11 +112,6 @@ public class JBreadcrumbBar<T> extends JComponent {
         super.setUI(ui);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JComponent#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(new SubstanceBreadcrumbBarUI());

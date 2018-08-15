@@ -91,11 +91,6 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
      */
     protected GlowingResizableIcon glowingIcon;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent c) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(c);
         return new SubstanceCommandToggleButtonUI();

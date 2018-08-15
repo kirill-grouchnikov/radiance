@@ -38,11 +38,7 @@ import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
  * @author Kirill Grouchnikov
  */
 public class MyPasswordStrengthChecker implements PasswordStrengthChecker {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.text.PasswordStrengthChecker#getStrength(char[])
-	 */
+	@Override
 	public SubstanceSlices.PasswordStrength getStrength(char[] password) {
 		if (password == null)
 			return SubstanceSlices.PasswordStrength.WEAK;
@@ -54,11 +50,7 @@ public class MyPasswordStrengthChecker implements PasswordStrengthChecker {
 		return SubstanceSlices.PasswordStrength.STRONG;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.text.PasswordStrengthChecker#getDescription(org.pushingpixels.lafwidget.utils.LafConstants.PasswordStrength)
-	 */
+	@Override
 	public String getDescription(SubstanceSlices.PasswordStrength strength) {
 		if (strength == SubstanceSlices.PasswordStrength.WEAK)
 			return "<html>This password is <b>way</b> too weak</html>";

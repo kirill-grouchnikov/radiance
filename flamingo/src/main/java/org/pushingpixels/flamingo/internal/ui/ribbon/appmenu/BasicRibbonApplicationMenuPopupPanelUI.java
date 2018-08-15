@@ -75,11 +75,6 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
 
     protected JPanel mainPanel;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.basic.BasicButtonUI#installUI(javax.swing.JComponent)
-     */
     @Override
     public void installUI(JComponent c) {
         this.applicationMenuPopupPanel = (JRibbonApplicationMenuPopupPanel) c;
@@ -92,11 +87,6 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         installListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-     */
     @Override
     public void uninstallUI(JComponent c) {
         uninstallListeners();

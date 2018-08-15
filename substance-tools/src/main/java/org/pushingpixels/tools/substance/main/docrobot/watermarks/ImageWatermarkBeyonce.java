@@ -50,11 +50,6 @@ public class ImageWatermarkBeyonce extends ImageWatermarkRobot {
 				"/Users/kirillg/Projects/substance/www/images/screenshots/watermarks/image-beyonce.png");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see docrobot.ImageWatermarkRobot#apply()
-	 */
 	@Override
 	protected void apply() {
 		SubstanceImageWatermark watermark = new SubstanceImageWatermark(

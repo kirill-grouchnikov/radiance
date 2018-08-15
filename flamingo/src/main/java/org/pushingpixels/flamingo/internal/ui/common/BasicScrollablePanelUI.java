@@ -62,11 +62,6 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
 
     private ComponentListener componentListener;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-     */
     @Override
     public void installUI(JComponent c) {
         this.scrollablePanel = (JScrollablePanel) c;
@@ -170,11 +165,6 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         this.scrollablePanel.setLayout(new ScrollablePanelLayout());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-     */
     @Override
     public void uninstallUI(JComponent c) {
         uninstallListeners();
@@ -327,27 +317,15 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         public ScrollablePanelLayout() {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container c) {
             if (scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY) {
                 return new Dimension(c.getWidth(), 21);
@@ -356,11 +334,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
             }
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container c) {
             if (scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY) {
                 return new Dimension(10, 21);
@@ -369,11 +343,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
             }
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container c) {
             int width = c.getWidth();
             int height = c.getHeight();

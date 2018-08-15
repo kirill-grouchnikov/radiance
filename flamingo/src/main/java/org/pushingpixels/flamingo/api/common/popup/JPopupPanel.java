@@ -79,11 +79,6 @@ public abstract class JPopupPanel extends JPanel {
 	protected JPopupPanel() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JPanel#getUI()
-	 */
 	@Override
 	public PopupPanelUI getUI() {
 		return (PopupPanelUI) ui;
@@ -99,21 +94,11 @@ public abstract class JPopupPanel extends JPanel {
 		super.setUI(ui);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JPanel#getUIClassID()
-	 */
 	@Override
 	public String getUIClassID() {
 		return uiClassID;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JPanel#updateUI()
-	 */
 	@Override
 	public void updateUI() {
 		setUI(SubstancePopupPanelUI.createUI(this));

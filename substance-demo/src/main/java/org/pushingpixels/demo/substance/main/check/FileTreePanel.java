@@ -77,13 +77,6 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
          */
         private Map<File, String> rootNameCache = new HashMap<File, String>();
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @seeorg.pushingpixels.substance.SubstanceDefaultTreeCellRenderer#
-         * getTreeCellRendererComponent(javax.swing.JTree, java.lang.Object, boolean, boolean,
-         * boolean, int, boolean)
-         */
         @Override
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel,
                 boolean expanded, boolean leaf, int row, boolean hasFocus) {
@@ -135,13 +128,6 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
          */
         private Map<File, String> rootNameCache = new HashMap<File, String>();
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @seeorg.pushingpixels.substance.SubstanceDefaultTreeCellRenderer#
-         * getTreeCellRendererComponent(javax.swing.JTree, java.lang.Object, boolean, boolean,
-         * boolean, int, boolean)
-         */
         @Override
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel,
                 boolean expanded, boolean leaf, int row, boolean hasFocus) {
@@ -256,30 +242,18 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
             this.children = children;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#children()
-         */
+        @Override
         public Enumeration children() {
             final int elementCount = this.children.size();
             return new Enumeration<File>() {
                 int count = 0;
 
-                /*
-                 * (non-Javadoc)
-                 * 
-                 * @see java.util.Enumeration#hasMoreElements()
-                 */
+                @Override
                 public boolean hasMoreElements() {
                     return count < elementCount;
                 }
 
-                /*
-                 * (non-Javadoc)
-                 * 
-                 * @see java.util.Enumeration#nextElement()
-                 */
+                @Override
                 public File nextElement() {
                     if (count < elementCount) {
                         return children.get(count++);
@@ -290,38 +264,22 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
 
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#getAllowsChildren()
-         */
+        @Override
         public boolean getAllowsChildren() {
             return true;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#getChildAt(int)
-         */
+        @Override
         public TreeNode getChildAt(int childIndex) {
             return new FileTreeNode(this.children.get(childIndex), this.parent == null, this);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#getChildCount()
-         */
+        @Override
         public int getChildCount() {
             return this.children.size();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#getIndex(javax.swing.tree.TreeNode)
-         */
+        @Override
         public int getIndex(TreeNode node) {
             FileTreeNode ftn = (FileTreeNode) node;
             for (int i = 0; i < this.children.size(); i++) {
@@ -331,20 +289,12 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
             return -1;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#getParent()
-         */
+        @Override
         public TreeNode getParent() {
             return this.parent;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.tree.TreeNode#isLeaf()
-         */
+        @Override
         public boolean isLeaf() {
             return (this.getChildCount() == 0);
         }

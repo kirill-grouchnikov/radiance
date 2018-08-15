@@ -91,17 +91,12 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
     private boolean isShowingProgress;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-     */
     @Override
     public void installUI(JComponent c) {
         this.breadcrumbBar = (JBreadcrumbBar) c;
 
         this.modelStack = new LinkedList();
-        this.buttonStack = new LinkedList<JCommandButton>();
+        this.buttonStack = new LinkedList<>();
 
         installDefaults(this.breadcrumbBar);
         installComponents(this.breadcrumbBar);
@@ -139,11 +134,6 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         this.circularProgress.setPreferredSize(new Dimension(32, preferredHeight));
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-     */
     @Override
     public void uninstallUI(JComponent c) {
         c.setLayout(null);
@@ -358,27 +348,15 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         public BreadcrumbBarLayout() {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container c) {
             // The height of breadcrumb bar is
             // computed based on the preferred height of a command
@@ -389,22 +367,14 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             return new Dimension(c.getWidth(), buttonHeight + ins.top + ins.bottom);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container c) {
             int buttonHeight = dummy.getPreferredSize().height;
 
             return new Dimension(10, buttonHeight);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container c) {
             int width = c.getWidth();
             int height = c.getHeight();

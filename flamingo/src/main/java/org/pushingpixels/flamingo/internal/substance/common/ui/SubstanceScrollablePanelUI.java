@@ -50,21 +50,11 @@ import java.util.EnumSet;
  * @author Kirill Grouchnikov
  */
 public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceScrollablePanelUI();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         if (!c.isShowing()) {
@@ -90,7 +80,7 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
                 () -> ((ActionPopupTransitionAwareUI) result.getUI()).getActionTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> {
                     NeonIconUIResource doubleArrowIcon = SubstanceImageCreator
-                            .getDoubleArrowIcon(SubstanceSizeUtils.getComponentFontSize(result),
+                            .getDoubleArrowIcon(
                                     width, height,
                                     SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
                                     SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
@@ -120,7 +110,7 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
                 () -> ((ActionPopupTransitionAwareUI) result.getUI()).getActionTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> {
                     NeonIconUIResource doubleArrowIcon = SubstanceImageCreator
-                            .getDoubleArrowIcon(SubstanceSizeUtils.getComponentFontSize(result),
+                            .getDoubleArrowIcon(
                                     width, height,
                                     SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
                                     SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),

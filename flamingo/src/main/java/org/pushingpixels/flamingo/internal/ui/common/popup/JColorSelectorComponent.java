@@ -61,21 +61,11 @@ public class JColorSelectorComponent extends JComponent {
         this.updateUI();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JButton#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(SubstanceColorSelectorComponentUI.createUI(this));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JButton#getUIClassID()
-     */
     @Override
     public String getUIClassID() {
         return uiClassID;

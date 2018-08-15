@@ -120,11 +120,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-     */
     @Override
     public void installUI(JComponent c) {
         this.ribbonBand = (AbstractRibbonBand) c;
@@ -136,11 +131,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         AWTRibbonEventListener.install();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-     */
     @Override
     public void uninstallUI(JComponent c) {
         c.setLayout(null);
@@ -328,28 +318,15 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      * @author Kirill Grouchnikov
      */
     private class RibbonBandLayout implements LayoutManager {
-
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container c) {
             Insets ins = c.getInsets();
             AbstractBandControlPanel controlPanel = ribbonBand.getControlPanel();
@@ -375,11 +352,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                     height + extraTop + ins.top + ins.bottom);
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container c) {
             Insets ins = c.getInsets();
             AbstractBandControlPanel controlPanel = ribbonBand.getControlPanel();
@@ -403,11 +376,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
 
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container c) {
             // System.out.println("Ribbon band real = " + c.getHeight());
             if (!c.isVisible())

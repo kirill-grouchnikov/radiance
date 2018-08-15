@@ -76,31 +76,16 @@ public class TabControlPanel extends JPanel {
             this.jtp = jtp;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.DefaultComboBoxModel#getSize()
-         */
         @Override
         public int getSize() {
             return this.jtp.getTabCount();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.DefaultComboBoxModel#getElementAt(int)
-         */
         @Override
         public Object getElementAt(int index) {
             return index;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.DefaultComboBoxModel#getIndexOf(java.lang.Object)
-         */
         @Override
         public int getIndexOf(Object anObject) {
             return (Integer) anObject;
@@ -120,12 +105,7 @@ public class TabControlPanel extends JPanel {
      * @author Kirill Grouchnikov
      */
     private class TabCellRenderer extends JLabel implements ListCellRenderer {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.ListCellRenderer#getListCellRendererComponent(javax.swing .JList,
-         * java.lang.Object, int, boolean, boolean)
-         */
+        @Override
         public Component getListCellRendererComponent(JList list, Object value, int index,
                 boolean isSelected, boolean cellHasFocus) {
             if (value == null) {

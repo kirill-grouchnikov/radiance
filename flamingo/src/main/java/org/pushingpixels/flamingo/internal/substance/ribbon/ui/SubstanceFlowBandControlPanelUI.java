@@ -42,11 +42,6 @@ import javax.swing.plaf.ComponentUI;
  * @author Kirill Grouchnikov
  */
 public class SubstanceFlowBandControlPanelUI extends BasicFlowBandControlPanelUI {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceFlowBandControlPanelUI();

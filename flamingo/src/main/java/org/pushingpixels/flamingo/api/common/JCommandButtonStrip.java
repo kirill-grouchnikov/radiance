@@ -193,31 +193,16 @@ public class JCommandButtonStrip extends JComponent {
 		this.vgapScaleFactor = vgapScaleFactor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.Container#add(java.awt.Component, java.lang.Object, int)
-	 */
 	@Override
 	public void add(Component comp, Object constraints, int index) {
 		throw new UnsupportedOperationException();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.Container#add(java.awt.Component, java.lang.Object)
-	 */
 	@Override
 	public void add(Component comp, Object constraints) {
 		throw new UnsupportedOperationException();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.Container#add(java.awt.Component, int)
-	 */
 	@Override
 	public Component add(Component comp, int index) {
 		if (!(comp instanceof AbstractCommandButton))
@@ -226,11 +211,6 @@ public class JCommandButtonStrip extends JComponent {
 		return super.add(comp, index);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.Container#add(java.awt.Component)
-	 */
 	@Override
 	public Component add(Component comp) {
 		if (!(comp instanceof AbstractCommandButton))
@@ -257,11 +237,6 @@ public class JCommandButtonStrip extends JComponent {
 		button.setFlat(false);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.Container#add(java.lang.String, java.awt.Component)
-	 */
 	@Override
 	public Component add(String name, Component comp) {
 		throw new UnsupportedOperationException();

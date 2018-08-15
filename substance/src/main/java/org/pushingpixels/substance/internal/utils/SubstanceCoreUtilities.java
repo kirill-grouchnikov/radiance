@@ -896,7 +896,7 @@ public class SubstanceCoreUtilities {
                     + " and " + imageBottom.getHeight());
 
         BufferedImage result = getBlankUnscaledImage(imageTop);
-        Graphics2D graphics = (Graphics2D) result.createGraphics();
+        Graphics2D graphics = result.createGraphics();
 
         int startY = (int) (start * height);
         int endY = (int) (end * height);

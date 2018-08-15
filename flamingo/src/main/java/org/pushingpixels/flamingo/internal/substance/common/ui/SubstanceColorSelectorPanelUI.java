@@ -48,11 +48,6 @@ import java.awt.geom.Line2D;
  * @author Kirill Grouchnikov
  */
 public class SubstanceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceColorSelectorPanelUI();
@@ -97,12 +92,6 @@ public class SubstanceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
 		g2d.dispose();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics,
-	 * javax.swing.JComponent)
-	 */
 	@Override
 	public void update(Graphics g, JComponent c) {
 		BackgroundPaintingUtils.updateIfOpaque(g, c);

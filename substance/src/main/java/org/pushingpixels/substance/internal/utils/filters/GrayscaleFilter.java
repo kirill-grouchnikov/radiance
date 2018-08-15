@@ -38,9 +38,6 @@ import java.awt.image.BufferedImage;
  * @author Kirill Grouchnikov
  */
 public class GrayscaleFilter extends NeonAbstractFilter {
-	public GrayscaleFilter() {
-	}
-
 	@Override
 	public BufferedImage filter(BufferedImage src, BufferedImage dst) {
 		if (dst == null) {
@@ -62,8 +59,7 @@ public class GrayscaleFilter extends NeonAbstractFilter {
 		for (int i = 0; i < pixels.length; i++) {
 			int argb = pixels[i];
 			int brightness = SubstanceColorUtilities.getColorBrightness(argb);
-			pixels[i] = (argb & 0xFF000000) | brightness << 16
-					| brightness << 8 | brightness;
+			pixels[i] = (argb & 0xFF000000) | brightness << 16 | brightness << 8 | brightness;
 		}
 	}
 }

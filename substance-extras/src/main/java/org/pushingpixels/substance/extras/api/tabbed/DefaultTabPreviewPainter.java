@@ -43,22 +43,12 @@ import java.awt.image.BufferedImage;
  * @author Kirill Grouchnikov
  */
 public class DefaultTabPreviewPainter extends TabPreviewPainter {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.tabbed.TabPreviewPainter#hasPreview(javax.swing.JTabbedPane,
-	 *      int)
-	 */
+	@Override
 	public boolean hasPreview(JTabbedPane tabPane, int tabIndex) {
 		return (tabPane.getComponentAt(tabIndex) != null);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.tabbed.TabPreviewPainter#isSensitiveToEvents(javax.swing.JTabbedPane,
-	 *      int)
-	 */
+	@Override
 	public boolean isSensitiveToEvents(JTabbedPane tabPane, int tabIndex) {
 		return tabPane.isEnabledAt(tabIndex);
 	}
@@ -108,21 +98,12 @@ public class DefaultTabPreviewPainter extends TabPreviewPainter {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.tabbed.TabPreviewPainter#hasPreviewWindow(javax.swing.JTabbedPane,
-	 *      int)
-	 */
+	@Override
 	public boolean hasPreviewWindow(JTabbedPane tabPane, int tabIndex) {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.tabbed.TabPreviewPainter#hasOverviewDialog(javax.swing.JTabbedPane)
-	 */
+	@Override
 	public boolean hasOverviewDialog(JTabbedPane tabPane) {
 		return true;
 	}

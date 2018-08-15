@@ -54,11 +54,7 @@ public class ForegroundColorCommand implements ConfigurationCommand<JComponent> 
         this.color = color;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-     */
+    @Override
     public void configure(JComponent ab) {
         ab.setForeground(this.color);
     }

@@ -150,11 +150,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-     */
     @Override
     public void installUI(JComponent c) {
         this.ribbonGallery = (JRibbonGallery) c;
@@ -400,11 +395,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         this.propertyChangeListener = null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-     */
     @Override
     public void uninstallUI(JComponent c) {
         c.setLayout(null);
@@ -432,47 +422,26 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * @author Kirill Grouchnikov
      */
     private class RibbonGalleryLayout implements LayoutManager {
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container c) {
             return new Dimension(ribbonGallery.getPreferredWidth(ribbonGallery.getDisplayPriority(),
                     c.getHeight()), c.getHeight());
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container c) {
             return this.preferredLayoutSize(c);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container c) {
             int width = c.getWidth();
             int height = c.getHeight();
@@ -597,11 +566,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void paint(Graphics g, JComponent c) {
         Graphics2D graphics = (Graphics2D) g.create();

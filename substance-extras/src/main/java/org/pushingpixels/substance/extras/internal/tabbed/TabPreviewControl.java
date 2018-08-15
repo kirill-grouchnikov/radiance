@@ -130,27 +130,15 @@ public class TabPreviewControl extends JPanel {
      * @author Kirill Grouchnikov
      */
     protected class TabPreviewControlLayout implements LayoutManager {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component comp) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component comp) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container parent) {
             int width = parent.getWidth();
             int height = parent.getHeight();
@@ -164,20 +152,12 @@ public class TabPreviewControl extends JPanel {
                     height - 17 - insets.top - insets.bottom);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container parent) {
             return parent.getSize();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container parent) {
             return this.minimumLayoutSize(parent);
         }

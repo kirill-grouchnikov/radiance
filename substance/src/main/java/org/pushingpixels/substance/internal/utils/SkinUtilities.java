@@ -30,20 +30,13 @@
 package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.icon.NeonIconUIResource;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.inputmap.InputMapSet;
-import org.pushingpixels.substance.api.inputmap.SubstanceInputMapUtilities;
+import org.pushingpixels.substance.api.inputmap.*;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 import org.pushingpixels.substance.internal.utils.border.*;
-import org.pushingpixels.substance.internal.utils.icon.CheckBoxMenuItemIcon;
-import org.pushingpixels.substance.internal.utils.icon.MenuArrowIcon;
-import org.pushingpixels.substance.internal.utils.icon.RadioButtonMenuItemIcon;
-import org.pushingpixels.substance.internal.utils.icon.SubstanceIconFactory;
+import org.pushingpixels.substance.internal.utils.icon.*;
 import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollPaneBorder;
 
 import javax.swing.*;
@@ -58,22 +51,15 @@ public class SkinUtilities {
 	/**
 	 * Adds skin-specific entries to the UI defaults table.
 	 * 
-	 * @param table
+	 * @param uiDefaults
 	 *            UI defaults table.
 	 */
-	public static void addCustomEntriesToTable(UIDefaults table,
+	public static void addCustomEntriesToTable(UIDefaults uiDefaults,
 			SubstanceSkin skin) {
-		Object menuArrowIcon = new UIDefaults.LazyValue() {
-			public Object createValue(UIDefaults table) {
-				return new MenuArrowIcon(null);
-			}
-		};
+		UIDefaults.LazyValue menuArrowIcon = (UIDefaults table) -> new MenuArrowIcon(null);
 
-		Object listCellRendererActiveValue = new UIDefaults.ActiveValue() {
-			public Object createValue(UIDefaults table) {
-				return new SubstanceDefaultListCellRenderer.SubstanceUIResource();
-			}
-		};
+		UIDefaults.ActiveValue listCellRendererActiveValue =
+				(UIDefaults table) -> new SubstanceDefaultListCellRenderer.SubstanceUIResource();
 
 		SubstanceColorScheme mainActiveScheme = skin
 				.getActiveColorScheme(DecorationAreaType.NONE);
@@ -129,91 +115,52 @@ public class SkinUtilities {
 		Color selectionCellBackgroundColor = new ColorUIResource(
 				textHighlightColorScheme.getBackgroundFillColor());
 
-		Object popupMenuBorder = new UIDefaults.LazyValue() {
-			@Override
-			public Object createValue(UIDefaults table) {
-				return new SubstancePopupMenuBorder(); 
-			}
-		};
+        UIDefaults.LazyValue popupMenuBorder = (UIDefaults table) -> new SubstancePopupMenuBorder();
 
-		Object desktopIconMarginBorder = new UIDefaults.LazyValue() {
-			@Override
-			public Object createValue(UIDefaults table) {
-				return new BorderUIResource(new SubstanceBorder(new Insets(0, 0, 0, 0))); 
-			}
-		};
+        UIDefaults.LazyValue desktopIconMarginBorder = (UIDefaults table) ->
+				new BorderUIResource(new SubstanceBorder(new Insets(0, 0, 0, 0)));
 
-		Object textBorder = new UIDefaults.LazyValue() {
-			@Override
-			public Object createValue(UIDefaults table) {
-				return new BorderUIResource.CompoundBorderUIResource(
-						new SubstanceTextComponentBorder(
-								SubstanceSizeUtils
-										.getTextBorderInsets(SubstanceSizeUtils
-												.getControlFontSize())),
-						new BasicBorders.MarginBorder());
-			}
-		};
+        UIDefaults.LazyValue textBorder = (UIDefaults table) ->
+                new BorderUIResource.CompoundBorderUIResource(
+                        new SubstanceTextComponentBorder(
+                                SubstanceSizeUtils.getTextBorderInsets(SubstanceSizeUtils
+                                        .getControlFontSize())),
+                        new BasicBorders.MarginBorder());
 
-		Object textMarginBorder = new UIDefaults.LazyValue() {
-			@Override
-			public Object createValue(UIDefaults table) {
-				return new BasicBorders.MarginBorder();
-			}
-		};
+        UIDefaults.LazyValue textMarginBorder =
+                (UIDefaults table) -> new BasicBorders.MarginBorder();
 
-		Object tooltipBorder = new UIDefaults.LazyValue() {
-			@Override
-			public Object createValue(UIDefaults table) {
-				return new SubstanceBorder(
-						SubstanceSizeUtils
-								.getToolTipBorderInsets(SubstanceSizeUtils
-										.getControlFontSize()));
-			}
-		};
+        UIDefaults.LazyValue tooltipBorder = (UIDefaults table) ->
+                new SubstanceBorder(SubstanceSizeUtils.getToolTipBorderInsets(
+                        SubstanceSizeUtils.getControlFontSize()));
 
-		Object comboBorder = new UIDefaults.LazyValue() {
-			@Override
-			public Object createValue(UIDefaults table) {
-				return new SubstanceBorder(
-						SubstanceSizeUtils
-								.getComboBorderInsets(SubstanceSizeUtils
-										.getControlFontSize()));
-			}
-		};
+        UIDefaults.LazyValue comboBorder = (UIDefaults table) ->
+				new SubstanceBorder(SubstanceSizeUtils.getComboBorderInsets(
+				        SubstanceSizeUtils.getControlFontSize()));
 
-		Object spinnerBorder = new UIDefaults.LazyValue() {
-			@Override
-			public Object createValue(UIDefaults table) {
-				return new BorderUIResource.CompoundBorderUIResource(
+        UIDefaults.LazyValue spinnerBorder = (UIDefaults table) ->
+				new BorderUIResource.CompoundBorderUIResource(
 						new SubstanceTextComponentBorder(
 								SubstanceSizeUtils
 										.getSpinnerBorderInsets(SubstanceSizeUtils
 												.getControlFontSize())),
 						new BasicBorders.MarginBorder());
-			}
-		};
 
         final SubstanceColorScheme titlePaneScheme = skin
                 .getBackgroundColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE);
         final SubstanceColorScheme defaultScheme = skin.getColorScheme(DecorationAreaType.NONE,
                 ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
 
-		Object menuItemInsets = new UIDefaults.LazyValue() {
-			@Override
-			public Object createValue(UIDefaults table) {
+        UIDefaults.LazyValue menuItemInsets = (UIDefaults table) -> {
 				int menuItemMargin = SubstanceSizeUtils
 						.getMenuItemMargin(SubstanceSizeUtils
 								.getComponentFontSize(null));
 				return new InsetsUIResource(menuItemMargin, menuItemMargin,
 						menuItemMargin, menuItemMargin);
-			}
 		};
 
-		Object emptyIcon = new UIDefaults.LazyValue() {
-			@Override
-			public Object createValue(UIDefaults table) {
-				return new IconUIResource(new Icon() {
+        UIDefaults.LazyValue emptyIcon = (UIDefaults table) ->
+				new IconUIResource(new Icon() {
 					public int getIconHeight() {
 						// return the value that matches the core height, so
 						// that the DefaultTreeCellEditor.EditorContainer
@@ -229,8 +176,6 @@ public class SkinUtilities {
 					public void paintIcon(Component c, Graphics g, int x, int y) {
 					}
 				});
-			}
-		};
 
 		Object[] defaults = new Object[] {
 				"control",
@@ -372,96 +317,63 @@ public class SkinUtilities {
 				"EditorPane.selectionForeground",
 				selectionTextForegroundColor,
 
-				"FileChooser.upFolderIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getFileChooserUpFolderIcon(
-                                16, defaultScheme);
-                    }
-                },
+                "FileChooser.upFolderIcon",
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().
+                                getFileChooserUpFolderIcon(16, defaultScheme)),
 
 				"FileChooser.newFolderIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getFileChooserNewFolderIcon(
-                                16, defaultScheme);
-                    }
-                },
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().
+                                getFileChooserNewFolderIcon(16, defaultScheme)),
 
 				"FileChooser.homeFolderIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getFileChooserHomeFolderIcon(
-                                16, defaultScheme);
-                    }
-                },
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().
+                                getFileChooserHomeFolderIcon(16, defaultScheme)),
 
 				"FileChooser.listViewIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getFileChooserListViewIcon(
-                                16, defaultScheme);
-                    }
-                },
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().
+                                getFileChooserListViewIcon(16, defaultScheme)),
 
                 "FileChooser.detailsViewIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getFileChooserDetailsViewIcon(
-                                16, defaultScheme);
-                    }
-                },
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().
+                                getFileChooserDetailsViewIcon(16, defaultScheme)),
 
                 "FileChooser.viewMenuIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getFileChooserViewMenuIcon(
-                                16, defaultScheme);
-                    }
-                },
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().
+                                getFileChooserViewMenuIcon(16, defaultScheme)),
 
 				"FileChooser.usesSingleFilePane",
 				Boolean.TRUE,
 
 				"FileView.computerIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getFileChooserComputerIcon(
-                                16, defaultScheme);
-                    }
-                },
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().
+                                getFileChooserComputerIcon(16, defaultScheme)),
 
 				"FileView.directoryIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getFileChooserDirectoryIcon(
-                                16, defaultScheme);
-                    }
-                },
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().
+                                getFileChooserDirectoryIcon(16, defaultScheme)),
 
 				"FileView.fileIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getFileChooserFileIcon(
-                                16, defaultScheme);
-                    }
-                },
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().
+                                getFileChooserFileIcon(16, defaultScheme)),
 
 				"FileView.floppyDriveIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getFileChooserFloppyDriveIcon(
-                                16, defaultScheme);
-                    }
-                },
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().
+                                getFileChooserFloppyDriveIcon(16, defaultScheme)),
 
 				"FileView.hardDriveIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getFileChooserHardDriveIcon(
-                                16, defaultScheme);
-                    }
-                },
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().
+                                getFileChooserHardDriveIcon(16, defaultScheme)),
 
 				"FormattedTextField.background",
 				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
@@ -503,44 +415,24 @@ public class SkinUtilities {
 				new BorderUIResource(new SubstancePaneBorder()),
 
 				"InternalFrame.closeIcon",
-				new UIDefaults.LazyValue() {
-					public Object createValue(UIDefaults table) {
-						return SubstanceImageCreator.getCloseIcon(
-								titlePaneScheme, titlePaneScheme);
-					}
-				},
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceImageCreator.getCloseIcon(titlePaneScheme, titlePaneScheme)),
 
 				"InternalFrame.iconifyIcon",
-				new UIDefaults.LazyValue() {
-					public Object createValue(UIDefaults table) {
-						return SubstanceImageCreator.getMinimizeIcon(
-								titlePaneScheme, titlePaneScheme);
-					}
-				},
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceImageCreator.getMinimizeIcon(titlePaneScheme, titlePaneScheme)),
 
 				"InternalFrame.maximizeIcon",
-				new UIDefaults.LazyValue() {
-					public Object createValue(UIDefaults table) {
-						return SubstanceImageCreator.getMaximizeIcon(
-								titlePaneScheme, titlePaneScheme);
-					}
-				},
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceImageCreator.getMaximizeIcon(titlePaneScheme, titlePaneScheme)),
 
 				"InternalFrame.minimizeIcon",
-				new UIDefaults.LazyValue() {
-					public Object createValue(UIDefaults table) {
-						return SubstanceImageCreator.getRestoreIcon(
-								titlePaneScheme, titlePaneScheme);
-					}
-				},
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceImageCreator.getRestoreIcon(titlePaneScheme, titlePaneScheme)),
 
 				"InternalFrame.paletteCloseIcon",
-				new UIDefaults.LazyValue() {
-					public Object createValue(UIDefaults table) {
-						return SubstanceImageCreator.getCloseIcon(
-								titlePaneScheme, titlePaneScheme);
-					}
-				},
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceImageCreator.getCloseIcon(titlePaneScheme, titlePaneScheme)),
 
 				"Label.background",
 				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
@@ -648,43 +540,31 @@ public class SkinUtilities {
 						false),
 
 				"OptionPane.errorIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getOptionPaneErrorIcon(
-                                20, defaultScheme);
-                    }
-                },
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().getOptionPaneErrorIcon(
+                                20, defaultScheme)),
 
 				"OptionPane.foreground",
 				foregroundColor,
 
 				"OptionPane.informationIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getOptionPaneInformationIcon(
-                                20, defaultScheme);
-                    }
-                },
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().getOptionPaneInformationIcon(
+                                20, defaultScheme)),
 
 				"OptionPane.messageForeground",
 				foregroundColor,
 
 				"OptionPane.questionIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getOptionPaneQuestionIcon(
-                                20, defaultScheme);
-                    }
-                },
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().getOptionPaneQuestionIcon(
+                                20, defaultScheme)),
 
 				"OptionPane.warningIcon",
-                new UIDefaults.LazyValue() {
-                    public Object createValue(UIDefaults table) {
-                        return SubstanceCortex.GlobalScope.getIconPack().getOptionPaneWarningIcon(
-                                20, defaultScheme);
-                    }
-                },
-				
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        SubstanceCortex.GlobalScope.getIconPack().getOptionPaneWarningIcon(
+                                20, defaultScheme)),
+
 				"OptionPane.buttonPadding",
 				8,
 				
@@ -1229,68 +1109,67 @@ public class SkinUtilities {
 				"Viewport.foreground", foregroundColor,
 
 		};
-		table.putDefaults(defaults);
+		uiDefaults.putDefaults(defaults);
 
 		// input maps
-		InputMapSet inputMapSet = SubstanceInputMapUtilities
-				.getSystemInputMapSet();
+		InputMapSet inputMapSet = SubstanceInputMapUtilities.getSystemInputMapSet();
 		if (inputMapSet == null) {
 			throw new IllegalStateException("Input map set is null!");
 		}
 
-		table.put("Button.focusInputMap", inputMapSet.getButtonFocusInputMap()
+		uiDefaults.put("Button.focusInputMap", inputMapSet.getButtonFocusInputMap()
 				.getUiMap());
-		table.put("CheckBox.focusInputMap", inputMapSet
+		uiDefaults.put("CheckBox.focusInputMap", inputMapSet
 				.getCheckBoxFocusInputMap().getUiMap());
-		table.put("ComboBox.ancestorInputMap", inputMapSet
+		uiDefaults.put("ComboBox.ancestorInputMap", inputMapSet
 				.getComboBoxAncestorInputMap().getUiMap());
-		table.put("Desktop.ancestorInputMap", inputMapSet
+		uiDefaults.put("Desktop.ancestorInputMap", inputMapSet
 				.getDesktopAncestorInputMap().getUiMap());
-		table.put("EditorPane.focusInputMap", inputMapSet
+		uiDefaults.put("EditorPane.focusInputMap", inputMapSet
 				.getEditorPaneFocusInputMap().getUiMap());
-		table.put("FileChooser.ancestorInputMap", inputMapSet
+		uiDefaults.put("FileChooser.ancestorInputMap", inputMapSet
 				.getFileChooserAncestorInputMap().getUiMap());
-		table.put("FormattedTextField.focusInputMap", inputMapSet
+		uiDefaults.put("FormattedTextField.focusInputMap", inputMapSet
 				.getFormattedTextFieldFocusInputMap().getUiMap());
-		table.put("List.focusInputMap", inputMapSet.getListFocusInputMap()
+		uiDefaults.put("List.focusInputMap", inputMapSet.getListFocusInputMap()
 				.getUiMap());
-		table.put("PasswordField.focusInputMap", inputMapSet
+		uiDefaults.put("PasswordField.focusInputMap", inputMapSet
 				.getPasswordFieldFocusInputMap().getUiMap());
-		table.put("RadioButton.focusInputMap", inputMapSet
+		uiDefaults.put("RadioButton.focusInputMap", inputMapSet
 				.getRadioButtonFocusInputMap().getUiMap());
-		table.put("RootPane.ancestorInputMap", inputMapSet
+		uiDefaults.put("RootPane.ancestorInputMap", inputMapSet
 				.getRootPaneAncestorInputMap().getUiMap());
-		table.put("ScrollBar.ancestorInputMap", inputMapSet
+		uiDefaults.put("ScrollBar.ancestorInputMap", inputMapSet
 				.getScrollBarAncestorInputMap().getUiMap());
-		table.put("ScrollPane.ancestorInputMap", inputMapSet
+		uiDefaults.put("ScrollPane.ancestorInputMap", inputMapSet
 				.getScrollPaneAncestorInputMap().getUiMap());
-		table.put("Slider.focusInputMap", inputMapSet.getSliderFocusInputMap()
+		uiDefaults.put("Slider.focusInputMap", inputMapSet.getSliderFocusInputMap()
 				.getUiMap());
-		table.put("Spinner.ancestorInputMap", inputMapSet
+		uiDefaults.put("Spinner.ancestorInputMap", inputMapSet
 				.getSpinnerAncestorInputMap().getUiMap());
-		table.put("SplitPane.ancestorInputMap", inputMapSet
+		uiDefaults.put("SplitPane.ancestorInputMap", inputMapSet
 				.getSplitPaneAncestorInputMap().getUiMap());
-		table.put("TabbedPane.ancestorInputMap", inputMapSet
+		uiDefaults.put("TabbedPane.ancestorInputMap", inputMapSet
 				.getTabbedPaneAncestorInputMap().getUiMap());
-		table.put("TabbedPane.focusInputMap", inputMapSet
+		uiDefaults.put("TabbedPane.focusInputMap", inputMapSet
 				.getTabbedPaneFocusInputMap().getUiMap());
-		table.put("Table.ancestorInputMap", inputMapSet
+		uiDefaults.put("Table.ancestorInputMap", inputMapSet
 				.getTableAncestorInputMap().getUiMap());
-		table.put("TableHeader.ancestorInputMap", inputMapSet
+		uiDefaults.put("TableHeader.ancestorInputMap", inputMapSet
 				.getTableHeaderAncestorInputMap().getUiMap());
-		table.put("TextArea.focusInputMap", inputMapSet
+		uiDefaults.put("TextArea.focusInputMap", inputMapSet
 				.getTextAreaFocusInputMap().getUiMap());
-		table.put("TextField.focusInputMap", inputMapSet
+		uiDefaults.put("TextField.focusInputMap", inputMapSet
 				.getTextFieldFocusInputMap().getUiMap());
-		table.put("TextPane.focusInputMap", inputMapSet
+		uiDefaults.put("TextPane.focusInputMap", inputMapSet
 				.getTextPaneFocusInputMap().getUiMap());
-		table.put("ToggleButton.focusInputMap", inputMapSet
+		uiDefaults.put("ToggleButton.focusInputMap", inputMapSet
 				.getToggleButtonFocusInputMap().getUiMap());
-		table.put("ToolBar.ancestorInputMap", inputMapSet
+		uiDefaults.put("ToolBar.ancestorInputMap", inputMapSet
 				.getToolBarAncestorInputMap().getUiMap());
-		table.put("Tree.ancestorInputMap", inputMapSet
+		uiDefaults.put("Tree.ancestorInputMap", inputMapSet
 				.getTreeAncestorInputMap().getUiMap());
-		table.put("Tree.focusInputMap", inputMapSet.getTreeFocusInputMap()
+		uiDefaults.put("Tree.focusInputMap", inputMapSet.getTreeFocusInputMap()
 				.getUiMap());
 	}
 }

@@ -64,11 +64,9 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
      *                          repository of image
      *                          files.
      * @param startingDimension Initial dimension for image icons.
-     * @param progressListener  Progress listener to report back on loaded SVG images.
      */
-    public ExplorerFileViewPanel(JBreadcrumbBar<T> bar, int startingDimension,
-            ProgressListener progressListener) {
-        super(startingDimension, progressListener);
+    public ExplorerFileViewPanel(JBreadcrumbBar<T> bar, int startingDimension) {
+        super(startingDimension);
         this.bar = bar;
         this.useNativeIcons = false;
     }
@@ -80,11 +78,9 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
      *                         repository of image
      *                         files.
      * @param startingState    Initial state for image icons.
-     * @param progressListener Progress listener to report back on loaded SVG images.
      */
-    public ExplorerFileViewPanel(JBreadcrumbBar<T> bar, CommandButtonDisplayState startingState,
-            ProgressListener progressListener) {
-        super(startingState, progressListener);
+    public ExplorerFileViewPanel(JBreadcrumbBar<T> bar, CommandButtonDisplayState startingState) {
+        super(startingState);
         this.bar = bar;
         this.useNativeIcons = false;
     }

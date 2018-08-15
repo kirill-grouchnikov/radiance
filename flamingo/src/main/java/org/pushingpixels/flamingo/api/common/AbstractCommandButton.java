@@ -535,11 +535,6 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
 		this.listenerList.remove(ChangeListener.class, l);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JComponent#setEnabled(boolean)
-	 */
 	@Override
 	public void setEnabled(boolean b) {
 		if (!b && actionModel.isRollover()) {

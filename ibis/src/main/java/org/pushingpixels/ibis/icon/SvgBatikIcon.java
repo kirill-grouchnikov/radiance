@@ -173,30 +173,17 @@ abstract class SvgBatikIcon extends UserAgentAdapter implements Icon {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.Icon#getIconWidth()
-     */
+    @Override
     public int getIconWidth() {
         return width;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.Icon#getIconHeight()
-     */
+    @Override
     public int getIconHeight() {
         return height;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-     * int, int)
-     */
+    @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         BufferedImage image = this.cachedImages.get(this.getIconWidth() + ":"
                 + this.getIconHeight());
@@ -204,8 +191,12 @@ abstract class SvgBatikIcon extends UserAgentAdapter implements Icon {
             double scaleFactor = NeonCortex.getScaleFactor();
             int dx = (int) ((this.width - image.getWidth() / scaleFactor) / 2);
             int dy = (int) ((this.height - image.getHeight() / scaleFactor) / 2);
-            g.drawImage(image, x + dx, y + dy, (int) (image.getWidth() / scaleFactor),
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.drawImage(image, x + dx, y + dy, (int) (image.getWidth() / scaleFactor),
                     (int) (image.getHeight() / scaleFactor), null);
+            g2d.dispose();
         }
     }
 

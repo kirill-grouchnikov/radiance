@@ -107,12 +107,8 @@ public final class SubstanceImageCreator {
      *            Border height.
      * @param radius
      *            Border radius.
-     * @param borderScheme1
-     *            First border color scheme.
-     * @param borderScheme2
-     *            Second border color scheme.
-     * @param cyclePos
-     *            Cycle position for interpolating the border color schemes.
+     * @param borderScheme
+     *            Border color scheme.
      */
     public static void paintBorder(Component c, Graphics2D graphics, int x, float y, float width,
             float height, float radius, SubstanceColorScheme borderScheme) {
@@ -136,8 +132,6 @@ public final class SubstanceImageCreator {
     /**
      * Retrieves check mark image.
      * 
-     * @param button
-     *            Button for the check mark.
      * @param dimension
      *            Check mark dimension.
      * @param isEnabled
@@ -322,33 +316,12 @@ public final class SubstanceImageCreator {
     }
 
     /**
-     * Returns double arrow icon for the specified parameters.
-     * 
-     * @param fontSize
-     *            Font size.
-     * @param direction
-     *            Arrow direction.
-     * @param colorScheme
-     *            Color scheme for the arrow.
-     * @return Double arrow icon.
-     */
-    public static NeonIconUIResource getDoubleArrowIcon(int fontSize, int direction,
-            SubstanceColorScheme colorScheme) {
-        float arrowWidth = SubstanceSizeUtils.getArrowIconWidth(fontSize);
-        float arrowHeight = SubstanceSizeUtils.getArrowIconHeight(fontSize);
-        float arrowStrokeWidth = SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize);
-        float arrowGap = SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize);
-        return getDoubleArrowIcon(fontSize, arrowWidth, arrowHeight + arrowGap, arrowGap,
-                arrowStrokeWidth, direction, colorScheme);
-    }
-
-    /**
      * Retrieves arrow icon.
      * 
-     * @param width
-     *            Arrow width.
-     * @param height
-     *            Arrow height.
+     * @param fullWidth
+     *            Full icon width.
+     * @param fullHeight
+     *            Full icon height.
      * @param strokeWidth
      *            Stroke width.
      * @param direction
@@ -361,7 +334,7 @@ public final class SubstanceImageCreator {
      * @see SwingConstants#SOUTH
      * @see SwingConstants#EAST
      */
-    public static NeonIconUIResource getDoubleArrowIcon(int fontSize, float fullWidth,
+    public static NeonIconUIResource getDoubleArrowIcon(float fullWidth,
             float fullHeight, float arrowGap, float strokeWidth, int direction,
             SubstanceColorScheme colorScheme) {
         boolean toggle = (direction == SwingConstants.WEST) || (direction == SwingConstants.EAST);
@@ -456,7 +429,7 @@ public final class SubstanceImageCreator {
      *            Icon.
      * @return Greyscale version of the specified icon.
      */
-    public static Icon toGreyscale(Icon icon) {
+    public static Icon toGrayscale(Icon icon) {
         if (icon == null) {
             return null;
         }
@@ -468,9 +441,6 @@ public final class SubstanceImageCreator {
 
         icon.paintIcon(null, result.getGraphics(), 0, 0);
         Icon resultIcon = new NeonIconUIResource(new GrayscaleFilter().filter(result, null));
-        // System.out.println("Orig " + icon.getIconWidth() + "x" +
-        // icon.getIconHeight() + " -> " +
-        // resultIcon.getIconWidth() + "x" + resultIcon.getIconHeight());
         return resultIcon;
     }
 
@@ -983,8 +953,6 @@ public final class SubstanceImageCreator {
      *            Border height.
      * @param borderColorScheme
      *            Border color scheme.
-     * @param cyclePos
-     *            Interpolation cycle.
      */
     public static void paintSimpleBorder(Component c, Graphics2D g2d, float width, float height,
             SubstanceColorScheme borderColorScheme) {
@@ -1134,8 +1102,6 @@ public final class SubstanceImageCreator {
      *            Component.
      * @param colorScheme
      *            Color scheme.
-     * @param alwaysUseActive
-     *            Indicates whether the active color scheme should always be used.
      * @param width
      *            Drag bumps width.
      * @param height
@@ -1210,14 +1176,8 @@ public final class SubstanceImageCreator {
      *            Height of the bump dots area.
      * @param isHorizontal
      *            Indicates whether the dots are horizontal.
-     * @param componentState
-     *            Split pane divider state.
-     * @param colorScheme1
-     *            First color scheme.
-     * @param colorScheme2
-     *            Second color scheme.
-     * @param interpolationCyclePos
-     *            Interpolation cycle.
+     * @param colorScheme
+     *            Color scheme.
      */
     public static void paintSplitDividerBumpImage(Graphics g, SubstanceSplitPaneDivider divider,
             int x, int y, int width, int height, boolean isHorizontal,
@@ -1681,8 +1641,8 @@ public final class SubstanceImageCreator {
      *            The original image.
      * @param colorScheme
      *            Color scheme.
-     * @param toSaturate
-     *            Indicates whether the resulting image should be saturated.
+     * @param originalBrightnessFactor
+     *            The original brightness factor.
      * @return Scheme-based version of the original icon.
      */
     public static BufferedImage getColorSchemeImage(BufferedImage original,

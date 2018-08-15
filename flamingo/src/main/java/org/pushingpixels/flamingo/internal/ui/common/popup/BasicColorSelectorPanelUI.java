@@ -44,11 +44,6 @@ public abstract class BasicColorSelectorPanelUI extends ColorSelectorPanelUI {
 
 	protected JPanel colorSelectorContainer;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-	 */
 	@Override
 	public void installUI(JComponent c) {
 		this.colorSelectorPanel = (JColorSelectorPanel) c;
@@ -58,11 +53,6 @@ public abstract class BasicColorSelectorPanelUI extends ColorSelectorPanelUI {
 		installListeners();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-	 */
 	@Override
 	public void uninstallUI(JComponent c) {
 		uninstallListeners();

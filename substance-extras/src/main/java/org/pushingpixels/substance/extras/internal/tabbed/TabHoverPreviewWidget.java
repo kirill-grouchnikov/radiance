@@ -54,59 +54,34 @@ public class TabHoverPreviewWidget extends SubstanceWidget<JTabbedPane> {
 	 * 
 	 * @author Kirill Grouchnikov
 	 */
-	protected class MouseRolloverHandler implements MouseListener,
-			MouseMotionListener {
+	protected class MouseRolloverHandler implements MouseListener, MouseMotionListener {
 		/**
 		 * Index of previously rolled-over tab.
 		 */
 		int prevRolledOver = -1;
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
-		 */
+		@Override
 		public void mouseClicked(MouseEvent e) {
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
-		 */
+		@Override
 		public void mouseDragged(MouseEvent e) {
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
-		 */
+		@Override
 		public void mouseEntered(MouseEvent e) {
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
-		 */
+		@Override
 		public void mousePressed(MouseEvent e) {
 			TabPreviewWindow.cancelPreviewRequest();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
-		 */
+		@Override
 		public void mouseReleased(MouseEvent e) {
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
-		 */
+		@Override
 		public void mouseMoved(MouseEvent e) {
 			if (e.getSource() != jcomp)
 				return;
@@ -144,11 +119,7 @@ public class TabHoverPreviewWidget extends SubstanceWidget<JTabbedPane> {
 			this.prevRolledOver = currRolledOver;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
-		 */
+		@Override
 		public void mouseExited(MouseEvent e) {
 			if ((this.prevRolledOver >= 0)
 					&& (this.prevRolledOver < jcomp.getTabCount())
@@ -159,11 +130,6 @@ public class TabHoverPreviewWidget extends SubstanceWidget<JTabbedPane> {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installListeners()
-	 */
 	@Override
 	public void installListeners() {
 		this.baseRolloverHandler = new MouseRolloverHandler();
@@ -171,11 +137,6 @@ public class TabHoverPreviewWidget extends SubstanceWidget<JTabbedPane> {
 		this.jcomp.addMouseListener(this.baseRolloverHandler);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallListeners()
-	 */
 	@Override
 	public void uninstallListeners() {
 		if (this.baseRolloverHandler != null) {
@@ -185,11 +146,6 @@ public class TabHoverPreviewWidget extends SubstanceWidget<JTabbedPane> {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallUI()
-	 */
 	@Override
 	public void uninstallUI() {
 		if (TabPreviewThread.instanceRunning()) {

@@ -60,11 +60,6 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
 
     protected float rollover;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-     */
     @Override
     public void installUI(JComponent c) {
         this.colorSelectorComponent = (JColorSelectorComponent) c;
@@ -75,11 +70,6 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
         installListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-     */
     @Override
     public void uninstallUI(JComponent c) {
         uninstallListeners();

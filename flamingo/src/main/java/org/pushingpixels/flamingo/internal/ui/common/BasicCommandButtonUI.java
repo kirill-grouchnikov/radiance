@@ -111,11 +111,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         // this.toTakeSavedDimension = false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-     */
     @Override
     public void installUI(JComponent c) {
         this.commandButton = (AbstractCommandButton) c;
@@ -130,11 +125,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.updateCustomDimension();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-     */
     @Override
     public void uninstallUI(JComponent c) {
         c.setLayout(null);
@@ -393,11 +383,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
@@ -463,11 +448,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#getPreferredSize(javax.swing.JComponent)
-     */
     @Override
     public Dimension getPreferredSize(JComponent c) {
         AbstractCommandButton button = (AbstractCommandButton) c;

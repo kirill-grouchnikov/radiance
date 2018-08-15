@@ -378,13 +378,6 @@ public class SampleMenuFactory {
     public static JMenu getLookAndFeelMenu(JFrame frame) {
         JMenu lafMenu = new JMenu("Look & feel");
         JMenu substanceMenus = new JMenu("Substance family");
-        // for (Map.Entry<String, SkinInfo> substanceSkinInfo :
-        // SubstanceLookAndFeel
-        // .getAllSkins().entrySet()) {
-        // substanceMenus.add(SubstanceLafChanger.getMenuItem(frame,
-        // substanceSkinInfo.getValue().getDisplayName(),
-        // substanceSkinInfo.getValue().getClassName()));
-        // }
 
         substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Autumn",
                 "org.pushingpixels.substance.api.skin.SubstanceAutumnLookAndFeel"));
@@ -599,6 +592,8 @@ public class SampleMenuFactory {
                 "com.Trendy.swing.plaf.TrendyLookAndFeel"));
         customLafMenus.add(
                 SubstanceLafChanger.getMenuItem(frame, "WebLaf", "com.alee.laf.WebLookAndFeel"));
+        customLafMenus.add(
+                SubstanceLafChanger.getMenuItem(frame, "Material", "mdlaf.MaterialLookAndFeel"));
 
         lafMenu.addSeparator();
         JMenu localeMenus = new JMenu("Change locale");

@@ -84,11 +84,7 @@ public class JaxbwIconDemo {
 			this.setSize(dim);
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.Component#paint(java.awt.Graphics)
-		 */
+		@Override
 		public final void paint(Graphics g) {
 			Graphics2D g2 = (Graphics2D) g.create();
 			g2.setColor(Color.white);

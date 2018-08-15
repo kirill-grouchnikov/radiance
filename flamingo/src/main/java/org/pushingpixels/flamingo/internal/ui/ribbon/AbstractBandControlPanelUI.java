@@ -60,11 +60,6 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
 
     public static final String BOTTOM_ROW = "flamingo.internal.ribbonBandControlPanel.bottomRow";
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-     */
     @Override
     public void installUI(JComponent c) {
         this.controlPanel = (AbstractBandControlPanel) c;
@@ -81,11 +76,6 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
         c.setLayout(createLayoutManager());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-     */
     @Override
     public void uninstallUI(JComponent c) {
         uninstallListeners();

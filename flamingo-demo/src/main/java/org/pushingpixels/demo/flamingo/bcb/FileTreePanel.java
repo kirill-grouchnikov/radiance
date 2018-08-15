@@ -53,12 +53,6 @@ public class FileTreePanel extends JPanel {
          */
         private Map<File, String> rootNameCache = new HashMap<>();
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see javax.swing.tree.DefaultTreeCellRenderer#getTreeCellRendererComponent
-         * (javax.swing.JTree, java.lang.Object, boolean, boolean, boolean, int, boolean)
-         */
         @Override
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel,
                 boolean expanded, boolean leaf, int row, boolean hasFocus) {

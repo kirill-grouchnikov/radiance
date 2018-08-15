@@ -64,31 +64,16 @@ public class JScrollablePanel<T extends JComponent> extends JPanel {
 		this.updateUI();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JPanel#getUI()
-	 */
 	@Override
 	public ScrollablePanelUI getUI() {
 		return (ScrollablePanelUI) ui;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JPanel#getUIClassID()
-	 */
 	@Override
 	public String getUIClassID() {
 		return uiClassID;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JPanel#updateUI()
-	 */
 	@Override
 	public void updateUI() {
 		setUI(SubstanceScrollablePanelUI.createUI(this));

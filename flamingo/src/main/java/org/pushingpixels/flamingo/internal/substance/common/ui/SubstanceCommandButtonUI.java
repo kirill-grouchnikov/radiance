@@ -105,11 +105,6 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
      */
     protected GlowingResizableIcon glowingIcon;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceCommandButtonUI((JCommandButton) comp);

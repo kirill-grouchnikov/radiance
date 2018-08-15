@@ -143,24 +143,13 @@ public class TabPagerManager {
             this.previewControl.doLayout();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.pushingpixels.lafwidget.tabbed.TabPreviewThread. TabPreviewCallback
-         * #start(javax.swing.JTabbedPane, int,
-         * org.pushingpixels.lafwidget.tabbed.TabPreviewThread.TabPreviewInfo)
-         */
+        @Override
         public void start(JTabbedPane tabPane, int tabCount, TabPreviewInfo tabPreviewInfo) {
             // Nothing to do since the callback was registered
             // for a specific tab.
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.pushingpixels.lafwidget.tabbed.TabPreviewThread. TabPreviewCallback
-         * #offer(javax.swing.JTabbedPane, int, java.awt.image.BufferedImage)
-         */
+        @Override
         public void offer(JTabbedPane tabPane, int tabIndex, BufferedImage componentSnap) {
             if (TabPagerManager.this.currTabbedPane != tabPane) {
                 // has since been cancelled

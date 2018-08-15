@@ -92,13 +92,7 @@ public abstract class WaveDelegateFillPainter implements SubstanceFillPainter {
 		this.delegate = delegate;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.painter.SubstanceGradientPainter#getDisplayName
-	 * ()
-	 */
+	@Override
 	public String getDisplayName() {
 		return this.painterName;
 	}

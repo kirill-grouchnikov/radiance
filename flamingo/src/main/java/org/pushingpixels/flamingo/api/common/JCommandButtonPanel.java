@@ -444,21 +444,11 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
         return this.groupTitles.get(index);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JPanel#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(SubstanceCommandButtonPanelUI.createUI(this));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JPanel#getUIClassID()
-     */
     @Override
     public String getUIClassID() {
         return uiClassID;
@@ -744,52 +734,28 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.Scrollable#getPreferredScrollableViewportSize()
-     */
+    @Override
     public Dimension getPreferredScrollableViewportSize() {
         return this.getPreferredSize();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * javax.swing.Scrollable#getScrollableBlockIncrement(java.awt.Rectangle,
-     * int, int)
-     */
+    @Override
     public int getScrollableBlockIncrement(Rectangle visibleRect,
             int orientation, int direction) {
         return 30;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.Scrollable#getScrollableTracksViewportHeight()
-     */
+    @Override
     public boolean getScrollableTracksViewportHeight() {
         return (this.layoutKind == LayoutKind.COLUMN_FILL);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.Scrollable#getScrollableTracksViewportWidth()
-     */
+    @Override
     public boolean getScrollableTracksViewportWidth() {
         return (this.layoutKind == LayoutKind.ROW_FILL);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * javax.swing.Scrollable#getScrollableUnitIncrement(java.awt.Rectangle,
-     * int, int)
-     */
+    @Override
     public int getScrollableUnitIncrement(Rectangle visibleRect,
             int orientation, int direction) {
         return 10;

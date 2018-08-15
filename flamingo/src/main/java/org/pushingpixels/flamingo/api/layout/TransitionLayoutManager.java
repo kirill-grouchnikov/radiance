@@ -29,7 +29,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.rainbow.layout;
+package org.pushingpixels.flamingo.api.layout;
 
 import java.awt.Container;
 import java.awt.LayoutManager;
@@ -57,8 +57,9 @@ public class TransitionLayoutManager {
 	 * @return Manager instance.
 	 */
 	public synchronized static TransitionLayoutManager getInstance() {
-		if (instance == null)
+		if (instance == null) {
 			instance = new TransitionLayoutManager();
+		}
 		return instance;
 	}
 
@@ -80,11 +81,11 @@ public class TransitionLayoutManager {
 	 */
 	public void track(Container container, boolean doImmediateRepaint) {
 		LayoutManager currLayout = container.getLayout();
-		if (currLayout instanceof TransitionLayout)
-			return;
+		if (currLayout instanceof TransitionLayout) {
+            return;
+        }
 
-		TransitionLayout layout = new TransitionLayout(container, container
-				.getLayout());
+		TransitionLayout layout = new TransitionLayout(container, container.getLayout());
 		layout.setDoImmediateRepaint(doImmediateRepaint);
 		container.setLayout(layout);
 	}
@@ -93,8 +94,7 @@ public class TransitionLayoutManager {
 	 * Removes the transition layout effects from the specified container. The
 	 * layout manager is reset to the original layout manager. This method can
 	 * be called on a container that hadn't been tracked with
-	 * {@link #track(Container, boolean)} or
-	 * {@link #track(Container, boolean, boolean)}.
+	 * {@link #track(Container, boolean)}.
 	 * 
 	 * @param container
 	 *            Container.

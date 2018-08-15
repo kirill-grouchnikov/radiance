@@ -56,11 +56,7 @@ public class ColorPanel extends JPanel {
 		this.str = str;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-	 */
+	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D graphics = (Graphics2D) g.create();
 		super.paintComponent(graphics);

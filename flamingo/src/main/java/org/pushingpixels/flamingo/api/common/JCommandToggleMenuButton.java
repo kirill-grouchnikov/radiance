@@ -57,21 +57,11 @@ public class JCommandToggleMenuButton extends JCommandToggleButton {
 		super(title, icon);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JComponent#getUIClassID()
-	 */
 	@Override
 	public String getUIClassID() {
 		return uiClassID;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JComponent#updateUI()
-	 */
 	@Override
 	public void updateUI() {
 		setUI(SubstanceCommandToggleMenuButtonUI.createUI(this));

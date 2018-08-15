@@ -121,12 +121,7 @@ public class FabricFilter implements NoiseFilter {
 					trigKind);
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.pushingpixels.substance.painter.noise.NoiseFilter#apply(double,
-		 * double, double, double)
-		 */
+		@Override
 		public double apply(double x, double y, double z, double origValue) {
 			double trans = this.xFactor * x + this.yFactor * y + this.zFactor
 					* z + this.valueFactor * origValue;
@@ -149,12 +144,7 @@ public class FabricFilter implements NoiseFilter {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.painter.noise.NoiseFilter#apply(double, double,
-	 * double, double)
-	 */
+	@Override
 	public double apply(double x, double y, double z, double origValue) {
 		double val = 1.0;
 		for (FabricFilterLink link : this.links)

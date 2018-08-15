@@ -70,11 +70,6 @@ public class TabPagerWidget extends SubstanceWidget<JTabbedPane> {
 
     protected PropertyChangeListener propertyChangeListener;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installUI()
-     */
     @Override
     public void installUI() {
         super.installUI();
@@ -226,22 +221,12 @@ public class TabPagerWidget extends SubstanceWidget<JTabbedPane> {
                 newMap);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallUI()
-     */
     @Override
     public void uninstallUI() {
         this.uninstallMaps();
         super.uninstallUI();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installListeners()
-     */
     @Override
     public void installListeners() {
         this.mouseWheelListener = new TabPagerMouseWheelListener(this.jcomp);
@@ -276,11 +261,6 @@ public class TabPagerWidget extends SubstanceWidget<JTabbedPane> {
         this.jcomp.addPropertyChangeListener(this.propertyChangeListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallListeners()
-     */
     @Override
     public void uninstallListeners() {
         this.jcomp.removeMouseWheelListener(this.mouseWheelListener);

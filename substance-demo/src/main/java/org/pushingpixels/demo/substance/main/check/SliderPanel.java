@@ -55,11 +55,7 @@ public class SliderPanel extends ControllablePanel implements Deferrable {
      * @author Kirill Grouchnikov
      */
     public static class SetTitleBorderCommand implements ConfigurationCommand<JSlider> {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(JSlider slider) {
             slider.setBorder(BorderFactory.createTitledBorder("Title"));
         }
@@ -71,11 +67,7 @@ public class SliderPanel extends ControllablePanel implements Deferrable {
      * @author Kirill Grouchnikov
      */
     public static class ClearBorderCommand implements ConfigurationCommand<JSlider> {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(JSlider slider) {
             slider.setBorder(null);
         }
@@ -87,11 +79,7 @@ public class SliderPanel extends ControllablePanel implements Deferrable {
      * @author Kirill Grouchnikov
      */
     public static class SnapToTicksCommand implements ConfigurationCommand<JSlider> {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(JSlider slider) {
             slider.setSnapToTicks(true);
         }
@@ -103,11 +91,7 @@ public class SliderPanel extends ControllablePanel implements Deferrable {
      * @author Kirill Grouchnikov
      */
     public static class UnsnapToTicksCommand implements ConfigurationCommand<JSlider> {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(JSlider slider) {
             slider.setSnapToTicks(false);
         }

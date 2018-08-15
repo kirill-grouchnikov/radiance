@@ -129,8 +129,8 @@ public class BreadcrumbMultiSvnSelector extends JBreadcrumbBar<String> {
 	 * <p>
 	 * It is {@link CountDownLatch#countDown()} in the
 	 * <code>SwingWorker.done()</code> that wraps the connection. The
-	 * {@link BreadcrumbBarCallBack#getPathChoices(BreadcrumbItem[])} and
-	 * {@link BreadcrumbBarCallBack#getLeafs(BreadcrumbItem[])} call
+	 * {@link BreadcrumbBarCallBack#getPathChoices(List)} and
+	 * {@link BreadcrumbBarCallBack#getLeafs(List)} call
 	 * {@link CountDownLatch#await()} on the same latch that blocks until the
 	 * connection is done. Since both these methods should be wrapped off EDT in
 	 * a separate {@link SwingWorker}, this doesn't block the UI.
@@ -162,15 +162,15 @@ public class BreadcrumbMultiSvnSelector extends JBreadcrumbBar<String> {
 		 *            List of all SVN repositories.
 		 */
 		public PathCallback(BreadcrumbMultiSvnSelector.SvnRepositoryInfo... repoList) {
-			this.repositories = new ArrayList<SvnRepositoryInfo>();
+			this.repositories = new ArrayList<>();
 			if (repoList != null) {
 				for (BreadcrumbMultiSvnSelector.SvnRepositoryInfo repository : repoList) {
 					this.addSvnRepositoryInfo(repository);
 				}
 			}
 
-			getModel().addPathListener((BreadcrumbPathEvent event) -> {
-				final List<BreadcrumbItem<String>> newPath = getModel().getItems();
+			getModel().addPathListener((BreadcrumbPathEvent<String> event) -> {
+				final List<BreadcrumbItem<String>> newPath = event.getSource().getItems();
 				// If one element - an SVN repository has been
 				// selected. Need to connect to it and update the
 				// currRepository field.

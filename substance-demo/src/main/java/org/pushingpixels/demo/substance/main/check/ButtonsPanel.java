@@ -58,11 +58,7 @@ public class ButtonsPanel extends JPanel {
      * @author Kirill Grouchnikov
      */
     private class NoFocusCommand implements ConfigurationCommand<AbstractButton> {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(AbstractButton ab) {
             ab.setFocusPainted(false);
         }
@@ -74,11 +70,7 @@ public class ButtonsPanel extends JPanel {
      * @author Kirill Grouchnikov
      */
     private class MarginCommand implements ConfigurationCommand<AbstractButton> {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(AbstractButton ab) {
             ab.setMargin(new Insets(5, 5, 5, 5));
         }
@@ -105,11 +97,7 @@ public class ButtonsPanel extends JPanel {
             this.text = text;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(AbstractButton ab) {
             ab.setText(this.text);
         }
@@ -136,11 +124,7 @@ public class ButtonsPanel extends JPanel {
             this.tooltipText = tooltipText;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(AbstractButton ab) {
             ab.setToolTipText(this.tooltipText);
         }
@@ -152,11 +136,7 @@ public class ButtonsPanel extends JPanel {
      * @author Kirill Grouchnikov
      */
     private class PopupMenuCommand implements ConfigurationCommand<AbstractButton> {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(AbstractButton ab) {
             ab.addMouseListener(new MousePopupListener(ab));
         }
@@ -183,11 +163,7 @@ public class ButtonsPanel extends JPanel {
             this.font = font;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(AbstractButton ab) {
             ab.setFont(this.font);
         }
@@ -214,11 +190,7 @@ public class ButtonsPanel extends JPanel {
             this.icon = icon;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(AbstractButton ab) {
             if ((ab instanceof JRadioButton) || (ab instanceof JCheckBox))
                 return;
@@ -232,11 +204,7 @@ public class ButtonsPanel extends JPanel {
      * @author Kirill Grouchnikov
      */
     private class NoContentAreaFilledCommand implements ConfigurationCommand<AbstractButton> {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(AbstractButton ab) {
             ab.setContentAreaFilled(false);
         }
@@ -248,11 +216,7 @@ public class ButtonsPanel extends JPanel {
      * @author Kirill Grouchnikov
      */
     private class NoBorderPaintedCommand implements ConfigurationCommand<AbstractButton> {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-         */
+        @Override
         public void configure(AbstractButton ab) {
             ab.setBorderPainted(false);
         }

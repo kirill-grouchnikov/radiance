@@ -55,11 +55,6 @@ import java.util.EnumSet;
  * @author Kirill Grouchnikov
  */
 public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceRibbonBandUI();
@@ -194,7 +189,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
                             .getBackgroundColorScheme(DecorationAreaType.GENERAL);
                     Color bgFillColor = bgColorScheme.getBackgroundFillColor();
                     return SubstanceImageCreator.getDoubleArrowIcon(
-                            SubstanceSizeUtils.getComponentFontSize(button), width, height,
+                            width, height,
                             SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
                             SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                             ribbonBand.getComponentOrientation().isLeftToRight()

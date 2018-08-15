@@ -61,21 +61,11 @@ public class JRibbonApplicationMenuPopupPanel extends JPopupPanel
                 .getPanelLevel2();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JButton#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(SubstanceRibbonApplicationMenuPopupPanelUI.createUI(this));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JButton#getUIClassID()
-     */
     @Override
     public String getUIClassID() {
         return uiClassID;

@@ -49,11 +49,6 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
 
     protected ResizableIcon disabledIcon;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-     */
     @Override
     public void installUI(JComponent c) {
         this.ribbonComponent = (JRibbonComponent) c;
@@ -63,11 +58,6 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
         c.setLayout(createLayoutManager());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-     */
     @Override
     public void uninstallUI(JComponent c) {
         c.setLayout(null);

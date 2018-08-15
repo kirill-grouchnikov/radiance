@@ -146,21 +146,11 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
         this.updateUI();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JComponent#updateUI()
-     */
     @Override
     public void updateUI() {
         setUI(SubstanceRibbonComponentUI.createUI(this));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.JComponent#getUIClassID()
-     */
     @Override
     public String getUIClassID() {
         return uiClassID;

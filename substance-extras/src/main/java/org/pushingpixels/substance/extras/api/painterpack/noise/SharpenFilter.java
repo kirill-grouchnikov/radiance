@@ -36,12 +36,7 @@ package org.pushingpixels.substance.extras.api.painterpack.noise;
  * @author Kirill Grouchnikov
  */
 public class SharpenFilter implements NoiseFilter {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.painter.noise.NoiseFilter#apply(double, double,
-	 * double, double)
-	 */
+	@Override
 	public double apply(double x, double y, double z, double origValue) {
 		return Math.sqrt(origValue);
 	}

@@ -114,11 +114,6 @@ class TimelineEngine {
             this.subID = subID;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#hashCode()
-         */
         @Override
         public int hashCode() {
             int result = this.mainObj.hashCode();
@@ -127,11 +122,6 @@ class TimelineEngine {
             return result;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#equals(java.lang.Object)
-         */
         @Override
         @SuppressWarnings("unchecked")
         public boolean equals(Object obj) {
@@ -174,11 +164,6 @@ class TimelineEngine {
             this.setDaemon(true);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Thread#run()
-         */
         @Override
         public final void run() {
             TridentConfig.PulseSource pulseSource = TridentConfig.getInstance().getPulseSource();

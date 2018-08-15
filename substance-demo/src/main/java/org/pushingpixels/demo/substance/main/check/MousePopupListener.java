@@ -63,29 +63,17 @@ public class MousePopupListener extends MouseAdapter {
 		this.owner = owner;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
-	 */
+	@Override
 	public void mousePressed(MouseEvent e) {
 		checkPopup(e);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
-	 */
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		checkPopup(e);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
-	 */
+	@Override
 	public void mouseReleased(MouseEvent e) {
 		checkPopup(e);
 	}
@@ -125,29 +113,17 @@ public class MousePopupListener extends MouseAdapter {
 	 * @author Kirill Grouchnikov
 	 */
 	protected static class PopupPrintListener implements PopupMenuListener {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.PopupMenuListener#popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent)
-		 */
+		@Override
 		public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 			Check.out("Popup menu will be visible!");
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.PopupMenuListener#popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent)
-		 */
+		@Override
 		public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
 			Check.out("Popup menu will be invisible!");
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.PopupMenuListener#popupMenuCanceled(javax.swing.event.PopupMenuEvent)
-		 */
+		@Override
 		public void popupMenuCanceled(PopupMenuEvent e) {
 			Check.out("Popup menu is hidden!");
 		}
