@@ -280,11 +280,7 @@ public class GeminiSkin extends SubstanceSkin {
 				ComponentState.ROLLOVER_ARMED);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.skin.SubstanceSkin#getDisplayName()
-	 */
+	@Override
 	public String getDisplayName() {
 		return NAME;
 	}

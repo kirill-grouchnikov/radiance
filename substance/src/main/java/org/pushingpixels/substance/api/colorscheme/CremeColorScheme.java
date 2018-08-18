@@ -79,65 +79,37 @@ public class CremeColorScheme extends BaseLightColorScheme {
 		super("Creme");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getForegroundColor()
-	 */
+	@Override
 	public Color getForegroundColor() {
 		return CremeColorScheme.foregroundColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getUltraLightColor()
-	 */
+	@Override
 	public Color getUltraLightColor() {
 		return CremeColorScheme.mainUltraLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getExtraLightColor()
-	 */
+	@Override
 	public Color getExtraLightColor() {
 		return CremeColorScheme.mainExtraLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getLightColor()
-	 */
+	@Override
 	public Color getLightColor() {
 		return CremeColorScheme.mainLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getMidColor()
-	 */
+	@Override
 	public Color getMidColor() {
 		return CremeColorScheme.mainMidColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getDarkColor()
-	 */
+	@Override
 	public Color getDarkColor() {
 		return CremeColorScheme.mainDarkColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getUltraDarkColor()
-	 */
+	@Override
 	public Color getUltraDarkColor() {
 		return CremeColorScheme.mainUltraDarkColor;
 	}

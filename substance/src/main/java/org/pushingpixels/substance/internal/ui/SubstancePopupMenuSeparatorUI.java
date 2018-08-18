@@ -83,13 +83,6 @@ public class SubstancePopupMenuSeparatorUI extends BasicPopupMenuSeparatorUI {
 		graphics.dispose();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.basic.BasicPopupMenuSeparatorUI#getPreferredSize(javax
-	 * .swing.JComponent)
-	 */
 	@Override
 	public Dimension getPreferredSize(JComponent c) {
 		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();

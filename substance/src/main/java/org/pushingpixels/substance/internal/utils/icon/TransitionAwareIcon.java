@@ -254,29 +254,17 @@ public class TransitionAwareIcon implements Icon, IsHiDpiAware {
         return new NeonIconUIResource(result);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.Icon#getIconHeight()
-     */
+    @Override
     public int getIconHeight() {
         return this.iconHeight;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.Icon#getIconWidth()
-     */
+    @Override
     public int getIconWidth() {
         return this.iconWidth;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics, int, int)
-     */
+    @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         this.getIconToPaint().paintIcon(c, g, x, y);
     }

@@ -148,11 +148,6 @@ public class SubstanceButtonUI extends BasicButtonUI implements
 
     private Rectangle textRect = new Rectangle();
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceButtonUI((AbstractButton) comp);
@@ -185,12 +180,6 @@ public class SubstanceButtonUI extends BasicButtonUI implements
         super.uninstallUI(c);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @seejavax.swing.plaf.basic.BasicButtonUI#installDefaults(javax.swing.
-     * AbstractButton)
-     */
     @Override
     protected void installDefaults(AbstractButton b) {
         super.installDefaults(b);
@@ -231,12 +220,6 @@ public class SubstanceButtonUI extends BasicButtonUI implements
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.basic.BasicButtonUI#uninstallDefaults(javax.swing.
-     * AbstractButton)
-     */
     @Override
     protected void uninstallDefaults(AbstractButton b) {
         super.uninstallDefaults(b);
@@ -256,24 +239,11 @@ public class SubstanceButtonUI extends BasicButtonUI implements
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * javax.swing.plaf.basic.BasicButtonUI#createButtonListener(javax.swing
-     * .AbstractButton)
-     */
     @Override
     protected BasicButtonListener createButtonListener(AbstractButton b) {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @seejavax.swing.plaf.basic.BasicButtonUI#installListeners(javax.swing.
-     * AbstractButton)
-     */
     @Override
     protected void installListeners(final AbstractButton b) {
         super.installListeners(b);
@@ -317,12 +287,6 @@ public class SubstanceButtonUI extends BasicButtonUI implements
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @seejavax.swing.plaf.basic.BasicButtonUI#uninstallListeners(javax.swing.
-     * AbstractButton)
-     */
     @Override
     protected void uninstallListeners(AbstractButton b) {
         this.substanceVisualStateTracker.uninstallListeners(b);
@@ -341,12 +305,6 @@ public class SubstanceButtonUI extends BasicButtonUI implements
         super.uninstallListeners(b);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.basic.BasicButtonUI#paint(java.awt.Graphics,
-     * javax.swing.JComponent)
-     */
     @Override
     public void paint(Graphics g, JComponent c) {
         if (!SubstanceCoreUtilities.isCurrentLookAndFeel())
@@ -418,12 +376,6 @@ public class SubstanceButtonUI extends BasicButtonUI implements
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * javax.swing.plaf.ComponentUI#getPreferredSize(javax.swing.JComponent)
-     */
     @Override
     public Dimension getPreferredSize(JComponent c) {
         AbstractButton button = (AbstractButton) c;
@@ -442,23 +394,11 @@ public class SubstanceButtonUI extends BasicButtonUI implements
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#contains(javax.swing.JComponent, int,
-     * int)
-     */
     @Override
     public boolean contains(JComponent c, int x, int y) {
         return ButtonBackgroundDelegate.contains((JButton) c, x, y);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.basic.BasicButtonUI#paintIcon(java.awt.Graphics,
-     * javax.swing.JComponent, java.awt.Rectangle)
-     */
     @Override
     protected void paintIcon(Graphics g, JComponent c, Rectangle iconRect) {
         c.putClientProperty("icon.bounds", new Rectangle(iconRect));
@@ -534,12 +474,6 @@ public class SubstanceButtonUI extends BasicButtonUI implements
                         .getIconGlowTracker());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics,
-     * javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();

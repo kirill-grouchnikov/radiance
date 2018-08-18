@@ -82,65 +82,37 @@ public class BlueYonderColorScheme extends BaseLightColorScheme {
 		super("Blue Yonder");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getForegroundColor()
-	 */
+	@Override
 	public Color getForegroundColor() {
 		return BlueYonderColorScheme.foregroundColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getUltraLightColor()
-	 */
+	@Override
 	public Color getUltraLightColor() {
 		return BlueYonderColorScheme.mainUltraLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getExtraLightColor()
-	 */
+	@Override
 	public Color getExtraLightColor() {
 		return BlueYonderColorScheme.mainExtraLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getLightColor()
-	 */
+	@Override
 	public Color getLightColor() {
 		return BlueYonderColorScheme.mainLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getMidColor()
-	 */
+	@Override
 	public Color getMidColor() {
 		return BlueYonderColorScheme.mainMidColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getDarkColor()
-	 */
+	@Override
 	public Color getDarkColor() {
 		return BlueYonderColorScheme.mainDarkColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getUltraDarkColor()
-	 */
+	@Override
 	public Color getUltraDarkColor() {
 		return BlueYonderColorScheme.mainUltraDarkColor;
 	}

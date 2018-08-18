@@ -81,65 +81,37 @@ public class EmeraldGrassColorScheme extends BaseLightColorScheme {
 		super("Emerald Grass");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getForegroundColor()
-	 */
+	@Override
 	public Color getForegroundColor() {
 		return EmeraldGrassColorScheme.foregroundColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getUltraLightColor()
-	 */
+	@Override
 	public Color getUltraLightColor() {
 		return EmeraldGrassColorScheme.mainUltraLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getExtraLightColor()
-	 */
+	@Override
 	public Color getExtraLightColor() {
 		return EmeraldGrassColorScheme.mainExtraLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getLightColor()
-	 */
+	@Override
 	public Color getLightColor() {
 		return EmeraldGrassColorScheme.mainLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getMidColor()
-	 */
+	@Override
 	public Color getMidColor() {
 		return EmeraldGrassColorScheme.mainMidColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getDarkColor()
-	 */
+	@Override
 	public Color getDarkColor() {
 		return EmeraldGrassColorScheme.mainDarkColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getUltraDarkColor()
-	 */
+	@Override
 	public Color getUltraDarkColor() {
 		return EmeraldGrassColorScheme.mainUltraDarkColor;
 	}

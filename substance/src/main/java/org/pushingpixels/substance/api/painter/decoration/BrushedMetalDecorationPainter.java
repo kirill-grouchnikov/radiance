@@ -70,11 +70,7 @@ public class BrushedMetalDecorationPainter extends ImageWrapperDecorationPainter
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.utils.SubstanceTrait#getDisplayName()
-	 */
+	@Override
 	public String getDisplayName() {
 		return DISPLAY_NAME;
 	}

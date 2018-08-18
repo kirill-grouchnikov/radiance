@@ -169,11 +169,6 @@ public class MemoryAnalyzer extends TrackableThread {
 		return copy;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Runnable#run()
-	 */
 	@Override
 	public void run() {
 		// output all settings from UIManager

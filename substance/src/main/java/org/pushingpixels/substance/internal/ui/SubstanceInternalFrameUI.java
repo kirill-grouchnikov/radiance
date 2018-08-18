@@ -68,21 +68,11 @@ public class SubstanceInternalFrameUI extends BasicInternalFrameUI {
         super(b);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceInternalFrameUI((JInternalFrame) comp);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicInternalFrameUI#createNorthPane(javax.swing .JInternalFrame)
-     */
     @Override
     protected JComponent createNorthPane(JInternalFrame w) {
         this.titlePane = new SubstanceInternalFrameTitlePane(w);
@@ -92,22 +82,12 @@ public class SubstanceInternalFrameUI extends BasicInternalFrameUI {
         return this.titlePane;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicInternalFrameUI#uninstallComponents()
-     */
     @Override
     protected void uninstallComponents() {
         this.titlePane.uninstall();
         super.uninstallComponents();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicInternalFrameUI#installListeners()
-     */
     @Override
     protected void installListeners() {
         super.installListeners();
@@ -138,11 +118,6 @@ public class SubstanceInternalFrameUI extends BasicInternalFrameUI {
         this.frame.addPropertyChangeListener(this.substancePropertyListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicInternalFrameUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         this.frame.removePropertyChangeListener(this.substancePropertyListener);

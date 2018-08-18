@@ -114,11 +114,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     private Set<SubstanceWidget> lafWidgets;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceTabbedPaneUI();
@@ -259,11 +254,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             }
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @seejava.awt.event.ContainerAdapter#componentAdded(java.awt.event. ContainerEvent)
-         */
         @Override
         public void componentAdded(final ContainerEvent e) {
             final Component tabComponent = e.getChild();
@@ -272,11 +262,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             this.trackTab(tabComponent);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @seejava.awt.event.ContainerAdapter#componentRemoved(java.awt.event. ContainerEvent)
-         */
         @Override
         public void componentRemoved(ContainerEvent e) {
             // fix for defect 135 - memory leaks on tabbed panes
@@ -325,11 +310,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
          */
         int tabOfPressedCloseButton = -1;
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
-         */
         public void mouseClicked(final MouseEvent e) {
             final int tabIndex = SubstanceTabbedPaneUI.this
                     .tabForCoordinate(SubstanceTabbedPaneUI.this.tabPane, e.getX(), e.getY());
@@ -347,29 +327,17 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                     () -> SubstanceTabbedPaneUI.this.tryCloseTabs(tabIndex, tabCloseKind));
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent )
-         */
+        @Override
         public void mouseDragged(MouseEvent e) {
             this.handleMouseMoveDrag(e);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
-         */
+        @Override
         public void mouseEntered(MouseEvent e) {
             setRolloverTab(tabForCoordinate(tabPane, e.getX(), e.getY()));
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
-         */
+        @Override
         public void mousePressed(MouseEvent e) {
             if (!tabPane.isEnabled()) {
                 return;
@@ -401,11 +369,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             }
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent )
-         */
+        @Override
         public void mouseMoved(MouseEvent e) {
             this.handleMouseMoveDrag(e);
         }
@@ -477,11 +441,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             this.prevRolledOver = currRolledOver;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
-         */
+        @Override
         public void mouseExited(MouseEvent e) {
             setRolloverTab(-1);
             // fix for bug 69 - non-selected non-rollover tab
@@ -504,11 +464,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             this.prevRolledOver = -1;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
-         */
+        @Override
         public void mouseReleased(final MouseEvent e) {
             // enhancement 307 - moving the tab close to be on mouse release
             // and not on mouse press.
@@ -575,11 +531,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         super.uninstallUI(c);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#installListeners()
-     */
     @Override
     protected void installListeners() {
         super.installListeners();
@@ -634,11 +585,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         super.uninstallListeners();
@@ -670,11 +616,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -689,11 +630,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#uninstallDefaults()
-     */
     @Override
     protected void uninstallDefaults() {
         for (Timeline timeline : this.modifiedTimelines.values())
@@ -957,12 +893,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#paintTabBackground(java.awt. Graphics, int,
-     * int, int, int, int, int, boolean)
-     */
     @Override
     protected void paintTabBackground(Graphics g, int tabPlacement, final int tabIndex, final int x,
             final int y, int w, int h, boolean isSelected) {
@@ -1203,35 +1133,18 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         graphics.dispose();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#paintFocusIndicator(java.awt .Graphics, int,
-     * java.awt.Rectangle[], int, java.awt.Rectangle, java.awt.Rectangle, boolean)
-     */
     @Override
     protected void paintFocusIndicator(Graphics g, int tabPlacement, Rectangle[] rects,
             int tabIndex, Rectangle iconRect, Rectangle textRect, boolean isSelected) {
         // empty to remove Basic functionality
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#paintTabBorder(java.awt.Graphics , int, int,
-     * int, int, int, int, boolean)
-     */
     @Override
     protected void paintTabBorder(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w,
             int h, boolean isSelected) {
         // empty to remove Basic functionality
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#createScrollButton(int)
-     */
     @Override
     protected JButton createScrollButton(final int direction) {
         SubstanceScrollButton ssb = new SubstanceScrollButton(direction);
@@ -1244,11 +1157,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         return ssb;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#calculateTabHeight(int, int, int)
-     */
     @Override
     protected int calculateTabHeight(int tabPlacement, int tabIndex, int fontHeight) {
         boolean toSwap = toRotateTabsOnPlacement(tabPlacement);
@@ -1258,12 +1166,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         return super.calculateTabHeight(tabPlacement, tabIndex, fontHeight);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#calculateTabWidth(int, int,
-     * java.awt.FontMetrics)
-     */
     @Override
     protected int calculateTabWidth(int tabPlacement, int tabIndex, FontMetrics metrics) {
         boolean toSwap = toRotateTabsOnPlacement(tabPlacement);
@@ -1274,11 +1176,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#calculateMaxTabHeight(int)
-     */
     @Override
     protected int calculateMaxTabHeight(int tabPlacement) {
         if (toRotateTabsOnPlacement(tabPlacement))
@@ -1290,11 +1187,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#getTabRunOverlay(int)
-     */
     @Override
     protected int getTabRunOverlay(int tabPlacement) {
         boolean toSwap = this.toRotateTabsOnPlacement(tabPlacement);
@@ -1349,12 +1241,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         paintContentBorder(g, tabPlacement, selectedIndex);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#paintTab(java.awt.Graphics, int,
-     * java.awt.Rectangle[], int, java.awt.Rectangle, java.awt.Rectangle)
-     */
     @Override
     protected void paintTab(Graphics g, int tabPlacement, Rectangle[] rects, int tabIndex,
             Rectangle iconRect, Rectangle textRect) {
@@ -1393,11 +1279,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#paintTabArea(java.awt.Graphics, int, int)
-     */
     @Override
     protected void paintTabArea(Graphics g, int tabPlacement, int selectedIndex) {
         if (this.substanceContentOpaque) {
@@ -1711,11 +1592,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#getTabLabelShiftX(int, int, boolean)
-     */
     @Override
     protected int getTabLabelShiftX(int tabPlacement, int tabIndex, boolean isSelected) {
         int delta = 0;
@@ -1729,11 +1605,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         return delta + super.getTabLabelShiftX(tabPlacement, tabIndex, isSelected);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#getTabLabelShiftY(int, int, boolean)
-     */
     @Override
     protected int getTabLabelShiftY(int tabPlacement, int tabIndex, boolean isSelected) {
         int result = 0;
@@ -1827,22 +1698,12 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         return sb.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#shouldPadTabRun(int, int)
-     */
     @Override
     protected boolean shouldPadTabRun(int tabPlacement, int run) {
         // Don't pad last run
         return this.runCount > 1 && run < this.runCount - 1;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#createLayoutManager()
-     */
     @Override
     protected LayoutManager createLayoutManager() {
         if (this.tabPane.getTabLayoutPolicy() == JTabbedPane.SCROLL_TAB_LAYOUT) {
@@ -1864,12 +1725,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             SubstanceTabbedPaneUI.this.super();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @seejavax.swing.plaf.basic.BasicTabbedPaneUI$TabbedPaneLayout# normalizeTabRuns(int, int,
-         * int, int)
-         */
         @Override
         protected void normalizeTabRuns(int tabPlacement, int tabCount, int start, int max) {
             // Only normalize the runs for top & bottom; normalizing
@@ -1882,32 +1737,17 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             }
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.plaf.basic.BasicTabbedPaneUI$TabbedPaneLayout#rotateTabRuns (int, int)
-         */
         @Override
         protected void rotateTabRuns(int tabPlacement, int selectedRun) {
             // Don't rotate runs!
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.plaf.basic.BasicTabbedPaneUI$TabbedPaneLayout#padSelectedTab (int, int)
-         */
         @Override
         protected void padSelectedTab(int tabPlacement, int selectedIndex) {
             // Don't pad selected tab
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#getContentBorderInsets(int)
-     */
     @Override
     protected Insets getContentBorderInsets(int tabPlacement) {
         Insets insets = SubstanceSizeUtils.getTabbedPaneContentInsets();
@@ -1946,12 +1786,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         return insets;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#paintContentBorder(java.awt. Graphics, int,
-     * int)
-     */
     @Override
     protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) {
         SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(this.tabPane,
@@ -1962,12 +1796,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         super.paintContentBorder(g, tabPlacement, selectedIndex);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#paintContentBorderBottomEdge
-     * (java.awt.Graphics, int, int, int, int, int, int)
-     */
     @Override
     protected void paintContentBorderBottomEdge(Graphics g, int tabPlacement, int selectedIndex,
             int x, int y, int w, int h) {
@@ -2056,12 +1884,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         g2d.dispose();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#paintContentBorderLeftEdge(java .awt.Graphics,
-     * int, int, int, int, int, int)
-     */
     @Override
     protected void paintContentBorderLeftEdge(Graphics g, int tabPlacement, int selectedIndex,
             int x, int y, int w, int h) {
@@ -2153,12 +1975,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         g2d.dispose();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#paintContentBorderRightEdge( java.awt.Graphics,
-     * int, int, int, int, int, int)
-     */
     @Override
     protected void paintContentBorderRightEdge(Graphics g, int tabPlacement, int selectedIndex,
             int x, int y, int w, int h) {
@@ -2249,12 +2065,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         g2d.dispose();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#paintContentBorderTopEdge(java .awt.Graphics,
-     * int, int, int, int, int, int)
-     */
     @Override
     protected void paintContentBorderTopEdge(Graphics g, int tabPlacement, int selectedIndex, int x,
             int y, int w, int h) {
@@ -2390,12 +2200,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTabbedPaneUI#paintText(java.awt.Graphics, int,
-     * java.awt.Font, java.awt.FontMetrics, int, java.lang.String, java.awt.Rectangle, boolean)
-     */
     @Override
     protected void paintText(Graphics g, int tabPlacement, Font font, FontMetrics metrics,
             int tabIndex, String title, Rectangle textRect, boolean isSelected) {

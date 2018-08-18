@@ -58,11 +58,6 @@ public class SubstanceComboPopup extends BasicComboPopup {
 		this.list.setBackground(combo.getBackground());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicComboPopup#configurePopup()
-	 */
 	@Override
 	protected void configurePopup() {
 		super.configurePopup();
@@ -112,12 +107,6 @@ public class SubstanceComboPopup extends BasicComboPopup {
 		return new Point(popupLocation.x, popupLocation.y);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicComboPopup#computePopupBounds(int, int,
-	 * int, int)
-	 */
 	@Override
 	protected Rectangle computePopupBounds(int px, int py, int pw, int ph) {
 		int popupFlyoutOrientation = SubstanceCoreUtilities
@@ -190,11 +179,6 @@ public class SubstanceComboPopup extends BasicComboPopup {
 		return rect;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicComboPopup#show()
-	 */
 	@Override
 	public void show() {
 		this.setListSelection(this.comboBox.getSelectedIndex());
@@ -203,17 +187,11 @@ public class SubstanceComboPopup extends BasicComboPopup {
 		this.show(this.comboBox, location.x, location.y);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicComboPopup#hide()
-	 */
 	@Override
 	public void hide() {
 		super.hide();
 		SubstanceListUI ui = (SubstanceListUI) this.list.getUI();
 		ui.resetRolloverIndex();
-		// this.list.putClientProperty(SubstanceListUI.ROLLED_OVER_INDEX, null);
 	}
 
 	public JComboBox getCombobox() {

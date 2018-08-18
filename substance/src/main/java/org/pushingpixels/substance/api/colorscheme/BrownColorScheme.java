@@ -79,65 +79,37 @@ public class BrownColorScheme extends BaseLightColorScheme {
 		super("Brown");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getForegroundColor()
-	 */
+	@Override
 	public Color getForegroundColor() {
 		return BrownColorScheme.foregroundColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getUltraLightColor()
-	 */
+	@Override
 	public Color getUltraLightColor() {
 		return BrownColorScheme.mainUltraLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getExtraLightColor()
-	 */
+	@Override
 	public Color getExtraLightColor() {
 		return BrownColorScheme.mainExtraLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getLightColor()
-	 */
+	@Override
 	public Color getLightColor() {
 		return BrownColorScheme.mainLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getMidColor()
-	 */
+	@Override
 	public Color getMidColor() {
 		return BrownColorScheme.mainMidColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getDarkColor()
-	 */
+	@Override
 	public Color getDarkColor() {
 		return BrownColorScheme.mainDarkColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getUltraDarkColor()
-	 */
+	@Override
 	public Color getUltraDarkColor() {
 		return BrownColorScheme.mainUltraDarkColor;
 	}

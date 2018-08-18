@@ -55,21 +55,12 @@ public abstract class SubstanceButtonBorder implements Border, UIResource {
 		this.buttonShaperClass = buttonShaperClass;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.border.Border#isBorderOpaque()
-	 */
+	@Override
 	public boolean isBorderOpaque() {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.border.Border#paintBorder(java.awt.Component,
-	 * java.awt.Graphics, int, int, int, int)
-	 */
+	@Override
 	public void paintBorder(Component c, Graphics g, int x, int y, int width,
 			int height) {
 	}

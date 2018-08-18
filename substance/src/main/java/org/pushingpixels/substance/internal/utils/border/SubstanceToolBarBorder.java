@@ -51,12 +51,6 @@ import java.awt.image.BufferedImage;
  */
 public class SubstanceToolBarBorder extends AbstractBorder implements
 		UIResource {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.border.Border#paintBorder(java.awt.Component,
-	 * java.awt.Graphics, int, int, int, int)
-	 */
 	@Override
 	public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
 		// failsafe for LAF change
@@ -102,23 +96,11 @@ public class SubstanceToolBarBorder extends AbstractBorder implements
 		graphics.dispose();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.border.Border#getBorderInsets(java.awt.Component)
-	 */
 	@Override
 	public Insets getBorderInsets(Component c) {
 		return this.getBorderInsets(c, new Insets(0, 0, 0, 0));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.border.AbstractBorder#getBorderInsets(java.awt.Component,
-	 * java.awt.Insets)
-	 */
 	@Override
 	public Insets getBorderInsets(Component c, Insets newInsets) {
 		Insets defaultInsets = SubstanceSizeUtils

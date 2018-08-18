@@ -196,11 +196,6 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     protected Timeline indeterminateLoopTimeline;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceProgressBarUI();
@@ -237,11 +232,6 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         this.progressBar.addPropertyChangeListener(this.substancePropertyChangeListener);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.basic.BasicProgressBarUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         this.progressBar.removeChangeListener(this.substanceValueChangeListener);
@@ -353,12 +343,6 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.basic.BasicProgressBarUI#paintDeterminate(java.awt.Graphics ,
-     * javax.swing.JComponent)
-     */
     @Override
     public void paintDeterminate(Graphics g, JComponent c) {
         if (!(g instanceof Graphics2D)) {
@@ -444,11 +428,6 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         g2d.dispose();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.basic.BasicProgressBarUI#getSelectionBackground()
-     */
     @Override
     protected Color getSelectionBackground() {
         ComponentState fillState = getFillState();
@@ -458,11 +437,6 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         return SubstanceColorUtilities.getForegroundColor(scheme);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.basic.BasicProgressBarUI#getSelectionForeground()
-     */
     @Override
     protected Color getSelectionForeground() {
         ComponentState progressState = getProgressState();
@@ -472,12 +446,6 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         return SubstanceColorUtilities.getForegroundColor(scheme);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.basic.BasicProgressBarUI#paintIndeterminate(java.awt .Graphics,
-     * javax.swing.JComponent)
-     */
     @Override
     public void paintIndeterminate(Graphics g, JComponent c) {
         if (!(g instanceof Graphics2D)) {
@@ -545,11 +513,6 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.basic.BasicProgressBarUI#getBox(java.awt.Rectangle)
-     */
     @Override
     protected Rectangle getBox(Rectangle r) {
         // Insets b = this.getInsets(); // area for border
@@ -624,11 +587,6 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         return amountFull;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.basic.BasicProgressBarUI#getPreferredInnerHorizontal()
-     */
     @Override
     protected Dimension getPreferredInnerHorizontal() {
         int size = SubstanceSizeUtils.getComponentFontSize(this.progressBar);
@@ -636,11 +594,6 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         return new Dimension(146 + SubstanceSizeUtils.getAdjustedSize(size, 0, 1, 10, false), size);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.swing.plaf.basic.BasicProgressBarUI#getPreferredInnerVertical()
-     */
     @Override
     protected Dimension getPreferredInnerVertical() {
         int size = SubstanceSizeUtils.getComponentFontSize(this.progressBar);

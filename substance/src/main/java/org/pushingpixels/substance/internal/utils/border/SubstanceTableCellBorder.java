@@ -194,32 +194,19 @@ public class SubstanceTableCellBorder implements Border, UIResource {
 		graphics.dispose();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.border.Border#paintBorder(java.awt.Component,
-	 * java.awt.Graphics, int, int, int, int)
-	 */
+	@Override
 	public void paintBorder(Component c, Graphics g, int x, int y, int width,
 			int height) {
 		paintBorder((JComponent) c, g, x, y, width, height, c.isEnabled(), c
 				.hasFocus());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.border.Border#getBorderInsets(java.awt.Component)
-	 */
+	@Override
 	public Insets getBorderInsets(Component c) {
 		return this.myInsets;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.border.Border#isBorderOpaque()
-	 */
+	@Override
 	public boolean isBorderOpaque() {
 		return false;
 	}

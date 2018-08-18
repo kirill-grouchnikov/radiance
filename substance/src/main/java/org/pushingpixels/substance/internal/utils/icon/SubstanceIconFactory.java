@@ -282,11 +282,7 @@ public class SubstanceIconFactory {
             return new NeonIconUIResource(stateImage);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics, int, int)
-         */
+        @Override
         public void paintIcon(Component c, Graphics g, int x, int y) {
             if (!(g instanceof Graphics2D)) {
                 return;
@@ -303,20 +299,12 @@ public class SubstanceIconFactory {
             g2d.dispose();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.Icon#getIconWidth()
-         */
+        @Override
         public int getIconWidth() {
             return this.size;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.Icon#getIconHeight()
-         */
+        @Override
         public int getIconHeight() {
             return this.size;
         }
@@ -457,11 +445,7 @@ public class SubstanceIconFactory {
             return new NeonIconUIResource(stateImage);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics, int, int)
-         */
+        @Override
         public void paintIcon(Component c, Graphics g, int x, int y) {
             if (!(g instanceof Graphics2D)) {
                 return;
@@ -478,20 +462,12 @@ public class SubstanceIconFactory {
             g2d.dispose();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.Icon#getIconWidth()
-         */
+        @Override
         public int getIconWidth() {
             return this.size;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.Icon#getIconHeight()
-         */
+        @Override
         public int getIconHeight() {
             return this.size;
         }
@@ -650,11 +626,7 @@ public class SubstanceIconFactory {
             return new NeonIconUIResource(stateImage);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics, int, int)
-         */
+        @Override
         public void paintIcon(Component c, Graphics g, int x, int y) {
             if (!(g instanceof Graphics2D)) {
                 return;
@@ -671,20 +643,12 @@ public class SubstanceIconFactory {
             g2d.dispose();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.Icon#getIconWidth()
-         */
+        @Override
         public int getIconWidth() {
             return this.size - 1;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.Icon#getIconHeight()
-         */
+        @Override
         public int getIconHeight() {
             return this.size - 1;
         }
@@ -760,11 +724,7 @@ public class SubstanceIconFactory {
             return result;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics, int, int)
-         */
+        @Override
         public void paintIcon(Component c, Graphics g, int x, int y) {
             if (!(g instanceof Graphics2D)) {
                 return;
@@ -782,20 +742,12 @@ public class SubstanceIconFactory {
             g2d.dispose();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.Icon#getIconWidth()
-         */
+        @Override
         public int getIconWidth() {
             return this.size;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.Icon#getIconHeight()
-         */
+        @Override
         public int getIconHeight() {
             return this.size;
         }

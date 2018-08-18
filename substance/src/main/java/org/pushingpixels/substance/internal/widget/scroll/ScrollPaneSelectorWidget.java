@@ -64,11 +64,6 @@ public class ScrollPaneSelectorWidget extends SubstanceWidget<JScrollPane> {
      */
     private PropertyChangeListener propertyChangeListener;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installUI()
-     */
     @Override
     public void installUI() {
         if (SubstanceCoreUtilities.toShowExtraWidgets(this.jcomp)) {
@@ -81,11 +76,6 @@ public class ScrollPaneSelectorWidget extends SubstanceWidget<JScrollPane> {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallUI()
-     */
     @Override
     public void uninstallUI() {
         if (this.scrollPaneSelector != null) {
@@ -124,11 +114,6 @@ public class ScrollPaneSelectorWidget extends SubstanceWidget<JScrollPane> {
         this.jcomp.addPropertyChangeListener(this.propertyChangeListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallListeners()
-     */
     @Override
     public void uninstallListeners() {
         this.jcomp.removeHierarchyListener(this.hierarchyListener);

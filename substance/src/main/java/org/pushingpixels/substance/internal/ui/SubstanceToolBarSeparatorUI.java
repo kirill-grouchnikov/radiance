@@ -48,12 +48,6 @@ public class SubstanceToolBarSeparatorUI extends BasicToolBarSeparatorUI {
 		return new SubstanceToolBarSeparatorUI();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSeparatorUI#paint(java.awt.Graphics,
-	 * javax.swing.JComponent)
-	 */
 	@Override
 	public void paint(Graphics g, JComponent c) {
 		Graphics2D graphics = (Graphics2D) g.create();
@@ -63,13 +57,6 @@ public class SubstanceToolBarSeparatorUI extends BasicToolBarSeparatorUI {
 		graphics.dispose();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.basic.BasicToolBarSeparatorUI#getPreferredSize(javax
-	 * .swing.JComponent)
-	 */
 	@Override
 	public Dimension getPreferredSize(JComponent c) {
 		Dimension size = ((JToolBar.Separator) c).getSeparatorSize();
@@ -88,12 +75,6 @@ public class SubstanceToolBarSeparatorUI extends BasicToolBarSeparatorUI {
 		return size;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSeparatorUI#getMaximumSize(javax.swing.
-	 * JComponent )
-	 */
 	@Override
 	public Dimension getMaximumSize(JComponent c) {
 		Dimension pref = getPreferredSize(c);

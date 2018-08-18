@@ -517,11 +517,6 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicRootPaneUI#uninstallListeners(javax.swing .JRootPane)
-     */
     @Override
     protected void uninstallListeners(JRootPane root) {
         // fix for bug 116 - stopping threads when all frames are
@@ -779,11 +774,6 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
         return this.root;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @seejavax.swing.plaf.basic.BasicRootPaneUI#propertyChange(java.beans. PropertyChangeEvent)
-     */
     @Override
     public void propertyChange(PropertyChangeEvent e) {
         super.propertyChange(e);

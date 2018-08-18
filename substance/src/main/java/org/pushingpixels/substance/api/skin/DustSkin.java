@@ -156,6 +156,7 @@ public class DustSkin extends SubstanceSkin {
 								scheme.getUltraLightColor(), 0.8).tint(0.6).saturate(0.2)));
 	}
 
+	@Override
 	public String getDisplayName() {
 		return NAME;
 	}

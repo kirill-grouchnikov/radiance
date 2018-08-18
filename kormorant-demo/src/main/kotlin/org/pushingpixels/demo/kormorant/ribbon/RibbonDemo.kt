@@ -67,11 +67,8 @@ object SkinSwitcher {
         val skinInfoMap = SubstanceCortex.GlobalScope.getAllSkins()
         val skinNames = skinInfoMap.keys.toTypedArray()
         val result = JComboBox(skinNames)
-        for (i in skinNames.indices) {
-            if (skinNames[i] == SubstanceCortex.GlobalScope.getCurrentSkin()!!.displayName) {
-                result.selectedIndex = i
-                break
-            }
+        result.selectedIndex = skinNames.indexOfFirst { it ->
+            it == SubstanceCortex.GlobalScope.getCurrentSkin()!!.displayName
         }
 
         result.addItemListener {
@@ -216,8 +213,8 @@ private class ExpandActionListener : ActionListener {
     }
 }
 
-private class SimpleResizableIcon(private val priority: RibbonElementPriority, private var currWidth: Int,
-        private var currHeight: Int) : ResizableIcon {
+private class SimpleResizableIcon(private val priority: RibbonElementPriority,
+        private var currWidth: Int, private var currHeight: Int) : ResizableIcon {
 
     override fun setDimension(newDimension: Dimension) {
         this.currWidth = newDimension.width
@@ -241,16 +238,16 @@ private class SimpleResizableIcon(private val priority: RibbonElementPriority, p
         val ry = this.currHeight / 3
         val cx = x + this.currWidth / 2 - 1
         val cy = y + this.currHeight / 2 - 1
-        var color: Color? = null
-        when (this.priority) {
-            RibbonElementPriority.TOP -> color = Color(0, 0, 128)
-            RibbonElementPriority.MEDIUM -> color = Color.blue
-            RibbonElementPriority.LOW -> color = Color(128, 128, 255)
+
+        val color: Color = when (this.priority) {
+            RibbonElementPriority.TOP -> Color(0, 0, 128)
+            RibbonElementPriority.MEDIUM -> Color.blue
+            RibbonElementPriority.LOW -> Color(128, 128, 255)
         }
 
         graphics.color = color
         graphics.fillOval(cx - rx, cy - ry, 2 * rx, 2 * ry)
-        graphics.color = color!!.darker()
+        graphics.color = color.darker()
         graphics.drawOval(cx - rx, cy - ry, 2 * rx, 2 * ry)
         graphics.drawRect(x, y, this.currWidth - 2, this.currHeight - 2)
 

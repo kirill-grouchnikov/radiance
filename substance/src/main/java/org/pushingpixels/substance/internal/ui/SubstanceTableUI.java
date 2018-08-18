@@ -129,11 +129,6 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
      */
     private Insets cellRendererInsets;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceTableUI();
@@ -179,11 +174,6 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTableUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -324,11 +314,6 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
         this.table.setDefaultEditor(clazz, editor);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTableUI#uninstallDefaults()
-     */
     @Override
     protected void uninstallDefaults() {
         // fix for defect 117 - need to restore default table cell
@@ -392,11 +377,6 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
         this.table.setDefaultEditor(clazz, editor);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTableUI#installListeners()
-     */
     @Override
     protected void installListeners() {
         super.installListeners();
@@ -599,11 +579,6 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
         this.table.addFocusListener(this.substanceFocusListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTableUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         this.table.removePropertyChangeListener(this.substancePropertyChangeListener);
@@ -1590,11 +1565,6 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
             this.column = column;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Comparable#compareTo(java.lang.Object)
-         */
         @Override
         public int compareTo(TableCellId o) {
             if (row == o.row) {
@@ -1604,11 +1574,6 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
             }
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#equals(java.lang.Object)
-         */
         @Override
         public boolean equals(Object obj) {
             if (obj instanceof TableCellId) {
@@ -1617,21 +1582,11 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
             return false;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#hashCode()
-         */
         @Override
         public int hashCode() {
             return (this.row ^ (this.row << 16)) & (this.column ^ (this.column << 16));
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#toString()
-         */
         @Override
         public String toString() {
             return "Row " + this.row + ", Column " + this.column;
@@ -1671,12 +1626,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
             return true;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.event.ListSelectionListener#valueChanged(javax.swing.
-         * event.ListSelectionEvent)
-         */
+        @Override
         public void valueChanged(final ListSelectionEvent e) {
             // fix for issue 478 - no animations when sorter has changed
             List<? extends SortKey> sortKeys = (table.getRowSorter() == null) ? null
@@ -1696,12 +1646,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
             syncSelection(isDifferentSorter);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.event.TableModelListener#tableChanged(javax.swing.event
-         * .TableModelEvent)
-         */
+        @Override
         public void tableChanged(final TableModelEvent e) {
             // fix for defect 291 - tracking changes to the table.
             SwingUtilities.invokeLater(() -> {
@@ -2270,11 +2215,6 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                 && (this.focusedCellId.column == column);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         BackgroundPaintingUtils.updateIfOpaque(g, c);

@@ -364,11 +364,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
      * @author Kirill Grouchnikov.
      */
     public static class ClickListener implements ActionListener {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent )
-         */
+        @Override
         public void actionPerformed(ActionEvent e) {
             AbstractButton src = (AbstractButton) e.getSource();
             ButtonModel model = src.getModel();

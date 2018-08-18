@@ -145,11 +145,6 @@ public final class SubstanceSlices {
                 graphics.draw(contour);
             }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.pushingpixels.substance.utils.SubstanceConstants.FocusKind #isAnimated ()
-             */
             @Override
             public boolean isAnimated() {
                 return true;
@@ -206,11 +201,6 @@ public final class SubstanceSlices {
                 }
             }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.pushingpixels.substance.utils.SubstanceConstants.FocusKind #isAnimated ()
-             */
             @Override
             public boolean isAnimated() {
                 return true;
@@ -271,11 +261,6 @@ public final class SubstanceSlices {
                 }
             }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.pushingpixels.substance.utils.SubstanceConstants.FocusKind #isAnimated ()
-             */
             @Override
             public boolean isAnimated() {
                 return true;
@@ -346,11 +331,6 @@ public final class SubstanceSlices {
                 graphics.dispose();
             }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.pushingpixels.substance.utils.SubstanceConstants.FocusKind #isAnimated ()
-             */
             @Override
             public boolean isAnimated() {
                 return true;
@@ -799,11 +779,6 @@ public final class SubstanceSlices {
         public final static AnimationFacet TREE_SMART_SCROLL_ANIMATION_KIND = new AnimationFacet(
                 "substancelaf.treeSmartScrollAnimationKind", false);
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#toString()
-         */
         @Override
         public String toString() {
             return this.displayName;

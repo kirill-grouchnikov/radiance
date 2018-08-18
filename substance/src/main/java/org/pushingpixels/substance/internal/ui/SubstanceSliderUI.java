@@ -103,11 +103,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 	protected static final LazyResettableHashMap<BufferedImage> trackCache = new LazyResettableHashMap<BufferedImage>(
 			"SubstanceSliderUI.track");
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceSliderUI((JSlider) comp);
@@ -131,11 +126,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		this.stateTransitionTracker = new StateTransitionTracker(slider, this.thumbModel);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#calculateTrackRect()
-	 */
 	@Override
 	protected void calculateTrackRect() {
 		super.calculateTrackRect();
@@ -200,11 +190,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#paintTrack(java.awt.Graphics)
-	 */
 	@Override
 	public void paintTrack(Graphics g) {
 		Graphics2D graphics = (Graphics2D) g.create();
@@ -421,11 +406,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		g2d.dispose();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#getThumbSize()
-	 */
 	@Override
 	protected Dimension getThumbSize() {
 		Icon thumbIcon = this.getIcon();
@@ -451,11 +431,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#paintThumb(java.awt.Graphics)
-	 */
 	@Override
 	public void paintThumb(Graphics g) {
 		Graphics2D graphics = (Graphics2D) g.create();
@@ -486,12 +461,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		graphics.dispose();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics,
-	 * javax.swing.JComponent)
-	 */
 	@Override
 	public void paint(Graphics g, final JComponent c) {
 		Graphics2D graphics = (Graphics2D) g.create();
@@ -532,12 +501,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		return this.stateTransitionTracker;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.Trackable#isInside(java.awt.event.MouseEvent)
-	 */
+	@Override
 	public boolean isInside(MouseEvent me) {
 		Rectangle thumbB = this.thumbRect;
 		if (thumbB == null)
@@ -545,12 +509,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		return thumbB.contains(me.getX(), me.getY());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.basic.BasicSliderUI#installDefaults(javax.swing.JSlider)
-	 */
 	@Override
 	protected void installDefaults(JSlider slider) {
 		super.installDefaults(slider);
@@ -570,13 +528,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		this.focusInsets = new Insets(focusIns, focusIns, focusIns, focusIns);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.basic.BasicSliderUI#installListeners(javax.swing.JSlider
-	 * )
-	 */
 	@Override
 	protected void installListeners(final JSlider slider) {
 		super.installListeners(slider);
@@ -600,12 +551,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		this.stateTransitionTracker.registerFocusListeners();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#uninstallListeners(javax.swing.
-	 * JSlider )
-	 */
 	@Override
 	protected void uninstallListeners(JSlider slider) {
 		super.uninstallListeners(slider);
@@ -622,11 +567,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		this.stateTransitionTracker.unregisterFocusListeners();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#paintFocus(java.awt.Graphics)
-	 */
 	@Override
 	public void paintFocus(Graphics g) {
 		SubstanceCoreUtilities.paintFocus(g, this.slider, this.slider, this, null, null, 1.0f,
@@ -643,22 +583,12 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 				.getSliderTrackSize(SubstanceSizeUtils.getComponentFontSize(this.slider));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#getTickLength()
-	 */
 	@Override
 	protected int getTickLength() {
 		return SubstanceSizeUtils
 				.getSliderTickSize(SubstanceSizeUtils.getComponentFontSize(this.slider));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#paintTicks(java.awt.Graphics)
-	 */
 	@Override
 	public void paintTicks(Graphics g) {
 		Rectangle tickBounds = this.tickRect;
@@ -745,11 +675,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#calculateTickRect()
-	 */
 	@Override
 	protected void calculateTickRect() {
 		if (this.slider.getOrientation() == JSlider.HORIZONTAL) {
@@ -781,11 +706,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#calculateLabelRect()
-	 */
 	@Override
 	protected void calculateLabelRect() {
 		super.calculateLabelRect();
@@ -798,11 +718,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#calculateThumbLocation()
-	 */
 	@Override
 	protected void calculateThumbLocation() {
 		super.calculateThumbLocation();
@@ -824,12 +739,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#getPreferredSize(javax.swing.
-	 * JComponent )
-	 */
 	@Override
 	public Dimension getPreferredSize(JComponent c) {
 		this.recalculateIfInsetsChanged();
@@ -859,22 +768,12 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		return d;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#setThumbLocation(int, int)
-	 */
 	@Override
 	public void setThumbLocation(int x, int y) {
 		super.setThumbLocation(x, y);
 		this.slider.repaint();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#getPreferredHorizontalSize()
-	 */
 	@Override
 	public Dimension getPreferredHorizontalSize() {
 		return new Dimension(
@@ -883,11 +782,6 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 				21);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSliderUI#getPreferredVerticalSize()
-	 */
 	@Override
 	public Dimension getPreferredVerticalSize() {
 		return new Dimension(21, SubstanceSizeUtils.getAdjustedSize(

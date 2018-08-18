@@ -44,47 +44,47 @@ public interface SchemeBaseColors extends SubstanceTrait {
 	 * 
 	 * @return Foreground color.
 	 */
-	public Color getForegroundColor();
+	Color getForegroundColor();
 
 	/**
 	 * Retrieves the ultra-light color.
 	 * 
 	 * @return Ultra-light color.
 	 */
-	public Color getUltraLightColor();
+	Color getUltraLightColor();
 
 	/**
 	 * Retrieves the extra color.
 	 * 
 	 * @return Extra color.
 	 */
-	public Color getExtraLightColor();
+	Color getExtraLightColor();
 
 	/**
 	 * Retrieves the light color.
 	 * 
 	 * @return Light color.
 	 */
-	public Color getLightColor();
+	Color getLightColor();
 
 	/**
 	 * Retrieves the medium color.
 	 * 
 	 * @return Medium color.
 	 */
-	public Color getMidColor();
+	Color getMidColor();
 
 	/**
 	 * Retrieves the dark color.
 	 * 
 	 * @return Dark color.
 	 */
-	public Color getDarkColor();
+	Color getDarkColor();
 
 	/**
 	 * Retrieves the ultra-dark color.
 	 * 
 	 * @return Ultra-dark color.
 	 */
-	public Color getUltraDarkColor();
+	Color getUltraDarkColor();
 }

@@ -215,11 +215,6 @@ public class SubstanceTitlePane extends JComponent {
             this.repaint();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.JComponent#paint(java.awt.Graphics)
-         */
         @Override
         public synchronized void paint(Graphics g) {
             Graphics2D graphics = (Graphics2D) g.create();
@@ -399,11 +394,6 @@ public class SubstanceTitlePane extends JComponent {
             this.takenHeapSizeKB = (int) ((heapSize - heapFreeSize) / 1024);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Thread#run()
-         */
         @Override
         public void run() {
             while (!this.isStopRequested) {
@@ -574,11 +564,6 @@ public class SubstanceTitlePane extends JComponent {
         return this.getRootPane().getWindowDecorationStyle();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.awt.Component#addNotify()
-     */
     @Override
     public void addNotify() {
         super.addNotify();
@@ -605,11 +590,6 @@ public class SubstanceTitlePane extends JComponent {
         this.updateAppIcon();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.awt.Component#removeNotify()
-     */
     @Override
     public void removeNotify() {
         super.removeNotify();
@@ -1267,46 +1247,26 @@ public class SubstanceTitlePane extends JComponent {
      * @author Kirill Graphics
      */
     protected class TitlePaneLayout implements LayoutManager {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container c) {
             int height = getPaneHeight();
             return new Dimension(height, height);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container c) {
             return this.preferredLayoutSize(c);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container c) {
             JRootPane rootPane = getRootPane();
             boolean leftToRight = rootPane.getComponentOrientation().isLeftToRight();

@@ -55,21 +55,11 @@ public class SubstancePopupMenuUI extends BasicPopupMenuUI {
 
 	protected PopupMenuListener substancePopupMenuListener;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstancePopupMenuUI();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicPopupMenuUI#installListeners()
-	 */
 	@Override
 	protected void installListeners() {
 		super.installListeners();
@@ -123,11 +113,6 @@ public class SubstancePopupMenuUI extends BasicPopupMenuUI {
 		this.popupMenu.addPopupMenuListener(this.substancePopupMenuListener);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicPopupMenuUI#uninstallListeners()
-	 */
 	@Override
 	protected void uninstallListeners() {
 		this.popupMenu.removeContainerListener(this.substanceContainerListener);

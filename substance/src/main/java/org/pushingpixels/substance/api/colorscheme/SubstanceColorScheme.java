@@ -47,7 +47,7 @@ public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors,
 	 * @return <code>true</code> if this color scheme uses dark colors,
 	 *         <code>false</code> otherwise.
 	 */
-	public boolean isDark();
+	boolean isDark();
 
 	/**
 	 * Creates a shift version of <code>this</code> scheme.
@@ -64,7 +64,7 @@ public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors,
 	 *            specified color.
 	 * @return Shift version of <code>this</code> scheme.
 	 */
-	public SubstanceColorScheme shift(Color backgroundShiftColor,
+	SubstanceColorScheme shift(Color backgroundShiftColor,
 			double backgroundShiftFactor, Color foregroundShiftColor,
 			double foregroundShiftFactor);
 
@@ -79,7 +79,7 @@ public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors,
 	 * @return Shift version of <code>this</code> scheme that does not change
 	 *         the foreground color.
 	 */
-	public SubstanceColorScheme shiftBackground(Color backgroundShiftColor,
+	SubstanceColorScheme shiftBackground(Color backgroundShiftColor,
 			double backgroundShiftFactor);
 
 	/**
@@ -91,7 +91,7 @@ public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors,
 	 *            white color.
 	 * @return Tinted version of <code>this</code> scheme.
 	 */
-	public SubstanceColorScheme tint(double tintFactor);
+	SubstanceColorScheme tint(double tintFactor);
 
 	/**
 	 * Creates a toned (shifted towards gray) version of <code>this</code> color
@@ -102,7 +102,7 @@ public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors,
 	 *            gray color.
 	 * @return Toned version of <code>this</code> scheme.
 	 */
-	public SubstanceColorScheme tone(double toneFactor);
+	SubstanceColorScheme tone(double toneFactor);
 
 	/**
 	 * Creates a shaded (shifted towards black) version of <code>this</code>
@@ -113,7 +113,7 @@ public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors,
 	 *            black color.
 	 * @return Shaded version of <code>this</code> scheme.
 	 */
-	public SubstanceColorScheme shade(double shadeFactor);
+	SubstanceColorScheme shade(double shadeFactor);
 
 	/**
 	 * Creates a saturated or desaturated version of <code>this</code> scheme.
@@ -125,21 +125,21 @@ public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors,
 	 *            colors.
 	 * @return Saturated version of <code>this</code> scheme.
 	 */
-	public SubstanceColorScheme saturate(double saturateFactor);
+	SubstanceColorScheme saturate(double saturateFactor);
 
 	/**
 	 * Creates an inverted version of <code>this</code> scheme.
 	 * 
 	 * @return Inverted version of <code>this</code> scheme.
 	 */
-	public SubstanceColorScheme invert();
+	SubstanceColorScheme invert();
 
 	/**
 	 * Creates a negated version of <code>this</code> scheme.
 	 * 
 	 * @return Negated version of <code>this</code> scheme.
 	 */
-	public SubstanceColorScheme negate();
+	SubstanceColorScheme negate();
 
 	/**
 	 * Creates a hue-shifted (in HSB space) version of <code>this</code> color
@@ -149,7 +149,7 @@ public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors,
 	 *            Value in -1.0...1.0 range.
 	 * @return Hue-shifted version of <code>this</code> scheme.
 	 */
-	public SubstanceColorScheme hueShift(double hueShiftFactor);
+	SubstanceColorScheme hueShift(double hueShiftFactor);
 
 	/**
 	 * This method is a fluent-interface builder utility for setting the display
@@ -160,5 +160,5 @@ public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors,
 	 *            New display name for this color scheme.
 	 * @return This color scheme.
 	 */
-	public SubstanceColorScheme named(String colorSchemeDisplayName);
+	SubstanceColorScheme named(String colorSchemeDisplayName);
 }

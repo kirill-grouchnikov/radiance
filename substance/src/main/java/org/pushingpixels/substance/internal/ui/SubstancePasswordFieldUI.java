@@ -172,11 +172,6 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
             return echoPerChar * (dotDiameter + dotGap);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.text.PlainView#drawSelectedText(java.awt.Graphics, int, int, int, int)
-         */
         @Override
         protected int drawSelectedText(Graphics g, final int x, final int y, int p0, int p1)
                 throws BadLocationException {
@@ -197,11 +192,6 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
             return x;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.text.PlainView#drawUnselectedText(java.awt.Graphics, int, int, int, int)
-         */
         @Override
         protected int drawUnselectedText(Graphics g, final int x, final int y, int p0, int p1)
                 throws BadLocationException {
@@ -222,12 +212,6 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
             return x;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.text.View#modelToView(int, java.awt.Shape,
-         * javax.swing.text.Position.Bias)
-         */
         @Override
         public Shape modelToView(int pos, Shape a, Position.Bias b) throws BadLocationException {
             Container c = this.getContainer();
@@ -251,12 +235,6 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
             return null;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.text.View#viewToModel(float, float, java.awt.Shape,
-         * javax.swing.text.Position.Bias[])
-         */
         @Override
         public int viewToModel(float fx, float fy, Shape a, Position.Bias[] bias) {
             bias[0] = Position.Bias.Forward;
@@ -285,11 +263,6 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
             return this.getStartOffset() + n;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.text.View#getPreferredSpan(int)
-         */
         @Override
         public float getPreferredSpan(int axis) {
             switch (axis) {
@@ -311,11 +284,6 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstancePasswordFieldUI(comp);
@@ -361,21 +329,11 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
         super.uninstallUI(c);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.text.ViewFactory#create(javax.swing.text.Element)
-     */
     @Override
     public View create(Element elem) {
         return new SubstancePasswordView(this.passwordField, elem);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#installListeners()
-     */
     @Override
     protected void installListeners() {
         super.installListeners();
@@ -412,11 +370,6 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         this.stateTransitionTracker.unregisterModelListeners();
@@ -436,11 +389,6 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
         super.uninstallListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -479,11 +427,6 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
         super.uninstallDefaults();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#paintBackground(java.awt.Graphics)
-     */
     @Override
     protected void paintBackground(Graphics g) {
         SubstanceTextUtilities.paintTextCompBackground(g, this.passwordField);

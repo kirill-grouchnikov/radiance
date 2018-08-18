@@ -89,21 +89,11 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
         return new SubstanceOptionPaneUI();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void paint(Graphics g, JComponent c) {
         BackgroundPaintingUtils.updateIfOpaque(g, c);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicOptionPaneUI#addIcon(java.awt.Container)
-     */
     @Override
     protected void addIcon(Container top) {
         Icon sideIcon = (optionPane == null ? null : optionPane.getIcon());
@@ -127,11 +117,6 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicOptionPaneUI#getIconForType(int)
-     */
     @Override
     protected Icon getIconForType(int messageType) {
         SubstanceIconPack iconPack = SubstanceCortex.GlobalScope.getIconPack();
@@ -149,11 +134,6 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicOptionPaneUI#installComponents()
-     */
     @Override
     protected void installComponents() {
         super.installComponents();

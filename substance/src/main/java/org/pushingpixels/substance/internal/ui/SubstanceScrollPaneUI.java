@@ -116,11 +116,6 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
         super.uninstallUI(c);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollPaneUI#installDefaults(javax.swing. JScrollPane)
-     */
     @Override
     protected void installDefaults(final JScrollPane scrollpane) {
         super.installDefaults(scrollpane);
@@ -137,11 +132,6 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollPaneUI#uninstallDefaults(javax.swing .JScrollPane)
-     */
     @Override
     protected void uninstallDefaults(JScrollPane c) {
         Component upperRight = c.getCorner(JScrollPane.UPPER_RIGHT_CORNER);
@@ -159,11 +149,6 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
         super.uninstallDefaults(c);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollPaneUI#installListeners(javax.swing .JScrollPane)
-     */
     @Override
     protected void installListeners(final JScrollPane c) {
         super.installListeners(c);
@@ -267,11 +252,6 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollPaneUI#uninstallListeners(javax.swing .JComponent)
-     */
     @Override
     protected void uninstallListeners(JComponent c) {
         c.removePropertyChangeListener(this.substancePropertyChangeListener);
@@ -407,12 +387,6 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
             return delegate.toString();
         }
 
-        // ScrollPaneLayout.UIResource {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.ScrollPaneLayout#layoutContainer(java.awt.Container)
-         */
         @Override
         public void layoutContainer(Container parent) {
             delegate.layoutContainer(parent);
@@ -507,11 +481,6 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         BackgroundPaintingUtils.updateIfOpaque(g, c);

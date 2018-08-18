@@ -135,11 +135,7 @@ public class SubstanceEtchedBorder implements Border {
         NeonCortex.installDesktopHints((Graphics2D) g, c);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.border.Border#getBorderInsets(java.awt.Component)
-	 */
+	@Override
 	public Insets getBorderInsets(Component c) {
 		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
 		int prefSize = (int) (Math.ceil(2.0 * borderStrokeWidth));

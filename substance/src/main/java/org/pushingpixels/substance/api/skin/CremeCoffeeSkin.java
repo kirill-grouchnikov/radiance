@@ -85,11 +85,7 @@ public class CremeCoffeeSkin extends SubstanceSkin {
 						(SubstanceColorScheme scheme) -> scheme.tint(0.8f)));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.skin.SubstanceSkin#getDisplayName()
-	 */
+	@Override
 	public String getDisplayName() {
 		return NAME;
 	}

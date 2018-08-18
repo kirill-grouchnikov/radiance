@@ -263,11 +263,13 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
                 Component newFocusOwner = (Component) evt.getNewValue();
                 if (newFocusOwner != null) {
                     JRootPane rootPane = SwingUtilities.getRootPane(newFocusOwner);
-                    if (rootPane == null)
+                    if (rootPane == null) {
                         return;
+                    }
                     JButton defaultButton = rootPane.getDefaultButton();
-                    if (defaultButton == null)
+                    if (defaultButton == null) {
                         return;
+                    }
                     defaultButton.repaint();
                 }
             }
@@ -297,8 +299,9 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
         SubstanceCoreUtilities.stopThreads();
 
         // fix for defect 109 - memory leak on watermarks
-        if (this.skin.getWatermark() != null)
+        if (this.skin.getWatermark() != null) {
             this.skin.getWatermark().dispose();
+        }
 
         // uninitialize component plugins
         SubstancePluginRepository.getInstance().uninitializeAllComponentPlugins();
@@ -319,8 +322,9 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
 
     @Override
     public Icon getDisabledIcon(JComponent component, Icon icon) {
-        if (icon == null)
+        if (icon == null) {
             return null;
+        }
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(component,
                 ComponentState.DISABLED_UNSELECTED);
         BufferedImage result = SubstanceImageCreator.getColorSchemeImage(component, icon,

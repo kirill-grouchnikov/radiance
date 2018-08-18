@@ -71,34 +71,17 @@ public abstract class BaseColorScheme implements SubstanceColorScheme {
 				: new DerivedColorsResolverLight(this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.trait.SubstanceTrait#getDisplayName()
-	 */
 	@Override
 	public final String getDisplayName() {
 		return this.displayName;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SubstanceColorScheme#isDark()
-	 */
 	@Override
 	public final boolean isDark() {
 		return this.isDark;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.SubstanceColorScheme#shift(java.awt.Color
-	 * , double, java.awt.Color, double)
-	 */
+	@Override
 	public final SubstanceColorScheme shift(Color backgroundShiftColor,
 			double backgroundShiftFactor, Color foregroundShiftColor,
 			double foregroundShiftFactor) {
@@ -107,13 +90,6 @@ public abstract class BaseColorScheme implements SubstanceColorScheme {
 				foregroundShiftFactor, true);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.SubstanceColorScheme#shiftBackground(
-	 * java.awt .Color, double)
-	 */
 	@Override
 	public final SubstanceColorScheme shiftBackground(
 			Color backgroundShiftColor, double backgroundShiftFactor) {
@@ -121,186 +97,92 @@ public abstract class BaseColorScheme implements SubstanceColorScheme {
 				0.0);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SubstanceColorScheme#tint(double)
-	 */
+	@Override
 	public SubstanceColorScheme tint(double tintFactor) {
 		return new TintColorScheme(this, tintFactor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SubstanceColorScheme#tone(double)
-	 */
+	@Override
 	public SubstanceColorScheme tone(double toneFactor) {
 		return new ToneColorScheme(this, toneFactor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SubstanceColorScheme#shade(double)
-	 */
+	@Override
 	public SubstanceColorScheme shade(double shadeFactor) {
 		return new ShadeColorScheme(this, shadeFactor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.SubstanceColorScheme#saturate(double)
-	 */
+	@Override
 	public SubstanceColorScheme saturate(double saturateFactor) {
 		return new SaturatedColorScheme(this, saturateFactor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SubstanceColorScheme#invert()
-	 */
+	@Override
 	public SubstanceColorScheme invert() {
 		return new InvertedColorScheme(this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SubstanceColorScheme#negate()
-	 */
+	@Override
 	public SubstanceColorScheme negate() {
 		return new NegatedColorScheme(this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.SubstanceColorScheme#hueShift(double)
-	 */
+	@Override
 	public SubstanceColorScheme hueShift(double hueShiftFactor) {
 		return new HueShiftColorScheme(this, hueShiftFactor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.SchemeDerivedColors#getBackgroundFillColor
-	 * ()
-	 */
+	@Override
 	public final Color getBackgroundFillColor() {
 		return derivedColorsResolver.getBackgroundFillColor();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.SchemeDerivedColors#getFocusRingColor()
-	 */
 	@Override
 	public final Color getFocusRingColor() {
 		return derivedColorsResolver.getFocusRingColor();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SchemeDerivedColors#getLineColor()
-	 */
+	@Override
 	public final Color getLineColor() {
 		return derivedColorsResolver.getLineColor();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.pushingpixels.substance.api.SchemeDerivedColors#
-	 * getSelectionForegroundColor()
-	 */
+	@Override
 	public final Color getSelectionForegroundColor() {
 		return derivedColorsResolver.getSelectionForegroundColor();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.pushingpixels.substance.api.SchemeDerivedColors#
-	 * getSelectionBackgroundColor()
-	 */
 	@Override
 	public final Color getSelectionBackgroundColor() {
 		return derivedColorsResolver.getSelectionBackgroundColor();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.SchemeDerivedColors#getWatermarkDarkColor
-	 * ()
-	 */
+	@Override
 	public final Color getWatermarkDarkColor() {
 		return derivedColorsResolver.getWatermarkDarkColor();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.SchemeDerivedColors#getWatermarkLightColor
-	 * ()
-	 */
+	@Override
 	public final Color getWatermarkLightColor() {
 		return derivedColorsResolver.getWatermarkLightColor();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.SchemeDerivedColors#getWatermarkStampColor
-	 * ()
-	 */
 	@Override
 	public final Color getWatermarkStampColor() {
 		return derivedColorsResolver.getWatermarkStampColor();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.pushingpixels.substance.api.SchemeDerivedColors#
-	 * getTextBackgroundFillColor()
-	 */
 	@Override
 	public final Color getTextBackgroundFillColor() {
 		return derivedColorsResolver.getTextBackgroundFillColor();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.SubstanceColorScheme#named(java.lang.
-	 * String)
-	 */
 	@Override
 	public final SubstanceColorScheme named(String colorSchemeDisplayName) {
 		this.displayName = colorSchemeDisplayName;
 		return this;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return this.getDisplayName() + " {\n    kind="

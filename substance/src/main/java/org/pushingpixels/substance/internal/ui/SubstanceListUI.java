@@ -288,11 +288,6 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceListUI();
@@ -309,11 +304,6 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
         this.stateTransitionMultiTracker = new StateTransitionMultiTracker<Integer>();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicListUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -485,12 +475,6 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
         super.uninstallListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicListUI#paintCell(java.awt.Graphics, int, java.awt.Rectangle,
-     * javax.swing.ListCellRenderer, javax.swing.ListModel, javax.swing.ListSelectionModel, int)
-     */
     @Override
     protected void paintCell(Graphics g, int row, Rectangle rowBounds,
             ListCellRenderer cellRenderer, ListModel dataModel, ListSelectionModel selModel,
@@ -681,11 +665,6 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
         tracker.getModel().setRollover(false);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         BackgroundPaintingUtils.updateIfOpaque(g, c);

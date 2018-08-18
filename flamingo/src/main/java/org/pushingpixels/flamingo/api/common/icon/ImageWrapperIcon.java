@@ -216,7 +216,7 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
                 float scaleY = (float) originalImage.getHeight()
                         / (float) height;
 
-                float scale = Math.max(scaleX, scaleY) * (float) extraScale;
+                float scale = Math.max(scaleX, scaleY);
                 if (scale > 1.0f) {
                     int finalWidth = (int) (originalImage.getWidth() / scale);
                     result = WidgetUtilities.createThumbnail(originalImage, finalWidth);

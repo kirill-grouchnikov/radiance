@@ -247,20 +247,12 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
 		return new NeonIconUIResource(result);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconHeight()
-	 */
+	@Override
 	public int getIconHeight() {
 		return this.iconHeight;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconWidth()
-	 */
+	@Override
 	public int getIconWidth() {
 		return this.iconWidth;
 	}

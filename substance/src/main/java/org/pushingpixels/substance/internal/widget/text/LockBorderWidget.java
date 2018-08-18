@@ -59,13 +59,8 @@ public class LockBorderWidget extends SubstanceWidget<JTextComponent> {
     /**
      * Name for client property that stores the original border.
      */
-    private static String ORIGINAL_BORDER = "lafwidget.internal.originalBorder";
+    private static String ORIGINAL_BORDER = "substance.internal.originalBorder";
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installListeners()
-     */
     @Override
     public void installListeners() {
         this.propertyChangeListener = (PropertyChangeEvent evt) -> {
@@ -90,22 +85,12 @@ public class LockBorderWidget extends SubstanceWidget<JTextComponent> {
         this.jcomp.addPropertyChangeListener(this.propertyChangeListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallListeners()
-     */
     @Override
     public void uninstallListeners() {
         this.jcomp.removePropertyChangeListener(this.propertyChangeListener);
         this.propertyChangeListener = null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallUI()
-     */
     @Override
     public void uninstallUI() {
         // fix for issue 7 - restoring original border on LAF switch.
@@ -116,11 +101,6 @@ public class LockBorderWidget extends SubstanceWidget<JTextComponent> {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installDefaults()
-     */
     @Override
     public void installDefaults() {
         super.installDefaults();
@@ -131,11 +111,6 @@ public class LockBorderWidget extends SubstanceWidget<JTextComponent> {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallDefaults()
-     */
     @Override
     public void uninstallDefaults() {
         // fix for issue 7 - restoring original border on LAF switch.

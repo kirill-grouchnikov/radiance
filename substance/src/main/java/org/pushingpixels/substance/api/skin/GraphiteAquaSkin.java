@@ -100,11 +100,7 @@ public class GraphiteAquaSkin extends GraphiteSkin {
 				ComponentState.ROLLOVER_SELECTED);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.skin.SubstanceSkin#getDisplayName()
-	 */
+	@Override
 	public String getDisplayName() {
 		return NAME;
 	}

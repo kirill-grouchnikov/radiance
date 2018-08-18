@@ -61,12 +61,6 @@ public class SubstancePaneBorder extends AbstractBorder implements UIResource {
             SubstancePaneBorder.BORDER_THICKNESS, SubstancePaneBorder.BORDER_THICKNESS,
             SubstancePaneBorder.BORDER_THICKNESS);
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.border.Border#paintBorder(java.awt.Component, java.awt.Graphics, int, int,
-     * int, int)
-     */
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
         SubstanceSkin skin = SubstanceCoreUtilities.getSkin(c);
@@ -112,21 +106,11 @@ public class SubstancePaneBorder extends AbstractBorder implements UIResource {
         graphics.dispose();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.border.Border#getBorderInsets(java.awt.Component)
-     */
     @Override
     public Insets getBorderInsets(Component c) {
         return SubstancePaneBorder.INSETS;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.border.AbstractBorder#getBorderInsets(java.awt.Component, java.awt.Insets)
-     */
     @Override
     public Insets getBorderInsets(Component c, Insets newInsets) {
         newInsets.top = SubstancePaneBorder.INSETS.top;
@@ -136,11 +120,6 @@ public class SubstancePaneBorder extends AbstractBorder implements UIResource {
         return newInsets;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.border.Border#isBorderOpaque()
-     */
     @Override
     public boolean isBorderOpaque() {
         return false;

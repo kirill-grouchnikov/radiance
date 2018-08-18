@@ -65,7 +65,7 @@ fun <T> List<T>.toEnumeration(): Enumeration<T> {
             if (this.count < size) {
                 return get(this.count++)
             }
-            throw NoSuchElementException("Vector Enumeration")
+            throw NoSuchElementException("List enumeration asked for more elements than present")
         }
     }
 }
@@ -109,6 +109,26 @@ data class FileTreeNode(val file: File?, val children: Array<File>, val nodePare
     override fun isLeaf(): Boolean {
         val isNotFolder = (this.file != null) && (this.file.isFile)
         return this.childCount == 0 && isNotFolder
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as FileTreeNode
+
+        if (file != other.file) return false
+        if (!Arrays.equals(children, other.children)) return false
+        if (nodeParent != other.nodeParent) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = file?.hashCode() ?: 0
+        result = 31 * result + Arrays.hashCode(children)
+        result = 31 * result + (nodeParent?.hashCode() ?: 0)
+        return result
     }
 }
 
@@ -155,8 +175,7 @@ fun main(args: Array<String>) {
 
         val frame = JFrame()
 
-        val roots = File.listRoots()
-        val rootTreeNode = FileTreeNode(roots)
+        val rootTreeNode = FileTreeNode(File.listRoots())
         val bar: BreadcrumbTreeAdapterSelector<FileTreeNode> =
                 BreadcrumbTreeAdapterSelector(DefaultTreeModel(rootTreeNode),
                         object : BreadcrumbTreeAdapterSelector.TreeAdapter<FileTreeNode> {
@@ -214,7 +233,6 @@ fun main(args: Array<String>) {
         fileListScrollPane.border = TitledBorder("File list")
 
         frame.add(fileListScrollPane, BorderLayout.CENTER)
-
 
         frame.iconImage = RadianceLogo.getLogoImage(
                 SubstanceCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(

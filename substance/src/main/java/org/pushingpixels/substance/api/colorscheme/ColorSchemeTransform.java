@@ -30,7 +30,7 @@
 package org.pushingpixels.substance.api.colorscheme;
 
 /**
- * Defines transformation on a color scheme.
+ * Defines a transformation on a color scheme.
  * 
  * @author Kirill Grouchnikov
  */
@@ -42,5 +42,5 @@ public interface ColorSchemeTransform {
 	 *            The original color scheme to transform.
 	 * @return The transformed color scheme.
 	 */
-	public SubstanceColorScheme transform(SubstanceColorScheme scheme);
+	SubstanceColorScheme transform(SubstanceColorScheme scheme);
 }

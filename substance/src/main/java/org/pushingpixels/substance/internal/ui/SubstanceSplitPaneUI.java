@@ -51,11 +51,6 @@ public class SubstanceSplitPaneUI extends BasicSplitPaneUI {
      */
     protected PropertyChangeListener substancePropertyListener;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceSplitPaneUI();
@@ -82,11 +77,6 @@ public class SubstanceSplitPaneUI extends BasicSplitPaneUI {
         super.uninstallListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicSplitPaneUI#createDefaultDivider()
-     */
     @Override
     public BasicSplitPaneDivider createDefaultDivider() {
         return new SubstanceSplitPaneDivider(this);

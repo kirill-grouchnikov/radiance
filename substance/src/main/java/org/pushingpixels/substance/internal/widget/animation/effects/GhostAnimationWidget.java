@@ -52,21 +52,11 @@ public class GhostAnimationWidget extends SubstanceWidget<AbstractButton> {
      */
     protected PropertyChangeListener ghostPropertyListener;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installDefaults()
-     */
     @Override
     public void installDefaults() {
         this.jcomp.setRolloverEnabled(true);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installListeners()
-     */
     @Override
     public void installListeners() {
         this.ghostPropertyListener = (PropertyChangeEvent evt) -> {
@@ -83,11 +73,6 @@ public class GhostAnimationWidget extends SubstanceWidget<AbstractButton> {
         this.ghostModelChangeListener.registerListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallListeners()
-     */
     @Override
     public void uninstallListeners() {
         jcomp.removePropertyChangeListener(this.ghostPropertyListener);

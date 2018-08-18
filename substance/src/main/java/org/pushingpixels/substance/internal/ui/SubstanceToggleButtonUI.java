@@ -98,11 +98,6 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 
 	private Rectangle textRect = new Rectangle();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceToggleButtonUI((JToggleButton) comp);
@@ -116,12 +111,6 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 		this.delegate = new ButtonBackgroundDelegate();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seejavax.swing.plaf.basic.BasicButtonUI#installDefaults(javax.swing.
-	 * AbstractButton)
-	 */
 	@Override
 	public void installDefaults(AbstractButton b) {
 		super.installDefaults(b);
@@ -158,12 +147,6 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 				.getTextIconGap(SubstanceSizeUtils.getComponentFontSize(b)));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seejavax.swing.plaf.basic.BasicButtonUI#uninstallDefaults(javax.swing.
-	 * AbstractButton)
-	 */
 	@Override
 	public void uninstallDefaults(AbstractButton b) {
 		super.uninstallDefaults(b);
@@ -175,24 +158,11 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 		b.putClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL, null);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.basic.BasicButtonUI#createButtonListener(javax.swing
-	 * .AbstractButton)
-	 */
 	@Override
 	protected BasicButtonListener createButtonListener(AbstractButton b) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seejavax.swing.plaf.basic.BasicButtonUI#installListeners(javax.swing.
-	 * AbstractButton)
-	 */
 	@Override
 	protected void installListeners(final AbstractButton b) {
 		super.installListeners(b);
@@ -222,12 +192,6 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 		this.ghostModelChangeListener.registerListeners();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seejavax.swing.plaf.basic.BasicButtonUI#uninstallListeners(javax.swing.
-	 * AbstractButton)
-	 */
 	@Override
 	protected void uninstallListeners(AbstractButton b) {
 		this.substanceVisualStateTracker.uninstallListeners(b);
@@ -242,12 +206,6 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 		super.uninstallListeners(b);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicToggleButtonUI#paint(java.awt.Graphics,
-	 * javax.swing.JComponent)
-	 */
 	@Override
 	public void paint(Graphics g, JComponent c) {
 		final AbstractButton b = (AbstractButton) c;
@@ -298,12 +256,6 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.ComponentUI#getPreferredSize(javax.swing.JComponent)
-	 */
 	@Override
 	public Dimension getPreferredSize(JComponent c) {
 		AbstractButton button = (AbstractButton) c;
@@ -321,24 +273,11 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 		return shaper.getPreferredSize(button, superPref);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#contains(javax.swing.JComponent, int,
-	 * int)
-	 */
 	@Override
 	public boolean contains(JComponent c, int x, int y) {
 		return ButtonBackgroundDelegate.contains((JToggleButton) c, x, y);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.basic.BasicToggleButtonUI#paintIcon(java.awt.Graphics,
-	 * javax.swing.AbstractButton, java.awt.Rectangle)
-	 */
 	@Override
 	protected void paintIcon(Graphics g, AbstractButton b, Rectangle iconRect) {
 		b.putClientProperty("icon.bounds", new Rectangle(iconRect));
@@ -416,12 +355,6 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 						.getIconGlowTracker());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics,
-	 * javax.swing.JComponent)
-	 */
 	@Override
 	public void update(Graphics g, JComponent c) {
 		Graphics2D g2d = (Graphics2D) g.create();

@@ -61,11 +61,6 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
      */
     private final static String propertyPrefix = "CheckBox" + ".";
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceCheckBoxUI((JToggleButton) comp);
@@ -87,22 +82,11 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
         super(button);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicRadioButtonUI#getPropertyPrefix()
-     */
     @Override
     protected String getPropertyPrefix() {
         return propertyPrefix;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.substance.SubstanceRadioButtonUI#installDefaults(javax .swing
-     * .AbstractButton)
-     */
     @Override
     protected void installDefaults(AbstractButton b) {
         super.installDefaults(b);
@@ -122,10 +106,8 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
      * 
      * @param button
      *            Button (should be {@link JCheckBox}).
-     * @param currState
-     *            Current state of the checkbox.
-     * @param prevState
-     *            Previous state of the checkbox.
+     * @param stateTransitionTracker
+     *            State transition tracker for the checkbox.
      * @return Matching icon.
      */
     private static Icon getIcon(JToggleButton button,
@@ -214,21 +196,11 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
         return new NeonIconUIResource(result);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicButtonUI#createButtonListener(javax.swing .AbstractButton)
-     */
     @Override
     protected BasicButtonListener createButtonListener(AbstractButton b) {
         return new RolloverButtonListener(b, this.stateTransitionTracker);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicRadioButtonUI#getDefaultIcon()
-     */
     @Override
     public Icon getDefaultIcon() {
         if (!(UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)) {
@@ -237,11 +209,6 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
         return SubstanceCheckBoxUI.getIcon(this.button, this.stateTransitionTracker);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();

@@ -111,11 +111,7 @@ public class GraphiteGoldSkin extends GraphiteSkin {
 				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.skin.SubstanceSkin#getDisplayName()
-	 */
+	@Override
 	public String getDisplayName() {
 		return NAME;
 	}

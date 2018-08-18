@@ -71,7 +71,7 @@ public class GhostingListener {
      */
     protected ButtonModel buttonModel;
 
-    static final String GHOST_LISTENER_KEY = "lafwidget.internal.ghostListenerKey";
+    static final String GHOST_LISTENER_KEY = "substance.internal.ghostListenerKey";
 
     /**
      * Key - {@link AnimationFacet}, value - {@link Boolean}

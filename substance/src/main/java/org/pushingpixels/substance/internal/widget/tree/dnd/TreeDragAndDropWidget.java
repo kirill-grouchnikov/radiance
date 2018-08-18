@@ -90,11 +90,6 @@ public class TreeDragAndDropWidget extends SubstanceWidget<JTree> {
 
 	protected DragGestureRecognizer dragGestureRecognizer;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installListeners()
-	 */
 	@Override
 	public void installListeners() {
 		this.listeners = new EventListenerList();
@@ -176,11 +171,6 @@ public class TreeDragAndDropWidget extends SubstanceWidget<JTree> {
 				this.dropListener);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallListeners()
-	 */
 	@Override
 	public void uninstallListeners() {
 		this.jcomp.removePropertyChangeListener(this.propertyChangeListener);

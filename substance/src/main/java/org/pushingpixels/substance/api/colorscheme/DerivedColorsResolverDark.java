@@ -60,99 +60,46 @@ class DerivedColorsResolverDark implements SchemeDerivedColors {
 		this.scheme = scheme;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SchemeDerivedColors#
-	 * getWatermarkStampColor()
-	 */
 	@Override
 	public Color getWatermarkStampColor() {
 		return SubstanceColorUtilities.getAlphaColor(this.scheme.getUltraLightColor(), 30);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.SchemeDerivedColors#getWatermarkDarkColor
-	 * ()
-	 */
 	@Override
 	public Color getWatermarkDarkColor() {
 		return this.scheme.getLightColor();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SchemeDerivedColors#
-	 * getWatermarkLightColor()
-	 */
+	@Override
 	public Color getWatermarkLightColor() {
 		return this.scheme.getUltraLightColor();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SchemeDerivedColors#getLineColor()
-	 */
 	@Override
 	public Color getLineColor() {
 		return this.scheme.getMidColor();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SchemeDerivedColors#
-	 * getSelectionForegroundColor()
-	 */
 	@Override
 	public Color getSelectionForegroundColor() {
 		return this.scheme.getUltraDarkColor().darker();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SchemeDerivedColors#
-	 * getSelectionBackgroundColor()
-	 */
 	@Override
 	public Color getSelectionBackgroundColor() {
 		return this.scheme.getUltraLightColor().brighter();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SchemeDerivedColors#
-	 * getBackgroundFillColor()
-	 */
 	@Override
 	public Color getBackgroundFillColor() {
 		return this.scheme.getDarkColor().brighter();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.SchemeDerivedColors#getFocusRingColor()
-	 */
 	@Override
 	public Color getFocusRingColor() {
 		return SubstanceColorUtilities.getAlphaColor(this.scheme.getForegroundColor(), 192);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.api.SchemeDerivedColors#
-	 * getTextBackgroundFillColor()
-	 */
 	@Override
 	public Color getTextBackgroundFillColor() {
 		return SubstanceColorUtilities.getInterpolatedColor(this.scheme.getMidColor(),

@@ -81,11 +81,6 @@ public class SubstanceTextPaneUI extends BasicTextPaneUI implements TransitionAw
 
     private Set<SubstanceWidget> lafWidgets;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceTextPaneUI(comp);
@@ -167,11 +162,6 @@ public class SubstanceTextPaneUI extends BasicTextPaneUI implements TransitionAw
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         this.stateTransitionTracker.unregisterModelListeners();
@@ -187,11 +177,6 @@ public class SubstanceTextPaneUI extends BasicTextPaneUI implements TransitionAw
         super.uninstallListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -222,11 +207,6 @@ public class SubstanceTextPaneUI extends BasicTextPaneUI implements TransitionAw
         super.uninstallDefaults();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#paintBackground(java.awt.Graphics)
-     */
     @Override
     protected void paintBackground(Graphics g) {
         SubstanceTextUtilities.paintTextCompBackground(g, this.textPane);

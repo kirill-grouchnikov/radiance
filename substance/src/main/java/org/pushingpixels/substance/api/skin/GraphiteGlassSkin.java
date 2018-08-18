@@ -80,11 +80,7 @@ public class GraphiteGlassSkin extends GraphiteBaseSkin {
 		this.highlightPainter = new GlassHighlightPainter();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.skin.SubstanceSkin#getDisplayName()
-	 */
+	@Override
 	public String getDisplayName() {
 		return NAME;
 	}

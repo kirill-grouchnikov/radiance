@@ -70,36 +70,17 @@ public class GlowingIcon implements Icon, IsHiDpiAware {
 		return this.delegate;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconHeight()
-	 */
+	@Override
 	public int getIconHeight() {
 		return this.delegate.getIconHeight();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconWidth()
-	 */
+	@Override
 	public int getIconWidth() {
 		return this.delegate.getIconWidth();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-	 * int, int)
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-	 * int, int)
-	 */
+	@Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		if (this.delegate == null)
 			return;

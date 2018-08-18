@@ -97,11 +97,6 @@ public class SubstanceSpinnerButton extends JButton {
     public void setBorder(Border border) {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.awt.Component#isFocusable()
-     */
     @Override
     public boolean isFocusable() {
         return false;

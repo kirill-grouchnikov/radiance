@@ -52,12 +52,6 @@ public class SubstanceSeparatorUI extends BasicSeparatorUI {
 		return new SubstanceSeparatorUI();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSeparatorUI#paint(java.awt.Graphics,
-	 * javax.swing.JComponent)
-	 */
 	@Override
 	public void paint(Graphics g, JComponent c) {
 
@@ -90,13 +84,6 @@ public class SubstanceSeparatorUI extends BasicSeparatorUI {
 		graphics.dispose();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.basic.BasicSeparatorUI#getPreferredSize(javax.swing.
-	 * JComponent)
-	 */
 	@Override
 	public Dimension getPreferredSize(JComponent c) {
 		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();

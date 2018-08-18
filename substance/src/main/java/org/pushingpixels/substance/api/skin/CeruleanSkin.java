@@ -160,11 +160,6 @@ public class CeruleanSkin extends SubstanceSkin {
 		this.borderPainter = new GlassBorderPainter();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see org.pushingpixels.substance.skin.SubstanceSkin#getDisplayName()
-	 */
 	@Override
 	public String getDisplayName() {
 		return NAME;

@@ -56,11 +56,6 @@ public class NebulaBrickWallSkin extends NebulaSkin {
 				DecorationAreaType.HEADER);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.skin.SubstanceSkin#getDisplayName()
-	 */
 	@Override
 	public String getDisplayName() {
 		return NAME;

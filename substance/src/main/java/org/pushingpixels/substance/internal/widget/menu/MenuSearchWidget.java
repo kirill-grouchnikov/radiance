@@ -266,11 +266,6 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
             }
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.Component#setVisible(boolean)
-         */
         @Override
         public void setVisible(boolean aFlag) {
             super.setVisible(aFlag);
@@ -311,11 +306,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
             this.searchResult = searchResult;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event. ActionEvent)
-         */
+        @Override
         public void actionPerformed(ActionEvent e) {
             // start opening the menus
             MenuElement[] menuElements = this.searchResult.menuElements;
@@ -368,11 +359,6 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
                 this.menuElements[count] = menuLeaf;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#toString()
-         */
         @Override
         public String toString() {
             StringBuffer sb = new StringBuffer();
@@ -464,11 +450,6 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installUI()
-     */
     @Override
     public void installUI() {
         this.searchPanel = new SearchPanel(this.jcomp);
@@ -516,22 +497,12 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
         // }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallUI()
-     */
     @Override
     public void uninstallUI() {
         this.jcomp.remove(this.searchPanel);
         super.uninstallUI();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installListeners()
-     */
     @Override
     public void installListeners() {
         super.installListeners();
@@ -556,11 +527,6 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
         this.jcomp.addPropertyChangeListener(this.propertyListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallListeners()
-     */
     @Override
     public void uninstallListeners() {
         this.jcomp.removePropertyChangeListener(this.propertyListener);
@@ -615,27 +581,15 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
             this.searchPanel = searchPanel;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String, java.awt.Component)
-         */
+        @Override
         public void addLayoutComponent(String name, Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
-         */
+        @Override
         public void removeLayoutComponent(Component c) {
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension preferredLayoutSize(Container c) {
             if (this.searchPanel.searchButton.isSelected())
                 return c.getSize();
@@ -643,22 +597,14 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
             return new Dimension(buttonSize, buttonSize);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
-         */
+        @Override
         public Dimension minimumLayoutSize(Container c) {
             // enough for the search icon
             int buttonSize = SubstanceSizeUtils.getLookupButtonSize();
             return new Dimension(buttonSize, buttonSize);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
+        @Override
         public void layoutContainer(Container c) {
             int height = c.getHeight();
             int width = c.getWidth();

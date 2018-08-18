@@ -60,21 +60,11 @@ public class SubstanceLabelUI extends BasicLabelUI {
     private Rectangle paintViewR = new Rectangle();
     private Insets paintViewInsets = new Insets(0, 0, 0, 0);
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceLabelUI();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicLabelUI#installListeners(javax.swing.JLabel)
-     */
     @Override
     protected void installListeners(final JLabel c) {
         super.installListeners(c);
@@ -89,11 +79,6 @@ public class SubstanceLabelUI extends BasicLabelUI {
         c.addPropertyChangeListener(this.substancePropertyChangeListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicLabelUI#uninstallListeners(javax.swing.JLabel )
-     */
     @Override
     protected void uninstallListeners(JLabel c) {
         c.removePropertyChangeListener(this.substancePropertyChangeListener);
@@ -158,11 +143,6 @@ public class SubstanceLabelUI extends BasicLabelUI {
         g2d.dispose();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         // failsafe for LAF change

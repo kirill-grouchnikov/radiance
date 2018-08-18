@@ -62,20 +62,12 @@ public class MenuArrowIcon implements Icon, UIResource {
 				SwingConstants.WEST);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconHeight()
-	 */
+	@Override
 	public int getIconHeight() {
 		return this.ltrIcon.getIconHeight();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconWidth()
-	 */
+	@Override
 	public int getIconWidth() {
 		return this.ltrIcon.getIconWidth();
 	}

@@ -176,9 +176,9 @@ public class TreeAdapterBreadCrumbTest extends JFrame {
         }
 
         @Override
-        public Enumeration children() {
+        public Enumeration<FileTreeNode> children() {
             final int elementCount = this.children.length;
-            return new Enumeration<File>() {
+            return new Enumeration<FileTreeNode>() {
                 int count = 0;
 
                 @Override
@@ -187,9 +187,10 @@ public class TreeAdapterBreadCrumbTest extends JFrame {
                 }
 
                 @Override
-                public File nextElement() {
+                public FileTreeNode nextElement() {
                     if (this.count < elementCount) {
-                        return FileTreeNode.this.children[this.count++];
+                        return new FileTreeNode(FileTreeNode.this.children[this.count++],
+                                FileTreeNode.this);
                     }
                     throw new NoSuchElementException("Vector Enumeration");
                 }

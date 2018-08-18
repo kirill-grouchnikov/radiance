@@ -83,11 +83,6 @@ public class SubstanceFormattedTextFieldUI extends BasicFormattedTextFieldUI
 
     private Set<SubstanceWidget> lafWidgets;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceFormattedTextFieldUI(comp);
@@ -171,11 +166,6 @@ public class SubstanceFormattedTextFieldUI extends BasicFormattedTextFieldUI
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         this.stateTransitionTracker.unregisterModelListeners();
@@ -194,11 +184,6 @@ public class SubstanceFormattedTextFieldUI extends BasicFormattedTextFieldUI
         super.uninstallListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -237,11 +222,6 @@ public class SubstanceFormattedTextFieldUI extends BasicFormattedTextFieldUI
         super.uninstallDefaults();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#paintBackground(java.awt.Graphics)
-     */
     @Override
     protected void paintBackground(Graphics g) {
         SubstanceTextUtilities.paintTextCompBackground(g, this.textField);

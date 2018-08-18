@@ -81,11 +81,6 @@ public class SubstanceEditorPaneUI extends BasicEditorPaneUI implements Transiti
 
     private Set<SubstanceWidget> lafWidgets;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceEditorPaneUI(comp);
@@ -131,11 +126,6 @@ public class SubstanceEditorPaneUI extends BasicEditorPaneUI implements Transiti
         super.uninstallUI(c);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#installListeners()
-     */
     @Override
     protected void installListeners() {
         super.installListeners();
@@ -174,11 +164,6 @@ public class SubstanceEditorPaneUI extends BasicEditorPaneUI implements Transiti
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         this.stateTransitionTracker.unregisterModelListeners();
@@ -194,11 +179,6 @@ public class SubstanceEditorPaneUI extends BasicEditorPaneUI implements Transiti
         super.uninstallListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -231,11 +211,6 @@ public class SubstanceEditorPaneUI extends BasicEditorPaneUI implements Transiti
         super.uninstallDefaults();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#paintBackground(java.awt.Graphics)
-     */
     @Override
     protected void paintBackground(Graphics g) {
         SubstanceTextUtilities.paintTextCompBackground(g, this.editorPane);

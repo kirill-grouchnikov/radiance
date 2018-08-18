@@ -183,11 +183,6 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
         this.stateTransitionTracker.unregisterModelListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.awt.Component#paint(java.awt.Graphics)
-     */
     @Override
     public void paint(Graphics g) {
         if (SubstanceCoreUtilities.hasFlatAppearance(this.splitPane, true)) {
@@ -272,11 +267,6 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
         super.paint(g);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicSplitPaneDivider#createLeftOneTouchButton()
-     */
     @Override
     protected JButton createLeftOneTouchButton() {
         JButton oneTouchButton = new SubstanceSplitPaneDividerButton();
@@ -311,11 +301,6 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
         return oneTouchButton;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicSplitPaneDivider#createRightOneTouchButton()
-     */
     @Override
     protected JButton createRightOneTouchButton() {
         JButton oneTouchButton = new SubstanceSplitPaneDividerButton();
@@ -407,11 +392,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @seeorg.pushingpixels.substance.utils.Trackable#isInside(java.awt.event. MouseEvent)
-     */
+    @Override
     public boolean isInside(MouseEvent me) {
         // entire area is sensitive
         return true;

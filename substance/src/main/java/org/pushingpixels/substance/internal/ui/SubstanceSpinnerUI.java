@@ -67,11 +67,6 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 	 */
 	protected SubstanceSpinnerButton prevButton;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceSpinnerUI();
@@ -101,11 +96,6 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 		super.uninstallUI(c);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSpinnerUI#createNextButton()
-	 */
 	@Override
 	protected Component createNextButton() {
 		this.nextButton = new SubstanceSpinnerButton(this.spinner, SwingConstants.NORTH);
@@ -136,11 +126,6 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 		return this.nextButton;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSpinnerUI#createPreviousButton()
-	 */
 	@Override
 	protected Component createPreviousButton() {
 		this.prevButton = new SubstanceSpinnerButton(this.spinner, SwingConstants.SOUTH);
@@ -171,11 +156,6 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 		return this.prevButton;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSpinnerUI#installDefaults()
-	 */
 	@Override
 	protected void installDefaults() {
 		super.installDefaults();
@@ -203,11 +183,6 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSpinnerUI#installListeners()
-	 */
 	@Override
 	protected void installListeners() {
 		super.installListeners();
@@ -266,11 +241,6 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 		this.spinner.addPropertyChangeListener(this.substancePropertyChangeListener);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicSpinnerUI#uninstallListeners()
-	 */
 	@Override
 	protected void uninstallListeners() {
 		this.spinner.removePropertyChangeListener(this.substancePropertyChangeListener);
@@ -279,24 +249,12 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 		super.uninstallListeners();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics,
-	 * javax.swing.JComponent)
-	 */
 	@Override
 	public void paint(Graphics g, JComponent c) {
 		super.paint(g, c);
 		SubstanceTextUtilities.paintTextCompBackground(g, c);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.ComponentUI#getPreferredSize(javax.swing.JComponent)
-	 */
 	@Override
 	public Dimension getPreferredSize(JComponent c) {
 		Dimension nextD = this.nextButton.getPreferredSize();

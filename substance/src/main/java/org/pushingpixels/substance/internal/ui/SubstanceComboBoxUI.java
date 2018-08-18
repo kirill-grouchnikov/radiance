@@ -93,11 +93,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
 
     private Insets layoutInsets;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         SubstanceComboBoxUI ui = new SubstanceComboBoxUI((JComboBox) comp);
@@ -148,11 +143,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         this.delegate = new ComboBoxBackgroundDelegate();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicComboBoxUI#createArrowButton()
-     */
     @Override
     protected JButton createArrowButton() {
         SubstanceDropDownButton result = new SubstanceDropDownButton(this.comboBox);
@@ -175,21 +165,11 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         return icon;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicComboBoxUI#createRenderer()
-     */
     @Override
     protected ListCellRenderer createRenderer() {
         return new SubstanceDefaultComboBoxRenderer.SubstanceUIResource(this.comboBox);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicComboBoxUI#installListeners()
-     */
     @Override
     protected void installListeners() {
         super.installListeners();
@@ -204,11 +184,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         this.stateTransitionTracker.registerFocusListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicComboBoxUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         this.stateTransitionTracker.unregisterModelListeners();
@@ -223,11 +198,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         super.uninstallListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicComboBoxUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -240,11 +210,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         this.updateComboBoxBorder();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicComboBoxUI#createLayoutManager()
-     */
     @Override
     protected LayoutManager createLayoutManager() {
         return new SubstanceComboBoxLayoutManager();
@@ -256,11 +221,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
      * @author Kirill Grouchnikov
      */
     private class SubstanceComboBoxLayoutManager extends BasicComboBoxUI.ComboBoxLayoutManager {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
-         */
         @Override
         public void layoutContainer(Container parent) {
             JComboBox cb = (JComboBox) parent;
@@ -311,11 +271,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicComboBoxUI#getDefaultSize()
-     */
     @Override
     protected Dimension getDefaultSize() {
         Component rend = new SubstanceDefaultComboBoxRenderer(this.comboBox)
@@ -325,12 +280,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         return rend.getPreferredSize();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicComboBoxUI#getMinimumSize(javax.swing.
-     * JComponent )
-     */
     @Override
     public Dimension getMinimumSize(JComponent c) {
         if (!this.isMinimumSizeDirty) {
@@ -372,12 +321,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
      * @author Kirill Grouchnikov
      */
     public class ComboBoxPropertyChangeHandler extends PropertyChangeHandler {
-        /*
-         * (non-Javadoc)
-         * 
-         * @seejavax.swing.plaf.basic.BasicComboBoxUI$PropertyChangeHandler#
-         * propertyChange(java.beans.PropertyChangeEvent)
-         */
         @Override
         public void propertyChange(final PropertyChangeEvent e) {
             String propertyName = e.getPropertyName();
@@ -442,11 +385,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicComboBoxUI#createPopup()
-     */
     @Override
     protected ComboPopup createPopup() {
         final ComboPopup sPopup = new SubstanceComboPopup(this.comboBox);
@@ -475,12 +413,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         return sPopup;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicComboBoxUI#paint(java.awt.Graphics,
-     * javax.swing.JComponent)
-     */
     @Override
     public void paint(Graphics g, JComponent c) {
         Graphics2D graphics = (Graphics2D) g.create();
@@ -588,11 +520,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         return this.popup;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicComboBoxUI#configureArrowButton()
-     */
     @Override
     public void configureArrowButton() {
         super.configureArrowButton();
@@ -601,11 +528,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         this.arrowButton.setFocusable(false);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicComboBoxUI#configureEditor()
-     */
     @Override
     protected void configureEditor() {
         super.configureEditor();
@@ -621,11 +543,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicComboBoxUI#createEditor()
-     */
     @Override
     protected ComboBoxEditor createEditor() {
         return new SubstanceComboBoxEditor.UIResource();
@@ -677,12 +594,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         return contour.contains(me.getPoint());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics,
-     * javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();

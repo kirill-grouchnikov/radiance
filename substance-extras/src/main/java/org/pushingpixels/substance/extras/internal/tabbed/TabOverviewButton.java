@@ -52,7 +52,7 @@ public class TabOverviewButton extends JButton implements UIResource {
     /**
      * Client property name for locking undesired bound set.
      */
-    private static final String OWN_BOUNDS = "lafwidget.ownBounds";
+    private static final String OWN_BOUNDS = "substance.extras.ownBounds";
 
     /**
      * Creates a new tab overview button.

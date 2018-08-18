@@ -69,11 +69,6 @@ public class SubstanceScrollButton extends JButton implements UIResource {
 		this.setIconTextGap(0);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.Component#isFocusable()
-	 */
 	@Override
 	public boolean isFocusable() {
 		return false;

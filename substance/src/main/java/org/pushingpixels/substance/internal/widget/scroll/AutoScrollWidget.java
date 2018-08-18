@@ -49,11 +49,6 @@ public class AutoScrollWidget extends SubstanceWidget<JScrollPane> {
      */
     private PropertyChangeListener propertyChangeListener;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installUI()
-     */
     @Override
     public void installUI() {
         if (WidgetUtilities.hasAutoScroll(this.jcomp)) {
@@ -61,11 +56,6 @@ public class AutoScrollWidget extends SubstanceWidget<JScrollPane> {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallUI()
-     */
     @Override
     public void uninstallUI() {
         AutoScrollActivator.setAutoScrollEnabled(this.jcomp, false);
@@ -82,11 +72,6 @@ public class AutoScrollWidget extends SubstanceWidget<JScrollPane> {
         this.jcomp.addPropertyChangeListener(this.propertyChangeListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallListeners()
-     */
     @Override
     public void uninstallListeners() {
         this.jcomp.removePropertyChangeListener(this.propertyChangeListener);

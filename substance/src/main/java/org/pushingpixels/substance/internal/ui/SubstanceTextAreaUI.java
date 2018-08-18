@@ -81,11 +81,6 @@ public class SubstanceTextAreaUI extends BasicTextAreaUI implements TransitionAw
 
     private Set<SubstanceWidget> lafWidgets;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceTextAreaUI(comp);
@@ -131,11 +126,6 @@ public class SubstanceTextAreaUI extends BasicTextAreaUI implements TransitionAw
         super.uninstallUI(c);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#installListeners()
-     */
     @Override
     protected void installListeners() {
         super.installListeners();
@@ -176,11 +166,6 @@ public class SubstanceTextAreaUI extends BasicTextAreaUI implements TransitionAw
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         this.stateTransitionTracker.unregisterModelListeners();
@@ -196,11 +181,6 @@ public class SubstanceTextAreaUI extends BasicTextAreaUI implements TransitionAw
         super.uninstallListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextAreaUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -233,11 +213,6 @@ public class SubstanceTextAreaUI extends BasicTextAreaUI implements TransitionAw
         super.uninstallDefaults();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTextUI#paintBackground(java.awt.Graphics)
-     */
     @Override
     protected void paintBackground(Graphics g) {
         SubstanceTextUtilities.paintTextCompBackground(g, this.textArea);

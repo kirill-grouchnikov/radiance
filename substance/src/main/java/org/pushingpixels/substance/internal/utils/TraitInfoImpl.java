@@ -65,38 +65,22 @@ public class TraitInfoImpl implements SubstanceTraitInfo {
 		this.className = className;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.utils.SubstanceTraitInfo#getClassName()
-	 */
+	@Override
 	public String getClassName() {
 		return this.className;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.utils.SubstanceTrait#getDisplayName()
-	 */
+	@Override
 	public String getDisplayName() {
 		return this.displayName;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.utils.SubstanceTraitInfo#isDefault()
-	 */
+	@Override
 	public boolean isDefault() {
 		return this.isDefault;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.utils.SubstanceTraitInfo#setDefault(boolean)
-	 */
+	@Override
 	public void setDefault(boolean isDefault) {
 		this.isDefault = isDefault;
 	}

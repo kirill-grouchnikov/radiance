@@ -42,61 +42,61 @@ public interface SchemeDerivedColors {
 	 * 
 	 * @return Watermark stamp color for <code>this</code> scheme.
 	 */
-	public Color getWatermarkStampColor();
+	Color getWatermarkStampColor();
 
 	/**
 	 * Returns the watermark light color for <code>this</code> scheme.
 	 * 
 	 * @return Watermark light color for <code>this</code> scheme.
 	 */
-	public Color getWatermarkLightColor();
+	Color getWatermarkLightColor();
 
 	/**
 	 * Returns the watermark dark color for <code>this</code> scheme.
 	 * 
 	 * @return Watermark dark color for <code>this</code> scheme.
 	 */
-	public Color getWatermarkDarkColor();
+	Color getWatermarkDarkColor();
 
 	/**
 	 * Returns the line color for <code>this</code> scheme.
 	 * 
 	 * @return The line color for <code>this</code> scheme.
 	 */
-	public Color getLineColor();
+	Color getLineColor();
 
 	/**
 	 * Returns the selection background color for <code>this</code> scheme.
 	 * 
 	 * @return The selection background color for <code>this</code> scheme.
 	 */
-	public Color getSelectionBackgroundColor();
+	Color getSelectionBackgroundColor();
 
 	/**
 	 * Returns the selection foreground color for <code>this</code> scheme.
 	 * 
 	 * @return The selection foreground color for <code>this</code> scheme.
 	 */
-	public Color getSelectionForegroundColor();
+	Color getSelectionForegroundColor();
 
 	/**
 	 * Returns the background fill color for <code>this</code> scheme.
 	 * 
 	 * @return The background fill color for <code>this</code> scheme.
 	 */
-	public Color getBackgroundFillColor();
+	Color getBackgroundFillColor();
 
 	/**
 	 * Returns the text background fill color for <code>this</code> scheme.
 	 * 
 	 * @return The text background fill color for <code>this</code> scheme.
 	 */
-	public Color getTextBackgroundFillColor();
+	Color getTextBackgroundFillColor();
 
 	/**
 	 * Returns the focus ring color for <code>this</code> scheme.
 	 * 
 	 * @return The focus ring color for <code>this</code> scheme.
 	 */
-	public Color getFocusRingColor();
+	Color getFocusRingColor();
 }

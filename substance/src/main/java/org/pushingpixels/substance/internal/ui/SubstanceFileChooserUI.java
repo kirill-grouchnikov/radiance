@@ -73,21 +73,11 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
          */
         private final Map<String, Icon> pathIconCache = new HashMap<String, Icon>();
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.plaf.basic.BasicFileChooserUI$BasicFileView#getCachedIcon (java.io.File)
-         */
         @Override
         public Icon getCachedIcon(File f) {
             return pathIconCache.get(f.getPath());
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.plaf.basic.BasicFileChooserUI$BasicFileView#getIcon(java .io.File)
-         */
         @Override
         public Icon getIcon(File f) {
             Icon icon = getCachedIcon(f);
@@ -109,22 +99,11 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
             return icon;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.plaf.basic.BasicFileChooserUI$BasicFileView#cacheIcon (java.io.File,
-         * javax.swing.Icon)
-         */
         @Override
         public void cacheIcon(File f, Icon icon) {
             pathIconCache.put(f.getPath(), icon);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.plaf.basic.BasicFileChooserUI$BasicFileView#clearIconCache ()
-         */
         @Override
         public void clearIconCache() {
             pathIconCache.clear();
@@ -171,11 +150,6 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
         super(filechooser);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @seejavax.swing.plaf.basic.BasicFileChooserUI#getFileView(javax.swing. JFileChooser)
-     */
     @Override
     public FileView getFileView(JFileChooser fc) {
         return fileView;

@@ -145,7 +145,7 @@ import java.util.*;
  * component states that account for all the relevant on and off facets -
  * including the core facets defined in the {@link ComponentStateFacet} class.
  * When this (perhaps elaborate) state is passed to
- * {@link SubstanceColorSchemeBundle#getColorScheme(ColorSchemeAssociationKind, ComponentState)}
+ * {@link SubstanceColorSchemeBundle#getColorScheme(ColorSchemeAssociationKind, ComponentState, boolean)}
  * API, the the procedure described above will match the this state to one of
  * the "base" states defined in your skin, and use the matching color scheme.</li>
  * </ul>
@@ -344,19 +344,15 @@ public final class ComponentState {
 		}
 		this.name = name;
 		this.hardFallback = hardFallback;
-		this.facetsTurnedOn = new HashSet<ComponentStateFacet>();
+		this.facetsTurnedOn = new HashSet<>();
 		if (facetsOn != null) {
-			for (ComponentStateFacet facetOn : facetsOn) {
-				this.facetsTurnedOn.add(facetOn);
-			}
+		    Collections.addAll(this.facetsTurnedOn, facetsOn);
 		}
-		this.facetsTurnedOff = new HashSet<ComponentStateFacet>();
+		this.facetsTurnedOff = new HashSet<>();
 		if (facetsOff != null) {
-			for (ComponentStateFacet facetOff : facetsOff) {
-				this.facetsTurnedOff.add(facetOff);
-			}
+            Collections.addAll(this.facetsTurnedOff, facetsOff);
 		}
-		this.mapping = new HashMap<ComponentStateFacet, Boolean>();
+		this.mapping = new HashMap<>();
 		allStates.add(this);
 	}
 
@@ -403,8 +399,9 @@ public final class ComponentState {
 	 */
 	public boolean isFacetActive(ComponentStateFacet stateFacet) {
 		Boolean result = this.mapping.get(stateFacet);
-		if (result != null)
-			return result;
+		if (result != null) {
+            return result;
+        }
 		if ((facetsTurnedOn != null) && facetsTurnedOn.contains(stateFacet)) {
 			this.mapping.put(stateFacet, Boolean.TRUE);
 			return true;
@@ -430,10 +427,11 @@ public final class ComponentState {
 	 * @return All active component states.
 	 */
 	public static ComponentState[] getActiveStates() {
-		List<ComponentState> states = new LinkedList<ComponentState>();
+		List<ComponentState> states = new LinkedList<>();
 		for (ComponentState state : allStates) {
-			if (state.isActive())
-				states.add(state);
+			if (state.isActive()) {
+                states.add(state);
+            }
 		}
 		return states.toArray(new ComponentState[0]);
 	}
@@ -448,10 +446,12 @@ public final class ComponentState {
 	}
 
 	public boolean isActive() {
-		if (this == ComponentState.ENABLED)
-			return false;
-		if (!this.isFacetActive(ComponentStateFacet.ENABLE))
-			return false;
+		if (this == ComponentState.ENABLED) {
+            return false;
+        }
+		if (!this.isFacetActive(ComponentStateFacet.ENABLE)) {
+            return false;
+        }
 		return true;
 	}
 
@@ -465,8 +465,7 @@ public final class ComponentState {
 	 *            Component (optional).
 	 * @return The matching component state.
 	 */
-	public static ComponentState getState(ButtonModel model,
-			JComponent component) {
+	public static ComponentState getState(ButtonModel model, JComponent component) {
 		return getState(model, component, false);
 	}
 
@@ -524,17 +523,19 @@ public final class ComponentState {
 				if (jb.isDefaultButton()) {
 					if (model.isEnabled()) {
 						// check for rollover
-						if (jb.isRolloverEnabled()
-								&& jb.getModel().isRollover()) {
-							if (model.isSelected())
-								return ROLLOVER_SELECTED;
-							else
-								return ROLLOVER_UNSELECTED;
+						if (jb.isRolloverEnabled() && jb.getModel().isRollover()) {
+							if (model.isSelected()) {
+                                return ROLLOVER_SELECTED;
+                            } else {
+                                return ROLLOVER_UNSELECTED;
+                            }
 						}
-						if ((!model.isPressed()) && (!model.isArmed()))
-							return DEFAULT;
-					} else
-						return DISABLED_DEFAULT;
+						if ((!model.isPressed()) && (!model.isArmed())) {
+                            return DEFAULT;
+                        }
+					} else {
+                        return DISABLED_DEFAULT;
+                    }
 				}
 			}
 		}
@@ -544,23 +545,28 @@ public final class ComponentState {
 			isRolloverEnabled = ((AbstractButton) component).isRolloverEnabled();
 		}
 		if (!model.isEnabled()) {
-			if (!toIgnoreSelection && model.isSelected())
-				return DISABLED_SELECTED;
+			if (!toIgnoreSelection && model.isSelected()) {
+                return DISABLED_SELECTED;
+            }
 			return DISABLED_UNSELECTED;
 		} else if (model.isArmed() && model.isPressed()) {
-			if (!toIgnoreSelection && model.isSelected())
-				return PRESSED_SELECTED;
+			if (!toIgnoreSelection && model.isSelected()) {
+                return PRESSED_SELECTED;
+            }
 			return PRESSED_UNSELECTED;
 		} else if (!toIgnoreSelection && model.isSelected()) {
-			if (((component == null) || isRolloverEnabled) && isRollover)
-				return ROLLOVER_SELECTED;
+			if (((component == null) || isRolloverEnabled) && isRollover) {
+                return ROLLOVER_SELECTED;
+            }
 			return SELECTED;
 		} else if (model.isArmed()) {
-			if (((component == null) || isRolloverEnabled) && isRollover)
-				return ROLLOVER_ARMED;
+			if (((component == null) || isRolloverEnabled) && isRollover) {
+                return ROLLOVER_ARMED;
+            }
 			return ARMED;
-		} else if (((component == null) || isRolloverEnabled) && isRollover)
-			return ROLLOVER_UNSELECTED;
+		} else if (((component == null) || isRolloverEnabled) && isRollover) {
+            return ROLLOVER_UNSELECTED;
+        }
 
 		return ENABLED;
 	}
@@ -579,17 +585,20 @@ public final class ComponentState {
 	public static ComponentState getState(boolean isEnabled,
 			boolean isRollover, boolean isSelected) {
 		if (!isEnabled) {
-			if (isSelected)
-				return DISABLED_SELECTED;
+			if (isSelected) {
+                return DISABLED_SELECTED;
+            }
 			return DISABLED_UNSELECTED;
 		}
 		if (isSelected) {
-			if (isRollover)
-				return ROLLOVER_SELECTED;
+			if (isRollover) {
+                return ROLLOVER_SELECTED;
+            }
 			return SELECTED;
 		}
-		if (isRollover)
-			return ROLLOVER_UNSELECTED;
+		if (isRollover) {
+            return ROLLOVER_UNSELECTED;
+        }
 		return ENABLED;
 	}
 
@@ -637,8 +646,9 @@ public final class ComponentState {
 		ComponentState bestFit = null;
 		int bestFitValue = 0;
 		for (ComponentState state : states) {
-			if (this.isActive() != state.isActive())
-				continue;
+			if (this.isActive() != state.isActive()) {
+                continue;
+            }
 			int currFitValue = state.fitValue(this) + this.fitValue(state);
 			if (bestFit == null) {
 				bestFit = state;
@@ -651,8 +661,9 @@ public final class ComponentState {
 			}
 		}
 		// fit value must be positive
-		if (bestFitValue > 0)
-			return bestFit;
+		if (bestFitValue > 0) {
+            return bestFit;
+        }
 		return null;
 	}
 
@@ -662,8 +673,9 @@ public final class ComponentState {
 
 	@Override
 	public int hashCode() {
-		if (this.facetsTurnedOn.isEmpty() && this.facetsTurnedOff.isEmpty())
-			return 0;
+		if (this.facetsTurnedOn.isEmpty() && this.facetsTurnedOff.isEmpty()) {
+            return 0;
+        }
 
 		if (this.facetsTurnedOn.isEmpty()) {
 			boolean isFirst = true;
@@ -697,19 +709,24 @@ public final class ComponentState {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof ComponentState))
-			return false;
+		if (!(obj instanceof ComponentState)) {
+            return false;
+        }
 
 		ComponentState second = (ComponentState) obj;
-		if (this.facetsTurnedOn.size() != second.facetsTurnedOn.size())
-			return false;
-		if (this.facetsTurnedOff.size() != second.facetsTurnedOff.size())
-			return false;
+		if (this.facetsTurnedOn.size() != second.facetsTurnedOn.size()) {
+            return false;
+        }
+		if (this.facetsTurnedOff.size() != second.facetsTurnedOff.size()) {
+            return false;
+        }
 
-		if (!this.facetsTurnedOn.containsAll(second.facetsTurnedOn))
-			return false;
-		if (!this.facetsTurnedOff.containsAll(second.facetsTurnedOff))
-			return false;
+		if (!this.facetsTurnedOn.containsAll(second.facetsTurnedOn)) {
+            return false;
+        }
+		if (!this.facetsTurnedOff.containsAll(second.facetsTurnedOff)) {
+            return false;
+        }
 
 		return true;
 	}

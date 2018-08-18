@@ -74,11 +74,6 @@ public class SubstanceRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
 	 */
 	protected MenuPropertyListener substanceMenuPropertyListener;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		JRadioButtonMenuItem item = (JRadioButtonMenuItem) comp;

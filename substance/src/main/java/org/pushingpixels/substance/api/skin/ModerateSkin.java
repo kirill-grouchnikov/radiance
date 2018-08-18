@@ -97,11 +97,7 @@ public class ModerateSkin extends SubstanceSkin {
         this.highlightPainter = new ClassicHighlightPainter();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.substance.skin.SubstanceSkin#getDisplayName()
-     */
+    @Override
     public String getDisplayName() {
         return NAME;
     }

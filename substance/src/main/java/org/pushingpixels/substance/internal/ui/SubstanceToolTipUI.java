@@ -58,12 +58,6 @@ public class SubstanceToolTipUI extends BasicToolTipUI {
 		return new SubstanceToolTipUI();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicToolTipUI#paint(java.awt.Graphics,
-	 * javax.swing.JComponent)
-	 */
 	@Override
 	public void paint(Graphics g, JComponent c) {
 		Font font = c.getFont();

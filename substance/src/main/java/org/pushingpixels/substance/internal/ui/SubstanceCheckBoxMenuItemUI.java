@@ -70,11 +70,6 @@ public class SubstanceCheckBoxMenuItemUI extends BasicCheckBoxMenuItemUI
 
 	protected PropertyChangeListener substancePropertyListener;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		JCheckBoxMenuItem item = (JCheckBoxMenuItem) comp;

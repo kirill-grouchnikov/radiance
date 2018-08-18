@@ -34,4 +34,5 @@ include 'neon', 'trident', 'trident-demo', 'kontos', 'ibis',
         'flamingo-demo', 'kormorant', 'kormorant-demo', 'spoonbill-demo',
         'substance', 'flamingo', 'spoonbill',
         'substance-extras', 'substance-demo',
-        'substance-samples', 'substance-tools', 'rainbow'
+        'substance-samples', 'substance-tools',
+        'rainbow', 'onyx'

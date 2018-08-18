@@ -135,11 +135,7 @@ public class AutumnSkin extends SubstanceSkin {
 		this.decorationPainter = decorationPainter;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.skin.SubstanceSkin#getDisplayName()
-	 */
+	@Override
 	public String getDisplayName() {
 		return NAME;
 	}

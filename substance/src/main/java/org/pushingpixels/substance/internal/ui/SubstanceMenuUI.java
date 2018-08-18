@@ -79,11 +79,6 @@ public class SubstanceMenuUI extends BasicMenuUI implements SubstanceMenu,
 	 */
 	protected FocusListener substanceFocusListener;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceMenuUI((JMenu) comp);

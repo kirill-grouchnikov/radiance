@@ -122,11 +122,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 
 	private Set<SubstanceWidget> lafWidgets;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceTreeUI();
@@ -160,11 +155,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		super.uninstallUI(c);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicTreeUI#installDefaults()
-	 */
 	@Override
 	protected void installDefaults() {
 		super.installDefaults();
@@ -194,11 +184,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicTreeUI#uninstallDefaults()
-	 */
 	@Override
 	protected void uninstallDefaults() {
 		this.selectedPaths.clear();
@@ -208,13 +193,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		super.uninstallDefaults();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicTreeUI#paintRow(java.awt.Graphics,
-	 * java.awt.Rectangle, java.awt.Insets, java.awt.Rectangle,
-	 * javax.swing.tree.TreePath, int, boolean, boolean, boolean)
-	 */
 	@Override
 	protected void paintRow(Graphics g, Rectangle clipBounds, Insets insets, Rectangle bounds,
 			TreePath path, int row, boolean isExpanded, boolean hasBeenExpanded, boolean isLeaf) {
@@ -380,14 +358,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		g2d.dispose();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.basic.BasicTreeUI#paintExpandControl(java.awt.Graphics,
-	 * java.awt.Rectangle, java.awt.Insets, java.awt.Rectangle,
-	 * javax.swing.tree.TreePath, int, boolean, boolean, boolean)
-	 */
 	@Override
 	protected void paintExpandControl(Graphics g, Rectangle clipBounds, Insets insets,
 			Rectangle bounds, TreePath path, int row, boolean isExpanded, boolean hasBeenExpanded,
@@ -441,47 +411,22 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		graphics.dispose();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.basic.BasicTreeUI#paintHorizontalPartOfLeg(java.awt.
-	 * Graphics, java.awt.Rectangle, java.awt.Insets, java.awt.Rectangle,
-	 * javax.swing.tree.TreePath, int, boolean, boolean, boolean)
-	 */
 	@Override
 	protected void paintHorizontalPartOfLeg(Graphics g, Rectangle clipBounds, Insets insets,
 			Rectangle bounds, TreePath path, int row, boolean isExpanded, boolean hasBeenExpanded,
 			boolean isLeaf) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicTreeUI#paintVerticalPartOfLeg(java.awt.
-	 * Graphics , java.awt.Rectangle, java.awt.Insets,
-	 * javax.swing.tree.TreePath)
-	 */
 	@Override
 	protected void paintVerticalPartOfLeg(Graphics g, Rectangle clipBounds, Insets insets,
 			TreePath path) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicTreeUI#createDefaultCellRenderer()
-	 */
 	@Override
 	protected TreeCellRenderer createDefaultCellRenderer() {
 		return new SubstanceDefaultTreeCellRenderer();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicTreeUI#installListeners()
-	 */
 	@Override
 	protected void installListeners() {
 		super.installListeners();
@@ -527,11 +472,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicTreeUI#uninstallListeners()
-	 */
 	@Override
 	protected void uninstallListeners() {
 		this.tree.removeMouseListener(this.substanceRowSelectionListener);
@@ -595,11 +535,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 			this.path = path;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Comparable#compareTo(java.lang.Object)
-		 */
+		@Override
 		public int compareTo(Object o) {
 			if (o instanceof TreePathId) {
 				TreePathId otherId = (TreePathId) o;
@@ -619,21 +555,11 @@ public class SubstanceTreeUI extends BasicTreeUI {
 			return -1;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#equals(java.lang.Object)
-		 */
 		@Override
 		public boolean equals(Object obj) {
 			return this.compareTo(obj) == 0;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#hashCode()
-		 */
 		@Override
 		public int hashCode() {
 			if (this.path == null)
@@ -652,13 +578,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 	 * @author Kirill Grouchnikov
 	 */
 	protected class MyTreeSelectionListener implements TreeSelectionListener {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.
-		 * event.TreeSelectionEvent)
-		 */
+		@Override
 		public void valueChanged(TreeSelectionEvent e) {
 			// Map<TreePathId, Object> currSelected = (Map<TreePathId, Object>)
 			// tree
@@ -877,12 +797,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 	 * @author Kirill Grouchnikov
 	 */
 	private class RowSelectionListener extends MouseAdapter {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
-		 */
 		@Override
 		public void mousePressed(MouseEvent e) {
 			if (!tree.isEnabled())
@@ -989,12 +903,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics,
-	 * javax.swing.JComponent)
-	 */
 	@Override
 	public void update(Graphics g, JComponent c) {
 		BackgroundPaintingUtils.updateIfOpaque(g, c);
@@ -1072,16 +980,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		SubstanceStripingUtils.tearDown(c);
 		g2d.dispose();
 	}
-
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see javax.swing.plaf.basic.BasicTreeUI#getHashColor()
-	// */
-	// @Override
-	// protected Color getHashColor() {
-	// return this.currHashColor;
-	// }
 
 	/**
 	 * Returns the default color scheme of this tree. Is for internal use only.

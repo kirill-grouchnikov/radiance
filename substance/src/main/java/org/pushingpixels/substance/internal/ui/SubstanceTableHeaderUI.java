@@ -121,12 +121,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
             this.ui = ui;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.event.ListSelectionListener#valueChanged(javax.swing.
-         * event.ListSelectionEvent)
-         */
+        @Override
         public void valueChanged(ListSelectionEvent e) {
             if (ui.header == null)
                 return;
@@ -135,11 +130,6 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceTableHeaderUI();
@@ -153,11 +143,6 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
         selectedIndices = new HashMap<Integer, Object>();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTableHeaderUI#installListeners()
-     */
     @Override
     protected void installListeners() {
         super.installListeners();
@@ -285,11 +270,6 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
         this.header.addPropertyChangeListener(this.substancePropertyChangeListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTableHeaderUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -306,11 +286,6 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTableHeaderUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         // fix for defect 109 - memory leak on skin switch
@@ -329,11 +304,6 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
         super.uninstallListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTableHeaderUI#uninstallDefaults()
-     */
     @Override
     protected void uninstallDefaults() {
         super.uninstallDefaults();
@@ -347,11 +317,6 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void paint(Graphics g, JComponent c) {
         if (header.getColumnModel().getColumnCount() <= 0) {
@@ -704,11 +669,6 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
         return -1;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         // fix for issue 175 - table header under resize mode off
@@ -742,11 +702,6 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
         g2d.dispose();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicTableHeaderUI#uninstallUI(javax.swing. JComponent )
-     */
     @Override
     public void uninstallUI(JComponent c) {
         for (int i = 0; i < header.getColumnModel().getColumnCount(); i++) {

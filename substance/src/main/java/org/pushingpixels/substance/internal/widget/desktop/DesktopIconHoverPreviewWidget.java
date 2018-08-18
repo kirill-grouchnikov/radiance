@@ -137,22 +137,12 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installComponents()
-     */
     @Override
     public void installComponents() {
         this.previewWindow = new JWindow();
         this.previewWindow.getContentPane().setLayout(new BorderLayout());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installListeners()
-     */
     @Override
     public void installListeners() {
         this.internalFramePropertyListener = (PropertyChangeEvent evt) -> {
@@ -173,11 +163,6 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallListeners()
-     */
     @Override
     public void uninstallListeners() {
         jcomp.getInternalFrame().removePropertyChangeListener(this.internalFramePropertyListener);

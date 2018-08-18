@@ -216,11 +216,7 @@ public class MarinerSkin extends SubstanceSkin {
 		this.highlightBorderPainter = new ClassicBorderPainter();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.skin.SubstanceSkin#getDisplayName()
-	 */
+	@Override
 	public String getDisplayName() {
 		return NAME;
 	}

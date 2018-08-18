@@ -47,43 +47,23 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public class SubstanceToolBarUI extends BasicToolBarUI {
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceToolBarUI();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicToolBarUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
         ComponentOrParentChainScope.setDecorationType(this.toolBar, DecorationAreaType.TOOLBAR);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicToolBarUI#uninstallDefaults()
-     */
     @Override
     protected void uninstallDefaults() {
         DecorationPainterUtils.clearDecorationType(this.toolBar);
         super.uninstallDefaults();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         boolean isOpaque = SubstanceCoreUtilities.isOpaque(c);
@@ -95,29 +75,14 @@ public class SubstanceToolBarUI extends BasicToolBarUI {
         GhostPaintingUtils.paintGhostImages(c, g);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicToolBarUI#setBorderToRollover(java.awt.Component )
-     */
     @Override
     protected void setBorderToRollover(Component c) {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicToolBarUI#setBorderToNonRollover(java.awt .Component)
-     */
     @Override
     protected void setBorderToNonRollover(Component c) {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicToolBarUI#setBorderToNormal(java.awt.Component )
-     */
     @Override
     protected void setBorderToNormal(Component c) {
     }

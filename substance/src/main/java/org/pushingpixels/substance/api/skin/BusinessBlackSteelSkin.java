@@ -132,11 +132,7 @@ public class BusinessBlackSteelSkin extends SubstanceSkin {
 		this.borderPainter = new ClassicBorderPainter();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.skin.SubstanceSkin#getDisplayName()
-	 */
+	@Override
 	public String getDisplayName() {
 		return NAME;
 	}

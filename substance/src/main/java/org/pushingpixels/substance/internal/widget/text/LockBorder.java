@@ -64,11 +64,7 @@ public class LockBorder implements Border, UIResource, BorderWrapper {
 			this.originalBorder = new EmptyBorder(0, 0, 0, 0);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.border.Border#getBorderInsets(java.awt.Component)
-	 */
+	@Override
 	public Insets getBorderInsets(Component c) {
 		Icon lockIcon = SubstanceImageCreator.getSmallLockIcon(
                 SubstanceColorSchemeUtilities.getColorScheme(c, ComponentState.ENABLED), c);
@@ -86,11 +82,7 @@ public class LockBorder implements Border, UIResource, BorderWrapper {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.border.Border#isBorderOpaque()
-	 */
+	@Override
 	public boolean isBorderOpaque() {
 		return this.originalBorder.isBorderOpaque();
 	}
@@ -100,12 +92,7 @@ public class LockBorder implements Border, UIResource, BorderWrapper {
 		return originalBorder;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.border.Border#paintBorder(java.awt.Component,
-	 * java.awt.Graphics, int, int, int, int)
-	 */
+	@Override
 	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
 		this.originalBorder.paintBorder(c, g, x, y, width, height);
 		Icon lockIcon = SubstanceImageCreator.getSmallLockIcon(

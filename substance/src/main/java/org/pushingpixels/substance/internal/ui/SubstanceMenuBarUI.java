@@ -52,11 +52,6 @@ import java.util.Set;
 public class SubstanceMenuBarUI extends BasicMenuBarUI {
     private Set<SubstanceWidget> lafWidgets;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceMenuBarUI();
@@ -81,11 +76,6 @@ public class SubstanceMenuBarUI extends BasicMenuBarUI {
         super.uninstallUI(c);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicMenuBarUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         super.installDefaults();
@@ -96,11 +86,6 @@ public class SubstanceMenuBarUI extends BasicMenuBarUI {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicMenuBarUI#uninstallDefaults()
-     */
     @Override
     protected void uninstallDefaults() {
         DecorationPainterUtils.clearDecorationType(this.menuBar);
@@ -130,11 +115,6 @@ public class SubstanceMenuBarUI extends BasicMenuBarUI {
         super.uninstallListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         boolean isOpaque = SubstanceCoreUtilities.isOpaque(c);

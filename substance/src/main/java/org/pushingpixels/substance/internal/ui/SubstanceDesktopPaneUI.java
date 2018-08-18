@@ -49,21 +49,11 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public class SubstanceDesktopPaneUI extends BasicDesktopPaneUI {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceDesktopPaneUI();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicDesktopPaneUI#installDefaults()
-	 */
 	@Override
 	protected void installDefaults() {
 		super.installDefaults();
@@ -73,12 +63,6 @@ public class SubstanceDesktopPaneUI extends BasicDesktopPaneUI {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics,
-	 * javax.swing.JComponent)
-	 */
 	@Override
 	public void update(Graphics g, JComponent c) {
 		if (!c.isShowing()) {

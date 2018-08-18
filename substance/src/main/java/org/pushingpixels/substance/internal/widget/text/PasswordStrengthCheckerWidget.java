@@ -80,20 +80,12 @@ public class PasswordStrengthCheckerWidget extends SubstanceWidget<JPasswordFiel
          */
         private static final int GUTTER_WIDTH = 5;
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.border.Border#isBorderOpaque()
-         */
+        @Override
         public boolean isBorderOpaque() {
             return false;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.border.Border#getBorderInsets(java.awt.Component)
-         */
+        @Override
         public Insets getBorderInsets(Component c) {
             JPasswordField jpf = (JPasswordField) c;
             if (WidgetUtilities.getPasswordStrengthChecker(jpf) == null) {
@@ -106,12 +98,7 @@ public class PasswordStrengthCheckerWidget extends SubstanceWidget<JPasswordFiel
             }
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.border.Border#paintBorder(java.awt.Component, java.awt.Graphics, int,
-         * int, int, int)
-         */
+        @Override
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
             JPasswordField jpf = (JPasswordField) c;
             PasswordStrengthChecker passwordStrengthChecker = WidgetUtilities
@@ -154,11 +141,6 @@ public class PasswordStrengthCheckerWidget extends SubstanceWidget<JPasswordFiel
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installListeners()
-     */
     @Override
     public void installListeners() {
         this.strengthCheckerListener = (PropertyChangeEvent evt) -> {
@@ -180,22 +162,12 @@ public class PasswordStrengthCheckerWidget extends SubstanceWidget<JPasswordFiel
         this.jcomp.addPropertyChangeListener(this.strengthCheckerListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#uninstallListeners()
-     */
     @Override
     public void uninstallListeners() {
         this.jcomp.removePropertyChangeListener(this.strengthCheckerListener);
         this.strengthCheckerListener = null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.pushingpixels.lafwidget.LafWidgetAdapter#installDefaults()
-     */
     @Override
     public void installDefaults() {
         super.installDefaults();

@@ -114,65 +114,37 @@ public class MixColorScheme extends BaseColorScheme {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getForegroundColor()
-	 */
+	@Override
 	public Color getForegroundColor() {
 		return this.foregroundColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getUltraLightColor()
-	 */
+	@Override
 	public Color getUltraLightColor() {
 		return this.mainUltraLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getExtraLightColor()
-	 */
+	@Override
 	public Color getExtraLightColor() {
 		return this.mainExtraLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getLightColor()
-	 */
+	@Override
 	public Color getLightColor() {
 		return this.mainLightColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getMidColor()
-	 */
+	@Override
 	public Color getMidColor() {
 		return this.mainMidColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getDarkColor()
-	 */
+	@Override
 	public Color getDarkColor() {
 		return this.mainDarkColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.color.ColorScheme#getUltraDarkColor()
-	 */
+	@Override
 	public Color getUltraDarkColor() {
 		return this.mainUltraDarkColor;
 	}
@@ -188,11 +160,6 @@ public class MixColorScheme extends BaseColorScheme {
 		return this.origSchemes;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.colorscheme.BaseColorScheme#tint(double)
-	 */
 	@Override
 	public SubstanceColorScheme tint(double tintFactor) {
 		SubstanceColorScheme[] tinted = new SubstanceColorScheme[this.origSchemes.length];
@@ -202,11 +169,6 @@ public class MixColorScheme extends BaseColorScheme {
 				+ tintFactor, tinted);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.colorscheme.BaseColorScheme#tone(double)
-	 */
 	@Override
 	public SubstanceColorScheme tone(double toneFactor) {
 		SubstanceColorScheme[] toned = new SubstanceColorScheme[this.origSchemes.length];
@@ -216,11 +178,6 @@ public class MixColorScheme extends BaseColorScheme {
 				+ toneFactor, toned);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.colorscheme.BaseColorScheme#shade(double)
-	 */
 	@Override
 	public SubstanceColorScheme shade(double shadeFactor) {
 		SubstanceColorScheme[] shaded = new SubstanceColorScheme[this.origSchemes.length];
@@ -230,11 +187,6 @@ public class MixColorScheme extends BaseColorScheme {
 				+ shadeFactor, shaded);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.colorscheme.BaseColorScheme#saturate(double)
-	 */
 	@Override
 	public SubstanceColorScheme saturate(double saturateFactor) {
 		SubstanceColorScheme[] saturated = new SubstanceColorScheme[this.origSchemes.length];
@@ -244,11 +196,6 @@ public class MixColorScheme extends BaseColorScheme {
 				+ saturateFactor, saturated);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.colorscheme.BaseColorScheme#hueShift(double)
-	 */
 	@Override
 	public SubstanceColorScheme hueShift(double hueShiftFactor) {
 		SubstanceColorScheme[] hieShifted = new SubstanceColorScheme[this.origSchemes.length];
@@ -258,11 +205,6 @@ public class MixColorScheme extends BaseColorScheme {
 				+ hueShiftFactor, hieShifted);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.colorscheme.BaseColorScheme#invert()
-	 */
 	@Override
 	public SubstanceColorScheme invert() {
 		SubstanceColorScheme[] inverted = new SubstanceColorScheme[this.origSchemes.length];
@@ -271,11 +213,6 @@ public class MixColorScheme extends BaseColorScheme {
 		return new MixColorScheme("Inverted " + this.displayName, inverted);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.colorscheme.BaseColorScheme#negate()
-	 */
 	@Override
 	public SubstanceColorScheme negate() {
 		SubstanceColorScheme[] negated = new SubstanceColorScheme[this.origSchemes.length];

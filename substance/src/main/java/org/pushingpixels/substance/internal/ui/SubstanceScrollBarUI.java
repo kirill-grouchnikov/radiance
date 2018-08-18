@@ -112,11 +112,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
 
     private static int THUMB_DELTA = 2;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceScrollBarUI(comp);
@@ -158,21 +153,11 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         super.uninstallUI(c);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#createDecreaseButton(int)
-     */
     @Override
     protected JButton createDecreaseButton(int orientation) {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#createIncreaseButton(int)
-     */
     @Override
     protected JButton createIncreaseButton(int orientation) {
         return null;
@@ -526,11 +511,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#installListeners()
-     */
     @Override
     protected void installListeners() {
         super.installListeners();
@@ -574,11 +554,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         this.scrollbar.removeMouseListener(this.substanceThumbRolloverListener);
@@ -610,11 +585,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         return this.compositeStateTransitionTracker;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#scrollByBlock(int)
-     */
     @Override
     public void scrollByBlock(int direction) {
         // This method is called from SubstanceScrollPaneUI to implement wheel
@@ -670,21 +640,11 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#layoutVScrollbar(javax.swing. JScrollBar)
-     */
     @Override
     protected void layoutVScrollbar(JScrollBar sb) {
         this.layoutVScrollbarNone(sb);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#layoutHScrollbar(javax.swing. JScrollBar)
-     */
     @Override
     protected void layoutHScrollbar(JScrollBar sb) {
         this.layoutHScrollbarNone(sb);
@@ -867,11 +827,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         return sb.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#createTrackListener()
-     */
     @Override
     protected TrackListener createTrackListener() {
         return new SubstanceTrackListener();
@@ -887,12 +842,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
          */
         private transient int direction = +1;
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.plaf.basic.BasicScrollBarUI$TrackListener#mouseReleased
-         * (java.awt.event.MouseEvent)
-         */
         @Override
         public void mouseReleased(MouseEvent e) {
             if (SubstanceScrollBarUI.this.isDragging) {
@@ -915,12 +864,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
             SubstanceScrollBarUI.this.scrollbar.setValueIsAdjusting(false);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.plaf.basic.BasicScrollBarUI$TrackListener#mousePressed
-         * (java.awt.event.MouseEvent)
-         */
         @Override
         public void mousePressed(MouseEvent e) {
             // If the mouse is pressed above the "thumb" component then reduce
@@ -1010,12 +953,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
             this.startScrollTimerIfNecessary();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.plaf.basic.BasicScrollBarUI$TrackListener#mouseDragged
-         * (java.awt.event.MouseEvent)
-         */
         @Override
         public void mouseDragged(MouseEvent e) {
             // Set the models value to the position of the thumb's top of
@@ -1139,12 +1076,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
             }
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.plaf.basic.BasicScrollBarUI$TrackListener#mouseMoved(
-         * java.awt.event.MouseEvent)
-         */
         @Override
         public void mouseMoved(MouseEvent e) {
             if (!SubstanceScrollBarUI.this.isDragging) {
@@ -1152,12 +1083,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
             }
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.plaf.basic.BasicScrollBarUI$TrackListener#mouseExited
-         * (java.awt.event.MouseEvent)
-         */
         @Override
         public void mouseExited(MouseEvent e) {
             if (!SubstanceScrollBarUI.this.isDragging) {
@@ -1166,11 +1091,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#createArrowButtonListener()
-     */
     @Override
     protected ArrowButtonListener createArrowButtonListener() {
         return null;
@@ -1190,11 +1110,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         this.setThumbRollover(rect.contains(x, y));
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicScrollBarUI#getPreferredSize(javax.swing. JComponent)
-     */
     @Override
     public Dimension getPreferredSize(JComponent c) {
         if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {

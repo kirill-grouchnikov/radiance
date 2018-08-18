@@ -63,21 +63,11 @@ public class SubstanceDesktopIconUI extends BasicDesktopIconUI {
 
 	private Set<SubstanceWidget> lafWidgets;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-	 */
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceDesktopIconUI();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicDesktopIconUI#installDefaults()
-	 */
 	@Override
 	protected void installDefaults() {
 		super.installDefaults();
@@ -105,11 +95,6 @@ public class SubstanceDesktopIconUI extends BasicDesktopIconUI {
 		super.uninstallDefaults();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicDesktopIconUI#installComponents()
-	 */
 	@Override
 	protected void installComponents() {
 		this.frame = this.desktopIcon.getInternalFrame();
@@ -124,11 +109,6 @@ public class SubstanceDesktopIconUI extends BasicDesktopIconUI {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicDesktopIconUI#uninstallComponents()
-	 */
 	@Override
 	protected void uninstallComponents() {
 		((SubstanceInternalFrameTitlePane) this.iconPane).uninstall();
@@ -143,11 +123,6 @@ public class SubstanceDesktopIconUI extends BasicDesktopIconUI {
 		this.frame = null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicDesktopIconUI#installListeners()
-	 */
 	@Override
 	protected void installListeners() {
 		super.installListeners();
@@ -161,11 +136,6 @@ public class SubstanceDesktopIconUI extends BasicDesktopIconUI {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.basic.BasicDesktopIconUI#uninstallListeners()
-	 */
 	@Override
 	protected void uninstallListeners() {
 		((SubstanceInternalFrameTitlePane) this.iconPane).uninstallListeners();
@@ -183,12 +153,6 @@ public class SubstanceDesktopIconUI extends BasicDesktopIconUI {
 		super.uninstallListeners();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.ComponentUI#getPreferredSize(javax.swing.JComponent)
-	 */
 	@Override
 	public Dimension getPreferredSize(JComponent c) {
 		// Desktop icons can not be resized. Their dimensions should
@@ -196,11 +160,6 @@ public class SubstanceDesktopIconUI extends BasicDesktopIconUI {
 		return this.getMinimumSize(c);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#getMinimumSize(javax.swing.JComponent)
-	 */
 	@Override
 	public Dimension getMinimumSize(JComponent c) {
 		// For the desktop icon we will use the layout maanger to
@@ -210,11 +169,6 @@ public class SubstanceDesktopIconUI extends BasicDesktopIconUI {
 				.minimumLayoutSize(this.desktopIcon).height);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#getMaximumSize(javax.swing.JComponent)
-	 */
 	@Override
 	public Dimension getMaximumSize(JComponent c) {
 		// Desktop icons can not be resized. Their dimensions should
@@ -222,13 +176,6 @@ public class SubstanceDesktopIconUI extends BasicDesktopIconUI {
 		return this.getMinimumSize(c);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.plaf.basic.BasicDesktopIconUI#installUI(javax.swing.JComponent
-	 * )
-	 */
 	@Override
 	public void installUI(JComponent c) {
 		this.lafWidgets = SubstanceWidgetRepository.getRepository().getMatchingWidgets(c);

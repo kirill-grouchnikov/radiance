@@ -89,11 +89,6 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
 
     private Rectangle textRect = new Rectangle();
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @seejavax.swing.plaf.basic.BasicButtonUI#installListeners(javax.swing. AbstractButton)
-     */
     @Override
     protected void installListeners(final AbstractButton b) {
         super.installListeners(b);
@@ -112,11 +107,6 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
         b.addPropertyChangeListener(substancePropertyListener);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicRadioButtonUI#installDefaults(javax.swing .AbstractButton)
-     */
     @Override
     protected void installDefaults(AbstractButton b) {
         super.installDefaults(b);
@@ -133,11 +123,6 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
                 SubstanceSizeUtils.getTextIconGap(SubstanceSizeUtils.getComponentFontSize(b)));
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @seejavax.swing.plaf.basic.BasicButtonUI#uninstallListeners(javax.swing. AbstractButton)
-     */
     @Override
     protected void uninstallListeners(AbstractButton b) {
         b.removePropertyChangeListener(substancePropertyListener);
@@ -244,11 +229,6 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
         return new NeonIconUIResource(result);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#createUI(javax.swing.JComponent)
-     */
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new SubstanceRadioButtonUI((JToggleButton) comp);
@@ -267,21 +247,11 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
                 this.button.getModel());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicButtonUI#createButtonListener(javax.swing .AbstractButton)
-     */
     @Override
     protected BasicButtonListener createButtonListener(AbstractButton b) {
         return new RolloverButtonListener(b, this.stateTransitionTracker);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.basic.BasicRadioButtonUI#getDefaultIcon()
-     */
     @Override
     public Icon getDefaultIcon() {
         if (!(UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)) {
@@ -403,11 +373,6 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
         return this.stateTransitionTracker;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#update(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();

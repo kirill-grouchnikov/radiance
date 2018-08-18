@@ -29,34 +29,9 @@
  */
 package org.pushingpixels.substance.extras.internal;
 
-import org.pushingpixels.substance.extras.api.tabbed.DefaultTabPreviewPainter;
-import org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter;
-import org.pushingpixels.substance.extras.internal.tabbed.TabHoverPreviewWidget;
-import org.pushingpixels.substance.extras.internal.tabbed.TabOverviewDialogWidget;
-
 public class SubstanceExtrasSynapse {
-    /**
-     * <p>
-     * Client property name for specifying the preview painter for tabbed pane. This property can be
-     * set on a single tabbed pane. The value should be an instance of {@link TabPreviewPainter}.
-     * Default implementation of this {@link DefaultTabPreviewPainter}. Tabbed panes that have
-     * associated preview painters, have two widgets installed:
-     * </p>
-     * <ul>
-     * <li>Tab overview dialog from {@link TabOverviewDialogWidget}.</li>
-     * <li>Tab hover preview from {@link TabHoverPreviewWidget}.</li>
-     * </ul>
-     * 
-     * <p>
-     * Here is an example of tabbed pane with default tab preview painter installed:
-     * </p>
-     * 
-     * <code>
-     * &nbsp;&nbsp;JTabbedPane jtp = new JTabbedPane();<br>
-     * &nbsp;&nbsp;jtp.putClientProperty(LafWidget.TABBED_PANE_PREVIEW_PAINTER,<br>
-     * &nbsp;&nbsp;&nbsp;&nbsp;new DefaultTabPreviewPainter());
-     * </code>
-     */
-    public final static String TABBED_PANE_PREVIEW_PAINTER = "substance.extras.tabbedpanePreviewPainter";
+    // Client property name for specifying the preview painter for a tabbed pane.
+    public final static String TABBED_PANE_PREVIEW_PAINTER =
+            "substance.extras.tabbedpanePreviewPainter";
 
 }
