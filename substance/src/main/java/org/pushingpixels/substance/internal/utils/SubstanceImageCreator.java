@@ -57,6 +57,9 @@ import java.awt.image.BufferedImage;
  * @author Kirill Grouchnikov
  */
 public final class SubstanceImageCreator {
+
+    private static Image crayonsImage;
+
     /**
      * Custom fill painter for filling the checkmarks of checkboxes and radio buttons.
      * 
@@ -1514,25 +1517,28 @@ public final class SubstanceImageCreator {
     public static Image getCrayonsImage() {
         int iw = 195;
         int ih = 208;
-        Image image = SubstanceCoreUtilities.getBlankImage(iw, ih);
-        Graphics2D graphics = (Graphics2D) image.getGraphics().create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        if (crayonsImage == null) {
+            crayonsImage = SubstanceCoreUtilities.getBlankImage(iw, ih);
+            Graphics2D graphics = (Graphics2D) crayonsImage.getGraphics().create();
+            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-        graphics.setColor(new Color(240, 240, 240));
-        graphics.fillRect(0, 0, iw, ih);
+            graphics.setColor(new Color(240, 240, 240));
+            graphics.fillRect(0, 0, iw, ih);
 
-        for (int i = 0; i < SubstanceImageCreator.crayonColors.length; i++) {
-            Color crayonColor = new Color(0xff000000 | SubstanceImageCreator.crayonColors[i]);
-            BufferedImage crayonImage = SubstanceImageCreator.getSingleCrayon(crayonColor, 22, 120);
-            NeonCortex.drawImage(graphics, crayonImage, SubstanceImageCreator.crayonX(i),
-                    SubstanceImageCreator.crayonY(i));
+            int[] colors = SubstanceImageCreator.crayonColors;
+            for (int i = 0; i < colors.length; i++) {
+                Color crayonColor = new Color(0xff000000 | colors[i]);
+                BufferedImage crayonImage = SubstanceImageCreator.getSingleCrayon(crayonColor, 22, 120);
+                NeonCortex.drawImage(graphics, crayonImage, SubstanceImageCreator.crayonX(i),
+                        SubstanceImageCreator.crayonY(i));
+            }
+
+            graphics.dispose();
         }
-
-        graphics.dispose();
-        return image;
+        return crayonsImage;
     }
 
     /**
