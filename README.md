@@ -33,7 +33,7 @@ The [Ibis library](docs/ibis/ibis.md) enables usage of vector-based icons in Swi
 
 ### Building Radiance
 
-[This document](building.md) is an overview of how to build Radiance artifacts locally. Remote Maven artifacts and dependency specifications will be available concurrent with the first Radiance release (planned for early Q4 2018).
+[This document](docs/building.md) is an overview of how to build Radiance artifacts locally. Remote Maven artifacts and dependency specifications will be available concurrent with the first Radiance release (planned for early Q4 2018).
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/icon/radiance_product_512.png" width="256" height="256" border=0>
