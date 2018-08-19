@@ -80,29 +80,21 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
             Object[] mainDefaults = new Object[]{
                     // quaqua
                     "Slider.upThumbSmall",
-                    new UIDefaults.LazyValue() {
-                        public Object createValue(UIDefaults table) {
-                            return SubstanceIconFactory
+                    (UIDefaults.LazyValue) ((UIDefaults table) -> SubstanceIconFactory
                                     .getSliderHorizontalIcon(
                                             SubstanceSizeUtils
                                                     .getSliderIconSize(SubstanceSizeUtils
                                                             .getControlFontSize()) - 2,
-                                            true);
-                        }
-                    },
+                                            true)),
 
                     // quaqua
                     "Slider.leftThumbSmall",
-                    new UIDefaults.LazyValue() {
-                        public Object createValue(UIDefaults table) {
-                            return SubstanceIconFactory
+                    (UIDefaults.LazyValue) ((UIDefaults table) -> SubstanceIconFactory
                                     .getSliderVerticalIcon(
                                             SubstanceSizeUtils
                                                     .getSliderIconSize(SubstanceSizeUtils
                                                             .getControlFontSize()) - 2,
-                                            true);
-                        }
-                    },
+                                            true)),
 
                     // quaqua
                     "Component.visualMargin",
@@ -129,44 +121,43 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
                     "ColorChooser.resetMnemonic",
                     new Integer(-1),
                     "ColorChooser.crayonsImage",
-                    SubstanceImageCreator.getCrayonsImage(),
+                    (UIDefaults.LazyValue) ((UIDefaults table) -> SubstanceImageCreator.getCrayonsImage(
+                            skin.getBackgroundColorScheme(DecorationAreaType.NONE).getBackgroundFillColor()
+                    )),
                     "ColorChooser.textSliderGap",
                     new Integer(0),
 
                     // Magnifying glass used as the cursor image
                     "ColorChooser.colorPickerMagnifier",
-                    new UIDefaults.LazyValue() {
-                        @Override
-                        public Object createValue(UIDefaults table) {
-                            BufferedImage result = SubstanceCoreUtilities
-                                    .getBlankImage(48, 48);
-                            Graphics2D g = result.createGraphics();
+                    (UIDefaults.LazyValue) ((UIDefaults table) -> {
+                        BufferedImage result = SubstanceCoreUtilities
+                                .getBlankImage(48, 48);
+                        Graphics2D g = result.createGraphics();
 
-                            g.setColor(Color.black);
-                            g.translate(-4, -6);
-                            int xc = 20;
-                            int yc = 22;
-                            int r = 15;
+                        g.setColor(Color.black);
+                        g.translate(-4, -6);
+                        int xc = 20;
+                        int yc = 22;
+                        int r = 15;
 
-                            g.setStroke(new BasicStroke(2.5f));
-                            g.drawOval(xc - r, yc - r, 2 * r, 2 * r);
-                            g.setStroke(new BasicStroke(4.0f));
-                            GeneralPath handle = new GeneralPath();
-                            handle.moveTo((float) (xc + r / Math.sqrt(2.0)),
-                                    (float) (yc + r / Math.sqrt(2.0)));
-                            handle.lineTo(45, 47);
-                            g.draw(handle);
-                            g.translate(4, 6);
+                        g.setStroke(new BasicStroke(2.5f));
+                        g.drawOval(xc - r, yc - r, 2 * r, 2 * r);
+                        g.setStroke(new BasicStroke(4.0f));
+                        GeneralPath handle = new GeneralPath();
+                        handle.moveTo((float) (xc + r / Math.sqrt(2.0)),
+                                (float) (yc + r / Math.sqrt(2.0)));
+                        handle.lineTo(45, 47);
+                        g.draw(handle);
+                        g.translate(4, 6);
 
-                            g.setStroke(new BasicStroke(1.0f));
-                            g.drawLine(16, 4, 16, 13);
-                            g.drawLine(4, 16, 13, 16);
-                            g.drawLine(16, 19, 16, 28);
-                            g.drawLine(19, 16, 28, 16);
+                        g.setStroke(new BasicStroke(1.0f));
+                        g.drawLine(16, 4, 16, 13);
+                        g.drawLine(4, 16, 13, 16);
+                        g.drawLine(16, 19, 16, 28);
+                        g.drawLine(19, 16, 28, 16);
 
-                            return result;
-                        }
-                    },
+                        return result;
+                    }),
                     // makeBufferedImage(commonDir + "zoomer.png"),
                     // Hot spot of the magnifier cursor
                     "ColorChooser.colorPickerHotSpot",

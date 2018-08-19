@@ -1511,7 +1511,7 @@ public final class SubstanceImageCreator {
      * 
      * @return Crayons image.
      */
-    public static Image getCrayonsImage() {
+    public static Image getCrayonsImage(Color fillColor) {
         int iw = 195;
         int ih = 208;
         Image image = SubstanceCoreUtilities.getBlankImage(iw, ih);
@@ -1521,7 +1521,7 @@ public final class SubstanceImageCreator {
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-        graphics.setColor(new Color(240, 240, 240));
+        graphics.setColor(fillColor);
         graphics.fillRect(0, 0, iw, ih);
 
         for (int i = 0; i < SubstanceImageCreator.crayonColors.length; i++) {
