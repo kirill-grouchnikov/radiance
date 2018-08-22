@@ -68,7 +68,11 @@ task copyJars(type: Zip) {
             project ->
                 project.afterEvaluate {
                     copy {
-                        from file("${project.buildDir}/libs/${rootProject.name}-${project.name}-${project.version}.jar")
+                        def projectName = project.name
+                        if (projectName.startsWith("demos/") || projectName.startsWith("tools/")) {
+                            projectName = projectName.substring(6)
+                        }
+                        from file("${project.buildDir}/libs/${rootProject.name}-${projectName}-${project.version}.jar")
                         into file("drop/${project.version}/${project.designation}")
                     }
                 }
@@ -87,11 +91,11 @@ task getCoreDependencies(type: Copy) {
 task getDemoDependencies(type: Copy) {
     into 'build/libs-demo'
     from {
-        subprojects.findAll { it.designation == "demo" }.collect { it.configurations.runtime }
+        subprojects.findAll { it.designation == "demo" && it.name != "demos" }.collect { it.configurations.runtime }
     }
 }
 
-task wrapper(type: Wrapper) {
+wrapper {
     gradleVersion = "4.9"
 }
 
@@ -110,6 +114,16 @@ task printRuntimeDependencies {
         subprojects.each { p ->
             println " $p.name ".center(45, '-')
             p.collect { it.configurations.runtime }.each { r -> println "$r.name" }
+        }
+    }
+}
+
+task deleteTempFiles(type: Delete) {
+    doLast {
+        file('.').eachFileRecurse(groovy.io.FileType.FILES) { File file ->
+            if (file.name.startsWith('.DS_') || file.name.startsWith('._')) {
+                delete file
+            }
         }
     }
 }

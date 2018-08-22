@@ -155,7 +155,6 @@ class KRibbonBandGroup {
     var title: String? by NullableDelegate { false }
 
     internal val content = arrayListOf<Pair<RibbonElementPriority?, Any>>()
-    internal val spans = hashMapOf<KRibbonComponent, Int>()
 
     fun command(priority: RibbonElementPriority, init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
@@ -171,11 +170,10 @@ class KRibbonBandGroup {
         return gallery
     }
 
-    fun wrapper(rowSpan: Int = 1, init: KRibbonComponent.() -> Unit): KRibbonComponent {
+    fun wrapper(init: KRibbonComponent.() -> Unit): KRibbonComponent {
         val component = KRibbonComponent()
         component.init()
         content.add(Pair(null, component))
-        spans[component] = rowSpan
         return component
     }
 }
@@ -209,14 +207,13 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         return gallery
     }
 
-    fun wrapper(rowSpan: Int = 1, init: KRibbonComponent.() -> Unit): KRibbonComponent {
+    fun wrapper(init: KRibbonComponent.() -> Unit): KRibbonComponent {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a component to default group after starting another group")
         }
         val component = KRibbonComponent()
         component.init()
         defaultGroup.content.add(Pair(null, component))
-        defaultGroup.spans[component] = rowSpan
         return component
     }
 
@@ -254,8 +251,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                         ribbonBand.addRibbonCommand(content.toFlamingoCommand(), priority)
                     }
                     is KRibbonComponent -> {
-                        ribbonBand.addRibbonComponent(content.asRibbonComponent(),
-                                group.spans[content]!!)
+                        ribbonBand.addRibbonComponent(content.asRibbonComponent())
                     }
                     is KRibbonGallery -> {
                         val stylesGalleryCommands = ArrayList<StringValuePair<List<FlamingoCommand>>>()

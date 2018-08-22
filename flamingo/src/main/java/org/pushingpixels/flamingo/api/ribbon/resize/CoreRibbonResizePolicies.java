@@ -357,8 +357,6 @@ public class CoreRibbonResizePolicies {
                 boolean isCoreContent = controlPanelGroup.isCoreContent();
                 if (isCoreContent) {
                     List<JRibbonComponent> ribbonComps = controlPanelGroup.getRibbonComps();
-                    Map<JRibbonComponent, Integer> ribbonCompRowSpans = controlPanelGroup
-                            .getRibbonCompsRowSpans();
                     // if a group has a title, then the core components in that
                     // group start from the second row
                     int startRowIndex = (controlPanelGroup.getGroupTitle() == null) ? 0 : 1;
@@ -366,7 +364,7 @@ public class CoreRibbonResizePolicies {
                     int maxWidthInCurrColumn = 0;
                     for (int i = 0; i < ribbonComps.size(); i++) {
                         JRibbonComponent ribbonComp = ribbonComps.get(i);
-                        int rowSpan = ribbonCompRowSpans.get(ribbonComp);
+                        int rowSpan = 1;
 
                         // do we need to start a new column?
                         int nextRowIndex = rowIndex + rowSpan;

@@ -45,8 +45,7 @@ import java.util.*;
  * <ul>
  * <li>Ribbon commands added with
  * {@link #addRibbonCommand(FlamingoCommand, RibbonElementPriority)}.</li>
- * <li>Wrapped core / 3rd party components added with {@link #addRibbonComponent(JRibbonComponent)}
- * or {@link #addRibbonComponent(JRibbonComponent, int)}.</li>
+ * <li>Wrapped core / 3rd party components added with {@link #addRibbonComponent(JRibbonComponent)}.</li>
  * <li>Ribbon galleries added with
  * {@link #addRibbonGallery(String, List, Map, int, int, RibbonElementPriority)} .</li>
  * </ul>
@@ -55,12 +54,6 @@ import java.util.*;
  * Commands are added with associated {@link RibbonElementPriority}. The higher the priority, the
  * longer the presentation button "stays" in the {@link CommandButtonDisplayState#BIG} or
  * {@link CommandButtonDisplayState#MEDIUM} state - depending on the available resize policies.
- * </p>
- * 
- * <p>
- * Wrapped components can span one or multiple rows. Use the
- * {@link #addRibbonComponent(JRibbonComponent, int)} API to add a wrapped component that spans more
- * than one row.
  * </p>
  * 
  * <p>
@@ -339,32 +332,6 @@ public class JRibbonBand extends AbstractRibbonBand {
      */
     public void addRibbonComponent(JRibbonComponent comp) {
         ((JBandControlPanel) this.getControlPanel()).addRibbonComponent(comp);
-    }
-
-    /**
-     * Adds the specified ribbon component to this ribbon band.
-     * 
-     * @param comp
-     *            The ribbon component to add.
-     * @param rowSpan
-     *            Row span of the ribbon component.
-     * @throws IllegalArgumentException
-     *             if the row span is not legal. Legal row span is 1..3 for unnamed groups and 1..2
-     *             for named groups.
-     * @see #startGroup()
-     * @see #startGroup(String)
-     */
-    public void addRibbonComponent(JRibbonComponent comp, int rowSpan) {
-        int groupCount = ((JBandControlPanel) this.getControlPanel()).getControlPanelGroupCount();
-        String groupTitle = (groupCount > 0)
-                ? ((JBandControlPanel) this.getControlPanel()).getControlPanelGroupTitle(groupCount - 1)
-                : null;
-        int availableRows = (groupTitle == null) ? 3 : 2;
-        if ((rowSpan <= 0) || (rowSpan > availableRows)) {
-            throw new IllegalArgumentException(
-                    "Row span value not supported. Should be in 1.." + availableRows + " range");
-        }
-        ((JBandControlPanel) this.getControlPanel()).addRibbonComponent(comp, rowSpan);
     }
 
     /**

@@ -79,8 +79,6 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
 
         private List<JRibbonComponent> coreComps;
 
-        private Map<JRibbonComponent, Integer> coreCompRowSpans;
-
         public ControlPanelGroup(String groupTitle) {
             this.groupTitle = groupTitle;
             this.ribbonButtons = new HashMap<>();
@@ -90,7 +88,6 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
             this.hasGalleries = false;
             this.galleryCount = 0;
             this.coreComps = new ArrayList<>();
-            this.coreCompRowSpans = new HashMap<>();
         }
 
         public String getGroupTitle() {
@@ -216,7 +213,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
             this.ribbonGalleries.get(newPriority).add(ribbonGallery);
         }
 
-        public void addRibbonComponent(JRibbonComponent comp, int rowSpan) {
+        public void addRibbonComponent(JRibbonComponent comp) {
             if (!this.ribbonButtonsPriorities.isEmpty()
                     || !this.ribbonGalleries.isEmpty()) {
                 throw new UnsupportedOperationException(
@@ -224,7 +221,6 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
             }
             comp.setOpaque(false);
             this.coreComps.add(comp);
-            this.coreCompRowSpans.put(comp, rowSpan);
         }
 
         /**
@@ -286,10 +282,6 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
 
         public List<JRibbonComponent> getRibbonComps() {
             return this.coreComps;
-        }
-
-        public Map<JRibbonComponent, Integer> getRibbonCompsRowSpans() {
-            return this.coreCompRowSpans;
         }
     }
 
@@ -430,15 +422,11 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
     }
 
     public void addRibbonComponent(JRibbonComponent comp) {
-        this.addRibbonComponent(comp, 1);
-    }
-
-    public void addRibbonComponent(JRibbonComponent comp, int rowSpan) {
         if (this.controlPanelGroups.size() == 0) {
             this.startGroup();
         }
 
-        this.controlPanelGroups.getLast().addRibbonComponent(comp, rowSpan);
+        this.controlPanelGroups.getLast().addRibbonComponent(comp);
         super.add(comp);
     }
 

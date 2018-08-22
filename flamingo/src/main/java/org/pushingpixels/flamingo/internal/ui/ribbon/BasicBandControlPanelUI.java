@@ -257,8 +257,6 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         maxWidthInCurrColumn = gap + pw;
                     }
                     List<JRibbonComponent> ribbonComps = controlPanelGroup.getRibbonComps();
-                    Map<JRibbonComponent, Integer> ribbonCompRowSpans = controlPanelGroup
-                            .getRibbonCompsRowSpans();
                     List<JRibbonComponent> currColumn = new ArrayList<JRibbonComponent>();
 
                     // if a group has a title, then the core components in that
@@ -269,7 +267,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                     for (int i = 0; i < ribbonComps.size(); i++) {
                         JRibbonComponent coreComp = ribbonComps.get(i);
                         int prefWidth = coreComp.getPreferredSize().width;
-                        int rowSpan = ribbonCompRowSpans.get(coreComp);
+                        int rowSpan = 1;
 
                         // do we need to start a new column?
                         int nextRowIndex = rowIndex + rowSpan;

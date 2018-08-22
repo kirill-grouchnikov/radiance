@@ -30,9 +30,11 @@
 
 rootProject.name = "radiance"
 
-include 'neon', 'trident', 'trident-demo', 'kontos', 'ibis',
-        'flamingo-demo', 'kormorant', 'kormorant-demo', 'spoonbill-demo',
-        'substance', 'flamingo', 'spoonbill',
-        'substance-extras', 'substance-demo',
-        'substance-samples', 'substance-tools',
-        'rainbow', 'lumen'
+include 'neon', 'trident', 'kontos', 'ibis',
+        'kormorant', 'substance', 'flamingo', 'spoonbill',
+        'substance-extras',
+        'demos:trident-demo', 'demos:flamingo-demo', 'demos:kormorant-demo',
+        'demos:spoonbill-demo',
+        'demos:rainbow', 'demos:lumen',
+        'demos:substance-demo', 'demos:substance-samples',
+        'tools:substance-tools'
