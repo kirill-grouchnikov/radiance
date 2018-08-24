@@ -37,6 +37,8 @@ dependencies {
     compile localGroovy()
 }
 
+sourceCompatibility = 1.8
+
 ext.designation = "core"
 
 jar {

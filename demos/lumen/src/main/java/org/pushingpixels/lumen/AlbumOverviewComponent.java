@@ -62,7 +62,7 @@ public class AlbumOverviewComponent extends JComponent {
     /**
      * Component insets.
      */
-    private static final int INSETS = 7;
+    private static final int INSETS = 8;
     /**
      * The original album art.
      */
@@ -177,10 +177,8 @@ public class AlbumOverviewComponent extends JComponent {
             @Override
             public void run() {
                 if (image != null) {
-                    float vFactor = (float) OVERVIEW_IMAGE_DIM
-                            / (float) image.getHeight();
-                    float hFactor = (float) OVERVIEW_IMAGE_DIM
-                            / (float) image.getWidth();
+                    float vFactor = (float) OVERVIEW_IMAGE_DIM / (float) image.getHeight();
+                    float hFactor = (float) OVERVIEW_IMAGE_DIM / (float) image.getWidth();
                     float factor = Math.min(1.0f, Math.min(vFactor, hFactor));
                     if (factor < 1.0f) {
                         // scaled to fit available area
@@ -250,14 +248,12 @@ public class AlbumOverviewComponent extends JComponent {
 
         if (this.borderAlpha > 0.0f) {
             // show the pulsating bluish outline of the rollover album
-            g2d.setComposite(AlphaComposite.SrcOver.derive(this.alpha
-                    * this.borderAlpha));
+            g2d.setComposite(AlphaComposite.SrcOver.derive(this.alpha * this.borderAlpha));
             g2d.setPaint(new GradientPaint(0, 0, new Color(64, 140, 255, 196),
                     0, DEFAULT_HEIGHT, new Color(64, 140, 255, 0)));
             g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND,
                     BasicStroke.JOIN_ROUND));
-            g2d.drawRoundRect(0, 0, DEFAULT_WIDTH - 1, DEFAULT_HEIGHT - 1, 18,
-                    18);
+            g2d.drawRoundRect(1, 1, DEFAULT_WIDTH - 2, DEFAULT_HEIGHT - 2, 17, 17);
             g2d.setStroke(new BasicStroke(1.0f));
             g2d.setComposite(AlphaComposite.SrcOver.derive(this.alpha));
         }
@@ -265,18 +261,16 @@ public class AlbumOverviewComponent extends JComponent {
         int contentHorizontalOffset = INSETS;
         if (this.imageLoadedDone) {
             Graphics2D g2dImage = (Graphics2D) g2d.create();
-            g2dImage.setComposite(AlphaComposite.SrcOver.derive(this.alpha
-                    * this.imageAlpha));
-            // draw the album art image
+            g2dImage.setComposite(AlphaComposite.SrcOver.derive(this.alpha * this.imageAlpha));
 
+            // draw the album art image
             double scaleFactor = NeonCortex.getScaleFactor();
             int imageWidth = this.image.getWidth();
             int imageHeight = this.image.getHeight();
             contentHorizontalOffset = (int) ((this.getWidth() - imageWidth / scaleFactor) / 2);
             int offsetY = INSETS + (int) ((OVERVIEW_IMAGE_DIM - imageHeight / scaleFactor) / 2);
             g2dImage.drawImage(this.image, contentHorizontalOffset, offsetY,
-                    (int) (imageWidth / scaleFactor),
-                    (int) (imageHeight / scaleFactor), null);
+                    (int) (imageWidth / scaleFactor), (int) (imageHeight / scaleFactor), null);
             g2dImage.dispose();
         }
 

@@ -138,28 +138,27 @@ public class Stage1LoadingProgress extends Stage0Base {
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setComposite(AlphaComposite.SrcOver
-                    .derive(this.loadingBarAlpha));
+            g2d.setComposite(AlphaComposite.SrcOver.derive(this.loadingBarAlpha));
 
             Shape currClip = g2d.getClip();
             g2d.clip(new RoundRectangle2D.Double(x, y, PROGRESS_WIDTH,
                     PROGRESS_HEIGHT, 8, 8));
-            g2d.setPaint(new LinearGradientPaint(x, y, x, y
-                    + PROGRESS_HEIGHT, new float[] { 0.0f, 0.49999f,
-                    0.5f, 1.0f }, new Color[] {
-                    new Color(156, 208, 221), new Color(101, 183, 243),
-                    new Color(67, 169, 241), new Color(138, 201, 247) }));
+            g2d.setPaint(new LinearGradientPaint(x, y, x, y + PROGRESS_HEIGHT,
+                    new float[] { 0.0f, 0.49999f, 0.5f, 1.0f },
+                    new Color[] {
+                            new Color(156, 208, 221), new Color(101, 183, 243),
+                            new Color(67, 169, 241), new Color(138, 201, 247) }));
             g2d.fillRect(x, y, PROGRESS_WIDTH, PROGRESS_HEIGHT);
 
             int stripeCellWidth = 25;
             g2d.setPaint(new LinearGradientPaint(x, y, x, y + PROGRESS_HEIGHT,
-                    new float[] { 0.0f, 0.49999f, 0.5f, 1.0f }, new Color[] {
-                    new Color(36, 155, 239), new Color(17, 145, 238),
-                    new Color(15, 56, 200), new Color(3, 133, 219) }));
+                    new float[] { 0.0f, 0.49999f, 0.5f, 1.0f },
+                    new Color[] {
+                            new Color(36, 155, 239), new Color(17, 145, 238),
+                            new Color(15, 56, 200), new Color(3, 133, 219) }));
             g2d.setStroke(new BasicStroke(9.0f));
-            for (int stripeX = x
-                    + (int) (this.loadingBarLoopPosition * stripeCellWidth); stripeX < x
-                    + PROGRESS_WIDTH + PROGRESS_HEIGHT; stripeX += stripeCellWidth) {
+            for (int stripeX = x + (int) (this.loadingBarLoopPosition * stripeCellWidth);
+                 stripeX < x + PROGRESS_WIDTH + PROGRESS_HEIGHT; stripeX += stripeCellWidth) {
                 g2d.drawLine(stripeX, y, stripeX - stripeCellWidth, y
                         + PROGRESS_HEIGHT);
             }

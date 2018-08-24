@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.lumen.content;
 
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
@@ -174,13 +175,11 @@ public class Stage0Base extends JComponent {
         g2d.setClip(clip);
 
         if (this.searchString != null) {
-            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g2d.setFont(UIManager.getFont("Label.font").deriveFont(14.0f)
-                    .deriveFont(Font.BOLD));
+            NeonCortex.installDesktopHints(g2d, this);
+            g2d.setFont(NeonCortex.getDefaultFontPolicy().getFontSet(null).getControlFont()
+                    .deriveFont(14.0f).deriveFont(Font.BOLD));
             int fa = g2d.getFontMetrics().getAscent();
-            int x = (getWidth() - g2d.getFontMetrics().stringWidth(
-                    this.searchString)) / 2;
+            int x = (getWidth() - g2d.getFontMetrics().stringWidth(this.searchString)) / 2;
             int y = (TITLE_HEIGHT + fa) / 2;
             g2d.setColor(new Color(31, 60, 114));
             g2d.drawString(this.searchString, x, y + 1);
@@ -190,8 +189,7 @@ public class Stage0Base extends JComponent {
 
         // bottom part
         g2d.setComposite(AlphaComposite.SrcOver.derive(this.alpha));
-        g2d.clipRect(0, TITLE_HEIGHT, getWidth(), getHeight() - TITLE_HEIGHT
-                + 1);
+        g2d.clipRect(0, TITLE_HEIGHT, getWidth(), getHeight() - TITLE_HEIGHT + 1);
 
         g2d.setColor(new Color(0, 0, 0));
         g2d.fill(contour);

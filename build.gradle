@@ -32,7 +32,7 @@ version = '0.9-SNAPSHOT'
 
 buildscript {
     ext {
-        kotlin_version = '1.2.60'
+        kotlin_version = '1.2.61'
         kotlinx_coroutines_version = '0.25.0'
     }
     repositories {
