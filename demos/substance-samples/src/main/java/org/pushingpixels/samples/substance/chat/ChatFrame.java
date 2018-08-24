@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.samples.substance.chat;
 
-import com.jgoodies.forms.builder.*;
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.samples.substance.chat.svg.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
@@ -44,7 +43,6 @@ import java.awt.*;
 public class ChatFrame extends JFrame {
     public ChatFrame() {
         this.getContentPane().setLayout(new BorderLayout());
-
         SubstanceCortex.WindowScope.extendContentIntoTitlePane(this,
                 SubstanceSlices.HorizontalGravity.LEADING,
                 SubstanceSlices.VerticalGravity.CENTERED);

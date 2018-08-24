@@ -29,41 +29,16 @@
  */
 package org.pushingpixels.ibis.transcoder;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.lang.reflect.Field;
-
 import org.apache.batik.ext.awt.LinearGradientPaint;
 import org.apache.batik.ext.awt.MultipleGradientPaint;
-import org.apache.batik.ext.awt.MultipleGradientPaint.ColorSpaceEnum;
-import org.apache.batik.ext.awt.MultipleGradientPaint.CycleMethodEnum;
+import org.apache.batik.ext.awt.MultipleGradientPaint.*;
 import org.apache.batik.ext.awt.RadialGradientPaint;
 import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
-import org.apache.batik.gvt.CompositeGraphicsNode;
-import org.apache.batik.gvt.CompositeShapePainter;
-import org.apache.batik.gvt.FillShapePainter;
-import org.apache.batik.gvt.GraphicsNode;
-import org.apache.batik.gvt.ShapeNode;
-import org.apache.batik.gvt.ShapePainter;
-import org.apache.batik.gvt.StrokeShapePainter;
+import org.apache.batik.gvt.*;
+
+import java.awt.*;
+import java.awt.geom.*;
+import java.io.*;
 
 /**
  * SVG to Java2D transcoder.

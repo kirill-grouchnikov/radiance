@@ -28,9 +28,12 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+version = '0.9-SNAPSHOT'
+
 buildscript {
     ext {
         kotlin_version = '1.2.60'
+        kotlinx_coroutines_version = '0.25.0'
     }
     repositories {
         mavenCentral()
@@ -43,7 +46,7 @@ buildscript {
 }
 
 allprojects {
-    version = '0.9-SNAPSHOT'
+    version = rootProject.version
     ext.codename = 'Antimony'
 
     repositories {

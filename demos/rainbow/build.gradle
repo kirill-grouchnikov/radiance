@@ -28,16 +28,14 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-apply plugin: 'java'
 apply plugin: 'kotlin'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-swing:0.24.0"
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:0.24.0"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$kotlinx_coroutines_version"
     compile ('com.jgoodies:jgoodies-common:1.8.1')
     compile ('com.jgoodies:jgoodies-forms:1.9.0')
-    compile ('com.jhlabs:filters:2.0.235')
     compile ('com.fifesoft:rsyntaxtextarea:2.6.1')
     compile ('org.swinglabs:jxlayer:3.0.4')
     compile project(':substance')

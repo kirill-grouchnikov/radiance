@@ -30,7 +30,6 @@
 package org.pushingpixels.rainbow
 
 import java.awt.*
-import java.awt.event.ActionEvent
 import java.util.*
 import javax.swing.*
 
@@ -44,7 +43,6 @@ private constructor(owner: Frame?, mainMessage: String, messages: LinkedList<Str
     private var toExitOnDispose: Boolean = false
 
     init {
-
         val messageLabel = JLabel(mainMessage)
         val messageList = JList(messages.toTypedArray())
         messageList.foreground = Color.red

@@ -95,6 +95,9 @@ public class SvgTranscoder extends SvgBaseTranscoder {
 		} catch (IOException ex) {
 			Logger.getLogger(SvgTranscoder.class.getName()).log(Level.SEVERE,
 					null, ex);
-		}
+		} finally {
+		    loader.dispose();
+		    batikBridgeContext.dispose();
+        }
 	}
 }
