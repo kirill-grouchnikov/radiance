@@ -30,38 +30,27 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
-import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
-import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
-import org.pushingpixels.substance.internal.animation.ModificationAwareUI;
-import org.pushingpixels.substance.internal.animation.RootPaneDefaultButtonTracker;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+import org.pushingpixels.substance.internal.*;
+import org.pushingpixels.substance.internal.animation.*;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.border.SubstanceButtonBorder;
 import org.pushingpixels.substance.internal.utils.icon.GlowingIcon;
-import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
-import org.pushingpixels.substance.internal.widget.animation.effects.GhostingListener;
+import org.pushingpixels.substance.internal.widget.animation.effects.*;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
-import org.pushingpixels.trident.swing.SwingRepaintCallback;
+import org.pushingpixels.trident.swing.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.BasicButtonListener;
-import javax.swing.plaf.basic.BasicButtonUI;
-import javax.swing.plaf.basic.BasicHTML;
+import javax.swing.plaf.basic.*;
 import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 import java.util.Set;
 
 /**
@@ -211,8 +200,7 @@ public class SubstanceButtonUI extends BasicButtonUI implements
         LookAndFeel.installProperty(b, "iconTextGap", SubstanceSizeUtils
                 .getTextIconGap(SubstanceSizeUtils.getComponentFontSize(b)));
 
-        if (Boolean.TRUE.equals(b
-                .getClientProperty(SubstanceSynapse.CONTENTS_MODIFIED))) {
+        if (Boolean.TRUE.equals(b.getClientProperty(SubstanceSynapse.CONTENTS_MODIFIED))) {
             trackModificationFlag();
         }
         for (SubstanceWidget lafWidget : this.lafWidgets) {
@@ -311,13 +299,6 @@ public class SubstanceButtonUI extends BasicButtonUI implements
             return;
 
         final AbstractButton b = (AbstractButton) c;
-
-        if (b instanceof JButton) {
-            JButton jb = (JButton) b;
-            if (RootPaneDefaultButtonTracker.isPulsating(jb)) {
-                RootPaneDefaultButtonTracker.update(jb);
-            }
-        }
 
         FontMetrics fm = g.getFontMetrics();
 
@@ -460,8 +441,6 @@ public class SubstanceButtonUI extends BasicButtonUI implements
 
     /**
      * Tracks possible usage of glowing icon.
-     *
-     * @param b Button.
      */
     protected void trackGlowingIcon() {
         Icon currIcon = this.button.getIcon();
@@ -497,9 +476,8 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     private void trackModificationFlag() {
         this.modifiedTimeline = new SwingComponentTimeline(this.button);
         AnimationConfigurationManager.getInstance().configureModifiedTimeline(
-                modifiedTimeline);
-        this.modifiedTimeline
-                .addCallback(new SwingRepaintCallback(this.button));
+                this.modifiedTimeline);
+        this.modifiedTimeline.addCallback(new SwingRepaintCallback(this.button));
         this.modifiedTimeline.playLoop(RepeatBehavior.REVERSE);
     }
 

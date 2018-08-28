@@ -105,8 +105,7 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
 				SubstanceColorUtilities.getColorBrightness(scheme.getUltraDarkColor().getRGB()),
 				scheme.getUltraDarkColor());
 
-		List<Integer> schemeBrightness = new ArrayList<Integer>();
-		schemeBrightness.addAll(schemeColorMapping.keySet());
+		List<Integer> schemeBrightness = new ArrayList<>(schemeColorMapping.keySet());
 		Collections.sort(schemeBrightness);
 
 		int lowestSchemeBrightness = schemeBrightness.get(0);
@@ -121,8 +120,7 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
 							/ (highestSchemeBrightness - lowestSchemeBrightness);
 			stretchedColorMapping.put(stretched, entry.getValue());
 		}
-		schemeBrightness = new ArrayList<Integer>();
-		schemeBrightness.addAll(stretchedColorMapping.keySet());
+		schemeBrightness = new ArrayList<>(stretchedColorMapping.keySet());
 		Collections.sort(schemeBrightness);
 
 		this.interpolated = new int[MAPSTEPS];

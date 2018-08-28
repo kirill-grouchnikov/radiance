@@ -30,29 +30,21 @@
 package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.Side;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.api.shaper.RectangularButtonShaper;
-import org.pushingpixels.substance.api.shaper.StandardButtonShaper;
-import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
+import org.pushingpixels.substance.api.shaper.*;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.animation.ModificationAwareUI;
-import org.pushingpixels.substance.internal.animation.RootPaneDefaultButtonTracker;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+import org.pushingpixels.substance.internal.animation.*;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Delegate class for painting backgrounds of buttons in <b>Substance </b> look and feel. This class
@@ -95,19 +87,6 @@ public class ButtonBackgroundDelegate {
         // + state.name() + " at "
         // + stateTransitionModel.getTransitionPosition());
 
-        // compute cycle count (for animation)
-        float cyclePos = 0.0f;// currState.getCyclePosition();
-        // boolean isPulsating = false;
-        if (button instanceof JButton) {
-            JButton jb = (JButton) button;
-            if (RootPaneDefaultButtonTracker.isPulsating(jb)
-                    && (currState != ComponentState.PRESSED_SELECTED)
-                    && (currState != ComponentState.PRESSED_UNSELECTED)) {
-                // isPulsating = true;
-                cyclePos = RootPaneDefaultButtonTracker.getTimelinePosition(jb);
-            }
-        }
-
         // compute the straight sides
         Set<SubstanceSlices.Side> straightSides = SubstanceCoreUtilities.getSides(button,
                 SubstanceSynapse.BUTTON_STRAIGHT_SIDE);
@@ -145,7 +124,7 @@ public class ButtonBackgroundDelegate {
                     // isWindowModified = true;
                     SubstanceColorScheme colorScheme2 = SubstanceColorSchemeUtilities.YELLOW;
                     SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.ORANGE;
-                    cyclePos = modificationTimeline.getTimelinePosition();
+                    float cyclePos = modificationTimeline.getTimelinePosition();
 
                     HashMapKey key1 = SubstanceCoreUtilities.getHashKey(width, height,
                             colorScheme.getDisplayName(), baseBorderScheme.getDisplayName(),

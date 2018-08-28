@@ -124,14 +124,12 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
                     statusProgressBar.maximum = max
                     statusProgressBar.value = 0
                     statusProgressBar.isVisible = true
+                } else if (progress == max) {
+                    // ended
+                    statusProgressBar.isVisible = false
+                    statusProgressBar.value = 0
                 } else {
-                    if (progress == max) {
-                        // ended
-                        statusProgressBar.isVisible = false
-                        statusProgressBar.value = 0
-                    } else {
-                        statusProgressBar.value = progress
-                    }
+                    statusProgressBar.value = progress
                 }
             }
         }

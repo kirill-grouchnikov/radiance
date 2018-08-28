@@ -30,7 +30,6 @@
 package org.pushingpixels.substance.extras.api.tabbed;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -87,7 +86,7 @@ public class DefaultTabPreviewPainter extends TabPreviewPainter {
 				int dx = (w - sdWidth) / 2;
 				int dy = (h - sdHeight) / 2;
 
-				BufferedImage thumbnail = WidgetUtilities.createThumbnail(tempCanvas, sdWidth);
+				BufferedImage thumbnail = NeonCortex.createThumbnail(tempCanvas, sdWidth);
 				NeonCortex.drawImage(g2, thumbnail, dx, dy);
 			} else {
 				// System.out.println("Putting " + frame.hashCode() + "

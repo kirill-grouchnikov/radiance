@@ -61,42 +61,6 @@ public class WidgetUtilities {
     }
 
     /**
-     * Creates a thumbnail of the specified width.
-     * 
-     * @param image
-     *            The original image.
-     * @param requestedThumbWidth
-     *            The width of the resulting thumbnail.
-     * @return Thumbnail of the specified width.
-     * @author Romain Guy
-     */
-    public static BufferedImage createThumbnail(BufferedImage image, int requestedThumbWidth) {
-        float ratio = (float) image.getWidth() / (float) image.getHeight();
-        int width = image.getWidth();
-        BufferedImage thumb = image;
-
-        double scaleFactor = NeonCortex.getScaleFactor();
-        do {
-            width /= 2;
-            if (width < requestedThumbWidth) {
-                width = requestedThumbWidth;
-            }
-
-            BufferedImage temp = SubstanceCoreUtilities.getBlankImage(width, (int) (width / ratio));
-            Graphics2D g2 = temp.createGraphics();
-            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                    RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            g2.drawImage(thumb, 0, 0, (int) (temp.getWidth() / scaleFactor),
-                    (int) (temp.getHeight() / scaleFactor), null);
-            g2.dispose();
-
-            thumb = temp;
-        } while (width != requestedThumbWidth);
-
-        return thumb;
-    }
-
-    /**
      * Makes the specified component and all its descendants previewable.
      * 
      * @param comp

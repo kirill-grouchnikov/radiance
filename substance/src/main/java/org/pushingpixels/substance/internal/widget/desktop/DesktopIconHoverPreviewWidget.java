@@ -246,7 +246,7 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
                     (double) maxHeight / (double) frameHeight);
             if (coef < 1.0) {
                 int sdWidth = (int) (coef * frameWidth);
-                BufferedImage scaledDown = WidgetUtilities.createThumbnail(tempCanvas, sdWidth);
+                BufferedImage scaledDown = NeonCortex.createThumbnail(tempCanvas, sdWidth);
                 snapshot = scaledDown;
             } else {
                 snapshot = tempCanvas;

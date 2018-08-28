@@ -30,7 +30,6 @@
 package org.pushingpixels.flamingo.api.common.icon;
 
 import org.pushingpixels.neon.*;
-import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -251,7 +250,7 @@ abstract class IcoWrapperIcon implements Icon, AsynchronousLoading {
 				float scale = Math.max(scaleX, scaleY);
 				if (scale > 1.0f) {
 					int finalWidth = (int) (bestMatchPlane.getWidth() / scale);
-					result = WidgetUtilities.createThumbnail(bestMatchPlane,
+					result = NeonCortex.createThumbnail(bestMatchPlane,
 							finalWidth);
 				}
 

@@ -100,7 +100,7 @@ public class BigAlbumArt extends JComponent {
         float factor = Math.min(1.0f, Math.min(vFactor, hFactor));
         if (factor < 1.0f) {
             // scaled to fit available area
-            this.image = LumenUtils.createThumbnail(image, (int) (factor * image.getWidth()));
+            this.image = NeonCortex.createThumbnail(image, (int) (factor * image.getWidth()));
         }
     }
 

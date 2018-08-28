@@ -121,8 +121,9 @@ public class TimelineScenario {
             this.checkDependencyParam(wait);
         }
 
-        if (!this.dependencies.containsKey(actor))
-            this.dependencies.put(actor, new HashSet<TimelineScenarioActor>());
+        if (!this.dependencies.containsKey(actor)) {
+            this.dependencies.put(actor, new HashSet<>());
+        }
         this.dependencies.get(actor).addAll(Arrays.asList(waitFor));
     }
 
@@ -171,8 +172,9 @@ public class TimelineScenario {
                 if (!this.isLooping) {
                     this.state = TimelineScenarioState.DONE;
                 } else {
-                    for (TimelineScenarioActor done : this.doneActors)
+                    for (TimelineScenarioActor done : this.doneActors) {
                         done.resetDoneFlag();
+                    }
                     this.waitingActors.addAll(this.doneActors);
                     this.doneActors.clear();
                 }

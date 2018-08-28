@@ -48,6 +48,10 @@ import java.util.*;
  * @author Kirill Grouchnikov.
  */
 public class NeonCortex {
+    public enum Platform {
+        MACOS, GNOME, KDE, WINDOWS, DEFAULT
+    }
+
     private static final String PROP_DESKTOPHINTS = "awt.font.desktophints";
     private static Platform platform;
 
@@ -120,16 +124,45 @@ public class NeonCortex {
      * @return Scaled platform-specific font policy.
      */
     public static FontPolicy getScaledFontPolicy(final float scaleFactor) {
-        final FontSet defaultFontSet = getDefaultFontPolicy()
-                .getFontSet(null);
+        final FontSet defaultFontSet = getDefaultFontPolicy().getFontSet(null);
         // Create the scaled font set
         FontPolicy newFontPolicy = (UIDefaults table) ->
                 new ScaledFontSet(defaultFontSet, scaleFactor);
         return newFontPolicy;
     }
 
-    public enum Platform {
-        MACOS, GNOME, KDE, WINDOWS, DEFAULT
+    /**
+     * Creates a thumbnail of the specified width.
+     *
+     * @param image               The original image.
+     * @param requestedThumbWidth The width of the resulting thumbnail.
+     * @return Thumbnail of the specified width.
+     * @author Romain Guy
+     */
+    public static BufferedImage createThumbnail(BufferedImage image, int requestedThumbWidth) {
+        float ratio = (float) image.getWidth() / (float) image.getHeight();
+        int width = image.getWidth();
+        BufferedImage thumb = image;
+
+        double scaleFactor = getScaleFactor();
+        do {
+            width /= 2;
+            if (width < requestedThumbWidth) {
+                width = requestedThumbWidth;
+            }
+
+            BufferedImage temp = NeonCortex.getBlankImage(width, (int) (width / ratio));
+            Graphics2D g2 = temp.createGraphics();
+            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2.drawImage(thumb, 0, 0, (int) (temp.getWidth() / scaleFactor),
+                    (int) (temp.getHeight() / scaleFactor), null);
+            g2.dispose();
+
+            thumb = temp;
+        } while (width != requestedThumbWidth);
+
+        return thumb;
     }
 
     public static void installDesktopHints(Graphics2D g2, Component c) {
@@ -157,25 +190,23 @@ public class NeonCortex {
         GraphicsDevice device = g2.getDeviceConfiguration().getDevice();
         String deviceId = device.getIDstring();
         if (!desktopHintsCache.containsKey(deviceId)) {
-            Map desktopHints = (Map) toolkit
-                    .getDesktopProperty(PROP_DESKTOPHINTS + '.'
-                            + device.getIDstring());
+            Map desktopHints = (Map) toolkit.getDesktopProperty(PROP_DESKTOPHINTS + '.'
+                    + device.getIDstring());
             if (desktopHints == null) {
-                desktopHints = (Map) toolkit
-                        .getDesktopProperty(PROP_DESKTOPHINTS);
+                desktopHints = (Map) toolkit.getDesktopProperty(PROP_DESKTOPHINTS);
             }
             // It is possible to get a non-empty map but with disabled AA.
             if (desktopHints != null) {
-                Object aaHint = desktopHints
-                        .get(RenderingHints.KEY_TEXT_ANTIALIASING);
+                Object aaHint = desktopHints.get(RenderingHints.KEY_TEXT_ANTIALIASING);
                 if ((aaHint == RenderingHints.VALUE_TEXT_ANTIALIAS_OFF)
                         || (aaHint == RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT)) {
                     desktopHints = null;
                 }
             }
 
-            if (desktopHints == null)
+            if (desktopHints == null) {
                 desktopHints = new HashMap();
+            }
 
             desktopHintsCache.put(deviceId, desktopHints);
         }
@@ -184,7 +215,7 @@ public class NeonCortex {
     }
 
     private static boolean isPrinting(Graphics g) {
-        return g instanceof PrintGraphics || g instanceof PrinterGraphics;
+        return (g instanceof PrintGraphics) || (g instanceof PrinterGraphics);
     }
 
     public static double getScaleFactor() {

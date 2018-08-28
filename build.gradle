@@ -120,13 +120,3 @@ task printRuntimeDependencies {
         }
     }
 }
-
-task deleteTempFiles(type: Delete) {
-    doLast {
-        file('.').eachFileRecurse(groovy.io.FileType.FILES) { File file ->
-            if (file.name.startsWith('.DS_') || file.name.startsWith('._')) {
-                delete file
-            }
-        }
-    }
-}

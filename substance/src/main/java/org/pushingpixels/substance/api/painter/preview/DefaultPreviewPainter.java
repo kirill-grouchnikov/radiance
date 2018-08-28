@@ -72,7 +72,7 @@ public class DefaultPreviewPainter extends PreviewPainter {
                 int dx = x + ((int) (w / scaleFactor) - sdWidth) / 2;
                 int dy = y + ((int) (h / scaleFactor) - sdHeight) / 2;
 
-                BufferedImage thumbnail = WidgetUtilities.createThumbnail(tempCanvas, sdWidth);
+                BufferedImage thumbnail = NeonCortex.createThumbnail(tempCanvas, sdWidth);
                 g.drawImage(thumbnail, dx, dy, (int) (thumbnail.getWidth() / scaleFactor),
                         (int) (thumbnail.getHeight() / scaleFactor), null);
             } else {

@@ -277,19 +277,15 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                         ((AsynchronousLoading) icon)
                                 .addAsynchronousLoadListener((boolean success) -> {
                                     synchronized (AbstractFileViewPanel.this) {
-                                        if (loadedSet.contains(commandButton))
+                                        if (loadedSet.contains(commandButton)) {
                                             return;
+                                        }
                                         loadedSet.add(commandButton);
                                         // loadedCount++;
                                         if (progressListener != null) {
                                             progressListener.onProgress(
                                                     new ProgressEvent(AbstractFileViewPanel.this, 0,
                                                             totalCount, loadedSet.size()));
-                                            if (loadedSet.size() == totalCount) {
-                                                progressListener.onProgress(new ProgressEvent(
-                                                        AbstractFileViewPanel.this, 0, totalCount,
-                                                        totalCount));
-                                            }
                                         }
                                     }
                                 });

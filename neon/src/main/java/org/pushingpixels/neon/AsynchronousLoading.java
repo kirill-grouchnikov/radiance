@@ -32,12 +32,11 @@ package org.pushingpixels.neon;
 import java.util.concurrent.ExecutorService;
 
 /**
- * This interface is used for asynchronously-loaded contents. For example, the
- * SVG-based implementation of {@link org.pushingpixels.neon.icon.ResizableIcon}
- * in Ibis uses the {@link ExecutorService} to load the
- * SVG image in the background. When the image is loaded, the component that
- * contains this image (command button from Flamingo, for example) is notified to
- * repaint itself.
+ * This interface is used for asynchronously-loaded contents. For example, the SVG-based
+ * implementation of {@link org.pushingpixels.neon.icon.ResizableIcon} in Ibis uses the
+ * {@link ExecutorService} to load the SVG image in the background. When the image is loaded, the
+ * component that contains this image (command button from Flamingo, for example) is notified so
+ * that it can repaint itself.
  *
  * @author Kirill Grouchnikov.
  */
