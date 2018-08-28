@@ -12,13 +12,13 @@ To use Substance in your applications, use one of the following options:
 * Extend the `SubstanceLookAndFeel` class and pass a `SubstanceSkin` instance to the super constructor.
 * Use the static `setSkin(SubstanceSkin)` or `setSkin(String)` APIs in `SubstanceCortex.GlobalScope` to set the specific skin.
 
-The main demo application in the [substance-demo](https://github.com/kirill-grouchnikov/radiance/tree/master/substance-demo/src/main/java/org/pushingpixels/demo/substance/main) uses the [FormLayout](http://www.jgoodies.com/freeware/libraries/forms/). In addition, [substance-samples](https://github.com/kirill-grouchnikov/radiance/tree/master/substance-samples) has a collection of self-contained samples that show more advanced usage of Substance APIs for custom application skinning.
+The main demo application in the [substance-demo](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main) uses the [FormLayout](http://www.jgoodies.com/freeware/libraries/forms/). In addition, [substance-samples](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/substance-samples/src/main/java/org/pushingpixels/samples/substance) has a collection of self-contained samples that show more advanced usage of Substance APIs for custom application skinning.
 
 Have a question? See the [FAQ](faq.md) and the list of [known issues](known-issues.md), and if you don't see an answer there, [file a bug](https://github.com/kirill-grouchnikov/radiance/issues) or [get in touch](http://www.pushing-pixels.org/about-kirill).
 
 ### Adding Substance to your application
 
-Once Radiance artifacts [are published](https://github.com/kirill-grouchnikov/radiance/issues/6), you will be able to declare your dependencies in Maven or Gradle. Until then, follow these steps:
+Snapshot artifacts [are available](https://oss.sonatype.org/content/repositories/snapshots/org/pushing-pixels/) on Sonatype for Maven and Gradle builds. Another option is to:
 * Download the local copy of the latest Radiance.
 * Build Radiance locally with *gradlew* command.
 * Copy the binaries with *gradlew copyJars* command. For version *X.Y.ZZ* of Radiance, add *radiance-substance-X.Y.ZZ.jar*, *radiance-trident-X.Y.ZZ.jar* and *radiance-neon-X.Y.ZZ.jar* to the place that has your local dependencies.
@@ -32,7 +32,7 @@ It is easy to customize and extend Substance to fit your visual needs.
 
 Substance comes with an extensive set of [APIs](api.md) to add custom functionality to your components. The overall visuals are controlled by [skins](skins/overview.md), with each skin defined by [color scheme bundles](skins/colorschemebundles.md) and [painters](painters/overview.md).
 
-The [skinning primer](painters/custom-skinning.md) has a few tips on how to use the different Substance painters in applications that wish to paint custom components in a way that is consistent with other Substance visuals. The [substance-samples](https://github.com/kirill-grouchnikov/radiance/tree/master/substance-samples) sub-project provides additional self-contained mini-applications that show more advanced usage of Substance APIs for pixel-perfect skinning.
+The [skinning primer](painters/custom-skinning.md) has a few tips on how to use the different Substance painters in applications that wish to paint custom components in a way that is consistent with other Substance visuals. The [substance-samples](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/substance-samples) sub-project provides additional self-contained mini-applications that show more advanced usage of Substance APIs for pixel-perfect skinning.
 
 ### Plugins
 

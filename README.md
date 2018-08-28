@@ -22,14 +22,17 @@ The [Substance library](docs/substance/substance.md) provides a powerful and fle
 
 The [Flamingo library](docs/flamingo/flamingo.md) provides a robust set of additional Swing components that can be used as building blocks for creating modern, rich Swing applications. In addition to providing powerful command button and breadcrumb bar components, Flamingo packs an Office Command Bar (ribbon) container that can host a complex hierarchy of flexible, scalable application control surface.
 
-### Kormorant
-
-The Kormorant library exposes the entire API surface of Flamingo as a custom, targeted and approachable Kotlin DSL (domain-specific language).
-
-
 ### Ibis
 
 The [Ibis library](docs/ibis/ibis.md) enables usage of vector-based icons in Swing applications. SVG icon content can be either loaded asynchronously at runtime from a variety of local and remote sources, or transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
+
+### Hibiscus
+
+The [Hibiscus plugin](docs/hibiscus/hibiscus.md) wraps the Ibis library to allow build-time transcoding of SVG content into Java / Kotlin classes.
+
+### Kormorant
+
+The Kormorant library exposes the entire API surface of Flamingo as a custom, targeted and approachable Kotlin DSL (domain-specific language).
 
 ### Building Radiance
 

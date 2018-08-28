@@ -25,7 +25,7 @@ The `JCommandButton` and `JCommandToggleButton` provide a broad spectrum of func
 * Auto-repeat mode for invoking the associated actions as long as the button is pressed.
 * Action-on-rollover mode for invoking the associated actions (one-time or auto-repeat) on rollover.
 
-Want to learn more? Browse the [test applications](https://github.com/kirill-grouchnikov/radiance/tree/master/flamingo-demo/src/main/java/org/pushingpixels/demo/flamingo/common).
+Want to learn more? Browse the [test applications](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/flamingo-demo/src/main/java/org/pushingpixels/demo/flamingo/common).
 
 ### Command button strips and panels
 
@@ -49,7 +49,7 @@ Want to learn more? Browse the [test applications](https://github.com/kirill-gro
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/ribbon.png" width="340" height="210" border=0 align="right">
 
-`JRibbon` provides the functionality of Microsoft Office 2007 Command Bar. A short list of features includes:
+`JRibbon` provides the functionality of Microsoft Office Command Bar (formerly know as ribbon). A short list of features includes:
 
 * Ribbon tasks and ribbon task bands.
 * In-ribbon galleries.
