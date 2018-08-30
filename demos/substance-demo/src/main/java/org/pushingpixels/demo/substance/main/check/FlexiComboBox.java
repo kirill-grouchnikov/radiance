@@ -43,7 +43,6 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 
 public abstract class FlexiComboBox<T> extends JComboBox {
-
 	public FlexiComboBox(T... items) {
 		super(items);
 	}
@@ -60,8 +59,9 @@ public abstract class FlexiComboBox<T> extends JComboBox {
 							getCaption((T) value), index, isSelected,
 							cellHasFocus);
 					Color color = getItemColor((T) value);
-					if (color != null)
+					if (color != null) {
 						result.setBackground(color);
+					}
 					if (result instanceof JLabel) {
 						((JLabel) result).setIcon(getItemIcon((T) value));
 					}
@@ -78,8 +78,9 @@ public abstract class FlexiComboBox<T> extends JComboBox {
 							getCaption((T) value), index, isSelected,
 							cellHasFocus);
 					Color color = getItemColor((T) value);
-					if (color != null)
-						result.setBackground(color);
+					if (color != null) {
+                        result.setBackground(color);
+                    }
 					if (result instanceof JLabel) {
 						((JLabel) result).setIcon(getItemIcon((T) value));
 					}

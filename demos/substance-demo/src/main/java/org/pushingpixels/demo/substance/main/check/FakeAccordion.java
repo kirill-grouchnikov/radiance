@@ -29,12 +29,10 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import org.pushingpixels.substance.api.SubstanceCortex;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 public class FakeAccordion extends JPanel {
@@ -46,8 +44,6 @@ public class FakeAccordion extends JPanel {
 
             JButton titleLabel = new JButton(title);
             titleLabel.setIcon(icon);
-            titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().
-                    getFontSet(null).getControlFont().deriveFont(Font.BOLD));
             titleLabel.addActionListener(
                     (ActionEvent ae) -> setCollapsed(this.content.isVisible()));
 

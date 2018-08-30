@@ -134,29 +134,31 @@ public class MyLocaleChangeListener implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        SwingUtilities.invokeLater(() -> {
-            LookAndFeel currLaf = UIManager.getLookAndFeel();
-            // Locale currLocale = Locale.getDefault();
-            Locale newLocale = new Locale(langCode, countryCode);
-            Locale.setDefault(newLocale);
-            frame.applyComponentOrientation(
-                    ComponentOrientation.getOrientation(Locale.getDefault()));
-            if (currLaf instanceof SubstanceLookAndFeel) {
-                SubstanceCortex.GlobalScope.resetLabelBundle();
-                if ("CN".equals(countryCode)) {
-                    final FontSet currFontSet = SubstanceCortex.GlobalScope.getFontPolicy()
-                            .getFontSet(null);
-                    SubstanceCortex.GlobalScope.setFontPolicy(
-                            (UIDefaults table) -> new DialogFontSet(currFontSet));
-                } else {
-                    SubstanceCortex.GlobalScope.setFontPolicy(null);
-                }
-            }
-            try {
-                UIManager.setLookAndFeel(currLaf.getClass().getName());
-            } catch (Exception exc) {
-            }
-            SwingUtilities.updateComponentTreeUI(frame);
-        });
+        SwingUtilities.invokeLater(() -> changeLocale(frame, countryCode, langCode));
     }
+
+    public static void changeLocale(JFrame frame, String countryCode, String langCode) {
+        LookAndFeel currLaf = UIManager.getLookAndFeel();
+        Locale newLocale = new Locale(langCode, countryCode);
+        Locale.setDefault(newLocale);
+        frame.applyComponentOrientation(
+                ComponentOrientation.getOrientation(Locale.getDefault()));
+        if (currLaf instanceof SubstanceLookAndFeel) {
+            SubstanceCortex.GlobalScope.resetLabelBundle();
+            if ("CN".equals(countryCode)) {
+                final FontSet currFontSet = SubstanceCortex.GlobalScope.getFontPolicy()
+                        .getFontSet(null);
+                SubstanceCortex.GlobalScope.setFontPolicy(
+                        (UIDefaults table) -> new DialogFontSet(currFontSet));
+            } else {
+                SubstanceCortex.GlobalScope.setFontPolicy(null);
+            }
+        }
+        try {
+            UIManager.setLookAndFeel(currLaf.getClass().getName());
+        } catch (Exception exc) {
+        }
+        SwingUtilities.updateComponentTreeUI(frame);
+    }
+
 }

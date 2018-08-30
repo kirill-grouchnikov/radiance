@@ -222,8 +222,9 @@ public class SubstanceCortex {
                     SubstanceCoreUtilities.updateActiveUi();
                 }
 
-                for (SkinChangeListener skinChangeListener : skinChangeListeners)
+                for (SkinChangeListener skinChangeListener : skinChangeListeners) {
                     skinChangeListener.skinChanged();
+                }
                 return true;
             } catch (NoClassDefFoundError ncdfe) {
                 // this may happen when a skin references some class

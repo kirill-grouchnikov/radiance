@@ -69,8 +69,7 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 	 * @author Kirill Grouchnikov
 	 */
 	@SubstanceRenderer
-	public static class BooleanRenderer extends JCheckBox implements
-			TableCellRenderer {
+	public static class BooleanRenderer extends JCheckBox implements TableCellRenderer {
 		/**
 		 * Border for cells that do not have focus.
 		 */
@@ -95,8 +94,7 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 			}
 			SubstanceStripingUtils.applyStripedBackground(table, row, this);
 
-			this.setSelected(((value != null) && ((Boolean) value)
-					.booleanValue()));
+			this.setSelected(((value != null) && ((Boolean) value).booleanValue()));
 			this.setEnabled(table.isEnabled());
 
 			TableUI tableUI = table.getUI();
@@ -120,8 +118,7 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 					SubstanceTableCellBorder border = new SubstanceTableCellBorder(
 							new Insets(0, 0, 0, 0), ui, cellFocusId);
 					if (stateTransitionTracker != null) {
-						border.setAlpha(stateTransitionTracker
-								.getFocusStrength(hasFocus));
+						border.setAlpha(stateTransitionTracker.getFocusStrength(hasFocus));
 					}
 					this.setBorder(border);
 				} else {
@@ -129,8 +126,7 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 				}
 			} else {
 				if (hasFocus) {
-					this.setBorder(UIManager
-							.getBorder("Table.focusCellHighlightBorder"));
+					this.setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
 				} else {
 					this.setBorder(BooleanRenderer.noFocusBorder);
 				}
@@ -285,21 +281,20 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 		ComponentState currState = ui.getCellState(cellId);
 		// special case for drop location
 		JTable.DropLocation dropLocation = table.getDropLocation();
-		boolean isDropLocation = (dropLocation != null
+		boolean isDropLocation = (dropLocation != null)
 				&& !dropLocation.isInsertRow()
 				&& !dropLocation.isInsertColumn()
-				&& dropLocation.getRow() == row && dropLocation.getColumn() == column);
+				&& (dropLocation.getRow() == row)
+                && (dropLocation.getColumn() == column);
 
 		if (!isDropLocation && (modelStateInfo != null)) {
 			if (ui.hasRolloverAnimations() || ui.hasSelectionAnimations()) {
 				Map<ComponentState, StateContributionInfo> activeStates = modelStateInfo
 						.getStateContributionMap();
-				SubstanceColorScheme colorScheme = getColorSchemeForState(
-						table, ui, currState);
+				SubstanceColorScheme colorScheme = getColorSchemeForState(table, ui, currState);
 				if (currState.isDisabled() || (activeStates == null)
 						|| (activeStates.size() == 1)) {
-					super.setForeground(new ColorUIResource(colorScheme
-							.getForegroundColor()));
+					super.setForeground(new ColorUIResource(colorScheme.getForegroundColor()));
 				} else {
 					float aggrRed = 0;
 					float aggrGreen = 0;
@@ -308,10 +303,9 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 							.getStateContributionMap().entrySet()) {
 						ComponentState activeState = activeEntry.getKey();
 						SubstanceColorScheme scheme = getColorSchemeForState(
-								table, ui, activeState);
+						        table, ui, activeState);
 						Color schemeFg = scheme.getForegroundColor();
-						float contribution = activeEntry.getValue()
-								.getContribution();
+						float contribution = activeEntry.getValue().getContribution();
 						aggrRed += schemeFg.getRed() * contribution;
 						aggrGreen += schemeFg.getGreen() * contribution;
 						aggrBlue += schemeFg.getBlue() * contribution;
@@ -320,21 +314,16 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 							(int) aggrRed, (int) aggrGreen, (int) aggrBlue)));
 				}
 			} else {
-				SubstanceColorScheme scheme = getColorSchemeForState(table, ui,
-						currState);
-				super.setForeground(new ColorUIResource(scheme
-						.getForegroundColor()));
+				SubstanceColorScheme scheme = getColorSchemeForState(table, ui, currState);
+				super.setForeground(new ColorUIResource(scheme.getForegroundColor()));
 			}
 		} else {
-			SubstanceColorScheme scheme = getColorSchemeForState(table, ui,
-					currState);
+			SubstanceColorScheme scheme = getColorSchemeForState(table, ui, currState);
 			if (isDropLocation) {
 				scheme = SubstanceColorSchemeUtilities.getColorScheme(table,
 						ColorSchemeAssociationKind.HIGHLIGHT_TEXT, currState);
 			}
-			super
-					.setForeground(new ColorUIResource(scheme
-							.getForegroundColor()));
+			super.setForeground(new ColorUIResource(scheme.getForegroundColor()));
 		}
 
 		SubstanceStripingUtils.applyStripedBackground(table, row, this);
@@ -354,16 +343,13 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 			// System.out.println("[" + row + ":" + column + "] hasFocus : "
 			// + hasFocus + ", focusState : " + focusState);
 			if (focusStateTransitionTracker != null) {
-				border.setAlpha(focusStateTransitionTracker
-						.getFocusStrength(hasFocus));
+				border.setAlpha(focusStateTransitionTracker.getFocusStrength(hasFocus));
 			}
 
 			// special case for tables with no grids
-			if (!table.getShowHorizontalLines()
-					&& !table.getShowVerticalLines()) {
-				this.setBorder(new CompoundBorder(new EmptyBorder(table
-						.getRowMargin() / 2, 0, table.getRowMargin() / 2, 0),
-						border));
+			if (!table.getShowHorizontalLines() && !table.getShowVerticalLines()) {
+				this.setBorder(new CompoundBorder(new EmptyBorder(table.getRowMargin() / 2, 0,
+                        table.getRowMargin() / 2, 0), border));
 			} else {
 				this.setBorder(border);
 			}
@@ -384,8 +370,7 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 				.getUpdateOptimizationInfo();
 		if (state == ComponentState.ENABLED) {
 			if (updateOptimizationInfo == null) {
-				return SubstanceColorSchemeUtilities.getColorScheme(table,
-						state);
+				return SubstanceColorSchemeUtilities.getColorScheme(table, state);
 			} else {
 				return updateOptimizationInfo.getDefaultScheme();
 			}

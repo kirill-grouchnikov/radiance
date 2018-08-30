@@ -107,11 +107,11 @@ public class AnimationConfigurationManager {
      * Creates a new instance.
      */
     private AnimationConfigurationManager() {
-        this.globalAllowed = new HashSet<AnimationFacet>();
-        this.classAllowed = new HashMap<AnimationFacet, Set<Class<?>>>();
-        this.classDisallowed = new HashMap<AnimationFacet, Set<Class<?>>>();
-        this.instanceAllowed = new HashMap<AnimationFacet, Set<Component>>();
-        this.instanceDisallowed = new HashMap<AnimationFacet, Set<Component>>();
+        this.globalAllowed = new HashSet<>();
+        this.classAllowed = new HashMap<>();
+        this.classDisallowed = new HashMap<>();
+        this.instanceAllowed = new HashMap<>();
+        this.instanceDisallowed = new HashMap<>();
         this.timelineDuration = 200;
     }
 
@@ -136,7 +136,7 @@ public class AnimationConfigurationManager {
     public synchronized void allowAnimations(AnimationFacet animationFacet, Class<?> clazz) {
         Set<Class<?>> existingAllowed = this.classAllowed.get(animationFacet);
         if (existingAllowed == null) {
-            existingAllowed = new HashSet<Class<?>>();
+            existingAllowed = new HashSet<>();
             this.classAllowed.put(animationFacet, existingAllowed);
         }
         existingAllowed.add(clazz);
@@ -172,7 +172,7 @@ public class AnimationConfigurationManager {
     public synchronized void allowAnimations(AnimationFacet animationFacet, Component comp) {
         Set<Component> existingAllowed = this.instanceAllowed.get(animationFacet);
         if (existingAllowed == null) {
-            existingAllowed = new HashSet<Component>();
+            existingAllowed = new HashSet<>();
             this.instanceAllowed.put(animationFacet, existingAllowed);
         }
         existingAllowed.add(comp);
@@ -211,7 +211,7 @@ public class AnimationConfigurationManager {
 
         Set<Class<?>> existingDisallowed = this.classDisallowed.get(animationFacet);
         if (existingDisallowed == null) {
-            existingDisallowed = new HashSet<Class<?>>();
+            existingDisallowed = new HashSet<>();
             this.classDisallowed.put(animationFacet, existingDisallowed);
         }
         existingDisallowed.add(clazz);
@@ -249,7 +249,7 @@ public class AnimationConfigurationManager {
 
         Set<Component> existingDisallowed = this.instanceDisallowed.get(animationFacet);
         if (existingDisallowed == null) {
-            existingDisallowed = new HashSet<Component>();
+            existingDisallowed = new HashSet<>();
             this.instanceDisallowed.put(animationFacet, existingDisallowed);
         }
         existingDisallowed.add(comp);

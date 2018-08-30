@@ -88,7 +88,7 @@ object RainbowUtils {
             jtp.tabPlacement = SwingConstants.LEFT
 
             val classLoader = Thread.currentThread().contextClassLoader
-            val fontURL = classLoader.getResource("resource/VeraMono.ttf")
+            val fontURL = classLoader.getResource("fonts/FiraCode-Regular.ttf")
             val streamFont = fontURL!!.openStream()
             var font = Font.createFont(Font.TRUETYPE_FONT, streamFont)
             font = font.deriveFont(1.0f + UIManager.getFont("TextArea.font").size2D)

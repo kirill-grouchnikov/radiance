@@ -1,35 +1,37 @@
 /*
  * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Substance Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.demo.substance.main.check.svg.flags.se;
+import org.pushingpixels.neon.icon.NeonIcon;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 
@@ -43,30 +45,39 @@ import java.util.List;
 
 /**
  * Test application panel for testing {@link JList} component.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class ListPanel extends ControllablePanel {
+    private static class ModelEntry {
+        public String text;
+        public NeonIcon icon;
+
+        public ModelEntry(String text, NeonIcon icon) {
+            this.text = text;
+            this.icon = icon;
+        }
+    }
 
     /**
      * List model implementation with support for moving elements.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class MoveableListModel extends AbstractListModel {
         /**
          * The string list backing up the model.
          */
-        protected List<String> model;
+        protected List<ModelEntry> model;
 
         /**
          * Creates a new model.
          */
         public MoveableListModel(int modelSize) {
             super();
-            model = new ArrayList<String>();
+            model = new ArrayList<ModelEntry>();
             for (int i = 0; i < modelSize; i++) {
-                model.add("element " + i);
+                model.add(new ModelEntry("element " + i, se.of(16, 16)));
             }
         }
 
@@ -82,12 +93,11 @@ public class ListPanel extends ControllablePanel {
 
         /**
          * Moves the element at the specified index one position up.
-         * 
-         * @param index
-         *            Element index.
+         *
+         * @param index Element index.
          */
         public void moveUp(int index) {
-            String entry = model.get(index);
+            ModelEntry entry = model.get(index);
             model.set(index, model.get(index - 1));
             model.set(index - 1, entry);
             fireContentsChanged(this, index - 1, index);
@@ -95,12 +105,11 @@ public class ListPanel extends ControllablePanel {
 
         /**
          * Moves the element at the specified index one position down.
-         * 
-         * @param index
-         *            Element index.
+         *
+         * @param index Element index.
          */
         public void moveDown(int index) {
-            String entry = model.get(index);
+            ModelEntry entry = model.get(index);
             model.set(index, model.get(index + 1));
             model.set(index + 1, entry);
             fireContentsChanged(this, index, index + 1);
@@ -108,9 +117,8 @@ public class ListPanel extends ControllablePanel {
 
         /**
          * Deletes the element at the specified index.
-         * 
-         * @param index
-         *            Element index.
+         *
+         * @param index Element index.
          */
         public void delete(int index) {
             model.remove(index);
@@ -142,6 +150,8 @@ public class ListPanel extends ControllablePanel {
      * Old background color.
      */
     private Color oldBackColor;
+
+    private boolean showIcons;
 
     /**
      * Creates a new list panel.
@@ -178,7 +188,7 @@ public class ListPanel extends ControllablePanel {
         this.add(jsp, BorderLayout.CENTER);
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
-                "right:pref, 4dlu, fill:pref:grow", 2, 14);
+                "right:pref, 4dlu, fill:pref:grow", 2, 15);
         builder.appendSeparator("General");
 
         final JCheckBox isEnabled = new JCheckBox("is enabled");
@@ -275,40 +285,53 @@ public class ListPanel extends ControllablePanel {
                 list.setBackground(oldBackColor);
             }
         });
-
         builder.append("Background", customBackgroundCb);
 
+        final JCheckBox showsIconsCb = new JCheckBox("Has icons");
+        showsIconsCb.addActionListener((ActionEvent e) -> {
+            showIcons = showsIconsCb.isSelected();
+            list.revalidate();
+            list.repaint();
+        });
+        builder.append("Icons", showsIconsCb);
+
         builder.appendSeparator("Renderer");
+        list.setCellRenderer(new DefaultSubstanceRenderer());
+
         ButtonGroup listRendererGroup = new ButtonGroup();
-        final JRadioButton substanceRenderer = new JRadioButton("Substance");
-        substanceRenderer.setSelected(true);
-        substanceRenderer.addActionListener((ActionEvent e) -> {
-            if (substanceRenderer.isSelected())
-                list.setCellRenderer(new SubstanceDefaultListCellRenderer());
+        final JRadioButton defaultSubstanceRenderer = new JRadioButton("Default Substance");
+        defaultSubstanceRenderer.setSelected(true);
+        defaultSubstanceRenderer.addActionListener((ActionEvent e) -> {
+            if (defaultSubstanceRenderer.isSelected()) {
+                list.setCellRenderer(new DefaultSubstanceRenderer());
+            }
         });
-        final JRadioButton coreDefaultRenderer = new JRadioButton("Default core");
-        coreDefaultRenderer.addActionListener((ActionEvent e) -> {
-            if (coreDefaultRenderer.isSelected())
-                list.setCellRenderer(new DefaultListCellRenderer());
-        });
-        final JRadioButton customRenderer = new JRadioButton("Custom");
-        customRenderer.addActionListener((ActionEvent e) -> {
-            if (customRenderer.isSelected())
-                list.setCellRenderer(new MyListCellRenderer());
+        final JRadioButton defaultCoreRenderer = new JRadioButton("Default core");
+        defaultCoreRenderer.addActionListener((ActionEvent e) -> {
+            if (defaultCoreRenderer.isSelected()) {
+                list.setCellRenderer(new DefaultCoreRenderer());
+            }
         });
         final JRadioButton customSubstanceRenderer = new JRadioButton("Custom Substance");
         customSubstanceRenderer.addActionListener((ActionEvent e) -> {
-            if (customSubstanceRenderer.isSelected())
-                list.setCellRenderer(new MySubstanceListCellRenderer());
+            if (customSubstanceRenderer.isSelected()) {
+                list.setCellRenderer(new CustomSubstanceRenderer());
+            }
         });
-        listRendererGroup.add(substanceRenderer);
-        listRendererGroup.add(coreDefaultRenderer);
-        listRendererGroup.add(customRenderer);
+        final JRadioButton customCoreRenderer = new JRadioButton("Custom core");
+        customCoreRenderer.addActionListener((ActionEvent e) -> {
+            if (customCoreRenderer.isSelected()) {
+                list.setCellRenderer(new CustomCoreRenderer());
+            }
+        });
+        listRendererGroup.add(defaultSubstanceRenderer);
+        listRendererGroup.add(defaultCoreRenderer);
         listRendererGroup.add(customSubstanceRenderer);
-        builder.append("Select type", substanceRenderer);
-        builder.append("", coreDefaultRenderer);
-        builder.append("", customRenderer);
+        listRendererGroup.add(customCoreRenderer);
+        builder.append("Select type", defaultSubstanceRenderer);
+        builder.append("", defaultCoreRenderer);
         builder.append("", customSubstanceRenderer);
+        builder.append("", customCoreRenderer);
 
         controlPanel = builder.build();
     }
@@ -328,6 +351,105 @@ public class ListPanel extends ControllablePanel {
         int si = list.getSelectedIndex();
         bUp.setEnabled(si > 0);
         bDown.setEnabled(si < (list.getModel().getSize() - 1));
-        // this.bDelete.setEnabled(true);
+    }
+
+    private class DefaultCoreRenderer extends DefaultListCellRenderer {
+        @Override
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                boolean isSelected, boolean cellHasFocus) {
+            JLabel result = (JLabel) super.getListCellRendererComponent(list, value, index,
+                    isSelected, cellHasFocus);
+            ModelEntry entry = (ModelEntry) value;
+            result.setText(entry.text);
+            if (showIcons) {
+                result.setIcon(entry.icon);
+            } else {
+                result.setIcon(null);
+            }
+            return result;
+        }
+    }
+
+    private class CustomCoreRenderer extends JLabel implements ListCellRenderer {
+        public CustomCoreRenderer() {
+            super();
+            setOpaque(true);
+        }
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value,
+                int index, boolean isSelected, boolean cellHasFocus) {
+            ModelEntry entry = (ModelEntry) value;
+            setText(entry.text);
+            if (showIcons) {
+                setIcon(entry.icon);
+            } else {
+                setIcon(null);
+            }
+            this.setForeground(list.getForeground());
+
+            int comp = 156 + 10 * (index % 9);
+            this.setBackground(
+                    isSelected ? list.getSelectionBackground() : new Color(comp, comp, comp));
+
+            return this;
+        }
+    }
+
+    private class DefaultSubstanceRenderer extends SubstanceDefaultListCellRenderer {
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index,
+                boolean isSelected, boolean cellHasFocus) {
+            ModelEntry entry = (ModelEntry) value;
+            JLabel result = (JLabel) super.getListCellRendererComponent(list, entry.text, index,
+                    isSelected, cellHasFocus);
+            if (showIcons) {
+                result.setIcon(entry.icon);
+            } else {
+                result.setIcon(null);
+            }
+            return result;
+        }
+    }
+
+    private class CustomSubstanceRenderer extends SubstanceDefaultListCellRenderer {
+        public CustomSubstanceRenderer() {
+            super();
+            setOpaque(true);
+        }
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value,
+                int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel result = (JLabel) super.getListCellRendererComponent(list, value,
+                    index, isSelected, cellHasFocus);
+            result.setForeground(list.getForeground());
+
+            int comp = 156 + 10 * (index % 9);
+            int blue = 255 - (255 - comp) / 2;
+            this.setBackground(
+                    isSelected ? list.getSelectionBackground() : new Color(comp, comp, blue));
+
+            ModelEntry entry = (ModelEntry) value;
+            result.setText(entry.text);
+            if (showIcons) {
+                result.setIcon(entry.icon);
+            } else {
+                result.setIcon(null);
+            }
+
+            // mark every fifth row as disabled
+            if ((index % 5) == 0) {
+                result.setEnabled(false);
+                ComponentState state = isSelected ? ComponentState.DISABLED_SELECTED
+                        : ComponentState.DISABLED_UNSELECTED;
+                result.setForeground(SubstanceCortex.ComponentScope.getCurrentSkin(list)
+                        .getColorScheme(list, state).getForegroundColor());
+                result.setBackground(new Color(255, 196, 196));
+                result.setText(entry.text + " [disabled by renderer]");
+            }
+
+            return result;
+        }
     }
 }

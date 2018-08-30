@@ -40,7 +40,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.demo.substance.main.check.SubstanceSkinComboSelector;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceSkinSelector;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
@@ -80,7 +80,7 @@ public class DecorationLists extends JFrame {
         this.add(listsPanel, BorderLayout.CENTER);
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        controlPanel.add(new SubstanceSkinComboSelector());
+        controlPanel.add(new SubstanceSkinSelector());
 
         this.add(controlPanel, BorderLayout.SOUTH);
 

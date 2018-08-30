@@ -30,41 +30,25 @@
 package org.pushingpixels.demo.substance.main;
 
 import org.pushingpixels.demo.substance.main.check.*;
+import org.pushingpixels.demo.substance.main.check.selector.*;
 import org.pushingpixels.demo.substance.main.check.svg.tango.*;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceSlices.Side;
-import org.pushingpixels.substance.api.SubstanceSlices.TabCloseKind;
-import org.pushingpixels.substance.api.skin.SubstanceGeminiLookAndFeel;
-import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
-import org.pushingpixels.substance.api.tabbed.TabCloseListener;
-import org.pushingpixels.substance.api.tabbed.VetoableMultipleTabCloseListener;
-import org.pushingpixels.substance.api.tabbed.VetoableTabCloseListener;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
+import org.pushingpixels.substance.api.skin.*;
+import org.pushingpixels.substance.api.tabbed.*;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasCortex;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
 import org.pushingpixels.substance.extras.api.tabbed.DefaultTabPreviewPainter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.awt.event.*;
 import java.net.URL;
-import java.util.EnumSet;
-import java.util.Enumeration;
-import java.util.Set;
+import java.util.*;
 
 public class Check extends JFrame {
     private JTabbedPane jtp;
@@ -105,7 +89,7 @@ public class Check extends JFrame {
         toolbar = getToolbar("", 22, true);
         contentPanel.add(toolbar, BorderLayout.NORTH);
 
-        JPanel statusBar = getStatusBar(jtp);
+        JPanel statusBar = getStatusBar();
         this.add(statusBar, BorderLayout.SOUTH);
 
         this.accordion = new FakeAccordion();
@@ -403,59 +387,59 @@ public class Check extends JFrame {
                 });
     }
 
-    protected static JPanel getStatusBar(final JTabbedPane mainTabbedPane) {
-        JPanel statusBar = new JPanel(new BorderLayout());
+    private JPanel getStatusBar() {
+        JPanel statusBar = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         statusBar.setBorder(new EmptyBorder(4, 5, 4, 5));
 
+        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(statusBar,
+                DecorationAreaType.FOOTER);
+
+        JComboBox<SkinInfo> skinSelector = new SubstanceSkinSelector();
+        SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(skinSelector,
+                SwingUtilities.NORTH);
+        SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(skinSelector,
+                new WidestComboPopupPrototype());
+        skinSelector.setToolTipText("Substance skin");
+        statusBar.add(skinSelector);
+
+        JComboBox<SubstanceLocaleSelector.LocaleInfo> localeSelector =
+                new SubstanceLocaleSelector(this);
+        SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(localeSelector,
+                SwingUtilities.NORTH);
+        SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(localeSelector,
+                new WidestComboPopupPrototype());
+        localeSelector.setToolTipText("Application locale");
+        statusBar.add(localeSelector);
+
         try {
-            ClassLoader cl = Thread.currentThread().getContextClassLoader();
-            Enumeration<URL> urls = cl.getResources("META-INF/MANIFEST.MF");
-            String substanceVer = null;
-            String substanceBuildStamp = null;
-            while (urls.hasMoreElements()) {
-                InputStream is = urls.nextElement().openStream();
-                BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                while (true) {
-                    String line = br.readLine();
-                    if (line == null)
-                        break;
-                    int firstColonIndex = line.indexOf(":");
-                    if (firstColonIndex < 0)
-                        continue;
-                    String name = line.substring(0, firstColonIndex).trim();
-                    String val = line.substring(firstColonIndex + 1).trim();
-                    if (name.compareTo("Radiance-Version") == 0)
-                        substanceVer = val;
-                    if (name.compareTo("Radiance-BuildStamp") == 0)
-                        substanceBuildStamp = val;
-                }
-                try {
-                    br.close();
-                } catch (IOException ioe) {
-                }
-            }
-            if (substanceVer != null) {
-                String stamp = substanceVer;
-                if (substanceBuildStamp != null) {
-                    stamp += " [built on " + substanceBuildStamp + "]";
-                }
-                JLabel statusLabel = new JLabel(stamp);
-                statusBar.add(statusLabel, BorderLayout.LINE_START);
-            }
-        } catch (IOException ioe) {
+            JComboBox<SubstanceFontSelector.FontInfo> fontSelector =
+                    new SubstanceFontSelector();
+            SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(fontSelector,
+                    SwingUtilities.NORTH);
+            SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(fontSelector,
+                    new WidestComboPopupPrototype());
+            fontSelector.setToolTipText("Substance font set");
+            statusBar.add(fontSelector);
+        } catch (Throwable t) {
         }
 
-        final JLabel tabLabel = new JLabel("");
-        statusBar.add(tabLabel, BorderLayout.CENTER);
-        mainTabbedPane.getModel().addChangeListener((ChangeEvent e) -> {
-            int selectedIndex = mainTabbedPane.getSelectedIndex();
-            if (selectedIndex < 0)
-                tabLabel.setText("No selected tab");
-            else
-                tabLabel.setText("Tab " + mainTabbedPane.getTitleAt(selectedIndex) + " selected");
-        });
+        JComboBox<SubstanceTitlePaneGravitySelector.TitlePaneConfiguration> titlePaneGravitySelector =
+                new SubstanceTitlePaneGravitySelector();
+        SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(titlePaneGravitySelector,
+                SwingUtilities.NORTH);
+        SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(titlePaneGravitySelector,
+                new WidestComboPopupPrototype());
+        titlePaneGravitySelector.setToolTipText("Application title pane gravity");
+        statusBar.add(titlePaneGravitySelector);
 
-        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(statusBar, DecorationAreaType.FOOTER);
+        final JCheckBox useThemedDefaultIconsCheckBox = new JCheckBox("themed icons");
+        useThemedDefaultIconsCheckBox
+                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                    SubstanceCortex.GlobalScope.setUseThemedDefaultIcons(
+                            useThemedDefaultIconsCheckBox.isSelected() ? Boolean.TRUE : null);
+                    repaint();
+                }));
+        statusBar.add(useThemedDefaultIconsCheckBox);
 
         return statusBar;
     }

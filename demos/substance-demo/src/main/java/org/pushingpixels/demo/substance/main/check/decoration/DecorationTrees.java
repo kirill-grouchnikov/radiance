@@ -44,7 +44,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-import org.pushingpixels.demo.substance.main.check.SubstanceSkinComboSelector;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceSkinSelector;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
@@ -141,7 +141,7 @@ public class DecorationTrees extends JFrame {
         this.add(treePanel, BorderLayout.CENTER);
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        controlPanel.add(new SubstanceSkinComboSelector());
+        controlPanel.add(new SubstanceSkinSelector());
 
         this.add(controlPanel, BorderLayout.SOUTH);
 

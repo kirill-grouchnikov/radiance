@@ -32,18 +32,14 @@ package org.pushingpixels.substance.internal.ui;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.BasicHTML;
-import javax.swing.plaf.basic.BasicLabelUI;
+import javax.swing.plaf.basic.*;
 import javax.swing.text.View;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 
 /**
  * UI for labels in <b>Substance</b> look and feel.
@@ -89,15 +85,25 @@ public class SubstanceLabelUI extends BasicLabelUI {
 
     @Override
     public void paint(Graphics g, JComponent c) {
-
         JLabel label = (JLabel) c;
         String text = label.getText();
 
-        Icon icon = null;
+        Icon icon;
+        Icon themedIcon = null;
+        float rolloverAmount = 0.0f;
+
         if (label.isEnabled()) {
             icon = label.getIcon();
-            if ((icon != null) && SubstanceCoreUtilities.useThemedDefaultIcon(label))
-                icon = SubstanceCoreUtilities.getThemedIcon(label, icon);
+            if ((icon != null) && SubstanceCoreUtilities.useThemedDefaultIcon(label)) {
+                if (label instanceof ThemedIconAwareRenderer) {
+                    ThemedIconAwareRenderer themedIconAwareRenderer =
+                            (ThemedIconAwareRenderer) label;
+                    rolloverAmount = themedIconAwareRenderer.getRolloverArmAmount();
+                    themedIcon = SubstanceCoreUtilities.getThemedIcon(c, icon);
+                } else {
+                    icon = SubstanceCoreUtilities.getThemedIcon(c, icon);
+                }
+            }
         } else {
             icon = label.getDisabledIcon();
         }
@@ -123,7 +129,20 @@ public class SubstanceLabelUI extends BasicLabelUI {
         BackgroundPaintingUtils.updateIfOpaque(g2d, c);
         if (icon != null) {
             g2d.translate(paintIconR.x, paintIconR.y);
-            icon.paintIcon(c, g2d, 0, 0);
+
+            if (themedIcon != null) {
+                if (rolloverAmount > 0) {
+                    themedIcon.paintIcon(c, g2d, 0, 0);
+                    g2d.setComposite(
+                            WidgetUtilities.getAlphaComposite(c, rolloverAmount, g));
+                    icon.paintIcon(c, g2d, 0, 0);
+                    g2d.setComposite(WidgetUtilities.getAlphaComposite(c, g));
+                } else {
+                    themedIcon.paintIcon(c, g2d, 0, 0);
+                }
+            } else {
+                icon.paintIcon(c, g2d, 0, 0);
+            }
             g2d.translate(-paintIconR.x, -paintIconR.y);
         }
         ComponentState labelState = label.isEnabled() ? ComponentState.ENABLED
@@ -146,8 +165,9 @@ public class SubstanceLabelUI extends BasicLabelUI {
     @Override
     public void update(Graphics g, JComponent c) {
         // failsafe for LAF change
-        if (!SubstanceCoreUtilities.isCurrentLookAndFeel())
+        if (!SubstanceCoreUtilities.isCurrentLookAndFeel()) {
             return;
+        }
         Graphics2D g2d = (Graphics2D) g.create();
         NeonCortex.installDesktopHints(g2d, c);
         this.paint(g2d, c);

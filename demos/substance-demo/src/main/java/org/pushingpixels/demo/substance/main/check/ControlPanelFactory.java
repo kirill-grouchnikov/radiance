@@ -31,6 +31,7 @@ package org.pushingpixels.demo.substance.main.check;
 
 import org.pushingpixels.demo.substance.main.*;
 import org.pushingpixels.demo.substance.main.Check.MyMainTabPreviewPainter;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceFontSelector;
 import org.pushingpixels.demo.substance.main.check.svg.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
@@ -64,21 +65,6 @@ public class ControlPanelFactory {
      */
     private static JDialog disposableDialog;
 
-    private static class TitlePaneConfiguration {
-        private String title;
-        private SubstanceSlices.HorizontalGravity textGravity;
-        private SubstanceSlices.HorizontalGravity controlButtonsGravity;
-        private SubstanceSlices.TitleIconHorizontalGravity iconGravity;
-
-        public TitlePaneConfiguration(String title, HorizontalGravity textGravity,
-                HorizontalGravity controlButtonsGravity, TitleIconHorizontalGravity iconGravity) {
-            this.title = title;
-            this.textGravity = textGravity;
-            this.controlButtonsGravity = controlButtonsGravity;
-            this.iconGravity = iconGravity;
-        }
-    }
-
     /**
      * Returns the main control panel.
      *
@@ -96,40 +82,9 @@ public class ControlPanelFactory {
             final JTabbedPane mainTabbedPane, final MyMainTabPreviewPainter mainTabPreviewPainter,
             final JToolBar toolbar) {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
-                "right:pref, 4dlu, fill:pref:grow", 2, 24);
+                "right:pref, 4dlu, fill:pref:grow", 2, 22);
 
         builder.appendSeparator("Title pane settings");
-
-        final JComboBox titleContentGravity = new FlexiComboBox<TitlePaneConfiguration>(
-                new TitlePaneConfiguration("Swing default", SubstanceSlices.HorizontalGravity.SWING_DEFAULT,
-                        SubstanceSlices.HorizontalGravity.SWING_DEFAULT,
-                        SubstanceSlices.TitleIconHorizontalGravity.SWING_DEFAULT),
-                new TitlePaneConfiguration("Platform", SubstanceSlices.HorizontalGravity.PLATFORM,
-                        SubstanceSlices.HorizontalGravity.PLATFORM,
-                        SubstanceSlices.TitleIconHorizontalGravity.PLATFORM),
-                new TitlePaneConfiguration("Force macOS", SubstanceSlices.HorizontalGravity.CENTERED,
-                        SubstanceSlices.HorizontalGravity.LEADING,
-                        SubstanceSlices.TitleIconHorizontalGravity.NEXT_TO_TITLE),
-                new TitlePaneConfiguration("Force Windows", SubstanceSlices.HorizontalGravity.LEADING,
-                        SubstanceSlices.HorizontalGravity.TRAILING,
-                        SubstanceSlices.TitleIconHorizontalGravity.OPPOSITE_CONTROL_BUTTONS),
-                new TitlePaneConfiguration("Force Gnome", SubstanceSlices.HorizontalGravity.CENTERED,
-                        SubstanceSlices.HorizontalGravity.TRAILING, SubstanceSlices.TitleIconHorizontalGravity.NONE),
-                new TitlePaneConfiguration("Force KDE", SubstanceSlices.HorizontalGravity.CENTERED,
-                        SubstanceSlices.HorizontalGravity.TRAILING,
-                        SubstanceSlices.TitleIconHorizontalGravity.OPPOSITE_CONTROL_BUTTONS)) {
-            @Override
-            public String getCaption(TitlePaneConfiguration item) {
-                return item.title;
-            }
-        };
-        titleContentGravity.addActionListener((ActionEvent e) -> {
-            TitlePaneConfiguration selected = (TitlePaneConfiguration) titleContentGravity
-                    .getSelectedItem();
-            SubstanceCortex.GlobalScope.configureTitleContentGravity(selected.textGravity,
-                    selected.controlButtonsGravity, selected.iconGravity);
-        });
-        builder.append("Content gravity", titleContentGravity);
 
         final JCheckBox markAsModified = new JCheckBox("Marked modified");
         markAsModified.setSelected(false);
@@ -158,15 +113,6 @@ public class ControlPanelFactory {
         builder.append("Title string", changeTitleButton);
 
         builder.appendSeparator("Miscellaneous");
-
-        final JCheckBox useThemedDefaultIconsCheckBox = new JCheckBox("use themed icons");
-        useThemedDefaultIconsCheckBox
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-                    SubstanceCortex.GlobalScope.setUseThemedDefaultIcons(
-                            useThemedDefaultIconsCheckBox.isSelected() ? Boolean.TRUE : null);
-                    mainFrame.repaint();
-                }));
-        builder.append("Themed icons", useThemedDefaultIconsCheckBox);
 
         final JCheckBox useConstantThemesOnOptionPanes = new JCheckBox("use constant themes");
         useConstantThemesOnOptionPanes.setSelected(true);

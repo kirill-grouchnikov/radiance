@@ -29,71 +29,21 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.Event;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.util.LinkedList;
-import java.util.Map;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JSeparator;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
-import org.pushingpixels.demo.substance.main.check.svg.flags.ar;
-import org.pushingpixels.demo.substance.main.check.svg.flags.bg;
-import org.pushingpixels.demo.substance.main.check.svg.flags.br;
-import org.pushingpixels.demo.substance.main.check.svg.flags.ca;
-import org.pushingpixels.demo.substance.main.check.svg.flags.cn;
-import org.pushingpixels.demo.substance.main.check.svg.flags.cz;
-import org.pushingpixels.demo.substance.main.check.svg.flags.de;
-import org.pushingpixels.demo.substance.main.check.svg.flags.dk;
-import org.pushingpixels.demo.substance.main.check.svg.flags.es;
-import org.pushingpixels.demo.substance.main.check.svg.flags.fi;
-import org.pushingpixels.demo.substance.main.check.svg.flags.fr;
-import org.pushingpixels.demo.substance.main.check.svg.flags.gr;
-import org.pushingpixels.demo.substance.main.check.svg.flags.hk;
-import org.pushingpixels.demo.substance.main.check.svg.flags.hu;
-import org.pushingpixels.demo.substance.main.check.svg.flags.il;
-import org.pushingpixels.demo.substance.main.check.svg.flags.it;
-import org.pushingpixels.demo.substance.main.check.svg.flags.jp;
-import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
-import org.pushingpixels.demo.substance.main.check.svg.flags.nl;
-import org.pushingpixels.demo.substance.main.check.svg.flags.no;
-import org.pushingpixels.demo.substance.main.check.svg.flags.pl;
-import org.pushingpixels.demo.substance.main.check.svg.flags.pt;
-import org.pushingpixels.demo.substance.main.check.svg.flags.ro;
-import org.pushingpixels.demo.substance.main.check.svg.flags.ru;
-import org.pushingpixels.demo.substance.main.check.svg.flags.sa;
-import org.pushingpixels.demo.substance.main.check.svg.flags.se;
-import org.pushingpixels.demo.substance.main.check.svg.flags.th;
-import org.pushingpixels.demo.substance.main.check.svg.flags.tr;
-import org.pushingpixels.demo.substance.main.check.svg.flags.tw;
-import org.pushingpixels.demo.substance.main.check.svg.flags.us;
-import org.pushingpixels.demo.substance.main.check.svg.flags.vn;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.demo.substance.main.check.svg.flags.*;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
-import org.pushingpixels.substance.api.colorscheme.LightGrayColorScheme;
-import org.pushingpixels.substance.api.colorscheme.MetallicColorScheme;
-import org.pushingpixels.substance.api.colorscheme.OrangeColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.GlassHighlightPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.api.skin.SkinInfo;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
 
 /**
  * Factory that creates menus for the test applications.
@@ -377,68 +327,6 @@ public class SampleMenuFactory {
 
     public static JMenu getLookAndFeelMenu(JFrame frame) {
         JMenu lafMenu = new JMenu("Look & feel");
-        JMenu substanceMenus = new JMenu("Substance family");
-
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Autumn",
-                "org.pushingpixels.substance.api.skin.SubstanceAutumnLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Business",
-                "org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Business Black Steel",
-                "org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Business Blue Steel",
-                "org.pushingpixels.substance.api.skin.SubstanceBusinessBlueSteelLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Cerulean",
-                "org.pushingpixels.substance.api.skin.SubstanceCeruleanLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Creme",
-                "org.pushingpixels.substance.api.skin.SubstanceCremeLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Creme Coffee",
-                "org.pushingpixels.substance.api.skin.SubstanceCremeCoffeeLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Dust",
-                "org.pushingpixels.substance.api.skin.SubstanceDustLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Dust Coffee",
-                "org.pushingpixels.substance.api.skin.SubstanceDustCoffeeLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Gemini",
-                "org.pushingpixels.substance.api.skin.SubstanceGeminiLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Mariner",
-                "org.pushingpixels.substance.api.skin.SubstanceMarinerLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Mist Aqua",
-                "org.pushingpixels.substance.api.skin.SubstanceMistAquaLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Mist Silver",
-                "org.pushingpixels.substance.api.skin.SubstanceMistSilverLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Moderate",
-                "org.pushingpixels.substance.api.skin.SubstanceModerateLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Nebula",
-                "org.pushingpixels.substance.api.skin.SubstanceNebulaLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Nebula Brick Wall",
-                "org.pushingpixels.substance.api.skin.SubstanceNebulaBrickWallLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Sahara",
-                "org.pushingpixels.substance.api.skin.SubstanceSaharaLookAndFeel"));
-        substanceMenus.addSeparator();
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Office Black 2007",
-                "org.pushingpixels.substance.api.skin.SubstanceOfficeBlack2007LookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Office Silver 2007",
-                "org.pushingpixels.substance.api.skin.SubstanceOfficeSilver2007LookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Office Blue 2007",
-                "org.pushingpixels.substance.api.skin.SubstanceOfficeBlue2007LookAndFeel"));
-        substanceMenus.addSeparator();
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Magellan",
-                "org.pushingpixels.substance.api.skin.SubstanceMagellanLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Raven",
-                "org.pushingpixels.substance.api.skin.SubstanceRavenLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Twilight",
-                "org.pushingpixels.substance.api.skin.SubstanceTwilightLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Graphite",
-                "org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Graphite Glass",
-                "org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Graphite Aqua",
-                "org.pushingpixels.substance.api.skin.SubstanceGraphiteAquaLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Graphite Gold",
-                "org.pushingpixels.substance.api.skin.SubstanceGraphiteGoldLookAndFeel"));
-        substanceMenus.add(SubstanceLafChanger.getMenuItem(frame, "Graphite Chalk",
-                "org.pushingpixels.substance.api.skin.SubstanceGraphiteChalkLookAndFeel"));
-        lafMenu.add(substanceMenus);
-        lafMenu.addSeparator();
         JMenu coreLafMenus = new JMenu("Core LAFs");
         lafMenu.add(coreLafMenus);
         coreLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "System",
@@ -594,135 +482,6 @@ public class SampleMenuFactory {
                 SubstanceLafChanger.getMenuItem(frame, "WebLaf", "com.alee.laf.WebLookAndFeel"));
         customLafMenus.add(
                 SubstanceLafChanger.getMenuItem(frame, "Material", "mdlaf.MaterialLookAndFeel"));
-
-        lafMenu.addSeparator();
-        JMenu localeMenus = new JMenu("Change locale");
-        lafMenu.add(localeMenus);
-        // Locale changing
-        JMenuItem localeArabic = new JMenuItem("Arabic Locale", sa.of(16, 16));
-        localeArabic.addActionListener(new MyLocaleChangeListener("ar", "AR", frame));
-
-        JMenuItem localeBulgarian = new JMenuItem("Bulgarian Locale", bg.of(16, 16));
-        localeBulgarian.addActionListener(new MyLocaleChangeListener("bg", "BG", frame));
-
-        JMenuItem localeChinese = new JMenuItem("Chinese (Simplified) Locale", cn.of(16, 16));
-        localeChinese.addActionListener(new MyLocaleChangeListener("zh", "CN", frame));
-
-        JMenuItem localeChineseHK = new JMenuItem("Chinese (Hong Kong) Locale", hk.of(16, 16));
-        localeChineseHK.addActionListener(new MyLocaleChangeListener("zh", "HK", frame));
-
-        JMenuItem localeChineseTW = new JMenuItem("Chinese (Taiwan) Locale", tw.of(16, 16));
-        localeChineseTW.addActionListener(new MyLocaleChangeListener("zh", "TW", frame));
-
-        JMenuItem localeCzech = new JMenuItem("Czech Locale", cz.of(16, 16));
-        localeCzech.addActionListener(new MyLocaleChangeListener("cs", "CZ", frame));
-
-        JMenuItem localeDanish = new JMenuItem("Danish Locale", dk.of(16, 16));
-        localeDanish.addActionListener(new MyLocaleChangeListener("da", "DK", frame));
-
-        JMenuItem localeDutch = new JMenuItem("Dutch Locale", nl.of(16, 16));
-        localeDutch.addActionListener(new MyLocaleChangeListener("nl", "NL", frame));
-
-        JMenuItem localeEnglish = new JMenuItem("English Locale", us.of(16, 16));
-        localeEnglish.addActionListener(new MyLocaleChangeListener("en", "US", frame));
-
-        JMenuItem localeFinnish = new JMenuItem("Finnish Locale", fi.of(16, 16));
-        localeFinnish.addActionListener(new MyLocaleChangeListener("fi", "FI", frame));
-
-        JMenuItem localeFrench = new JMenuItem("French Locale", fr.of(16, 16));
-        localeFrench.addActionListener(new MyLocaleChangeListener("fr", "FR", frame));
-
-        JMenuItem localeFrenchCA = new JMenuItem("French (Canada) Locale", ca.of(16, 16));
-        localeFrenchCA.addActionListener(new MyLocaleChangeListener("fr", "CA", frame));
-
-        JMenuItem localeGerman = new JMenuItem("German Locale", de.of(16, 16));
-        localeGerman.addActionListener(new MyLocaleChangeListener("de", "DE", frame));
-
-        JMenuItem localeGreek = new JMenuItem("Greek Locale", gr.of(16, 16));
-        localeGreek.addActionListener(new MyLocaleChangeListener("el", "GR", frame));
-
-        JMenuItem localeHebrew = new JMenuItem("Hebrew Locale", il.of(16, 16));
-        localeHebrew.addActionListener(new MyLocaleChangeListener("iw", "IL", frame));
-
-        JMenuItem localeHungarian = new JMenuItem("Hungarian Locale", hu.of(16, 16));
-        localeHungarian.addActionListener(new MyLocaleChangeListener("hu", "HU", frame));
-
-        JMenuItem localeItalian = new JMenuItem("Italian Locale", it.of(16, 16));
-        localeItalian.addActionListener(new MyLocaleChangeListener("it", "IT", frame));
-
-        JMenuItem localeJapanese = new JMenuItem("Japanese Locale", jp.of(16, 16));
-        localeJapanese.addActionListener(new MyLocaleChangeListener("ja", "JP", frame));
-
-        JMenuItem localeNorwegian = new JMenuItem("Norwegian Locale", no.of(16, 16));
-        localeNorwegian.addActionListener(new MyLocaleChangeListener("no", "NO", frame));
-
-        JMenuItem localePolish = new JMenuItem("Polish Locale", pl.of(16, 16));
-        localePolish.addActionListener(new MyLocaleChangeListener("pl", "PL", frame));
-
-        JMenuItem localePortuguese = new JMenuItem("Portuguese Locale", pt.of(16, 16));
-        localePortuguese.addActionListener(new MyLocaleChangeListener("pt", "PT", frame));
-
-        JMenuItem localePortugueseBR = new JMenuItem("Portuguese (Brazil) Locale", br.of(16, 16));
-        localePortugueseBR.addActionListener(new MyLocaleChangeListener("pt", "BR", frame));
-
-        JMenuItem localeRomanian = new JMenuItem("Romanian Locale", ro.of(16, 16));
-        localeRomanian.addActionListener(new MyLocaleChangeListener("ro", "RO", frame));
-
-        JMenuItem localeRussian = new JMenuItem("Russian Locale", ru.of(16, 16));
-        localeRussian.addActionListener(new MyLocaleChangeListener("ru", "RU", frame));
-
-        JMenuItem localeSpanish = new JMenuItem("Spanish Locale", es.of(16, 16));
-        localeSpanish.addActionListener(new MyLocaleChangeListener("es", "ES", frame));
-
-        JMenuItem localeSpanishAR = new JMenuItem("Spanish (Argentina) Locale", ar.of(16, 16));
-        localeSpanishAR.addActionListener(new MyLocaleChangeListener("es", "AR", frame));
-
-        JMenuItem localeSpanishMX = new JMenuItem("Spanish (Mexico) Locale", mx.of(16, 16));
-        localeSpanishMX.addActionListener(new MyLocaleChangeListener("es", "MX", frame));
-
-        JMenuItem localeSwedish = new JMenuItem("Swedish Locale", se.of(16, 16));
-        localeSwedish.addActionListener(new MyLocaleChangeListener("sv", "SE", frame));
-
-        JMenuItem localeThai = new JMenuItem("Thai Locale", th.of(16, 16));
-        localeThai.addActionListener(new MyLocaleChangeListener("th", "TH", frame));
-
-        JMenuItem localeTurkish = new JMenuItem("Turkish Locale", tr.of(16, 16));
-        localeTurkish.addActionListener(new MyLocaleChangeListener("tr", "TR", frame));
-
-        JMenuItem localeVietnamese = new JMenuItem("Vietnamese Locale", vn.of(16, 16));
-        localeVietnamese.addActionListener(new MyLocaleChangeListener("vi", "VN", frame));
-
-        localeMenus.add(localeEnglish);
-        localeMenus.add(localeArabic);
-        localeMenus.add(localeBulgarian);
-        localeMenus.add(localeChinese);
-        localeMenus.add(localeChineseHK);
-        localeMenus.add(localeChineseTW);
-        localeMenus.add(localeCzech);
-        localeMenus.add(localeDanish);
-        localeMenus.add(localeDutch);
-        localeMenus.add(localeFinnish);
-        localeMenus.add(localeFrench);
-        localeMenus.add(localeFrenchCA);
-        localeMenus.add(localeGerman);
-        localeMenus.add(localeGreek);
-        localeMenus.add(localeHebrew);
-        localeMenus.add(localeHungarian);
-        localeMenus.add(localeItalian);
-        localeMenus.add(localeJapanese);
-        localeMenus.add(localeNorwegian);
-        localeMenus.add(localePolish);
-        localeMenus.add(localePortuguese);
-        localeMenus.add(localePortugueseBR);
-        localeMenus.add(localeRomanian);
-        localeMenus.add(localeRussian);
-        localeMenus.add(localeSpanish);
-        localeMenus.add(localeSpanishAR);
-        localeMenus.add(localeSpanishMX);
-        localeMenus.add(localeSwedish);
-        localeMenus.add(localeThai);
-        localeMenus.add(localeTurkish);
-        localeMenus.add(localeVietnamese);
 
         return lafMenu;
     }

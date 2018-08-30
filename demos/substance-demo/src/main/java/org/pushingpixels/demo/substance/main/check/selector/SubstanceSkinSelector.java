@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.demo.substance.main.check;
+package org.pushingpixels.demo.substance.main.check.selector;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -37,16 +37,17 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.SwingUtilities;
 
+import org.pushingpixels.demo.substance.main.check.FlexiComboBox;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 
-public class SubstanceSkinComboSelector extends JComboBox {
-    public SubstanceSkinComboSelector() {
+public class SubstanceSkinSelector extends FlexiComboBox<SkinInfo> {
+    public SubstanceSkinSelector() {
         // populate the combobox
         super(new ArrayList<>(SubstanceCortex.GlobalScope.getAllSkins().values())
-                .toArray());
+                .toArray(new SkinInfo[0]));
         // set the current skin as the selected item
         SubstanceSkin currentSkin = SubstanceCortex.GlobalScope.getCurrentSkin();
         for (SkinInfo skinInfo : SubstanceCortex.GlobalScope.getAllSkins().values()) {
@@ -55,19 +56,16 @@ public class SubstanceSkinComboSelector extends JComboBox {
                 break;
             }
         }
-        // set custom renderer to show the skin display name
-        this.setRenderer(new SubstanceDefaultComboBoxRenderer(this) {
-            @Override
-            public Component getListCellRendererComponent(JList list, Object value, int index,
-                    boolean isSelected, boolean cellHasFocus) {
-                return super.getListCellRendererComponent(list, ((SkinInfo) value).getDisplayName(),
-                        index, isSelected, cellHasFocus);
-            }
-        });
+
         // add an action listener to change skin based on user selection
         this.addActionListener(
                 (ActionEvent e) -> SwingUtilities.invokeLater(() -> SubstanceCortex.GlobalScope
-                        .setSkin(((SkinInfo) SubstanceSkinComboSelector.this.getSelectedItem())
+                        .setSkin(((SkinInfo) SubstanceSkinSelector.this.getSelectedItem())
                                 .getClassName())));
+    }
+
+    @Override
+    public String getCaption(SkinInfo item) {
+        return item.getDisplayName();
     }
 }

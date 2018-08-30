@@ -42,7 +42,7 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
-import org.pushingpixels.demo.substance.main.check.SubstanceSkinComboSelector;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceSkinSelector;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
@@ -88,7 +88,7 @@ public class DecorationTables extends JFrame {
         this.add(tablePanel, BorderLayout.CENTER);
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        controlPanel.add(new SubstanceSkinComboSelector());
+        controlPanel.add(new SubstanceSkinSelector());
 
         this.add(controlPanel, BorderLayout.SOUTH);
 
