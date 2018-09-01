@@ -43,6 +43,6 @@ public class BelizeScheme extends ColorSchemeRobot {
 	 */
 	public BelizeScheme() {
 		super(new BelizeColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/belize.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/belize.png");
 	}
 }

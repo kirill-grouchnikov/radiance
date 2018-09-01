@@ -63,18 +63,18 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 	 * Maps decoration area type to the color scheme bundles. Must contain an
 	 * entry for {@link DecorationAreaType#NONE}.
 	 */
-	protected Map<DecorationAreaType, SubstanceColorSchemeBundle> colorSchemeBundleMap;
+	private Map<DecorationAreaType, SubstanceColorSchemeBundle> colorSchemeBundleMap;
 
 	/**
 	 * Maps decoration area type to the background color schemes.
 	 */
-	protected Map<DecorationAreaType, SubstanceColorScheme> backgroundColorSchemeMap;
+    private Map<DecorationAreaType, SubstanceColorScheme> backgroundColorSchemeMap;
 
 	/**
 	 * Maps decoration area type to the registered overlay painters. Each
 	 * decoration area type can have more than one overlay painter.
 	 */
-	protected Map<DecorationAreaType, List<SubstanceOverlayPainter>> overlayPaintersMap;
+    private Map<DecorationAreaType, List<SubstanceOverlayPainter>> overlayPaintersMap;
 
 	/**
 	 * The watermark of <code>this</code> skin. May be <code>null</code> if
@@ -126,7 +126,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 	 * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, DecorationAreaType, int, int, SubstanceSkin)}
 	 * instead of a simple background fill.
 	 */
-	protected Set<DecorationAreaType> decoratedAreaSet;
+    private Set<DecorationAreaType> decoratedAreaSet;
 
 	/**
 	 * The start of fade effect on tabs in {@link JTabbedPane}s.
@@ -150,24 +150,24 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 	/**
 	 * All component states that have associated non-trivial alpha values.
 	 */
-	Set<ComponentState> statesWithAlpha;
+    private Set<ComponentState> statesWithAlpha;
 
 	/**
 	 * Constructs the basic data structures for a skin.
 	 */
 	protected SubstanceSkin() {
-		this.colorSchemeBundleMap = new HashMap<DecorationAreaType, SubstanceColorSchemeBundle>();
-		this.backgroundColorSchemeMap = new HashMap<DecorationAreaType, SubstanceColorScheme>();
-		this.overlayPaintersMap = new HashMap<DecorationAreaType, List<SubstanceOverlayPainter>>();
+		this.colorSchemeBundleMap = new HashMap<>();
+		this.backgroundColorSchemeMap = new HashMap<>();
+		this.overlayPaintersMap = new HashMap<>();
 
-		this.decoratedAreaSet = new HashSet<DecorationAreaType>();
+		this.decoratedAreaSet = new HashSet<>();
 		this.decoratedAreaSet.add(DecorationAreaType.PRIMARY_TITLE_PANE);
 		this.decoratedAreaSet.add(DecorationAreaType.SECONDARY_TITLE_PANE);
 
 		this.tabFadeStart = 0.1;
 		this.tabFadeEnd = 0.3;
 
-		this.statesWithAlpha = new HashSet<ComponentState>();// EnumSet.noneOf(ComponentState.class);
+		this.statesWithAlpha = new HashSet<>();
 	}
 
 	/**
@@ -261,7 +261,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 	 * @param table
 	 *            UI defaults table.
 	 */
-	public void addCustomEntriesToTable(UIDefaults table) {
+	void addCustomEntriesToTable(UIDefaults table) {
 		// Apparently this function is called with null table
 		// when the application is run with -Dswing.defaultlaf
 		// setting. In this case, this function will be called
@@ -329,7 +329,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 		if (this.colorSchemeBundleMap.size() > 1) {
 			DecorationAreaType decorationAreaType = ComponentOrParentChainScope.getDecorationType(comp);
 			if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-				Float registered = this.colorSchemeBundleMap.get(decorationAreaType)
+				float registered = this.colorSchemeBundleMap.get(decorationAreaType)
 						.getHighlightAlpha(comp, componentState);
 				if (registered >= 0.0) {
 					return registered;
@@ -337,7 +337,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 			}
 		}
 
-		Float registered = this.colorSchemeBundleMap.get(DecorationAreaType.NONE)
+		float registered = this.colorSchemeBundleMap.get(DecorationAreaType.NONE)
 				.getHighlightAlpha(comp, componentState);
 		if (registered >= 0.0) {
 			return registered;
@@ -388,7 +388,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 			DecorationAreaType decorationAreaType = (comp == null) ? DecorationAreaType.NONE : 
 			        ComponentOrParentChainScope.getDecorationType(comp);
 			if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-				Float registered = this.colorSchemeBundleMap.get(
+				float registered = this.colorSchemeBundleMap.get(
 						decorationAreaType).getAlpha(comp, componentState);
 				if (registered >= 0.0) {
 					return registered;
@@ -396,7 +396,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 			}
 		}
 
-		Float registered = this.colorSchemeBundleMap.get(
+		float registered = this.colorSchemeBundleMap.get(
 				DecorationAreaType.NONE).getAlpha(comp, componentState);
 		if (registered >= 0.0) {
 			return registered;
@@ -658,9 +658,9 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 	public void addOverlayPainter(SubstanceOverlayPainter overlayPainter,
 			DecorationAreaType... areaTypes) {
 		for (DecorationAreaType areaType : areaTypes) {
-			if (!this.overlayPaintersMap.containsKey(areaType))
-				this.overlayPaintersMap.put(areaType,
-						new ArrayList<SubstanceOverlayPainter>());
+			if (!this.overlayPaintersMap.containsKey(areaType)) {
+				this.overlayPaintersMap.put(areaType, new ArrayList<>());
+			}
 			this.overlayPaintersMap.get(areaType).add(overlayPainter);
 		}
 	}
@@ -678,11 +678,13 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 	public void removeOverlayPainter(SubstanceOverlayPainter overlayPainter,
 			DecorationAreaType... areaTypes) {
 		for (DecorationAreaType areaType : areaTypes) {
-			if (!this.overlayPaintersMap.containsKey(areaType))
-				return;
+			if (!this.overlayPaintersMap.containsKey(areaType)) {
+                return;
+            }
 			this.overlayPaintersMap.get(areaType).remove(overlayPainter);
-			if (this.overlayPaintersMap.get(areaType).size() == 0)
-				this.overlayPaintersMap.remove(areaType);
+			if (this.overlayPaintersMap.get(areaType).size() == 0) {
+                this.overlayPaintersMap.remove(areaType);
+            }
 		}
 	}
 
@@ -697,8 +699,9 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 	 */
 	public List<SubstanceOverlayPainter> getOverlayPainters(
 			DecorationAreaType decorationAreaType) {
-		if (!this.overlayPaintersMap.containsKey(decorationAreaType))
-			return Collections.emptyList();
+		if (!this.overlayPaintersMap.containsKey(decorationAreaType)) {
+            return Collections.emptyList();
+        }
 		return Collections.unmodifiableList(this.overlayPaintersMap
 				.get(decorationAreaType));
 	}
@@ -830,7 +833,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 
 		// transform the scheme bundles
 		if (this.colorSchemeBundleMap != null) {
-			result.colorSchemeBundleMap = new HashMap<DecorationAreaType, SubstanceColorSchemeBundle>();
+			result.colorSchemeBundleMap = new HashMap<>();
 			for (Map.Entry<DecorationAreaType, SubstanceColorSchemeBundle> bundleEntry : this.colorSchemeBundleMap
 					.entrySet()) {
 				result.colorSchemeBundleMap.put(bundleEntry.getKey(),
@@ -840,12 +843,11 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 
 		// same set of decoration areas
 		if (this.decoratedAreaSet != null) {
-			result.decoratedAreaSet = new HashSet<DecorationAreaType>(
-					this.decoratedAreaSet);
+			result.decoratedAreaSet = new HashSet<>(this.decoratedAreaSet);
 		}
 		// transform the background schemes
 		if (this.backgroundColorSchemeMap != null) {
-			result.backgroundColorSchemeMap = new HashMap<DecorationAreaType, SubstanceColorScheme>();
+			result.backgroundColorSchemeMap = new HashMap<>();
 			for (Map.Entry<DecorationAreaType, SubstanceColorScheme> entry : this.backgroundColorSchemeMap
 					.entrySet()) {
 				result.backgroundColorSchemeMap.put(entry.getKey(), transform
@@ -853,8 +855,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 			}
 		}
 		// same map of overlay painters
-		result.overlayPaintersMap = new HashMap<DecorationAreaType, List<SubstanceOverlayPainter>>(
-				this.overlayPaintersMap);
+		result.overlayPaintersMap = new HashMap<>(this.overlayPaintersMap);
 		return result;
 	}
 
@@ -892,8 +893,8 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 	 * bundle for {@link DecorationAreaType#NONE} and non-<code>null</code>
 	 * button shaper, gradient painter, border painter, highlight painter and
 	 * decoration painter. If call to
-	 * {@link SubstanceLookAndFeel#setSkin(String)} or
-	 * {@link SubstanceLookAndFeel#setSkin(SubstanceSkin)} does not seem to have
+	 * {@link SubstanceCortex.GlobalScope#setSkin(String)} or
+	 * {@link SubstanceCortex.GlobalScope#setSkin(SubstanceSkin)} does not seem to have
 	 * any visible effect (returning <code>false</code>), call this method to
 	 * verify that your skin is valid.
 	 * 
@@ -943,7 +944,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 		 * skins.
 		 */
 		public ColorSchemes() {
-			this.schemes = new ArrayList<SubstanceColorScheme>();
+			this.schemes = new ArrayList<>();
 		}
 
 		/**

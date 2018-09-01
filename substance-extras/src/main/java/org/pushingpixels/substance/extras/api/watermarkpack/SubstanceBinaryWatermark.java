@@ -147,11 +147,10 @@ public class SubstanceBinaryWatermark implements SubstanceWatermark {
         for (int col = x; col <= (x + columns); col++) {
             for (int row = y; row <= (y + rows); row++) {
                 // choose random 0/1 letter
-                double val = isPreview ? Math.abs(Math.sin((2.8 + col + columns
-                        * row))) : Math.random();
+                double val = isPreview ? Math.abs(Math.sin((2.8 + col + columns * row)))
+                        : Math.random();
                 char c = (val >= 0.5) ? '0' : '1';
-                graphics.drawString("" + c, col * fontWidth, fontHeight
-                        * (row + 1));
+                graphics.drawString("" + c, col * fontWidth, fontHeight * (row + 1));
             }
         }
         return true;

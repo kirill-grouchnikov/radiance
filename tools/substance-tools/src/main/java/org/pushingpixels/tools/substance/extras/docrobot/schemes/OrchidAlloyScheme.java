@@ -44,6 +44,6 @@ public class OrchidAlloyScheme extends ColorSchemeRobot {
 	public OrchidAlloyScheme() {
 		super(
 				new OrchidAlloyColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/orchid-alloy.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/orchid-alloy.png");
 	}
 }

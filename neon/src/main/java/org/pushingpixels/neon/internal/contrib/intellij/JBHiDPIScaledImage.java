@@ -18,45 +18,36 @@ package org.pushingpixels.neon.internal.contrib.intellij;
 import org.pushingpixels.neon.icon.IsHiDpiAware;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.ImageObserver;
-import java.awt.image.WritableRaster;
-import java.util.Hashtable;
+import java.awt.image.*;
 
 /**
  * @author Konstantin Bulenkov
  */
 public class JBHiDPIScaledImage extends BufferedImage implements IsHiDpiAware {
-    private final Image myImage;
-    private int myWidth; // == myImage.width / scale
-    private int myHeight; // == myImage.height / scale
     private boolean ignoreScaling;
 
-    public JBHiDPIScaledImage(int width, int height, int type) {
-        this(null, (int) (UIUtil.getScaleFactor() * width),
+    private JBHiDPIScaledImage(int width, int height, int type) {
+        super(width, height, type);
+    }
+
+    private JBHiDPIScaledImage(ColorModel cm, WritableRaster raster, boolean isRasterPremultiplied) {
+        super(cm, raster, isRasterPremultiplied, null);
+    }
+
+    public static JBHiDPIScaledImage create(int width, int height, int type) {
+        return new JBHiDPIScaledImage((int) (UIUtil.getScaleFactor() * width),
                 (int) (UIUtil.getScaleFactor() * height), type);
     }
 
-    public JBHiDPIScaledImage(Image image, int width, int height, int type) {
-        // In case there's a delegate image, create a dummy wrapper image of 1x1
-        // size
-        super(image != null ? 1 : width, image != null ? 1 : height, type);
-        myImage = image;
-        myWidth = width;
-        myHeight = height;
+    public static JBHiDPIScaledImage createUnscaled(int width, int height, int type) {
+        JBHiDPIScaledImage result = new JBHiDPIScaledImage(width, height, type);
+        result.ignoreScaling = true;
+        return result;
     }
 
-    public JBHiDPIScaledImage(ColorModel cm, WritableRaster raster, boolean isRasterPremultiplied,
-            Hashtable<?, ?> properties, int width, int height) {
-        super(cm, raster, isRasterPremultiplied, properties);
-        myImage = null;
-        myWidth = width;
-        myHeight = height;
-    }
-
-    public void setIgnoreScaling() {
-        this.ignoreScaling = true;
+    public static JBHiDPIScaledImage create(ColorModel cm, WritableRaster raster,
+            boolean isRasterPremultiplied) {
+        return new JBHiDPIScaledImage(cm, raster, isRasterPremultiplied);
     }
 
     @Override
@@ -64,40 +55,13 @@ public class JBHiDPIScaledImage extends BufferedImage implements IsHiDpiAware {
         return true;
     }
 
-    public Image getDelegate() {
-        return myImage;
-    }
-
-    @Override
-    public int getWidth() {
-        return myImage != null ? myWidth : super.getWidth();
-    }
-
-    @Override
-    public int getHeight() {
-        return myImage != null ? myHeight : super.getHeight();
-    }
-
-    @Override
-    public int getWidth(ImageObserver observer) {
-        return myImage != null ? myWidth : super.getWidth(observer);
-    }
-
-    @Override
-    public int getHeight(ImageObserver observer) {
-        return myImage != null ? myHeight : super.getHeight(observer);
-    }
-
     @Override
     public Graphics2D createGraphics() {
         Graphics2D g = super.createGraphics();
-        if (myImage == null) {
-            if (!this.ignoreScaling) {
-                double scaleFactor = UIUtil.getScaleFactor();
-                g.scale(scaleFactor, scaleFactor);
-            }
-            return new HiDPIScaledGraphics(g);
+        if (!this.ignoreScaling) {
+            double scaleFactor = UIUtil.getScaleFactor();
+            g.scale(scaleFactor, scaleFactor);
         }
-        return g;
+        return new HiDPIScaledGraphics(g);
     }
 }

@@ -38,8 +38,7 @@ import org.pushingpixels.neon.icon.IsHiDpiAware;
 import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.*;
 import java.awt.image.*;
 
 /**
@@ -48,17 +47,17 @@ import java.awt.image.*;
  * interface. This class can be used to created new image filters based on
  * <code>BufferedImageOp</code>.
  * </p>
- * 
+ *
  * @author Romain Guy <romain.guy@mac.com>
  */
 
 public abstract class NeonAbstractFilter implements BufferedImageOp {
-	@Override
-	public Rectangle2D getBounds2D(BufferedImage src) {
-		return new Rectangle(0, 0, src.getWidth(), src.getHeight());
-	}
+    @Override
+    public Rectangle2D getBounds2D(BufferedImage src) {
+        return new Rectangle(0, 0, src.getWidth(), src.getHeight());
+    }
 
-	public static BufferedImage createCompatibleDestImageForFilter(BufferedImage src,
+    public static BufferedImage createCompatibleDestImageForFilter(BufferedImage src,
             ColorModel destCM) {
         if (destCM == null) {
             destCM = src.getColorModel();
@@ -67,93 +66,81 @@ public abstract class NeonAbstractFilter implements BufferedImageOp {
         WritableRaster raster = destCM.createCompatibleWritableRaster(
                 src.getWidth(), src.getHeight());
         if (src instanceof IsHiDpiAware) {
-            return new JBHiDPIScaledImage(destCM, raster, destCM.isAlphaPremultiplied(), null,
-                    src.getWidth(), src.getHeight());
+            return JBHiDPIScaledImage.create(destCM, raster, destCM.isAlphaPremultiplied());
         } else {
             return new BufferedImage(destCM, raster, destCM.isAlphaPremultiplied(), null);
         }
     }
 
     @Override
-	public BufferedImage createCompatibleDestImage(BufferedImage src,
-			ColorModel destCM) {
-	    return createCompatibleDestImageForFilter(src, destCM);
-	}
+    public BufferedImage createCompatibleDestImage(BufferedImage src,
+            ColorModel destCM) {
+        return createCompatibleDestImageForFilter(src, destCM);
+    }
 
     @Override
-	public Point2D getPoint2D(Point2D srcPt, Point2D dstPt) {
-		return (Point2D) srcPt.clone();
-	}
+    public Point2D getPoint2D(Point2D srcPt, Point2D dstPt) {
+        return (Point2D) srcPt.clone();
+    }
 
     @Override
-	public RenderingHints getRenderingHints() {
-		return null;
-	}
+    public RenderingHints getRenderingHints() {
+        return null;
+    }
 
-	protected int[] getPixels(BufferedImage img, int x, int y, int w, int h,
-			int[] pixels) {
-		if (w == 0 || h == 0) {
-			return new int[0];
-		}
+    protected int[] getPixels(BufferedImage img, int x, int y, int w, int h,
+            int[] pixels) {
+        if (w == 0 || h == 0) {
+            return new int[0];
+        }
 
-		if (pixels == null) {
-			pixels = new int[w * h];
-		} else if (pixels.length < w * h) {
-			throw new IllegalArgumentException(
-					"pixels array must have a length" + " >= w*h");
-		}
+        if (pixels == null) {
+            pixels = new int[w * h];
+        } else if (pixels.length < w * h) {
+            throw new IllegalArgumentException("pixels array must have a length >= " + w * h);
+        }
 
-		int imageType = img.getType();
-		if (imageType == BufferedImage.TYPE_INT_ARGB
-				|| imageType == BufferedImage.TYPE_INT_RGB) {
-			Raster raster = img.getRaster();
-			return (int[]) raster.getDataElements(x, y, w, h, pixels);
-		}
+        int imageType = img.getType();
+        if (imageType == BufferedImage.TYPE_INT_ARGB || imageType == BufferedImage.TYPE_INT_RGB) {
+            Raster raster = img.getRaster();
+            return (int[]) raster.getDataElements(x, y, w, h, pixels);
+        }
 
-		// Unmanages the image
-		return img.getRGB(x, y, w, h, pixels, 0, w);
-	}
+        // Unmanages the image
+        return img.getRGB(x, y, w, h, pixels, 0, w);
+    }
 
-	/**
-	 * <p>
-	 * Writes a rectangular area of pixels in the destination
-	 * <code>BufferedImage</code>. Calling this method on an image of type
-	 * different from <code>BufferedImage.TYPE_INT_ARGB</code> and
-	 * <code>BufferedImage.TYPE_INT_RGB</code> will unmanage the image.
-	 * </p>
-	 * 
-	 * @param img
-	 *            the destination image
-	 * @param x
-	 *            the x location at which to start storing pixels
-	 * @param y
-	 *            the y location at which to start storing pixels
-	 * @param w
-	 *            the width of the rectangle of pixels to store
-	 * @param h
-	 *            the height of the rectangle of pixels to store
-	 * @param pixels
-	 *            an array of pixels, stored as integers
-	 * @throws IllegalArgumentException
-	 *             is <code>pixels</code> is non-null and of length &lt; w*h
-	 */
-	protected void setPixels(BufferedImage img, int x, int y, int w, int h,
-			int[] pixels) {
-		if (pixels == null || w == 0 || h == 0) {
-			return;
-		} else if (pixels.length < w * h) {
-			throw new IllegalArgumentException(
-					"pixels array must have a length" + " >= w*h");
-		}
+    /**
+     * <p>
+     * Writes a rectangular area of pixels in the destination
+     * <code>BufferedImage</code>. Calling this method on an image of type
+     * different from <code>BufferedImage.TYPE_INT_ARGB</code> and
+     * <code>BufferedImage.TYPE_INT_RGB</code> will unmanage the image.
+     * </p>
+     *
+     * @param img    the destination image
+     * @param x      the x location at which to start storing pixels
+     * @param y      the y location at which to start storing pixels
+     * @param w      the width of the rectangle of pixels to store
+     * @param h      the height of the rectangle of pixels to store
+     * @param pixels an array of pixels, stored as integers
+     * @throws IllegalArgumentException is <code>pixels</code> is non-null and of length &lt; w*h
+     */
+    protected void setPixels(BufferedImage img, int x, int y, int w, int h,
+            int[] pixels) {
+        if (pixels == null || w == 0 || h == 0) {
+            return;
+        } else if (pixels.length < w * h) {
+            throw new IllegalArgumentException("pixels array must have a length >= " + w * h);
+        }
 
-		int imageType = img.getType();
-		if (imageType == BufferedImage.TYPE_INT_ARGB
-				|| imageType == BufferedImage.TYPE_INT_RGB) {
-			WritableRaster raster = img.getRaster();
-			raster.setDataElements(x, y, w, h, pixels);
-		} else {
-			// Unmanages the image
-			img.setRGB(x, y, w, h, pixels, 0, w);
-		}
-	}
+        int imageType = img.getType();
+        if (imageType == BufferedImage.TYPE_INT_ARGB || imageType == BufferedImage.TYPE_INT_RGB) {
+            WritableRaster raster = img.getRaster();
+            raster.setDataElements(x, y, w, h, pixels);
+        } else {
+            // Unmanages the image
+            img.setRGB(x, y, w, h, pixels, 0, w);
+        }
+    }
 }

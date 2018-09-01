@@ -43,6 +43,6 @@ public class FieldOfWheat extends SkinRobot {
 	 */
 	public FieldOfWheat() {
 		super(new FieldOfWheatSkin(),
-				"C:/jprojects/substance-extras/www/images/screenshots/skins/fieldofwheat");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/skins/fieldofwheat");
 	}
 }

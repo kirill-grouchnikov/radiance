@@ -43,6 +43,6 @@ public class BlueYonderScheme extends ColorSchemeRobot {
 	 */
 	public BlueYonderScheme() {
 		super(new BlueYonderColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/blue-yonder.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/blue-yonder.png");
 	}
 }

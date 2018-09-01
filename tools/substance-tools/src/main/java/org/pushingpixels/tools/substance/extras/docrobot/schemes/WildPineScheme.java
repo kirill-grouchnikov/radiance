@@ -44,6 +44,6 @@ public class WildPineScheme extends ColorSchemeRobot {
 	public WildPineScheme() {
 		super(
 				new WildPineColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/wild-pine.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/wild-pine.png");
 	}
 }

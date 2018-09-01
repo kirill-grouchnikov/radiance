@@ -44,6 +44,6 @@ public class YellowMarineScheme extends ColorSchemeRobot {
 	public YellowMarineScheme() {
 		super(
 				new YellowMarineColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/yellow-marine.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/yellow-marine.png");
 	}
 }

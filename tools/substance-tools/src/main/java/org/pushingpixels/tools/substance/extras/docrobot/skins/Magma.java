@@ -43,6 +43,6 @@ public class Magma extends SkinRobot {
 	 */
 	public Magma() {
 		super(new MagmaSkin(),
-				"C:/jprojects/substance/www/images/screenshots/skins/magma");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/skins/magma");
 	}
 }

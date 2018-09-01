@@ -44,6 +44,6 @@ public class GreenPearlScheme extends ColorSchemeRobot {
 	public GreenPearlScheme() {
 		super(
 				new GreenPearlColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/green-pearl.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/green-pearl.png");
 	}
 }

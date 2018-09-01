@@ -43,6 +43,6 @@ public class SpringLeafScheme extends ColorSchemeRobot {
 	 */
 	public SpringLeafScheme() {
 		super(new SpringLeafColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/spring-leaf.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/spring-leaf.png");
 	}
 }

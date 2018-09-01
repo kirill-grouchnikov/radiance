@@ -43,6 +43,6 @@ public class Mango extends SkinRobot {
 	 */
 	public Mango() {
 		super(new MangoSkin(),
-				"C:/jprojects/substance-extras/www/images/screenshots/skins/mango");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/skins/mango");
 	}
 }

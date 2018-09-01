@@ -44,6 +44,6 @@ public class EarthFrescoScheme extends ColorSchemeRobot {
 	public EarthFrescoScheme() {
 		super(
 				new EarthFrescoColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/earth-fresco.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/earth-fresco.png");
 	}
 }

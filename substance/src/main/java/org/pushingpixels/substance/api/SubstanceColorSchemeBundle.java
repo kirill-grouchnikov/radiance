@@ -52,59 +52,59 @@ public class SubstanceColorSchemeBundle {
 	/**
 	 * The active color scheme of this bundle.
 	 */
-	protected SubstanceColorScheme activeColorScheme;
+	private SubstanceColorScheme activeColorScheme;
 
 	/**
 	 * The enabled color scheme of this bundle.
 	 */
-	protected SubstanceColorScheme enabledColorScheme;
+    private SubstanceColorScheme enabledColorScheme;
 
 	/**
 	 * The disabled color scheme of this bundle.
 	 */
-	protected SubstanceColorScheme disabledColorScheme;
+    private SubstanceColorScheme disabledColorScheme;
 
 	/**
 	 * Maps from component state to the alpha channel applied on color scheme.
 	 * This map doesn't have to contain entries for all {@link ComponentState}
 	 * instances.
 	 */
-	protected Map<ComponentState, Float> stateAlphaMap;
+    private Map<ComponentState, Float> stateAlphaMap;
 
 	/**
 	 * Maps from component state to the alpha channel applied on highlight color
 	 * scheme. This map doesn't have to contain entries for all
 	 * {@link ComponentState} instances.
 	 */
-	protected Map<ComponentState, Float> stateHighlightSchemeAlphaMap;
+    private Map<ComponentState, Float> stateHighlightSchemeAlphaMap;
 
 	/**
 	 * If there is no explicitly registered color scheme for pressed component
 	 * state, this field will contain a synthesized color scheme for a pressed
 	 * state.
 	 */
-	protected SubstanceColorScheme pressedScheme;
+    private SubstanceColorScheme pressedScheme;
 
 	/**
 	 * If there is no explicitly registered color scheme for the disabled
 	 * selected component state, this field will contain a synthesized color
 	 * scheme for the disabled selected state.
 	 */
-	protected SubstanceColorScheme disabledSelectedScheme;
+    private SubstanceColorScheme disabledSelectedScheme;
 
 	/**
 	 * If there is no explicitly registered color scheme for the selected
 	 * component state, this field will contain a synthesized color scheme for
 	 * the selected state.
 	 */
-	protected SubstanceColorScheme selectedScheme;
+    private SubstanceColorScheme selectedScheme;
 
 	/**
 	 * If there is no explicitly registered color scheme for the rollover
 	 * selected component state, this field will contain a synthesized color
 	 * scheme for the rollover selected state.
 	 */
-	protected SubstanceColorScheme rolloverSelectedScheme;
+    private SubstanceColorScheme rolloverSelectedScheme;
 
 	/**
 	 * Maps from color scheme association kinds to the map of color schemes.
@@ -122,9 +122,9 @@ public class SubstanceColorSchemeBundle {
 	 * that points to the dark gray scheme.</li>
 	 * </ul>
 	 */
-	protected Map<ColorSchemeAssociationKind, Map<ComponentState, SubstanceColorScheme>> colorSchemeMap;
+    private Map<ColorSchemeAssociationKind, Map<ComponentState, SubstanceColorScheme>> colorSchemeMap;
 
-	protected Map<ColorSchemeAssociationKind, Map<ComponentState, ComponentState>> bestFillMap;
+    private Map<ColorSchemeAssociationKind, Map<ComponentState, ComponentState>> bestFillMap;
 
 	/**
 	 * Creates a new color scheme bundle.
@@ -147,23 +147,17 @@ public class SubstanceColorSchemeBundle {
 		this.activeColorScheme = activeColorScheme;
 		this.enabledColorScheme = enabledColorScheme;
 		this.disabledColorScheme = disabledColorScheme;
-		this.stateAlphaMap = new HashMap<ComponentState, Float>();
-		// ComponentState.class);
-		this.stateHighlightSchemeAlphaMap = new HashMap<ComponentState, Float>();
-		// ComponentState.class);
+		this.stateAlphaMap = new HashMap<>();
+		this.stateHighlightSchemeAlphaMap = new HashMap<>();
 
-		this.colorSchemeMap = new HashMap<ColorSchemeAssociationKind, Map<ComponentState, SubstanceColorScheme>>();
-		for (ColorSchemeAssociationKind associationKind : ColorSchemeAssociationKind
-				.values()) {
-			this.colorSchemeMap.put(associationKind,
-					new HashMap<ComponentState, SubstanceColorScheme>());
+		this.colorSchemeMap = new HashMap<>();
+		for (ColorSchemeAssociationKind associationKind : ColorSchemeAssociationKind.values()) {
+			this.colorSchemeMap.put(associationKind, new HashMap<>());
 		}
 
-		this.bestFillMap = new HashMap<ColorSchemeAssociationKind, Map<ComponentState, ComponentState>>();
-		for (ColorSchemeAssociationKind associationKind : ColorSchemeAssociationKind
-				.values()) {
-			this.bestFillMap.put(associationKind,
-					new HashMap<ComponentState, ComponentState>());
+		this.bestFillMap = new HashMap<>();
+		for (ColorSchemeAssociationKind associationKind : ColorSchemeAssociationKind.values()) {
+			this.bestFillMap.put(associationKind, new HashMap<>());
 		}
 	}
 
@@ -239,14 +233,15 @@ public class SubstanceColorSchemeBundle {
 		}
 		if ((states == null) || (states.length == 0)) {
 			for (ComponentState state : ComponentState.getAllStates()) {
-				if (this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT).containsKey(state))
-					continue;
-				if (state.isDisabled())
-					continue;
-				if (state == ComponentState.ENABLED)
-					continue;
-				// this.stateHighlightColorSchemeMap.put(state,
-				// stateHighlightScheme);
+				if (this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT).containsKey(state)) {
+                    continue;
+                }
+				if (state.isDisabled()) {
+                    continue;
+                }
+				if (state == ComponentState.ENABLED) {
+                    continue;
+                }
 				this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT)
 						.put(state, stateHighlightScheme);
 			}
@@ -280,18 +275,20 @@ public class SubstanceColorSchemeBundle {
 
 		if ((states == null) || (states.length == 0)) {
 			for (ComponentState state : ComponentState.getAllStates()) {
-				if (state.isDisabled())
-					continue;
-				if (state == ComponentState.ENABLED)
-					continue;
-				if (!this.colorSchemeMap.get(
-						ColorSchemeAssociationKind.HIGHLIGHT)
-						.containsKey(state))
-					this.colorSchemeMap.get(
-							ColorSchemeAssociationKind.HIGHLIGHT).put(state,
-							highlightScheme);
-				if (!this.stateHighlightSchemeAlphaMap.containsKey(state))
-					this.stateHighlightSchemeAlphaMap.put(state, alpha);
+				if (state.isDisabled()) {
+                    continue;
+                }
+				if (state == ComponentState.ENABLED) {
+                    continue;
+                }
+				if (!this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT)
+                        .containsKey(state)) {
+                    this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT).
+                            put(state, highlightScheme);
+                }
+				if (!this.stateHighlightSchemeAlphaMap.containsKey(state)) {
+                    this.stateHighlightSchemeAlphaMap.put(state, alpha);
+                }
 			}
 		} else {
 			for (ComponentState state : states) {
@@ -306,8 +303,6 @@ public class SubstanceColorSchemeBundle {
 	 * Returns the color scheme of the specified component in the specified
 	 * component state.
 	 * 
-	 * @param comp
-	 *            Component.
 	 * @param componentState
 	 *            Component state.
 	 * @return The color scheme of the component in the specified component
@@ -316,10 +311,10 @@ public class SubstanceColorSchemeBundle {
 	public SubstanceColorScheme getColorScheme(ComponentState componentState) {
 		SubstanceColorScheme registered = this.colorSchemeMap.get(
 				ColorSchemeAssociationKind.FILL).get(componentState);
-		if (registered != null)
-			return registered;
+		if (registered != null) {
+            return registered;
+        }
 
-		// if (componentState.isActive()) {
 		// for now look for the best fit only on active states
 		Map<ComponentState, ComponentState> bestFitForFill = this.bestFillMap
 				.get(ColorSchemeAssociationKind.FILL);
@@ -331,17 +326,15 @@ public class SubstanceColorSchemeBundle {
 		}
 		ComponentState bestFit = bestFitForFill.get(componentState);
 		if (bestFit != null) {
-			registered = this.colorSchemeMap.get(
-					ColorSchemeAssociationKind.FILL).get(bestFit);
-			if (registered != null)
-				return registered;
+			registered = this.colorSchemeMap.get(ColorSchemeAssociationKind.FILL).get(bestFit);
+			if (registered != null) {
+                return registered;
+            }
 		}
-		// }
 
 		if (componentState.isFacetActive(ComponentStateFacet.PRESS)) {
 			if (this.pressedScheme == null) {
-				this.pressedScheme = this.activeColorScheme.shade(0.2)
-						.saturate(0.1);
+				this.pressedScheme = this.activeColorScheme.shade(0.2).saturate(0.1);
 			}
 			return this.pressedScheme;
 		}
@@ -360,20 +353,22 @@ public class SubstanceColorSchemeBundle {
 		}
 		if (componentState == ComponentState.ROLLOVER_SELECTED) {
 			if (this.rolloverSelectedScheme == null) {
-				this.rolloverSelectedScheme = this.activeColorScheme.tint(0.1)
-						.saturate(0.1);
+				this.rolloverSelectedScheme = this.activeColorScheme.tint(0.1).saturate(0.1);
 			}
 			return this.rolloverSelectedScheme;
 		}
 
 		ComponentState hardFallback = componentState.getHardFallback();
-		if (hardFallback != null)
-			return this.getColorScheme(hardFallback);
+		if (hardFallback != null) {
+            return this.getColorScheme(hardFallback);
+        }
 
-		if (componentState == ComponentState.ENABLED)
-			return this.enabledColorScheme;
-		if (componentState.isDisabled())
-			return this.disabledColorScheme;
+		if (componentState == ComponentState.ENABLED) {
+            return this.enabledColorScheme;
+        }
+		if (componentState.isDisabled()) {
+            return this.disabledColorScheme;
+        }
 		return this.activeColorScheme;
 	}
 
@@ -387,10 +382,10 @@ public class SubstanceColorSchemeBundle {
 	 * @return Highlight color scheme alpha channel.
 	 */
 	public float getHighlightAlpha(Component comp, ComponentState componentState) {
-		Float registered = this.stateHighlightSchemeAlphaMap
-				.get(componentState);
-		if (registered != null)
+		Float registered = this.stateHighlightSchemeAlphaMap.get(componentState);
+		if (registered != null) {
 			return registered.floatValue();
+		}
 
 		return -1.0f;
 	}
@@ -406,8 +401,9 @@ public class SubstanceColorSchemeBundle {
 	 */
 	public float getAlpha(Component comp, ComponentState componentState) {
 		Float registered = this.stateAlphaMap.get(componentState);
-		if (registered != null)
-			return registered.floatValue();
+		if (registered != null) {
+            return registered.floatValue();
+        }
 
 		return -1.0f;
 	}
@@ -472,8 +468,9 @@ public class SubstanceColorSchemeBundle {
 
 		if ((states == null) || (states.length == 0)) {
 			for (ComponentState state : ComponentState.getAllStates()) {
-				if (this.colorSchemeMap.get(associationKind).containsKey(state))
-					continue;
+				if (this.colorSchemeMap.get(associationKind).containsKey(state)) {
+                    continue;
+                }
 				this.colorSchemeMap.get(associationKind).put(state, scheme);
 			}
 		} else {
@@ -498,13 +495,15 @@ public class SubstanceColorSchemeBundle {
 	public SubstanceColorScheme getColorScheme(
 			ColorSchemeAssociationKind associationKind,
 			ComponentState componentState, boolean allowFallback) {
-		if (associationKind == ColorSchemeAssociationKind.FILL)
-			return this.getColorScheme(componentState);
+		if (associationKind == ColorSchemeAssociationKind.FILL) {
+            return this.getColorScheme(componentState);
+        }
 
 		SubstanceColorScheme registered = this.colorSchemeMap.get(
 				associationKind).get(componentState);
-		if (registered != null)
-			return registered;
+		if (registered != null) {
+            return registered;
+        }
 
 		// if (componentState.isActive()) {
 		// for now look for the best fit only on active states
@@ -522,7 +521,6 @@ public class SubstanceColorSchemeBundle {
 			if (registered != null)
 				return registered;
 		}
-		// }
 
 		if (!allowFallback) {
 			return null;
@@ -564,14 +562,12 @@ public class SubstanceColorSchemeBundle {
 
 		// alphas are the same
 		if (this.stateAlphaMap != null) {
-			result.stateAlphaMap = new HashMap<ComponentState, Float>(
-					this.stateAlphaMap);
+			result.stateAlphaMap = new HashMap<>(this.stateAlphaMap);
 		}
 
 		// highlight alphas are the same
 		if (this.stateHighlightSchemeAlphaMap != null) {
-			result.stateHighlightSchemeAlphaMap = new HashMap<ComponentState, Float>(
-					this.stateHighlightSchemeAlphaMap);
+			result.stateHighlightSchemeAlphaMap = new HashMap<>(this.stateHighlightSchemeAlphaMap);
 		}
 		return result;
 	}
@@ -585,9 +581,8 @@ public class SubstanceColorSchemeBundle {
 	 *         values.
 	 */
 	Set<ComponentState> getStatesWithAlpha() {
-		Set<ComponentState> result = new HashSet<ComponentState>();// EnumSet.noneOf(ComponentState.class);
-		for (Map.Entry<ComponentState, Float> alphaEntry : this.stateAlphaMap
-				.entrySet()) {
+		Set<ComponentState> result = new HashSet<>();
+		for (Map.Entry<ComponentState, Float> alphaEntry : this.stateAlphaMap.entrySet()) {
 			if (alphaEntry.getValue() < 1.0f) {
 				result.add(alphaEntry.getKey());
 			}

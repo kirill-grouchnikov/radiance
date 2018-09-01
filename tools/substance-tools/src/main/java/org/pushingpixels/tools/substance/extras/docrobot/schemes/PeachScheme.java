@@ -43,6 +43,6 @@ public class PeachScheme extends ColorSchemeRobot {
 	 */
 	public PeachScheme() {
 		super(new PeachColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/peach.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/peach.png");
 	}
 }

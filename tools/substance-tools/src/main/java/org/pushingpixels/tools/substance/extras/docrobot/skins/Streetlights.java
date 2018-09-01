@@ -43,6 +43,6 @@ public class Streetlights extends SkinRobot {
 	 */
 	public Streetlights() {
 		super(new StreetlightsSkin(),
-				"C:/jprojects/substance-extras/www/images/screenshots/skins/streetlights");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/skins/streetlights");
 	}
 }

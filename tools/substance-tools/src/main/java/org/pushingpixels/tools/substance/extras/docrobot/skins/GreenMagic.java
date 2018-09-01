@@ -43,6 +43,6 @@ public class GreenMagic extends SkinRobot {
 	 */
 	public GreenMagic() {
 		super(new GreenMagicSkin(),
-				"C:/jprojects/substance-extras/www/images/screenshots/skins/greenmagic");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/skins/greenmagic");
 	}
 }

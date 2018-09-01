@@ -236,7 +236,7 @@ public class NeonCortex {
      */
     public static BufferedImage getBlankImage(int width, int height) {
         if (UIUtil.getScaleFactor() > 1.0) {
-            return new JBHiDPIScaledImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            return JBHiDPIScaledImage.create(width, height, BufferedImage.TYPE_INT_ARGB);
         } else {
             GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
             GraphicsDevice d = e.getDefaultScreenDevice();
@@ -247,10 +247,7 @@ public class NeonCortex {
 
     public static BufferedImage getBlankUnscaledImage(int width, int height) {
         if (UIUtil.getScaleFactor() > 1.0) {
-            JBHiDPIScaledImage result = new JBHiDPIScaledImage(null, width, height,
-                    BufferedImage.TYPE_INT_ARGB);
-            result.setIgnoreScaling();
-            return result;
+            return JBHiDPIScaledImage.createUnscaled(width, height, BufferedImage.TYPE_INT_ARGB);
         } else {
             GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
             GraphicsDevice d = e.getDefaultScreenDevice();
@@ -280,8 +277,7 @@ public class NeonCortex {
         } else {
             g.drawImage(img, x, y, x + width, y + height,
                     x + offsetX, y + offsetY,
-                    x + offsetX + width,
-                    y + offsetY + height, null);
+                    x + offsetX + width, y + offsetY + height, null);
         }
     }
 }

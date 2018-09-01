@@ -56,8 +56,8 @@ public class SeaGlassSkin extends SubstanceSkin {
 	 * Creates a new <code>Gemini</code> skin.
 	 */
 	public SeaGlassSkin() {
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-				.getColorSchemes("test/samples/seaglass/skin/seaglass.colorschemes");
+		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+				"org/pushingpixels/samples/substance/seaglass/skin/seaglass.colorschemes");
 
 		SubstanceColorScheme activeScheme = schemes.get("Sea Glass Active");
 		SubstanceColorScheme enabledScheme = schemes.get("Sea Glass Enabled");

@@ -44,6 +44,6 @@ public class DesertMarsScheme extends ColorSchemeRobot {
 	public DesertMarsScheme() {
 		super(
 				new DesertMarsColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/desert-mars.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/desert-mars.png");
 	}
 }

@@ -663,31 +663,9 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Retrieves tab background.
-     * 
-     * @param tabPane
-     *            Tabbed pane.
-     * @param width
-     *            Tab width.
-     * @param height
-     *            Tab height.
-     * @param isSelected
-     *            Indication whether the tab is selected.
-     * @param cyclePos
-     *            Tab cycle position (for rollover effects).
-     * @param tabPlacement
-     *            Tab placement.
-     * @param side
-     *            Tab open side.
-     * @param fillScheme
-     *            Color scheme for coloring the background.
-     * @param borderScheme
-     *            Color scheme for coloring the border.
-     * @param paintOnlyBorder
-     *            If <code>true</code>, only the border will be painted.
-     * @return Tab background of specified parameters.
      */
     private static BufferedImage getTabBackground(JTabbedPane tabPane, int width, int height,
-            int tabPlacement, SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme,
+            SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme,
             boolean paintOnlyBorder) {
         SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(tabPane);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(tabPane);
@@ -732,33 +710,9 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Retrieves tab background that will be shown on the screen. Unlike
-     * {@link #getTabBackground(JTabbedPane, int, int, boolean, float, int, SubstanceColorScheme, SubstanceColorScheme, SubstanceColorScheme, SubstanceColorScheme, boolean)}
+     * {@link #getTabBackground(JTabbedPane, int, int, SubstanceColorScheme, SubstanceColorScheme, boolean)}
      * , the result is rotated as necessary (for {@link SwingConstants#LEFT} and
      * {@link SwingConstants#RIGHT} placement) and blended for selected tabs.
-     * 
-     * @param tabPane
-     *            Tabbed pane.
-     * @param tabIndex
-     *            Tab index.
-     * @param width
-     *            Tab width.
-     * @param height
-     *            Tab height.
-     * @param isSelected
-     *            Indication whether the tab is selected.
-     * @param cyclePos
-     *            Tab cycle position (for rollover effects).
-     * @param tabPlacement
-     *            Tab placement.
-     * @param side
-     *            Tab open side.
-     * @param colorScheme
-     *            Color scheme for coloring the background.
-     * @param borderScheme
-     *            Color scheme for coloring the border.
-     * @param paintOnlyBorder
-     *            If <code>true</code>, only the border will be painted.
-     * @return Tab background of specified parameters.
      */
     private static BufferedImage getFinalTabBackgroundImage(JTabbedPane tabPane, int tabIndex,
             int x, int y, int width, int height, int tabPlacement, SubstanceSlices.Side side,
@@ -797,7 +751,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 case LEFT:
                 case RIGHT:
                     backgroundImage = SubstanceTabbedPaneUI.getTabBackground(tabPane, width, height,
-                            SwingConstants.TOP, colorScheme, borderScheme, false);
+                            colorScheme, borderScheme, false);
                     int fw = backgroundImage.getWidth();
                     int fh = backgroundImage.getHeight();
                     BufferedImage fade = SubstanceCoreUtilities
@@ -805,13 +759,8 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                     Graphics2D fadeGraphics = fade.createGraphics();
                     fadeGraphics.setColor(tabColor);
                     fadeGraphics.fillRect(0, 0, fw, fh);
-                    if (skin.getWatermark() != null) {
-                        fadeGraphics.translate(-x, -y);
-                        skin.getWatermark().drawWatermarkImage(fadeGraphics, tabPane, x, y, fw, fh);
-                        fadeGraphics.translate(x, y);
-                    }
                     BufferedImage background = SubstanceTabbedPaneUI.getTabBackground(tabPane,
-                            width, height, tabPlacement, colorScheme, borderScheme, true);
+                            width, height, colorScheme, borderScheme, true);
                     fadeGraphics.drawImage(background, 0, 0, background.getWidth(),
                             background.getHeight(), null);
 
@@ -825,26 +774,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Retrieves the image of the close button.
-     * 
-     * @param tabPane
-     *            Tabbed pane.
-     * @param width
-     *            Close button width.
-     * @param height
-     *            Close button height.
-     * @param cyclePos
-     *            Tab cycle position (for rollover effects).
-     * @param toPaintBorder
-     *            Indication whether the button background (including contour) needs to be painted.
-     * @param fillScheme
-     *            Color scheme for coloring the background.
-     * @param fillScheme2
-     *            Second color scheme for coloring the background.
-     * @param markScheme
-     *            Color scheme for painting the close mark.
-     * @param markScheme2
-     *            Second color scheme for painting the close mark.
-     * @return Image of the close button of specified parameters.
      */
     private static BufferedImage getCloseButtonImage(JTabbedPane tabPane, int width, int height,
             boolean toPaintBorder, SubstanceColorScheme fillScheme,

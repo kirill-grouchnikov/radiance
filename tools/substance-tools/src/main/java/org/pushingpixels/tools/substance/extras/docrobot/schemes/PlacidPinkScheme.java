@@ -44,6 +44,6 @@ public class PlacidPinkScheme extends ColorSchemeRobot {
 	public PlacidPinkScheme() {
 		super(
 				new PlacidPinkColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/placid-pink.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/placid-pink.png");
 	}
 }

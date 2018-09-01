@@ -140,6 +140,8 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
                 this.rolloverArmAmount = currState.isFacetActive(
                         SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
                         currState.isFacetActive(
+                                SubstanceSlices.ComponentStateFacet.SELECTION) ||
+                        currState.isFacetActive(
                                 SubstanceSlices.ComponentStateFacet.ARM) ? 1.0f : 0.0f;
                 super.setForeground(new ColorUIResource(scheme.getForegroundColor()));
             }

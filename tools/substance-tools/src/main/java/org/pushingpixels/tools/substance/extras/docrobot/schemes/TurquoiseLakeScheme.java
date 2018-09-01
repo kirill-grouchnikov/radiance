@@ -44,6 +44,6 @@ public class TurquoiseLakeScheme extends ColorSchemeRobot {
 	public TurquoiseLakeScheme() {
 		super(
 				new TurquoiseLakeColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/turquoise-lake.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/turquoise-lake.png");
 	}
 }

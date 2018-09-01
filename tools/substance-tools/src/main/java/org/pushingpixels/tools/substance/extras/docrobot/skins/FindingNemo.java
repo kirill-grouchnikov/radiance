@@ -43,6 +43,6 @@ public class FindingNemo extends SkinRobot {
 	 */
 	public FindingNemo() {
 		super(new FindingNemoSkin(),
-				"C:/jprojects/substance-extras/www/images/screenshots/skins/findingnemo");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/skins/findingnemo");
 	}
 }

@@ -140,8 +140,7 @@ public class BackgroundPaintingUtils {
 						.getSkin(c).getWatermark();
 				if ((watermark != null) && !isPreviewMode && !isInCellRenderer
 						&& SubstanceCoreUtilities.toDrawWatermark(c)) {
-					watermark.drawWatermarkImage(graphics, c, 0, 0, c
-							.getWidth(), c.getHeight());
+					watermark.drawWatermarkImage(graphics, c, 0, 0, c.getWidth(), c.getHeight());
 				}
 			}
 		}

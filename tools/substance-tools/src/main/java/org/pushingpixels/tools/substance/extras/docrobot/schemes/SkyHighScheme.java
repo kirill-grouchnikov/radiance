@@ -44,6 +44,6 @@ public class SkyHighScheme extends ColorSchemeRobot {
 	public SkyHighScheme() {
 		super(
 				new SkyHighColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/sky-high.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/sky-high.png");
 	}
 }

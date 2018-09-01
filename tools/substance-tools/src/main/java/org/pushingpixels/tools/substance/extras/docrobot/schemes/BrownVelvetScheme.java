@@ -44,6 +44,6 @@ public class BrownVelvetScheme extends ColorSchemeRobot {
 	public BrownVelvetScheme() {
 		super(
 				new BrownVelvetColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/brown-velvet.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/brown-velvet.png");
 	}
 }

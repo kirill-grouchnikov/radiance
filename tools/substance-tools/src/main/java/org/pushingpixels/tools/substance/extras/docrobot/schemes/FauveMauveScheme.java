@@ -44,6 +44,6 @@ public class FauveMauveScheme extends ColorSchemeRobot {
 	public FauveMauveScheme() {
 		super(
 				new FauveMauveColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/fauve-mauve.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/fauve-mauve.png");
 	}
 }

@@ -44,6 +44,6 @@ public class MahoganyScheme extends ColorSchemeRobot {
 	public MahoganyScheme() {
 		super(
 				new MahoganyColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/mahogany.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/mahogany.png");
 	}
 }

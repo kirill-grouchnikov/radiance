@@ -34,16 +34,16 @@ import org.pushingpixels.tools.substance.main.docrobot.ColorSchemeRobot;
 
 /**
  * Screenshot robot for the {@link BloodyMoonColorScheme}.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class BloodyMoonScheme extends ColorSchemeRobot {
-	/**
-	 * Creates the screenshot robot.
-	 */
-	public BloodyMoonScheme() {
-		super(
-				new BloodyMoonColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/bloody-moon.png");
-	}
+    /**
+     * Creates the screenshot robot.
+     */
+    public BloodyMoonScheme() {
+        super(
+                new BloodyMoonColorScheme(),
+                "/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/bloody-moon.png");
+    }
 }

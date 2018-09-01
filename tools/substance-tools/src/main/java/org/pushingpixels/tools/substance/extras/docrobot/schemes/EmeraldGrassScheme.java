@@ -44,6 +44,6 @@ public class EmeraldGrassScheme extends ColorSchemeRobot {
 	public EmeraldGrassScheme() {
 		super(
 				new EmeraldGrassColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/emerald-grass.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/emerald-grass.png");
 	}
 }

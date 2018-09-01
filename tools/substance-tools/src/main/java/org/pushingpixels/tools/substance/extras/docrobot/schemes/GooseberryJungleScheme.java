@@ -44,6 +44,6 @@ public class GooseberryJungleScheme extends ColorSchemeRobot {
 	public GooseberryJungleScheme() {
 		super(
 				new GooseberryJungleColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/gooseberry-jungle.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/gooseberry-jungle.png");
 	}
 }

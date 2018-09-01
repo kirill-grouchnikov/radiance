@@ -44,6 +44,6 @@ public class CobaltSteelScheme extends ColorSchemeRobot {
 	public CobaltSteelScheme() {
 		super(
 				new CobaltSteelColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/cobalt-steel.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/cobalt-steel.png");
 	}
 }

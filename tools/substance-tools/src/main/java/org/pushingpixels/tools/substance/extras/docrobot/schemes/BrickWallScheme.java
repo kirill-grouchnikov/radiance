@@ -44,6 +44,6 @@ public class BrickWallScheme extends ColorSchemeRobot {
 	public BrickWallScheme() {
 		super(
 				new BrickWallColorScheme(),
-				"C:/jprojects/substance-extras/www/images/screenshots/colorschemes/brick-wall.png");
+				"/Users/kirillg/Projects/radiance/docs/images/substance-extras/colorschemes/brick-wall.png");
 	}
 }
