@@ -12,7 +12,7 @@ First, run the following Gradle commands locally to build Lightbeam as part of R
 
 Now configure the specific version of Java runtime that you want to test under and the classpath with all the dependencies:
 
-``` export JAVA_HOME=`/usr/libexec/java_home -v 9\` ```
+``` export JAVA_HOME=`/usr/libexec/java_home -v 9` ```
 
 `RADIANCE_VERSION=0.9-SNAPSHOT`
 `CLASSPATH=./drop/$RADIANCE_VERSION/tools/radiance-lightbeam-$RADIANCE_VERSION.jar:./build/libs-tools/jgoodies-forms-1.9.0.jar:./build/libs-tools/jgoodies-common-1.8.1.jar`
@@ -46,7 +46,7 @@ With this, you can compare the performance of your look-and-feel with that of co
 
 Here is the script used for tracking performance numbers for [Substance](../substance/substance.md):
 
-``` export JAVA_HOME=`/usr/libexec/java_home -v 9\` ```
+``` export JAVA_HOME=`/usr/libexec/java_home -v 9` ```
 
 `RADIANCE_VERSION=0.9-SNAPSHOT`
 

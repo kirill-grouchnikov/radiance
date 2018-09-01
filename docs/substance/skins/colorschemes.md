@@ -13,6 +13,7 @@ The Substance core library provides the following twenty one color schemes:
 * Light color schemes: `Aqua`, `Barby Pink`, `Bottle Green`, `Brown`, `Creme`, `Light Aqua`, `Lime Green`, `Olive`, `Orange`, `Purple`, `Raspberry`, `Sepia`, `Steel Blue`, `Sunset`, `Sun Glare` and `Terracotta`
 * Dark themes : `Ebony`, `Dark Violet`, `Charcoal`, `Jade Forest` and `Ultramarine`.
 
+<p>
 <img alt="Aqua"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/aqua.png" width="340" height="254" />
 <img alt="Barby Pink"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/barby-pink.png" width="340" height="254" />
 <img alt="Bottle Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/bottle-green.png" width="340" height="254" />
@@ -29,13 +30,14 @@ The Substance core library provides the following twenty one color schemes:
 <img alt="Sunset"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/sunset.png" width="340" height="254" />
 <img alt="Sun Glare"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/sun-glare.png" width="340" height="254" />
 <img alt="Terracotta"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/terracotta.png" width="340" height="254" />
+</p>
 <p>
 <img alt="Ebony"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/ebony.png" width="340" height="254" />
 <img alt="Dark Violet"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/dark-violet.png" width="340" height="254" />
 <img alt="Charcoal"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/charcoal.png" width="340" height="254" />
 <img alt="Jade Forest"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/jade-forest.png" width="340" height="254" />
 <img alt="Ultramarine"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/ultramarine.png" width="340" height="254" />
-
+</p>
 ### Derived color schemes
 
 The `org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme` contains a number of APIs to create derived color schemes. Note that a color scheme is a delicate balance between the foreground color and the background colors, providing visually appealing selection of colors that are designed to work together on various painters. In some cases, creating a derived color scheme with one the these APIs (especially negated and inverted color schemes) will not result in visually pleasing appearance.
