@@ -34,7 +34,7 @@ dependencies {
     compile ('com.jgoodies:jgoodies-common:1.8.1')
     compile ('com.jgoodies:jgoodies-forms:1.9.0')
     compile project(':flamingo')
-    compile project(':ibis')
+    compile project(':photon')
 }
 
 sourceCompatibility = 1.8

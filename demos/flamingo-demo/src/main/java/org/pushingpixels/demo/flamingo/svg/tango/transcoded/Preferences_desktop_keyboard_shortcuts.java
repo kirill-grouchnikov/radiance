@@ -11,7 +11,7 @@ import org.pushingpixels.neon.icon.NeonIconUIResource;
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/radiance">Ibis SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
 public class Preferences_desktop_keyboard_shortcuts implements ResizableIcon, IsHiDpiAware {
     @SuppressWarnings("unused")

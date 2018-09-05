@@ -1,18 +1,17 @@
 package org.pushingpixels.demo.kormorant.svg
 
+import java.awt.*
+import java.awt.geom.*
+import javax.swing.plaf.UIResource
+
 import org.pushingpixels.neon.icon.IsHiDpiAware
 import org.pushingpixels.neon.icon.NeonIcon
 import org.pushingpixels.neon.icon.NeonIconUIResource
 import org.pushingpixels.neon.icon.ResizableIcon
-import java.awt.*
-import java.awt.geom.AffineTransform
-import java.awt.geom.Ellipse2D
-import java.awt.geom.GeneralPath
-import javax.swing.plaf.UIResource
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/radiance">Ibis SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
 class Info(private var width: Int, private var height: Int) : ResizableIcon, IsHiDpiAware {
 	private fun innerPaint(g : Graphics2D) {

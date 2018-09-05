@@ -11,7 +11,7 @@ import org.pushingpixels.neon.icon.NeonIconUIResource;
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/radiance">Ibis SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
 public class face_glasses implements ResizableIcon, IsHiDpiAware {
     @SuppressWarnings("unused")
@@ -338,7 +338,7 @@ g.setTransform(defaultTransform_);
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 1.8034247159957886;
+        return 1.8034504652023315;
     }
 
     /**
@@ -347,7 +347,7 @@ g.setTransform(defaultTransform_);
      * @return The Y of the bounding box of the original SVG image.
      */
     public static double getOrigY() {
-        return 3.647554874420166;
+        return 3.647467613220215;
     }
 
 	/**
@@ -356,7 +356,7 @@ g.setTransform(defaultTransform_);
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 44.696083068847656;
+		return 44.69602966308594;
 	}
 
 	/**
@@ -365,7 +365,7 @@ g.setTransform(defaultTransform_);
 	 * @return The height of the bounding box of the original SVG image.
 	 */
 	public static double getOrigHeight() {
-		return 41.819862365722656;
+		return 41.819950103759766;
 	}
 
 	/** The current width of this resizable icon. */

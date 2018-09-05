@@ -11,7 +11,7 @@ import org.pushingpixels.neon.icon.ResizableIcon
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/radiance">Ibis SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
 class Edit_find(private var width: Int, private var height: Int) : ResizableIcon, IsHiDpiAware {
 	private fun innerPaint(g : Graphics2D) {

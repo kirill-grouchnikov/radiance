@@ -33,8 +33,8 @@ package org.pushingpixels.demo.flamingo;
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.*;
-import org.pushingpixels.ibis.icon.SvgBatikResizableIcon;
 import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.photon.icon.SvgBatikResizableIcon;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;

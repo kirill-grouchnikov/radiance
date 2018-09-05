@@ -35,10 +35,10 @@ dependencies {
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$kotlinx_coroutines_version"
     compile project(':neon')
+    compile project(':photon')
     compile project(':trident')
     compile project(':substance')
     compile project(':flamingo')
-    compile project(':ibis')
     compile project(':kormorant')
     compile project(':demos:flamingo-demo')
     compile ('com.jgoodies:jgoodies-common:1.8.1')

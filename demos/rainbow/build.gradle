@@ -38,10 +38,10 @@ dependencies {
     compile ('com.jgoodies:jgoodies-forms:1.9.0')
     compile ('com.fifesoft:rsyntaxtextarea:2.6.1')
     compile ('org.swinglabs:jxlayer:3.0.4')
+    compile project(':photon')
     compile project(':substance')
     compile project(':flamingo')
     compile project(':spoonbill')
-    compile project(':ibis')
 }
 
 sourceCompatibility = 1.8

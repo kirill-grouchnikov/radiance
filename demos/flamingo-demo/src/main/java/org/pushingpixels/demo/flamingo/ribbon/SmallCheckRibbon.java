@@ -29,8 +29,6 @@
  */
 package org.pushingpixels.demo.flamingo.ribbon;
 
-import com.jgoodies.forms.builder.*;
-import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Help_browser;
 import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandBuilder;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
@@ -39,7 +37,6 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 

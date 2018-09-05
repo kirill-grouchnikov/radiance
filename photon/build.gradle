@@ -1,0 +1,104 @@
+/*
+ * Copyright (c) 2018 Radiance Photon Kirill Grouchnikov. All Rights Reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Radiance Radiance Photon Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+apply plugin: 'java'
+
+dependencies {
+    compile('org.apache.xmlgraphics:batik-all:1.10')
+    compile project(':neon')
+}
+
+sourceCompatibility = 1.8
+
+ext.designation = "core"
+
+jar {
+    baseName = "${rootProject.name}-photon"
+    manifest {
+        attributes("Radiance-Version": "${version}")
+    }
+}
+
+apply plugin: 'com.bmuschko.nexus'
+
+archivesBaseName = 'radiance'
+group = 'org.pushing-pixels'
+
+modifyPom {
+    project {
+        name 'photon'
+        description 'Photon vector icons'
+        url 'https://github.com/kirill-grouchnikov/radiance'
+        inceptionYear '2018'
+        scm {
+            url 'https://github.com/kirill-grouchnikov/radiance'
+            connection 'scm:https://github.com/kirill-grouchnikov/radiance.git'
+            developerConnection 'scm:git://github.com/kirill-grouchnikov/radiance.git'
+        }
+        licenses {
+            license {
+                name 'BSD 3-Clause License'
+                url 'https://opensource.org/licenses/BSD-3-Clause'
+                distribution 'repo'
+            }
+        }
+        developers {
+            developer {
+                id 'kirill-grouchnikov'
+                name 'Kirill Grouchnikov'
+                email 'kirill.grouchnikov@gmail.com'
+            }
+        }
+        dependencies {
+            dependency {
+                groupId = 'org.apache.xmlgraphics'
+                artifactId = 'batik-all'
+                version = '1.10'
+            }
+            dependency {
+                groupId = project.group
+                artifactId = project.archivesBaseName + '-flamingo'
+                version = project.version
+            }
+        }
+    }
+}
+
+extraArchive {
+    sources = true
+    tests = false
+    javadoc = false
+}
+
+nexus {
+    sign = false
+    repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+    snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+}

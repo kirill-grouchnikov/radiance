@@ -35,8 +35,8 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants
 import org.fife.ui.rsyntaxtextarea.SyntaxScheme
 import org.fife.ui.rtextarea.RTextScrollPane
-import org.pushingpixels.ibis.transcoder.SvgStreamTranscoder
-import org.pushingpixels.ibis.transcoder.java.JavaLanguageRenderer
+import org.pushingpixels.photon.transcoder.SvgStreamTranscoder
+import org.pushingpixels.photon.transcoder.java.JavaLanguageRenderer
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.FlowLayout
@@ -119,7 +119,7 @@ object RainbowUtils {
 
             transcoder.setPrintWriter(pw)
             transcoder.transcode(RainbowUtils::class.java.getResourceAsStream(
-                    "/org/pushingpixels/ibis/transcoder/java/SvgTranscoderTemplateResizable.templ"))
+                    "/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ"))
 
             val javaContents = String(javaBaos.toByteArray())
             val javaEditorPane = RSyntaxTextArea(20, 60)

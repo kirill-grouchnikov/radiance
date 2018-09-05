@@ -37,8 +37,8 @@ import org.pushingpixels.flamingo.api.common.JCommandButton
 import org.pushingpixels.flamingo.api.common.StringValuePair
 import org.pushingpixels.flamingo.api.common.icon.IcoWrapperResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon
-import org.pushingpixels.ibis.icon.SvgBatikResizableIcon
 import org.pushingpixels.neon.icon.ResizableIcon
+import org.pushingpixels.photon.icon.SvgBatikResizableIcon
 import java.awt.Dimension
 import java.io.File
 import java.io.InputStream
@@ -50,7 +50,7 @@ import javax.swing.filechooser.FileSystemView
  *
  * @param <T> Type tag.
  * @author Kirill Grouchnikov
-</T> */
+ */
 class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: CommandButtonDisplayState) :
         AbstractFileViewPanel<T>(startingState) {
     private var useNativeIcons: Boolean = false
@@ -63,13 +63,12 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
         return true
     }
 
-    override fun getResizableIcon(
-            leaf: AbstractFileViewPanel.Leaf,
+    override fun getResizableIcon(leaf: AbstractFileViewPanel.Leaf,
             stream: InputStream, state: CommandButtonDisplayState, dimension: Dimension): ResizableIcon? {
-        var dimension = dimension
+        var dimensionToUse = dimension
         val prefSize = state.preferredIconSize
         if (prefSize > 0) {
-            dimension = Dimension(prefSize, prefSize)
+            dimensionToUse = Dimension(prefSize, prefSize)
         }
 
         if (this.useNativeIcons) {
@@ -93,19 +92,19 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
         if (ext.compareTo("jpg") == 0 || ext.compareTo("jpeg") == 0
                 || ext.compareTo("gif") == 0 || ext.compareTo("png") == 0
                 || ext.compareTo("bmp") == 0) {
-            return ImageWrapperResizableIcon.getIcon(stream, dimension)
+            return ImageWrapperResizableIcon.getIcon(stream, dimensionToUse)
         }
 
         if (ext.compareTo("svg") == 0) {
-            return SvgBatikResizableIcon.getSvgIcon(stream, dimension)
+            return SvgBatikResizableIcon.getSvgIcon(stream, dimensionToUse)
         }
 
         if (ext.compareTo("svgz") == 0) {
-            return SvgBatikResizableIcon.getSvgzIcon(stream, dimension)
+            return SvgBatikResizableIcon.getSvgzIcon(stream, dimensionToUse)
         }
 
         if (ext.compareTo("ico") == 0) {
-            return IcoWrapperResizableIcon.getIcon(stream, dimension)
+            return IcoWrapperResizableIcon.getIcon(stream, dimensionToUse)
         }
 
         var icon: ResizableIcon? = iconMapping[ext]
@@ -129,10 +128,8 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
     override fun configureCommandButton(leaf: AbstractFileViewPanel.Leaf, button: JCommandButton,
             icon: ResizableIcon) {
         val filename = leaf.leafName
-        var ext = "Generic"
         val lastDot = filename.lastIndexOf('.')
-        if (lastDot >= 0)
-            ext = filename.substring(lastDot + 1).toUpperCase()
+        val ext = if (lastDot >= 0) filename.substring(lastDot + 1).toUpperCase() else "Generic"
         button.extraText = "$ext file"
     }
 

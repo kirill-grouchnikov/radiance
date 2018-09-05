@@ -34,7 +34,7 @@ package org.pushingpixels.rainbow
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.*
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutManager
-import org.pushingpixels.ibis.icon.SvgBatikResizableIcon
+import org.pushingpixels.photon.icon.SvgBatikResizableIcon
 import org.pushingpixels.neon.icon.ResizableIcon
 import java.awt.Dimension
 import java.io.InputStream

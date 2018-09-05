@@ -32,9 +32,9 @@ package org.pushingpixels.demo.flamingo.svg;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarCallBack;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
-import org.pushingpixels.ibis.icon.SvgBatikResizableIcon;
-import org.pushingpixels.ibis.transcoder.SvgStreamTranscoder;
-import org.pushingpixels.ibis.transcoder.java.JavaLanguageRenderer;
+import org.pushingpixels.photon.icon.SvgBatikResizableIcon;
+import org.pushingpixels.photon.transcoder.SvgStreamTranscoder;
+import org.pushingpixels.photon.transcoder.java.JavaLanguageRenderer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -170,7 +170,8 @@ public class SvgFileViewPanel extends JPanel {
                             transcoder.setPrintWriter(pw);
                             transcoder.transcode(this.getClass()
                                     .getResourceAsStream(
-                                            "/org/pushingpixels/ibis/transcoder/kotlin/SvgTranscoderTemplateResizable.templ"));
+                                            "/org/pushingpixels/photon/transcoder/kotlin" +
+                                                    "/SvgTranscoderTemplateResizable.templ"));
                             JOptionPane.showMessageDialog(
                                     SwingUtilities.getWindowAncestor(SvgFileViewPanel.this),
                                     "Finished with '" + javaClassFilename + "'");

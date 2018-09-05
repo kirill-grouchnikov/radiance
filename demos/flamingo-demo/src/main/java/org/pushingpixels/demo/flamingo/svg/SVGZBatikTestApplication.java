@@ -31,7 +31,7 @@
 package org.pushingpixels.demo.flamingo.svg;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.ibis.icon.SvgBatikResizableIcon;
+import org.pushingpixels.photon.icon.SvgBatikResizableIcon;
 
 import javax.swing.*;
 import java.awt.*;

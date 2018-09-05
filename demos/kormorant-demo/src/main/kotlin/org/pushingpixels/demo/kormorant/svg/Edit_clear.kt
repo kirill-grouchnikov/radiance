@@ -11,7 +11,7 @@ import org.pushingpixels.neon.icon.ResizableIcon
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/radiance">Ibis SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
 class Edit_clear(private var width: Int, private var height: Int) : ResizableIcon, IsHiDpiAware {
 	private fun innerPaint(g : Graphics2D) {
@@ -399,7 +399,7 @@ g.transform = defaultTransform_
          * @return The X of the bounding box of the original SVG image.
          */
         fun getOrigX(): Double {
-            return 4.734177589416504
+            return 4.464073181152344
         }
 
         /**
@@ -408,7 +408,7 @@ g.transform = defaultTransform_
          * @return The Y of the bounding box of the original SVG image.
          */
         fun getOrigY(): Double {
-            return 0.3300114870071411
+            return 0.318803071975708
         }
 
         /**
@@ -417,7 +417,7 @@ g.transform = defaultTransform_
          * @return The width of the bounding box of the original SVG image.
          */
         fun getOrigWidth(): Double {
-            return 43.26582336425781
+            return 43.535926818847656
         }
 
         /**
@@ -426,7 +426,7 @@ g.transform = defaultTransform_
          * @return The height of the bounding box of the original SVG image.
          */
         fun getOrigHeight(): Double {
-            return 47.36931228637695
+            return 47.38051986694336
         }
 
         /**

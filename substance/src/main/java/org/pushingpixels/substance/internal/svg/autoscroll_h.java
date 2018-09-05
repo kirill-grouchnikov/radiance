@@ -11,7 +11,7 @@ import org.pushingpixels.neon.icon.NeonIconUIResource;
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/radiance">Ibis SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
 public class autoscroll_h implements ResizableIcon, IsHiDpiAware {
     @SuppressWarnings("unused")
@@ -112,7 +112,7 @@ g.setTransform(defaultTransform_);
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 0.006746154744178057;
+        return 0.006747090257704258;
     }
 
     /**
@@ -130,7 +130,7 @@ g.setTransform(defaultTransform_);
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 0.9887778759002686;
+		return 0.9887760281562805;
 	}
 
 	/**

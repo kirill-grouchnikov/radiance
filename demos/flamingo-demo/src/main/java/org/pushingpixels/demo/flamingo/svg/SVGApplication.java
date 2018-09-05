@@ -38,8 +38,8 @@ import org.apache.batik.gvt.*;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.gvt.*;
 import org.apache.batik.swing.svg.*;
-import org.pushingpixels.ibis.transcoder.*;
-import org.pushingpixels.ibis.transcoder.java.JavaLanguageRenderer;
+import org.pushingpixels.photon.transcoder.*;
+import org.pushingpixels.photon.transcoder.java.JavaLanguageRenderer;
 
 import javax.swing.*;
 import java.awt.*;
