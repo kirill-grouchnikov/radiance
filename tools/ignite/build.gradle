@@ -51,7 +51,7 @@ jar {
 gradlePlugin {
     plugins {
         customPlugin {
-            id = 'org.pushingpixels.ignite'
+            id = 'org.pushing-pixels.ignite'
             implementationClass = 'org.pushingpixels.ignite.IgnitePlugin'
         }
     }

@@ -18,7 +18,7 @@ buildscript {
     }
 }
 
-apply plugin: 'org.pushingpixels.ignite'
+apply plugin: 'org.pushing-pixels.ignite'
 ```
 
 For a Java project, generate Java classes with Ignite (add multiple `ignite` lambdas if you have more than one SVG content folder):
