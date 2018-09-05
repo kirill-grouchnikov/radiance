@@ -18,6 +18,6 @@ Some of the Radiance libraries have third-party dependencies. To print the full 
 * `./gradlew getCoreDependencies` to get third-party dependencies for core artifacts
 * `./gradlew getDemoDependencies` to get third-party dependencies for demo artifacts
 
-Note that most core Radiance libraries do not have third-party runtime dependencies. Specifically, Neon, Trident, Substance and Flamingo are self-contained within Radiance. However, Ibis requires [Batik](https://xmlgraphics.apache.org/batik/) and Spoonbill requires [SVNKit](https://svnkit.com/). In addition, Kormorant requires the [Kotlin standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html).
+Note that most core Radiance libraries do not have third-party runtime dependencies. Specifically, Neon, Trident, Substance and Flamingo are self-contained within Radiance. However, Photon requires [Batik](https://xmlgraphics.apache.org/batik/) and Spoonbill requires [SVNKit](https://svnkit.com/). In addition, Kormorant requires the [Kotlin standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html).
 
 All of the demo Radiance libraries rely on a number of third-party components, mainly [FormLayout](http://www.jgoodies.com/freeware/libraries/forms/) from [JGoodies](http://www.jgoodies.com/), and [FEST Swing](https://github.com/alexruiz/fest-swing-1.x). Those dependencies can be seen in the relevant `build.gradle` files.

@@ -10,6 +10,14 @@ Radiance is a collection of libraries for writing modern, elegant and well-perfo
 
 The [Neon library](docs/neon/neon.md) provides a core set of APIs to work with images and text that scale with the display resolution. Neon icons scale to maintain crisp, pixel-perfect visuals for application icons. Font APIs can be used to render platform-consistent textual content across a variety of supported platforms.
 
+### Photon
+
+The [Photon library](docs/photon/photon.md) enables usage of vector-based icons in Swing applications. SVG content can be either loaded asynchronously at runtime from a variety of local and remote sources, or transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
+
+### Ignite
+
+The [Ignite plugin](docs/ignite/ignite.md) wraps the Photon library to allow build-time transcoding of SVG content into Java / Kotlin classes.
+
 ### Trident
 
 The [Trident library](docs/trident/trident.md) provides powerful and flexible animation APIs that scale from simple, single-property cases to complex scenarios that involve multiple animations. Trident powers all animations in the Radiance libraries.
@@ -21,14 +29,6 @@ The [Substance library](docs/substance/substance.md) provides a powerful and fle
 ### Flamingo
 
 The [Flamingo library](docs/flamingo/flamingo.md) provides a robust set of additional Swing components that can be used as building blocks for creating modern, rich Swing applications. In addition to providing powerful command button and breadcrumb bar components, Flamingo packs an Office Command Bar (ribbon) container that can host a complex hierarchy of flexible, scalable application control surface.
-
-### Ibis
-
-The [Ibis library](docs/ibis/ibis.md) enables usage of vector-based icons in Swing applications. SVG icon content can be either loaded asynchronously at runtime from a variety of local and remote sources, or transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
-
-### Hibiscus
-
-The [Hibiscus plugin](docs/hibiscus/hibiscus.md) wraps the Ibis library to allow build-time transcoding of SVG content into Java / Kotlin classes.
 
 ### Kormorant
 

@@ -69,4 +69,4 @@ The `ResizableIcon` extends the core `Icon` interface to allow scaling the icon 
 
 The core library provides helper classes to expose a variety of image formats as `ResizableIcon`s, including ICO and all `ImageIO`-supported formats. Additional helper classes allow decorating, filtering and layering icons to create more advanced functionality.
 
-The [Ibis library](../ibis/ibis.md) allows you to use SVG content exposed via the `ResizableIcon` interface. Ibis can be used at runtime to asynchronously load and display SVG content, or offline to transcode the SVG content into standalone Java / Kotlin classes that use Java2D canvas draw calls to render the original content with no additional runtime dependencies.
+The [Photon library](../photon/photon.md) provides tools for using SVG content via the `ResizableIcon` interface. Photon can be used at runtime to asynchronously load and display SVG content, or offline to transcode the SVG content into standalone Java / Kotlin classes that use Java2D canvas draw calls to render the original visuals with no additional runtime dependencies.
