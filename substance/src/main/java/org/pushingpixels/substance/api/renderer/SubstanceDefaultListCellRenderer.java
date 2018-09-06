@@ -52,7 +52,6 @@ import java.util.Map;
 public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
         implements ThemedIconAwareRenderer {
 
-    protected boolean isPressedOrSelected;
     protected float rolloverArmAmount;
 
     /**
@@ -70,7 +69,6 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
 
         ListUI listUI = list.getUI();
         this.rolloverArmAmount = 0.0f;
-        this.isPressedOrSelected = false;
         if (listUI instanceof SubstanceListUI) {
             SubstanceListUI ui = (SubstanceListUI) listUI;
 
@@ -90,10 +88,6 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
                 if (currState.isDisabled() || (activeStates == null)
                         || (activeStates.size() == 1)) {
                     super.setForeground(new ColorUIResource(colorScheme.getForegroundColor()));
-                    this.isPressedOrSelected =
-                            currState.isFacetActive(SubstanceSlices.ComponentStateFacet.PRESS) ||
-                                    currState.isFacetActive(
-                                            SubstanceSlices.ComponentStateFacet.SELECTION);
                     this.rolloverArmAmount = 0.0f;
                 } else {
                     float aggrRed = 0;
@@ -104,13 +98,6 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
                             .getStateContributionMap().entrySet()) {
                         ComponentState activeState = activeEntry.getKey();
                         float contribution = activeEntry.getValue().getContribution();
-                        if (!this.isPressedOrSelected) {
-                            this.isPressedOrSelected =
-                                    activeState.isFacetActive(
-                                            SubstanceSlices.ComponentStateFacet.PRESS) ||
-                                            activeState.isFacetActive(
-                                                    SubstanceSlices.ComponentStateFacet.SELECTION);
-                        }
                         if (activeState.isFacetActive(
                                 SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
                                 activeState.isFacetActive(
@@ -133,10 +120,6 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
                     scheme = SubstanceColorSchemeUtilities.getColorScheme(list,
                             ColorSchemeAssociationKind.HIGHLIGHT_TEXT, currState);
                 }
-                this.isPressedOrSelected =
-                        currState.isFacetActive(SubstanceSlices.ComponentStateFacet.PRESS) ||
-                                currState.isFacetActive(
-                                        SubstanceSlices.ComponentStateFacet.SELECTION);
                 this.rolloverArmAmount = currState.isFacetActive(
                         SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
                         currState.isFacetActive(
@@ -154,8 +137,9 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
         }
 
         if (SubstanceCoreUtilities.isCurrentLookAndFeel()
-                && (list.getLayoutOrientation() == JList.VERTICAL))
+                && (list.getLayoutOrientation() == JList.VERTICAL)) {
             SubstanceStripingUtils.applyStripedBackground(list, index, this);
+        }
 
         if (value instanceof Icon) {
             this.setIcon((Icon) value);
@@ -168,17 +152,12 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
         this.setEnabled(list.isEnabled());
         this.setFont(list.getFont());
 
-        Insets ins = SubstanceSizeUtils
-                .getListCellRendererInsets(SubstanceSizeUtils.getComponentFontSize(list));
+        Insets ins = SubstanceSizeUtils.getListCellRendererInsets(
+                SubstanceSizeUtils.getComponentFontSize(list));
         this.setBorder(new EmptyBorder(ins.top, ins.left, ins.bottom, ins.right));
 
         this.setOpaque(false);
         return this;
-    }
-
-    @Override
-    public boolean isPressedOrSelected() {
-        return this.isPressedOrSelected;
     }
 
     @Override

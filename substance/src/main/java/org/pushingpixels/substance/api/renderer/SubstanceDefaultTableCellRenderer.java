@@ -29,18 +29,14 @@
  */
 package org.pushingpixels.substance.api.renderer;
 
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker.StateContributionInfo;
 import org.pushingpixels.substance.internal.ui.SubstanceTableUI;
 import org.pushingpixels.substance.internal.ui.SubstanceTableUI.TableCellId;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceStripingUtils;
-import org.pushingpixels.substance.internal.utils.UpdateOptimizationInfo;
+import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.border.SubstanceTableCellBorder;
 
 import javax.swing.*;
@@ -62,7 +58,10 @@ import java.util.Map;
  * @author Kirill Grouchnikov
  */
 @SubstanceRenderer
-public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer {
+public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer
+        implements ThemedIconAwareRenderer {
+    private float rolloverArmAmount;
+
 	/**
 	 * Renderer for boolean columns.
 	 * 
@@ -163,6 +162,7 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 	 * @author Kirill Grouchnikov
 	 */
 	public static class IconRenderer extends SubstanceDefaultTableCellRenderer {
+
 		/**
 		 * Creates a new renderer for icon columns.
 		 */
@@ -176,15 +176,14 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 			this.setIcon((value instanceof Icon) ? (Icon) value : null);
 			this.setText(null);
 		}
-	}
+    }
 
 	/**
 	 * Renderer for number columns.
 	 * 
 	 * @author Kirill Grouchnikov
 	 */
-	public static class NumberRenderer extends
-			SubstanceDefaultTableCellRenderer {
+	public static class NumberRenderer extends SubstanceDefaultTableCellRenderer {
 		/**
 		 * Creates a new renderer for number columns.
 		 */
@@ -255,17 +254,25 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
         SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(this, 1.0);
 	}
 
-	@Override
+    @Override
+    public float getRolloverArmAmount() {
+        return this.rolloverArmAmount;
+    }
+
+    @Override
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {
-		if (!SubstanceCoreUtilities.isCurrentLookAndFeel())
-			return super.getTableCellRendererComponent(table, value,
-					isSelected, hasFocus, row, column);
+		if (!SubstanceCoreUtilities.isCurrentLookAndFeel()) {
+            return super.getTableCellRendererComponent(table, value,
+                    isSelected, hasFocus, row, column);
+        }
 
 		TableUI tableUI = table.getUI();
 		SubstanceTableUI ui = (SubstanceTableUI) tableUI;
 
-		// Recompute the focus indication to prevent flicker - JTable
+        this.rolloverArmAmount = 0.0f;
+
+        // Recompute the focus indication to prevent flicker - JTable
 		// registers a listener on selection changes and repaints the
 		// relevant cell before our listener (in TableUI) gets the
 		// chance to start the fade sequence. The result is that the
@@ -276,8 +283,7 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 
 		TableCellId cellId = new TableCellId(row, column);
 
-		StateTransitionTracker.ModelStateInfo modelStateInfo = ui
-				.getModelStateInfo(cellId);
+		StateTransitionTracker.ModelStateInfo modelStateInfo = ui.getModelStateInfo(cellId);
 		ComponentState currState = ui.getCellState(cellId);
 		// special case for drop location
 		JTable.DropLocation dropLocation = table.getDropLocation();
@@ -295,6 +301,7 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 				if (currState.isDisabled() || (activeStates == null)
 						|| (activeStates.size() == 1)) {
 					super.setForeground(new ColorUIResource(colorScheme.getForegroundColor()));
+                    this.rolloverArmAmount = 0.0f;
 				} else {
 					float aggrRed = 0;
 					float aggrGreen = 0;
@@ -306,6 +313,12 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 						        table, ui, activeState);
 						Color schemeFg = scheme.getForegroundColor();
 						float contribution = activeEntry.getValue().getContribution();
+                        if (activeState.isFacetActive(
+                                SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
+                                activeState.isFacetActive(
+                                        SubstanceSlices.ComponentStateFacet.ARM)) {
+                            this.rolloverArmAmount = Math.max(this.rolloverArmAmount, contribution);
+                        }
 						aggrRed += schemeFg.getRed() * contribution;
 						aggrGreen += schemeFg.getGreen() * contribution;
 						aggrBlue += schemeFg.getBlue() * contribution;
@@ -323,6 +336,12 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer 
 				scheme = SubstanceColorSchemeUtilities.getColorScheme(table,
 						ColorSchemeAssociationKind.HIGHLIGHT_TEXT, currState);
 			}
+            this.rolloverArmAmount = currState.isFacetActive(
+                    SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
+                    currState.isFacetActive(
+                            SubstanceSlices.ComponentStateFacet.SELECTION) ||
+                    currState.isFacetActive(
+                            SubstanceSlices.ComponentStateFacet.ARM) ? 1.0f : 0.0f;
 			super.setForeground(new ColorUIResource(scheme.getForegroundColor()));
 		}
 

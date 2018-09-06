@@ -30,6 +30,5 @@
 package org.pushingpixels.substance.internal.utils;
 
 public interface ThemedIconAwareRenderer {
-	boolean isPressedOrSelected();
 	float getRolloverArmAmount();
 }

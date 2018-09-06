@@ -133,8 +133,9 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
             boolean fadeCanceled = false;
 
             for (int i = e.getFirstIndex(); i <= e.getLastIndex(); i++) {
-                if (i >= list.getModel().getSize())
+                if (i >= list.getModel().getSize()) {
                     continue;
+                }
                 if (list.isSelectedIndex(i)) {
                     // check if was selected before
                     if (!selectedIndices.containsKey(i)) {
@@ -528,10 +529,15 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
                     rendererComponent.getBackground(), new Rectangle(cx, cy, cw, ch));
         }
 
+        StateTransitionTracker tracker = this.stateTransitionMultiTracker.getTracker(row);
+        if (tracker != null) {
+            tracker.getModel().setEnabled(this.list.isEnabled() && rendererComponent.isEnabled());
+        }
+
         StateTransitionTracker.ModelStateInfo modelStateInfo = getModelStateInfo(row,
                 rendererComponent);
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = ((modelStateInfo == null)
-                ? null
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                ((modelStateInfo == null) ? null
                 : modelStateInfo.getStateContributionMap());
         ComponentState currState = ((modelStateInfo == null) ? getCellState(row, rendererComponent)
                 : modelStateInfo.getCurrModelState());
@@ -544,8 +550,9 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
                         .entrySet()) {
                     hasHighlights = (this.updateInfo.getHighlightAlpha(stateEntry.getKey())
                             * stateEntry.getValue().getContribution() > 0.0f);
-                    if (hasHighlights)
+                    if (hasHighlights) {
                         break;
+                    }
                 }
             } else {
                 hasHighlights = (this.updateInfo.getHighlightAlpha(currState) > 0.0f);
@@ -598,13 +605,8 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
             }
         }
 
-        // System.out.println(row + ":" + rendererComponent.getBackground());
         rendererPane.paintComponent(g2d, rendererComponent, list, cx, cy, cw, ch, true);
         g2d.dispose();
-    }
-
-    public StateTransitionTracker getStateTransitionTracker(int row) {
-        return this.stateTransitionMultiTracker.getTracker(row);
     }
 
     /**

@@ -186,10 +186,8 @@ public class StateTransitionTracker {
         this.model = model;
 
         this.modelStateInfo = new ModelStateInfo();
-        this.modelStateInfo.currState = ComponentState.getState(model,
-                component);
-        this.modelStateInfo.currStateNoSelection = ComponentState.getState(
-                model, component, true);
+        this.modelStateInfo.currState = ComponentState.getState(model, component);
+        this.modelStateInfo.currStateNoSelection = ComponentState.getState(model, component, true);
         this.modelStateInfo.clear();
 
         this.repaintCallback = () -> new SwingRepaintCallback(component);
@@ -212,10 +210,8 @@ public class StateTransitionTracker {
         });
 
         this.focusLoopTimeline = new SwingComponentTimeline(this.component);
-        AnimationConfigurationManager.getInstance().configureTimeline(
-                this.focusLoopTimeline);
-        this.focusLoopTimeline.addCallback(this.repaintCallback
-                .getRepaintCallback());
+        AnimationConfigurationManager.getInstance().configureTimeline(this.focusLoopTimeline);
+        this.focusLoopTimeline.addCallback(this.repaintCallback.getRepaintCallback());
 
         this.iconGlowTracker = new IconGlowTracker(this.component);
 
@@ -230,8 +226,7 @@ public class StateTransitionTracker {
         return name;
     }
 
-    public void setRepaintCallback(
-            StateTransitionTracker.RepaintCallback repaintCallback) {
+    public void setRepaintCallback(StateTransitionTracker.RepaintCallback repaintCallback) {
         this.repaintCallback = repaintCallback;
     }
 
@@ -250,8 +245,9 @@ public class StateTransitionTracker {
 
     public void registerModelListeners() {
         this.modelChangeListener = (ChangeEvent e) -> {
-            if (isAutoTrackingModelChanges)
+            if (isAutoTrackingModelChanges) {
                 onModelStateChanged();
+            }
         };
         this.model.addChangeListener(this.modelChangeListener);
     }
@@ -273,10 +269,8 @@ public class StateTransitionTracker {
             this.transitionPosition = 0.0f;
         }
 
-        this.modelStateInfo.currState = ComponentState.getState(model,
-                component);
-        this.modelStateInfo.currStateNoSelection = ComponentState.getState(
-                model, component, true);
+        this.modelStateInfo.currState = ComponentState.getState(model, component);
+        this.modelStateInfo.currStateNoSelection = ComponentState.getState(model, component, true);
         this.modelStateInfo.clear();
 
         this.model = model;
@@ -296,8 +290,7 @@ public class StateTransitionTracker {
     public void onModelStateChanged() {
         this.isAutoTrackingModelChanges = true;
 
-        ComponentState newState = ComponentState.getState(this.model,
-                this.component);
+        ComponentState newState = ComponentState.getState(this.model, this.component);
         ComponentState newStateNoSelection = ComponentState.getState(
                 this.model, this.component, true);
 
@@ -334,8 +327,9 @@ public class StateTransitionTracker {
         // + ", NEW:" + newState);
         // }
 
-        if (this.modelStateInfo.currState == newState)
+        if (this.modelStateInfo.currState == newState) {
             return;
+        }
 
         if (this.transitionTimeline != null) {
             this.transitionTimeline.abort();

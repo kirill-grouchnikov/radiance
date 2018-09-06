@@ -431,12 +431,6 @@ public class ListPanel extends ControllablePanel {
                     isSelected ? list.getSelectionBackground() : new Color(comp, comp, blue));
 
             ModelEntry entry = (ModelEntry) value;
-            result.setText(entry.text);
-            if (showIcons) {
-                result.setIcon(entry.icon);
-            } else {
-                result.setIcon(null);
-            }
 
             // mark every fifth row as disabled
             if ((index % 5) == 0) {
@@ -447,6 +441,14 @@ public class ListPanel extends ControllablePanel {
                         .getColorScheme(list, state).getForegroundColor());
                 result.setBackground(new Color(255, 196, 196));
                 result.setText(entry.text + " [disabled by renderer]");
+            } else {
+                result.setEnabled(true);
+                result.setText(entry.text);
+            }
+            if (showIcons) {
+                result.setIcon(entry.icon);
+            } else {
+                result.setIcon(null);
             }
 
             return result;
