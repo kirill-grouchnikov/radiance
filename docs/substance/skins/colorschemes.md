@@ -8,34 +8,65 @@ The `org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme` contains 
 * Derived colors. These are defined in the `org.pushingpixels.substance.api.colorscheme.SchemeDerivedColors`
 * Creating derived color schemes.
 
-The Substance core library provides the following twenty one color schemes:
+### Base light color schemes
+The Substance core library provides the following sixteen light color schemes:
 
-* Light color schemes: `Aqua`, `Barby Pink`, `Bottle Green`, `Brown`, `Creme`, `Light Aqua`, `Lime Green`, `Olive`, `Orange`, `Purple`, `Raspberry`, `Sepia`, `Steel Blue`, `Sunset`, `Sun Glare` and `Terracotta`
-* Dark themes : `Ebony`, `Dark Violet`, `Charcoal`, `Jade Forest` and `Ultramarine`.
-
+`Aqua`, `Barby Pink`
 <p>
 <img alt="Aqua"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/aqua.png" width="340" height="254" />
 <img alt="Barby Pink"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/barby-pink.png" width="340" height="254" />
+</p>
+`Bottle Green`, `Brown`
+<p>
 <img alt="Bottle Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/bottle-green.png" width="340" height="254" />
 <img alt="Brown"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/brown.png" width="340" height="254" />
+</p>
+`Creme`, `Light Aqua`
+<p>
 <img alt="Creme"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/creme.png" width="340" height="254" />
 <img alt="Light Aqua"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/light-aqua.png" width="340" height="254" />
-<img alt="Line Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/lime-green.png" width="340" height="254" />
+</p>
+`Lime Green`, `Olive`
+<p>
+<img alt="Lime Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/lime-green.png" width="340" height="254" />
 <img alt="Olive"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/olive.png" width="340" height="254" />
+</p>
+`Orange`, `Purple`
+<p>
 <img alt="Orange"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/orange.png" width="340" height="254" />
 <img alt="Purple"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/purple.png" width="340" height="254" />
+</p>
+`Raspberry`, `Sepia`
+<p>
 <img alt="Raspberry"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/raspberry.png" width="340" height="254" />
 <img alt="Sepia"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/sepia.png" width="340" height="254" />
+</p>
+`Steel Blue`, `Sunset`
+<p>
 <img alt="Steel Blue"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/steel-blue.png" width="340" height="254" />
 <img alt="Sunset"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/sunset.png" width="340" height="254" />
+</p>
+`Sun Glare`, `Terracotta`
+<p>
 <img alt="Sun Glare"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/sun-glare.png" width="340" height="254" />
 <img alt="Terracotta"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/terracotta.png" width="340" height="254" />
 </p>
+
+### Base dark color schemes
+The Substance core library provides the following five dark color schemes:
+
+`Ebony`, `Dark Violet`
 <p>
 <img alt="Ebony"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/ebony.png" width="340" height="254" />
 <img alt="Dark Violet"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/dark-violet.png" width="340" height="254" />
+</p>
+`Charcoal`, `Jade Forest`
+<p>
 <img alt="Charcoal"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/charcoal.png" width="340" height="254" />
 <img alt="Jade Forest"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/jade-forest.png" width="340" height="254" />
+</p>
+`Ultramarine`
+<p>
 <img alt="Ultramarine"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/ultramarine.png" width="340" height="254" />
 </p>
 ### Derived color schemes
