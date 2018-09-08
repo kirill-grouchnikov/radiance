@@ -59,32 +59,32 @@ public class SubstanceMenuUI extends BasicMenuUI implements SubstanceMenu,
 	/**
 	 * For rollover effects - enhancement 93.
 	 */
-	protected MouseListener substanceMouseListener;
+	private MouseListener substanceMouseListener;
 
-	protected StateTransitionTracker stateTransitionTracker;
+	private StateTransitionTracker stateTransitionTracker;
 
 	/**
 	 * Listens on all changes to the underlying menu item.
 	 */
-	protected MenuPropertyListener substanceMenuPropertyListener;
+	private MenuPropertyListener substanceMenuPropertyListener;
 
 	/**
 	 * Property change listener. Listens on changes to
 	 * {@link AbstractButton#MODEL_CHANGED_PROPERTY} property.
 	 */
-	protected PropertyChangeListener substancePropertyListener;
+	private PropertyChangeListener substancePropertyListener;
 
 	/**
 	 * For rollover effects - enhancement 93.
 	 */
-	protected FocusListener substanceFocusListener;
+	private FocusListener substanceFocusListener;
 
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceMenuUI((JMenu) comp);
 	}
 
-	public SubstanceMenuUI(JMenu menuItem) {
+	private SubstanceMenuUI(JMenu menuItem) {
 		this.stateTransitionTracker = new StateTransitionTracker(menuItem,
 				menuItem.getModel());
 	}

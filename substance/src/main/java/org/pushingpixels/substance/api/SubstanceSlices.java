@@ -776,8 +776,8 @@ public final class SubstanceSlices {
          * (especially relevant for multi-level trees with narrow viewports).
          * </p>
          */
-        public final static AnimationFacet TREE_SMART_SCROLL_ANIMATION_KIND = new AnimationFacet(
-                "substancelaf.treeSmartScrollAnimationKind", false);
+        public final static AnimationFacet TREE_SMART_SCROLL_ANIMATION = new AnimationFacet(
+                "substancelaf.treeSmartScrollAnimation", false);
 
         @Override
         public String toString() {

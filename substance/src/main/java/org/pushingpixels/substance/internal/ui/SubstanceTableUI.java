@@ -76,47 +76,47 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
     /**
      * Holds the list of currently selected row-column indexes.
      */
-    protected Map<TableCellId, Object> selectedIndices;
+    private Map<TableCellId, Object> selectedIndices;
 
     /**
      * Holds the currently rolled-over row-column index, or <code>null</code> if none such.
      */
-    protected Set<TableCellId> rolledOverIndices;
+    private Set<TableCellId> rolledOverIndices;
 
-    protected TableCellId focusedCellId;
+    private TableCellId focusedCellId;
 
     /**
      * Holds the currently rolled-over column index, or <code>-1</code> if none such. This is used
      * for the table header animations.
      */
-    protected int rolledOverColumn;
+    private int rolledOverColumn;
 
     /**
      * Map of default renderers.
      */
-    protected Map<Class<?>, TableCellRenderer> defaultRenderers;
+    private Map<Class<?>, TableCellRenderer> defaultRenderers;
 
     /**
      * Map of default editors.
      */
-    protected Map<Class<?>, TableCellEditor> defaultEditors;
+    private Map<Class<?>, TableCellEditor> defaultEditors;
 
     /**
      * Listener that listens to changes on table properties.
      */
-    protected PropertyChangeListener substancePropertyChangeListener;
+    private PropertyChangeListener substancePropertyChangeListener;
 
     /**
      * Listener for transition animations on list selections.
      */
-    protected TableStateListener substanceTableStateListener;
+    private TableStateListener substanceTableStateListener;
 
     /**
      * Listener for transition animations on table rollovers.
      */
-    protected RolloverFadeListener substanceFadeRolloverListener;
+    private RolloverFadeListener substanceFadeRolloverListener;
 
-    protected FocusListener substanceFocusListener;
+    private FocusListener substanceFocusListener;
 
     private StateTransitionMultiTracker<TableCellId> stateTransitionMultiTracker;
 
@@ -137,7 +137,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
     /**
      * Creates a UI delegate for table.
      */
-    public SubstanceTableUI() {
+    private SubstanceTableUI() {
         super();
         this.selectedIndices = new HashMap<TableCellId, Object>();
         this.rolledOverIndices = new HashSet<TableCellId>();

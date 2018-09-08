@@ -75,32 +75,32 @@ public class SubstanceTreeUI extends BasicTreeUI {
 	/**
 	 * Holds the list of currently selected paths.
 	 */
-	protected Map<TreePathId, Object> selectedPaths;
+	private Map<TreePathId, Object> selectedPaths;
 
 	/**
 	 * Holds the currently rolled-over path or <code>null</code> if none such.
 	 */
-	protected TreePathId currRolloverPathId;
+	private TreePathId currRolloverPathId;
 
 	/**
 	 * Listener that listens to changes on tree properties.
 	 */
-	protected PropertyChangeListener substancePropertyChangeListener;
+	private PropertyChangeListener substancePropertyChangeListener;
 
 	/**
 	 * Listener for selection animations.
 	 */
-	protected TreeSelectionListener substanceSelectionFadeListener;
+	private TreeSelectionListener substanceSelectionFadeListener;
 
 	/**
 	 * Listener for transition animations on tree rollovers.
 	 */
-	protected RolloverFadeListener substanceFadeRolloverListener;
+	private RolloverFadeListener substanceFadeRolloverListener;
 
 	/**
 	 * Listener for selection of an entire row.
 	 */
-	protected MouseListener substanceRowSelectionListener;
+	private MouseListener substanceRowSelectionListener;
 
 	private StateTransitionMultiTracker<TreePathId> stateTransitionMultiTracker;
 
@@ -132,8 +132,8 @@ public class SubstanceTreeUI extends BasicTreeUI {
 	 */
 	public SubstanceTreeUI() {
 		super();
-		this.selectedPaths = new HashMap<TreePathId, Object>();
-		this.stateTransitionMultiTracker = new StateTransitionMultiTracker<TreePathId>();
+		this.selectedPaths = new HashMap<>();
+		this.stateTransitionMultiTracker = new StateTransitionMultiTracker<>();
 	}
 
 	@Override

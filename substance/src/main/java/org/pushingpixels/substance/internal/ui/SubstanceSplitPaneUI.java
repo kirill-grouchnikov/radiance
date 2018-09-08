@@ -49,7 +49,7 @@ public class SubstanceSplitPaneUI extends BasicSplitPaneUI {
      * Property change listener that listens on changes to {@link JSplitPane#ORIENTATION_PROPERTY}
      * property.
      */
-    protected PropertyChangeListener substancePropertyListener;
+    private PropertyChangeListener substancePropertyListener;
 
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);

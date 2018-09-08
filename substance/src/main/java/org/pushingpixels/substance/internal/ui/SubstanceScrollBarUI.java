@@ -88,7 +88,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      */
     private RolloverControlListener substanceThumbRolloverListener;
 
-    protected StateTransitionTracker compositeStateTransitionTracker;
+    private StateTransitionTracker compositeStateTransitionTracker;
 
     /**
      * Property change listener.
@@ -99,14 +99,14 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
     /**
      * Scroll bar width.
      */
-    protected int scrollBarWidth;
+    private int scrollBarWidth;
 
     /**
      * Listener on adjustments made to the scrollbar model - this is for the overlay mode (see
      * {@link SubstanceLookAndFeel#OVERLAY_PROPERTY} and repaiting both scrollbars with the
      * viewport.
      */
-    protected AdjustmentListener substanceAdjustmentListener;
+    private AdjustmentListener substanceAdjustmentListener;
 
     private Set<SubstanceWidget> lafWidgets;
 
@@ -123,7 +123,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      * @param b
      *            Associated component.
      */
-    protected SubstanceScrollBarUI(JComponent b) {
+    private SubstanceScrollBarUI(JComponent b) {
         super();
         this.thumbModel = new DefaultButtonModel();
         this.thumbModel.setArmed(false);

@@ -80,27 +80,27 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 	 */
 	private PropertyChangeListener substancePropertyChangeListener;
 
-	protected StateTransitionTracker stateTransitionTracker;
+	private StateTransitionTracker stateTransitionTracker;
 
 	/**
 	 * Icon for horizontal sliders.
 	 */
-	protected Icon horizontalIcon;
+	private Icon horizontalIcon;
 
 	/**
 	 * Icon for sliders without labels and ticks.
 	 */
-	protected Icon roundIcon;
+	private Icon roundIcon;
 
 	/**
 	 * Icon for vertical sliders.
 	 */
-	protected Icon verticalIcon;
+	private Icon verticalIcon;
 
 	/**
 	 * Cache of track images.
 	 */
-	protected static final LazyResettableHashMap<BufferedImage> trackCache = new LazyResettableHashMap<BufferedImage>(
+	private static final LazyResettableHashMap<BufferedImage> trackCache = new LazyResettableHashMap<>(
 			"SubstanceSliderUI.track");
 
 	public static ComponentUI createUI(JComponent comp) {

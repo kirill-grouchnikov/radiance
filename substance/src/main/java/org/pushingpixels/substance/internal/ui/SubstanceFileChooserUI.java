@@ -71,7 +71,7 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
         /**
          * Cache for the file icons.
          */
-        private final Map<String, Icon> pathIconCache = new HashMap<String, Icon>();
+        private final Map<String, Icon> pathIconCache = new HashMap<>();
 
         @Override
         public Icon getCachedIcon(File f) {
@@ -81,8 +81,9 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
         @Override
         public Icon getIcon(File f) {
             Icon icon = getCachedIcon(f);
-            if (icon != null)
+            if (icon != null) {
                 return icon;
+            }
 
             icon = getDefaultIcon(f);
             // System.out.println("System : " + f.getAbsolutePath() + " --> "

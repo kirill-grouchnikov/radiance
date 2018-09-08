@@ -102,36 +102,36 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
     /**
      * <code>JRootPane</code> providing the look and feel for.
      */
-    protected JRootPane root;
+    private JRootPane root;
 
     /**
      * Window listener that stops all Substance thread when the last frame is disposed.
      */
-    protected WindowListener substanceWindowListener;
+    private WindowListener substanceWindowListener;
 
     /**
      * The current window.
      */
-    protected Window substanceCurrentWindow;
+    private Window substanceCurrentWindow;
 
     /**
      * Hierarchy listener to keep track of the associated top-level window.
      */
-    protected HierarchyListener substanceHierarchyListener;
+    private HierarchyListener substanceHierarchyListener;
 
     /**
      * Component listener to keep track of the primary graphics configuration (for recomputing the
      * maximized bounds) - fix for defect 213.
      */
-    protected ComponentListener substanceWindowComponentListener;
+    private ComponentListener substanceWindowComponentListener;
 
     /**
      * The graphics configuration that contains the top-left corner of the window (fix for defect
      * 213).
      */
-    protected GraphicsConfiguration currentRootPaneGC;
+    private GraphicsConfiguration currentRootPaneGC;
 
-    protected PropertyChangeListener substancePropertyChangeListener;
+    private PropertyChangeListener substancePropertyChangeListener;
 
     /**
      * <code>Cursor</code> used to track the cursor set by the user. This is initially

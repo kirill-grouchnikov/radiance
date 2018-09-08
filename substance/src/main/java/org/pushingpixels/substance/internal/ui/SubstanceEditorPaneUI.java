@@ -62,12 +62,12 @@ public class SubstanceEditorPaneUI extends BasicEditorPaneUI implements Transiti
     /**
      * The associated editor pane.
      */
-    protected JEditorPane editorPane;
+    private JEditorPane editorPane;
 
     /**
      * Property change listener.
      */
-    protected PropertyChangeListener substancePropertyChangeListener;
+    private PropertyChangeListener substancePropertyChangeListener;
 
     /**
      * Listener for transition animations.
@@ -92,7 +92,7 @@ public class SubstanceEditorPaneUI extends BasicEditorPaneUI implements Transiti
      * @param c
      *            Component (editor pane).
      */
-    public SubstanceEditorPaneUI(JComponent c) {
+    private SubstanceEditorPaneUI(JComponent c) {
         super();
         this.editorPane = (JEditorPane) c;
 
@@ -187,8 +187,9 @@ public class SubstanceEditorPaneUI extends BasicEditorPaneUI implements Transiti
 
         // support for per-window skins
         SwingUtilities.invokeLater(() -> {
-            if (editorPane == null)
+            if (editorPane == null) {
                 return;
+            }
             Color foregr = editorPane.getForeground();
             if ((foregr == null) || (foregr instanceof UIResource)) {
                 editorPane.setForeground(SubstanceColorUtilities.getForegroundColor(

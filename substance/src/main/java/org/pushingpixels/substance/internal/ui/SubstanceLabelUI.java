@@ -50,7 +50,7 @@ public class SubstanceLabelUI extends BasicLabelUI {
     /**
      * Property change listener.
      */
-    protected PropertyChangeListener substancePropertyChangeListener;
+    private PropertyChangeListener substancePropertyChangeListener;
     private Rectangle paintIconR = new Rectangle();
     private Rectangle paintTextR = new Rectangle();
     private Rectangle paintViewR = new Rectangle();
@@ -133,8 +133,7 @@ public class SubstanceLabelUI extends BasicLabelUI {
             if (themedIcon != null) {
                 if (rolloverAmount > 0) {
                     themedIcon.paintIcon(c, g2d, 0, 0);
-                    g2d.setComposite(
-                            WidgetUtilities.getAlphaComposite(c, rolloverAmount, g));
+                    g2d.setComposite(WidgetUtilities.getAlphaComposite(c, rolloverAmount, g));
                     icon.paintIcon(c, g2d, 0, 0);
                     g2d.setComposite(WidgetUtilities.getAlphaComposite(c, g));
                 } else {

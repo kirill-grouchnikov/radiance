@@ -60,14 +60,13 @@ public class SubstanceColorChooserUI extends Quaqua14ColorChooserUI {
 		String[] defaultChoosers = (String[]) UIManager
 				.get("ColorChooser.defaultChoosers");
 
-		List<AbstractColorChooserPanel> panelList = new LinkedList<AbstractColorChooserPanel>();
+		List<AbstractColorChooserPanel> panelList = new LinkedList<>();
 		// AbstractColorChooserPanel[] panels = new
 		// AbstractColorChooserPanel[defaultChoosers.length];
 		for (int i = 0; i < defaultChoosers.length; i++) {
 			try {
 				Method setBundleMethod = Class.forName(defaultChoosers[i])
-						.getMethod("setLabelBundle",
-								new Class[] { ResourceBundle.class });
+						.getMethod("setLabelBundle", new Class[] { ResourceBundle.class });
 				setBundleMethod.invoke(null,
 						new Object[] { SubstanceCortex.GlobalScope.getLabelBundle() });
 			} catch (Throwable t) {
@@ -82,8 +81,7 @@ public class SubstanceColorChooserUI extends Quaqua14ColorChooserUI {
 				// ignore - happens on unsigned apps in WebStart environment
 			} catch (Exception e) {
 				e.printStackTrace();
-				throw new InternalError("Unable to instantiate "
-						+ defaultChoosers[i]);
+				throw new InternalError("Unable to instantiate " + defaultChoosers[i]);
 			}
 		}
 		return panelList.toArray(new AbstractColorChooserPanel[0]);

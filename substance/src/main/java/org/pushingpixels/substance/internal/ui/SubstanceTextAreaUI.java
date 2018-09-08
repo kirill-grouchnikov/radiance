@@ -57,17 +57,17 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class SubstanceTextAreaUI extends BasicTextAreaUI implements TransitionAwareUI {
-    protected StateTransitionTracker stateTransitionTracker;
+    private StateTransitionTracker stateTransitionTracker;
 
     /**
      * The associated text area.
      */
-    protected JTextArea textArea;
+    private JTextArea textArea;
 
     /**
      * Property change listener.
      */
-    protected PropertyChangeListener substancePropertyChangeListener;
+    private PropertyChangeListener substancePropertyChangeListener;
 
     /**
      * Listener for transition animations.
@@ -92,7 +92,7 @@ public class SubstanceTextAreaUI extends BasicTextAreaUI implements TransitionAw
      * @param c
      *            Component (text area).
      */
-    public SubstanceTextAreaUI(JComponent c) {
+    private SubstanceTextAreaUI(JComponent c) {
         super();
         this.textArea = (JTextArea) c;
 

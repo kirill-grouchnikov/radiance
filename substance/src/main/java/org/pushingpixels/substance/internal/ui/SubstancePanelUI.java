@@ -88,7 +88,7 @@ public class SubstancePanelUI extends BasicPanelUI {
 	 * @return <code>true</code> if the panel background should be filled with
 	 *         the background color, <code>false</code> otherwise.
 	 */
-	protected boolean toPaintBackground(JComponent c) {
+	private boolean toPaintBackground(JComponent c) {
 		return SubstanceCoreUtilities.isOpaque(c);
 	}
 }

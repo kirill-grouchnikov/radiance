@@ -71,28 +71,28 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
     /**
      * Holds the list of currently selected indices.
      */
-    protected Map<Integer, Object> selectedIndices;
+    private Map<Integer, Object> selectedIndices;
 
     /**
      * Holds the currently rolled-over index, or -1 is there is none such.
      */
-    protected int rolledOverIndex;
+    private int rolledOverIndex;
 
     /**
      * Property listener that listens to the {@link SubstanceLookAndFeel#WATERMARK_TO_BLEED}
      * property.
      */
-    protected PropertyChangeListener substancePropertyChangeListener;
+    private PropertyChangeListener substancePropertyChangeListener;
 
     /**
      * Listener for transition animations on list selections.
      */
-    protected ListSelectionListener substanceListSelectionListener;
+    private ListSelectionListener substanceListSelectionListener;
 
     /**
      * Listener for transition animations on list rollovers.
      */
-    protected RolloverFadeListener substanceFadeRolloverListener;
+    private RolloverFadeListener substanceFadeRolloverListener;
 
     private ComponentListener substanceComponentListener;
 
@@ -129,7 +129,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
                 return;
             }
 
-            Set<StateTransitionTracker> initiatedTrackers = new HashSet<StateTransitionTracker>();
+            Set<StateTransitionTracker> initiatedTrackers = new HashSet<>();
             boolean fadeCanceled = false;
 
             for (int i = e.getFirstIndex(); i <= e.getLastIndex(); i++) {
@@ -297,12 +297,12 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
     /**
      * Creates a UI delegate for list.
      */
-    public SubstanceListUI() {
+    private SubstanceListUI() {
         super();
         rolledOverIndex = -1;
-        selectedIndices = new HashMap<Integer, Object>();
+        selectedIndices = new HashMap<>();
 
-        this.stateTransitionMultiTracker = new StateTransitionMultiTracker<Integer>();
+        this.stateTransitionMultiTracker = new StateTransitionMultiTracker<>();
     }
 
     @Override
@@ -334,7 +334,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
      * 
      * @author Kirill Grouchnikov
      */
-    protected class CellRepaintCallback extends UIThreadTimelineCallbackAdapter {
+    private class CellRepaintCallback extends UIThreadTimelineCallbackAdapter {
         /**
          * Associated list.
          */
@@ -343,7 +343,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
         /**
          * Associated (animated) cell index.
          */
-        protected int cellIndex;
+        private int cellIndex;
 
         /**
          * Creates a new animation repaint callback.
@@ -353,7 +353,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
          * @param cellIndex
          *            Associated (animated) cell index.
          */
-        public CellRepaintCallback(JList list, int cellIndex) {
+        private CellRepaintCallback(JList list, int cellIndex) {
             this.list = list;
             this.cellIndex = cellIndex;
         }
@@ -390,7 +390,6 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
                     list.repaint(rect);
                 }
             } catch (RuntimeException re) {
-                return;
             }
         }
     }

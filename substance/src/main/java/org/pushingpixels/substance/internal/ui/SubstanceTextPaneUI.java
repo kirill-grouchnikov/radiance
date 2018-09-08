@@ -57,17 +57,17 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class SubstanceTextPaneUI extends BasicTextPaneUI implements TransitionAwareUI {
-    protected StateTransitionTracker stateTransitionTracker;
+    private StateTransitionTracker stateTransitionTracker;
 
     /**
      * The associated text pane.
      */
-    protected JTextPane textPane;
+    private JTextPane textPane;
 
     /**
      * Property change listener.
      */
-    protected PropertyChangeListener substancePropertyChangeListener;
+    private PropertyChangeListener substancePropertyChangeListener;
 
     /**
      * Listener for transition animations.
@@ -92,7 +92,7 @@ public class SubstanceTextPaneUI extends BasicTextPaneUI implements TransitionAw
      * @param c
      *            Component (text pane).
      */
-    public SubstanceTextPaneUI(JComponent c) {
+    private SubstanceTextPaneUI(JComponent c) {
         super();
         this.textPane = (JTextPane) c;
 

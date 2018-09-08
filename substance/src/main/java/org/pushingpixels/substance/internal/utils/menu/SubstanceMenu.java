@@ -45,21 +45,21 @@ public interface SubstanceMenu {
 	 * @return The font of the accelerator string of <code>this</code> UI
 	 *         delegate.
 	 */
-	public Font getAcceleratorFont();
+	Font getAcceleratorFont();
 
 	/**
 	 * Returns the checkmark icon of <code>this</code> UI delegate.
 	 * 
 	 * @return The checkmark icon of <code>this</code> UI delegate.
 	 */
-	public Icon getCheckIcon();
+	Icon getCheckIcon();
 
 	/**
 	 * Returns the arrow icon of <code>this</code> UI delegate.
 	 * 
 	 * @return The arrow icon of <code>this</code> UI delegate.
 	 */
-	public Icon getArrowIcon();
+	Icon getArrowIcon();
 
 	/**
 	 * Returns the default gap between the icon and the text for
@@ -68,14 +68,14 @@ public interface SubstanceMenu {
 	 * @return The default gap between the icon and the text for
 	 *         <code>this</code> delegate.
 	 */
-	public int getDefaultTextIconGap();
+	int getDefaultTextIconGap();
 
 	/**
 	 * Returns the associated menu item.
 	 * 
 	 * @return The associated menu item.
 	 */
-	public JMenuItem getAssociatedMenuItem();
+	JMenuItem getAssociatedMenuItem();
 	
-	public void updateCheckIconIfNeeded();
+	void updateCheckIconIfNeeded();
 }

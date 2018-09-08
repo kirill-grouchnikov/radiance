@@ -1,51 +1,46 @@
 /*
  * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Substance Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.substance.api.renderer;
 
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker.StateContributionInfo;
 import org.pushingpixels.substance.internal.ui.SubstanceTreeUI;
 import org.pushingpixels.substance.internal.ui.SubstanceTreeUI.TreePathId;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
-import org.pushingpixels.substance.internal.utils.SubstanceStripingUtils;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.*;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.TreeCellRenderer;
+import javax.swing.tree.*;
 import java.awt.*;
 import java.util.Map;
 
@@ -54,19 +49,28 @@ import java.util.Map;
  * as other default renderers since that class overrides {@link Component#setBackground(Color)} and
  * prevents the pass-through of {@link UIResource} colors that Substance sets for odd-even row
  * striping.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 @SubstanceRenderer
-public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCellRenderer {
-    /** Last tree the renderer was painted in. */
+public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCellRenderer,
+        ThemedIconAwareRenderer {
+    /**
+     * Last tree the renderer was painted in.
+     */
     private JTree tree;
 
-    /** Is the value currently selected. */
+    /**
+     * Is the value currently selected.
+     */
     protected boolean selected;
 
-    /** True if has focus. */
+    /**
+     * True if has focus.
+     */
     protected boolean hasFocus;
+
+    protected float rolloverArmAmount;
 
     /**
      * Returns a new instance of SubstanceDefaultTreeCellRenderer. Alignment is set to left aligned.
@@ -79,7 +83,7 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
 
     /**
      * Returns the default icon that is used to represent non-leaf nodes that are expanded.
-     * 
+     *
      * @return The default icon for non-leaf expanded nodes.
      */
     public Icon getDefaultOpenIcon() {
@@ -88,7 +92,7 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
 
     /**
      * Returns the default icon that is used to represent non-leaf nodes that are not expanded.
-     * 
+     *
      * @return The default icon for non-leaf non-expanded nodes.
      */
     public Icon getDefaultClosedIcon() {
@@ -97,7 +101,7 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
 
     /**
      * Returns the default icon that is used to represent leaf nodes.
-     * 
+     *
      * @return The default icon for leaf nodes.
      */
     public Icon getDefaultLeafIcon() {
@@ -112,16 +116,17 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
      */
     @Override
     public void setFont(Font font) {
-        if (font instanceof FontUIResource)
+        if (font instanceof FontUIResource) {
             font = null;
+        }
         super.setFont(font);
     }
 
     /**
      * Gets the font of this component.
-     * 
+     *
      * @return this component's font; if a font has not been set for this component, the font of its
-     *         parent is returned
+     * parent is returned
      */
     @Override
     public Font getFont() {
@@ -150,6 +155,8 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
         this.hasFocus = hasFocus;
         this.setText(stringValue);
 
+        this.rolloverArmAmount = 0.0f;
+
         TreeUI treeUI = tree.getUI();
         if (treeUI instanceof SubstanceTreeUI) {
             SubstanceTreeUI ui = (SubstanceTreeUI) treeUI;
@@ -170,6 +177,7 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
                 if (currState.isDisabled() || (activeStates == null)
                         || (activeStates.size() == 1)) {
                     super.setForeground(new ColorUIResource(colorScheme.getForegroundColor()));
+                    this.rolloverArmAmount = 0.0f;
                 } else {
                     float aggrRed = 0;
                     float aggrGreen = 0;
@@ -181,6 +189,12 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
                         SubstanceColorScheme scheme = getColorSchemeForState(tree, ui, activeState);
                         Color schemeFg = scheme.getForegroundColor();
                         float contribution = activeEntry.getValue().getContribution();
+                        if (activeState.isFacetActive(
+                                SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
+                                activeState.isFacetActive(
+                                        SubstanceSlices.ComponentStateFacet.ARM)) {
+                            this.rolloverArmAmount = Math.max(this.rolloverArmAmount, contribution);
+                        }
                         aggrRed += schemeFg.getRed() * contribution;
                         aggrGreen += schemeFg.getGreen() * contribution;
                         aggrBlue += schemeFg.getBlue() * contribution;
@@ -197,16 +211,24 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
                 if (scheme != null) {
                     super.setForeground(new ColorUIResource(scheme.getForegroundColor()));
                 }
+                this.rolloverArmAmount = currState.isFacetActive(
+                        SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
+                        currState.isFacetActive(
+                                SubstanceSlices.ComponentStateFacet.SELECTION) ||
+                        currState.isFacetActive(
+                                SubstanceSlices.ComponentStateFacet.ARM) ? 1.0f : 0.0f;
             }
         } else {
-            if (sel)
+            if (sel) {
                 this.setForeground(UIManager.getColor("Tree.selectionForeground"));
-            else
+            } else {
                 this.setForeground(UIManager.getColor("Tree.textForeground"));
+            }
         }
 
-        if (SubstanceCoreUtilities.isCurrentLookAndFeel())
+        if (SubstanceCoreUtilities.isCurrentLookAndFeel()) {
             SubstanceStripingUtils.applyStripedBackground(tree, row, this);
+        }
 
         // There needs to be a way to specify disabled icons.
         if (!tree.isEnabled()) {
@@ -246,12 +268,17 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
         return this;
     }
 
+    @Override
+    public float getRolloverArmAmount() {
+        return this.rolloverArmAmount;
+    }
+
     private SubstanceColorScheme getColorSchemeForState(JTree tree, SubstanceTreeUI ui,
             ComponentState activeState) {
         SubstanceColorScheme scheme = (activeState == ComponentState.ENABLED)
                 ? ui.getDefaultColorScheme()
                 : SubstanceColorSchemeUtilities.getColorScheme(tree,
-                        ColorSchemeAssociationKind.HIGHLIGHT, activeState);
+                ColorSchemeAssociationKind.HIGHLIGHT, activeState);
         if (scheme == null) {
             scheme = SubstanceColorSchemeUtilities.getColorScheme(tree,
                     ColorSchemeAssociationKind.HIGHLIGHT, activeState);
@@ -267,8 +294,9 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
     public Dimension getPreferredSize() {
         Dimension retDimension = super.getPreferredSize();
 
-        if (retDimension != null)
+        if (retDimension != null) {
             retDimension = new Dimension(retDimension.width + 3, retDimension.height);
+        }
         return retDimension;
     }
 

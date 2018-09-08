@@ -385,8 +385,7 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer
 
 	private SubstanceColorScheme getColorSchemeForState(JTable table,
 			SubstanceTableUI ui, ComponentState state) {
-		UpdateOptimizationInfo updateOptimizationInfo = ui
-				.getUpdateOptimizationInfo();
+		UpdateOptimizationInfo updateOptimizationInfo = ui.getUpdateOptimizationInfo();
 		if (state == ComponentState.ENABLED) {
 			if (updateOptimizationInfo == null) {
 				return SubstanceColorSchemeUtilities.getColorScheme(table, state);

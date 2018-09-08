@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTreeCellRenderer;
 
@@ -39,13 +40,14 @@ import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.List;
 
 /**
  * Test application panel for testing {@link JTree} component and
- * {@link SubstanceLookAndFeel#TREE_SMART_SCROLL_ANIMATION_KIND}.
- * 
+ * {@link SubstanceSlices.AnimationFacet#TREE_SMART_SCROLL_ANIMATION}.
+ *
  * @author Kirill Grouchnikov
  */
 public class FileTreePanel extends ControllablePanel implements Deferrable {
@@ -63,19 +65,19 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
 
     /**
      * Renderer for the file tree.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class SubstanceFileTreeCellRenderer extends SubstanceDefaultTreeCellRenderer {
         /**
          * Icon cache to speed the rendering.
          */
-        private Map<String, Icon> iconCache = new HashMap<String, Icon>();
+        private Map<String, Icon> iconCache = new HashMap<>();
 
         /**
          * Root name cache to speed the rendering.
          */
-        private Map<File, String> rootNameCache = new HashMap<File, String>();
+        private Map<File, String> rootNameCache = new HashMap<>();
 
         @Override
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel,
@@ -100,12 +102,28 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
             JLabel result = (JLabel) super.getTreeCellRendererComponent(tree, filename, sel,
                     expanded, leaf, row, hasFocus);
             if (file != null) {
-                Icon icon = iconCache.get(filename);
-                if (icon == null) {
-                    // System.out.println("Getting icon of " + filename);
-                    icon = fsv.getSystemIcon(file);
-                    iconCache.put(filename, icon);
+                int lastPointIndex = filename.lastIndexOf('.');
+                String ext = "*";
+                if (lastPointIndex >= 0) {
+                    ext = filename.substring(lastPointIndex + 1);
                 }
+                ext = ext.toLowerCase();
+
+                Icon icon = iconCache.get(ext);
+                if (icon == null) {
+                    try {
+                        String className = "org.pushingpixels.demo.substance.main.check.svg.filetypes.ext_"
+                                + ext;
+                        Class transcodedClass = Class.forName(className);
+                        if (transcodedClass != null) {
+                            Method of = transcodedClass.getDeclaredMethod("of", int.class, int.class);
+                            icon = (ResizableIcon) of.invoke(null, 16, 16);
+                            iconCache.put(ext, icon);
+                        }
+                    } catch (Throwable t) {
+                    }
+                }
+
                 result.setIcon(icon);
             }
             return result;
@@ -114,19 +132,19 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
 
     /**
      * Renderer for the file tree.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class FileTreeCellRenderer extends DefaultTreeCellRenderer {
         /**
          * Icon cache to speed the rendering.
          */
-        private Map<String, Icon> iconCache = new HashMap<String, Icon>();
+        private Map<String, Icon> iconCache = new HashMap<>();
 
         /**
          * Root name cache to speed the rendering.
          */
-        private Map<File, String> rootNameCache = new HashMap<File, String>();
+        private Map<File, String> rootNameCache = new HashMap<>();
 
         @Override
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel,
@@ -165,7 +183,7 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
 
     /**
      * A node in the file tree.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class FileTreeNode implements TreeNode {
@@ -191,13 +209,10 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
 
         /**
          * Creates a new file tree node.
-         * 
-         * @param file
-         *            Node file
-         * @param isFileSystemRoot
-         *            Indicates whether the file is a file system root.
-         * @param parent
-         *            Parent node.
+         *
+         * @param file             Node file
+         * @param isFileSystemRoot Indicates whether the file is a file system root.
+         * @param parent           Parent node.
          */
         public FileTreeNode(File file, boolean isFileSystemRoot, TreeNode parent) {
             this.file = file;
@@ -207,34 +222,35 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
             File[] children = file.listFiles();
             if (children != null) {
                 for (File child : file.listFiles()) {
-                    if (fsv.isHiddenFile(child))
+                    if (fsv.isHiddenFile(child)) {
                         continue;
+                    }
                     this.children.add(child);
                 }
-                Collections.sort(this.children, new Comparator<File>() {
-                    @Override
-                    public int compare(File o1, File o2) {
-                        if (o1.equals(o2))
-                            return 0;
-                        if (o1.isDirectory() && o2.isFile())
-                            return -1;
-                        if (o1.isFile() && o2.isDirectory())
-                            return 1;
-                        int result = fsv.getSystemDisplayName(o1).toLowerCase()
-                                .compareTo(fsv.getSystemDisplayName(o2).toLowerCase());
-                        if (result != 0)
-                            return result;
-                        return o1.compareTo(o2);
+                Collections.sort(this.children, (File o1, File o2) -> {
+                    if (o1.equals(o2)) {
+                        return 0;
                     }
+                    if (o1.isDirectory() && o2.isFile()) {
+                        return -1;
+                    }
+                    if (o1.isFile() && o2.isDirectory()) {
+                        return 1;
+                    }
+                    int result = fsv.getSystemDisplayName(o1).toLowerCase()
+                            .compareTo(fsv.getSystemDisplayName(o2).toLowerCase());
+                    if (result != 0) {
+                        return result;
+                    }
+                    return o1.compareTo(o2);
                 });
             }
         }
 
         /**
          * Creates a new file tree node.
-         * 
-         * @param children
-         *            Children files.
+         *
+         * @param children Children files.
          */
         public FileTreeNode(List<File> children) {
             this.file = null;
@@ -327,12 +343,13 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
         jsp.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.add(jsp, BorderLayout.CENTER);
 
-        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, fill:pref:grow", 2, 4);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
+                "right:pref, 4dlu, fill:pref:grow", 2, 4);
         builder.appendSeparator("General");
 
         final JCheckBox isEnabled = new JCheckBox("is enabled");
         isEnabled.setSelected(tree.isEnabled());
-        isEnabled.addActionListener((ActionEvent e) -> 
+        isEnabled.addActionListener((ActionEvent e) ->
                 tree.setEnabled(isEnabled.isSelected()));
         builder.append("Enabled", isEnabled);
 
@@ -350,10 +367,10 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
         cbTreeSmartScroll.addActionListener((ActionEvent e) -> {
             if (cbTreeSmartScroll.isSelected()) {
                 SubstanceCortex.ComponentScope.allowAnimations(tree,
-                        SubstanceSlices.AnimationFacet.TREE_SMART_SCROLL_ANIMATION_KIND);
+                        SubstanceSlices.AnimationFacet.TREE_SMART_SCROLL_ANIMATION);
             } else {
                 SubstanceCortex.ComponentScope.disallowAnimations(tree,
-                        SubstanceSlices.AnimationFacet.TREE_SMART_SCROLL_ANIMATION_KIND);
+                        SubstanceSlices.AnimationFacet.TREE_SMART_SCROLL_ANIMATION);
             }
             tree.repaint();
         });

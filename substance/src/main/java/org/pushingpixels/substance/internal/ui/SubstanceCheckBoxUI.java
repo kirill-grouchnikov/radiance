@@ -31,10 +31,8 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.NeonIconUIResource;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
@@ -43,8 +41,7 @@ import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
+import javax.swing.plaf.*;
 import javax.swing.plaf.basic.BasicButtonListener;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -52,7 +49,7 @@ import java.util.Map;
 
 /**
  * UI for check boxes in <b>Substance</b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
@@ -74,11 +71,10 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
 
     /**
      * Simple constructor.
-     * 
-     * @param button
-     *            The associated button.
+     *
+     * @param button The associated button.
      */
-    public SubstanceCheckBoxUI(JToggleButton button) {
+    private SubstanceCheckBoxUI(JToggleButton button) {
         super(button);
     }
 
@@ -103,19 +99,17 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
 
     /**
      * Returns the icon that matches the current and previous states of the checkbox.
-     * 
-     * @param button
-     *            Button (should be {@link JCheckBox}).
-     * @param stateTransitionTracker
-     *            State transition tracker for the checkbox.
+     *
+     * @param button                 Button (should be {@link JCheckBox}).
+     * @param stateTransitionTracker State transition tracker for the checkbox.
      * @return Matching icon.
      */
     private static Icon getIcon(JToggleButton button,
             StateTransitionTracker stateTransitionTracker) {
         StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
                 .getModelStateInfo();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                .getStateContributionMap();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                modelStateInfo.getStateContributionMap();
 
         SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(button);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(button);
@@ -157,13 +151,14 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
         iconBase.paintIcon(button, g2d, 0, 0);
 
         // draw other active layers
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                .entrySet()) {
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
+                : activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             // System.out.println("Painting state " + activeState + "[curr is "
             // + currState + "] with " + activeEntry.getValue());
-            if (activeState == currState)
+            if (activeState == currState) {
                 continue;
+            }
 
             float stateContribution = activeEntry.getValue().getContribution();
             if (stateContribution > 0.0f) {
@@ -219,7 +214,7 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
 
     /**
      * Returns memory usage string.
-     * 
+     *
      * @return Memory usage string.
      */
     public static String getMemoryUsage() {

@@ -58,17 +58,17 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class SubstanceTextFieldUI extends BasicTextFieldUI implements TransitionAwareUI {
-    protected StateTransitionTracker stateTransitionTracker;
+    private StateTransitionTracker stateTransitionTracker;
 
     /**
      * The associated text field.
      */
-    protected JTextField textField;
+    private JTextField textField;
 
     /**
      * Property change listener.
      */
-    protected PropertyChangeListener substancePropertyChangeListener;
+    private PropertyChangeListener substancePropertyChangeListener;
 
     /**
      * Listener for transition animations.
@@ -93,7 +93,7 @@ public class SubstanceTextFieldUI extends BasicTextFieldUI implements Transition
      * @param c
      *            Component (text field).
      */
-    public SubstanceTextFieldUI(JComponent c) {
+    private SubstanceTextFieldUI(JComponent c) {
         super();
         this.textField = (JTextField) c;
 

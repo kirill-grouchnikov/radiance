@@ -40,11 +40,7 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_0_0 = g.getTransform();
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_0_0
-paint = new LinearGradientPaint(new Point2D.Double(36.0, 2.953399896621704), new Point2D.Double(36.0, 100.95010375976562), new float[] {0.0f,0.139f,0.359f,0.617f,1.0f}, new Color[] {new Color(200, 212, 219, 255),new Color(216, 225, 230, 255),new Color(235, 240, 243, 255),new Color(249, 250, 251, 255),new Color(255, 255, 255, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 102.0f));
+paint = new LinearGradientPaint(new Point2D.Double(36.0, 2.953000068664551), new Point2D.Double(36.0, 100.94999694824219), new float[] {0.0f,0.139f,0.359f,0.617f,1.0f}, new Color[] {new Color(200, 212, 219, 255),new Color(216, 225, 230, 255),new Color(235, 240, 243, 255),new Color(249, 250, 251, 255),new Color(255, 255, 255, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 102.0f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(45.0, 1.0);
 ((GeneralPath)shape).lineTo(72.0, 27.7);
@@ -55,11 +51,11 @@ shape = new GeneralPath();
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
-g.setTransform(defaultTransform__0_0_0);
+g.setTransform(defaultTransform__0_0);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_0_1 = g.getTransform();
+AffineTransform defaultTransform__0_1 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_0_1
+// _0_1
 paint = new Color(0, 0, 0, 0);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(45.0, 1.0);
@@ -84,16 +80,11 @@ shape = new GeneralPath();
 g.setPaint(paint);
 g.setStroke(stroke);
 g.draw(shape);
-g.setTransform(defaultTransform__0_0_1);
-g.setTransform(defaultTransform__0_0);
+g.setTransform(defaultTransform__0_1);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_1 = g.getTransform();
+AffineTransform defaultTransform__0_2 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_1
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_1_0 = g.getTransform();
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_1_0
+// _0_2
 paint = new Color(76, 108, 123, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(9.6, 84.8);
@@ -126,18 +117,9 @@ shape = new GeneralPath();
 ((GeneralPath)shape).curveTo(24.099998, 89.7, 23.199999, 90.399994, 22.099998, 90.899994);
 ((GeneralPath)shape).curveTo(20.999998, 91.399994, 19.499998, 91.59999, 17.899998, 91.59999);
 ((GeneralPath)shape).curveTo(15.399998, 91.59999, 13.499998, 90.99999, 12.199998, 89.899994);
-((GeneralPath)shape).curveTo(10.7, 88.6, 9.9, 87.0, 9.6, 84.8);
+((GeneralPath)shape).curveTo(10.699998, 88.59999, 9.899998, 86.99999, 9.599998, 84.799995);
 ((GeneralPath)shape).closePath();
-g.setPaint(paint);
-g.fill(shape);
-g.setTransform(defaultTransform__0_1_0);
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_1_1 = g.getTransform();
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_1_1
-paint = new Color(76, 108, 123, 255);
-shape = new GeneralPath();
-((GeneralPath)shape).moveTo(28.8, 71.8);
+((GeneralPath)shape).moveTo(28.800001, 71.8);
 ((GeneralPath)shape).lineTo(36.0, 71.8);
 ((GeneralPath)shape).curveTo(37.6, 71.8, 38.9, 71.9, 39.7, 72.200005);
 ((GeneralPath)shape).curveTo(40.8, 72.50001, 41.8, 73.100006, 42.600002, 74.00001);
@@ -150,86 +132,68 @@ shape = new GeneralPath();
 ((GeneralPath)shape).lineTo(28.700006, 91.100006);
 ((GeneralPath)shape).lineTo(28.700006, 71.8);
 ((GeneralPath)shape).closePath();
-((GeneralPath)shape).moveTo(32.8, 75.1);
-((GeneralPath)shape).lineTo(32.8, 87.9);
-((GeneralPath)shape).lineTo(35.7, 87.9);
-((GeneralPath)shape).curveTo(36.8, 87.9, 37.600002, 87.8, 38.100002, 87.700005);
-((GeneralPath)shape).curveTo(38.7, 87.50001, 39.300003, 87.3, 39.7, 86.9);
-((GeneralPath)shape).curveTo(40.100002, 86.5, 40.5, 85.9, 40.7, 85.0);
-((GeneralPath)shape).curveTo(41.0, 84.1, 41.100002, 83.0, 41.100002, 81.5);
-((GeneralPath)shape).curveTo(41.100002, 80.0, 41.0, 78.8, 40.7, 78.0);
-((GeneralPath)shape).curveTo(40.4, 77.2, 40.100002, 76.6, 39.600002, 76.1);
-((GeneralPath)shape).curveTo(39.100002, 75.7, 38.500004, 75.299995, 37.800003, 75.2);
-((GeneralPath)shape).curveTo(37.200005, 75.1, 36.200005, 75.0, 34.600002, 75.0);
-((GeneralPath)shape).lineTo(32.8, 75.0);
+((GeneralPath)shape).moveTo(32.800003, 75.100006);
+((GeneralPath)shape).lineTo(32.800003, 87.90001);
+((GeneralPath)shape).lineTo(35.700005, 87.90001);
+((GeneralPath)shape).curveTo(36.800003, 87.90001, 37.600006, 87.80001, 38.100006, 87.70001);
+((GeneralPath)shape).curveTo(38.700005, 87.500015, 39.300007, 87.30001, 39.700005, 86.90001);
+((GeneralPath)shape).curveTo(40.100006, 86.50001, 40.500004, 85.90001, 40.700005, 85.00001);
+((GeneralPath)shape).curveTo(41.000004, 84.100006, 41.100006, 83.00001, 41.100006, 81.50001);
+((GeneralPath)shape).curveTo(41.100006, 80.00001, 41.000008, 78.80001, 40.700005, 78.00001);
+((GeneralPath)shape).curveTo(40.400005, 77.200005, 40.100006, 76.600006, 39.600006, 76.100006);
+((GeneralPath)shape).curveTo(39.100006, 75.700005, 38.500008, 75.3, 37.800007, 75.200005);
+((GeneralPath)shape).curveTo(37.20001, 75.100006, 36.20001, 75.00001, 34.600006, 75.00001);
+((GeneralPath)shape).lineTo(32.800007, 75.00001);
 ((GeneralPath)shape).closePath();
-g.setPaint(paint);
-g.fill(shape);
-g.setTransform(defaultTransform__0_1_1);
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_1_2 = g.getTransform();
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_1_2
-paint = new Color(76, 108, 123, 255);
-shape = new GeneralPath();
-((GeneralPath)shape).moveTo(48.6, 91.1);
-((GeneralPath)shape).lineTo(48.6, 71.8);
+((GeneralPath)shape).moveTo(48.600002, 91.100006);
+((GeneralPath)shape).lineTo(48.600002, 71.8);
 ((GeneralPath)shape).lineTo(62.0, 71.8);
 ((GeneralPath)shape).lineTo(62.0, 75.100006);
 ((GeneralPath)shape).lineTo(52.6, 75.100006);
 ((GeneralPath)shape).lineTo(52.6, 79.700005);
 ((GeneralPath)shape).lineTo(60.8, 79.700005);
-((GeneralPath)shape).lineTo(60.8, 83.00001);
-((GeneralPath)shape).lineTo(52.6, 83.00001);
-((GeneralPath)shape).lineTo(52.6, 91.200005);
-((GeneralPath)shape).lineTo(48.6, 91.200005);
+((GeneralPath)shape).lineTo(60.8, 83.0);
+((GeneralPath)shape).lineTo(52.6, 83.0);
+((GeneralPath)shape).lineTo(52.6, 91.2);
+((GeneralPath)shape).lineTo(48.6, 91.2);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
-g.setTransform(defaultTransform__0_1_2);
-g.setTransform(defaultTransform__0_1);
+g.setTransform(defaultTransform__0_2);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_2 = g.getTransform();
+AffineTransform defaultTransform__0_3 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_2
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_2_0 = g.getTransform();
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_2_0
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_2_0_0 = g.getTransform();
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_2_0_0
+// _0_3
 paint = new Color(242, 242, 242, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(54.0, 48.1);
 ((GeneralPath)shape).curveTo(54.0, 50.6, 45.9, 52.6, 36.0, 52.6);
-((GeneralPath)shape).curveTo(26.1, 52.6, 18.0, 50.6, 18.0, 48.1);
+((GeneralPath)shape).curveTo(26.099998, 52.6, 18.0, 50.6, 18.0, 48.1);
 ((GeneralPath)shape).curveTo(18.0, 45.6, 26.1, 43.6, 36.0, 43.6);
 ((GeneralPath)shape).curveTo(45.9, 43.6, 54.0, 45.6, 54.0, 48.1);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
-g.setTransform(defaultTransform__0_2_0_0);
+g.setTransform(defaultTransform__0_3);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_2_0_1 = g.getTransform();
+AffineTransform defaultTransform__0_4 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_2_0_1
-paint = new LinearGradientPaint(new Point2D.Double(28.97209930419922, 47.22209930419922), new Point2D.Double(43.02790069580078, 61.277801513671875), new float[] {0.0f,0.212f,0.639f,1.0f}, new Color[] {new Color(204, 221, 231, 255),new Color(180, 204, 216, 255),new Color(125, 160, 177, 255),new Color(79, 122, 141, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 102.0f));
+// _0_4
+paint = new LinearGradientPaint(new Point2D.Double(28.972000122070312, 47.22200012207031), new Point2D.Double(43.02799987792969, 61.27799987792969), new float[] {0.0f,0.212f,0.639f,1.0f}, new Color[] {new Color(204, 221, 231, 255),new Color(180, 204, 216, 255),new Color(125, 160, 177, 255),new Color(79, 122, 141, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 102.0f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(49.5, 47.8);
 ((GeneralPath)shape).curveTo(49.5, 50.0, 43.5, 51.7, 36.0, 51.7);
 ((GeneralPath)shape).curveTo(28.5, 51.7, 22.5, 50.0, 22.5, 47.8);
 ((GeneralPath)shape).curveTo(22.5, 45.6, 28.5, 43.899998, 36.0, 43.899998);
-((GeneralPath)shape).curveTo(43.5, 43.9, 49.5, 45.6, 49.5, 47.8);
+((GeneralPath)shape).curveTo(43.5, 43.899998, 49.5, 45.6, 49.5, 47.8);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
-g.setTransform(defaultTransform__0_2_0_1);
+g.setTransform(defaultTransform__0_4);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_2_0_2 = g.getTransform();
+AffineTransform defaultTransform__0_5 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_2_0_2
+// _0_5
 paint = new LinearGradientPaint(new Point2D.Double(18.0, 45.900001525878906), new Point2D.Double(54.0, 45.900001525878906), new float[] {0.0f,0.212f,0.639f,1.0f}, new Color[] {new Color(204, 221, 231, 255),new Color(180, 204, 216, 255),new Color(125, 160, 177, 255),new Color(79, 122, 141, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 102.0f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(18.0, 48.3);
@@ -242,46 +206,41 @@ shape = new GeneralPath();
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
-g.setTransform(defaultTransform__0_2_0_2);
-g.setTransform(defaultTransform__0_2_0);
+g.setTransform(defaultTransform__0_5);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_2_1 = g.getTransform();
+AffineTransform defaultTransform__0_6 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_2_1
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_2_1_0 = g.getTransform();
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_2_1_0
+// _0_6
 paint = new Color(242, 242, 242, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(54.0, 32.3);
 ((GeneralPath)shape).curveTo(54.0, 34.8, 45.9, 36.8, 36.0, 36.8);
-((GeneralPath)shape).curveTo(26.1, 36.8, 18.0, 34.8, 18.0, 32.3);
+((GeneralPath)shape).curveTo(26.099998, 36.8, 18.0, 34.8, 18.0, 32.3);
 ((GeneralPath)shape).curveTo(18.0, 29.8, 26.1, 27.8, 36.0, 27.8);
 ((GeneralPath)shape).curveTo(45.9, 27.8, 54.0, 29.8, 54.0, 32.3);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
-g.setTransform(defaultTransform__0_2_1_0);
+g.setTransform(defaultTransform__0_6);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_2_1_1 = g.getTransform();
+AffineTransform defaultTransform__0_7 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_2_1_1
-paint = new LinearGradientPaint(new Point2D.Double(28.95400047302246, 63.00400161743164), new Point2D.Double(43.009700775146484, 77.05970001220703), new float[] {0.0f,0.212f,0.639f,1.0f}, new Color[] {new Color(204, 221, 231, 255),new Color(180, 204, 216, 255),new Color(125, 160, 177, 255),new Color(79, 122, 141, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 102.0f));
+// _0_7
+paint = new LinearGradientPaint(new Point2D.Double(28.95400047302246, 63.00400161743164), new Point2D.Double(43.0099983215332, 77.05999755859375), new float[] {0.0f,0.212f,0.639f,1.0f}, new Color[] {new Color(204, 221, 231, 255),new Color(180, 204, 216, 255),new Color(125, 160, 177, 255),new Color(79, 122, 141, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 102.0f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(49.5, 31.9);
 ((GeneralPath)shape).curveTo(49.5, 34.1, 43.5, 35.8, 36.0, 35.8);
 ((GeneralPath)shape).curveTo(28.5, 35.8, 22.5, 34.1, 22.5, 31.9);
-((GeneralPath)shape).curveTo(22.5, 29.699999, 28.5, 28.0, 36.0, 28.0);
+((GeneralPath)shape).curveTo(22.5, 29.7, 28.5, 28.0, 36.0, 28.0);
 ((GeneralPath)shape).curveTo(43.5, 28.1, 49.5, 29.8, 49.5, 31.9);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
-g.setTransform(defaultTransform__0_2_1_1);
+g.setTransform(defaultTransform__0_7);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_2_1_2 = g.getTransform();
+AffineTransform defaultTransform__0_8 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_2_1_2
+// _0_8
 paint = new LinearGradientPaint(new Point2D.Double(18.0, 61.599998474121094), new Point2D.Double(54.0, 61.599998474121094), new float[] {0.0f,0.212f,0.639f,1.0f}, new Color[] {new Color(204, 221, 231, 255),new Color(180, 204, 216, 255),new Color(125, 160, 177, 255),new Color(79, 122, 141, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 102.0f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(18.0, 32.6);
@@ -294,46 +253,41 @@ shape = new GeneralPath();
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
-g.setTransform(defaultTransform__0_2_1_2);
-g.setTransform(defaultTransform__0_2_1);
+g.setTransform(defaultTransform__0_8);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_2_2 = g.getTransform();
+AffineTransform defaultTransform__0_9 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_2_2
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_2_2_0 = g.getTransform();
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_2_2_0
+// _0_9
 paint = new Color(255, 255, 255, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(54.0, 16.6);
 ((GeneralPath)shape).curveTo(54.0, 19.1, 45.9, 21.1, 36.0, 21.1);
-((GeneralPath)shape).curveTo(26.1, 21.1, 18.0, 19.1, 18.0, 16.6);
+((GeneralPath)shape).curveTo(26.099998, 21.1, 18.0, 19.1, 18.0, 16.6);
 ((GeneralPath)shape).curveTo(18.0, 14.1, 26.1, 12.1, 36.0, 12.1);
 ((GeneralPath)shape).curveTo(45.9, 12.1, 54.0, 14.1, 54.0, 16.6);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
-g.setTransform(defaultTransform__0_2_2_0);
+g.setTransform(defaultTransform__0_9);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_2_2_1 = g.getTransform();
+AffineTransform defaultTransform__0_10 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_2_2_1
-paint = new LinearGradientPaint(new Point2D.Double(28.97209930419922, 78.72209930419922), new Point2D.Double(43.02790069580078, 92.77780151367188), new float[] {0.0f,0.265f,0.798f,1.0f}, new Color[] {new Color(204, 221, 231, 255),new Color(181, 204, 216, 255),new Color(127, 160, 177, 255),new Color(106, 143, 161, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 102.0f));
+// _0_10
+paint = new LinearGradientPaint(new Point2D.Double(28.972000122070312, 78.72200012207031), new Point2D.Double(43.02799987792969, 92.77799987792969), new float[] {0.0f,0.265f,0.798f,1.0f}, new Color[] {new Color(204, 221, 231, 255),new Color(181, 204, 216, 255),new Color(127, 160, 177, 255),new Color(106, 143, 161, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 102.0f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(49.5, 16.3);
 ((GeneralPath)shape).curveTo(49.5, 18.5, 43.5, 20.199999, 36.0, 20.199999);
 ((GeneralPath)shape).curveTo(28.5, 20.199999, 22.5, 18.499998, 22.5, 16.3);
 ((GeneralPath)shape).curveTo(22.5, 14.1, 28.5, 12.4, 36.0, 12.4);
-((GeneralPath)shape).curveTo(43.5, 12.4, 49.5, 14.1, 49.5, 16.3);
+((GeneralPath)shape).curveTo(43.5, 12.4, 49.5, 14.099999, 49.5, 16.3);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
-g.setTransform(defaultTransform__0_2_2_1);
+g.setTransform(defaultTransform__0_10);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_2_2_2 = g.getTransform();
+AffineTransform defaultTransform__0_11 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_2_2_2
+// _0_11
 paint = new LinearGradientPaint(new Point2D.Double(18.0, 77.4000015258789), new Point2D.Double(54.0, 77.4000015258789), new float[] {0.0f,0.265f,0.798f,1.0f}, new Color[] {new Color(204, 221, 231, 255),new Color(181, 204, 216, 255),new Color(127, 160, 177, 255),new Color(106, 143, 161, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 102.0f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(18.0, 16.8);
@@ -346,18 +300,12 @@ shape = new GeneralPath();
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
-g.setTransform(defaultTransform__0_2_2_2);
-g.setTransform(defaultTransform__0_2_2);
-g.setTransform(defaultTransform__0_2);
+g.setTransform(defaultTransform__0_11);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_3 = g.getTransform();
+AffineTransform defaultTransform__0_12 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_3
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_3_0 = g.getTransform();
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_3_0
-paint = new LinearGradientPaint(new Point2D.Double(45.06840133666992, 74.1552963256836), new Point2D.Double(58.56840133666992, 87.6552963256836), new float[] {0.0f,0.35f,0.532f,0.675f,0.799f,0.908f,1.0f}, new Color[] {new Color(255, 255, 255, 255),new Color(250, 251, 251, 255),new Color(237, 241, 244, 255),new Color(221, 229, 233, 255),new Color(199, 211, 218, 255),new Color(173, 189, 199, 255),new Color(146, 165, 176, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 102.0f));
+// _0_12
+paint = new LinearGradientPaint(new Point2D.Double(45.06800079345703, 74.15499877929688), new Point2D.Double(58.56800079345703, 87.65499877929688), new float[] {0.0f,0.35f,0.532f,0.675f,0.799f,0.908f,1.0f}, new Color[] {new Color(255, 255, 255, 255),new Color(250, 251, 251, 255),new Color(237, 241, 244, 255),new Color(221, 229, 233, 255),new Color(199, 211, 218, 255),new Color(173, 189, 199, 255),new Color(146, 165, 176, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 102.0f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(45.0, 1.0);
 ((GeneralPath)shape).lineTo(72.0, 27.7);
@@ -366,11 +314,11 @@ shape = new GeneralPath();
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
-g.setTransform(defaultTransform__0_3_0);
+g.setTransform(defaultTransform__0_12);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_3_1 = g.getTransform();
+AffineTransform defaultTransform__0_13 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_3_1
+// _0_13
 paint = new Color(0, 0, 0, 0);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(45.0, 1.0);
@@ -391,8 +339,7 @@ shape = new GeneralPath();
 g.setPaint(paint);
 g.setStroke(stroke);
 g.draw(shape);
-g.setTransform(defaultTransform__0_3_1);
-g.setTransform(defaultTransform__0_3);
+g.setTransform(defaultTransform__0_13);
 g.setTransform(defaultTransform__0);
 g.setTransform(defaultTransform_);
 

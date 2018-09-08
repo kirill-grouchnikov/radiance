@@ -54,26 +54,26 @@ import java.beans.PropertyChangeListener;
  */
 public class SubstanceMenuItemUI extends BasicMenuItemUI implements
 		SubstanceMenu, TransitionAwareUI {
-	protected StateTransitionTracker stateTransitionTracker;
+	private StateTransitionTracker stateTransitionTracker;
 
 	/**
 	 * Listens on all changes to the underlying menu item.
 	 */
-	protected MenuPropertyListener substanceMenuPropertyListener;
+	private MenuPropertyListener substanceMenuPropertyListener;
 
 	/**
 	 * Rollover listener.
 	 */
-	protected RolloverMenuItemListener substanceRolloverListener;
+	private RolloverMenuItemListener substanceRolloverListener;
 
-	protected PropertyChangeListener substancePropertyListener;
+	private PropertyChangeListener substancePropertyListener;
 
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceMenuItemUI((JMenuItem) comp);
 	}
 
-	public SubstanceMenuItemUI(JMenuItem menuItem) {
+	private SubstanceMenuItemUI(JMenuItem menuItem) {
 		this.stateTransitionTracker = new StateTransitionTracker(menuItem,
 				menuItem.getModel());
 	}

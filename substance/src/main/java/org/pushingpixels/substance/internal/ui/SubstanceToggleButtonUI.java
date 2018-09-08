@@ -71,26 +71,26 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 	 * {@link AnimationConfigurationManager#isAnimationAllowed(AnimationFacet, Component)}
 	 * returns true on {@link AnimationFacet#ICON_GLOW}.
 	 */
-	protected GlowingIcon glowingIcon;
+	private GlowingIcon glowingIcon;
 
 	/**
 	 * Property change listener. Listens on changes to the
 	 * {@link SubstanceLookAndFeel#BUTTON_SHAPER} property and
 	 * {@link AbstractButton#MODEL_CHANGED_PROPERTY} property.
 	 */
-	protected PropertyChangeListener substancePropertyListener;
+	private PropertyChangeListener substancePropertyListener;
 
 	/**
 	 * Tracker for visual state transitions.
 	 */
-	protected ButtonVisualStateTracker substanceVisualStateTracker;
+	private ButtonVisualStateTracker substanceVisualStateTracker;
 
 	/**
 	 * Model change listener for ghost image effects.
 	 */
 	private GhostingListener ghostModelChangeListener;
 
-	protected JToggleButton toggleButton;
+	private JToggleButton toggleButton;
 
 	private Rectangle viewRect = new Rectangle();
 
@@ -106,7 +106,7 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 	/**
 	 * Simple constructor.
 	 */
-	public SubstanceToggleButtonUI(JToggleButton toggleButton) {
+	private SubstanceToggleButtonUI(JToggleButton toggleButton) {
 		this.toggleButton = toggleButton;
 		this.delegate = new ButtonBackgroundDelegate();
 	}

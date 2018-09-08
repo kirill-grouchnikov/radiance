@@ -68,12 +68,12 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
      * Property change listener. Listens on changes to {@link AbstractButton#MODEL_CHANGED_PROPERTY}
      * property.
      */
-    protected PropertyChangeListener substancePropertyListener;
+    private PropertyChangeListener substancePropertyListener;
 
     /**
      * Associated toggle button.
      */
-    protected JToggleButton button;
+    JToggleButton button;
 
     /**
      * Icons for all component states
@@ -81,7 +81,7 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
     private static LazyResettableHashMap<NeonIconUIResource> icons = new LazyResettableHashMap<>(
             "SubstanceRadioButtonUI");
 
-    protected StateTransitionTracker stateTransitionTracker;
+    StateTransitionTracker stateTransitionTracker;
 
     private Rectangle viewRect = new Rectangle();
 
@@ -240,7 +240,7 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
      * @param button
      *            Associated radio button.
      */
-    public SubstanceRadioButtonUI(JToggleButton button) {
+    SubstanceRadioButtonUI(JToggleButton button) {
         this.button = button;
         button.setRolloverEnabled(true);
         this.stateTransitionTracker = new StateTransitionTracker(this.button,

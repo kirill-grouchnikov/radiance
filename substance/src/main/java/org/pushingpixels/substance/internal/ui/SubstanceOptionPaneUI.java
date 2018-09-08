@@ -71,7 +71,7 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
      * 
      * @author Kirill Grouchnikov
      */
-    protected static class OptionPaneLabel extends JLabel {
+    private static class OptionPaneLabel extends JLabel {
     }
 
     /**
@@ -98,9 +98,8 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
     protected void addIcon(Container top) {
         Icon sideIcon = (optionPane == null ? null : optionPane.getIcon());
 
-        int messageType = optionPane.getMessageType();
         if (sideIcon == null && optionPane != null) {
-            sideIcon = getIconForType(messageType);
+            sideIcon = getIconForType(optionPane.getMessageType());
         }
 
         if (sideIcon != null) {
@@ -169,7 +168,7 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
         private int padding;
         private boolean isDefaultButtonLeading;
 
-        public SubstanceFooterLayout(int padding, boolean isDefaultButtonLeading) {
+        private SubstanceFooterLayout(int padding, boolean isDefaultButtonLeading) {
             super(true, padding);
             this.padding = padding;
             this.isDefaultButtonLeading = isDefaultButtonLeading;

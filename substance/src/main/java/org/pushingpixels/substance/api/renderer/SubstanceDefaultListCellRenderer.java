@@ -66,9 +66,9 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
     public Component getListCellRendererComponent(JList list, Object value, int index,
             boolean isSelected, boolean cellHasFocus) {
         this.setComponentOrientation(list.getComponentOrientation());
+        this.rolloverArmAmount = 0.0f;
 
         ListUI listUI = list.getUI();
-        this.rolloverArmAmount = 0.0f;
         if (listUI instanceof SubstanceListUI) {
             SubstanceListUI ui = (SubstanceListUI) listUI;
 

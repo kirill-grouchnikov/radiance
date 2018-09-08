@@ -15,6 +15,8 @@ java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter source
 
 java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/check/svg/flags outputPackageName=org.pushingpixels.demo.substance.main.check.svg.flags templateFile=/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
+java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/check/svg/filetypes outputPackageName=org.pushingpixels.demo.substance.main.check.svg.filetypes templateFile=/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ outputClassNamePrefix=ext_ outputLanguage=java
+
 java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/check/svg/tango outputPackageName=org.pushingpixels.demo.substance.main.check.svg.tango templateFile=/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
 java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../tools/substance-tools/src/main/java/org/pushingpixels/tools/substance/main/docrobot/svg outputPackageName=org.pushingpixels.tools.substance.main.docrobot.svg templateFile=/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java

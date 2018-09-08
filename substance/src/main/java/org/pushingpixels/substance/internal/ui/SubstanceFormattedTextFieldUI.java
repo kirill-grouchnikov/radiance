@@ -59,17 +59,17 @@ import java.util.Set;
  */
 public class SubstanceFormattedTextFieldUI extends BasicFormattedTextFieldUI
         implements TransitionAwareUI {
-    protected StateTransitionTracker stateTransitionTracker;
+    private StateTransitionTracker stateTransitionTracker;
 
     /**
      * The associated formatted text field.
      */
-    protected JFormattedTextField textField;
+    private JFormattedTextField textField;
 
     /**
      * Property change listener.
      */
-    protected PropertyChangeListener substancePropertyChangeListener;
+    private PropertyChangeListener substancePropertyChangeListener;
 
     /**
      * Listener for transition animations.
@@ -94,7 +94,7 @@ public class SubstanceFormattedTextFieldUI extends BasicFormattedTextFieldUI
      * @param c
      *            Component (formatted text field).
      */
-    public SubstanceFormattedTextFieldUI(JComponent c) {
+    private SubstanceFormattedTextFieldUI(JComponent c) {
         super();
         this.textField = (JFormattedTextField) c;
 
@@ -198,8 +198,9 @@ public class SubstanceFormattedTextFieldUI extends BasicFormattedTextFieldUI
 
         // support for per-window skins
         SwingUtilities.invokeLater(() -> {
-            if (textField == null)
+            if (textField == null) {
                 return;
+            }
             Color foregr = textField.getForeground();
             if ((foregr == null) || (foregr instanceof UIResource)) {
                 textField.setForeground(SubstanceColorUtilities

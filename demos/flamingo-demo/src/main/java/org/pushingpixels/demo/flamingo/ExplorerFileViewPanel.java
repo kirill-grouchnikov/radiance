@@ -59,9 +59,9 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
     /**
      * Creates a new panel.
      *
-     * @param bar              The breadcrumb bar that is used to browse local or remote
-     *                         repository of image files.
-     * @param startingState    Initial state for image icons.
+     * @param bar           The breadcrumb bar that is used to browse local or remote
+     *                      repository of image files.
+     * @param startingState Initial state for image icons.
      */
     public ExplorerFileViewPanel(JBreadcrumbBar<T> bar, CommandButtonDisplayState startingState) {
         super(startingState);
@@ -79,8 +79,7 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
     }
 
     @Override
-    protected ResizableIcon getResizableIcon(
-            AbstractFileViewPanel.Leaf leaf,
+    protected ResizableIcon getResizableIcon(AbstractFileViewPanel.Leaf leaf,
             InputStream stream, CommandButtonDisplayState state, Dimension dimension) {
         int prefSize = state.getPreferredIconSize();
         if (prefSize > 0) {

@@ -55,17 +55,17 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 	/**
 	 * Tracks changes to editor, removing the border as necessary.
 	 */
-	protected PropertyChangeListener substancePropertyChangeListener;
+	private PropertyChangeListener substancePropertyChangeListener;
 
 	/**
 	 * The next (increment) button.
 	 */
-	protected SubstanceSpinnerButton nextButton;
+	private SubstanceSpinnerButton nextButton;
 
 	/**
 	 * The previous (decrement) button.
 	 */
-	protected SubstanceSpinnerButton prevButton;
+	private SubstanceSpinnerButton prevButton;
 
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);

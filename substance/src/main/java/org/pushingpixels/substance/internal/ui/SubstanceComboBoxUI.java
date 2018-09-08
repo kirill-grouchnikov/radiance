@@ -30,28 +30,19 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
+import org.pushingpixels.substance.api.shaper.*;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+import org.pushingpixels.substance.internal.animation.*;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities.TextComponentAware;
 import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
-import org.pushingpixels.substance.internal.utils.combo.ComboBoxBackgroundDelegate;
-import org.pushingpixels.substance.internal.utils.combo.SubstanceComboBoxEditor;
-import org.pushingpixels.substance.internal.utils.combo.SubstanceComboPopup;
+import org.pushingpixels.substance.internal.utils.combo.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
-import javax.swing.plaf.basic.BasicComboBoxUI;
-import javax.swing.plaf.basic.ComboPopup;
+import javax.swing.border.*;
+import javax.swing.plaf.*;
+import javax.swing.plaf.basic.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -66,13 +57,11 @@ import java.beans.PropertyChangeEvent;
  */
 public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAwareUI {
     /**
-     * Property change handler on <code>enabled</code> property,
-     * <code>componentOrientation</code> property and on
-     * {@link SubstanceLookAndFeel#COMBO_BOX_POPUP_FLYOUT_ORIENTATION} property.
+     * Property change handler.
      */
-    protected ComboBoxPropertyChangeHandler substanceChangeHandler;
+    private ComboBoxPropertyChangeHandler substanceChangeHandler;
 
-    protected StateTransitionTracker stateTransitionTracker;
+    private StateTransitionTracker stateTransitionTracker;
 
     /**
      * Surrogate button model for tracking the state transitions.
@@ -127,7 +116,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         super.uninstallUI(c);
     }
 
-    public SubstanceComboBoxUI(JComboBox combo) {
+    private SubstanceComboBoxUI(JComboBox combo) {
         this.comboBox = combo;
 
         this.transitionModel = new DefaultButtonModel();
@@ -159,10 +148,9 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
      * @return Icon for the specified button.
      */
     private Icon getCurrentIcon(JButton button) {
-        int popupFlyoutOrientation = SubstanceCoreUtilities
-                .getPopupFlyoutOrientation(this.comboBox);
-        Icon icon = SubstanceCoreUtilities.getArrowIcon(button, popupFlyoutOrientation);
-        return icon;
+        int popupFlyoutOrientation = SubstanceCoreUtilities.getPopupFlyoutOrientation(
+                this.comboBox);
+        return SubstanceCoreUtilities.getArrowIcon(button, popupFlyoutOrientation);
     }
 
     @Override
@@ -360,8 +348,9 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
 
             if ("font".equals(propertyName)) {
                 SwingUtilities.invokeLater(() -> {
-                    if (comboBox != null)
+                    if (comboBox != null) {
                         comboBox.updateUI();
+                    }
                 });
             }
 
@@ -387,19 +376,16 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
 
     @Override
     protected ComboPopup createPopup() {
-        final ComboPopup sPopup = new SubstanceComboPopup(this.comboBox);
-
+        final SubstanceComboPopup sPopup = new SubstanceComboPopup(this.comboBox);
         final ComponentOrientation currOrientation = this.comboBox.getComponentOrientation();
 
         SwingUtilities.invokeLater(() -> {
-            if (SubstanceComboBoxUI.this.comboBox == null)
+            if (SubstanceComboBoxUI.this.comboBox == null) {
                 return;
-
-            if (sPopup instanceof Component) {
-                final Component cPopup = (Component) sPopup;
-                cPopup.applyComponentOrientation(currOrientation);
-                cPopup.doLayout();
             }
+
+            sPopup.applyComponentOrientation(currOrientation);
+            sPopup.doLayout();
             ListCellRenderer cellRenderer = SubstanceComboBoxUI.this.comboBox.getRenderer();
             if (cellRenderer instanceof Component) {
                 ((Component) cellRenderer).applyComponentOrientation(currOrientation);
@@ -496,7 +482,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
      * @param bounds
      *            Bounds for text.
      */
-    protected void paintFocus(Graphics g, Rectangle bounds) {
+    private void paintFocus(Graphics g, Rectangle bounds) {
         int fontSize = SubstanceSizeUtils.getComponentFontSize(this.comboBox);
         int x = bounds.x;
         int y = bounds.y;
@@ -584,9 +570,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         if (!SubstanceCoreUtilities.isCurrentLookAndFeel()) {
             return false;
         }
-        SubstanceButtonShaper shaper = ClassicButtonShaper.INSTANCE;
-        if (shaper == null)
-            return false;
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(this.comboBox,
                 SubstanceSizeUtils.getClassicButtonCornerRadius(
                         SubstanceSizeUtils.getComponentFontSize(this.comboBox)),

@@ -73,23 +73,23 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     /**
      * Property used to store the original (pre-<b>Substance</b>) button border.
      */
-    public static final String BORDER_ORIGINAL = "substancelaf.buttonborderoriginal";
+    static final String BORDER_ORIGINAL = "substancelaf.buttonborderoriginal";
 
     /**
      * Property used to store the original button icon.
      */
-    public static final String ICON_ORIGINAL = "substancelaf.buttoniconoriginal";
+    private static final String ICON_ORIGINAL = "substancelaf.buttoniconoriginal";
 
     /**
      * Property used to store the original (pre-<b>Substance</b>) button
      * opacity.
      */
-    public static final String OPACITY_ORIGINAL = "substancelaf.buttonopacityoriginal";
+    static final String OPACITY_ORIGINAL = "substancelaf.buttonopacityoriginal";
 
     /**
      * Property used to lock the original (pre-<b>Substance</b>) button opacity.
      */
-    public static final String LOCK_OPACITY = "substancelaf.lockopacity";
+    static final String LOCK_OPACITY = "substancelaf.lockopacity";
 
     /**
      * Internal property used to mark close buttons on title panes.
@@ -106,19 +106,17 @@ public class SubstanceButtonUI extends BasicButtonUI implements
      * {@link AnimationConfigurationManager#isAnimationAllowed(AnimationFacet, Component)}
      * returns true on {@link AnimationFacet#ICON_GLOW}.
      */
-    protected GlowingIcon glowingIcon;
+    private GlowingIcon glowingIcon;
 
     /**
-     * Property change listener. Listens on changes to the
-     * {@link SubstanceLookAndFeel#BUTTON_SHAPER} property and
-     * {@link AbstractButton#MODEL_CHANGED_PROPERTY} property.
+     * Property change listener.
      */
-    protected PropertyChangeListener substancePropertyListener;
+    private PropertyChangeListener substancePropertyListener;
 
     /**
      * Tracker for visual state transitions.
      */
-    protected ButtonVisualStateTracker substanceVisualStateTracker;
+    private ButtonVisualStateTracker substanceVisualStateTracker;
 
     /**
      * Model change listener for ghost image effects.
@@ -145,7 +143,7 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     /**
      * Simple constructor.
      */
-    public SubstanceButtonUI(AbstractButton button) {
+    private SubstanceButtonUI(AbstractButton button) {
         this.button = button;
         this.delegate = new ButtonBackgroundDelegate();
     }
@@ -173,12 +171,11 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     protected void installDefaults(AbstractButton b) {
         super.installDefaults(b);
 
-        if (b.getClientProperty(SubstanceButtonUI.BORDER_ORIGINAL) == null)
-            b.putClientProperty(SubstanceButtonUI.BORDER_ORIGINAL, b
-                    .getBorder());
+        if (b.getClientProperty(SubstanceButtonUI.BORDER_ORIGINAL) == null) {
+            b.putClientProperty(SubstanceButtonUI.BORDER_ORIGINAL, b.getBorder());
+        }
 
-        SubstanceButtonShaper shaper = SubstanceCoreUtilities
-                .getButtonShaper(b);
+        SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(b);
 
         if (b.getClientProperty(SubstanceButtonUI.BORDER_COMPUTED) == null) {
             b.setBorder(shaper.getButtonBorder(b));
@@ -188,8 +185,9 @@ public class SubstanceButtonUI extends BasicButtonUI implements
                 b.setBorder(shaper.getButtonBorder(b));
             } else {
                 SubstanceButtonBorder sbCurrBorder = (SubstanceButtonBorder) currBorder;
-                if (shaper.getClass() != sbCurrBorder.getButtonShaperClass())
+                if (shaper.getClass() != sbCurrBorder.getButtonShaperClass()) {
                     b.setBorder(shaper.getButtonBorder(b));
+                }
             }
         }
         b.putClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL, b.isOpaque());
@@ -360,19 +358,19 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     @Override
     public Dimension getPreferredSize(JComponent c) {
         AbstractButton button = (AbstractButton) c;
-        SubstanceButtonShaper shaper = SubstanceCoreUtilities
-                .getButtonShaper(button);
+        SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(button);
 
         // fix for defect 263
         Dimension superPref = super.getPreferredSize(button);
-        if (superPref == null)
+        if (superPref == null) {
             return null;
+        }
 
-        if (shaper == null)
+        if (shaper == null) {
             return superPref;
+        }
 
-        Dimension result = shaper.getPreferredSize(button, superPref);
-        return result;
+        return shaper.getPreferredSize(button, superPref);
     }
 
     @Override
@@ -415,8 +413,7 @@ public class SubstanceButtonUI extends BasicButtonUI implements
                 this.glowingIcon.paintIcon(b, graphics, 0, 0);
             } else {
                 themedIcon.paintIcon(b, graphics, 0, 0);
-                graphics.setComposite(WidgetUtilities.getAlphaComposite(b,
-                        activeAmount, g));
+                graphics.setComposite(WidgetUtilities.getAlphaComposite(b, activeAmount, g));
                 originalIcon.paintIcon(b, graphics, 0, 0);
             }
         } else {
@@ -433,7 +430,7 @@ public class SubstanceButtonUI extends BasicButtonUI implements
      * @param textRect Text rectangle
      * @param text     Text to paint
      */
-    protected void paintButtonText(Graphics g, AbstractButton button,
+    private void paintButtonText(Graphics g, AbstractButton button,
             Rectangle textRect, String text) {
         SubstanceTextUtilities.paintText(g, button, textRect, text, button
                 .getDisplayedMnemonicIndex());
@@ -442,12 +439,14 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     /**
      * Tracks possible usage of glowing icon.
      */
-    protected void trackGlowingIcon() {
+    private void trackGlowingIcon() {
         Icon currIcon = this.button.getIcon();
-        if (currIcon instanceof GlowingIcon)
+        if (currIcon instanceof GlowingIcon) {
             return;
-        if (currIcon == null)
+        }
+        if (currIcon == null) {
             return;
+        }
         this.glowingIcon = new GlowingIcon(currIcon,
                 this.substanceVisualStateTracker.getStateTransitionTracker()
                         .getIconGlowTracker());

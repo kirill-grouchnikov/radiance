@@ -216,7 +216,7 @@ public class SubstanceDesktopIconUI extends BasicDesktopIconUI {
 	 * @param jdi
 	 *            Desktop icon.
 	 */
-	public void installIfNecessary(JDesktopIcon jdi) {
+	void installIfNecessary(JDesktopIcon jdi) {
 		// fix for issue 344 - reopening an internal frame
 		// that has been closed.
 		if (this.desktopIcon == null) {
@@ -230,7 +230,7 @@ public class SubstanceDesktopIconUI extends BasicDesktopIconUI {
 	 * @param jdi
 	 *            Desktop icon.
 	 */
-	public void uninstallIfNecessary(JDesktopIcon jdi) {
+	void uninstallIfNecessary(JDesktopIcon jdi) {
 		// fix for issue 345 - an internal frame used in inner option pane
 		// gets closed twice
 		if (this.desktopIcon == jdi) {

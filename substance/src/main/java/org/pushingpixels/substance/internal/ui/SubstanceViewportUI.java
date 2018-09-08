@@ -57,8 +57,7 @@ public class SubstanceViewportUI extends BasicViewportUI {
 		// support for per-window skins
 		Color backgr = c.getBackground();
 		if ((backgr == null) || (backgr instanceof UIResource)) {
-			Color backgroundFillColor = SubstanceColorUtilities
-					.getBackgroundFillColor(c);
+			Color backgroundFillColor = SubstanceColorUtilities.getBackgroundFillColor(c);
 			if (backgroundFillColor != null) {
 				c.setBackground(new ColorUIResource(backgroundFillColor));
 			}
@@ -67,8 +66,9 @@ public class SubstanceViewportUI extends BasicViewportUI {
 
 	@Override
 	public void update(Graphics g, JComponent c) {
-		if (!SubstanceCoreUtilities.isCurrentLookAndFeel())
+		if (!SubstanceCoreUtilities.isCurrentLookAndFeel()) {
 			return;
+		}
 
 		if (toPaintBackground(c)) {
 			BackgroundPaintingUtils.update(g, c, false);
@@ -84,7 +84,7 @@ public class SubstanceViewportUI extends BasicViewportUI {
 	 * @return <code>true</code> if the viewport background should be filled
 	 *         with the background color, <code>false</code> otherwise.
 	 */
-	protected boolean toPaintBackground(JComponent c) {
+	private boolean toPaintBackground(JComponent c) {
 		return SubstanceCoreUtilities.isOpaque(c);
 	}
 }

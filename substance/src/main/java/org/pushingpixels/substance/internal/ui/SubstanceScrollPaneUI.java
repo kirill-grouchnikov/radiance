@@ -29,67 +29,52 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceWidget;
-import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.internal.*;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
-import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollPaneBorder;
+import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.TableHeaderUI;
-import javax.swing.plaf.UIResource;
+import javax.swing.event.*;
+import javax.swing.plaf.*;
 import javax.swing.plaf.basic.BasicScrollPaneUI;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.HashSet;
-import java.util.Set;
+import java.beans.*;
+import java.util.*;
 
 /**
  * UI for scroll panes in <b>Substance</b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
     /**
-     * Property change listener on {@link SubstanceLookAndFeel#SCROLL_PANE_BUTTONS_POLICY},
-     * {@link SubstanceLookAndFeel#WATERMARK_TO_BLEED} and <code>layoutManager</code> properties.
+     * Property change listener on {@link SubstanceSynapse#WATERMARK_VISIBLE} and
+     * <code>layoutManager</code> properties.
      */
-    protected PropertyChangeListener substancePropertyChangeListener;
+    private PropertyChangeListener substancePropertyChangeListener;
 
     /**
      * Listener on the vertical scroll bar. Installed for the smart tree scroll (see
-     * {@link SubstanceLookAndFeel#TREE_SMART_SCROLL_ANIMATION_KIND}.
+     * {@link SubstanceSlices.AnimationFacet#TREE_SMART_SCROLL_ANIMATION}.
      */
-    protected ChangeListener substanceVerticalScrollbarChangeListener;
+    private ChangeListener substanceVerticalScrollbarChangeListener;
 
     /**
-     * Timeline of the current horizontal scroll under smart tree scroll mode.
+     * Timeline for the current horizontal scroll under smart tree scroll mode.
      */
-    protected Timeline horizontalScrollTimeline;
+    private Timeline horizontalScrollTimeline;
 
     private Set<SubstanceWidget> lafWidgets;
 
     /**
      * Creates new UI delegate.
-     * 
-     * @param comp
-     *            Component.
+     *
+     * @param comp Component.
      * @return UI delegate for the component.
      */
     public static ComponentUI createUI(JComponent comp) {
@@ -201,7 +186,7 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
                 JTree tree = (JTree) c.getViewport().getView();
                 // check if the smart scroll is enabled
                 if (AnimationConfigurationManager.getInstance().isAnimationAllowed(
-                        SubstanceSlices.AnimationFacet.TREE_SMART_SCROLL_ANIMATION_KIND, tree)) {
+                        SubstanceSlices.AnimationFacet.TREE_SMART_SCROLL_ANIMATION, tree)) {
                     SubstanceTreeUI treeUI = (SubstanceTreeUI) tree.getUI();
                     final Rectangle viewportRect = c.getViewport().getViewRect();
                     int pivotX = treeUI.getPivotRendererX(viewportRect);
@@ -231,14 +216,13 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
                             }
                         });
                         horizontalScrollTimeline.setEase((float durationFraction) -> {
-                            if (durationFraction < 0.5)
+                            if (durationFraction < 0.5) {
                                 return 0.5f * durationFraction;
+                            }
                             return 0.25f + (durationFraction - 0.5f) * 0.75f / 0.5f;
                         });
-                        AnimationConfigurationManager.getInstance()
-                                .configureTimeline(horizontalScrollTimeline);
-                        horizontalScrollTimeline
-                                .setDuration(2 * horizontalScrollTimeline.getDuration());
+                        horizontalScrollTimeline.setDuration(
+                                2 * AnimationConfigurationManager.getInstance().getTimelineDuration());
                         horizontalScrollTimeline.play();
                     }
                 }
@@ -269,218 +253,6 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
         super.uninstallListeners(c);
     }
 
-    /**
-     * Layout manager to adjust the bounds of scrollbars and the viewport when the default
-     * ({@link SubstanceScrollPaneBorder}) border is set on the relevant {@link JScrollPane}.
-     * 
-     * @author Kirill Grouchnikov
-     */
-    protected static class AdjustedLayout extends ScrollPaneLayout implements UIResource {
-        /**
-         * The delegate layout.
-         */
-        protected ScrollPaneLayout delegate;
-
-        /**
-         * Creates a new layout for adjusting the bounds of scrollbars and the viewport.
-         * 
-         * @param delegate
-         *            The original (delegate) layout.
-         */
-        public AdjustedLayout(ScrollPaneLayout delegate) {
-            this.delegate = delegate;
-        }
-
-        @Override
-        public void addLayoutComponent(String s, Component c) {
-            delegate.addLayoutComponent(s, c);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return delegate.equals(obj);
-        }
-
-        @Override
-        public JViewport getColumnHeader() {
-            return delegate.getColumnHeader();
-        }
-
-        @Override
-        public Component getCorner(String key) {
-            return delegate.getCorner(key);
-        }
-
-        @Override
-        public JScrollBar getHorizontalScrollBar() {
-            return delegate.getHorizontalScrollBar();
-        }
-
-        @Override
-        public int getHorizontalScrollBarPolicy() {
-            return delegate.getHorizontalScrollBarPolicy();
-        }
-
-        @Override
-        public JViewport getRowHeader() {
-            return delegate.getRowHeader();
-        }
-
-        @Override
-        public JScrollBar getVerticalScrollBar() {
-            return delegate.getVerticalScrollBar();
-        }
-
-        @Override
-        public int getVerticalScrollBarPolicy() {
-            return delegate.getVerticalScrollBarPolicy();
-        }
-
-        @Override
-        public JViewport getViewport() {
-            return delegate.getViewport();
-        }
-
-        @Override
-        @SuppressWarnings("deprecation")
-        public Rectangle getViewportBorderBounds(JScrollPane scrollpane) {
-            return delegate.getViewportBorderBounds(scrollpane);
-        }
-
-        @Override
-        public int hashCode() {
-            return delegate.hashCode();
-        }
-
-        @Override
-        public Dimension minimumLayoutSize(Container parent) {
-            return delegate.minimumLayoutSize(parent);
-        }
-
-        @Override
-        public Dimension preferredLayoutSize(Container parent) {
-            return delegate.preferredLayoutSize(parent);
-        }
-
-        @Override
-        public void removeLayoutComponent(Component c) {
-            delegate.removeLayoutComponent(c);
-        }
-
-        @Override
-        public void setHorizontalScrollBarPolicy(int x) {
-            delegate.setHorizontalScrollBarPolicy(x);
-        }
-
-        @Override
-        public void setVerticalScrollBarPolicy(int x) {
-            delegate.setVerticalScrollBarPolicy(x);
-        }
-
-        @Override
-        public void syncWithScrollPane(JScrollPane sp) {
-            delegate.syncWithScrollPane(sp);
-        }
-
-        @Override
-        public String toString() {
-            return delegate.toString();
-        }
-
-        @Override
-        public void layoutContainer(Container parent) {
-            delegate.layoutContainer(parent);
-
-            JScrollPane scrollPane = (JScrollPane) parent;
-            Border border = scrollPane.getBorder();
-            boolean toAdjust = (border instanceof SubstanceScrollPaneBorder);
-            if (toAdjust) {
-                JScrollBar vertical = scrollPane.getVerticalScrollBar();
-                JScrollBar horizontal = scrollPane.getHorizontalScrollBar();
-
-                int borderDelta = (int) Math.floor(SubstanceSizeUtils.getBorderStrokeWidth() / 2.0);
-                int borderWidth = (int) SubstanceSizeUtils.getBorderStrokeWidth();
-                int dx = 0, dy = 0, dw = 0, dh = 0;
-                if (scrollPane.getComponentOrientation().isLeftToRight()) {
-                    if ((vertical != null) && vertical.isVisible()) {
-                        Rectangle vBounds = vertical.getBounds();
-                        dw += (1 + borderDelta);
-                        vertical.setBounds(vBounds.x + 1 + borderDelta,
-                                vBounds.y + 1 - 2 * borderWidth, vBounds.width,
-                                vBounds.height + 2 * borderWidth);
-                    }
-                    if ((horizontal != null) && horizontal.isVisible()) {
-                        dh += (1 + borderDelta);
-                        Rectangle hBounds = horizontal.getBounds();
-                        horizontal.setBounds(
-                                hBounds.x + ((scrollPane.getRowHeader() == null) ? 1 : 2)
-                                        - 2 * borderWidth,
-                                hBounds.y + 1, hBounds.width + 2 * borderWidth, hBounds.height);
-                    }
-
-                    if (delegate.getCorner(ScrollPaneLayout.LOWER_RIGHT_CORNER) != null) {
-                        Rectangle lrBounds = delegate.getCorner(ScrollPaneLayout.LOWER_RIGHT_CORNER)
-                                .getBounds();
-                        delegate.getCorner(ScrollPaneLayout.LOWER_RIGHT_CORNER).setBounds(
-                                lrBounds.x + 1 + borderDelta, lrBounds.y + 1 + borderDelta,
-                                lrBounds.width, lrBounds.height);
-                    }
-                    if (delegate.getCorner(ScrollPaneLayout.UPPER_RIGHT_CORNER) != null) {
-                        Rectangle urBounds = delegate.getCorner(ScrollPaneLayout.UPPER_RIGHT_CORNER)
-                                .getBounds();
-                        delegate.getCorner(ScrollPaneLayout.UPPER_RIGHT_CORNER).setBounds(
-                                urBounds.x + 1 + borderDelta, urBounds.y + borderDelta,
-                                urBounds.width - 1, urBounds.height);
-                    }
-                } else {
-                    if ((vertical != null) && vertical.isVisible()) {
-                        dx -= (1 + borderDelta);
-                        dw += (1 + borderDelta);
-                        Rectangle vBounds = vertical.getBounds();
-                        vertical.setBounds(vBounds.x - 1 - borderDelta, vBounds.y - 1 - borderDelta,
-                                vBounds.width, vBounds.height + 2 * borderWidth);
-                    }
-                    if ((horizontal != null) && horizontal.isVisible()) {
-                        dh += (1 + borderDelta);
-                        Rectangle hBounds = horizontal.getBounds();
-                        horizontal.setBounds(
-                                hBounds.x - ((scrollPane.getRowHeader() == null) ? 1 : 2)
-                                        - borderDelta,
-                                hBounds.y + 1 + borderDelta, hBounds.width + 2 * borderWidth,
-                                hBounds.height);
-                    }
-                    if (delegate.getCorner(ScrollPaneLayout.LOWER_LEFT_CORNER) != null) {
-                        Rectangle llBounds = delegate.getCorner(ScrollPaneLayout.LOWER_LEFT_CORNER)
-                                .getBounds();
-                        delegate.getCorner(ScrollPaneLayout.LOWER_LEFT_CORNER).setBounds(
-                                llBounds.x - 1 - borderDelta, llBounds.y - 1 - borderDelta,
-                                llBounds.width, llBounds.height);
-                    }
-                    if (delegate.getCorner(ScrollPaneLayout.UPPER_LEFT_CORNER) != null) {
-                        Rectangle ulBounds = delegate.getCorner(ScrollPaneLayout.UPPER_LEFT_CORNER)
-                                .getBounds();
-                        delegate.getCorner(ScrollPaneLayout.UPPER_LEFT_CORNER).setBounds(
-                                ulBounds.x - borderDelta, ulBounds.y - borderDelta,
-                                ulBounds.width - 1, ulBounds.height);
-                    }
-                }
-
-                if (delegate.getViewport() != null) {
-                    Rectangle vpBounds = delegate.getViewport().getBounds();
-                    delegate.getViewport().setBounds(new Rectangle(vpBounds.x + dx, vpBounds.y + dy,
-                            vpBounds.width + dw, vpBounds.height + dh));
-                }
-                if (delegate.getColumnHeader() != null) {
-                    Rectangle columnHeaderBounds = delegate.getColumnHeader().getBounds();
-                    delegate.getColumnHeader()
-                            .setBounds(new Rectangle(columnHeaderBounds.x + dx,
-                                    columnHeaderBounds.y + dy, columnHeaderBounds.width + dw,
-                                    columnHeaderBounds.height));
-                }
-            }
-        }
-    }
-
     @Override
     public void update(Graphics g, JComponent c) {
         BackgroundPaintingUtils.updateIfOpaque(g, c);
@@ -493,7 +265,7 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
         }
 
         if (scrollLm != null) {
-            Set<Component> corners = new HashSet<Component>();
+            Set<Component> corners = new HashSet<>();
             if (scrollLm.getCorner(ScrollPaneLayout.LOWER_LEFT_CORNER) != null) {
                 corners.add(scrollLm.getCorner(ScrollPaneLayout.LOWER_LEFT_CORNER));
             }
@@ -543,25 +315,27 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
     /**
      * Installs a corner filler that matches the table header. This is done to provide a continuous
      * appearance for tables with table headers placed in scroll panes.
-     * 
-     * @param scrollpane
-     *            Scroll pane.
+     *
+     * @param scrollpane Scroll pane.
      */
-    protected static void installTableHeaderCornerFiller(JScrollPane scrollpane) {
+    private void installTableHeaderCornerFiller(JScrollPane scrollpane) {
         // install custom scroll pane corner filler
         // for continuous painting of table headers
         JViewport columnHeader = scrollpane.getColumnHeader();
         // System.out.println("Column header " + columnHeader);
-        if (columnHeader == null)
+        if (columnHeader == null) {
             return;
+        }
         Component columnHeaderComp = columnHeader.getView();
         // System.out.println("Column header comp " + columnHeaderComp);
-        if (!(columnHeaderComp instanceof JTableHeader))
+        if (!(columnHeaderComp instanceof JTableHeader)) {
             return;
+        }
         JTableHeader tableHeader = (JTableHeader) columnHeaderComp;
         TableHeaderUI tableHeaderUI = tableHeader.getUI();
-        if (!(tableHeaderUI instanceof SubstanceTableHeaderUI))
+        if (!(tableHeaderUI instanceof SubstanceTableHeaderUI)) {
             return;
+        }
         SubstanceTableHeaderUI ui = (SubstanceTableHeaderUI) tableHeaderUI;
         JComponent scrollPaneCornerFiller = ui.getScrollPaneCornerFiller();
         String cornerKey = scrollpane.getComponentOrientation().isLeftToRight()

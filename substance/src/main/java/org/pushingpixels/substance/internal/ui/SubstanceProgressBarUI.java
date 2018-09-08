@@ -31,34 +31,26 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
-import org.pushingpixels.substance.api.SubstanceSlices.Side;
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.painter.fill.*;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.TimelinePropertyBuilder.PropertySetter;
+import org.pushingpixels.trident.Timeline.*;
 import org.pushingpixels.trident.callback.TimelineCallback;
 import org.pushingpixels.trident.ease.Spline;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.EnumSet;
-import java.util.Set;
+import java.beans.*;
+import java.util.*;
 
 /**
  * UI for progress bars in <b>Substance</b> look and feel.
@@ -102,8 +94,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             int barRectWidth = progressBar.getWidth() - 2 * margin;
             int barRectHeight = progressBar.getHeight() - 2 * margin;
             int totalPixels = (progressBar.getOrientation() == JProgressBar.HORIZONTAL)
-                              ? barRectWidth
-                              : barRectHeight;
+                    ? barRectWidth : barRectHeight;
             // fix for defect 223 (min and max on the model are the
             // same).
             int pixelDelta = (span <= 0) ? 0 : (currValue - displayedValue) * totalPixels / span;
@@ -113,15 +104,13 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             }
             displayTimeline = new SwingComponentTimeline(progressBar);
             displayTimeline.addPropertyToInterpolate(Timeline.<Integer>property("displayedValue")
-                    .from(displayedValue).to(currValue).setWith(new PropertySetter<Integer>() {
-                        @Override
-                        public void set(Object obj, String fieldName, Integer value) {
-                            displayedValue = value;
-                            if (progressBar != null) {
-                                progressBar.repaint();
-                            }
-                        }
-                    }));
+                    .from(displayedValue).to(currValue).setWith(
+                            (Object obj, String fieldName, Integer value) -> {
+                                displayedValue = value;
+                                if (progressBar != null) {
+                                    progressBar.repaint();
+                                }
+                            }));
             displayTimeline.setEase(new Spline(0.4f));
             AnimationConfigurationManager.getInstance().configureTimeline(displayTimeline);
 
@@ -146,22 +135,19 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
      * Hash for computed stripe images.
      */
     private static LazyResettableHashMap<BufferedImage> stripeMap = new
-            LazyResettableHashMap<BufferedImage>(
-            "SubstanceProgressBarUI.stripeMap");
+            LazyResettableHashMap<>("SubstanceProgressBarUI.stripeMap");
 
     /**
      * Hash for computed background images.
      */
     private static LazyResettableHashMap<BufferedImage> backgroundMap = new
-            LazyResettableHashMap<BufferedImage>(
-            "SubstanceProgressBarUI.backgroundMap");
+            LazyResettableHashMap<>("SubstanceProgressBarUI.backgroundMap");
 
     /**
      * Hash for computed progress images.
      */
     private static LazyResettableHashMap<BufferedImage> progressMap = new
-            LazyResettableHashMap<BufferedImage>(
-            "SubstanceProgressBarUI.progressMap");
+            LazyResettableHashMap<>("SubstanceProgressBarUI.progressMap");
 
     /**
      * The current position of the indeterminate animation's cycle. 0, the initial value, means
@@ -173,28 +159,23 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     /**
      * Value change listener on the associated progress bar.
      */
-    protected ChangeListener substanceValueChangeListener;
+    private ChangeListener substanceValueChangeListener;
 
     /**
      * Property change listener. Tracks changes to the <code>font</code> property.
      */
-    protected PropertyChangeListener substancePropertyChangeListener;
+    private PropertyChangeListener substancePropertyChangeListener;
 
     /**
      * Inner margin.
      */
-    protected int margin;
+    private int margin;
 
-    /**
-     * The speed factor for the indeterminate progress bars.
-     */
-    protected float speed;
+    private int displayedValue;
 
-    protected int displayedValue;
+    private Timeline displayTimeline;
 
-    protected Timeline displayTimeline;
-
-    protected Timeline indeterminateLoopTimeline;
+    private Timeline indeterminateLoopTimeline;
 
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
@@ -207,9 +188,6 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
         this.displayedValue = progressBar.getValue();
         LookAndFeel.installProperty(progressBar, "opaque", Boolean.FALSE);
-
-        this.speed = (20.0f * UIManager.getInt("ProgressBar.repaintInterval"))
-                / UIManager.getInt("ProgressBar.cycleTime");
 
         this.margin = 0;
     }
@@ -224,8 +202,9 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
             if ("font".equals(evt.getPropertyName())) {
                 SwingUtilities.invokeLater(() -> {
-                    if (progressBar != null)
+                    if (progressBar != null) {
                         progressBar.updateUI();
+                    }
                 });
             }
         };
@@ -326,8 +305,8 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             float radius = 0.5f * SubstanceSizeUtils
                     .getClassicButtonCornerRadius(SubstanceSizeUtils.getComponentFontSize(bar));
             Side straightSide = (orientation == SwingConstants.VERTICAL) ? Side.RIGHT
-                                                                         :
-                                (componentOrientation.isLeftToRight() ? Side.RIGHT : Side.LEFT);
+                    :
+                    (componentOrientation.isLeftToRight() ? Side.RIGHT : Side.LEFT);
             Set<Side> straightSides = isFull ? null : EnumSet.of(straightSide);
             Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height, radius,
                     straightSides);
@@ -457,7 +436,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         final int barRectWidth = progressBar.getWidth() - 2 * margin;
         final int barRectHeight = progressBar.getHeight() - 2 * margin;
 
-        int valComplete = 0;
+        int valComplete;
         if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
             valComplete = (int) (this.animationPosition * (2 * barRectHeight + 1));
         } else {
@@ -501,13 +480,13 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     private ComponentState getFillState() {
         return progressBar.isEnabled() ? ComponentState.ENABLED
-                                       : ComponentState.DISABLED_UNSELECTED;
+                : ComponentState.DISABLED_UNSELECTED;
     }
 
     private ComponentState getProgressState() {
         if (progressBar.isIndeterminate()) {
             return progressBar.isEnabled() ? INDETERMINATE_SELECTED
-                                           : INDETERMINATE_SELECTED_DISABLED;
+                    : INDETERMINATE_SELECTED_DISABLED;
         } else {
             return progressBar.isEnabled() ? DETERMINATE_SELECTED : DETERMINATE_SELECTED_DISABLED;
         }
@@ -673,7 +652,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
      * @param height         height of bounding box
      * @return The rectangle for the progress bar string.
      */
-    protected Rectangle getStringRectangle(String progressString, int x, int y, int width,
+    private Rectangle getStringRectangle(String progressString, int x, int y, int width,
             int height) {
         FontMetrics fontSizer = progressBar.getFontMetrics(progressBar.getFont());
 

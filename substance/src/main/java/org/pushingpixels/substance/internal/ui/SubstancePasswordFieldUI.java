@@ -62,17 +62,17 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements TransitionAwareUI {
-    protected StateTransitionTracker stateTransitionTracker;
+    private StateTransitionTracker stateTransitionTracker;
 
     /**
      * The associated password field.
      */
-    protected JPasswordField passwordField;
+    private JPasswordField passwordField;
 
     /**
      * Property change listener.
      */
-    protected PropertyChangeListener substancePropertyChangeListener;
+    private PropertyChangeListener substancePropertyChangeListener;
 
     /**
      * Listener for transition animations.
@@ -105,7 +105,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
          * @param element
          *            The element
          */
-        public SubstancePasswordView(JPasswordField field, Element element) {
+        private SubstancePasswordView(JPasswordField field, Element element) {
             super(element);
             this.field = field;
         }
@@ -128,7 +128,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
          * @return The X location of the next echo character.
          * @see SubstanceLookAndFeel#PASSWORD_ECHO_PER_CHAR
          */
-        protected int drawEchoCharacter(Graphics g, int x, int y, char c, boolean isSelected) {
+        private int drawEchoCharacter(Graphics g, int x, int y, char c, boolean isSelected) {
             Container container = this.getContainer();
 
             Graphics2D graphics = (Graphics2D) g;
@@ -164,7 +164,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
          * 
          * @return The advance of a single password field character
          */
-        protected int getEchoCharAdvance() {
+        private int getEchoCharAdvance() {
             int fontSize = SubstanceSizeUtils.getComponentFontSize(this.field);
             int dotDiameter = SubstanceSizeUtils.getPasswordDotDiameter(fontSize);
             int dotGap = SubstanceSizeUtils.getPasswordDotGap(fontSize);
@@ -295,7 +295,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
      * @param c
      *            Component.
      */
-    public SubstancePasswordFieldUI(JComponent c) {
+    private SubstancePasswordFieldUI(JComponent c) {
         super();
         this.passwordField = (JPasswordField) c;
 

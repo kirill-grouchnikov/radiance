@@ -67,8 +67,8 @@ public class SubstanceSeparatorUI extends BasicSeparatorUI {
 		int xOffset = MenuUtilities.getTextOffset(c, parent);
 		SubstanceMenuBackgroundDelegate.paintBackground(graphics, c, xOffset);
 		Dimension s = c.getSize();
-		int startX = 0;
-		int width = s.width;
+		int startX;
+		int width;
 		if (parent.getComponentOrientation().isLeftToRight()) {
 			startX = xOffset - 2;
 			width = s.width - startX;

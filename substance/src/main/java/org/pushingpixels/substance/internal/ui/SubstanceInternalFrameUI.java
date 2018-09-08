@@ -56,7 +56,7 @@ public class SubstanceInternalFrameUI extends BasicInternalFrameUI {
     /**
      * Property listener on the associated internal frame.
      */
-    protected PropertyChangeListener substancePropertyListener;
+    private PropertyChangeListener substancePropertyListener;
 
     /**
      * Simple constructor.
@@ -64,7 +64,7 @@ public class SubstanceInternalFrameUI extends BasicInternalFrameUI {
      * @param b
      *            Associated internal frame.
      */
-    public SubstanceInternalFrameUI(JInternalFrame b) {
+    private SubstanceInternalFrameUI(JInternalFrame b) {
         super(b);
     }
 
@@ -76,8 +76,6 @@ public class SubstanceInternalFrameUI extends BasicInternalFrameUI {
     @Override
     protected JComponent createNorthPane(JInternalFrame w) {
         this.titlePane = new SubstanceInternalFrameTitlePane(w);
-
-        // f.putClientProperty(INTERNAL_FRAME_PINNED, Boolean.TRUE);
 
         return this.titlePane;
     }

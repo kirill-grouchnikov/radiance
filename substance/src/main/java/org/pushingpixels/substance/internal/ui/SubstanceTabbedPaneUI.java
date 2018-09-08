@@ -81,18 +81,18 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Current mouse location.
      */
-    protected Point substanceMouseLocation;
+    private Point substanceMouseLocation;
 
     /**
      * Hash map for storing already computed backgrounds.
      */
-    private static LazyResettableHashMap<BufferedImage> backgroundMap = new LazyResettableHashMap<BufferedImage>(
+    private static LazyResettableHashMap<BufferedImage> backgroundMap = new LazyResettableHashMap<>(
             "SubstanceTabbedPaneUI.background");
 
     /**
      * Hash map for storing already computed backgrounds.
      */
-    private static LazyResettableHashMap<BufferedImage> closeButtonMap = new LazyResettableHashMap<BufferedImage>(
+    private static LazyResettableHashMap<BufferedImage> closeButtonMap = new LazyResettableHashMap<>(
             "SubstanceTabbedPaneUI.closeButton");
 
     /**
@@ -122,18 +122,18 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Mouse handler for rollover effects.
      */
-    protected MouseRolloverHandler substanceRolloverHandler;
+    private MouseRolloverHandler substanceRolloverHandler;
 
     /**
      * Tracks changes to the tabbed pane contents. Each tab component is tracked for changes on the
      * {@link SubstanceLookAndFeel#CONTENTS_MODIFIED} property.
      */
-    protected TabbedContainerListener substanceContainerListener;
+    private TabbedContainerListener substanceContainerListener;
 
     /**
      * Listener for animation effects on tab selection.
      */
-    protected ChangeListener substanceSelectionListener;
+    private ChangeListener substanceSelectionListener;
 
     private boolean substanceContentOpaque;
 
@@ -143,7 +143,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
      * 
      * @author Kirill Grouchnikov
      */
-    protected final class TabbedContainerListener extends ContainerAdapter {
+    private final class TabbedContainerListener extends ContainerAdapter {
         /**
          * Property change listeners on the tab components.
          * <p/>
@@ -154,13 +154,13 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         /**
          * Creates a new container listener.
          */
-        public TabbedContainerListener() {
+        private TabbedContainerListener() {
         }
 
         /**
          * Tracks all existing tab component.
          */
-        protected void trackExistingTabs() {
+        private void trackExistingTabs() {
             // register listeners on all existing tabs
             for (int i = 0; i < SubstanceTabbedPaneUI.this.tabPane.getTabCount(); i++) {
                 this.trackTab(SubstanceTabbedPaneUI.this.tabPane.getComponentAt(i));
@@ -173,7 +173,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
          * @param tabComponent
          *            Tab component.
          */
-        protected void trackTab(final Component tabComponent) {
+        private void trackTab(final Component tabComponent) {
             if (tabComponent == null)
                 return;
 
@@ -231,7 +231,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
          * @param tabComponent
          *            Tab component.
          */
-        protected void stopTrackTab(final Component tabComponent) {
+        private void stopTrackTab(final Component tabComponent) {
             if (tabComponent == null)
                 return;
 
@@ -247,7 +247,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         /**
          * Stops tracking all tab components.
          */
-        protected void stopTrackExistingTabs() {
+        private void stopTrackExistingTabs() {
             // register listeners on all existing tabs
             for (int i = 0; i < SubstanceTabbedPaneUI.this.tabPane.getTabCount(); i++) {
                 this.stopTrackTab(SubstanceTabbedPaneUI.this.tabPane.getComponentAt(i));
@@ -294,22 +294,23 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
      * 
      * @author Kirill Grouchnikov
      */
-    protected class MouseRolloverHandler implements MouseListener, MouseMotionListener {
+    private class MouseRolloverHandler implements MouseListener, MouseMotionListener {
         /**
          * Index of the tab that was rolloed over on the previous mouse event.
          */
-        int prevRolledOver = -1;
+        private int prevRolledOver = -1;
 
         /**
          * Indicates whether the previous mouse event was located in a close button.
          */
-        boolean prevInCloseButton = false;
+        private boolean prevInCloseButton = false;
 
         /**
          * Tab index of the last mouse pressed event that happened in a close button.
          */
-        int tabOfPressedCloseButton = -1;
+        private int tabOfPressedCloseButton = -1;
 
+        @Override
         public void mouseClicked(final MouseEvent e) {
             final int tabIndex = SubstanceTabbedPaneUI.this
                     .tabForCoordinate(SubstanceTabbedPaneUI.this.tabPane, e.getX(), e.getY());
@@ -506,7 +507,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Creates the new UI delegate.
      */
-    public SubstanceTabbedPaneUI() {
+    private SubstanceTabbedPaneUI() {
         super();
         this.stateTransitionMultiTracker = new StateTransitionMultiTracker<Integer>();
         this.currSelectedIndex = -1;

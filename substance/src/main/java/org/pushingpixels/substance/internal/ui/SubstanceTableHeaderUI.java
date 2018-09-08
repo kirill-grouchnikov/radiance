@@ -76,29 +76,29 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
     /**
      * Repaints the header on column selection.
      */
-    protected TableHeaderListener substanceHeaderListener;
+    private TableHeaderListener substanceHeaderListener;
 
     /**
      * The default renderer.
      */
-    protected TableCellRenderer defaultHeaderRenderer;
+    private TableCellRenderer defaultHeaderRenderer;
 
     /**
      * Holds the list of currently selected indices.
      */
-    protected Map<Integer, Object> selectedIndices;
+    private Map<Integer, Object> selectedIndices;
 
     /**
      * Listener for transition animations on list selections.
      */
-    protected ListSelectionListener substanceFadeSelectionListener;
+    private ListSelectionListener substanceFadeSelectionListener;
 
     private StateTransitionMultiTracker<Integer> stateTransitionMultiTracker;
 
     /**
      * Property change listener.
      */
-    protected PropertyChangeListener substancePropertyChangeListener;
+    private PropertyChangeListener substancePropertyChangeListener;
 
     /**
      * Listener for table header.
@@ -138,9 +138,9 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
     /**
      * Creates a new UI delegate.
      */
-    public SubstanceTableHeaderUI() {
-        this.stateTransitionMultiTracker = new StateTransitionMultiTracker<Integer>();
-        selectedIndices = new HashMap<Integer, Object>();
+    private SubstanceTableHeaderUI() {
+        this.stateTransitionMultiTracker = new StateTransitionMultiTracker<>();
+        selectedIndices = new HashMap<>();
     }
 
     @Override

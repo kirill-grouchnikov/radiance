@@ -51,9 +51,9 @@ public class SubstancePopupMenuUI extends BasicPopupMenuUI {
 	/**
 	 * Tracks changes to the popup menu and invalidates precomputed text offset.
 	 */
-	protected ContainerListener substanceContainerListener;
+	private ContainerListener substanceContainerListener;
 
-	protected PopupMenuListener substancePopupMenuListener;
+	private PopupMenuListener substancePopupMenuListener;
 
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
