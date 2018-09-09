@@ -34,7 +34,8 @@ include 'neon', 'trident', 'photon',
         'substance', 'flamingo', 'spoonbill',
         'substance-extras', 'kormorant', 
         'demos:trident-demo', 'demos:flamingo-demo', 'demos:kormorant-demo',
-        'demos:spoonbill-demo',
+        'demos:spoonbill-demo', 'demos:beacon-demo',
         'demos:substance-demo', 'demos:substance-samples',
         'demos:rainbow', 'demos:lumen',
-        'tools:lightbeam', 'tools:ignite', 'tools:substance-tools'
+        'tools:lightbeam', 'tools:ignite', 'tools:beacon',
+        'tools:substance-tools'

@@ -101,3 +101,8 @@ This `drop/archives` folder provides pre-Radiance binaries for those libraries. 
 * 1.2 - Blackstone
 * 1.3 - Darkstone
 * 1.4 - Inkstone
+
+### Lightbeam
+* 1.0 - Antares
+* 1.1 - Betelgeuse
+* 1.2 - Castor
