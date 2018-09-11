@@ -234,3 +234,7 @@ The following API allows shifting the hue of the colors:
 Here is the same `Purple` color scheme hue-shifted 40%:
 
 <img alt="Derived Hue Shifted"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/derived-hueshift.png" width="340" height="254" />
+
+### Additional color schemes
+
+Additional color schemes can be found in the [extras pack](colorschemes-extras.md).
