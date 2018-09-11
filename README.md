@@ -1,10 +1,12 @@
-## Radiance libraries
+# Radiance libraries
 
 Radiance is a collection of libraries for writing modern, elegant and well-performing Swing applications.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulabrickwall1.png" width="340" height="254" border=0>
 </p>
+
+## Core libraries
 
 ### Neon
 
@@ -13,10 +15,6 @@ The [Neon library](docs/neon/neon.md) provides a core set of APIs to work with i
 ### Photon
 
 The [Photon library](docs/photon/photon.md) enables usage of vector-based icons in Swing applications. SVG content can be either loaded asynchronously at runtime from a variety of local and remote sources, or transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
-
-### Ignite
-
-The [Ignite plugin](docs/ignite/ignite.md) wraps the Photon library to allow build-time transcoding of SVG content into Java / Kotlin classes.
 
 ### Trident
 
@@ -34,11 +32,21 @@ The [Flamingo library](docs/flamingo/flamingo.md) provides a robust set of addit
 
 The Kormorant library exposes the entire API surface of Flamingo as a custom, targeted and approachable Kotlin DSL (domain-specific language).
 
+## Tools
+
 ### Lightbeam
 
 The [Lightbeam library](docs/lightbeam/lightbeam.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
 
-### Building Radiance
+### Ignite
+
+The [Ignite plugin](docs/ignite/ignite.md) wraps the Photon library to allow build-time transcoding of SVG content into Java / Kotlin classes.
+
+### Zodiac
+
+The [Zodiac library](docs/zodiac/zodiac.md) provides utilities for taking screenshots for Substance and Flamingo documentation.
+
+## Building Radiance
 
 [This document](docs/building.md) is an overview of how to build Radiance artifacts locally. Remote Maven artifacts and dependency specifications will be available concurrent with the first Radiance release (planned for September / October 2018).
 
