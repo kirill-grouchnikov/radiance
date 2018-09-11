@@ -1,0 +1,187 @@
+Mariner Enabled {
+    kind=Light
+    colorUltraLight=#EAEEF1
+    colorExtraLight=#ECF0F3
+    colorLight=#D8D7D3
+    colorMid=#CDCDCF
+    colorDark=#B8B6B7
+    colorUltraDark=#A5A5A7
+    colorForeground=#000000
+}
+
+Mariner Disabled {
+    kind=Light
+    colorUltraLight=#EAEEF1
+    colorExtraLight=#ECF0F3
+    colorLight=#D8D7D3
+    colorMid=#CDCDCF
+    colorDark=#B8B6B7
+    colorUltraDark=#A5A5A7
+    colorForeground=#666666
+}
+
+Mariner Enabled Border {
+    kind=Light
+    colorUltraLight=#9599A4
+    colorExtraLight=#9598A1
+    colorLight=#9599A4
+    colorMid=#7A7D90
+    colorDark=#74768B
+    colorUltraDark=#626473
+    colorForeground=#1F1B29
+}
+
+Mariner Enabled Mark {
+    kind=Light
+    colorUltraLight=#9599A4
+    colorExtraLight=#9598A1
+    colorLight=#9599A4
+    colorMid=#7A7D90
+    colorDark=#74768B
+    colorUltraDark=#626473
+    colorForeground=#626473
+}
+
+Mariner Active {
+    kind=Light
+    colorUltraLight=#FFECBA
+    colorExtraLight=#FEE4B1
+    colorLight=#F5DEA3
+    colorMid=#EECD82
+    colorDark=#E2C384
+    colorUltraDark=#E1B575
+    colorForeground=#4A1903
+}
+
+Mariner Active Border {
+    kind=Dark
+    colorUltraLight=#9E6030
+    colorExtraLight=#9C5F27
+    colorLight=#834C18
+    colorMid=#72451B
+    colorDark=#633E26
+    colorUltraDark=#573620
+    colorForeground=#E4B765
+}
+
+Mariner Active Mark {
+    kind=Dark
+    colorUltraLight=#9E6030
+    colorExtraLight=#9C5F27
+    colorLight=#834C18
+    colorMid=#72451B
+    colorDark=#633E26
+    colorUltraDark=#573620
+    colorForeground=#573620
+}
+
+Mariner Watermark {
+    kind=Dark
+    colorUltraLight=#7D7C81
+    colorExtraLight=#777279
+    colorLight=#5B535E
+    colorMid=#443D45
+    colorDark=#29242A
+    colorUltraDark=#171314
+    colorForeground=#26252D
+}
+
+Mariner Header {
+    kind=Dark
+    colorUltraLight=#493E3C
+    colorExtraLight=#433837
+    colorLight=#2E2425
+    colorMid=#201718
+    colorDark=#181317
+    colorUltraDark=#181214
+    colorForeground=#FFF8F6
+}
+
+Mariner Header Border {
+    kind=Dark
+    colorUltraLight=#121115
+    colorExtraLight=#111014
+    colorLight=#080607
+    colorMid=#050003
+    colorDark=#040003
+    colorUltraDark=#000000
+    colorForeground=#686262
+}
+
+Mariner Uneditable {
+    kind=Light
+    colorUltraLight=#CACFD3
+    colorExtraLight=#CBD0D4
+    colorLight=#B3B5C1
+    colorMid=#B2B5BA
+    colorDark=#AEB3B9
+    colorUltraDark=#A5A9AC
+    colorForeground=#000000
+}
+
+Mariner Footer Enabled {
+    kind=Light
+    colorUltraLight=#DADEE1
+    colorExtraLight=#DCE0E3
+    colorLight=#C8C7C3
+    colorMid=#BDBDBF
+    colorDark=#A8A6A7
+    colorUltraDark=#959597
+    colorForeground=#000000
+}
+
+Mariner Footer Disabled {
+    kind=Light
+    colorUltraLight=#DADEE1
+    colorExtraLight=#DCE0E3
+    colorLight=#C8C7C3
+    colorMid=#BDBDBF
+    colorDark=#A8A6A7
+    colorUltraDark=#959597
+    colorForeground=#555555
+}
+
+Mariner Footer Enabled Border {
+    kind=Light
+    colorUltraLight=#858994
+    colorExtraLight=#858891
+    colorLight=#858994
+    colorMid=#6A6D80
+    colorDark=#64667B
+    colorUltraDark=#525463
+    colorForeground=#1F1B29
+}
+
+Mariner Footer Enabled Mark {
+    kind=Light
+    colorUltraLight=#858994
+    colorExtraLight=#858891
+    colorLight=#858994
+    colorMid=#6A6D80
+    colorDark=#64667B
+    colorUltraDark=#525463
+    colorForeground=#525463
+}
+
+Mariner Footer Separator {
+    kind=Light
+    colorUltraLight=#CECECE
+    colorExtraLight=#CCCCCC
+    colorLight=#B7B7B7
+    colorMid=#ACACAC
+    colorDark=#979797
+    colorUltraDark=#848484
+    colorForeground=#000000
+}
+
+Mariner Footer Watermark {
+    kind=Light
+    colorUltraLight=#CCCCCE
+    colorExtraLight=#C4C4C6
+    colorLight=#BBB9BA
+    colorMid=#B8B6B9
+    colorDark=#AFAAAE
+    colorUltraDark=#9FA2A2
+    colorForeground=#000000
+}
+

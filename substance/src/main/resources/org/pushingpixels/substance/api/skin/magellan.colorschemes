@@ -1,0 +1,242 @@
+Magellan Dark Blue Background {
+    kind=Dark
+    colorUltraLight=#063162
+    colorExtraLight=#063263
+    colorLight=#063263
+    colorMid=#063263
+    colorDark=#031E42
+    colorUltraDark=#031A3B
+    colorForeground=#DADADA
+}
+
+Magellan Medium Blue Background {
+    kind=Dark
+    colorUltraLight=#0F5AAF
+    colorExtraLight=#0F58AA
+    colorLight=#0D519E
+    colorMid=#0A478D
+    colorDark=#083D7A
+    colorUltraDark=#053163
+    colorForeground=#EBEBEB
+}
+
+Magellan Light Blue Background {
+    kind=Light
+    colorUltraLight=#0C5AB0
+    colorExtraLight=#0C5AB0
+    colorLight=#0C5AB0
+    colorMid=#0C5AB1
+    colorDark=#0C5AB0
+    colorUltraDark=#0C5AB1
+    colorForeground=#021C3A
+}
+
+Magellan Ultralight Blue Background {
+    kind=Light
+    colorUltraLight=#B2D6FF
+    colorExtraLight=#AFD4FE
+    colorLight=#AAD1FE
+    colorMid=#A7CFFD
+    colorDark=#A0CBFB
+    colorUltraDark=#9DC9FB
+    colorForeground=#003269
+}
+
+Magellan Blue Controls Enabled {
+    kind=Dark
+    colorUltraLight=#0C61AC
+    colorExtraLight=#0B60AA
+    colorLight=#064E92
+    colorMid=#003977
+    colorDark=#003977
+    colorUltraDark=#003977
+    colorForeground=#9FD1FF
+}
+
+Magellan Blue Controls Enabled Border {
+    kind=Dark
+    colorUltraLight=#0B498F
+    colorExtraLight=#0A4487
+    colorLight=#093F7D
+    colorMid=#083C77
+    colorDark=#06284D
+    colorUltraDark=#042040
+    colorForeground=#9FD1FF
+}
+
+Magellan Blue Controls Pressed {
+    kind=Dark
+    colorUltraLight=#033568
+    colorExtraLight=#033568
+    colorLight=#053B6E
+    colorMid=#084275
+    colorDark=#084275
+    colorUltraDark=#084275
+    colorForeground=#8FC1F9
+}
+
+Magellan Blue Controls Pressed Border {
+    kind=Dark
+    colorUltraLight=#062547
+    colorExtraLight=#062241
+    colorLight=#062547
+    colorMid=#062547
+    colorDark=#042244
+    colorUltraDark=#042040
+    colorForeground=#FFFFFF
+}
+
+Magellan Blue Controls Active {
+    kind=Dark
+    colorUltraLight=#1074E4
+    colorExtraLight=#1072DF
+    colorLight=#0F6FD8
+    colorMid=#0E67CA
+    colorDark=#0D5FBB
+    colorUltraDark=#0C5AB0
+    colorForeground=#B2D6FF
+}
+
+Magellan Blue Controls Active Border {
+    kind=Dark
+    colorUltraLight=#074A8C
+    colorExtraLight=#074787
+    colorLight=#094480
+    colorMid=#0C457A
+    colorDark=#093F75
+    colorUltraDark=#0C3E70
+    colorForeground=#8FC1F9
+}
+
+Magellan Light Blue Controls Active {
+    kind=Light
+    colorUltraLight=#438EE9
+    colorExtraLight=#428CE5
+    colorLight=#4189E0
+    colorMid=#3F83D4
+    colorDark=#3C7BC8
+    colorUltraDark=#3A77C0
+    colorForeground=#021C3A
+}
+
+Magellan Light Blue Controls Enabled {
+    kind=Light
+    colorUltraLight=#B0DFFE
+    colorExtraLight=#B0DCF7
+    colorLight=#AEDAF5
+    colorMid=#A8CCF0
+    colorDark=#96BFEB
+    colorUltraDark=#8EBEE6
+    colorForeground=#15428B
+}
+
+Magellan Light Blue Borders Enabled {
+    kind=Light
+    colorUltraLight=#97C8F0
+    colorExtraLight=#91C3EF
+    colorLight=#87BAE9
+    colorMid=#80B5E6
+    colorDark=#70A7DF
+    colorUltraDark=#5691D3
+    colorForeground=#15428B
+}
+
+Magellan Green Controls {
+    kind=Light
+    colorUltraLight=#63CA15
+    colorExtraLight=#63CA15
+    colorLight=#5BBD12
+    colorMid=#51AC0D
+    colorDark=#40750B
+    colorUltraDark=#335E0D
+    colorForeground=#143000
+}
+
+Magellan Green Controls Mark {
+    kind=Light
+    colorUltraLight=#5FB315
+    colorExtraLight=#57A314
+    colorLight=#509C13
+    colorMid=#44870C
+    colorDark=#1F3806
+    colorUltraDark=#1B3008
+    colorForeground=#0D1C00
+}
+
+Magellan Green Controls Border {
+    kind=Dark
+    colorUltraLight=#1E4600
+    colorExtraLight=#1E4600
+    colorLight=#1E4600
+    colorMid=#1E4600
+    colorDark=#1E4600
+    colorUltraDark=#1E4600
+    colorForeground=#3E7A0D
+}
+
+Magellan Light Green Controls {
+    kind=Light
+    colorUltraLight=#DDFF66
+    colorExtraLight=#DDFF66
+    colorLight=#C6E857
+    colorMid=#9FC23E
+    colorDark=#809630
+    colorUltraDark=#5D7023
+    colorForeground=#333333
+}
+
+Magellan Light Green Controls Border {
+    kind=Light
+    colorUltraLight=#DDFF66
+    colorExtraLight=#DDFF66
+    colorLight=#DDFF66
+    colorMid=#DDFF66
+    colorDark=#DDFF66
+    colorUltraDark=#DDFF66
+    colorForeground=#333333
+}
+
+Magellan Ochre Controls {
+    kind=Light
+    colorUltraLight=#FEC66F
+    colorExtraLight=#FEC66F
+    colorLight=#FCA445
+    colorMid=#DD8932
+    colorDark=#DD8932
+    colorUltraDark=#DD8932
+    colorForeground=#010100
+}
+
+Magellan Ochre Controls Border {
+    kind=Light
+    colorUltraLight=#9A835F
+    colorExtraLight=#9A835F
+    colorLight=#9A835F
+    colorMid=#998058
+    colorDark=#A1875A
+    colorUltraDark=#A1875A
+    colorForeground=#000000
+}
+
+Magellan Light Blue Separator {
+    kind=Light
+    colorUltraLight=#B0EFFF
+    colorExtraLight=#A8D0FD
+    colorLight=#A5CEFC
+    colorMid=#7197C2
+    colorDark=#7197C2
+    colorUltraDark=#7197C2
+    colorForeground=#003269
+}
+
+Magellan Uneditable Controls {
+    kind=Light
+    colorUltraLight=#0556A4
+    colorExtraLight=#0556A4
+    colorLight=#0556A4
+    colorMid=#0556A4
+    colorDark=#0556A4
+    colorUltraDark=#0555A3
+    colorForeground=#8ABDF6
+}
+

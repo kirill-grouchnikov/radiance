@@ -1,0 +1,65 @@
+Coffee Active {
+    kind=Light
+    colorUltraLight=#F4E5C0
+    colorExtraLight=#F0DEB3
+    colorLight=#EBD7A6
+    colorMid=#C7A67B
+    colorDark=#AA8363
+    colorUltraDark=#946F4A
+    colorForeground=#32220F
+}
+
+LightGray General Watermark {
+    kind=Light
+    colorUltraLight=#E9EEF7
+    colorExtraLight=#E5E8ED
+    colorLight=#DADCDF
+    colorMid=#CACDD1
+    colorDark=#BCC4CC
+    colorUltraDark=#BAC1CA
+    colorForeground=#4C535C
+}
+
+Moderate Highlight {
+    kind=Light
+    colorUltraLight=#FDE5A7
+    colorExtraLight=#F8DC89
+    colorLight=#F7D85D
+    colorMid=#F0BB48
+    colorDark=#974720
+    colorUltraDark=#733520
+    colorForeground=#000000
+}
+
+Gray Disabled {
+    kind=Light
+    colorUltraLight=#FAFBFC
+    colorExtraLight=#F0F2F4
+    colorLight=#E1E4E7
+    colorMid=#D2D6DA
+    colorDark=#B4B9BE
+    colorUltraDark=#646A70
+    colorForeground=#70757A
+}
+
+Creme Active {
+    kind=Light
+    colorUltraLight=#E4F3FC
+    colorExtraLight=#D7EAF3
+    colorLight=#C5ECF7
+    colorMid=#ACDEF4
+    colorDark=#97CEEB
+    colorUltraDark=#9999B9
+    colorForeground=#32220F
+}
+
+Creme Disabled {
+    kind=Light
+    colorUltraLight=#FCFCFD
+    colorExtraLight=#F5F7F8
+    colorLight=#ECEEF0
+    colorMid=#E3E5E8
+    colorDark=#D2D5D8
+    colorUltraDark=#B0B2B4
+    colorForeground=#9B9EA2
+}

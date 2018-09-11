@@ -1,0 +1,56 @@
+Mist Enabled {
+    kind=Light
+    colorUltraLight=#F4F6F9
+    colorExtraLight=#EBF0F4
+    colorLight=#C3CDD7
+    colorMid=#B0B5BA
+    colorDark=#4E5358
+    colorUltraDark=#1F2429
+    colorForeground=#0F1419
+}
+
+Mist Disabled {
+    kind=Light
+    colorUltraLight=#E8E9EA
+    colorExtraLight=#DFE1E3
+    colorLight=#D2D5D7
+    colorMid=#C5C9CC
+    colorDark=#ABAFB4
+    colorUltraDark=#6A6F73
+    colorForeground=#797D82
+}
+
+Mist Aqua Background {
+    kind=Light
+    colorUltraLight=#DAE6EE
+    colorExtraLight=#D5E2EB
+    colorLight=#D0DBE4
+    colorMid=#CDD6DD
+    colorDark=#BFC4C8
+    colorUltraDark=#C0C2C6
+    colorForeground=#898989
+}
+
+Mist Silver Active {
+    kind=Light
+    colorUltraLight=#FBFCFF
+    colorExtraLight=#F2F6FB
+    colorLight=#CED7E0
+    colorMid=#BDC2C6
+    colorDark=#737679
+    colorUltraDark=#5E6062
+    colorForeground=#424345
+}
+
+Mist Silver Light Blue {
+    kind=Light
+    colorUltraLight=#DAE6EE
+    colorExtraLight=#D5E2EB
+    colorLight=#D0DBE4
+    colorMid=#CDD6DD
+    colorDark=#BFC4C8
+    colorUltraDark=#C0C2C6
+    colorForeground=#0F1419
+}
+
+

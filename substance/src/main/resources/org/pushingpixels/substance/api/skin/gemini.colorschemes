@@ -1,0 +1,142 @@
+Gemini Dark Blue Background {
+    kind=Light
+    colorUltraLight=#3B4859
+    colorExtraLight=#3A475A
+    colorLight=#324158
+    colorMid=#2E3A50
+    colorDark=#2C384E
+    colorUltraDark=#28324B
+    colorForeground=#CAD9D2
+}
+
+Gemini White Background {
+    kind=Light
+    colorUltraLight=#EBF1F1
+    colorExtraLight=#D2E0E0
+    colorLight=#D3DEDE
+    colorMid=#CFDEDE
+    colorDark=#CCD8D8
+    colorUltraDark=#C9D6D6
+    colorForeground=#7B7B79
+}
+
+Gemini Dark Blue {
+    kind=Dark
+    colorUltraLight=#424C67
+    colorExtraLight=#38445C
+    colorLight=#2D3D4D
+    colorMid=#212E41
+    colorDark=#1B2435
+    colorUltraDark=#121B22
+    colorForeground=#B3C3DC
+}
+
+Gemini Black {
+    kind=Dark
+    colorUltraLight=#3A4953
+    colorExtraLight=#293338
+    colorLight=#1D292F
+    colorMid=#111B1D
+    colorDark=#0D1313
+    colorUltraDark=#0C100F
+    colorForeground=#C9C9CB
+}
+
+Gemini Gray {
+    kind=Light
+    colorUltraLight=#C7CFD1
+    colorExtraLight=#B6C1C2
+    colorLight=#B3BDB9
+    colorMid=#A6ADAC
+    colorDark=#606B69
+    colorUltraDark=#485250
+    colorForeground=#000000
+}
+
+Gemini Gray Border {
+    kind=Dark
+    colorUltraLight=#6E6D72
+    colorExtraLight=#6C6B70
+    colorLight=#6A696E
+    colorMid=#585D60
+    colorDark=#575C5F
+    colorUltraDark=#51595B
+    colorForeground=#F8FFFF
+}
+
+Gemini Light Gray {
+    kind=Light
+    colorUltraLight=#E7ECF0
+    colorExtraLight=#E3EAF0
+    colorLight=#DFE8EF
+    colorMid=#DBE4EB
+    colorDark=#C5CED7
+    colorUltraDark=#AEB5BD
+    colorForeground=#636B6E
+}
+
+Gemini Light Gray Border {
+    kind=Light
+    colorUltraLight=#939997
+    colorExtraLight=#8D928E
+    colorLight=#8B908C
+    colorMid=#858B87
+    colorDark=#828886
+    colorUltraDark=#7F8583
+    colorForeground=#050704
+}
+
+Gemini Dark Gray Separator {
+    kind=Light
+    colorUltraLight=#E5E9E9
+    colorExtraLight=#B6C1C2
+    colorLight=#9CA88A
+    colorMid=#83938E
+    colorDark=#73837E
+    colorUltraDark=#3C585B
+    colorForeground=#000000
+}
+
+Gemini Highlight {
+    kind=Light
+    colorUltraLight=#FFEC97
+    colorExtraLight=#FFE86F
+    colorLight=#FFE34F
+    colorMid=#FFC73C
+    colorDark=#F2A926
+    colorUltraDark=#E29E0B
+    colorForeground=#70430B
+}
+
+Gemini Highlight Border {
+    kind=Light
+    colorUltraLight=#FFE769
+    colorExtraLight=#FFE454
+    colorLight=#FFDF4C
+    colorMid=#FFD747
+    colorDark=#FCB326
+    colorUltraDark=#FDA607
+    colorForeground=#70430B
+}
+
+Gemini Black Active Header {
+    kind=Dark
+    colorUltraLight=#52595F
+    colorExtraLight=#4A4D4F
+    colorLight=#464A4B
+    colorMid=#424545
+    colorDark=#414343
+    colorUltraDark=#414242
+    colorForeground=#CBCBCD
+}
+
+Gemini Black Disabled Header {
+    kind=Dark
+    colorUltraLight=#3A4953
+    colorExtraLight=#293338
+    colorLight=#1D292F
+    colorMid=#111B1D
+    colorDark=#0D1313
+    colorUltraDark=#0C100F
+    colorForeground=#89898B
+}

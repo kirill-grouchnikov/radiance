@@ -1,0 +1,144 @@
+Twilight Enabled {
+    kind=Dark
+    colorUltraLight=#3E3C35
+    colorExtraLight=#3D3B34
+    colorLight=#3B3A33
+    colorMid=#393731
+    colorDark=#35342E
+    colorUltraDark=#35332D
+    colorForeground=#B9B49E
+}
+
+Twilight Active { 
+    kind=Light
+    colorUltraLight=#969280
+    colorExtraLight=#95917F
+    colorLight=#8F8B7A
+    colorMid=#8C8877
+    colorDark=#35342E
+    colorUltraDark=#35332D
+    colorForeground=#000000
+}
+
+Twilight Selected Disabled Border {
+	kind=Dark
+	colorUltraLight=#3B3932
+	colorExtraLight=#3B3932
+	colorLight=#3B3932
+	colorMid=#3B3932
+	colorDark=#3B3932
+	colorUltraDark=#3B3932
+	colorForeground=#B9B49E
+}
+
+Twilight Border {
+    kind=Dark
+    colorUltraLight=#191813
+    colorExtraLight=#191813
+    colorLight=#191813
+    colorMid=#191813
+    colorDark=#191813
+    colorUltraDark=#191813
+    colorForeground=#B9B49E
+}
+
+Twilight Tab Border {
+    kind=Light
+    colorUltraLight=#969280
+    colorExtraLight=#969280
+    colorLight=#969280
+    colorMid=#969280
+    colorDark=#969280
+    colorUltraDark=#969280
+    colorForeground=#969280
+}
+
+Twilight Mark Active {
+    kind=Dark
+    colorUltraLight=#292823
+    colorExtraLight=#292823
+    colorLight=#292823
+    colorMid=#292823
+    colorDark=#292823
+    colorUltraDark=#292823
+    colorForeground=#292823
+}
+
+Twilight Highlight { 
+    kind=Light
+    colorUltraLight=#C7AD81
+    colorExtraLight=#C7AE81
+    colorLight=#C7AE82
+    colorMid=#C7AE81
+    colorDark=#C7AE82
+    colorUltraDark=#C7AE81
+    colorForeground=#28201B
+}
+
+Twilight Watermark {
+    kind=Light
+    colorUltraLight=#4C4A41
+    colorExtraLight=#4C4A41
+    colorLight=#4C4A41
+    colorMid=#4C4A41
+    colorDark=#4C4A41
+    colorUltraDark=#4C4A41
+    colorForeground=#24231F
+}
+
+Twilight Decorations Watermark {
+    kind=Light
+    colorUltraLight=#4B4940
+    colorExtraLight=#4A483F
+    colorLight=#46443C
+    colorMid=#44423A
+    colorDark=#414038
+    colorUltraDark=#413F37
+    colorForeground=#F1F1F2
+}
+
+Twilight Separator {
+    kind=Dark
+    colorUltraLight=#5B5952
+    colorExtraLight=#58564F
+    colorLight=#545249
+    colorMid=#3B3A33
+    colorDark=#36352E
+    colorUltraDark=#35342D
+    colorForeground=#F1F1F2
+}
+
+Twilight Decorations Separator {
+    kind=Dark
+    colorUltraLight=#4F4E4A
+    colorExtraLight=#4B4A47
+    colorLight=#494842
+    colorMid=#35342D
+    colorDark=#302F29
+    colorUltraDark=#2F2D28
+    colorForeground=#F1F1F2
+}
+
+Twilight Header Watermark {
+    kind=Dark
+    colorUltraLight=#141414
+    colorExtraLight=#121212
+    colorLight=#101010
+    colorMid=#0B0B0B
+    colorDark=#030303
+    colorUltraDark=#000000
+    colorForeground=#FFFFFF
+}
+
+Twilight Header Border {
+    kind=Dark
+    colorUltraLight=#000000
+    colorExtraLight=#000000
+    colorLight=#000000
+    colorMid=#000000
+    colorDark=#000000
+    colorUltraDark=#000000
+    colorForeground=#B9B49E
+}
+
+

@@ -1,0 +1,197 @@
+Business Active {
+    kind=Light
+    colorUltraLight=#FBFCFF
+    colorExtraLight=#F2F7FB
+    colorLight=#D1DAE2
+    colorMid=#C2C6CA
+    colorDark=#818386
+    colorUltraDark=#707172
+    colorForeground=#505152
+}
+
+Business Enabled {
+    kind=Light
+    colorUltraLight=#EFF1F3
+    colorExtraLight=#E5EAEF
+    colorLight=#BFC8D2
+    colorMid=#ACB0B5
+    colorDark=#4C5156
+    colorUltraDark=#1E2328
+    colorForeground=#0E1318
+}
+
+Business Highlight {
+    kind=Light
+    colorUltraLight=#FDEAB9
+    colorExtraLight=#F9E3A1
+    colorLight=#F9E07D
+    colorMid=#F3C96D
+    colorDark=#AC6C4D
+    colorUltraDark=#8F5D4D
+    colorForeground=#1A1A1A
+}
+
+Business Black Steel Active {
+    kind=Light
+    colorUltraLight=#ABCCE1
+    colorExtraLight=#9EC3DB
+    colorLight=#96B6CE
+    colorMid=#90ABC0
+    colorDark=#718091
+    colorUltraDark=#747E8A
+    colorForeground=#4D4D4D
+}
+
+Business Black Steel Enabled {
+    kind=Light
+    colorUltraLight=#FAFCFF
+    colorExtraLight=#F1F6FA
+    colorLight=#CBD5DE
+    colorMid=#B9BDC2
+    colorDark=#64676B
+    colorUltraDark=#474A4C
+    colorForeground=#303234
+}
+
+Business Black Steel Disabled {
+    kind=Light
+    colorUltraLight=#FAFBFC
+    colorExtraLight=#F1F3F5
+    colorLight=#E3E5E8
+    colorMid=#D5D8DC
+    colorDark=#B9BDC2
+    colorUltraDark=#73787D
+    colorForeground=#7E8287
+}
+
+Business Black Steel Active Header {
+    kind=Dark
+    colorUltraLight=#606060
+    colorExtraLight=#5A5A5A
+    colorLight=#525252
+    colorMid=#494949
+    colorDark=#434343
+    colorUltraDark=#414141
+    colorForeground=#FFFFFF
+}
+
+Business Black Steel Enabled Header {
+    kind=Dark
+    colorUltraLight=#676767
+    colorExtraLight=#606060
+    colorLight=#565656
+    colorMid=#4B4B4B
+    colorDark=#434343
+    colorUltraDark=#414141
+    colorForeground=#FFFFFF
+}
+
+Business Black Steel Active General {
+    kind=Light
+    colorUltraLight=#BDCDD7
+    colorExtraLight=#B4C6D1
+    colorLight=#AABAC5
+    colorMid=#A0ADB7
+    colorDark=#7B828A
+    colorUltraDark=#797E83
+    colorForeground=#4B4B4B
+}
+
+Business Black Steel Enabled General {
+    kind=Light
+    colorUltraLight=#E1E7EB
+    colorExtraLight=#DCE2E7
+    colorLight=#D4DADE
+    colorMid=#CED2D6
+    colorDark=#B7B9BB
+    colorUltraDark=#B5B6B8
+    colorForeground=#4B4B4B
+}
+
+Business Blue Steel Active {
+    kind=Light
+    colorUltraLight=#ABCCE1
+    colorExtraLight=#9EC3DB
+    colorLight=#96B6CE
+    colorMid=#90ABC0
+    colorDark=#718091
+    colorUltraDark=#747E8A
+    colorForeground=#4D4D4D
+}
+
+Business Blue Steel Enabled {
+    kind=Light
+    colorUltraLight=#FAFCFF
+    colorExtraLight=#F1F6FA
+    colorLight=#CBD5DE
+    colorMid=#B9BDC2
+    colorDark=#64676B
+    colorUltraDark=#474A4C
+    colorForeground=#303234
+}
+
+Business Blue Steel Disabled {
+    kind=Light
+    colorUltraLight=#FAFBFC
+    colorExtraLight=#F1F3F5
+    colorLight=#E3E5E8
+    colorMid=#D5D8DC
+    colorDark=#B9BDC2
+    colorUltraDark=#73787D
+    colorForeground=#7E8287
+}
+
+Business Blue Steel Highlight {
+    kind=Light
+    colorUltraLight=#FDEAB9
+    colorExtraLight=#F9E3A1
+    colorLight=#F9E07D
+    colorMid=#F3C96D
+    colorDark=#AC6C4D
+    colorUltraDark=#8F5D4D
+    colorForeground=#1A1A1A
+}
+
+Business Blue Steel Active Header {
+    kind=Light
+    colorUltraLight=#89BFE1
+    colorExtraLight=#7EB7DB
+    colorLight=#78A9CE
+    colorMid=#739EC0
+    colorDark=#5A7491
+    colorUltraDark=#5D718A
+    colorForeground=#4D4D4D
+}
+
+Business Blue Steel Enabled Header {
+    kind=Light
+    colorUltraLight=#B6D0E1
+    colorExtraLight=#AAC8DB
+    colorLight=#A1BBCE
+    colorMid=#9AAFC0
+    colorDark=#778391
+    colorUltraDark=#78808A
+    colorForeground=#4D4D4D
+}
+
+Business Blue Steel Active General {
+    kind=Light
+    colorUltraLight=#C6D7E1
+    colorExtraLight=#BDCFDB
+    colorLight=#B2C2CE
+    colorMid=#A8B6C0
+    colorDark=#818991
+    colorUltraDark=#7F848A
+    colorForeground=#4D4D4D
+}
+
+Business Blue Steel Enabled General {
+    kind=Light
+    colorUltraLight=#D0E0EB
+    colorExtraLight=#C9DAE7
+    colorLight=#C4D3DE
+    colorMid=#C0CCD6
+    colorDark=#B0B5BB
+    colorUltraDark=#B0B3B8
+    colorForeground=#4D4D4D
+}

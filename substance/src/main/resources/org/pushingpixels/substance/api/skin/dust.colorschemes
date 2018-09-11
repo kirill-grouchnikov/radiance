@@ -1,0 +1,142 @@
+Dust Active {
+    kind=Light
+    colorUltraLight=#B4ADA1
+    colorExtraLight=#B4ADA1
+    colorLight=#AEA79A
+    colorMid=#A8A094
+    colorDark=#A29B8E
+    colorUltraDark=#9E978A
+    colorForeground=#222629
+}
+
+Dust Border Active {
+    kind=Dark
+    colorUltraLight=#625B4E
+    colorExtraLight=#615A4D
+    colorLight=#5E574A
+    colorMid=#5E574A
+    colorDark=#5E574A
+    colorUltraDark=#5E574A
+    colorForeground=#B4ADA1
+}
+
+Dust Border Enabled {
+    kind=Light
+    colorUltraLight=#A29C8F
+    colorExtraLight=#8F887A
+    colorLight=#827A6C
+    colorMid=#756D5E
+    colorDark=#6F6859
+    colorUltraDark=#6F6858
+    colorForeground=#5E574A
+}
+
+Dust Header Border {
+    kind=Dark
+    colorUltraLight=#2D251E
+    colorExtraLight=#2D241E
+    colorLight=#2C241E
+    colorMid=#2C231D
+    colorDark=#271F1A
+    colorUltraDark=#271F1A
+    colorForeground=#C1C2AA
+}
+
+Dust Enabled {
+    kind=Light
+    colorUltraLight=#EEECE8
+    colorExtraLight=#EAE7E2
+    colorLight=#E8E5DF
+    colorMid=#DCD7CE
+    colorDark=#CFC9BC
+    colorUltraDark=#CDC7B9
+    colorForeground=#3B3639
+}
+
+Dust Header Active {
+    kind=Dark
+    colorUltraLight=#604539
+    colorExtraLight=#604539
+    colorLight=#5E4438
+    colorMid=#594235
+    colorDark=#513D30
+    colorUltraDark=#4F3C2F
+    colorForeground=#C1C2AA
+}
+
+Dust Header Enabled {
+    kind=Dark
+    colorUltraLight=#3C3B37
+    colorExtraLight=#3B3A36
+    colorLight=#393834
+    colorMid=#3B3A36
+    colorDark=#33322E
+    colorUltraDark=#2F2E2C
+    colorForeground=#C1C2C2
+}
+
+Dust Header Disabled {
+    kind=Dark
+    colorUltraLight=#3C3B37
+    colorExtraLight=#3B3A36
+    colorLight=#393834
+    colorMid=#3B3A36
+    colorDark=#33322E
+    colorUltraDark=#2F2E2C
+    colorForeground=#717272
+}
+
+Dust Header Separator {
+    kind=Dark
+    colorUltraLight=#3F3D3A
+    colorExtraLight=#3F3E3C
+    colorLight=#3B3936
+    colorMid=#363532
+    colorDark=#2F2C2A
+    colorUltraDark=#2F2C2A
+    colorForeground=#21201D
+}
+
+Dust Header Watermark {
+    kind=Dark
+    colorUltraLight=#2C2B29
+    colorExtraLight=#2C2B29
+    colorLight=#2B2A28
+    colorMid=#292827
+    colorDark=#292827
+    colorUltraDark=#292827
+    colorForeground=#999999
+}
+
+Dust Coffee Enabled {
+    kind=Light
+    colorUltraLight=#E0D3B3
+    colorExtraLight=#DDD4B3
+    colorLight=#DCD7C1
+    colorMid=#D3CAA9
+    colorDark=#C9BF9B
+    colorUltraDark=#C5BB97
+    colorForeground=#433C32
+}
+
+Dust Coffee Watermark {
+    kind=Light
+    colorUltraLight=#E8D9B9
+    colorExtraLight=#E8D9B9
+    colorLight=#E8D9B9
+    colorMid=#E8D9B9
+    colorDark=#E8D9B9
+    colorUltraDark=#E8D9B9
+    colorForeground=#433C32
+}
+
+Dust Coffee Text Highlight {
+    kind=Light
+    colorUltraLight=#E2C39D
+    colorExtraLight=#DFBE95
+    colorLight=#DBBA8E
+    colorMid=#C09A73
+    colorDark=#AA8363
+    colorUltraDark=#9A7554
+    colorForeground=#32220F
+}
