@@ -19,7 +19,7 @@ java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter source
 
 java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/check/svg/tango outputPackageName=org.pushingpixels.demo.substance.main.check.svg.tango templateFile=/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
-java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../tools/substance-tools/src/main/java/org/pushingpixels/tools/substance/main/docrobot/svg outputPackageName=org.pushingpixels.tools.substance.main.docrobot.svg templateFile=/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
+java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../tools/zodiac/src/main/java/org/pushingpixels/tools/zodiac/svg outputPackageName=org.pushingpixels.tools.zodiac.svg templateFile=/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
 java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../demos/substance-samples/src/main/java/org/pushingpixels/samples/substance/mail/svg outputPackageName=org.pushingpixels.samples.substance.mail.svg templateFile=/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
@@ -29,4 +29,4 @@ java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter source
 
 java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../demos/rainbow/src/main/kotlin/org/pushingpixels/rainbow/svg outputPackageName=org.pushingpixels.rainbow.svg templateFile=/org/pushingpixels/photon/transcoder/kotlin/SvgTranscoderTemplateResizable.templ outputLanguage=kotlin
 
-java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../tools/substance-tools/src/main/java/org/pushingpixels/tools/substance/jitterbug/ outputPackageName=org.pushingpixels.tools.substance.jitterbug templateFile=/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
+java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../tools/tools-common/src/main/java/org/pushingpixels/tools/common/ outputPackageName=org.pushingpixels.tools.common templateFile=/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
