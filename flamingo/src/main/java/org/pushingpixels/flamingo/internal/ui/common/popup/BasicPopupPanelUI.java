@@ -531,8 +531,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 					JRibbon ribbon = (JRibbon) SwingUtilities
 							.getAncestorOfClass(JRibbon.class, src);
 					if ((ribbon != null)
-							&& FlamingoUtilities
-									.isShowingMinimizedRibbonInPopup(ribbon)) {
+							&& FlamingoUtilities.isShowingMinimizedRibbonInPopup(ribbon)) {
 						// This will be handled in the action listener installed
 						// on ribbon task toggle buttons in BasicRibbonUI.
 						// There the ribbon popup will be hidden.

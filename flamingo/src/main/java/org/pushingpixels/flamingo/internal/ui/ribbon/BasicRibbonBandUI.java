@@ -33,6 +33,8 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.*;
@@ -56,7 +58,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
     /**
      * The button for collapsed state.
      */
-    protected JCommandButton collapsedButton;
+    private JCommandButton collapsedButton;
 
     /**
      * The band expand button. Is visible when the {@link JRibbonBand#getExpandActionListener()} of
@@ -67,12 +69,12 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
     /**
      * Mouse listener on the associated ribbon band.
      */
-    protected MouseListener mouseListener;
+    private MouseListener mouseListener;
 
     /**
      * Listens to property changes on the associated ribbon band.
      */
-    protected PropertyChangeListener propertyChangeListener;
+    private PropertyChangeListener propertyChangeListener;
 
     /**
      * Popup panel that shows the contents of the ribbon band when it is in a collapsed state.
@@ -98,6 +100,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             // System.out.println("Popup dim is " + originalSize);
             this.setPreferredSize(originalSize);
             this.setSize(originalSize);
+            SubstanceCortex.ComponentOrParentChainScope.setDecorationType(this,
+                    SubstanceSlices.DecorationAreaType.GENERAL);
         }
 
         /**
@@ -146,7 +150,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      * Installs default parameters on the associated ribbon band.
      */
     protected void installDefaults() {
-        this.ribbonBand.setBackground(null);
         this.ribbonBand.setBorder(null);
     }
 
@@ -427,13 +430,11 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             if (collapsedButton.isVisible()) {
                 // was icon and now is normal band - have to restore the
                 // control panel
-                CollapsedButtonPopupPanel popupPanel = (collapsedButton.getPopupCallback() != null)
-                                                       ?
-                                                       (CollapsedButtonPopupPanel)
-                                                               collapsedButton.getPopupCallback()
-                                                                       .getPopupPanel(
-                                                                               collapsedButton)
-                                                       : null;
+                CollapsedButtonPopupPanel popupPanel =
+                        (collapsedButton.getPopupCallback() != null) ?
+                                (CollapsedButtonPopupPanel) collapsedButton.getPopupCallback()
+                                        .getPopupPanel(collapsedButton)
+                                : null;
                 if (popupPanel != null) {
                     AbstractRibbonBand bandFromPopup = (AbstractRibbonBand) popupPanel
                             .removeComponent();
@@ -540,6 +541,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
     @Override
     public void paint(Graphics g, JComponent c) {
         Graphics2D graphics = (Graphics2D) g.create();
+
+        BackgroundPaintingUtils.update(graphics, c, false);
 
         Insets ins = ribbonBand.getInsets();
 

@@ -62,7 +62,7 @@ public class CommandButtonBackgroundDelegate {
     /**
      * Cache for background images.
      */
-    private static LazyResettableHashMap<BufferedImage> imageCache = new LazyResettableHashMap<BufferedImage>(
+    private static LazyResettableHashMap<BufferedImage> imageCache = new LazyResettableHashMap<>(
             "Substance.Flamingo.CommandButtonBackgroundDelegate");
 
     /**
@@ -88,8 +88,7 @@ public class CommandButtonBackgroundDelegate {
             SubstanceBorderPainter borderPainter, int width, int height,
             StateTransitionTracker stateTransitionTracker, boolean ignoreSelections) {
         StateTransitionTracker.ModelStateInfo modelStateInfo = (stateTransitionTracker == null)
-                ? null
-                : stateTransitionTracker.getModelStateInfo();
+                ? null : stateTransitionTracker.getModelStateInfo();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = (modelStateInfo == null)
                 ? null
                 : (ignoreSelections ? modelStateInfo.getStateNoSelectionContributionMap()
@@ -180,15 +179,17 @@ public class CommandButtonBackgroundDelegate {
 
         NeonCortex.drawImage(g2d, baseLayer, 0, 0);
 
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                .entrySet()) {
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
-            if (activeState == currState)
+            if (activeState == currState) {
                 continue;
+            }
 
             float contribution = activeEntry.getValue().getContribution();
-            if (contribution == 0.0f)
+            if (contribution == 0.0f) {
                 continue;
+            }
 
             SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities
                     .getColorScheme(commandButton, activeState);

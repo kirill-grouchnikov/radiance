@@ -30,6 +30,7 @@
 package org.pushingpixels.tools.jitterbug;
 
 import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.tools.jitterbug.StateChangeEvent.StateChangeType;
 
@@ -52,9 +53,12 @@ public class JColorSchemeComponent extends JPanel {
     private ButtonGroup bg;
 
     public JColorSchemeComponent() {
+        this.setLayout(new BorderLayout());
+
         FormBuilder formBuilder = FormBuilder.create().
                 columns("fill:pref").
-                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p");
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                padding(Paddings.DIALOG);
 
         this.bg = new ButtonGroup();
 
@@ -66,7 +70,6 @@ public class JColorSchemeComponent extends JPanel {
         this.ultraDark = createColorComponent("ultra dark");
         this.foreground = createColorComponent("foreground");
 
-        JPanel header = new JPanel();
         FormBuilder headerBuilder = FormBuilder.create().
                 columns("fill:pref,2dlu,fill:min(150px;pref):grow,4dlu,right:pref").
                 rows("p");
@@ -82,7 +85,7 @@ public class JColorSchemeComponent extends JPanel {
 
         isLight.addActionListener((ActionEvent e) -> fireStateChanged(StateChangeType.MODIFIED));
 
-        formBuilder.add(header).xy(1, 1);
+        formBuilder.add(headerBuilder.build()).xy(1, 1);
 
         formBuilder.add(ultraLight).xy(1, 3);
         formBuilder.add(extraLight).xy(1, 5);
@@ -91,6 +94,8 @@ public class JColorSchemeComponent extends JPanel {
         formBuilder.add(dark).xy(1, 11);
         formBuilder.add(ultraDark).xy(1, 13);
         formBuilder.add(foreground).xy(1, 15);
+
+        this.add(formBuilder.getPanel(), BorderLayout.CENTER);
     }
 
     private JColorComponent createColorComponent(String label) {

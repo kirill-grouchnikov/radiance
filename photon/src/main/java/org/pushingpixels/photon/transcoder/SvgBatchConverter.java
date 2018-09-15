@@ -1,42 +1,39 @@
 /*
  * Copyright (c) 2005-2018 Radiance Photon Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of Radiance Photon Kirill Grouchnikov nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.photon.transcoder;
 
-import java.io.File;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.concurrent.CountDownLatch;
-
 import org.pushingpixels.photon.transcoder.java.JavaLanguageRenderer;
 import org.pushingpixels.photon.transcoder.kotlin.KotlinLanguageRenderer;
+
+import java.io.*;
+import java.util.concurrent.CountDownLatch;
 
 public class SvgBatchConverter {
     private static String getInputArgument(String[] args, String argumentName) {
@@ -55,15 +52,16 @@ public class SvgBatchConverter {
     }
 
     /**
-     * @param args
-     *            <ul>
-     *            <li>sourceFolder=xyz - points to a folder with SVG images</li>
-     *            <li>outputPackageName=xyz - the package name for the transcoded classes</li>
-     *            <li>templateFile=xyz - the template file for creating the transcoded classes</li>
-     *            <li>outputLanguage=java|kotlin - the language for the transcoded classes</li>
-     *            <li>outputClassNamePrefix=xyz - optional prefix for the class name of each
-     *            transcoded class</li>
-     *            </ul>
+     * @param args <ul>
+     *             <li>sourceFolder=xyz - points to a folder with SVG images</li>
+     *             <li>outputPackageName=xyz - the package name for the transcoded classes</li>
+     *             <li>templateFile=xyz - the template file for creating the transcoded classes</li>
+     *             <li>outputLanguage=java|kotlin - the language for the transcoded classes</li>
+     *             <li>outputFolder=xyz - optional location of output files. If not specified,
+     *             output files will be placed in the 'sourceFolder'</li>
+     *             <li>outputClassNamePrefix=xyz - optional prefix for the class name of each
+     *             transcoded class</li>
+     *             </ul>
      */
     public static void main(String[] args) {
         if (args.length < 4) {
@@ -71,8 +69,8 @@ public class SvgBatchConverter {
             System.exit(1);
         }
 
-        String sourceFolder = getInputArgument(args, "sourceFolder");
-        if (sourceFolder == null) {
+        String sourceFolderName = getInputArgument(args, "sourceFolder");
+        if (sourceFolderName == null) {
             System.out.println(
                     "Missing source folder. Check the documentation for the parameters to pass");
             System.exit(1);
@@ -80,7 +78,8 @@ public class SvgBatchConverter {
         String outputPackageName = getInputArgument(args, "outputPackageName");
         if (outputPackageName == null) {
             System.out.println(
-                    "Missing output package name. Check the documentation for the parameters to pass");
+                    "Missing output package name. Check the documentation for the parameters to " +
+                            "pass");
             System.exit(1);
         }
         String templateFile = getInputArgument(args, "templateFile");
@@ -97,16 +96,25 @@ public class SvgBatchConverter {
         }
         if ((outputLanguage.compareTo("java") != 0) && (outputLanguage.compareTo("kotlin") != 0)) {
             System.out.println(
-                    "Output language must be either Java or Kotlin. Check the documentation for the parameters to pass");
+                    "Output language must be either Java or Kotlin. Check the documentation for " +
+                            "the parameters to pass");
             System.exit(1);
         }
         String outputClassNamePrefix = getInputArgument(args, "outputClassNamePrefix");
         if (outputClassNamePrefix == null) {
             outputClassNamePrefix = "";
         }
+        String outputFolderName = getInputArgument(args, "outputFolder");
+        if (outputFolderName == null) {
+            outputFolderName = sourceFolderName;
+        }
 
-        File folder = new File(sourceFolder);
-        if (!folder.exists()) {
+        File inputFolder = new File(sourceFolderName);
+        if (!inputFolder.exists()) {
+            return;
+        }
+        File outputFolder = new File(outputFolderName);
+        if (!outputFolder.exists()) {
             return;
         }
 
@@ -117,23 +125,24 @@ public class SvgBatchConverter {
 
         System.out.println(
                 "******************************************************************************");
-        System.out.println("Processing " + sourceFolder + " to " + outputPackageName + " in "
+        System.out.println("Processing " + sourceFolderName + " to " + outputPackageName + " in "
                 + outputLanguage);
         System.out.println(
                 "******************************************************************************");
 
-        for (File file : folder.listFiles((File dir, String name) -> name.endsWith(".svg"))) {
+        for (File file : inputFolder.listFiles((File dir, String name) -> name.endsWith(".svg"))) {
             String svgClassName = outputClassNamePrefix
                     + file.getName().substring(0, file.getName().length() - 4);
             svgClassName = svgClassName.replace('-', '_');
             svgClassName = svgClassName.replace(' ', '_');
-            String classFilename = folder + File.separator + svgClassName + outputFileNameExtension;
+            String classFilename = outputFolderName + File.separator +
+                    svgClassName + outputFileNameExtension;
 
             System.err.println("Processing " + file.getName());
 
             try (PrintWriter pw = new PrintWriter(classFilename);
-                    InputStream templateStream = SvgBatchConverter.class
-                            .getResourceAsStream(templateFile)) {
+                 InputStream templateStream = SvgBatchConverter.class
+                         .getResourceAsStream(templateFile)) {
                 final CountDownLatch latch = new CountDownLatch(1);
 
                 SvgTranscoder transcoder = new SvgTranscoder(file.toURI().toURL().toString(),

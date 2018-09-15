@@ -37,6 +37,7 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.tools.common.*;
 import org.pushingpixels.tools.jitterbug.StateChangeEvent.StateChangeType;
+import org.pushingpixels.tools.jitterbug.svg.outline_save_24px;
 
 import javax.swing.*;
 import java.awt.*;
@@ -78,8 +79,7 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
         JPanel controlsPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
 
         final JButton saveButton = new JButton("save");
-        saveButton.setIcon(new ImageIcon(JitterbugEditor.class.getClassLoader()
-                .getResource("org/pushingpixels/tools/jitterbug/page_save.png")));
+        saveButton.setIcon(outline_save_24px.of(12, 12));
         saveButton.addActionListener((ActionEvent e) -> {
             colorSchemeList.save();
             SwingUtilities.invokeLater(() -> saveButton.setEnabled(false));

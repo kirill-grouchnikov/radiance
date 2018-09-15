@@ -36,8 +36,8 @@ import org.fest.swing.timing.Pause;
 import org.pushingpixels.demo.substance.main.check.SampleFrame;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.internal.utils.*;
-import org.pushingpixels.tools.zodiac.svg.radiance_menu;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.tools.common.RadianceLogo;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -100,11 +100,12 @@ public abstract class BaseRobot {
             @Override
             protected void executeInEDT() throws Throwable {
                 sf = new SampleFrame();
-                sf.setIconImage(SubstanceImageCreator.getColorSchemeImage(null,
-                        radiance_menu.of(16, 16),
-                        SubstanceCortex.ComponentScope.getCurrentSkin(sf.getRootPane())
-                                .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE),
-                        0.0f));
+                sf.setIconImage(
+                        RadianceLogo.getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(
+                                sf.getRootPane()).getColorScheme(
+                                        DecorationAreaType.PRIMARY_TITLE_PANE,
+                                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                                        ComponentState.ENABLED)));
                 sf.setSize(340, 254);
                 sf.setLocationRelativeTo(null);
                 sf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

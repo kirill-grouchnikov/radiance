@@ -66,7 +66,7 @@ public class LazyResettableHashMap<T> {
 	public LazyResettableHashMap(String displayName) {
 		this.displayName = displayName;
 		if (all == null) {
-			all = new LinkedList<LazyResettableHashMap<?>>();
+			all = new LinkedList<>();
 		}
 		all.add(this);
 	}
@@ -76,7 +76,7 @@ public class LazyResettableHashMap<T> {
 	 */
 	private void createIfNecessary() {
 		if (this.cache == null)
-			this.cache = new SoftHashMap<HashMapKey, T>();
+			this.cache = new SoftHashMap<>();
 	}
 
 	/**
@@ -149,10 +149,10 @@ public class LazyResettableHashMap<T> {
 	 */
 	public static List<String> getStats() {
 		if (all != null) {
-			List<String> result = new LinkedList<String>();
+			List<String> result = new LinkedList<>();
 
-			Map<String, Integer> mapCounter = new TreeMap<String, Integer>();
-			Map<String, Integer> entryCounter = new TreeMap<String, Integer>();
+			Map<String, Integer> mapCounter = new TreeMap<>();
+			Map<String, Integer> entryCounter = new TreeMap<>();
 
 			for (LazyResettableHashMap<?> map : all) {
 				String key = map.displayName;

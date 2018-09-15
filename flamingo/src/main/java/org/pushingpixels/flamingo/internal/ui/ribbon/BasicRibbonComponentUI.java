@@ -330,6 +330,8 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
 
     @Override
     public void paint(Graphics g, JComponent c) {
+        Graphics2D graphics = (Graphics2D) g.create();
+
         JRibbonComponent ribbonComp = (JRibbonComponent) c;
         if (isIconVisible(this.ribbonComponent.getDisplayPriority())) {
             Insets ins = ribbonComp.getInsets();
@@ -338,13 +340,14 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
                 int availableHeight = ribbonComp.getHeight() - ins.top - ins.bottom;
                 int iconY = Math.max(0, ins.top + (availableHeight - icon.getIconHeight()) / 2);
                 if (ribbonComp.getComponentOrientation().isLeftToRight()) {
-                    paintIcon(g, ribbonComp, icon, ins.left, iconY);
+                    paintIcon(graphics, ribbonComp, icon, ins.left, iconY);
                 } else {
-                    paintIcon(g, ribbonComp, icon,
+                    paintIcon(graphics, ribbonComp, icon,
                             ribbonComp.getWidth() - ins.right - icon.getIconWidth(), iconY);
                 }
             }
         }
+        graphics.dispose();
     }
 
     protected abstract void paintIcon(Graphics g, JRibbonComponent ribbonComp, Icon icon, int x, int y);

@@ -38,17 +38,17 @@ public class CommandButtonVisualStateTracker {
     /**
      * Property change listener.
      */
-    protected PropertyChangeListener substancePropertyListener;
+    private PropertyChangeListener substancePropertyListener;
 
     /**
      * Listener for transition animations on the action area.
      */
-    protected StateTransitionTracker actionStateTransitionTracker;
+    private StateTransitionTracker actionStateTransitionTracker;
 
     /**
      * Listener for transition animations on the popup area.
      */
-    protected StateTransitionTracker popupStateTransitionTracker;
+    private StateTransitionTracker popupStateTransitionTracker;
 
     public void installListeners(final AbstractCommandButton b) {
         this.substancePropertyListener = (PropertyChangeEvent evt) -> {

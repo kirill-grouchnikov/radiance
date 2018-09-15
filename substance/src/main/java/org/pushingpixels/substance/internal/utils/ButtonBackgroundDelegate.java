@@ -56,7 +56,7 @@ public class ButtonBackgroundDelegate {
     /**
      * Cache for background images.
      */
-    private static LazyResettableHashMap<BufferedImage> regularBackgrounds = new LazyResettableHashMap<BufferedImage>(
+    private static LazyResettableHashMap<BufferedImage> regularBackgrounds = new LazyResettableHashMap<>(
             "ButtonBackgroundDelegate");
 
     /**

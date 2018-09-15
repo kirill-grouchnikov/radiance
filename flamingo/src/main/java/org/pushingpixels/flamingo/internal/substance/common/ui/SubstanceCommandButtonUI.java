@@ -72,15 +72,10 @@ import java.util.Map;
 public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         implements ActionPopupTransitionAwareUI {
     /**
-     * Delegate for painting the background.
-     */
-    protected ButtonBackgroundDelegate backgroundDelegate;
-
-    /**
      * Property change listener. Listens on changes to {@link AbstractButton#MODEL_CHANGED_PROPERTY}
      * property.
      */
-    protected PropertyChangeListener substancePropertyListener;
+    private PropertyChangeListener substancePropertyListener;
 
     /**
      * Model change listener for ghost image effects.
@@ -90,20 +85,20 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
     /**
      * Tracker for visual state transitions.
      */
-    protected CommandButtonVisualStateTracker substanceVisualStateTracker;
+    private CommandButtonVisualStateTracker substanceVisualStateTracker;
 
     private ButtonModel overallRolloverModel;
 
-    protected RolloverControlListener substanceOverallRolloverListener;
+    private RolloverControlListener substanceOverallRolloverListener;
 
-    protected StateTransitionTracker overallStateTransitionTracker;
+    private StateTransitionTracker overallStateTransitionTracker;
 
     /**
      * The matching glowing icon. Is used only when
      * {@link AnimationConfigurationManager#isAnimationAllowed(AnimationFacet, Component)} returns
      * true on {@link AnimationFacet#ICON_GLOW}.
      */
-    protected GlowingResizableIcon glowingIcon;
+    private GlowingResizableIcon glowingIcon;
 
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
@@ -115,7 +110,6 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
      */
     public SubstanceCommandButtonUI(JCommandButton button) {
         super();
-        this.backgroundDelegate = new ButtonBackgroundDelegate();
 
         this.overallRolloverModel = new DefaultButtonModel();
         this.overallRolloverModel.setArmed(false);
@@ -232,8 +226,9 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
     }
 
     private void paintButtonBackground(Graphics graphics, Rectangle toFill) {
-        if (SubstanceCoreUtilities.isButtonNeverPainted(this.commandButton))
+        if (SubstanceCoreUtilities.isButtonNeverPainted(this.commandButton)) {
             return;
+        }
 
         ButtonModel actionModel = this.commandButton.getActionModel();
         PopupButtonModel popupModel = ((JCommandButton) this.commandButton).getPopupModel();
@@ -508,6 +503,14 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         // g2d.setColor(Color.green);
         // g2d.draw(layoutInfo.popupActionRect);
 
+        g2d.dispose();
+    }
+
+    @Override
+    public void update(Graphics g, JComponent c) {
+        Graphics2D g2d = (Graphics2D) g.create();
+        NeonCortex.installDesktopHints(g2d, c);
+        this.paint(g2d, c);
         g2d.dispose();
     }
 

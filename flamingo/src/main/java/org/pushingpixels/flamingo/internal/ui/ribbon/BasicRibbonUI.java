@@ -38,6 +38,7 @@ import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
 import org.pushingpixels.flamingo.internal.utils.*;
 import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.substance.api.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -146,6 +147,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             }
             if ("minimized".equals(evt.getPropertyName())) {
                 PopupPanelManager.defaultManager().hidePopups(null);
+                RichToolTipManager.sharedInstance().hideCurrentlyShowingTipIfNecessary();
                 ribbon.revalidate();
                 ribbon.doLayout();
                 ribbon.repaint();
@@ -1317,6 +1319,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
             // System.out.println("Popup dim is " + originalSize);
             this.setPreferredSize(originalSize);
             this.setSize(originalSize);
+            SubstanceCortex.ComponentOrParentChainScope.setDecorationType(this,
+                    SubstanceSlices.DecorationAreaType.GENERAL);
         }
     }
 

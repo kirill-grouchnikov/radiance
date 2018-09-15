@@ -30,10 +30,12 @@
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
+import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
+import java.awt.*;
 
 /**
  * UI for {@link JFlowBandControlPanel} components in <b>Substance</b> look and
@@ -42,8 +44,18 @@ import javax.swing.plaf.ComponentUI;
  * @author Kirill Grouchnikov
  */
 public class SubstanceFlowBandControlPanelUI extends BasicFlowBandControlPanelUI {
-	public static ComponentUI createUI(JComponent comp) {
-		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
-		return new SubstanceFlowBandControlPanelUI();
-	}
+    public static ComponentUI createUI(JComponent comp) {
+        SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
+        return new SubstanceFlowBandControlPanelUI();
+    }
+
+    @Override
+    public void update(Graphics g, JComponent c) {
+        this.paint(g, c);
+    }
+
+    @Override
+    public void paint(Graphics g, JComponent c) {
+        BackgroundPaintingUtils.update(g, c, false);
+    }
 }

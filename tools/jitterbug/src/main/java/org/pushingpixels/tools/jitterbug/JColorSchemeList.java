@@ -33,6 +33,7 @@ import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
+import org.pushingpixels.tools.jitterbug.svg.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -78,8 +79,7 @@ public class JColorSchemeList extends JComponent {
         JPanel bottomButtonsPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         JButton addColorScheme = new JButton();
         addColorScheme.setToolTipText("Adds a new color scheme");
-        addColorScheme.setIcon(new ImageIcon(JColorSchemeList.class.getClassLoader()
-                .getResource("org/pushingpixels/tools/jitterbug/add.png")));
+        addColorScheme.setIcon(outline_add_24px.of(12, 12));
         addColorScheme.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
             String newName = getNewColorSchemeName(null);
             if (newName == null)
@@ -103,8 +103,7 @@ public class JColorSchemeList extends JComponent {
         moveUpButton = new JButton();
         moveUpButton.setToolTipText("Moves the currently selected color scheme up");
         moveUpButton.setEnabled(false);
-        moveUpButton.setIcon(new ImageIcon(JColorSchemeList.class.getClassLoader()
-                .getResource("org/pushingpixels/tools/jitterbug/arrow_up.png")));
+        moveUpButton.setIcon(outline_keyboard_arrow_up_24px.of(12, 12));
         moveUpButton.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
             SubstanceColorScheme selected = (SubstanceColorScheme) schemeList.getSelectedValue();
             schemes.switchWithPrevious(selected.getDisplayName());
@@ -117,8 +116,7 @@ public class JColorSchemeList extends JComponent {
         moveDownButton = new JButton();
         moveDownButton.setToolTipText("Moves the currently selected color scheme down");
         moveDownButton.setEnabled(false);
-        moveDownButton.setIcon(new ImageIcon(JColorSchemeList.class.getClassLoader()
-                .getResource("org/pushingpixels/tools/jitterbug/arrow_down.png")));
+        moveDownButton.setIcon(outline_keyboard_arrow_down_24px.of(12, 12));
         moveDownButton.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
             SubstanceColorScheme selected = (SubstanceColorScheme) schemeList.getSelectedValue();
             schemes.switchWithNext(selected.getDisplayName());
@@ -131,10 +129,9 @@ public class JColorSchemeList extends JComponent {
         bottomButtonsPanel.add(Box.createHorizontalStrut(10));
 
         renameButton = new JButton();
-        renameButton.setToolTipText("Rename the currently selected color scheme");
+        renameButton.setToolTipText("Renames the currently selected color scheme");
         renameButton.setEnabled(false);
-        renameButton.setIcon(new ImageIcon(JColorSchemeList.class.getClassLoader()
-                .getResource("org/pushingpixels/tools/jitterbug/chart_line_edit.png")));
+        renameButton.setIcon(outline_edit_24px.of(12, 12));
         renameButton.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
             SubstanceColorScheme selected = (SubstanceColorScheme) schemeList.getSelectedValue();
             String newName = getNewColorSchemeName(selected.getDisplayName());
@@ -171,8 +168,7 @@ public class JColorSchemeList extends JComponent {
         deleteButton = new JButton();
         deleteButton.setToolTipText("Removes the currently selected color scheme");
         deleteButton.setEnabled(false);
-        deleteButton.setIcon(new ImageIcon(JColorSchemeList.class.getClassLoader()
-                .getResource("org/pushingpixels/tools/jitterbug/delete.png")));
+        deleteButton.setIcon(outline_delete_24px.of(12, 12));
         deleteButton.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
             SubstanceColorScheme selected = (SubstanceColorScheme) schemeList.getSelectedValue();
             schemes.delete(selected.getDisplayName());

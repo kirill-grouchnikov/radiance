@@ -50,7 +50,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
 
     private JLabel[] groupLabels;
 
-    protected ChangeListener changeListener;
+    private ChangeListener changeListener;
 
     /**
      * Invoked by <code>installUI</code> to create a layout manager object to manage the

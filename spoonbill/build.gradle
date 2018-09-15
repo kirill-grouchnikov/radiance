@@ -31,7 +31,7 @@
 apply plugin: 'java'
 
 dependencies {
-    compile('org.tmatesoft.svnkit:svnkit:1.9.3')
+    compile("org.tmatesoft.svnkit:svnkit:${rootProject.ext.svnkit_version}")
     compile project(':flamingo')
 }
 
@@ -80,7 +80,7 @@ modifyPom {
             dependency {
                 groupId = 'org.tmatesoft.svnkit'
                 artifactId = 'svnkit'
-                version = '1.9.3'
+                version = svnkit_version
             }
             dependency {
                 groupId = project.group

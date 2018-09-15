@@ -66,8 +66,9 @@ public class FlamingoUtilities {
     public static boolean isShowingMinimizedRibbonInPopup(JRibbon ribbon) {
         List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager()
                 .getShownPath();
-        if (popups.size() == 0)
+        if (popups.size() == 0) {
             return false;
+        }
 
         for (PopupPanelManager.PopupInfo popup : popups) {
             JComponent originator = popup.getPopupOriginator();
@@ -81,8 +82,9 @@ public class FlamingoUtilities {
     public static void checkResizePoliciesConsistency(AbstractRibbonBand ribbonBand) {
         Insets ins = ribbonBand.getInsets();
         AbstractBandControlPanel controlPanel = ribbonBand.getControlPanel();
-        if (controlPanel == null)
+        if (controlPanel == null) {
             return;
+        }
         int height = controlPanel.getPreferredSize().height
                 + ribbonBand.getUI().getBandTitleHeight() + ins.top + ins.bottom;
         List<RibbonBandResizePolicy> resizePolicies = ribbonBand.getResizePolicies();

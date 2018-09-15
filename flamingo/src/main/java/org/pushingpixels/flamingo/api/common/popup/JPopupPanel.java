@@ -54,7 +54,7 @@ public abstract class JPopupPanel extends JPanel {
 	 * @see #getCustomizer()
 	 * @see #setCustomizer(PopupPanelCustomizer)
 	 */
-	protected PopupPanelCustomizer customizer;
+	private PopupPanelCustomizer customizer;
 	
 	private JComponent invoker;
 
@@ -64,13 +64,13 @@ public abstract class JPopupPanel extends JPanel {
 	 * 
 	 * @author Kirill Grouchnikov
 	 */
-	public static interface PopupPanelCustomizer {
+	public interface PopupPanelCustomizer {
 		/**
 		 * Returns the requested screen bounds of the associated popup panel.
 		 * 
 		 * @return The requested screen bounds of the associated popup panel.
 		 */
-		public Rectangle getScreenBounds();
+		Rectangle getScreenBounds();
 	}
 
 	/**

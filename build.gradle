@@ -32,8 +32,11 @@ version = '0.9-SNAPSHOT'
 
 buildscript {
     ext {
-        kotlin_version = '1.2.61'
+        kotlin_version = '1.2.70'
         kotlinx_coroutines_version = '0.25.3'
+        gradle_nexus_plugin_version = '2.3.1'
+        batik_version = '1.10'
+        svnkit_version = '1.9.3'
     }
     repositories {
         mavenCentral()
@@ -41,7 +44,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.ext.kotlin_version}"
-        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+        classpath "com.bmuschko:gradle-nexus-plugin:${rootProject.ext.gradle_nexus_plugin_version}"
     }
 }
 

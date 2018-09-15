@@ -47,12 +47,12 @@ public class SubstanceDisabledResizableIcon implements ResizableIcon {
     /**
      * Image cache to speed up rendering.
      */
-    protected LazyResettableHashMap<BufferedImage> cachedImages;
+    private LazyResettableHashMap<BufferedImage> cachedImages;
 
     /**
      * The main (pre-filtered) icon.
      */
-    protected ResizableIcon delegate;
+    private ResizableIcon delegate;
 
     /**
      * Creates a new filtered icon.
@@ -63,8 +63,8 @@ public class SubstanceDisabledResizableIcon implements ResizableIcon {
     public SubstanceDisabledResizableIcon(ResizableIcon delegate) {
         super();
         this.delegate = delegate;
-        this.cachedImages = new LazyResettableHashMap<BufferedImage>(
-                "FlamingoSubstanceDisabledIcons");
+        this.cachedImages = new LazyResettableHashMap<>(
+                "FlamingoSubstanceDisabledIcons @" + delegate.hashCode());
     }
 
     @Override
@@ -88,8 +88,9 @@ public class SubstanceDisabledResizableIcon implements ResizableIcon {
         if (this.delegate instanceof AsynchronousLoading) {
             AsynchronousLoading asyncDelegate = (AsynchronousLoading) this.delegate;
             // if the delegate is still loading - do nothing
-            if (asyncDelegate.isLoading())
+            if (asyncDelegate.isLoading()) {
                 return;
+            }
         }
 
         SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(c,

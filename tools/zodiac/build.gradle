@@ -39,6 +39,7 @@ dependencies {
     compile project(':flamingo')
     compile project(':demos:substance-demo')
     compile project(':demos:flamingo-demo')
+    compile project(':tools:tools-common')
 }
 
 sourceCompatibility = 1.8

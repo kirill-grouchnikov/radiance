@@ -112,8 +112,6 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 : selectedTask.getBand(0);
         Color bgColor = (band != null) ? band.getBackground() : parent.getBackground();
 
-//        System.out.println("Drawing background for " + button.getText());
-//
         HashMapKey baseKey = SubstanceCoreUtilities.getHashKey(width, height,
                 baseFillScheme.getDisplayName(), baseBorderScheme.getDisplayName(),
                 borderPainter.getDisplayName(), decorationPainter.getDisplayName(),
@@ -125,7 +123,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             baseLayer = getSingleLayer(button, width, height, baseFillScheme,
                     baseBorderScheme, borderPainter);
 
-            //imageCache.put(baseKey, baseLayer);
+            imageCache.put(baseKey, baseLayer);
         }
 
        // System.out.println("\tbase layer at " + baseFillScheme.getDisplayName());
@@ -170,11 +168,8 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 layer = getSingleLayer(button, width, height, fillScheme, borderScheme,
                         borderPainter);
 
-                //imageCache.put(key, layer);
+                imageCache.put(key, layer);
             }
-
-//            System.out.println("\textra layer at " + fillScheme.getDisplayName() + ":" + activeState + ":" +
-//                    contribution);
 
             g2d.setComposite(AlphaComposite.SrcOver.derive(contribution));
             NeonCortex.drawImage(g2d, layer, 0, 0);
@@ -217,7 +212,6 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             graphics.setColor(fillScheme.getBackgroundFillColor());
             graphics.fill(contour);
         }
-        //System.out.println("Filling " + button.getText() + " with " + fillScheme.getDisplayName());
 
         float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
         GeneralPath contourInner = SubstanceOutlineUtilities.getBaseOutline(width,
@@ -251,10 +245,12 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
                 : stateTransitionTracker.getModelStateInfo().getStateContributionMap().entrySet()) {
             ComponentState activeState = activeEntry.getKey();
-            if (activeState.isDisabled())
+            if (activeState.isDisabled()) {
                 continue;
-            if (activeState == ComponentState.ENABLED)
+            }
+            if (activeState == ComponentState.ENABLED) {
                 continue;
+            }
             extraActionAlpha += activeEntry.getValue().getContribution();
         }
 

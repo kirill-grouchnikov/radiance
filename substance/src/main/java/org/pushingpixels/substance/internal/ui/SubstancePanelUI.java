@@ -58,8 +58,7 @@ public class SubstancePanelUI extends BasicPanelUI {
 		// support for per-window skins
 		Color backgr = p.getBackground();
 		if ((backgr == null) || (backgr instanceof UIResource)) {
-			Color backgroundFillColor = SubstanceColorUtilities
-					.getBackgroundFillColor(p);
+			Color backgroundFillColor = SubstanceColorUtilities.getBackgroundFillColor(p);
 			// fix for issue 436 - logic in getBackground() of
 			// custom panels can result in null value
 			if (backgroundFillColor != null) {
@@ -70,8 +69,9 @@ public class SubstancePanelUI extends BasicPanelUI {
 
 	@Override
 	public void update(Graphics g, JComponent c) {
-		if (!SubstanceCoreUtilities.isCurrentLookAndFeel())
+		if (!SubstanceCoreUtilities.isCurrentLookAndFeel()) {
 			return;
+		}
 
 		if (toPaintBackground(c)) {
 			BackgroundPaintingUtils.update(g, c, false);

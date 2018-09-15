@@ -54,12 +54,12 @@ import java.util.List;
 public class ColorSchemeFilter extends NeonAbstractFilter {
 	private int[] interpolated;
 
-	public static final int MAPSTEPS = 512;
+	private static final int MAPSTEPS = 512;
 
-	protected final static LazyResettableHashMap<ColorSchemeFilter> filters =
+	private final static LazyResettableHashMap<ColorSchemeFilter> filters =
 			new LazyResettableHashMap<>("ColorSchemeFilter");
 
-	protected float originalBrightnessFactor;
+	private float originalBrightnessFactor;
 
 	public static ColorSchemeFilter getColorSchemeFilter(SubstanceColorScheme scheme,
 			float originalBrightnessFactor) {
@@ -85,7 +85,7 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
 		this.originalBrightnessFactor = originalBrightnessFactor;
 
 		// collect the brightness factors of the color scheme
-		Map<Integer, Color> schemeColorMapping = new TreeMap<Integer, Color>();
+		Map<Integer, Color> schemeColorMapping = new TreeMap<>();
 		schemeColorMapping.put(
 				SubstanceColorUtilities.getColorBrightness(scheme.getUltraLightColor().getRGB()),
 				scheme.getUltraLightColor());
@@ -112,7 +112,7 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
 		int highestSchemeBrightness = schemeBrightness.get(schemeBrightness.size() - 1);
 		boolean hasSameBrightness = (highestSchemeBrightness == lowestSchemeBrightness);
 
-		Map<Integer, Color> stretchedColorMapping = new TreeMap<Integer, Color>();
+		Map<Integer, Color> stretchedColorMapping = new TreeMap<>();
 		for (Map.Entry<Integer, Color> entry : schemeColorMapping.entrySet()) {
 			int brightness = entry.getKey();
 			int stretched = hasSameBrightness ? brightness

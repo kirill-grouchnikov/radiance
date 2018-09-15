@@ -125,7 +125,7 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
         }
 
         Graphics2D temp = (Graphics2D) graphics.create();
-        this.tileArea(temp, comp, tileScheme, 0, 0, 0, 0, width, height);
+        this.tileArea(temp, comp, tileScheme, 0, 0, width, height);
         temp.dispose();
     }
 
@@ -158,7 +158,7 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
             graphics.fillRect(0, 0, width, height);
         }
         Graphics2D temp = (Graphics2D) graphics.create();
-        this.tileArea(temp, comp, tileScheme, offset.x, offset.y, 0, 0, width, height);
+        this.tileArea(temp, comp, tileScheme, offset.x, offset.y, width, height);
         temp.dispose();
     }
 
@@ -174,7 +174,11 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
             graphics.fill(contour);
         }
         Graphics2D temp = (Graphics2D) graphics.create();
-        this.tileArea(temp, comp, colorScheme, offset.x, offset.y, 0, 0, comp.getWidth(),
+        // Clip the area for tiling with the image. Ideally this would be done
+        // with soft clipping (in SubstanceCoreUtilities), but that creates an
+        // additional image. For now do hard clipping instead.
+        temp.setClip(contour);
+        this.tileArea(temp, comp, colorScheme, offset.x, offset.y, comp.getWidth(),
                 comp.getHeight());
         temp.dispose();
     }
@@ -194,17 +198,13 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
      *            X offset for the tiling.
      * @param offsetTextureY
      *            Y offset for the tiling.
-     * @param x
-     *            X coordinate of the tiling region.
-     * @param y
-     *            Y coordinate of the tiling region.
      * @param width
      *            Width of the tiling region.
      * @param height
      *            Height of the tiling region.
      */
-    protected void tileArea(Graphics2D g, Component comp, SubstanceColorScheme tileScheme,
-            int offsetTextureX, int offsetTextureY, int x, int y, int width, int height) {
+    private void tileArea(Graphics2D g, Component comp, SubstanceColorScheme tileScheme,
+            int offsetTextureX, int offsetTextureY, int width, int height) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setComposite(WidgetUtilities.getAlphaComposite(comp, this.textureAlpha, g));
 

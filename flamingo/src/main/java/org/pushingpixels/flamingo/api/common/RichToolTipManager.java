@@ -38,8 +38,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
-public class RichToolTipManager extends MouseAdapter implements
-		MouseMotionListener {
+public class RichToolTipManager extends MouseAdapter implements MouseMotionListener {
 	private Timer initialDelayTimer;
 
 	private Timer dismissTimer;
@@ -229,6 +228,10 @@ public class RichToolTipManager extends MouseAdapter implements
 		comp.removeMouseListener(this);
 		comp.putClientProperty(TRACKED_FOR_RICH_TOOLTIP, null);
 	}
+
+	public void hideCurrentlyShowingTipIfNecessary() {
+	    this.hideTipWindow();
+    }
 
 	@Override
 	public void mouseEntered(MouseEvent event) {

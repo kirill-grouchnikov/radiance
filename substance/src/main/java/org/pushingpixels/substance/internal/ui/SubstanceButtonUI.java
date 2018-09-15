@@ -457,8 +457,6 @@ public class SubstanceButtonUI extends BasicButtonUI implements
         Graphics2D g2d = (Graphics2D) g.create();
         NeonCortex.installDesktopHints(g2d, c);
         this.paint(g2d, c);
-//		g2d.setColor(new Color(255, 0, 0, 96));
-//		g2d.fillRect(0, 0, c.getWidth(), c.getHeight());
         g2d.dispose();
     }
 
