@@ -46,6 +46,14 @@ The [Ignite plugin](docs/ignite/ignite.md) wraps the Photon library to allow bui
 
 The [Zodiac library](docs/zodiac/zodiac.md) provides utilities for taking screenshots for Substance and Flamingo documentation.
 
+### Electra
+
+The [Electra tool](docs/electra/electra.md) allows adding callout bubbles to documentation screenshots.
+
+### Jitterbug
+
+The [Jitterbug editor](docs/jitterbug/jitterbug.md) allows creating and editing color scheme lists.
+
 ## Building Radiance
 
 [This document](docs/building.md) is an overview of how to build Radiance artifacts locally. Remote Maven artifacts and dependency specifications will be available concurrent with the first Radiance release (planned for September / October 2018).
