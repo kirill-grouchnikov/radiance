@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.demo.kormorant.common
 
-import kotlinx.coroutines.experimental.DefaultDispatcher
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.swing.Swing
-import kotlinx.coroutines.experimental.withContext
 import org.pushingpixels.demo.kormorant.RadianceLogo
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
@@ -45,7 +43,7 @@ import java.awt.FlowLayout
 import javax.swing.*
 
 fun main(args: Array<String>) {
-    launch(Swing) {
+    GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
@@ -56,13 +54,13 @@ fun main(args: Array<String>) {
         // Configure the breadcrumb bar to update the file panel every time
         // the path changes
         bar.model.addPathListener { ev ->
-            launch(Swing) {
+            GlobalScope.launch(Dispatchers.Swing) {
                 val newPath = ev.source.items
                 if (newPath.size > 0) {
                     // Use the Kotlin coroutines (experimental) to kick the
                     // loading of the path leaf content off the UI thread and then
                     // pipe it back to the UI thread in setFolder call.
-                    filePanel.setFolder(withContext(DefaultDispatcher) {
+                    filePanel.setFolder(withContext(Dispatchers.Default) {
                         bar.callback.getLeafs(newPath)
                     })
                 }
@@ -79,7 +77,7 @@ fun main(args: Array<String>) {
         val controls = JPanel(FlowLayout(FlowLayout.RIGHT))
         val setPath = JButton("Select and set path...")
         setPath.addActionListener {
-            launch(Swing) {
+            GlobalScope.launch(Dispatchers.Swing) {
                 val folderChooser = JFileChooser()
                 folderChooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
                 if (folderChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {

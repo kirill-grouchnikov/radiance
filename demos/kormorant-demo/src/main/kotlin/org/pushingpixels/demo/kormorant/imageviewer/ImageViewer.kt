@@ -1,9 +1,7 @@
 package org.pushingpixels.demo.kormorant.imageviewer
 
-import kotlinx.coroutines.experimental.DefaultDispatcher
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.swing.Swing
-import kotlinx.coroutines.experimental.withContext
 import org.pushingpixels.demo.kormorant.RadianceLogo
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
@@ -28,7 +26,7 @@ import javax.swing.JSlider
 import javax.swing.WindowConstants
 
 fun main(args: Array<String>) {
-    launch(Swing) {
+    GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
@@ -71,7 +69,7 @@ fun main(args: Array<String>) {
         }
 
         bar.model.addPathListener { event: BreadcrumbPathEvent<File> ->
-            launch(Swing) {
+            GlobalScope.launch(Dispatchers.Swing) {
                 val newPath = event.source.items
                 println("New path is ")
                 for (item in newPath) {
@@ -79,7 +77,7 @@ fun main(args: Array<String>) {
                 }
 
                 if (newPath.size > 0) {
-                    fileViewPanel.setFolder(withContext(DefaultDispatcher) {
+                    fileViewPanel.setFolder(withContext(Dispatchers.Default) {
                         bar.callback.getLeafs(newPath)
                     })
                 }
@@ -108,7 +106,7 @@ fun main(args: Array<String>) {
                 val newValue = iconSizeSlider.value
                 if (newValue != currIconSize) {
                     currIconSize = newValue
-                    launch(Swing) {
+                    GlobalScope.launch(Dispatchers.Swing) {
                         fileViewPanel.setIconDimension(currIconSize)
                         frame.invalidate()
                         frame.doLayout()

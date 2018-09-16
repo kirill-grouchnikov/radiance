@@ -31,6 +31,8 @@
  */
 package org.pushingpixels.rainbow
 
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.swing.Swing
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
@@ -47,7 +49,7 @@ import javax.swing.JFrame
  * @author Alexander Potochkin
  */
 fun main(args: Array<String>) {
-    launch(Swing) {
+    GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
         SubstanceCortex.GlobalScope.setTimelineDuration(1000)
         SubstanceCortex.GlobalScope.allowAnimations(AnimationFacet.GHOSTING_ICON_ROLLOVER)

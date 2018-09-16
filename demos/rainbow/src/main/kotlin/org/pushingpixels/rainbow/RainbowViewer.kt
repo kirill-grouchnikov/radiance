@@ -32,10 +32,8 @@
 package org.pushingpixels.rainbow
 
 import com.jgoodies.forms.builder.FormBuilder
-import kotlinx.coroutines.experimental.DefaultDispatcher
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.swing.Swing
-import kotlinx.coroutines.experimental.withContext
 import org.jdesktop.jxlayer.JXLayer
 import org.jdesktop.jxlayer.plaf.ext.MouseScrollableUI
 import org.jdesktop.jxlayer.plaf.ext.SpotLightUI
@@ -114,7 +112,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
 
         this.svgFileViewPanel = RainbowFileViewPanel(bar, initialSize)
         this.svgFileViewPanel.setProgressListener { evt: ProgressEvent ->
-            launch(Swing) {
+            GlobalScope.launch(Dispatchers.Swing) {
                 val min = evt.minimum
                 val max = evt.maximum
                 val progress = evt.progress
@@ -139,11 +137,11 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
         layer.setUI(spotLightLayerUI)
 
         bar.model.addPathListener { event: BreadcrumbPathEvent<T> ->
-            launch(Swing) {
+            GlobalScope.launch(Dispatchers.Swing) {
                 svgFileViewPanel.cancelMainWorker()
                 val newPath = event.source.items
                 if (newPath.size > 0) {
-                    val folder = withContext(DefaultDispatcher) {
+                    val folder = withContext(Dispatchers.Default) {
                         bar.callback.getLeafs(newPath)
                     }
                     svgFileViewPanel.setFolder(folder)
@@ -297,11 +295,11 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
         iconSizeSlider.isFocusable = false
 
         iconSizeSlider.addChangeListener {
-            launch(Swing) {
+            GlobalScope.launch(Dispatchers.Swing) {
                 if (!iconSizeSlider.model.valueIsAdjusting) {
                     val newValue = iconSizeSlider.value
                     if (newValue != iconSize) {
-                        withContext(DefaultDispatcher) {
+                        withContext(Dispatchers.Default) {
                             iconSize = newValue
                         }
                         sizeLabel.text = newValue.toString() + "x" + newValue

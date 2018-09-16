@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.demo.kormorant.bcb
 
-import kotlinx.coroutines.experimental.DefaultDispatcher
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.swing.Swing
-import kotlinx.coroutines.experimental.withContext
 import org.pushingpixels.demo.kormorant.RadianceLogo
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbTreeAdapterSelector
 import org.pushingpixels.substance.api.ComponentState
@@ -169,7 +167,7 @@ class FileListRenderer : SubstanceDefaultListCellRenderer() {
 }
 
 fun main(args: Array<String>) {
-    launch(Swing) {
+    GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
@@ -180,8 +178,9 @@ fun main(args: Array<String>) {
                 BreadcrumbTreeAdapterSelector(DefaultTreeModel(rootTreeNode),
                         object : BreadcrumbTreeAdapterSelector.TreeAdapter<FileTreeNode> {
                             override fun toString(node: FileTreeNode): String {
-                                if (node.file == null)
+                                if (node.file == null) {
                                     return "Computer"
+                                }
                                 var result = FileSystemView.getFileSystemView().getSystemDisplayName(node.file)
                                 if (result.isEmpty()) {
                                     result = node.file.absolutePath
@@ -200,7 +199,7 @@ fun main(args: Array<String>) {
         fileList.cellRenderer = FileListRenderer()
 
         bar.model.addPathListener { event ->
-            launch(Swing) {
+            GlobalScope.launch(Dispatchers.Swing) {
                 val newPath = event.source.items
                 println("New path is ")
                 for (item in newPath) {
@@ -213,7 +212,7 @@ fun main(args: Array<String>) {
                 if (newPath.size > 0) {
                     val model = FileListModel()
 
-                    val leafs = withContext(DefaultDispatcher) {
+                    val leafs = withContext(Dispatchers.Default) {
                         bar.callback.getLeafs(newPath)
                     }
 
