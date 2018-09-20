@@ -114,8 +114,9 @@ public class LazyResettableHashMap<T> {
 	 *         <code>false</code> otherwise.
 	 */
 	public boolean containsKey(HashMapKey key) {
-		if (this.cache == null)
+		if (this.cache == null) {
 			return false;
+		}
 		return this.cache.containsKey(key);
 	}
 
@@ -125,8 +126,9 @@ public class LazyResettableHashMap<T> {
 	 * @return The number of key-value pairs of this hash map.
 	 */
 	public int size() {
-		if (this.cache == null)
-			return 0;
+		if (this.cache == null) {
+            return 0;
+        }
 		return this.cache.size();
 	}
 
@@ -136,8 +138,9 @@ public class LazyResettableHashMap<T> {
 	public static void reset() {
 		if (all != null) {
 			for (LazyResettableHashMap<?> map : all) {
-				if (map.cache != null)
-					map.cache.clear();
+				if (map.cache != null) {
+                    map.cache.clear();
+                }
 			}
 		}
 	}

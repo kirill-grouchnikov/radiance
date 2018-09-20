@@ -43,7 +43,7 @@ public class SubstanceTitlePaneGravitySelector extends
         private SubstanceSlices.HorizontalGravity controlButtonsGravity;
         private SubstanceSlices.TitleIconHorizontalGravity iconGravity;
 
-        public TitlePaneConfiguration(String title, SubstanceSlices.HorizontalGravity textGravity,
+        private TitlePaneConfiguration(String title, SubstanceSlices.HorizontalGravity textGravity,
                 SubstanceSlices.HorizontalGravity controlButtonsGravity, SubstanceSlices.TitleIconHorizontalGravity iconGravity) {
             this.title = title;
             this.textGravity = textGravity;
@@ -54,8 +54,7 @@ public class SubstanceTitlePaneGravitySelector extends
 
     public SubstanceTitlePaneGravitySelector() {
         // populate the combobox
-        super(new TitlePaneConfiguration[] {
-                new TitlePaneConfiguration("Swing default", SubstanceSlices.HorizontalGravity.SWING_DEFAULT,
+        super(new TitlePaneConfiguration("Swing default", SubstanceSlices.HorizontalGravity.SWING_DEFAULT,
                                 SubstanceSlices.HorizontalGravity.SWING_DEFAULT,
                                 SubstanceSlices.TitleIconHorizontalGravity.SWING_DEFAULT),
                 new TitlePaneConfiguration("Platform", SubstanceSlices.HorizontalGravity.PLATFORM,
@@ -71,7 +70,7 @@ public class SubstanceTitlePaneGravitySelector extends
                         SubstanceSlices.HorizontalGravity.TRAILING, SubstanceSlices.TitleIconHorizontalGravity.NONE),
                 new TitlePaneConfiguration("Force KDE", SubstanceSlices.HorizontalGravity.CENTERED,
                         SubstanceSlices.HorizontalGravity.TRAILING,
-                        SubstanceSlices.TitleIconHorizontalGravity.OPPOSITE_CONTROL_BUTTONS)});
+                        SubstanceSlices.TitleIconHorizontalGravity.OPPOSITE_CONTROL_BUTTONS));
 
         // add an action listener to change title pane gravity based on user selection
         this.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {

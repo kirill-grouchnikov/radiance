@@ -157,8 +157,9 @@ public class SubstanceWidgetRepository {
      */
     public synchronized void registerWidget(String widgetClassName,
             List<Class<?>> supportedClasses) {
-        for (Class<?> clazz : supportedClasses)
+        for (Class<?> clazz : supportedClasses) {
             this.registerWidget(widgetClassName, clazz, false);
+        }
     }
 
     /**
@@ -177,15 +178,17 @@ public class SubstanceWidgetRepository {
     public synchronized void registerWidget(String widgetClassName, Class<?> supportedClass,
             boolean isExact) {
         if (JComponent.class.isAssignableFrom(supportedClass)) {
-            if (!this.widgets.containsKey(supportedClass))
-                this.widgets.put(supportedClass, new HashSet<WidgetClassInfo>());
+            if (!this.widgets.containsKey(supportedClass)) {
+                this.widgets.put(supportedClass, new HashSet<>());
+            }
         }
         // Guard against multiple registrations of the same widget.
         // This can happen if more than one jar on the classpath defines
         // the same widget.
         for (WidgetClassInfo registered : this.widgets.get(supportedClass)) {
-            if (registered.className.equals(widgetClassName))
+            if (registered.className.equals(widgetClassName)) {
                 return;
+            }
         }
         this.widgets.get(supportedClass).add(new WidgetClassInfo(widgetClassName, isExact));
     }
@@ -200,21 +203,23 @@ public class SubstanceWidgetRepository {
      * @return Set of widgets that match the specified component.
      */
     public synchronized Set<SubstanceWidget> getMatchingWidgets(JComponent jcomp) {
-        Set<SubstanceWidget> result = new HashSet<SubstanceWidget>();
+        Set<SubstanceWidget> result = new HashSet<>();
         Class<?> clazz = jcomp.getClass();
         boolean isOriginator = true;
         while (clazz != null) {
             Set<WidgetClassInfo> registered = this.widgets.get(clazz);
             if (registered != null) {
                 for (WidgetClassInfo widgetClassInfo : registered) {
-                    if (widgetClassInfo.isExact && !isOriginator)
+                    if (widgetClassInfo.isExact && !isOriginator) {
                         continue;
+                    }
                     try {
                         String widgetClassName = widgetClassInfo.className;
                         // check if the application requested to ignore the
                         // specific widget
-                        if (this.widgetClassesToIgnore.contains(widgetClassName))
+                        if (this.widgetClassesToIgnore.contains(widgetClassName)) {
                             continue;
+                        }
 
                         // The code below will fail if no such class exists.
                         // This allows safely removing the relevant widget
@@ -227,9 +232,7 @@ public class SubstanceWidgetRepository {
                         }
                         // the exceptions are ignored - see the explanation
                         // above.
-                    } catch (InstantiationException ie) {
-                    } catch (IllegalAccessException iae) {
-                    } catch (ClassNotFoundException cnfe) {
+                    } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
                     }
                 }
             }

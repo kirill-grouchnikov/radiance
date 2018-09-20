@@ -58,7 +58,7 @@ public interface TimelineCallback {
      *            {@link Timeline#setEase(org.pushingpixels.trident.ease.TimelineEase)}
      *            .
      */
-    public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
+    void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
             float durationFraction, float timelinePosition);
 
     /**
@@ -76,5 +76,5 @@ public interface TimelineCallback {
      *            {@link Timeline#setEase(org.pushingpixels.trident.ease.TimelineEase)}
      *            .
      */
-    public void onTimelinePulse(float durationFraction, float timelinePosition);
+    void onTimelinePulse(float durationFraction, float timelinePosition);
 }

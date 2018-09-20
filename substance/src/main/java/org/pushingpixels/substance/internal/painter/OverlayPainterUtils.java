@@ -62,8 +62,9 @@ public class OverlayPainterUtils {
 			SubstanceSkin skin, DecorationAreaType decorationAreaType) {
 		List<SubstanceOverlayPainter> overlayPainters = skin
 				.getOverlayPainters(decorationAreaType);
-		if (overlayPainters.size() == 0)
+		if (overlayPainters.size() == 0) {
 			return;
+		}
 
 		for (SubstanceOverlayPainter overlayPainter : overlayPainters) {
 			Graphics2D g2d = (Graphics2D) g.create();

@@ -49,12 +49,12 @@ public interface TransitionAwareUI {
 	 *         lies inside the area of the component designated for transition
 	 *         effects, <code>false</code> otherwise.
 	 */
-	public boolean isInside(MouseEvent me);
+	boolean isInside(MouseEvent me);
 
 	/**
 	 * Returns the model for tracking the transitions.
 	 * 
 	 * @return Model for tracking the transitions.
 	 */
-	public StateTransitionTracker getTransitionTracker();
+	StateTransitionTracker getTransitionTracker();
 }

@@ -54,7 +54,7 @@ public class SeparatorPainterUtils {
 	/**
 	 * Cached images of separators.
 	 */
-	private static LazyResettableHashMap<BufferedImage> cached = new LazyResettableHashMap<BufferedImage>(
+	private static LazyResettableHashMap<BufferedImage> cached = new LazyResettableHashMap<>(
 			"SeparatorPainterUtils");
 
 	/**

@@ -120,8 +120,9 @@ public class RolloverTextControlListener implements MouseListener,
 		this.stateTransitionTracker.turnOffModelChangeTracking();
 		try {
 			Component component = (Component) e.getSource();
-			if (!component.isEnabled())
-				return;
+			if (!component.isEnabled()) {
+                return;
+            }
 			boolean isInside = this.trackableUI.isInside(e);
 			// boolean isInsideChanged = (this.isMouseInside != isInside);
 			this.isMouseInside = isInside;
@@ -137,8 +138,9 @@ public class RolloverTextControlListener implements MouseListener,
 		this.stateTransitionTracker.turnOffModelChangeTracking();
 		try {
 			Component component = (Component) e.getSource();
-			if (!component.isEnabled())
-				return;
+			if (!component.isEnabled()) {
+                return;
+            }
 			// boolean isInsideChanged = (this.isMouseInside != false);
 			this.isMouseInside = false;
 			this.model.setRollover(false);
@@ -155,8 +157,9 @@ public class RolloverTextControlListener implements MouseListener,
 		this.stateTransitionTracker.turnOffModelChangeTracking();
 		try {
 			Component component = (Component) e.getSource();
-			if (!component.isEnabled())
-				return;
+			if (!component.isEnabled()) {
+                return;
+            }
 			boolean isInside = this.trackableUI.isInside(e);
 			// boolean isInsideChanged = (this.isMouseInside != isInside);
 			this.isMouseInside = isInside;
@@ -174,8 +177,9 @@ public class RolloverTextControlListener implements MouseListener,
 		this.stateTransitionTracker.turnOffModelChangeTracking();
 		try {
 			Component component = (Component) e.getSource();
-			if (!component.isEnabled())
-				return;
+			if (!component.isEnabled()) {
+                return;
+            }
 			boolean isInside = this.trackableUI.isInside(e);
 			// boolean isInsideChanged = (this.isMouseInside != isInside);
 			this.isMouseInside = isInside;
@@ -193,8 +197,9 @@ public class RolloverTextControlListener implements MouseListener,
 		this.stateTransitionTracker.turnOffModelChangeTracking();
 		try {
 			Component component = (Component) e.getSource();
-			if (!component.isEnabled())
-				return;
+			if (!component.isEnabled()) {
+                return;
+            }
 			boolean isInside = this.trackableUI.isInside(e);
 			// boolean isInsideChanged = (this.isMouseInside != isInside);
 			this.isMouseInside = isInside;
@@ -211,8 +216,9 @@ public class RolloverTextControlListener implements MouseListener,
 		this.stateTransitionTracker.turnOffModelChangeTracking();
 		try {
 			Component component = (Component) e.getSource();
-			if (!component.isEnabled())
-				return;
+			if (!component.isEnabled()) {
+                return;
+            }
 			boolean isInside = this.trackableUI.isInside(e);
 			// System.out.println("inside");
 			// boolean isInsideChanged = (this.isMouseInside != isInside);

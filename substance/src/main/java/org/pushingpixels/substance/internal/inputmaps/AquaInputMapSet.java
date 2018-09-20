@@ -41,7 +41,7 @@ public class AquaInputMapSet extends BaseInputMapSet {
 		return super.getComboBoxAncestorInputMap();
 	}
 
-	protected SubstanceInputMap getSingleLineTextComponentFocusInputMap() {
+	private SubstanceInputMap getSingleLineTextComponentFocusInputMap() {
 		SubstanceInputMap result = new SubstanceInputMap();
 
 		result.put("meta C", DefaultEditorKit.copyAction);
@@ -67,16 +67,12 @@ public class AquaInputMapSet extends BaseInputMapSet {
 		result.put("DOWN", DefaultEditorKit.endLineAction);
 		result.put("KP_DOWN", DefaultEditorKit.endLineAction);
 
-		result
-				.put("meta shift LEFT",
-						DefaultEditorKit.selectionBeginLineAction);
-		result.put("meta shift KP_LEFT",
-				DefaultEditorKit.selectionBeginLineAction);
+		result.put("meta shift LEFT", DefaultEditorKit.selectionBeginLineAction);
+		result.put("meta shift KP_LEFT", DefaultEditorKit.selectionBeginLineAction);
 		result.put("shift UP", DefaultEditorKit.selectionBeginLineAction);
 		result.put("shift KP_UP", DefaultEditorKit.selectionBeginLineAction);
 		result.put("meta shift RIGHT", DefaultEditorKit.selectionEndLineAction);
-		result.put("meta shift KP_RIGHT",
-				DefaultEditorKit.selectionEndLineAction);
+		result.put("meta shift KP_RIGHT", DefaultEditorKit.selectionEndLineAction);
 		result.put("shift DOWN", DefaultEditorKit.selectionEndLineAction);
 		result.put("shift KP_DOWN", DefaultEditorKit.selectionEndLineAction);
 
@@ -120,27 +116,18 @@ public class AquaInputMapSet extends BaseInputMapSet {
 		result.put("alt KP_LEFT", DefaultEditorKit.previousWordAction);
 
 		result.put("shift alt RIGHT", DefaultEditorKit.selectionNextWordAction);
-		result.put("shift alt KP_RIGHT",
-				DefaultEditorKit.selectionNextWordAction);
-		result.put("shift alt LEFT",
-				DefaultEditorKit.selectionPreviousWordAction);
-		result.put("shift alt KP_LEFT",
-				DefaultEditorKit.selectionPreviousWordAction);
+		result.put("shift alt KP_RIGHT", DefaultEditorKit.selectionNextWordAction);
+		result.put("shift alt LEFT", DefaultEditorKit.selectionPreviousWordAction);
+		result.put("shift alt KP_LEFT", DefaultEditorKit.selectionPreviousWordAction);
 
-		result.put("shift meta PAGE_UP",
-				TextComponentActions.SELECTION_PAGE_LEFT);
-		result.put("shift meta PAGE_DOWN",
-				TextComponentActions.SELECTION_PAGE_RIGHT);
-		result
-				.put("shift meta PAGE_UP",
-						TextComponentActions.SELECTION_PAGE_UP);
-		result.put("shift meta PAGE_DOWN",
-				TextComponentActions.SELECTION_PAGE_DOWN);
+		result.put("shift meta PAGE_UP", TextComponentActions.SELECTION_PAGE_LEFT);
+		result.put("shift meta PAGE_DOWN", TextComponentActions.SELECTION_PAGE_RIGHT);
+		result.put("shift meta PAGE_UP", TextComponentActions.SELECTION_PAGE_UP);
+		result.put("shift meta PAGE_DOWN", TextComponentActions.SELECTION_PAGE_DOWN);
 
 		result.put("ENTER", JTextField.notifyAction);
 		result.put("meta BACK_SLASH", TextComponentActions.UNSELECT);
-		result.put("control shift O",
-				TextComponentActions.TOGGLE_COMPONENT_ORIENTATION);
+		result.put("control shift O", TextComponentActions.TOGGLE_COMPONENT_ORIENTATION);
 
 		// XXX: in Aqua these are aqua-page-down and aqua-page-up
 		result.put("PAGE_DOWN", DefaultEditorKit.pageDownAction);
@@ -172,13 +159,10 @@ public class AquaInputMapSet extends BaseInputMapSet {
 		result.put("alt KP_LEFT", DefaultEditorKit.previousWordAction);
 		result.put("alt RIGHT", DefaultEditorKit.nextWordAction);
 		result.put("alt KP_RIGHT", DefaultEditorKit.nextWordAction);
-		result.put("alt shift LEFT",
-				DefaultEditorKit.selectionPreviousWordAction);
-		result.put("alt shift KP_LEFT",
-				DefaultEditorKit.selectionPreviousWordAction);
+		result.put("alt shift LEFT", DefaultEditorKit.selectionPreviousWordAction);
+		result.put("alt shift KP_LEFT", DefaultEditorKit.selectionPreviousWordAction);
 		result.put("alt shift RIGHT", DefaultEditorKit.selectionNextWordAction);
-		result.put("alt shift KP_RIGHT",
-				DefaultEditorKit.selectionNextWordAction);
+		result.put("alt shift KP_RIGHT", DefaultEditorKit.selectionNextWordAction);
 
 		result.put("meta A", DefaultEditorKit.selectAllAction);
 		result.put("ctrl A", DefaultEditorKit.beginLineAction);
@@ -188,13 +172,9 @@ public class AquaInputMapSet extends BaseInputMapSet {
 		result.put("meta KP_RIGHT", DefaultEditorKit.endLineAction);
 		result.put("meta RIGHT", DefaultEditorKit.endLineAction);
 
-		result.put("shift meta KP_LEFT",
-				DefaultEditorKit.selectionBeginLineAction);
-		result
-				.put("shift meta LEFT",
-						DefaultEditorKit.selectionBeginLineAction);
-		result.put("shift meta KP_RIGHT",
-				DefaultEditorKit.selectionEndLineAction);
+		result.put("shift meta KP_LEFT", DefaultEditorKit.selectionBeginLineAction);
+		result.put("shift meta LEFT", DefaultEditorKit.selectionBeginLineAction);
+		result.put("shift meta KP_RIGHT", DefaultEditorKit.selectionEndLineAction);
 		result.put("shift meta RIGHT", DefaultEditorKit.selectionEndLineAction);
 
 		result.put("ctrl P", DefaultEditorKit.upAction);
@@ -211,10 +191,8 @@ public class AquaInputMapSet extends BaseInputMapSet {
 
 		result.put("shift PAGE_UP", TextComponentActions.SELECTION_PAGE_UP);
 		result.put("shift PAGE_DOWN", TextComponentActions.SELECTION_PAGE_DOWN);
-		result.put("meta shift PAGE_UP",
-				TextComponentActions.SELECTION_PAGE_LEFT);
-		result.put("meta shift PAGE_DOWN",
-				TextComponentActions.SELECTION_PAGE_RIGHT);
+		result.put("meta shift PAGE_UP", TextComponentActions.SELECTION_PAGE_LEFT);
+		result.put("meta shift PAGE_DOWN", TextComponentActions.SELECTION_PAGE_RIGHT);
 		result.put("shift UP", DefaultEditorKit.selectionUpAction);
 		result.put("shift KP_UP", DefaultEditorKit.selectionUpAction);
 		result.put("shift DOWN", DefaultEditorKit.selectionDownAction);
@@ -227,14 +205,10 @@ public class AquaInputMapSet extends BaseInputMapSet {
 		result.put("meta shift DOWN", DefaultEditorKit.selectionEndAction);
 		result.put("shift END", DefaultEditorKit.selectionEndAction);
 
-		result.put("shift alt KP_UP",
-				DefaultEditorKit.selectionBeginParagraphAction);
-		result.put("shift alt UP",
-				DefaultEditorKit.selectionBeginParagraphAction);
-		result.put("shift alt KP_DOWN",
-				DefaultEditorKit.selectionEndParagraphAction);
-		result.put("shift alt DOWN",
-				DefaultEditorKit.selectionEndParagraphAction);
+		result.put("shift alt KP_UP", DefaultEditorKit.selectionBeginParagraphAction);
+		result.put("shift alt UP", DefaultEditorKit.selectionBeginParagraphAction);
+		result.put("shift alt KP_DOWN", DefaultEditorKit.selectionEndParagraphAction);
+		result.put("shift alt DOWN", DefaultEditorKit.selectionEndParagraphAction);
 
 		result.put("ENTER", DefaultEditorKit.insertBreakAction);
 		result.put("BACK_SPACE", DefaultEditorKit.deletePrevCharAction);
@@ -264,8 +238,7 @@ public class AquaInputMapSet extends BaseInputMapSet {
 		result.put("meta T", TextComponentActions.NEXT_LINK);
 		result.put("meta shift T", TextComponentActions.PREVIOUS_LINK);
 		result.put("meta SPACE", TextComponentActions.ACTIVATE_LINK);
-		result.put("control shift O",
-				TextComponentActions.TOGGLE_COMPONENT_ORIENTATION);
+		result.put("control shift O", TextComponentActions.TOGGLE_COMPONENT_ORIENTATION);
 
 		return result;
 	}
@@ -379,8 +352,7 @@ public class AquaInputMapSet extends BaseInputMapSet {
 		result.put("LEFT", TableActions.PREVIOUS_COLUMN);
 		result.put("KP_LEFT", TableActions.PREVIOUS_COLUMN);
 		result.put("shift LEFT", TableActions.PREVIOUS_COLUMN_EXTEND_SELECTION);
-		result.put("shift KP_LEFT",
-				TableActions.PREVIOUS_COLUMN_EXTEND_SELECTION);
+		result.put("shift KP_LEFT", TableActions.PREVIOUS_COLUMN_EXTEND_SELECTION);
 
 		result.put("DOWN", TableActions.NEXT_ROW);
 		result.put("KP_DOWN", TableActions.NEXT_ROW);
@@ -400,9 +372,7 @@ public class AquaInputMapSet extends BaseInputMapSet {
 		result.put("PAGE_UP", TableActions.SCROLL_UP_CHANGE_SELECTION);
 		result.put("shift PAGE_UP", TableActions.SCROLL_UP_EXTEND_SELECTION);
 		result.put("PAGE_DOWN", TableActions.SCROLL_DOWN_CHANGE_SELECTION);
-		result
-				.put("shift PAGE_DOWN",
-						TableActions.SCROLL_DOWN_EXTEND_SELECTION);
+		result.put("shift PAGE_DOWN", TableActions.SCROLL_DOWN_EXTEND_SELECTION);
 
 		result.put("TAB", TableActions.NEXT_COLUMN_CELL);
 		result.put("shift TAB", TableActions.PREVIOUS_COLUMN_CELL);

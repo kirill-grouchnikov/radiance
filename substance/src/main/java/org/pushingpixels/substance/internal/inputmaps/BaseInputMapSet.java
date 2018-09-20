@@ -212,15 +212,10 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("ctrl KP_LEFT", DefaultEditorKit.previousWordAction);
 		result.put("ctrl RIGHT", DefaultEditorKit.nextWordAction);
 		result.put("ctrl KP_RIGHT", DefaultEditorKit.nextWordAction);
-		result.put("ctrl shift LEFT",
-				DefaultEditorKit.selectionPreviousWordAction);
-		result.put("ctrl shift KP_LEFT",
-				DefaultEditorKit.selectionPreviousWordAction);
-		result
-				.put("ctrl shift RIGHT",
-						DefaultEditorKit.selectionNextWordAction);
-		result.put("ctrl shift KP_RIGHT",
-				DefaultEditorKit.selectionNextWordAction);
+		result.put("ctrl shift LEFT", DefaultEditorKit.selectionPreviousWordAction);
+		result.put("ctrl shift KP_LEFT", DefaultEditorKit.selectionPreviousWordAction);
+		result.put("ctrl shift RIGHT", DefaultEditorKit.selectionNextWordAction);
+		result.put("ctrl shift KP_RIGHT", DefaultEditorKit.selectionNextWordAction);
 
 		result.put("ctrl A", DefaultEditorKit.selectAllAction);
 		result.put("HOME", DefaultEditorKit.beginLineAction);
@@ -237,10 +232,8 @@ public class BaseInputMapSet implements InputMapSet {
 
 		result.put("shift PAGE_UP", TextComponentActions.SELECTION_PAGE_UP);
 		result.put("shift PAGE_DOWN", TextComponentActions.SELECTION_PAGE_DOWN);
-		result.put("ctrl shift PAGE_UP",
-				TextComponentActions.SELECTION_PAGE_LEFT);
-		result.put("ctrl shift PAGE_DOWN",
-				TextComponentActions.SELECTION_PAGE_RIGHT);
+		result.put("ctrl shift PAGE_UP", TextComponentActions.SELECTION_PAGE_LEFT);
+		result.put("ctrl shift PAGE_DOWN", TextComponentActions.SELECTION_PAGE_RIGHT);
 		result.put("shift UP", DefaultEditorKit.selectionUpAction);
 		result.put("shift KP_UP", DefaultEditorKit.selectionUpAction);
 		result.put("shift DOWN", DefaultEditorKit.selectionDownAction);
@@ -269,8 +262,7 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("ctrl T", TextComponentActions.NEXT_LINK);
 		result.put("ctrl shift T", TextComponentActions.PREVIOUS_LINK);
 		result.put("ctrl SPACE", TextComponentActions.ACTIVATE_LINK);
-		result.put("control shift O",
-				TextComponentActions.TOGGLE_COMPONENT_ORIENTATION);
+		result.put("control shift O", TextComponentActions.TOGGLE_COMPONENT_ORIENTATION);
 
 		return result;
 	};
@@ -326,15 +318,10 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("ctrl KP_LEFT", DefaultEditorKit.previousWordAction);
 		result.put("ctrl RIGHT", DefaultEditorKit.nextWordAction);
 		result.put("ctrl KP_RIGHT", DefaultEditorKit.nextWordAction);
-		result.put("ctrl shift LEFT",
-				DefaultEditorKit.selectionPreviousWordAction);
-		result.put("ctrl shift KP_LEFT",
-				DefaultEditorKit.selectionPreviousWordAction);
-		result
-				.put("ctrl shift RIGHT",
-						DefaultEditorKit.selectionNextWordAction);
-		result.put("ctrl shift KP_RIGHT",
-				DefaultEditorKit.selectionNextWordAction);
+		result.put("ctrl shift LEFT", DefaultEditorKit.selectionPreviousWordAction);
+		result.put("ctrl shift KP_LEFT", DefaultEditorKit.selectionPreviousWordAction);
+		result.put("ctrl shift RIGHT", DefaultEditorKit.selectionNextWordAction);
+		result.put("ctrl shift KP_RIGHT", DefaultEditorKit.selectionNextWordAction);
 
 		result.put("ctrl A", DefaultEditorKit.selectAllAction);
 		result.put("HOME", DefaultEditorKit.beginLineAction);
@@ -355,8 +342,7 @@ public class BaseInputMapSet implements InputMapSet {
 
 		result.put("ENTER", JTextField.notifyAction);
 		result.put("ctrl BACK_SLASH", TextComponentActions.UNSELECT);
-		result.put("control shift O",
-				TextComponentActions.TOGGLE_COMPONENT_ORIENTATION);
+		result.put("control shift O", TextComponentActions.TOGGLE_COMPONENT_ORIENTATION);
 		result.put("ESCAPE", TextComponentActions.RESET_FIELD_EDIT);
 		result.put("UP", TextComponentActions.INCREMENT);
 		result.put("KP_UP", TextComponentActions.INCREMENT);
@@ -441,23 +427,17 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("KP_LEFT", ListActions.SELECT_PREVIOUS_COLUMN);
 		result.put("shift LEFT", ListActions.SELECT_PREVIOUS_COLUMN_EXTEND);
 		result.put("shift KP_LEFT", ListActions.SELECT_PREVIOUS_COLUMN_EXTEND);
-		result
-				.put("ctrl shift LEFT",
-						ListActions.SELECT_PREVIOUS_COLUMN_EXTEND);
-		result.put("ctrl shift KP_LEFT",
-				ListActions.SELECT_PREVIOUS_COLUMN_EXTEND);
+		result.put("ctrl shift LEFT", ListActions.SELECT_PREVIOUS_COLUMN_EXTEND);
+		result.put("ctrl shift KP_LEFT", ListActions.SELECT_PREVIOUS_COLUMN_EXTEND);
 		result.put("ctrl LEFT", ListActions.SELECT_PREVIOUS_COLUMN_CHANGE_LEAD);
-		result.put("ctrl KP_LEFT",
-				ListActions.SELECT_PREVIOUS_COLUMN_CHANGE_LEAD);
+		result.put("ctrl KP_LEFT", ListActions.SELECT_PREVIOUS_COLUMN_CHANGE_LEAD);
 
 		result.put("RIGHT", ListActions.SELECT_NEXT_COLUMN);
 		result.put("KP_RIGHT", ListActions.SELECT_NEXT_COLUMN);
 		result.put("shift RIGHT", ListActions.SELECT_NEXT_COLUMN_EXTEND);
 		result.put("shift KP_RIGHT", ListActions.SELECT_NEXT_COLUMN_EXTEND);
 		result.put("ctrl shift RIGHT", ListActions.SELECT_NEXT_COLUMN_EXTEND);
-		result
-				.put("ctrl shift KP_RIGHT",
-						ListActions.SELECT_NEXT_COLUMN_EXTEND);
+		result.put("ctrl shift KP_RIGHT", ListActions.SELECT_NEXT_COLUMN_EXTEND);
 		result.put("ctrl RIGHT", ListActions.SELECT_NEXT_COLUMN_CHANGE_LEAD);
 		result.put("ctrl KP_RIGHT", ListActions.SELECT_NEXT_COLUMN_CHANGE_LEAD);
 
@@ -512,14 +492,10 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("ctrl KP_LEFT", DefaultEditorKit.beginLineAction);
 		result.put("ctrl RIGHT", DefaultEditorKit.endLineAction);
 		result.put("ctrl KP_RIGHT", DefaultEditorKit.endLineAction);
-		result
-				.put("ctrl shift LEFT",
-						DefaultEditorKit.selectionBeginLineAction);
-		result.put("ctrl shift KP_LEFT",
-				DefaultEditorKit.selectionBeginLineAction);
+		result.put("ctrl shift LEFT", DefaultEditorKit.selectionBeginLineAction);
+		result.put("ctrl shift KP_LEFT", DefaultEditorKit.selectionBeginLineAction);
 		result.put("ctrl shift RIGHT", DefaultEditorKit.selectionEndLineAction);
-		result.put("ctrl shift KP_RIGHT",
-				DefaultEditorKit.selectionEndLineAction);
+		result.put("ctrl shift KP_RIGHT", DefaultEditorKit.selectionEndLineAction);
 
 		result.put("ctrl A", DefaultEditorKit.selectAllAction);
 		result.put("HOME", DefaultEditorKit.beginLineAction);
@@ -536,8 +512,7 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("KP_LEFT", DefaultEditorKit.backwardAction);
 		result.put("ENTER", JTextField.notifyAction);
 		result.put("ctrl BACK_SLASH", TextComponentActions.UNSELECT);
-		result.put("control shift O",
-				TextComponentActions.TOGGLE_COMPONENT_ORIENTATION);
+		result.put("control shift O", TextComponentActions.TOGGLE_COMPONENT_ORIENTATION);
 
 		return result;
 	}
@@ -841,22 +816,17 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("KP_RIGHT", TableActions.NEXT_COLUMN);
 		result.put("shift RIGHT", TableActions.NEXT_COLUMN_EXTEND_SELECTION);
 		result.put("shift KP_RIGHT", TableActions.NEXT_COLUMN_EXTEND_SELECTION);
-		result.put("ctrl shift RIGHT",
-				TableActions.NEXT_COLUMN_EXTEND_SELECTION);
-		result.put("ctrl shift KP_RIGHT",
-				TableActions.NEXT_COLUMN_EXTEND_SELECTION);
+		result.put("ctrl shift RIGHT", TableActions.NEXT_COLUMN_EXTEND_SELECTION);
+		result.put("ctrl shift KP_RIGHT", TableActions.NEXT_COLUMN_EXTEND_SELECTION);
 		result.put("ctrl RIGHT", TableActions.NEXT_COLUMN_CHANGE_LEAD);
 		result.put("ctrl KP_RIGHT", TableActions.NEXT_COLUMN_CHANGE_LEAD);
 
 		result.put("LEFT", TableActions.PREVIOUS_COLUMN);
 		result.put("KP_LEFT", TableActions.PREVIOUS_COLUMN);
 		result.put("shift LEFT", TableActions.PREVIOUS_COLUMN_EXTEND_SELECTION);
-		result.put("shift KP_LEFT",
-				TableActions.PREVIOUS_COLUMN_EXTEND_SELECTION);
-		result.put("ctrl shift LEFT",
-				TableActions.PREVIOUS_COLUMN_EXTEND_SELECTION);
-		result.put("ctrl shift KP_LEFT",
-				TableActions.PREVIOUS_COLUMN_EXTEND_SELECTION);
+		result.put("shift KP_LEFT", TableActions.PREVIOUS_COLUMN_EXTEND_SELECTION);
+		result.put("ctrl shift LEFT", TableActions.PREVIOUS_COLUMN_EXTEND_SELECTION);
+		result.put("ctrl shift KP_LEFT", TableActions.PREVIOUS_COLUMN_EXTEND_SELECTION);
 		result.put("ctrl LEFT", TableActions.PREVIOUS_COLUMN_CHANGE_LEAD);
 		result.put("ctrl KP_LEFT", TableActions.PREVIOUS_COLUMN_CHANGE_LEAD);
 
@@ -865,9 +835,7 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("shift DOWN", TableActions.NEXT_ROW_EXTEND_SELECTION);
 		result.put("shift KP_DOWN", TableActions.NEXT_ROW_EXTEND_SELECTION);
 		result.put("ctrl shift DOWN", TableActions.NEXT_ROW_EXTEND_SELECTION);
-		result
-				.put("ctrl shift KP_DOWN",
-						TableActions.NEXT_ROW_EXTEND_SELECTION);
+		result.put("ctrl shift KP_DOWN", TableActions.NEXT_ROW_EXTEND_SELECTION);
 		result.put("ctrl DOWN", TableActions.NEXT_ROW_CHANGE_LEAD);
 		result.put("ctrl KP_DOWN", TableActions.NEXT_ROW_CHANGE_LEAD);
 
@@ -876,8 +844,7 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("shift UP", TableActions.PREVIOUS_ROW_EXTEND_SELECTION);
 		result.put("shift KP_UP", TableActions.PREVIOUS_ROW_EXTEND_SELECTION);
 		result.put("ctrl shift UP", TableActions.PREVIOUS_ROW_EXTEND_SELECTION);
-		result.put("ctrl shift KP_UP",
-				TableActions.PREVIOUS_ROW_EXTEND_SELECTION);
+		result.put("ctrl shift KP_UP", TableActions.PREVIOUS_ROW_EXTEND_SELECTION);
 		result.put("ctrl UP", TableActions.PREVIOUS_ROW_CHANGE_LEAD);
 		result.put("ctrl KP_UP", TableActions.PREVIOUS_ROW_CHANGE_LEAD);
 
@@ -892,18 +859,12 @@ public class BaseInputMapSet implements InputMapSet {
 
 		result.put("PAGE_UP", TableActions.SCROLL_UP_CHANGE_SELECTION);
 		result.put("shift PAGE_UP", TableActions.SCROLL_UP_EXTEND_SELECTION);
-		result.put("ctrl shift PAGE_UP",
-				TableActions.SCROLL_LEFT_EXTEND_SELECTION);
+		result.put("ctrl shift PAGE_UP", TableActions.SCROLL_LEFT_EXTEND_SELECTION);
 		result.put("ctrl PAGE_UP", TableActions.SCROLL_LEFT_CHANGE_SELECTION);
 		result.put("PAGE_DOWN", TableActions.SCROLL_DOWN_CHANGE_SELECTION);
-		result
-				.put("shift PAGE_DOWN",
-						TableActions.SCROLL_DOWN_EXTEND_SELECTION);
-		result.put("ctrl shift PAGE_DOWN",
-				TableActions.SCROLL_RIGHT_EXTEND_SELECTION);
-		result
-				.put("ctrl PAGE_DOWN",
-						TableActions.SCROLL_RIGHT_CHANGE_SELECTION);
+		result.put("shift PAGE_DOWN", TableActions.SCROLL_DOWN_EXTEND_SELECTION);
+		result.put("ctrl shift PAGE_DOWN", TableActions.SCROLL_RIGHT_EXTEND_SELECTION);
+		result.put("ctrl PAGE_DOWN", TableActions.SCROLL_RIGHT_CHANGE_SELECTION);
 
 		result.put("TAB", TableActions.NEXT_COLUMN_CELL);
 		result.put("shift TAB", TableActions.PREVIOUS_COLUMN_CELL);
@@ -986,15 +947,10 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("ctrl KP_LEFT", DefaultEditorKit.previousWordAction);
 		result.put("ctrl RIGHT", DefaultEditorKit.nextWordAction);
 		result.put("ctrl KP_RIGHT", DefaultEditorKit.nextWordAction);
-		result.put("ctrl shift LEFT",
-				DefaultEditorKit.selectionPreviousWordAction);
-		result.put("ctrl shift KP_LEFT",
-				DefaultEditorKit.selectionPreviousWordAction);
-		result
-				.put("ctrl shift RIGHT",
-						DefaultEditorKit.selectionNextWordAction);
-		result.put("ctrl shift KP_RIGHT",
-				DefaultEditorKit.selectionNextWordAction);
+		result.put("ctrl shift LEFT", DefaultEditorKit.selectionPreviousWordAction);
+		result.put("ctrl shift KP_LEFT", DefaultEditorKit.selectionPreviousWordAction);
+		result.put("ctrl shift RIGHT", DefaultEditorKit.selectionNextWordAction);
+		result.put("ctrl shift KP_RIGHT", DefaultEditorKit.selectionNextWordAction);
 
 		result.put("ctrl A", DefaultEditorKit.selectAllAction);
 		result.put("HOME", DefaultEditorKit.beginLineAction);
@@ -1015,8 +971,7 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("KP_LEFT", DefaultEditorKit.backwardAction);
 		result.put("ENTER", JTextField.notifyAction);
 		result.put("ctrl BACK_SLASH", TextComponentActions.UNSELECT);
-		result.put("control shift O",
-				TextComponentActions.TOGGLE_COMPONENT_ORIENTATION);
+		result.put("control shift O", TextComponentActions.TOGGLE_COMPONENT_ORIENTATION);
 
 		return result;
 
@@ -1131,10 +1086,8 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("KP_UP", TreeActions.SELECT_PREVIOUS);
 		result.put("shift UP", TreeActions.SELECT_PREVIOUS_EXTEND_SELECTION);
 		result.put("shift KP_UP", TreeActions.SELECT_PREVIOUS_EXTEND_SELECTION);
-		result.put("ctrl shift UP",
-				TreeActions.SELECT_PREVIOUS_EXTEND_SELECTION);
-		result.put("ctrl shift KP_UP",
-				TreeActions.SELECT_PREVIOUS_EXTEND_SELECTION);
+		result.put("ctrl shift UP", TreeActions.SELECT_PREVIOUS_EXTEND_SELECTION);
+		result.put("ctrl shift KP_UP", TreeActions.SELECT_PREVIOUS_EXTEND_SELECTION);
 		result.put("ctrl UP", TreeActions.SELECT_PREVIOUS_CHANGE_LEAD);
 		result.put("ctrl KP_UP", TreeActions.SELECT_PREVIOUS_CHANGE_LEAD);
 
@@ -1143,8 +1096,7 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("shift DOWN", TreeActions.SELECT_NEXT_EXTEND_SELECTION);
 		result.put("shift KP_DOWN", TreeActions.SELECT_NEXT_EXTEND_SELECTION);
 		result.put("ctrl shift DOWN", TreeActions.SELECT_NEXT_EXTEND_SELECTION);
-		result.put("ctrl shift KP_DOWN",
-				TreeActions.SELECT_NEXT_EXTEND_SELECTION);
+		result.put("ctrl shift KP_DOWN", TreeActions.SELECT_NEXT_EXTEND_SELECTION);
 		result.put("ctrl DOWN", TreeActions.SELECT_NEXT_CHANGE_LEAD);
 		result.put("ctrl KP_DOWN", TreeActions.SELECT_NEXT_CHANGE_LEAD);
 
@@ -1155,21 +1107,16 @@ public class BaseInputMapSet implements InputMapSet {
 
 		result.put("PAGE_UP", TreeActions.SCROLL_UP_CHANGE_SELECTION);
 		result.put("shift PAGE_UP", TreeActions.SCROLL_UP_EXTEND_SELECTION);
-		result
-				.put("ctrl shift PAGE_UP",
-						TreeActions.SCROLL_UP_EXTEND_SELECTION);
+		result.put("ctrl shift PAGE_UP", TreeActions.SCROLL_UP_EXTEND_SELECTION);
 		result.put("ctrl PAGE_UP", TreeActions.SCROLL_UP_CHANGE_LEAD);
 		result.put("PAGE_DOWN", TreeActions.SCROLL_DOWN_CHANGE_SELECTION);
 		result.put("shift PAGE_DOWN", TreeActions.SCROLL_DOWN_EXTEND_SELECTION);
-		result.put("ctrl shift PAGE_DOWN",
-				TreeActions.SCROLL_DOWN_EXTEND_SELECTION);
+		result.put("ctrl shift PAGE_DOWN", TreeActions.SCROLL_DOWN_EXTEND_SELECTION);
 		result.put("ctrl PAGE_DOWN", TreeActions.SCROLL_DOWN_CHANGE_LEAD);
 
 		result.put("HOME", TreeActions.SELECT_FIRST);
 		result.put("shift HOME", TreeActions.SELECT_FIRST_EXTEND_SELECTION);
-		result
-				.put("ctrl shift HOME",
-						TreeActions.SELECT_FIRST_EXTEND_SELECTION);
+		result.put("ctrl shift HOME", TreeActions.SELECT_FIRST_EXTEND_SELECTION);
 		result.put("ctrl HOME", TreeActions.SELECT_FIRST_CHANGE_LEAD);
 		result.put("END", TreeActions.SELECT_LAST);
 		result.put("shift END", TreeActions.SELECT_LAST_EXTEND_SELECTION);

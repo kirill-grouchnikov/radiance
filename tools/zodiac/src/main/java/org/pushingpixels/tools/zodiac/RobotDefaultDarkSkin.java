@@ -39,7 +39,6 @@ import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.api.watermark.*;
-import org.pushingpixels.substance.internal.colorscheme.BlendBiColorScheme;
 
 /**
  * The default dark skin for the docrobot scripts.
@@ -58,8 +57,8 @@ public class RobotDefaultDarkSkin extends SubstanceSkin {
      * @param colorScheme The active color scheme.
      */
     public RobotDefaultDarkSkin(SubstanceColorScheme colorScheme) {
-        SubstanceColorScheme inactiveScheme = new BlendBiColorScheme(
-                colorScheme, new DarkMetallicColorScheme(), 0.6);
+        SubstanceColorScheme inactiveScheme =
+                colorScheme.blendWith(new DarkMetallicColorScheme(), 0.6);
         SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
                 colorScheme, inactiveScheme, inactiveScheme);
         defaultSchemeBundle.registerColorScheme(inactiveScheme, 0.5f,
@@ -85,8 +84,7 @@ public class RobotDefaultDarkSkin extends SubstanceSkin {
                 DecorationAreaType.HEADER);
 
         this.watermark = new SubstanceNullWatermark();
-        this.watermarkScheme = new BlendBiColorScheme(colorScheme,
-                new DarkMetallicColorScheme(), 0.5);
+        this.watermarkScheme = colorScheme.blendWith(new DarkMetallicColorScheme(), 0.5);
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new ClassicFillPainter();

@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.substance.main.*;
 import org.pushingpixels.demo.substance.main.Check.MyMainTabPreviewPainter;
 import org.pushingpixels.demo.substance.main.check.selector.SubstanceFontSelector;
@@ -44,6 +45,7 @@ import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.ref.*;
@@ -82,7 +84,7 @@ public class ControlPanelFactory {
             final JTabbedPane mainTabbedPane, final MyMainTabPreviewPainter mainTabPreviewPainter,
             final JToolBar toolbar) {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
-                "right:pref, 4dlu, fill:pref:grow", 2, 22);
+                "right:pref, 4dlu, fill:pref:grow", 2, 22).border(new EmptyBorder(8, 0, 4, 0));
 
         builder.appendSeparator("Title pane settings");
 
@@ -308,7 +310,7 @@ public class ControlPanelFactory {
      */
     public static JPanel getDialogControlPanel(final JFrame mainFrame) {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
-                "right:pref, 4dlu, fill:pref:grow", 2, 30);
+                "right:pref, 4dlu, fill:pref:grow", 2, 30).border(new EmptyBorder(8, 0, 4, 0));
 
         builder.appendSeparator("Core choosers");
         JButton bfo = new JButton("Open dialog", Check.getIcon("JFileChooserColor16"));

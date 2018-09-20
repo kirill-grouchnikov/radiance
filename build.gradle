@@ -33,7 +33,7 @@ version = '0.9-SNAPSHOT'
 buildscript {
     ext {
         kotlin_version = '1.2.70'
-        kotlinx_coroutines_version = '0.26.0'
+        kotlinx_coroutines_version = '0.26.1'
         gradle_nexus_plugin_version = '2.3.1'
         batik_version = '1.10'
         svnkit_version = '1.9.3'
@@ -45,6 +45,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.ext.kotlin_version}"
         classpath "com.bmuschko:gradle-nexus-plugin:${rootProject.ext.gradle_nexus_plugin_version}"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.20.0"
     }
 }
 
@@ -63,6 +64,10 @@ allprojects {
 mkdir {
     "drop/${version}"
 }
+
+// To generate report about available dependency updates, run
+// ./gradlew dependencyUpdates  -Drevision=release
+apply plugin: "com.github.ben-manes.versions"
 
 // Copies the compiled jars from all the sub-projects into the drop folder. The compiled
 // jars are grouped into two folders: core for app-facing sub-projects (such as Trident,
@@ -110,7 +115,7 @@ task getToolsDependencies(type: Copy) {
 }
 
 wrapper {
-    gradleVersion = "4.10"
+    gradleVersion = "4.10.1"
 }
 
 task printRuntimeDependencies {
@@ -125,9 +130,9 @@ task printRuntimeDependencies {
                 }
             }
         }
-        subprojects.each { p ->
-            println " $p.name ".center(45, '-')
-            p.collect { it.configurations.runtime }.each { r -> println "$r.name" }
-        }
+//        subprojects.each { p ->
+//            println " $p.name ".center(45, '-')
+//            p.collect { it.configurations.runtime }.each { r -> println "$r.name" }
+//        }
     }
 }

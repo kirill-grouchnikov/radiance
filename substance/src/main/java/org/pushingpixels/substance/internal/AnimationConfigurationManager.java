@@ -294,9 +294,7 @@ public class AnimationConfigurationManager {
                 }
             }
         }
-        if (this.globalAllowed.contains(animationFacet))
-            return true;
-        return false;
+        return this.globalAllowed.contains(animationFacet);
     }
 
     public void setTimelineDuration(long timelineDuration) {

@@ -31,8 +31,8 @@
 apply plugin: 'java'
 
 dependencies {
-    compile ('com.jgoodies:jgoodies-common:1.8.1')
-    compile ('com.jgoodies:jgoodies-forms:1.9.0')
+    compile ("com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}")
+    compile ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")
 }
 
 sourceCompatibility = 1.8

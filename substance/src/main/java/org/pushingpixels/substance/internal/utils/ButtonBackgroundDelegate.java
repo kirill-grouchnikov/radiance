@@ -63,7 +63,6 @@ public class ButtonBackgroundDelegate {
      * Retrieves the background for the specified button.
      *
      * @param button        Button.
-     * @param model         Button model.
      * @param shaper        Button shaper.
      * @param fillPainter   Button fill painter.
      * @param borderPainter Button border painter.
@@ -71,7 +70,7 @@ public class ButtonBackgroundDelegate {
      * @param height        Button height.
      * @return Button background.
      */
-    public static BufferedImage getFullAlphaBackground(AbstractButton button, ButtonModel model,
+    private static BufferedImage getFullAlphaBackground(AbstractButton button,
             SubstanceButtonShaper shaper, SubstanceFillPainter fillPainter,
             SubstanceBorderPainter borderPainter, int width, int height) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
@@ -313,7 +312,7 @@ public class ButtonBackgroundDelegate {
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(button);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(button);
 
-        BufferedImage bgImage = getFullAlphaBackground(button, button.getModel(), shaper,
+        BufferedImage bgImage = getFullAlphaBackground(button, shaper,
                 fillPainter, borderPainter, width, height);
 
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
@@ -404,7 +403,6 @@ public class ButtonBackgroundDelegate {
         StringBuffer sb = new StringBuffer();
         sb.append("SubstanceBackgroundDelegate: \n");
         sb.append("\t" + regularBackgrounds.size() + " regular");
-        // + pairwiseBackgrounds.size() + " pairwise");
         return sb.toString();
     }
 

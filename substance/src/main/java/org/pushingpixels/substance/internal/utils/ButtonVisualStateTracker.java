@@ -49,9 +49,7 @@ public class ButtonVisualStateTracker {
 	 */
 	private RolloverButtonListener substanceButtonListener;
 	/**
-	 * Property change listener. Listens on changes to the
-	 * {@link SubstanceLookAndFeel#BUTTON_SHAPER} property and
-	 * {@link AbstractButton#MODEL_CHANGED_PROPERTY} property.
+	 * Property change listener.
 	 */
 	protected PropertyChangeListener substancePropertyListener;
 
@@ -74,8 +72,9 @@ public class ButtonVisualStateTracker {
 			this.stateTransitionTracker.setRepaintCallback(() -> {
 					JScrollBar scrollBar = (JScrollBar) SwingUtilities
 							.getAncestorOfClass(JScrollBar.class, b);
-					if (scrollBar != null)
+					if (scrollBar != null) {
 						return new SwingRepaintCallback(scrollBar);
+					}
 					return new SwingRepaintCallback(b);
 			});
 		}
@@ -92,10 +91,8 @@ public class ButtonVisualStateTracker {
 		}
 
 		this.substancePropertyListener = (PropertyChangeEvent evt) -> {
-			if (AbstractButton.MODEL_CHANGED_PROPERTY.equals(evt
-					.getPropertyName())) {
-				stateTransitionTracker.setModel((ButtonModel) evt
-						.getNewValue());
+			if (AbstractButton.MODEL_CHANGED_PROPERTY.equals(evt.getPropertyName())) {
+				stateTransitionTracker.setModel((ButtonModel) evt.getNewValue());
 			}
 		};
 		b.addPropertyChangeListener(this.substancePropertyListener);

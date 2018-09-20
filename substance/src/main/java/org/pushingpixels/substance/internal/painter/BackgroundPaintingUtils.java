@@ -58,8 +58,9 @@ public class BackgroundPaintingUtils {
 	 *            Component.
 	 */
 	public static void updateIfOpaque(Graphics g, JComponent c) {
-		if (SubstanceCoreUtilities.isOpaque(c))
+		if (SubstanceCoreUtilities.isOpaque(c)) {
 			update(g, c, false);
+		}
 	}
 
 	/**
@@ -132,12 +133,10 @@ public class BackgroundPaintingUtils {
 
 			if (isShowing) {
 				// add overlays
-				OverlayPainterUtils.paintOverlays(graphics, c, skin,
-						decorationType);
+				OverlayPainterUtils.paintOverlays(graphics, c, skin, decorationType);
 
 				// and paint watermark
-				SubstanceWatermark watermark = SubstanceCoreUtilities
-						.getSkin(c).getWatermark();
+				SubstanceWatermark watermark = SubstanceCoreUtilities.getSkin(c).getWatermark();
 				if ((watermark != null) && !isPreviewMode && !isInCellRenderer
 						&& SubstanceCoreUtilities.toDrawWatermark(c)) {
 					watermark.drawWatermarkImage(graphics, c, 0, 0, c.getWidth(), c.getHeight());
@@ -180,12 +179,11 @@ public class BackgroundPaintingUtils {
 		graphics.fillRect(rect.x, rect.y, rect.width, rect.height);
 		graphics.setComposite(WidgetUtilities.getAlphaComposite(c, 1.0f, g));
 		// stamp watermark
-		SubstanceWatermark watermark = SubstanceCoreUtilities.getSkin(c)
-				.getWatermark();
+		SubstanceWatermark watermark = SubstanceCoreUtilities.getSkin(c).getWatermark();
 		if ((watermark != null) && !isInCellRenderer && c.isShowing()
-				&& SubstanceCoreUtilities.toDrawWatermark(c))
-			watermark.drawWatermarkImage(graphics, c, rect.x, rect.y,
-					rect.width, rect.height);
+				&& SubstanceCoreUtilities.toDrawWatermark(c)) {
+            watermark.drawWatermarkImage(graphics, c, rect.x, rect.y, rect.width, rect.height);
+        }
 		graphics.dispose();
 	}
 }

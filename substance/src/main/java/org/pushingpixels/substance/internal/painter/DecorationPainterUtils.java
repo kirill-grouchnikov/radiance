@@ -54,8 +54,8 @@ public class DecorationPainterUtils {
 
     public static final String POPUP_INVOKER_LINK = "substancelaf.internal.popupInvokerLink";
 
-    public static interface PopupInvokerLink {
-        public JComponent getPopupInvoker();
+    public interface PopupInvokerLink {
+        JComponent getPopupInvoker();
     }
 
     /**
@@ -144,8 +144,9 @@ public class DecorationPainterUtils {
         if (c instanceof JComponent) {
             JComponent jc = (JComponent) c;
             Object prop = jc.getClientProperty(DECORATION_AREA_TYPE);
-            if (prop instanceof DecorationAreaType)
+            if (prop instanceof DecorationAreaType) {
                 return (DecorationAreaType) prop;
+            }
         }
         return null;
     }
@@ -202,8 +203,9 @@ public class DecorationPainterUtils {
             return;
         }
 
-        if ((c.getHeight() == 0) || (c.getWidth() == 0))
+        if ((c.getHeight() == 0) || (c.getWidth() == 0)) {
             return;
+        }
 
         SubstanceSkin skin = SubstanceCoreUtilities.getSkin(c);
         SubstanceDecorationPainter painter = skin.getDecorationPainter();
@@ -241,8 +243,9 @@ public class DecorationPainterUtils {
             return;
         }
 
-        if ((c.getHeight() == 0) || (c.getWidth() == 0))
+        if ((c.getHeight() == 0) || (c.getWidth() == 0)) {
             return;
+        }
 
         SubstanceSkin skin = SubstanceCoreUtilities.getSkin(c);
         SubstanceDecorationPainter painter = skin.getDecorationPainter();

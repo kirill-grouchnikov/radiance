@@ -32,9 +32,8 @@ package org.pushingpixels.tools.jitterbug;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.tools.common.*;
 import org.pushingpixels.tools.jitterbug.StateChangeEvent.StateChangeType;
 import org.pushingpixels.tools.jitterbug.svg.outline_save_24px;
@@ -131,9 +130,11 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
                 }
                 // update the HSV graph component
                 if (colorSchemeComp.isDefined()) {
-                    Color[] colors = new Color[] { colorSchemeComp.getUltraLightColor(),
+                    Color[] colors = new Color[] {
+                            colorSchemeComp.getUltraLightColor(),
                             colorSchemeComp.getExtraLightColor(),
-                            colorSchemeComp.getLightColor(), colorSchemeComp.getMidColor(),
+                            colorSchemeComp.getLightColor(),
+                            colorSchemeComp.getMidColor(),
                             colorSchemeComp.getDarkColor(),
                             colorSchemeComp.getUltraDarkColor() };
                     hsvGraph.setColors(colors);
@@ -153,11 +154,51 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
                         Color foreground = colorSchemeComp.getForegroundColor();
                         String name = colorSchemeComp.getDisplayName();
 
-                        Color[] colors = new Color[] { ultraLight, extraLight, light, mid, dark,
-                                ultraDark, foreground };
                         SubstanceColorScheme scheme = isLight
-                                ? SubstanceColorSchemeUtilities.getLightColorScheme(name, colors)
-                                : SubstanceColorSchemeUtilities.getDarkColorScheme(name, colors);
+                                ? new BaseLightColorScheme(name) {
+                                    @Override
+                                    public Color getForegroundColor() { return foreground; }
+
+                                    @Override
+                                    public Color getUltraLightColor() { return ultraLight; }
+
+                                    @Override
+                                    public Color getExtraLightColor() { return extraLight; }
+
+                                    @Override
+                                    public Color getLightColor() { return light; }
+
+                                    @Override
+                                    public Color getMidColor() { return mid; }
+
+                                    @Override
+                                    public Color getDarkColor() { return dark; }
+
+                                    @Override
+                                    public Color getUltraDarkColor() { return ultraDark; }
+                                }
+                                : new BaseDarkColorScheme(name) {
+                                    @Override
+                                    public Color getForegroundColor() { return foreground; }
+
+                                    @Override
+                                    public Color getUltraLightColor() { return ultraLight; }
+
+                                    @Override
+                                    public Color getExtraLightColor() { return extraLight; }
+
+                                    @Override
+                                    public Color getLightColor() { return light; }
+
+                                    @Override
+                                    public Color getMidColor() { return mid; }
+
+                                    @Override
+                                    public Color getDarkColor() { return dark; }
+
+                                    @Override
+                                    public Color getUltraDarkColor() { return ultraDark; }
+                                };
                         colorSchemeList.updateColorScheme(scheme);
                     }
                 }

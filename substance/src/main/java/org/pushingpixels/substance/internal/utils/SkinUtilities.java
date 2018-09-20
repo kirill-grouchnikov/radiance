@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Substance Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.substance.internal.utils;
 
@@ -48,77 +48,74 @@ import java.awt.*;
 import java.util.Locale;
 
 public class SkinUtilities {
-	/**
-	 * Adds skin-specific entries to the UI defaults table.
-	 * 
-	 * @param uiDefaults
-	 *            UI defaults table.
-	 */
-	public static void addCustomEntriesToTable(UIDefaults uiDefaults,
-			SubstanceSkin skin) {
-		UIDefaults.LazyValue menuArrowIcon = (UIDefaults table) -> new MenuArrowIcon(null);
+    /**
+     * Adds skin-specific entries to the UI defaults table.
+     *
+     * @param uiDefaults UI defaults table.
+     */
+    public static void addCustomEntriesToTable(UIDefaults uiDefaults,
+            SubstanceSkin skin) {
+        UIDefaults.LazyValue menuArrowIcon = (UIDefaults table) -> new MenuArrowIcon(null);
 
-		UIDefaults.ActiveValue listCellRendererActiveValue =
-				(UIDefaults table) -> new SubstanceDefaultListCellRenderer.SubstanceUIResource();
+        UIDefaults.ActiveValue listCellRendererActiveValue =
+                (UIDefaults table) -> new SubstanceDefaultListCellRenderer.SubstanceUIResource();
 
-		SubstanceColorScheme mainActiveScheme = skin
-				.getActiveColorScheme(DecorationAreaType.NONE);
-		SubstanceColorScheme mainEnabledScheme = skin
-				.getEnabledColorScheme(DecorationAreaType.NONE);
-		SubstanceColorScheme mainDisabledScheme = skin
-				.getDisabledColorScheme(DecorationAreaType.NONE);
-		Color controlText = new ColorUIResource(
-				mainActiveScheme.getLightColor());
-		Color foregroundColor = SubstanceColorUtilities
-				.getForegroundColor(mainEnabledScheme);
-		Color backgroundActiveColor = new ColorUIResource(
-				mainActiveScheme.getBackgroundFillColor());
-		Color backgroundDefaultColor = new ColorUIResource(
-				mainEnabledScheme.getBackgroundFillColor());
-		Color textBackgroundColor = new ColorUIResource(
-				mainActiveScheme.getTextBackgroundFillColor());
+        SubstanceColorScheme mainActiveScheme = skin
+                .getActiveColorScheme(DecorationAreaType.NONE);
+        SubstanceColorScheme mainEnabledScheme = skin
+                .getEnabledColorScheme(DecorationAreaType.NONE);
+        SubstanceColorScheme mainDisabledScheme = skin
+                .getDisabledColorScheme(DecorationAreaType.NONE);
+        Color controlText = new ColorUIResource(mainActiveScheme.getLightColor());
+        Color foregroundColor = SubstanceColorUtilities.getForegroundColor(mainEnabledScheme);
+        Color backgroundActiveColor = new ColorUIResource(
+                mainActiveScheme.getBackgroundFillColor());
+        Color backgroundDefaultColor = new ColorUIResource(
+                mainEnabledScheme.getBackgroundFillColor());
+        Color textBackgroundColor = new ColorUIResource(
+                mainActiveScheme.getTextBackgroundFillColor());
 
-		Color disabledForegroundColor = SubstanceColorUtilities
-				.getForegroundColor(mainDisabledScheme);
-		Color disabledTextComponentForegroundColor = disabledForegroundColor;
-		float alpha = skin.getAlpha(null, ComponentState.DISABLED_UNSELECTED);
-		if (alpha < 1.0f) {
-			ColorUIResource defaultTextBackgroundColor = SubstanceColorUtilities
-					.getDefaultBackgroundColor(true, skin, false);
-			disabledTextComponentForegroundColor = new ColorUIResource(
-					SubstanceColorUtilities.getInterpolatedColor(
-							disabledTextComponentForegroundColor,
-							defaultTextBackgroundColor, alpha));
-		}
+        Color disabledForegroundColor = SubstanceColorUtilities
+                .getForegroundColor(mainDisabledScheme);
+        Color disabledTextComponentForegroundColor = disabledForegroundColor;
+        float alpha = skin.getAlpha(null, ComponentState.DISABLED_UNSELECTED);
+        if (alpha < 1.0f) {
+            ColorUIResource defaultTextBackgroundColor = SubstanceColorUtilities
+                    .getDefaultBackgroundColor(true, skin, false);
+            disabledTextComponentForegroundColor = new ColorUIResource(
+                    SubstanceColorUtilities.getInterpolatedColor(
+                            disabledTextComponentForegroundColor,
+                            defaultTextBackgroundColor, alpha));
+        }
 
-		Color lineColor = new ColorUIResource(mainActiveScheme.getLineColor());
+        Color lineColor = new ColorUIResource(mainActiveScheme.getLineColor());
 
-		Color lineColorDefault = new ColorUIResource(mainEnabledScheme.getLineColor());
+        Color lineColorDefault = new ColorUIResource(mainEnabledScheme.getLineColor());
 
-		int lcb = SubstanceColorUtilities.getColorBrightness(lineColor.getRGB());
-		Color lineBwColor = new ColorUIResource(new Color(lcb, lcb, lcb));
+        int lcb = SubstanceColorUtilities.getColorBrightness(lineColor.getRGB());
+        Color lineBwColor = new ColorUIResource(new Color(lcb, lcb, lcb));
 
-		SubstanceColorScheme textHighlightColorScheme = skin.getColorScheme(
-				(Component) null, ColorSchemeAssociationKind.HIGHLIGHT_TEXT,
-				ComponentState.SELECTED);
-		if (textHighlightColorScheme == null) {
-			textHighlightColorScheme = skin.getColorScheme(null,
-					ComponentState.ROLLOVER_SELECTED);
-		}
-		Color selectionTextBackgroundColor = new ColorUIResource(
-				textHighlightColorScheme.getSelectionBackgroundColor());
-		Color selectionTextForegroundColor = new ColorUIResource(
-				textHighlightColorScheme.getSelectionForegroundColor());
+        SubstanceColorScheme textHighlightColorScheme = skin.getColorScheme(
+                (Component) null, ColorSchemeAssociationKind.HIGHLIGHT_TEXT,
+                ComponentState.SELECTED);
+        if (textHighlightColorScheme == null) {
+            textHighlightColorScheme = skin.getColorScheme(null,
+                    ComponentState.ROLLOVER_SELECTED);
+        }
+        Color selectionTextBackgroundColor = new ColorUIResource(
+                textHighlightColorScheme.getSelectionBackgroundColor());
+        Color selectionTextForegroundColor = new ColorUIResource(
+                textHighlightColorScheme.getSelectionForegroundColor());
 
-		Color selectionCellForegroundColor = new ColorUIResource(
-				textHighlightColorScheme.getForegroundColor());
-		Color selectionCellBackgroundColor = new ColorUIResource(
-				textHighlightColorScheme.getBackgroundFillColor());
+        Color selectionCellForegroundColor = new ColorUIResource(
+                textHighlightColorScheme.getForegroundColor());
+        Color selectionCellBackgroundColor = new ColorUIResource(
+                textHighlightColorScheme.getBackgroundFillColor());
 
         UIDefaults.LazyValue popupMenuBorder = (UIDefaults table) -> new SubstancePopupMenuBorder();
 
         UIDefaults.LazyValue desktopIconMarginBorder = (UIDefaults table) ->
-				new BorderUIResource(new SubstanceBorder(new Insets(0, 0, 0, 0)));
+                new BorderUIResource(new SubstanceBorder(new Insets(0, 0, 0, 0)));
 
         UIDefaults.LazyValue textBorder = (UIDefaults table) ->
                 new BorderUIResource.CompoundBorderUIResource(
@@ -135,16 +132,16 @@ public class SkinUtilities {
                         SubstanceSizeUtils.getControlFontSize()));
 
         UIDefaults.LazyValue comboBorder = (UIDefaults table) ->
-				new SubstanceBorder(SubstanceSizeUtils.getComboBorderInsets(
-				        SubstanceSizeUtils.getControlFontSize()));
+                new SubstanceBorder(SubstanceSizeUtils.getComboBorderInsets(
+                        SubstanceSizeUtils.getControlFontSize()));
 
         UIDefaults.LazyValue spinnerBorder = (UIDefaults table) ->
-				new BorderUIResource.CompoundBorderUIResource(
-						new SubstanceTextComponentBorder(
-								SubstanceSizeUtils
-										.getSpinnerBorderInsets(SubstanceSizeUtils
-												.getControlFontSize())),
-						new BasicBorders.MarginBorder());
+                new BorderUIResource.CompoundBorderUIResource(
+                        new SubstanceTextComponentBorder(
+                                SubstanceSizeUtils
+                                        .getSpinnerBorderInsets(SubstanceSizeUtils
+                                                .getControlFontSize())),
+                        new BasicBorders.MarginBorder());
 
         final SubstanceColorScheme titlePaneScheme = skin
                 .getBackgroundColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE);
@@ -152,187 +149,187 @@ public class SkinUtilities {
                 ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
 
         UIDefaults.LazyValue menuItemInsets = (UIDefaults table) -> {
-				int menuItemMargin = SubstanceSizeUtils
-						.getMenuItemMargin(SubstanceSizeUtils
-								.getComponentFontSize(null));
-				return new InsetsUIResource(menuItemMargin, menuItemMargin,
-						menuItemMargin, menuItemMargin);
-		};
+            int menuItemMargin = SubstanceSizeUtils
+                    .getMenuItemMargin(SubstanceSizeUtils
+                            .getComponentFontSize(null));
+            return new InsetsUIResource(menuItemMargin, menuItemMargin,
+                    menuItemMargin, menuItemMargin);
+        };
 
         UIDefaults.LazyValue emptyIcon = (UIDefaults table) ->
-				new IconUIResource(new Icon() {
-					public int getIconHeight() {
-						// return the value that matches the core height, so
-						// that the DefaultTreeCellEditor.EditorContainer
-						// returns the correct value in its getPreferredSize
-						// when it consults the "editingIcon" height.
-						return 16;
-					}
+                new IconUIResource(new Icon() {
+                    public int getIconHeight() {
+                        // return the value that matches the core height, so
+                        // that the DefaultTreeCellEditor.EditorContainer
+                        // returns the correct value in its getPreferredSize
+                        // when it consults the "editingIcon" height.
+                        return 16;
+                    }
 
-					public int getIconWidth() {
-						return 2;
-					}
+                    public int getIconWidth() {
+                        return 2;
+                    }
 
-					public void paintIcon(Component c, Graphics g, int x, int y) {
-					}
-				});
+                    public void paintIcon(Component c, Graphics g, int x, int y) {
+                    }
+                });
 
-		Object[] defaults = new Object[] {
-				"control",
-				controlText,
+        Object[] defaults = new Object[] {
+                "control",
+                controlText,
 
-				"Button.defaultButtonFollowsFocus",
-				Boolean.FALSE,
+                "Button.defaultButtonFollowsFocus",
+                Boolean.FALSE,
 
-				"Button.disabledText",
-				disabledForegroundColor,
+                "Button.disabledText",
+                disabledForegroundColor,
 
-				"Button.foreground",
-				foregroundColor,
+                "Button.foreground",
+                foregroundColor,
 
-				"Button.margin",
-				new InsetsUIResource(0, 0, 0, 0),
+                "Button.margin",
+                new InsetsUIResource(0, 0, 0, 0),
 
-				"CheckBox.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "CheckBox.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"CheckBox.border",
-				new BorderUIResource.CompoundBorderUIResource(
-						SubstanceSizeUtils.getCheckBoxBorder(
-								SubstanceSizeUtils.getControlFontSize(),
-								ComponentOrientation.getOrientation(
-										Locale.getDefault()).isLeftToRight()),
-						new MarginBorder()),
+                "CheckBox.border",
+                new BorderUIResource.CompoundBorderUIResource(
+                        SubstanceSizeUtils.getCheckBoxBorder(
+                                SubstanceSizeUtils.getControlFontSize(),
+                                ComponentOrientation.getOrientation(
+                                        Locale.getDefault()).isLeftToRight()),
+                        new MarginBorder()),
 
-				"CheckBox.disabledText",
-				disabledForegroundColor,
+                "CheckBox.disabledText",
+                disabledForegroundColor,
 
-				"CheckBox.foreground",
-				foregroundColor,
+                "CheckBox.foreground",
+                foregroundColor,
 
-				"CheckBoxMenuItem.acceleratorForeground",
-				foregroundColor,
+                "CheckBoxMenuItem.acceleratorForeground",
+                foregroundColor,
 
-				"CheckBoxMenuItem.acceleratorSelectionForeground",
-				foregroundColor,
+                "CheckBoxMenuItem.acceleratorSelectionForeground",
+                foregroundColor,
 
-				"CheckBoxMenuItem.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "CheckBoxMenuItem.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"CheckBoxMenuItem.borderPainted",
-				Boolean.FALSE,
+                "CheckBoxMenuItem.borderPainted",
+                Boolean.FALSE,
 
-				"CheckBoxMenuItem.checkIcon",
-				new CheckBoxMenuItemIcon(null,
-						1 + SubstanceSizeUtils
-								.getMenuCheckMarkSize(SubstanceSizeUtils
-										.getControlFontSize())),
+                "CheckBoxMenuItem.checkIcon",
+                new CheckBoxMenuItemIcon(null,
+                        1 + SubstanceSizeUtils
+                                .getMenuCheckMarkSize(SubstanceSizeUtils
+                                        .getControlFontSize())),
 
-				"CheckBoxMenuItem.disabledForeground",
-				disabledForegroundColor,
+                "CheckBoxMenuItem.disabledForeground",
+                disabledForegroundColor,
 
-				"CheckBoxMenuItem.foreground",
-				foregroundColor,
+                "CheckBoxMenuItem.foreground",
+                foregroundColor,
 
-				"CheckBoxMenuItem.margin",
-				menuItemInsets,
+                "CheckBoxMenuItem.margin",
+                menuItemInsets,
 
-				"CheckBoxMenuItem.selectionForeground",
-				selectionCellForegroundColor,
+                "CheckBoxMenuItem.selectionForeground",
+                selectionCellForegroundColor,
 
-				"ColorChooser.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "ColorChooser.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"ColorChooser.foreground",
-				foregroundColor,
+                "ColorChooser.foreground",
+                foregroundColor,
 
-				"ComboBox.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "ComboBox.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"ComboBox.border",
-				comboBorder,
+                "ComboBox.border",
+                comboBorder,
 
-				"ComboBox.disabledBackground",
-				textBackgroundColor,
+                "ComboBox.disabledBackground",
+                textBackgroundColor,
 
-				"ComboBox.disabledForeground",
-				disabledForegroundColor,
+                "ComboBox.disabledForeground",
+                disabledForegroundColor,
 
-				"ComboBox.foreground",
-				foregroundColor,
+                "ComboBox.foreground",
+                foregroundColor,
 
-				"ComboBox.selectionBackground",
-				selectionCellBackgroundColor,
+                "ComboBox.selectionBackground",
+                selectionCellBackgroundColor,
 
-				"ComboBox.selectionForeground",
-				selectionCellForegroundColor,
+                "ComboBox.selectionForeground",
+                selectionCellForegroundColor,
 
-				"DesktopIcon.border",
-				desktopIconMarginBorder,
+                "DesktopIcon.border",
+                desktopIconMarginBorder,
 
-				"DesktopIcon.width",
-				new Integer(140),
+                "DesktopIcon.width",
+                new Integer(140),
 
-				"Desktop.background",
-				new ColorUIResource(new Color(0x0, true)),
+                "Desktop.background",
+                new ColorUIResource(new Color(0x0, true)),
 
-				"Desktop.foreground",
-				foregroundColor,
+                "Desktop.foreground",
+                foregroundColor,
 
-				"Dialog.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "Dialog.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"EditorPane.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						false),
+                "EditorPane.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        false),
 
-				"EditorPane.border",
-				textMarginBorder,
+                "EditorPane.border",
+                textMarginBorder,
 
-				"EditorPane.foreground",
-				foregroundColor,
+                "EditorPane.foreground",
+                foregroundColor,
 
-				"EditorPane.caretForeground",
-				foregroundColor,
+                "EditorPane.caretForeground",
+                foregroundColor,
 
-				"EditorPane.disabledBackground",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						true),
+                "EditorPane.disabledBackground",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        true),
 
-				"EditorPane.inactiveBackground",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						true),
+                "EditorPane.inactiveBackground",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        true),
 
-				"EditorPane.inactiveForeground",
-				disabledTextComponentForegroundColor,
+                "EditorPane.inactiveForeground",
+                disabledTextComponentForegroundColor,
 
-				"EditorPane.selectionBackground",
-				selectionTextBackgroundColor,
+                "EditorPane.selectionBackground",
+                selectionTextBackgroundColor,
 
-				"EditorPane.selectionForeground",
-				selectionTextForegroundColor,
+                "EditorPane.selectionForeground",
+                selectionTextForegroundColor,
 
                 "FileChooser.upFolderIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceCortex.GlobalScope.getIconPack().
                                 getFileChooserUpFolderIcon(16, defaultScheme)),
 
-				"FileChooser.newFolderIcon",
+                "FileChooser.newFolderIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceCortex.GlobalScope.getIconPack().
                                 getFileChooserNewFolderIcon(16, defaultScheme)),
 
-				"FileChooser.homeFolderIcon",
+                "FileChooser.homeFolderIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceCortex.GlobalScope.getIconPack().
                                 getFileChooserHomeFolderIcon(16, defaultScheme)),
 
-				"FileChooser.listViewIcon",
+                "FileChooser.listViewIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceCortex.GlobalScope.getIconPack().
                                 getFileChooserListViewIcon(16, defaultScheme)),
@@ -347,829 +344,824 @@ public class SkinUtilities {
                         SubstanceCortex.GlobalScope.getIconPack().
                                 getFileChooserViewMenuIcon(16, defaultScheme)),
 
-				"FileChooser.usesSingleFilePane",
-				Boolean.TRUE,
+                "FileChooser.usesSingleFilePane",
+                Boolean.TRUE,
 
-				"FileView.computerIcon",
+                "FileView.computerIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceCortex.GlobalScope.getIconPack().
                                 getFileChooserComputerIcon(16, defaultScheme)),
 
-				"FileView.directoryIcon",
+                "FileView.directoryIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceCortex.GlobalScope.getIconPack().
                                 getFileChooserDirectoryIcon(16, defaultScheme)),
 
-				"FileView.fileIcon",
+                "FileView.fileIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceCortex.GlobalScope.getIconPack().
                                 getFileChooserFileIcon(16, defaultScheme)),
 
-				"FileView.floppyDriveIcon",
+                "FileView.floppyDriveIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceCortex.GlobalScope.getIconPack().
                                 getFileChooserFloppyDriveIcon(16, defaultScheme)),
 
-				"FileView.hardDriveIcon",
+                "FileView.hardDriveIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceCortex.GlobalScope.getIconPack().
                                 getFileChooserHardDriveIcon(16, defaultScheme)),
 
-				"FormattedTextField.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						false),
+                "FormattedTextField.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        false),
 
-				"FormattedTextField.border",
-				textBorder,
+                "FormattedTextField.border",
+                textBorder,
 
-				"FormattedTextField.caretForeground",
-				foregroundColor,
+                "FormattedTextField.caretForeground",
+                foregroundColor,
 
-				"FormattedTextField.disabledBackground",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						true),
+                "FormattedTextField.disabledBackground",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        true),
 
-				"FormattedTextField.foreground",
-				foregroundColor,
+                "FormattedTextField.foreground",
+                foregroundColor,
 
-				"FormattedTextField.inactiveBackground",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						true),
+                "FormattedTextField.inactiveBackground",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        true),
 
-				"FormattedTextField.inactiveForeground",
-				disabledTextComponentForegroundColor,
+                "FormattedTextField.inactiveForeground",
+                disabledTextComponentForegroundColor,
 
-				"FormattedTextField.selectionBackground",
-				selectionTextBackgroundColor,
+                "FormattedTextField.selectionBackground",
+                selectionTextBackgroundColor,
 
-				"FormattedTextField.selectionForeground",
-				selectionTextForegroundColor,
+                "FormattedTextField.selectionForeground",
+                selectionTextForegroundColor,
 
-				"InternalFrame.activeTitleBackground",
-				selectionTextForegroundColor,
+                "InternalFrame.activeTitleBackground",
+                selectionTextForegroundColor,
 
-				"InternalFrame.inactiveTitleBackground",
-				foregroundColor,
+                "InternalFrame.inactiveTitleBackground",
+                foregroundColor,
 
-				"InternalFrame.border",
-				new BorderUIResource(new SubstancePaneBorder()),
+                "InternalFrame.border",
+                new BorderUIResource(new SubstancePaneBorder()),
 
-				"InternalFrame.closeIcon",
+                "InternalFrame.closeIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceImageCreator.getCloseIcon(titlePaneScheme, titlePaneScheme)),
 
-				"InternalFrame.iconifyIcon",
+                "InternalFrame.iconifyIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceImageCreator.getMinimizeIcon(titlePaneScheme, titlePaneScheme)),
 
-				"InternalFrame.maximizeIcon",
+                "InternalFrame.maximizeIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceImageCreator.getMaximizeIcon(titlePaneScheme, titlePaneScheme)),
 
-				"InternalFrame.minimizeIcon",
+                "InternalFrame.minimizeIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceImageCreator.getRestoreIcon(titlePaneScheme, titlePaneScheme)),
 
-				"InternalFrame.paletteCloseIcon",
+                "InternalFrame.paletteCloseIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceImageCreator.getCloseIcon(titlePaneScheme, titlePaneScheme)),
 
-				"Label.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "Label.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"Label.foreground",
-				foregroundColor,
+                "Label.foreground",
+                foregroundColor,
 
-				"Label.disabledText",
-				disabledForegroundColor,
+                "Label.disabledText",
+                disabledForegroundColor,
 
-				"Label.disabledForeground",
-				disabledForegroundColor,
+                "Label.disabledForeground",
+                disabledForegroundColor,
 
-				"List.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "List.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"List.cellRenderer",
-				listCellRendererActiveValue,
+                "List.cellRenderer",
+                listCellRendererActiveValue,
 
-				"List.focusCellHighlightBorder",
-				new SubstanceBorder(new Insets(1, 1, 1, 1)),
+                "List.focusCellHighlightBorder",
+                new SubstanceBorder(new Insets(1, 1, 1, 1)),
 
-				"List.focusSelectedCellHighlightBorder",
-				new BorderUIResource.EmptyBorderUIResource(1, 1, 1, 1),
+                "List.focusSelectedCellHighlightBorder",
+                new BorderUIResource.EmptyBorderUIResource(1, 1, 1, 1),
 
-				"List.foreground",
-				foregroundColor,
+                "List.foreground",
+                foregroundColor,
 
-				"List.selectionBackground",
-				selectionCellBackgroundColor,
+                "List.selectionBackground",
+                selectionCellBackgroundColor,
 
-				"List.selectionForeground",
-				selectionCellForegroundColor,
+                "List.selectionForeground",
+                selectionCellForegroundColor,
 
-				"Menu.arrowIcon",
-				menuArrowIcon,
+                "Menu.arrowIcon",
+                menuArrowIcon,
 
-				"Menu.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "Menu.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"Menu.borderPainted",
-				Boolean.FALSE,
+                "Menu.borderPainted",
+                Boolean.FALSE,
 
-				"Menu.checkIcon",
-				null,
+                "Menu.checkIcon",
+                null,
 
-				"Menu.disabledForeground",
-				disabledForegroundColor,
+                "Menu.disabledForeground",
+                disabledForegroundColor,
 
-				"Menu.foreground",
-				foregroundColor,
+                "Menu.foreground",
+                foregroundColor,
 
-				"Menu.margin",
-				menuItemInsets,
+                "Menu.margin",
+                menuItemInsets,
 
-				"Menu.selectionForeground",
-				selectionCellForegroundColor,
+                "Menu.selectionForeground",
+                selectionCellForegroundColor,
 
-				"MenuBar.background",
-				skin.isRegisteredAsDecorationArea(DecorationAreaType.HEADER) ? new ColorUIResource(
-						skin.getActiveColorScheme(DecorationAreaType.HEADER)
-								.getMidColor()) : SubstanceColorUtilities
-						.getDefaultBackgroundColor(false, skin, false),
+                "MenuBar.background",
+                skin.isRegisteredAsDecorationArea(DecorationAreaType.HEADER) ? new ColorUIResource(
+                        skin.getActiveColorScheme(DecorationAreaType.HEADER)
+                                .getMidColor()) : SubstanceColorUtilities
+                        .getDefaultBackgroundColor(false, skin, false),
 
-				"MenuBar.foreground",
-				new ColorUIResource(skin.getActiveColorScheme(
-						DecorationAreaType.HEADER).getForegroundColor()),
+                "MenuBar.foreground",
+                new ColorUIResource(skin.getActiveColorScheme(
+                        DecorationAreaType.HEADER).getForegroundColor()),
 
-				"MenuBar.border",
-				null,
+                "MenuBar.border",
+                null,
 
-				"MenuItem.acceleratorForeground",
-				foregroundColor,
+                "MenuItem.acceleratorForeground",
+                foregroundColor,
 
-				"MenuItem.acceleratorSelectionForeground",
-				foregroundColor,
+                "MenuItem.acceleratorSelectionForeground",
+                foregroundColor,
 
-				"MenuItem.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "MenuItem.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"MenuItem.borderPainted",
-				Boolean.FALSE,
+                "MenuItem.borderPainted",
+                Boolean.FALSE,
 
-				"MenuItem.checkIcon",
-				null,
+                "MenuItem.checkIcon",
+                null,
 
-				"MenuItem.disabledForeground",
-				disabledForegroundColor,
+                "MenuItem.disabledForeground",
+                disabledForegroundColor,
 
-				"MenuItem.foreground",
-				foregroundColor,
+                "MenuItem.foreground",
+                foregroundColor,
 
-				"MenuItem.margin",
-				menuItemInsets,
+                "MenuItem.margin",
+                menuItemInsets,
 
-				"MenuItem.selectionForeground",
-				selectionCellForegroundColor,
+                "MenuItem.selectionForeground",
+                selectionCellForegroundColor,
 
-				"OptionPane.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "OptionPane.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"OptionPane.errorIcon",
+                "OptionPane.errorIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceCortex.GlobalScope.getIconPack().getOptionPaneErrorIcon(
                                 20, defaultScheme)),
 
-				"OptionPane.foreground",
-				foregroundColor,
+                "OptionPane.foreground",
+                foregroundColor,
 
-				"OptionPane.informationIcon",
+                "OptionPane.informationIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceCortex.GlobalScope.getIconPack().getOptionPaneInformationIcon(
                                 20, defaultScheme)),
 
-				"OptionPane.messageForeground",
-				foregroundColor,
+                "OptionPane.messageForeground",
+                foregroundColor,
 
-				"OptionPane.questionIcon",
+                "OptionPane.questionIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceCortex.GlobalScope.getIconPack().getOptionPaneQuestionIcon(
                                 20, defaultScheme)),
 
-				"OptionPane.warningIcon",
+                "OptionPane.warningIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         SubstanceCortex.GlobalScope.getIconPack().getOptionPaneWarningIcon(
                                 20, defaultScheme)),
 
-				"OptionPane.buttonPadding",
-				8,
-				
-				"OptionPane.sameSizeButtons",
-				true,
-				
-				"OptionPane.buttonOrientation",
-				ComponentOrientation.getOrientation(Locale.getDefault()).isLeftToRight()
-						? SwingConstants.RIGHT : SwingConstants.LEFT,
-				
-				"OptionPane.isYesLast",
-				true,
+                "OptionPane.buttonPadding",
+                8,
 
-				"Panel.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "OptionPane.sameSizeButtons",
+                true,
 
-				"Panel.foreground",
-				foregroundColor,
+                "OptionPane.buttonOrientation",
+                ComponentOrientation.getOrientation(Locale.getDefault()).isLeftToRight()
+                        ? SwingConstants.RIGHT : SwingConstants.LEFT,
 
-				"PasswordField.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						false),
+                "OptionPane.isYesLast",
+                true,
 
-				"PasswordField.border",
-				textBorder,
+                "Panel.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"PasswordField.caretForeground",
-				foregroundColor,
+                "Panel.foreground",
+                foregroundColor,
 
-				"PasswordField.disabledBackground",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						true),
+                "PasswordField.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        false),
 
-				"PasswordField.foreground",
-				foregroundColor,
+                "PasswordField.border",
+                textBorder,
 
-				"PasswordField.inactiveBackground",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						true),
+                "PasswordField.caretForeground",
+                foregroundColor,
 
-				"PasswordField.inactiveForeground",
-				disabledTextComponentForegroundColor,
+                "PasswordField.disabledBackground",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        true),
 
-				"PasswordField.selectionBackground",
-				selectionTextBackgroundColor,
+                "PasswordField.foreground",
+                foregroundColor,
 
-				"PasswordField.selectionForeground",
-				selectionTextForegroundColor,
+                "PasswordField.inactiveBackground",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        true),
 
-				"PopupMenu.background",
-				new ColorUIResource(skin.getBackgroundColorScheme(DecorationAreaType.NONE).getBackgroundFillColor()),
+                "PasswordField.inactiveForeground",
+                disabledTextComponentForegroundColor,
 
-				"PopupMenu.border",
-				popupMenuBorder,
+                "PasswordField.selectionBackground",
+                selectionTextBackgroundColor,
 
-				"ProgressBar.border",
-				new BorderUIResource(new SubstanceBorder()),
+                "PasswordField.selectionForeground",
+                selectionTextForegroundColor,
 
-				"ProgressBar.cycleTime",
-				new Integer(1000),
+                "PopupMenu.background",
+                new ColorUIResource(skin.getBackgroundColorScheme(
+                        DecorationAreaType.NONE).getBackgroundFillColor()),
 
-				"ProgressBar.repaintInterval",
-				new Integer(50),
+                "PopupMenu.border",
+                popupMenuBorder,
 
-				"ProgressBar.horizontalSize",
-				new DimensionUIResource(146,
-						SubstanceSizeUtils.getControlFontSize()),
+                "ProgressBar.border",
+                new BorderUIResource(new SubstanceBorder()),
 
-				"ProgressBar.verticalSize",
-				new DimensionUIResource(
-						SubstanceSizeUtils.getControlFontSize(), 146),
+                "ProgressBar.cycleTime",
+                new Integer(1000),
 
-				"ProgressBar.selectionBackground",
-				foregroundColor,
+                "ProgressBar.repaintInterval",
+                new Integer(50),
 
-				"ProgressBar.selectionForeground",
-				foregroundColor,
+                "ProgressBar.horizontalSize",
+                new DimensionUIResource(146,
+                        SubstanceSizeUtils.getControlFontSize()),
 
-				"RadioButton.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "ProgressBar.verticalSize",
+                new DimensionUIResource(
+                        SubstanceSizeUtils.getControlFontSize(), 146),
 
-				"RadioButton.border",
-				new BorderUIResource.CompoundBorderUIResource(
-						SubstanceSizeUtils.getRadioButtonBorder(
-								SubstanceSizeUtils.getControlFontSize(),
-								ComponentOrientation.getOrientation(
-										Locale.getDefault()).isLeftToRight()),
-						new MarginBorder()),
+                "ProgressBar.selectionBackground",
+                foregroundColor,
 
-				"RadioButton.foreground",
-				foregroundColor,
+                "ProgressBar.selectionForeground",
+                foregroundColor,
 
-				"RadioButton.disabledText",
-				disabledForegroundColor,
+                "RadioButton.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"RadioButtonMenuItem.acceleratorForeground",
-				foregroundColor,
+                "RadioButton.border",
+                new BorderUIResource.CompoundBorderUIResource(
+                        SubstanceSizeUtils.getRadioButtonBorder(
+                                SubstanceSizeUtils.getControlFontSize(),
+                                ComponentOrientation.getOrientation(
+                                        Locale.getDefault()).isLeftToRight()),
+                        new MarginBorder()),
 
-				"RadioButtonMenuItem.acceleratorSelectionForeground",
-				foregroundColor,
+                "RadioButton.foreground",
+                foregroundColor,
 
-				"RadioButtonMenuItem.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "RadioButton.disabledText",
+                disabledForegroundColor,
 
-				"RadioButtonMenuItem.borderPainted",
-				Boolean.FALSE,
+                "RadioButtonMenuItem.acceleratorForeground",
+                foregroundColor,
 
-				"RadioButtonMenuItem.checkIcon",
-				new RadioButtonMenuItemIcon(null,
-						SubstanceSizeUtils
-								.getMenuCheckMarkSize(SubstanceSizeUtils
-										.getControlFontSize())),
+                "RadioButtonMenuItem.acceleratorSelectionForeground",
+                foregroundColor,
 
-				"RadioButtonMenuItem.disabledForeground",
-				disabledForegroundColor,
+                "RadioButtonMenuItem.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"RadioButtonMenuItem.foreground",
-				foregroundColor,
+                "RadioButtonMenuItem.borderPainted",
+                Boolean.FALSE,
 
-				"RadioButtonMenuItem.margin",
-				menuItemInsets,
+                "RadioButtonMenuItem.checkIcon",
+                new RadioButtonMenuItemIcon(null,
+                        SubstanceSizeUtils
+                                .getMenuCheckMarkSize(SubstanceSizeUtils
+                                        .getControlFontSize())),
 
-				"RadioButtonMenuItem.selectionForeground",
-				selectionCellForegroundColor,
+                "RadioButtonMenuItem.disabledForeground",
+                disabledForegroundColor,
 
-				"RootPane.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "RadioButtonMenuItem.foreground",
+                foregroundColor,
 
-				"RootPane.border",
-				new SubstancePaneBorder(),
+                "RadioButtonMenuItem.margin",
+                menuItemInsets,
 
-				"ScrollBar.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "RadioButtonMenuItem.selectionForeground",
+                selectionCellForegroundColor,
 
-				"ScrollBar.width",
-				new Integer(
-						SubstanceSizeUtils.getScrollBarWidth(SubstanceSizeUtils
-								.getControlFontSize())),
+                "RootPane.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"ScrollBar.minimumThumbSize",
-				new DimensionUIResource(
-						SubstanceSizeUtils.getScrollBarWidth(SubstanceSizeUtils
-								.getControlFontSize()) - 2,
-						SubstanceSizeUtils.getScrollBarWidth(SubstanceSizeUtils
-								.getControlFontSize()) - 2),
+                "RootPane.border",
+                new SubstancePaneBorder(),
 
-				"ScrollPane.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "ScrollBar.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"ScrollPane.foreground",
-				foregroundColor,
+                "ScrollBar.width",
+                new Integer(
+                        SubstanceSizeUtils.getScrollBarWidth(SubstanceSizeUtils
+                                .getControlFontSize())),
 
-				"ScrollPane.border",
-				new SubstanceScrollPaneBorder(),
+                "ScrollBar.minimumThumbSize",
+                new DimensionUIResource(
+                        SubstanceSizeUtils.getScrollBarWidth(SubstanceSizeUtils
+                                .getControlFontSize()) - 2,
+                        SubstanceSizeUtils.getScrollBarWidth(SubstanceSizeUtils
+                                .getControlFontSize()) - 2),
 
-				"Separator.background",
-				backgroundDefaultColor,
+                "ScrollPane.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"Separator.foreground",
-				lineBwColor,
+                "ScrollPane.foreground",
+                foregroundColor,
 
-				"Slider.altTrackColor",
-				lineColor,
+                "ScrollPane.border",
+                new SubstanceScrollPaneBorder(),
 
-				"Slider.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "Separator.background",
+                backgroundDefaultColor,
 
-				"Slider.darkShadow",
-				lineColor,
+                "Separator.foreground",
+                lineBwColor,
 
-				"Slider.focus",
-				lineColor,
+                "Slider.altTrackColor",
+                lineColor,
 
-				"Slider.focusInsets",
-				new InsetsUIResource(2, 2, 0, 2),
+                "Slider.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"Slider.foreground",
-				lineColor,
+                "Slider.darkShadow",
+                lineColor,
 
-				"Slider.highlight",
-				textBackgroundColor,
+                "Slider.focus",
+                lineColor,
 
-				"Slider.shadow",
-				lineColor,
+                "Slider.focusInsets",
+                new InsetsUIResource(2, 2, 0, 2),
 
-				"Slider.tickColor",
-				foregroundColor,
+                "Slider.foreground",
+                lineColor,
 
-				"Spinner.arrowButtonInsets",
-				SubstanceSizeUtils
-						.getSpinnerArrowButtonInsets(SubstanceSizeUtils
-								.getControlFontSize()),
+                "Slider.highlight",
+                textBackgroundColor,
 
-				"Spinner.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						false),
+                "Slider.shadow",
+                lineColor,
 
-				"Spinner.border",
-				spinnerBorder,
+                "Slider.tickColor",
+                foregroundColor,
 
-				"Spinner.disableOnBoundaryValues",
-				Boolean.TRUE,
+                "Spinner.arrowButtonInsets",
+                SubstanceSizeUtils
+                        .getSpinnerArrowButtonInsets(SubstanceSizeUtils
+                        .getControlFontSize()),
 
-				"Spinner.foreground",
-				foregroundColor,
+                "Spinner.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        false),
 
-				"Spinner.editorBorderPainted",
-				Boolean.TRUE,
+                "Spinner.border",
+                spinnerBorder,
 
-				"SplitPane.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "Spinner.disableOnBoundaryValues",
+                Boolean.TRUE,
 
-				"SplitPane.foreground",
-				foregroundColor,
+                "Spinner.foreground",
+                foregroundColor,
 
-				"SplitPane.dividerFocusColor",
-				backgroundDefaultColor,
+                "Spinner.editorBorderPainted",
+                Boolean.TRUE,
 
-				"SplitPaneDivider.draggingColor",
-				backgroundActiveColor,
+                "SplitPane.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"SplitPane.border",
-				new BorderUIResource(new EmptyBorder(0, 0, 0, 0)),
+                "SplitPane.foreground",
+                foregroundColor,
 
-				"SplitPane.dividerSize",
-				(int) (SubstanceSizeUtils.getArrowIconWidth(SubstanceSizeUtils
-						.getControlFontSize()) + SubstanceSizeUtils
-						.getAdjustedSize(
-								SubstanceSizeUtils.getControlFontSize(), -1, 6,
-								-1, true)),
+                "SplitPane.dividerFocusColor",
+                backgroundDefaultColor,
 
-				"SplitPaneDivider.border",
-				new BorderUIResource(new EmptyBorder(1, 1, 1, 1)),
+                "SplitPaneDivider.draggingColor",
+                backgroundActiveColor,
 
-				"TabbedPane.tabAreaBackground",
-				backgroundDefaultColor,
+                "SplitPane.border",
+                new BorderUIResource(new EmptyBorder(0, 0, 0, 0)),
 
-				"TabbedPane.unselectedBackground",
-				backgroundDefaultColor,
+                "SplitPane.dividerSize",
+                (int) (SubstanceSizeUtils.getArrowIconWidth(SubstanceSizeUtils
+                        .getControlFontSize()) + SubstanceSizeUtils
+                        .getAdjustedSize(
+                                SubstanceSizeUtils.getControlFontSize(), -1, 6,
+                                -1, true)),
 
-				"TabbedPane.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "SplitPaneDivider.border",
+                new BorderUIResource(new EmptyBorder(1, 1, 1, 1)),
 
-				"TabbedPane.borderHightlightColor",
-				new ColorUIResource(mainActiveScheme.getMidColor()),
+                "TabbedPane.tabAreaBackground",
+                backgroundDefaultColor,
 
-				"TabbedPane.contentAreaColor",
-				null,
+                "TabbedPane.unselectedBackground",
+                backgroundDefaultColor,
 
-				"TabbedPane.contentBorderInsets",
-				new InsetsUIResource(4, 4, 4, 4),
+                "TabbedPane.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"TabbedPane.contentOpaque",
-				Boolean.FALSE,
+                "TabbedPane.borderHightlightColor",
+                new ColorUIResource(mainActiveScheme.getMidColor()),
 
-				"TabbedPane.darkShadow",
-				new ColorUIResource(skin.getColorScheme((Component) null,
-						ColorSchemeAssociationKind.BORDER,
-						ComponentState.SELECTED).getLineColor()),
+                "TabbedPane.contentAreaColor",
+                null,
 
-				"TabbedPane.focus",
-				foregroundColor,
+                "TabbedPane.contentBorderInsets",
+                new InsetsUIResource(4, 4, 4, 4),
 
-				"TabbedPane.foreground",
-				foregroundColor,
+                "TabbedPane.contentOpaque",
+                Boolean.FALSE,
 
-				"TabbedPane.highlight",
-				new ColorUIResource(mainActiveScheme.getLightColor()),
+                "TabbedPane.darkShadow",
+                new ColorUIResource(skin.getColorScheme((Component) null,
+                        ColorSchemeAssociationKind.BORDER,
+                        ComponentState.SELECTED).getLineColor()),
 
-				"TabbedPane.light",
-				mainEnabledScheme.isDark() ? new ColorUIResource(
-						SubstanceColorUtilities.getAlphaColor(
-								mainEnabledScheme.getUltraDarkColor(), 100))
-						: new ColorUIResource(mainEnabledScheme.getLightColor()),
+                "TabbedPane.focus",
+                foregroundColor,
 
-				"TabbedPane.selected",
-				new ColorUIResource(mainActiveScheme.getExtraLightColor()),
+                "TabbedPane.foreground",
+                foregroundColor,
 
-				"TabbedPane.selectedForeground",
-				foregroundColor,
+                "TabbedPane.highlight",
+                new ColorUIResource(mainActiveScheme.getLightColor()),
 
-				"TabbedPane.selectHighlight",
-				new ColorUIResource(mainActiveScheme.getMidColor()),
+                "TabbedPane.light",
+                mainEnabledScheme.isDark() ? new ColorUIResource(
+                        SubstanceColorUtilities.getAlphaColor(
+                                mainEnabledScheme.getUltraDarkColor(), 100))
+                        : new ColorUIResource(mainEnabledScheme.getLightColor()),
 
-				"TabbedPane.shadow",
-				new ColorUIResource(
-						SubstanceColorUtilities.getInterpolatedColor(
-								mainEnabledScheme.getExtraLightColor(),
-								mainEnabledScheme.getLightColor(), 0.5)),
+                "TabbedPane.selected",
+                new ColorUIResource(mainActiveScheme.getExtraLightColor()),
 
-				"TabbedPane.tabRunOverlay",
-				new Integer(0),
+                "TabbedPane.selectedForeground",
+                foregroundColor,
 
-				"Table.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "TabbedPane.selectHighlight",
+                new ColorUIResource(mainActiveScheme.getMidColor()),
 
-				"Table.cellNoFocusBorder",
-				new BorderUIResource.EmptyBorderUIResource(
-						SubstanceSizeUtils
-								.getDefaultBorderInsets(SubstanceSizeUtils
-										.getComponentFontSize(null))),
+                "TabbedPane.shadow",
+                new ColorUIResource(
+                        SubstanceColorUtilities.getInterpolatedColor(
+                                mainEnabledScheme.getExtraLightColor(),
+                                mainEnabledScheme.getLightColor(), 0.5)),
 
-				"Table.focusCellBackground",
-				backgroundActiveColor,
+                "TabbedPane.tabRunOverlay",
+                new Integer(0),
 
-				"Table.focusCellForeground",
-				foregroundColor,
+                "Table.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"Table.focusCellHighlightBorder",
-				new SubstanceBorder(),
+                "Table.cellNoFocusBorder",
+                new BorderUIResource.EmptyBorderUIResource(
+                        SubstanceSizeUtils
+                                .getDefaultBorderInsets(SubstanceSizeUtils
+                                        .getComponentFontSize(null))),
 
-				"Table.foreground",
-				foregroundColor,
+                "Table.focusCellBackground",
+                backgroundActiveColor,
 
-				"Table.gridColor",
-				lineColorDefault,
+                "Table.focusCellForeground",
+                foregroundColor,
 
-				"Table.scrollPaneBorder",
-				new SubstanceScrollPaneBorder(),
+                "Table.focusCellHighlightBorder",
+                new SubstanceBorder(),
 
-				"Table.selectionBackground",
-				selectionCellBackgroundColor,
+                "Table.foreground",
+                foregroundColor,
 
-				"Table.selectionForeground",
-				selectionCellForegroundColor,
+                "Table.gridColor",
+                lineColorDefault,
 
-				"TableHeader.cellBorder",
-				null,
+                "Table.scrollPaneBorder",
+                new SubstanceScrollPaneBorder(),
 
-				"TableHeader.foreground",
-				foregroundColor,
+                "Table.selectionBackground",
+                selectionCellBackgroundColor,
 
-				"TableHeader.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "Table.selectionForeground",
+                selectionCellForegroundColor,
 
-				"TextArea.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						false),
+                "TableHeader.cellBorder",
+                null,
 
-				"TextArea.border",
-				textMarginBorder,
+                "TableHeader.foreground",
+                foregroundColor,
 
-				"TextArea.caretForeground",
-				foregroundColor,
+                "TableHeader.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"TextArea.disabledBackground",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						true),
+                "TextArea.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        false),
 
-				"TextArea.foreground",
-				foregroundColor,
+                "TextArea.border",
+                textMarginBorder,
 
-				"TextArea.inactiveBackground",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						true),
+                "TextArea.caretForeground",
+                foregroundColor,
 
-				"TextArea.inactiveForeground",
-				disabledTextComponentForegroundColor,
+                "TextArea.disabledBackground",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        true),
 
-				"TextArea.selectionBackground",
-				selectionTextBackgroundColor,
+                "TextArea.foreground",
+                foregroundColor,
 
-				"TextArea.selectionForeground",
-				selectionTextForegroundColor,
+                "TextArea.inactiveBackground",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        true),
 
-				"TextField.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						false),
+                "TextArea.inactiveForeground",
+                disabledTextComponentForegroundColor,
 
-				"TextField.border",
-				textBorder,
+                "TextArea.selectionBackground",
+                selectionTextBackgroundColor,
 
-				"TextField.caretForeground",
-				foregroundColor,
+                "TextArea.selectionForeground",
+                selectionTextForegroundColor,
 
-				"TextField.disabledBackground",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						true),
+                "TextField.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        false),
 
-				"TextField.foreground",
-				foregroundColor,
+                "TextField.border",
+                textBorder,
 
-				"TextField.inactiveBackground",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						true),
+                "TextField.caretForeground",
+                foregroundColor,
 
-				"TextField.inactiveForeground",
-				disabledTextComponentForegroundColor,
+                "TextField.disabledBackground",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        true),
 
-				"TextField.selectionBackground",
-				selectionTextBackgroundColor,
+                "TextField.foreground",
+                foregroundColor,
 
-				"TextField.selectionForeground",
-				selectionTextForegroundColor,
+                "TextField.inactiveBackground",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        true),
 
-				"TextPane.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						false),
+                "TextField.inactiveForeground",
+                disabledTextComponentForegroundColor,
 
-				"TextPane.border",
-				textMarginBorder,
+                "TextField.selectionBackground",
+                selectionTextBackgroundColor,
 
-				"TextPane.disabledBackground",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						true),
+                "TextField.selectionForeground",
+                selectionTextForegroundColor,
 
-				"TextPane.foreground",
-				foregroundColor,
+                "TextPane.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        false),
 
-				"TextPane.caretForeground",
-				foregroundColor,
+                "TextPane.border",
+                textMarginBorder,
 
-				"TextPane.inactiveBackground",
-				SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
-						true),
+                "TextPane.disabledBackground",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        true),
 
-				"TextPane.inactiveForeground",
-				disabledTextComponentForegroundColor,
+                "TextPane.foreground",
+                foregroundColor,
 
-				"TextPane.selectionBackground",
-				selectionTextBackgroundColor,
+                "TextPane.caretForeground",
+                foregroundColor,
 
-				"TextPane.selectionForeground",
-				selectionTextForegroundColor,
+                "TextPane.inactiveBackground",
+                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin,
+                        true),
 
-				"TitledBorder.titleColor",
-				foregroundColor,
+                "TextPane.inactiveForeground",
+                disabledTextComponentForegroundColor,
 
-				"TitledBorder.border",
-				new SubstanceEtchedBorder(),
+                "TextPane.selectionBackground",
+                selectionTextBackgroundColor,
 
-				"ToggleButton.foreground",
-				foregroundColor,
+                "TextPane.selectionForeground",
+                selectionTextForegroundColor,
 
-				"ToggleButton.disabledText",
-				disabledForegroundColor,
+                "TitledBorder.titleColor",
+                foregroundColor,
 
-				"ToggleButton.margin",
-				new InsetsUIResource(0, 0, 0, 0),
+                "TitledBorder.border",
+                new SubstanceEtchedBorder(),
 
-				"ToolBar.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "ToggleButton.foreground",
+                foregroundColor,
 
-				"ToolBar.border",
-				new BorderUIResource(new SubstanceToolBarBorder()),
+                "ToggleButton.disabledText",
+                disabledForegroundColor,
 
-				"ToolBar.isRollover",
-				Boolean.TRUE,
+                "ToggleButton.margin",
+                new InsetsUIResource(0, 0, 0, 0),
 
-				"ToolBar.foreground",
-				foregroundColor,
+                "ToolBar.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"ToolBarSeparator.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "ToolBar.border",
+                new BorderUIResource(new SubstanceToolBarBorder()),
 
-				"ToolBarSeparator.foreground",
-				lineBwColor,
+                "ToolBar.isRollover",
+                Boolean.TRUE,
 
-				"ToolBar.separatorSize",
-				null,
+                "ToolBar.foreground",
+                foregroundColor,
 
-				"ToolTip.border",
-				tooltipBorder,
+                "ToolBarSeparator.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"ToolTip.borderInactive",
-				tooltipBorder,
+                "ToolBarSeparator.foreground",
+                lineBwColor,
 
-				"ToolTip.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "ToolBar.separatorSize",
+                null,
 
-				"ToolTip.backgroundInactive",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						true),
+                "ToolTip.border",
+                tooltipBorder,
 
-				"ToolTip.foreground",
-				foregroundColor,
+                "ToolTip.borderInactive",
+                tooltipBorder,
 
-				"ToolTip.foregroundInactive",
-				disabledForegroundColor,
+                "ToolTip.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"Tree.closedIcon",
-				emptyIcon,
+                "ToolTip.backgroundInactive",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        true),
 
-				"Tree.collapsedIcon",
-				new UIDefaults.LazyValue() {
-					public Object createValue(UIDefaults table) {
-						return new NeonIconUIResource(
-								SubstanceIconFactory.getTreeIcon(null, true));
-					}
-				},
+                "ToolTip.foreground",
+                foregroundColor,
 
-				"Tree.expandedIcon",
-				new UIDefaults.LazyValue() {
-					public Object createValue(UIDefaults table) {
-						return new NeonIconUIResource(
-								SubstanceIconFactory.getTreeIcon(null, false));
-					}
-				},
+                "ToolTip.foregroundInactive",
+                disabledForegroundColor,
 
-				"Tree.leafIcon",
-				emptyIcon,
+                "Tree.closedIcon",
+                emptyIcon,
 
-				"Tree.openIcon",
-				emptyIcon,
+                "Tree.collapsedIcon",
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        new NeonIconUIResource(
+                                SubstanceIconFactory.getTreeIcon(null, true))),
 
-				"Tree.background",
-				SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
-						false),
+                "Tree.expandedIcon",
+                (UIDefaults.LazyValue) ((UIDefaults table) ->
+                        new NeonIconUIResource(
+                                SubstanceIconFactory.getTreeIcon(null, false))),
 
-				"Tree.selectionBackground", selectionCellBackgroundColor,
+                "Tree.leafIcon",
+                emptyIcon,
 
-				"Tree.foreground", foregroundColor,
+                "Tree.openIcon",
+                emptyIcon,
 
-				"Tree.hash", lineColorDefault,
+                "Tree.background",
+                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin,
+                        false),
 
-				"Tree.rowHeight", new Integer(0),
+                "Tree.selectionBackground", selectionCellBackgroundColor,
 
-				"Tree.selectionBorderColor", lineColor,
+                "Tree.foreground", foregroundColor,
 
-				"Tree.selectionForeground", selectionCellForegroundColor,
+                "Tree.hash", lineColorDefault,
 
-				"Tree.textBackground", backgroundDefaultColor,
+                "Tree.rowHeight", new Integer(0),
 
-				"Tree.textForeground", foregroundColor,
-				
-				"Viewport.background", backgroundDefaultColor,
+                "Tree.selectionBorderColor", lineColor,
 
-				"Viewport.foreground", foregroundColor,
+                "Tree.selectionForeground", selectionCellForegroundColor,
 
-		};
-		uiDefaults.putDefaults(defaults);
+                "Tree.textBackground", backgroundDefaultColor,
 
-		// input maps
-		InputMapSet inputMapSet = SubstanceInputMapUtilities.getSystemInputMapSet();
-		if (inputMapSet == null) {
-			throw new IllegalStateException("Input map set is null!");
-		}
+                "Tree.textForeground", foregroundColor,
 
-		uiDefaults.put("Button.focusInputMap", inputMapSet.getButtonFocusInputMap()
-				.getUiMap());
-		uiDefaults.put("CheckBox.focusInputMap", inputMapSet
-				.getCheckBoxFocusInputMap().getUiMap());
-		uiDefaults.put("ComboBox.ancestorInputMap", inputMapSet
-				.getComboBoxAncestorInputMap().getUiMap());
-		uiDefaults.put("Desktop.ancestorInputMap", inputMapSet
-				.getDesktopAncestorInputMap().getUiMap());
-		uiDefaults.put("EditorPane.focusInputMap", inputMapSet
-				.getEditorPaneFocusInputMap().getUiMap());
-		uiDefaults.put("FileChooser.ancestorInputMap", inputMapSet
-				.getFileChooserAncestorInputMap().getUiMap());
-		uiDefaults.put("FormattedTextField.focusInputMap", inputMapSet
-				.getFormattedTextFieldFocusInputMap().getUiMap());
-		uiDefaults.put("List.focusInputMap", inputMapSet.getListFocusInputMap()
-				.getUiMap());
-		uiDefaults.put("PasswordField.focusInputMap", inputMapSet
-				.getPasswordFieldFocusInputMap().getUiMap());
-		uiDefaults.put("RadioButton.focusInputMap", inputMapSet
-				.getRadioButtonFocusInputMap().getUiMap());
-		uiDefaults.put("RootPane.ancestorInputMap", inputMapSet
-				.getRootPaneAncestorInputMap().getUiMap());
-		uiDefaults.put("ScrollBar.ancestorInputMap", inputMapSet
-				.getScrollBarAncestorInputMap().getUiMap());
-		uiDefaults.put("ScrollPane.ancestorInputMap", inputMapSet
-				.getScrollPaneAncestorInputMap().getUiMap());
-		uiDefaults.put("Slider.focusInputMap", inputMapSet.getSliderFocusInputMap()
-				.getUiMap());
-		uiDefaults.put("Spinner.ancestorInputMap", inputMapSet
-				.getSpinnerAncestorInputMap().getUiMap());
-		uiDefaults.put("SplitPane.ancestorInputMap", inputMapSet
-				.getSplitPaneAncestorInputMap().getUiMap());
-		uiDefaults.put("TabbedPane.ancestorInputMap", inputMapSet
-				.getTabbedPaneAncestorInputMap().getUiMap());
-		uiDefaults.put("TabbedPane.focusInputMap", inputMapSet
-				.getTabbedPaneFocusInputMap().getUiMap());
-		uiDefaults.put("Table.ancestorInputMap", inputMapSet
-				.getTableAncestorInputMap().getUiMap());
-		uiDefaults.put("TableHeader.ancestorInputMap", inputMapSet
-				.getTableHeaderAncestorInputMap().getUiMap());
-		uiDefaults.put("TextArea.focusInputMap", inputMapSet
-				.getTextAreaFocusInputMap().getUiMap());
-		uiDefaults.put("TextField.focusInputMap", inputMapSet
-				.getTextFieldFocusInputMap().getUiMap());
-		uiDefaults.put("TextPane.focusInputMap", inputMapSet
-				.getTextPaneFocusInputMap().getUiMap());
-		uiDefaults.put("ToggleButton.focusInputMap", inputMapSet
-				.getToggleButtonFocusInputMap().getUiMap());
-		uiDefaults.put("ToolBar.ancestorInputMap", inputMapSet
-				.getToolBarAncestorInputMap().getUiMap());
-		uiDefaults.put("Tree.ancestorInputMap", inputMapSet
-				.getTreeAncestorInputMap().getUiMap());
-		uiDefaults.put("Tree.focusInputMap", inputMapSet.getTreeFocusInputMap()
-				.getUiMap());
-	}
+                "Viewport.background", backgroundDefaultColor,
+
+                "Viewport.foreground", foregroundColor,
+
+        };
+        uiDefaults.putDefaults(defaults);
+
+        // input maps
+        InputMapSet inputMapSet = SubstanceInputMapUtilities.getSystemInputMapSet();
+        if (inputMapSet == null) {
+            throw new IllegalStateException("Input map set is null!");
+        }
+
+        uiDefaults.put("Button.focusInputMap",
+                inputMapSet.getButtonFocusInputMap().getUiMap());
+        uiDefaults.put("CheckBox.focusInputMap",
+                inputMapSet.getCheckBoxFocusInputMap().getUiMap());
+        uiDefaults.put("ComboBox.ancestorInputMap",
+                inputMapSet.getComboBoxAncestorInputMap().getUiMap());
+        uiDefaults.put("Desktop.ancestorInputMap",
+                inputMapSet.getDesktopAncestorInputMap().getUiMap());
+        uiDefaults.put("EditorPane.focusInputMap",
+                inputMapSet.getEditorPaneFocusInputMap().getUiMap());
+        uiDefaults.put("FileChooser.ancestorInputMap",
+                inputMapSet.getFileChooserAncestorInputMap().getUiMap());
+        uiDefaults.put("FormattedTextField.focusInputMap",
+                inputMapSet.getFormattedTextFieldFocusInputMap().getUiMap());
+        uiDefaults.put("List.focusInputMap",
+                inputMapSet.getListFocusInputMap().getUiMap());
+        uiDefaults.put("PasswordField.focusInputMap",
+                inputMapSet.getPasswordFieldFocusInputMap().getUiMap());
+        uiDefaults.put("RadioButton.focusInputMap",
+                inputMapSet.getRadioButtonFocusInputMap().getUiMap());
+        uiDefaults.put("RootPane.ancestorInputMap",
+                inputMapSet.getRootPaneAncestorInputMap().getUiMap());
+        uiDefaults.put("ScrollBar.ancestorInputMap",
+                inputMapSet.getScrollBarAncestorInputMap().getUiMap());
+        uiDefaults.put("ScrollPane.ancestorInputMap",
+                inputMapSet.getScrollPaneAncestorInputMap().getUiMap());
+        uiDefaults.put("Slider.focusInputMap",
+                inputMapSet.getSliderFocusInputMap().getUiMap());
+        uiDefaults.put("Spinner.ancestorInputMap",
+                inputMapSet.getSpinnerAncestorInputMap().getUiMap());
+        uiDefaults.put("SplitPane.ancestorInputMap",
+                inputMapSet.getSplitPaneAncestorInputMap().getUiMap());
+        uiDefaults.put("TabbedPane.ancestorInputMap",
+                inputMapSet.getTabbedPaneAncestorInputMap().getUiMap());
+        uiDefaults.put("TabbedPane.focusInputMap",
+                inputMapSet.getTabbedPaneFocusInputMap().getUiMap());
+        uiDefaults.put("Table.ancestorInputMap",
+                inputMapSet.getTableAncestorInputMap().getUiMap());
+        uiDefaults.put("TableHeader.ancestorInputMap",
+                inputMapSet.getTableHeaderAncestorInputMap().getUiMap());
+        uiDefaults.put("TextArea.focusInputMap",
+                inputMapSet.getTextAreaFocusInputMap().getUiMap());
+        uiDefaults.put("TextField.focusInputMap",
+                inputMapSet.getTextFieldFocusInputMap().getUiMap());
+        uiDefaults.put("TextPane.focusInputMap",
+                inputMapSet.getTextPaneFocusInputMap().getUiMap());
+        uiDefaults.put("ToggleButton.focusInputMap",
+                inputMapSet.getToggleButtonFocusInputMap().getUiMap());
+        uiDefaults.put("ToolBar.ancestorInputMap",
+                inputMapSet.getToolBarAncestorInputMap().getUiMap());
+        uiDefaults.put("Tree.ancestorInputMap",
+                inputMapSet.getTreeAncestorInputMap().getUiMap());
+        uiDefaults.put("Tree.focusInputMap",
+                inputMapSet.getTreeFocusInputMap().getUiMap());
+    }
 }

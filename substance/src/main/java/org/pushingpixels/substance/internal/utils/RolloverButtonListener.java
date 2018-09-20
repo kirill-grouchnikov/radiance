@@ -106,9 +106,11 @@ public class RolloverButtonListener extends BasicButtonListener {
 		this.stateTransitionTracker.turnOffModelChangeTracking();
 		try {
 			super.mouseReleased(e);
-			for (ActionListener al : this.button.getActionListeners())
-				if (al instanceof SubstanceInternalFrameTitlePane.ClickListener)
+			for (ActionListener al : this.button.getActionListeners()) {
+				if (al instanceof SubstanceInternalFrameTitlePane.ClickListener) {
 					return;
+				}
+			}
 			this.button.getModel().setRollover(this.isMouseInside);
 		} finally {
 			this.stateTransitionTracker.onModelStateChanged();
@@ -120,9 +122,11 @@ public class RolloverButtonListener extends BasicButtonListener {
 		this.stateTransitionTracker.turnOffModelChangeTracking();
 		try {
 			super.mouseMoved(e);
-			for (ActionListener al : this.button.getActionListeners())
-				if (al instanceof SubstanceInternalFrameTitlePane.ClickListener)
-					return;
+			for (ActionListener al : this.button.getActionListeners()) {
+                if (al instanceof SubstanceInternalFrameTitlePane.ClickListener) {
+                    return;
+                }
+            }
 			this.button.getModel().setRollover(this.isMouseInside);
 		} finally {
 			this.stateTransitionTracker.onModelStateChanged();
@@ -140,12 +144,9 @@ public class RolloverButtonListener extends BasicButtonListener {
 			}
 			try {
 				PointerInfo pi = MouseInfo.getPointerInfo();
-				int px = pi.getLocation().x
-						- this.button.getLocationOnScreen().x;
-				int py = pi.getLocation().y
-						- this.button.getLocationOnScreen().y;
-				this.button.getModel()
-						.setRollover(this.button.contains(px, py));
+				int px = pi.getLocation().x - this.button.getLocationOnScreen().x;
+				int py = pi.getLocation().y - this.button.getLocationOnScreen().y;
+				this.button.getModel().setRollover(this.button.contains(px, py));
 			} catch (AccessControlException ace) {
 				// sandbox - give up
 			}

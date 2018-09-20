@@ -61,8 +61,6 @@ public class NoiseFactory {
 	 *            Y stretch factor.
 	 * @param hasConstantZ
 	 *            Indication whether the Z is constant.
-	 * @param noiseFilter
-	 *            Noise filter to apply.
 	 * @param toBlur
 	 *            Indication whether the resulting image should be blurred.
 	 * @param isPreview
@@ -97,8 +95,7 @@ public class NoiseFactory {
 			for (int i = 0; i < width; i++) {
 				double ii = xFactor * i;
 				double z = hasConstantZ ? 1.0 : Math.sqrt(m2 - ii * ii - jj * jj);
-				double noise = 0.5 + 0.5 * PerlinNoiseGenerator
-						.noise(ii, jj, z);
+				double noise = 0.5 + 0.5 * PerlinNoiseGenerator.noise(ii, jj, z);
 
 				double likeness = Math.max(0.0, Math.min(1.0, 2.0 * noise));
 				// likeness = 0.0;

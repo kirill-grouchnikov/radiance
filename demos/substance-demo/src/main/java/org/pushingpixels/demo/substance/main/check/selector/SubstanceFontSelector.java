@@ -42,10 +42,10 @@ import java.net.URL;
 
 public class SubstanceFontSelector extends FlexiComboBox<SubstanceFontSelector.FontInfo> {
     public static class FontInfo {
-        public FontSet fontSet;
-        public String displayName;
+        private FontSet fontSet;
+        private String displayName;
 
-        public FontInfo(String regularFontFileName, String boldFontFileName) throws Throwable {
+        private FontInfo(String regularFontFileName, String boldFontFileName) throws Throwable {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             URL baseFontURL = classLoader.getResource(regularFontFileName);
             Font baseFont = Font.createFont(Font.TRUETYPE_FONT, baseFontURL.openStream());
@@ -63,7 +63,7 @@ public class SubstanceFontSelector extends FlexiComboBox<SubstanceFontSelector.F
             this.displayName = controlFont.getFontName();
         }
 
-        public FontInfo(String displayName, FontSet fontSet) {
+        private FontInfo(String displayName, FontSet fontSet) {
             this.fontSet = fontSet;
             this.displayName = displayName;
         }
@@ -77,7 +77,7 @@ public class SubstanceFontSelector extends FlexiComboBox<SubstanceFontSelector.F
         private final FontUIResource smallFont;
         private final FontUIResource windowTitleFont;
 
-        public FontSetWrapper(Font controlFont, Font menuFont, Font titleFont,
+        private FontSetWrapper(Font controlFont, Font menuFont, Font titleFont,
                 Font messageFont, Font smallFont, Font windowTitleFont) {
             this.controlFont = new FontUIResource(controlFont);
             this.menuFont = new FontUIResource(menuFont);
@@ -120,12 +120,12 @@ public class SubstanceFontSelector extends FlexiComboBox<SubstanceFontSelector.F
 
     public SubstanceFontSelector() throws Throwable {
         // populate the combobox
-        super(new FontInfo[] {
-                new FontInfo("Platform", NeonCortex.getDefaultFontPolicy().getFontSet(null)),
+        super(new FontInfo("Platform", NeonCortex.getDefaultFontPolicy().getFontSet(null)),
                 new FontInfo("fonts/Inter-UI-Regular.ttf", "fonts/Inter-UI-Bold.ttf"),
+                new FontInfo("fonts/SourceCodePro-Regular.ttf", "fonts/SourceCodePro-Bold.ttf"),
                 new FontInfo("fonts/Roboto-Regular.ttf", "fonts/Roboto-Bold.ttf"),
                 new FontInfo("fonts/RobotoCondensed-Regular.ttf",
-                        "fonts/RobotoCondensed-Bold.ttf") });
+                        "fonts/RobotoCondensed-Bold.ttf"));
 
         // add an action listener to change font based on user selection
         this.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() ->

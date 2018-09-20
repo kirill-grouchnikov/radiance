@@ -53,8 +53,8 @@ public class HighlightPainterUtils {
     /**
      * Cache for small objects.
      */
-    protected final static LazyResettableHashMap<BufferedImage> smallCache = new LazyResettableHashMap<BufferedImage>(
-            "SubstanceHighlightUtils");
+    private final static LazyResettableHashMap<BufferedImage> smallCache =
+            new LazyResettableHashMap<>("SubstanceHighlightUtils");
 
     /**
      * Paints the highlight for the specified component.
@@ -81,8 +81,9 @@ public class HighlightPainterUtils {
             Rectangle rect, float borderAlpha, Set<Side> openSides, SubstanceColorScheme fillScheme,
             SubstanceColorScheme borderScheme) {
         // fix for bug 65
-        if ((rect.width <= 0) || (rect.height <= 0))
+        if ((rect.width <= 0) || (rect.height <= 0)) {
             return;
+        }
 
         Component compForQuerying = (rendererPane != null) ? rendererPane : c;
         SubstanceSkin skin = SubstanceCoreUtilities.getSkin(compForQuerying);
@@ -151,8 +152,9 @@ public class HighlightPainterUtils {
     private static void paintHighlightBorder(Graphics2D graphics, Component comp, int width,
             int height, float borderAlpha, Set<Side> openSides,
             SubstanceBorderPainter highlightBorderPainter, SubstanceColorScheme borderColorScheme) {
-        if (borderAlpha <= 0.0f)
+        if (borderAlpha <= 0.0f) {
             return;
+        }
 
         int openDelta = 3 + (int) (Math.ceil(3.0 * SubstanceSizeUtils.getBorderStrokeWidth()));
         int deltaLeft = openSides.contains(Side.LEFT) ? openDelta : 0;

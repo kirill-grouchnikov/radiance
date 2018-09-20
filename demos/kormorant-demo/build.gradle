@@ -41,8 +41,8 @@ dependencies {
     compile project(':flamingo')
     compile project(':kormorant')
     compile project(':demos:flamingo-demo')
-    compile ('com.jgoodies:jgoodies-common:1.8.1')
-    compile ('com.jgoodies:jgoodies-forms:1.9.0')
+    compile ("com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}")
+    compile ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")
 }
 
 kotlin {

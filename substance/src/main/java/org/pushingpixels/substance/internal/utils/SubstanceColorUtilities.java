@@ -156,10 +156,11 @@ public class SubstanceColorUtilities {
 	 */
 	public static int getInterpolatedRGB(Color color1, Color color2,
 			double color1Likeness) {
-		if ((color1Likeness < 0.0) || (color1Likeness > 1.0))
+		if ((color1Likeness < 0.0) || (color1Likeness > 1.0)) {
 			throw new IllegalArgumentException(
 					"Color likeness should be in 0.0-1.0 range [is "
 							+ color1Likeness + "]");
+		}
 		int alpha1 = color1.getAlpha();
 		int alpha2 = color2.getAlpha();
 
@@ -236,14 +237,16 @@ public class SubstanceColorUtilities {
 	 */
 	public static Color getInterpolatedColor(Color color1, Color color2,
 			double color1Likeness) {
-		if (color1.equals(color2))
-			return color1;
-		if (color1Likeness == 1.0)
-			return color1;
-		if (color1Likeness == 0.0)
-			return color2;
-		return new Color(getInterpolatedRGB(color1, color2, color1Likeness),
-				true);
+		if (color1.equals(color2)) {
+            return color1;
+        }
+		if (color1Likeness == 1.0) {
+            return color1;
+        }
+		if (color1Likeness == 0.0) {
+            return color2;
+        }
+		return new Color(getInterpolatedRGB(color1, color2, color1Likeness), true);
 	}
 
 	/**
@@ -328,14 +331,15 @@ public class SubstanceColorUtilities {
 	 */
 	public static Color getHueShiftedColor(Color color, double hueShift) {
 		float[] hsbvals = new float[3];
-		Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(),
-				hsbvals);
+		Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), hsbvals);
 		float hue = hsbvals[0];
 		hue += hueShift;
-		if (hue < 0.0)
-			hue += 1.0;
-		if (hue > 1.0)
-			hue -= 1.0;
+		if (hue < 0.0) {
+            hue += 1.0;
+        }
+		if (hue > 1.0) {
+            hue -= 1.0;
+        }
 		return new Color(Color.HSBtoRGB(hue, hsbvals[1], hsbvals[2]));
 	}
 
@@ -445,13 +449,12 @@ public class SubstanceColorUtilities {
 		float aggrRed = 0;
 		float aggrGreen = 0;
 		float aggrBlue = 0;
-		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-				.entrySet()) {
+		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
 			ComponentState activeState = activeEntry.getKey();
 			float alpha = activeEntry.getValue().getContribution();
 			SubstanceColorScheme activeColorScheme = SubstanceColorSchemeUtilities
-					.getColorScheme(comp, ColorSchemeAssociationKind.MARK,
-							activeState);
+					.getColorScheme(comp, ColorSchemeAssociationKind.MARK, activeState);
 			Color activeForeground = activeColorScheme.getFocusRingColor();
 			aggrRed += alpha * activeForeground.getRed();
 			aggrGreen += alpha * activeForeground.getGreen();
@@ -491,8 +494,8 @@ public class SubstanceColorUtilities {
 		} else {
 			Color color1 = isEnabled ? colorScheme.getForegroundColor()
 					: colorScheme.getUltraDarkColor();
-			Color color2 = isEnabled ? colorScheme.getUltraDarkColor() : colorScheme
-					.getLightColor();
+			Color color2 = isEnabled ? colorScheme.getUltraDarkColor()
+                    : colorScheme.getLightColor();
 			return getInterpolatedColor(color1, color2, 0.7);
 		}
 	}
@@ -509,8 +512,8 @@ public class SubstanceColorUtilities {
 	public static Color getForegroundColor(Component component,
 			StateTransitionTracker.ModelStateInfo modelStateInfo) {
 		ComponentState currState = modelStateInfo.getCurrModelState();
-		Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-				.getStateContributionMap();
+		Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                modelStateInfo.getStateContributionMap();
 
 		// special case for enabled buttons with no background -
 		// always use the color scheme for the default state.
@@ -540,8 +543,8 @@ public class SubstanceColorUtilities {
 		float aggrRed = 0;
 		float aggrGreen = 0;
 		float aggrBlue = 0;
-		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-				.entrySet()) {
+		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
 			ComponentState activeState = activeEntry.getKey();
 			float alpha = activeEntry.getValue().getContribution();
 			SubstanceColorScheme activeColorScheme = SubstanceColorSchemeUtilities
@@ -583,8 +586,8 @@ public class SubstanceColorUtilities {
 		float aggrRed = 0;
 		float aggrGreen = 0;
 		float aggrBlue = 0;
-		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-				.entrySet()) {
+		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
 			ComponentState activeState = activeEntry.getKey();
 			float alpha = activeEntry.getValue().getContribution();
 			ColorSchemeAssociationKind assocKind = ColorSchemeAssociationKind.FILL;
@@ -627,9 +630,9 @@ public class SubstanceColorUtilities {
 
 		Color backgr = component.getBackground();
 		// do not change the background color on cell renderers
-		if (SwingUtilities
-				.getAncestorOfClass(CellRendererPane.class, component) != null)
-			return backgr;
+		if (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null) {
+            return backgr;
+        }
 
 		boolean isBackgroundUiResource = backgr instanceof UIResource;
 
@@ -667,8 +670,7 @@ public class SubstanceColorUtilities {
 			float alpha = SubstanceColorSchemeUtilities.getAlpha(component, state);
 			if (alpha < 1.0f) {
 				Color defaultColor = SubstanceColorUtilities
-						.getDefaultBackgroundColor(component,
-								ComponentState.ENABLED);
+						.getDefaultBackgroundColor(component, ComponentState.ENABLED);
 				backgr = SubstanceColorUtilities.getInterpolatedColor(
 						backgr, defaultColor, 1.0f - (1.0f - alpha) / 2.0f);
 			}
@@ -683,8 +685,7 @@ public class SubstanceColorUtilities {
 				scrollbar, state);
 
 		if (state.isDisabled()) {
-			float alpha = SubstanceColorSchemeUtilities.getAlpha(scrollbar,
-					state);
+			float alpha = SubstanceColorSchemeUtilities.getAlpha(scrollbar, state);
 			if (alpha < 1.0f) {
 				Color defaultColor = SubstanceColorUtilities
 						.getDefaultBackgroundColor(scrollbar,
@@ -720,9 +721,10 @@ public class SubstanceColorUtilities {
 	public static ColorUIResource getDefaultBackgroundColor(
 			boolean toTreatAsTextComponent, SubstanceSkin skin,
 			boolean isDisabled) {
-		if (toTreatAsTextComponent || isDisabled)
-			return new ColorUIResource(skin.getEnabledColorScheme(
-					DecorationAreaType.NONE).getTextBackgroundFillColor());
+		if (toTreatAsTextComponent || isDisabled) {
+            return new ColorUIResource(skin.getEnabledColorScheme(
+                    DecorationAreaType.NONE).getTextBackgroundFillColor());
+        }
 		return new ColorUIResource(skin.getEnabledColorScheme(
 				DecorationAreaType.NONE).getBackgroundFillColor());
 	}
@@ -779,8 +781,9 @@ public class SubstanceColorUtilities {
 	}
 
 	public static String encode(int number) {
-		if ((number < 0) || (number > 255))
-			throw new IllegalArgumentException("" + number);
+		if ((number < 0) || (number > 255)) {
+            throw new IllegalArgumentException("" + number);
+        }
 		String hex = "0123456789ABCDEF";
 		char c1 = hex.charAt(number / 16);
 		char c2 = hex.charAt(number % 16);

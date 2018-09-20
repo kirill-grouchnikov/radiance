@@ -30,14 +30,11 @@
 package org.pushingpixels.tools.common;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -244,8 +241,8 @@ public class JImageComponent extends JPanel {
 						return false;
 					}
 				});
-				Point pt = SwingUtilities.convertPoint(e.getComponent(), e
-						.getPoint(), JImageComponent.this);
+				Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),
+						JImageComponent.this);
 				editMenu.show(JImageComponent.this, pt.x, pt.y);
 			}
 
@@ -331,8 +328,6 @@ public class JImageComponent extends JPanel {
 			this.setInputMap(WHEN_IN_FOCUSED_WINDOW, inputMap);
 			this.setActionMap(actionMap);
 		}
-
-		this.setBorder(new SubstanceBorder());
 
 		this.zoom = 1.0;
 	}

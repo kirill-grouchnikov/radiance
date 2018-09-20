@@ -59,8 +59,9 @@ public class HashMapKey {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof HashMapKey))
+		if (!(obj instanceof HashMapKey)) {
 			return false;
+		}
 		HashMapKey key2 = (HashMapKey) obj;
 		return Arrays.equals(this.keyFields, key2.keyFields);
 	}

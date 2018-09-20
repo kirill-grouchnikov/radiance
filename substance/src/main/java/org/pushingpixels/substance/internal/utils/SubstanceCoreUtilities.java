@@ -79,7 +79,8 @@ public class SubstanceCoreUtilities {
      * Client property name for marking components covered by lightweight popups. This is tracking
      * the fix for issue 297. The client property value should be an instance of {@link Boolean}.
      */
-    public static final String IS_COVERED_BY_LIGHTWEIGHT_POPUPS = "substancelaf.internal.paint.isCoveredByLightweightPopups";
+    public static final String IS_COVERED_BY_LIGHTWEIGHT_POPUPS =
+            "substancelaf.internal.paint.isCoveredByLightweightPopups";
 
     public static final String TEXT_COMPONENT_AWARE = "substancelaf.internal.textComponentAware";
 
@@ -111,13 +112,15 @@ public class SubstanceCoreUtilities {
      */
     public static String clipString(FontMetrics metrics, int availableWidth, String fullText) {
 
-        if (metrics.stringWidth(fullText) <= availableWidth)
+        if (metrics.stringWidth(fullText) <= availableWidth) {
             return fullText;
+        }
 
         String ellipses = "...";
         int ellipsesWidth = metrics.stringWidth(ellipses);
-        if (ellipsesWidth > availableWidth)
+        if (ellipsesWidth > availableWidth) {
             return "";
+        }
 
         String starter = "";
         String ender = "";
@@ -128,8 +131,9 @@ public class SubstanceCoreUtilities {
         for (int i = 0; i < w2; i++) {
             String newStarter = starter + fullText.charAt(i);
             String newEnder = ender;
-            if ((w - i) > w2)
+            if ((w - i) > w2) {
                 newEnder = fullText.charAt(w - i - 1) + newEnder;
+            }
             String newTitle = newStarter + ellipses + newEnder;
             if (metrics.stringWidth(newTitle) <= availableWidth) {
                 starter = newStarter;
@@ -200,8 +204,9 @@ public class SubstanceCoreUtilities {
      * @return <code>true</code> if in spinner, <code>false</code> otherwise
      */
     public static boolean isSpinnerButton(AbstractButton button) {
-        if (!(button instanceof SubstanceSpinnerButton))
+        if (!(button instanceof SubstanceSpinnerButton)) {
             return false;
+        }
         return SwingUtilities.getAncestorOfClass(JSpinner.class, button) != null;
     }
 
@@ -243,17 +248,21 @@ public class SubstanceCoreUtilities {
      */
     public static boolean isButtonNeverPainted(JComponent button) {
         // small optimizations for checkboxes and radio buttons
-        if (button instanceof JCheckBox)
+        if (button instanceof JCheckBox) {
             return false;
-        if (button instanceof JRadioButton)
+        }
+        if (button instanceof JRadioButton) {
             return false;
+        }
 
         Object prop = button.getClientProperty(SubstanceSynapse.BUTTON_NEVER_PAINT_BACKGROUND);
         if (prop != null) {
-            if (Boolean.TRUE.equals(prop))
+            if (Boolean.TRUE.equals(prop)) {
                 return true;
-            if (Boolean.FALSE.equals(prop))
+            }
+            if (Boolean.FALSE.equals(prop)) {
                 return false;
+            }
         }
 
         if (button != null) {
@@ -263,10 +272,12 @@ public class SubstanceCoreUtilities {
                 Object flatProperty = jparent
                         .getClientProperty(SubstanceSynapse.BUTTON_NEVER_PAINT_BACKGROUND);
                 if (flatProperty != null) {
-                    if (Boolean.TRUE.equals(flatProperty))
+                    if (Boolean.TRUE.equals(flatProperty)) {
                         return true;
-                    if (Boolean.FALSE.equals(flatProperty))
+                    }
+                    if (Boolean.FALSE.equals(flatProperty)) {
                         return false;
+                    }
                 }
             }
         }
@@ -286,14 +297,16 @@ public class SubstanceCoreUtilities {
             if (component instanceof JComponent) {
                 JComponent jcomp = (JComponent) component;
                 Object jcompFocusKind = jcomp.getClientProperty(SubstanceSynapse.FOCUS_KIND);
-                if (jcompFocusKind instanceof FocusKind)
+                if (jcompFocusKind instanceof FocusKind) {
                     return (FocusKind) jcompFocusKind;
+                }
             }
             component = component.getParent();
         }
         Object globalFocusKind = UIManager.get(SubstanceSynapse.FOCUS_KIND);
-        if (globalFocusKind instanceof FocusKind)
+        if (globalFocusKind instanceof FocusKind) {
             return (FocusKind) globalFocusKind;
+        }
         return FocusKind.ALL_INNER;
     }
 
@@ -313,10 +326,12 @@ public class SubstanceCoreUtilities {
                 JComponent jcomp = (JComponent) component;
                 Object obj = jcomp.getClientProperty(SubstanceSynapse.WATERMARK_VISIBLE);
                 if (obj != null) {
-                    if (Boolean.TRUE.equals(obj))
+                    if (Boolean.TRUE.equals(obj)) {
                         return true;
-                    if (Boolean.FALSE.equals(obj))
+                    }
+                    if (Boolean.FALSE.equals(obj)) {
                         return false;
+                    }
                 }
             }
             c = c.getParent();

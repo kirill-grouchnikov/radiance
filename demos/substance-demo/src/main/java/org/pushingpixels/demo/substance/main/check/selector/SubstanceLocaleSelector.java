@@ -38,12 +38,12 @@ import java.awt.event.ActionEvent;
 
 public class SubstanceLocaleSelector extends FlexiComboBox<SubstanceLocaleSelector.LocaleInfo> {
     public static class LocaleInfo {
-        public String language;
-        public NeonIcon icon;
-        public String langCode;
-        public String countryCode;
+        private String language;
+        private NeonIcon icon;
+        private String langCode;
+        private String countryCode;
 
-        public LocaleInfo(String language, NeonIcon icon, String langCode, String countryCode) {
+        private LocaleInfo(String language, NeonIcon icon, String langCode, String countryCode) {
             this.language = language;
             this.icon = icon;
             this.langCode = langCode;
@@ -53,8 +53,7 @@ public class SubstanceLocaleSelector extends FlexiComboBox<SubstanceLocaleSelect
 
     public SubstanceLocaleSelector(JFrame frame) {
         // populate the combobox
-        super(new LocaleInfo[] {
-                new LocaleInfo("English", us.of(16, 16), "en", "US"),
+        super(new LocaleInfo("English", us.of(16, 16), "en", "US"),
                 new LocaleInfo("Arabic", sa.of(16, 16), "ar", "AR"),
                 new LocaleInfo("Bulgarian", bg.of(16, 16), "bg", "BG"),
                 new LocaleInfo("Chinese (Simplified)", cn.of(16, 16), "zh", "CN"),
@@ -84,7 +83,7 @@ public class SubstanceLocaleSelector extends FlexiComboBox<SubstanceLocaleSelect
                 new LocaleInfo("Swedish", se.of(16, 16), "sv", "SE"),
                 new LocaleInfo("Thai", th.of(16, 16), "th", "TH"),
                 new LocaleInfo("Turkish", tr.of(16, 16), "tr", "TR"),
-                new LocaleInfo("Vietnamese", vn.of(16, 16), "vi", "VN") });
+                new LocaleInfo("Vietnamese", vn.of(16, 16), "vi", "VN"));
 
         // add an action listener to change locale based on user selection
         this.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {

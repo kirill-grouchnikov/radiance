@@ -29,12 +29,8 @@
  */
 package org.pushingpixels.substance.api;
 
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.colorscheme.BlendBiColorScheme;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.colorscheme.*;
 
 import java.awt.*;
 import java.util.*;
@@ -340,8 +336,8 @@ public class SubstanceColorSchemeBundle {
 		}
 		if (componentState == ComponentState.DISABLED_SELECTED) {
 			if (this.disabledSelectedScheme == null) {
-				this.disabledSelectedScheme = new BlendBiColorScheme(
-						this.activeColorScheme, this.disabledColorScheme, 0.25);
+				this.disabledSelectedScheme =
+						this.activeColorScheme.blendWith(this.disabledColorScheme, 0.25);
 			}
 			return this.disabledSelectedScheme;
 		}

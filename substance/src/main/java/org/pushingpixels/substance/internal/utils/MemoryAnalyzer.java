@@ -162,9 +162,10 @@ public class MemoryAnalyzer extends TrackableThread {
 	 * @return All queued usages.
 	 */
 	public static synchronized ArrayList<String> getUsages() {
-		ArrayList<String> copy = new ArrayList<String>();
-		for (String usage : usages)
+		ArrayList<String> copy = new ArrayList<>();
+		for (String usage : usages) {
 			copy.add(usage);
+		}
 		usages.clear();
 		return copy;
 	}

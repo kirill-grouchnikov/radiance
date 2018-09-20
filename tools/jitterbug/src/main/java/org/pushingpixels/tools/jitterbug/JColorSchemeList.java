@@ -30,9 +30,8 @@
 package org.pushingpixels.tools.jitterbug;
 
 import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.tools.jitterbug.svg.*;
 
 import javax.swing.*;
@@ -82,13 +81,32 @@ public class JColorSchemeList extends JComponent {
         addColorScheme.setIcon(outline_add_24px.of(12, 12));
         addColorScheme.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
             String newName = getNewColorSchemeName(null);
-            if (newName == null)
+            if (newName == null) {
                 return;
+            }
 
-            Color[] colors = new Color[] { Color.white, Color.white, Color.white, Color.white,
-                    Color.white, Color.white, Color.black };
-            SubstanceColorScheme newScheme = SubstanceColorSchemeUtilities
-                    .getLightColorScheme(newName, colors);
+            SubstanceColorScheme newScheme = new BaseLightColorScheme(newName) {
+                @Override
+                public Color getForegroundColor() { return Color.white; }
+
+                @Override
+                public Color getUltraLightColor() { return Color.white; }
+
+                @Override
+                public Color getExtraLightColor() { return Color.white; }
+
+                @Override
+                public Color getLightColor() { return Color.white; }
+
+                @Override
+                public Color getMidColor() { return Color.white; }
+
+                @Override
+                public Color getDarkColor() { return Color.white; }
+
+                @Override
+                public Color getUltraDarkColor() { return Color.white; }
+            };
 
             schemes.add(newScheme);
             schemeListModel.fireContentsChanged();
@@ -142,19 +160,51 @@ public class JColorSchemeList extends JComponent {
                 return;
 
             boolean isLight = !selected.isDark();
-            Color ultraDark = selected.getUltraDarkColor();
-            Color dark = selected.getDarkColor();
-            Color mid = selected.getMidColor();
-            Color light = selected.getLightColor();
-            Color extraLight = selected.getExtraLightColor();
-            Color ultraLight = selected.getUltraLightColor();
-            Color foreground = selected.getForegroundColor();
 
-            Color[] colors = new Color[] { ultraLight, extraLight, light, mid, dark, ultraDark,
-                    foreground };
             SubstanceColorScheme renamedScheme = isLight
-                    ? SubstanceColorSchemeUtilities.getLightColorScheme(newName, colors)
-                    : SubstanceColorSchemeUtilities.getDarkColorScheme(newName, colors);
+                    ? new BaseLightColorScheme(newName) {
+                        @Override
+                        public Color getForegroundColor() { return selected.getForegroundColor(); }
+
+                        @Override
+                        public Color getUltraLightColor() { return selected.getUltraLightColor(); }
+
+                        @Override
+                        public Color getExtraLightColor() { return selected.getExtraLightColor(); }
+
+                        @Override
+                        public Color getLightColor() { return selected.getLightColor(); }
+
+                        @Override
+                        public Color getMidColor() { return selected.getMidColor(); }
+
+                        @Override
+                        public Color getDarkColor() { return selected.getDarkColor(); }
+
+                        @Override
+                        public Color getUltraDarkColor() { return selected.getUltraDarkColor(); }
+                    } : new BaseDarkColorScheme(newName) {
+                        @Override
+                        public Color getForegroundColor() { return selected.getForegroundColor(); }
+
+                        @Override
+                        public Color getUltraLightColor() { return selected.getUltraLightColor(); }
+
+                        @Override
+                        public Color getExtraLightColor() { return selected.getExtraLightColor(); }
+
+                        @Override
+                        public Color getLightColor() { return selected.getLightColor(); }
+
+                        @Override
+                        public Color getMidColor() { return selected.getMidColor(); }
+
+                        @Override
+                        public Color getDarkColor() { return selected.getDarkColor(); }
+
+                        @Override
+                        public Color getUltraDarkColor() { return selected.getUltraDarkColor(); }
+                    };
 
             schemes.replace(selected.getDisplayName(), renamedScheme);
             schemeListModel.fireContentsChanged();

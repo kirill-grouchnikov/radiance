@@ -32,7 +32,7 @@ package org.pushingpixels.substance.internal.animation;
 import java.util.EventListener;
 
 public interface StateTransitionListener extends EventListener {
-	public void onModelStateTransition(StateTransitionEvent stateTransitionEvent);
+	void onModelStateTransition(StateTransitionEvent stateTransitionEvent);
 
-	public void onFocusStateTransition(StateTransitionEvent stateTransitionEvent);
+	void onFocusStateTransition(StateTransitionEvent stateTransitionEvent);
 }

@@ -42,7 +42,7 @@ import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 
 /**
- * @author kirillg
+ * @author Kirill Grouchnikov
  * @author Daniel Stonier
  * @author Keith Woodward
  */

@@ -57,10 +57,10 @@ public class SubstanceColorSchemeUtilities {
     /**
      * Cache of shifted schemes.
      */
-    private final static LazyResettableHashMap<SubstanceColorScheme> shiftedCache = new LazyResettableHashMap<SubstanceColorScheme>(
-            "ShiftColorScheme.shiftedSchemes");
+    private final static LazyResettableHashMap<SubstanceColorScheme> shiftedCache =
+            new LazyResettableHashMap<>("ShiftColorScheme.shiftedSchemes");
 
-    private static enum ColorSchemeKind {
+    private enum ColorSchemeKind {
         LIGHT, DARK
     }
 
@@ -106,15 +106,17 @@ public class SubstanceColorSchemeUtilities {
         if ((scheme != null) && (component != null)) {
             // Support for enhancement 256 - colorizing
             // controls.
-            if (bgColor instanceof UIResource)
+            if (bgColor instanceof UIResource) {
                 bgColor = null;
+            }
             if (fgColor instanceof UIResource) {
                 fgColor = null;
             }
             if ((bgColor != null) || (fgColor != null)) {
                 double colorization = SubstanceCoreUtilities.getColorizationFactor(component);
-                if (!isEnabled)
+                if (!isEnabled) {
                     colorization /= 2.0;
+                }
                 if (colorization > 0.0) {
                     return SubstanceColorSchemeUtilities.getShiftedScheme(scheme, bgColor,
                             colorization, fgColor, colorization);
@@ -254,8 +256,6 @@ public class SubstanceColorSchemeUtilities {
      * 
      * @param component
      *            Component.
-     * @param associationKind
-     *            Association kind.
      * @param componentState
      *            Component state.
      * @return Component color scheme.
@@ -321,129 +321,13 @@ public class SubstanceColorSchemeUtilities {
      */
     public final static SubstanceColorScheme GREEN = new BottleGreenColorScheme();
 
-    public static SchemeBaseColors getBaseColorScheme(InputStream is) {
-        Color ultraLight = null;
-        Color extraLight = null;
-        Color light = null;
-        Color mid = null;
-        Color dark = null;
-        Color ultraDark = null;
-        Color foreground = null;
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
-            while (true) {
-                String line = reader.readLine();
-                if (line == null)
-                    break;
-                String[] split = line.split("=");
-                if (split.length != 2) {
-                    throw new IllegalArgumentException("Unsupported format in line " + line);
-                }
-                String key = split[0];
-                String value = split[1];
-                if ("colorUltraLight".equals(key)) {
-                    if (ultraLight == null) {
-                        ultraLight = Color.decode(value);
-                        continue;
-                    }
-                    throw new IllegalArgumentException("'ultraLight' should only be defined once");
-                }
-                if ("colorExtraLight".equals(key)) {
-                    if (extraLight == null) {
-                        extraLight = Color.decode(value);
-                        continue;
-                    }
-                    throw new IllegalArgumentException("'extraLight' should only be defined once");
-                }
-                if ("colorLight".equals(key)) {
-                    if (light == null) {
-                        light = Color.decode(value);
-                        continue;
-                    }
-                    throw new IllegalArgumentException("'light' should only be defined once");
-                }
-                if ("colorMid".equals(key)) {
-                    if (mid == null) {
-                        mid = Color.decode(value);
-                        continue;
-                    }
-                    throw new IllegalArgumentException("'mid' should only be defined once");
-                }
-                if ("colorDark".equals(key)) {
-                    if (dark == null) {
-                        dark = Color.decode(value);
-                        continue;
-                    }
-                    throw new IllegalArgumentException("'dark' should only be defined once");
-                }
-                if ("colorUltraDark".equals(key)) {
-                    if (ultraDark == null) {
-                        ultraDark = Color.decode(value);
-                        continue;
-                    }
-                    throw new IllegalArgumentException("'ultraDark' should only be defined once");
-                }
-                if ("colorForeground".equals(key)) {
-                    if (foreground == null) {
-                        foreground = Color.decode(value);
-                        continue;
-                    }
-                    throw new IllegalArgumentException("'foreground' should only be defined once");
-                }
-                throw new IllegalArgumentException("Unsupported format in line " + line);
-            }
-            final Color[] colors = new Color[] { ultraLight, extraLight, light, mid, dark,
-                            ultraDark, foreground };
-            return new SchemeBaseColors() {
-                @Override
-                public String getDisplayName() {
-                    return null;
-                }
-
-                @Override
-                public Color getUltraLightColor() {
-                    return colors[0];
-                }
-
-                @Override
-                public Color getExtraLightColor() {
-                    return colors[1];
-                }
-
-                @Override
-                public Color getLightColor() {
-                    return colors[2];
-                }
-
-                @Override
-                public Color getMidColor() {
-                    return colors[3];
-                }
-
-                @Override
-                public Color getDarkColor() {
-                    return colors[4];
-                }
-
-                @Override
-                public Color getUltraDarkColor() {
-                    return colors[5];
-                }
-
-                @Override
-                public Color getForegroundColor() {
-                    return colors[6];
-                }
-            };
-        } catch (IOException ioe) {
-            throw new IllegalArgumentException(ioe);
-        }
-    }
-
     public static SubstanceColorScheme getLightColorScheme(String name, final Color[] colors) {
-        if (colors == null)
+        if (colors == null) {
             throw new IllegalArgumentException("Color encoding cannot be null");
-        if (colors.length != 7)
+        }
+        if (colors.length != 7) {
             throw new IllegalArgumentException("Color encoding must have 7 components");
+        }
         return new BaseLightColorScheme(name) {
             public Color getUltraLightColor() {
                 return colors[0];
@@ -476,10 +360,12 @@ public class SubstanceColorSchemeUtilities {
     }
 
     public static SubstanceColorScheme getDarkColorScheme(String name, final Color[] colors) {
-        if (colors == null)
+        if (colors == null) {
             throw new IllegalArgumentException("Color encoding cannot be null");
-        if (colors.length != 7)
+        }
+        if (colors.length != 7) {
             throw new IllegalArgumentException("Color encoding must have 7 components");
+        }
         return new BaseDarkColorScheme(name) {
             public Color getUltraLightColor() {
                 return colors[0];
@@ -512,7 +398,7 @@ public class SubstanceColorSchemeUtilities {
     }
 
     public static SubstanceSkin.ColorSchemes getColorSchemes(URL url) {
-        List<SubstanceColorScheme> schemes = new ArrayList<SubstanceColorScheme>();
+        List<SubstanceColorScheme> schemes = new ArrayList<>();
 
         Color ultraLight = null;
         Color extraLight = null;

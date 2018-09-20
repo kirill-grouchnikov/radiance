@@ -38,7 +38,7 @@ public final class StateTransitionMultiTracker<T> {
 	private boolean isInCleaning;
 
 	public StateTransitionMultiTracker() {
-		this.trackerMap = new HashMap<Comparable<T>, StateTransitionTracker>();
+		this.trackerMap = new HashMap<>();
 	}
 
 	public synchronized void clear() {
@@ -69,8 +69,9 @@ public final class StateTransitionMultiTracker<T> {
 			@Override
 			public void onModelStateTransition(
 					StateTransitionEvent stateTransitionEvent) {
-				if (isInCleaning)
+				if (isInCleaning) {
 					return;
+				}
 
 				if (!tracker.hasRunningTimelines()) {
 					// System.out.println("Removing tracker for " + id);
@@ -83,8 +84,9 @@ public final class StateTransitionMultiTracker<T> {
 			@Override
 			public void onFocusStateTransition(
 					StateTransitionEvent stateTransitionEvent) {
-				if (isInCleaning)
-					return;
+				if (isInCleaning) {
+                    return;
+                }
 
 				if (!tracker.hasRunningTimelines()) {
 					// System.out.println("Removing tracker for " + id);

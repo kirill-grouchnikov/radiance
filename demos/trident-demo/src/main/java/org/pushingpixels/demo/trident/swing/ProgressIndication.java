@@ -111,7 +111,7 @@ public class ProgressIndication extends JFrame {
             KeyValues<Float> alphaValues = KeyValues.create(0.0f, 1.0f, 1.0f, 0.0f);
             KeyTimes alphaTimes = new KeyTimes(0.0f, 0.3f, 0.7f, 1.0f);
             progressTimeline.addPropertyToInterpolate("alpha",
-                    new KeyFrames<Float>(alphaValues, alphaTimes));
+                    new KeyFrames<>(alphaValues, alphaTimes));
 
             progressTimeline.setDuration(1500);
             progressTimeline.playLoop(RepeatBehavior.LOOP);

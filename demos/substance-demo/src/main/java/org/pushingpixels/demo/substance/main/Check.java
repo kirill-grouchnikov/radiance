@@ -412,8 +412,7 @@ public class Check extends JFrame {
         statusBar.add(localeSelector);
 
         try {
-            JComboBox<SubstanceFontSelector.FontInfo> fontSelector =
-                    new SubstanceFontSelector();
+            JComboBox<SubstanceFontSelector.FontInfo> fontSelector = new SubstanceFontSelector();
             SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(fontSelector,
                     SwingUtilities.NORTH);
             SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(fontSelector,

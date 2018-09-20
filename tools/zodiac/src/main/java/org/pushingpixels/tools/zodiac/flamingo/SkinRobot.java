@@ -34,8 +34,8 @@ import org.fest.swing.core.Robot;
 import org.fest.swing.edt.*;
 import org.fest.swing.timing.Pause;
 import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -148,12 +148,12 @@ public abstract class SkinRobot {
      * Creates the screenshot and saves it on the disk.
      */
     private void makeScreenshot(String screenshotDirectory) {
-        BufferedImage bi = SubstanceCoreUtilities.getBlankImage(ribbonFrame.getWidth(),
+        BufferedImage bi = NeonCortex.getBlankImage(ribbonFrame.getWidth(),
                 ribbonFrame.getHeight());
         Graphics g = bi.getGraphics();
         ribbonFrame.paint(g);
 
-        BufferedImage finalIm = SubstanceCoreUtilities.getBlankImage(500, 200);
+        BufferedImage finalIm = NeonCortex.getBlankImage(500, 200);
         finalIm.getGraphics().drawImage(bi, 0, 0, null);
 
         try {

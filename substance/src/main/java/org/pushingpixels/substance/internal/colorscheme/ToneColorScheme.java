@@ -49,8 +49,7 @@ public class ToneColorScheme extends ShiftColorScheme {
 	 * @param toneFactor
 	 *            The tone factor. Should be in 0.0-1.0 range.
 	 */
-	public ToneColorScheme(SubstanceColorScheme origColorScheme,
-			double toneFactor) {
+	public ToneColorScheme(SubstanceColorScheme origColorScheme, double toneFactor) {
 		super(origColorScheme, Color.gray, toneFactor);
 	}
 }

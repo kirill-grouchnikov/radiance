@@ -29,39 +29,30 @@
  */
 package org.pushingpixels.substance.internal.animation;
 
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
-import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
-import org.pushingpixels.substance.api.UiThreadingViolationException;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.renderer.SubstanceRenderer;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.TimelineCallback;
-import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
-import org.pushingpixels.trident.swing.SwingRepaintCallback;
+import org.pushingpixels.trident.Timeline.*;
+import org.pushingpixels.trident.callback.*;
+import org.pushingpixels.trident.swing.*;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.EventListenerList;
+import javax.swing.event.*;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.util.HashMap;
-import java.util.Map;
+import java.awt.event.*;
+import java.util.*;
 
 public class StateTransitionTracker {
     public interface RepaintCallback {
         TimelineCallback getRepaintCallback();
     }
 
-    JComponent component;
+    private JComponent component;
 
     private ButtonModel model;
 
@@ -119,9 +110,9 @@ public class StateTransitionTracker {
 
         private Map<ComponentState, StateContributionInfo> stateNoSelectionContributionMap;
 
-        ComponentState currState;
+        private ComponentState currState;
 
-        ComponentState currStateNoSelection;
+        private ComponentState currStateNoSelection;
 
         float activeStrength;
 
@@ -150,11 +141,10 @@ public class StateTransitionTracker {
         void sync() {
             this.activeStrength = 0.0f;
             for (Map.Entry<ComponentState, StateContributionInfo> activeEntry : this
-					.stateContributionMap.entrySet()) {
+                    .stateContributionMap.entrySet()) {
                 ComponentState activeState = activeEntry.getKey();
                 if (activeState.isActive()) {
-                    this.activeStrength += activeEntry.getValue()
-                            .getContribution();
+                    this.activeStrength += activeEntry.getValue().getContribution();
                 }
             }
         }
@@ -166,14 +156,13 @@ public class StateTransitionTracker {
         void clear() {
             if (!SwingUtilities.isEventDispatchThread()) {
                 UiThreadingViolationException uiThreadingViolationError = new
-						UiThreadingViolationException(
+                        UiThreadingViolationException(
                         "State tracking must be done on Event Dispatch Thread");
                 uiThreadingViolationError.printStackTrace(System.err);
                 throw uiThreadingViolationError;
             }
             this.stateContributionMap.clear();
-            this.stateContributionMap.put(this.currState,
-                    new StateContributionInfo(1.0f, 1.0f));
+            this.stateContributionMap.put(this.currState, new StateContributionInfo(1.0f, 1.0f));
             this.stateNoSelectionContributionMap.clear();
             this.stateNoSelectionContributionMap.put(this.currStateNoSelection,
                     new StateContributionInfo(1.0f, 1.0f));
@@ -195,10 +184,8 @@ public class StateTransitionTracker {
         this.eventListenerList = new EventListenerList();
 
         this.focusTimeline = new SwingComponentTimeline(this.component);
-        AnimationConfigurationManager.getInstance().configureTimeline(
-                this.focusTimeline);
-        this.focusTimeline.addCallback(this.repaintCallback
-                .getRepaintCallback());
+        AnimationConfigurationManager.getInstance().configureTimeline(this.focusTimeline);
+        this.focusTimeline.addCallback(this.repaintCallback.getRepaintCallback());
         // notify listeners on focus state transition
         this.focusTimeline.addCallback(new TimelineCallbackAdapter() {
             @Override
@@ -397,7 +384,7 @@ public class StateTransitionTracker {
             // 1. the new state goes from current value to 1.0
             // 2. the rest go from current value to 0.0
             for (Map.Entry<ComponentState, StateContributionInfo> existing : this.modelStateInfo
-					.stateContributionMap
+                    .stateContributionMap
                     .entrySet()) {
                 StateContributionInfo currRange = existing.getValue();
                 ComponentState state = existing.getKey();
@@ -409,7 +396,7 @@ public class StateTransitionTracker {
             // 1. all existing states go from current value to 0.0
             // 2. the new state goes from 0.0 to 1.0
             for (Map.Entry<ComponentState, StateContributionInfo> existing : this.modelStateInfo
-					.stateContributionMap
+                    .stateContributionMap
                     .entrySet()) {
                 StateContributionInfo currRange = existing.getValue();
                 ComponentState state = existing.getKey();
@@ -421,15 +408,13 @@ public class StateTransitionTracker {
         }
         this.modelStateInfo.stateContributionMap = newContributionMap;
 
-        Map<ComponentState, StateContributionInfo> newNoSelectionContributionMap = new
-				HashMap<>();
+        Map<ComponentState, StateContributionInfo> newNoSelectionContributionMap = new HashMap<>();
         if (this.modelStateInfo.stateNoSelectionContributionMap
                 .containsKey(newStateNoSelection)) {
             // 1. the new state goes from current value to 1.0
             // 2. the rest go from current value to 0.0
-            for (Map.Entry<ComponentState, StateContributionInfo> existing : this.modelStateInfo
-					.stateNoSelectionContributionMap
-                    .entrySet()) {
+            for (Map.Entry<ComponentState, StateContributionInfo> existing :
+                    this.modelStateInfo.stateNoSelectionContributionMap.entrySet()) {
                 StateContributionInfo currRange = existing.getValue();
                 ComponentState state = existing.getKey();
                 float newEnd = (state == newStateNoSelection) ? 1.0f : 0.0f;
@@ -439,9 +424,8 @@ public class StateTransitionTracker {
         } else {
             // 1. all existing states go from current value to 0.0
             // 2. the new state goes from 0.0 to 1.0
-            for (Map.Entry<ComponentState, StateContributionInfo> existing : this.modelStateInfo
-					.stateNoSelectionContributionMap
-                    .entrySet()) {
+            for (Map.Entry<ComponentState, StateContributionInfo> existing :
+                    this.modelStateInfo.stateNoSelectionContributionMap.entrySet()) {
                 StateContributionInfo currRange = existing.getValue();
                 ComponentState state = existing.getKey();
                 newNoSelectionContributionMap.put(state,
@@ -549,12 +533,12 @@ public class StateTransitionTracker {
 
             private void updateActiveStates(final float timelinePosition) {
                 SwingUtilities.invokeLater(() -> {
-                    for (StateContributionInfo pair : modelStateInfo.stateContributionMap.values
-							()) {
+                    for (StateContributionInfo pair :
+                            modelStateInfo.stateContributionMap.values()) {
                         pair.updateContribution(timelinePosition);
                     }
-                    for (StateContributionInfo pair : modelStateInfo
-							.stateNoSelectionContributionMap.values()) {
+                    for (StateContributionInfo pair :
+                            modelStateInfo.stateNoSelectionContributionMap.values()) {
                         pair.updateContribution(timelinePosition);
                     }
                     modelStateInfo.sync();
@@ -578,8 +562,7 @@ public class StateTransitionTracker {
                 AnimationFacet.ICON_GLOW, this.component)) {
             boolean wasRollover = false;
             for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo>
-					activeEntry :
-                    this.modelStateInfo.stateContributionMap.entrySet()) {
+                    activeEntry : this.modelStateInfo.stateContributionMap.entrySet()) {
                 ComponentState activeState = activeEntry.getKey();
                 if (activeState == this.modelStateInfo.currState)
                     continue;
@@ -601,8 +584,9 @@ public class StateTransitionTracker {
     }
 
     public float getFocusStrength(boolean hasFocus) {
-        if (this.focusTimeline == null)
+        if (this.focusTimeline == null) {
             return 0.0f;
+        }
 
         TimelineState focusTimelineState = this.focusTimeline.getState();
         if ((focusTimelineState == TimelineState.READY)
@@ -614,8 +598,9 @@ public class StateTransitionTracker {
     }
 
     public float getFocusLoopPosition() {
-        if (this.focusLoopTimeline == null)
+        if (this.focusLoopTimeline == null) {
             return 0.0f;
+        }
 
         return this.focusLoopTimeline.getTimelinePosition();
     }
@@ -626,7 +611,8 @@ public class StateTransitionTracker {
 
     public float getFacetStrength(ComponentStateFacet stateFacet) {
         float result = 0.0f;
-        for (Map.Entry<ComponentState, StateContributionInfo> activeEntry : this.modelStateInfo.stateContributionMap
+        for (Map.Entry<ComponentState, StateContributionInfo> activeEntry :
+                this.modelStateInfo.stateContributionMap
                 .entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             if (activeState.isFacetActive(stateFacet)) {
@@ -640,35 +626,33 @@ public class StateTransitionTracker {
         return this.modelStateInfo.getActiveStrength();
     }
 
-    public void addStateTransitionListener(
-            StateTransitionListener stateTransitionListener) {
+    public void addStateTransitionListener(StateTransitionListener stateTransitionListener) {
         // System.out.println("Adding state listener to @" + this.hashCode());
         this.eventListenerList.add(StateTransitionListener.class,
                 stateTransitionListener);
     }
 
-    public void removeStateTransitionListener(
-            StateTransitionListener stateTransitionListener) {
+    public void removeStateTransitionListener(StateTransitionListener stateTransitionListener) {
         // System.out.println("Removing state listener from @" +
         // this.hashCode());
         this.eventListenerList.remove(StateTransitionListener.class,
                 stateTransitionListener);
     }
 
-    private void fireModelStateTransitionEvent(TimelineState oldState,
-            TimelineState newState) {
+    private void fireModelStateTransitionEvent(TimelineState oldState, TimelineState newState) {
         // System.out.println("Fired state event from " + oldState + " to "
         // + newState + " on @" + this.hashCode());
-        if (this.eventListenerList.getListenerCount() == 0)
+        if (this.eventListenerList.getListenerCount() == 0) {
             return;
+        }
 
         StateTransitionListener[] listeners = this.eventListenerList
                 .getListeners(StateTransitionListener.class);
-        if ((listeners == null) || (listeners.length == 0))
+        if ((listeners == null) || (listeners.length == 0)) {
             return;
+        }
 
-        StateTransitionEvent event = new StateTransitionEvent(this, oldState,
-                newState);
+        StateTransitionEvent event = new StateTransitionEvent(this, oldState, newState);
         for (StateTransitionListener listener : listeners) {
             listener.onModelStateTransition(event);
         }
@@ -676,13 +660,15 @@ public class StateTransitionTracker {
 
     private void fireFocusStateTransitionEvent(TimelineState oldState,
             TimelineState newState) {
-        if (this.eventListenerList.getListenerCount() == 0)
+        if (this.eventListenerList.getListenerCount() == 0) {
             return;
+        }
 
         StateTransitionListener[] listeners = this.eventListenerList
                 .getListeners(StateTransitionListener.class);
-        if ((listeners == null) || (listeners.length == 0))
+        if ((listeners == null) || (listeners.length == 0)) {
             return;
+        }
 
         StateTransitionEvent event = new StateTransitionEvent(this, oldState,
                 newState);
@@ -692,8 +678,9 @@ public class StateTransitionTracker {
     }
 
     public void endTransition() {
-        if (this.transitionTimeline != null)
+        if (this.transitionTimeline != null) {
             this.transitionTimeline.end();
+        }
     }
 
     public void setFocusState(boolean hasFocus) {
@@ -715,14 +702,16 @@ public class StateTransitionTracker {
     public boolean hasRunningTimelines() {
         if (this.focusTimeline != null) {
             TimelineState focusTimelineState = this.focusTimeline.getState();
-            if (focusTimelineState != TimelineState.IDLE)
+            if (focusTimelineState != TimelineState.IDLE) {
                 return true;
+            }
         }
         if (this.focusLoopTimeline != null) {
             TimelineState focusLoopTimelineState = this.focusLoopTimeline
                     .getState();
-            if (focusLoopTimelineState != TimelineState.IDLE)
+            if (focusLoopTimelineState != TimelineState.IDLE) {
                 return true;
+            }
         }
         if (this.iconGlowTracker.isPlaying()) {
             return true;
@@ -730,8 +719,9 @@ public class StateTransitionTracker {
         if (this.transitionTimeline != null) {
             TimelineState modelTransitionTimelineState = this.transitionTimeline
                     .getState();
-            if (modelTransitionTimelineState != TimelineState.IDLE)
+            if (modelTransitionTimelineState != TimelineState.IDLE) {
                 return true;
+            }
         }
 
         return false;

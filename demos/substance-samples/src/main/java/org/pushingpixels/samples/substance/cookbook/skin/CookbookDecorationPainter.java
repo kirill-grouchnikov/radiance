@@ -31,7 +31,6 @@ package org.pushingpixels.samples.substance.cookbook.skin;
 
 import com.jhlabs.image.*;
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -226,7 +225,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         finalGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         finalGraphics.translate(-25, -10);
-        double scaleFactor = UIUtil.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor();
         finalGraphics.drawImage(lightConeImage, 0, 0,
                 (int) (lightConeImage.getWidth() / scaleFactor),
                 (int) (lightConeImage.getHeight() / scaleFactor), null);
@@ -235,7 +234,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         finalGraphics.setColor(new Color(200, 200, 255, 96));
         finalGraphics.fillOval(97, 6, 8, 8);
         finalGraphics.setColor(new Color(200, 200, 255, 128));
-        float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor();
+        float borderStrokeWidth = 1.0f / (float) scaleFactor;
         finalGraphics.setStroke(new BasicStroke(borderStrokeWidth));
         finalGraphics.drawOval(97, 6, 8, 8);
         finalGraphics.dispose();

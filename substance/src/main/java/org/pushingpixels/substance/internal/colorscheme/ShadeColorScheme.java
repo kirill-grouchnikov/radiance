@@ -49,8 +49,7 @@ public class ShadeColorScheme extends ShiftColorScheme {
 	 * @param shadeFactor
 	 *            The shade factor. Should be in 0.0-1.0 range.
 	 */
-	public ShadeColorScheme(SubstanceColorScheme origColorScheme,
-			double shadeFactor) {
+	public ShadeColorScheme(SubstanceColorScheme origColorScheme, double shadeFactor) {
 		super(origColorScheme, Color.black, shadeFactor);
 	}
 }

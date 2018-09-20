@@ -30,9 +30,9 @@
 package org.pushingpixels.trident;
 
 public interface UIToolkitHandler {
-    public boolean isHandlerFor(Object mainTimelineObject);
+    boolean isHandlerFor(Object mainTimelineObject);
 
-    public boolean isInReadyState(Object mainTimelineObject);
+    boolean isInReadyState(Object mainTimelineObject);
 
-    public void runOnUIThread(Object mainTimelineObject, Runnable runnable);
+    void runOnUIThread(Object mainTimelineObject, Runnable runnable);
 }

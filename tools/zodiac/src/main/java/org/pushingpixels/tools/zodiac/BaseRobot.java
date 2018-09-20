@@ -34,9 +34,9 @@ import org.fest.swing.core.Robot;
 import org.fest.swing.edt.*;
 import org.fest.swing.timing.Pause;
 import org.pushingpixels.demo.substance.main.check.SampleFrame;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.tools.common.RadianceLogo;
 
 import javax.imageio.ImageIO;
@@ -143,7 +143,7 @@ public abstract class BaseRobot {
      * Creates the screenshot and saves it on the disk.
      */
     private void makeScreenshot(String screenshotDirectory) {
-        BufferedImage bi = SubstanceCoreUtilities.getBlankImage(sf.getWidth(), sf.getHeight());
+        BufferedImage bi = NeonCortex.getBlankImage(sf.getWidth(), sf.getHeight());
         Graphics g = bi.getGraphics();
         sf.paint(g);
         try {

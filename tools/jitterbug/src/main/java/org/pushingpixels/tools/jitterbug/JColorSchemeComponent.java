@@ -31,7 +31,7 @@ package org.pushingpixels.tools.jitterbug;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.tools.jitterbug.StateChangeEvent.StateChangeType;
 
 import javax.swing.*;

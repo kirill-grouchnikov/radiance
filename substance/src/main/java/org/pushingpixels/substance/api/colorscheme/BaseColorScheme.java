@@ -37,7 +37,7 @@ import java.awt.*;
 /**
  * Base class for <b>Substance</b> color schemes.
  * 
- * @author kirillg
+ * @author Kirill Grouchnikov
  */
 public abstract class BaseColorScheme implements SubstanceColorScheme {
 	/**
@@ -53,7 +53,7 @@ public abstract class BaseColorScheme implements SubstanceColorScheme {
 	/**
 	 * Resolver for the derived colors.
 	 */
-	protected SchemeDerivedColors derivedColorsResolver;
+	private SchemeDerivedColors derivedColorsResolver;
 
 	/**
 	 * Constructs the basic functionality of a color scheme.
@@ -130,6 +130,12 @@ public abstract class BaseColorScheme implements SubstanceColorScheme {
 	@Override
 	public SubstanceColorScheme hueShift(double hueShiftFactor) {
 		return new HueShiftColorScheme(this, hueShiftFactor);
+	}
+
+	@Override
+	public SubstanceColorScheme blendWith(SubstanceColorScheme otherScheme,
+			double likenessToThisScheme) {
+		return new BlendBiColorScheme(this, otherScheme, likenessToThisScheme);
 	}
 
 	@Override

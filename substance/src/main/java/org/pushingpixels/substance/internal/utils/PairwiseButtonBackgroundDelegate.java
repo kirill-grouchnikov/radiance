@@ -30,70 +30,54 @@
 package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.Side;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
-import org.pushingpixels.substance.api.painter.fill.MatteFillPainter;
-import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.api.shaper.RectangularButtonShaper;
-import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
+import org.pushingpixels.substance.api.painter.fill.*;
+import org.pushingpixels.substance.api.shaper.*;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+import org.pushingpixels.substance.internal.animation.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
+import java.awt.geom.*;
 import java.awt.image.BufferedImage;
-import java.util.EnumSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Delegate class for painting backgrounds of buttons in <b>Substance </b> look and feel. This class
  * is <b>for internal use only</b>.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class PairwiseButtonBackgroundDelegate {
     /**
      * Cache for background images for pairwise backgrounds. Each time
-     * {@link #getPairwiseBackground(AbstractButton, int, int, Side)} is called, it checks
-     * <code>this</code> map to see if it already contains such background. If so, the background
-     * from the map is returned.
+     * {@link #getPairwiseFullAlphaBackground(AbstractButton, SubstanceFillPainter, SubstanceButtonShaper, int, int, SubstanceColorScheme, SubstanceColorScheme, boolean, boolean)}
+     * is called, it checks <code>this</code> map to see if it already contains such background.
+     * If so, the background from the map is returned.
      */
-    private static LazyResettableHashMap<BufferedImage> pairwiseBackgrounds = new LazyResettableHashMap<BufferedImage>(
-            "PairwiseButtonBackgroundDelegate");
+    private static LazyResettableHashMap<BufferedImage> pairwiseBackgrounds =
+            new LazyResettableHashMap<>(
+                    "PairwiseButtonBackgroundDelegate");
 
     /**
      * Paints background image for the specified button in button pair (such as scrollbar arrows,
      * for example).
-     * 
-     * @param g
-     *            Graphics context.
-     * @param button
-     *            Button.
-     * @param painter
-     *            Gradient painter.
-     * @param width
-     *            Button width.
-     * @param height
-     *            Button height.
-     * @param side
-     *            Button orientation.
-     * @param toIgnoreOpenSides
-     *            If <code>true</code>, the open side setting (controlled by the
-     *            {@link SubstanceLookAndFeel#BUTTON_OPEN_SIDE} is ignored.
+     *
+     * @param g                 Graphics context.
+     * @param button            Button.
+     * @param width             Button width.
+     * @param height            Button height.
+     * @param toIgnoreOpenSides If <code>true</code>, the open side setting (controlled by the
+     *                          {@link SubstanceLookAndFeel#BUTTON_OPEN_SIDE} is ignored.
      */
-    public static void updatePairwiseBackground(Graphics g, AbstractButton button, int width,
+    static void updatePairwiseBackground(Graphics g, AbstractButton button, int width,
             int height, boolean toIgnoreOpenSides) {
-        if (SubstanceCoreUtilities.isButtonNeverPainted(button))
+        if (SubstanceCoreUtilities.isButtonNeverPainted(button)) {
             return;
+        }
 
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(button);
 
@@ -121,8 +105,8 @@ public class PairwiseButtonBackgroundDelegate {
                 height, baseFillScheme, baseBorderScheme, toIgnoreOpenSides, needsRotation);
         BufferedImage fullOpacity = null;
 
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                .getStateContributionMap();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                modelStateInfo.getStateContributionMap();
 
         if (currState.isDisabled() || (activeStates.size() == 1)) {
             fullOpacity = baseLayer;
@@ -134,15 +118,17 @@ public class PairwiseButtonBackgroundDelegate {
             g2fullOpacity.drawImage(baseLayer, 0, 0, baseLayer.getWidth(), baseLayer.getHeight(),
                     null);
 
-            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                    .entrySet()) {
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                    activeStates.entrySet()) {
                 ComponentState activeState = activeEntry.getKey();
-                if (activeState == currState)
+                if (activeState == currState) {
                     continue;
+                }
 
                 float contribution = activeEntry.getValue().getContribution();
-                if (contribution == 0.0f)
+                if (contribution == 0.0f) {
                     continue;
+                }
 
                 SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(button, activeState);
@@ -166,13 +152,15 @@ public class PairwiseButtonBackgroundDelegate {
             if (isFlat) {
                 // Special handling of flat buttons
                 extraAlpha = 0.0f;
-                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                        .entrySet()) {
+                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                        activeStates.entrySet()) {
                     ComponentState activeState = activeEntry.getKey();
-                    if (activeState.isDisabled())
+                    if (activeState.isDisabled()) {
                         continue;
-                    if (activeState == ComponentState.ENABLED)
+                    }
+                    if (activeState == ComponentState.ENABLED) {
                         continue;
+                    }
                     extraAlpha += activeEntry.getValue().getContribution();
                 }
             } else {
@@ -192,30 +180,24 @@ public class PairwiseButtonBackgroundDelegate {
     /**
      * Retrieves background image for the specified button in button pair (such as scrollbar arrows,
      * for example).
-     * 
-     * @param button
-     *            Button.
-     * @param fillPainter
-     *            Gradient painter.
-     * @param width
-     *            Button width.
-     * @param height
-     *            Button height.
-     * @param colorScheme
-     *            The fill color scheme.
-     * @param borderScheme
-     *            The border color scheme.
-     * @param toIgnoreOpenSides
-     *            If <code>true</code>, the open side setting (controlled by the
-     *            {@link SubstanceLookAndFeel#BUTTON_OPEN_SIDE} is ignored.
+     *
+     * @param button            Button.
+     * @param fillPainter       Gradient painter.
+     * @param width             Button width.
+     * @param height            Button height.
+     * @param colorScheme       The fill color scheme.
+     * @param borderScheme      The border color scheme.
+     * @param toIgnoreOpenSides If <code>true</code>, the open side setting (controlled by the
+     *                          {@link SubstanceLookAndFeel#BUTTON_OPEN_SIDE} is ignored.
      * @return Button background image.
      */
     private static BufferedImage getPairwiseFullAlphaBackground(AbstractButton button,
             SubstanceFillPainter fillPainter, SubstanceButtonShaper shaper, int width, int height,
             SubstanceColorScheme colorScheme, SubstanceColorScheme borderScheme,
             boolean toIgnoreOpenSides, boolean needsRotation) {
-        if (SubstanceCoreUtilities.isButtonNeverPainted(button))
+        if (SubstanceCoreUtilities.isButtonNeverPainted(button)) {
             return null;
+        }
         Set<Side> openSides = toIgnoreOpenSides ? EnumSet.noneOf(Side.class)
                 : SubstanceCoreUtilities.getSides(button, SubstanceSynapse.BUTTON_OPEN_SIDE);
         Set<Side> straightSides = SubstanceCoreUtilities.getSides(button,
@@ -257,8 +239,9 @@ public class PairwiseButtonBackgroundDelegate {
 
                 int translateY = finalBackground.getHeight();
                 if (SubstanceCoreUtilities.isScrollButton(button)) {
-                    if ((openSides != null) && openSides.contains(SubstanceSlices.Side.BOTTOM))
+                    if ((openSides != null) && openSides.contains(SubstanceSlices.Side.BOTTOM)) {
                         translateY += 4;
+                    }
                 }
                 AffineTransform at = AffineTransform.getTranslateInstance(0, translateY);
                 at.rotate(-Math.PI / 2);

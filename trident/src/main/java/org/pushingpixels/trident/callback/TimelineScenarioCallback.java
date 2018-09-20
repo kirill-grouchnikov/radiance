@@ -38,8 +38,7 @@ import org.pushingpixels.trident.TimelineScenario;
  */
 public interface TimelineScenarioCallback {
     /**
-     * Indicates that the all timelines and swing workers in the timeline
-     * scenario have finished.
+     * Indicates that the all timelines and actors in the timeline scenario have finished.
      */
-    public void onTimelineScenarioDone();
+    void onTimelineScenarioDone();
 }

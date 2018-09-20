@@ -49,8 +49,7 @@ public class TintColorScheme extends ShiftColorScheme {
 	 * @param tintFactor
 	 *            The tint factor. Should be in 0.0-1.0 range.
 	 */
-	public TintColorScheme(SubstanceColorScheme origColorScheme,
-			double tintFactor) {
+	public TintColorScheme(SubstanceColorScheme origColorScheme, double tintFactor) {
 		super(origColorScheme, Color.white, tintFactor);
 	}
 }
