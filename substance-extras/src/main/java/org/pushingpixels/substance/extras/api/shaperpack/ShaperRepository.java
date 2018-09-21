@@ -38,37 +38,26 @@ import java.util.ArrayList;
 
 public class ShaperRepository {
 	public static CanonicalPath read(InputStream stream) {
-		DataInputStream dis = null;
-		try {
-			dis = new DataInputStream(stream);
+		try (DataInputStream dis  = new DataInputStream(stream)) {
 			double ratio = dis.readDouble();
 			int pointCount = dis.readInt();
-			ArrayList<Point2D> major = new ArrayList<Point2D>();
-			ArrayList<Point2D> minor = new ArrayList<Point2D>();
+			ArrayList<Point2D> major = new ArrayList<>();
+			ArrayList<Point2D> minor = new ArrayList<>();
 			for (int i = 0; i < pointCount; i++) {
-				Point2D currMajor = new Point2D.Double(dis.readDouble(), dis
-						.readDouble());
-				Point2D currMinor = new Point2D.Double(dis.readDouble(), dis
-						.readDouble());
+				Point2D currMajor = new Point2D.Double(dis.readDouble(), dis.readDouble());
+				Point2D currMinor = new Point2D.Double(dis.readDouble(), dis.readDouble());
 				major.add(currMajor);
 				minor.add(currMinor);
 			}
 			return new CanonicalPath(major, minor, ratio);
 		} catch (Exception exc) {
 			exc.printStackTrace();
-			try {
-				if (dis != null)
-					dis.close();
-			} catch (Exception exc2) {
-			}
 			return null;
 		}
 	}
 
 	public static void write(OutputStream stream, CanonicalPath path) {
-		DataOutputStream dos = null;
-		try {
-			dos = new DataOutputStream(stream);
+		try (DataOutputStream dos = new DataOutputStream(stream)) {
 			ArrayList<Point2D> major = path.getMajorPoints();
 			ArrayList<Point2D> minor = path.getMinorPoints();
 			dos.writeDouble(path.getRatio());
@@ -82,11 +71,6 @@ public class ShaperRepository {
 				dos.writeDouble(currMinor.getY());
 			}
 		} catch (Exception exc) {
-			try {
-				if (dos != null)
-					dos.close();
-			} catch (Exception exc2) {
-			}
 		}
 	}
 }

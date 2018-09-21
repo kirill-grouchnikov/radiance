@@ -41,7 +41,10 @@ ext.designation = "tools"
 jar {
     baseName = "${rootProject.name}-beacon"
     manifest {
-        attributes("Radiance-Version": "${version}")
+        attributes("Radiance-Version": "${version} [${project.ext.codename}]",    \
+                 "Built-JDK": System.getProperty('java.version'),    \
+                 "Built-JDK-Vendor": System.getProperty('java.vendor'),    \
+                 "Build-Time": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"))
     }
 }
 

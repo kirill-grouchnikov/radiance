@@ -39,4 +39,4 @@ include 'neon', 'trident', 'photon',
         'demos:rainbow', 'demos:lumen',
         'tools:tools-common', 'tools:electra', 'tools:jitterbug',
         'tools:lightbeam', 'tools:ignite', 'tools:beacon',
-        'tools:zodiac'
+        'tools:hyperion', 'tools:zodiac'

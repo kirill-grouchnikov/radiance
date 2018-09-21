@@ -46,7 +46,7 @@ public class Glass3DDecorationPainter implements SubstanceDecorationPainter {
     /**
      * The display name for the decoration painters of this class.
      */
-    public static final String DISPLAY_NAME = "Glass 3D";
+    private static final String DISPLAY_NAME = "Glass 3D";
 
     @Override
     public String getDisplayName() {

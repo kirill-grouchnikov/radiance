@@ -48,12 +48,12 @@ public class MixDelegateFillPainter implements SubstanceFillPainter {
 	/**
 	 * Display name of <code>this</code> painter.
 	 */
-	protected String painterName;
+	private String painterName;
 
 	/**
 	 * Mandatory delegate painter.
 	 */
-	protected SubstanceFillPainter delegate;
+	private SubstanceFillPainter delegate;
 
 	/**
 	 * Creates a new wave-overlaying painter.
@@ -63,8 +63,7 @@ public class MixDelegateFillPainter implements SubstanceFillPainter {
 	 * @param delegate
 	 *            Delegate painter.
 	 */
-	public MixDelegateFillPainter(String painterName,
-			SubstanceFillPainter delegate) {
+	public MixDelegateFillPainter(String painterName, SubstanceFillPainter delegate) {
 		this.painterName = painterName;
 		this.delegate = delegate;
 	}
@@ -79,15 +78,13 @@ public class MixDelegateFillPainter implements SubstanceFillPainter {
 	        Shape contour, boolean isFocused, SubstanceColorScheme fillScheme, boolean hasShine) {
 		if (fillScheme instanceof MixColorScheme) {
 			MixColorScheme mixColorScheme = (MixColorScheme) fillScheme;
-			SubstanceColorScheme[] origSchemes = mixColorScheme
-					.getOrigSchemes();
+			SubstanceColorScheme[] origSchemes = mixColorScheme.getOrigSchemes();
 
 	        int iWidth = (int) Math.ceil(width);
 	        int iHeight = (int) Math.ceil(height);
 			BufferedImage[] components = new BufferedImage[origSchemes.length];
 			for (int i = 0; i < origSchemes.length; i++) {
-				components[i] = SubstanceCoreUtilities.getBlankImage(iWidth,
-						iHeight);
+				components[i] = SubstanceCoreUtilities.getBlankImage(iWidth, iHeight);
 				Graphics2D g2d = components[i].createGraphics();
 				this.delegate.paintContourBackground(g2d, comp, width, height,
 						contour, isFocused, origSchemes[i], hasShine);

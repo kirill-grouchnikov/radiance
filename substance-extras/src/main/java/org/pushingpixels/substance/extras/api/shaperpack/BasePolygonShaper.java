@@ -45,15 +45,15 @@ import org.pushingpixels.substance.internal.utils.SubstanceOutlineUtilities;
 import org.pushingpixels.substance.internal.utils.border.SubstanceButtonBorder;
 
 public abstract class BasePolygonShaper implements SubstanceButtonShaper {
-    protected CanonicalPath canonicalPath;
+    private CanonicalPath canonicalPath;
 
-    protected double topCoef;
+    private double topCoef;
 
-    protected double leftCoef;
+    private double leftCoef;
 
-    protected double bottomCoef;
+    private double bottomCoef;
 
-    protected double rightCoef;
+    private double rightCoef;
 
     public BasePolygonShaper(String resourceName, double topCoef, double leftCoef,
             double bottomCoef, double rightCoef) {
@@ -83,18 +83,20 @@ public abstract class BasePolygonShaper implements SubstanceButtonShaper {
                 // .getBorder();
                 // if (sborder.getButtonShaperClass() != this.getClass()) {
                 Insets bi = border.getBorderInsets(button);
-                if (!isBorderComputing)
+                if (!isBorderComputing) {
                     button.setBorder(null);
+                }
                 uiPreferredSize.setSize(uiw - bi.left - bi.right, uih - bi.top - bi.bottom);
                 // }
             } else {
                 Insets bi = border.getBorderInsets(button);
-                if (!isBorderComputing)
+                if (!isBorderComputing) {
                     button.setBorder(null);
+                }
                 uiPreferredSize.setSize(uiw - bi.left - bi.right, uih - bi.top - bi.bottom);
             }
             if (!isBorderComputing) {
-                button.setBorder(this.getButtonBorder(button, uiPreferredSize));
+                button.setBorder(this.getButtonBorder(uiPreferredSize));
                 button.putClientProperty(SubstanceButtonUI.BORDER_COMPUTED, new String());
             }
         }
@@ -107,8 +109,9 @@ public abstract class BasePolygonShaper implements SubstanceButtonShaper {
                 if (c instanceof AbstractButton) {
                     AbstractButton button = (AbstractButton) c;
                     if (SubstanceCoreUtilities.hasText(button)) {
-                        if (button.getClientProperty(SubstanceButtonUI.BORDER_COMPUTING) != null)
+                        if (button.getClientProperty(SubstanceButtonUI.BORDER_COMPUTING) != null) {
                             return new Insets(0, 0, 0, 0);
+                        }
                         button.putClientProperty(SubstanceButtonUI.BORDER_COMPUTING, new String());
                         int width = button.getPreferredSize().width;
                         int height = button.getPreferredSize().height;
@@ -136,7 +139,7 @@ public abstract class BasePolygonShaper implements SubstanceButtonShaper {
         };
     }
 
-    public Border getButtonBorder(AbstractButton button, final Dimension preferredSize) {
+    public Border getButtonBorder(final Dimension preferredSize) {
         return new SubstanceButtonBorder(this.getClass()) {
             public Insets getBorderInsets(Component c) {
                 if (c instanceof AbstractButton) {
@@ -171,11 +174,11 @@ public abstract class BasePolygonShaper implements SubstanceButtonShaper {
     @Override
     public Shape getButtonOutline(AbstractButton button, float extraInsets, float width,
             float height, boolean isInner) {
-        if (SubstanceCoreUtilities.hasText(button))
+        if (SubstanceCoreUtilities.hasText(button)) {
             return this.canonicalPath.getPath(width, height, extraInsets);
+        }
 
-        return SubstanceOutlineUtilities.getBaseOutline(width, height, 2, null, 
-                extraInsets);
+        return SubstanceOutlineUtilities.getBaseOutline(width, height, 2, null, extraInsets);
     }
 
     @Override

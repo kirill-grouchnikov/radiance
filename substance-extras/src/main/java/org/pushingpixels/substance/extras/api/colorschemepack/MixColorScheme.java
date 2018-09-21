@@ -88,12 +88,10 @@ public class MixColorScheme extends BaseColorScheme {
      * @param origSchemes
      * 		The original color schemes.
      */
-    public MixColorScheme(String displayName,
-            SubstanceColorScheme... origSchemes) {
+    public MixColorScheme(String displayName, SubstanceColorScheme... origSchemes) {
         super(displayName, origSchemes[0].isDark());
         if ((origSchemes == null) || (origSchemes.length < 2)) {
-            throw new IllegalArgumentException(
-                    "At least two schemes needed for a mix scheme");
+            throw new IllegalArgumentException("At least two schemes needed for a mix scheme");
         }
         this.origSchemes = origSchemes;
         this.foregroundColor = this.origSchemes[0].getForegroundColor();

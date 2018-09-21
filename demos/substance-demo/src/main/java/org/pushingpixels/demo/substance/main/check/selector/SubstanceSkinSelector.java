@@ -29,19 +29,13 @@
  */
 package org.pushingpixels.demo.substance.main.check.selector;
 
-import java.awt.Component;
+import org.pushingpixels.demo.substance.main.check.FlexiComboBox;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.skin.SkinInfo;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-
-import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.SwingUtilities;
-
-import org.pushingpixels.demo.substance.main.check.FlexiComboBox;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
-import org.pushingpixels.substance.api.skin.SkinInfo;
 
 public class SubstanceSkinSelector extends FlexiComboBox<SkinInfo> {
     public SubstanceSkinSelector() {

@@ -96,8 +96,9 @@ public class SubstanceKatakanaWatermark implements SubstanceWatermark {
     @Override
     public void drawWatermarkImage(Graphics graphics, Component c, int x,
             int y, int width, int height) {
-        if (!c.isShowing())
+        if (!c.isShowing()) {
             return;
+        }
         int dx = c.getLocationOnScreen().x;
         int dy = c.getLocationOnScreen().y;
         NeonCortex.drawImage(graphics, SubstanceKatakanaWatermark.watermarkImage, x, y, width,
@@ -106,12 +107,12 @@ public class SubstanceKatakanaWatermark implements SubstanceWatermark {
 
     @Override
     public boolean updateWatermarkImage(SubstanceSkin skin) {
-        if (font == null)
+        if (font == null) {
             return false;
+        }
         // fix by Chris for bug 67 - support for multiple screens
         Rectangle virtualBounds = new Rectangle();
-        GraphicsEnvironment ge = GraphicsEnvironment
-                .getLocalGraphicsEnvironment();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gds = ge.getScreenDevices();
         for (GraphicsDevice gd : gds) {
             GraphicsConfiguration gc = gd.getDefaultConfiguration();
@@ -151,9 +152,8 @@ public class SubstanceKatakanaWatermark implements SubstanceWatermark {
      */
     private boolean drawWatermarkImage(SubstanceSkin skin, Graphics2D graphics,
             int x, int y, int width, int height, boolean isPreview) {
-
-        Color stampColor = null;
         SubstanceColorScheme scheme = skin.getWatermarkColorScheme();
+        Color stampColor;
         if (isPreview) {
             stampColor = scheme.isDark() ? Color.white : Color.black;
         } else {
@@ -170,13 +170,10 @@ public class SubstanceKatakanaWatermark implements SubstanceWatermark {
         for (int col = 0; col <= columns; col++) {
             for (int row = 0; row <= rows; row++) {
                 // choose random katakana letter
-                // int letterIndex = (int) (0x30A0 + Math.random()
-                // * (0x30FF - 0x30A0));
                 int letterIndex = isPreview ? (33 + (col + columns * row) % 95)
                                             : (int) (33 + Math.random() * 95);
                 char c = (char) letterIndex;
-                graphics.drawString("" + c, x + col * fontWidth, y + fontHeight
-                        * (row + 1));
+                graphics.drawString("" + c, x + col * fontWidth, y + fontHeight * (row + 1));
             }
         }
         return true;

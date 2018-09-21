@@ -62,7 +62,7 @@ public class SubstanceExtrasSlices {
          * @param name
          *            Tab overview kind name.
          */
-        public TabOverviewKind(String name) {
+        private TabOverviewKind(String name) {
             this.name = name;
         }
 

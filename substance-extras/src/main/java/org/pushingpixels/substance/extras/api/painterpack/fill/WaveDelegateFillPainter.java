@@ -29,24 +29,13 @@
  */
 package org.pushingpixels.substance.extras.api.painterpack.fill;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Transparency;
-import java.awt.geom.GeneralPath;
-import java.awt.image.BufferedImage;
-
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.awt.image.BufferedImage;
 
 /**
  * Base class for fill painters that overlay wave gradient on top of some other
@@ -62,17 +51,17 @@ public abstract class WaveDelegateFillPainter implements SubstanceFillPainter {
 	/**
 	 * Display name of <code>this</code> painter.
 	 */
-	protected String painterName;
+	private String painterName;
 
 	/**
 	 * Optional scheme transformation - may be <code>null</code>.
 	 */
-	protected ColorSchemeTransform transformation;
+	private ColorSchemeTransform transformation;
 
 	/**
 	 * Mandatory delegate painter.
 	 */
-	protected SubstanceFillPainter delegate;
+	private SubstanceFillPainter delegate;
 
 	/**
 	 * Creates a new wave-overlaying painter.
@@ -106,17 +95,15 @@ public abstract class WaveDelegateFillPainter implements SubstanceFillPainter {
 		clipBottom.lineTo(width, 0);
 		clipBottom.curveTo(5 * width / 6, height / 3, 3 * width / 4,
 				height / 2, width / 2, height / 2);
-		clipBottom.curveTo(width / 3, height / 2, width / 4, height, 0,
-				7 * height / 8);
+		clipBottom.curveTo(width / 3, height / 2, width / 4, height, 0, 7 * height / 8);
 		clipBottom.lineTo(0, height);
 
         int iWidth = (int) Math.ceil(width);
         int iHeight = (int) Math.ceil(height);
-		BufferedImage clipShapeBottom = createClipImage(clipBottom, iWidth,
-		        iHeight);
+		BufferedImage clipShapeBottom = SubstanceCoreUtilities.softClip(iWidth, iHeight, null,
+				clipBottom);
 
-		BufferedImage bottomImage = SubstanceCoreUtilities.getBlankImage(iWidth,
-		        iHeight);
+		BufferedImage bottomImage = SubstanceCoreUtilities.getBlankImage(iWidth, iHeight);
 		Graphics2D bottomGraphics = (Graphics2D) bottomImage.getGraphics();
 		bottomGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
@@ -161,49 +148,5 @@ public abstract class WaveDelegateFillPainter implements SubstanceFillPainter {
 		graphics.drawImage(bottomImage, 0, 0, null);
 
 		graphics.setClip(null);
-	}
-
-	/**
-	 * Creates a clip image for soft-clipping. Code taken from <a href=
-	 * "http://weblogs.java.net/blog/campbell/archive/2006/07/java_2d_tricker_2.html"
-	 * >here</a>.
-	 * 
-	 * @param s
-	 *            Clip shape.
-	 * @param width
-	 *            Image width.
-	 * @param height
-	 *            Image height.
-	 * @return Clip image.
-	 * @author Chris Campbell.
-	 */
-	BufferedImage createClipImage(Shape s, int width, int height) {
-		// Create a translucent intermediate image in which we can perform
-		// the soft clipping
-		GraphicsEnvironment e = GraphicsEnvironment
-				.getLocalGraphicsEnvironment();
-		GraphicsDevice d = e.getDefaultScreenDevice();
-		GraphicsConfiguration c = d.getDefaultConfiguration();
-
-		BufferedImage img = c.createCompatibleImage(width, height,
-				Transparency.TRANSLUCENT);
-		Graphics2D g2 = img.createGraphics();
-
-		// Clear the image so all pixels have zero alpha
-		g2.setComposite(AlphaComposite.Clear);
-		g2.fillRect(0, 0, width, height);
-
-		// Render our clip shape into the image. Note that we enable
-		// antialiasing to achieve the soft clipping effect. Try
-		// commenting out the line that enables antialiasing, and
-		// you will see that you end up with the usual hard clipping.
-		g2.setComposite(AlphaComposite.Src);
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.setColor(Color.WHITE);
-		g2.fill(s);
-		g2.dispose();
-
-		return img;
 	}
 }

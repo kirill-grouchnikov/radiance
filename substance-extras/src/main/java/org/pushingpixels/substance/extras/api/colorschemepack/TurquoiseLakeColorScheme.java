@@ -34,7 +34,7 @@ import java.awt.Color;
 import org.pushingpixels.substance.api.colorscheme.BaseLightColorScheme;
 
 /**
- * <b>Aqua</b> color scheme.
+ * <b>Turquoise Lake</b> color scheme.
  * 
  * @author Kirill Grouchnikov
  */

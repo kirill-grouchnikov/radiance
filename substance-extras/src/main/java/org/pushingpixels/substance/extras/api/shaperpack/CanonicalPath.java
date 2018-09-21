@@ -42,8 +42,9 @@ public class CanonicalPath {
 
     public CanonicalPath(ArrayList<Point2D> majorPoints, ArrayList<Point2D> minorPoints,
             double ratio) {
-        if (majorPoints.size() != minorPoints.size())
+        if (majorPoints.size() != minorPoints.size()) {
             throw new IllegalArgumentException("Sizes of major and minor must be equal");
+        }
         this.majorPoints = majorPoints;
         this.minorPoints = minorPoints;
         this.ratio = ratio;
@@ -51,8 +52,9 @@ public class CanonicalPath {
 
     public GeneralPath getPath(float width, float height, float insets) {
         GeneralPath path = new GeneralPath();
-        if (this.majorPoints.size() < 2)
+        if (this.majorPoints.size() < 2) {
             return path;
+        }
 
         float xs = insets;
         float ys = insets;
