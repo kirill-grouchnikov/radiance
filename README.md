@@ -34,25 +34,33 @@ The Kormorant library exposes the entire API surface of Flamingo as a custom, ta
 
 ## Tools
 
-### Lightbeam
+### Beacon
 
-The [Lightbeam library](docs/lightbeam/lightbeam.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
-
-### Ignite
-
-The [Ignite plugin](docs/ignite/ignite.md) wraps the Photon library to allow build-time transcoding of SVG content into Java / Kotlin classes.
-
-### Zodiac
-
-The [Zodiac library](docs/zodiac/zodiac.md) provides utilities for taking screenshots for Substance and Flamingo documentation.
+The [Beacon plugin](docs/beacon/beacon.md) is a visual runtime debugger for Substance.
 
 ### Electra
 
 The [Electra tool](docs/electra/electra.md) allows adding callout bubbles to documentation screenshots.
 
+### Hyperion
+
+The [Hyperion editor](docs/hyperion/hyperion.md) allows creating and editing files that define custom button shapers.
+
+### Ignite
+
+The [Ignite plugin](docs/ignite/ignite.md) wraps the Photon library to allow build-time transcoding of SVG content into Java / Kotlin classes.
+
 ### Jitterbug
 
 The [Jitterbug editor](docs/jitterbug/jitterbug.md) allows creating and editing color scheme lists.
+
+### Lightbeam
+
+The [Lightbeam library](docs/lightbeam/lightbeam.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
+
+### Zodiac
+
+The [Zodiac library](docs/zodiac/zodiac.md) provides utilities for taking screenshots for Substance and Flamingo documentation.
 
 ## Building Radiance
 
