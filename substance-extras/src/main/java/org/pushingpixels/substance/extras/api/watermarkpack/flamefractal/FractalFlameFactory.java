@@ -149,8 +149,7 @@ public class FractalFlameFactory {
 
 		// Borrow from Sebastien Petrucci fast blur code - direct access
 		// to the raster data
-		int[] dstBuffer = ((DataBufferInt) dst.getRaster().getDataBuffer())
-				.getData();
+		int[] dstBuffer = ((DataBufferInt) dst.getRaster().getDataBuffer()).getData();
 
 		double[] vals = new double[width * height];
 

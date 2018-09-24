@@ -45,7 +45,7 @@ import java.beans.PropertyChangeListener;
 
 /**
  * <p>
- * base class for <b>Substance </b> look and feel. There are three options to use Substance in your
+ * Base class for <b>Substance </b> look and feel. There are three options to use Substance in your
  * application:
  * </p>
  * 
@@ -63,7 +63,6 @@ import java.beans.PropertyChangeListener;
  * @author Kirill Grouchnikov
  */
 public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
-
     /**
      * Change listener on keyboard focus manager - fix for defect 208.
      */
@@ -77,12 +76,12 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
     /**
      * The skin of this look-and-feel instance.
      */
-    protected SubstanceSkin skin;
+    private SubstanceSkin skin;
 
     /**
      * The name of this look-and-feel instance.
      */
-    protected String name;
+    private String name;
 
     /**
      * Creates a new skin-based Substance look-and-feel.
@@ -249,8 +248,8 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
         }
 
         // to show heap status panel in title pane?
-        String heapStatusTraceFilename = (String) UIManager
-                .get(SubstanceSynapse.HEAP_STATUS_TRACE_FILE);
+        String heapStatusTraceFilename =
+                (String) UIManager.get(SubstanceSynapse.HEAP_STATUS_TRACE_FILE);
         SubstanceTitlePane.setHeapStatusLogfileName(heapStatusTraceFilename);
 
         // initialize component plugins

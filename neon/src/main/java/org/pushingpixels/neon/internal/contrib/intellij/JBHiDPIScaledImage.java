@@ -35,8 +35,10 @@ public class JBHiDPIScaledImage extends BufferedImage implements IsHiDpiAware {
     }
 
     public static JBHiDPIScaledImage create(int width, int height, int type) {
-        return new JBHiDPIScaledImage((int) (UIUtil.getScaleFactor() * width),
-                (int) (UIUtil.getScaleFactor() * height), type);
+        return new JBHiDPIScaledImage(
+                (int) Math.ceil((UIUtil.getScaleFactor() * width)),
+                (int) Math.ceil((UIUtil.getScaleFactor() * height)),
+                type);
     }
 
     public static JBHiDPIScaledImage createUnscaled(int width, int height, int type) {

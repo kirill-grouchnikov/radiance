@@ -170,9 +170,6 @@ public class UIUtil {
         }
 
         double result = GraphicsEnvironment.isHeadless() ? 1.0 : DetectRetinaKit.getScaleFactor();
-        if ((result > 1.0) && (result < 2.0)) {
-            result = 1.0;
-        }
         cachedScaleFactorReply = Double.valueOf(result);
         return cachedScaleFactorReply;
     }
