@@ -32,8 +32,8 @@ version = '0.9-SNAPSHOT'
 
 buildscript {
     ext {
-        kotlin_version = '1.2.70'
-        kotlinx_coroutines_version = '0.26.1'
+        kotlin_version = '1.2.71'
+        kotlinx_coroutines_version = '0.27.0'
         gradle_nexus_plugin_version = '2.3.1'
         batik_version = '1.10'
         svnkit_version = '1.9.3'
@@ -70,8 +70,9 @@ mkdir {
 apply plugin: "com.github.ben-manes.versions"
 
 // Copies the compiled jars from all the sub-projects into the drop folder. The compiled
-// jars are grouped into two folders: core for app-facing sub-projects (such as Trident,
-// Neon, Substance, Flamingo) and demo for sub-projects that have demo or tools functionality.
+// jars are grouped into three folders: 'core' for app-facing sub-projects (such as Trident,
+// Neon, Substance, Flamingo), 'demo' for sub-projects that have demos and 'tools' for
+// sub-projects with various tools.
 task copyJars(type: Zip) {
     t ->
         delete "drop/${project.version}"

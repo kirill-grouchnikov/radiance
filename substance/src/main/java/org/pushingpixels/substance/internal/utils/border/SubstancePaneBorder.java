@@ -64,8 +64,9 @@ public class SubstancePaneBorder extends AbstractBorder implements UIResource {
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
         SubstanceSkin skin = SubstanceCoreUtilities.getSkin(c);
-        if (skin == null)
+        if (skin == null) {
             return;
+        }
 
         SubstanceColorScheme scheme = skin
                 .getBackgroundColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE);
