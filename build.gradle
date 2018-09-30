@@ -33,7 +33,7 @@ version = '0.9-SNAPSHOT'
 buildscript {
     ext {
         kotlin_version = '1.2.71'
-        kotlinx_coroutines_version = '0.27.0'
+        kotlinx_coroutines_version = '0.30.0'
         gradle_nexus_plugin_version = '2.3.1'
         batik_version = '1.10'
         svnkit_version = '1.9.3'
