@@ -1,8 +1,8 @@
-### Version of Radiance
+### Version of Radiance (current development is 0.9-SNAPSHOT)
 
-### Sub-project (Trident, Substance, Flamingo, ...)
+### Sub-project (Neon, Trident, Substance, Flamingo, ...)
 
-### Version of Java
+### Version of Java (current minimum is 8)
 
 ### Version of OS
 

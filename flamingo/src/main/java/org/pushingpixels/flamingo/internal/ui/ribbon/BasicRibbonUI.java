@@ -462,11 +462,12 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int x = ltr ? ins.left : width - ins.right;
 
             // the application menu button width
+            boolean isShowingAppMenuButton = (ribbon.getApplicationMenu() != null);
             FontMetrics fm = applicationMenuButton.getFontMetrics(applicationMenuButton.getFont());
-            int appMenuButtonWidth = fm.stringWidth(ribbon.getApplicationMenu().getTitle()) + 40;
+            int appMenuButtonWidth = isShowingAppMenuButton
+                    ? fm.stringWidth(ribbon.getApplicationMenu().getTitle()) + 40 : 0;
 
             x = ltr ? x + 2 : x - 2;
-            boolean isShowingAppMenuButton = (ribbon.getApplicationMenu() != null);
             if (isShowingAppMenuButton) {
                 x = ltr ? x + appMenuButtonWidth + 2 : x - appMenuButtonWidth - 2;
             }
@@ -488,8 +489,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int fullPreferredContentWidth = ins.left + ins.right + 2
                     + (isShowingAppMenuButton ? appMenuButtonWidth : 0)
                     + ((anchoredButtons.getComponentCount() > 0)
-                    ? (anchoredButtonsExpandedWidth + tabButtonGap)
-                    : 0)
+                        ? (anchoredButtonsExpandedWidth + tabButtonGap) : 0)
                     + taskToggleButtonsStrip.getPreferredSize().width;
 
             int anchoredButtonPanelWidth = 0;
@@ -549,13 +549,13 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 applicationMenuButton.setVisible(false);
             }
 
-            TaskToggleButtonsHostPanel taskToggleButtonsHostPanel = taskToggleButtonsScrollablePanel
-                    .getView();
-            int taskToggleButtonsHostPanelMinWidth = taskToggleButtonsHostPanel
-                    .getMinimumSize().width;
-            taskToggleButtonsHostPanel
-                    .setPreferredSize(new Dimension(taskToggleButtonsHostPanelMinWidth,
-                            taskToggleButtonsScrollablePanel.getBounds().height));
+            TaskToggleButtonsHostPanel taskToggleButtonsHostPanel =
+                    taskToggleButtonsScrollablePanel.getView();
+            int taskToggleButtonsHostPanelMinWidth =
+                    taskToggleButtonsHostPanel.getMinimumSize().width;
+            taskToggleButtonsHostPanel.setPreferredSize(new Dimension(
+                    taskToggleButtonsHostPanelMinWidth,
+                    taskToggleButtonsScrollablePanel.getBounds().height));
             taskToggleButtonsScrollablePanel.doLayout();
 
             y += taskToggleButtonHeight;

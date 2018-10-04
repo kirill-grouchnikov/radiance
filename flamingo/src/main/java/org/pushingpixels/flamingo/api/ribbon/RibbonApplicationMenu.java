@@ -132,10 +132,13 @@ public class RibbonApplicationMenu {
      * Creates an empty ribbon application menu.
      */
     public RibbonApplicationMenu(String title) {
+        if ((title == null) || title.isEmpty()) {
+            throw new IllegalArgumentException("Menu title can not be null or empty");
+        }
         this.title = title;
-        this.primaryCommands = new ArrayList<List<RibbonApplicationMenuPrimaryCommand>>();
-        this.primaryCommands.add(new ArrayList<RibbonApplicationMenuPrimaryCommand>());
-        this.footerCommands = new ArrayList<FlamingoCommand>();
+        this.primaryCommands = new ArrayList<>();
+        this.primaryCommands.add(new ArrayList<>());
+        this.footerCommands = new ArrayList<>();
     }
 
     public String getTitle() {
