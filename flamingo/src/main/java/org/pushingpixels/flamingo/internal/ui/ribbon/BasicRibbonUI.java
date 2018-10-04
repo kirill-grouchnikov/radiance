@@ -461,12 +461,17 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
             int x = ltr ? ins.left : width - ins.right;
 
+            boolean isShowingAppMenuButton = (ribbon.getApplicationMenu() != null);
+
             // the application menu button width
-            FontMetrics fm = applicationMenuButton.getFontMetrics(applicationMenuButton.getFont());
-            int appMenuButtonWidth = fm.stringWidth(ribbon.getApplicationMenu().getTitle()) + 40;
+            int appMenuButtonWidth = 0;
+            if (isShowingAppMenuButton) {
+                String title = ribbon.getApplicationMenu().getTitle();
+                FontMetrics fm = applicationMenuButton.getFontMetrics(applicationMenuButton.getFont());
+                appMenuButtonWidth = (title != null ? fm.stringWidth(title) : 0) + 40;
+            }
 
             x = ltr ? x + 2 : x - 2;
-            boolean isShowingAppMenuButton = (ribbon.getApplicationMenu() != null);
             if (isShowingAppMenuButton) {
                 x = ltr ? x + appMenuButtonWidth + 2 : x - appMenuButtonWidth - 2;
             }
@@ -486,7 +491,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             taskToggleButtonsStrip.setPreferredSize(null);
 
             int fullPreferredContentWidth = ins.left + ins.right + 2
-                    + (isShowingAppMenuButton ? appMenuButtonWidth : 0)
+                    + appMenuButtonWidth
                     + ((anchoredButtons.getComponentCount() > 0)
                     ? (anchoredButtonsExpandedWidth + tabButtonGap)
                     : 0)
