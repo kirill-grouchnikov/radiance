@@ -4,42 +4,17 @@ Radiance artifacts are available in the central Maven repository.
 
 ### Core artifacts
 
-* `org.pushing-pixels:radiance-neon` for [Neon](neon/neon.md)
-* `org.pushing-pixels:radiance-photon` for [Photon](photon/photon.md)
-* `org.pushing-pixels:radiance-trident` for [Trident](trident/trident.md)
-* `org.pushing-pixels:radiance-substance` for [Substance](substance/substance.md)
-* `org.pushing-pixels:radiance-substance-extras` for Substance extras
-* `org.pushing-pixels:radiance-flamingo` for [Flamingo](flamingo/flamingo.md)
-* `org.pushing-pixels:radiance-kormorant` for [Kormorant](kormorant/kormorant.md)
-* `org.pushing-pixels:radiance-spoonbill` for Spoonbill
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-neon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-neon)
+`radiance-neon` for [Neon](neon/neon.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon) `radiance-photon` for [Photon](photon/photon.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-trident/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-trident) `radiance-trident` for [Trident](trident/trident.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance) `radiance-substance` for [Substance](substance/substance.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance-extras/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance-extras) `radiance-substance-extras` for Substance extras
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-flamingo/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-flamingo) `radiance-flamingo` for [Flamingo](flamingo/flamingo.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-kormorant/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-kormorant) `radiance-kormorant` for [Kormorant](kormorant/kormorant.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-spoonbill/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-spoonbill) `radiance-spoonbill` for Spoonbill
 
 ### Tools artifacts
 
-* `org.pushing-pixels:radiance-ignite` for [Ignite](ignite/ignite.md)
-* `org.pushing-pixels:radiance-beacon` for [Beacon](beacon/beacon.md)
-
-### Declaring dependencies
-
-To declare a dependency on version X.Y.Z of one of the Radiance artifacts, such as `radiance-substance`:
-
-**For Maven**
-
-```
-<dependency>
-  <groupId>org.pushing-pixels</groupId>
-  <artifactId>radiance-substance</artifactId>
-  <version>X.Y.Z</version>
-</dependency>
-```
-
-**For Gradle (Groovy DSL)**
-
-`compile 'org.pushing-pixels:radiance-substance:X.Y.Z'`
-
-**For Gradle (Kotlin DSL)**
-
-`compile(group = "org.pushing-pixels", name = "radiance-substance", version = "X.Y.Z")`
-
-**For Apache Ivy**
-
-`<dependency org="org.pushing-pixels" name="radiance-substance" rev="X.Y.Z" />`
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite) `radiance-ignite` for [Ignite](ignite/ignite.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon) `radiance-beacon` for [Beacon](beacon/beacon.md)
