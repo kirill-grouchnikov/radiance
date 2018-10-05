@@ -4,6 +4,7 @@ Radiance is a collection of libraries for writing modern, elegant and well-perfo
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulabrickwall1.png" width="340" height="254" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/dustcoffee2.png" width="340" height="254" border=0>
 </p>
 
 ## Core libraries
@@ -64,7 +65,7 @@ The [Zodiac library](docs/zodiac/zodiac.md) provides utilities for taking screen
 
 ## Building Radiance
 
-[This document](docs/building.md) is an overview of how to build Radiance artifacts locally. Remote Maven artifacts and dependency specifications will be available concurrent with the first Radiance release (planned for September / October 2018).
+[This document](docs/building.md) is an overview of how to build Radiance artifacts locally. [This document](docs/dependencies.md) is an overview of dependency specification for apps that wish to use Radiance in their build scripts.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/icon/radiance_product_512.png" width="256" height="256" border=0>
