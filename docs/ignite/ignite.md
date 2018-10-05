@@ -11,10 +11,10 @@ Add Ignite to the `buildscript` part of your Gradle build file and apply the plu
 ```groovy
 buildscript {
     repositories {
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        mavenCentral()
     }
     dependencies {
-        classpath 'org.pushing-pixels:radiance-ignite:0.9-SNAPSHOT'
+        classpath 'org.pushing-pixels:radiance-ignite:1.0.0'
     }
 }
 
