@@ -38,6 +38,10 @@ dependencies {
 
 ext.designation = "core"
 
+javadoc {
+    failOnError = false
+}
+
 jar {
     baseName = "${rootProject.name}-kormorant"
     manifest {
@@ -96,11 +100,11 @@ modifyPom {
 extraArchive {
     sources = true
     tests = false
-    javadoc = false
+    javadoc = true
 }
 
 nexus {
-    sign = false
+    sign = true
     repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
     snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
 }

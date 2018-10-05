@@ -28,7 +28,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = '0.9-SNAPSHOT'
+version = '1.0.0'
 
 buildscript {
     ext {
