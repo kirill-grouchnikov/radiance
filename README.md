@@ -65,7 +65,7 @@ The [Zodiac library](docs/zodiac/zodiac.md) provides utilities for taking screen
 
 ## Radiance dependencies
 
-Radiance artifacts are available in the central Maven repository.
+Radiance artifacts are available in the central Maven repository under `groupId=org.pushing-pixels`
 
 ### Core artifacts
 
