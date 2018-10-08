@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
@@ -39,6 +39,7 @@ import org.pushingpixels.flamingo.internal.utils.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.border.SubstancePopupMenuBorder;
+import org.pushingpixels.substance.internal.utils.combo.SubstanceComboPopup;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -51,7 +52,7 @@ import java.util.List;
 
 /**
  * Basic UI for popup panel {@link JPopupPanel}.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public abstract class BasicPopupPanelUI extends PopupPanelUI {
@@ -152,7 +153,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 	 * This class is used to trace the changes in the shown popup panels and
 	 * install ESC key listener on the matching root pane so that the popup
 	 * panels can be dismissed with the ESC key.
-	 * 
+	 *
 	 * @author Kirill Grouchnikov
 	 */
 	protected static class PopupPanelEscapeDismisser implements
@@ -233,7 +234,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 		 * Installs the maps on the root pane of the originating component of
 		 * the first popup panel of the specified sequence to trace the ESC key
 		 * and dismiss the shown popup panels.
-		 * 
+		 *
 		 * @param shownPath
 		 *            Popup panel sequence.
 		 */
@@ -267,7 +268,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 										.getCurrentlyShownKeyTipChain();
 								if ((currentlyShownKeyTipChain != null)
 										&& (currentlyShownKeyTipChain.chainParentComponent == appMenuPopupPanel
-												.getPanelLevel2()))
+										.getPanelLevel2()))
 									return;
 							}
 						}
@@ -282,7 +283,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 
 		/**
 		 * Adds the specified input map to the specified component.
-		 * 
+		 *
 		 * @param c
 		 *            Component.
 		 * @param map
@@ -307,7 +308,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 
 		/**
 		 * Adds the specified action map to the specified component.
-		 * 
+		 *
 		 * @param c
 		 *            Component.
 		 * @param map
@@ -332,7 +333,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 
 		/**
 		 * Removes the specified input map from the specified component.
-		 * 
+		 *
 		 * @param c
 		 *            Component.
 		 * @param map
@@ -359,7 +360,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 
 		/**
 		 * Removes the specified action map from the specified component.
-		 * 
+		 *
 		 * @param c
 		 *            Component.
 		 * @param map
@@ -386,17 +387,17 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 
 	/**
 	 * This class is used to dismiss popup panels on the following events:
-	 * 
+	 *
 	 * <ul>
 	 * <li>Mouse click outside any shown popup panel.</li>
 	 * <li>Closing, iconifying or deactivation of a top-level window.</li>
 	 * <li>Any change in the component hierarchy of a top-level window.</li>
 	 * </ul>
-	 * 
+	 *
 	 * Only one top-level window is tracked at any time. The assumption is that
 	 * the {@link PopupPanelManager} only shows popup panels originating from
 	 * one top-level window.
-	 * 
+	 *
 	 * @author Kirill Grouchnikov
 	 */
 	protected static class WindowTracker implements
@@ -431,7 +432,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 		/**
 		 * Grabs the window of the first popup panel in the specified popup
 		 * panel sequence.
-		 * 
+		 *
 		 * @param shownPath
 		 *            Sequence of the currently shown popup panels.
 		 */
@@ -514,80 +515,82 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 			JPopupPanel popupPanelParent = (JPopupPanel) SwingUtilities
 					.getAncestorOfClass(JPopupPanel.class, src);
 			switch (me.getID()) {
-			case MouseEvent.MOUSE_PRESSED:
-				boolean wasCommandButtonPopupShowing = false;
-				if (src instanceof JCommandButton) {
-					wasCommandButtonPopupShowing = ((JCommandButton) src)
-							.getPopupModel().isPopupShowing();
-				}
+				case MouseEvent.MOUSE_PRESSED:
+					boolean wasCommandButtonPopupShowing = false;
+					if (src instanceof JCommandButton) {
+						wasCommandButtonPopupShowing = ((JCommandButton) src)
+								.getPopupModel().isPopupShowing();
+					}
 
-				if (!wasCommandButtonPopupShowing && (popupPanelParent != null)) {
-					// close all popups until this parent and return
-					PopupPanelManager.defaultManager().hidePopups(
-							popupPanelParent);
-					return;
-				}
-				if (src instanceof JRibbonTaskToggleButton) {
-					JRibbon ribbon = (JRibbon) SwingUtilities
-							.getAncestorOfClass(JRibbon.class, src);
-					if ((ribbon != null)
-							&& FlamingoUtilities.isShowingMinimizedRibbonInPopup(ribbon)) {
-						// This will be handled in the action listener installed
-						// on ribbon task toggle buttons in BasicRibbonUI.
-						// There the ribbon popup will be hidden.
+					if (!wasCommandButtonPopupShowing && (popupPanelParent != null)) {
+						// close all popups until this parent and return
+						PopupPanelManager.defaultManager().hidePopups(popupPanelParent);
 						return;
 					}
-				}
+					if (src instanceof JRibbonTaskToggleButton) {
+						JRibbon ribbon = (JRibbon) SwingUtilities.getAncestorOfClass(
+								JRibbon.class, src);
+						if ((ribbon != null)
+								&& FlamingoUtilities.isShowingMinimizedRibbonInPopup(ribbon)) {
+							// This will be handled in the action listener installed
+							// on ribbon task toggle buttons in BasicRibbonUI.
+							// There the ribbon popup will be hidden.
+							return;
+						}
+					}
 
-				// if the popup of command button was showing, it will be hidden
-				// in BasicCommandButtonUI.processPopupAction() - via
-				// BasicCommandButtonUI.createPopupActionListener().
-				if (!wasCommandButtonPopupShowing) {
-					// special case - ignore mouse press on an item in a combo popup
-					if (SwingUtilities
-							.getAncestorOfClass(ComboPopup.class, src) == null) {
+					// if the popup of command button was showing, it will be hidden
+					// in BasicCommandButtonUI.processPopupAction() - via
+					// BasicCommandButtonUI.createPopupActionListener().
+					if (!wasCommandButtonPopupShowing) {
+						// special case - ignore mouse press on an item in a combo popup
+						if (SwingUtilities.getAncestorOfClass(ComboPopup.class, src) == null) {
+							PopupPanelManager.defaultManager().hidePopups(src);
+						}
+					}
+
+					// pass the event so that it gets processed by the controls
+					break;
+
+				case MouseEvent.MOUSE_RELEASED:
+					// special case - mouse release on an item in a combo popup (but not over
+					// the scroll bar)
+					if ((SwingUtilities.getAncestorOfClass(ComboPopup.class, src) != null)
+							&& !(src instanceof JScrollBar)) {
+						SwingUtilities.invokeLater(() ->
+								PopupPanelManager.defaultManager().hidePopups(src));
+					}
+
+					// pass the event so that it gets processed by the controls
+					break;
+
+				case MouseEvent.MOUSE_WHEEL:
+					if (popupPanelParent != null) {
+						// close all popups until this parent and return
+						PopupPanelManager.defaultManager().hidePopups(popupPanelParent);
+						return;
+					}
+
+					// Find the deepest child that contains the location of our mouse
+					// wheel event
+					Component deepest = SwingUtilities.getDeepestComponentAt(
+							src, me.getX(), me.getY());
+					if ((SwingUtilities.getAncestorOfClass(ScrollableHost.class, deepest) == null) &&
+							(SwingUtilities.getAncestorOfClass(SubstanceComboPopup.class,
+									deepest) == null)) {
+						// The source of the mouse wheel event is not in a menu that supports
+						// hosting scrollable content. Dismiss all our popups
 						PopupPanelManager.defaultManager().hidePopups(src);
 					}
-				}
 
-				// pass the event so that it gets processed by the controls
-				break;
-
-			case MouseEvent.MOUSE_RELEASED:
-				// special case - mouse release on an item in a combo popup
-				if (SwingUtilities.getAncestorOfClass(ComboPopup.class, src) != null) {
-					SwingUtilities.invokeLater(() -> 
-							PopupPanelManager.defaultManager().hidePopups(src));
-				}
-
-				// pass the event so that it gets processed by the controls
-				break;
-
-			case MouseEvent.MOUSE_WHEEL:
-				if (popupPanelParent != null) {
-					// close all popups until this parent and return
-					PopupPanelManager.defaultManager().hidePopups(popupPanelParent);
-					return;
-				}
-
-				// Find the deepest child that contains the location of our mouse
-				// wheel event
-				Component deepest = SwingUtilities.getDeepestComponentAt(
-				        src, me.getX(), me.getY());
-				if (SwingUtilities.getAncestorOfClass(ScrollableHost.class, deepest) == null) {
-				    // The source of the mouse wheel event is not in a menu that supports
-				    // hosting scrollable content. Dismiss all our popups
-				    PopupPanelManager.defaultManager().hidePopups(src);
-				}
-
-				break;
+					break;
 			}
 		}
 
 		/**
 		 * Checks whether the specified component lies inside a
 		 * {@link JPopupPanel}.
-		 * 
+		 *
 		 * @param src
 		 *            Component.
 		 * @return <code>true</code> if the specified component lies inside a
