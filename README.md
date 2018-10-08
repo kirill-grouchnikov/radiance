@@ -63,9 +63,30 @@ The [Lightbeam library](docs/lightbeam/lightbeam.md) provides tools for Swing lo
 
 The [Zodiac library](docs/zodiac/zodiac.md) provides utilities for taking screenshots for Substance and Flamingo documentation.
 
+## Radiance dependencies
+
+Radiance artifacts are available in the central Maven repository under `groupId=org.pushing-pixels`
+
+### Core artifacts
+
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-neon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-neon)
+`radiance-neon` for [Neon](docs/neon/neon.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon) `radiance-photon` for [Photon](docs/photon/photon.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-trident/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-trident) `radiance-trident` for [Trident](docs/trident/trident.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance) `radiance-substance` for [Substance](docs/substance/substance.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance-extras/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance-extras) `radiance-substance-extras` for Substance extras
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-flamingo/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-flamingo) `radiance-flamingo` for [Flamingo](docs/flamingo/flamingo.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-kormorant/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-kormorant) `radiance-kormorant` for Kormorant
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-spoonbill/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-spoonbill) `radiance-spoonbill` for Spoonbill
+
+### Tools artifacts
+
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite) `radiance-ignite` for [Ignite](docs/ignite/ignite.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon) `radiance-beacon` for [Beacon](docs/beacon/beacon.md)
+
 ## Building Radiance
 
-[This document](docs/building.md) is an overview of how to build Radiance artifacts locally. [This document](docs/dependencies.md) is an overview of dependency specification for apps that wish to use Radiance in their build scripts.
+[This document](docs/building.md) is an overview of how to build Radiance artifacts locally.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/icon/radiance_product_512.png" width="256" height="256" border=0>
