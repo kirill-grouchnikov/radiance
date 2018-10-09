@@ -190,6 +190,17 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
             }
             this.ribbonButtons.get(newPriority).add(ribbonButton);
         }
+        
+         /**
+         * Gets the current priority of a ribbon button in <code>this</code> control
+         * panel.
+         *
+         * @param ribbonButton Gallery button.
+         */
+        public synchronized RibbonElementPriority getPriority(JCommandButton ribbonButton)
+        {
+            return this.ribbonButtonsPriorities.get(ribbonButton);
+        }
 
         /**
          * Sets new priority of an in-ribbon gallery in <code>this</code>
