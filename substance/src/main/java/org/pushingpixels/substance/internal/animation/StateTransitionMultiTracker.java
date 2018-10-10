@@ -75,7 +75,7 @@ public final class StateTransitionMultiTracker<T> {
 
 				if (!tracker.hasRunningTimelines()) {
 					// System.out.println("Removing tracker for " + id);
-					trackerMap.remove(id);
+					removeTracker(id);
 					tracker.unregisterModelListeners();
 					tracker.removeStateTransitionListener(this);
 				}
@@ -90,12 +90,16 @@ public final class StateTransitionMultiTracker<T> {
 
 				if (!tracker.hasRunningTimelines()) {
 					// System.out.println("Removing tracker for " + id);
-					trackerMap.remove(id);
+					removeTracker(id);
 					tracker.unregisterModelListeners();
 					tracker.removeStateTransitionListener(this);
 				}
 			}
 		};
 		tracker.addStateTransitionListener(listener);
+	}
+	
+	public synchronized void removeTracker(final Comparable<T> id) {
+		trackerMap.remove(id);
 	}
 }
