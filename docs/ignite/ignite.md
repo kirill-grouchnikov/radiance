@@ -14,7 +14,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.pushing-pixels:radiance-ignite:1.0.0'
+        classpath 'org.pushing-pixels:radiance-ignite:1.0.2'
     }
 }
 
