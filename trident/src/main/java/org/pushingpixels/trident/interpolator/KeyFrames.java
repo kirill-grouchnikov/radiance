@@ -41,6 +41,7 @@ import org.pushingpixels.trident.ease.TimelineEase;
  * between the sampling points.
  * 
  * @author Chet
+ * @param <T> Value type
  */
 public class KeyFrames<T> {
 
@@ -184,7 +185,10 @@ public class KeyFrames<T> {
     }
 
     /**
-     * Returns time interval that contains this time fraction
+     * Returns time interval that contains the specified time fraction
+     *
+     * @param fraction Time fraction
+     * @return Rime interval that contains the specified time fraction
      */
     public int getInterval(float fraction) {
         return keyTimes.getInterval(fraction);
@@ -200,6 +204,9 @@ public class KeyFrames<T> {
      * call into the Interpolator for the time interval to get the interpolated
      * method. To ensure that future operations succeed, the value received from
      * the interpolation will be clamped to the interval [0,1].
+     *
+     * @param fraction Fraction
+     * @return Value for the given fraction elapsed of the animation cycle.
      */
     public Object getValue(float fraction) {
         // First, figure out the real fraction to use, given the

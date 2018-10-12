@@ -30,5 +30,4 @@
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
 public interface ScrollableHost {
-
 }

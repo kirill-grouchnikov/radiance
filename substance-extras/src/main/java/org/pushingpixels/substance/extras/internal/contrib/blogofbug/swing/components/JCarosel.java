@@ -262,8 +262,8 @@ public class JCarosel extends GradientPanel implements MouseListener,
 	 * Sets the delay between clicking on a component in the carousel, and the
 	 * spin starting to move that component to the front. The longer it is, the
 	 * easier it is to double click on a non-front component
-	 * 
-	 * @param spinStartDelay
+	 *
+	 * @param spinStartDelay Spin start delay.
 	 */
 	public void setSpinStartDelay(int spinStartDelay) {
 		this.spinStartDelay = spinStartDelay;

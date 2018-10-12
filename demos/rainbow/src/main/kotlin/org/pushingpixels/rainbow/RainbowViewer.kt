@@ -167,18 +167,14 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
         this.findField.columns = 8
         this.findField.document.addDocumentListener(object : DocumentListener {
             override fun changedUpdate(e: DocumentEvent) {
-                this.modified(e)
+                updateSpotLightPainter()
             }
 
             override fun insertUpdate(e: DocumentEvent) {
-                this.modified(e)
+                updateSpotLightPainter()
             }
 
             override fun removeUpdate(e: DocumentEvent) {
-                this.modified(e)
-            }
-
-            private fun modified(e: DocumentEvent) {
                 updateSpotLightPainter()
             }
         })

@@ -36,10 +36,10 @@ import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 @FlamingoElementMarker
 class KColorSelectorPopupMenuColorSection(val isDerived: Boolean) {
     var title: String by NonNullDelegate { false }
-    internal var colors = ColorContainer()
+    internal var colorContainer = ColorContainer()
 
     fun colors(init: ColorContainer.() -> Unit) {
-        colors.init()
+        colorContainer.init()
     }
 }
 
@@ -112,10 +112,10 @@ class KColorSelectorPopupMenu {
                 is KColorSelectorPopupMenuColorSection -> {
                     if (component.isDerived) {
                         colorSelectorPopupMenu.addColorSectionWithDerived(component.title,
-                                component.colors.colors.toTypedArray())
+                                component.colorContainer.colors.toTypedArray())
                     } else {
                         colorSelectorPopupMenu.addColorSection(component.title,
-                                component.colors.colors.toTypedArray())
+                                component.colorContainer.colors.toTypedArray())
                     }
                 }
                 is KColorSelectorPopupMenuRecentSection -> {

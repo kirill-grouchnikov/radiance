@@ -92,7 +92,7 @@ g.setTransform(defaultTransform__0_2_0);
 g.setTransform(defaultTransform__0_2);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_3 = g.getTransform();
-g.transform(new AffineTransform(-3.609726894426375f, -25.344227967703123f, 25.344227967703123f, -3.609726894426375f, 307.19519708753626f, 102.38619879841085f));
+g.transform(new AffineTransform(-3.609726894426369f, -25.344227967703123f, 25.344227967703123f, -3.609726894426369f, 307.19519708753614f, 102.38619879841089f));
 // _0_3
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_3_0 = g.getTransform();
@@ -257,6 +257,10 @@ g.setTransform(defaultTransform_);
     
     /**
      * Returns an instance of this icon with specified dimensions.
+     *
+     * @param width Required width of the icon
+     * @param height Required height of the icon
+     * @return An instance of this icon with specified dimensions.
      */
     public static NeonIcon of(int width, int height) {
        cn base = new cn();
@@ -267,6 +271,10 @@ g.setTransform(defaultTransform_);
 
     /**
      * Returns a {@link UIResource} instance of this icon with specified dimensions.
+     *
+     * @param width Required width of the icon
+     * @param height Required height of the icon
+     * @return A {@link UIResource} instance of this icon with specified dimensions.
      */
     public static NeonIconUIResource uiResourceOf(int width, int height) {
        cn base = new cn();

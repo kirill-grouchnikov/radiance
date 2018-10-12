@@ -653,7 +653,7 @@ g.setTransform(defaultTransform_);
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 4.0;
+        return 3.98351788520813;
     }
 
     /**
@@ -671,7 +671,7 @@ g.setTransform(defaultTransform_);
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 41.04103469848633;
+		return 41.02260971069336;
 	}
 
 	/**
@@ -749,6 +749,10 @@ g.setTransform(defaultTransform_);
     
     /**
      * Returns an instance of this icon with specified dimensions.
+     *
+     * @param width Required width of the icon
+     * @param height Required height of the icon
+     * @return An instance of this icon with specified dimensions.
      */
     public static NeonIcon of(int width, int height) {
        Folder_remote base = new Folder_remote();
@@ -759,6 +763,10 @@ g.setTransform(defaultTransform_);
 
     /**
      * Returns a {@link UIResource} instance of this icon with specified dimensions.
+     *
+     * @param width Required width of the icon
+     * @param height Required height of the icon
+     * @return A {@link UIResource} instance of this icon with specified dimensions.
      */
     public static NeonIconUIResource uiResourceOf(int width, int height) {
        Folder_remote base = new Folder_remote();

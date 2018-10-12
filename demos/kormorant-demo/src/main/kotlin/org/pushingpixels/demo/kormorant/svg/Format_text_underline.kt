@@ -191,7 +191,7 @@ g.transform = defaultTransform_
          * @return The Y of the bounding box of the original SVG image.
          */
         fun getOrigY(): Double {
-            return 2.0
+            return 1.9994829893112183
         }
 
         /**
@@ -209,11 +209,15 @@ g.transform = defaultTransform_
          * @return The height of the bounding box of the original SVG image.
          */
         fun getOrigHeight(): Double {
-            return 43.13629913330078
+            return 43.13681411743164
         }
 
         /**
          * Returns an instance of this icon with specified dimensions.
+         *
+         * @param width Required width of the icon
+         * @param height Required height of the icon
+         * @return An instance of this icon with specified dimensions.
          */
         fun of(width: Int, height: Int): NeonIcon {
             return NeonIcon(Format_text_underline(width, height))
@@ -221,6 +225,10 @@ g.transform = defaultTransform_
 
         /**
          * Returns a [UIResource] instance of this icon with specified dimensions.
+         *
+         * @param width Required width of the icon
+         * @param height Required height of the icon
+         * @return A [UIResource] instance of this icon with specified dimensions.
          */
         fun uiResourceOf(width: Int, height: Int): NeonIconUIResource {
             return NeonIconUIResource(Format_text_underline(width, height))

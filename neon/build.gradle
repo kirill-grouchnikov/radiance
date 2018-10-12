@@ -34,6 +34,10 @@ sourceCompatibility = 1.8
 
 ext.designation = "core"
 
+javadoc {
+    exclude 'org/pushingpixels/neon/internal/**'
+}
+
 jar {
     baseName = "${rootProject.name}-neon"
     manifest {
@@ -42,10 +46,6 @@ jar {
                  "Built-JDK-Vendor": System.getProperty('java.vendor'),    \
                  "Build-Time": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"))
     }
-}
-
-javadoc {
-    failOnError = false
 }
 
 apply plugin: 'com.bmuschko.nexus'
@@ -84,11 +84,11 @@ modifyPom {
 extraArchive {
     sources = true
     tests = false
-    javadoc = true
+    javadoc = project.ext.isRelease
 }
 
 nexus {
-    sign = true
+    sign = project.ext.isRelease
     repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
     snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
 }

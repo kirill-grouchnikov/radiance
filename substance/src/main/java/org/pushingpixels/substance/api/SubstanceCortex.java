@@ -30,28 +30,18 @@
 package org.pushingpixels.substance.api;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.font.FontPolicy;
-import org.pushingpixels.neon.font.FontSet;
+import org.pushingpixels.neon.font.*;
 import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
-import org.pushingpixels.substance.api.icon.SubstanceDefaultIconPack;
-import org.pushingpixels.substance.api.icon.SubstanceIconPack;
-import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
-import org.pushingpixels.substance.api.painter.preview.PreviewPainter;
+import org.pushingpixels.substance.api.icon.*;
+import org.pushingpixels.substance.api.painter.preview.*;
 import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.api.shaper.StandardButtonShaper;
-import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
-import org.pushingpixels.substance.api.skin.SkinChangeListener;
-import org.pushingpixels.substance.api.skin.SkinInfo;
-import org.pushingpixels.substance.api.tabbed.BaseTabCloseListener;
-import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
-import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.substance.internal.SubstancePluginRepository;
-import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
+import org.pushingpixels.substance.api.shaper.*;
+import org.pushingpixels.substance.api.skin.*;
+import org.pushingpixels.substance.api.tabbed.*;
+import org.pushingpixels.substance.internal.*;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI;
 import org.pushingpixels.substance.internal.utils.*;
@@ -471,6 +461,8 @@ public class SubstanceCortex {
          * sequence. If this method is called after Substance has been set, you will need to call
          * the {@link #setSkin(String)} or {@link #setSkin(SubstanceSkin)} APIs to reinitialize the
          * Substance skin.
+         *
+         * @param componentPlugin Component plugin to register.
          */
         public static void registerComponentPlugin(SubstanceComponentPlugin componentPlugin) {
             SubstancePluginRepository.getInstance().registerComponentPlugin(componentPlugin);
@@ -478,6 +470,8 @@ public class SubstanceCortex {
 
         /**
          * Registers the specified skin plugin.
+         *
+         * @param skinPlugin Skin plugin to register.
          */
         public static void registerSkinPlugin(SubstanceSkinPlugin skinPlugin) {
             SubstancePluginRepository.getInstance().registerSkinPlugin(skinPlugin);
@@ -798,7 +792,7 @@ public class SubstanceCortex {
          * such as <code>JOptionPane</code>s, for example.
          *
          * @return The currently set button order for all containers that display grouped buttons.
-         * @see #setButtonBarOrder(ButtonOrder)
+         * @see #setButtonBarOrder(SubstanceSlices.ButtonOrder)
          */
         public static SubstanceSlices.ButtonOrder getButtonBarOrder() {
             return buttonBarButtonOrder;
@@ -829,7 +823,7 @@ public class SubstanceCortex {
          *
          * @return The currently set button bar gravity for all containers that display grouped
          * buttons.
-         * @see #setButtonBarGravity(HorizontalGravity)
+         * @see #setButtonBarGravity(SubstanceSlices.HorizontalGravity)
          */
         public static SubstanceSlices.HorizontalGravity getButtonBarGravity() {
             return buttonBarGravity;
@@ -923,8 +917,8 @@ public class SubstanceCortex {
          *
          * @return HorizontalGravity for the title text in title panes of all decorated application
          * windows.
-         * @see #configureTitleContentGravity(HorizontalGravity, HorizontalGravity,
-         * TitleIconHorizontalGravity)
+         * @see #configureTitleContentGravity(SubstanceSlices.HorizontalGravity, SubstanceSlices.HorizontalGravity,
+         * SubstanceSlices.TitleIconHorizontalGravity)
          * @see WindowScope#getTitleControlButtonGroupHorizontalGravity(Window)
          * @see #getTitleIconHorizontalGravity()
          */
@@ -937,8 +931,8 @@ public class SubstanceCortex {
          *
          * @return Horizontal gravity for the icon in title panes of all decorated application
          * windows.
-         * @see #configureTitleContentGravity(HorizontalGravity, HorizontalGravity,
-         * TitleIconHorizontalGravity)
+         * @see #configureTitleContentGravity(SubstanceSlices.HorizontalGravity, SubstanceSlices.HorizontalGravity,
+         * SubstanceSlices.TitleIconHorizontalGravity)
          * @see WindowScope#getTitleControlButtonGroupHorizontalGravity(Window)
          * @see #getTitleIconHorizontalGravity()
          */
@@ -1232,7 +1226,7 @@ public class SubstanceCortex {
          * Specifies the content pane border kind for tabbed panes.
          *
          * @param tabContentPaneBorderKind Content pane border kind for tabbed panes.
-         * @see ComponentScope#setTabContentPaneBorderKind(JTabbedPane, TabContentPaneBorderKind)
+         * @see ComponentScope#setTabContentPaneBorderKind(JTabbedPane, SubstanceSlices.TabContentPaneBorderKind)
          */
         public static void setTabContentPaneBorderKind(
                 TabContentPaneBorderKind tabContentPaneBorderKind) {
@@ -1286,7 +1280,7 @@ public class SubstanceCortex {
          * Specifies the kind of focus indication to be used on application components.
          *
          * @param focusKind Kind of focus indication to be used on application components.
-         * @see ComponentOrParentChainScope#setFocusKind(JComponent, FocusKind)
+         * @see ComponentOrParentChainScope#setFocusKind(JComponent, SubstanceSlices.FocusKind)
          */
         public static void setFocusKind(FocusKind focusKind) {
             UIManager.put(SubstanceSynapse.FOCUS_KIND, focusKind);
@@ -1328,7 +1322,6 @@ public class SubstanceCortex {
          * <code>null</code> to reset to the default flyout orientation or one of the
          * {@link Integer}s below:
          *
-         * <p>
          * <ul>
          * <li>The default {@link SwingConstants#SOUTH} - the popup is displayed directly below the
          * combobox aligned to the left.
@@ -1341,7 +1334,6 @@ public class SubstanceCortex {
          * <li>{@link SwingConstants#CENTER} - the popup is displayed centered vertically over the
          * combobox aligned to the left.
          * </ul>
-         * </p>
          *
          * <p>
          * Note that the combo arrow changes in accordance with the combo popup flyout orientation.
@@ -1495,12 +1487,12 @@ public class SubstanceCortex {
         /**
          * Returns the immediate decoration area type of the specified component. The component is
          * checked for the registered decoration area type. If
-         * {@link ComponentOrParentChainScope#setDecorationType(JComponent, DecorationAreaType)}
+         * {@link ComponentOrParentChainScope#setDecorationType(JComponent, SubstanceSlices.DecorationAreaType)}
          * was not called on this component, this method returns <code>null</code>.
          *
          * @param comp Component.
          * @return Immediate decoration area type of the component.
-         * @see ComponentOrParentChainScope#setDecorationType(JComponent, DecorationAreaType)
+         * @see ComponentOrParentChainScope#setDecorationType(JComponent, SubstanceSlices.DecorationAreaType)
          * @see ComponentOrParentChainScope#getDecorationType(Component)
          */
         public static DecorationAreaType getImmediateDecorationType(Component comp) {
@@ -1516,9 +1508,8 @@ public class SubstanceCortex {
          *
          * @param comp    Component.
          * @param visible If <code>true</code>, the specific text component will show a lock icon
-         *                when
-         *                it is in non-editable mode. Pass <code>null</code> to reset to the default
-         *                behavior.
+         *                when it is in non-editable mode. Pass <code>null</code> to reset to the
+         *                default behavior.
          * @see GlobalScope#setLockIconVisible(Boolean)
          */
         public static void setLockIconVisible(JComponent comp, Boolean visible) {
@@ -1823,7 +1814,7 @@ public class SubstanceCortex {
          *
          * @param tabbedPane               Tabbed pane.
          * @param tabContentPaneBorderKind Content pane border kind for the specified tabbed pane.
-         * @see GlobalScope#setTabContentPaneBorderKind(TabContentPaneBorderKind)
+         * @see GlobalScope#setTabContentPaneBorderKind(SubstanceSlices.TabContentPaneBorderKind)
          */
         public static void setTabContentPaneBorderKind(JTabbedPane tabbedPane,
                 TabContentPaneBorderKind tabContentPaneBorderKind) {
@@ -1895,7 +1886,6 @@ public class SubstanceCortex {
          * <code>null</code> to reset to the default flyout orientation or one of the
          * {@link Integer}s below:
          *
-         * <p>
          * <ul>
          * <li>The default {@link SwingConstants#SOUTH} - the popup is displayed directly below the
          * combobox aligned to the left.
@@ -1908,7 +1898,6 @@ public class SubstanceCortex {
          * <li>{@link SwingConstants#CENTER} - the popup is displayed centered vertically over the
          * combobox aligned to the left.
          * </ul>
-         * </p>
          *
          * <p>
          * Note that the combo arrow changes in accordance with the combo popup flyout orientation.
@@ -1934,6 +1923,7 @@ public class SubstanceCortex {
          * immediate children. Default implementation is available in the
          * {@link DefaultPreviewPainter}.
          *
+         * @param comp           Component.
          * @param previewPainter Preview painter. Can be <code>null</code>.
          * @see GlobalScope#setComponentPreviewPainter(PreviewPainter)
          */
@@ -2008,6 +1998,7 @@ public class SubstanceCortex {
          * Specifies whether the contents of the specified text component or its nested children
          * should be selected on focus gain.
          *
+         * @param comp              Component.
          * @param selectTextOnFocus If <code>true</code>, the contents of the specified text
          *                          component or its
          *                          nested children will be selected on focus gain. Pass
@@ -2027,6 +2018,7 @@ public class SubstanceCortex {
          * {@link GlobalScope#setWatermarkVisible(Boolean)} is called with
          * <code>true</code>.
          *
+         * @param comp             Component.
          * @param watermarkVisible If <code>true</code>, watermark will be painted on the
          *                         component and its
          *                         nested children. Pass <code>null</code> to reset to the
@@ -2055,12 +2047,11 @@ public class SubstanceCortex {
          * Specifies that extra UI elements (such as menu items in system menu or lock borders)
          * should be shown in the specified component.
          *
+         * @param comp                 Component.
          * @param extraWidgetsPresence If <code>true</code>, extra UI elements (such as menu
-         *                             items in system menu or
-         *                             lock borders) will be shown in the component. Pass
-         *                             <code>null</code> to reset
-         *                             to the default behavior.
-         * @comp Component.
+         *                             items in system menu or lock borders) will be shown in the
+         *                             component. Pass <code>null</code> to reset to the default
+         *                             behavior.
          * @see GlobalScope#setExtraWidgetsPresence(Boolean)
          */
         public static void setExtraWidgetsPresence(JComponent comp, Boolean extraWidgetsPresence) {
@@ -2121,8 +2112,8 @@ public class SubstanceCortex {
          *
          * @param focusKind Kind of focus indication to be used on the component and its nested
          *                  children.
-         * @comp Component.
-         * @see GlobalScope#setFocusKind(FocusKind)
+         * @param comp      Component.
+         * @see GlobalScope#setFocusKind(SubstanceSlices.FocusKind)
          */
         public static void setFocusKind(JComponent comp, FocusKind focusKind) {
             comp.putClientProperty(SubstanceSynapse.FOCUS_KIND, focusKind);
@@ -2147,16 +2138,18 @@ public class SubstanceCortex {
         /**
          * Returns the decoration area type of the specified component. The component and its
          * ancestor hierarchy are scanned for the registered decoration area type. If
-         * {@link #setDecorationType(JComponent, DecorationAreaType)} has been called on the
+         * {@link #setDecorationType(JComponent, SubstanceSlices.DecorationAreaType)} has been
+         * called on the
          * specified component, the matching decoration type is returned. Otherwise, the component
          * hierarchy is scanned to find the closest ancestor that was passed to
-         * {@link #setDecorationType(JComponent, DecorationAreaType)} - and its decoration type is
+         * {@link #setDecorationType(JComponent, SubstanceSlices.DecorationAreaType)} - and its
+         * decoration type is
          * returned. If neither the component, nor any one of its parent components has been passed
          * to the setter method, {@link DecorationAreaType#NONE} is returned.
          *
          * @param comp Component.
          * @return Decoration area type of the component.
-         * @see #setDecorationType(JComponent, DecorationAreaType)
+         * @see #setDecorationType(JComponent, SubstanceSlices.DecorationAreaType)
          * @see ComponentScope#getImmediateDecorationType(Component)
          */
         public static DecorationAreaType getDecorationType(Component comp) {
@@ -2400,10 +2393,11 @@ public class SubstanceCortex {
          * Returns the horizontal gravity for the control button group in the title pane of the
          * specific window.
          *
+         * @param window Window. May not be <code>null</code>.
          * @return Horizontal gravity for the control button group in the title pane of the specific
          * window.
-         * @see GlobalScope#configureTitleContentGravity(HorizontalGravity, HorizontalGravity,
-         * TitleIconHorizontalGravity)
+         * @see GlobalScope#configureTitleContentGravity(SubstanceSlices.HorizontalGravity, SubstanceSlices.HorizontalGravity,
+         * SubstanceSlices.TitleIconHorizontalGravity)
          * @see #extendContentIntoTitlePane(Window,
          * org.pushingpixels.substance.api.SubstanceSlices.HorizontalGravity,
          * org.pushingpixels.substance.api.SubstanceSlices.VerticalGravity)

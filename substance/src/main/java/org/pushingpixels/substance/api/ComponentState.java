@@ -85,7 +85,7 @@ import java.util.*;
  * <li>When the skin is queried for the color scheme that matches the specific
  * component state - let's say {@link ComponentState#PRESSED_SELECTED} - the
  * skinning layer first looks for the exact state (as passed to
- * {@link SubstanceColorSchemeBundle#registerColorScheme(SubstanceColorScheme, ColorSchemeAssociationKind, ComponentState...)}
+ * {@link SubstanceColorSchemeBundle#registerColorScheme(SubstanceColorScheme, SubstanceSlices.ColorSchemeAssociationKind, ComponentState...)}
  * or similar APIs). If the exact match is found, it is used. If there is no
  * exact match, the skinning layer will look at all color schemes registered for
  * the specific color scheme association kind in the matching color scheme
@@ -145,7 +145,7 @@ import java.util.*;
  * component states that account for all the relevant on and off facets -
  * including the core facets defined in the {@link ComponentStateFacet} class.
  * When this (perhaps elaborate) state is passed to
- * {@link SubstanceColorSchemeBundle#getColorScheme(ColorSchemeAssociationKind, ComponentState, boolean)}
+ * {@link SubstanceColorSchemeBundle#getColorScheme(SubstanceSlices.ColorSchemeAssociationKind, ComponentState, boolean)}
  * API, the the procedure described above will match the this state to one of
  * the "base" states defined in your skin, and use the matching color scheme.</li>
  * </ul>
@@ -168,7 +168,7 @@ import java.util.*;
  * {@link ComponentState#ENABLED} will fall back to the enabled color scheme.
  * The rest of the states will fall back to the active color scheme. To change
  * the fallback behavior pass a non-null fallback color scheme to the
- * {@link ComponentState#ComponentState(String, ComponentState, ComponentStateFacet[], ComponentStateFacet[])}
+ * {@link ComponentState#ComponentState(String, ComponentState, SubstanceSlices.ComponentStateFacet[], SubstanceSlices.ComponentStateFacet[])}
  * constructor as the second parameter.
  * </p>
  * 
@@ -323,7 +323,7 @@ public final class ComponentState {
 	 *            only used in the {@link #toString()}.
 	 * @param hardFallback
 	 *            The fallback state that will be used in
-	 *            {@link SubstanceColorSchemeBundle#getColorScheme(ColorSchemeAssociationKind, ComponentState, boolean)}
+	 *            {@link SubstanceColorSchemeBundle#getColorScheme(SubstanceSlices.ColorSchemeAssociationKind, ComponentState, boolean)}
 	 *            in case {@link #bestFit(Collection)} returns <code>null</code>
 	 * @param facetsOn
 	 *            Indicates that are turned on for this state. For example,

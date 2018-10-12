@@ -77,8 +77,9 @@ public class JBreadcrumbBar<T> extends JComponent {
         this.model = new BreadcrumbBarModel<T>();
         this.callback = callback;
 
-        if (this.callback != null)
+        if (this.callback != null) {
             this.callback.setup();
+        }
 
         this.exceptionHandlers = new ArrayList<>();
 
@@ -118,7 +119,7 @@ public class JBreadcrumbBar<T> extends JComponent {
     }
 
     /**
-     * Returns the UI object which implements the L&F for this component.
+     * Returns the UI delegate for this component.
      *
      * @return a <code>BreadcrumbBarUI</code> object
      * @see #setUI
@@ -128,8 +129,7 @@ public class JBreadcrumbBar<T> extends JComponent {
     }
 
     /**
-     * Returns the name of the UI class that implements the L&F for this
-     * component.
+     * Returns the name of the UI delegate for this component.
      *
      * @return the string "BreadcrumbBarUI"
      * @see JComponent#getUIClassID

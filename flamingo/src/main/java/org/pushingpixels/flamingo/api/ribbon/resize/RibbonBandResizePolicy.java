@@ -141,7 +141,7 @@ public interface RibbonBandResizePolicy {
 	 * @return The preferred width of the associated ribbon band under the
 	 *         specified dimensions.
 	 */
-	public int getPreferredWidth(int availableHeight, int gap);
+	int getPreferredWidth(int availableHeight, int gap);
 
 	/**
 	 * Installs this resize policy on the associated ribbon band. For
@@ -158,5 +158,5 @@ public interface RibbonBandResizePolicy {
 	 * @param gap
 	 *            The inter-component gap.
 	 */
-	public void install(int availableHeight, int gap);
+	void install(int availableHeight, int gap);
 }

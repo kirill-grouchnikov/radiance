@@ -348,7 +348,7 @@ g.setTransform(defaultTransform_);
 	 * @return The height of the bounding box of the original SVG image.
 	 */
 	public static double getOrigHeight() {
-		return 0.9990000128746033;
+		return 0.9989998936653137;
 	}
 
 	/** The current width of this resizable icon. */
@@ -417,6 +417,10 @@ g.setTransform(defaultTransform_);
     
     /**
      * Returns an instance of this icon with specified dimensions.
+     *
+     * @param width Required width of the icon
+     * @param height Required height of the icon
+     * @return An instance of this icon with specified dimensions.
      */
     public static NeonIcon of(int width, int height) {
        ext_cal base = new ext_cal();
@@ -427,6 +431,10 @@ g.setTransform(defaultTransform_);
 
     /**
      * Returns a {@link UIResource} instance of this icon with specified dimensions.
+     *
+     * @param width Required width of the icon
+     * @param height Required height of the icon
+     * @return A {@link UIResource} instance of this icon with specified dimensions.
      */
     public static NeonIconUIResource uiResourceOf(int width, int height) {
        ext_cal base = new ext_cal();

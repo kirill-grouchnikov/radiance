@@ -109,9 +109,9 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
      * @throws IllegalArgumentException if <code>mainComponent</code> is <code>null</code>.
      */
     public JRibbonComponent(JComponent mainComponent) {
-        if (mainComponent == null)
-            throw new IllegalArgumentException(
-                    "All parameters must be non-null");
+        if (mainComponent == null) {
+            throw new IllegalArgumentException("Can't wrap a null component");
+        }
         this.mainComponent = mainComponent;
         this.isSimpleWrapper = true;
         this.horizontalAlignment = HorizontalAlignment.LEADING;
@@ -132,11 +132,12 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
      */
     public JRibbonComponent(ResizableIcon icon, String caption,
             JComponent mainComponent) {
-        if (caption == null)
+        if (caption == null) {
             throw new IllegalArgumentException("Caption must be non-null");
-        if (mainComponent == null)
-            throw new IllegalArgumentException(
-                    "Main component must be non-null");
+        }
+        if (mainComponent == null) {
+            throw new IllegalArgumentException("Can't wrap a null component");
+        }
         this.icon = icon;
         this.caption = caption;
         this.mainComponent = mainComponent;
@@ -157,7 +158,7 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
     }
 
     /**
-     * Returns the UI object which implements the L&F for this component.
+     * Returns the UI delegate for this component.
      *
      * @return a <code>RibbonUI</code> object
      * @see #setUI
@@ -258,13 +259,12 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
     /**
      * Sets the rich tooltip for this wrapper component.
      *
-     * @param richTooltip
+     * @param richTooltip Rich tooltip for this wrapper component.
      * @see #getRichTooltip(MouseEvent)
      */
     public void setRichTooltip(RichTooltip richTooltip) {
         this.richTooltip = richTooltip;
-        RichToolTipManager richToolTipManager = RichToolTipManager
-                .sharedInstance();
+        RichToolTipManager richToolTipManager = RichToolTipManager.sharedInstance();
         if (richTooltip != null) {
             richToolTipManager.registerComponent(this);
         } else {
@@ -301,8 +301,7 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
         RibbonElementPriority old = this.displayPriority;
         this.displayPriority = displayPriority;
         if (old != displayPriority) {
-            this.firePropertyChange("displayPriority", old,
-                    this.displayPriority);
+            this.firePropertyChange("displayPriority", old, this.displayPriority);
         }
     }
 

@@ -30,8 +30,7 @@
 package org.pushingpixels.substance.api.trait;
 
 /**
- * Base interface for Substance traits info, like {@link ThemeInfo},
- * {@link WatermarkInfo} etc.
+ * Base interface for Substance traits info.
  * 
  * @author Kirill Grouchnikov
  */
@@ -42,7 +41,7 @@ public interface SubstanceTraitInfo {
 	 * 
 	 * @return The display name of the associated trait.
 	 */
-	public String getDisplayName();
+	String getDisplayName();
 
 	/**
 	 * Returns the class name of the associated trait.
@@ -50,7 +49,7 @@ public interface SubstanceTraitInfo {
 	 * @return The class name of the associated trait. This method is part of
 	 *         officially supported API.
 	 */
-	public String getClassName();
+	String getClassName();
 
 	/**
 	 * Returns indication whether the associated trait is default.
@@ -58,7 +57,7 @@ public interface SubstanceTraitInfo {
 	 * @return <code>true</code> if the associated trait is default,
 	 *         <code>false</code> otherwise.
 	 */
-	public boolean isDefault();
+	boolean isDefault();
 
 	/**
 	 * Sets indication whether the associated trait is default.
@@ -66,5 +65,5 @@ public interface SubstanceTraitInfo {
 	 * @param isDefault
 	 *            New indication whether the associated trait is default.
 	 */
-	public void setDefault(boolean isDefault);
+	void setDefault(boolean isDefault);
 }

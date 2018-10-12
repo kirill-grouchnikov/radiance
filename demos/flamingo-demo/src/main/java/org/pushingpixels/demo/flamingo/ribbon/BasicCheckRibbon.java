@@ -86,7 +86,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                             new DecoratedResizableIcon.IconDecorator() {
                                 @Override
                                 public void paintIconDecoration(Component c, Graphics g, int x,
-                                                                int y, int width, int height) {
+                                        int y, int width, int height) {
                                     Graphics2D g2d = (Graphics2D) g.create();
                                     g2d.setColor(Color.black);
                                     g2d.setFont(UIManager.getFont("Label.font"));
@@ -663,7 +663,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             ResizableIcon fontIcon = new Font_x_generic();
             ResizableIcon finalIcon = new DecoratedResizableIcon(fontIcon,
                     (Component c, Graphics g, int x, int y,
-                     int width, int height) -> {
+                            int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(Color.black);
                         NeonCortex.installDesktopHints(g2d, c);
@@ -973,7 +973,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     new DecoratedResizableIcon.IconDecorator() {
                         @Override
                         public void paintIconDecoration(Component c, Graphics g, int x, int y,
-                                                        int width, int height) {
+                                int width, int height) {
                             Graphics2D g2d = (Graphics2D) g.create();
                             NeonCortex.installDesktopHints(g2d, c);
                             g2d.setFont(UIManager.getFont("Label.font").deriveFont(9.0f));
@@ -1006,7 +1006,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     new DecoratedResizableIcon.IconDecorator() {
                         @Override
                         public void paintIconDecoration(Component c, Graphics g, int x, int y,
-                                                        int width, int height) {
+                                int width, int height) {
                             Graphics2D g2d = (Graphics2D) g.create();
                             NeonCortex.installDesktopHints(g2d, c);
                             g2d.setFont(UIManager.getFont("Label.font").deriveFont(9.0f));

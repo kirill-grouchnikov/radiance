@@ -151,7 +151,7 @@ public class JRibbonGallery extends JComponent {
     }
 
     /**
-     * Returns the UI object which implements the L&F for this component.
+     * Returns the UI delegate for this component.
      *
      * @return a <code>RibbonGalleryUI</code> object
      * @see #setUI
@@ -161,7 +161,7 @@ public class JRibbonGallery extends JComponent {
     }
 
     /**
-     * Returns the name of the UI class that implements the L&F for this component.
+     * Returns the name of the UI delegate for this component.
      *
      * @return the string "RibbonGalleryUI"
      * @see JComponent#getUIClassID

@@ -30,6 +30,18 @@
 
 apply plugin: 'kotlin'
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_plugin_version"
+    }
+}
+
+apply plugin: 'org.jetbrains.dokka'
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile project(':trident')
@@ -100,11 +112,11 @@ modifyPom {
 extraArchive {
     sources = true
     tests = false
-    javadoc = true
+    javadoc = project.ext.isRelease
 }
 
 nexus {
-    sign = true
+    sign = project.ext.isRelease
     repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
     snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
 }

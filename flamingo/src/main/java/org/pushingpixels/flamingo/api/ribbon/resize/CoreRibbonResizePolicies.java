@@ -44,7 +44,7 @@ import java.util.List;
  * {@link JRibbonBand#addRibbonCommand(FlamingoCommand, RibbonElementPriority)}
  * and
  * {@link JRibbonBand#addRibbonGallery(String, List, Map, int, int, CommandButtonDisplayState, RibbonElementPriority)}
- * APIs. There are three types of built in resize policies: </p>
+ * APIs. There are three types of built in resize policies:
  *
  * <ul>
  * <li>Resize policies for the {@link JFlowRibbonBand}s. The {@link FlowTwoRows}
@@ -122,7 +122,7 @@ public class CoreRibbonResizePolicies {
         RibbonElementPriority map(RibbonElementPriority priority);
     }
 
-    protected static abstract class BaseRibbonBandResizePolicy<B extends AbstractRibbonBand>
+    public static abstract class BaseRibbonBandResizePolicy<B extends AbstractRibbonBand>
             implements RibbonBandResizePolicy {
         /**
          * The associated ribbon band.
@@ -205,7 +205,7 @@ public class CoreRibbonResizePolicies {
      *
      * @author Kirill Grouchnikov
      */
-    protected static abstract class BaseCoreRibbonBandResizePolicy extends
+    public static abstract class BaseCoreRibbonBandResizePolicy extends
             BaseRibbonBandResizePolicy<JRibbonBand> {
         /**
          * The element priority mapping.
@@ -574,11 +574,11 @@ public class CoreRibbonResizePolicies {
      * Core resize policy that maps:
      *
      * <ul>
-     * <li>{@link RibbonElementPriority#TOP} ->
+     * <li>{@link RibbonElementPriority#TOP} -&gt;
      * {@link RibbonElementPriority#TOP}</li>
-     * <li>{@link RibbonElementPriority#MEDIUM} ->
+     * <li>{@link RibbonElementPriority#MEDIUM} -&gt;
      * {@link RibbonElementPriority#TOP}</li>
-     * <li>{@link RibbonElementPriority#LOW} ->
+     * <li>{@link RibbonElementPriority#LOW} -&gt;
      * {@link RibbonElementPriority#MEDIUM}</li>
      * </ul>
      *
@@ -609,11 +609,11 @@ public class CoreRibbonResizePolicies {
      * Core resize policy that maps:
      *
      * <ul>
-     * <li>{@link RibbonElementPriority#TOP} ->
+     * <li>{@link RibbonElementPriority#TOP} -&gt;
      * {@link RibbonElementPriority#TOP}</li>
-     * <li>{@link RibbonElementPriority#MEDIUM} ->
+     * <li>{@link RibbonElementPriority#MEDIUM} -&gt;
      * {@link RibbonElementPriority#MEDIUM}</li>
-     * <li>{@link RibbonElementPriority#LOW} ->
+     * <li>{@link RibbonElementPriority#LOW} -&gt;
      * {@link RibbonElementPriority#MEDIUM}</li>
      * </ul>
      *
@@ -661,11 +661,11 @@ public class CoreRibbonResizePolicies {
      * Core resize policy that maps:
      *
      * <ul>
-     * <li>{@link RibbonElementPriority#TOP} ->
+     * <li>{@link RibbonElementPriority#TOP} -&gt;
      * {@link RibbonElementPriority#TOP}</li>
-     * <li>{@link RibbonElementPriority#MEDIUM} ->
+     * <li>{@link RibbonElementPriority#MEDIUM} -&gt;
      * {@link RibbonElementPriority#LOW}</li>
-     * <li>{@link RibbonElementPriority#LOW} ->
+     * <li>{@link RibbonElementPriority#LOW} -&gt;
      * {@link RibbonElementPriority#LOW}</li>
      * </ul>
      *
@@ -696,11 +696,11 @@ public class CoreRibbonResizePolicies {
      * Core resize policy that maps:
      *
      * <ul>
-     * <li>{@link RibbonElementPriority#TOP} ->
+     * <li>{@link RibbonElementPriority#TOP} -&gt;
      * {@link RibbonElementPriority#MEDIUM}</li>
-     * <li>{@link RibbonElementPriority#MEDIUM} ->
+     * <li>{@link RibbonElementPriority#MEDIUM} -&gt;
      * {@link RibbonElementPriority#LOW}</li>
-     * <li>{@link RibbonElementPriority#LOW} ->
+     * <li>{@link RibbonElementPriority#LOW} -&gt;
      * {@link RibbonElementPriority#LOW}</li>
      * </ul>
      *

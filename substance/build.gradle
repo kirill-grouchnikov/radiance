@@ -40,7 +40,7 @@ sourceCompatibility = 1.8
 ext.designation = "core"
 
 javadoc {
-    failOnError = false
+    exclude 'org/pushingpixels/substance/internal/**'
 }
 
 jar {
@@ -101,11 +101,11 @@ modifyPom {
 extraArchive {
     sources = true
     tests = false
-    javadoc = true
+    javadoc = project.ext.isRelease
 }
 
 nexus {
-    sign = true
+    sign = project.ext.isRelease
     repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
     snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
 }

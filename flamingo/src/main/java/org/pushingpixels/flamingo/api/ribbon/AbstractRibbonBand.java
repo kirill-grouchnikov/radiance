@@ -203,7 +203,7 @@ public abstract class AbstractRibbonBand extends JComponent {
     public abstract AbstractRibbonBand cloneBand();
 
     /**
-     * Returns the UI object which implements the L&F for this component.
+     * Returns the UI delegate for this component.
      *
      * @return a <code>RibbonBandUI</code> object
      * @see #setUI

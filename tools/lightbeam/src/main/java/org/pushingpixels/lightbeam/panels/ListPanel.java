@@ -68,20 +68,12 @@ public class ListPanel extends JPanel {
 			}
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.ListModel#getElementAt(int)
-		 */
+		@Override
 		public Object getElementAt(int index) {
 			return model.get(index);
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.ListModel#getSize()
-		 */
+		@Override
 		public int getSize() {
 			return model.size();
 		}

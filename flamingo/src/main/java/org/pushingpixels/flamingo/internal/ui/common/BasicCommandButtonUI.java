@@ -471,8 +471,9 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      */
     protected int getLayoutGap() {
         Font font = this.commandButton.getFont();
-        if (font == null)
-            font = UIManager.getFont("Button.font");
+        if (font == null) {
+            font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).getControlFont();
+        }
         return (font.getSize() - 4) / 4;
     }
 

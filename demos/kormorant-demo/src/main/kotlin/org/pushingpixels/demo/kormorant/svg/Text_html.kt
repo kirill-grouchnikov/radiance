@@ -1562,7 +1562,7 @@ g.transform = defaultTransform_
          * @return The width of the bounding box of the original SVG image.
          */
         fun getOrigWidth(): Double {
-            return 40.916595458984375
+            return 40.91813278198242
         }
 
         /**
@@ -1576,6 +1576,10 @@ g.transform = defaultTransform_
 
         /**
          * Returns an instance of this icon with specified dimensions.
+         *
+         * @param width Required width of the icon
+         * @param height Required height of the icon
+         * @return An instance of this icon with specified dimensions.
          */
         fun of(width: Int, height: Int): NeonIcon {
             return NeonIcon(Text_html(width, height))
@@ -1583,6 +1587,10 @@ g.transform = defaultTransform_
 
         /**
          * Returns a [UIResource] instance of this icon with specified dimensions.
+         *
+         * @param width Required width of the icon
+         * @param height Required height of the icon
+         * @return A [UIResource] instance of this icon with specified dimensions.
          */
         fun uiResourceOf(width: Int, height: Int): NeonIconUIResource {
             return NeonIconUIResource(Text_html(width, height))

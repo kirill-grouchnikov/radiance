@@ -50,7 +50,8 @@ public class KeyTimes {
      * Creates a new instance of KeyTimes. Times should be in increasing order
      * and should all be in the range [0,1], with the first value being zero and
      * the last being 1
-     * 
+     *
+     * @param times Time values
      * @throws IllegalArgumentException
      *             Time values must be ordered in increasing value, the first
      *             value must be 0 and the last value must be 1

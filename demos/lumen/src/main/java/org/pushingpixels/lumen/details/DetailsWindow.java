@@ -104,7 +104,7 @@ public class DetailsWindow extends JWindow {
                 int h = parent.getHeight();
 
                 // respect the current overlay position to implement the sliding
-                // effect in steps 1 and 6 of currentShowAlbumDetailsScenario
+                // effect in steps 1 and 7 of currentShowAlbumDetailsScenario
                 int dim = BigAlbumArt.TOTAL_DIM;
                 int dx = (int) (overlayPosition * dim / 2);
                 albumArt.setBounds((w - dim) / 2 - dx, (h - dim) / 2, dim, dim);
@@ -129,8 +129,9 @@ public class DetailsWindow extends JWindow {
      * @param albumItem New album item to show in this window.
      */
     public void setAlbum(SearchResultRelease albumItem) {
-        if (this.currentShowAlbumDetailsScenario != null)
+        if (this.currentShowAlbumDetailsScenario != null) {
             this.currentShowAlbumDetailsScenario.cancel();
+        }
 
         this.currentShowAlbumDetailsScenario = this.getShowAlbumDetailsScenario(albumItem);
         this.currentShowAlbumDetailsScenario.play();

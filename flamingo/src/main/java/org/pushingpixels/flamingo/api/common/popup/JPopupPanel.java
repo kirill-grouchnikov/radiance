@@ -85,10 +85,9 @@ public abstract class JPopupPanel extends JPanel {
 	}
 
 	/**
-	 * Sets the look and feel (L&F) object that renders this component.
+	 * Sets the popup panel UI delegate that renders this component.
 	 * 
-	 * @param ui
-	 *            the PopupGalleryUI L&F object
+	 * @param ui the popup panel UI delegate
 	 */
 	protected void setUI(PopupPanelUI ui) {
 		super.setUI(ui);
@@ -127,6 +126,10 @@ public abstract class JPopupPanel extends JPanel {
 	
 	/**
 	 * Sets the invoker of this popup panel.
+     *
+     * @param invoker
+     *            The invoker for this popup panel.
+     * @see #getInvoker()
 	 */
 	public void setInvoker(JComponent invoker) {
 		this.invoker = invoker;
@@ -134,6 +137,9 @@ public abstract class JPopupPanel extends JPanel {
 
 	/**
 	 * Returns the invoker of this popup panel.
+     *
+     * @return The invoker of this popup panel.
+     * @see #setInvoker(JComponent)
 	 */
 	public JComponent getInvoker() {
 		return invoker;

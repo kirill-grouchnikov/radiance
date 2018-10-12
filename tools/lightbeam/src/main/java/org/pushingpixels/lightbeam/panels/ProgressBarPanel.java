@@ -29,9 +29,7 @@
  */
 package org.pushingpixels.lightbeam.panels;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.lightbeam.*;
 
 import javax.swing.*;
@@ -53,9 +51,8 @@ public class ProgressBarPanel extends JPanel {
 
 		JPanel bars = new JPanel(new GridLayout(1, 2));
 
-		FormLayout horizontalLm = new FormLayout("left:pref:grow", "");
-		DefaultFormBuilder horizontalBuilder = new DefaultFormBuilder(
-				horizontalLm).border(Borders.DIALOG);
+		TestFormLayoutBuilder horizontalBuilder = new TestFormLayoutBuilder(
+				"left:pref:grow", 1, 12).border(Paddings.DIALOG);
 
 		JProgressBar determinateEnHor = new JProgressBar(
 				JProgressBar.HORIZONTAL, 0, 100);
@@ -100,13 +97,12 @@ public class ProgressBarPanel extends JPanel {
 		horizontalBuilder.appendSeparator("Indeterminate disabled");
 		horizontalBuilder.append(indeterminateDisHor);
 
-		bars.add(horizontalBuilder.getPanel());
+		bars.add(horizontalBuilder.build());
 
-		FormLayout verticalLm = new FormLayout(
-				"center:pref:grow, 4dlu, center:pref:grow, 4dlu, "
-						+ "center:pref:grow, 4dlu, center:pref:grow, 4dlu, center:pref:grow",
-				"");
-		DefaultFormBuilder verticalBuilder = new DefaultFormBuilder(verticalLm).border(Borders.DIALOG);
+		TestFormLayoutBuilder verticalBuilder = new TestFormLayoutBuilder(
+                "center:pref:grow, 4dlu, center:pref:grow, 4dlu, "
+                        + "center:pref:grow, 4dlu, center:pref:grow, 4dlu, center:pref:grow", 5, 2).
+                border(Paddings.DIALOG);
 		verticalBuilder.append("Enabled");
 		verticalBuilder.append("RTL");
 		verticalBuilder.append("Indeterm");
@@ -146,7 +142,7 @@ public class ProgressBarPanel extends JPanel {
 		indeterminateDisVer.setEnabled(false);
 		verticalBuilder.append(indeterminateDisVer);
 
-		bars.add(verticalBuilder.getPanel());
+		bars.add(verticalBuilder.build());
 
 		this.add(new JScrollPane(bars), BorderLayout.CENTER);
 	}

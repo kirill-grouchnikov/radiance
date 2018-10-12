@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.internal.ui.common.*;
 import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -217,14 +217,9 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 				int w = Math.min(controlPanelDim.width, maxDimension.width) + left + right;
 				int h = Math.min(controlPanelDim.height, maxDimension.height) + top + bottom;
 				if (h == (maxDimension.height + top + bottom)) {
-					int scrollBarWidth = UIManager.getInt("ScrollBar.width");
-					if (scrollBarWidth == 0) {
-						// Nimbus
-						scrollBarWidth = new JScrollBar(JScrollBar.VERTICAL)
-								.getPreferredSize().width;
-					}
+					int scrollBarWidth = SubstanceSizeUtils.getScrollBarWidth(
+					        SubstanceSizeUtils.getControlFontSize());
 					w += scrollBarWidth;
-					// h += 5;
 				}
 				return new Dimension(w, h);
 			}

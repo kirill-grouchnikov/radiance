@@ -76,100 +76,94 @@ object RainbowUtils {
      * @param svgName  SVG file name (not necessarily on the hard disk).
      */
     fun processSvgButtonClick(svgBytes: ByteArray, svgName: String) {
-        try {
-            val fileFrame = JFrame(svgName)
-            fileFrame.setSize(600, 500)
-            fileFrame.setLocationRelativeTo(null)
-            fileFrame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
+        val fileFrame = JFrame(svgName)
+        fileFrame.setSize(600, 500)
+        fileFrame.setLocationRelativeTo(null)
+        fileFrame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
 
-            fileFrame.layout = BorderLayout()
+        fileFrame.layout = BorderLayout()
 
-            val jtp = JTabbedPane()
-            jtp.tabPlacement = SwingConstants.LEFT
+        val jtp = JTabbedPane()
+        jtp.tabPlacement = SwingConstants.LEFT
 
-            val classLoader = Thread.currentThread().contextClassLoader
-            val fontURL = classLoader.getResource("fonts/FiraCode-Regular.ttf")
-            val streamFont = fontURL!!.openStream()
-            var font = Font.createFont(Font.TRUETYPE_FONT, streamFont)
-            font = font.deriveFont(1.0f + UIManager.getFont("TextArea.font").size2D)
+        val classLoader = Thread.currentThread().contextClassLoader
+        val fontURL = classLoader.getResource("fonts/FiraCode-Regular.ttf")
+        val streamFont = fontURL!!.openStream()
+        var font = Font.createFont(Font.TRUETYPE_FONT, streamFont)
+        font = font.deriveFont(1.0f + UIManager.getFont("TextArea.font").size2D)
 
-            val svgContents = String(svgBytes)
-            val xmlEditorPane = RSyntaxTextArea(20, 60)
-            xmlEditorPane.syntaxEditingStyle = SyntaxConstants.SYNTAX_STYLE_XML
-            xmlEditorPane.isCodeFoldingEnabled = true
-            setFont(xmlEditorPane, font)
-            xmlEditorPane.isEditable = false
-            xmlEditorPane.background = Color.WHITE
-            xmlEditorPane.text = svgContents
-            xmlEditorPane.moveCaretPosition(0)
-            val xmlScroller = RTextScrollPane(xmlEditorPane)
-            jtp.add("SVG contents", xmlScroller)
+        val svgContents = String(svgBytes)
+        val xmlEditorPane = RSyntaxTextArea(20, 60)
+        xmlEditorPane.syntaxEditingStyle = SyntaxConstants.SYNTAX_STYLE_XML
+        xmlEditorPane.isCodeFoldingEnabled = true
+        setFont(xmlEditorPane, font)
+        xmlEditorPane.isEditable = false
+        xmlEditorPane.background = Color.WHITE
+        xmlEditorPane.text = svgContents
+        xmlEditorPane.moveCaretPosition(0)
+        val xmlScroller = RTextScrollPane(xmlEditorPane)
+        jtp.add("SVG contents", xmlScroller)
 
-            fileFrame.add(jtp, BorderLayout.CENTER)
-            fileFrame.isVisible = true
+        fileFrame.add(jtp, BorderLayout.CENTER)
+        fileFrame.isVisible = true
 
-            val javaClassFilename = getSvgClassName(svgName)
+        val javaClassFilename = getSvgClassName(svgName)
 
-            val javaBaos = ByteArrayOutputStream()
-            val pw = PrintWriter(javaBaos)
+        val javaBaos = ByteArrayOutputStream()
+        val pw = PrintWriter(javaBaos)
 
-            val transcoder = SvgStreamTranscoder(
-                    ByteArrayInputStream(svgBytes), javaClassFilename,
-                    JavaLanguageRenderer())
+        val transcoder = SvgStreamTranscoder(
+                ByteArrayInputStream(svgBytes), javaClassFilename,
+                JavaLanguageRenderer())
 
-            transcoder.setPrintWriter(pw)
-            transcoder.transcode(RainbowUtils::class.java.getResourceAsStream(
-                    "/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ"))
+        transcoder.setPrintWriter(pw)
+        transcoder.transcode(RainbowUtils::class.java.getResourceAsStream(
+                "/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ"))
 
-            val javaContents = String(javaBaos.toByteArray())
-            val javaEditorPane = RSyntaxTextArea(20, 60)
-            javaEditorPane.syntaxEditingStyle = SyntaxConstants.SYNTAX_STYLE_JAVA
-            javaEditorPane.isCodeFoldingEnabled = true
-            setFont(javaEditorPane, font)
-            javaEditorPane.isEditable = false
-            javaEditorPane.background = Color.WHITE
-            javaEditorPane.text = javaContents
-            javaEditorPane.moveCaretPosition(0)
-            val javaScroller = RTextScrollPane(javaEditorPane)
+        val javaContents = String(javaBaos.toByteArray())
+        val javaEditorPane = RSyntaxTextArea(20, 60)
+        javaEditorPane.syntaxEditingStyle = SyntaxConstants.SYNTAX_STYLE_JAVA
+        javaEditorPane.isCodeFoldingEnabled = true
+        setFont(javaEditorPane, font)
+        javaEditorPane.isEditable = false
+        javaEditorPane.background = Color.WHITE
+        javaEditorPane.text = javaContents
+        javaEditorPane.moveCaretPosition(0)
+        val javaScroller = RTextScrollPane(javaEditorPane)
 
-            val javaPanel = JPanel(BorderLayout())
-            javaPanel.add(javaScroller, BorderLayout.CENTER)
-            val saveAs = JButton("Save as...")
-            saveAs.addActionListener {
-                SwingUtilities.invokeLater {
-                    val fileChooser = JFileChooser(lastChosenFolder)
-                    fileChooser.isAcceptAllFileFilterUsed = false
-                    fileChooser.selectedFile = File("$javaClassFilename.java")
-                    fileChooser.addChoosableFileFilter(object : FileFilter() {
-                        override fun accept(pathname: File): Boolean {
-                            return if (pathname.isDirectory) true else pathname.absolutePath.endsWith(".java")
-                        }
+        val javaPanel = JPanel(BorderLayout())
+        javaPanel.add(javaScroller, BorderLayout.CENTER)
+        val saveAs = JButton("Save as...")
+        saveAs.addActionListener {
+            SwingUtilities.invokeLater {
+                val fileChooser = JFileChooser(lastChosenFolder)
+                fileChooser.isAcceptAllFileFilterUsed = false
+                fileChooser.selectedFile = File("$javaClassFilename.java")
+                fileChooser.addChoosableFileFilter(object : FileFilter() {
+                    override fun accept(pathname: File): Boolean {
+                        return if (pathname.isDirectory) true else pathname.absolutePath.endsWith(".java")
+                    }
 
-                        override fun getDescription(): String {
-                            return "Java source files"
-                        }
-                    })
-                    if (fileChooser.showDialog(fileFrame, "Save") == JFileChooser.APPROVE_OPTION) {
-                        val file = fileChooser.selectedFile
-                        lastChosenFolder = file.parentFile
+                    override fun getDescription(): String {
+                        return "Java source files"
+                    }
+                })
+                if (fileChooser.showDialog(fileFrame, "Save") == JFileChooser.APPROVE_OPTION) {
+                    val file = fileChooser.selectedFile
+                    lastChosenFolder = file.parentFile
 
-                        FileWriter(file).use { javaFileWriter ->
-                            val javaContent = String(javaBaos.toByteArray())
-                            javaFileWriter.write(javaContent)
-                            println("Saved Java2D code to " + file.absolutePath)
-                        }
+                    FileWriter(file).use { javaFileWriter ->
+                        val javaContent = String(javaBaos.toByteArray())
+                        javaFileWriter.write(javaContent)
+                        println("Saved Java2D code to " + file.absolutePath)
                     }
                 }
             }
-            val buttonPanel = JPanel(FlowLayout(FlowLayout.RIGHT))
-            buttonPanel.add(saveAs)
-            javaPanel.add(buttonPanel, BorderLayout.SOUTH)
-            jtp.add("Java2D code", javaPanel)
-        } catch (t: Throwable) {
-            val mld = MessageListDialog.showMessageDialog(null!!, "Exception caught", t)
-            mld.setToExitOnDispose(false)
         }
-
+        val buttonPanel = JPanel(FlowLayout(FlowLayout.RIGHT))
+        buttonPanel.add(saveAs)
+        javaPanel.add(buttonPanel, BorderLayout.SOUTH)
+        jtp.add("Java2D code", javaPanel)
     }
 
     /**

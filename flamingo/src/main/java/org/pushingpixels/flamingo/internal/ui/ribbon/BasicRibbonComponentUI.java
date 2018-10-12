@@ -43,11 +43,11 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
      */
     protected JRibbonComponent ribbonComponent;
 
-    protected JLabel captionLabel;
+    private JLabel captionLabel;
 
-    protected PropertyChangeListener propertyChangeListener;
+    private PropertyChangeListener propertyChangeListener;
 
-    protected ResizableIcon disabledIcon;
+    private ResizableIcon disabledIcon;
 
     @Override
     public void installUI(JComponent c) {
@@ -352,22 +352,24 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
 
     protected abstract void paintIcon(Graphics g, JRibbonComponent ribbonComp, Icon icon, int x, int y);
 
-    protected int getLayoutGap() {
+    private int getLayoutGap() {
         return 4;
     }
 
     protected abstract ResizableIcon createDisabledIcon();
 
-    protected boolean isIconVisible(RibbonElementPriority displayPriority) {
-        if (this.ribbonComponent.isSimpleWrapper())
+    private boolean isIconVisible(RibbonElementPriority displayPriority) {
+        if (this.ribbonComponent.isSimpleWrapper()) {
             return false;
+        }
         return (displayPriority == RibbonElementPriority.TOP)
                 || (displayPriority == RibbonElementPriority.MEDIUM);
     }
 
-    protected boolean isCaptionVisible(RibbonElementPriority displayPriority) {
-        if (this.ribbonComponent.isSimpleWrapper())
+    private boolean isCaptionVisible(RibbonElementPriority displayPriority) {
+        if (this.ribbonComponent.isSimpleWrapper()) {
             return false;
+        }
         return (displayPriority == RibbonElementPriority.TOP);
     }
 

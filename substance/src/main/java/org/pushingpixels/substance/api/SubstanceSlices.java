@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Substance Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.substance.api;
 
@@ -34,28 +34,24 @@ import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceOutlineUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Various constants and data classes used in scope-defined APIs provided by
  * {@link SubstanceCortex}.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public final class SubstanceSlices {
     /**
      * Listener for the locale changes.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public interface LocaleChangeListener {
@@ -67,10 +63,10 @@ public final class SubstanceSlices {
 
     /**
      * Enumerates available sides.
-     * 
+     *
      * @author Kirill Grouchnikov
-     * @see SubstanceCortex.ComponentScope#setButtonOpenSide(JComponent, Side)
-     * @see SubstanceCortex.ComponentScope#setButtonStraightSide(JComponent, Side)
+     * @see SubstanceCortex.ComponentScope#setButtonOpenSide(JComponent, SubstanceSlices.Side)
+     * @see SubstanceCortex.ComponentScope#setButtonStraightSide(JComponent, SubstanceSlices.Side)
      */
     public enum Side {
         /**
@@ -96,9 +92,9 @@ public final class SubstanceSlices {
 
     /**
      * Enumerates focus indication kinds.
-     * 
+     *
      * @author Kirill Grouchnikov
-     * @see SubstanceCortex.GlobalScope#setFocusKind(FocusKind)
+     * @see SubstanceCortex.GlobalScope#setFocusKind(SubstanceSlices.FocusKind)
      */
     public enum FocusKind {
         /**
@@ -161,7 +157,7 @@ public final class SubstanceSlices {
                     Rectangle textRect, float extraPadding) {
                 if ((focusShape == null)
                         && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
-                                && !(mainComp instanceof JRadioButton))) {
+                        && !(mainComp instanceof JRadioButton))) {
                     SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(mainComp);
                     if (shaper == null)
                         return;
@@ -183,11 +179,11 @@ public final class SubstanceSlices {
                     float delta = SubstanceSizeUtils.getBorderStrokeWidth();
                     Shape contour = (focusShape != null) ? focusShape
                             : SubstanceOutlineUtilities.getBaseOutline(
-                                    mainComp.getWidth() - 2 * delta,
-                                    mainComp.getHeight() - 2 * delta,
-                                    SubstanceSizeUtils.getClassicButtonCornerRadius(
-                                            SubstanceSizeUtils.getComponentFontSize(mainComp)),
-                                    null);
+                            mainComp.getWidth() - 2 * delta,
+                            mainComp.getHeight() - 2 * delta,
+                            SubstanceSizeUtils.getClassicButtonCornerRadius(
+                                    SubstanceSizeUtils.getComponentFontSize(mainComp)),
+                            null);
 
                     int fontSize = SubstanceSizeUtils.getComponentFontSize(mainComp);
                     float dashLength = getDashLength(fontSize);
@@ -218,7 +214,7 @@ public final class SubstanceSlices {
 
                 if ((focusShape == null)
                         && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
-                                && !(mainComp instanceof JRadioButton))) {
+                        && !(mainComp instanceof JRadioButton))) {
                     SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(mainComp);
                     if (shaper == null)
                         return;
@@ -243,11 +239,11 @@ public final class SubstanceSlices {
                     int fontSize = SubstanceSizeUtils.getComponentFontSize(mainComp);
                     Shape contour = (focusShape != null) ? focusShape
                             : SubstanceOutlineUtilities.getBaseOutline(
-                                    mainComp.getWidth() - extraPadding,
-                                    mainComp.getHeight() - extraPadding,
-                                    SubstanceSizeUtils.getClassicButtonCornerRadius(fontSize)
-                                            - extraPadding,
-                                    null);
+                            mainComp.getWidth() - extraPadding,
+                            mainComp.getHeight() - extraPadding,
+                            SubstanceSizeUtils.getClassicButtonCornerRadius(fontSize)
+                                    - extraPadding,
+                            null);
 
                     float dashLength = getDashLength(fontSize);
                     float dashGap = getDashGap(fontSize);
@@ -280,7 +276,7 @@ public final class SubstanceSlices {
                         BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
                 if ((focusShape == null)
                         && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
-                                && !(mainComp instanceof JRadioButton))) {
+                        && !(mainComp instanceof JRadioButton))) {
                     SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(mainComp);
                     if (shaper == null)
                         return;
@@ -294,11 +290,11 @@ public final class SubstanceSlices {
                     graphics.translate(extraPadding / 2, extraPadding / 2);
                     Shape contour = (focusShape != null) ? focusShape
                             : SubstanceOutlineUtilities.getBaseOutline(
-                                    mainComp.getWidth() - extraPadding,
-                                    mainComp.getHeight() - extraPadding,
-                                    SubstanceSizeUtils.getClassicButtonCornerRadius(fontSize)
-                                            - extraPadding,
-                                    null);
+                            mainComp.getWidth() - extraPadding,
+                            mainComp.getHeight() - extraPadding,
+                            SubstanceSizeUtils.getClassicButtonCornerRadius(fontSize)
+                                    - extraPadding,
+                            null);
 
                     graphics.draw(contour);
                 }
@@ -357,22 +353,19 @@ public final class SubstanceSlices {
 
         /**
          * Paints the focus ring on the specified component.
-         * 
-         * @param mainComp
-         *            The main component for the focus painting.
-         * @param focusedComp
-         *            The actual component that has the focus. For example, the main component can
-         *            be a {@link JSpinner}, while the focused component is a text field inside the
-         *            the spinner editor.
-         * @param graphics
-         *            Graphics context.
-         * @param focusShape
-         *            Focus shape. May be <code>null</code> - in this case, the bounds of
-         *            <code>mainComp</code> will be used.
-         * @param textRect
-         *            Text rectangle (if relevant).
-         * @param extraPadding
-         *            Extra padding between the component bounds and the focus ring painting.
+         *
+         * @param mainComp          The main component for the focus painting.
+         * @param focusedComp       The actual component that has the focus. For example, the main
+         *                          component can be a {@link JSpinner}, while the focused component
+         *                          is a text field inside the the spinner editor.
+         * @param transitionAwareUI Transition-aware UI implementation.
+         * @param graphics          Graphics context.
+         * @param focusShape        Focus shape. May be <code>null</code> - in this case, the
+         *                          bounds of
+         *                          <code>mainComp</code> will be used.
+         * @param textRect          Text rectangle (if relevant).
+         * @param extraPadding      Extra padding between the component bounds and the focus ring
+         *                          painting.
          */
         public abstract void paintFocus(Component mainComp, Component focusedComp,
                 TransitionAwareUI transitionAwareUI, Graphics2D graphics, Shape focusShape,
@@ -380,9 +373,8 @@ public final class SubstanceSlices {
 
         /**
          * Returns DPI-aware dash length for dash-based focus painting.
-         * 
-         * @param fontSize
-         *            The font size of the component for focus painting.
+         *
+         * @param fontSize The font size of the component for focus painting.
          * @return DPI-aware dash length for dash-based focus painting.
          */
         protected static float getDashLength(int fontSize) {
@@ -391,9 +383,8 @@ public final class SubstanceSlices {
 
         /**
          * Returns DPI-aware dash gap for dash-based focus painting.
-         * 
-         * @param fontSize
-         *            The font size of the component for focus painting.
+         *
+         * @param fontSize The font size of the component for focus painting.
          * @return DPI-aware dash gap for dash-based focus painting.
          */
         protected static float getDashGap(int fontSize) {
@@ -403,9 +394,9 @@ public final class SubstanceSlices {
         /**
          * Returns indication whether <code>this</code> focus kind can be animated. For example,
          * focus rings painted with solid lines are generally static.
-         * 
+         *
          * @return <code>true</code> if <code>this</code> focus kind can be animated,
-         *         <code>false</code> otherwise.
+         * <code>false</code> otherwise.
          */
         public boolean isAnimated() {
             return false;
@@ -414,9 +405,9 @@ public final class SubstanceSlices {
 
     /**
      * Enumerates of image-based watermarks kinds.
-     * 
+     *
      * @author Kirill Grouchnikov
-     * @see org.pushingpixels.substance.api.watermark.SubstanceImageWatermark#setKind(ImageWatermarkKind)
+     * @see org.pushingpixels.substance.api.watermark.SubstanceImageWatermark#setKind(SubstanceSlices.ImageWatermarkKind)
      */
     public enum ImageWatermarkKind {
         /**
@@ -448,7 +439,7 @@ public final class SubstanceSlices {
 
     /**
      * Enumerates possible modes of closing tabs.
-     * 
+     *
      * @author Kirill Grouchnikov
      * @see SubstanceCortex.ComponentScope#setTabCloseCallback(JTabbedPane, TabCloseCallback)
      */
@@ -476,9 +467,9 @@ public final class SubstanceSlices {
 
     /**
      * Enumerates possible values for menu gutter fill kind.
-     * 
+     *
      * @author Kirill Grouchnikov
-     * @see SubstanceCortex.GlobalScope#setMenuGutterFillKind(MenuGutterFillKind)
+     * @see SubstanceCortex.GlobalScope#setMenuGutterFillKind(SubstanceSlices.MenuGutterFillKind)
      */
     public enum MenuGutterFillKind {
         /**
@@ -511,7 +502,7 @@ public final class SubstanceSlices {
 
     /**
      * Tab content pane border kind.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public enum TabContentPaneBorderKind {
@@ -539,10 +530,10 @@ public final class SubstanceSlices {
 
     /**
      * Enumerates configurable Substance-specific widget types for
-     * {@link SubstanceCortex.GlobalScope#setWidgetVisible(boolean, SubstanceWidgetType...)} and
-     * {@link SubstanceCortex.WindowScope#setWidgetVisible(java.awt.Window, boolean, SubstanceWidgetType...)}
+     * {@link SubstanceCortex.GlobalScope#setWidgetVisible(boolean, SubstanceSlices.SubstanceWidgetType...)} and
+     * {@link SubstanceCortex.WindowScope#setWidgetVisible(java.awt.Window, boolean, SubstanceSlices.SubstanceWidgetType...)}
      * APIs.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public enum SubstanceWidgetType {
@@ -610,7 +601,9 @@ public final class SubstanceSlices {
     }
 
     public enum HorizontalGravity {
-        /** Platform-specific content gravity. */
+        /**
+         * Platform-specific content gravity.
+         */
         PLATFORM,
 
         /**
@@ -619,7 +612,9 @@ public final class SubstanceSlices {
          */
         LEADING,
 
-        /** Center content horizontally in the parent container. */
+        /**
+         * Center content horizontally in the parent container.
+         */
         CENTERED,
 
         /**
@@ -628,26 +623,38 @@ public final class SubstanceSlices {
          */
         TRAILING,
 
-        /** Swing default content gravity. */
+        /**
+         * Swing default content gravity.
+         */
         SWING_DEFAULT
     }
 
     public enum VerticalGravity {
-        /** Align content to the top edge of the parent container. */
+        /**
+         * Align content to the top edge of the parent container.
+         */
         TOP,
 
-        /** Center content horizontally in the parent container. */
+        /**
+         * Center content horizontally in the parent container.
+         */
         CENTERED,
 
-        /** Align content to the bottom edge of the parent container. */
+        /**
+         * Align content to the bottom edge of the parent container.
+         */
         BOTTOM
     }
 
     public enum TitleIconHorizontalGravity {
-        /** Platform-specific icon gravity. */
+        /**
+         * Platform-specific icon gravity.
+         */
         PLATFORM,
 
-        /** Do not show icon. */
+        /**
+         * Do not show icon.
+         */
         NONE,
 
         /**
@@ -656,32 +663,42 @@ public final class SubstanceSlices {
          */
         NEXT_TO_TITLE,
 
-        /** Align icon on the side of the title pane opposite to that of the control buttons. */
+        /**
+         * Align icon on the side of the title pane opposite to that of the control buttons.
+         */
         OPPOSITE_CONTROL_BUTTONS,
 
-        /** Swing default icon gravity. */
+        /**
+         * Swing default icon gravity.
+         */
         SWING_DEFAULT
     }
 
     /**
      * Password strength.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public static enum PasswordStrength {
-        /** Weak strength. */
+        /**
+         * Weak strength.
+         */
         WEAK,
 
-        /** Medium strength. */
+        /**
+         * Medium strength.
+         */
         MEDIUM,
 
-        /** Strong strength. */
+        /**
+         * Strong strength.
+         */
         STRONG
     }
 
     /**
      * Animation facet.
-     * 
+     *
      * @author Kirill Grouchnikov.
      */
     public final static class AnimationFacet {
@@ -692,11 +709,9 @@ public final class SubstanceSlices {
 
         /**
          * Creates a new animation facet.
-         * 
-         * @param displayName
-         *            Display name for the animation facet.
-         * @param isDefaultAllowed
-         *            Indicates whether this animation facet is allowed by default.
+         *
+         * @param displayName      Display name for the animation facet.
+         * @param isDefaultAllowed Indicates whether this animation facet is allowed by default.
          */
         public AnimationFacet(String displayName, boolean isDefaultAllowed) {
             this.displayName = displayName;
@@ -725,7 +740,8 @@ public final class SubstanceSlices {
         /**
          * <p>
          * Focus loop animation. Disabled by default, use
-         * {@link SubstanceCortex.GlobalScope#allowAnimations(AnimationFacet)} to enable.
+         * {@link SubstanceCortex.GlobalScope#allowAnimations(SubstanceSlices.AnimationFacet)} to
+         * enable.
          * </p>
          */
         public static final AnimationFacet FOCUS_LOOP_ANIMATION = new AnimationFacet(
@@ -745,7 +761,8 @@ public final class SubstanceSlices {
 
         /**
          * <i>Ghosting image</i> effects on button icons when the button is rolled-over. Disabled by
-         * default, use {@link SubstanceCortex.GlobalScope#allowAnimations(AnimationFacet)} to
+         * default, use
+         * {@link SubstanceCortex.GlobalScope#allowAnimations(SubstanceSlices.AnimationFacet)} to
          * enable.
          */
         public static final AnimationFacet GHOSTING_ICON_ROLLOVER = new AnimationFacet(
@@ -753,23 +770,26 @@ public final class SubstanceSlices {
 
         /**
          * <i>Ghosting image</i> effects on buttons when the button is pressed. Disabled by default,
-         * use {@link SubstanceCortex.GlobalScope#allowAnimations(AnimationFacet)} to enable.
+         * use
+         * {@link SubstanceCortex.GlobalScope#allowAnimations(SubstanceSlices.AnimationFacet)} to
+         * enable.
          */
         public static final AnimationFacet GHOSTING_BUTTON_PRESS = new AnimationFacet(
                 "substancelaf.core.ghosting.buttonPress", false);
 
         /**
          * Glow effect on icons when the relevant control is rolled over. Disabled by default, use
-         * {@link SubstanceCortex.GlobalScope#allowAnimations(AnimationFacet)} to enable.
+         * {@link SubstanceCortex.GlobalScope#allowAnimations(SubstanceSlices.AnimationFacet)} to
+         * enable.
          */
         public static final AnimationFacet ICON_GLOW = new AnimationFacet(
                 "substancelaf.core.iconGlow", false);
 
         /**
          * Smart tree scroll animation facet. Disabled by default, use
-         * {@link SubstanceCortex.GlobalScope#allowAnimations(AnimationFacet)} to enable.
-         * </p>
-         * 
+         * {@link SubstanceCortex.GlobalScope#allowAnimations(SubstanceSlices.AnimationFacet)} to
+         * enable.
+         *
          * <p>
          * Smart tree scroll is relevant for scroll panes containing a tree. When enabled, it
          * automatically scrolls the tree horizontally when the viewport shows mainly empty area
@@ -788,7 +808,7 @@ public final class SubstanceSlices {
     /**
      * Enumeration of available decoration area types. This class is part of officially supported
      * API.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public final static class DecorationAreaType {
@@ -861,18 +881,19 @@ public final class SubstanceSlices {
      * <li>Fill - associated with {@link #FILL}</li>
      * <li>Check mark - associated with {@link #MARK}</li>
      * </ul>
-     * 
+     * <p>
      * Applications can create custom instances of this class to further refine the control over the
      * painting. In this case, the custom UI delegates must be created to use these new association
      * kinds.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public final static class ColorSchemeAssociationKind {
         /**
          * All known association kind values.
          */
-        private static Set<ColorSchemeAssociationKind> values = new HashSet<ColorSchemeAssociationKind>();
+        private static Set<ColorSchemeAssociationKind> values =
+                new HashSet<ColorSchemeAssociationKind>();
 
         /**
          * Name for this association kind.
@@ -891,17 +912,20 @@ public final class SubstanceSlices {
 
         /**
          * Creates a new association kind.
-         * 
-         * @param name
-         *            Association kind name.
-         * @param fallback
-         *            Fallback association kind. This is used when no color scheme is associated
-         *            with this kind. For example, {@link #TAB_BORDER} specifies that its fallback
-         *            is {@link #BORDER}. When the {@link JTabbedPane} UI delegate is painting the
-         *            tabs, it will try to use the color scheme associated with {@link #TAB_BORDER}.
-         *            If none was registered, it will fall back to use the color scheme associated
-         *            with {@link #BORDER}, and if that is not registered as well, will use the
-         *            color scheme associated with {@link #FILL}.
+         *
+         * @param name     Association kind name.
+         * @param fallback Fallback association kind. This is used when no color scheme is
+         *                 associated
+         *                 with this kind. For example, {@link #TAB_BORDER} specifies that its
+         *                 fallback
+         *                 is {@link #BORDER}. When the {@link JTabbedPane} UI delegate is
+         *                 painting the
+         *                 tabs, it will try to use the color scheme associated with
+         *                 {@link #TAB_BORDER}.
+         *                 If none was registered, it will fall back to use the color scheme
+         *                 associated
+         *                 with {@link #BORDER}, and if that is not registered as well, will use the
+         *                 color scheme associated with {@link #FILL}.
          */
         public ColorSchemeAssociationKind(String name, ColorSchemeAssociationKind fallback) {
             this.name = name;
@@ -960,24 +984,27 @@ public final class SubstanceSlices {
         /**
          * Highlight visual areas for text components.
          */
-        public static final ColorSchemeAssociationKind HIGHLIGHT_TEXT = new ColorSchemeAssociationKind(
-                "highlightText", HIGHLIGHT);
+        public static final ColorSchemeAssociationKind HIGHLIGHT_TEXT =
+                new ColorSchemeAssociationKind(
+                        "highlightText", HIGHLIGHT);
 
         /**
          * Border visual areas for highlighted regions of lists, tables, trees and menus.
          */
-        public static final ColorSchemeAssociationKind HIGHLIGHT_BORDER = new ColorSchemeAssociationKind(
-                "highlightBorder", BORDER);
+        public static final ColorSchemeAssociationKind HIGHLIGHT_BORDER =
+                new ColorSchemeAssociationKind(
+                        "highlightBorder", BORDER);
 
         /**
          * Visual area of marks in highlighted regions of lists, tables, trees and menus.
          */
-        public static final ColorSchemeAssociationKind HIGHLIGHT_MARK = new ColorSchemeAssociationKind(
-                "highlightMark", MARK);
+        public static final ColorSchemeAssociationKind HIGHLIGHT_MARK =
+                new ColorSchemeAssociationKind(
+                        "highlightMark", MARK);
 
         /**
          * Returns all available association kinds.
-         * 
+         *
          * @return All available association kinds.
          */
         public static Set<ColorSchemeAssociationKind> values() {
@@ -986,7 +1013,7 @@ public final class SubstanceSlices {
 
         /**
          * Returns the fallback for this association kind.
-         * 
+         *
          * @return The fallback for this association kind.
          */
         public ColorSchemeAssociationKind getFallback() {
@@ -997,7 +1024,7 @@ public final class SubstanceSlices {
     /**
      * Defies a single facet of core and custom {@link ComponentState}s. See Javadocs of the
      * {@link ComponentState} class for more information on state facets.
-     * 
+     *
      * <p>
      * This class is experimental API and is likely to change in the next few releases.
      * </p>
@@ -1054,13 +1081,13 @@ public final class SubstanceSlices {
 
         /**
          * Creates a new facet.
-         * 
-         * @param name
-         *            Facet name.
-         * @param value
-         *            Facet value. This is used in the matching algorithm described in the javadocs
-         *            of {@link ComponentState}. The larger the value, the more importance is given
-         *            to the specific facet.
+         *
+         * @param name  Facet name.
+         * @param value Facet value. This is used in the matching algorithm described in the
+         *              javadocs
+         *              of {@link ComponentState}. The larger the value, the more importance is
+         *              given
+         *              to the specific facet.
          */
         public ComponentStateFacet(String name, int value) {
             this.name = name;

@@ -65,11 +65,11 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     protected JScrollablePanel<JPanel> bandScrollablePanel;
 
-    protected JScrollablePanel<TaskToggleButtonsHostPanel> taskToggleButtonsScrollablePanel;
+    private JScrollablePanel<TaskToggleButtonsHostPanel> taskToggleButtonsScrollablePanel;
 
     protected JRibbonApplicationMenuButton applicationMenuButton;
 
-    protected Container anchoredButtons;
+    private Container anchoredButtons;
 
     /**
      * Map of toggle buttons of all tasks.
@@ -79,19 +79,19 @@ public abstract class BasicRibbonUI extends RibbonUI {
     /**
      * Button group for task toggle buttons.
      */
-    protected CommandToggleButtonGroup taskToggleButtonGroup;
+    private CommandToggleButtonGroup taskToggleButtonGroup;
 
     /**
      * Change listener.
      */
-    protected ChangeListener ribbonChangeListener;
+    private ChangeListener ribbonChangeListener;
 
     /**
      * Property change listener.
      */
-    protected PropertyChangeListener propertyChangeListener;
+    private PropertyChangeListener propertyChangeListener;
 
-    protected ComponentListener ribbonComponentListener;
+    private ComponentListener ribbonComponentListener;
 
     /**
      * Creates a new basic ribbon UI delegate.
@@ -1307,16 +1307,13 @@ public abstract class BasicRibbonUI extends RibbonUI {
         return Collections.unmodifiableList(result);
     }
 
-    protected static class BandHostPopupPanel extends JPopupPanel {
+    private static class BandHostPopupPanel extends JPopupPanel {
         /**
          * The main component of <code>this</code> popup panel. Can be <code>null</code>.
          */
-        // protected Component component;
-        public BandHostPopupPanel(Component component, Dimension originalSize) {
-            // this.component = component;
+        private BandHostPopupPanel(Component component, Dimension originalSize) {
             this.setLayout(new BorderLayout());
             this.add(component, BorderLayout.CENTER);
-            // System.out.println("Popup dim is " + originalSize);
             this.setPreferredSize(originalSize);
             this.setSize(originalSize);
             SubstanceCortex.ComponentOrParentChainScope.setDecorationType(this,

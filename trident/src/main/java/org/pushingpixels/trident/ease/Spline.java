@@ -64,7 +64,11 @@ public class Spline implements TimelineEase {
      * Creates a new instance of SplineInterpolator with the control points
      * defined by (x1, y1) and (x2, y2). The anchor points are implicitly
      * defined as (0, 0) and (1, 1).
-     * 
+     *
+     * @param x1 X coordinate of the first control point
+     * @param y1 Y coordinate of the first control point
+     * @param x2 X coordinate of the second control point
+     * @param y2 Y coordinate of the second control point
      * @throws IllegalArgumentException
      *             This exception is thrown when values beyond the allowed [0,1]
      *             range are passed in
@@ -127,7 +131,7 @@ public class Spline implements TimelineEase {
 
     /**
      * Utility function: When we are evaluating the spline, we only care about
-     * the Y values. See {@link getXY getXY} for the details.
+     * the Y values. See {@link #getXY(float)} for the details.
      */
     private float getY(float t) {
         float invT = (1 - t);

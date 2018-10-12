@@ -72,8 +72,8 @@ public class CloseButton extends JButton {
         // timeline for the rollover effect (interpolating the
         // button's foreground color)
         final Timeline rolloverTimeline = new Timeline(this);
-        rolloverTimeline.addPropertyToInterpolate("foreground", new Color(158,
-                205, 255), new Color(64, 140, 255));
+        rolloverTimeline.addPropertyToInterpolate("foreground", new Color(158, 205, 255),
+                new Color(64, 140, 255));
         rolloverTimeline.setDuration(200);
 
         // and register a mouse listener to play the rollover
@@ -90,8 +90,7 @@ public class CloseButton extends JButton {
             }
         });
 
-        // fade in the component once it's part of the window
-        // hierarchy
+        // fade in the component once it's part of the window hierarchy
         this.addHierarchyListener((HierarchyEvent e) -> {
             Timeline shownTimeline = new SwingComponentTimeline(CloseButton.this);
             shownTimeline.addPropertyToInterpolate("alpha", 0.0f, 1.0f);

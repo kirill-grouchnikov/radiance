@@ -223,6 +223,8 @@ public class NeonCortex {
     }
 
     /**
+     * Gets a scaled, high-DPI aware image of specified dimensions.
+     * <p>
      * Use {@link #drawImage(Graphics, Image, int, int)} or
      * {@link #drawImage(Graphics, Image, int, int, int, int, int, int)} to draw the image
      * obtained with this method. Note that applying an extension of
@@ -233,6 +235,10 @@ public class NeonCortex {
      * a regular {@link BufferedImage} that will not be drawn correctly using one of the
      * <code>drawImage</code> methods above. In such a case, use {@link #getScaleFactor()}
      * to divide the image width and height for the purposes of drawing.
+     *
+     * @param width  Width of the target image
+     * @param height Width of the target image
+     * @return A scaled, high-DPI aware image of specified dimensions.
      */
     public static BufferedImage getBlankImage(int width, int height) {
         if (UIUtil.getScaleFactor() > 1.0) {
@@ -245,6 +251,13 @@ public class NeonCortex {
         }
     }
 
+    /**
+     * Gets an unscaled, high-DPI aware image of specified dimensions.
+     *
+     * @param width  Width of the target image
+     * @param height Width of the target image
+     * @return An unscaled, high-DPI aware image of specified dimensions.
+     */
     public static BufferedImage getBlankUnscaledImage(int width, int height) {
         if (UIUtil.getScaleFactor() > 1.0) {
             return JBHiDPIScaledImage.createUnscaled(width, height, BufferedImage.TYPE_INT_ARGB);

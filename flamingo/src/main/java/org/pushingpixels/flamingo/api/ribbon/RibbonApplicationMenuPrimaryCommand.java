@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
@@ -36,13 +36,13 @@ import java.util.*;
 
 /**
  * Metadata description for the primary menu entries of the {@link RibbonApplicationMenu}. The
- * primary menu entries at runtime are represented by command menu buttons placed in the leading panel
- * of the application menu.
- * 
+ * primary menu entries at runtime are represented by command menu buttons placed in the leading
+ * panel of the application menu.
+ *
  * <p>
  * There are two different types of primary entries:
  * </p>
- * 
+ *
  * <ul>
  * <li>Associated {@link PrimaryRolloverCallback}. When this entry is armed (with mouse
  * rollover or via keyboard navigation), the contents of the secondary area are populated by the
@@ -56,7 +56,7 @@ import java.util.*;
  * registered secondary menu commands. The <code>Save As</code> menu item is an example of such a
  * primary menu item, showing a list of default save formats.</li>
  * </ul>
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
@@ -64,7 +64,7 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
      * An optional rollover callback. It allows the application to place custom content in the
      * secondary panel of the {@link RibbonApplicationMenu} when this primary menu entry is
      * activated.
-     * 
+     *
      * @see #getRolloverCallback()
      */
     private PrimaryRolloverCallback rolloverCallback;
@@ -72,19 +72,20 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
     /**
      * Callback that allows application code to provide custom content on the secondary panel of the
      * {@link RibbonApplicationMenu}.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
-    public static interface PrimaryRolloverCallback {
+    public interface PrimaryRolloverCallback {
         /**
          * Called when the matching primary menu item is activated.
-         * 
-         * @param targetPanel
-         *            The secondary panel of the {@link RibbonApplicationMenu}. Note that the
-         *            application code <strong>must not</strong> change the parent hierarchy of this
-         *            panel.
+         *
+         * @param targetPanel The secondary panel of the {@link RibbonApplicationMenu}. Note that
+         *                    the
+         *                    application code <strong>must not</strong> change the parent
+         *                    hierarchy of this
+         *                    panel.
          */
-        public void menuEntryActivated(JPanel targetPanel);
+        void menuEntryActivated(JPanel targetPanel);
     }
 
     public static class PrimaryClearRolloverCallback implements PrimaryRolloverCallback {
@@ -111,7 +112,7 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
 
     /**
      * Returns the number of secondary menu groups of this primary menu entry.
-     * 
+     *
      * @return The number of secondary menu groups of this primary menu entry.
      * @see #getSecondaryGroupTitleAt(int)
      * @see #getSecondaryGroupCommands(int)
@@ -122,9 +123,8 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
 
     /**
      * Returns the title of the secondary menu group at the specified index.
-     * 
-     * @param groupIndex
-     *            The index of a secondary menu group.
+     *
+     * @param groupIndex The index of a secondary menu group.
      * @return The title of the secondary menu group at the specified index.
      * @see #getSecondaryGroupCount()
      * @see #getSecondaryGroupCommands(int)
@@ -135,9 +135,8 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
 
     /**
      * Returns an unmodifiable list of commands of the secondary menu group at the specified index.
-     * 
-     * @param groupIndex
-     *            The index of a secondary menu group.
+     *
+     * @param groupIndex The index of a secondary menu group.
      * @return An unmodifiable list of commands of the secondary menu group at the specified index.
      * @see #getSecondaryGroupCount()
      * @see #getSecondaryGroupTitleAt(int)
@@ -149,9 +148,9 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
     /**
      * Returns the current application callback that allows placing custom content in the secondary
      * panel of the {@link RibbonApplicationMenu} when this primary menu entry is activated.
-     * 
+     *
      * @return The current rollover callback for populating the secondary panel of the
-     *         {@link RibbonApplicationMenu}.
+     * {@link RibbonApplicationMenu}.
      */
     public PrimaryRolloverCallback getRolloverCallback() {
         return rolloverCallback;
@@ -168,12 +167,13 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
     }
 
     public static class RibbonApplicationMenuPrimaryCommandBuilder extends
-            BaseFlamingoCommandBuilder<RibbonApplicationMenuPrimaryCommand, RibbonApplicationMenuPrimaryCommandBuilder> {
+            BaseFlamingoCommandBuilder<RibbonApplicationMenuPrimaryCommand,
+                    RibbonApplicationMenuPrimaryCommandBuilder> {
         /**
          * An optional rollover callback. It allows the application to place custom content in the
          * secondary panel of the {@link RibbonApplicationMenu} when this primary menu entry is
          * activated.
-         * 
+         *
          * @see #setRolloverCallback(PrimaryRolloverCallback)
          */
         private PrimaryRolloverCallback rolloverCallback;
@@ -191,10 +191,9 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
         /**
          * Adds a titled group of secondary menu commands.
          *
-         * @param groupTitle
-         *            The title of the group.
-         * @param secondaryCommands
-         *            The secondary menu commands belonging to this group.
+         * @param groupTitle        The title of the group.
+         * @param secondaryCommands The secondary menu commands belonging to this group.
+         * @return This builder for chaining API calls.
          */
         public synchronized RibbonApplicationMenuPrimaryCommandBuilder addSecondaryMenuGroup(
                 String groupTitle, FlamingoCommand... secondaryCommands) {
@@ -210,10 +209,9 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
         /**
          * Adds a titled group of secondary menu commands.
          *
-         * @param groupTitle
-         *            The title of the group.
-         * @param secondaryCommands
-         *            The secondary menu commands belonging to this group.
+         * @param groupTitle        The title of the group.
+         * @param secondaryCommands The secondary menu commands belonging to this group.
+         * @return This builder for chaining API calls.
          */
         public synchronized RibbonApplicationMenuPrimaryCommandBuilder addSecondaryMenuGroup(
                 String groupTitle, Iterable<FlamingoCommand> secondaryCommands) {
@@ -230,10 +228,10 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
          * Sets the rollover callback that allows the application to place custom content in the
          * secondary panel of the {@link RibbonApplicationMenu} when this primary menu entry is
          * activated.
-         * 
-         * @param rolloverCallback
-         *            The new rollover callback for populating the secondary panel of the
-         *            {@link RibbonApplicationMenu}.
+         *
+         * @param rolloverCallback The new rollover callback for populating the secondary panel
+         *                         of the {@link RibbonApplicationMenu}.
+         * @return This builder for chaining API calls.
          */
         public RibbonApplicationMenuPrimaryCommandBuilder setRolloverCallback(
                 PrimaryRolloverCallback rolloverCallback) {
@@ -243,11 +241,10 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
 
         /**
          * Changes the title of the specified group.
-         * 
-         * @param groupIndex
-         *            Group index.
-         * @param newTitle
-         *            New title for the specified group.
+         *
+         * @param groupIndex Group index.
+         * @param newTitle   New title for the specified group.
+         * @return This builder for chaining API calls.
          */
         public synchronized RibbonApplicationMenuPrimaryCommandBuilder setSecondaryGroupTitle(
                 int groupIndex, String newTitle) {
@@ -255,6 +252,11 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
             return this;
         }
 
+        /**
+         * Builds a command from this builder.
+         *
+         * @return Command.
+         */
         public RibbonApplicationMenuPrimaryCommand build() {
             RibbonApplicationMenuPrimaryCommand command = new RibbonApplicationMenuPrimaryCommand();
 
@@ -263,8 +265,6 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
             command.groupTitles = this.groupTitles;
             command.groupEntries = this.groupEntries;
             command.rolloverCallback = this.rolloverCallback;
-
-            // command.checkConsistency();
 
             return command;
         }

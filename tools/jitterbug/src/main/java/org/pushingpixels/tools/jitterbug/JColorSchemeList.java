@@ -47,7 +47,7 @@ public class JColorSchemeList extends JComponent {
     static final String LIST = "List";
     static final String INSTRUCTIONAL = "Instructional";
     private SubstanceSkin.ColorSchemes schemes;
-    private JList schemeList;
+    private JList<SubstanceColorScheme> schemeList;
     private JPanel cardPanel;
     private ColorSchemeListModel schemeListModel;
     private File schemesFile;
@@ -65,7 +65,7 @@ public class JColorSchemeList extends JComponent {
     public JColorSchemeList() {
         this.schemes = new SubstanceSkin.ColorSchemes();
 
-        this.schemeList = new JList();
+        this.schemeList = new JList<>();
         this.schemeListModel = new ColorSchemeListModel();
         this.schemeList.setModel(schemeListModel);
         this.schemeList.setCellRenderer(new ColorSchemeListRenderer());
@@ -424,14 +424,14 @@ public class JColorSchemeList extends JComponent {
         this.firePropertyChange("modified", old, isModified);
     }
 
-    class ColorSchemeListModel extends AbstractListModel {
+    class ColorSchemeListModel extends AbstractListModel<SubstanceColorScheme> {
         @Override
         public int getSize() {
             return (schemes == null) ? 0 : schemes.size();
         }
 
         @Override
-        public Object getElementAt(int index) {
+        public SubstanceColorScheme getElementAt(int index) {
             if (schemes == null)
                 return null;
             return schemes.get(index);

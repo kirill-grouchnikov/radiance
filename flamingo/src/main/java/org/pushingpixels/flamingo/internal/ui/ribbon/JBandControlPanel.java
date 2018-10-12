@@ -388,39 +388,6 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
         super.add(ribbonGallery);
     }
 
-    /**
-     * Sets new priority of a ribbon button in <code>this</code> control panel.
-     *
-     * @param ribbonButton Gallery button.
-     * @param newPriority  New priority for the specified ribbon button.
-     */
-    public synchronized void setPriority(JCommandButton ribbonButton,
-            RibbonElementPriority newPriority) {
-        if (this.controlPanelGroups.size() == 0) {
-            this.startGroup();
-        }
-
-        this.controlPanelGroups.getLast()
-                .setPriority(ribbonButton, newPriority);
-    }
-
-    /**
-     * Sets new priority of an in-ribbon gallery in <code>this</code> control
-     * panel.
-     *
-     * @param ribbonGallery In-ribbon gallery.
-     * @param newPriority   New priority for the specified in-ribbon gallery.
-     */
-    public synchronized void setPriority(JRibbonGallery ribbonGallery,
-            RibbonElementPriority newPriority) {
-        if (this.controlPanelGroups.size() == 0) {
-            this.startGroup();
-        }
-
-        this.controlPanelGroups.getLast().setPriority(ribbonGallery,
-                newPriority);
-    }
-
     public void addRibbonComponent(JRibbonComponent comp) {
         if (this.controlPanelGroups.size() == 0) {
             this.startGroup();
@@ -482,7 +449,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
         this.listenerList.remove(ChangeListener.class, l);
     }
 
-    protected void fireChanged() {
+    private void fireChanged() {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
         ChangeEvent ce = new ChangeEvent(this);

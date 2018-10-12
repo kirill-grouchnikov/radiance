@@ -1,6 +1,6 @@
 # Radiance libraries
 
-Radiance is a collection of libraries for writing modern, elegant and well-performing Swing applications.
+Radiance is a collection of libraries for writing modern, elegant and fast Swing applications.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulabrickwall1.png" width="340" height="254" border=0>

@@ -38,6 +38,8 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.spoonbill.svn.BreadcrumbMultiSvnSelector;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -118,9 +120,9 @@ public class MultiSvnBreadCrumbTest extends JFrame {
                     }
                 }));
 
-        JToolBar toolbar = new JToolBar();
-        toolbar.setLayout(new BorderLayout(3, 0));
-        toolbar.setFloatable(false);
+        JPanel toolbar = new JPanel(new BorderLayout(3, 0));
+        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(toolbar,
+                SubstanceSlices.DecorationAreaType.HEADER);
 
         toolbar.add(bar, BorderLayout.CENTER);
 
@@ -155,6 +157,7 @@ public class MultiSvnBreadCrumbTest extends JFrame {
         } catch (SecurityException e) {
         }
         SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
             MultiSvnBreadCrumbTest test = new MultiSvnBreadCrumbTest();
             test.setSize(550, 385);
             test.setLocationRelativeTo(null);

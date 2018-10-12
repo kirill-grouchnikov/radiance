@@ -60,10 +60,11 @@ public class JRibbonTaskToggleButton extends JCommandToggleButton {
     /**
      * Creates a new toggle button.
      *
-     * @param ribbonTask
+     * @param ribbonTask Ribbon task
      */
-    public JRibbonTaskToggleButton(RibbonTask ribbonTask) {
+    JRibbonTaskToggleButton(RibbonTask ribbonTask) {
         super(ribbonTask.getTitle());
+        this.ribbonTask = ribbonTask;
     }
 
     @Override

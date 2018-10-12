@@ -347,7 +347,7 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
 					AccessibleContext.ACCESSIBLE_VISIBLE_DATA_PROPERTY,
 					oldValue, extraText);
 		}
-		if (extraText == null || oldValue == null
+		if ((extraText == null) || (oldValue == null)
 				|| !extraText.equals(oldValue)) {
 			revalidate();
 			repaint();
@@ -382,7 +382,7 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
 					AccessibleContext.ACCESSIBLE_VISIBLE_DATA_PROPERTY,
 					oldValue, text);
 		}
-		if (text == null || oldValue == null || !text.equals(oldValue)) {
+		if ((text == null) || (oldValue == null) || !text.equals(oldValue)) {
 			revalidate();
 			repaint();
 		}
@@ -402,8 +402,7 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
 		if (this.customDimension != dimension) {
 			int old = this.customDimension;
 			this.customDimension = dimension;
-			this.firePropertyChange("customDimension", old,
-					this.customDimension);
+			this.firePropertyChange("customDimension", old, this.customDimension);
 		}
 	}
 
@@ -750,8 +749,7 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
 	 */
 	public void setActionRichTooltip(RichTooltip richTooltip) {
 		this.actionRichTooltip = richTooltip;
-		RichToolTipManager richToolTipManager = RichToolTipManager
-				.sharedInstance();
+		RichToolTipManager richToolTipManager = RichToolTipManager.sharedInstance();
 		if (this.hasRichTooltips()) {
 			richToolTipManager.registerComponent(this);
 		} else {

@@ -55,8 +55,9 @@ public final class TopShadowOverlayPainter implements SubstanceOverlayPainter {
 	 * @return Single instance of this class.
 	 */
 	public synchronized static TopShadowOverlayPainter getInstance() {
-		if (INSTANCE == null)
+		if (INSTANCE == null) {
 			INSTANCE = new TopShadowOverlayPainter();
+		}
 		return INSTANCE;
 	}
 

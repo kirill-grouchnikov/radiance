@@ -120,6 +120,9 @@ abstract class SvgBaseTranscoder {
 
     /**
      * Transcodes the SVG image into Java2D code.
+     *
+     * @param gvtRoot        Graphics vector tree root.
+     * @param templateStream Stream with the template content.
      */
     public void transcode(GraphicsNode gvtRoot, InputStream templateStream) {
         // load the template
@@ -661,7 +664,8 @@ abstract class SvgBaseTranscoder {
      * Transcodes the specified shape node.
      *
      * @param node    Shape node.
-     * @param comment Comment (for associating the Java2D section with the corresponding SVG section).
+     * @param comment Comment (for associating the Java2D section with the corresponding SVG
+     *                section).
      */
     private void transcodeShapeNode(ShapeNode node, String comment) {
         // offset(offset);
@@ -676,7 +680,8 @@ abstract class SvgBaseTranscoder {
      * Transcodes the specified composite graphics node.
      *
      * @param node    Composite graphics node.
-     * @param comment Comment (for associating the Java2D section with the corresponding SVG section).
+     * @param comment Comment (for associating the Java2D section with the corresponding SVG
+     *                section).
      */
     private void transcodeCompositeGraphicsNode(CompositeGraphicsNode node, String comment) {
         printWriter.println("// " + comment);
@@ -693,7 +698,8 @@ abstract class SvgBaseTranscoder {
      * Transcodes the specified graphics node.
      *
      * @param node    Graphics node.
-     * @param comment Comment (for associating the Java2D section with the corresponding SVG section).
+     * @param comment Comment (for associating the Java2D section with the corresponding SVG
+     *                section).
      * @throws UnsupportedOperationException if the graphics node is unsupported.
      */
     private void transcodeGraphicsNode(GraphicsNode node, String comment)

@@ -67,12 +67,12 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
     /**
      * Delegate for painting the background.
      */
-    protected ButtonBackgroundDelegate backgroundDelegate;
+    private ButtonBackgroundDelegate backgroundDelegate;
 
     /**
      * Property change listener.
      */
-    protected PropertyChangeListener substancePropertyListener;
+    private PropertyChangeListener substancePropertyListener;
 
     /**
      * Model change listener for ghost image effects.
@@ -82,14 +82,14 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
     /**
      * Tracker for visual state transitions.
      */
-    protected CommandButtonVisualStateTracker substanceVisualStateTracker;
+    private CommandButtonVisualStateTracker substanceVisualStateTracker;
 
     /**
      * The matching glowing icon. Is used only when
-     * {@link AnimationConfigurationManager#isAnimationAllowed(AnimationFacet, Component)} returns
+     * {@link SubstanceCortex.ComponentScope#isAnimationAllowed(Component, AnimationFacet)} returns
      * true on {@link AnimationFacet#ICON_GLOW}.
      */
-    protected GlowingResizableIcon glowingIcon;
+    private GlowingResizableIcon glowingIcon;
 
     public static ComponentUI createUI(JComponent c) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(c);
@@ -99,7 +99,7 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
     /**
      * Creates a new UI delegate for ribbon button.
      */
-    public SubstanceCommandToggleButtonUI() {
+    SubstanceCommandToggleButtonUI() {
         super();
         this.backgroundDelegate = new ButtonBackgroundDelegate();
 

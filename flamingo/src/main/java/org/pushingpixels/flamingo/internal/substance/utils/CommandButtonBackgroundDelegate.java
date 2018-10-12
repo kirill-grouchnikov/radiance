@@ -55,7 +55,7 @@ import java.util.*;
 /**
  * Delegate class for painting backgrounds of buttons in <b>Substance </b> look and feel. This class
  * is <b>for internal use only</b>.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class CommandButtonBackgroundDelegate {
@@ -67,19 +67,15 @@ public class CommandButtonBackgroundDelegate {
 
     /**
      * Retrieves the background for the specified button.
-     * 
-     * @param commandButton
-     *            Button.
-     * @param buttonModel
-     *            Button model.
-     * @param fillPainter
-     *            Button fill painter.
-     * @param borderPainter
-     *            Button border painter.
-     * @param width
-     *            Button width.
-     * @param height
-     *            Button height.
+     *
+     * @param commandButton          Button.
+     * @param buttonModel            Button model.
+     * @param fillPainter            Button fill painter.
+     * @param borderPainter          Button border painter.
+     * @param width                  Button width.
+     * @param height                 Button height.
+     * @param stateTransitionTracker State transition tracker.
+     * @param ignoreSelections       If true, selection state will be ignored.
      * @return Button background.
      */
     @SuppressWarnings("incomplete-switch")
@@ -89,14 +85,15 @@ public class CommandButtonBackgroundDelegate {
             StateTransitionTracker stateTransitionTracker, boolean ignoreSelections) {
         StateTransitionTracker.ModelStateInfo modelStateInfo = (stateTransitionTracker == null)
                 ? null : stateTransitionTracker.getModelStateInfo();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = (modelStateInfo == null)
-                ? null
-                : (ignoreSelections ? modelStateInfo.getStateNoSelectionContributionMap()
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                (modelStateInfo == null)
+                        ? null
+                        : (ignoreSelections ? modelStateInfo.getStateNoSelectionContributionMap()
                         : modelStateInfo.getStateContributionMap());
         ComponentState currState = (modelStateInfo == null)
                 ? ComponentState.getState(buttonModel, commandButton)
                 : (ignoreSelections ? modelStateInfo.getCurrModelStateNoSelection()
-                        : modelStateInfo.getCurrModelState());
+                : modelStateInfo.getCurrModelState());
 
         SubstanceColorScheme baseFillScheme = SubstanceColorSchemeUtilities
                 .getColorScheme(commandButton, currState);
@@ -398,7 +395,7 @@ public class CommandButtonBackgroundDelegate {
 
     /**
      * Returns the memory usage string.
-     * 
+     *
      * @return Memory usage string.
      */
     static String getMemoryUsage() {
@@ -424,7 +421,7 @@ public class CommandButtonBackgroundDelegate {
         float alpha = stateTransitionTracker.getActiveStrength();
         if (alpha > 0 && glowingIcon != null && model.isEnabled()
                 && AnimationConfigurationManager.getInstance()
-                        .isAnimationAllowed(AnimationFacet.ICON_GLOW, commandButton)
+                .isAnimationAllowed(AnimationFacet.ICON_GLOW, commandButton)
                 && stateTransitionTracker.getIconGlowTracker().isPlaying()) {
             glowingIcon.paintIcon(commandButton, g2d, 0, 0);
             return;

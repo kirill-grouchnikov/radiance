@@ -106,9 +106,11 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
     }
 
     /**
-     * Creates a new UI delegate for ribbon button.
+     * Creates a new UI delegate for command button.
+     *
+     * @button command button
      */
-    public SubstanceCommandButtonUI(JCommandButton button) {
+     SubstanceCommandButtonUI(JCommandButton button) {
         super();
 
         this.overallRolloverModel = new DefaultButtonModel();

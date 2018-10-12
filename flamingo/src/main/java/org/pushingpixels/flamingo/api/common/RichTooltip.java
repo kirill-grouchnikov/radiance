@@ -51,8 +51,8 @@ import java.util.List;
  * </pre>
  * 
  * <p>
- * The {@link #addDescriptionSection(String)} can be used to add multiple sections to the
- * description:
+ * The {@link RichTooltipBuilder#addDescriptionSection(String)} can be used to add multiple
+ * sections to the description:
  * </p>
  * 
  * <pre>
@@ -70,8 +70,8 @@ import java.util.List;
  * </pre>
  * 
  * <p>
- * The {@link #setMainImage(Image)} can be used to place an image below the title and to the left of
- * the description sections:
+ * The {@link RichTooltipBuilder#setMainIcon(ResizableIcon)} can be used to place an image below
+ * the title and to the left of the description sections:
  * </p>
  * 
  * <pre>
@@ -86,8 +86,8 @@ import java.util.List;
  * </pre>
  * 
  * <p>
- * The {@link #addFooterSection(String)} can be used to add (possibly) multiple footer sections that
- * will be shown below a horizontal separator:
+ * The {@link RichTooltipBuilder#addFooterSection(String)} can be used to add (possibly) multiple
+ * footer sections that will be shown below a horizontal separator:
  * </p>
  * 
  * <pre>
@@ -105,8 +105,8 @@ import java.util.List;
  * </pre>
  * 
  * <p>
- * The {@link #setFooterImage(Image)} can be used to place an image to the left of the footer
- * sections:
+ * The {@link RichTooltipBuilder#setFooterIcon(ResizableIcon)} can be used to place an image to
+ * the left of the footer sections:
  * </p>
  * 
  * <pre>
@@ -232,7 +232,7 @@ public class RichTooltip {
      * non-<code>null</code> list.
      * 
      * @return An unmodifiable list of footer sections of this tooltip.
-     * @see #getFooterImage()
+     * @see #getFooterIcon()
      */
     public List<String> getFooterSections() {
         return this.footerSections;

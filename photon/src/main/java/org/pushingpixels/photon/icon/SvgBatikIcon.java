@@ -84,7 +84,7 @@ abstract class SvgBatikIcon extends UserAgentAdapter implements Icon {
     /**
      * The listeners.
      */
-    protected List<GVTTreeRendererListener> listeners;
+    private List<GVTTreeRendererListener> listeners;
 
     private static ExecutorService loadService = Executors.newFixedThreadPool(5);
 
@@ -109,7 +109,7 @@ abstract class SvgBatikIcon extends UserAgentAdapter implements Icon {
         this.svgBytes = baos.toByteArray();
         this.width = w;
         this.height = h;
-        this.listeners = Collections.synchronizedList(new LinkedList());
+        this.listeners = Collections.synchronizedList(new LinkedList<>());
 
         this.renderGVTTree(this.width, this.height);
     }

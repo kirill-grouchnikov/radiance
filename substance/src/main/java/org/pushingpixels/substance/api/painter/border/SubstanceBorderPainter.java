@@ -30,7 +30,6 @@
 package org.pushingpixels.substance.api.painter.border;
 
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
 
 import java.awt.*;
@@ -40,12 +39,9 @@ import java.awt.*;
  * part of officially supported API.<br>
  * <br>
  * 
- * Starting from version 4.0, the borders of some controls (buttons, check
- * boxes, tabs, scroll bars etc) are painted by border painters. Up until
- * version 4.0 this has been done by gradient painters (
- * {@link SubstanceFillPainter}) instead. Note that a custom gradient painter
- * may continue painting the borders, but these will be overriden by the current
- * border painter.
+ * The borders of some controls (buttons, check boxes, tabs, scroll bars etc) are painted by
+ * border painters. Note that a custom gradient painter may continue painting the borders,
+ * but these will be overlaid by the current border painter.
  * 
  * @author Kirill Grouchnikov
  */

@@ -28,13 +28,14 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = '1.0.2'
+version = '1.5-SNAPSHOT'
 
 buildscript {
     ext {
         kotlin_version = '1.2.71'
-        kotlinx_coroutines_version = '0.30.0'
+        kotlinx_coroutines_version = '0.30.2'
         gradle_nexus_plugin_version = '2.3.1'
+        dokka_plugin_version = '0.9.17'
         batik_version = '1.10'
         svnkit_version = '1.9.3'
     }
@@ -51,7 +52,9 @@ buildscript {
 
 allprojects {
     version = rootProject.version
-    ext.codename = 'Antimony'
+    ext.codename = 'Beryl'
+
+    ext.isRelease = false
 
     repositories {
         mavenCentral()
@@ -59,6 +62,11 @@ allprojects {
     }
 
     defaultTasks 'build'
+
+    tasks.withType(JavaCompile) {
+        options.deprecation = true
+        //options.compilerArgs += ['-Werror']
+    }
 }
 
 mkdir {
@@ -127,13 +135,11 @@ task printRuntimeDependencies {
             println " $p.name ".center(45, '-')
             p.configurations.findAll { it.name == "runtime" }.findAll { !it.allDependencies.empty }.each { c ->
                 c.allDependencies.each { dep ->
-                    println "$dep.group:$dep.name:$dep.version"
+                    if (dep.group != null) {
+                        println "$dep.group:$dep.name:$dep.version"
+                    }
                 }
             }
         }
-//        subprojects.each { p ->
-//            println " $p.name ".center(45, '-')
-//            p.collect { it.configurations.runtime }.each { r -> println "$r.name" }
-//        }
     }
 }

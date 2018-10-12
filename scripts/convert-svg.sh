@@ -1,4 +1,4 @@
-RADIANCE_VERSION=0.9-SNAPSHOT
+RADIANCE_VERSION=1.5-SNAPSHOT
 CLASSPATH=../drop/$RADIANCE_VERSION/core/radiance-photon-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.10.jar:../build/libs-core/xml-apis-1.3.04.jar:../build/libs-core/xml-apis-ext-1.3.04.jar:../build/libs-core/xmlgraphics-commons-2.2.jar
 
 java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../demos/kormorant-demo/src/main/kotlin/org/pushingpixels/demo/kormorant/svg outputPackageName=org.pushingpixels.demo.kormorant.svg templateFile=/org/pushingpixels/photon/transcoder/kotlin/SvgTranscoderTemplateResizable.templ outputLanguage=kotlin

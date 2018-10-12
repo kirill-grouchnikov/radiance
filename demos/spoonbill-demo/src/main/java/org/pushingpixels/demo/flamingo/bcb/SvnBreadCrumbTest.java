@@ -39,6 +39,9 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.spoonbill.svn.BreadcrumbSvnSelector;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
+import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,18 +62,18 @@ public class SvnBreadCrumbTest extends JFrame {
 
     private BreadcrumbSvnSelector bar;
 
-    protected JComboBox svnCombo;
+    private JComboBox<SvnRepoInfo> svnCombo;
 
-    protected static class SvnRepoInfo {
-        public String name;
+    private static class SvnRepoInfo {
+        private String name;
 
-        public String url;
+        private String url;
 
-        public String user;
+        private String user;
 
-        public String password;
+        private String password;
 
-        public SvnRepoInfo(String name, String url, String user, String password) {
+        private SvnRepoInfo(String name, String url, String user, String password) {
             this.name = name;
             this.url = url;
             this.user = user;
@@ -78,15 +81,15 @@ public class SvnBreadCrumbTest extends JFrame {
         }
     }
 
-    public class SvnComboListModel extends DefaultComboBoxModel {
+    public class SvnComboListModel extends DefaultComboBoxModel<SvnRepoInfo> {
         private List<SvnRepoInfo> svnRepoList;
 
-        public SvnComboListModel() {
-            this.svnRepoList = new ArrayList<SvnRepoInfo>();
+        private SvnComboListModel() {
+            this.svnRepoList = new ArrayList<>();
         }
 
         @Override
-        public Object getElementAt(int index) {
+        public SvnRepoInfo getElementAt(int index) {
             return this.svnRepoList.get(index);
         }
 
@@ -95,14 +98,14 @@ public class SvnBreadCrumbTest extends JFrame {
             return this.svnRepoList.size();
         }
 
-        public void addElement(SvnRepoInfo svnRepoInfo) {
+        private void add(SvnRepoInfo svnRepoInfo) {
             int index = this.svnRepoList.size();
             this.svnRepoList.add(svnRepoInfo);
             this.fireContentsChanged(this, index, index);
         }
     }
 
-    public SvnBreadCrumbTest() {
+    private SvnBreadCrumbTest() {
         super("BreadCrumb test");
 
         this.bar = new BreadcrumbSvnSelector();
@@ -111,15 +114,15 @@ public class SvnBreadCrumbTest extends JFrame {
                 .showMessageDialog(SvnBreadCrumbTest.this, "Error", t));
 
         SvnComboListModel svnComboModel = new SvnComboListModel();
-        svnComboModel.addElement(new SvnRepoInfo("SVNKit", "http://svn.svnkit.com/repos/svnkit",
+        svnComboModel.add(new SvnRepoInfo("SVNKit", "http://svn.svnkit.com/repos/svnkit",
                 "anonymous", "anonymous"));
-        svnComboModel.addElement(new SvnRepoInfo("KDE", "svn://anonsvn.kde.org/home/kde/trunk",
+        svnComboModel.add(new SvnRepoInfo("KDE", "svn://anonsvn.kde.org/home/kde/trunk",
                 "anonymous", "anonymous"));
-        svnComboModel.addElement(new SvnRepoInfo("Apache", "http://svn.apache.org/repos/asf",
+        svnComboModel.add(new SvnRepoInfo("Apache", "http://svn.apache.org/repos/asf",
                 "anonymous", "anonymous"));
 
-        svnCombo = new JComboBox(svnComboModel);
-        svnCombo.setRenderer(new DefaultListCellRenderer() {
+        svnCombo = new JComboBox<>(svnComboModel);
+        svnCombo.setRenderer(new SubstanceDefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
                     boolean isSelected, boolean cellHasFocus) {
@@ -137,7 +140,6 @@ public class SvnBreadCrumbTest extends JFrame {
             setCursor(Cursor.getDefaultCursor());
         }));
 
-        // "http://svn.svnkit.com/repos/svnkit", "anonymous", "anonymous");
         this.bar.getModel()
                 .addPathListener((BreadcrumbPathEvent<String> event) -> SwingUtilities.invokeLater(() -> {
                     final List<BreadcrumbItem<String>> newPath = event.getSource().getItems();
@@ -166,10 +168,9 @@ public class SvnBreadCrumbTest extends JFrame {
                     }
                 }));
 
-        JToolBar toolbar = new JToolBar();
-        toolbar.setLayout(new BorderLayout(3, 0));
-        toolbar.setFloatable(false);
-
+        JPanel toolbar = new JPanel(new BorderLayout(3, 0));
+        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(toolbar,
+                SubstanceSlices.DecorationAreaType.HEADER);
         toolbar.add(svnCombo, BorderLayout.WEST);
         toolbar.add(bar, BorderLayout.CENTER);
 
@@ -197,7 +198,7 @@ public class SvnBreadCrumbTest extends JFrame {
                         process(e);
                     }
 
-                    protected void process(MouseEvent me) {
+                    private void process(MouseEvent me) {
                         JPopupMenu popupMenu = new JPopupMenu();
                         JMenuItem showContents = new JMenuItem("Show file contents");
                         showContents.addActionListener(
@@ -222,8 +223,9 @@ public class SvnBreadCrumbTest extends JFrame {
                                                 JTextArea textArea = new JTextArea();
                                                 while (true) {
                                                     String line = reader.readLine();
-                                                    if (line == null)
+                                                    if (line == null) {
                                                         break;
+                                                    }
                                                     textArea.append(line + "\n");
                                                 }
                                                 textArea.setCaretPosition(0);
@@ -263,6 +265,8 @@ public class SvnBreadCrumbTest extends JFrame {
         } catch (SecurityException e) {
         }
         SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
             SvnBreadCrumbTest test = new SvnBreadCrumbTest();
             test.setSize(700, 400);
             test.setLocation(300, 100);

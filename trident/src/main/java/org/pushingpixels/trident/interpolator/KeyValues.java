@@ -47,22 +47,22 @@ import java.util.List;
  * At each of the times in {@link KeyTimes}, the property will take on the
  * corresponding value in the KeyValues object. Between these times, the
  * property will take on a value based on the interpolation information stored
- * in the KeyFrames object and the {@link Evaluator} for the type of the values
+ * in the KeyFrames object and the {@link PropertyInterpolator} for the type of the values
  * in KeyValues.
  * <p>
  * This class has built-in support for various known types, as defined in
- * {@link Evaluator}.
+ * {@link PropertyInterpolator}.
  * <p>
  * For a simple example using KeyValues to create a KeyFrames and PropertySetter
  * object, see the class header comments in {@link PropertySetter}.
- * 
- * 
+ *
  * @author Chet
+ * @param <T> Value type
  */
 public class KeyValues<T> {
 
     private final List<T> values = new ArrayList<T>();
-    private final PropertyInterpolator<T> evaluator;
+    private final PropertyInterpolator<T> interpolator;
     private final Class<?> type;
     private T startValue;
 
@@ -75,8 +75,10 @@ public class KeyValues<T> {
      *            parameter, this is assumed to be a "to" animation where the
      *            first value is dynamically determined at runtime when the
      *            animation is started.
+     * @param <T> Value type
+     * @return KeyValues object
      * @throws IllegalArgumentException
-     *             if an {@link Evaluator} cannot be found that can interpolate
+     *             if an {@link PropertyInterpolator} cannot be found that can interpolate
      *             between the value types supplied
      */
     public static <T> KeyValues<T> create(T... params) {
@@ -84,18 +86,21 @@ public class KeyValues<T> {
     }
 
     /**
-     * Constructs a KeyValues object from a Evaluator and one or more values.
-     * 
+     * Constructs a KeyValues object from a property interpolator and one or more values.
+     *
+     * @param interpolator Property interpolator
      * @param params
      *            the values to interpolate between. If there is only one
      *            parameter, this is assumed to be a "to" animation where the
      *            first value is dynamically determined at runtime when the
      *            animation is started.
+     * @param <T> Value type
+     * @return KeyValues object
      * @throws IllegalArgumentException
      *             if params does not have at least one value.
      */
-    public static <T> KeyValues<T> create(PropertyInterpolator evaluator, T... params) {
-        return new KeyValues(evaluator, params);
+    public static <T> KeyValues<T> create(PropertyInterpolator interpolator, T... params) {
+        return new KeyValues(interpolator, params);
     }
 
     /**
@@ -108,7 +113,7 @@ public class KeyValues<T> {
     /**
      * Private constructor, called by factory method
      */
-    private KeyValues(PropertyInterpolator evaluator, T... params) {
+    private KeyValues(PropertyInterpolator interpolator, T... params) {
         if (params == null) {
             throw new IllegalArgumentException("params array cannot be null");
         } else if (params.length == 0) {
@@ -120,7 +125,7 @@ public class KeyValues<T> {
         }
         Collections.addAll(values, params);
         this.type = params.getClass().getComponentType();
-        this.evaluator = evaluator;
+        this.interpolator = interpolator;
     }
 
     /**
@@ -156,14 +161,14 @@ public class KeyValues<T> {
      * Utility method for determining whether this is a "to" animation (true if
      * the first value is null).
      */
-    boolean isToAnimation() {
+    private boolean isToAnimation() {
         return (values.get(0) == null);
     }
 
     /**
      * Returns value calculated from the value at the lower index, the value at
      * the upper index, the fraction elapsed between these endpoints, and the
-     * evaluator set up by this object at construction time.
+     * interpolator set up by this object at construction time.
      */
     T getValue(int i0, int i1, float fraction) {
         T value;
@@ -178,7 +183,7 @@ public class KeyValues<T> {
         } else {
             T v0 = lowerValue;
             T v1 = values.get(i1);
-            value = evaluator.interpolate(v0, v1, fraction);
+            value = interpolator.interpolate(v0, v1, fraction);
         }
         return value;
     }

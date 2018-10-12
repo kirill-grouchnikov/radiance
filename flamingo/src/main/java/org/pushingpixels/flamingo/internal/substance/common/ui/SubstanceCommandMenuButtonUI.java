@@ -49,7 +49,7 @@ public class SubstanceCommandMenuButtonUI extends SubstanceCommandButtonUI {
     /**
      * Rollover menu mouse listener.
      */
-    protected MouseListener rolloverMenuMouseListener;
+    private MouseListener rolloverMenuMouseListener;
 
     public static ComponentUI createUI(JComponent c) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(c);
@@ -58,7 +58,7 @@ public class SubstanceCommandMenuButtonUI extends SubstanceCommandButtonUI {
         return new SubstanceCommandMenuButtonUI((JCommandMenuButton) c);
     }
 
-    public SubstanceCommandMenuButtonUI(JCommandMenuButton button) {
+    private SubstanceCommandMenuButtonUI(JCommandMenuButton button) {
         super(button);
     }
 
@@ -98,7 +98,7 @@ public class SubstanceCommandMenuButtonUI extends SubstanceCommandButtonUI {
 
     /**
      * Fires the rollover action on all registered handlers.
-     * 
+     *
      * @param e
      *            Event object.
      */

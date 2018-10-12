@@ -29,9 +29,7 @@
  */
 package org.pushingpixels.lightbeam.panels;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.lightbeam.*;
 import org.pushingpixels.lightbeam.commands.*;
 
@@ -51,8 +49,8 @@ public class SpinnerPanel extends JPanel {
 	public SpinnerPanel() {
 		this.setLayout(new BorderLayout());
 
-		FormLayout lm = new FormLayout("right:pref, 4dlu, left:pref:grow", "");
-		DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(Borders.DIALOG);
+		TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
+				"right:pref, 4dlu, left:pref:grow", 2, 10).border(Paddings.DIALOG);
 
 		CreationCommand<Component> basicCr = new CreationCommand<Component>() {
 			public Component create() {
@@ -96,10 +94,10 @@ public class SpinnerPanel extends JPanel {
 		addSpinner(builder, "Weekdays", weekdaysCr, new DisableCommand());
 		addSpinner(builder, "Number", numberCr, new DisableCommand());
 
-		this.add(new JScrollPane(builder.getPanel()), BorderLayout.CENTER);
+		this.add(new JScrollPane(builder.build()), BorderLayout.CENTER);
 	}
 
-	private void addSpinner(DefaultFormBuilder builder, String label,
+	private void addSpinner(TestFormLayoutBuilder builder, String label,
 			CreationCommand<Component> creationCmd,
 			ConfigurationCommand<Component> configurationCmd) {
 

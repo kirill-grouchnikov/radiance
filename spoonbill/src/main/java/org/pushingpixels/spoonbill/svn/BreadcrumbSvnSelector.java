@@ -236,7 +236,7 @@ public class BreadcrumbSvnSelector extends JBreadcrumbBar<String> {
 		this.callback = new PathCallback(url, userName, password);
 		this.callback.setup();
 		this.callback.setThrowsExceptions(throwsException);
-		this.setPath(new LinkedList<BreadcrumbItem<String>>());
+		this.setPath(new LinkedList<>());
 	}
 
 	/**
@@ -247,7 +247,7 @@ public class BreadcrumbSvnSelector extends JBreadcrumbBar<String> {
 	 * @param leaf
 	 *            Full path to the file.
 	 * @return Contents of the specified repository file.
-	 * @throws SVNException
+	 * @throws SVNException When the underlying library throws
 	 */
 	@SuppressWarnings("unchecked")
 	protected static InputStream getLeafContent(SVNRepository repository,
@@ -266,12 +266,12 @@ public class BreadcrumbSvnSelector extends JBreadcrumbBar<String> {
 	 * @param path
 	 *            Full path to the folder.
 	 * @return List of all the files in the specified folder.
-	 * @throws SVNException
+	 * @throws SVNException When the underlying library throws
 	 */
 	@SuppressWarnings("unchecked")
 	protected static List<StringValuePair<String>> getLeafs(
 			SVNRepository repository, String path) throws SVNException {
-		List<StringValuePair<String>> result = new ArrayList<StringValuePair<String>>();
+		List<StringValuePair<String>> result = new ArrayList<>();
 		Collection entries = repository.getDir(path, -1, null,
 				(Collection) null);
 		Iterator iterator = entries.iterator();
@@ -289,12 +289,7 @@ public class BreadcrumbSvnSelector extends JBreadcrumbBar<String> {
 				result.add(leafInfo);
 			}
 		}
-		Collections.sort(result, new Comparator<StringValuePair<String>>() {
-			public int compare(StringValuePair<String> o1,
-					StringValuePair<String> o2) {
-				return o1.getKey().compareTo(o2.getKey());
-			}
-		});
+		Collections.sort(result, Comparator.comparing(StringValuePair::getKey));
 		return result;
 	}
 
@@ -306,30 +301,22 @@ public class BreadcrumbSvnSelector extends JBreadcrumbBar<String> {
 	 * @param path
 	 *            Full path to the folder.
 	 * @return List of all the folders in the specified folder.
-	 * @throws SVNException
+	 * @throws SVNException When the underlying library throws
 	 */
 	@SuppressWarnings("unchecked")
 	protected static List<StringValuePair<String>> getPathChoices(
 			SVNRepository repository, String path) throws SVNException {
-		List<StringValuePair<String>> result = new ArrayList<StringValuePair<String>>();
-		Collection entries = repository.getDir(path, -1, null,
-				(Collection) null);
+		List<StringValuePair<String>> result = new ArrayList<>();
+		Collection entries = repository.getDir(path, -1, null, (Collection) null);
 		Iterator iterator = entries.iterator();
 		while (iterator.hasNext()) {
 			SVNDirEntry entry = (SVNDirEntry) iterator.next();
 			if (entry.getKind() == SVNNodeKind.DIR) {
-				String prefix = ((path == null) || (path.length() == 0)) ? ""
-						: path + "/";
-				result.add(new StringValuePair<String>(entry.getName(), prefix
-						+ entry.getName()));
+				String prefix = ((path == null) || (path.length() == 0)) ? "" : path + "/";
+				result.add(new StringValuePair<>(entry.getName(), prefix + entry.getName()));
 			}
 		}
-		Collections.sort(result, new Comparator<StringValuePair<String>>() {
-			public int compare(StringValuePair<String> o1,
-					StringValuePair<String> o2) {
-				return o1.getKey().compareTo(o2.getKey());
-			}
-		});
+		Collections.sort(result, Comparator.comparing(StringValuePair::getKey));
 		return result;
 	}
 }

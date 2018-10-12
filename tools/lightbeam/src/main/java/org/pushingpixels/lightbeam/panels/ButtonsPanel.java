@@ -29,9 +29,7 @@
  */
 package org.pushingpixels.lightbeam.panels;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.lightbeam.*;
 import org.pushingpixels.lightbeam.commands.*;
 
@@ -57,11 +55,7 @@ public class ButtonsPanel extends JPanel {
 	 * @author Kirill Grouchnikov
 	 */
 	private class MarginCommand implements ConfigurationCommand<AbstractButton> {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
+		@Override
 		public void configure(AbstractButton ab) {
 			ab.setMargin(new Insets(5, 5, 5, 5));
 		}
@@ -88,11 +82,7 @@ public class ButtonsPanel extends JPanel {
 			this.text = text;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
+        @Override
 		public void configure(AbstractButton ab) {
 			ab.setText(this.text);
 		}
@@ -119,11 +109,7 @@ public class ButtonsPanel extends JPanel {
 			this.font = font;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
+        @Override
 		public void configure(AbstractButton ab) {
 			ab.setFont(this.font);
 		}
@@ -150,11 +136,7 @@ public class ButtonsPanel extends JPanel {
 			this.icon = icon;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
+        @Override
 		public void configure(AbstractButton ab) {
 			if ((ab instanceof JRadioButton) || (ab instanceof JCheckBox))
 				return;
@@ -170,11 +152,7 @@ public class ButtonsPanel extends JPanel {
 	 */
 	private class NoContentAreaFilledCommand implements
 			ConfigurationCommand<AbstractButton> {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
+        @Override
 		public void configure(AbstractButton ab) {
 			ab.setContentAreaFilled(false);
 		}
@@ -187,11 +165,7 @@ public class ButtonsPanel extends JPanel {
 	 */
 	private class NoBorderPaintedCommand implements
 			ConfigurationCommand<AbstractButton> {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
+        @Override
 		public void configure(AbstractButton ab) {
 			ab.setBorderPainted(false);
 		}
@@ -235,7 +209,7 @@ public class ButtonsPanel extends JPanel {
 	 * @param cmd
 	 * 		Configuration command to apply.
 	 */
-	private void addRow(DefaultFormBuilder builder, String label, Icon icon,
+	private void addRow(TestFormLayoutBuilder builder, String label, Icon icon,
 			ConfigurationCommand<? super AbstractButton> cmd) {
 		AbstractButton[] row = this.getRow();
 		if (cmd != null) {
@@ -259,12 +233,12 @@ public class ButtonsPanel extends JPanel {
 	public ButtonsPanel() {
 		this.setLayout(new BorderLayout());
 
-		FormLayout lm = new FormLayout(
-				"right:pref, 10dlu, left:pref:grow(1), 4dlu,"
-						+ "left:pref:grow(1), 4dlu, left:pref:grow(1), "
-						+ "4dlu, left:pref:grow(1)", "");
-		lm.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-		DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(Borders.DIALOG);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
+                "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
+                        + "left:pref:grow(1), 4dlu, left:pref:grow(1), "
+                        + "4dlu, left:pref:grow(1)", 5, 20).
+                columnGroups(new int[][] { { 3, 5, 7, 9 } }).
+                border(Paddings.DIALOG);
 
 		builder.append("");
 		JLabel bLabel = new JLabel("Buttons");
@@ -313,7 +287,7 @@ public class ButtonsPanel extends JPanel {
 		this.addRow(builder, "Null text", null, new TextCommand(null));
 		this.addRow(builder, "Empty text", null, new TextCommand(""));
 
-		JScrollPane jsp = new JScrollPane(builder.getPanel());
+		JScrollPane jsp = new JScrollPane(builder.build());
 		this.add(jsp, BorderLayout.CENTER);
 	}
 

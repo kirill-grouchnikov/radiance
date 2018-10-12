@@ -58,11 +58,7 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandToggleBu
 
         Border border = this.commandButton.getBorder();
         if (border == null || border instanceof UIResource) {
-            Border toInstall = UIManager
-                    .getBorder("RibbonTaskToggleButton.border");
-            if (toInstall == null)
-                toInstall = new BorderUIResource.EmptyBorderUIResource(1, 12,
-                        1, 12);
+            Border toInstall = new BorderUIResource.EmptyBorderUIResource(1, 12, 1, 12);
             this.commandButton.setBorder(toInstall);
         }
 
@@ -78,27 +74,26 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandToggleBu
             @Override
             public void popupShown(PopupEvent event) {
                 if (event.getSource() == commandButton) {
-                    commandButton.getActionModel()
-                            .setSelected(isTaskSelected());
+                    commandButton.getActionModel().setSelected(isTaskSelected());
                 }
             }
 
             @Override
             public void popupHidden(PopupEvent event) {
                 if (event.getSource() == commandButton) {
-                    commandButton.getActionModel()
-                            .setSelected(isTaskSelected());
+                    commandButton.getActionModel().setSelected(isTaskSelected());
                 }
             }
 
             private boolean isTaskSelected() {
                 JRibbon ribbon = (JRibbon) SwingUtilities.getAncestorOfClass(
                         JRibbon.class, commandButton);
-                if (ribbon == null)
+                if (ribbon == null) {
                     return false;
+                }
 
-                return ribbon.getSelectedTask() == ((JRibbonTaskToggleButton) commandButton)
-                        .getRibbonTask();
+                return ribbon.getSelectedTask() ==
+                        ((JRibbonTaskToggleButton) commandButton).getRibbonTask();
             }
         };
         PopupPanelManager.defaultManager().addPopupListener(this.popupListener);

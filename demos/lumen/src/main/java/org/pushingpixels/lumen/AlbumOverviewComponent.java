@@ -195,8 +195,7 @@ public class AlbumOverviewComponent extends JComponent {
         // and fade it in
         Timeline imageFadeInTimeline = new Timeline(AlbumOverviewComponent.this);
         imageFadeInTimeline.addPropertyToInterpolate("imageAlpha", 0.0f, 1.0f);
-        imageFadeInTimeline.addCallback(new SwingRepaintCallback(
-                AlbumOverviewComponent.this));
+        imageFadeInTimeline.addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this));
         imageFadeInTimeline.setDuration(500);
         loadScenario.addScenarioActor(imageFadeInTimeline);
 

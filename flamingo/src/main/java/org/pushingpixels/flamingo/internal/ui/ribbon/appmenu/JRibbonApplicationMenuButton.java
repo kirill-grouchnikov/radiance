@@ -113,6 +113,8 @@ public class JRibbonApplicationMenuButton extends JCommandButton {
 
     /**
      * Creates a new application menu button.
+     *
+     * @param ribbon Associated ribbon.
      */
     public JRibbonApplicationMenuButton(JRibbon ribbon) {
         super("", null);

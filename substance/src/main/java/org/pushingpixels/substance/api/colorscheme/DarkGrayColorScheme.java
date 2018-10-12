@@ -74,7 +74,7 @@ public class DarkGrayColorScheme extends BaseDarkColorScheme {
 	private static final Color foregroundColor = Color.white;
 
 	/**
-	 * Creates a new <code></code> color scheme.
+	 * Creates a new <code>Dark Gray</code> color scheme.
 	 */
 	public DarkGrayColorScheme() {
 		super("Dark Gray");

@@ -229,7 +229,7 @@ public class BreadcrumbMultiSvnSelector extends JBreadcrumbBar<String> {
 		/**
 		 * Adds information on a new SVN repository.
 		 * 
-		 * @param repositoryInfo
+		 * @param repositoryInfo SVN repository info
 		 */
 		public void addSvnRepositoryInfo(SvnRepositoryInfo repositoryInfo) {
 			this.repositories.add(repositoryInfo);

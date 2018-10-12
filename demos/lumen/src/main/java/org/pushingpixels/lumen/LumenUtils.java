@@ -114,8 +114,7 @@ public class LumenUtils {
             int fadeOutDuration) {
         Timeline dispose = new Timeline(window);
 
-        dispose.addPropertyToInterpolate(Timeline.<Float>property(
-                "opacity").from(1.0f).to(0.0f));
+        dispose.addPropertyToInterpolate(Timeline.<Float>property("opacity").from(1.0f).to(0.0f));
         dispose.addCallback(new UIThreadTimelineCallbackAdapter() {
             @Override
             public void onTimelineStateChanged(TimelineState oldState,

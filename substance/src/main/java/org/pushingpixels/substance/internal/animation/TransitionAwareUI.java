@@ -31,7 +31,6 @@ package org.pushingpixels.substance.internal.animation;
 
 import java.awt.event.MouseEvent;
 
-
 /**
  * General interface for UIs that wish to provide transition effects on one of
  * their components. This class is <b>for internal use only</b>.

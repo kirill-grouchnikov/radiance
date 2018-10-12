@@ -53,13 +53,6 @@ public class TablePanel extends JPanel {
 	 * @author Kirill Grouchnikov
 	 */
 	private static class MyColorTableRenderer extends DefaultTableCellRenderer {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * javax.swing.table.TableCellRenderer#getTableCellRendererComponent
-		 * (javax.swing.JTable, java.lang.Object, boolean, boolean, int, int)
-		 */
 		@Override
 		public Component getTableCellRendererComponent(JTable table,
 				Object value, boolean isSelected, boolean hasFocus, int row,
@@ -79,13 +72,6 @@ public class TablePanel extends JPanel {
 	 * @author Kirill Grouchnikov
 	 */
 	private static class MyFloatTableRenderer extends DefaultTableCellRenderer {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * javax.swing.table.TableCellRenderer#getTableCellRendererComponent
-		 * (javax.swing.JTable, java.lang.Object, boolean, boolean, int, int)
-		 */
 		@Override
 		public Component getTableCellRendererComponent(JTable table,
 				Object value, boolean isSelected, boolean hasFocus, int row,
@@ -160,70 +146,36 @@ public class TablePanel extends JPanel {
 			}
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.AbstractTableModel#getColumnClass(int)
-		 */
 		@Override
 		public Class<?> getColumnClass(int columnIndex) {
 			return this.columns[columnIndex];
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getColumnCount()
-		 */
+		@Override
 		public int getColumnCount() {
 			return this.cols;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getRowCount()
-		 */
+		@Override
 		public int getRowCount() {
 			return this.rows;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getValueAt(int, int)
-		 */
+		@Override
 		public Object getValueAt(int row, int col) {
 			return this.data.get(row)[col];
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.AbstractTableModel#getColumnName(int)
-		 */
 		@Override
 		public String getColumnName(int column) {
 			return this.getColumnClass(column).getSimpleName();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.AbstractTableModel#isCellEditable(int, int)
-		 */
 		@Override
 		public boolean isCellEditable(int rowIndex, int columnIndex) {
 			return (rowIndex % 2 == 0);
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * javax.swing.table.AbstractTableModel#setValueAt(java.lang.Object,
-		 * int, int)
-		 */
 		@Override
 		public void setValueAt(Object value, int row, int col) {
 			this.data.get(row)[col] = value;

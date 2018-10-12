@@ -216,7 +216,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      *
      * @return The fill painter of this skin. A valid skin cannot have a
      * <code>null</code> value returned from this method. Call
-     * {@link #isValid() to verify that the skin is valid.
+     * {@link #isValid()} to verify that the skin is valid.
      * @see #isValid()
      */
     public final SubstanceFillPainter getFillPainter() {
@@ -447,7 +447,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      *                              decoration areas.
      * @param areaTypes             Enumerates the area types that are affected by the parameters.
      *                              Each decoration area type will be painted by
-     * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, DecorationAreaType, int, int, SubstanceSkin)}
+     * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, SubstanceSlices.DecorationAreaType, int, int, SubstanceSkin)}
      */
     public void registerAsDecorationArea(SubstanceColorScheme backgroundColorScheme,
             DecorationAreaType... areaTypes) {
@@ -464,17 +464,16 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     /**
      * Returns indication whether the specified decoration area type should have
      * their background painted by
-     * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, DecorationAreaType, int, int, SubstanceSkin)}
+     * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, SubstanceSlices.DecorationAreaType, int, int, SubstanceSkin)}
      * instead of a simple background fill.
      *
      * @param decorationType Decoration area type.
      * @return <code>true</code> if specified decoration area type should have
      * their background painted by
-     * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, DecorationAreaType, int, int, SubstanceSkin)}
+     * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, SubstanceSlices.DecorationAreaType, int, int, SubstanceSkin)}
      * , <code>false</code> otherwise.
      */
-    public boolean isRegisteredAsDecorationArea(
-            DecorationAreaType decorationType) {
+    public boolean isRegisteredAsDecorationArea(DecorationAreaType decorationType) {
         return this.decoratedAreaSet.contains(decorationType);
     }
 
@@ -806,7 +805,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     /**
      * Returns the background color scheme for the specified decoration area
      * type. This method is mainly for the internal use of
-     * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, DecorationAreaType, int, int, SubstanceSkin)}
+     * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, SubstanceSlices.DecorationAreaType, int, int, SubstanceSkin)}
      * , but can be used in applications that wish to provide custom overlay
      * background painting (such as watermarks, for example).
      *

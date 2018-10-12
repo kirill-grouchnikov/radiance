@@ -71,8 +71,8 @@ import java.util.List;
  * </p>
  *
  * <p>
- * The application menu button is a big round button shown in the top left corner of the ribbon. If
- * the {@link #setApplicationMenu(RibbonApplicationMenu)} is not called, or called with the
+ * The application menu button is a rectangular button shown in the top left corner of the ribbon.
+ * If the {@link #setApplicationMenu(RibbonApplicationMenu)} is not called, or called with the
  * <code>null</code> value, the application menu button is not shown, and ribbon task buttons are
  * shifted to the left.
  * </p>
@@ -90,12 +90,13 @@ import java.util.List;
  * <ul>
  * <li>Calling {@link #setMinimized(boolean)} with <code>true</code>.</li>
  * <li>User double-clicking on a task button.</li>
- * <li>User pressing <code>Ctrl+F1</code> key combination.</li>
+ * <li>User pressing <code>Meta+Alt+R</code> key combination on a Mac machine or
+ * </code><code>Ctrl+F1</code> key combination on a non-Mac machine.</li>
  * </ul>
  *
  * <p>
- * A minimized ribbon shows the application menu button, taskbar panel, task buttons and help
- * button, but not the ribbon bands of the selected task. Clicking a task button shows the ribbon
+ * A minimized ribbon shows the application menu button, taskbar panel, task buttons and anchored
+ * contnet, but not the ribbon bands of the selected task. Clicking a task button shows the ribbon
  * bands of that task in a popup <strong>without</strong> shifting the application content down.
  * </p>
  *
@@ -259,6 +260,7 @@ public class JRibbon extends JComponent {
     /**
      * Adds a taskbar separator to this ribbon.
      *
+     * @return the added separator
      * @see #addTaskbarCommand(FlamingoCommand)
      * @see #removeTaskbarCommand(FlamingoCommand)
      * @see #getTaskbarCommands()
@@ -511,7 +513,7 @@ public class JRibbon extends JComponent {
     }
 
     /**
-     * Returns the UI object which implements the L&F for this component.
+     * Returns the UI delegate for this component.
      *
      * @return a <code>RibbonUI</code> object
      * @see #setUI
