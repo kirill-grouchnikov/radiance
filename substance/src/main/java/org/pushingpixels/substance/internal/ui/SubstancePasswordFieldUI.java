@@ -30,30 +30,22 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+import org.pushingpixels.substance.internal.animation.*;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
-import javax.swing.plaf.basic.BasicBorders;
-import javax.swing.plaf.basic.BasicPasswordFieldUI;
+import javax.swing.plaf.*;
+import javax.swing.plaf.basic.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 import java.util.Set;
 
 /**
@@ -112,8 +104,9 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
 
         /**
          * Draws the echo character(s) for a single password field character. The number of echo
-         * characters is defined by {@link SubstanceLookAndFeel#PASSWORD_ECHO_PER_CHAR} client
-         * property.
+         * characters is defined by
+         * {@link org.pushingpixels.substance.internal.SubstanceSynapse#PASSWORD_ECHO_PER_CHAR}
+         * client property.
          * 
          * @param g
          *            Graphics context
@@ -126,7 +119,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
          * @param isSelected
          *            Indicates whether the password field character is selected.
          * @return The X location of the next echo character.
-         * @see SubstanceLookAndFeel#PASSWORD_ECHO_PER_CHAR
+         * @see org.pushingpixels.substance.internal.SubstanceSynapse#PASSWORD_ECHO_PER_CHAR
          */
         private int drawEchoCharacter(Graphics g, int x, int y, char c, boolean isSelected) {
             Container container = this.getContainer();
@@ -147,7 +140,6 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
             Color color = isSelected ? scheme.getSelectionForegroundColor()
                     : SubstanceColorUtilities.getForegroundColor(scheme);
             graphics.setColor(color);
-            ;
             int echoPerChar = SubstanceCoreUtilities.getEchoPerChar(field);
             for (int i = 0; i < echoPerChar; i++) {
                 graphics.fillOval(x + dotGap / 2, y - dotDiameter, dotDiameter, dotDiameter);
@@ -159,7 +151,8 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
         /**
          * Returns the advance of a single password field character. The advance is the pixel
          * distance between first echo characters of consecutive password field characters. The
-         * {@link SubstanceLookAndFeel#PASSWORD_ECHO_PER_CHAR} can be used to specify that more than
+         * {@link org.pushingpixels.substance.internal.SubstanceSynapse#PASSWORD_ECHO_PER_CHAR}
+         * can be used to specify that more than
          * one echo character is used for each password field character.
          * 
          * @return The advance of a single password field character

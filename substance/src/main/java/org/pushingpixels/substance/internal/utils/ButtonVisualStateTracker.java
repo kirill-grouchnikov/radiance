@@ -29,14 +29,12 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollButton;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 
 /**
  * Utility class to track transitions in visual state of buttons.
@@ -51,9 +49,9 @@ public class ButtonVisualStateTracker {
 	/**
 	 * Property change listener.
 	 */
-	protected PropertyChangeListener substancePropertyListener;
+	private PropertyChangeListener substancePropertyListener;
 
-	protected StateTransitionTracker stateTransitionTracker;
+	private StateTransitionTracker stateTransitionTracker;
 
 	/**
 	 * Installs tracking listeners on the specified button.
@@ -64,10 +62,8 @@ public class ButtonVisualStateTracker {
 	 *            If <code>true</code>, the button will have the rollover
 	 *            listener installed on it.
 	 */
-	public void installListeners(final AbstractButton b,
-			boolean toInstallRolloverListener) {
-		this.stateTransitionTracker = new StateTransitionTracker(b, b
-				.getModel());
+	public void installListeners(final AbstractButton b, boolean toInstallRolloverListener) {
+		this.stateTransitionTracker = new StateTransitionTracker(b, b.getModel());
 		if (b instanceof SubstanceScrollButton) {
 			this.stateTransitionTracker.setRepaintCallback(() -> {
 					JScrollBar scrollBar = (JScrollBar) SwingUtilities

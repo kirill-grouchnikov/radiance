@@ -48,12 +48,11 @@ public class SubstanceTitlePaneUtilities {
      * of {@link ExtraComponentKind}.
      * 
      * @see #markTitlePaneExtraComponent(JComponent, ExtraComponentKind)
-     * @see #getTitleTextRectangle()
      */
     public static final String EXTRA_COMPONENT_KIND = "substancelaf.internal.titlePane.extraComponentKind";
 
     /** Enumerates the types of children components of title panes. */
-    public static enum ExtraComponentKind {
+    public enum ExtraComponentKind {
         /** Leading child components (left on LTR and right on RTL). */
         LEADING,
 

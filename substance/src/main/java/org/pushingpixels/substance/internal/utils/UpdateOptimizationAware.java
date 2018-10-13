@@ -30,5 +30,5 @@
 package org.pushingpixels.substance.internal.utils;
 
 public interface UpdateOptimizationAware {
-	public UpdateOptimizationInfo getUpdateOptimizationInfo();
+	UpdateOptimizationInfo getUpdateOptimizationInfo();
 }

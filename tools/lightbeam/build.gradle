@@ -35,8 +35,6 @@ dependencies {
     compile ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")
 }
 
-sourceCompatibility = 1.8
-
 ext.designation = "tools"
 
 jar {

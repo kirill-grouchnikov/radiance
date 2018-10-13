@@ -182,8 +182,9 @@ public class SubstanceSizeUtils {
 	 * @return Height of arrow icons under the specified font size.
 	 */
 	public static float getArrowIconHeight(int fontSize) {
-		if (fontSize < 12)
+		if (fontSize < 12) {
 			return 0.5f + fontSize * 0.5f;
+		}
 		return getAdjustedSize(fontSize, 7.0f, 1, 0.4f);
 	}
 
@@ -237,8 +238,7 @@ public class SubstanceSizeUtils {
 		int topDelta = textInsets.top - borderStroke;
 		int bottomDelta = textInsets.bottom - borderStroke;
 
-		int lrInset = SubstanceSizeUtils.getAdjustedSize(fontSize, 4, 4, 1,
-				false);
+		int lrInset = SubstanceSizeUtils.getAdjustedSize(fontSize, 4, 4, 1, false);
 		return new Insets(topDelta, lrInset, bottomDelta, lrInset);
 	}
 
@@ -321,21 +321,6 @@ public class SubstanceSizeUtils {
 		return new Insets(tbInset, lrInset, tbInset, lrInset);
 	}
 
-	// /**
-	// * Returns the combo box border insets under the specified font size.
-	// *
-	// * @param fontSize
-	// * Font size.
-	// * @return Combo box border insets under the specified font size.
-	// */
-	// public static Insets getEditableComboBorderInsets(int fontSize) {
-	// // The base insets are 2,2,2,2. We add one pixel for
-	// // each 4 extra points in base control size.
-	// int tbInset = getAdjustedSize(fontSize, 2, 4, 1, false);
-	// int lrInset = getAdjustedSize(fontSize, 2, 4, 1, false);
-	// return new Insets(tbInset, lrInset, tbInset, lrInset);
-	// }
-
 	/**
 	 * Returns the combo box text border insets under the specified font size.
 	 * 
@@ -416,8 +401,9 @@ public class SubstanceSizeUtils {
 	 * @return Extra padding amount under the specified font size.
 	 */
 	public static int getExtraPadding(int fontSize) {
-		if (fontSize < 14)
-			return 0;
+		if (fontSize < 14) {
+            return 0;
+        }
 		return (int) SubstanceSizeUtils.getAdjustedSize(fontSize, 0, 3, 1.2f);
 	}
 
@@ -479,8 +465,7 @@ public class SubstanceSizeUtils {
 		int topDelta = textInsets.top - comboInsets.top - borderStroke;
 		int bottomDelta = textInsets.bottom - comboInsets.bottom - borderStroke;
 
-		int lrInset = SubstanceSizeUtils.getAdjustedSize(fontSize, 4, 4, 1,
-				false);
+		int lrInset = SubstanceSizeUtils.getAdjustedSize(fontSize, 4, 4, 1, false);
 		return new Insets(topDelta, lrInset, bottomDelta, lrInset);
 	}
 
@@ -495,8 +480,9 @@ public class SubstanceSizeUtils {
 	 */
 	public static int getMenuCheckMarkSize(int fontSize) {
 		int result = fontSize - 2;
-		if (result % 2 == 0)
-			result--;
+		if (result % 2 == 0) {
+            result--;
+        }
 		return result;
 	}
 
@@ -598,8 +584,9 @@ public class SubstanceSizeUtils {
 	 */
 	public static int getScrollBarWidth(int fontSize) {
 		int result = (int) (getArrowIconWidth(fontSize) * 3 / 2) + 2;
-		if (result % 2 == 1)
-			result--;
+		if (result % 2 == 1) {
+            result--;
+        }
 		return result;
 	}
 
@@ -612,8 +599,9 @@ public class SubstanceSizeUtils {
 	 */
 	public static int getSliderIconSize(int fontSize) {
 		int result = fontSize + 5;
-		if (result % 2 != 0)
-			result--;
+		if (result % 2 != 0) {
+            result--;
+        }
 		return result;
 	}
 
@@ -695,8 +683,9 @@ public class SubstanceSizeUtils {
 	public static float getSpinnerArrowIconWidth(int fontSize) {
 		int result = (int) (SubstanceSizeUtils.getArrowIconWidth(fontSize) + SubstanceSizeUtils
 				.getAdjustedSize(fontSize, 1, 1, -0.15f));
-		if (result % 2 == 0)
-			result--;
+		if (result % 2 == 0) {
+            result--;
+        }
 		return result;
 	}
 

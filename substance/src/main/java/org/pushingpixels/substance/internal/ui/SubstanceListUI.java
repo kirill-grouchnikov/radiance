@@ -79,8 +79,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
     private int rolledOverIndex;
 
     /**
-     * Property listener that listens to the {@link SubstanceLookAndFeel#WATERMARK_TO_BLEED}
-     * property.
+     * Property listener.
      */
     private PropertyChangeListener substancePropertyChangeListener;
 
@@ -680,93 +679,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
         this.updateInfo = null;
     }
 
-    // /**
-    // * Returns the current default color scheme. This method is for internal
-    // use
-    // * only.
-    // *
-    // * @return The current default color scheme.
-    // */
-    // public SubstanceColorScheme getDefaultColorScheme() {
-    // if (this.updateInfo != null)
-    // return this.updateInfo.defaultScheme;
-    // return null;
-    // }
-    //
-    // public SubstanceColorScheme getHighlightColorScheme(ComponentState state)
-    // {
-    // if (this.updateInfo != null)
-    // return updateInfo.getHighlightColorScheme(state);
-    // return null;
-    // }
-
     private UpdateOptimizationInfo updateInfo;
-
-    // private class UpdateOptimizationInfo {
-    // public boolean toDrawWatermark;
-    //
-    // private Map<ComponentState, SubstanceColorScheme> highlightSchemeMap;
-    //
-    // private Map<ComponentState, SubstanceColorScheme> borderSchemeMap;
-    //
-    // private Map<ComponentState, Float> highlightAlphaMap;
-    //
-    // public SubstanceColorScheme defaultScheme;
-    //
-    // public DecorationAreaType decorationAreaType;
-    //
-    // public boolean isInDecorationArea;
-    //
-    // public UpdateOptimizationInfo() {
-    // this.toDrawWatermark = SubstanceCoreUtilities.toDrawWatermark(list);
-    // this.defaultScheme = SubstanceColorSchemeUtilities.getColorScheme(
-    // list, ComponentState.DEFAULT);
-    // this.highlightAlphaMap = new EnumMap<ComponentState, Float>(
-    // ComponentState.class);
-    // this.highlightSchemeMap = new EnumMap<ComponentState,
-    // SubstanceColorScheme>(
-    // ComponentState.class);
-    // this.borderSchemeMap = new EnumMap<ComponentState, SubstanceColorScheme>(
-    // ComponentState.class);
-    // this.decorationAreaType = SubstanceLookAndFeel
-    // .getDecorationType(list);
-    //
-    // SubstanceSkin skin = SubstanceCoreUtilities.getSkin(list);
-    // this.isInDecorationArea = (this.decorationAreaType != null)
-    // && skin
-    // .isRegisteredAsDecorationArea(this.decorationAreaType)
-    // && SubstanceCoreUtilities.isOpaque(list);
-    // }
-    //
-    // public SubstanceColorScheme getHighlightColorScheme(ComponentState state)
-    // {
-    // if (!this.highlightSchemeMap.containsKey(state)) {
-    // this.highlightSchemeMap.put(state,
-    // SubstanceColorSchemeUtilities.getColorScheme(list,
-    // ColorSchemeAssociationKind.HIGHLIGHT, state));
-    // }
-    // return this.highlightSchemeMap.get(state);
-    // }
-    //
-    // public SubstanceColorScheme getHighlightBorderColorScheme(
-    // ComponentState state) {
-    // if (!this.borderSchemeMap.containsKey(state)) {
-    // this.borderSchemeMap.put(state, SubstanceColorSchemeUtilities
-    // .getColorScheme(list,
-    // ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-    // state));
-    // }
-    // return this.borderSchemeMap.get(state);
-    // }
-    //
-    // public float getHighlightAlpha(ComponentState state) {
-    // if (!this.highlightAlphaMap.containsKey(state)) {
-    // this.highlightAlphaMap.put(state, SubstanceColorSchemeUtilities
-    // .getHighlightAlpha(list, state));
-    // }
-    // return this.highlightAlphaMap.get(state);
-    // }
-    // }
 
     private void syncModelContents() {
         if (list == null)

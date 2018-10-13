@@ -42,8 +42,6 @@ dependencies {
     compile project(':tools:tools-common')
 }
 
-sourceCompatibility = 1.8
-
 ext.designation = "tools"
 
 jar {

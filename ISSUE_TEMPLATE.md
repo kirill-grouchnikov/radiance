@@ -1,4 +1,4 @@
-### Version of Radiance (current development is 0.9-SNAPSHOT)
+### Version of Radiance (current development is 1.5-SNAPSHOT)
 
 ### Sub-project (Neon, Trident, Substance, Flamingo, ...)
 

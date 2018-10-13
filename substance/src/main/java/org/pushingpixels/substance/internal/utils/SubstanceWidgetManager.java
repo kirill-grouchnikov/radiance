@@ -48,16 +48,17 @@ public class SubstanceWidgetManager {
 	private WeakHashMap<JRootPane, Set<SubstanceWidgetType>> specificDisallowed;
 
 	public static synchronized SubstanceWidgetManager getInstance() {
-		if (instance == null)
+		if (instance == null) {
 			instance = new SubstanceWidgetManager();
+		}
 		return instance;
 	}
 
 	private SubstanceWidgetManager() {
 		this.globalAllowed = EnumSet.noneOf(SubstanceWidgetType.class);
 		this.globalDisallowed = EnumSet.noneOf(SubstanceWidgetType.class);
-		this.specificAllowed = new WeakHashMap<JRootPane, Set<SubstanceWidgetType>>();
-		this.specificDisallowed = new WeakHashMap<JRootPane, Set<SubstanceWidgetType>>();
+		this.specificAllowed = new WeakHashMap<>();
+		this.specificDisallowed = new WeakHashMap<>();
 	}
 
 	public void register(JRootPane rootPane, boolean isAllowed,
@@ -93,35 +94,43 @@ public class SubstanceWidgetManager {
 
 			for (SubstanceWidgetType widget : substanceWidgets) {
 				toAddTo.add(widget);
-				if (toRemoveFrom != null)
-					toRemoveFrom.remove(widget);
+				if (toRemoveFrom != null) {
+                    toRemoveFrom.remove(widget);
+                }
 			}
 		}
 	}
 
 	public boolean isAllowed(JRootPane rootPane, SubstanceWidgetType widget) {
 		if (this.specificDisallowed.containsKey(rootPane)) {
-			if (this.specificDisallowed.get(rootPane).contains(widget))
-				return false;
+			if (this.specificDisallowed.get(rootPane).contains(widget)) {
+                return false;
+            }
 		}
 		if (this.specificAllowed.containsKey(rootPane)) {
-			if (this.specificAllowed.get(rootPane).contains(widget))
-				return true;
+			if (this.specificAllowed.get(rootPane).contains(widget)) {
+                return true;
+            }
 		}
-		if (this.globalDisallowed.contains(widget))
-			return false;
-		if (this.globalAllowed.contains(widget))
-			return true;
+		if (this.globalDisallowed.contains(widget)) {
+            return false;
+        }
+		if (this.globalAllowed.contains(widget)) {
+            return true;
+        }
 		return false;
 	}
 
 	public boolean isAllowedAnywhere(SubstanceWidgetType widget) {
-		if (specificAllowed.size() > 0)
-			return true;
-		if (this.globalDisallowed.contains(widget))
-			return false;
-		if (this.globalAllowed.contains(widget))
-			return true;
+		if (specificAllowed.size() > 0) {
+            return true;
+        }
+		if (this.globalDisallowed.contains(widget)) {
+            return false;
+        }
+		if (this.globalAllowed.contains(widget)) {
+            return true;
+        }
 		return false;
 	}
 }

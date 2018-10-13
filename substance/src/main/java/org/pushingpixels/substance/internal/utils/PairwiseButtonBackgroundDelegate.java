@@ -71,7 +71,7 @@ public class PairwiseButtonBackgroundDelegate {
      * @param width             Button width.
      * @param height            Button height.
      * @param toIgnoreOpenSides If <code>true</code>, the open side setting (controlled by the
-     *                          {@link SubstanceLookAndFeel#BUTTON_OPEN_SIDE} is ignored.
+     *                          {@link SubstanceSynapse#BUTTON_OPEN_SIDE} is ignored.
      */
     static void updatePairwiseBackground(Graphics g, AbstractButton button, int width,
             int height, boolean toIgnoreOpenSides) {
@@ -188,7 +188,7 @@ public class PairwiseButtonBackgroundDelegate {
      * @param colorScheme       The fill color scheme.
      * @param borderScheme      The border color scheme.
      * @param toIgnoreOpenSides If <code>true</code>, the open side setting (controlled by the
-     *                          {@link SubstanceLookAndFeel#BUTTON_OPEN_SIDE} is ignored.
+     *                          {@link SubstanceSynapse#BUTTON_OPEN_SIDE} is ignored.
      * @return Button background image.
      */
     private static BufferedImage getPairwiseFullAlphaBackground(AbstractButton button,

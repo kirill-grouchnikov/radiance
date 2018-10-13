@@ -37,8 +37,6 @@ dependencies {
     compile project(':neon')
 }
 
-sourceCompatibility = 1.8
-
 ext.designation = "demo"
 
 jar {

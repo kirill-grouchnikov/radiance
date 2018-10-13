@@ -35,8 +35,6 @@ dependencies {
     compile project(':demos:substance-demo')
 }
 
-sourceCompatibility = 1.8
-
 ext.designation = "demo"
 
 jar {

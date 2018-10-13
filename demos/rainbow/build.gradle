@@ -44,8 +44,6 @@ dependencies {
     compile project(':spoonbill')
 }
 
-sourceCompatibility = 1.8
-
 ext.designation = "demo"
 
 kotlin {

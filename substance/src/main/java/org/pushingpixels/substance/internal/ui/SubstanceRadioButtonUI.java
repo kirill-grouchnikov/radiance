@@ -139,10 +139,8 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
      * 
      * @param button
      *            Button (should be {@link JRadioButton}).
-     * @param currState
-     *            Current state of the checkbox.
-     * @param prevState
-     *            Previous state of the checkbox.
+     * @param stateTransitionTracker
+     *            State transition tracker for the radio button.
      * @return Matching icon.
      */
     private static NeonIconUIResource getIcon(JToggleButton button,
@@ -254,7 +252,7 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
 
     @Override
     public Icon getDefaultIcon() {
-        if (!(UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)) {
+        if (!SubstanceCoreUtilities.isCurrentLookAndFeel()) {
             return null;
         }
         return SubstanceRadioButtonUI.getIcon(button, this.stateTransitionTracker);

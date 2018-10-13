@@ -65,20 +65,20 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
     protected PropertyChangeListener substancePropertyListener;
 
     /**
-     * Listens to the changes to the {@link SubstanceLookAndFeel#CONTENTS_MODIFIED } property on the
+     * Listens to the changes to the {@link SubstanceSynapse#CONTENTS_MODIFIED } property on the
      * internal frame and its root pane.
      */
-    protected PropertyChangeListener substanceWinModifiedListener;
+    private PropertyChangeListener substanceWinModifiedListener;
 
     /**
      * Client property to mark an internal frame as being iconified.
      */
-    protected static final String ICONIFYING = "substance.internal.internalTitleFramePane.iconifying";
+    private static final String ICONIFYING = "substance.internal.internalTitleFramePane.iconifying";
 
     /**
      * Client property to mark a title pane as uninstalled.
      */
-    protected static final String UNINSTALLED = "substance.internal.internalTitleFramePane.uninstalled";
+    private static final String UNINSTALLED = "substance.internal.internalTitleFramePane.uninstalled";
 
     // protected boolean wasClosable;
 

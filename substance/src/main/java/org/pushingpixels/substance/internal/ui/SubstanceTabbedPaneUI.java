@@ -97,7 +97,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Key - tab component. Value - the looping timeline that animates the tab component when it's
-     * marked as modified (with {@link SubstanceLookAndFeel#CONTENTS_MODIFIED} property).
+     * marked as modified (with {@link SubstanceSynapse#CONTENTS_MODIFIED} property).
      */
     private Map<Component, Timeline> modifiedTimelines;
 
@@ -126,7 +126,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Tracks changes to the tabbed pane contents. Each tab component is tracked for changes on the
-     * {@link SubstanceLookAndFeel#CONTENTS_MODIFIED} property.
+     * {@link SubstanceSynapse#CONTENTS_MODIFIED} property.
      */
     private TabbedContainerListener substanceContainerListener;
 
@@ -139,7 +139,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Tracks changes to the tabbed pane contents. Each tab component is tracked for changes on the
-     * {@link SubstanceLookAndFeel#CONTENTS_MODIFIED} property.
+     * {@link SubstanceSynapse#CONTENTS_MODIFIED} property.
      * 
      * @author Kirill Grouchnikov
      */

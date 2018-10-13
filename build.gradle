@@ -64,8 +64,18 @@ allprojects {
     defaultTasks 'build'
 
     tasks.withType(JavaCompile) {
+        def javaVersion = JavaVersion.VERSION_1_8
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
+
+        compileJava.doFirst {
+            if (JavaVersion.current() != javaVersion)
+                throw new IllegalStateException("Compiler version mismatch; required is "
+                        + javaVersion + ", but using " + JavaVersion.current());
+        }
+
         options.deprecation = true
-        //options.compilerArgs += ['-Werror']
+        options.compilerArgs += ['-Werror']
     }
 }
 

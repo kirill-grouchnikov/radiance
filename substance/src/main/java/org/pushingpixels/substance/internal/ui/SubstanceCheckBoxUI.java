@@ -31,7 +31,7 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.NeonIconUIResource;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
@@ -91,9 +91,9 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
 
         Border border = b.getBorder();
         if (border == null || border instanceof UIResource) {
-            b.setBorder(
-                    SubstanceSizeUtils.getCheckBoxBorder(SubstanceSizeUtils.getComponentFontSize(b),
-                            b.getComponentOrientation().isLeftToRight()));
+            b.setBorder(SubstanceSizeUtils.getCheckBoxBorder(
+                    SubstanceSizeUtils.getComponentFontSize(b),
+                    b.getComponentOrientation().isLeftToRight()));
         }
     }
 
@@ -106,8 +106,8 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
      */
     private static Icon getIcon(JToggleButton button,
             StateTransitionTracker stateTransitionTracker) {
-        StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
-                .getModelStateInfo();
+        StateTransitionTracker.ModelStateInfo modelStateInfo =
+                stateTransitionTracker.getModelStateInfo();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
                 modelStateInfo.getStateContributionMap();
 
@@ -198,7 +198,7 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
 
     @Override
     public Icon getDefaultIcon() {
-        if (!(UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)) {
+        if (!SubstanceCoreUtilities.isCurrentLookAndFeel()) {
             return null;
         }
         return SubstanceCheckBoxUI.getIcon(this.button, this.stateTransitionTracker);

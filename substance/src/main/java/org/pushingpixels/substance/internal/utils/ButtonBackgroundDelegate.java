@@ -56,8 +56,8 @@ public class ButtonBackgroundDelegate {
     /**
      * Cache for background images.
      */
-    private static LazyResettableHashMap<BufferedImage> regularBackgrounds = new LazyResettableHashMap<>(
-            "ButtonBackgroundDelegate");
+    private static LazyResettableHashMap<BufferedImage> regularBackgrounds =
+            new LazyResettableHashMap<>("ButtonBackgroundDelegate");
 
     /**
      * Retrieves the background for the specified button.
@@ -207,8 +207,9 @@ public class ButtonBackgroundDelegate {
             ComponentState activeState = activeEntry.getKey();
             // System.out.println("Painting state " + activeState + "[curr is "
             // + currState + "] with " + activeEntry.getValue());
-            if (activeState == currState)
+            if (activeState == currState) {
                 continue;
+            }
 
             float stateContribution = activeEntry.getValue().getContribution();
             if (stateContribution > 0.0f) {
@@ -278,13 +279,6 @@ public class ButtonBackgroundDelegate {
     }
 
     /**
-     * Simple constructor.
-     */
-    public ButtonBackgroundDelegate() {
-        super();
-    }
-
-    /**
      * Updates background of the specified button.
      *
      * @param g      Graphic context.
@@ -292,11 +286,13 @@ public class ButtonBackgroundDelegate {
      */
     public void updateBackground(Graphics g, AbstractButton button) {
         // failsafe for LAF change
-        if (!SubstanceCoreUtilities.isCurrentLookAndFeel())
+        if (!SubstanceCoreUtilities.isCurrentLookAndFeel()) {
             return;
+        }
 
-        if (SubstanceCoreUtilities.isButtonNeverPainted(button))
+        if (SubstanceCoreUtilities.isButtonNeverPainted(button)) {
             return;
+        }
 
         int width = button.getWidth();
         int height = button.getHeight();
@@ -358,19 +354,6 @@ public class ButtonBackgroundDelegate {
     }
 
     /**
-     * Checks whether the specified button has round corners.
-     *
-     * @param button Button to check.
-     * @return <code>true</code> if the specified button has round corners, <code>false</code>
-     * otherwise.
-     */
-    public static boolean isRoundButton(AbstractButton button) {
-        return (!SubstanceCoreUtilities.isComboBoxButton(button))
-                && (!SubstanceCoreUtilities.isScrollButton(button))
-                && SubstanceCoreUtilities.hasText(button);
-    }
-
-    /**
      * Returns <code>true</code> if the specified <i>x,y </i> location is contained within the look
      * and feel's defined shape of the specified component. <code>x</code> and <code>y</code> are
      * defined to be relative to the coordinate system of the specified component.
@@ -387,8 +370,9 @@ public class ButtonBackgroundDelegate {
             return false;
         }
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(button);
-        if (shaper == null)
+        if (shaper == null) {
             return false;
+        }
         Shape contour = shaper.getButtonOutline(button, 0.0f, button.getWidth(), button.getHeight(),
                 false);
         return contour.contains(x, y);

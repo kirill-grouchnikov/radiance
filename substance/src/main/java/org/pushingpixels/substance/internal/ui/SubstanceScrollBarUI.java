@@ -102,9 +102,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
     private int scrollBarWidth;
 
     /**
-     * Listener on adjustments made to the scrollbar model - this is for the overlay mode (see
-     * {@link SubstanceLookAndFeel#OVERLAY_PROPERTY} and repaiting both scrollbars with the
-     * viewport.
+     * Listener on adjustments made to the scrollbar model.
      */
     private AdjustmentListener substanceAdjustmentListener;
 

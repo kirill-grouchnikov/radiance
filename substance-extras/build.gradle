@@ -34,8 +34,6 @@ dependencies {
     compile project(':substance')
 }
 
-sourceCompatibility = 1.8
-
 ext.designation = "core"
 
 javadoc {

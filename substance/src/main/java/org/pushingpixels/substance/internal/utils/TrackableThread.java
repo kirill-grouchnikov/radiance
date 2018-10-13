@@ -41,7 +41,7 @@ public abstract class TrackableThread extends Thread {
 	/**
 	 * All helper threads.
 	 */
-	private static Set<TrackableThread> threads = new HashSet<TrackableThread>();
+	private static Set<TrackableThread> threads = new HashSet<>();
 
 	/**
 	 * Creates new instance.
@@ -64,9 +64,5 @@ public abstract class TrackableThread extends Thread {
 		for (TrackableThread tt : TrackableThread.threads) {
 			tt.requestStop();
 		}
-//		for (Iterator it = TrackableThread.threads.iterator(); it.hasNext();) {
-//			TrackableThread thread = (TrackableThread) it.next();
-//			thread.requestStop();
-//		}
 	}
 }

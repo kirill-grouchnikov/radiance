@@ -30,21 +30,15 @@
 package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.ui.SubstanceButtonUI;
-import org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI;
-import org.pushingpixels.substance.internal.utils.icon.SubstanceIconFactory;
-import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
+import org.pushingpixels.substance.internal.ui.*;
+import org.pushingpixels.substance.internal.utils.icon.*;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 
 import javax.swing.*;
@@ -53,11 +47,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.beans.*;
+import java.io.*;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -105,17 +96,17 @@ public class SubstanceTitlePane extends JComponent {
     /**
      * Button used to maximize or restore the frame.
      */
-    protected JButton toggleButton;
+    private JButton toggleButton;
 
     /**
      * Button used to minimize the frame
      */
-    protected JButton minimizeButton;
+    private JButton minimizeButton;
 
     /**
      * Button used to close the frame.
      */
-    protected JButton closeButton;
+    private JButton closeButton;
 
     /**
      * Listens for changes in the state of the Window listener to update the state of the widgets.
@@ -161,21 +152,21 @@ public class SubstanceTitlePane extends JComponent {
 
     /**
      * Listens on changes to <code>componentOrientation</code> and
-     * {@link SubstanceLookAndFeel#CONTENTS_MODIFIED} properties.
+     * {@link SubstanceSynapse#CONTENTS_MODIFIED} properties.
      */
-    protected PropertyChangeListener propertyListener;
+    private PropertyChangeListener propertyListener;
 
     /**
      * The application icon to be displayed.
      */
-    protected Image appIcon;
+    private Image appIcon;
 
     /**
      * Panel that shows heap status and allows running the garbage collector.
      * 
      * @author Kirill Grouchnikov
      */
-    public static class HeapStatusPanel extends JPanel {
+    private static class HeapStatusPanel extends JPanel {
         /**
          * The current heap size in kilobytes.
          */
@@ -191,11 +182,16 @@ public class SubstanceTitlePane extends JComponent {
          */
         private LinkedList<Double> graphValues;
 
+        private Font font;
+
         /**
          * Creates new heap status panel.
          */
-        public HeapStatusPanel() {
-            this.graphValues = new LinkedList<Double>();
+        private HeapStatusPanel() {
+            this.graphValues = new LinkedList<>();
+            this.font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
+                    getControlFont();
+            this.setOpaque(false);
             HeapStatusThread.getInstance();
         }
 
@@ -207,7 +203,7 @@ public class SubstanceTitlePane extends JComponent {
          * @param currTakenHeapSizeKB
          *            The current used portion of heap in kilobytes.
          */
-        public synchronized void updateStatus(int currHeapSizeKB, int currTakenHeapSizeKB) {
+        private synchronized void updateStatus(int currHeapSizeKB, int currTakenHeapSizeKB) {
             this.currHeapSizeKB = currHeapSizeKB;
             this.currTakenHeapSizeKB = currTakenHeapSizeKB;
             double newGraphValue = (double) currTakenHeapSizeKB / (double) currHeapSizeKB;
@@ -243,8 +239,9 @@ public class SubstanceTitlePane extends JComponent {
 
             graphics.setStroke(new BasicStroke(1.0f));
 
-            while (this.graphValues.size() > (w - 2))
+            while (this.graphValues.size() > (w - 2)) {
                 this.graphValues.removeFirst();
+            }
 
             int xOff = w - this.graphValues.size() - 1;
             graphics.setColor(scheme.getMidColor());
@@ -255,7 +252,7 @@ public class SubstanceTitlePane extends JComponent {
                 count++;
             }
 
-            graphics.setFont(UIManager.getFont("Panel.font"));
+            graphics.setFont(this.font);
             FontMetrics fm = graphics.getFontMetrics();
 
             StringBuffer longFormat = new StringBuffer();
@@ -289,7 +286,7 @@ public class SubstanceTitlePane extends JComponent {
             BufferedImage dummy = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2d = dummy.createGraphics();
             NeonCortex.installDesktopHints(g2d, this);
-            g2d.setFont(UIManager.getFont("Panel.font"));
+            g2d.setFont(this.font);
             FontMetrics fm = g2d.getFontMetrics();
             int result = fm.stringWidth("100.9MB / 200.9MB");
             g2d.dispose();
@@ -314,7 +311,7 @@ public class SubstanceTitlePane extends JComponent {
         /**
          * All heap status panels.
          */
-        private static Set<WeakReference<HeapStatusPanel>> panels = new HashSet<WeakReference<HeapStatusPanel>>();
+        private static Set<WeakReference<HeapStatusPanel>> panels = new HashSet<>();
 
         /**
          * Single instance of <code>this</code> thread.
@@ -362,8 +359,8 @@ public class SubstanceTitlePane extends JComponent {
          * @param panel
          *            Heap statuc panel.
          */
-        public static synchronized void registerPanel(HeapStatusPanel panel) {
-            panels.add(new WeakReference<HeapStatusPanel>(panel));
+        private static synchronized void registerPanel(HeapStatusPanel panel) {
+            panels.add(new WeakReference<>(panel));
         }
 
         /**
@@ -372,7 +369,7 @@ public class SubstanceTitlePane extends JComponent {
          * @param panel
          *            Heap statuc panel.
          */
-        public static synchronized void unregisterPanel(HeapStatusPanel panel) {
+        private static synchronized void unregisterPanel(HeapStatusPanel panel) {
             for (Iterator<WeakReference<HeapStatusPanel>> it = panels.iterator(); it.hasNext();) {
                 WeakReference<HeapStatusPanel> ref = it.next();
                 HeapStatusPanel currPanel = ref.get();
@@ -403,11 +400,12 @@ public class SubstanceTitlePane extends JComponent {
                 } catch (InterruptedException ie) {
                 }
                 if (!SubstanceWidgetManager.getInstance()
-                        .isAllowedAnywhere(SubstanceWidgetType.TITLE_PANE_HEAP_STATUS))
+                        .isAllowedAnywhere(SubstanceWidgetType.TITLE_PANE_HEAP_STATUS)) {
                     continue;
+                }
                 this.updateHeapCounts();
-                for (Iterator<WeakReference<HeapStatusPanel>> it = panels.iterator(); it
-                        .hasNext();) {
+                for (Iterator<WeakReference<HeapStatusPanel>> it = panels.iterator();
+                     it.hasNext();) {
                     WeakReference<HeapStatusPanel> refPanel = it.next();
                     HeapStatusPanel panel = refPanel.get();
                     if (panel == null) {
@@ -458,8 +456,7 @@ public class SubstanceTitlePane extends JComponent {
 
         this.setToolTipText(this.getTitle());
 
-        ComponentOrParentChainScope.setDecorationType(this,
-                DecorationAreaType.PRIMARY_TITLE_PANE);
+        ComponentOrParentChainScope.setDecorationType(this, DecorationAreaType.PRIMARY_TITLE_PANE);
         this.setForeground(SubstanceColorUtilities.getForegroundColor(SubstanceCoreUtilities
                 .getSkin(this).getBackgroundColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)));
     }
@@ -489,8 +486,9 @@ public class SubstanceTitlePane extends JComponent {
             this.remove(this.heapStatusPanel);
         }
 
-        if (this.menuBar != null)
+        if (this.menuBar != null) {
             this.menuBar.removeAll();
+        }
         this.removeAll();
     }
 
@@ -541,8 +539,9 @@ public class SubstanceTitlePane extends JComponent {
 
         // Fix for defect 109 - memory leak on skin change.
         this.rootPane.removePropertyChangeListener(this.propertyListener);
-        if (this.getFrame() != null)
+        if (this.getFrame() != null) {
             this.getFrame().removePropertyChangeListener(this.propertyListener);
+        }
         this.propertyListener = null;
 
     }
@@ -560,7 +559,7 @@ public class SubstanceTitlePane extends JComponent {
      * 
      * @return Decoration style of the <code>JRootPane</code>.
      */
-    protected int getWindowDecorationStyle() {
+    private int getWindowDecorationStyle() {
         return this.getRootPane().getWindowDecorationStyle();
     }
 
@@ -660,7 +659,7 @@ public class SubstanceTitlePane extends JComponent {
      * 
      * @return <code>JMenuBar</code> displaying the appropriate system menu items.
      */
-    protected JMenuBar createMenuBar() {
+    private JMenuBar createMenuBar() {
         this.menuBar = new SubstanceMenuBar();
         this.menuBar.setFocusable(false);
         this.menuBar.setBorderPainted(true);
@@ -1127,7 +1126,7 @@ public class SubstanceTitlePane extends JComponent {
         /**
          * Creates a new iconify action.
          */
-        public IconifyAction() {
+        private IconifyAction() {
             super(SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.iconify"),
                     SubstanceImageCreator.getMinimizeIcon(
                             SubstanceCoreUtilities.getSkin(rootPane)
@@ -1151,7 +1150,7 @@ public class SubstanceTitlePane extends JComponent {
         /**
          * Creates a new restore action.
          */
-        public RestoreAction() {
+        private RestoreAction() {
             super(SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.restore"),
                     SubstanceImageCreator.getRestoreIcon(
                             SubstanceCoreUtilities.getSkin(rootPane)
@@ -1182,7 +1181,7 @@ public class SubstanceTitlePane extends JComponent {
         /**
          * Creates a new maximize action.
          */
-        public MaximizeAction() {
+        private MaximizeAction() {
             super(SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.maximize"),
                     SubstanceImageCreator.getMaximizeIcon(
                             SubstanceCoreUtilities.getSkin(rootPane)
@@ -1215,8 +1214,7 @@ public class SubstanceTitlePane extends JComponent {
             // g.fillRect(0, 0, getWidth(), getHeight());
             if (appIcon != null) {
                 float scaleFactor = SubstanceCoreUtilities.isHiDpiAwareImage(appIcon)
-                        ? (float) NeonCortex.getScaleFactor()
-                        : 1;
+                        ? (float) NeonCortex.getScaleFactor() : 1;
                 g.drawImage(appIcon, 0, 0, (int) (appIcon.getWidth(null) / scaleFactor),
                         (int) (appIcon.getHeight(null) / scaleFactor), null);
             } else {
@@ -1421,10 +1419,10 @@ public class SubstanceTitlePane extends JComponent {
                     SubstanceTitlePane.this.setToolTipText((String) pce.getNewValue());
                     revalidate();
                     repaint();
-                } else if ("componentOrientation" == name) {
+                } else if ("componentOrientation".equals(name)) {
                     revalidate();
                     repaint();
-                } else if ("iconImage" == name) {
+                } else if ("iconImage".equals(name)) {
                     updateAppIcon();
                     revalidate();
                     repaint();
@@ -1449,8 +1447,7 @@ public class SubstanceTitlePane extends JComponent {
     }
 
     /**
-     * Sets location for heap status logfile. Relevant if
-     * {@link #setCanHaveHeapStatusPanel(boolean)} was called with <code>true</code>.
+     * Sets location for heap status logfile.
      * 
      * @param heapStatusLogfileName
      *            Logfile for the heap status panel.
@@ -1462,7 +1459,7 @@ public class SubstanceTitlePane extends JComponent {
     /**
      * Synchronizes the tooltip of the close button.
      */
-    protected void syncCloseButtonTooltip() {
+    private void syncCloseButtonTooltip() {
         if (SubstanceCoreUtilities.isRootPaneModified(this.getRootPane())) {
             this.closeButton.setToolTipText(
                     SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.close")
@@ -1499,7 +1496,7 @@ public class SubstanceTitlePane extends JComponent {
         return this.closeButton;
     }
 
-    public int getControlButtonSize() {
+    private int getControlButtonSize() {
         if ((this.closeButton != null) && (this.closeButton.getIcon() != null)) {
             return this.closeButton.getIcon().getIconHeight();
         } else {

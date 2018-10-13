@@ -83,8 +83,9 @@ public class WidgetUtilities {
         }
         if (comp instanceof Container) {
             Container cont = (Container) comp;
-            for (int i = 0; i < cont.getComponentCount(); i++)
+            for (int i = 0; i < cont.getComponentCount(); i++) {
                 WidgetUtilities.makePreviewable(cont.getComponent(i), dbSnapshot);
+            }
         }
     }
 
@@ -124,8 +125,9 @@ public class WidgetUtilities {
         }
         if (comp instanceof Container) {
             Container cont = (Container) comp;
-            for (int i = 0; i < cont.getComponentCount(); i++)
+            for (int i = 0; i < cont.getComponentCount(); i++) {
                 WidgetUtilities.restorePreviewable(cont.getComponent(i), dbSnapshot);
+            }
         }
     }
 
@@ -143,10 +145,12 @@ public class WidgetUtilities {
             if (comp instanceof JComponent) {
                 Object textFocusSelectAllProperty = ((JComponent) comp)
                         .getClientProperty(SubstanceSynapse.TEXT_SELECT_ON_FOCUS);
-                if (Boolean.TRUE.equals(textFocusSelectAllProperty))
+                if (Boolean.TRUE.equals(textFocusSelectAllProperty)) {
                     return true;
-                if (Boolean.FALSE.equals(textFocusSelectAllProperty))
+                }
+                if (Boolean.FALSE.equals(textFocusSelectAllProperty)) {
                     return false;
+                }
             }
             comp = comp.getParent();
         }
@@ -178,10 +182,12 @@ public class WidgetUtilities {
     public static boolean hasTextEditContextMenu(JTextComponent textComp) {
         Object textEditContextMenuProperty = textComp
                 .getClientProperty(SubstanceSynapse.TEXT_EDIT_CONTEXT_MENU);
-        if (Boolean.TRUE.equals(textEditContextMenuProperty))
+        if (Boolean.TRUE.equals(textEditContextMenuProperty)) {
             return true;
-        if (Boolean.FALSE.equals(textEditContextMenuProperty))
+        }
+        if (Boolean.FALSE.equals(textEditContextMenuProperty)) {
             return false;
+        }
         return (Boolean.TRUE.equals(UIManager.get(SubstanceSynapse.TEXT_EDIT_CONTEXT_MENU)));
     }
 
@@ -195,10 +201,12 @@ public class WidgetUtilities {
      */
     public static boolean hasAutoScroll(JScrollPane scrollPane) {
         Object compProperty = scrollPane.getClientProperty(SubstanceSynapse.AUTO_SCROLL);
-        if (Boolean.TRUE.equals(compProperty))
+        if (Boolean.TRUE.equals(compProperty)) {
             return true;
-        if (Boolean.FALSE.equals(compProperty))
+        }
+        if (Boolean.FALSE.equals(compProperty)) {
             return false;
+        }
         return (Boolean.TRUE.equals(UIManager.get(SubstanceSynapse.AUTO_SCROLL)));
     }
 
@@ -212,10 +220,12 @@ public class WidgetUtilities {
      */
     public static boolean hasAutomaticDnDSupport(JTree tree) {
         Object dndProperty = tree.getClientProperty(SubstanceSynapse.TREE_AUTO_DND_SUPPORT);
-        if (Boolean.TRUE.equals(dndProperty))
+        if (Boolean.TRUE.equals(dndProperty)) {
             return true;
-        if (Boolean.FALSE.equals(dndProperty))
+        }
+        if (Boolean.FALSE.equals(dndProperty)) {
             return false;
+        }
         return (Boolean.TRUE.equals(UIManager.get(SubstanceSynapse.TREE_AUTO_DND_SUPPORT)));
     }
 
@@ -278,8 +288,9 @@ public class WidgetUtilities {
     }
 
     public static boolean toIgnoreAnimations(Component comp) {
-        if (comp instanceof JMenuItem)
+        if (comp instanceof JMenuItem) {
             return false;
+        }
         return (SwingUtilities.getAncestorOfClass(CellRendererPane.class, comp) != null);
     }
 
@@ -382,15 +393,17 @@ public class WidgetUtilities {
      * @return Preview painter for the specified component.
      */
     public static PreviewPainter getComponentPreviewPainter(Component comp) {
-        if (comp == null)
+        if (comp == null) {
             return null;
+        }
 
         // check property on component
         if (comp instanceof JComponent) {
             Object compProp = ((JComponent) comp)
                     .getClientProperty(SubstanceSynapse.COMPONENT_PREVIEW_PAINTER);
-            if (compProp instanceof PreviewPainter)
+            if (compProp instanceof PreviewPainter) {
                 return (PreviewPainter) compProp;
+            }
         }
 
         // check property on parent
@@ -398,13 +411,15 @@ public class WidgetUtilities {
         if (parent instanceof JComponent) {
             Object parentProp = ((JComponent) parent)
                     .getClientProperty(SubstanceSynapse.COMPONENT_PREVIEW_PAINTER);
-            if (parentProp instanceof PreviewPainter)
+            if (parentProp instanceof PreviewPainter) {
                 return (PreviewPainter) parentProp;
+            }
         }
 
         Object globProp = UIManager.get(SubstanceSynapse.COMPONENT_PREVIEW_PAINTER);
-        if (globProp instanceof PreviewPainter)
+        if (globProp instanceof PreviewPainter) {
             return (PreviewPainter) globProp;
+        }
 
         return null;
     }
@@ -419,8 +434,9 @@ public class WidgetUtilities {
      */
     public static PasswordStrengthChecker getPasswordStrengthChecker(JPasswordField jpf) {
         Object obj = jpf.getClientProperty(SubstanceSynapse.PASSWORD_STRENGTH_CHECKER);
-        if ((obj != null) && (obj instanceof PasswordStrengthChecker))
+        if ((obj != null) && (obj instanceof PasswordStrengthChecker)) {
             return (PasswordStrengthChecker) obj;
+        }
         return null;
     }
 }

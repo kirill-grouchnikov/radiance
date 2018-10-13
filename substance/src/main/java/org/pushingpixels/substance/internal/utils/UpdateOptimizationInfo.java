@@ -64,12 +64,10 @@ public class UpdateOptimizationInfo {
 	public UpdateOptimizationInfo(JComponent component) {
 		this.component = component;
 
-		this.toDrawWatermark = SubstanceCoreUtilities
-				.toDrawWatermark(this.component);
+		this.toDrawWatermark = SubstanceCoreUtilities.toDrawWatermark(this.component);
 		this.defaultScheme = SubstanceColorSchemeUtilities.getColorScheme(
 				this.component, ComponentState.ENABLED);
-		this.decorationAreaType = ComponentOrParentChainScope
-				.getDecorationType(this.component);
+		this.decorationAreaType = ComponentOrParentChainScope.getDecorationType(this.component);
 
 		SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.component);
 		this.isInDecorationArea = (this.decorationAreaType != null)
@@ -79,8 +77,7 @@ public class UpdateOptimizationInfo {
 
 	public SubstanceColorScheme getHighlightColorScheme(ComponentState state) {
 		if (this.highlightSchemeMap == null) {
-			this.highlightSchemeMap = new HashMap<ComponentState, SubstanceColorScheme>();
-					//ComponentState.class);
+			this.highlightSchemeMap = new HashMap<>();
 		}
 		SubstanceColorScheme result = this.highlightSchemeMap.get(state);
 		if (result == null) {
@@ -94,8 +91,7 @@ public class UpdateOptimizationInfo {
 
 	public SubstanceColorScheme getBorderColorScheme(ComponentState state) {
 		if (this.borderSchemeMap == null) {
-			this.borderSchemeMap = new HashMap<ComponentState, SubstanceColorScheme>();
-					//ComponentState.class);
+			this.borderSchemeMap = new HashMap<>();
 		}
 		SubstanceColorScheme result = this.borderSchemeMap.get(state);
 		if (result == null) {
@@ -111,8 +107,7 @@ public class UpdateOptimizationInfo {
 			return this.defaultScheme;
 		}
 		if (this.fillSchemeMap == null) {
-			this.fillSchemeMap = new HashMap<ComponentState, SubstanceColorScheme>();
-					//ComponentState.class);
+			this.fillSchemeMap = new HashMap<>();
 		}
 		SubstanceColorScheme result = this.fillSchemeMap.get(state);
 		if (result == null) {
@@ -126,8 +121,7 @@ public class UpdateOptimizationInfo {
 	public SubstanceColorScheme getHighlightBorderColorScheme(
 			ComponentState state) {
 		if (this.highlightBorderSchemeMap == null) {
-			this.highlightBorderSchemeMap = new HashMap<ComponentState, SubstanceColorScheme>();
-					//ComponentState.class);
+			this.highlightBorderSchemeMap = new HashMap<>();
 		}
 		SubstanceColorScheme result = this.highlightBorderSchemeMap.get(state);
 		if (result == null) {
@@ -141,8 +135,7 @@ public class UpdateOptimizationInfo {
 
 	public float getHighlightAlpha(ComponentState state) {
 		if (this.highlightAlphaMap == null) {
-			this.highlightAlphaMap = new HashMap<ComponentState, Float>();
-					//ComponentState.class);
+			this.highlightAlphaMap = new HashMap<>();
 		}
 		if (!this.highlightAlphaMap.containsKey(state)) {
 			this.highlightAlphaMap.put(state, SubstanceColorSchemeUtilities

@@ -33,7 +33,7 @@ import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
-import org.pushingpixels.substance.internal.AnimationConfigurationManager;
+import org.pushingpixels.substance.internal.*;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.utils.*;
@@ -75,7 +75,7 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 
 	/**
 	 * Property change listener. Listens on changes to the
-	 * {@link SubstanceLookAndFeel#BUTTON_SHAPER} property and
+	 * {@link SubstanceSynapse#BUTTON_SHAPER} property and
 	 * {@link AbstractButton#MODEL_CHANGED_PROPERTY} property.
 	 */
 	private PropertyChangeListener substancePropertyListener;

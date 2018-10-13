@@ -32,11 +32,9 @@ package org.pushingpixels.substance.internal.ui;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
-import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTreeCellRenderer;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
@@ -824,7 +822,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 	/**
 	 * Returns the pivot X for the cells rendered in the specified area. Used
 	 * for the smart tree scroll (
-	 * {@link SubstanceLookAndFeel#TREE_SMART_SCROLL_ANIMATION_KIND}).
+	 * {@link SubstanceSlices.AnimationFacet#TREE_SMART_SCROLL_ANIMATION}).
 	 * 
 	 * @param paintBounds
 	 *            Area bounds.
