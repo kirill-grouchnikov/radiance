@@ -75,6 +75,13 @@ class KRibbonTaskbar {
         return command
     }
 
+    fun ribbonComponent(init: KRibbonComponent.() -> Unit): KRibbonComponent {
+        val ribbonComponent = KRibbonComponent()
+        ribbonComponent.init()
+        components.add(ribbonComponent)
+        return ribbonComponent
+    }
+
     fun separator() {
         components.add(KCommandPopupMenu.KCommandPopupMenuSeparator())
     }
@@ -158,6 +165,7 @@ class KRibbonFrame {
         for (taskbarComponent in taskbar.components) {
             when (taskbarComponent) {
                 is KCommand -> ribbonFrame.ribbon.addTaskbarCommand(taskbarComponent.toFlamingoCommand())
+                is KRibbonComponent -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent.asRibbonComponent())
                 is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonFrame.ribbon.addTaskbarSeparator()
             }
         }

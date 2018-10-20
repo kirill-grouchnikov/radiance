@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.demo.kormorant;
 
+import org.pushingpixels.meteor.awt.addDelayedActionListener
 import java.util.*
 import javax.swing.JComboBox
-import javax.swing.SwingUtilities
 
 object LocaleSwitcher {
     internal class LocaleInfo(val locale: Locale, val displayName: String) {
@@ -45,10 +45,8 @@ object LocaleSwitcher {
                 LocaleInfo(Locale("iw", "IL"), "Hebrew"))
         val result = JComboBox<LocaleInfo>(locales)
         result.selectedIndex = 0
-        result.addActionListener {
-            SwingUtilities.invokeLater {
-                callback(result.model.getElementAt(result.selectedIndex).locale)
-            }
+        result.addDelayedActionListener {
+            callback(result.model.getElementAt(result.selectedIndex).locale)
         }
         return result
     }

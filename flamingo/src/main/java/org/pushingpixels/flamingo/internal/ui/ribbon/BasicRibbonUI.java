@@ -227,12 +227,13 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         this.syncRibbonState();
 
+        boolean isShowingAppMenuButton = (ribbon.getApplicationMenu() != null);
         this.applicationMenuButton = new JRibbonApplicationMenuButton(this.ribbon);
         this.applicationMenuButton.applyComponentOrientation(this.ribbon.getComponentOrientation());
         this.syncApplicationMenuTips();
-        this.ribbon.add(applicationMenuButton);
+        this.ribbon.add(this.applicationMenuButton);
         Window windowAncestor = SwingUtilities.getWindowAncestor(this.ribbon);
-        if (windowAncestor instanceof JRibbonFrame) {
+        if ((windowAncestor instanceof JRibbonFrame) && isShowingAppMenuButton) {
             this.applicationMenuButton.setText(this.ribbon.getApplicationMenu().getTitle());
         }
     }
@@ -242,13 +243,13 @@ public abstract class BasicRibbonUI extends RibbonUI {
         return this.applicationMenuButton;
     }
 
-    protected LayoutManager createTaskToggleButtonsHostPanelLayoutManager() {
+    private LayoutManager createTaskToggleButtonsHostPanelLayoutManager() {
         return new TaskToggleButtonsHostPanelLayout();
     }
 
     protected abstract TaskToggleButtonsHostPanel createTaskToggleButtonsHostPanel();
 
-    protected LayoutManager createBandHostPanelLayoutManager() {
+    private LayoutManager createBandHostPanelLayoutManager() {
         return new BandHostPanelLayout();
     }
 
@@ -324,7 +325,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
      *
      * @return The layout gap for the bands in the associated ribbon.
      */
-    protected int getBandGap() {
+    private int getBandGap() {
         return FlamingoUtilities.getScaledSize(2, this.ribbon.getFont().getSize(), 0.2, 1);
     }
 
@@ -809,8 +810,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
     }
 
     protected abstract class TaskToggleButtonsHostPanel extends JPanel {
-        public static final String IS_SQUISHED = "flamingo.internal.ribbon" +
-                ".taskToggleButtonsHostPanel.isSquished";
+        private static final String IS_SQUISHED =
+                "flamingo.internal.ribbon.taskToggleButtonsHostPanel.isSquished";
 
         @Override
         protected void paintComponent(Graphics g) {
@@ -829,7 +830,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
          *
          * @param g Graphics context.
          */
-        protected void paintContextualTaskGroupsOutlines(Graphics g) {
+        private void paintContextualTaskGroupsOutlines(Graphics g) {
             for (int i = 0; i < ribbon.getContextualTaskGroupCount(); i++) {
                 RibbonContextualTaskGroup group = ribbon.getContextualTaskGroup(i);
                 if (!ribbon.isVisible(group))
@@ -1023,7 +1024,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     }
 
-    protected void syncSelectedTask() {
+    private void syncSelectedTask() {
         final RibbonTask currentSelection = this.ribbon.getSelectedTask();
         for (Map.Entry<RibbonTask, JRibbonTaskToggleButton> taskToggleButtonEntry :
                 this.taskToggleButtons.entrySet()) {
@@ -1063,7 +1064,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
         });
     }
 
-    protected void syncRibbonState() {
+    private void syncRibbonState() {
         // remove all existing ribbon bands
         JPanel bandHostPanel = this.bandScrollablePanel.getView();
         bandHostPanel.removeAll();
@@ -1266,7 +1267,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
      *
      * @return The list of currently shown ribbon tasks.
      */
-    protected List<RibbonTask> getCurrentlyShownRibbonTasks() {
+    private List<RibbonTask> getCurrentlyShownRibbonTasks() {
         List<RibbonTask> result = new ArrayList<>();
 
         // add all regular tasks
@@ -1356,7 +1357,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
         });
     }
 
-    protected void scrollAndRevealTaskToggleButton(final JRibbonTaskToggleButton taskToggleButton) {
+    private void scrollAndRevealTaskToggleButton(final JRibbonTaskToggleButton taskToggleButton) {
         // scroll the viewport of the scrollable panel
         // so that the button is fully viewed.
         Point loc = SwingUtilities.convertPoint(taskToggleButton.getParent(),

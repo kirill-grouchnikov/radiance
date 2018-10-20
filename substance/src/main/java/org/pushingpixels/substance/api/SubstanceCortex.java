@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.substance.api;
 
-import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.*;
 import org.pushingpixels.neon.font.*;
-import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
@@ -1363,7 +1363,6 @@ public class SubstanceCortex {
                     SubstanceImageCreator.getColorSchemeImage(null, source, colorScheme,
                             brightnessFactor));
         }
-
         public static void setUseDefaultColorChooser() {
             UIManager.put(SubstanceSynapse.USE_DEFAULT_COLOR_CHOOSER, Boolean.TRUE);
         }

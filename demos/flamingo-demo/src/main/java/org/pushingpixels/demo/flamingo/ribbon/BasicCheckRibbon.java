@@ -42,7 +42,7 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.imageio.ImageIO;
@@ -1210,6 +1210,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
         ribbon.addTaskbarCommand(new FlamingoCommandBuilder().setIcon(Edit_find.of(16, 16))
                 .setAction((ActionEvent e) -> System.out.println("Taskbar Find activated"))
                 .setActionKeyTip("4").build());
+
+        JComboBox seasonCombo = new JComboBox<>(new String[] { "Winter",
+                "Spring", "Summer", "Autumn" });
+        JRibbonComponent seasonComboWrapper = new JRibbonComponent(seasonCombo);
+        seasonComboWrapper.setKeyTip("5");
+        seasonComboWrapper.setRichTooltip(new RichTooltip.RichTooltipBuilder()
+                .setTitle(resourceBundle.getString("Seasons.tooltip.title"))
+                .build());
+        ribbon.addTaskbarComponent(seasonComboWrapper);
     }
 
     protected void configureApplicationMenu() {
@@ -1447,7 +1456,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         applicationMenu.addFooterCommand(amFooterProps);
         applicationMenu.addFooterCommand(amFooterExit);
 
-        this.getRibbon().setApplicationMenu(applicationMenu);
+        //this.getRibbon().setApplicationMenu(applicationMenu);
 
         ResizableIcon appMenuRichTooltipMainIcon = null;
         try {
@@ -1637,6 +1646,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         JCommandButtonStrip styleStrip = new JCommandButtonStrip();
 
         JCommandToggleButton styleBoldButton = new JCommandToggleButton("", new Format_text_bold());
+        styleBoldButton.addActionListener((ActionEvent e) -> System.out.println("Bold toggled"));
         styleBoldButton.getActionModel().setSelected(true);
         styleBoldButton
                 .setActionRichTooltip(new RichTooltip.RichTooltipBuilder()
@@ -1649,6 +1659,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         JCommandToggleButton styleItalicButton = new JCommandToggleButton("",
                 new Format_text_italic());
+        styleItalicButton.addActionListener(
+                (ActionEvent e) -> System.out.println("Italic toggled"));
         styleItalicButton.setActionRichTooltip(new RichTooltip.RichTooltipBuilder()
                 .setTitle(resourceBundle.getString("FontItalic.tooltip.textActionTitle"))
                 .addDescriptionSection(
@@ -1659,6 +1671,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         JCommandToggleButton styleUnderlineButton = new JCommandToggleButton("",
                 new Format_text_underline());
+        styleUnderlineButton.addActionListener(
+                (ActionEvent e) -> System.out.println("Underline toggled"));
         styleUnderlineButton.setActionRichTooltip(new RichTooltip.RichTooltipBuilder()
                 .setTitle(resourceBundle.getString("FontUnderline.tooltip.textActionTitle"))
                 .addDescriptionSection(
@@ -1669,6 +1683,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         JCommandToggleButton styleStrikeThroughButton = new JCommandToggleButton("",
                 new Format_text_strikethrough());
+        styleStrikeThroughButton.addActionListener(
+                (ActionEvent e) -> System.out.println("Strikethrough toggled"));
         styleStrikeThroughButton.setActionRichTooltip(new RichTooltip.RichTooltipBuilder()
                 .setTitle(resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle"))
                 .addDescriptionSection(
@@ -1751,6 +1767,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
     protected void configureStatusBar() {
         statusBar = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(statusBar,
+                SubstanceSlices.DecorationAreaType.FOOTER);
 
         JLabel helper = new JLabel("Right click to show menu");
         statusBar.add(helper);
@@ -1781,7 +1799,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         statusBar.add(alignStrip);
 
-        final Map<Integer, Boolean> selection = new TreeMap<Integer, Boolean>();
+        final Map<Integer, Boolean> selection = new TreeMap<>();
         statusBar.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -1789,8 +1807,6 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     processPopup(e);
                 }
             }
-
-            ;
 
             @Override
             public void mouseReleased(MouseEvent e) {

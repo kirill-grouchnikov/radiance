@@ -140,4 +140,8 @@ public class FlamingoUtilities {
         int stepCount = fontDelta / stepQuantizationSize;
         return baseSize + (int) (scaleFactor * stepCount * stepQuantizationSize);
     }
+
+    public static int getCommandButtonSmallIconSize(int fontSize) {
+        return FlamingoUtilities.getScaledSize(16, fontSize, 1.0, 4);
+    }
 }

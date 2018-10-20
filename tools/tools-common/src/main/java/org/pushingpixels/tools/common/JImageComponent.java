@@ -104,13 +104,13 @@ public class JImageComponent extends JPanel {
 
 					if (t.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
 						// load the image from the file
-						java.util.List<File> l = (java.util.List<File>) t
+						java.util.List l = (java.util.List) t
 								.getTransferData(DataFlavor.javaFileListFlavor);
 
 						if (l.size() == 1) {
 							BufferedImage oldImage = image;
 							File oldFile = originalFile;
-							originalFile = l.get(0);
+							originalFile = (File) l.get(0);
 							image = ImageIO.read(originalFile);
 							reset();
 							repaint();

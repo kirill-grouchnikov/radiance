@@ -49,6 +49,10 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.kormorant.ribbon.*
+import org.pushingpixels.meteor.awt.DelayedActionListener
+import org.pushingpixels.meteor.awt.addDelayedActionListener
+import org.pushingpixels.meteor.awt.addDelayedItemListener
+import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -71,13 +75,11 @@ object SkinSwitcher {
             it == SubstanceCortex.GlobalScope.getCurrentSkin()!!.displayName
         }
 
-        result.addItemListener {
-            SwingUtilities.invokeLater {
-                val selected = result.selectedItem as String
-                SubstanceCortex.GlobalScope.setSkin(
-                        SubstanceCortex.GlobalScope.getAllSkins()[selected]!!.className)
-                SwingUtilities.updateComponentTreeUI(frame)
-            }
+        result.addDelayedItemListener {
+            val selected = result.selectedItem as String
+            SubstanceCortex.GlobalScope.setSkin(
+                    SubstanceCortex.GlobalScope.getAllSkins()[selected]!!.className)
+            SwingUtilities.updateComponentTreeUI(frame)
         }
 
         return result
@@ -88,122 +90,122 @@ class RulerPanel : JPanel() {
     override fun paintComponent(g: Graphics) {
         super.paintComponent(g)
 
-        val g2d = g.create() as Graphics2D
-        NeonCortex.installDesktopHints(g2d, this)
-        g2d.color = Color.gray
+        g.render {
+            NeonCortex.installDesktopHints(it, this)
+            it.color = Color.gray
 
-        if (componentOrientation.isLeftToRight) {
-            // horizontal ruler on top
-            val offset = 20
-            run {
-                var i = offset
-                while (i < this.width) {
-                    if ((i - offset) % 100 == 0) {
+            if (componentOrientation.isLeftToRight) {
+                // horizontal ruler on top
+                val offset = 20
+                run {
+                    var i = offset
+                    while (i < this.width) {
+                        if ((i - offset) % 100 == 0) {
+                            i += 10
+                            continue
+                        }
+                        it.drawLine(i, 9, i, 11)
                         i += 10
-                        continue
                     }
-                    g2d.drawLine(i, 9, i, 11)
-                    i += 10
                 }
-            }
-            run {
-                var i = offset + 50
-                while (i < this.width) {
-                    g2d.drawLine(i, 7, i, 13)
-                    i += 100
+                run {
+                    var i = offset + 50
+                    while (i < this.width) {
+                        it.drawLine(i, 7, i, 13)
+                        i += 100
+                    }
                 }
-            }
-            run {
+                run {
+                    var i = offset
+                    while (i < this.width) {
+                        val c = (i - offset) / 100 % 10
+                        it.drawString("" + c, i - 2, 15)
+                        i += 100
+                    }
+                }
+
+                // vertical ruler on left
+                run {
+                    var i = offset
+                    while (i < this.height) {
+                        if ((i - offset) % 100 == 0) {
+                            i += 10
+                            continue
+                        }
+                        it.drawLine(9, i, 11, i)
+                        i += 10
+                    }
+                }
+                run {
+                    var i = offset + 50
+                    while (i < this.height) {
+                        it.drawLine(7, i, 13, i)
+                        i += 100
+                    }
+                }
                 var i = offset
-                while (i < this.width) {
+                while (i < this.height) {
                     val c = (i - offset) / 100 % 10
-                    g2d.drawString("" + c, i - 2, 15)
+                    it.drawString("" + c, 8, i + 4)
                     i += 100
                 }
-            }
-
-            // vertical ruler on left
-            run {
-                var i = offset
-                while (i < this.height) {
-                    if ((i - offset) % 100 == 0) {
-                        i += 10
-                        continue
-                    }
-                    g2d.drawLine(9, i, 11, i)
-                    i += 10
-                }
-            }
-            run {
-                var i = offset + 50
-                while (i < this.height) {
-                    g2d.drawLine(7, i, 13, i)
-                    i += 100
-                }
-            }
-            var i = offset
-            while (i < this.height) {
-                val c = (i - offset) / 100 % 10
-                g2d.drawString("" + c, 8, i + 4)
-                i += 100
-            }
-        } else {
-            // horizontal ruler on top
-            val offset = 20
-            run {
-                var i = width - offset
-                while (i > 0) {
-                    if ((width - offset - i) % 100 == 0) {
+            } else {
+                // horizontal ruler on top
+                val offset = 20
+                run {
+                    var i = width - offset
+                    while (i > 0) {
+                        if ((width - offset - i) % 100 == 0) {
+                            i -= 10
+                            continue
+                        }
+                        it.drawLine(i, 9, i, 11)
                         i -= 10
-                        continue
                     }
-                    g2d.drawLine(i, 9, i, 11)
-                    i -= 10
                 }
-            }
-            run {
-                var i = width - offset - 50
-                while (i > 0) {
-                    g2d.drawLine(i, 7, i, 13)
-                    i -= 100
+                run {
+                    var i = width - offset - 50
+                    while (i > 0) {
+                        it.drawLine(i, 7, i, 13)
+                        i -= 100
+                    }
                 }
-            }
-            run {
-                var i = width - offset
-                while (i > 0) {
-                    val c = (width - offset - i) / 100 % 10
-                    g2d.drawString("" + c, i - 2, 15)
-                    i -= 100
+                run {
+                    var i = width - offset
+                    while (i > 0) {
+                        val c = (width - offset - i) / 100 % 10
+                        it.drawString("" + c, i - 2, 15)
+                        i -= 100
+                    }
                 }
-            }
 
-            // vertical ruler on right
-            run {
+                // vertical ruler on right
+                run {
+                    var i = offset
+                    while (i < this.height) {
+                        if ((i - offset) % 100 == 0) {
+                            i += 10
+                            continue
+                        }
+                        it.drawLine(width - 9, i, width - 11, i)
+                        i += 10
+                    }
+                }
+                run {
+                    var i = offset + 50
+                    while (i < this.height) {
+                        it.drawLine(width - 7, i, width - 13, i)
+                        i += 100
+                    }
+                }
                 var i = offset
                 while (i < this.height) {
-                    if ((i - offset) % 100 == 0) {
-                        i += 10
-                        continue
-                    }
-                    g2d.drawLine(width - 9, i, width - 11, i)
-                    i += 10
-                }
-            }
-            run {
-                var i = offset + 50
-                while (i < this.height) {
-                    g2d.drawLine(width - 7, i, width - 13, i)
+                    val c = (i - offset) / 100 % 10
+                    it.drawString("" + c, width - 14, i + 4)
                     i += 100
                 }
-            }
-            var i = offset
-            while (i < this.height) {
-                val c = (i - offset) / 100 % 10
-                g2d.drawString("" + c, width - 14, i + 4)
-                i += 100
             }
         }
-        g2d.dispose()
     }
 }
 
@@ -270,15 +272,11 @@ private class RibbonDemoBuilder {
 
         val group1Visible = JCheckBox("visible")
         val group2Visible = JCheckBox("visible")
-        group1Visible.addActionListener {
-            SwingUtilities.invokeLater {
-                ribbon.setVisible(ribbon.getContextualTaskGroup(0), group1Visible.isSelected)
-            }
+        group1Visible.addDelayedActionListener {
+            ribbon.setVisible(ribbon.getContextualTaskGroup(0), group1Visible.isSelected)
         }
-        group2Visible.addActionListener {
-            SwingUtilities.invokeLater {
-                ribbon.setVisible(ribbon.getContextualTaskGroup(1), group2Visible.isSelected)
-            }
+        group2Visible.addDelayedActionListener {
+            ribbon.setVisible(ribbon.getContextualTaskGroup(1), group2Visible.isSelected)
         }
         formBuilder.add("Group 1").xy(1, 1).add(group1Visible).xy(3, 1)
         formBuilder.add("Group 2").xy(1, 3).add(group2Visible).xy(3, 3)
@@ -287,21 +285,17 @@ private class RibbonDemoBuilder {
 
         val taskbarEnabled = JCheckBox("enabled")
         taskbarEnabled.isSelected = true
-        taskbarEnabled.addActionListener {
-            SwingUtilities.invokeLater {
-                for (command in ribbon.taskbarCommands) {
-                    command.isEnabled = taskbarEnabled.isSelected
-                }
+        taskbarEnabled.addDelayedActionListener {
+            for (command in ribbon.taskbarCommands) {
+                command.isEnabled = taskbarEnabled.isSelected
             }
         }
         formBuilder.add("Taskbar").xy(1, 7).add(taskbarEnabled).xy(3, 7)
 
         val toggleMinimize = JCheckBox("minimized")
         toggleMinimize.isSelected = false
-        toggleMinimize.addActionListener {
-            SwingUtilities.invokeLater {
-                ribbon.isMinimized = !ribbon.isMinimized
-            }
+        toggleMinimize.addDelayedActionListener {
+            ribbon.isMinimized = !ribbon.isMinimized
         }
         formBuilder.add("Minimize").xy(1, 9).add(toggleMinimize).xy(3, 9)
 
@@ -460,12 +454,13 @@ private class RibbonDemoBuilder {
                                         command {
                                             icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
                                                     DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
-                                                        val g2d = graphics.create() as Graphics2D
-                                                        g2d.color = Color.black
-                                                        g2d.font = UIManager.getFont("Label.font")
-                                                        NeonCortex.installDesktopHints(g2d, component)
-                                                        g2d.drawString("" + i, x + 2, y + height - 2)
-                                                        g2d.dispose()
+                                                        graphics.render {
+                                                            it.color = Color.black
+                                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy().
+                                                                    getFontSet(null).controlFont
+                                                            NeonCortex.installDesktopHints(it, component)
+                                                            it.drawString("" + i, x + 2, y + height - 2)
+                                                        }
                                                     }
                                             )
 
@@ -572,13 +567,13 @@ private class RibbonDemoBuilder {
                             title = mfButtonText.format(arrayOf<Any>(i))
                             icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
                                     DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
-                                        val g2d = graphics.create() as Graphics2D
-                                        g2d.color = Color.black
-                                        NeonCortex.installDesktopHints(g2d, component)
-                                        g2d.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                .getFontSet(null).controlFont
-                                        g2d.drawString("$i", x + 2, y + height - 2)
-                                        g2d.dispose()
+                                        graphics.render {
+                                            it.color = Color.black
+                                            NeonCortex.installDesktopHints(it, component)
+                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                    .getFontSet(null).controlFont
+                                            it.drawString("$i", x + 2, y + height - 2)
+                                        }
                                     }
                             )
                             action = ActionListener { println("Invoked action on $i") }
@@ -594,13 +589,13 @@ private class RibbonDemoBuilder {
                             title = mfButtonText.format(arrayOf<Any>(i))
                             icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
                                     DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
-                                        val g2d = graphics.create() as Graphics2D
-                                        g2d.color = Color.black
-                                        NeonCortex.installDesktopHints(g2d, component)
-                                        g2d.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                .getFontSet(null).controlFont
-                                        g2d.drawString("$i", x + 2, y + height - 2)
-                                        g2d.dispose()
+                                        graphics.render {
+                                            it.color = Color.black
+                                            NeonCortex.installDesktopHints(it, component)
+                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                    .getFontSet(null).controlFont
+                                            it.drawString("$i", x + 2, y + height - 2)
+                                        }
                                     }
                             )
                             action = ActionListener { println("Invoked action on $i") }
@@ -719,15 +714,13 @@ private class RibbonDemoBuilder {
 
                         command {
                             title = resourceBundle.getString("ColorSelector.textMoreColor")
-                            action = ActionListener {
-                                SwingUtilities.invokeLater({
-                                    val newColor = JColorChooser.showDialog(it.source as Component,
-                                            "Color chooser", defaultColor)
-                                    if (newColor != null) {
-                                        myColorSelectorCallback.onColorSelected(newColor)
-                                        JColorSelectorPopupMenu.addColorToRecentlyUsed(newColor)
-                                    }
-                                })
+                            action = DelayedActionListener {
+                                val newColor = JColorChooser.showDialog(it.source as Component,
+                                        "Color chooser", defaultColor)
+                                if (newColor != null) {
+                                    myColorSelectorCallback.onColorSelected(newColor)
+                                    JColorSelectorPopupMenu.addColorToRecentlyUsed(newColor)
+                                }
                             }
                         }
                     }.asColorSelectorPopupMenu()
@@ -1330,18 +1323,18 @@ private class RibbonDemoBuilder {
                         command {
                             icon = DecoratedResizableIcon(Appointment_new.of(16, 16),
                                     DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
-                                        val g2d = g.create() as Graphics2D
-                                        NeonCortex.installDesktopHints(g2d, c)
-                                        g2d.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                .getFontSet(null).controlFont.deriveFont(9.0f)
-                                        g2d.color = Color.black
-                                        g2d.drawString("" + i, x + 1, y + height - 2)
-                                        g2d.drawString("" + i, x + 3, y + height - 2)
-                                        g2d.drawString("" + i, x + 2, y + height - 1)
-                                        g2d.drawString("" + i, x + 2, y + height - 3)
-                                        g2d.color = Color.white
-                                        g2d.drawString("" + i, x + 2, y + height - 2)
-                                        g2d.dispose()
+                                        g.render {
+                                            NeonCortex.installDesktopHints(it, c)
+                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                    .getFontSet(null).controlFont.deriveFont(9.0f)
+                                            it.color = Color.black
+                                            it.drawString("" + i, x + 1, y + height - 2)
+                                            it.drawString("" + i, x + 3, y + height - 2)
+                                            it.drawString("" + i, x + 2, y + height - 1)
+                                            it.drawString("" + i, x + 2, y + height - 3)
+                                            it.color = Color.white
+                                            it.drawString("" + i, x + 2, y + height - 2)
+                                        }
                                     })
                             action = ActionListener { println("Activated action $i") }
                             isToggle = true
@@ -1355,18 +1348,18 @@ private class RibbonDemoBuilder {
                         command {
                             icon = DecoratedResizableIcon(Appointment_new.of(16, 16),
                                     DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
-                                        val g2d = g.create() as Graphics2D
-                                        NeonCortex.installDesktopHints(g2d, c)
-                                        g2d.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                .getFontSet(null).controlFont.deriveFont(9.0f)
-                                        g2d.color = Color.black
-                                        g2d.drawString("" + i, x + 1, y + height - 2)
-                                        g2d.drawString("" + i, x + 3, y + height - 2)
-                                        g2d.drawString("" + i, x + 2, y + height - 1)
-                                        g2d.drawString("" + i, x + 2, y + height - 3)
-                                        g2d.color = Color.white
-                                        g2d.drawString("" + i, x + 2, y + height - 2)
-                                        g2d.dispose()
+                                        g.render {
+                                            NeonCortex.installDesktopHints(it, c)
+                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                    .getFontSet(null).controlFont.deriveFont(9.0f)
+                                            it.color = Color.black
+                                            it.drawString("" + i, x + 1, y + height - 2)
+                                            it.drawString("" + i, x + 3, y + height - 2)
+                                            it.drawString("" + i, x + 2, y + height - 1)
+                                            it.drawString("" + i, x + 2, y + height - 3)
+                                            it.color = Color.white
+                                            it.drawString("" + i, x + 2, y + height - 2)
+                                        }
                                     })
                             action = ActionListener { println("Activated action $i") }
                             isToggle = true
@@ -1692,6 +1685,14 @@ fun main(args: Array<String>) {
                     icon = Edit_find.of(16, 16)
                     action = ActionListener { println("Taskbar Find activated") }
                     actionKeyTip = "4"
+                }
+
+                ribbonComponent {
+                    component = JComboBox(arrayOf("Winter", "Spring", "Summer", "Autumn"))
+                    richTooltip {
+                        title = builder.resourceBundle.getString("Seasons.tooltip.title")
+                    }
+                    keyTip = "5"
                 }
             }
 

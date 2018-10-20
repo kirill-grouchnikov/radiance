@@ -115,21 +115,19 @@ public class DefaultGnomeFontPolicy implements FontPolicy {
 		// to an actual font (such as DejaVu Sans).
 		String fcFamilyLC = family.toLowerCase();
 		try {
-			Class fontManagerClass = Class.forName("sun.font.FontManager");
+			Class<?> fontManagerClass = Class.forName("sun.font.FontManager");
 			Method mapFcMethod = fontManagerClass.getMethod("mapFcName",
-					new Class[] { String.class });
+					String.class);
 			Object mapFcMethodResult = mapFcMethod.invoke(null, fcFamilyLC);
 			if (mapFcMethodResult != null) {
 				Method getFontConfigFUIRMethod = fontManagerClass.getMethod(
-						"getFontConfigFUIR", new Class[] { String.class,
-								int.class, int.class });
+						"getFontConfigFUIR", String.class, int.class, int.class);
 				controlFont = (Font) getFontConfigFUIRMethod.invoke(null,
 						fcFamilyLC, style, size);
 			} else {
 				Font font = new FontUIResource(family, style, size);
 				Method getCompositeFontUIResourceMethod = fontManagerClass
-						.getMethod("getCompositeFontUIResource",
-								new Class[] { Font.class });
+						.getMethod("getCompositeFontUIResource", Font.class);
 				controlFont = (Font) getCompositeFontUIResourceMethod.invoke(
 						null, font);
 			}

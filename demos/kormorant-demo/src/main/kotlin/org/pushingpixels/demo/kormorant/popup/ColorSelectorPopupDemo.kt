@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.demo.kormorant.popup
 
+import org.pushingpixels.ember.setColorizationFactor
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
@@ -36,6 +37,8 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.ActionModelChangeInterface
 import org.pushingpixels.kormorant.colorSelectorPopupMenu
 import org.pushingpixels.kormorant.commandButton
+import org.pushingpixels.meteor.awt.DelayedActionListener
+import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -59,17 +62,16 @@ class ColorIcon(private var color: Color) : ResizableIcon {
     }
 
     override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
-        val g2d = g.create() as Graphics2D
-        g2d.color = color
-        g2d.fillRect(x, y, w, h)
-        val borderThickness = 1.0f / NeonCortex.getScaleFactor().toFloat()
-        g2d.color = color.darker()
-        g2d.stroke = BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
-                BasicStroke.JOIN_ROUND)
-        g2d.draw(
-                Rectangle2D.Double(x.toDouble(), y.toDouble(),
-                        (w - borderThickness).toDouble(), (h - borderThickness).toDouble()))
-        g2d.dispose()
+        g.render {
+            it.color = color
+            it.fillRect(x, y, w, h)
+            val borderThickness = 1.0f / NeonCortex.getScaleFactor().toFloat()
+            it.color = color.darker()
+            it.stroke = BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_ROUND)
+            it.draw(Rectangle2D.Double(x.toDouble(), y.toDouble(),
+                    (w - borderThickness).toDouble(), (h - borderThickness).toDouble()))
+        }
     }
 
     override fun getIconWidth(): Int {
@@ -97,7 +99,7 @@ fun main(args: Array<String>) {
         frame.layout = BorderLayout()
 
         val centerPanel = JPanel()
-        SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(centerPanel, 1.0)
+        centerPanel.setColorizationFactor(1.0)
         var backgroundColor = centerPanel.background
         frame.add(centerPanel, BorderLayout.CENTER)
 
@@ -196,14 +198,12 @@ fun main(args: Array<String>) {
 
                         command {
                             title = resourceBundle.getString("ColorSelector.textMoreColor")
-                            action = ActionListener {
-                                SwingUtilities.invokeLater {
-                                    val color = JColorChooser.showDialog(it.source as Component,
-                                            "Color chooser", backgroundColor)
-                                    if (color != null) {
-                                        callback.onColorSelected(color)
-                                        JColorSelectorPopupMenu.addColorToRecentlyUsed(color)
-                                    }
+                            action = DelayedActionListener {
+                                val color = JColorChooser.showDialog(it.source as Component,
+                                        "Color chooser", backgroundColor)
+                                if (color != null) {
+                                    callback.onColorSelected(color)
+                                    JColorSelectorPopupMenu.addColorToRecentlyUsed(color)
                                 }
                             }
                         }

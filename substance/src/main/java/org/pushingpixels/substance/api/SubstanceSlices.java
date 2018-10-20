@@ -87,7 +87,7 @@ public final class SubstanceSlices {
         /**
          * Bottom side.
          */
-        BOTTOM;
+        BOTTOM
     }
 
     /**
@@ -679,7 +679,7 @@ public final class SubstanceSlices {
      *
      * @author Kirill Grouchnikov
      */
-    public static enum PasswordStrength {
+    public enum PasswordStrength {
         /**
          * Weak strength.
          */
@@ -892,8 +892,7 @@ public final class SubstanceSlices {
         /**
          * All known association kind values.
          */
-        private static Set<ColorSchemeAssociationKind> values =
-                new HashSet<ColorSchemeAssociationKind>();
+        private static Set<ColorSchemeAssociationKind> values = new HashSet<>();
 
         /**
          * Name for this association kind.

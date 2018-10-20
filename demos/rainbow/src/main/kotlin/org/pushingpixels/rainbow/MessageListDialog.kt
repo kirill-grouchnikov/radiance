@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.rainbow
 
+import org.pushingpixels.meteor.awt.addDelayedActionListener
 import java.awt.*
 import java.util.*
 import javax.swing.*
@@ -49,12 +50,10 @@ private constructor(owner: Frame?, mainMessage: String, messages: LinkedList<Str
         messageList.font = UIManager.getFont("Panel.font").deriveFont(Font.BOLD)
         val mesScrollPane = JScrollPane(messageList)
         val closeButton = JButton("Close")
-        closeButton.addActionListener {
-            SwingUtilities.invokeLater {
-                dispose()
-                if (toExitOnDispose) {
-                    System.exit(0)
-                }
+        closeButton.addDelayedActionListener {
+            dispose()
+            if (toExitOnDispose) {
+                System.exit(0)
             }
         }
 

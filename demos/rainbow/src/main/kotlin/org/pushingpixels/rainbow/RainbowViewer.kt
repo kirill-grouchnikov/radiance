@@ -32,20 +32,23 @@
 package org.pushingpixels.rainbow
 
 import com.jgoodies.forms.builder.FormBuilder
-import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.swing.Swing
+import kotlinx.coroutines.experimental.withContext
 import org.jdesktop.jxlayer.JXLayer
 import org.jdesktop.jxlayer.plaf.ext.MouseScrollableUI
 import org.jdesktop.jxlayer.plaf.ext.SpotLightUI
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent
+import org.pushingpixels.ember.setDecorationType
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.ProgressEvent
 import org.pushingpixels.flamingo.api.layout.TransitionLayout
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutEvent
+import org.pushingpixels.meteor.awt.addDelayedChangeListener
 import org.pushingpixels.rainbow.svg.ic_search_black_24px
 import org.pushingpixels.rainbow.svg.ic_zoom_in_black_24px
 import org.pushingpixels.rainbow.svg.ic_zoom_out_black_24px
-import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
 import java.awt.BorderLayout
 import java.awt.geom.RoundRectangle2D
@@ -136,7 +139,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
         spotLightLayerUI = SpotLightUI(2)
         layer.setUI(spotLightLayerUI)
 
-        bar.model.addPathListener { event: BreadcrumbPathEvent<T> ->
+        bar.model.addPathListener { event ->
             GlobalScope.launch(Dispatchers.Swing) {
                 svgFileViewPanel.cancelMainWorker()
                 val newPath = event.source.items
@@ -159,7 +162,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
         val toolbar = JToolBar()
         toolbar.isFloatable = false
         toolbar.layout = BorderLayout()
-        ComponentOrParentChainScope.setDecorationType(toolbar, DecorationAreaType.HEADER)
+        toolbar.setDecorationType(DecorationAreaType.HEADER)
 
         toolbarBuilder.add(bar).xy(1, 1)
 
@@ -214,7 +217,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
         statusBarBuilder.add(getPanel(initialSize)).xy(5, 1)
 
         val statusBarPanel = statusBarBuilder.build()
-        ComponentOrParentChainScope.setDecorationType(statusBarPanel, DecorationAreaType.GENERAL)
+        statusBarPanel.setDecorationType(DecorationAreaType.GENERAL)
         this.add(statusBarPanel, BorderLayout.SOUTH)
     }
 
@@ -269,9 +272,9 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
     }
 
     fun getPanel(initialSize: Int): JPanel {
-        val builder =
-                FormBuilder.create().columns("left:pref, 8dlu, fill:pref, 0dlu, fill:min:grow, 0dlu, fill:pref, 4dlu")
-                        .rows("p")
+        val builder = FormBuilder.create()
+                .columns("left:pref, 8dlu, fill:pref, 0dlu, fill:min:grow, 0dlu, fill:pref, 4dlu")
+                .rows("p")
 
         val sizeLabel = JLabel()
         sizeLabel.text = initialSize.toString() + "x" + initialSize
@@ -290,16 +293,12 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
         iconSizeSlider.value = initialSize
         iconSizeSlider.isFocusable = false
 
-        iconSizeSlider.addChangeListener {
-            GlobalScope.launch(Dispatchers.Swing) {
-                if (!iconSizeSlider.model.valueIsAdjusting) {
-                    val newValue = iconSizeSlider.value
-                    if (newValue != iconSize) {
-                        withContext(Dispatchers.Default) {
-                            iconSize = newValue
-                        }
-                        sizeLabel.text = newValue.toString() + "x" + newValue
-                    }
+        iconSizeSlider.addDelayedChangeListener {
+            if (!iconSizeSlider.model.valueIsAdjusting) {
+                val newValue = iconSizeSlider.value
+                if (newValue != iconSize) {
+                    iconSize = newValue
+                    sizeLabel.text = newValue.toString() + "x" + newValue
                 }
             }
         }

@@ -40,6 +40,8 @@ dependencies {
     compile project(':substance')
     compile project(':flamingo')
     compile project(':kormorant')
+    compile project(':ember')
+    compile project(':meteor')
     compile project(':demos:flamingo-demo')
     compile ("com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}")
     compile ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")

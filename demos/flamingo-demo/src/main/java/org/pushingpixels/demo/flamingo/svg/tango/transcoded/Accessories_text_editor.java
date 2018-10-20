@@ -13,7 +13,7 @@ import org.pushingpixels.neon.icon.NeonIconUIResource;
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
-public class Accessories_text_editor implements ResizableIcon, IsHiDpiAware {
+public class Accessories_text_editor implements ResizableIcon, IsHiDpiAware, Cloneable {
     @SuppressWarnings("unused")
 	private void innerPaint(Graphics2D g) {
         Shape shape = null;

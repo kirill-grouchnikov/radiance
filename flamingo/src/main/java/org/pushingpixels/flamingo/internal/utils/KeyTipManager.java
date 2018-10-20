@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.utils;
 
@@ -36,8 +36,8 @@ import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.*;
 
-import javax.swing.*;
 import javax.swing.FocusManager;
+import javax.swing.*;
 import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.event.*;
@@ -47,14 +47,12 @@ import java.util.List;
 import java.util.concurrent.*;
 
 public class KeyTipManager {
-    boolean isShowingKeyTips;
+    private List<KeyTipChain> keyTipChains;
 
-    List<KeyTipChain> keyTipChains;
+    private EventListenerList listenerList;
 
-    protected EventListenerList listenerList;
-
-    protected BlockingQueue<Character> processingQueue;
-    protected ProcessingThread processingThread;
+    private BlockingQueue<Character> processingQueue;
+    private ProcessingThread processingThread;
 
     private JRibbonFrame rootOwner;
 
@@ -63,13 +61,13 @@ public class KeyTipManager {
     private static final KeyTipManager instance = new KeyTipManager();
 
     public interface KeyTipLinkTraversal {
-        public KeyTipChain getNextChain();
+        KeyTipChain getNextChain();
     }
 
-    public static interface KeyTipListener extends EventListener {
-        public void keyTipsShown(KeyTipEvent event);
+    public interface KeyTipListener extends EventListener {
+        void keyTipsShown(KeyTipEvent event);
 
-        public void keyTipsHidden(KeyTipEvent event);
+        void keyTipsHidden(KeyTipEvent event);
     }
 
     public static class KeyTipEvent extends AWTEvent {
@@ -82,12 +80,12 @@ public class KeyTipManager {
      * Annotation to mark a command button that shows UI content with associated keytips on clicking
      * its action area. Can be used to associate keytips with menu command buttons in the popup menu
      * shown when the ribbon gallery is expanded.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
-    public static @interface HasNextKeyTipChain {
+    public @interface HasNextKeyTipChain {
     }
 
     public class KeyTipLink {
@@ -97,9 +95,9 @@ public class KeyTipManager {
 
         public Point prefAnchorPoint;
 
-        public ActionListener onActivated;
+        private ActionListener onActivated;
 
-        public KeyTipLinkTraversal traversal;
+        private KeyTipLinkTraversal traversal;
 
         public boolean enabled;
     }
@@ -107,7 +105,7 @@ public class KeyTipManager {
     public class KeyTipChain {
         private List<KeyTipLink> links;
 
-        public int keyTipLookupIndex;
+        private int keyTipLookupIndex;
 
         public JComponent chainParentComponent;
 
@@ -129,10 +127,9 @@ public class KeyTipManager {
     }
 
     private KeyTipManager() {
-        this.isShowingKeyTips = false;
-        this.keyTipChains = new ArrayList<KeyTipChain>();
+        this.keyTipChains = new ArrayList<>();
         this.listenerList = new EventListenerList();
-        this.processingQueue = new LinkedBlockingQueue<Character>();
+        this.processingQueue = new LinkedBlockingQueue<>();
         this.processingThread = new ProcessingThread();
         this.processingThread.start();
     }
@@ -142,8 +139,9 @@ public class KeyTipManager {
     }
 
     public void hideAllKeyTips() {
-        if (this.keyTipChains.isEmpty())
+        if (this.keyTipChains.isEmpty()) {
             return;
+        }
         this.keyTipChains.clear();
         this.fireKeyTipsHidden(rootOwner);
         repaintWindows();
@@ -179,7 +177,8 @@ public class KeyTipManager {
         KeyTipChain root = new KeyTipChain(ribbon);
 
         // application menu button
-        final JRibbonApplicationMenuButton appMenuButton = ribbon.getUI().getApplicationMenuButton();
+        final JRibbonApplicationMenuButton appMenuButton =
+                ribbon.getUI().getApplicationMenuButton();
         if ((appMenuButton != null) && (ribbon.getApplicationMenuKeyTip() != null)) {
             final KeyTipLink appMenuButtonLink = new KeyTipLink();
             appMenuButtonLink.comp = appMenuButton;
@@ -199,8 +198,6 @@ public class KeyTipManager {
                         KeyTipChain chain = new KeyTipChain(popupPanel);
                         chain.parent = appMenuButtonLink.traversal;
                         populateChain(last.getPopupPanel(), chain);
-                        // popupPanel.putClientProperty(KEYTIP_MANAGER,
-                        // KeyTipManager.this);
                         return chain;
                     }
                 }
@@ -223,6 +220,12 @@ public class KeyTipManager {
                     if (popupLink != null) {
                         root.addLink(popupLink);
                     }
+                }
+            } else if (taskbarComp instanceof JRibbonComponent) {
+                JRibbonComponent rc = (JRibbonComponent) taskbarComp;
+                KeyTipLink link = getRibbonComponentLink(rc);
+                if (link != null) {
+                    root.addLink(link);
                 }
             }
         }
@@ -249,8 +252,9 @@ public class KeyTipManager {
                         KeyTipChain taskChain = new KeyTipChain(taskToggleButton);
                         // collect key tips of all controls from all task
                         // bands
-                        for (AbstractRibbonBand band : task.getBands())
+                        for (AbstractRibbonBand band : task.getBands()) {
                             populateChain(band, taskChain);
+                        }
                         taskChain.parent = taskToggleButtonLink.traversal;
                         return taskChain;
                     };
@@ -274,21 +278,24 @@ public class KeyTipManager {
     }
 
     public Collection<KeyTipLink> getCurrentlyShownKeyTips() {
-        if (this.keyTipChains.isEmpty())
+        if (this.keyTipChains.isEmpty()) {
             return Collections.emptyList();
+        }
         return Collections
                 .unmodifiableCollection(this.keyTipChains.get(this.keyTipChains.size() - 1).links);
     }
 
     public KeyTipChain getCurrentlyShownKeyTipChain() {
-        if (this.keyTipChains.isEmpty())
+        if (this.keyTipChains.isEmpty()) {
             return null;
+        }
         return this.keyTipChains.get(this.keyTipChains.size() - 1);
     }
 
     public void showPreviousChain() {
-        if (this.keyTipChains.isEmpty())
+        if (this.keyTipChains.isEmpty()) {
             return;
+        }
         this.keyTipChains.remove(this.keyTipChains.size() - 1);
         // was last?
         if (!this.isShowingKeyTips()) {
@@ -317,14 +324,15 @@ public class KeyTipManager {
         if (c instanceof AbstractCommandButton) {
             Rectangle compBounds = c.getBounds();
             if (c.isVisible() && c.isShowing()) {
-                if ((compBounds.height > 0) && (compBounds.width > 0))
+                if ((compBounds.height > 0) && (compBounds.width > 0)) {
                     addCommandButtonLinks(c, chain);
-                else
+                } else {
                     SwingUtilities.invokeLater(() -> {
                         Rectangle compBoundsNew = c.getBounds();
                         if ((compBoundsNew.height > 0) && (compBoundsNew.width > 0))
                             addCommandButtonLinks(c, chain);
                     });
+                }
             }
         }
 
@@ -382,21 +390,29 @@ public class KeyTipManager {
             link.keyTipString = rc.getKeyTip();
             link.prefAnchorPoint = rc.getUI().getKeyTipAnchorCenterPoint();
             link.onActivated = (ActionEvent e) -> {
+                // Emulate a mouse click (press + release) in the center of the main
+                // component
                 JComponent mainComponent = rc.getMainComponent();
-                if (mainComponent instanceof AbstractButton) {
-                    ((AbstractButton) mainComponent).doClick();
-                } else {
-                    if (mainComponent instanceof JComboBox) {
-                        ((JComboBox) mainComponent).showPopup();
-                    } else {
-                        if (mainComponent instanceof JSpinner) {
-                            JComponent editor = ((JSpinner) mainComponent).getEditor();
-                            editor.requestFocusInWindow();
-                        } else {
-                            mainComponent.requestFocusInWindow();
-                        }
-                    }
-                }
+                int mainComponentWidth = mainComponent.getWidth();
+                int mainComponentHeight = mainComponent.getHeight();
+
+                Point mainComponentCenter =
+                        new Point(mainComponentWidth / 2, mainComponentHeight / 2);
+                SwingUtilities.convertPointToScreen(mainComponentCenter, mainComponent);
+                Component toClick = SwingUtilities.getDeepestComponentAt(mainComponent,
+                        mainComponentWidth / 2, mainComponentHeight / 2);
+
+                long currentTimeMillis = System.currentTimeMillis();
+                MouseEvent pressEvent = new MouseEvent(toClick, MouseEvent.MOUSE_PRESSED,
+                        currentTimeMillis, 0, mainComponentWidth / 2, mainComponentHeight / 2,
+                        mainComponentCenter.x, mainComponentCenter.y, 1, false, MouseEvent.BUTTON1);
+                MouseEvent releaseEvent = new MouseEvent(toClick, MouseEvent.MOUSE_RELEASED,
+                        currentTimeMillis, 0, mainComponentWidth / 2, mainComponentHeight / 2,
+                        mainComponentCenter.x, mainComponentCenter.y, 1, false, MouseEvent.BUTTON1);
+
+                toClick.dispatchEvent(pressEvent);
+                toClick.dispatchEvent(releaseEvent);
+
             };
             link.enabled = rc.getMainComponent().isEnabled();
             link.traversal = null;
@@ -429,7 +445,8 @@ public class KeyTipManager {
                     JPopupPanel popupPanel = last.getPopupPanel();
                     // special case - application menu
                     if (popupPanel instanceof JRibbonApplicationMenuPopupPanel) {
-                        JRibbonApplicationMenuPopupPanel appMenuPopupPanel = (JRibbonApplicationMenuPopupPanel) popupPanel;
+                        JRibbonApplicationMenuPopupPanel appMenuPopupPanel =
+                                (JRibbonApplicationMenuPopupPanel) popupPanel;
                         // check whether there are entries at level 2
                         JPanel level1 = appMenuPopupPanel.getPanelLevel1();
                         JPanel level2 = appMenuPopupPanel.getPanelLevel2();
@@ -463,7 +480,7 @@ public class KeyTipManager {
     }
 
     private class ProcessingThread extends Thread {
-        public ProcessingThread() {
+        private ProcessingThread() {
             super();
             this.setName("KeyTipManager processing thread");
             this.setDaemon(true);
@@ -474,12 +491,7 @@ public class KeyTipManager {
             while (true) {
                 try {
                     final char keyChar = processingQueue.take();
-                    SwingUtilities.invokeAndWait(new Runnable() {
-                        @Override
-                        public void run() {
-                            processNextKeyPress(keyChar);
-                        }
-                    });
+                    SwingUtilities.invokeAndWait(() -> processNextKeyPress(keyChar));
                 } catch (Throwable t) {
                     t.printStackTrace();
                 }
@@ -488,16 +500,16 @@ public class KeyTipManager {
     }
 
     private void processNextKeyPress(char keyChar) {
-        if (this.keyTipChains.isEmpty())
+        if (this.keyTipChains.isEmpty()) {
             return;
+        }
 
         KeyTipChain currChain = this.keyTipChains.get(this.keyTipChains.size() - 1);
         // go over the key tip links and see if there is an exact match
         for (final KeyTipLink link : currChain.links) {
             String keyTipString = link.keyTipString;
-            if ((Character
-                    .toLowerCase(keyTipString.charAt(currChain.keyTipLookupIndex)) == Character
-                            .toLowerCase(keyChar))
+            if ((Character.toLowerCase(keyTipString.charAt(currChain.keyTipLookupIndex)) ==
+                    Character.toLowerCase(keyChar))
                     && (keyTipString.length() == (currChain.keyTipLookupIndex + 1))) {
                 // exact match
                 if (link.enabled) {
@@ -537,9 +549,8 @@ public class KeyTipManager {
             secondary.keyTipLookupIndex = 1;
             for (KeyTipLink link : currChain.links) {
                 String keyTipString = link.keyTipString;
-                if ((Character
-                        .toLowerCase(keyTipString.charAt(currChain.keyTipLookupIndex)) == Character
-                                .toLowerCase(keyChar))
+                if ((Character.toLowerCase(keyTipString.charAt(currChain.keyTipLookupIndex)) ==
+                        Character.toLowerCase(keyChar))
                         && (keyTipString.length() == 2)) {
                     KeyTipLink secondaryLink = new KeyTipLink();
                     secondaryLink.comp = link.comp;
@@ -555,7 +566,6 @@ public class KeyTipManager {
                 this.keyTipChains.add(secondary);
             }
             repaintWindows();
-            return;
         }
     }
 
@@ -579,7 +589,7 @@ public class KeyTipManager {
         this.listenerList.remove(KeyTipListener.class, keyTipListener);
     }
 
-    protected void fireKeyTipsShown(JRibbonFrame ribbonFrame) {
+    private void fireKeyTipsShown(JRibbonFrame ribbonFrame) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
         KeyTipEvent e = new KeyTipEvent(ribbonFrame, 0);
@@ -592,7 +602,7 @@ public class KeyTipManager {
         }
     }
 
-    protected void fireKeyTipsHidden(JRibbonFrame ribbonFrame) {
+    private void fireKeyTipsHidden(JRibbonFrame ribbonFrame) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
         KeyTipEvent e = new KeyTipEvent(ribbonFrame, 0);
@@ -607,8 +617,9 @@ public class KeyTipManager {
 
     public void refreshCurrentChain() {
         KeyTipChain curr = this.keyTipChains.get(this.keyTipChains.size() - 1);
-        if (curr.parent == null)
+        if (curr.parent == null) {
             return;
+        }
         KeyTipChain refreshed = curr.parent.getNextChain();
         this.keyTipChains.remove(this.keyTipChains.size() - 1);
         this.keyTipChains.add(refreshed);

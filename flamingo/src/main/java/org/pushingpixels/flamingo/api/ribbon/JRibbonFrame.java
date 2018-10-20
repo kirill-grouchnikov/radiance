@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
+import org.pushingpixels.flamingo.api.common.RichToolTipManager;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.utils.*;
@@ -147,12 +148,14 @@ public class JRibbonFrame extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             JRibbonFrame ribbonFrame = (JRibbonFrame) SwingUtilities.getWindowAncestor(this);
-            if (!ribbonFrame.isShowingKeyTips())
+            if (!ribbonFrame.isShowingKeyTips()) {
                 return;
+            }
 
             // don't show keytips on inactive windows
-            if (!ribbonFrame.isActive())
+            if (!ribbonFrame.isActive()) {
                 return;
+            }
 
             Collection<KeyTipManager.KeyTipLink> keyTips = KeyTipManager.defaultManager()
                     .getCurrentlyShownKeyTips();
@@ -162,14 +165,16 @@ public class JRibbonFrame extends JFrame {
 
                 for (KeyTipManager.KeyTipLink keyTip : keyTips) {
                     // don't display keytips on components in popup panels
-                    if (SwingUtilities.getAncestorOfClass(JPopupPanel.class, keyTip.comp) != null)
+                    if (SwingUtilities.getAncestorOfClass(JPopupPanel.class, keyTip.comp) != null) {
                         continue;
+                    }
 
                     // don't display key tips on hidden components
                     Rectangle compBounds = keyTip.comp.getBounds();
                     if (!keyTip.comp.isShowing() || (compBounds.getWidth() == 0)
-                            || (compBounds.getHeight() == 0))
+                            || (compBounds.getHeight() == 0)) {
                         continue;
+                    }
 
                     Dimension pref = KeyTipRenderingUtilities.getPrefSize(g2d.getFontMetrics(),
                             keyTip.keyTipString);
@@ -338,13 +343,6 @@ public class JRibbonFrame extends JFrame {
                             // System.out.println(keyEvent.getID() + ":"
                             // + keyEvent.getKeyCode());
                             switch (keyEvent.getID()) {
-                                case KeyEvent.KEY_PRESSED:
-                                    // if (keyEvent.getKeyCode() ==
-                                    // KeyEvent.VK_ESCAPE) {
-                                    // keyTipManager.showPreviousChain();
-                                    // }
-
-                                    break;
                                 case KeyEvent.KEY_RELEASED:
                                     boolean wasAltModif = prevAltModif;
                                     prevAltModif = keyEvent
@@ -408,10 +406,11 @@ public class JRibbonFrame extends JFrame {
             public void layoutContainer(Container parent) {
                 currLM.layoutContainer(parent);
                 JRibbonFrame ribbonFrame = JRibbonFrame.this;
-                if (ribbonFrame.getRootPane().getWindowDecorationStyle() != JRootPane.NONE)
+                if (ribbonFrame.getRootPane().getWindowDecorationStyle() != JRootPane.NONE) {
                     keyTipLayer.setBounds(ribbonFrame.getRootPane().getBounds());
-                else
+                } else {
                     keyTipLayer.setBounds(ribbonFrame.getRootPane().getContentPane().getBounds());
+                }
             }
 
             public Dimension minimumLayoutSize(Container parent) {
@@ -426,7 +425,6 @@ public class JRibbonFrame extends JFrame {
                 currLM.removeLayoutComponent(comp);
             }
         });
-        // layeredPane.setLayout(new OverlayLayout(layeredPane));
         layeredPane.add(keyTipLayer, (Integer) (JLayeredPane.DEFAULT_LAYER + 60));
 
         this.addWindowListener(new WindowAdapter() {
@@ -443,21 +441,26 @@ public class JRibbonFrame extends JFrame {
         KeyTipManager.defaultManager().addKeyTipListener(new KeyTipManager.KeyTipListener() {
             @Override
             public void keyTipsHidden(KeyTipEvent event) {
-                if (event.getSource() == JRibbonFrame.this)
+                if (event.getSource() == JRibbonFrame.this) {
                     keyTipLayer.setVisible(false);
+                }
             }
 
             @Override
             public void keyTipsShown(KeyTipEvent event) {
-                if (event.getSource() == JRibbonFrame.this)
+                if (event.getSource() == JRibbonFrame.this) {
                     keyTipLayer.setVisible(true);
+                }
             }
         });
+
+        RichToolTipManager.sharedInstance();
 
         ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
         JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 
-        super.setIconImages(Arrays.asList(SubstanceCoreUtilities.getBlankImage(16, 16)));
+        super.setIconImages(Collections.singletonList(
+                SubstanceCoreUtilities.getBlankImage(16, 16)));
     }
 
     /**
@@ -532,20 +535,22 @@ public class JRibbonFrame extends JFrame {
                 }
             });
         } else {
-            final List<Image> images = new ArrayList<Image>();
+            final List<Image> images = new ArrayList<>();
             Image icon16 = getImage(icon, 16);
-            if (icon16 != null)
+            if (icon16 != null) {
                 images.add(icon16);
+            }
             Image icon32 = getImage(icon, 32);
-            if (icon32 != null)
+            if (icon32 != null) {
                 images.add(icon32);
+            }
             Image icon64 = getImage(icon, 64);
-            if (icon64 != null)
+            if (icon64 != null) {
                 images.add(icon64);
-            SwingUtilities.invokeLater(() -> {
-                if (!images.isEmpty())
-                    setLegacyIconImages(images);
-            });
+            }
+            if (!images.isEmpty()) {
+                SwingUtilities.invokeLater(() -> setLegacyIconImages(images));
+            }
         }
     }
 

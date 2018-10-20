@@ -69,7 +69,7 @@ public class ThreadListPanel extends PanelWithRightLine {
                 ic_mail_outline_black_24px.of(12, 12).colorize(mainSelectorIconColor),
                 fillScheme.getLightColor()));
 
-        JList threadList = new JList<>(new ThreadListModel(
+        JList<ThreadInfo> threadList = new JList<>(new ThreadListModel(
                 new ThreadInfo("Bob Macpearson", "5:50pm", "Welcome Natalie",
                         "Everybody please welcome our new team member", 3),
                 new ThreadInfo("Eve Stephens", "5:35pm", "All hands rescheduled",

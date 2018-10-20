@@ -210,7 +210,7 @@ public class JRibbon extends JComponent {
      * and access the ribbon with {@link JRibbonFrame#getRibbon()} API.
      */
     public JRibbon() {
-        this.tasks = new ArrayList<RibbonTask>();
+        this.tasks = new ArrayList<>();
         this.contextualTaskGroups = new ArrayList<>();
         this.taskbarComponents = new ArrayList<>();
         this.taskbarCommandMap = new HashMap<>();
@@ -234,7 +234,7 @@ public class JRibbon extends JComponent {
     }
 
     /**
-     * Adds the specified taskbar command to this ribbon.
+     * Adds the specified command to the taskbar area of this ribbon.
      *
      * @param command The taskbar command to add.
      * @see #removeTaskbarCommand(FlamingoCommand)
@@ -253,12 +253,28 @@ public class JRibbon extends JComponent {
         this.taskbarCommandMap.put(command, cb);
         this.taskbarCommands.add(command);
         this.fireStateChanged();
-
-        return;
     }
 
     /**
-     * Adds a taskbar separator to this ribbon.
+     * Adds the specified ribbon component to the taskbar area of this ribbon.
+     *
+     * @param ribbonComponent The ribbon component to add.
+     * @see #addTaskbarCommand(FlamingoCommand)
+     * @see #addTaskbarSeparator()
+     * @see #removeTaskbarComponent(JRibbonComponent)
+     * @see #clearTaskbar()
+     */
+    public synchronized  void addTaskbarComponent(JRibbonComponent ribbonComponent) {
+        String caption = ribbonComponent.getCaption();
+        if ((caption != null) && (caption.length() > 0)) {
+            throw new IllegalArgumentException("Taskbar ribbon components do not support captions");
+        }
+        this.taskbarComponents.add(ribbonComponent);
+        this.fireStateChanged();
+    }
+
+    /**
+     * Adds a separator to the taskbar area of this ribbon.
      *
      * @return the added separator
      * @see #addTaskbarCommand(FlamingoCommand)
@@ -276,7 +292,7 @@ public class JRibbon extends JComponent {
     }
 
     /**
-     * Removes the specified taskbar command from this ribbon.
+     * Removes the specified command from the taskbar area of this ribbon.
      *
      * @param command The taskbar command to remove.
      * @see #addTaskbarCommand(FlamingoCommand)
@@ -294,7 +310,19 @@ public class JRibbon extends JComponent {
     }
 
     /**
-     * Removes the specified taskbar separator from this ribbon.
+     * Removes the specified ribbon component from the taskbar area of this ribbon.
+     *
+     * @param ribbonComponent The taskbar ribbon component to remove.
+     * @see #addTaskbarComponent(JRibbonComponent)
+     * @see #clearTaskbar()
+     */
+    public synchronized void removeTaskbarComponent(JRibbonComponent ribbonComponent) {
+        this.taskbarComponents.remove(ribbonComponent);
+        this.fireStateChanged();
+    }
+
+    /**
+     * Removes the specified separator from the taskbar area of this ribbon.
      *
      * @param separator The taskbar separator to remove.
      * @see #addTaskbarCommand(FlamingoCommand)

@@ -84,8 +84,7 @@ public class JScrollablePanel<T extends JComponent> extends JPanel {
 		this.isScrollOnRollover = toScrollOnRollover;
 
 		if (old != this.isScrollOnRollover) {
-			this.firePropertyChange("scrollOnRollover", old,
-					this.isScrollOnRollover);
+			this.firePropertyChange("scrollOnRollover", old, this.isScrollOnRollover);
 		}
 	}
 

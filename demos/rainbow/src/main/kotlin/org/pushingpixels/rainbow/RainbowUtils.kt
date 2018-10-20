@@ -35,6 +35,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants
 import org.fife.ui.rsyntaxtextarea.SyntaxScheme
 import org.fife.ui.rtextarea.RTextScrollPane
+import org.pushingpixels.meteor.awt.addDelayedActionListener
 import org.pushingpixels.photon.transcoder.SvgStreamTranscoder
 import org.pushingpixels.photon.transcoder.java.JavaLanguageRenderer
 import java.awt.BorderLayout
@@ -134,29 +135,27 @@ object RainbowUtils {
         val javaPanel = JPanel(BorderLayout())
         javaPanel.add(javaScroller, BorderLayout.CENTER)
         val saveAs = JButton("Save as...")
-        saveAs.addActionListener {
-            SwingUtilities.invokeLater {
-                val fileChooser = JFileChooser(lastChosenFolder)
-                fileChooser.isAcceptAllFileFilterUsed = false
-                fileChooser.selectedFile = File("$javaClassFilename.java")
-                fileChooser.addChoosableFileFilter(object : FileFilter() {
-                    override fun accept(pathname: File): Boolean {
-                        return if (pathname.isDirectory) true else pathname.absolutePath.endsWith(".java")
-                    }
+        saveAs.addDelayedActionListener {
+            val fileChooser = JFileChooser(lastChosenFolder)
+            fileChooser.isAcceptAllFileFilterUsed = false
+            fileChooser.selectedFile = File("$javaClassFilename.java")
+            fileChooser.addChoosableFileFilter(object : FileFilter() {
+                override fun accept(pathname: File): Boolean {
+                    return if (pathname.isDirectory) true else pathname.absolutePath.endsWith(".java")
+                }
 
-                    override fun getDescription(): String {
-                        return "Java source files"
-                    }
-                })
-                if (fileChooser.showDialog(fileFrame, "Save") == JFileChooser.APPROVE_OPTION) {
-                    val file = fileChooser.selectedFile
-                    lastChosenFolder = file.parentFile
+                override fun getDescription(): String {
+                    return "Java source files"
+                }
+            })
+            if (fileChooser.showDialog(fileFrame, "Save") == JFileChooser.APPROVE_OPTION) {
+                val file = fileChooser.selectedFile
+                lastChosenFolder = file.parentFile
 
-                    FileWriter(file).use { javaFileWriter ->
-                        val javaContent = String(javaBaos.toByteArray())
-                        javaFileWriter.write(javaContent)
-                        println("Saved Java2D code to " + file.absolutePath)
-                    }
+                FileWriter(file).use { javaFileWriter ->
+                    val javaContent = String(javaBaos.toByteArray())
+                    javaFileWriter.write(javaContent)
+                    println("Saved Java2D code to " + file.absolutePath)
                 }
             }
         }

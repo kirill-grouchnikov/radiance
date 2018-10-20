@@ -130,8 +130,7 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
      * @throws IllegalArgumentException if <code>caption</code> or <code>mainComponent</code> is
      *                                  <code>null</code>.
      */
-    public JRibbonComponent(ResizableIcon icon, String caption,
-            JComponent mainComponent) {
+    public JRibbonComponent(ResizableIcon icon, String caption, JComponent mainComponent) {
         if (caption == null) {
             throw new IllegalArgumentException("Caption must be non-null");
         }
@@ -160,7 +159,7 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
     /**
      * Returns the UI delegate for this component.
      *
-     * @return a <code>RibbonUI</code> object
+     * @return a <code>RibbonComponentUI</code> object
      * @see #setUI
      */
     public RibbonComponentUI getUI() {
@@ -196,8 +195,7 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
      */
     public void setCaption(String caption) {
         if (this.isSimpleWrapper) {
-            throw new IllegalArgumentException(
-                    "Cannot set caption on a simple component");
+            throw new IllegalArgumentException("Cannot set caption on a simple component");
         }
         if (caption == null) {
             throw new IllegalArgumentException("Caption must be non-null");
@@ -264,12 +262,6 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
      */
     public void setRichTooltip(RichTooltip richTooltip) {
         this.richTooltip = richTooltip;
-        RichToolTipManager richToolTipManager = RichToolTipManager.sharedInstance();
-        if (richTooltip != null) {
-            richToolTipManager.registerComponent(this);
-        } else {
-            richToolTipManager.unregisterComponent(this);
-        }
     }
 
     /**

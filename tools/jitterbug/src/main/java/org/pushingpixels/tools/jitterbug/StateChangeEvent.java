@@ -43,7 +43,7 @@ public class StateChangeEvent extends EventObject {
         return stateChangeType;
     }
 
-    public static enum StateChangeType {
+    public enum StateChangeType {
         INITIALIZED, MODIFIED, RESET
     }
 }

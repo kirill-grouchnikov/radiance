@@ -55,5 +55,3 @@ annotation class EmberRootPaneScope
  * APIs in this scope apply to individual application {@link Window}s.
  */
 annotation class EmberWindowScope
-
-

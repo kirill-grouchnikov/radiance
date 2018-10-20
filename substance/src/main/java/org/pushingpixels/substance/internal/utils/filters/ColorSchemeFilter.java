@@ -36,10 +36,7 @@ package org.pushingpixels.substance.internal.utils.filters;
 
 import org.pushingpixels.neon.filter.NeonAbstractFilter;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.utils.HashMapKey;
-import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -52,156 +49,155 @@ import java.util.List;
  */
 
 public class ColorSchemeFilter extends NeonAbstractFilter {
-	private int[] interpolated;
+    private int[] interpolated;
 
-	private static final int MAPSTEPS = 512;
+    private static final int MAPSTEPS = 512;
 
-	private final static LazyResettableHashMap<ColorSchemeFilter> filters =
-			new LazyResettableHashMap<>("ColorSchemeFilter");
+    private final static LazyResettableHashMap<ColorSchemeFilter> filters =
+            new LazyResettableHashMap<>("ColorSchemeFilter");
 
-	private float originalBrightnessFactor;
+    private float originalBrightnessFactor;
 
-	public static ColorSchemeFilter getColorSchemeFilter(SubstanceColorScheme scheme,
-			float originalBrightnessFactor) {
-		HashMapKey key = SubstanceCoreUtilities.getHashKey(scheme.getDisplayName(),
-				originalBrightnessFactor);
-		ColorSchemeFilter filter = filters.get(key);
-		if (filter == null) {
-			filter = new ColorSchemeFilter(scheme, originalBrightnessFactor);
-			filters.put(key, filter);
-		}
-		return filter;
-	}
+    public static ColorSchemeFilter getColorSchemeFilter(SubstanceColorScheme scheme,
+            float originalBrightnessFactor) {
+        HashMapKey key = SubstanceCoreUtilities.getHashKey(scheme.getDisplayName(),
+                originalBrightnessFactor);
+        ColorSchemeFilter filter = filters.get(key);
+        if (filter == null) {
+            filter = new ColorSchemeFilter(scheme, originalBrightnessFactor);
+            filters.put(key, filter);
+        }
+        return filter;
+    }
 
-	/**
-	 * @throws IllegalArgumentException
-	 *             if <code>scheme</code> is null
-	 */
-	private ColorSchemeFilter(SubstanceColorScheme scheme, float originalBrightnessFactor) {
-		if (scheme == null) {
-			throw new IllegalArgumentException("mixColor cannot be null");
-		}
+    /**
+     * @throws IllegalArgumentException if <code>scheme</code> is null
+     */
+    private ColorSchemeFilter(SubstanceColorScheme scheme, float originalBrightnessFactor) {
+        if (scheme == null) {
+            throw new IllegalArgumentException("mixColor cannot be null");
+        }
 
-		this.originalBrightnessFactor = originalBrightnessFactor;
+        this.originalBrightnessFactor = originalBrightnessFactor;
 
-		// collect the brightness factors of the color scheme
-		Map<Integer, Color> schemeColorMapping = new TreeMap<>();
-		schemeColorMapping.put(
-				SubstanceColorUtilities.getColorBrightness(scheme.getUltraLightColor().getRGB()),
-				scheme.getUltraLightColor());
-		schemeColorMapping.put(
-				SubstanceColorUtilities.getColorBrightness(scheme.getExtraLightColor().getRGB()),
-				scheme.getExtraLightColor());
-		schemeColorMapping.put(
-				SubstanceColorUtilities.getColorBrightness(scheme.getLightColor().getRGB()),
-				scheme.getLightColor());
-		schemeColorMapping.put(
-				SubstanceColorUtilities.getColorBrightness(scheme.getMidColor().getRGB()),
-				scheme.getMidColor());
-		schemeColorMapping.put(
-				SubstanceColorUtilities.getColorBrightness(scheme.getDarkColor().getRGB()),
-				scheme.getDarkColor());
-		schemeColorMapping.put(
-				SubstanceColorUtilities.getColorBrightness(scheme.getUltraDarkColor().getRGB()),
-				scheme.getUltraDarkColor());
+        // collect the brightness factors of the color scheme
+        Map<Integer, Color> schemeColorMapping = new TreeMap<>();
+        schemeColorMapping.put(
+                SubstanceColorUtilities.getColorBrightness(scheme.getUltraLightColor().getRGB()),
+                scheme.getUltraLightColor());
+        schemeColorMapping.put(
+                SubstanceColorUtilities.getColorBrightness(scheme.getExtraLightColor().getRGB()),
+                scheme.getExtraLightColor());
+        schemeColorMapping.put(
+                SubstanceColorUtilities.getColorBrightness(scheme.getLightColor().getRGB()),
+                scheme.getLightColor());
+        schemeColorMapping.put(
+                SubstanceColorUtilities.getColorBrightness(scheme.getMidColor().getRGB()),
+                scheme.getMidColor());
+        schemeColorMapping.put(
+                SubstanceColorUtilities.getColorBrightness(scheme.getDarkColor().getRGB()),
+                scheme.getDarkColor());
+        schemeColorMapping.put(
+                SubstanceColorUtilities.getColorBrightness(scheme.getUltraDarkColor().getRGB()),
+                scheme.getUltraDarkColor());
 
-		List<Integer> schemeBrightness = new ArrayList<>(schemeColorMapping.keySet());
-		Collections.sort(schemeBrightness);
+        List<Integer> schemeBrightness = new ArrayList<>(schemeColorMapping.keySet());
+        Collections.sort(schemeBrightness);
 
-		int lowestSchemeBrightness = schemeBrightness.get(0);
-		int highestSchemeBrightness = schemeBrightness.get(schemeBrightness.size() - 1);
-		boolean hasSameBrightness = (highestSchemeBrightness == lowestSchemeBrightness);
+        int lowestSchemeBrightness = schemeBrightness.get(0);
+        int highestSchemeBrightness = schemeBrightness.get(schemeBrightness.size() - 1);
+        boolean hasSameBrightness = (highestSchemeBrightness == lowestSchemeBrightness);
 
-		Map<Integer, Color> stretchedColorMapping = new TreeMap<>();
-		for (Map.Entry<Integer, Color> entry : schemeColorMapping.entrySet()) {
-			int brightness = entry.getKey();
-			int stretched = hasSameBrightness ? brightness
-					: 255 - 255 * (highestSchemeBrightness - brightness)
-							/ (highestSchemeBrightness - lowestSchemeBrightness);
-			stretchedColorMapping.put(stretched, entry.getValue());
-		}
-		schemeBrightness = new ArrayList<>(stretchedColorMapping.keySet());
-		Collections.sort(schemeBrightness);
+        Map<Integer, Color> stretchedColorMapping = new TreeMap<>();
+        for (Map.Entry<Integer, Color> entry : schemeColorMapping.entrySet()) {
+            int brightness = entry.getKey();
+            int stretched = hasSameBrightness ? brightness
+                    : 255 - 255 * (highestSchemeBrightness - brightness)
+                    / (highestSchemeBrightness - lowestSchemeBrightness);
+            stretchedColorMapping.put(stretched, entry.getValue());
+        }
+        schemeBrightness = new ArrayList<>(stretchedColorMapping.keySet());
+        Collections.sort(schemeBrightness);
 
-		this.interpolated = new int[MAPSTEPS];
-		for (int i = 0; i < MAPSTEPS; i++) {
-			int brightness = (int) (256.0 * i / MAPSTEPS);
-			if (schemeBrightness.contains(brightness)) {
-				this.interpolated[i] = stretchedColorMapping.get(brightness).getRGB();
-			} else {
-				if (hasSameBrightness) {
-					this.interpolated[i] = stretchedColorMapping.get(lowestSchemeBrightness)
-							.getRGB();
-				} else {
-					int currIndex = 0;
-					while (true) {
-						int currStopValue = schemeBrightness.get(currIndex);
-						int nextStopValue = schemeBrightness.get(currIndex + 1);
-						if ((brightness > currStopValue) && (brightness < nextStopValue)) {
-							// interpolate
-							Color currStopColor = stretchedColorMapping.get(currStopValue);
-							Color nextStopColor = stretchedColorMapping.get(nextStopValue);
-							this.interpolated[i] = SubstanceColorUtilities.getInterpolatedRGB(
-									currStopColor, nextStopColor,
-									1.0 - (double) (brightness - currStopValue)
-											/ (double) (nextStopValue - currStopValue));
-							break;
-						}
-						currIndex++;
-					}
-				}
-			}
-		}
-	}
+        this.interpolated = new int[MAPSTEPS];
+        for (int i = 0; i < MAPSTEPS; i++) {
+            int brightness = (int) (256.0 * i / MAPSTEPS);
+            if (schemeBrightness.contains(brightness)) {
+                this.interpolated[i] = stretchedColorMapping.get(brightness).getRGB();
+            } else {
+                if (hasSameBrightness) {
+                    this.interpolated[i] = stretchedColorMapping.get(lowestSchemeBrightness)
+                            .getRGB();
+                } else {
+                    int currIndex = 0;
+                    while (true) {
+                        int currStopValue = schemeBrightness.get(currIndex);
+                        int nextStopValue = schemeBrightness.get(currIndex + 1);
+                        if ((brightness > currStopValue) && (brightness < nextStopValue)) {
+                            // interpolate
+                            Color currStopColor = stretchedColorMapping.get(currStopValue);
+                            Color nextStopColor = stretchedColorMapping.get(nextStopValue);
+                            this.interpolated[i] = SubstanceColorUtilities.getInterpolatedRGB(
+                                    currStopColor, nextStopColor,
+                                    1.0 - (double) (brightness - currStopValue)
+                                            / (double) (nextStopValue - currStopValue));
+                            break;
+                        }
+                        currIndex++;
+                    }
+                }
+            }
+        }
+    }
 
-	@Override
-	public BufferedImage filter(BufferedImage src, BufferedImage dst) {
-		if (dst == null) {
-			dst = createCompatibleDestImage(src, null);
-		}
+    @Override
+    public BufferedImage filter(BufferedImage src, BufferedImage dst) {
+        if (dst == null) {
+            dst = createCompatibleDestImage(src, null);
+        }
 
-		int width = src.getWidth();
-		int height = src.getHeight();
+        int width = src.getWidth();
+        int height = src.getHeight();
 
-		int[] pixels = new int[width * height];
-		getPixels(src, 0, 0, width, height, pixels);
-		mixColor(pixels);
-		setPixels(dst, 0, 0, width, height, pixels);
+        int[] pixels = new int[width * height];
+        getPixels(src, 0, 0, width, height, pixels);
+        mixColor(pixels);
+        setPixels(dst, 0, 0, width, height, pixels);
 
-		return dst;
-	}
+        return dst;
+    }
 
-	private void mixColor(int[] pixels) {
-		for (int i = 0; i < pixels.length; i++) {
-			int argb = pixels[i];
+    private void mixColor(int[] pixels) {
+        for (int i = 0; i < pixels.length; i++) {
+            int argb = pixels[i];
 
-			int brightness = SubstanceColorUtilities.getColorBrightness(argb);
+            int brightness = SubstanceColorUtilities.getColorBrightness(argb);
 
-			int r = (argb >>> 16) & 0xFF;
-			int g = (argb >>> 8) & 0xFF;
-			int b = (argb >>> 0) & 0xFF;
+            int r = (argb >>> 16) & 0xFF;
+            int g = (argb >>> 8) & 0xFF;
+            int b = (argb >>> 0) & 0xFF;
 
-			float[] hsb = Color.RGBtoHSB(r, g, b, null);
-			int pixelColor = interpolated[brightness * MAPSTEPS / 256];
+            float[] hsb = Color.RGBtoHSB(r, g, b, null);
+            int pixelColor = interpolated[brightness * MAPSTEPS / 256];
 
-			int ri = (pixelColor >>> 16) & 0xFF;
-			int gi = (pixelColor >>> 8) & 0xFF;
-			int bi = (pixelColor >>> 0) & 0xFF;
-			float[] hsbi = Color.RGBtoHSB(ri, gi, bi, null);
+            int ri = (pixelColor >>> 16) & 0xFF;
+            int gi = (pixelColor >>> 8) & 0xFF;
+            int bi = (pixelColor >>> 0) & 0xFF;
+            float[] hsbi = Color.RGBtoHSB(ri, gi, bi, null);
 
-			hsb[0] = hsbi[0];
-			hsb[1] = hsbi[1];
-			if (this.originalBrightnessFactor >= 0.0f) {
-				hsb[2] = this.originalBrightnessFactor * hsb[2]
-						+ (1.0f - this.originalBrightnessFactor) * hsbi[2];
-			} else {
-				hsb[2] = hsb[2] * hsbi[2] * (1.0f + this.originalBrightnessFactor);
-			}
+            hsb[0] = hsbi[0];
+            hsb[1] = hsbi[1];
+            if (this.originalBrightnessFactor >= 0.0f) {
+                hsb[2] = this.originalBrightnessFactor * hsb[2]
+                        + (1.0f - this.originalBrightnessFactor) * hsbi[2];
+            } else {
+                hsb[2] = hsb[2] * hsbi[2] * (1.0f + this.originalBrightnessFactor);
+            }
 
-			int result = Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]);
+            int result = Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]);
 
-			pixels[i] = (argb & 0xFF000000) | ((result >> 16) & 0xFF) << 16
-					| ((result >> 8) & 0xFF) << 8 | (result & 0xFF);
-		}
-	}
+            pixels[i] = (argb & 0xFF000000) | ((result >> 16) & 0xFF) << 16
+                    | ((result >> 8) & 0xFF) << 8 | (result & 0xFF);
+        }
+    }
 }

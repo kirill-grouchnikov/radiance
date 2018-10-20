@@ -55,22 +55,22 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 	 */
 	protected JRichTooltipPanel richTooltipPanel;
 
-	protected java.util.List<JLabel> titleLabels;
+    private java.util.List<JLabel> titleLabels;
 
-	protected java.util.List<JLabel> descriptionLabels;
+    private java.util.List<JLabel> descriptionLabels;
 
-	protected JLabel mainImageLabel;
+    private JLabel mainImageLabel;
 
-	protected JSeparator footerSeparator;
+    private JSeparator footerSeparator;
 
-	protected JLabel footerImageLabel;
+    private JLabel footerImageLabel;
 
-	protected java.util.List<JLabel> footerLabels;
+    private java.util.List<JLabel> footerLabels;
 
 	public BasicRichTooltipPanelUI() {
-		this.titleLabels = new ArrayList<JLabel>();
-		this.descriptionLabels = new ArrayList<JLabel>();
-		this.footerLabels = new ArrayList<JLabel>();
+		this.titleLabels = new ArrayList<>();
+		this.descriptionLabels = new ArrayList<>();
+		this.footerLabels = new ArrayList<>();
 	}
 
 	@Override
@@ -100,8 +100,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 		if (b == null || b instanceof UIResource) {
 			this.richTooltipPanel.setBorder(new SubstanceBorder(new Insets(3, 5, 4, 5)));
 		}
-		LookAndFeel.installProperty(this.richTooltipPanel, "opaque",
-				Boolean.TRUE);
+		LookAndFeel.installProperty(this.richTooltipPanel, "opaque", Boolean.TRUE);
 		Font f = this.richTooltipPanel.getFont();
 		if (f == null || f instanceof UIResource) {
 		    this.richTooltipPanel.setFont(
@@ -153,11 +152,11 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 	public void paint(Graphics g, JComponent c) {
 	}
 
-	protected LayoutManager createLayoutManager() {
+    private LayoutManager createLayoutManager() {
 		return new RichTooltipPanelLayout();
 	}
 
-	protected class RichTooltipPanelLayout implements LayoutManager {
+    private class RichTooltipPanelLayout implements LayoutManager {
 		@Override
 		public void addLayoutComponent(String name, Component comp) {
 		}
@@ -175,7 +174,8 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 		public Dimension preferredLayoutSize(Container parent) {
 			Insets ins = parent.getInsets();
 			int gap = getLayoutGap();
-			Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).getControlFont();
+			Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
+					getControlFont();
 			Font titleFont = font.deriveFont(Font.BOLD);
 
 			// The overall width is defined by the width of the text 
@@ -186,8 +186,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 			int descTextWidth = getDescriptionTextWidth();
 			int width = ins.left + 2 * gap + descTextWidth + ins.right;
 			RichTooltip tooltipInfo = richTooltipPanel.getTooltipInfo();
-			FontRenderContext frc = new FontRenderContext(
-					new AffineTransform(), true, false);
+			FontRenderContext frc = new FontRenderContext(new AffineTransform(), true, false);
 			if (tooltipInfo.getMainIcon() != null) {
 				width += tooltipInfo.getMainIcon().getIconWidth();
 			}
@@ -208,35 +207,34 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 			while (true) {
 				TextLayout tl = titleLineBreakMeasurer
 						.nextLayout(descTextWidth);
-				if (tl == null)
-					break;
+				if (tl == null) {
+                    break;
+                }
 				titleTextHeight += fontHeight;
 				int lineWidth = (int) Math.ceil(tl.getBounds().getWidth());
 				maxTitleLineWidth = Math.max(maxTitleLineWidth, lineWidth);
 			}
 			height += titleTextHeight;
-			
-			height += gap;
 
 			// The description text
 			int descriptionTextHeight = 0;
 			for (String descText : tooltipInfo.getDescriptionSections()) {
-				AttributedString descAttributedDescription = new AttributedString(
-						descText);
-				descAttributedDescription
-						.addAttribute(TextAttribute.FONT, font);
+				AttributedString descAttributedDescription = new AttributedString(descText);
+				descAttributedDescription.addAttribute(TextAttribute.FONT, font);
 				LineBreakMeasurer descLineBreakMeasurer = new LineBreakMeasurer(
 						descAttributedDescription.getIterator(), frc);
 				while (true) {
 					TextLayout tl = descLineBreakMeasurer
 							.nextLayout(descTextWidth);
-					if (tl == null)
-						break;
+					if (tl == null) {
+                        break;
+                    }
 					descriptionTextHeight += fontHeight;
 				}
 				// add an empty line after the paragraph
 				descriptionTextHeight += fontHeight;
 			}
+
 			if (!tooltipInfo.getDescriptionSections().isEmpty()) {
 				// remove the empty line after the last paragraph
 				descriptionTextHeight -= fontHeight;
@@ -255,8 +253,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 					|| (tooltipInfo.getFooterSections().size() > 0)) {
 				height += gap;
 				// The footer separator
-				height += new JSeparator(JSeparator.HORIZONTAL)
-						.getPreferredSize().height;
+				height += new JSeparator(JSeparator.HORIZONTAL).getPreferredSize().height;
 
 				height += gap;
 
@@ -269,17 +266,15 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 					availableWidth += tooltipInfo.getMainIcon().getIconWidth();
 				}
 				for (String footerText : tooltipInfo.getFooterSections()) {
-					AttributedString footerAttributedDescription = new AttributedString(
-							footerText);
-					footerAttributedDescription.addAttribute(
-							TextAttribute.FONT, font);
+					AttributedString footerAttributedDescription = new AttributedString(footerText);
+					footerAttributedDescription.addAttribute(TextAttribute.FONT, font);
 					LineBreakMeasurer footerLineBreakMeasurer = new LineBreakMeasurer(
 							footerAttributedDescription.getIterator(), frc);
 					while (true) {
-						TextLayout tl = footerLineBreakMeasurer
-								.nextLayout(availableWidth);
-						if (tl == null)
-							break;
+						TextLayout tl = footerLineBreakMeasurer.nextLayout(availableWidth);
+						if (tl == null) {
+                            break;
+                        }
 						footerTextHeight += fontHeight;
 					}
 					// add an empty line after the paragraph
@@ -312,34 +307,32 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 		public void layoutContainer(Container parent) {
 			removeExistingComponents();
 
-			Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).getControlFont();
+			Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
+                    getControlFont();
 			Insets ins = richTooltipPanel.getInsets();
 			int y = ins.top;
 			RichTooltip tooltipInfo = richTooltipPanel.getTooltipInfo();
-			FontRenderContext frc = new FontRenderContext(
-					new AffineTransform(), true, false);
+			FontRenderContext frc = new FontRenderContext(new AffineTransform(), true, false);
 			int gap = getLayoutGap();
 
 			int fontHeight = parent.getFontMetrics(font).getHeight();
 			Font titleFont = font.deriveFont(Font.BOLD);
 
-			boolean ltr = richTooltipPanel.getComponentOrientation()
-					.isLeftToRight();
+			boolean ltr = richTooltipPanel.getComponentOrientation().isLeftToRight();
 
 			// The title label
 			int titleLabelWidth = parent.getWidth() - ins.left - ins.right;
 			AttributedString titleAtributedDescription = new AttributedString(
-					tooltipInfo.getTitle());
-			titleAtributedDescription.addAttribute(TextAttribute.FONT,
-					titleFont);
+			        tooltipInfo.getTitle());
+			titleAtributedDescription.addAttribute(TextAttribute.FONT, titleFont);
 			LineBreakMeasurer titleLineBreakMeasurer = new LineBreakMeasurer(
 					titleAtributedDescription.getIterator(), frc);
 			int titleCurrOffset = 0;
 			while (true) {
-				TextLayout tl = titleLineBreakMeasurer
-						.nextLayout(titleLabelWidth);
-				if (tl == null)
-					break;
+				TextLayout tl = titleLineBreakMeasurer.nextLayout(titleLabelWidth);
+				if (tl == null) {
+                    break;
+                }
 				int charCount = tl.getCharacterCount();
 				String line = tooltipInfo.getTitle().substring(titleCurrOffset,
 						titleCurrOffset + charCount);
@@ -387,23 +380,20 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 			}
 
 			// The description text
-			int descLabelWidth = ltr ? parent.getWidth() - x - ins.right : x
-					- ins.left;
+			int descLabelWidth = ltr ? parent.getWidth() - x - ins.right : x - ins.left;
 			for (String descText : tooltipInfo.getDescriptionSections()) {
-				AttributedString attributedDescription = new AttributedString(
-						descText);
+				AttributedString attributedDescription = new AttributedString(descText);
 				attributedDescription.addAttribute(TextAttribute.FONT, font);
 				LineBreakMeasurer lineBreakMeasurer = new LineBreakMeasurer(
 						attributedDescription.getIterator(), frc);
 				int currOffset = 0;
 				while (true) {
-					TextLayout tl = lineBreakMeasurer
-							.nextLayout(descLabelWidth);
-					if (tl == null)
-						break;
+					TextLayout tl = lineBreakMeasurer.nextLayout(descLabelWidth);
+					if (tl == null) {
+                        break;
+                    }
 					int charCount = tl.getCharacterCount();
-					String line = descText.substring(currOffset, currOffset
-							+ charCount);
+					String line = descText.substring(currOffset, currOffset + charCount);
 
 					JLabel descLabel = new JLabel(line);
 					descriptionLabels.add(descLabel);
@@ -412,8 +402,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 					if (ltr) {
 						descLabel.setBounds(x, y, currDescWidth, fontHeight);
 					} else {
-						descLabel.setBounds(x - currDescWidth, y,
-								currDescWidth, fontHeight);
+						descLabel.setBounds(x - currDescWidth, y, currDescWidth, fontHeight);
 					}
 					y += descLabel.getHeight();
 
@@ -426,8 +415,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 			y -= fontHeight;
 
 			if (mainImageLabel != null) {
-				y = Math.max(y, mainImageLabel.getY()
-						+ mainImageLabel.getHeight());
+				y = Math.max(y, mainImageLabel.getY() + mainImageLabel.getHeight());
 			}
 
 			if ((tooltipInfo.getFooterIcon() != null)
@@ -436,9 +424,9 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 				// The footer separator
 				footerSeparator = new JSeparator(JSeparator.HORIZONTAL);
 				richTooltipPanel.add(footerSeparator);
-				footerSeparator.setBounds(ins.left, y, parent.getWidth()
-						- ins.left - ins.right, footerSeparator
-						.getPreferredSize().height);
+				footerSeparator.setBounds(ins.left, y,
+                        parent.getWidth() - ins.left - ins.right,
+                        footerSeparator.getPreferredSize().height);
 
 				y += footerSeparator.getHeight() + gap;
 
@@ -455,42 +443,36 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 						x += footerImageWidth + 2 * gap;
 					} else {
 						footerImageLabel.setBounds(x - footerImageWidth, y,
-								footerImageWidth, footerImageLabel
-										.getPreferredSize().height);
+								footerImageWidth, footerImageLabel.getPreferredSize().height);
 						x -= (footerImageWidth + 2 * gap);
 					}
 				}
 
 				// The footer text
-				int footerLabelWidth = ltr ? parent.getWidth() - x - ins.right
-						: x - ins.left;
+				int footerLabelWidth = ltr ? parent.getWidth() - x - ins.right : x - ins.left;
 				for (String footerText : tooltipInfo.getFooterSections()) {
-					AttributedString attributedDescription = new AttributedString(
-							footerText);
-					attributedDescription
-							.addAttribute(TextAttribute.FONT, font);
+					AttributedString attributedDescription = new AttributedString(footerText);
+					attributedDescription.addAttribute(TextAttribute.FONT, font);
 					LineBreakMeasurer lineBreakMeasurer = new LineBreakMeasurer(
 							attributedDescription.getIterator(), frc);
 					int currOffset = 0;
 					while (true) {
-						TextLayout tl = lineBreakMeasurer
-								.nextLayout(footerLabelWidth);
-						if (tl == null)
-							break;
+						TextLayout tl = lineBreakMeasurer.nextLayout(footerLabelWidth);
+						if (tl == null) {
+                            break;
+                        }
 						int charCount = tl.getCharacterCount();
-						String line = footerText.substring(currOffset,
-								currOffset + charCount);
+						String line = footerText.substring(currOffset, currOffset + charCount);
 
 						JLabel footerLabel = new JLabel(line);
 						footerLabels.add(footerLabel);
 						richTooltipPanel.add(footerLabel);
 						int currLabelWidth = footerLabel.getPreferredSize().width;
 						if (ltr) {
-							footerLabel.setBounds(x, y, currLabelWidth,
-									fontHeight);
+							footerLabel.setBounds(x, y, currLabelWidth, fontHeight);
 						} else {
 							footerLabel.setBounds(x - currLabelWidth, y,
-									currLabelWidth, fontHeight);
+                                    currLabelWidth, fontHeight);
 						}
 						y += footerLabel.getHeight();
 
@@ -505,16 +487,16 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 		}
 	}
 
-	protected int getDescriptionTextWidth() {
+	private int getDescriptionTextWidth() {
 		return FlamingoUtilities.getScaledSize(200, 
 		        this.richTooltipPanel.getFont().getSize(), 40f, 4);
 	}
 
-	protected int getLayoutGap() {
+    private int getLayoutGap() {
 		return 4;
 	}
 
-	protected void removeExistingComponents() {
+    private void removeExistingComponents() {
 		for (JLabel label : this.titleLabels)
 			this.richTooltipPanel.remove(label);
 

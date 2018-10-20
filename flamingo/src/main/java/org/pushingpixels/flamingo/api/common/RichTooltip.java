@@ -31,9 +31,7 @@ package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.neon.icon.ResizableIcon;
 
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 /**
  * Rich tooltip for command buttons.
@@ -274,7 +272,7 @@ public class RichTooltip {
 
         public RichTooltipBuilder addDescriptionSection(String section) {
             if (this.descriptionSections == null) {
-                this.descriptionSections = new LinkedList<String>();
+                this.descriptionSections = new LinkedList<>();
             }
             this.descriptionSections.add(section);
             return this;
@@ -287,7 +285,7 @@ public class RichTooltip {
 
         public RichTooltipBuilder addFooterSection(String section) {
             if (this.footerSections == null) {
-                this.footerSections = new LinkedList<String>();
+                this.footerSections = new LinkedList<>();
             }
             this.footerSections.add(section);
             return this;

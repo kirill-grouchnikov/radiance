@@ -164,8 +164,10 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     @Override
     public NeonIconUIResource getLockIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return SubstanceCortex.GlobalScope.colorize(ic_lock_outline_black_24px.of(preferredSize,
-                preferredSize), preferredIconColorScheme, preferredIconColorScheme.isDark() ? 0.6f : -0.1f);
+        return SubstanceCortex.GlobalScope.colorize(
+                ic_lock_outline_black_24px.of(preferredSize, preferredSize),
+                preferredIconColorScheme,
+                preferredIconColorScheme.isDark() ? 0.6f : -0.1f);
     }
 
     @Override

@@ -43,7 +43,7 @@ public class CommandButtonLayoutManagerMedium implements
 		CommandButtonLayoutManager {
 	@Override
 	public int getPreferredIconSize(AbstractCommandButton commandButton) {
-        return FlamingoUtilities.getScaledSize(16, commandButton.getFont().getSize(), 1.0, 4);
+		return FlamingoUtilities.getCommandButtonSmallIconSize(commandButton.getFont().getSize());
 	}
 
 	protected float getIconTextGapFactor() {

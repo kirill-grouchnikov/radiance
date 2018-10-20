@@ -40,6 +40,8 @@ dependencies {
     compile ('org.swinglabs:jxlayer:3.0.4')
     compile project(':photon')
     compile project(':substance')
+    compile project(':ember')
+    compile project(':meteor')
     compile project(':flamingo')
     compile project(':spoonbill')
 }

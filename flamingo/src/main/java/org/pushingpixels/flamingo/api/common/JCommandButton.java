@@ -162,7 +162,7 @@ public class JCommandButton extends AbstractCommandButton {
      *
      * @author Kirill Grouchnikov
      */
-    public static enum CommandButtonKind {
+    public enum CommandButtonKind {
         /**
          * Command button that has only action area.
          */
@@ -232,7 +232,7 @@ public class JCommandButton extends AbstractCommandButton {
      *
      * @author Kirill Grouchnikov
      */
-    public static enum CommandButtonPopupOrientationKind {
+    public enum CommandButtonPopupOrientationKind {
         /**
          * Indicates that the popup should be displayed below the button.
          */
@@ -689,22 +689,17 @@ public class JCommandButton extends AbstractCommandButton {
      */
     public void setPopupRichTooltip(RichTooltip richTooltip) {
         this.popupRichTooltip = richTooltip;
-        RichToolTipManager richToolTipManager = RichToolTipManager
-                .sharedInstance();
-        if (this.hasRichTooltips()) {
-            richToolTipManager.registerComponent(this);
-        } else {
-            richToolTipManager.unregisterComponent(this);
-        }
     }
 
     @Override
     public RichTooltip getRichTooltip(MouseEvent event) {
         CommandButtonUI ui = this.getUI();
-        if (ui.getLayoutInfo().actionClickArea.contains(event.getPoint()))
+        if (ui.getLayoutInfo().actionClickArea.contains(event.getPoint())) {
             return super.getRichTooltip(event);
-        if (ui.getLayoutInfo().popupClickArea.contains(event.getPoint()))
+        }
+        if (ui.getLayoutInfo().popupClickArea.contains(event.getPoint())) {
             return this.popupRichTooltip;
+        }
         return null;
     }
 

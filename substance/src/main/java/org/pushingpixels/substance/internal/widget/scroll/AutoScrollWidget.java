@@ -44,7 +44,7 @@ import java.beans.PropertyChangeListener;
  */
 public class AutoScrollWidget extends SubstanceWidget<JScrollPane> {
     /**
-     * Property change listener - listens on the changes to {@link SubstanceWidget#AUTO_SCROLL}
+     * Property change listener - listens on the changes to {@link SubstanceSynapse#AUTO_SCROLL}
      * property.
      */
     private PropertyChangeListener propertyChangeListener;

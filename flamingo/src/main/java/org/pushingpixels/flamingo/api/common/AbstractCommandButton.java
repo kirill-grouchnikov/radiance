@@ -174,7 +174,7 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
 	 * 
 	 * @author Kirill Grouchnikov
 	 */
-	public static enum CommandButtonLocationOrderKind {
+	public enum CommandButtonLocationOrderKind {
 		/**
 		 * Indicates that this button is the only button in the strip.
 		 */

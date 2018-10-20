@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.HorizontalAlignment;
 import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
@@ -146,11 +147,14 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
 
     @Override
     public Point getKeyTipAnchorCenterPoint() {
+        int smallIconSize = FlamingoUtilities.getCommandButtonSmallIconSize(
+                this.ribbonComponent.getFont().getSize());
+        int tipCenterY = (this.ribbonComponent.getHeight() + smallIconSize) / 2;
         if (this.ribbonComponent.isSimpleWrapper()) {
-            return new Point(this.ribbonComponent.getMainComponent().getX() + 10,
-                    this.ribbonComponent.getHeight());
+            return new Point(this.ribbonComponent.getMainComponent().getX() +
+                    this.ribbonComponent.getMainComponent().getWidth() / 2, tipCenterY);
         } else {
-            return new Point(this.captionLabel.getX(), this.ribbonComponent.getHeight());
+            return new Point(this.captionLabel.getX(), tipCenterY);
         }
     }
 

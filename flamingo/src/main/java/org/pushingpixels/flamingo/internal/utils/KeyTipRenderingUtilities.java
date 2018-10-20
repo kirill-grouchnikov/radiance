@@ -102,18 +102,21 @@ public class KeyTipRenderingUtilities {
 			CommandButtonLayoutManager layoutManager) {
 		Collection<KeyTipManager.KeyTipLink> currLinks = KeyTipManager.defaultManager()
 				.getCurrentlyShownKeyTips();
-		if (currLinks == null)
+		if (currLinks == null) {
 			return;
+		}
 
 		boolean found = false;
 		for (KeyTipManager.KeyTipLink link : currLinks) {
 			found = (link.comp == menuButton);
-			if (found)
-				break;
+			if (found) {
+                break;
+            }
 		}
 
-		if (!found)
-			return;
+		if (!found) {
+            return;
+        }
 
 		// System.out.println("Painting key tip for " + menuButton.getText());
 

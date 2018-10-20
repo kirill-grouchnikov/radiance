@@ -102,8 +102,9 @@ public class FilteredResizableIcon implements ResizableIcon {
             if (this.delegate instanceof AsynchronousLoading) {
                 AsynchronousLoading asyncDelegate = (AsynchronousLoading) this.delegate;
                 // if the delegate is still loading - do nothing
-                if (asyncDelegate.isLoading())
+                if (asyncDelegate.isLoading()) {
                     return;
+                }
             }
             BufferedImage offscreen = NeonCortex.getBlankImage(this.getIconWidth(),
                     this.getIconHeight());

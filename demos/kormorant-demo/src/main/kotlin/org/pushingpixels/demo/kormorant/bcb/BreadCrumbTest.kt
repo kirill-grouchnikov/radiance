@@ -33,6 +33,7 @@ import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.swing.Swing
 import org.pushingpixels.demo.kormorant.RadianceLogo
 import org.pushingpixels.demo.kormorant.common.ExplorerFileViewPanel
+import org.pushingpixels.ember.setDecorationType
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.substance.api.ComponentState
@@ -75,8 +76,7 @@ fun main(args: Array<String>) {
         }
 
         frame.layout = BorderLayout()
-        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(bar,
-                SubstanceSlices.DecorationAreaType.HEADER)
+        bar.setDecorationType(SubstanceSlices.DecorationAreaType.HEADER)
         frame.add(bar, BorderLayout.NORTH)
 
         frame.add(JScrollPane(filePanel), BorderLayout.CENTER)

@@ -49,7 +49,7 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
     private final boolean isHiDpiAwareSource;
 
     private BufferedImage imageSource;
-    private Icon iconSource;
+    private ResizableIcon iconSource;
 
     private int width;
     private int height;
@@ -81,8 +81,8 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
     public void setDimension(Dimension newDimension) {
         this.width = newDimension.width;
         this.height = newDimension.height;
-        if (this.iconSource instanceof ResizableIcon) {
-            ((ResizableIcon) this.iconSource).setDimension(newDimension);
+        if (this.iconSource != null) {
+            this.iconSource.setDimension(newDimension);
         }
     }
 

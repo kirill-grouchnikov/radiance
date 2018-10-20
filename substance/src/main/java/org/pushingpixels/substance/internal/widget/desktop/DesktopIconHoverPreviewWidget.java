@@ -92,8 +92,9 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
     protected class TitleMouseHandler extends MouseInputAdapter {
         @Override
         public void mouseEntered(MouseEvent e) {
-            if (DesktopIconHoverPreviewWidget.this.isInDrag)
+            if (DesktopIconHoverPreviewWidget.this.isInDrag) {
                 return;
+            }
             BufferedImage previewImage = snapshot;
             if (previewImage != null) {
                 double scaleFactor = NeonCortex.getScaleFactor();
@@ -252,16 +253,5 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
                 snapshot = tempCanvas;
             }
         }
-    }
-
-    /**
-     * Returns the snapshot of the specified internal frame.
-     * 
-     * @param frame
-     *            Internal frame.
-     * @return The snapshot of the specified internal frame.
-     */
-    public synchronized BufferedImage getSnapshot(JInternalFrame frame) {
-        return this.snapshot;
     }
 }

@@ -29,39 +29,29 @@ The [Substance library](docs/substance/substance.md) provides a powerful and fle
 
 The [Flamingo library](docs/flamingo/flamingo.md) provides a robust set of additional Swing components that can be used as building blocks for creating modern, rich Swing applications. In addition to providing powerful command button and breadcrumb bar components, Flamingo packs an Office Command Bar (ribbon) container that can host a complex hierarchy of flexible, scalable application control surface.
 
+### Ember
+
+The [Ember library](docs/ember/ember.md) is a set of Kotlin extensions that provide a more elegant way of working with scoped Substance APIs.
+
 ### Kormorant
 
-The Kormorant library exposes the entire API surface of Flamingo as a custom, targeted and approachable Kotlin DSL (domain-specific language).
+The [Kormorant library](docs/kormorant/kormorant.md) exposes the entire API surface of Flamingo as a concise, focused and approachable Kotlin domain-specific language (DSL).
 
 ## Tools
 
-### Beacon
+* The [Beacon plugin](docs/tools/beacon/beacon.md) is a visual runtime debugger for Substance.
 
-The [Beacon plugin](docs/beacon/beacon.md) is a visual runtime debugger for Substance.
+* The [Electra tool](docs/tools/electra/electra.md) simplifies the process of adding callout bubbles to documentation screenshots.
 
-### Electra
+* The [Hyperion editor](docs/tools/hyperion/hyperion.md) can be used creating and editing files that define custom button shapers.
 
-The [Electra tool](docs/electra/electra.md) allows adding callout bubbles to documentation screenshots.
+* The [Ignite plugin](docs/tools/ignite/ignite.md) wraps the Photon library to allow build-time transcoding of SVG content into Java / Kotlin classes.
 
-### Hyperion
+* The [Jitterbug editor](docs/tools/jitterbug/jitterbug.md) is a tool for creating and editing color scheme lists.
 
-The [Hyperion editor](docs/hyperion/hyperion.md) allows creating and editing files that define custom button shapers.
+* The [Lightbeam library](docs/tools/lightbeam/lightbeam.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
 
-### Ignite
-
-The [Ignite plugin](docs/ignite/ignite.md) wraps the Photon library to allow build-time transcoding of SVG content into Java / Kotlin classes.
-
-### Jitterbug
-
-The [Jitterbug editor](docs/jitterbug/jitterbug.md) allows creating and editing color scheme lists.
-
-### Lightbeam
-
-The [Lightbeam library](docs/lightbeam/lightbeam.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
-
-### Zodiac
-
-The [Zodiac library](docs/zodiac/zodiac.md) provides utilities for taking screenshots for Substance and Flamingo documentation.
+* The [Zodiac library](docs/tools/zodiac/zodiac.md) has utilities for taking screenshots for Substance and Flamingo documentation.
 
 ## Radiance dependencies
 

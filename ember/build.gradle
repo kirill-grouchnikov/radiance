@@ -67,7 +67,7 @@ group = 'org.pushing-pixels'
 modifyPom {
     project {
         name 'ember'
-        description 'Ember Kotlin wrapper for Substance APIs'
+        description 'Ember Kotlin extensions for Substance APIs'
         url 'https://github.com/kirill-grouchnikov/radiance'
         inceptionYear '2018'
         scm {

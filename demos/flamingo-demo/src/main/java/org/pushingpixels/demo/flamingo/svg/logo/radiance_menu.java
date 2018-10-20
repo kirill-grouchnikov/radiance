@@ -1,13 +1,10 @@
 package org.pushingpixels.demo.flamingo.svg.logo;
 
+import org.pushingpixels.neon.icon.*;
+
+import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.geom.*;
-import javax.swing.plaf.UIResource;
-
-import org.pushingpixels.neon.icon.IsHiDpiAware;
-import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.neon.icon.NeonIcon;
-import org.pushingpixels.neon.icon.NeonIconUIResource;
 
 /**
  * This class has been automatically generated using <a

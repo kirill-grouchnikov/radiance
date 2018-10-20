@@ -35,12 +35,12 @@ import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
+import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.FlowLayout
-import java.awt.Graphics2D
 import java.awt.event.ActionListener
 import java.awt.image.BufferedImage
 import java.text.MessageFormat
@@ -83,17 +83,17 @@ fun main(args: Array<String>) {
                                             val decoration = "$groupIndex/$i"
                                             icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
                                                     DecoratedResizableIcon.IconDecorator { component, graphics, x, y, width, height ->
-                                                        val g2d = graphics.create() as Graphics2D
-                                                        g2d.color = Color.black
-                                                        if (component.componentOrientation.isLeftToRight) {
-                                                            g2d.drawString(decoration, x + 2, y + height - 2)
-                                                        } else {
-                                                            g2d.drawString(decoration,
-                                                                    x + width - g2d.fontMetrics.stringWidth(
-                                                                            decoration) - 2,
-                                                                    y + height - 2)
+                                                        graphics.render {
+                                                            it.color = Color.black
+                                                            if (component.componentOrientation.isLeftToRight) {
+                                                                it.drawString(decoration, x + 2, y + height - 2)
+                                                            } else {
+                                                                it.drawString(decoration,
+                                                                        x + width - it.fontMetrics.stringWidth(
+                                                                                decoration) - 2,
+                                                                        y + height - 2)
+                                                            }
                                                         }
-                                                        g2d.dispose()
                                                     }
                                             )
 

@@ -32,7 +32,7 @@ rootProject.name = "radiance"
 
 include 'neon', 'trident', 'photon',
         'substance', 'flamingo', 'spoonbill',
-        'substance-extras', 'kormorant', 'ember',
+        'substance-extras', 'kormorant', 'ember', 'meteor',
         'demos:trident-demo', 'demos:flamingo-demo', 'demos:kormorant-demo',
         'demos:spoonbill-demo', 'demos:beacon-demo',
         'demos:substance-demo', 'demos:spyglass',
