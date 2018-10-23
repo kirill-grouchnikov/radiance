@@ -139,20 +139,20 @@ public class TestColorSelector extends JFrame {
             if (hasTheme.isSelected()) {
                 result.addColorSectionWithDerived(
                         resourceBundle.getString("ColorSelector.textThemeCaption"),
-                        new Color[]{new Color(255, 255, 255), new Color(0, 0, 0),
+                        new Color[] { new Color(255, 255, 255), new Color(0, 0, 0),
                                 new Color(160, 160, 160), new Color(16, 64, 128),
                                 new Color(80, 128, 192), new Color(180, 80, 80),
                                 new Color(160, 192, 80), new Color(128, 92, 160),
-                                new Color(80, 160, 208), new Color(255, 144, 64)});
+                                new Color(80, 160, 208), new Color(255, 144, 64) });
             }
             if (hasStandard.isSelected()) {
                 result.addColorSection(
                         resourceBundle.getString("ColorSelector.textStandardCaption"),
-                        new Color[]{new Color(140, 0, 0), new Color(253, 0, 0),
+                        new Color[] { new Color(140, 0, 0), new Color(253, 0, 0),
                                 new Color(255, 160, 0), new Color(255, 255, 0),
                                 new Color(144, 240, 144), new Color(0, 128, 0),
                                 new Color(160, 224, 224), new Color(0, 0, 255),
-                                new Color(0, 0, 128), new Color(128, 0, 128)});
+                                new Color(0, 0, 128), new Color(128, 0, 128) });
             }
             if (hasRecent.isSelected()) {
                 result.addRecentSection(
@@ -215,11 +215,9 @@ public class TestColorSelector extends JFrame {
             g2d.fillRect(x, y, w, h);
             float borderThickness = 1.0f / (float) NeonCortex.getScaleFactor();
             g2d.setColor(color.darker());
-            g2d.setStroke(
-                    new BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
-                            BasicStroke.JOIN_ROUND));
-            g2d.draw(
-                    new Rectangle2D.Double(x, y, w - borderThickness, h - borderThickness));
+            g2d.setStroke(new BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_ROUND));
+            g2d.draw(new Rectangle2D.Double(x, y, w - borderThickness, h - borderThickness));
             g2d.dispose();
         }
 

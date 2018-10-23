@@ -29,12 +29,17 @@
  */
 package org.pushingpixels.demo.kormorant.common
 
-import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.swing.Swing
+import kotlinx.coroutines.experimental.withContext
 import org.pushingpixels.demo.kormorant.RadianceLogo
 import org.pushingpixels.ember.setDecorationType
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.kormorant.bcb.addDelayedPathListener
+import org.pushingpixels.meteor.awt.addDelayedActionListener
 import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSlices
@@ -54,17 +59,14 @@ fun main(args: Array<String>) {
 
         // Configure the breadcrumb bar to update the file panel every time
         // the path changes
-        bar.model.addPathListener { ev ->
-            GlobalScope.launch(Dispatchers.Swing) {
-                val newPath = ev.source.items
-                if (newPath.size > 0) {
-                    // Use the Kotlin coroutines (experimental) to kick the
-                    // loading of the path leaf content off the UI thread and then
-                    // pipe it back to the UI thread in setFolder call.
-                    filePanel.setFolder(withContext(Dispatchers.Default) {
-                        bar.callback.getLeafs(newPath)
-                    })
-                }
+        bar.model.addDelayedPathListener { ev ->
+            val newPath = ev.source.items
+            if (newPath.size > 0) {
+                // Kick the loading of the path leaf content off the UI thread and then
+                // pipe it back to the UI thread in setFolder call.
+                filePanel.setFolder(withContext(Dispatchers.Default) {
+                    bar.callback.getLeafs(newPath)
+                })
             }
         }
 
@@ -76,14 +78,12 @@ fun main(args: Array<String>) {
 
         val controls = JPanel(FlowLayout(FlowLayout.RIGHT))
         val setPath = JButton("Select and set path...")
-        setPath.addActionListener {
-            GlobalScope.launch(Dispatchers.Swing) {
-                val folderChooser = JFileChooser()
-                folderChooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
-                if (folderChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
-                    val selected = folderChooser.selectedFile
-                    bar.setPath(selected)
-                }
+        setPath.addDelayedActionListener {
+            val folderChooser = JFileChooser()
+            folderChooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
+            if (folderChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
+                val selected = folderChooser.selectedFile
+                bar.setPath(selected)
             }
         }
         controls.add(setPath)

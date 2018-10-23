@@ -44,7 +44,8 @@ apply plugin: 'org.jetbrains.dokka'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile project(':trident')
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$kotlinx_coroutines_version"
     compile project(':flamingo')
 }
 
@@ -52,6 +53,12 @@ ext.designation = "core"
 
 javadoc {
     failOnError = false
+}
+
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
 }
 
 jar {

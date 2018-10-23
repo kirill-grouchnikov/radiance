@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2018 Radiance Kormorant Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of
+ *  o Neither the name of Radiance Kormorant Kirill Grouchnikov nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
@@ -27,10 +27,28 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.tools.jitterbug;
+package org.pushingpixels.kormorant.bcb
 
-import java.util.EventListener;
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.swing.Swing
+import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarModel
+import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent
+import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathListener
 
-public interface StateChangeListener extends EventListener {
-    public void stateChanged(StateChangeEvent event);
+fun <T> DelayedBreadcrumbPathListener(listener: (BreadcrumbPathEvent<T>) -> Unit): BreadcrumbPathListener<T> {
+    return BreadcrumbPathListener<T> { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+}
+
+inline fun <T> BreadcrumbBarModel<T>.addDelayedPathListener(crossinline listener: suspend (BreadcrumbPathEvent<T>) -> Unit) {
+    this.addPathListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
 }

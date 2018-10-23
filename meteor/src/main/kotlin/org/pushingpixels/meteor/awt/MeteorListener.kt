@@ -28,6 +28,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 @file:Suppress("NOTHING_TO_INLINE")
+
 package org.pushingpixels.meteor.awt
 
 import kotlinx.coroutines.experimental.Dispatchers
@@ -35,6 +36,8 @@ import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.swing.Swing
 import java.awt.AWTEvent
+import java.awt.Container
+import java.awt.Window
 import java.awt.dnd.*
 import java.awt.event.*
 import java.beans.PropertyChangeEvent
@@ -788,14 +791,14 @@ fun DelayedWindowFocusListener(
     }
 }
 
-fun DelayedWindowListener(
-        onWindowActivated: (event: WindowEvent?) -> Unit = {},
-        onWindowClosed: (event: WindowEvent?) -> Unit = {},
-        onWindowClosing: (event: WindowEvent?) -> Unit = {},
-        onWindowDeactivated: (event: WindowEvent?) -> Unit = {},
-        onWindowDeiconified: (event: WindowEvent?) -> Unit = {},
-        onWindowIconified: (event: WindowEvent?) -> Unit = {},
-        onWindowOpened: (event: WindowEvent?) -> Unit = {}): WindowListener {
+inline fun DelayedWindowListener(
+        crossinline onWindowActivated: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowClosed: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowClosing: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowDeactivated: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowDeiconified: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowIconified: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowOpened: (event: WindowEvent?) -> Unit = {}): WindowListener {
     return object : WindowListener {
         override fun windowActivated(event: WindowEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -849,51 +852,124 @@ fun DelayedWindowStateListener(listener: (WindowEvent) -> Unit): WindowStateList
     }
 }
 
-inline fun AbstractButton.addDelayedActionListener(crossinline listener: suspend (ActionEvent) -> Unit) {
-    this.addActionListener { event ->
+inline fun AbstractButton.addDelayedActionListener(
+        crossinline listener: suspend (ActionEvent) -> Unit): ActionListener {
+    val listenerToAdd = ActionListener { event ->
         GlobalScope.launch(Dispatchers.Swing) {
             listener.invoke(event)
         }
+    }
+    this.addActionListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun AbstractButton.addDelayedItemListener(crossinline listener: suspend (ItemEvent) -> Unit): ItemListener {
+    val listenerToAdd = ItemListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addItemListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun AbstractButton.addDelayedChangeListener(
+        crossinline listener: suspend (ChangeEvent) -> Unit): ChangeListener {
+    val listenerToAdd = ChangeListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addChangeListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun JComboBox<*>.addDelayedActionListener(crossinline listener: suspend (ActionEvent) -> Unit): ActionListener {
+    val listenerToAdd = ActionListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addActionListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun JComboBox<*>.addDelayedItemListener(crossinline listener: suspend (ItemEvent) -> Unit): ItemListener {
+    val listenerToAdd = ItemListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addItemListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun JSlider.addDelayedChangeListener(crossinline listener: suspend (ChangeEvent) -> Unit): ChangeListener {
+    val listenerToAdd = ChangeListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addChangeListener(listenerToAdd)
+    return listenerToAdd
+}
+
+fun Container.addDelayedPropertyChangeListener(listener: suspend (PropertyChangeEvent) -> Unit): PropertyChangeListener {
+    val listenerToAdd = PropertyChangeListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addPropertyChangeListener(listenerToAdd)
+    return listenerToAdd
+}
+
+fun Container.addDelayedPropertyChangeListener(propertyName: String,
+        listener: suspend (PropertyChangeEvent) -> Unit): PropertyChangeListener {
+    val listenerToAdd = PropertyChangeListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addPropertyChangeListener(propertyName, listenerToAdd)
+    return listenerToAdd
+}
+
+class TypedPropertyChangeEvent<T>(val source: Any, val propertyName: String,
+        val oldValue: T?, val newValue: T?)
+
+inline fun <reified T> Container.addTypedDelayedPropertyChangeListener(propertyName: String,
+        crossinline listener: suspend (TypedPropertyChangeEvent<T>) -> Unit) {
+    this.addDelayedPropertyChangeListener(propertyName) { event ->
+        listener.invoke(TypedPropertyChangeEvent(event.source,
+                propertyName, event.oldValue as? T, event.newValue as? T))
     }
 }
 
-inline fun AbstractButton.addDelayedItemListener(crossinline listener: suspend (ItemEvent) -> Unit) {
-    this.addItemListener { event ->
-        GlobalScope.launch(Dispatchers.Swing) {
-            listener.invoke(event)
-        }
-    }
+//inline fun Window.onWindowClosing(crossinline action: (event: WindowEvent?) -> Unit) {
+//    this.addWindowListener {
+//        DelayedWindowListener {
+//            onWindowClosing {
+//                action
+//            }
+//        }
+//    }
+//}
+
+inline fun Window.addDelayedWindowListener(
+        crossinline onWindowActivated: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowClosed: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowClosing: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowDeactivated: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowDeiconified: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowIconified: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowOpened: (event: WindowEvent?) -> Unit = {}): WindowListener {
+    val listener = DelayedWindowListener(
+            onWindowActivated, onWindowClosed, onWindowClosing,
+            onWindowDeactivated, onWindowDeiconified, onWindowIconified,
+            onWindowOpened)
+    this.addWindowListener(listener)
+    return listener
 }
 
-inline fun AbstractButton.addDelayedChangeListener(crossinline listener: suspend (ChangeEvent) -> Unit) {
-    this.addChangeListener { event ->
-        GlobalScope.launch(Dispatchers.Swing) {
-            listener.invoke(event)
-        }
-    }
-}
-
-inline fun JComboBox<*>.addDelayedActionListener(crossinline listener: suspend (ItemEvent) -> Unit) {
-    this.addItemListener { event ->
-        GlobalScope.launch(Dispatchers.Swing) {
-            listener.invoke(event)
-        }
-    }
-}
-
-inline fun JComboBox<*>.addDelayedItemListener(crossinline listener: suspend (ItemEvent) -> Unit) {
-    this.addItemListener { event ->
-        GlobalScope.launch(Dispatchers.Swing) {
-            listener.invoke(event)
-        }
-    }
-}
-
-inline fun JSlider.addDelayedChangeListener(crossinline listener: suspend (ChangeEvent) -> Unit) {
-    this.addChangeListener { event ->
-        GlobalScope.launch(Dispatchers.Swing) {
-            listener.invoke(event)
-        }
-    }
-}
 

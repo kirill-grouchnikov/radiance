@@ -67,10 +67,10 @@ import javax.swing.*
 import javax.swing.border.EmptyBorder
 
 object SkinSwitcher {
-    fun getSkinSwitcher(frame: JFrame): JComboBox<*> {
+    fun getSkinSwitcher(): JComboBox<String> {
         val skinInfoMap = SubstanceCortex.GlobalScope.getAllSkins()
         val skinNames = skinInfoMap.keys.toTypedArray()
-        val result = JComboBox(skinNames)
+        val result = JComboBox<String>(skinNames)
         result.selectedIndex = skinNames.indexOfFirst { it ->
             it == SubstanceCortex.GlobalScope.getCurrentSkin()!!.displayName
         }
@@ -79,7 +79,6 @@ object SkinSwitcher {
             val selected = result.selectedItem as String
             SubstanceCortex.GlobalScope.setSkin(
                     SubstanceCortex.GlobalScope.getAllSkins()[selected]!!.className)
-            SwingUtilities.updateComponentTreeUI(frame)
         }
 
         return result
@@ -281,7 +280,7 @@ private class RibbonDemoBuilder {
         formBuilder.add("Group 1").xy(1, 1).add(group1Visible).xy(3, 1)
         formBuilder.add("Group 2").xy(1, 3).add(group2Visible).xy(3, 3)
 
-        formBuilder.addLabel("Skin").xy(1, 5).add(SkinSwitcher.getSkinSwitcher(ribbonFrame)).xy(3, 5)
+        formBuilder.addLabel("Skin").xy(1, 5).add(SkinSwitcher.getSkinSwitcher()).xy(3, 5)
 
         val taskbarEnabled = JCheckBox("enabled")
         taskbarEnabled.isSelected = true

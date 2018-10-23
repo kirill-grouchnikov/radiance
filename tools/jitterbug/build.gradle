@@ -28,16 +28,27 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-apply plugin: 'java'
+apply plugin: 'kotlin'
 
 dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$kotlinx_coroutines_version"
     compile ("com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}")
     compile ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")
     compile project(':substance')
+    compile project(':meteor')
+    compile project(':ember')
     compile project(':tools:tools-common')
 }
 
 ext.designation = "tools"
+
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
+}
 
 jar {
     baseName = "${rootProject.name}-jitterbug"

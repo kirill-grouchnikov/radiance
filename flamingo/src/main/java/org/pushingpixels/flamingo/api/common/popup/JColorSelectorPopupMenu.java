@@ -50,10 +50,10 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
 
     private static LinkedList<Color> recentlySelected = new LinkedList<Color>();
 
-    public static interface ColorSelectorCallback {
-        public void onColorRollover(Color color);
+    public interface ColorSelectorCallback {
+        void onColorRollover(Color color);
 
-        public void onColorSelected(Color color);
+        void onColorSelected(Color color);
     }
 
     public JColorSelectorPopupMenu(ColorSelectorCallback colorSelectorCallback) {

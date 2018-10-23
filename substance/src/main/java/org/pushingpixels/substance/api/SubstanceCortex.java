@@ -203,8 +203,9 @@ public class SubstanceCortex {
                     }
                 }
 
-                if (isSubstance)
+                if (isSubstance) {
                     LazyResettableHashMap.reset();
+                }
 
                 currentSkin = newSkin;
 
@@ -509,8 +510,9 @@ public class SubstanceCortex {
          */
         public static FontPolicy getFontPolicy() {
             FontPolicy policy = (FontPolicy) UIManager.get(SUBSTANCE_FONT_POLICY_KEY);
-            if (policy != null)
+            if (policy != null) {
                 return policy;
+            }
 
             // return default policy
             return NeonCortex.getDefaultFontPolicy();

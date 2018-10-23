@@ -29,6 +29,10 @@ The [Substance library](docs/substance/substance.md) provides a powerful and fle
 
 The [Flamingo library](docs/flamingo/flamingo.md) provides a robust set of additional Swing components that can be used as building blocks for creating modern, rich Swing applications. In addition to providing powerful command button and breadcrumb bar components, Flamingo packs an Office Command Bar (ribbon) container that can host a complex hierarchy of flexible, scalable application control surface.
 
+### Meteor
+
+The [Meteor library](docs/meteor/meteor.md) is a set of Kotlin extensions that expose selected core Swing APIs for idiomatic Kotlin usage.
+
 ### Ember
 
 The [Ember library](docs/ember/ember.md) is a set of Kotlin extensions that provide a more elegant way of working with scoped Substance APIs.
@@ -53,7 +57,7 @@ The [Kormorant library](docs/kormorant/kormorant.md) exposes the entire API surf
 
 * The [Zodiac library](docs/tools/zodiac/zodiac.md) has utilities for taking screenshots for Substance and Flamingo documentation.
 
-## Radiance dependencies
+## Radiance artifacts
 
 Radiance artifacts are available in the central Maven repository under `groupId=org.pushing-pixels`
 
@@ -66,13 +70,13 @@ Radiance artifacts are available in the central Maven repository under `groupId=
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance) `radiance-substance` for [Substance](docs/substance/substance.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance-extras/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance-extras) `radiance-substance-extras` for Substance extras
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-flamingo/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-flamingo) `radiance-flamingo` for [Flamingo](docs/flamingo/flamingo.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-kormorant/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-kormorant) `radiance-kormorant` for Kormorant
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-kormorant/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-kormorant) `radiance-kormorant` for [Kormorant](docs/kormorant/kormorant.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-spoonbill/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-spoonbill) `radiance-spoonbill` for Spoonbill
 
 ### Tools artifacts
 
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite) `radiance-ignite` for [Ignite](docs/ignite/ignite.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon) `radiance-beacon` for [Beacon](docs/beacon/beacon.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite) `radiance-ignite` for [Ignite](docs/tools/ignite/ignite.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon) `radiance-beacon` for [Beacon](docs/tools/beacon/beacon.md)
 
 ## Building Radiance
 

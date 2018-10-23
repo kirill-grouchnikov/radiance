@@ -65,11 +65,22 @@ val Container.children: Sequence<Component>
         override fun iterator() = this@children.iterator()
     }
 
-
-/** Performs the given action on each component in this container. */
-inline fun Container.forEach(action: (component: Component) -> Unit) {
+/** Performs the given action on each child component in this container. */
+inline fun Container.forEach(childAction: (Component) -> Unit) {
     for (index in 0 until componentCount) {
-        action(getComponent(index))
+        childAction(getComponent(index))
     }
 }
 
+/** Performs the given action on each descendant component in this container. */
+fun Container.deepForEach(descendantAction: (Component) -> Unit) {
+    for (index in 0 until componentCount) {
+        val child = getComponent(index)
+        if (child is Component) {
+            descendantAction(child)
+        }
+        if (child is Container) {
+            child.deepForEach(descendantAction)
+        }
+    }
+}

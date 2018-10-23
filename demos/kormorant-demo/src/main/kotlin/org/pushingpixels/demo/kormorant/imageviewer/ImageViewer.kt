@@ -1,15 +1,18 @@
 package org.pushingpixels.demo.kormorant.imageviewer
 
-import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.swing.Swing
+import kotlinx.coroutines.experimental.withContext
 import org.pushingpixels.demo.kormorant.RadianceLogo
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.JCommandButton
 import org.pushingpixels.flamingo.api.common.StringValuePair
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon
+import org.pushingpixels.kormorant.bcb.addDelayedPathListener
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -68,19 +71,17 @@ fun main(args: Array<String>) {
             }
         }
 
-        bar.model.addPathListener { event: BreadcrumbPathEvent<File> ->
-            GlobalScope.launch(Dispatchers.Swing) {
-                val newPath = event.source.items
-                println("New path is ")
-                for (item in newPath) {
-                    println("\t" + item.data.absolutePath)
-                }
+        bar.model.addDelayedPathListener { event ->
+            val newPath = event.source.items
+            println("New path is ")
+            for (item in newPath) {
+                println("\t" + item.data.absolutePath)
+            }
 
-                if (newPath.size > 0) {
-                    fileViewPanel.setFolder(withContext(Dispatchers.Default) {
-                        bar.callback.getLeafs(newPath)
-                    })
-                }
+            if (newPath.size > 0) {
+                fileViewPanel.setFolder(withContext(Dispatchers.Default) {
+                    bar.callback.getLeafs(newPath)
+                })
             }
         }
 

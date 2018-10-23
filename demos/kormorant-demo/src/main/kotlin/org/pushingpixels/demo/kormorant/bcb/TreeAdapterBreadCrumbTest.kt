@@ -29,10 +29,14 @@
  */
 package org.pushingpixels.demo.kormorant.bcb
 
-import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.swing.Swing
+import kotlinx.coroutines.experimental.withContext
 import org.pushingpixels.demo.kormorant.RadianceLogo
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbTreeAdapterSelector
+import org.pushingpixels.kormorant.bcb.addDelayedPathListener
 import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSlices
@@ -198,30 +202,28 @@ fun main(args: Array<String>) {
         val fileList = JList<File>()
         fileList.cellRenderer = FileListRenderer()
 
-        bar.model.addPathListener { event ->
-            GlobalScope.launch(Dispatchers.Swing) {
-                val newPath = event.source.items
-                println("New path is ")
-                for (item in newPath) {
-                    if (item.data.file == null) {
-                        continue
-                    }
-                    println("\t" + item.data.file!!.name)
+        bar.model.addDelayedPathListener { event ->
+            val newPath = event.source.items
+            println("New path is ")
+            for (item in newPath) {
+                if (item.data.file == null) {
+                    continue
+                }
+                println("\t" + item.data.file!!.name)
+            }
+
+            if (newPath.size > 0) {
+                val model = FileListModel()
+
+                val leafs = withContext(Dispatchers.Default) {
+                    bar.callback.getLeafs(newPath)
                 }
 
-                if (newPath.size > 0) {
-                    val model = FileListModel()
-
-                    val leafs = withContext(Dispatchers.Default) {
-                        bar.callback.getLeafs(newPath)
-                    }
-
-                    for (leaf in leafs) {
-                        model.add(leaf.value.file!!)
-                    }
-                    model.sort()
-                    fileList.model = model
+                for (leaf in leafs) {
+                    model.add(leaf.value.file!!)
                 }
+                model.sort()
+                fileList.model = model
             }
         }
 

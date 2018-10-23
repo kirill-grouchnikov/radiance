@@ -56,7 +56,7 @@ public class JElectrifiedImageComponent extends JComponent {
     private float scaleFactor;
     private int imageOffsetX;
     private int imageOffsetY;
-    private List<ZoomBubble> zoomBubbles = new ArrayList<ZoomBubble>();
+    private List<ZoomBubble> zoomBubbles = new ArrayList<>();
     private JTextField captionEditor;
     private MouseDragHandler mouseDragHandler;
 
