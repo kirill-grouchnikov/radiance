@@ -49,9 +49,9 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.kormorant.ribbon.*
-import org.pushingpixels.meteor.awt.DelayedActionListener
-import org.pushingpixels.meteor.awt.addDelayedActionListener
-import org.pushingpixels.meteor.awt.addDelayedItemListener
+import org.pushingpixels.meteor.DelayedActionListener
+import org.pushingpixels.meteor.addDelayedActionListener
+import org.pushingpixels.meteor.addDelayedItemListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon

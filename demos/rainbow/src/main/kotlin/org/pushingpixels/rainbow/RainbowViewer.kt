@@ -45,7 +45,7 @@ import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.ProgressEvent
 import org.pushingpixels.flamingo.api.layout.TransitionLayout
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutEvent
-import org.pushingpixels.meteor.awt.addDelayedChangeListener
+import org.pushingpixels.meteor.addDelayedChangeListener
 import org.pushingpixels.rainbow.svg.ic_search_black_24px
 import org.pushingpixels.rainbow.svg.ic_zoom_in_black_24px
 import org.pushingpixels.rainbow.svg.ic_zoom_out_black_24px

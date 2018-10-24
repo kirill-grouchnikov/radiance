@@ -29,24 +29,25 @@
  */
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.pushingpixels.meteor.awt
+package org.pushingpixels.meteor
 
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.swing.Swing
-import java.awt.AWTEvent
-import java.awt.Container
-import java.awt.Window
+import java.awt.*
+import java.awt.List
 import java.awt.dnd.*
 import java.awt.event.*
 import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener
 import java.beans.VetoableChangeListener
-import javax.swing.AbstractButton
-import javax.swing.JComboBox
-import javax.swing.JSlider
+import javax.swing.*
 import javax.swing.event.*
+import javax.swing.table.AbstractTableModel
+import javax.swing.text.JTextComponent
+import javax.swing.tree.DefaultTreeModel
+import javax.swing.tree.DefaultTreeSelectionModel
 
 fun DelayedActionListener(listener: (ActionEvent) -> Unit): ActionListener {
     return ActionListener { event ->
@@ -64,10 +65,10 @@ fun DelayedAdjustmentListener(listener: (AdjustmentEvent) -> Unit): AdjustmentLi
     }
 }
 
-fun DelayedAncestorListener(
-        onAncestorAdded: (event: AncestorEvent?) -> Unit = {},
-        onAncestorRemoved: (event: AncestorEvent?) -> Unit = {},
-        onAncestorMoved: (event: AncestorEvent?) -> Unit = {}): AncestorListener {
+inline fun DelayedAncestorListener(
+        crossinline onAncestorAdded: (event: AncestorEvent?) -> Unit = {},
+        crossinline onAncestorRemoved: (event: AncestorEvent?) -> Unit = {},
+        crossinline onAncestorMoved: (event: AncestorEvent?) -> Unit = {}): AncestorListener {
     return object : AncestorListener {
         override fun ancestorAdded(event: AncestorEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -105,9 +106,9 @@ fun DelayedCaretListener(listener: (CaretEvent) -> Unit): CaretListener {
     }
 }
 
-fun DelayedCellEditorListener(
-        onEditingCanceled: (event: ChangeEvent?) -> Unit = {},
-        onEditingStopped: (event: ChangeEvent?) -> Unit = {}): CellEditorListener {
+inline fun DelayedCellEditorListener(
+        crossinline onEditingCanceled: (event: ChangeEvent?) -> Unit = {},
+        crossinline onEditingStopped: (event: ChangeEvent?) -> Unit = {}): CellEditorListener {
     return object : CellEditorListener {
         override fun editingCanceled(event: ChangeEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -131,11 +132,11 @@ fun DelayedChangeListener(listener: (ChangeEvent) -> Unit): ChangeListener {
     }
 }
 
-fun DelayedComponentListener(
-        onComponentHidden: (event: ComponentEvent?) -> Unit = {},
-        onComponentMoved: (event: ComponentEvent?) -> Unit = {},
-        onComponentResized: (event: ComponentEvent?) -> Unit = {},
-        onComponentShown: (event: ComponentEvent?) -> Unit = {}): ComponentListener {
+inline fun DelayedComponentListener(
+        crossinline onComponentHidden: (event: ComponentEvent?) -> Unit = {},
+        crossinline onComponentMoved: (event: ComponentEvent?) -> Unit = {},
+        crossinline onComponentResized: (event: ComponentEvent?) -> Unit = {},
+        crossinline onComponentShown: (event: ComponentEvent?) -> Unit = {}): ComponentListener {
     return object : ComponentListener {
         override fun componentHidden(event: ComponentEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -163,9 +164,9 @@ fun DelayedComponentListener(
     }
 }
 
-fun DelayedContainerListener(
-        onComponentAdded: (event: ContainerEvent?) -> Unit = {},
-        onComponentRemoved: (event: ContainerEvent?) -> Unit = {}): ContainerListener {
+inline fun DelayedContainerListener(
+        crossinline onComponentAdded: (event: ContainerEvent?) -> Unit = {},
+        crossinline onComponentRemoved: (event: ContainerEvent?) -> Unit = {}): ContainerListener {
     return object : ContainerListener {
         override fun componentAdded(event: ContainerEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -181,10 +182,10 @@ fun DelayedContainerListener(
     }
 }
 
-fun DelayedDocumentListener(
-        onChangedUpdate: (event: DocumentEvent?) -> Unit = {},
-        onInsertUpdate: (event: DocumentEvent?) -> Unit = {},
-        onRemoveUpdate: (event: DocumentEvent?) -> Unit = {}): DocumentListener {
+inline fun DelayedDocumentListener(
+        crossinline onChangedUpdate: (event: DocumentEvent?) -> Unit = {},
+        crossinline onInsertUpdate: (event: DocumentEvent?) -> Unit = {},
+        crossinline onRemoveUpdate: (event: DocumentEvent?) -> Unit = {}): DocumentListener {
     return object : DocumentListener {
         override fun changedUpdate(event: DocumentEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -214,12 +215,12 @@ fun DelayedDragGestureListener(listener: (DragGestureEvent) -> Unit): DragGestur
     }
 }
 
-fun DelayedDragSourceListener(
-        onDragDropEnd: (event: DragSourceDropEvent?) -> Unit = {},
-        onDragEnter: (event: DragSourceDragEvent?) -> Unit = {},
-        onDragExit: (event: DragSourceEvent?) -> Unit = {},
-        onDragOver: (event: DragSourceDragEvent?) -> Unit = {},
-        onDropActionChanged: (event: DragSourceDragEvent?) -> Unit = {}): DragSourceListener {
+inline fun DelayedDragSourceListener(
+        crossinline onDragDropEnd: (event: DragSourceDropEvent?) -> Unit = {},
+        crossinline onDragEnter: (event: DragSourceDragEvent?) -> Unit = {},
+        crossinline onDragExit: (event: DragSourceEvent?) -> Unit = {},
+        crossinline onDragOver: (event: DragSourceDragEvent?) -> Unit = {},
+        crossinline onDropActionChanged: (event: DragSourceDragEvent?) -> Unit = {}): DragSourceListener {
     return object : DragSourceListener {
         override fun dragDropEnd(event: DragSourceDropEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -261,12 +262,12 @@ fun DelayedDragSourceMotionListener(listener: (DragSourceDragEvent) -> Unit): Dr
     }
 }
 
-fun DelayedDropTargetListener(
-        onDragEnter: (event: DropTargetDragEvent?) -> Unit = {},
-        onDragExit: (event: DropTargetEvent?) -> Unit = {},
-        onDragOver: (event: DropTargetDragEvent?) -> Unit = {},
-        onDrop: (event: DropTargetDropEvent?) -> Unit = {},
-        onDropActionChanged: (event: DropTargetDragEvent?) -> Unit = {}): DropTargetListener {
+inline fun DelayedDropTargetListener(
+        crossinline onDragEnter: (event: DropTargetDragEvent?) -> Unit = {},
+        crossinline onDragExit: (event: DropTargetEvent?) -> Unit = {},
+        crossinline onDragOver: (event: DropTargetDragEvent?) -> Unit = {},
+        crossinline onDrop: (event: DropTargetDropEvent?) -> Unit = {},
+        crossinline onDropActionChanged: (event: DropTargetDragEvent?) -> Unit = {}): DropTargetListener {
     return object : DropTargetListener {
         override fun dragEnter(event: DropTargetDragEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -300,9 +301,61 @@ fun DelayedDropTargetListener(
     }
 }
 
-fun DelayedInputMethodListener(
-        onCaretPositionChanged: (event: InputMethodEvent?) -> Unit = {},
-        onInputMethodTextChanged: (event: InputMethodEvent?) -> Unit = {}): InputMethodListener {
+inline fun DelayedFocusListener(
+        crossinline onFocusGained: (event: FocusEvent?) -> Unit = {},
+        crossinline onFocusLost: (event: FocusEvent?) -> Unit = {}): FocusListener {
+    return object : FocusListener {
+        override fun focusGained(event: FocusEvent?) {
+            GlobalScope.launch(Dispatchers.Swing) {
+                onFocusGained.invoke(event)
+            }
+        }
+
+        override fun focusLost(event: FocusEvent?) {
+            GlobalScope.launch(Dispatchers.Swing) {
+                onFocusLost.invoke(event)
+            }
+        }
+    }
+}
+
+inline fun DelayedHierarchyBoundsListener(
+        crossinline onAncestorMoved: (event: HierarchyEvent?) -> Unit = {},
+        crossinline onAncestorResized: (event: HierarchyEvent?) -> Unit = {}): HierarchyBoundsListener {
+    return object : HierarchyBoundsListener {
+        override fun ancestorMoved(event: HierarchyEvent?) {
+            GlobalScope.launch(Dispatchers.Swing) {
+                onAncestorMoved.invoke(event)
+            }
+        }
+
+        override fun ancestorResized(event: HierarchyEvent?) {
+            GlobalScope.launch(Dispatchers.Swing) {
+                onAncestorResized.invoke(event)
+            }
+        }
+    }
+}
+
+fun DelayedHierarchyListener(listener: (HierarchyEvent) -> Unit): HierarchyListener {
+    return HierarchyListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+}
+
+fun DelayedHyperlinkListener(listener: (HyperlinkEvent) -> Unit): HyperlinkListener {
+    return HyperlinkListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+}
+
+inline fun DelayedInputMethodListener(
+        crossinline onCaretPositionChanged: (event: InputMethodEvent?) -> Unit = {},
+        crossinline onInputMethodTextChanged: (event: InputMethodEvent?) -> Unit = {}): InputMethodListener {
     return object : InputMethodListener {
         override fun caretPositionChanged(event: InputMethodEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -318,14 +371,14 @@ fun DelayedInputMethodListener(
     }
 }
 
-fun DelayedInputMethodListener(
-        onInternalFrameActivated: (event: InternalFrameEvent?) -> Unit = {},
-        onInternalFrameClosed: (event: InternalFrameEvent?) -> Unit = {},
-        onInternalFrameClosing: (event: InternalFrameEvent?) -> Unit = {},
-        onInternalFrameDeactivated: (event: InternalFrameEvent?) -> Unit = {},
-        onInternalFrameDeiconified: (event: InternalFrameEvent?) -> Unit = {},
-        onInternalFrameIconified: (event: InternalFrameEvent?) -> Unit = {},
-        onInternalFrameOpened: (event: InternalFrameEvent?) -> Unit = {}): InternalFrameListener {
+inline fun DelayedInputMethodListener(
+        crossinline onInternalFrameActivated: (event: InternalFrameEvent?) -> Unit = {},
+        crossinline onInternalFrameClosed: (event: InternalFrameEvent?) -> Unit = {},
+        crossinline onInternalFrameClosing: (event: InternalFrameEvent?) -> Unit = {},
+        crossinline onInternalFrameDeactivated: (event: InternalFrameEvent?) -> Unit = {},
+        crossinline onInternalFrameDeiconified: (event: InternalFrameEvent?) -> Unit = {},
+        crossinline onInternalFrameIconified: (event: InternalFrameEvent?) -> Unit = {},
+        crossinline onInternalFrameOpened: (event: InternalFrameEvent?) -> Unit = {}): InternalFrameListener {
     return object : InternalFrameListener {
         override fun internalFrameActivated(event: InternalFrameEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -379,10 +432,10 @@ fun DelayedItemListener(listener: (ItemEvent) -> Unit): ItemListener {
     }
 }
 
-fun DelayedKeyListener(
-        onKeyPressed: (event: KeyEvent?) -> Unit = {},
-        onKeyReleased: (event: KeyEvent?) -> Unit = {},
-        onKeyTyped: (event: KeyEvent?) -> Unit = {}): KeyListener {
+inline fun DelayedKeyListener(
+        crossinline onKeyPressed: (event: KeyEvent?) -> Unit = {},
+        crossinline onKeyReleased: (event: KeyEvent?) -> Unit = {},
+        crossinline onKeyTyped: (event: KeyEvent?) -> Unit = {}): KeyListener {
     return object : KeyListener {
         override fun keyPressed(event: KeyEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -404,10 +457,10 @@ fun DelayedKeyListener(
     }
 }
 
-fun DelayedListDataListener(
-        onContentsChanged: (event: ListDataEvent?) -> Unit = {},
-        onIntervalAdded: (event: ListDataEvent?) -> Unit = {},
-        onIntervalRemoved: (event: ListDataEvent?) -> Unit = {}): ListDataListener {
+inline fun DelayedListDataListener(
+        crossinline onContentsChanged: (event: ListDataEvent?) -> Unit = {},
+        crossinline onIntervalAdded: (event: ListDataEvent?) -> Unit = {},
+        crossinline onIntervalRemoved: (event: ListDataEvent?) -> Unit = {}): ListDataListener {
     return object : ListDataListener {
         override fun contentsChanged(event: ListDataEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -437,11 +490,11 @@ fun DelayedListSelectionListener(listener: (ListSelectionEvent) -> Unit): ListSe
     }
 }
 
-fun DelayedMenuDragMouseListener(
-        onMenuDragMouseDragged: (event: MenuDragMouseEvent?) -> Unit = {},
-        onMenuDragMouseEntered: (event: MenuDragMouseEvent?) -> Unit = {},
-        onMenuDragMouseExited: (event: MenuDragMouseEvent?) -> Unit = {},
-        onMenuDragMouseReleased: (event: MenuDragMouseEvent?) -> Unit = {}): MenuDragMouseListener {
+inline fun DelayedMenuDragMouseListener(
+        crossinline onMenuDragMouseDragged: (event: MenuDragMouseEvent?) -> Unit = {},
+        crossinline onMenuDragMouseEntered: (event: MenuDragMouseEvent?) -> Unit = {},
+        crossinline onMenuDragMouseExited: (event: MenuDragMouseEvent?) -> Unit = {},
+        crossinline onMenuDragMouseReleased: (event: MenuDragMouseEvent?) -> Unit = {}): MenuDragMouseListener {
     return object : MenuDragMouseListener {
         override fun menuDragMouseDragged(event: MenuDragMouseEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -469,10 +522,10 @@ fun DelayedMenuDragMouseListener(
     }
 }
 
-fun DelayedMenuKeyListener(
-        onMenuKeyPressed: (event: MenuKeyEvent?) -> Unit = {},
-        onMenuKeyReleased: (event: MenuKeyEvent?) -> Unit = {},
-        onMenuKeyTyped: (event: MenuKeyEvent?) -> Unit = {}): MenuKeyListener {
+inline fun DelayedMenuKeyListener(
+        crossinline onMenuKeyPressed: (event: MenuKeyEvent?) -> Unit = {},
+        crossinline onMenuKeyReleased: (event: MenuKeyEvent?) -> Unit = {},
+        crossinline onMenuKeyTyped: (event: MenuKeyEvent?) -> Unit = {}): MenuKeyListener {
     return object : MenuKeyListener {
         override fun menuKeyPressed(event: MenuKeyEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -494,10 +547,10 @@ fun DelayedMenuKeyListener(
     }
 }
 
-fun DelayedMenuListener(
-        onMenuCanceled: (event: MenuEvent?) -> Unit = {},
-        onMenuDeselected: (event: MenuEvent?) -> Unit = {},
-        onMenuSelected: (event: MenuEvent?) -> Unit = {}): MenuListener {
+inline fun DelayedMenuListener(
+        crossinline onMenuCanceled: (event: MenuEvent?) -> Unit = {},
+        crossinline onMenuDeselected: (event: MenuEvent?) -> Unit = {},
+        crossinline onMenuSelected: (event: MenuEvent?) -> Unit = {}): MenuListener {
     return object : MenuListener {
         override fun menuCanceled(event: MenuEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -519,12 +572,12 @@ fun DelayedMenuListener(
     }
 }
 
-fun DelayedMouseListener(
-        onMouseClicked: (event: MouseEvent?) -> Unit = {},
-        onMouseEntered: (event: MouseEvent?) -> Unit = {},
-        onMouseExited: (event: MouseEvent?) -> Unit = {},
-        onMousePressed: (event: MouseEvent?) -> Unit = {},
-        onMouseReleased: (event: MouseEvent?) -> Unit = {}): MouseListener {
+inline fun DelayedMouseListener(
+        crossinline onMouseClicked: (event: MouseEvent?) -> Unit = {},
+        crossinline onMouseEntered: (event: MouseEvent?) -> Unit = {},
+        crossinline onMouseExited: (event: MouseEvent?) -> Unit = {},
+        crossinline onMousePressed: (event: MouseEvent?) -> Unit = {},
+        crossinline onMouseReleased: (event: MouseEvent?) -> Unit = {}): MouseListener {
     return object : MouseListener {
         override fun mouseClicked(event: MouseEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -558,9 +611,9 @@ fun DelayedMouseListener(
     }
 }
 
-fun DelayedMouseMotionListener(
-        onMouseDragged: (event: MouseEvent?) -> Unit = {},
-        onMouseMoved: (event: MouseEvent?) -> Unit = {}): MouseMotionListener {
+inline fun DelayedMouseMotionListener(
+        crossinline onMouseDragged: (event: MouseEvent?) -> Unit = {},
+        crossinline onMouseMoved: (event: MouseEvent?) -> Unit = {}): MouseMotionListener {
     return object : MouseMotionListener {
         override fun mouseDragged(event: MouseEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -584,10 +637,10 @@ fun DelayedMouseWheelListener(listener: (MouseWheelEvent) -> Unit): MouseWheelLi
     }
 }
 
-fun DelayedPopupMenuListener(
-        onPopupMenuCanceled: (event: PopupMenuEvent?) -> Unit = {},
-        onPopupMenuWillBecomeInvisible: (event: PopupMenuEvent?) -> Unit = {},
-        onPopupMenuWillBecomeVisible: (event: PopupMenuEvent?) -> Unit = {}): PopupMenuListener {
+inline fun DelayedPopupMenuListener(
+        crossinline onPopupMenuCanceled: (event: PopupMenuEvent?) -> Unit = {},
+        crossinline onPopupMenuWillBecomeInvisible: (event: PopupMenuEvent?) -> Unit = {},
+        crossinline onPopupMenuWillBecomeVisible: (event: PopupMenuEvent?) -> Unit = {}): PopupMenuListener {
     return object : PopupMenuListener {
         override fun popupMenuCanceled(event: PopupMenuEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -625,12 +678,12 @@ fun DelayedRowSorterListener(listener: (RowSorterEvent) -> Unit): RowSorterListe
     }
 }
 
-fun DelayedTableColumnModelListener(
-        onColumnAdded: (event: TableColumnModelEvent?) -> Unit = {},
-        onColumnMarginChanged: (event: ChangeEvent?) -> Unit = {},
-        onColumnMoved: (event: TableColumnModelEvent?) -> Unit = {},
-        onColumnRemoved: (event: TableColumnModelEvent?) -> Unit = {},
-        onColumnSelectionChanged: (event: ListSelectionEvent?) -> Unit = {}): TableColumnModelListener {
+inline fun DelayedTableColumnModelListener(
+        crossinline onColumnAdded: (event: TableColumnModelEvent?) -> Unit = {},
+        crossinline onColumnMarginChanged: (event: ChangeEvent?) -> Unit = {},
+        crossinline onColumnMoved: (event: TableColumnModelEvent?) -> Unit = {},
+        crossinline onColumnRemoved: (event: TableColumnModelEvent?) -> Unit = {},
+        crossinline onColumnSelectionChanged: (event: ListSelectionEvent?) -> Unit = {}): TableColumnModelListener {
     return object : TableColumnModelListener {
         override fun columnAdded(event: TableColumnModelEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -680,9 +733,9 @@ fun DelayedTextListener(listener: (TextEvent) -> Unit): TextListener {
     }
 }
 
-fun DelayedTreeExpansionListener(
-        onTreeCollapsed: (event: TreeExpansionEvent?) -> Unit = {},
-        onTreeExpanded: (event: TreeExpansionEvent?) -> Unit = {}): TreeExpansionListener {
+inline fun DelayedTreeExpansionListener(
+        crossinline onTreeCollapsed: (event: TreeExpansionEvent?) -> Unit = {},
+        crossinline onTreeExpanded: (event: TreeExpansionEvent?) -> Unit = {}): TreeExpansionListener {
     return object : TreeExpansionListener {
         override fun treeCollapsed(event: TreeExpansionEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -698,11 +751,11 @@ fun DelayedTreeExpansionListener(
     }
 }
 
-fun DelayedTreeModelListener(
-        onTreeNodesChanged: (event: TreeModelEvent?) -> Unit = {},
-        onTreeNodesInserted: (event: TreeModelEvent?) -> Unit = {},
-        onTreeNodesRemoved: (event: TreeModelEvent?) -> Unit = {},
-        onTreeStructureChanged: (event: TreeModelEvent?) -> Unit = {}): TreeModelListener {
+inline fun DelayedTreeModelListener(
+        crossinline onTreeNodesChanged: (event: TreeModelEvent?) -> Unit = {},
+        crossinline onTreeNodesInserted: (event: TreeModelEvent?) -> Unit = {},
+        crossinline onTreeNodesRemoved: (event: TreeModelEvent?) -> Unit = {},
+        crossinline onTreeStructureChanged: (event: TreeModelEvent?) -> Unit = {}): TreeModelListener {
     return object : TreeModelListener {
         override fun treeNodesChanged(event: TreeModelEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -738,9 +791,9 @@ fun DelayedTreeSelectionListener(listener: (TreeSelectionEvent) -> Unit): TreeSe
     }
 }
 
-fun DelayedTreeWillExpandListener(
-        onTreeWillCollapse: (event: TreeExpansionEvent?) -> Unit = {},
-        onTreeWillExpand: (event: TreeExpansionEvent?) -> Unit = {}): TreeWillExpandListener {
+inline fun DelayedTreeWillExpandListener(
+        crossinline onTreeWillCollapse: (event: TreeExpansionEvent?) -> Unit = {},
+        crossinline onTreeWillExpand: (event: TreeExpansionEvent?) -> Unit = {}): TreeWillExpandListener {
     return object : TreeWillExpandListener {
         override fun treeWillCollapse(event: TreeExpansionEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -773,9 +826,9 @@ fun DelayedVetoableChangeListener(listener: (PropertyChangeEvent) -> Unit): Veto
     }
 }
 
-fun DelayedWindowFocusListener(
-        onWindowGainedFocus: (event: WindowEvent?) -> Unit = {},
-        onWindowLostFocus: (event: WindowEvent?) -> Unit = {}): WindowFocusListener {
+inline fun DelayedWindowFocusListener(
+        crossinline onWindowGainedFocus: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowLostFocus: (event: WindowEvent?) -> Unit = {}): WindowFocusListener {
     return object : WindowFocusListener {
         override fun windowGainedFocus(event: WindowEvent?) {
             GlobalScope.launch(Dispatchers.Swing) {
@@ -914,48 +967,6 @@ inline fun JSlider.addDelayedChangeListener(crossinline listener: suspend (Chang
     return listenerToAdd
 }
 
-fun Container.addDelayedPropertyChangeListener(listener: suspend (PropertyChangeEvent) -> Unit): PropertyChangeListener {
-    val listenerToAdd = PropertyChangeListener { event ->
-        GlobalScope.launch(Dispatchers.Swing) {
-            listener.invoke(event)
-        }
-    }
-    this.addPropertyChangeListener(listenerToAdd)
-    return listenerToAdd
-}
-
-fun Container.addDelayedPropertyChangeListener(propertyName: String,
-        listener: suspend (PropertyChangeEvent) -> Unit): PropertyChangeListener {
-    val listenerToAdd = PropertyChangeListener { event ->
-        GlobalScope.launch(Dispatchers.Swing) {
-            listener.invoke(event)
-        }
-    }
-    this.addPropertyChangeListener(propertyName, listenerToAdd)
-    return listenerToAdd
-}
-
-class TypedPropertyChangeEvent<T>(val source: Any, val propertyName: String,
-        val oldValue: T?, val newValue: T?)
-
-inline fun <reified T> Container.addTypedDelayedPropertyChangeListener(propertyName: String,
-        crossinline listener: suspend (TypedPropertyChangeEvent<T>) -> Unit) {
-    this.addDelayedPropertyChangeListener(propertyName) { event ->
-        listener.invoke(TypedPropertyChangeEvent(event.source,
-                propertyName, event.oldValue as? T, event.newValue as? T))
-    }
-}
-
-//inline fun Window.onWindowClosing(crossinline action: (event: WindowEvent?) -> Unit) {
-//    this.addWindowListener {
-//        DelayedWindowListener {
-//            onWindowClosing {
-//                action
-//            }
-//        }
-//    }
-//}
-
 inline fun Window.addDelayedWindowListener(
         crossinline onWindowActivated: (event: WindowEvent?) -> Unit = {},
         crossinline onWindowClosed: (event: WindowEvent?) -> Unit = {},
@@ -972,4 +983,362 @@ inline fun Window.addDelayedWindowListener(
     return listener
 }
 
+inline fun Component.addDelayedComponentListener(
+        crossinline onComponentHidden: (event: ComponentEvent?) -> Unit = {},
+        crossinline onComponentMoved: (event: ComponentEvent?) -> Unit = {},
+        crossinline onComponentResized: (event: ComponentEvent?) -> Unit = {},
+        crossinline onComponentShown: (event: ComponentEvent?) -> Unit = {}): ComponentListener {
+    val listener = DelayedComponentListener(
+            onComponentHidden, onComponentMoved, onComponentResized, onComponentShown)
+    this.addComponentListener(listener)
+    return listener
+}
 
+inline fun Component.addDelayedFocusListener(
+        crossinline onFocusGained: (event: FocusEvent?) -> Unit = {},
+        crossinline onFocusLost: (event: FocusEvent?) -> Unit = {}): FocusListener {
+    val listener = DelayedFocusListener(onFocusGained, onFocusLost)
+    this.addFocusListener(listener)
+    return listener
+}
+
+inline fun Component.addDelayedHierarchyBoundsListener(
+        crossinline onAncestorMoved: (event: HierarchyEvent?) -> Unit = {},
+        crossinline onAncestorResized: (event: HierarchyEvent?) -> Unit = {}): HierarchyBoundsListener {
+    val listener = DelayedHierarchyBoundsListener(onAncestorMoved, onAncestorResized)
+    this.addHierarchyBoundsListener(listener)
+    return listener
+}
+
+inline fun Component.addDelayedHierarchyListener(
+        crossinline listener: suspend (HierarchyEvent) -> Unit): HierarchyListener {
+    val listenerToAdd = HierarchyListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addHierarchyListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun Component.addDelayedInputMethodListener(
+        crossinline onCaretPositionChanged: (event: InputMethodEvent?) -> Unit = {},
+        crossinline onInputMethodTextChanged: (event: InputMethodEvent?) -> Unit = {}): InputMethodListener {
+    val listener = DelayedInputMethodListener(onCaretPositionChanged, onInputMethodTextChanged)
+    this.addInputMethodListener(listener)
+    return listener
+}
+
+inline fun Component.addDelayedKeyListener(
+        crossinline onKeyPressed: (event: KeyEvent?) -> Unit = {},
+        crossinline onKeyReleased: (event: KeyEvent?) -> Unit = {},
+        crossinline onKeyTyped: (event: KeyEvent?) -> Unit = {}): KeyListener {
+    val listener = DelayedKeyListener(onKeyPressed, onKeyReleased, onKeyTyped)
+    this.addKeyListener(listener)
+    return listener
+}
+
+inline fun Component.addDelayedMouseListener(
+        crossinline onMouseClicked: (event: MouseEvent?) -> Unit = {},
+        crossinline onMouseEntered: (event: MouseEvent?) -> Unit = {},
+        crossinline onMouseExited: (event: MouseEvent?) -> Unit = {},
+        crossinline onMousePressed: (event: MouseEvent?) -> Unit = {},
+        crossinline onMouseReleased: (event: MouseEvent?) -> Unit = {}): MouseListener {
+    val listener = DelayedMouseListener(
+            onMouseClicked, onMouseEntered, onMouseExited, onMousePressed, onMouseReleased)
+    this.addMouseListener(listener)
+    return listener
+}
+
+inline fun Component.addDelayedMouseMotionListener(
+        crossinline onMouseDragged: (event: MouseEvent?) -> Unit = {},
+        crossinline onMouseMoved: (event: MouseEvent?) -> Unit = {}): MouseMotionListener {
+    val listener = DelayedMouseMotionListener(onMouseDragged, onMouseMoved)
+    this.addMouseMotionListener(listener)
+    return listener
+}
+
+inline fun Component.addDelayedMouseWheelListener(
+        crossinline listener: suspend (MouseWheelEvent) -> Unit): MouseWheelListener {
+    val listenerToAdd = MouseWheelListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addMouseWheelListener(listenerToAdd)
+    return listenerToAdd
+}
+
+fun Component.addDelayedPropertyChangeListener(
+        listener: suspend (PropertyChangeEvent) -> Unit): PropertyChangeListener {
+    val listenerToAdd = PropertyChangeListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addPropertyChangeListener(listenerToAdd)
+    return listenerToAdd
+}
+
+fun Component.addDelayedPropertyChangeListener(propertyName: String,
+        listener: suspend (PropertyChangeEvent) -> Unit): PropertyChangeListener {
+    val listenerToAdd = PropertyChangeListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addPropertyChangeListener(propertyName, listenerToAdd)
+    return listenerToAdd
+}
+
+class TypedPropertyChangeEvent<T>(val source: Any, val propertyName: String,
+        val oldValue: T?, val newValue: T?)
+
+inline fun <reified T> Component.addTypedDelayedPropertyChangeListener(propertyName: String,
+        crossinline listener: suspend (TypedPropertyChangeEvent<T>) -> Unit) {
+    this.addDelayedPropertyChangeListener(propertyName) { event ->
+        listener.invoke(TypedPropertyChangeEvent(event.source,
+                propertyName, event.oldValue as? T, event.newValue as? T))
+    }
+}
+
+inline fun AbstractListModel<*>.addDelayedListDataListener(
+        crossinline onContentsChanged: (event: ListDataEvent?) -> Unit = {},
+        crossinline onIntervalAdded: (event: ListDataEvent?) -> Unit = {},
+        crossinline onIntervalRemoved: (event: ListDataEvent?) -> Unit = {}): ListDataListener {
+    val listener =
+            DelayedListDataListener(onContentsChanged, onIntervalAdded, onIntervalRemoved)
+    this.addListDataListener(listener)
+    return listener
+}
+
+inline fun AbstractTableModel.addDelayedTableModelListener(
+        crossinline listener: suspend (TableModelEvent) -> Unit): TableModelListener {
+    val listenerToAdd = TableModelListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addTableModelListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun DefaultTreeModel.addDelayedTreeModelListener(
+        crossinline onTreeNodesChanged: (event: TreeModelEvent?) -> Unit = {},
+        crossinline onTreeNodesInserted: (event: TreeModelEvent?) -> Unit = {},
+        crossinline onTreeNodesRemoved: (event: TreeModelEvent?) -> Unit = {},
+        crossinline onTreeStructureChanged: (event: TreeModelEvent?) -> Unit = {}): TreeModelListener {
+    val listener = DelayedTreeModelListener(onTreeNodesChanged, onTreeNodesInserted,
+            onTreeNodesRemoved, onTreeStructureChanged)
+    this.addTreeModelListener(listener)
+    return listener
+}
+
+inline fun DefaultTreeSelectionModel.addDelayedPropertyChangeListener(
+        crossinline listener: suspend (PropertyChangeEvent) -> Unit): PropertyChangeListener {
+    val listenerToAdd = PropertyChangeListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addPropertyChangeListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun DefaultTreeSelectionModel.addDelayedTreeSelectionListener(
+        crossinline listener: suspend (TreeSelectionEvent) -> Unit): TreeSelectionListener {
+    val listenerToAdd = TreeSelectionListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addTreeSelectionListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun DefaultListSelectionModel.addDelayedListSelectionListener(
+        crossinline listener: suspend (ListSelectionEvent) -> Unit): ListSelectionListener {
+    val listenerToAdd = ListSelectionListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addListSelectionListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun DefaultSingleSelectionModel.addDelayedChangeListener(
+        crossinline listener: suspend (ChangeEvent) -> Unit): ChangeListener {
+    val listenerToAdd = ChangeListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addChangeListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun Checkbox.addDelayedItemListener(
+        crossinline listener: suspend (ItemEvent) -> Unit): ItemListener {
+    val listenerToAdd = ItemListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addItemListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun Container.addDelayedContainerListener(
+        crossinline onComponentAdded: (event: ContainerEvent?) -> Unit = {},
+        crossinline onComponentRemoved: (event: ContainerEvent?) -> Unit = {}): ContainerListener {
+    val listener = DelayedContainerListener(onComponentAdded, onComponentRemoved)
+    this.addContainerListener(listener)
+    return listener
+}
+
+inline fun List.addDelayedActionListener(
+        crossinline listener: suspend (ActionEvent) -> Unit): ActionListener {
+    val listenerToAdd = ActionListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addActionListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun MenuItem.addDelayedActionListener(
+        crossinline listener: suspend (ActionEvent) -> Unit): ActionListener {
+    val listenerToAdd = ActionListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addActionListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun Scrollbar.addDelayedAdjustmentListener(
+        crossinline listener: suspend (AdjustmentEvent) -> Unit): AdjustmentListener {
+    val listenerToAdd = AdjustmentListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addAdjustmentListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun TextComponent.addDelayedTextListener(
+        crossinline listener: suspend (TextEvent) -> Unit): TextListener {
+    val listenerToAdd = TextListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addTextListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun TextField.addDelayedActionListener(
+        crossinline listener: suspend (ActionEvent) -> Unit): ActionListener {
+    val listenerToAdd = ActionListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addActionListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun JComponent.addDelayedAncestorListener(
+        crossinline onAncestorAdded: (event: AncestorEvent?) -> Unit = {},
+        crossinline onAncestorRemoved: (event: AncestorEvent?) -> Unit = {},
+        crossinline onAncestorMoved: (event: AncestorEvent?) -> Unit = {}): AncestorListener {
+    val listener = DelayedAncestorListener(onAncestorAdded, onAncestorRemoved, onAncestorMoved)
+    this.addAncestorListener(listener)
+    return listener
+}
+
+inline fun JComponent.addDelayedVetoableChangeListener(
+        crossinline listener: suspend (PropertyChangeEvent) -> Unit): VetoableChangeListener {
+    val listenerToAdd = VetoableChangeListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addVetoableChangeListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun JList<*>.addDelayedListSelectionListener(
+        crossinline listener: suspend (ListSelectionEvent) -> Unit): ListSelectionListener {
+    val listenerToAdd = ListSelectionListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addListSelectionListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun JTree.addDelayedTreeExpansionListener(
+        crossinline onTreeCollapsed: (event: TreeExpansionEvent?) -> Unit = {},
+        crossinline onTreeExpanded: (event: TreeExpansionEvent?) -> Unit = {}): TreeExpansionListener {
+    val listener = DelayedTreeExpansionListener(onTreeCollapsed, onTreeExpanded)
+    this.addTreeExpansionListener(listener)
+    return listener
+}
+
+inline fun JTree.addDelayedTreeSelectionListener(
+        crossinline listener: suspend (TreeSelectionEvent) -> Unit): TreeSelectionListener {
+    val listenerToAdd = TreeSelectionListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addTreeSelectionListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun JTree.addDelayedTreeWillExpandListener(
+        crossinline onTreeWillCollapse: (event: TreeExpansionEvent?) -> Unit = {},
+        crossinline onTreeWillExpand: (event: TreeExpansionEvent?) -> Unit = {}): TreeWillExpandListener {
+    val listener = DelayedTreeWillExpandListener(onTreeWillCollapse, onTreeWillExpand)
+    this.addTreeWillExpandListener(listener)
+    return listener
+}
+
+inline fun JViewport.addDelayedChangeListener(
+        crossinline listener: suspend (ChangeEvent) -> Unit): ChangeListener {
+    val listenerToAdd = ChangeListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addChangeListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun JEditorPane.addDelayedHyperlinkListener(
+        crossinline listener: suspend (HyperlinkEvent) -> Unit): HyperlinkListener {
+    val listenerToAdd = HyperlinkListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addHyperlinkListener(listenerToAdd)
+    return listenerToAdd
+}
+
+inline fun JTextField.addDelayedActionListener(
+        crossinline listener: suspend (ActionEvent) -> Unit): ActionListener {
+    val listenerToAdd = ActionListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+    this.addActionListener(listenerToAdd)
+    return listenerToAdd
+}

@@ -101,7 +101,7 @@ public abstract class SkinRobot {
             protected void executeInEDT() throws Throwable {
                 sf = new SampleFrame();
                 sf.setIconImage(
-                        RadianceLogo.getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(
+                        RadianceLogo.INSTANCE.getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(
                                 sf.getRootPane()).getColorScheme(
                                 DecorationAreaType.PRIMARY_TITLE_PANE,
                                 SubstanceSlices.ColorSchemeAssociationKind.FILL,

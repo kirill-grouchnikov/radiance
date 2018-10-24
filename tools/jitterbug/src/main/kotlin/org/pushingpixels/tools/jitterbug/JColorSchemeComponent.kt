@@ -31,7 +31,7 @@ package org.pushingpixels.tools.jitterbug
 
 import com.jgoodies.forms.builder.FormBuilder
 import com.jgoodies.forms.factories.Paddings
-import org.pushingpixels.meteor.awt.addTypedDelayedPropertyChangeListener
+import org.pushingpixels.meteor.addTypedDelayedPropertyChangeListener
 import org.pushingpixels.meteor.awt.deepForEach
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
 import java.awt.BorderLayout
@@ -89,7 +89,7 @@ class JColorSchemeComponent : JPanel() {
 
     val isDefined: Boolean
         get() {
-            if (this.name.text == null || this.name.text.trim { it <= ' ' }.length == 0) {
+            if (this.name.text.isNullOrEmpty()) {
                 return false
             }
             if (!this.ultraLight.isDefined) {
@@ -185,7 +185,7 @@ class JColorSchemeComponent : JPanel() {
 
     private fun createColorComponent(label: String): JColorComponent {
         val result = JColorComponent(label, null)
-        result.addTypedDelayedPropertyChangeListener<Color>("selectedColor") {
+        result.addTypedDelayedPropertyChangeListener<Color>(JColorComponent::selectedColor.name) {
             fireStateChanged(StateChangeType.MODIFIED)
         }
         this.bg.add(result.radio)
@@ -233,16 +233,15 @@ class JColorSchemeComponent : JPanel() {
      * Adds the specified change listener to track changes to this component.
      *
      * @param l Change listener to add.
-     * @see .removeChangeListener
      */
     fun addStateChangeListener(l: (StateChangeType) -> Unit) {
         this.stateChangeListeners.add(l)
     }
 
     /**
-     * Notifies all registered listener that the state of this component has changed.
+     * Notifies all registered listeners that the state of this component has changed.
      */
-    protected fun fireStateChanged(stateChangeType: StateChangeType) {
+    private fun fireStateChanged(stateChangeType: StateChangeType) {
         for (listener in this.stateChangeListeners) {
             listener.invoke(stateChangeType)
         }

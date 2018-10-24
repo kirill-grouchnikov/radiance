@@ -27,6 +27,6 @@ java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter source
 
 java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../demos/rainbow/src/main/kotlin/org/pushingpixels/rainbow/svg outputPackageName=org.pushingpixels.rainbow.svg templateFile=/org/pushingpixels/photon/transcoder/kotlin/SvgTranscoderTemplateResizable.templ outputLanguage=kotlin
 
-java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../tools/tools-common/src/main/java/org/pushingpixels/tools/common/ outputPackageName=org.pushingpixels.tools.common templateFile=/org/pushingpixels/photon/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
+java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../tools/tools-common/src/main/kotlin/org/pushingpixels/tools/common/ outputPackageName=org.pushingpixels.tools.common templateFile=/org/pushingpixels/photon/transcoder/kotlin/SvgTranscoderTemplateResizable.templ outputLanguage=kotlin
 
 java -cp $CLASSPATH org.pushingpixels.photon.transcoder.SvgBatchConverter sourceFolder=../tools/jitterbug/src/main/kotlin/org/pushingpixels/tools/jitterbug/svg/ outputPackageName=org.pushingpixels.tools.jitterbug.svg templateFile=/org/pushingpixels/photon/transcoder/kotlin/SvgTranscoderTemplateResizable.templ outputLanguage=kotlin

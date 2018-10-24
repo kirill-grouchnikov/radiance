@@ -51,8 +51,9 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
 
     private static void dump(Component comp, int level) {
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < level; i++)
+        for (int i = 0; i < level; i++) {
             sb.append("  ");
+        }
         sb.append(comp.toString());
         System.out.println(sb);
         if (comp instanceof Container) {
@@ -66,11 +67,12 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
     @Override
     public void installUI() {
         SwingUtilities.invokeLater(() -> {
-            if (!(UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel))
+            if (!(UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)) {
                 return;
+            }
 
-            titlePane = SubstanceCoreUtilities
-                    .getTitlePaneComponent(SwingUtilities.getWindowAncestor(jcomp));
+            titlePane = SubstanceCoreUtilities.getTitlePaneComponent(
+                    SwingUtilities.getWindowAncestor(jcomp));
             if (titlePane != null) {
                 substanceDebugUiListener = new MouseAdapter() {
                     @Override
@@ -84,8 +86,9 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                     }
 
                     private void process(MouseEvent e) {
-                        if (!e.isPopupTrigger())
+                        if (!e.isPopupTrigger()) {
                             return;
+                        }
 
                         JPopupMenu popup = new JPopupMenu();
                         JMenu cbMenu = new JMenu("Color blindness");
@@ -112,8 +115,9 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                                 ComponentState.ENABLED) instanceof ColorBlindColorScheme) {
                             restoreOriginal.addActionListener(
                                     new SkinChanger((SubstanceColorScheme scheme) -> {
-                                        if (scheme instanceof ColorBlindColorScheme)
+                                        if (scheme instanceof ColorBlindColorScheme) {
                                             return ((ColorBlindColorScheme) scheme).getOrigScheme();
+                                        }
                                         return scheme;
                                     }, "Current"));
                         } else {
@@ -286,8 +290,8 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
         }
 
         public void actionPerformed(ActionEvent e) {
-            SwingUtilities
-                    .invokeLater(() -> SubstanceCortex.GlobalScope.setFocusKind(newFocusKind));
+            SwingUtilities.invokeLater(
+                    () -> SubstanceCortex.GlobalScope.setFocusKind(newFocusKind));
         }
     }
 }

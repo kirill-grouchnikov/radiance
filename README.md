@@ -7,55 +7,58 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/dustcoffee2.png" width="340" height="254" border=0>
 </p>
 
-## Core libraries
+## Core Java libraries
 
 ### Neon
 
-The [Neon library](docs/neon/neon.md) provides a core set of APIs to work with images and text that scale with the display resolution. Neon icons scale to maintain crisp, pixel-perfect visuals for application icons. Font APIs can be used to render platform-consistent textual content across a variety of supported platforms.
+[Neon](docs/neon/neon.md) provides a core set of APIs to work with images and text that scale with the display resolution. Neon icons scale to maintain crisp, pixel-perfect visuals for application icons. Font APIs can be used to render platform-consistent textual content across a variety of supported platforms.
 
 ### Photon
 
-The [Photon library](docs/photon/photon.md) enables usage of vector-based icons in Swing applications. SVG content can be either loaded asynchronously at runtime from a variety of local and remote sources, or transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
+[Photon](docs/photon/photon.md) enables usage of vector-based icons in Swing applications. SVG content can be either loaded asynchronously at runtime from a variety of local and remote sources, or transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
 
 ### Trident
 
-The [Trident library](docs/trident/trident.md) provides powerful and flexible animation APIs that scale from simple, single-property cases to complex scenarios that involve multiple animations. Trident powers all animations in the Radiance libraries.
+[Trident](docs/trident/trident.md) provides powerful and flexible animation APIs that scale from simple, single-property cases to complex scenarios that involve multiple animations. Trident powers all animations in the Radiance libraries.
 
 ### Substance
 
-The [Substance library](docs/substance/substance.md) provides a powerful and flexible set of APIs that can be used to skin Swing applications to address the most demanding, modern design requirements. It comes with built-in support for all core Swing components, and a comprehensive API set for consistent rendering of third-party / application components.
+[Substance](docs/substance/substance.md) provides a powerful and flexible set of APIs that can be used to skin Swing applications to address the most demanding, modern design requirements. It comes with built-in support for all core Swing components, and a comprehensive API set for consistent rendering of third-party / application components.
 
 ### Flamingo
 
-The [Flamingo library](docs/flamingo/flamingo.md) provides a robust set of additional Swing components that can be used as building blocks for creating modern, rich Swing applications. In addition to providing powerful command button and breadcrumb bar components, Flamingo packs an Office Command Bar (ribbon) container that can host a complex hierarchy of flexible, scalable application control surface.
+[Flamingo](docs/flamingo/flamingo.md) provides a robust set of additional Swing components that can be used as building blocks for creating modern, rich Swing applications. In addition to providing powerful command button and breadcrumb bar components, Flamingo packs an Office Command Bar (ribbon) container that can host a complex hierarchy of flexible, scalable application control surface.
+
+## Core Kotlin libraries
 
 ### Meteor
 
-The [Meteor library](docs/meteor/meteor.md) is a set of Kotlin extensions that expose selected core Swing APIs for idiomatic Kotlin usage.
+[Meteor](docs/meteor/meteor.md) is a set of Kotlin extensions that expose selected core Swing APIs for idiomatic Kotlin usage.
 
 ### Ember
 
-The [Ember library](docs/ember/ember.md) is a set of Kotlin extensions that provide a more elegant way of working with scoped Substance APIs.
+[Ember](docs/ember/ember.md) is a set of Kotlin extensions that provide a more elegant way of working with scoped Substance APIs.
 
 ### Kormorant
 
-The [Kormorant library](docs/kormorant/kormorant.md) exposes the entire API surface of Flamingo as a concise, focused and approachable Kotlin domain-specific language (DSL).
+[Kormorant](docs/kormorant/kormorant.md) exposes the entire API surface of Flamingo as a concise, focused and approachable Kotlin domain-specific language (DSL). It also provides a number of Kotlin extensions for Flamingo APIs.
+
 
 ## Tools
 
-* The [Beacon plugin](docs/tools/beacon/beacon.md) is a visual runtime debugger for Substance.
+* [Beacon](docs/tools/beacon/beacon.md) is a visual runtime debugger for Substance.
 
-* The [Electra tool](docs/tools/electra/electra.md) simplifies the process of adding callout bubbles to documentation screenshots.
+* [Electra](docs/tools/electra/electra.md) simplifies the process of adding callout bubbles to documentation screenshots.
 
-* The [Hyperion editor](docs/tools/hyperion/hyperion.md) can be used creating and editing files that define custom button shapers.
+* [Hyperion](docs/tools/hyperion/hyperion.md) can be used creating and editing files that define custom button shapers.
 
-* The [Ignite plugin](docs/tools/ignite/ignite.md) wraps the Photon library to allow build-time transcoding of SVG content into Java / Kotlin classes.
+* [Ignite](docs/tools/ignite/ignite.md) is a Gradle plugin that wraps the Photon library to allow build-time transcoding of SVG content into Java / Kotlin classes.
 
-* The [Jitterbug editor](docs/tools/jitterbug/jitterbug.md) is a tool for creating and editing color scheme lists.
+* [Jitterbug](docs/tools/jitterbug/jitterbug.md) is a tool for creating and editing color scheme lists.
 
-* The [Lightbeam library](docs/tools/lightbeam/lightbeam.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
+* [Lightbeam](docs/tools/lightbeam/lightbeam.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
 
-* The [Zodiac library](docs/tools/zodiac/zodiac.md) has utilities for taking screenshots for Substance and Flamingo documentation.
+* [Zodiac](docs/tools/zodiac/zodiac.md) has utilities for taking screenshots for Substance and Flamingo documentation.
 
 ## Radiance artifacts
 

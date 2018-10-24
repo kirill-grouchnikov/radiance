@@ -35,7 +35,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants
 import org.fife.ui.rsyntaxtextarea.SyntaxScheme
 import org.fife.ui.rtextarea.RTextScrollPane
-import org.pushingpixels.meteor.awt.addDelayedActionListener
+import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.photon.transcoder.SvgStreamTranscoder
 import org.pushingpixels.photon.transcoder.java.JavaLanguageRenderer
 import java.awt.BorderLayout

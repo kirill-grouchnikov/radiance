@@ -37,6 +37,7 @@ dependencies {
     compile project(':substance')
     compile project(':substance-extras')
     compile project(':meteor')
+    compile project(':tools:tools-common')
 }
 
 ext.designation = "tools"

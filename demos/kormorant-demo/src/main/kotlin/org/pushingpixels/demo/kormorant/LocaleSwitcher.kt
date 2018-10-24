@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.kormorant;
 
-import org.pushingpixels.meteor.awt.addDelayedActionListener
+import org.pushingpixels.meteor.addDelayedActionListener
 import java.util.*
 import javax.swing.JComboBox
 

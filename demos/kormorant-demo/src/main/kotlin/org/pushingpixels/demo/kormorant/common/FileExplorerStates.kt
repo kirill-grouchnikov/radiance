@@ -39,7 +39,7 @@ import org.pushingpixels.ember.setDecorationType
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.kormorant.bcb.addDelayedPathListener
-import org.pushingpixels.meteor.awt.addDelayedActionListener
+import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSlices

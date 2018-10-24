@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.rainbow
 
-import org.pushingpixels.meteor.awt.addDelayedActionListener
+import org.pushingpixels.meteor.addDelayedActionListener
 import java.awt.*
 import java.util.*
 import javax.swing.*

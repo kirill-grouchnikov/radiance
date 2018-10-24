@@ -29,7 +29,8 @@
  */
 package org.pushingpixels.tools.jitterbug
 
-import org.pushingpixels.meteor.awt.addDelayedActionListener
+import org.pushingpixels.meteor.addDelayedActionListener
+import org.pushingpixels.meteor.swing.*
 import org.pushingpixels.substance.api.SubstanceSkin
 import org.pushingpixels.substance.api.colorscheme.BaseDarkColorScheme
 import org.pushingpixels.substance.api.colorscheme.BaseLightColorScheme
@@ -39,7 +40,6 @@ import org.pushingpixels.tools.jitterbug.svg.*
 import java.awt.*
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.PrintStream
 import java.util.regex.Pattern
 import javax.swing.*
@@ -56,6 +56,9 @@ class JColorSchemeList : JComponent() {
         private set
 
     var isModified: Boolean by Delegates.observable(false) {
+        prop, old, new -> this.firePropertyChange(prop.name, old, new)
+    }
+    var selectedColorScheme: SubstanceColorScheme? by Delegates.observable<SubstanceColorScheme?>(null) {
         prop, old, new -> this.firePropertyChange(prop.name, old, new)
     }
 
@@ -92,8 +95,7 @@ class JColorSchemeList : JComponent() {
         this.schemeList.cellRenderer = ColorSchemeListRenderer()
         this.schemeList.selectionMode = ListSelectionModel.SINGLE_SELECTION
         this.schemeList.selectionModel.addListSelectionListener {
-            val selected = schemeList.selectedValue
-            firePropertyChange("selectedColorScheme", null, selected)
+            selectedColorScheme = schemeList.selectedValue
         }
 
         val bottomButtonsPanel = JPanel(FlowLayout(FlowLayout.TRAILING))
@@ -341,9 +343,10 @@ class JColorSchemeList : JComponent() {
 
         // does the user want to save modifications?
         val fileName = if (this.currentFile == null) "Unsaved" else this.currentFile!!.name
-        val userSelection = JOptionPane.showConfirmDialog(SwingUtilities.getWindowAncestor(this),
+
+        val userSelection = this.showConfirmDialogInWindow(
                 "Do you want to save the changes to '$fileName'?", "Modified contents",
-                JOptionPane.YES_NO_CANCEL_OPTION)
+                OptionPaneConfirmType.YES_NO_CANCEL_OPTION_TYPE)
         if (userSelection == JOptionPane.CANCEL_OPTION) {
             return false
         }
@@ -359,7 +362,7 @@ class JColorSchemeList : JComponent() {
     }
 
     private fun getNewColorSchemeName(nameToStartWith: String?): String? {
-        var result: String? = JOptionPane.showInputDialog(SwingUtilities.getWindowAncestor(this),
+        var result: String? = this.showInputDialogInWindow(
                 "Type the color scheme name", nameToStartWith) ?: return null
 
         if (result == nameToStartWith) {
@@ -372,16 +375,16 @@ class JColorSchemeList : JComponent() {
         val pattern = Pattern.compile("[a-zA-Z ]+")
         val matcher = pattern.matcher(result)
         if (!matcher.matches()) {
-            JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this),
-                    "Only use letters and spaces", "Name invalid", JOptionPane.ERROR_MESSAGE)
+            this.showMessageDialogInWindow("Only use letters and spaces", "Name invalid",
+                    OptionPaneMessageType.ERROR_MESSAGE_TYPE)
             return null
         }
 
         // check for uniqueness
         val existing = this.schemes!!.get(result)
         if (existing != null) {
-            JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this),
-                    "Name already exists", "Name clash", JOptionPane.ERROR_MESSAGE)
+            this.showMessageDialogInWindow("Name already exists", "Name clash",
+                    OptionPaneMessageType.ERROR_MESSAGE_TYPE)
             return null
         }
         return result
@@ -401,21 +404,15 @@ class JColorSchemeList : JComponent() {
     }
 
     private fun saveAs(file: File?) {
-        var printStream: PrintStream? = null
-
-        try {
-            printStream = PrintStream(FileOutputStream(file!!))
+        val printStream = PrintStream(FileOutputStream(file!!))
+        printStream.use {
             for (i in 0 until this.schemes!!.size()) {
                 val colorScheme = this.schemes!!.get(i)
                 val encodedColorScheme = colorScheme.toString()
                 printStream.println(encodedColorScheme)
                 printStream.println()
             }
-        } catch (ioe: IOException) {
-            ioe.printStackTrace()
         }
-
-        printStream?.close()
         this.currentFile = file
         this.isModified = false
     }

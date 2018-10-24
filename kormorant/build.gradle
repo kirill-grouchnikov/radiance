@@ -79,7 +79,7 @@ group = 'org.pushing-pixels'
 modifyPom {
     project {
         name 'kormorant'
-        description 'Kormorant Kotlin wrapper for Flamingo components'
+        description 'Kormorant Kotlin extensions and DSL for Flamingo components'
         url 'https://github.com/kirill-grouchnikov/radiance'
         inceptionYear '2018'
         scm {

@@ -29,16 +29,17 @@
  */
 package org.pushingpixels.tools.hyperion
 
+import org.pushingpixels.meteor.addDelayedMouseListener
+import org.pushingpixels.meteor.addDelayedMouseMotionListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
+import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin
 import org.pushingpixels.substance.extras.api.shaperpack.CanonicalPath
 import org.pushingpixels.substance.extras.api.shaperpack.ShaperRepository
+import org.pushingpixels.tools.common.RadianceLogo
 import java.awt.*
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
-import java.awt.event.MouseMotionAdapter
 import java.awt.geom.Point2D
 import java.awt.image.BufferedImage
 import java.io.FileInputStream
@@ -94,93 +95,83 @@ class ShapeEditor : JFrame() {
             } else this.image!!.width.toDouble() / this.image!!.height.toDouble()
 
         init {
-            this.addMouseListener(object : MouseAdapter() {
-                override fun mousePressed(e: MouseEvent?) {
-                    if (editorFrame.addModeRB.isSelected) {
-                        if (selectedPointIndex >= 0) {
-                            // add new major point at click
-                            val major = editorFrame.majorPoints
-                            val minor = editorFrame.minorPoints
-                            val newMajor = Point2D.Double(e!!.x.toDouble() / width,
-                                    e.y.toDouble() / height)
-                            val selectedX = major!![selectedPointIndex].x
-                            val selectedY = major[selectedPointIndex].y
-                            val newMinor = Point2D.Double(
-                                    (width * selectedX + e.x) / (2.0 * width),
-                                    (height * selectedY + e.y) / (2.0 * height))
-                            major.add(selectedPointIndex + 1, newMajor)
-                            minor!!.add(selectedPointIndex, newMinor)
-                            selectedPointIndex++
+            this.addDelayedMouseListener(onMousePressed = onMousePressed@{ e ->
+                if (editorFrame.addModeRB.isSelected) {
+                    if (selectedPointIndex >= 0) {
+                        // add new major point at click
+                        val major = editorFrame.majorPoints
+                        val minor = editorFrame.minorPoints
+                        val newMajor = Point2D.Double(e!!.x.toDouble() / width,
+                                e.y.toDouble() / height)
+                        val selectedX = major!![selectedPointIndex].x
+                        val selectedY = major[selectedPointIndex].y
+                        val newMinor = Point2D.Double(
+                                (width * selectedX + e.x) / (2.0 * width),
+                                (height * selectedY + e.y) / (2.0 * height))
+                        major.add(selectedPointIndex + 1, newMajor)
+                        minor!!.add(selectedPointIndex, newMinor)
+                        selectedPointIndex++
 
-                            val majorNext = if (selectedPointIndex == major.size - 1) {
-                                major[0]
-                            } else {
-                                major[selectedPointIndex + 1]
-                            }
-                            minor[selectedPointIndex].setLocation(
-                                    0.5 * (newMajor.getX() + majorNext.x),
-                                    0.5 * (newMajor.getY() + majorNext.y))
-
-                            editorFrame.repaint()
-                            return
-                        }
-                    }
-
-                    val majorIndex = getMajorPointIndex(e!!.point)
-                    if (majorIndex >= 0) {
-                        if (editorFrame.deleteModeRB.isSelected) {
-                            if (editorFrame.majorPoints!!.size > 1) {
-                                // delete major and previous minor
-                                editorFrame.majorPoints!!.removeAt(majorIndex)
-                                val minorToRemove: Point2D
-                                if (majorIndex != 0) {
-                                    minorToRemove = editorFrame.minorPoints!![majorIndex - 1]
-                                } else {
-                                    minorToRemove = editorFrame.minorPoints!![editorFrame.minorPoints!!.size - 1]
-                                }
-                                val newMinorX = 0.5 * (minorToRemove.x + editorFrame.minorPoints!![majorIndex].x)
-                                val newMinorY = 0.5 * (minorToRemove.y + editorFrame.minorPoints!![majorIndex].y)
-                                editorFrame.minorPoints!![majorIndex].setLocation(newMinorX,
-                                        newMinorY)
-                                editorFrame.minorPoints!!.remove(minorToRemove)
-                                if (majorIndex == 0) {
-                                    editorFrame.minorPoints!!.add(editorFrame.minorPoints!!.removeAt(0))
-                                }
-                                selectedPointIndex = -1
-                            }
+                        val majorNext = if (selectedPointIndex == major.size - 1) {
+                            major[0]
                         } else {
-                            selectedPointIndex = majorIndex
-                            editorFrame.editMajorRB.isSelected = true
-                            editorFrame.isInEditMajorMode = true
+                            major[selectedPointIndex + 1]
                         }
+                        minor[selectedPointIndex].setLocation(
+                                0.5 * (newMajor.getX() + majorNext.x),
+                                0.5 * (newMajor.getY() + majorNext.y))
+
                         editorFrame.repaint()
-                        return
+                        return@onMousePressed
                     }
-                    if (!editorFrame.addModeRB.isSelected) {
-                        val minorIndex = getMinorPointIndex(e.point)
-                        if (minorIndex >= 0) {
-                            selectedPointIndex = minorIndex
-                            editorFrame.editMinorRB.isSelected = true
-                            editorFrame.isInEditMajorMode = false
-                            editorFrame.repaint()
-                            return
-                        }
-                    }
-                    selectedPointIndex = -1
-                    editorFrame.repaint()
                 }
+
+                val majorIndex = getMajorPointIndex(e!!.point)
+                if (majorIndex >= 0) {
+                    if (editorFrame.deleteModeRB.isSelected) {
+                        if (editorFrame.majorPoints!!.size > 1) {
+                            // delete major and previous minor
+                            editorFrame.majorPoints!!.removeAt(majorIndex)
+                            val minorToRemove: Point2D
+                            if (majorIndex != 0) {
+                                minorToRemove = editorFrame.minorPoints!![majorIndex - 1]
+                            } else {
+                                minorToRemove = editorFrame.minorPoints!![editorFrame.minorPoints!!.size - 1]
+                            }
+                            val newMinorX = 0.5 * (minorToRemove.x + editorFrame.minorPoints!![majorIndex].x)
+                            val newMinorY = 0.5 * (minorToRemove.y + editorFrame.minorPoints!![majorIndex].y)
+                            editorFrame.minorPoints!![majorIndex].setLocation(newMinorX,
+                                    newMinorY)
+                            editorFrame.minorPoints!!.remove(minorToRemove)
+                            if (majorIndex == 0) {
+                                editorFrame.minorPoints!!.add(editorFrame.minorPoints!!.removeAt(0))
+                            }
+                            selectedPointIndex = -1
+                        }
+                    } else {
+                        selectedPointIndex = majorIndex
+                        editorFrame.editMajorRB.isSelected = true
+                        editorFrame.isInEditMajorMode = true
+                    }
+                    editorFrame.repaint()
+                    return@onMousePressed
+                }
+                if (!editorFrame.addModeRB.isSelected) {
+                    val minorIndex = getMinorPointIndex(e.point)
+                    if (minorIndex >= 0) {
+                        selectedPointIndex = minorIndex
+                        editorFrame.editMinorRB.isSelected = true
+                        editorFrame.isInEditMajorMode = false
+                        editorFrame.repaint()
+                        return@onMousePressed
+                    }
+                }
+                selectedPointIndex = -1
+                editorFrame.repaint()
             })
 
-            this.addMouseMotionListener(object : MouseMotionAdapter() {
-                override fun mouseDragged(e: MouseEvent?) {
-                    if (!editorFrame.editModeRB.isSelected) {
-                        return
-                    }
-
-                    if (selectedPointIndex < 0) {
-                        return
-                    }
-
+            this.addDelayedMouseMotionListener(onMouseDragged = { e ->
+                if (editorFrame.editModeRB.isSelected && (selectedPointIndex >= 0)) {
                     val newX = e!!.x.toDouble() / width
                     val newY = e.y.toDouble() / height
 
@@ -305,7 +296,6 @@ class ShapeEditor : JFrame() {
             graphics.fillOval(x - radius, y - radius, 2 * radius, 2 * radius)
             graphics.color = outer
             graphics.drawOval(x - radius, y - radius, 2 * radius, 2 * radius)
-
         }
     }
 
@@ -459,12 +449,16 @@ class ShapeEditor : JFrame() {
         this.majorPoints!!.add(Point2D.Double(0.5, 0.5))
         this.minorPoints = ArrayList()
         this.minorPoints!!.add(Point2D.Double(0.55, 0.55))
+
+        this.iconImage = RadianceLogo.getLogoImage(SubstanceCortex.GlobalScope.getCurrentSkin()!!
+                .getEnabledColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE))
     }
 }
 
 fun main(args: Array<String>) {
     SwingUtilities.invokeLater {
         SubstanceCortex.GlobalScope.setSkin(BusinessBlackSteelSkin())
+
         val editor = ShapeEditor()
         editor.preferredSize = Dimension(600, 400)
         editor.size = editor.preferredSize

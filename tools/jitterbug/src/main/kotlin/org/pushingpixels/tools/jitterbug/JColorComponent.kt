@@ -29,12 +29,18 @@
  */
 package org.pushingpixels.tools.jitterbug
 
+import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
-
-import javax.swing.*
+import org.pushingpixels.trident.Timeline
+import org.pushingpixels.trident.TimelinePropertyBuilder
+import org.pushingpixels.trident.swing.SwingComponentTimeline
+import org.pushingpixels.trident.swing.SwingRepaintCallback
 import java.awt.*
-import java.awt.event.*
+import javax.swing.JColorChooser
+import javax.swing.JComponent
+import javax.swing.JRadioButton
+import kotlin.properties.Delegates
 
 class JColorComponent(name: String, color: Color?) : JComponent() {
     val radio: JRadioButton
@@ -51,6 +57,10 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
 
     val isDefined: Boolean
         get() = this.color != null
+
+    var selectedColor: Color? by Delegates.observable<Color?>(null) {
+        prop, old, new -> this.firePropertyChange(prop.name, old, new)
+    }
 
     init {
         this.radio = JRadioButton(name)
@@ -69,58 +79,59 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
     }
 
     fun setColor(color: Color?, firePropertyChange: Boolean) {
-        val old = this.color
         this.color = color
         this.repaint()
         if (firePropertyChange) {
-            this.firePropertyChange("selectedColor", old, this.color)
+            selectedColor = this.color
         }
     }
 
     private inner class ColorVisualizer : JComponent() {
-        internal var isRollover: Boolean = false
+        internal var borderThickness = 1.0f
+        internal val rolloverTimeline: SwingComponentTimeline
 
         init {
-            this.addMouseListener(object : MouseAdapter() {
-                override fun mouseClicked(e: MouseEvent?) {
-                    if (!isEnabled) {
-                        return
-                    }
+            rolloverTimeline = SwingComponentTimeline(this)
+            // TODO - switch to operate on the property directly (with accessor object)
+            // when Torch is available
+            rolloverTimeline.addPropertyToInterpolate(
+                    Timeline.property<Float>(this::borderThickness.name).from(1.0f).to(2.0f)
+                            .accessWith(object: TimelinePropertyBuilder.PropertyAccessor<Float> {
+                                override fun get(obj: Any?, fieldName: String?): Float {
+                                    return borderThickness
+                                }
 
-                    SwingUtilities.invokeLater {
-                        radio.isSelected = true
-                        val selected = JColorChooser.showDialog(this@ColorVisualizer,
-                                "Color chooser", color)
-                        if (selected != null) {
-                            val old = color
-                            color = selected
-                            this@JColorComponent.firePropertyChange("selectedColor", old,
-                                    color)
+                                override fun set(obj: Any?, fieldName: String?, value: Float?) {
+                                    borderThickness = value!!
+                                }
+                            }))
+            rolloverTimeline.duration = 80
+            rolloverTimeline.addCallback(SwingRepaintCallback(this))
+
+            this.addDelayedMouseListener(
+                    onMouseClicked = {
+                        if (isEnabled) {
+                            radio.isSelected = true
+                            val selected = JColorChooser.showDialog(this@ColorVisualizer,
+                                    "Color chooser", color)
+                            if (selected != null) {
+                                color = selected
+                                selectedColor = color
+                            }
                         }
-                    }
-                }
-
-                override fun mouseEntered(e: MouseEvent?) {
-                    if (!isEnabled) {
-                        return
-                    }
-
-                    isRollover = true
-                    repaint()
-                }
-
-                override fun mouseExited(e: MouseEvent?) {
-                    if (!isEnabled) {
-                        return
-                    }
-
-                    isRollover = false
-                    repaint()
-                }
-            })
+                    },
+                    onMouseEntered = {
+                        if (isEnabled) {
+                            rolloverTimeline.play()
+                        }
+                    },
+                    onMouseExited = {
+                        if (isEnabled) {
+                            rolloverTimeline.playReverse()
+                        }
+                    })
             this.cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)
             this.toolTipText = "Open color chooser and change the color"
-            this.isRollover = false
         }
 
         override fun paintComponent(g: Graphics) {
@@ -131,9 +142,9 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
                 if (color != null) {
                     it.color = color
                     it.fillRect(2, 2, 100, height - 4)
-                    it.stroke = BasicStroke(if (isRollover) 2.5f else 1.0f)
+                    it.stroke = BasicStroke(borderThickness)
                     it.color = color!!.darker()
-                    it.drawRect(2, 2, 99, height - 5)
+                    it.drawRect(2, 2, 99, height - 4)
 
                     it.color = Color.black
                     it.drawString(encodedColor, 108,
@@ -155,14 +166,14 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
         override fun addLayoutComponent(name: String, comp: Component) {}
 
         override fun layoutContainer(parent: Container) {
-            val cc = parent as JColorComponent
-            val width = cc.width
-            val height = cc.height
+            val jColorComponent = parent as JColorComponent
+            val width = jColorComponent.width
+            val height = jColorComponent.height
 
-            val cv = cc.visualizer
-            val cvPref = cv.preferredSize
-            cv.setBounds(width - cvPref.width, 0, cvPref.width, height)
-            cc.radio.setBounds(0, 0, width - cvPref.width, height)
+            val colorVisualizer = jColorComponent.visualizer
+            val cvPref = colorVisualizer.preferredSize
+            colorVisualizer.setBounds(width - cvPref.width, 0, cvPref.width, height)
+            jColorComponent.radio.setBounds(0, 0, width - cvPref.width, height)
         }
 
         override fun minimumLayoutSize(parent: Container): Dimension {
@@ -170,9 +181,9 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
         }
 
         override fun preferredLayoutSize(parent: Container): Dimension {
-            val cc = parent as JColorComponent
-            val cv = cc.visualizer
-            val cvPref = cv.preferredSize
+            val colorComponent = parent as JColorComponent
+            val colorVisualizer = colorComponent.visualizer
+            val cvPref = colorVisualizer.preferredSize
             return Dimension(100 + cvPref.width, cvPref.height)
         }
 

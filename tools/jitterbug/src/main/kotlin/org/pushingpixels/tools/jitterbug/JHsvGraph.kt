@@ -42,12 +42,11 @@ import javax.swing.JComponent
 
 class JHsvGraph : JComponent() {
 
-    private var colors: Array<Color>? = null
-
-    fun setColors(colors: Array<Color>?) {
-        this.colors = colors
-        this.repaint()
-    }
+    var colors: Array<Color>? = null
+        set(value) {
+            field = value
+            this.repaint()
+        }
 
     override fun paintComponent(g: Graphics) {
         val w = width
@@ -136,8 +135,7 @@ class JHsvGraph : JComponent() {
                     }
                 }
 
-                it.font = NeonCortex.getDefaultFontPolicy().getFontSet(null).controlFont.
-                        deriveFont(Font.BOLD)
+                it.font = NeonCortex.getDefaultFontPolicy().getFontSet(null).controlFont.deriveFont(Font.BOLD)
                 val labelWidth = it.fontMetrics.stringWidth("WWW") + 20
                 var xLabel = xOffset + (w - xOffset - 3 * labelWidth) / 2
 

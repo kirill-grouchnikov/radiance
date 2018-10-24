@@ -37,7 +37,7 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.ActionModelChangeInterface
 import org.pushingpixels.kormorant.colorSelectorPopupMenu
 import org.pushingpixels.kormorant.commandButton
-import org.pushingpixels.meteor.awt.DelayedActionListener
+import org.pushingpixels.meteor.DelayedActionListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon

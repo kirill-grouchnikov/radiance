@@ -100,6 +100,11 @@ public class IgniteTask extends DefaultTask {
             try (PrintWriter pw = new PrintWriter(classFilename);
                  InputStream templateStream = SvgBatchConverter.class
                          .getResourceAsStream(templateFileName)) {
+                if (templateStream == null) {
+                    logger.error("Couldn't load " + templateFileName);
+                    return;
+                }
+
                 final CountDownLatch latch = new CountDownLatch(1);
 
                 SvgTranscoder transcoder = new SvgTranscoder(file.toURI().toURL().toString(),
@@ -114,10 +119,6 @@ public class IgniteTask extends DefaultTask {
                         latch.countDown();
                     }
                 });
-                if (templateStream == null) {
-                    logger.error("Couldn't load " + templateFileName);
-                    return;
-                }
                 transcoder.transcode(templateStream);
                 latch.await();
             } catch (Exception e) {

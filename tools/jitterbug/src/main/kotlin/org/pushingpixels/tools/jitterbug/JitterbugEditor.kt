@@ -31,8 +31,8 @@ package org.pushingpixels.tools.jitterbug
 
 import com.jgoodies.forms.builder.FormBuilder
 import org.pushingpixels.ember.setContentsModified
-import org.pushingpixels.meteor.awt.addDelayedWindowListener
-import org.pushingpixels.meteor.awt.addTypedDelayedPropertyChangeListener
+import org.pushingpixels.meteor.addDelayedWindowListener
+import org.pushingpixels.meteor.addTypedDelayedPropertyChangeListener
 import org.pushingpixels.meteor.awt.forEach
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
@@ -115,7 +115,8 @@ class JitterbugEditor : JFrame(), ClipboardOwner {
 
         // wire color scheme selection in the list to the
         // color scheme component
-        this.colorSchemeList.addTypedDelayedPropertyChangeListener<SubstanceColorScheme>("selectedColorScheme") { event ->
+        this.colorSchemeList.addTypedDelayedPropertyChangeListener<SubstanceColorScheme?>(
+                JColorSchemeList::selectedColorScheme.name) { event ->
             val newSelection = event.newValue
             if (newSelection != null) {
                 colorSchemeComp.setContent(newSelection)
@@ -135,9 +136,9 @@ class JitterbugEditor : JFrame(), ClipboardOwner {
                 val colors = arrayOf(colorSchemeComp.ultraLightColor, colorSchemeComp.extraLightColor,
                         colorSchemeComp.lightColor, colorSchemeComp.midColor, colorSchemeComp.darkColor,
                         colorSchemeComp.ultraDarkColor)
-                hsvGraph.setColors(colors)
+                hsvGraph.colors = colors
             } else {
-                hsvGraph.setColors(null)
+                hsvGraph.colors = null
             }
 
             if (stateChangeType == JColorSchemeComponent.StateChangeType.MODIFIED) {
@@ -218,9 +219,9 @@ class JitterbugEditor : JFrame(), ClipboardOwner {
         }
 
         // track modification changes on the scheme list and any scheme in it
-        this.colorSchemeList.addTypedDelayedPropertyChangeListener<Boolean>(
+        this.colorSchemeList.addTypedDelayedPropertyChangeListener<Boolean?>(
                 this.colorSchemeList::isModified.name) { evt ->
-            val isModified = evt.newValue?: false
+            val isModified = evt.newValue ?: false
 
             // update the close / X button of the main frame
             this.rootPane.setContentsModified(isModified)
@@ -236,13 +237,12 @@ class JitterbugEditor : JFrame(), ClipboardOwner {
 
         val mainPanel = JPanel(BorderLayout())
         val imageComp = JImageComponent(true)
-        imageComp
-                .setLegend(arrayOf("Image panel. Use one of the following to show an image:",
-                        "\t* Right-click to paste an image from the clipboard",
-                        "\t* Drag and drop an image file from local disk or another app",
-                        "\t* Drag and drop a URL pointing to an image"))
+        imageComp.setLegend(arrayOf("Image panel. Use one of the following to show an image:",
+                "\t* Right-click to paste an image from the clipboard",
+                "\t* Drag and drop an image file from local disk or another app",
+                "\t* Drag and drop a URL pointing to an image"))
 
-        imageComp.addTypedDelayedPropertyChangeListener<Color>("selectedColor") { evt ->
+        imageComp.addTypedDelayedPropertyChangeListener<Color>(JImageComponent::selectedColor.name) { evt ->
             val selectedImageColor = evt.newValue
             val selectedColorComp = colorSchemeComp.selectedColorComponent
             selectedColorComp?.setColor(selectedImageColor, true)
@@ -296,8 +296,7 @@ class JitterbugEditor : JFrame(), ClipboardOwner {
             if (t.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
                 try {
                     dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE)
-                    val files = t
-                            .getTransferData(DataFlavor.javaFileListFlavor) as List<*>
+                    val files = t.getTransferData(DataFlavor.javaFileListFlavor) as List<*>
                     val f = files[0] as File
                     println("Reading from " + f.absolutePath)
                     colorSchemeList.setColorSchemeList(f)

@@ -55,6 +55,159 @@ this.addDelayedWindowListener(onWindowClosing = {
 
 Note that since we are not inspecting the `WindowEvent` that is passed to `onWindowClosing`, it is simply omitted from the lambda that we pass to this extension function.
 
+### Tracking property changes
+
+`Component.firePropertyChange` allows reporting bound property changes in a decoupled way. Here is how a custom Swing component might use it to track changes to a property:
+
+```java
+public class JColorSchemeList extends JComponent {
+  private boolean isModified;
+
+  public boolean isModified() {
+    return isModified;
+  }
+
+  public void setModified(boolean isModified) {
+    if (this.isModified == isModified) {
+      return;
+    }
+
+    boolean old = this.isModified;
+    this.isModified = isModified;
+    this.firePropertyChange("modified", old, isModified);
+  }
+```
+
+Now, elsewhere in the app there's code that gets notified whenever this property is modified:
+
+```java
+// track modification changes on the scheme list and any scheme in it
+this.colorSchemeList.addPropertyChangeListener("modified", (PropertyChangeEvent evt) -> {
+    boolean isModified = (Boolean) evt.getNewValue();
+    SubstanceCortex.RootPaneScope.setContentsModified(getRootPane(), isModified);
+
+    // update the main frame title
+    updateMainWindowTitle(isModified);
+
+    File currFile = colorSchemeList.getCurrentFile();
+    saveButton.setEnabled(currFile != null);
+});
+```
+
+Here we have boilerplate familiar to any Swing developer:
+* Getter and setter for each bound property.
+* Setter that returns early if the new value is the same as the current one.
+* Setter that calls `firePropertyChange` with the temporarily saved old and the new values.
+* Call to `addPropertyChangeListener` with the same exact string name for the bound property.
+* Explicit cast of the property value (new and / or old) inside that listener.
+
+What can we do to remove most, if not all, of this boilerplate? Let's start with the property itself and use Kotlin's observables:
+
+```kotlin
+class JColorSchemeList : JComponent() {
+  var isModified: Boolean by Delegates.observable(false) {
+      prop, old, new -> this.firePropertyChange(prop.name, old, new)
+  }
+```
+
+This is all we need to wire property change to integrate with the existing Swing mechanism for notifying observers on property change with `firePropertyChange`. What about the observer side?
+
+```kotlin
+// track modification changes on the scheme list and any scheme in it
+this.colorSchemeList.addTypedDelayedPropertyChangeListener<Boolean>(
+        this.colorSchemeList::isModified.name) { evt ->
+    val isModified = evt.newValue ?: false
+
+    // update the close / X button of the main frame
+    this.rootPane.setContentsModified(isModified)
+
+    // update the main frame title
+    updateMainWindowTitle(isModified)
+
+    // update the enabled state of the "save" button
+    saveButton.isEnabled = (colorSchemeList.currentFile != null)
+}
+```
+
+Here we use Meteor's typed property change listener to introduce type safety into querying the property value. For type completeness and null safety we use Kotlin's elvis operator to fall back on `false`.
+
+In addition, note the use of `::isModified.name` to make sure that both sides of the property change processing use the same underlying string name that will play well with codebase renaming and refactoring.
+
+### Working with actions
+
+Adding an action to a `JPopupMenu` in Java can look like this:
+
+```java
+JPopupMenu popupMenu = new JPopupMenu();
+popupMenu.add(new AbstractAction("remove") {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        zoomBubbles.remove(pressed.zoomBubble);
+        repaint();
+    }
+});
+```
+
+With straightforward conversion to Kotlin the code becomes:
+
+```kotlin
+val popupMenu = JPopupMenu()
+popupMenu.add(object : AbstractAction("remove") {
+    override fun actionPerformed(e: ActionEvent) {
+        zoomBubbles.remove(pressed.zoomBubble)
+        repaint()
+    }
+})
+```
+
+And with Meteor it looks like this:
+
+```kotlin
+val popupMenu = JPopupMenu()
+popupMenu.addAction("remove") {
+    zoomBubbles.remove(pressed.zoomBubble)
+    repaint()
+}
+```
+
+Wiring key strokes to actions is a two-step process that requires matching string keys:
+
+```java
+this.captionEditor = new JTextField(25);
+
+InputMap im = this.captionEditor.getInputMap();
+im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
+im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escape");
+
+ActionMap am = this.captionEditor.getActionMap();
+am.put("enter", new AbstractAction() {
+    public void actionPerformed(ActionEvent ae) {
+        stopCaptionEdit(true);
+    }
+});
+
+am.put("escape", new AbstractAction() {
+    public void actionPerformed(ActionEvent ae) {
+        stopCaptionEdit(false);
+    }
+});
+```
+
+And with Meteor it becomes a streamlined, compact expression:
+
+```kotlin
+this.captionEditor = JTextField(25)
+
+this.captionEditor.wireActionToKeyStroke("enter",
+        KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0)) {
+    stopCaptionEdit(true)
+}
+this.captionEditor.wireActionToKeyStroke("escape",
+        KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0)) {
+    stopCaptionEdit(false)
+}
+```
+
 ### Rendering with `Graphics2D`
 
 Here is how a custom `Icon` might implement a simple rectangular color fill in its `paintIcon`:
@@ -91,4 +244,4 @@ override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
 }
 ```
 
-There is no more awkward dance caused by the backwards-compatible introduction of `Graphics2D` that is still there in the core Java even 20+ years after its introduction in 1998. And there is no more forgetting to `dispose()` on the `Graphics2D` object. 
+There is no more awkward dance caused by the backwards-compatible introduction of `Graphics2D` that is still there in the core Java even 20+ years after its introduction in 1998. And there is no more forgetting to `dispose()` on the `Graphics2D` object.

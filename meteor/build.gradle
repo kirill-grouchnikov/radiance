@@ -74,7 +74,7 @@ group = 'org.pushing-pixels'
 modifyPom {
     project {
         name 'ember'
-        description 'Ember Meteor extensions for Swing APIs'
+        description 'Meteor Kotlin extensions for core Swing APIs'
         url 'https://github.com/kirill-grouchnikov/radiance'
         inceptionYear '2018'
         scm {
