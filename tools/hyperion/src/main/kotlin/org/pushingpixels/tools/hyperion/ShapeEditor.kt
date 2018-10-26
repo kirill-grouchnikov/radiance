@@ -34,7 +34,6 @@ import org.pushingpixels.meteor.addDelayedMouseMotionListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin
 import org.pushingpixels.substance.extras.api.shaperpack.CanonicalPath
 import org.pushingpixels.substance.extras.api.shaperpack.ShaperRepository
@@ -450,8 +449,7 @@ class ShapeEditor : JFrame() {
         this.minorPoints = ArrayList()
         this.minorPoints!!.add(Point2D.Double(0.55, 0.55))
 
-        this.iconImage = RadianceLogo.getLogoImage(SubstanceCortex.GlobalScope.getCurrentSkin()!!
-                .getEnabledColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE))
+        this.iconImage = RadianceLogo.getTitlePaneLogoImage()
     }
 }
 

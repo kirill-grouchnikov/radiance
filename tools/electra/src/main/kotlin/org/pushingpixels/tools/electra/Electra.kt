@@ -35,7 +35,6 @@ import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
 import org.pushingpixels.substance.api.skin.GeminiSkin
 import org.pushingpixels.tools.common.JImageComponent
 import org.pushingpixels.tools.common.RadianceLogo
@@ -51,8 +50,7 @@ fun main(args: Array<String>) {
         SubstanceCortex.GlobalScope.setSkin(GeminiSkin())
 
         val electraFrame = JFrame("Electra")
-        electraFrame.iconImage = RadianceLogo.getLogoImage(SubstanceCortex.GlobalScope.getCurrentSkin()!!
-                .getEnabledColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE))
+        electraFrame.iconImage = RadianceLogo.getTitlePaneLogoImage()
 
         electraFrame.layout = GridLayout(1, 2)
 

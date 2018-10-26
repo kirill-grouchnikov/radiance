@@ -30,6 +30,8 @@
 package org.pushingpixels.tools.common
 
 import org.pushingpixels.neon.icon.NeonIcon
+import org.pushingpixels.substance.api.SubstanceCortex
+import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
 
 import java.awt.image.BufferedImage
@@ -45,5 +47,10 @@ object RadianceLogo {
 
     fun getLogoImage(scheme: SubstanceColorScheme): BufferedImage {
         return getLogoIcon(scheme).toImage()
+    }
+
+    fun getTitlePaneLogoImage(): BufferedImage {
+        return getLogoImage(SubstanceCortex.GlobalScope.getCurrentSkin()!!
+                .getEnabledColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE))
     }
 }

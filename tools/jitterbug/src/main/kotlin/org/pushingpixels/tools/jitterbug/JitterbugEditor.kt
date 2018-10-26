@@ -31,11 +31,11 @@ package org.pushingpixels.tools.jitterbug
 
 import com.jgoodies.forms.builder.FormBuilder
 import org.pushingpixels.ember.setContentsModified
+import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.addDelayedWindowListener
 import org.pushingpixels.meteor.addTypedDelayedPropertyChangeListener
 import org.pushingpixels.meteor.awt.forEach
 import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
 import org.pushingpixels.substance.api.colorscheme.BaseDarkColorScheme
 import org.pushingpixels.substance.api.colorscheme.BaseLightColorScheme
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
@@ -59,9 +59,7 @@ class JitterbugEditor : JFrame(), ClipboardOwner {
     private val hsvGraph: JHsvGraph
 
     init {
-
-        this.iconImage = RadianceLogo.getLogoImage(SubstanceCortex.GlobalScope.getCurrentSkin()!!
-                .getEnabledColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE))
+        this.iconImage = RadianceLogo.getTitlePaneLogoImage()
 
         val leftPanelBuilder = FormBuilder.create().columns("fill:pref")
                 .rows("fill:pref, \$lg, fill:pref, \$lg, fill:pref:grow, \$lg, fill:pref")
@@ -83,22 +81,22 @@ class JitterbugEditor : JFrame(), ClipboardOwner {
 
         val saveButton = JButton("save")
         saveButton.icon = outline_save_24px.of(12, 12)
-        saveButton.addActionListener {
+        saveButton.addDelayedActionListener {
             colorSchemeList.save()
-            SwingUtilities.invokeLater { saveButton.isEnabled = false }
+            saveButton.isEnabled = false
         }
         saveButton.isEnabled = false
         controlsPanel.add(saveButton)
 
         val saveAsButton = JButton("save as...")
-        saveAsButton.addActionListener {
+        saveAsButton.addDelayedActionListener {
             colorSchemeList.saveAs()
             updateMainWindowTitle(colorSchemeList.isModified)
         }
         controlsPanel.add(saveAsButton)
 
         val newButton = JButton("new")
-        newButton.addActionListener {
+        newButton.addDelayedActionListener {
             colorSchemeList.setColorSchemeList(null)
             colorSchemeComp.clearContent()
             updateMainWindowTitle(colorSchemeList.isModified)
@@ -242,7 +240,8 @@ class JitterbugEditor : JFrame(), ClipboardOwner {
                 "\t* Drag and drop an image file from local disk or another app",
                 "\t* Drag and drop a URL pointing to an image"))
 
-        imageComp.addTypedDelayedPropertyChangeListener<Color>(JImageComponent::selectedColor.name) { evt ->
+        imageComp.addTypedDelayedPropertyChangeListener<Color>(
+                JImageComponent::selectedColor.name) { evt ->
             val selectedImageColor = evt.newValue
             val selectedColorComp = colorSchemeComp.selectedColorComponent
             selectedColorComp?.setColor(selectedImageColor, true)
@@ -251,11 +250,6 @@ class JitterbugEditor : JFrame(), ClipboardOwner {
         mainPanel.add(imageComp, BorderLayout.CENTER)
 
         this.add(mainPanel, BorderLayout.CENTER)
-
-        this.setSize(800, 700)
-        this.extendedState = JFrame.MAXIMIZED_BOTH
-        this.setLocationRelativeTo(null)
-        this.defaultCloseOperation = JFrame.DO_NOTHING_ON_CLOSE
 
         this.addDelayedWindowListener(onWindowClosing = {
             // do we need to save the modified scheme list?
@@ -311,10 +305,8 @@ class JitterbugEditor : JFrame(), ClipboardOwner {
         }
 
         override fun dragEnter(dtde: DropTargetDragEvent?) {
-            for (df in dtde!!.currentDataFlavors) {
-                val repClass = df.defaultRepresentationClass
-                val canDrop = InputStream::class.java.isAssignableFrom(repClass)
-                if (canDrop) {
+            dtde!!.currentDataFlavors.forEach {
+                if (InputStream::class.java.isAssignableFrom(it.defaultRepresentationClass)) {
                     dtde.acceptDrag(DnDConstants.ACTION_COPY_OR_MOVE)
                     return
                 }
@@ -332,6 +324,12 @@ fun main(args: Array<String>) {
     JFrame.setDefaultLookAndFeelDecorated(true)
     SwingUtilities.invokeLater {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
-        JitterbugEditor().isVisible = true
+
+        val editor = JitterbugEditor()
+        editor.setSize(800, 700)
+        editor.extendedState = JFrame.MAXIMIZED_BOTH
+        editor.setLocationRelativeTo(null)
+        editor.defaultCloseOperation = WindowConstants.DO_NOTHING_ON_CLOSE
+        editor.isVisible = true
     }
 }

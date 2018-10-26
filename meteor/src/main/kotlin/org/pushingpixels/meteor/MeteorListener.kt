@@ -45,7 +45,6 @@ import java.beans.VetoableChangeListener
 import javax.swing.*
 import javax.swing.event.*
 import javax.swing.table.AbstractTableModel
-import javax.swing.text.JTextComponent
 import javax.swing.tree.DefaultTreeModel
 import javax.swing.tree.DefaultTreeSelectionModel
 
