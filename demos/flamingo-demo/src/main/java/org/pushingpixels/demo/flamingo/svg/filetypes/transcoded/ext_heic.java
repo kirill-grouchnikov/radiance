@@ -329,11 +329,11 @@ g.setTransform(defaultTransform_);
 	}
     
     /**
-     * Returns an instance of this icon with specified dimensions.
+     * Returns a new instance of this icon with specified dimensions.
      *
      * @param width Required width of the icon
      * @param height Required height of the icon
-     * @return An instance of this icon with specified dimensions.
+     * @return A new instance of this icon with specified dimensions.
      */
     public static NeonIcon of(int width, int height) {
        ext_heic base = new ext_heic();
@@ -343,11 +343,11 @@ g.setTransform(defaultTransform_);
     }
 
     /**
-     * Returns a {@link UIResource} instance of this icon with specified dimensions.
+     * Returns a new {@link UIResource} instance of this icon with specified dimensions.
      *
      * @param width Required width of the icon
      * @param height Required height of the icon
-     * @return A {@link UIResource} instance of this icon with specified dimensions.
+     * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
     public static NeonIconUIResource uiResourceOf(int width, int height) {
        ext_heic base = new ext_heic();

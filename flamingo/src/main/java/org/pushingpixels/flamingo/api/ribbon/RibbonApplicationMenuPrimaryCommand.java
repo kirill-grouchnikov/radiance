@@ -80,10 +80,8 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
          * Called when the matching primary menu item is activated.
          *
          * @param targetPanel The secondary panel of the {@link RibbonApplicationMenu}. Note that
-         *                    the
-         *                    application code <strong>must not</strong> change the parent
-         *                    hierarchy of this
-         *                    panel.
+         *                    the application code <strong>must not</strong> change the parent
+         *                    hierarchy of this panel.
          */
         void menuEntryActivated(JPanel targetPanel);
     }
@@ -198,11 +196,8 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
         public synchronized RibbonApplicationMenuPrimaryCommandBuilder addSecondaryMenuGroup(
                 String groupTitle, FlamingoCommand... secondaryCommands) {
             this.groupTitles.add(groupTitle);
-            List<FlamingoCommand> entryList = new ArrayList<>();
+            List<FlamingoCommand> entryList = Arrays.asList(secondaryCommands);
             this.groupEntries.add(entryList);
-            for (FlamingoCommand entry : secondaryCommands) {
-                entryList.add(entry);
-            }
             return this;
         }
 

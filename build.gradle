@@ -115,6 +115,9 @@ task getCoreDependencies(type: Copy) {
     from {
         subprojects.findAll { it.designation == "core" }.collect { it.configurations.runtime }
     }
+    doLast {
+        println("Copied all core dependencies to build/libs-core")
+    }
 }
 
 // Collects all the dependencies of the demo sub-projects in build/libs-demo
@@ -122,6 +125,9 @@ task getDemoDependencies(type: Copy) {
     into 'build/libs-demo'
     from {
         subprojects.findAll { it.designation == "demo" && it.name != "demos" }.collect { it.configurations.runtime }
+    }
+    doLast {
+        println("Copied all demo dependencies to build/libs-demo")
     }
 }
 
@@ -131,7 +137,12 @@ task getToolsDependencies(type: Copy) {
     from {
         subprojects.findAll { it.designation == "tools" && it.name != "tools" }.collect { it.configurations.runtime }
     }
+    doLast {
+        println("Copied all tools dependencies to build/libs-tools")
+    }
 }
+
+task getAllDependencies(type: Copy, dependsOn: [getCoreDependencies, getDemoDependencies, getToolsDependencies])
 
 wrapper {
     gradleVersion = "4.10.2"

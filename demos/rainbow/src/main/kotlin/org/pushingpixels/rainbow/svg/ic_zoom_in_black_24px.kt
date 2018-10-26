@@ -133,22 +133,22 @@ g.transform = defaultTransform_
         }
 
         /**
-         * Returns an instance of this icon with specified dimensions.
+         * Returns a new instance of this icon with specified dimensions.
          *
          * @param width Required width of the icon
          * @param height Required height of the icon
-         * @return An instance of this icon with specified dimensions.
+         * @return A new instance of this icon with specified dimensions.
          */
         fun of(width: Int, height: Int): NeonIcon {
             return NeonIcon(ic_zoom_in_black_24px(width, height))
         }
 
         /**
-         * Returns a [UIResource] instance of this icon with specified dimensions.
+         * Returns a new [UIResource] instance of this icon with specified dimensions.
          *
          * @param width Required width of the icon
          * @param height Required height of the icon
-         * @return A [UIResource] instance of this icon with specified dimensions.
+         * @return A new [UIResource] instance of this icon with specified dimensions.
          */
         fun uiResourceOf(width: Int, height: Int): NeonIconUIResource {
             return NeonIconUIResource(ic_zoom_in_black_24px(width, height))

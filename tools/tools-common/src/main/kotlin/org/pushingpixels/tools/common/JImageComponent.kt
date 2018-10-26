@@ -194,7 +194,6 @@ class JImageComponent(hasKeyboardZoom: Boolean) : JPanel() {
                                     if (Image::class.java == flavor.representationClass) {
                                         val data = clipboard.getData(flavor) as Image
 
-                                        val old = image
                                         originalFile = null
                                         image = BufferedImage(data.getWidth(null),
                                                 data.getHeight(null),

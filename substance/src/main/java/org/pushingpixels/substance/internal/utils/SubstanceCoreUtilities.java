@@ -1139,7 +1139,7 @@ public class SubstanceCoreUtilities {
 
     /**
      * Creates a soft-clipped image. Code taken from
-     * <a href= "http://weblogs.java.net/blog/campbell/archive/2006/07/java_2d_tricker.html"
+     * <a href= "https://community.oracle.com/blogs/campbell/2006/07/27/java-2d-trickery-light-and-shadow"
      * >here</a>.
      * 
      * @author Chris Campbell.

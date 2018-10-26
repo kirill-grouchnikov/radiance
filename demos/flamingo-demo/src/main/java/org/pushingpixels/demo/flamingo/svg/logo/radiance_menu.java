@@ -1,10 +1,13 @@
 package org.pushingpixels.demo.flamingo.svg.logo;
 
-import org.pushingpixels.neon.icon.*;
-
-import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.geom.*;
+import javax.swing.plaf.UIResource;
+
+import org.pushingpixels.neon.icon.IsHiDpiAware;
+import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.NeonIcon;
+import org.pushingpixels.neon.icon.NeonIconUIResource;
 
 /**
  * This class has been automatically generated using <a
@@ -176,11 +179,11 @@ g.setTransform(defaultTransform_);
 	}
     
     /**
-     * Returns an instance of this icon with specified dimensions.
+     * Returns a new instance of this icon with specified dimensions.
      *
      * @param width Required width of the icon
      * @param height Required height of the icon
-     * @return An instance of this icon with specified dimensions.
+     * @return A new instance of this icon with specified dimensions.
      */
     public static NeonIcon of(int width, int height) {
        radiance_menu base = new radiance_menu();
@@ -190,11 +193,11 @@ g.setTransform(defaultTransform_);
     }
 
     /**
-     * Returns a {@link UIResource} instance of this icon with specified dimensions.
+     * Returns a new {@link UIResource} instance of this icon with specified dimensions.
      *
      * @param width Required width of the icon
      * @param height Required height of the icon
-     * @return A {@link UIResource} instance of this icon with specified dimensions.
+     * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
     public static NeonIconUIResource uiResourceOf(int width, int height) {
        radiance_menu base = new radiance_menu();
