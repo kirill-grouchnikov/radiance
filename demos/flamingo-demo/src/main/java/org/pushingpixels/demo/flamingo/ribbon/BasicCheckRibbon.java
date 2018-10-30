@@ -667,7 +667,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(Color.black);
                         NeonCortex.installDesktopHints(g2d, c);
-                        g2d.setFont(UIManager.getFont("Label.font"));
+                        g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
+                                getControlFont());
                         g2d.drawString("" + index, x + 2, y + height - 2);
                         g2d.dispose();
                     });
@@ -678,10 +679,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     .setToggleSelected(i == 1).build();
 
             // jrb.setName("Style " + i);
-            if (i < 10)
+            if (i < 10) {
                 stylesGalleryCommandsList.add(ribbonCommand);
-            else
+            } else {
                 stylesGalleryCommandsList2.add(ribbonCommand);
+            }
         }
 
         stylesGalleryCommands.add(new StringValuePair<>(
@@ -1219,6 +1221,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setTitle(resourceBundle.getString("Seasons.tooltip.title"))
                 .build());
         ribbon.addTaskbarComponent(seasonComboWrapper);
+
+        ribbon.addTaskbarGalleryDropdown(ribbon.getTask(0).getBand(1), "Styles",
+                Font_x_generic.of(16, 16));
     }
 
     protected void configureApplicationMenu() {
@@ -1744,7 +1749,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             Rectangle r = GraphicsEnvironment.getLocalGraphicsEnvironment()
                     .getMaximumWindowBounds();
             c.setPreferredSize(new Dimension(r.width, r.height / 2));
-            c.setMinimumSize(new Dimension(r.width / 10, r.height / 2));
+            c.setMinimumSize(new Dimension(r.width / 10, r.height / 4));
             c.pack();
             c.setLocation(r.x, r.y);
             c.setVisible(true);

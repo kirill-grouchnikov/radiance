@@ -42,7 +42,7 @@ import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
 import org.pushingpixels.substance.api.shaper.StandardButtonShaper;
 
 /**
- * <code>Mist Silver</code> skin. This class is experimental.
+ * <code>Mist Silver</code> skin.
  * 
  * @author Kirill Grouchnikov
  */

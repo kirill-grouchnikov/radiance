@@ -48,6 +48,7 @@ import java.util.*;
  * RibbonElementPriority)
  */
 public class JRibbonGallery extends JComponent {
+    private static final String COMMAND = "radiance.flamingo.internal.galleryCommand";
     /**
      * The buttons of <code>this</code> gallery.
      */
@@ -61,38 +62,33 @@ public class JRibbonGallery extends JComponent {
     /**
      * Button group for ensuring that only one button is selected.
      */
-    protected CommandToggleButtonGroup buttonSelectionGroup;
+    private CommandToggleButtonGroup buttonSelectionGroup;
 
     /**
      * The current display priority of <code>this</code> in-ribbon gallery.
      */
-    protected RibbonElementPriority displayPriority;
+    private RibbonElementPriority displayPriority;
 
     /**
      * Preferred widths for each possible display state (set in the user code according to design
      * preferences).
      */
-    protected Map<RibbonElementPriority, Integer> preferredVisibleIconCount;
+    private Map<RibbonElementPriority, Integer> preferredVisibleIconCount;
 
     /**
      * Gallery command groups.
      */
-    protected List<StringValuePair<List<FlamingoCommand>>> commandGroups;
+    private List<StringValuePair<List<FlamingoCommand>>> commandGroups;
 
     /**
      * Preferred maximum number of button columns for the popup panel.
      */
-    protected int preferredPopupMaxButtonColumns;
+    private int preferredPopupMaxButtonColumns;
 
     /**
      * Preferred maximum number of visible button rows for the popup panel.
      */
-    protected int preferredPopupMaxVisibleButtonRows;
-
-    /**
-     * Indication whether the ribbon gallery is showing the popup panel.
-     */
-    protected boolean isShowingPopupPanel;
+    private int preferredPopupMaxVisibleButtonRows;
 
     protected RibbonGalleryPopupCallback popupCallback;
 
@@ -125,7 +121,6 @@ public class JRibbonGallery extends JComponent {
         for (RibbonElementPriority state : RibbonElementPriority.values())
             this.preferredVisibleIconCount.put(state, 100);
 
-        this.isShowingPopupPanel = false;
         this.buttonDisplayState = JRibbonBand.BIG_FIXED_LANDSCAPE;
 
         this.updateUI();
@@ -183,8 +178,7 @@ public class JRibbonGallery extends JComponent {
         String commandGroupName = commandGroup.getKey();
         // find the index to add
         int indexToAdd = 0;
-        for (int i = 0; i < this.commandGroups.size(); i++) {
-            StringValuePair<List<FlamingoCommand>> commandGroupPair = this.commandGroups.get(i);
+        for (StringValuePair<List<FlamingoCommand>> commandGroupPair: this.commandGroups) {
             String currGroupName = commandGroupPair.getKey();
             indexToAdd += commandGroupPair.getValue().size();
             if ((currGroupName == null) && (commandGroupName == null)) {
@@ -369,14 +363,17 @@ public class JRibbonGallery extends JComponent {
     }
 
     /**
-     * Returns the associated popup gallery.
+     * Creates a popup panel with all the gallery buttons.
      *
-     * @return The associated popup gallery.
+     * @return The popup panel with all the gallery buttons.
      */
-    public JCommandButtonPanel getPopupButtonPanel() {
+    JCommandButtonPanel createPopupButtonPanel() {
+        CommandToggleButtonGroup buttonGroup = new CommandToggleButtonGroup();
         JCommandButtonPanel buttonPanel = new JCommandButtonPanel(this.buttonDisplayState);
         buttonPanel.setMaxButtonColumns(this.preferredPopupMaxButtonColumns);
         buttonPanel.setToShowGroupLabels(true);
+        buttonPanel.setSingleSelectionMode(true);
+
         for (StringValuePair<List<FlamingoCommand>> commandGroupEntry : this.commandGroups) {
             String groupName = commandGroupEntry.getKey();
             if (groupName == null) {
@@ -384,48 +381,25 @@ public class JRibbonGallery extends JComponent {
             }
             buttonPanel.addButtonGroup(groupName);
             for (FlamingoCommand command : commandGroupEntry.getValue()) {
-                JCommandToggleButton button = this.buttons.get(this.commands.indexOf(command));
-                // set the button to visible (the gallery hides the buttons
-                // that don't fit the front row).
+                JCommandToggleButton button = (JCommandToggleButton) command.buildButton();
+                button.putClientProperty(COMMAND, command);
+                buttonGroup.add(button);
+                button.setDisplayState(this.buttonDisplayState);
+                if (this.buttonSelectionGroup.getSelected() ==
+                        this.buttons.get(this.commands.indexOf(command))) {
+                    button.getActionModel().setSelected(true);
+                }
                 button.setVisible(true);
                 buttonPanel.addButtonToLastGroup(button);
             }
         }
-        // just to make sure that the button panel will not try to add
-        // the buttons to its own button group
-        buttonPanel.setSingleSelectionMode(true);
+
         return buttonPanel;
     }
 
-    /**
-     * Sets indication whether the popup panel is showing.
-     *
-     * @param isShowingPopupPanel Indication whether the popup panel is showing.
-     */
-    public void setShowingPopupPanel(boolean isShowingPopupPanel) {
-        this.isShowingPopupPanel = isShowingPopupPanel;
-
-        if (!isShowingPopupPanel) {
-            // populate the ribbon gallery back
-            for (StringValuePair<List<FlamingoCommand>> commandGroupEntry : this.commandGroups) {
-                for (FlamingoCommand command : commandGroupEntry.getValue()) {
-                    JCommandToggleButton button = this.buttons.get(this.commands.indexOf(command));
-                    button.setDisplayState(this.buttonDisplayState);
-                    this.add(button);
-                }
-            }
-            // and layout
-            this.doLayout();
-        }
-    }
-
-    /**
-     * Returns indication whether the popup panel is showing.
-     *
-     * @return <code>true</code> if the popup panel is showing, <code>false</code> otherwise.
-     */
-    public boolean isShowingPopupPanel() {
-        return this.isShowingPopupPanel;
+    FlamingoCommand getCommandForButtonInPopupPanel(JCommandButtonPanel panel) {
+        JCommandToggleButton newSelection = panel.getSelectedButton();
+        return (FlamingoCommand) newSelection.getClientProperty(COMMAND);
     }
 
     /**

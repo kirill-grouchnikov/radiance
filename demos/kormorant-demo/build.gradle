@@ -44,12 +44,6 @@ dependencies {
     compile ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")
 }
 
-kotlin {
-    experimental {
-        coroutines 'enable'
-    }
-}
-
 ext.designation = "demo"
 
 jar {

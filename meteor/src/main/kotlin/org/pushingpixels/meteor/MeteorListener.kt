@@ -31,10 +31,10 @@
 
 package org.pushingpixels.meteor
 
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.swing.Swing
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import java.awt.*
 import java.awt.List
 import java.awt.dnd.*

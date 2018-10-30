@@ -55,12 +55,6 @@ javadoc {
     failOnError = false
 }
 
-kotlin {
-    experimental {
-        coroutines 'enable'
-    }
-}
-
 jar {
     baseName = "${rootProject.name}-kormorant"
     manifest {

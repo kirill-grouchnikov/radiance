@@ -32,6 +32,7 @@ package org.pushingpixels.flamingo.api.ribbon;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -264,7 +265,7 @@ public class JRibbon extends JComponent {
      * @see #removeTaskbarComponent(JRibbonComponent)
      * @see #clearTaskbar()
      */
-    public synchronized  void addTaskbarComponent(JRibbonComponent ribbonComponent) {
+    public synchronized void addTaskbarComponent(JRibbonComponent ribbonComponent) {
         String caption = ribbonComponent.getCaption();
         if ((caption != null) && (caption.length() > 0)) {
             throw new IllegalArgumentException("Taskbar ribbon components do not support captions");
@@ -289,6 +290,17 @@ public class JRibbon extends JComponent {
         this.fireStateChanged();
 
         return result;
+    }
+
+    public synchronized void addTaskbarGalleryDropdown(AbstractRibbonBand fromBand,
+            String galleryName, ResizableIcon icon) {
+        JCommandButton galleryDropdownButton = new JCommandButton(icon);
+        galleryDropdownButton.setDisplayState(CommandButtonDisplayState.SMALL);
+        galleryDropdownButton.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
+        fromBand.getUI().configureForGalleryDropdown(galleryName, galleryDropdownButton);
+
+        this.taskbarComponents.add(galleryDropdownButton);
+        this.fireStateChanged();
     }
 
     /**

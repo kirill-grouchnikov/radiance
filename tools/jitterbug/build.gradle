@@ -44,12 +44,6 @@ dependencies {
 
 ext.designation = "tools"
 
-kotlin {
-    experimental {
-        coroutines 'enable'
-    }
-}
-
 jar {
     baseName = "${rootProject.name}-jitterbug"
     manifest {

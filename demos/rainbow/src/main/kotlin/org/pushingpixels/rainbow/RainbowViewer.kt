@@ -32,11 +32,11 @@
 package org.pushingpixels.rainbow
 
 import com.jgoodies.forms.builder.FormBuilder
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.swing.Swing
-import kotlinx.coroutines.experimental.withContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
+import kotlinx.coroutines.withContext
 import org.jdesktop.jxlayer.JXLayer
 import org.jdesktop.jxlayer.plaf.ext.MouseScrollableUI
 import org.jdesktop.jxlayer.plaf.ext.SpotLightUI
@@ -219,6 +219,8 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
         val statusBarPanel = statusBarBuilder.build()
         statusBarPanel.setDecorationType(DecorationAreaType.GENERAL)
         this.add(statusBarPanel, BorderLayout.SOUTH)
+
+        this.iconImage = RadianceLogo.getTitlePaneLogoImage()
     }
 
     /**

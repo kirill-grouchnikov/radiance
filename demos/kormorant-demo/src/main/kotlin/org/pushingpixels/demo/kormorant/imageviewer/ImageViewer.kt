@@ -1,10 +1,10 @@
 package org.pushingpixels.demo.kormorant.imageviewer
 
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.swing.Swing
-import kotlinx.coroutines.experimental.withContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
+import kotlinx.coroutines.withContext
 import org.pushingpixels.demo.kormorant.RadianceLogo
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel

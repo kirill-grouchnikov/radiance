@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.demo.kormorant.bcb
 
-import kotlinx.coroutines.experimental.*
-import kotlinx.coroutines.experimental.swing.Swing
+import kotlinx.coroutines.*
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.demo.kormorant.RadianceLogo
 import org.pushingpixels.demo.kormorant.common.ExplorerFileViewPanel
 import org.pushingpixels.ember.setDecorationType

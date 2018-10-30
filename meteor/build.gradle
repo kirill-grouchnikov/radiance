@@ -50,12 +50,6 @@ dependencies {
 
 ext.designation = "core"
 
-kotlin {
-    experimental {
-        coroutines 'enable'
-    }
-}
-
 jar {
     baseName = "${rootProject.name}-meteor"
     manifest {

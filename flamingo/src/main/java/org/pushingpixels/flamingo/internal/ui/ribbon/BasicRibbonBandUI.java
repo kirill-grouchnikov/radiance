@@ -262,11 +262,11 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         if (this.collapsedButton.isVisible()) {
             // restore the control panel to the ribbon band.
             CollapsedButtonPopupPanel popupPanel = (collapsedButton.getPopupCallback() == null)
-                                                   ? null
-                                                   :
-                                                   (CollapsedButtonPopupPanel) collapsedButton
-                                                           .getPopupCallback()
-                                                           .getPopupPanel(collapsedButton);
+                    ? null
+                    :
+                    (CollapsedButtonPopupPanel) collapsedButton
+                            .getPopupCallback()
+                            .getPopupPanel(collapsedButton);
             if (popupPanel != null) {
                 AbstractRibbonBand bandFromPopup = (AbstractRibbonBand) popupPanel
                         .removeComponent();
@@ -335,10 +335,10 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             AbstractBandControlPanel controlPanel = ribbonBand.getControlPanel();
             boolean useCollapsedButton = (controlPanel == null) || !controlPanel.isVisible();
             int width = useCollapsedButton ? collapsedButton.getPreferredSize().width
-                                           : controlPanel.getPreferredSize().width;
+                    : controlPanel.getPreferredSize().width;
             int height = (useCollapsedButton ? collapsedButton.getPreferredSize().height
-                                             :
-                          controlPanel.getPreferredSize().height) + getBandTitleHeight();
+                    :
+                    controlPanel.getPreferredSize().height) + getBandTitleHeight();
 
             // System.out.println(ribbonBand.getTitle() + ":" + height);
 
@@ -361,10 +361,10 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             AbstractBandControlPanel controlPanel = ribbonBand.getControlPanel();
             boolean useCollapsedButton = (controlPanel == null) || (!controlPanel.isVisible());
             int width = useCollapsedButton ? collapsedButton.getMinimumSize().width
-                                           : controlPanel.getMinimumSize().width;
+                    : controlPanel.getMinimumSize().width;
             int height = useCollapsedButton
-                         ? collapsedButton.getMinimumSize().height + getBandTitleHeight()
-                         : controlPanel.getMinimumSize().height + getBandTitleHeight();
+                    ? collapsedButton.getMinimumSize().height + getBandTitleHeight()
+                    : controlPanel.getMinimumSize().height + getBandTitleHeight();
 
             // System.out.println(useCollapsedButton + ":" + height);
 
@@ -447,7 +447,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
 
             AbstractBandControlPanel controlPanel = ribbonBand.getControlPanel();
             controlPanel.setVisible(true);
-            controlPanel.setBounds(ins.left, extraTop + ins.top, c.getWidth() - ins.left - ins.right,
+            controlPanel.setBounds(ins.left, extraTop + ins.top,
+                    c.getWidth() - ins.left - ins.right,
                     c.getHeight() - getBandTitleHeight() - extraTop - ins.top - ins.bottom);
             controlPanel.doLayout();
 
@@ -597,5 +598,18 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         Dimension collapsedPreferredSize = this.collapsedButton.getPreferredSize();
         return Math.min((int) (collapsedPreferredSize.height * 1.25),
                 collapsedPreferredSize.width + 2);
+    }
+
+    @Override
+    public void configureForGalleryDropdown(String galleryName, JCommandButton button) {
+        if (this.ribbonBand instanceof JRibbonBand) {
+            JBandControlPanel controlPanel =
+                    (JBandControlPanel) this.ribbonBand.getControlPanel();
+            JRibbonGallery gallery = controlPanel.getRibbonGallery(galleryName);
+            // Configure the button popup callback to display the expanded popup menu
+            // for the gallery
+            button.setPopupCallback((JCommandButton commandButton) ->
+                            ((BasicRibbonGalleryUI) gallery.getUI()).getExpandPopupMenu(button));
+        }
     }
 }

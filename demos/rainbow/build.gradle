@@ -48,12 +48,6 @@ dependencies {
 
 ext.designation = "demo"
 
-kotlin {
-    experimental {
-        coroutines 'enable'
-    }
-}
-
 jar {
     baseName = "${rootProject.name}-rainbow"
     manifest {

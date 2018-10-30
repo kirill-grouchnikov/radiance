@@ -119,7 +119,7 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
      * @see #getGroupCount()
      * @see #getGroupTitleAt(int)
      */
-    protected List<String> groupTitles;
+    private List<String> groupTitles;
 
     /**
      * List of all button groups.
@@ -136,7 +136,7 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
      * @see #getMaxButtonColumns()
      * @see #setMaxButtonColumns(int)
      */
-    protected int maxButtonColumns;
+    private int maxButtonColumns;
 
     /**
      * Maximum number of rows for this panel. Relevant only when the layout kind
@@ -145,7 +145,7 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
      * @see #getMaxButtonRows()
      * @see #setMaxButtonRows(int)
      */
-    protected int maxButtonRows;
+    private int maxButtonRows;
 
     /**
      * Indicates the selection mode for the {@link JCommandToggleButton} in this
@@ -153,7 +153,7 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
      *
      * @see #setSingleSelectionMode(boolean)
      */
-    protected boolean isSingleSelectionMode;
+    private boolean isSingleSelectionMode;
 
     /**
      * If <code>true</code>, the panel will show group labels.
@@ -161,12 +161,12 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
      * @see #setToShowGroupLabels(boolean)
      * @see #isToShowGroupLabels()
      */
-    protected boolean toShowGroupLabels;
+    private boolean toShowGroupLabels;
 
     /**
      * The button group for the single selection mode.
      */
-    protected CommandToggleButtonGroup buttonGroup;
+    private CommandToggleButtonGroup buttonGroup;
 
     /**
      * Current icon dimension.
@@ -184,7 +184,7 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
      * @see #getLayoutKind()
      * @see #setLayoutKind(LayoutKind)
      */
-    protected LayoutKind layoutKind;
+    private LayoutKind layoutKind;
 
     /**
      * Enumerates the available layout kinds.
@@ -207,8 +207,8 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
      * Creates a new panel.
      */
     protected JCommandButtonPanel() {
-        this.buttons = new ArrayList<List<AbstractCommandButton>>();
-        this.groupTitles = new ArrayList<String>();
+        this.buttons = new ArrayList<>();
+        this.groupTitles = new ArrayList<>();
         this.maxButtonColumns = -1;
         this.maxButtonRows = -1;
         this.isSingleSelectionMode = false;
@@ -251,7 +251,7 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
      */
     public void addButtonGroup(String buttonGroupName, int groupIndex) {
         this.groupTitles.add(groupIndex, buttonGroupName);
-        List<AbstractCommandButton> list = new ArrayList<AbstractCommandButton>();
+        List<AbstractCommandButton> list = new ArrayList<>();
         this.buttons.add(groupIndex, list);
         this.fireStateChanged();
     }
@@ -538,8 +538,9 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
      * @see #getSelectedButton()
      */
     public void setSingleSelectionMode(boolean isSingleSelectionMode) {
-        if (this.isSingleSelectionMode == isSingleSelectionMode)
+        if (this.isSingleSelectionMode == isSingleSelectionMode) {
             return;
+        }
 
         this.isSingleSelectionMode = isSingleSelectionMode;
         if (this.isSingleSelectionMode) {
@@ -656,8 +657,9 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
                 for (AbstractCommandButton jrb : ljrb) {
                     if (jrb instanceof JCommandToggleButton) {
                         JCommandToggleButton jctb = (JCommandToggleButton) jrb;
-                        if (jctb.getActionModel().isSelected())
+                        if (jctb.getActionModel().isSelected()) {
                             return jctb;
+                        }
                     }
                 }
             }

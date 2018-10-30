@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 
 import javax.swing.plaf.ComponentUI;
@@ -42,4 +43,6 @@ public abstract class RibbonBandUI extends ComponentUI {
 	public abstract int getPreferredCollapsedWidth();
 
 	public abstract int getBandTitleHeight();
+
+	public abstract void configureForGalleryDropdown(String galleryName, JCommandButton button);
 }

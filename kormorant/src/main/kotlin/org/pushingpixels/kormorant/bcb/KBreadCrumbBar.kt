@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.kormorant.bcb
 
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.swing.Swing
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarModel
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathListener

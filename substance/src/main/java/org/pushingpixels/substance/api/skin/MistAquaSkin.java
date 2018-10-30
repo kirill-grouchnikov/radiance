@@ -41,7 +41,7 @@ import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
 import org.pushingpixels.substance.api.shaper.StandardButtonShaper;
 
 /**
- * <code>Mist Aqua</code> skin. This class is experimental.
+ * <code>Mist Aqua</code> skin.
  * 
  * @author Kirill Grouchnikov
  */

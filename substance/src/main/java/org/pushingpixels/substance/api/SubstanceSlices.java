@@ -1021,12 +1021,8 @@ public final class SubstanceSlices {
     }
 
     /**
-     * Defies a single facet of core and custom {@link ComponentState}s. See Javadocs of the
+     * Defines a single facet of core and custom {@link ComponentState}s. See Javadocs of the
      * {@link ComponentState} class for more information on state facets.
-     *
-     * <p>
-     * This class is experimental API and is likely to change in the next few releases.
-     * </p>
      */
     public final static class ComponentStateFacet {
         int value;

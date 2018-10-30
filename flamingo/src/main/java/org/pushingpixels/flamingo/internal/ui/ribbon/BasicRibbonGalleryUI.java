@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
@@ -47,7 +47,7 @@ import java.beans.*;
 
 /**
  * Basic UI for ribbon gallery {@link JRibbonGallery}.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
@@ -59,65 +59,58 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     /**
      * The index of the first visible button.
      */
-    protected int firstVisibleButtonIndex;
+    private int firstVisibleButtonIndex;
 
     /**
      * The count of visible buttons.
      */
-    protected int visibleButtonsInEachRow;
+    private int visibleButtonsInEachRow;
 
-    protected int visibleButtonRowNumber;
+    private int visibleButtonRowNumber;
 
     /**
      * The button that scrolls down the associated {@link #ribbonGallery}.
      */
-    protected JCommandButton scrollDownButton;
+    private JCommandButton scrollDownButton;
 
     /**
      * The button that scrolls up the associated {@link #ribbonGallery}.
      */
-    protected JCommandButton scrollUpButton;
+    private JCommandButton scrollUpButton;
 
     /**
      * The button that shows the associated popup gallery.
      */
-    protected ExpandCommandButton expandActionButton;
+    private ExpandCommandButton expandActionButton;
 
     /**
      * Contains the scroll down, scroll up and show popup buttons.
-     * 
+     *
      * @see #scrollDownButton
      * @see #scrollUpButton
      * @see #expandActionButton
      */
-    protected JCommandButtonStrip buttonStrip;
+    private JCommandButtonStrip buttonStrip;
 
     /**
      * Listener on the gallery scroll-down button.
      */
-    protected ActionListener scrollDownListener;
+    private ActionListener scrollDownListener;
 
     /**
      * Listener on the gallery scroll-up button.
      */
-    protected ActionListener scrollUpListener;
+    private ActionListener scrollUpListener;
 
     /**
      * Listener on the gallery expand button.
      */
-    protected ActionListener expandListener;
-
-    /**
-     * Listener on the {@link PopupPanelManager} changes to sync the
-     * {@link JRibbonGallery#setShowingPopupPanel(boolean)} once the popup gallery is dismissed by
-     * the user.
-     */
-    protected PopupPanelManager.PopupListener popupListener;
+    private ActionListener expandListener;
 
     /**
      * Property change listener.
      */
-    protected PropertyChangeListener propertyChangeListener;
+    private PropertyChangeListener propertyChangeListener;
 
     /**
      * Ribbon gallery margin.
@@ -126,26 +119,17 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
     /**
      * Button strip as a UI resource.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
-    protected static class JButtonStripUIResource extends JCommandButtonStrip
+    private static class JButtonStripUIResource extends JCommandButtonStrip
             implements UIResource {
-
         /**
          * Creates a new UI-resource button strip.
+         *
+         * @param orientation Orientation for this strip.
          */
-        public JButtonStripUIResource() {
-            super();
-        }
-
-        /**
-         * Creates a new UI-resource button strip.
-         * 
-         * @param orientation
-         *            Orientation for this strip.
-         */
-        public JButtonStripUIResource(StripOrientation orientation) {
+        private JButtonStripUIResource(StripOrientation orientation) {
             super(orientation);
         }
     }
@@ -154,7 +138,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     public void installUI(JComponent c) {
         this.ribbonGallery = (JRibbonGallery) c;
         this.firstVisibleButtonIndex = 0;
-        // this.visibleButtonsCount = 0;
 
         this.installDefaults();
         this.installComponents();
@@ -183,7 +166,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
     /**
      * Creates the scroll-down button.
-     * 
+     *
      * @return Scroll-down button.
      */
     protected JCommandButton createScrollDownButton() {
@@ -198,7 +181,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
     /**
      * Creates the scroll-up button.
-     * 
+     *
      * @return Scroll-up button.
      */
     protected JCommandButton createScrollUpButton() {
@@ -213,7 +196,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
     /**
      * Creates the expand button.
-     * 
+     *
      * @return Expand button.
      */
     protected ExpandCommandButton createExpandButton() {
@@ -254,6 +237,43 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     protected void uninstallDefaults() {
     }
 
+    public JCommandPopupMenu getExpandPopupMenu(JComponent originator) {
+        JCommandButtonPanel popupButtonPanel = ribbonGallery.createPopupButtonPanel();
+        final JCommandPopupMenu popupMenu = new JCommandPopupMenu(popupButtonPanel,
+                ribbonGallery.getPreferredPopupMaxButtonColumns(),
+                ribbonGallery.getPreferredPopupMaxVisibleButtonRows());
+
+        if (ribbonGallery.getPopupCallback() != null) {
+            ribbonGallery.getPopupCallback().popupToBeShown(popupMenu);
+        }
+        popupMenu.applyComponentOrientation(ribbonGallery.getComponentOrientation());
+
+        PopupPanelManager.PopupListener popupListener = new PopupPanelManager.PopupListener() {
+            @Override
+            public void popupHidden(PopupEvent event) {
+                FlamingoCommand selectedCommand = ribbonGallery.getCommandForButtonInPopupPanel(
+                        popupButtonPanel);
+                ribbonGallery.setSelectedCommand(selectedCommand);
+                if (event.getPopupOriginator() == originator) {
+                    PopupPanelManager.defaultManager().removePopupListener(this);
+                }
+            }
+
+            @Override
+            public void popupShown(PopupEvent event) {
+                // scroll to reveal the selected button
+                if (popupButtonPanel.getSelectedButton() != null) {
+                    Rectangle selectionButtonBounds = popupButtonPanel.getSelectedButton()
+                            .getBounds();
+                    popupButtonPanel.scrollRectToVisible(selectionButtonBounds);
+                }
+            }
+        };
+        PopupPanelManager.defaultManager().addPopupListener(popupListener);
+
+        return popupMenu;
+    }
+
     /**
      * Installs listeners on the associated ribbon gallery.
      */
@@ -276,48 +296,31 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
             SwingUtilities.invokeLater(() -> {
                 PopupFactory popupFactory = PopupFactory.getSharedInstance();
 
-                JCommandButtonPanel popupButtonPanel = ribbonGallery.getPopupButtonPanel();
-
+                JCommandPopupMenu popupMenu = getExpandPopupMenu(ribbonGallery);
                 final Point loc = ribbonGallery.getLocationOnScreen();
-                final JCommandPopupMenu popupMenu = new JCommandPopupMenu(popupButtonPanel,
-                        ribbonGallery.getPreferredPopupMaxButtonColumns(),
-                        ribbonGallery.getPreferredPopupMaxVisibleButtonRows());
+                popupMenu.setCustomizer(() -> {
+                    Rectangle scrBounds = ribbonGallery.getGraphicsConfiguration().getBounds();
 
-                if (ribbonGallery.getPopupCallback() != null) {
-                    ribbonGallery.getPopupCallback().popupToBeShown(popupMenu);
-                }
-                popupMenu.applyComponentOrientation(ribbonGallery.getComponentOrientation());
+                    boolean ltr = popupMenu.getComponentOrientation().isLeftToRight();
 
-                popupMenu.setCustomizer(new JPopupPanel.PopupPanelCustomizer() {
-                    @Override
-                    public Rectangle getScreenBounds() {
-                        Rectangle scrBounds = ribbonGallery.getGraphicsConfiguration().getBounds();
+                    Dimension pref = popupMenu.getPreferredSize();
+                    int width = Math.max(pref.width, ribbonGallery.getWidth());
+                    int height = pref.height;
 
-                        boolean ltr = popupMenu.getComponentOrientation().isLeftToRight();
+                    int x = ltr ? loc.x : loc.x + width - pref.width;
+                    int y = loc.y;
 
-                        Dimension pref = popupMenu.getPreferredSize();
-                        int width = Math.max(pref.width, ribbonGallery.getWidth());
-                        int height = pref.height;
-
-                        int x = ltr ? loc.x : loc.x + width - pref.width;
-                        int y = loc.y;
-
-                        // make sure that the popup stays in
-                        // bounds
-                        if ((x + width) > (scrBounds.x + scrBounds.width)) {
-                            x = scrBounds.x + scrBounds.width - width;
-                        }
-                        if ((y + height) > (scrBounds.y + scrBounds.height)) {
-                            y = scrBounds.y + scrBounds.height - height;
-                        }
-
-                        return new Rectangle(x, y, width, height);
+                    // make sure that the popup stays in
+                    // bounds
+                    if ((x + width) > (scrBounds.x + scrBounds.width)) {
+                        x = scrBounds.x + scrBounds.width - width;
                     }
-                });
+                    if ((y + height) > (scrBounds.y + scrBounds.height)) {
+                        y = scrBounds.y + scrBounds.height - height;
+                    }
 
-                // mark the gallery so that it doesn't try to re-layout
-                // itself.
-                ribbonGallery.setShowingPopupPanel(true);
+                    return new Rectangle(x, y, width, height);
+                });
 
                 // get the popup and show it
                 Dimension pref = popupMenu.getPreferredSize();
@@ -328,36 +331,10 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 Popup popup = popupFactory.getPopup(ribbonGallery, popupMenu, x, loc.y);
                 ribbonGallery.repaint();
                 PopupPanelManager.defaultManager().addPopup(ribbonGallery, popup, popupMenu);
-
-                // scroll to reveal the selected button
-                if (popupButtonPanel.getSelectedButton() != null) {
-                    Rectangle selectionButtonBounds = popupButtonPanel.getSelectedButton()
-                            .getBounds();
-                    popupButtonPanel.scrollRectToVisible(selectionButtonBounds);
-                }
             });
         };
 
         this.expandActionButton.addActionListener(this.expandListener);
-
-        this.popupListener = new PopupPanelManager.PopupListener() {
-            @Override
-            public void popupHidden(PopupEvent event) {
-                if (event.getPopupOriginator() == ribbonGallery) {
-                    // reset the rollover state for all the buttons
-                    // in the gallery
-                    for (int i = 0; i < ribbonGallery.getCommandCount(); i++) {
-                        ribbonGallery.getButtonAt(i).getActionModel().setRollover(false);
-                    }
-                    ribbonGallery.setShowingPopupPanel(false);
-                }
-            }
-
-            @Override
-            public void popupShown(PopupEvent event) {
-            }
-        };
-        PopupPanelManager.defaultManager().addPopupListener(this.popupListener);
 
         this.propertyChangeListener = (PropertyChangeEvent evt) -> {
             if ("selectedButton".equals(evt.getPropertyName())) {
@@ -388,9 +365,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         this.expandActionButton.removeActionListener(this.expandListener);
         this.expandListener = null;
 
-        PopupPanelManager.defaultManager().removePopupListener(this.popupListener);
-        this.popupListener = null;
-
         this.ribbonGallery.removePropertyChangeListener(this.propertyChangeListener);
         this.propertyChangeListener = null;
     }
@@ -409,7 +383,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     /**
      * Invoked by <code>installUI</code> to create a layout manager object to manage the
      * {@link JCommandButtonStrip}.
-     * 
+     *
      * @return a layout manager object
      */
     protected LayoutManager createLayoutManager() {
@@ -418,7 +392,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
     /**
      * Layout for the ribbon gallery.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class RibbonGalleryLayout implements LayoutManager {
@@ -474,94 +448,88 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
             buttonStrip.setBounds(buttonX, margin.top, scrollerButtonWidth, galleryHeight);
             buttonStrip.doLayout();
 
-            if (!ribbonGallery.isShowingPopupPanel()) {
-                // hide all buttons and compute the button width
-                int maxButtonWidth = buttonHeight;
-                if (galleryButtonDisplayState == JRibbonBand.BIG_FIXED_LANDSCAPE) {
-                    maxButtonWidth = maxButtonWidth * 5 / 4;
-                }
-                for (int i = 0; i < ribbonGallery.getCommandCount(); i++) {
-                    JCommandToggleButton currButton = ribbonGallery.getButtonAt(i);
-                    currButton.setVisible(false);
-                }
+            // hide all buttons and compute the button width
+            int maxButtonWidth = buttonHeight;
+            if (galleryButtonDisplayState == JRibbonBand.BIG_FIXED_LANDSCAPE) {
+                maxButtonWidth = maxButtonWidth * 5 / 4;
+            }
+            for (int i = 0; i < ribbonGallery.getCommandCount(); i++) {
+                JCommandToggleButton currButton = ribbonGallery.getButtonAt(i);
+                currButton.setVisible(false);
+            }
 
-                int gap = getLayoutGap();
+            int gap = getLayoutGap();
 
-                // compute how many buttons can fit in each row
-                visibleButtonsInEachRow = 0;
-                int availableButtonsSpace = ltr ? buttonX - margin.left
-                        : width - buttonX - scrollerButtonWidth - margin.right;
-                while (true) {
-                    // gap on the left, gap in between every two adjacent
-                    // buttons and gap on the right
-                    int neededSpace = visibleButtonsInEachRow * maxButtonWidth
-                            + (visibleButtonsInEachRow + 1) * gap;
-                    if (neededSpace > availableButtonsSpace) {
-                        visibleButtonsInEachRow--;
-                        break;
-                    }
-                    visibleButtonsInEachRow++;
-                }
-
-                // System.out.println("Visible in each row " +
-                // visibleButtonsInEachRow);
-
-                // compute how many pixels we can distribute among the visible
-                // buttons
+            // compute how many buttons can fit in each row
+            visibleButtonsInEachRow = 0;
+            int availableButtonsSpace = ltr ? buttonX - margin.left
+                    : width - buttonX - scrollerButtonWidth - margin.right;
+            while (true) {
+                // gap on the left, gap in between every two adjacent
+                // buttons and gap on the right
                 int neededSpace = visibleButtonsInEachRow * maxButtonWidth
                         + (visibleButtonsInEachRow + 1) * gap;
-                int startX = ltr ? margin.left + gap : width - margin.right - gap;
-                int availableWidth = ltr ? buttonX - margin.right
-                        : width - buttonX - scrollerButtonWidth - margin.left;
-                int toAddToButtonWidth = (availableWidth - neededSpace) / visibleButtonsInEachRow;
-
-                // compute how many buttons can fit in the available horizontal
-                // space
-                int lastVisibleButtonIndex = firstVisibleButtonIndex
-                        + visibleButtonRowNumber * visibleButtonsInEachRow - 1;
-                lastVisibleButtonIndex = Math.min(lastVisibleButtonIndex,
-                        ribbonGallery.getCommandCount() - 1);
-                int currCountInRow = 0;
-                int buttonY = margin.top + borderInsets.top;
-                int singleButtonWidth = maxButtonWidth + toAddToButtonWidth;
-                for (int i = firstVisibleButtonIndex; i <= lastVisibleButtonIndex; i++) {
-                    JCommandToggleButton currButton = ribbonGallery.getButtonAt(i);
-
-                    // show button and set bounds
-                    currButton.setVisible(true);
-                    if (ltr) {
-                        currButton.setBounds(startX, buttonY, singleButtonWidth, buttonHeight);
-                        startX += (singleButtonWidth + gap);
-                    } else {
-                        currButton.setBounds(startX - singleButtonWidth, buttonY, singleButtonWidth,
-                                buttonHeight);
-                        startX -= (singleButtonWidth + gap);
-                    }
-                    currCountInRow++;
-                    if (currCountInRow == visibleButtonsInEachRow) {
-                        currCountInRow = 0;
-                        if (ltr) {
-                            startX = margin.left + gap;
-                        } else {
-                            startX = width - margin.right - gap;
-                        }
-                        buttonY += buttonHeight;
-                    }
+                if (neededSpace > availableButtonsSpace) {
+                    visibleButtonsInEachRow--;
+                    break;
                 }
-                if (ribbonGallery.getCommandCount() == 0) {
-                    scrollDownButton.setEnabled(false);
-                    scrollUpButton.setEnabled(false);
-                    expandActionButton.setEnabled(false);
+                visibleButtonsInEachRow++;
+            }
+
+            // System.out.println("Visible in each row " +
+            // visibleButtonsInEachRow);
+
+            // compute how many pixels we can distribute among the visible buttons
+            int neededSpace = visibleButtonsInEachRow * maxButtonWidth
+                    + (visibleButtonsInEachRow + 1) * gap;
+            int startX = ltr ? margin.left + gap : width - margin.right - gap;
+            int availableWidth = ltr ? buttonX - margin.right
+                    : width - buttonX - scrollerButtonWidth - margin.left;
+            int toAddToButtonWidth = (availableWidth - neededSpace) / visibleButtonsInEachRow;
+
+            // compute how many buttons can fit in the available horizontal space
+            int lastVisibleButtonIndex = firstVisibleButtonIndex
+                    + visibleButtonRowNumber * visibleButtonsInEachRow - 1;
+            lastVisibleButtonIndex = Math.min(lastVisibleButtonIndex,
+                    ribbonGallery.getCommandCount() - 1);
+            int currCountInRow = 0;
+            int buttonY = margin.top + borderInsets.top;
+            int singleButtonWidth = maxButtonWidth + toAddToButtonWidth;
+            for (int i = firstVisibleButtonIndex; i <= lastVisibleButtonIndex; i++) {
+                JCommandToggleButton currButton = ribbonGallery.getButtonAt(i);
+
+                // show button and set bounds
+                currButton.setVisible(true);
+                if (ltr) {
+                    currButton.setBounds(startX, buttonY, singleButtonWidth, buttonHeight);
+                    startX += (singleButtonWidth + gap);
                 } else {
-                    // Scroll down button is enabled when the last button is not
-                    // showing
-                    scrollDownButton.setEnabled(!ribbonGallery
-                            .getButtonAt(ribbonGallery.getCommandCount() - 1).isVisible());
-                    // Scroll up button is enabled when the first button is not
-                    // showing
-                    scrollUpButton.setEnabled(!ribbonGallery.getButtonAt(0).isVisible());
-                    expandActionButton.setEnabled(true);
+                    currButton.setBounds(startX - singleButtonWidth, buttonY, singleButtonWidth,
+                            buttonHeight);
+                    startX -= (singleButtonWidth + gap);
                 }
+                currCountInRow++;
+                if (currCountInRow == visibleButtonsInEachRow) {
+                    currCountInRow = 0;
+                    if (ltr) {
+                        startX = margin.left + gap;
+                    } else {
+                        startX = width - margin.right - gap;
+                    }
+                    buttonY += buttonHeight;
+                }
+            }
+            if (ribbonGallery.getCommandCount() == 0) {
+                scrollDownButton.setEnabled(false);
+                scrollUpButton.setEnabled(false);
+                expandActionButton.setEnabled(false);
+            } else {
+                // Scroll down button is enabled when the last button is not showing
+                scrollDownButton.setEnabled(!ribbonGallery
+                        .getButtonAt(ribbonGallery.getCommandCount() - 1).isVisible());
+                // Scroll up button is enabled when the first button is not showing
+                scrollUpButton.setEnabled(!ribbonGallery.getButtonAt(0).isVisible());
+                expandActionButton.setEnabled(true);
             }
         }
     }
@@ -579,15 +547,14 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
     /**
      * Paints ribbon gallery border.
-     * 
-     * @param graphics
-     *            Graphics context.
+     *
+     * @param graphics Graphics context.
      */
     protected abstract void paintRibbonGalleryBorder(Graphics graphics);
 
     /**
      * Returns the layout gap for the controls in the associated ribbon gallery.
-     * 
+     *
      * @return The layout gap for the controls in the associated ribbon gallery.
      */
     protected int getLayoutGap() {
@@ -596,11 +563,9 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
     /**
      * Returns the preferred width of the ribbon gallery for the specified parameters.
-     * 
-     * @param buttonCount
-     *            Button count.
-     * @param availableHeight
-     *            Available height in pixels.
+     *
+     * @param buttonCount     Button count.
+     * @param availableHeight Available height in pixels.
      * @return The preferred width of the ribbon gallery for the specified parameters.
      */
     public int getPreferredWidth(int buttonCount, int availableHeight) {
@@ -641,21 +606,21 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     /**
      * Scrolls the contents of this ribbon gallery one row down.
      */
-    protected void scrollOneRowDown() {
+    private void scrollOneRowDown() {
         this.firstVisibleButtonIndex += this.visibleButtonsInEachRow;
     }
 
     /**
      * Scrolls the contents of this ribbon gallery one row up.
      */
-    protected void scrollOneRowUp() {
+    private void scrollOneRowUp() {
         this.firstVisibleButtonIndex -= this.visibleButtonsInEachRow;
     }
 
     /**
      * Scrolls the contents of this ribbon gallery to reveal the currently selected button.
      */
-    protected void scrollToSelected() {
+    private void scrollToSelected() {
         JCommandToggleButton selected = this.ribbonGallery.getSelectedButton();
         if (selected == null)
             return;
@@ -687,19 +652,19 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
             }
             if ((selIndex >= this.firstVisibleButtonIndex)
                     && (selIndex < (this.firstVisibleButtonIndex
-                            + this.visibleButtonRowNumber * this.visibleButtonsInEachRow))) {
+                    + this.visibleButtonRowNumber * this.visibleButtonsInEachRow))) {
                 return;
             }
         }
     }
 
-    protected void syncExpandKeyTip() {
+    private void syncExpandKeyTip() {
         this.expandActionButton.setActionKeyTip(this.ribbonGallery.getExpandKeyTip());
     }
 
     @KeyTipManager.HasNextKeyTipChain
     protected static class ExpandCommandButton extends JCommandButton {
-        public ExpandCommandButton(ResizableIcon icon) {
+        private ExpandCommandButton(ResizableIcon icon) {
             super(icon);
         }
     }

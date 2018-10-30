@@ -249,8 +249,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
          * @return All in-ribbon galleries of specified priority from
          * <code>this</code> control panel.
          */
-        public List<JRibbonGallery> getRibbonGalleries(
-                RibbonElementPriority priority) {
+        public List<JRibbonGallery> getRibbonGalleries(RibbonElementPriority priority) {
             List<JRibbonGallery> result = this.ribbonGalleries.get(priority);
             if (result == null) {
                 return EMPTY_RIBBON_GALLERIES_LIST;
