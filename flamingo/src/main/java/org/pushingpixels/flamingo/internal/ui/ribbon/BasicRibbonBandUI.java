@@ -32,6 +32,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryModel;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
@@ -598,18 +599,5 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         Dimension collapsedPreferredSize = this.collapsedButton.getPreferredSize();
         return Math.min((int) (collapsedPreferredSize.height * 1.25),
                 collapsedPreferredSize.width + 2);
-    }
-
-    @Override
-    public void configureForGalleryDropdown(String galleryName, JCommandButton button) {
-        if (this.ribbonBand instanceof JRibbonBand) {
-            JBandControlPanel controlPanel =
-                    (JBandControlPanel) this.ribbonBand.getControlPanel();
-            JRibbonGallery gallery = controlPanel.getRibbonGallery(galleryName);
-            // Configure the button popup callback to display the expanded popup menu
-            // for the gallery
-            button.setPopupCallback((JCommandButton commandButton) ->
-                            ((BasicRibbonGalleryUI) gallery.getUI()).getExpandPopupMenu(button));
-        }
     }
 }

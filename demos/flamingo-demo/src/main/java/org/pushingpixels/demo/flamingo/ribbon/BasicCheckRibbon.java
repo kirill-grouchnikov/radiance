@@ -39,6 +39,7 @@ import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.*;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryModel;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -61,6 +62,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
     protected Locale currLocale;
 
     protected ResourceBundle resourceBundle;
+
+    private RibbonGalleryModel styleGalleryModel;
 
     protected class QuickStylesPanel extends JCommandButtonPanel {
         public QuickStylesPanel() {
@@ -645,83 +648,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         quickStylesBand.setResizePolicies(
                 CoreRibbonResizePolicies.getCorePoliciesRestrictive(quickStylesBand));
 
-        Map<RibbonElementPriority, Integer> stylesGalleryVisibleCommandCounts = new
-                HashMap<>();
-        stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.LOW, 1);
-        stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.MEDIUM, 2);
-        stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.TOP, 2);
-
-        List<StringValuePair<List<FlamingoCommand>>> stylesGalleryCommands = new
-                ArrayList<>();
-        List<FlamingoCommand> stylesGalleryCommandsList = new ArrayList<>();
-        List<FlamingoCommand> stylesGalleryCommandsList2 = new ArrayList<>();
-        MessageFormat mfButtonText = new MessageFormat(
-                resourceBundle.getString("StylesGallery.textButton"));
-        mfButtonText.setLocale(currLocale);
-        for (int i = 0; i < 30; i++) {
-            final int index = i;
-            ResizableIcon fontIcon = new Font_x_generic();
-            ResizableIcon finalIcon = new DecoratedResizableIcon(fontIcon,
-                    (Component c, Graphics g, int x, int y,
-                            int width, int height) -> {
-                        Graphics2D g2d = (Graphics2D) g.create();
-                        g2d.setColor(Color.black);
-                        NeonCortex.installDesktopHints(g2d, c);
-                        g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
-                                getControlFont());
-                        g2d.drawString("" + index, x + 2, y + height - 2);
-                        g2d.dispose();
-                    });
-
-            FlamingoCommand ribbonCommand = new FlamingoCommandBuilder()
-                    .setTitle(mfButtonText.format(new Object[] { i })).setIcon(finalIcon)
-                    .setAction((ActionEvent e) -> System.out.println("Invoked action on " + index))
-                    .setToggleSelected(i == 1).build();
-
-            // jrb.setName("Style " + i);
-            if (i < 10) {
-                stylesGalleryCommandsList.add(ribbonCommand);
-            } else {
-                stylesGalleryCommandsList2.add(ribbonCommand);
-            }
-        }
-
-        stylesGalleryCommands.add(new StringValuePair<>(
-                resourceBundle.getString("StylesGallery.textGroupTitle1"),
-                stylesGalleryCommandsList));
-        stylesGalleryCommands.add(new StringValuePair<>(
-                resourceBundle.getString("StylesGallery.textGroupTitle2"),
-                stylesGalleryCommandsList2));
-
-        quickStylesBand.addRibbonGallery("Styles", stylesGalleryCommands,
-                stylesGalleryVisibleCommandCounts, 3, 3, JRibbonBand.BIG_FIXED_LANDSCAPE,
-                RibbonElementPriority.TOP);
-        quickStylesBand.setRibbonGalleryPopupCallback("Styles", (JCommandPopupMenu menu) -> {
-            JCommandMenuButton saveSelectionButton = new JCommandMenuButton(
-                    resourceBundle.getString("Format.menuSaveSelection.text"),
-                    new EmptyResizableIcon(16));
-            saveSelectionButton.addActionListener(
-                    (ActionEvent e) -> System.out.println("Save Selection activated"));
-            saveSelectionButton.setActionKeyTip("SS");
-            menu.addMenuButton(saveSelectionButton);
-
-            JCommandMenuButton clearSelectionButton = new JCommandMenuButton(
-                    resourceBundle.getString("Format.menuClearSelection.text"),
-                    new EmptyResizableIcon(16));
-            clearSelectionButton.addActionListener(
-                    (ActionEvent e) -> System.out.println("Clear Selection activated"));
-            clearSelectionButton.setActionKeyTip("SC");
-            menu.addMenuButton(clearSelectionButton);
-
-            menu.addMenuSeparator();
-            JCommandMenuButton applyStylesButton = new JCommandMenuButton(
-                    resourceBundle.getString("Format.applyStyles.text"), new Font_x_generic());
-            applyStylesButton.addActionListener(
-                    (ActionEvent e) -> System.out.println("Apply Styles activated"));
-            applyStylesButton.setActionKeyTip("SA");
-            menu.addMenuButton(applyStylesButton);
-        });
-        quickStylesBand.setRibbonGalleryExpandKeyTip("Styles", "L");
+        quickStylesBand.addRibbonGallery("Styles", this.styleGalleryModel,
+                RibbonElementPriority.TOP, "L");
 
         quickStylesBand.addRibbonCommand(
                 new FlamingoCommandBuilder().setTitle(resourceBundle.getString("Styles1.text"))
@@ -1033,9 +961,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 resourceBundle.getString("TransitionGallery.textGroupTitle2"),
                 transitionGalleryButtonsList2));
 
-        transitionBand.addRibbonGallery("Transitions", transitionGalleryCommands,
-                transitionGalleryVisibleCommandCounts, 6, 6, CommandButtonDisplayState.SMALL,
-                RibbonElementPriority.TOP);
+        RibbonGalleryModel transitionGalleryModel = new RibbonGalleryModel(
+                transitionGalleryCommands,
+                transitionGalleryVisibleCommandCounts, 6, 6, CommandButtonDisplayState.SMALL);
+        transitionBand.addRibbonGallery("Transitions", transitionGalleryModel,
+                RibbonElementPriority.TOP, null);
 
         transitionBand.startGroup();
         transitionBand.addRibbonComponent(new JRibbonComponent(
@@ -1075,6 +1005,98 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return transitionBand;
     }
 
+    private void createStyleGalleryModel() {
+        Map<RibbonElementPriority, Integer> stylesGalleryVisibleCommandCounts = new HashMap<>();
+        stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.LOW, 1);
+        stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.MEDIUM, 2);
+        stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.TOP, 2);
+
+        List<StringValuePair<List<FlamingoCommand>>> stylesGalleryCommands = new
+                ArrayList<>();
+        List<FlamingoCommand> stylesGalleryCommandsList = new ArrayList<>();
+        List<FlamingoCommand> stylesGalleryCommandsList2 = new ArrayList<>();
+        MessageFormat mfButtonText = new MessageFormat(
+                resourceBundle.getString("StylesGallery.textButton"));
+        mfButtonText.setLocale(currLocale);
+        for (int i = 0; i < 30; i++) {
+            final int index = i;
+            ResizableIcon fontIcon = new Font_x_generic();
+            ResizableIcon finalIcon = new DecoratedResizableIcon(fontIcon,
+                    (Component c, Graphics g, int x, int y,
+                            int width, int height) -> {
+                        Graphics2D g2d = (Graphics2D) g.create();
+                        g2d.setColor(Color.black);
+                        NeonCortex.installDesktopHints(g2d, c);
+                        g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
+                                getControlFont());
+                        g2d.drawString("" + index, x + 2, y + height - 2);
+                        g2d.dispose();
+                    });
+
+            FlamingoCommand ribbonCommand = new FlamingoCommandBuilder()
+                    .setTitle(mfButtonText.format(new Object[] { i })).setIcon(finalIcon)
+                    .setToggleSelected(i == 1).build();
+
+            // jrb.setName("Style " + i);
+            if (i < 10) {
+                stylesGalleryCommandsList.add(ribbonCommand);
+            } else {
+                stylesGalleryCommandsList2.add(ribbonCommand);
+            }
+        }
+
+        stylesGalleryCommands.add(new StringValuePair<>(
+                resourceBundle.getString("StylesGallery.textGroupTitle1"),
+                stylesGalleryCommandsList));
+        stylesGalleryCommands.add(new StringValuePair<>(
+                resourceBundle.getString("StylesGallery.textGroupTitle2"),
+                stylesGalleryCommandsList2));
+
+        this.styleGalleryModel = new RibbonGalleryModel(stylesGalleryCommands,
+                stylesGalleryVisibleCommandCounts, 3, 3, JRibbonBand.BIG_FIXED_LANDSCAPE);
+        styleGalleryModel.addCommandSelectionListener((FlamingoCommand selected) ->
+                System.out.println("Command '" + selected.getTitle() + "' selected"));
+        styleGalleryModel.addCommandPreviewListener(
+                new RibbonGalleryModel.GalleryCommandPreviewListener() {
+                    @Override
+                    public void onCommandPreviewActivated(FlamingoCommand command) {
+                        System.out.println("Preview activated for '" + command.getTitle() + "'");
+                    }
+
+                    @Override
+                    public void onCommandPreviewCanceled(FlamingoCommand command) {
+                        System.out.println("Preview canceled for '" + command.getTitle() + "'");
+                    }
+                });
+
+        styleGalleryModel.setRibbonGalleryPopupCallback((JCommandPopupMenu menu) -> {
+            JCommandMenuButton saveSelectionButton = new JCommandMenuButton(
+                    resourceBundle.getString("Format.menuSaveSelection.text"),
+                    new EmptyResizableIcon(16));
+            saveSelectionButton.addActionListener(
+                    (ActionEvent e) -> System.out.println("Save Selection activated"));
+            saveSelectionButton.setActionKeyTip("SS");
+            menu.addMenuButton(saveSelectionButton);
+
+            JCommandMenuButton clearSelectionButton = new JCommandMenuButton(
+                    resourceBundle.getString("Format.menuClearSelection.text"),
+                    new EmptyResizableIcon(16));
+            clearSelectionButton.addActionListener(
+                    (ActionEvent e) -> System.out.println("Clear Selection activated"));
+            clearSelectionButton.setActionKeyTip("SC");
+            menu.addMenuButton(clearSelectionButton);
+
+            menu.addMenuSeparator();
+            JCommandMenuButton applyStylesButton = new JCommandMenuButton(
+                    resourceBundle.getString("Format.applyStyles.text"), new Font_x_generic());
+            applyStylesButton.addActionListener(
+                    (ActionEvent e) -> System.out.println("Apply Styles activated"));
+            applyStylesButton.setActionKeyTip("SA");
+            menu.addMenuButton(applyStylesButton);
+        });
+
+    }
+
     protected RibbonContextualTaskGroup group1;
     protected RibbonContextualTaskGroup group2;
 
@@ -1092,6 +1114,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
     }
 
     public void configureRibbon() {
+        this.createStyleGalleryModel();
+
         JRibbonBand clipboardBand = this.getClipboardBand();
         JRibbonBand quickStylesBand = this.getQuickStylesBand();
         JFlowRibbonBand fontBand = this.getFontBand();
@@ -1222,8 +1246,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .build());
         ribbon.addTaskbarComponent(seasonComboWrapper);
 
-        ribbon.addTaskbarGalleryDropdown(ribbon.getTask(0).getBand(1), "Styles",
-                Font_x_generic.of(16, 16));
+        ribbon.addTaskbarGalleryDropdown(this.styleGalleryModel, Font_x_generic.of(16, 16));
     }
 
     protected void configureApplicationMenu() {

@@ -48,8 +48,10 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
 
     private JColorSelectorPanel lastColorSelectorPanel;
 
-    private static LinkedList<Color> recentlySelected = new LinkedList<Color>();
+    private static LinkedList<Color> recentlySelected = new LinkedList<>();
 
+    // TODO: Split into two interfaces as in RibbonGalleryModel, replacing onColorRollover
+    //  with onColorPreviewActivated and onColorPreviewCanceled in 2.0
     public interface ColorSelectorCallback {
         void onColorRollover(Color color);
 

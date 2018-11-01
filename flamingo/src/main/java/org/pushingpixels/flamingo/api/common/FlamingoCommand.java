@@ -97,10 +97,6 @@ public class FlamingoCommand {
             }
         }
 
-        if ((action == null) && (popupCallback == null)) {
-            throw new IllegalStateException("Command configured with no action or popup callback");
-        }
-
         if ((action != null) && (popupCallback == null) && isTitleClickPopup) {
             throw new IllegalStateException(
                     "Action-only command configured to activate popup on title click");

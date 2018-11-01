@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.api.ribbon.resize;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryModel;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.*;
 
 import java.util.*;
@@ -68,7 +69,7 @@ import java.util.*;
  * policies that respect the application element priorities passed to
  * {@link JRibbonBand#addRibbonCommand(FlamingoCommand, RibbonElementPriority)}
  * and
- * {@link JRibbonBand#addRibbonGallery(String, List, Map, int, int, RibbonElementPriority)}
+ * {@link JRibbonBand#addRibbonGallery(String, RibbonGalleryModel, RibbonElementPriority, String)}
  * APIs. There are three types of built in resize policies:
  * </p>
  * 

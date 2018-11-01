@@ -50,7 +50,7 @@ public class CommandToggleButtonGroup implements Serializable {
 	/**
 	 * Map of registered model change listeners.
 	 */
-	protected Map<JCommandToggleButton, ChangeListener> modelChangeListeners;
+	private Map<JCommandToggleButton, ChangeListener> modelChangeListeners;
 
 	/**
 	 * Property change support to track the registered property change
@@ -75,7 +75,7 @@ public class CommandToggleButtonGroup implements Serializable {
 	 * or {@link #setSelected(JCommandToggleButton, boolean)} (passing the
 	 * currently selected button and <code>false</code>).
 	 */
-	protected boolean allowsClearingSelection;
+	private boolean allowsClearingSelection;
 
 	/**
 	 * Creates a new button group.
@@ -175,6 +175,11 @@ public class CommandToggleButtonGroup implements Serializable {
 		if (wasSelected) {
 			this.firePropertyChange(SELECTED_PROPERTY, b, null);
 		}
+	}
+
+	public void removeAll() {
+		buttons.clear();
+		selection = null;
 	}
 
 	/**
