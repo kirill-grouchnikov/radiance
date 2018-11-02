@@ -39,7 +39,7 @@ import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.*;
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryModel;
+import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -887,15 +887,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 new SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32));
 
         Map<RibbonElementPriority, Integer> transitionGalleryVisibleCommandCounts = new
-                HashMap<RibbonElementPriority, Integer>();
+                HashMap<>();
         transitionGalleryVisibleCommandCounts.put(RibbonElementPriority.LOW, 2);
         transitionGalleryVisibleCommandCounts.put(RibbonElementPriority.MEDIUM, 4);
         transitionGalleryVisibleCommandCounts.put(RibbonElementPriority.TOP, 6);
 
-        List<StringValuePair<List<FlamingoCommand>>> transitionGalleryCommands = new
-                ArrayList<StringValuePair<List<FlamingoCommand>>>();
+        List<CommandGroupModel> transitionGalleryCommands = new ArrayList<>();
 
-        List<FlamingoCommand> transitionGalleryCommandsList = new ArrayList<FlamingoCommand>();
+        List<FlamingoCommand> transitionGalleryCommandsList = new ArrayList<>();
         for (int i = 1; i <= 40; i++) {
             final int index = i;
             ResizableIcon mainIcon = new Appointment_new();
@@ -924,11 +923,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
             transitionGalleryCommandsList.add(ribbonCommand);
         }
-        transitionGalleryCommands.add(new StringValuePair<List<FlamingoCommand>>(
+        transitionGalleryCommands.add(new CommandGroupModel(
                 resourceBundle.getString("TransitionGallery.textGroupTitle1"),
                 transitionGalleryCommandsList));
 
-        List<FlamingoCommand> transitionGalleryButtonsList2 = new ArrayList<FlamingoCommand>();
+        List<FlamingoCommand> transitionGalleryButtonsList2 = new ArrayList<>();
         for (int i = 41; i <= 70; i++) {
             final int index = i;
             ResizableIcon mainIcon = new Appointment_new();
@@ -957,7 +956,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
             transitionGalleryButtonsList2.add(ribbonCommand);
         }
-        transitionGalleryCommands.add(new StringValuePair<List<FlamingoCommand>>(
+        transitionGalleryCommands.add(new CommandGroupModel(
                 resourceBundle.getString("TransitionGallery.textGroupTitle2"),
                 transitionGalleryButtonsList2));
 
@@ -1011,8 +1010,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.MEDIUM, 2);
         stylesGalleryVisibleCommandCounts.put(RibbonElementPriority.TOP, 2);
 
-        List<StringValuePair<List<FlamingoCommand>>> stylesGalleryCommands = new
-                ArrayList<>();
+        List<CommandGroupModel> stylesGalleryCommands = new ArrayList<>();
         List<FlamingoCommand> stylesGalleryCommandsList = new ArrayList<>();
         List<FlamingoCommand> stylesGalleryCommandsList2 = new ArrayList<>();
         MessageFormat mfButtonText = new MessageFormat(
@@ -1045,10 +1043,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
             }
         }
 
-        stylesGalleryCommands.add(new StringValuePair<>(
+        stylesGalleryCommands.add(new CommandGroupModel(
                 resourceBundle.getString("StylesGallery.textGroupTitle1"),
                 stylesGalleryCommandsList));
-        stylesGalleryCommands.add(new StringValuePair<>(
+        stylesGalleryCommands.add(new CommandGroupModel(
                 resourceBundle.getString("StylesGallery.textGroupTitle2"),
                 stylesGalleryCommandsList2));
 
@@ -1069,32 +1067,29 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     }
                 });
 
-        styleGalleryModel.setRibbonGalleryPopupCallback((JCommandPopupMenu menu) -> {
-            JCommandMenuButton saveSelectionButton = new JCommandMenuButton(
-                    resourceBundle.getString("Format.menuSaveSelection.text"),
-                    new EmptyResizableIcon(16));
-            saveSelectionButton.addActionListener(
-                    (ActionEvent e) -> System.out.println("Save Selection activated"));
-            saveSelectionButton.setActionKeyTip("SS");
-            menu.addMenuButton(saveSelectionButton);
+        CommandGroupModel extraStylesForPopup1 = new CommandGroupModel(null,
+                new FlamingoCommand.FlamingoCommandBuilder()
+                        .setTitle(resourceBundle.getString("Format.menuSaveSelection.text"))
+                        .setIcon(new EmptyResizableIcon(16))
+                        .setAction((ActionEvent e) ->
+                                System.out.println("Save Selection activated"))
+                        .setActionKeyTip("SS").build(),
+                new FlamingoCommand.FlamingoCommandBuilder()
+                        .setTitle(resourceBundle.getString("Format.menuClearSelection.text"))
+                        .setIcon(new EmptyResizableIcon(16))
+                        .setAction((ActionEvent e) ->
+                                System.out.println("Clear Selection activated"))
+                        .setActionKeyTip("SC").build());
+        styleGalleryModel.addExtraPopupCommandGroup(extraStylesForPopup1);
 
-            JCommandMenuButton clearSelectionButton = new JCommandMenuButton(
-                    resourceBundle.getString("Format.menuClearSelection.text"),
-                    new EmptyResizableIcon(16));
-            clearSelectionButton.addActionListener(
-                    (ActionEvent e) -> System.out.println("Clear Selection activated"));
-            clearSelectionButton.setActionKeyTip("SC");
-            menu.addMenuButton(clearSelectionButton);
-
-            menu.addMenuSeparator();
-            JCommandMenuButton applyStylesButton = new JCommandMenuButton(
-                    resourceBundle.getString("Format.applyStyles.text"), new Font_x_generic());
-            applyStylesButton.addActionListener(
-                    (ActionEvent e) -> System.out.println("Apply Styles activated"));
-            applyStylesButton.setActionKeyTip("SA");
-            menu.addMenuButton(applyStylesButton);
-        });
-
+        CommandGroupModel extraStylesForPopup2 = new CommandGroupModel(null,
+                new FlamingoCommand.FlamingoCommandBuilder()
+                        .setTitle(resourceBundle.getString("Format.applyStyles.text"))
+                        .setIcon(new Font_x_generic())
+                        .setAction((ActionEvent e) ->
+                                System.out.println("Apply Styles activated"))
+                        .setActionKeyTip("SA").build());
+        styleGalleryModel.addExtraPopupCommandGroup(extraStylesForPopup2);
     }
 
     protected RibbonContextualTaskGroup group1;

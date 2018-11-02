@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryModel;
+import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonGalleryUI;
 
 import javax.swing.*;
@@ -83,7 +83,7 @@ public class JRibbonGallery extends JComponent {
     /**
      * Gallery command groups.
      */
-    private List<StringValuePair<List<FlamingoCommand>>> commandGroups;
+    private List<CommandGroupModel> commandGroups;
 
     /**
      * The UI class ID string.
@@ -138,7 +138,7 @@ public class JRibbonGallery extends JComponent {
             this.setPreferredVisibleButtonCount(prefCountEntry.getKey(),
                     prefCountEntry.getValue());
         }
-        this.setGroupMapping(this.galleryModel.getCommands());
+        this.setGroupMapping(this.galleryModel.getCommandGroups());
     }
 
     /**
@@ -185,24 +185,9 @@ public class JRibbonGallery extends JComponent {
     /**
      * Adds new gallery command to <code>this</code> in-ribbon gallery.
      *
-     * @param commandGroup Command group.
-     * @param command      Command to add.
+     * @param command Command to add.
      */
-    private void addGalleryCommand(StringValuePair<List<FlamingoCommand>> commandGroup,
-            FlamingoCommand command) {
-        String commandGroupName = commandGroup.getKey();
-        // find the index to add
-        int indexToAdd = 0;
-        for (StringValuePair<List<FlamingoCommand>> commandGroupPair : this.commandGroups) {
-            String currGroupName = commandGroupPair.getKey();
-            indexToAdd += commandGroupPair.getValue().size();
-            if ((currGroupName == null) && (commandGroupName == null)) {
-                break;
-            }
-            if (currGroupName.compareTo(commandGroupName) == 0) {
-                break;
-            }
-        }
+    private void addGalleryCommand(FlamingoCommand command) {
         JCommandToggleButton button = (JCommandToggleButton) command.buildButton();
         button.getActionModel().addChangeListener(new ChangeListener() {
             boolean wasRollover = false;
@@ -224,10 +209,9 @@ public class JRibbonGallery extends JComponent {
             }
         });
 
-        this.buttons.add(indexToAdd, button);
+        this.buttons.add(button);
         this.buttonSelectionGroup.add(button);
-        this.commands.add(indexToAdd, command);
-        commandGroup.getValue().add(command);
+        this.commands.add(command);
         button.setDisplayState(this.buttonDisplayState);
 
         super.add(button);
@@ -279,29 +263,6 @@ public class JRibbonGallery extends JComponent {
     }
 
     /**
-     * Returns the number of command groups in <code>this</code> in-ribbon gallery.
-     *
-     * @return The number of command groups in <code>this</code> in-ribbon gallery.
-     */
-    public int getCommandGroupCount() {
-        return this.commandGroups.size();
-    }
-
-    /**
-     * Returns the list of commands in the specified command group.
-     *
-     * @param commandGroupName Command group name.
-     * @return The list of commands in the specified command group.
-     */
-    public List<FlamingoCommand> getCommandGroup(String commandGroupName) {
-        for (StringValuePair<List<FlamingoCommand>> group : this.commandGroups) {
-            if (group.getKey().compareTo(commandGroupName) == 0)
-                return group.getValue();
-        }
-        return null;
-    }
-
-    /**
      * Returns the number of gallery commands in <code>this</code> in-ribbon gallery.
      *
      * @return The number of gallery commands in <code>this</code> in-ribbon gallery.
@@ -346,13 +307,13 @@ public class JRibbonGallery extends JComponent {
         buttonPanel.setToShowGroupLabels(true);
         buttonPanel.setSingleSelectionMode(true);
 
-        for (StringValuePair<List<FlamingoCommand>> commandGroupEntry : galleryModel.getCommands()) {
-            String groupName = commandGroupEntry.getKey();
-            if (groupName == null) {
+        for (CommandGroupModel commandGroupModel : galleryModel.getCommandGroups()) {
+            String groupTitle = commandGroupModel.getTitle();
+            if (groupTitle == null) {
                 buttonPanel.setToShowGroupLabels(false);
             }
-            buttonPanel.addButtonGroup(groupName);
-            for (FlamingoCommand command : commandGroupEntry.getValue()) {
+            buttonPanel.addButtonGroup(groupTitle);
+            for (FlamingoCommand command : commandGroupModel.getCommandList()) {
                 JCommandToggleButton button = (JCommandToggleButton) command.buildButton();
                 button.putClientProperty(COMMAND, command);
                 buttonGroup.add(button);
@@ -387,11 +348,11 @@ public class JRibbonGallery extends JComponent {
     /**
      * Sets the command groups for this ribbon gallery.
      *
-     * @param commands Command groups.
+     * @param commandGroups Command groups.
      */
-    private void setGroupMapping(List<StringValuePair<List<FlamingoCommand>>> commands) {
-        for (StringValuePair<List<FlamingoCommand>> commandGroupPair : commands) {
-            for (FlamingoCommand command : commandGroupPair.getValue()) {
+    private void setGroupMapping(List<CommandGroupModel> commandGroups) {
+        for (CommandGroupModel commandGroupModel : commandGroups) {
+            for (FlamingoCommand command : commandGroupModel.getCommandList()) {
                 if (!command.isToggle()) {
                     throw new IllegalStateException("Gallery command must be toggle");
                 }
@@ -404,8 +365,8 @@ public class JRibbonGallery extends JComponent {
 
         this.commandGroups = new ArrayList<>();
         boolean hasGroupWithNullTitle = false;
-        for (StringValuePair<List<FlamingoCommand>> commandGroupPair : commands) {
-            if (commandGroupPair.getKey() == null) {
+        for (CommandGroupModel commandGroupModel : commandGroups) {
+            if (commandGroupModel.getTitle() == null) {
                 if (hasGroupWithNullTitle) {
                     throw new IllegalArgumentException(
                             "Can't have more than one ribbon gallery group with null name");
@@ -413,15 +374,10 @@ public class JRibbonGallery extends JComponent {
                 hasGroupWithNullTitle = true;
             }
 
-            // create the list of commands for this group
-            List<FlamingoCommand> commandGroupCopy = new ArrayList<>();
-            // add it to the groups list
-            StringValuePair<List<FlamingoCommand>> commandGroupInfo = new StringValuePair<>(
-                    commandGroupPair.getKey(), commandGroupCopy);
-            this.commandGroups.add(commandGroupInfo);
-            // add all the commands to the control
-            for (FlamingoCommand command : commandGroupPair.getValue()) {
-                this.addGalleryCommand(commandGroupInfo, command);
+            this.commandGroups.add(commandGroupModel);
+            // add all the commands to this gallery (creating a UI representation for each command)
+            for (FlamingoCommand command : commandGroupModel.getCommandList()) {
+                this.addGalleryCommand(command);
             }
         }
     }
@@ -455,8 +411,26 @@ public class JRibbonGallery extends JComponent {
                 galleryModel.getPreferredPopupMaxCommandColumns(),
                 galleryModel.getPreferredPopupMaxVisibleCommandRows());
 
+        List<CommandGroupModel> extraPopupCommandGroups = galleryModel.getExtraPopupCommandGroups();
+        if (!extraPopupCommandGroups.isEmpty()) {
+            for (int i = 0; i < extraPopupCommandGroups.size(); i++) {
+                CommandGroupModel extraPopupCommandGroup = extraPopupCommandGroups.get(i);
+                for (FlamingoCommand command: extraPopupCommandGroup.getCommandList()) {
+                    AbstractCommandButton menuButton = command.buildMenuButton();
+                    if (menuButton instanceof JCommandMenuButton) {
+                        popupMenu.addMenuButton((JCommandMenuButton) menuButton);
+                    }
+                    if (menuButton instanceof JCommandToggleMenuButton) {
+                        popupMenu.addMenuButton((JCommandToggleMenuButton) menuButton);
+                    }
+                }
+                if (i < (extraPopupCommandGroups.size() - 1)) {
+                    popupMenu.addMenuSeparator();
+                }
+            }
+        }
         JRibbonBand.RibbonGalleryPopupCallback galleryPopupCallback =
-                galleryModel.getRibbonGalleryPopupCallback();
+                galleryModel.getPopupCallback();
         if (galleryPopupCallback != null) {
             galleryPopupCallback.popupToBeShown(popupMenu);
         }

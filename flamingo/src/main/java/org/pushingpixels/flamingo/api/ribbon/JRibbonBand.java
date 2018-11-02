@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryModel;
+import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -65,10 +65,10 @@ import java.util.*;
  * </p>
  *
  * <ul>
- * <li>{@link RibbonGalleryModel#addRibbonGalleryCommands(String, FlamingoCommand...)}</li>
- * <li>{@link RibbonGalleryModel#removeRibbonGalleryCommands(FlamingoCommand...)}</li>
+ * <li>{@link CommandGroupModel#addCommand(FlamingoCommand)}</li>
+ * <li>{@link CommandGroupModel#removeCommand(FlamingoCommand)}</li>
  * <li>{@link RibbonGalleryModel#setSelectedCommand(FlamingoCommand)}</li>
- * <li>{@link RibbonGalleryModel#setRibbonGalleryPopupCallback(RibbonGalleryPopupCallback)}</li>
+ * <li>{@link RibbonGalleryModel#setPopupCallback(RibbonGalleryPopupCallback)}</li>
  * </ul>
  *
  * <p>
@@ -173,8 +173,8 @@ public class JRibbonBand extends AbstractRibbonBand {
      *                                            gallery associated with the ribbon
      *                                            gallery.
      * @param priority                            The initial ribbon gallery priority.
-     * @see RibbonGalleryModel#addRibbonGalleryCommands(String, FlamingoCommand...)
-     * @see RibbonGalleryModel#removeRibbonGalleryCommands(FlamingoCommand...)
+     * @see CommandGroupModel#addCommand(FlamingoCommand)
+     * @see CommandGroupModel#removeCommand(FlamingoCommand)
      * @see RibbonGalleryModel#setSelectedCommand(FlamingoCommand)
      * @deprecated Use {@link #addRibbonGallery(String, RibbonGalleryModel, RibbonElementPriority, String)}
      */
@@ -184,9 +184,13 @@ public class JRibbonBand extends AbstractRibbonBand {
             Map<RibbonElementPriority, Integer> preferredVisibleCommandCounts,
             int preferredPopupMaxCommandColumns, int preferredPopupMaxVisibleCommandRows,
             RibbonElementPriority priority) {
-        RibbonGalleryModel model = new RibbonGalleryModel(commands, preferredVisibleCommandCounts,
-                preferredPopupMaxCommandColumns, preferredPopupMaxVisibleCommandRows,
-                JRibbonBand.BIG_FIXED_LANDSCAPE);
+        List<CommandGroupModel> commandGroups = new ArrayList<>();
+        for (StringValuePair<List<FlamingoCommand>> commandPair : commands) {
+            commandGroups.add(new CommandGroupModel(commandPair.getKey(), commandPair.getValue()));
+        }
+        RibbonGalleryModel model = new RibbonGalleryModel(commandGroups,
+                preferredVisibleCommandCounts, preferredPopupMaxCommandColumns,
+                preferredPopupMaxVisibleCommandRows, JRibbonBand.BIG_FIXED_LANDSCAPE);
         this.addRibbonGallery(galleryName, model, priority, null);
     }
 
@@ -204,8 +208,8 @@ public class JRibbonBand extends AbstractRibbonBand {
      *                                            gallery.
      * @param commandDisplayState                 Display state for all commands.
      * @param priority                            The initial ribbon gallery priority.
-     * @see RibbonGalleryModel#addRibbonGalleryCommands(String, FlamingoCommand...)
-     * @see RibbonGalleryModel#removeRibbonGalleryCommands(FlamingoCommand...)
+     * @see CommandGroupModel#addCommand(FlamingoCommand)
+     * @see CommandGroupModel#removeCommand(FlamingoCommand)
      * @see RibbonGalleryModel#setSelectedCommand(FlamingoCommand)
      * @deprecated Use {@link #addRibbonGallery(String, RibbonGalleryModel, RibbonElementPriority, String)}
      */
@@ -215,9 +219,13 @@ public class JRibbonBand extends AbstractRibbonBand {
             Map<RibbonElementPriority, Integer> preferredVisibleCommandCounts,
             int preferredPopupMaxCommandColumns, int preferredPopupMaxVisibleCommandRows,
             CommandButtonDisplayState commandDisplayState, RibbonElementPriority priority) {
-        RibbonGalleryModel model = new RibbonGalleryModel(commands, preferredVisibleCommandCounts,
-                preferredPopupMaxCommandColumns, preferredPopupMaxVisibleCommandRows,
-                commandDisplayState);
+        List<CommandGroupModel> commandGroups = new ArrayList<>();
+        for (StringValuePair<List<FlamingoCommand>> commandPair : commands) {
+            commandGroups.add(new CommandGroupModel(commandPair.getKey(), commandPair.getValue()));
+        }
+        RibbonGalleryModel model = new RibbonGalleryModel(commandGroups,
+                preferredVisibleCommandCounts, preferredPopupMaxCommandColumns,
+                preferredPopupMaxVisibleCommandRows, commandDisplayState);
         this.addRibbonGallery(galleryName, model, priority, null);
     }
 
@@ -237,8 +245,8 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @param commands         Commands to add.
      * @see #addRibbonGallery(String, RibbonGalleryModel, RibbonElementPriority, String)
      * @see RibbonGalleryModel#setSelectedCommand(FlamingoCommand)
-     * @see RibbonGalleryModel#removeRibbonGalleryCommands(FlamingoCommand...)
-     * @deprecated Use {@link RibbonGalleryModel#addRibbonGalleryCommands(String, FlamingoCommand...)}
+     * @see CommandGroupModel#removeCommand(FlamingoCommand)
+     * @deprecated Use {@link CommandGroupModel#addCommand(FlamingoCommand)}
      */
     @Deprecated
     public void addRibbonGalleryCommands(String galleryName, String commandGroupName,
@@ -248,7 +256,11 @@ public class JRibbonBand extends AbstractRibbonBand {
         if (gallery == null) {
             return;
         }
-        gallery.getGalleryModel().addRibbonGalleryCommands(commandGroupName, commands);
+        CommandGroupModel commandGroupModel =
+                gallery.getGalleryModel().getCommandGroupByTitle(commandGroupName);
+        for (FlamingoCommand command: commands) {
+            commandGroupModel.addCommand(command);
+        }
     }
 
     /**
@@ -257,9 +269,9 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @param galleryName Ribbon gallery name.
      * @param commands    Commands to remove.
      * @see #addRibbonGallery(String, RibbonGalleryModel, RibbonElementPriority, String)
-     * @see RibbonGalleryModel#addRibbonGalleryCommands(String, FlamingoCommand...)
+     * @see CommandGroupModel#addCommand(FlamingoCommand)
      * @see RibbonGalleryModel#setSelectedCommand(FlamingoCommand)
-     * @deprecated Use {@link RibbonGalleryModel#removeRibbonGalleryCommands(FlamingoCommand...)}
+     * @deprecated Use {@link CommandGroupModel#removeCommand(FlamingoCommand)}
      */
     @Deprecated
     public void removeRibbonGalleryCommands(String galleryName, FlamingoCommand... commands) {
@@ -268,7 +280,13 @@ public class JRibbonBand extends AbstractRibbonBand {
         if (gallery == null) {
             return;
         }
-        gallery.getGalleryModel().removeRibbonGalleryCommands(commands);
+        // To not break backwards compatibility, go over all command groups in the
+        // gallery and ask each one to remove all the commands
+        for (CommandGroupModel commandGroupModel : gallery.getGalleryModel().getCommandGroups()) {
+            for (FlamingoCommand command: commands) {
+                commandGroupModel.removeCommand(command);
+            }
+        }
     }
 
     /**
@@ -277,8 +295,8 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @param galleryName     Ribbon gallery name.
      * @param commandToSelect Command to select.
      * @see #addRibbonGallery(String, RibbonGalleryModel, RibbonElementPriority, String)
-     * @see RibbonGalleryModel#addRibbonGalleryCommands(String, FlamingoCommand...)
-     * @see RibbonGalleryModel#removeRibbonGalleryCommands(FlamingoCommand...)
+     * @see CommandGroupModel#addCommand(FlamingoCommand)
+     * @see CommandGroupModel#removeCommand(FlamingoCommand)
      * @deprecated Use {@link RibbonGalleryModel#setSelectedCommand(FlamingoCommand)}
      */
     @Deprecated
@@ -297,7 +315,7 @@ public class JRibbonBand extends AbstractRibbonBand {
      *
      * @param galleryName  Ribbon gallery name.
      * @param displayState Display state for the commands of the matching ribbon gallery.
-     * @deprecated Use {@link RibbonGalleryModel#setRibbonGalleryCommandDisplayState(CommandButtonDisplayState)}
+     * @deprecated Use {@link RibbonGalleryModel#setCommandDisplayState(CommandButtonDisplayState)}
      */
     @Deprecated
     public void setRibbonGalleryCommandDisplayState(String galleryName,
@@ -307,7 +325,7 @@ public class JRibbonBand extends AbstractRibbonBand {
         if (gallery == null) {
             return;
         }
-        gallery.getGalleryModel().setRibbonGalleryCommandDisplayState(displayState);
+        gallery.getGalleryModel().setCommandDisplayState(displayState);
     }
 
     /**
@@ -317,7 +335,7 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @param galleryName   Gallery name.
      * @param popupCallback Application callback.
      * @see RibbonGalleryPopupCallback
-     * @deprecated Use {@link RibbonGalleryModel#setRibbonGalleryPopupCallback(RibbonGalleryPopupCallback)}
+     * @deprecated Use {@link RibbonGalleryModel#addExtraPopupCommandGroup(CommandGroupModel)}
      */
     @Deprecated
     public void setRibbonGalleryPopupCallback(String galleryName,
@@ -327,7 +345,7 @@ public class JRibbonBand extends AbstractRibbonBand {
         if (gallery == null) {
             return;
         }
-        gallery.getGalleryModel().setRibbonGalleryPopupCallback(popupCallback);
+        gallery.getGalleryModel().setPopupCallback(popupCallback);
     }
 
     /**

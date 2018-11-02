@@ -36,7 +36,7 @@ import javax.swing.event.*;
 import java.util.*;
 
 public class RibbonGalleryModel {
-    private List<StringValuePair<List<FlamingoCommand>>> commands;
+    private List<CommandGroupModel> commandGroups;
     private Map<RibbonElementPriority, Integer> preferredVisibleCommandCounts;
 
     /**
@@ -52,7 +52,11 @@ public class RibbonGalleryModel {
     private CommandButtonDisplayState commandDisplayState;
     private JRibbonBand.RibbonGalleryPopupCallback popupCallback;
 
+    private List<CommandGroupModel> extraPopupCommandGroups;
+
     private FlamingoCommand selectedCommand;
+
+    private CommandGroupModel.CommandGroupListener commandGroupListener;
 
     /**
      * Stores the listeners on this model.
@@ -69,19 +73,46 @@ public class RibbonGalleryModel {
         void onCommandSelected(FlamingoCommand command);
     }
 
-    public RibbonGalleryModel(List<StringValuePair<List<FlamingoCommand>>> commands,
+    public RibbonGalleryModel(List<CommandGroupModel> commands,
             Map<RibbonElementPriority, Integer> preferredVisibleCommandCounts,
             int preferredPopupMaxCommandColumns, int preferredPopupMaxVisibleCommandRows,
             CommandButtonDisplayState commandDisplayState) {
-        this.commands = new ArrayList<>(commands);
+        this.commandGroups = new ArrayList<>(commands);
+
+        this.commandGroupListener = new CommandGroupModel.CommandGroupListener() {
+            @Override
+            public void onCommandAdded(FlamingoCommand command) {
+                fireStateChanged();
+            }
+
+            @Override
+            public void onCommandRemoved(FlamingoCommand command) {
+                fireStateChanged();
+            }
+        };
+        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+            commandGroupModel.addCommandGroupListener(this.commandGroupListener);
+        }
+
         this.preferredVisibleCommandCounts = preferredVisibleCommandCounts;
         this.preferredPopupMaxCommandColumns = preferredPopupMaxCommandColumns;
         this.preferredPopupMaxVisibleCommandRows = preferredPopupMaxVisibleCommandRows;
         this.commandDisplayState = commandDisplayState;
+
+        this.extraPopupCommandGroups = new ArrayList<>();
     }
 
-    public List<StringValuePair<List<FlamingoCommand>>> getCommands() {
-        return commands;
+    public List<CommandGroupModel> getCommandGroups() {
+        return Collections.unmodifiableList(this.commandGroups);
+    }
+
+    public CommandGroupModel getCommandGroupByTitle(String commandGroupTitle) {
+        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+            if (commandGroupModel.getTitle().equals(commandGroupTitle)) {
+                return commandGroupModel;
+            }
+        }
+        return null;
     }
 
     public Map<RibbonElementPriority, Integer> getPreferredVisibleCommandCounts() {
@@ -100,38 +131,46 @@ public class RibbonGalleryModel {
         return commandDisplayState;
     }
 
-    public void addRibbonGalleryCommands(String commandGroupName, FlamingoCommand... commands) {
-        List<FlamingoCommand> commandList = new ArrayList<>();
-        for (FlamingoCommand command : commands) {
-            commandList.add(command);
-        }
-        this.commands.add(new StringValuePair<>(commandGroupName, commandList));
+    public void addCommandGroup(CommandGroupModel commandGroupModel) {
+        this.commandGroups.add(commandGroupModel);
+        commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
-    public void removeRibbonGalleryCommands(FlamingoCommand... commands) {
-        for (FlamingoCommand command : commands) {
-            for (StringValuePair<List<FlamingoCommand>> commandGrouping : this.commands) {
-                commandGrouping.getValue().remove(command);
-            }
-        }
+    public void removeCommandGroup(CommandGroupModel commandGroupModel) {
+        this.commandGroups.remove(commandGroupModel);
+        commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
-    public void setRibbonGalleryCommandDisplayState(CommandButtonDisplayState displayState) {
+    public void setCommandDisplayState(CommandButtonDisplayState displayState) {
         if (this.commandDisplayState != displayState) {
             this.commandDisplayState = displayState;
             this.fireStateChanged();
         }
     }
 
-    // TODO: Replace callback with command list in 2.0
-    public void setRibbonGalleryPopupCallback(
-            JRibbonBand.RibbonGalleryPopupCallback popupCallback) {
+    /**
+     * @deprecated Use {@link #addExtraPopupCommandGroup(CommandGroupModel)} instead
+     */
+    @Deprecated
+    public void setPopupCallback(JRibbonBand.RibbonGalleryPopupCallback popupCallback) {
         this.popupCallback = popupCallback;
     }
 
-    public JRibbonBand.RibbonGalleryPopupCallback getRibbonGalleryPopupCallback() {
+    public void addExtraPopupCommandGroup(CommandGroupModel commandGroupModel) {
+        this.extraPopupCommandGroups.add(commandGroupModel);
+    }
+
+    public void removeExtraPopupCommandGroup(CommandGroupModel commandGroupModel) {
+        this.extraPopupCommandGroups.remove(commandGroupModel);
+    }
+
+    public List<CommandGroupModel> getExtraPopupCommandGroups() {
+        return Collections.unmodifiableList(this.extraPopupCommandGroups);
+    }
+
+    public JRibbonBand.RibbonGalleryPopupCallback getPopupCallback() {
         return this.popupCallback;
     }
 
