@@ -148,7 +148,7 @@ fun main(args: Array<String>) {
                     }
                 }
             }
-            display {
+            presentation {
                 orientation = JCommandButtonStrip.StripOrientation.VERTICAL
                 horizontalGapScaleFactor = 0.8
                 verticalGapScaleFactor = 1.4

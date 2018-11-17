@@ -42,7 +42,7 @@ public class TestCommandButtonsRichTooltips extends TestCommandButtons {
     protected JPanel getButtonPanel() {
         JPanel result = super.getButtonPanel();
         apply(result, (JCommandButton button) -> {
-            button.setActionRichTooltip(new RichTooltip.RichTooltipBuilder()
+            button.setActionRichTooltip(RichTooltip.builder()
                     .setTitle(resourceBundle.getString("Tooltip.textActionTitle"))
                     .addDescriptionSection(resourceBundle.getString("Tooltip.textParagraph1"))
                     .addDescriptionSection(resourceBundle.getString("Tooltip.textParagraph2"))
@@ -51,7 +51,7 @@ public class TestCommandButtonsRichTooltips extends TestCommandButtons {
                     .addFooterSection(resourceBundle.getString("Tooltip.textFooterParagraph1"))
                     .build());
 
-            button.setPopupRichTooltip(new RichTooltip.RichTooltipBuilder()
+            button.setPopupRichTooltip(RichTooltip.builder()
                     .setTitle(resourceBundle.getString("Tooltip.textPopupTitle"))
                     .addDescriptionSection(resourceBundle.getString("Tooltip.textParagraph1"))
                     .setFooterIcon(Help_browser.of(32, 32))

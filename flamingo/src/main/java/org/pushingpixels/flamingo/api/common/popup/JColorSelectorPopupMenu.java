@@ -30,10 +30,12 @@
 package org.pushingpixels.flamingo.api.common.popup;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandPopupMenuUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.*;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -44,22 +46,82 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
      */
     public static final String uiClassID = "ColorSelectorPopupMenuUI";
 
+    private ColorSelectorPopupMenuContentModel colorSelectorPopupMenuContentModel;
+
     private ColorSelectorCallback colorSelectorCallback;
 
     private JColorSelectorPanel lastColorSelectorPanel;
 
     private static LinkedList<Color> recentlySelected = new LinkedList<>();
 
-    // TODO: Split into two interfaces as in RibbonGalleryModel, replacing onColorRollover
-    //  with onColorPreviewActivated and onColorPreviewCanceled in 2.0
+    // TODO: Move into ColorSelectorMenuGroupModel, split into two interfaces as in
+    //  RibbonGalleryModel, replacing onColorRollover with onColorPreviewActivated and
+    //  onColorPreviewCanceled in 2.0
     public interface ColorSelectorCallback {
         void onColorRollover(Color color);
 
         void onColorSelected(Color color);
     }
 
+    /**
+     * @deprecated Use {@link #JColorSelectorPopupMenu(ColorSelectorPopupMenuContentModel)}
+     */
+    @Deprecated
     public JColorSelectorPopupMenu(ColorSelectorCallback colorSelectorCallback) {
         this.colorSelectorCallback = colorSelectorCallback;
+    }
+
+    @SuppressWarnings("deprecation")
+    public JColorSelectorPopupMenu(ColorSelectorPopupMenuContentModel contentModel) {
+        this.colorSelectorPopupMenuContentModel = contentModel;
+        this.colorSelectorCallback =
+                this.colorSelectorPopupMenuContentModel.getColorSelectorCallback();
+        this.populateContent();
+        this.colorSelectorPopupMenuContentModel.addChangeListener(
+                (ChangeEvent event) -> populateContent());
+    }
+
+    @Override
+    protected void populateContent() {
+        List<ColorSelectorPopupMenuGroupModel> menuGroups =
+                this.colorSelectorPopupMenuContentModel.getMenuGroups();
+        for (int i = 0; i < menuGroups.size(); i++) {
+            ColorSelectorPopupMenuGroupModel menuGroup = menuGroups.get(i);
+            for (KeyValuePair<ColorSelectorPopupMenuGroupModel.GroupEntryKind, Object> groupEntry :
+                    menuGroup.getGroupContent()) {
+                switch (groupEntry.getKey()) {
+                    case COMMAND:
+                        AbstractCommandButton commandButton =
+                                ((FlamingoCommand) groupEntry.getValue()).buildMenuButton();
+                        if (commandButton instanceof JCommandMenuButton) {
+                            this.addMenuButton((JCommandMenuButton) commandButton);
+                        }
+                        if (commandButton instanceof JCommandToggleMenuButton) {
+                            this.addMenuButton((JCommandToggleMenuButton) commandButton);
+                        }
+                        break;
+                    case COLOR_SECTION:
+                        ColorSelectorPopupMenuGroupModel.ColorSectionModel colorSectionModel =
+                                (ColorSelectorPopupMenuGroupModel.ColorSectionModel) groupEntry.getValue();
+                        this.addColorSection(colorSectionModel.getTitle(),
+                                colorSectionModel.getColors());
+                        break;
+                    case COLOR_SECTION_WITH_DERIVED:
+                        ColorSelectorPopupMenuGroupModel.ColorSectionModel colorSectionWithDerivedModel =
+                                (ColorSelectorPopupMenuGroupModel.ColorSectionModel) groupEntry.getValue();
+                        this.addColorSectionWithDerived(colorSectionWithDerivedModel.getTitle(),
+                                colorSectionWithDerivedModel.getColors());
+                        break;
+                    case RECENTS_SECTION:
+                        ColorSelectorPopupMenuGroupModel.ColorSectionModel recentsSectionModel =
+                                (ColorSelectorPopupMenuGroupModel.ColorSectionModel) groupEntry.getValue();
+                        this.addRecentSection(recentsSectionModel.getTitle());
+                }
+            }
+            if (i < (menuGroups.size() - 1)) {
+                this.addMenuSeparator();
+            }
+        }
     }
 
     @Override
@@ -72,6 +134,10 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
         setUI(SubstanceCommandPopupMenuUI.createUI(this));
     }
 
+    /**
+     * @deprecated Use {@link org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel.ColorSelectorMenuGroupModelBuilder#addColorSectionWithDerived(ColorSelectorPopupMenuGroupModel.ColorSectionModel)}
+     */
+    @Deprecated
     public void addColorSectionWithDerived(String label, Color[] primaryColors) {
         if ((primaryColors == null) || (primaryColors.length != 10)) {
             throw new IllegalArgumentException("Must pass exactly 10 colors");
@@ -84,6 +150,10 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
         this.lastColorSelectorPanel = selector;
     }
 
+    /**
+     * @deprecated Use {@link org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel.ColorSelectorMenuGroupModelBuilder#addColorSection(ColorSelectorPopupMenuGroupModel.ColorSectionModel)}
+     */
+    @Deprecated
     public void addColorSection(String label, Color[] primaryColors) {
         if ((primaryColors == null) || (primaryColors.length != 10)) {
             throw new IllegalArgumentException("Must pass exactly 10 colors");
@@ -95,27 +165,33 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
         this.lastColorSelectorPanel = selector;
     }
 
+    /**
+     * @deprecated Use {@link org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel.ColorSelectorMenuGroupModelBuilder#addRecentsSection(ColorSelectorPopupMenuGroupModel.ColorSectionModel)}
+     */
+    @Deprecated
     public void addRecentSection(String label) {
-        JPanel recent = new SingleRowSelector(this, recentlySelected
-                .toArray(new Color[0]));
+        JPanel recent = new SingleRowSelector(this, recentlySelected.toArray(new Color[0]));
         JColorSelectorPanel recentPanel = new JColorSelectorPanel(label, recent);
         recentPanel.setLastPanel(true);
         this.addMenuPanel(recentPanel);
         this.lastColorSelectorPanel = recentPanel;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void addMenuButton(JCommandMenuButton menuButton) {
         super.addMenuButton(menuButton);
         this.updateLastColorSelectorPanel();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void addMenuButton(JCommandToggleMenuButton menuButton) {
         super.addMenuButton(menuButton);
         this.updateLastColorSelectorPanel();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void addMenuSeparator() {
         super.addMenuSeparator();
@@ -129,22 +205,25 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
         }
     }
 
+    /**
+     * @deprecated Use {@link ColorSelectorPopupMenuContentModel#getColorSelectorCallback()}
+     */
     public ColorSelectorCallback getColorSelectorCallback() {
-        return this.colorSelectorCallback;
+        return (this.colorSelectorPopupMenuContentModel != null) ?
+                this.colorSelectorPopupMenuContentModel.getColorSelectorCallback() : null;
     }
 
     private static void wireToLRU(JColorSelectorComponent colorSelector) {
-        colorSelector
-                .addColorSelectorCallback(new JColorSelectorPopupMenu.ColorSelectorCallback() {
-                    @Override
-                    public void onColorSelected(Color color) {
-                        addColorToRecentlyUsed(color);
-                    }
+        colorSelector.addColorSelectorCallback(new JColorSelectorPopupMenu.ColorSelectorCallback() {
+            @Override
+            public void onColorSelected(Color color) {
+                addColorToRecentlyUsed(color);
+            }
 
-                    @Override
-                    public void onColorRollover(Color color) {
-                    }
-                });
+            @Override
+            public void onColorRollover(Color color) {
+            }
+        });
     }
 
     public synchronized static List<Color> getRecentlyUsedColors() {
@@ -154,12 +233,14 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
     public synchronized static void addColorToRecentlyUsed(Color color) {
         // is in?
         if (recentlySelected.contains(color)) {
+            // bump up to the top of the most recent
             recentlySelected.remove(color);
             recentlySelected.addLast(color);
             return;
         }
 
         if (recentlySelected.size() == 10) {
+            // too many in history, bump out the least recently used or added
             recentlySelected.removeFirst();
         }
         recentlySelected.addLast(color);
@@ -170,8 +251,7 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
                 final Color... colors) {
             final JColorSelectorComponent[] comps = new JColorSelectorComponent[colors.length];
             for (int i = 0; i < colors.length; i++) {
-                comps[i] = new JColorSelectorComponent(colors[i],
-                        colorSelectorCallback);
+                comps[i] = new JColorSelectorComponent(colors[i], colorSelectorCallback);
                 wireToLRU(comps[i]);
                 this.add(comps[i]);
             }
@@ -232,38 +312,33 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
 
         public MultiRowSelector(final JColorSelectorPopupMenu colorSelectorPopupMenu,
                 final Color... colors) {
-            final JColorSelectorComponent[][] comps = new JColorSelectorComponent[colors.length][1 + SECONDARY_ROWS];
+            final JColorSelectorComponent[][] comps =
+                    new JColorSelectorComponent[colors.length][1 + SECONDARY_ROWS];
             for (int i = 0; i < colors.length; i++) {
                 Color primary = colors[i];
 
-                comps[i][0] = new JColorSelectorComponent(primary,
-                        colorSelectorCallback);
+                comps[i][0] = new JColorSelectorComponent(primary, colorSelectorCallback);
                 wireToLRU(comps[i][0]);
                 this.add(comps[i][0]);
 
                 float[] primaryHsb = new float[3];
-                Color.RGBtoHSB(primary.getRed(), primary.getGreen(), primary
-                        .getBlue(), primaryHsb);
+                Color.RGBtoHSB(primary.getRed(), primary.getGreen(), primary.getBlue(), primaryHsb);
 
                 for (int row = 1; row <= SECONDARY_ROWS; row++) {
-                    float bFactor = (float) (row - 1)
-                            / (float) (SECONDARY_ROWS);
+                    float bFactor = (float) (row - 1) / (float) (SECONDARY_ROWS);
                     bFactor = (float) Math.pow(bFactor, 1.4f);
                     float brightness = 1.0f - bFactor;
 
                     if (primaryHsb[1] == 0.0f) {
                         // special handling for gray scale
                         float max = 0.5f + 0.5f * primaryHsb[2];
-                        brightness = max * (SECONDARY_ROWS - row + 1)
-                                / SECONDARY_ROWS;
+                        brightness = max * (SECONDARY_ROWS - row + 1) / SECONDARY_ROWS;
                     }
 
                     Color secondary = new Color(Color.HSBtoRGB(primaryHsb[0],
-                            primaryHsb[1] * (row + 1) / (SECONDARY_ROWS + 1),
-                            brightness));
+                            primaryHsb[1] * (row + 1) / (SECONDARY_ROWS + 1), brightness));
 
-                    comps[i][row] = new JColorSelectorComponent(secondary,
-                            colorSelectorCallback);
+                    comps[i][row] = new JColorSelectorComponent(secondary, colorSelectorCallback);
                     comps[i][row].setTopOpen(row > 1);
                     comps[i][row].setBottomOpen(row < SECONDARY_ROWS);
                     wireToLRU(comps[i][row]);
@@ -291,9 +366,8 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
                             (BasicColorSelectorPopupMenuUI) colorSelectorPopupMenu.getUI();
                     int gap = ui.getColorSelectorCellGap();
                     int size = ui.getColorSelectorCellSize();
-                    return new Dimension(colors.length * size
-                            + (colors.length + 1) * gap, gap + size + gap
-                            + SECONDARY_ROWS * size + gap);
+                    return new Dimension(colors.length * size + (colors.length + 1) * gap,
+                            gap + size + gap + SECONDARY_ROWS * size + gap);
                 }
 
                 @Override
@@ -322,8 +396,7 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
                         for (int row = 0; row <= SECONDARY_ROWS; row++) {
                             int x = getWidth() - gap;
                             for (int i = 0; i < colors.length; i++) {
-                                comps[i][row]
-                                        .setBounds(x - size, y, size, size);
+                                comps[i][row].setBounds(x - size, y, size, size);
                                 x -= (size + gap);
                             }
                             y += size;

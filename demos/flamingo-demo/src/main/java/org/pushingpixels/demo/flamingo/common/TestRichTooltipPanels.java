@@ -46,7 +46,7 @@ public class TestRichTooltipPanels extends JFrame {
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
-        JRichTooltipPanel panel = new JRichTooltipPanel(new RichTooltip.RichTooltipBuilder()
+        JRichTooltipPanel panel = new JRichTooltipPanel(RichTooltip.builder()
                 .setTitle(
                         "Main title that can go over multiple lines of text even exceeding the " +
                                 "bigger")

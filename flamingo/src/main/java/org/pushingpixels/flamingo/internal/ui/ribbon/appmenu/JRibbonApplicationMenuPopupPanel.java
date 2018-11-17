@@ -52,13 +52,11 @@ public class JRibbonApplicationMenuPopupPanel extends JPopupPanel
     }
 
     public JPanel getPanelLevel1() {
-        return ((BasicRibbonApplicationMenuPopupPanelUI) getUI())
-                .getPanelLevel1();
+        return ((BasicRibbonApplicationMenuPopupPanelUI) getUI()).getPanelLevel1();
     }
 
     public JPanel getPanelLevel2() {
-        return ((BasicRibbonApplicationMenuPopupPanelUI) getUI())
-                .getPanelLevel2();
+        return ((BasicRibbonApplicationMenuPopupPanelUI) getUI()).getPanelLevel2();
     }
 
     @Override

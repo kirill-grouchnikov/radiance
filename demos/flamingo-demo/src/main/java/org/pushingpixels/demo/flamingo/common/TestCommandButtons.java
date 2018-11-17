@@ -37,7 +37,9 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -46,6 +48,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.text.*;
 import java.util.*;
+import java.util.List;
 
 public class TestCommandButtons extends JFrame {
     private enum PopupKind {
@@ -138,47 +141,78 @@ public class TestCommandButtons extends JFrame {
             PopupKind popupKind = (PopupKind) popupCombo.getSelectedItem();
             switch (popupKind) {
                 case SIMPLE:
-                    JCommandPopupMenu simpleMenu = new JCommandPopupMenu();
+                    List<FlamingoCommand> simpleEntries1 = new ArrayList<>();
+                    List<FlamingoCommand> simpleEntries2 = new ArrayList<>();
 
-                    simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[]{"1"}),
-                            new Address_book_new()));
-                    simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[]{"2"}),
-                            new EmptyResizableIcon(16)));
-                    simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[]{"3"}),
-                            new EmptyResizableIcon(16)));
-                    simpleMenu.addMenuSeparator();
-                    simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[]{"4"}),
-                            new EmptyResizableIcon(16)));
-                    simpleMenu.addMenuButton(new JCommandMenuButton(mf.format(new Object[]{"5"}),
-                            new Text_x_generic()));
-                    return simpleMenu;
+                    simpleEntries1.add(FlamingoCommand.builder()
+                            .setTitle(mf.format(new Object[] { "1" }))
+                            .setIcon(new Address_book_new()).build());
+                    simpleEntries1.add(FlamingoCommand.builder()
+                            .setTitle(mf.format(new Object[] { "2" }))
+                            .setIcon(new EmptyResizableIcon(16)).build());
+                    simpleEntries1.add(FlamingoCommand.builder()
+                            .setTitle(mf.format(new Object[] { "3" }))
+                            .setIcon(new EmptyResizableIcon(16)).build());
+
+                    simpleEntries2.add(FlamingoCommand.builder()
+                            .setTitle(mf.format(new Object[] { "4" }))
+                            .setIcon(new EmptyResizableIcon(16)).build());
+                    simpleEntries2.add(FlamingoCommand.builder()
+                            .setTitle(mf.format(new Object[] { "5" }))
+                            .setIcon(new Text_x_generic()).build());
+
+                    return new JCommandPopupMenu(new CommandPopupMenuContentModel(
+                            Arrays.asList(new CommandGroupModel(simpleEntries1),
+                                    new CommandGroupModel(simpleEntries2))),
+                            CommandPopupMenuPresentationModel.builder().build());
+
                 case SCROLLABLE:
-                    JCommandPopupMenu scrollableMenu = new JCommandPopupMenu();
+                    List<FlamingoCommand> scrollableEntries = new ArrayList<>();
 
                     for (int i = 0; i < 20; i++) {
-                        final JCommandMenuButton smb = new JCommandMenuButton(
-                                mf.format(new Object[]{i}), new Text_x_generic());
-                        smb.addActionListener((ActionEvent e) -> System.out
-                                .println("Invoked action on '" + smb.getText() + "'"));
-                        scrollableMenu.addMenuButton(smb);
+                        final int index = i;
+                        scrollableEntries.add(FlamingoCommand.builder()
+                                .setTitle(mf.format(new Object[] { i }))
+                                .setIcon(new Text_x_generic())
+                                .setAction((ActionEvent e) -> System.out
+                                        .println("Invoked action on '" + index + "'")).build());
                     }
-                    scrollableMenu.setMaxVisibleMenuButtons(8);
-                    return scrollableMenu;
+
+                    return new JCommandPopupMenu(new CommandPopupMenuContentModel(
+                            new CommandGroupModel(scrollableEntries)),
+                            CommandPopupMenuPresentationModel.builder()
+                                    .setMaxVisibleMenuCommands(8).build());
 
                 case COMPLEX:
-                    JCommandPopupMenu complexMenu = new JCommandPopupMenu(
-                            new QuickStylesPanel(resourceBundle, currLocale), 5, 3);
-                    complexMenu.addMenuButton(new JCommandMenuButton(
-                            resourceBundle.getString("SaveSelection.text"),
-                            new X_office_document()));
-                    complexMenu.addMenuButton(
-                            new JCommandMenuButton(resourceBundle.getString("ClearSelection.text"),
-                                    new EmptyResizableIcon(16)));
-                    complexMenu.addMenuSeparator();
-                    complexMenu.addMenuButton(new JCommandMenuButton(
-                            resourceBundle.getString("ApplyStyles.text"),
-                            new EmptyResizableIcon(16)));
-                    return complexMenu;
+                    List<CommandGroupModel> extraEntries = new ArrayList<>();
+                    extraEntries.add(new CommandGroupModel(
+                            FlamingoCommand.builder()
+                                    .setTitle(resourceBundle.getString("SaveSelection.text"))
+                                    .setIcon(new X_office_document()).build(),
+                            FlamingoCommand.builder()
+                                    .setTitle(resourceBundle.getString("ClearSelection.text"))
+                                    .setIcon(new EmptyResizableIcon(16)).build()
+                    ));
+                    extraEntries.add(new CommandGroupModel(
+                            FlamingoCommand.builder()
+                                    .setTitle(resourceBundle.getString("ApplyStyles.text"))
+                                    .setIcon(new EmptyResizableIcon(16)).build()
+                    ));
+
+                    return new JCommandPopupMenu(
+                            new CommandPopupMenuContentModel(
+                                    QuickStylesPanel.getQuickStylesContentModel(resourceBundle,
+                                            currLocale), extraEntries),
+                            CommandPopupMenuPresentationModel.builder()
+                                    .setPanelPresentationModel(
+                                            CommandPanelPresentationModel.builder()
+                                                    .setToShowGroupLabels(false)
+                                                    .setCommandDisplayState(
+                                                            CommandButtonDisplayState.FIT_TO_ICON)
+                                                    .setCommandIconDimension(48)
+                                                    .setMaxColumns(5)
+                                                    .setMaxRows(3).build())
+                                    .build());
             }
             return null;
         }
@@ -363,7 +397,7 @@ public class TestCommandButtons extends JFrame {
                     if (child instanceof JCommandButton)
                         ((JCommandButton) child).setPopupOrientationKind(
                                 downward.isSelected() ? CommandButtonPopupOrientationKind.DOWNWARD
-                                                      : CommandButtonPopupOrientationKind.SIDEWARD);
+                                        : CommandButtonPopupOrientationKind.SIDEWARD);
                     if (child instanceof Container)
                         scan((Container) child);
                 }

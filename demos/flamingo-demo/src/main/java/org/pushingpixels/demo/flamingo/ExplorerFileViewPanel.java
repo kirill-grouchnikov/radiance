@@ -140,14 +140,14 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
     }
 
     @Override
-    protected void configureCommandButton(AbstractFileViewPanel.Leaf leaf, JCommandButton button,
-            ResizableIcon icon) {
+    protected void configureCommand(Leaf leaf, FlamingoCommand command, ResizableIcon icon) {
         String filename = leaf.getLeafName();
         String ext = "Generic";
         int lastDot = filename.lastIndexOf('.');
-        if (lastDot >= 0)
+        if (lastDot >= 0) {
             ext = filename.substring(lastDot + 1).toUpperCase();
-        button.setExtraText(ext + " file");
+        }
+        command.setExtraText(ext + " file");
     }
 
     @Override

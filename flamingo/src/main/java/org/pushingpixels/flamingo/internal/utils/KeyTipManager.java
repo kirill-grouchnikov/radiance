@@ -533,9 +533,11 @@ public class KeyTipManager {
                             }
                         });
                     } else {
-                        // match found and activated, and no further
-                        // traversal - dismiss all key tip chains
+                        // match found and activated, and no further traversal
+                        // a) dismiss all key tip chains
                         hideAllKeyTips();
+                        // b) hide all popups
+                        PopupPanelManager.defaultManager().hidePopups(null);
                     }
                 }
                 return;

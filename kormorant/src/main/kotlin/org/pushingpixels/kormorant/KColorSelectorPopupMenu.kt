@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.kormorant
 
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton
-import org.pushingpixels.flamingo.api.common.JCommandToggleMenuButton
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel
 
 @FlamingoElementMarker
 class KColorSelectorPopupMenuColorSection(val isDerived: Boolean) {
@@ -96,35 +96,47 @@ class KColorSelectorPopupMenu {
             throw IllegalStateException("This method can only be called once")
         }
 
-        colorSelectorPopupMenu = JColorSelectorPopupMenu(colorSelectorCallback)
+        val menuGroups = ArrayList<ColorSelectorPopupMenuGroupModel>()
+        var currMenuGroupBuilder = ColorSelectorPopupMenuGroupModel.builder()
 
         for (component in components) {
             when (component) {
-                is KCommandPopupMenu.KCommandPopupMenuSeparator -> colorSelectorPopupMenu.addMenuSeparator()
+                is KCommandPopupMenu.KCommandPopupMenuSeparator -> {
+                    menuGroups.add(currMenuGroupBuilder.build())
+                    currMenuGroupBuilder = ColorSelectorPopupMenuGroupModel.builder()
+                }
                 is KCommand -> {
-                    val commandMenuButton = component.asBaseMenuButton()
-                    when (commandMenuButton) {
-                        is JCommandMenuButton -> colorSelectorPopupMenu.addMenuButton(commandMenuButton)
-                        is JCommandToggleMenuButton -> colorSelectorPopupMenu.addMenuButton(commandMenuButton)
-                        else -> throw IllegalStateException("Unsupported content")
-                    }
+                    currMenuGroupBuilder.addCommand(component.toFlamingoCommand())
                 }
                 is KColorSelectorPopupMenuColorSection -> {
                     if (component.isDerived) {
-                        colorSelectorPopupMenu.addColorSectionWithDerived(component.title,
-                                component.colorContainer.colors.toTypedArray())
+                        currMenuGroupBuilder.addColorSectionWithDerived(
+                                ColorSelectorPopupMenuGroupModel.ColorSectionModel(component.title,
+                                        component.colorContainer.colors.toTypedArray()))
                     } else {
-                        colorSelectorPopupMenu.addColorSection(component.title,
-                                component.colorContainer.colors.toTypedArray())
+                        currMenuGroupBuilder.addColorSection(
+                                ColorSelectorPopupMenuGroupModel.ColorSectionModel(component.title,
+                                        component.colorContainer.colors.toTypedArray()))
                     }
                 }
                 is KColorSelectorPopupMenuRecentSection -> {
-                    colorSelectorPopupMenu.addRecentSection(component.title)
+                    currMenuGroupBuilder.addRecentsSection(
+                            ColorSelectorPopupMenuGroupModel.ColorSectionModel(component.title))
                 }
                 else -> throw IllegalStateException("Unsupported content")
             }
         }
+        val lastGroup = currMenuGroupBuilder.build()
+        if (!lastGroup.groupContent.isEmpty()) {
+            menuGroups.add(lastGroup)
+        }
         hasBeenConverted = true
+
+        val menuContentModel = ColorSelectorPopupMenuContentModel(menuGroups)
+        menuContentModel.colorSelectorCallback = colorSelectorCallback
+
+        colorSelectorPopupMenu = JColorSelectorPopupMenu(menuContentModel)
+
         return colorSelectorPopupMenu
     }
 }

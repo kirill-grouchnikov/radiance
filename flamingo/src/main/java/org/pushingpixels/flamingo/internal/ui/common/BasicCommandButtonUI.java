@@ -279,7 +279,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 JCommandPopupMenu menu = (JCommandPopupMenu) SwingUtilities
                         .getAncestorOfClass(JCommandPopupMenu.class, commandButton);
                 if (menu != null) {
-                    toDismiss = menu.isToDismissOnChildClick();
+                    toDismiss = menu.getPresentationModel().isToDismissOnCommandActivation();
                 }
             }
             if (toDismiss) {

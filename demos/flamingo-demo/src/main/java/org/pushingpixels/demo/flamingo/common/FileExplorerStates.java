@@ -91,7 +91,7 @@ public class FileExplorerStates extends JFrame {
             CommandButtonDisplayState selected = (CommandButtonDisplayState) states
                     .getSelectedItem();
             filePanel.cancelMainWorker();
-            filePanel.setIconState(selected);
+            filePanel.getPresentationModel().setCommandDisplayState(selected);
         });
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));

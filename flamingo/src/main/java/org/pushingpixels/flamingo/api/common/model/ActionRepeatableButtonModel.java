@@ -29,8 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
+import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,13 +55,13 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
     /**
      * Timer for the auto-repeat action mode.
      */
-    protected Timer autoRepeatTimer;
+    private Timer autoRepeatTimer;
 
     /**
      * Indication whether the action is fired on mouse press (as opposed to
      * mouse release).
      */
-    protected boolean toFireActionOnPress;
+    private boolean toFireActionOnPress;
 
     /**
      * Creates a new button model.
@@ -111,8 +112,11 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
         }
 
         if (toFireFirstAction) {
-            fireActionPerformed(new ActionEvent(this,
-                    ActionEvent.ACTION_PERFORMED, getActionCommand(),
+            fireActionPerformed(new CommandActionEvent(this,
+                    ActionEvent.ACTION_PERFORMED,
+                    (FlamingoCommand) this.commandButton.getClientProperty(
+                            FlamingoUtilities.COMMAND),
+                    getActionCommand(),
                     EventQueue.getMostRecentEventTime(), modifiers));
             if (commandButton.isAutoRepeatAction()) {
                 // start timer
@@ -158,8 +162,11 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
                     modifiers = ((ActionEvent) currentEvent).getModifiers();
                 }
 
-                fireActionPerformed(new ActionEvent(this,
-                        ActionEvent.ACTION_PERFORMED, getActionCommand(),
+                fireActionPerformed(new CommandActionEvent(this,
+                        ActionEvent.ACTION_PERFORMED,
+                        (FlamingoCommand) this.commandButton.getClientProperty(
+                                FlamingoUtilities.COMMAND),
+                        getActionCommand(),
                         EventQueue.getMostRecentEventTime(), modifiers));
                 if (commandButton.isAutoRepeatAction()) {
                     // start timer
@@ -211,7 +218,9 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
                         autoRepeatTimer.stop();
                         return;
                     }
-                    fireActionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED,
+                    fireActionPerformed(new CommandActionEvent(this, ActionEvent.ACTION_PERFORMED,
+                            (FlamingoCommand) this.commandButton.getClientProperty(
+                                    FlamingoUtilities.COMMAND),
                             getActionCommand(), EventQueue.getMostRecentEventTime(), modifiers));
                 });
         this.autoRepeatTimer.setInitialDelay(this.commandButton

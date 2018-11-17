@@ -32,9 +32,8 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip.StripOrientation;
 import org.pushingpixels.flamingo.api.common.popup.*;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryModel;
+import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.utils.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -114,7 +113,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      */
     private PropertyChangeListener propertyChangeListener;
 
-    private RibbonGalleryModel.GalleryCommandSelectionListener galleryCommandSelectionListener;
+    private RibbonGalleryContentModel.GalleryCommandActivationListener galleryCommandSelectionListener;
     private ChangeListener galleryModelChangeListener;
 
     /**
@@ -265,7 +264,8 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 PopupFactory popupFactory = PopupFactory.getSharedInstance();
 
                 JCommandPopupMenu popupMenu = JRibbonGallery.getExpandPopupMenu(
-                        ribbonGallery.getGalleryModel(), ribbonGallery);
+                        ribbonGallery.getContentModel(),
+                        ribbonGallery.getPresentationModel(), ribbonGallery);
                 final Point loc = ribbonGallery.getLocationOnScreen();
                 popupMenu.setCustomizer(() -> {
                     Rectangle scrBounds = ribbonGallery.getGraphicsConfiguration().getBounds();
@@ -305,17 +305,18 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
         this.expandActionButton.addActionListener(this.expandListener);
 
-        this.galleryCommandSelectionListener = (FlamingoCommand selected) ->
+        this.galleryCommandSelectionListener = (FlamingoCommand activated) ->
                 SwingUtilities.invokeLater(() -> {
                     scrollToSelected();
                     ribbonGallery.revalidate();
                 });
-        this.ribbonGallery.getGalleryModel().addCommandSelectionListener(
+        this.ribbonGallery.getContentModel().addCommandActivationListener(
                 this.galleryCommandSelectionListener);
 
         this.galleryModelChangeListener = (ChangeEvent changeEvent) ->
                 ribbonGallery.revalidate();
-        this.ribbonGallery.getGalleryModel().addChangeListener(this.galleryModelChangeListener);
+        this.ribbonGallery.getContentModel().addChangeListener(
+                this.galleryModelChangeListener);
 
         this.propertyChangeListener = (PropertyChangeEvent evt) -> {
             if ("expandKeyTip".equals(evt.getPropertyName())) {
@@ -338,9 +339,9 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         this.expandActionButton.removeActionListener(this.expandListener);
         this.expandListener = null;
 
-        this.ribbonGallery.getGalleryModel().removeCommandSelectionListener(
+        this.ribbonGallery.getContentModel().removeCommandSelectionListener(
                 this.galleryCommandSelectionListener);
-        this.ribbonGallery.getGalleryModel().removeChangeListener(
+        this.ribbonGallery.getContentModel().removeChangeListener(
                 this.galleryModelChangeListener);
 
         this.ribbonGallery.removePropertyChangeListener(this.propertyChangeListener);
@@ -405,7 +406,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
             visibleButtonRowNumber = 1;
             CommandButtonDisplayState galleryButtonDisplayState = ribbonGallery
-                    .getGalleryModel().getCommandDisplayState();
+                    .getPresentationModel().getCommandDisplayState();
             if (galleryButtonDisplayState == CommandButtonDisplayState.SMALL) {
                 buttonHeight /= 3;
                 visibleButtonRowNumber = 3;
@@ -556,7 +557,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         int result = margin.left;
         // add all the gallery buttons - based on the display state
         CommandButtonDisplayState galleryButtonDisplayState = ribbonGallery.
-                getGalleryModel().getCommandDisplayState();
+                getPresentationModel().getCommandDisplayState();
         if (galleryButtonDisplayState == CommandButtonDisplayState.SMALL) {
             result += buttonCount * buttonHeight / 3;
         }
@@ -601,8 +602,9 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      */
     private void scrollToSelected() {
         JCommandToggleButton selected = this.ribbonGallery.getSelectedButton();
-        if (selected == null)
+        if (selected == null) {
             return;
+        }
         int selIndex = -1;
         for (int i = 0; i < this.ribbonGallery.getCommandCount(); i++) {
             if (this.ribbonGallery.getButtonAt(i) == selected) {
@@ -610,17 +612,20 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 break;
             }
         }
-        if (selIndex < 0)
+        if (selIndex < 0) {
             return;
+        }
 
         // is already shown?
         if ((selIndex >= this.firstVisibleButtonIndex) && (selIndex < (this.firstVisibleButtonIndex
-                + this.visibleButtonRowNumber * this.visibleButtonsInEachRow)))
+                + this.visibleButtonRowNumber * this.visibleButtonsInEachRow))) {
             return;
+        }
 
         // not visible?
-        if (this.visibleButtonsInEachRow <= 0)
+        if (this.visibleButtonsInEachRow <= 0) {
             return;
+        }
 
         while (true) {
             if (selIndex < this.firstVisibleButtonIndex) {

@@ -34,13 +34,13 @@ import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
-import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.geom.Rectangle2D;
@@ -111,67 +111,73 @@ public class TestColorSelector extends JFrame {
 
         final Color defaultPanelColor = centerPanel.getBackground();
         jcb.setPopupCallback((JCommandButton commandButton) -> {
-            JColorSelectorPopupMenu result = new JColorSelectorPopupMenu(callback);
-            final JCommandMenuButton automaticColor = new JCommandMenuButton(
-                    resourceBundle.getString("ColorSelector.textAutomatic"),
-                    new ColorIcon(defaultPanelColor));
-            automaticColor.getActionModel().addActionListener((ActionEvent e) -> {
-                callback.onColorSelected(defaultPanelColor);
-                JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor);
-            });
-            automaticColor.getActionModel().addChangeListener(new ChangeListener() {
-                boolean wasRollover = automaticColor.getActionModel().isRollover();
+            ColorSelectorPopupMenuGroupModel.ColorSelectorMenuGroupModelBuilder selectorBuilder =
+                    ColorSelectorPopupMenuGroupModel.builder();
 
-                @Override
-                public void stateChanged(ChangeEvent e) {
-                    boolean isRollover = automaticColor.getActionModel().isRollover();
-                    if (wasRollover && !isRollover) {
-                        callback.onColorRollover(null);
-                    }
-                    if (!wasRollover && isRollover) {
-                        callback.onColorRollover(Color.black);
-                    }
-                    wasRollover = isRollover;
-                }
-            });
-            result.addMenuButton(automaticColor);
+            selectorBuilder.addCommand(FlamingoCommand.builder()
+                    .setTitle(resourceBundle.getString("ColorSelector.textAutomatic"))
+                    .setIcon(new ColorIcon(defaultPanelColor))
+                    .setAction((ActionEvent e) -> {
+                        callback.onColorSelected(defaultPanelColor);
+                        JColorSelectorPopupMenu.addColorToRecentlyUsed(
+                                defaultPanelColor);
+                    })
+                    .setPreviewListener(new FlamingoCommand.CommandPreviewListener() {
+                        @Override
+                        public void onCommandPreviewActivated(FlamingoCommand command) {
+                            callback.onColorRollover(Color.black);
+                        }
+
+                        @Override
+                        public void onCommandPreviewCanceled(FlamingoCommand command) {
+                            callback.onColorRollover(null);
+                        }
+                    })
+                    .build());
 
             if (hasTheme.isSelected()) {
-                result.addColorSectionWithDerived(
-                        resourceBundle.getString("ColorSelector.textThemeCaption"),
-                        new Color[] { new Color(255, 255, 255), new Color(0, 0, 0),
-                                new Color(160, 160, 160), new Color(16, 64, 128),
-                                new Color(80, 128, 192), new Color(180, 80, 80),
-                                new Color(160, 192, 80), new Color(128, 92, 160),
-                                new Color(80, 160, 208), new Color(255, 144, 64) });
+                selectorBuilder.addColorSectionWithDerived(
+                        new ColorSelectorPopupMenuGroupModel.ColorSectionModel(
+                                resourceBundle.getString("ColorSelector.textThemeCaption"),
+                                new Color[] { new Color(255, 255, 255), new Color(0, 0, 0),
+                                        new Color(160, 160, 160), new Color(16, 64, 128),
+                                        new Color(80, 128, 192), new Color(180, 80, 80),
+                                        new Color(160, 192, 80), new Color(128, 92, 160),
+                                        new Color(80, 160, 208), new Color(255, 144, 64) }));
             }
             if (hasStandard.isSelected()) {
-                result.addColorSection(
-                        resourceBundle.getString("ColorSelector.textStandardCaption"),
-                        new Color[] { new Color(140, 0, 0), new Color(253, 0, 0),
-                                new Color(255, 160, 0), new Color(255, 255, 0),
-                                new Color(144, 240, 144), new Color(0, 128, 0),
-                                new Color(160, 224, 224), new Color(0, 0, 255),
-                                new Color(0, 0, 128), new Color(128, 0, 128) });
+                selectorBuilder.addColorSection(
+                        new ColorSelectorPopupMenuGroupModel.ColorSectionModel(
+                                resourceBundle.getString("ColorSelector.textStandardCaption"),
+                                new Color[] { new Color(140, 0, 0), new Color(253, 0, 0),
+                                        new Color(255, 160, 0), new Color(255, 255, 0),
+                                        new Color(144, 240, 144), new Color(0, 128, 0),
+                                        new Color(160, 224, 224), new Color(0, 0, 255),
+                                        new Color(0, 0, 128), new Color(128, 0, 128) }));
             }
             if (hasRecent.isSelected()) {
-                result.addRecentSection(
-                        resourceBundle.getString("ColorSelector.textRecentCaption"));
+                selectorBuilder.addRecentsSection(
+                        new ColorSelectorPopupMenuGroupModel.ColorSectionModel(
+                                resourceBundle.getString("ColorSelector.textRecentCaption")));
             }
 
-            JCommandMenuButton moreButton = new JCommandMenuButton(
-                    resourceBundle.getString("ColorSelector.textMoreColor"), null);
-            moreButton.getActionModel()
-                    .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            selectorBuilder.addCommand(FlamingoCommand.builder()
+                    .setTitle(resourceBundle.getString("ColorSelector.textMoreColor"))
+                    .setAction((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
                         Color color = JColorChooser.showDialog(TestColorSelector.this,
                                 "Color chooser", bColor);
                         if (color != null) {
                             callback.onColorSelected(color);
                             JColorSelectorPopupMenu.addColorToRecentlyUsed(color);
                         }
-                    }));
-            result.addMenuButton(moreButton);
-            return result;
+                    })).build());
+
+            ColorSelectorPopupMenuContentModel selectorModel =
+                    new ColorSelectorPopupMenuContentModel(
+                            Collections.singletonList(selectorBuilder.build()));
+            selectorModel.setColorSelectorCallback(callback);
+
+            return new JColorSelectorPopupMenu(selectorModel);
         });
 
         top.add(jcb);

@@ -120,8 +120,9 @@ public class TestButtonStripHorizontal extends JFrame {
         buttonStrip2.add(new JCommandButton("", new Format_text_underline()));
         JCommandButton strike = new JCommandButton("", new Format_text_strikethrough());
         strike.setCommandButtonKind(CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION);
-        strike.setPopupCallback((JCommandButton commandButton) -> new SamplePopupMenu(
-                commandButton.getComponentOrientation()));
+        strike.setPopupCallback(
+                (JCommandButton commandButton) -> SamplePopupMenu.getSamplePopupMenu(
+                        commandButton.getComponentOrientation()));
         buttonStrip2.add(strike);
         return buttonStrip2;
     }

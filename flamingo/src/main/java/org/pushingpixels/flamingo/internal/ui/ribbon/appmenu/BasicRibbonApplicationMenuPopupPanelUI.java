@@ -52,15 +52,15 @@ import java.util.List;
  * @author Kirill Grouchnikov
  */
 public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupPanelUI {
-    protected JPanel panelLevel1;
+    private JPanel panelLevel1;
 
     protected JScrollablePanel<JPanel> panelScrollerLevel2;
 
     protected JPanel panelLevel2;
 
-    protected JPanel footerPanel;
+    private JPanel footerPanel;
 
-    protected static final CommandButtonDisplayState MENU_TILE_LEVEL_1 = new CommandButtonDisplayState(
+    private static final CommandButtonDisplayState MENU_TILE_LEVEL_1 = new CommandButtonDisplayState(
             "Ribbon application menu tile level 1", 32) {
         @Override
         public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton commandButton) {
@@ -163,8 +163,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                         // application rollover callback to populate the
                         // second level panel
                         commandButton.addRolloverActionListener((ActionEvent e) -> {
-                            // System.out.println("Rollover action");
                             PrimaryRolloverCallback callback = menuEntry.getRolloverCallback();
+                            panelLevel2.removeAll();
                             if (callback != null) {
                                 callback.menuEntryActivated(panelLevel2);
                             } else {
@@ -175,12 +175,12 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                                     defaultCallback.menuEntryActivated(panelLevel2);
                                 } else {
                                     panelLevel2.removeAll();
-                                    panelLevel2.revalidate();
-                                    panelLevel2.repaint();
                                 }
                             }
                             panelScrollerLevel2.applyComponentOrientation(
                                     applicationMenuPopupPanel.getComponentOrientation());
+                            panelLevel2.revalidate();
+                            panelLevel2.repaint();
                         });
                     } else {
                         // register a core callback to populate the second level
@@ -188,8 +188,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                         final PrimaryRolloverCallback coreCallback = (JPanel targetPanel) -> {
                             targetPanel.removeAll();
                             targetPanel.setLayout(new BorderLayout());
-                            JRibbonApplicationMenuPopupPanelSecondary secondary = new JRibbonApplicationMenuPopupPanelSecondary(
-                                    menuEntry) {
+                            JRibbonApplicationMenuPopupPanelSecondary secondary =
+                                    new JRibbonApplicationMenuPopupPanelSecondary(menuEntry) {
                                 @Override
                                 public void removeNotify() {
                                     super.removeNotify();
@@ -199,11 +199,12 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                             secondary.applyComponentOrientation(
                                     applicationMenuPopupPanel.getComponentOrientation());
                             targetPanel.add(secondary, BorderLayout.CENTER);
+                            targetPanel.revalidate();
+                            targetPanel.repaint();
                         };
                         commandButton.addRolloverActionListener((ActionEvent e) -> {
                             coreCallback.menuEntryActivated(panelLevel2);
-                            // emulate showing the popup so the
-                            // button remains "selected"
+                            // emulate showing the popup so the button remains "selected"
                             commandButton.getPopupModel().setPopupShowing(true);
                         });
                     }
@@ -223,7 +224,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         mainPanel.add(this.panelLevel1, BorderLayout.LINE_START);
 
         this.panelLevel2 = new JPanel();
-        this.panelScrollerLevel2 = new JScrollablePanel<JPanel>(this.panelLevel2,
+        this.panelScrollerLevel2 = new JScrollablePanel<>(this.panelLevel2,
                 JScrollablePanel.ScrollType.VERTICALLY);
         this.panelScrollerLevel2.setPreferredSize(new Dimension(30 *
                 this.panelLevel1.getFont().getSize() - 30, 10));

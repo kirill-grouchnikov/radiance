@@ -106,7 +106,7 @@ public abstract class CommandButtonDisplayState {
 	 * @see #CommandButtonDisplayState(String, int)
 	 * @see #getPreferredIconSize()
 	 */
-	int preferredIconSize;
+	private int preferredIconSize;
 
 	/**
 	 * Display name for this state.
@@ -114,7 +114,7 @@ public abstract class CommandButtonDisplayState {
 	 * @see #CommandButtonDisplayState(String, int)
 	 * @see #getDisplayName()
 	 */
-	String displayName;
+	private String displayName;
 
 	/**
 	 * Creates a new element state.
@@ -124,8 +124,7 @@ public abstract class CommandButtonDisplayState {
 	 * @param preferredIconSize
 	 *            Preferred icon size.
 	 */
-	protected CommandButtonDisplayState(String displayName,
-			int preferredIconSize) {
+	protected CommandButtonDisplayState(String displayName, int preferredIconSize) {
 		this.displayName = displayName;
 		this.preferredIconSize = preferredIconSize;
 	}

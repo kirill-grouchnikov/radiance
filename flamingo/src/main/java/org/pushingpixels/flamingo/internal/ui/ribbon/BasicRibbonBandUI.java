@@ -32,7 +32,6 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryModel;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;

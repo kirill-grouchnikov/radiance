@@ -1,41 +1,37 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.flamingo.bcb;
 
-import org.pushingpixels.demo.flamingo.MessageListDialog;
-import org.pushingpixels.demo.flamingo.ExplorerFileViewPanel;
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent;
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.StringValuePair;
+import org.pushingpixels.demo.flamingo.*;
+import org.pushingpixels.flamingo.api.bcb.*;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.spoonbill.svn.BreadcrumbMultiSvnSelector;
 import org.pushingpixels.substance.api.*;
@@ -44,9 +40,7 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
 
 public class MultiSvnBreadCrumbTest extends JFrame {
@@ -91,34 +85,38 @@ public class MultiSvnBreadCrumbTest extends JFrame {
                 .showMessageDialog(MultiSvnBreadCrumbTest.this, "Error", t));
 
         this.bar.getModel()
-                .addPathListener((BreadcrumbPathEvent<String> event) -> SwingUtilities.invokeLater(() -> {
-                    final List<BreadcrumbItem<String>> newPath = event.getSource().getItems();
-                    System.out.println("New path is ");
-                    for (BreadcrumbItem<String> item : newPath) {
-                        System.out.println("\t" + item.getData());
-                    }
-
-                    if (newPath.size() > 0) {
-                        SwingWorker<List<StringValuePair<String>>, Void> worker = new SwingWorker<List<StringValuePair<String>>, Void>() {
-                            @Override
-                            protected List<StringValuePair<String>> doInBackground() {
-                                return bar.getCallback().getLeafs(newPath);
+                .addPathListener(
+                        (BreadcrumbPathEvent<String> event) -> SwingUtilities.invokeLater(() -> {
+                            final List<BreadcrumbItem<String>> newPath =
+                                    event.getSource().getItems();
+                            System.out.println("New path is ");
+                            for (BreadcrumbItem<String> item : newPath) {
+                                System.out.println("\t" + item.getData());
                             }
 
-                            @Override
-                            protected void done() {
-                                try {
-                                    List<StringValuePair<String>> leafs = get();
-                                    filePanel.setFolder(leafs);
-                                } catch (Exception exc) {
-                                    MessageListDialog.showMessageDialog(MultiSvnBreadCrumbTest.this,
-                                            exc.getMessage(), exc);
-                                }
+                            if (newPath.size() > 0) {
+                                SwingWorker<List<StringValuePair<String>>, Void> worker =
+                                        new SwingWorker<List<StringValuePair<String>>, Void>() {
+                                    @Override
+                                    protected List<StringValuePair<String>> doInBackground() {
+                                        return bar.getCallback().getLeafs(newPath);
+                                    }
+
+                                    @Override
+                                    protected void done() {
+                                        try {
+                                            List<StringValuePair<String>> leafs = get();
+                                            filePanel.setFolder(leafs);
+                                        } catch (Exception exc) {
+                                            MessageListDialog.showMessageDialog(
+                                                    MultiSvnBreadCrumbTest.this,
+                                                    exc.getMessage(), exc);
+                                        }
+                                    }
+                                };
+                                worker.execute();
                             }
-                        };
-                        worker.execute();
-                    }
-                }));
+                        }));
 
         JPanel toolbar = new JPanel(new BorderLayout(3, 0));
         SubstanceCortex.ComponentOrParentChainScope.setDecorationType(toolbar,
@@ -131,13 +129,12 @@ public class MultiSvnBreadCrumbTest extends JFrame {
 
         this.filePanel = new ExplorerFileViewPanel<String>(bar, CommandButtonDisplayState.MEDIUM) {
             @Override
-            protected void configureCommandButton(
-                    org.pushingpixels.flamingo.api.common.AbstractFileViewPanel.Leaf leaf,
-                    JCommandButton button, ResizableIcon icon) {
+            protected void configureCommand(Leaf leaf, FlamingoCommand command,
+                    ResizableIcon icon) {
                 long size = (Long) leaf.getLeafProp("size");
                 Date date = (Date) leaf.getLeafProp("date");
                 SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy");
-                button.setExtraText(size + " bytes, " + sdf.format(date));
+                command.setExtraText(size + " bytes, " + sdf.format(date));
             }
         };
         this.filePanel.setUseNativeIcons(true);
@@ -147,9 +144,8 @@ public class MultiSvnBreadCrumbTest extends JFrame {
 
     /**
      * Main method for testing.
-     * 
-     * @param args
-     *            Ignored.
+     *
+     * @param args Ignored.
      */
     public static void main(String... args) {
         try {

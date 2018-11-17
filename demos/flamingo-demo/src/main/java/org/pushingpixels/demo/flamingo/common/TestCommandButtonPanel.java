@@ -31,6 +31,7 @@ package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
+import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel.LayoutKind;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
@@ -47,7 +48,7 @@ public class TestCommandButtonPanel extends JFrame {
 
     private JScrollPane scroller;
 
-    private QuickStylesPanel buttonPanel;
+    private JCommandButtonPanel buttonPanel;
 
     private TestCommandButtonPanel() {
         super("Command button panel test");
@@ -61,24 +62,27 @@ public class TestCommandButtonPanel extends JFrame {
         resourceBundle = ResourceBundle.getBundle(
                 "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
 
-        buttonPanel = new QuickStylesPanel(resourceBundle, currLocale);
+        buttonPanel = QuickStylesPanel.getQuickStylesPanel(resourceBundle, currLocale);
         scroller = new JScrollPane(buttonPanel);
 
         add(scroller, BorderLayout.CENTER);
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         final JCheckBox toShowGroupLabels = new JCheckBox("show group labels");
-        toShowGroupLabels.setSelected(buttonPanel.isToShowGroupLabels());
+        toShowGroupLabels.setSelected(
+                buttonPanel.getPresentationModel().isToShowGroupLabels());
         toShowGroupLabels.addActionListener((ActionEvent e) -> {
-            buttonPanel.setToShowGroupLabels(toShowGroupLabels.isSelected());
+            buttonPanel.getPresentationModel().setToShowGroupLabels(
+                    toShowGroupLabels.isSelected());
             scroller.revalidate();
         });
         controlPanel.add(toShowGroupLabels);
 
         final JCheckBox isRowFillLayout = new JCheckBox("use row fill layout");
-        isRowFillLayout.setSelected(buttonPanel.getLayoutKind() == LayoutKind.ROW_FILL);
+        isRowFillLayout.setSelected(
+                buttonPanel.getPresentationModel().getLayoutKind() == LayoutKind.ROW_FILL);
         isRowFillLayout.addActionListener((ActionEvent e) ->
-                buttonPanel.setLayoutKind(
+                buttonPanel.getPresentationModel().setLayoutKind(
                         isRowFillLayout.isSelected() ? LayoutKind.ROW_FILL : LayoutKind
                                 .COLUMN_FILL));
         controlPanel.add(isRowFillLayout);
@@ -89,7 +93,7 @@ public class TestCommandButtonPanel extends JFrame {
                     "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
             remove(scroller);
 
-            buttonPanel = new QuickStylesPanel(resourceBundle, currLocale);
+            buttonPanel = QuickStylesPanel.getQuickStylesPanel(resourceBundle, currLocale);
             scroller = new JScrollPane(buttonPanel);
             add(scroller, BorderLayout.CENTER);
             Window window = SwingUtilities.getWindowAncestor(buttonPanel);

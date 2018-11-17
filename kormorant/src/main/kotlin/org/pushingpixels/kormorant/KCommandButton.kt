@@ -31,46 +31,55 @@ package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.JCommandButton
 
 @FlamingoElementMarker
-class KCommandButtonDisplay {
+class KCommandButtonPresentation {
     var state: CommandButtonDisplayState = CommandButtonDisplayState.FIT_TO_ICON
     var isFlat: Boolean = true
     var horizontalAlignment: Int = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
     var horizontalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
     var verticalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
+    var popupOrientationKind: JCommandButton.CommandButtonPopupOrientationKind
+        = JCommandButton.CommandButtonPopupOrientationKind.DOWNWARD
 }
 
 @FlamingoElementMarker
 class KCommandButton {
     internal val command: KCommand = KCommand()
-    internal val display: KCommandButtonDisplay = KCommandButtonDisplay()
+    internal val presentation: KCommandButtonPresentation = KCommandButtonPresentation()
 
     fun command(init: KCommand.() -> Unit) {
         command.init()
     }
 
-    fun display(init: KCommandButtonDisplay.() -> Unit) {
-        display.init()
+    fun presentation(init: KCommandButtonPresentation.() -> Unit) {
+        presentation.init()
     }
 
     fun asButton(): AbstractCommandButton {
         val result = command.asBaseButton()
-        result.displayState = display.state
-        result.isFlat = display.isFlat
-        result.horizontalAlignment = display.horizontalAlignment
-        result.hGapScaleFactor = display.horizontalGapScaleFactor
-        result.vGapScaleFactor = display.verticalGapScaleFactor
+        result.displayState = presentation.state
+        result.isFlat = presentation.isFlat
+        result.horizontalAlignment = presentation.horizontalAlignment
+        result.hGapScaleFactor = presentation.horizontalGapScaleFactor
+        result.vGapScaleFactor = presentation.verticalGapScaleFactor
+        if (result is JCommandButton) {
+            result.popupOrientationKind = presentation.popupOrientationKind
+        }
         return result
     }
 
     fun asMenuButton(): AbstractCommandButton {
         val result = command.asBaseMenuButton()
-        result.displayState = display.state
-        result.isFlat = display.isFlat
-        result.horizontalAlignment = display.horizontalAlignment
-        result.hGapScaleFactor = display.horizontalGapScaleFactor
-        result.vGapScaleFactor = display.verticalGapScaleFactor
+        result.displayState = presentation.state
+        result.isFlat = presentation.isFlat
+        result.horizontalAlignment = presentation.horizontalAlignment
+        result.hGapScaleFactor = presentation.horizontalGapScaleFactor
+        result.vGapScaleFactor = presentation.verticalGapScaleFactor
+        if (result is JCommandButton) {
+            result.popupOrientationKind = presentation.popupOrientationKind
+        }
         return result
     }
 }

@@ -89,7 +89,7 @@ public class RecipePanel extends SingleContentPanel {
         result.setFlat(true);
         result.setCommandButtonKind(CommandButtonKind.ACTION_ONLY);
         result.setDisplayState(CommandButtonDisplayState.SMALL);
-        result.setActionRichTooltip(new RichTooltip.RichTooltipBuilder().setTitle(tooltip)
+        result.setActionRichTooltip(RichTooltip.builder().setTitle(tooltip)
                 .addDescriptionSection("Description for " + tooltip).build());
         return result;
     }

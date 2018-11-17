@@ -40,8 +40,7 @@ import java.beans.PropertyChangeEvent;
 import java.text.AttributedString;
 import java.util.ArrayList;
 
-public class CommandButtonLayoutManagerMenuTileLevel2 implements
-		CommandButtonLayoutManager {
+public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLayoutManager {
 
 	@Override
 	public int getPreferredIconSize(AbstractCommandButton commandButton) {
@@ -112,8 +111,8 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements
 		FontMetrics fm = g.getFontMetrics();
 		int labelHeight = fm.getAscent() + fm.getDescent();
 
-		JCommandButton.CommandButtonKind buttonKind = (commandButton instanceof JCommandButton) ? ((JCommandButton) commandButton)
-				.getCommandButtonKind()
+		JCommandButton.CommandButtonKind buttonKind = (commandButton instanceof JCommandButton)
+				? ((JCommandButton) commandButton).getCommandButtonKind()
 				: JCommandButton.CommandButtonKind.ACTION_ONLY;
 
 		if (buttonKind == JCommandButton.CommandButtonKind.ACTION_ONLY) {

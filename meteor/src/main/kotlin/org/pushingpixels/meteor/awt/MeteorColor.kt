@@ -90,3 +90,10 @@ inline fun Color.saturation() = Color.RGBtoHSB(this.red, this.green, this.blue, 
  * returning the third component of the result.
  */
 inline fun Color.brightness() = Color.RGBtoHSB(this.red, this.green, this.blue, null)[2]
+
+/**
+ * Returns a derived color based on the passed alpha.
+ */
+inline fun Color.withAlpha(alpha: Int) : Color {
+    return Color(this.red, this.green, this.blue, alpha)
+}

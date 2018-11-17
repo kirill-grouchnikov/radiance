@@ -22,8 +22,6 @@ public class Viewer extends JFrame {
 
     private JSlider iconSizeSlider;
 
-    private int currIconSize;
-
     private Viewer() {
         super("Image Viewer");
         this.setIconImage(RadianceLogo.getLogoImage(
@@ -35,44 +33,40 @@ public class Viewer extends JFrame {
         this.bar = new BreadcrumbFileSelector();
 
         this.bar.getModel()
-                .addPathListener((BreadcrumbPathEvent<File> event) -> SwingUtilities.invokeLater(() -> {
-                    final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
-                    System.out.println("New path is ");
-                    for (BreadcrumbItem<File> item : newPath) {
-                        // String[] values = item.getValue();
-                        System.out.println("\t" + item.getData().getAbsolutePath());
-                    }
-
-                    if (newPath.size() > 0) {
-                        SwingWorker<List<StringValuePair<File>>, Void> worker = new
-                                SwingWorker<List<StringValuePair<File>>, Void>() {
-                            @Override
-                            protected List<StringValuePair<File>> doInBackground() {
-                                return bar.getCallback().getLeafs(newPath);
+                .addPathListener(
+                        (BreadcrumbPathEvent<File> event) -> SwingUtilities.invokeLater(() -> {
+                            final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
+                            System.out.println("New path is ");
+                            for (BreadcrumbItem<File> item : newPath) {
+                                // String[] values = item.getValue();
+                                System.out.println("\t" + item.getData().getAbsolutePath());
                             }
 
-                            @Override
-                            protected void done() {
-                                try {
-                                    fileViewPanel.setFolder(get());
-                                } catch (Exception exc) {
-                                }
+                            if (newPath.size() > 0) {
+                                SwingWorker<List<StringValuePair<File>>, Void> worker = new
+                                        SwingWorker<List<StringValuePair<File>>, Void>() {
+                                            @Override
+                                            protected List<StringValuePair<File>> doInBackground() {
+                                                return bar.getCallback().getLeafs(newPath);
+                                            }
+
+                                            @Override
+                                            protected void done() {
+                                                try {
+                                                    fileViewPanel.setFolder(get());
+                                                } catch (Exception exc) {
+                                                }
+                                            }
+                                        };
+                                worker.execute();
                             }
-                        };
-                        worker.execute();
-                    }
-                }));
+                        }));
 
         this.setLayout(new BorderLayout());
         this.add(bar, BorderLayout.NORTH);
 
         int initialSize = 100;
         this.fileViewPanel = new AbstractFileViewPanel<File>(64) {
-            @Override
-            protected void configureCommandButton(AbstractFileViewPanel.Leaf leaf,
-                    JCommandButton button, ResizableIcon icon) {
-            }
-
             @Override
             protected InputStream getLeafContent(File leaf) {
                 try {
@@ -115,17 +109,13 @@ public class Viewer extends JFrame {
         this.iconSizeSlider.setMajorTickSpacing(50);
         this.iconSizeSlider.setMinorTickSpacing(10);
         this.iconSizeSlider.setValue(initialSize);
-        this.currIconSize = initialSize;
         this.iconSizeSlider.addChangeListener((ChangeEvent e) -> {
             if (!iconSizeSlider.getModel().getValueIsAdjusting()) {
-                int newValue = iconSizeSlider.getValue();
-                if (newValue != currIconSize) {
-                    currIconSize = newValue;
-                    SwingUtilities.invokeLater(() -> {
-                        fileViewPanel.setIconDimension(currIconSize);
-                        invalidate();
-                        doLayout();
-                    });
+                if (iconSizeSlider.getValue() !=
+                        fileViewPanel.getPresentationModel().getCommandIconDimension()) {
+                    SwingUtilities.invokeLater(() ->
+                            fileViewPanel.getPresentationModel().setCommandIconDimension(
+                                    iconSizeSlider.getValue()));
                 }
             }
         });

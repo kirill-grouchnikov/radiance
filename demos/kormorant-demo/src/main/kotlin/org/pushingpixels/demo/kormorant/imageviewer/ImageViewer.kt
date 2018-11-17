@@ -40,10 +40,6 @@ fun main(args: Array<String>) {
 
         val bar = BreadcrumbFileSelector()
         val fileViewPanel = object : AbstractFileViewPanel<File>(initialSize) {
-            override fun configureCommandButton(leaf: AbstractFileViewPanel.Leaf,
-                    button: JCommandButton, icon: ResizableIcon) {
-            }
-
             override fun getLeafContent(leaf: File): InputStream? {
                 return try {
                     FileInputStream(leaf)
@@ -101,16 +97,11 @@ fun main(args: Array<String>) {
         iconSizeSlider.minorTickSpacing = 10
         iconSizeSlider.value = initialSize
 
-        var currIconSize = initialSize
         iconSizeSlider.addChangeListener {
             if (!iconSizeSlider.model.valueIsAdjusting) {
-                val newValue = iconSizeSlider.value
-                if (newValue != currIconSize) {
-                    currIconSize = newValue
+                if (iconSizeSlider.value != fileViewPanel.presentationModel.commandIconDimension) {
                     GlobalScope.launch(Dispatchers.Swing) {
-                        fileViewPanel.setIconDimension(currIconSize)
-                        frame.invalidate()
-                        frame.doLayout()
+                        fileViewPanel.presentationModel.commandIconDimension = iconSizeSlider.value
                     }
                 }
             }

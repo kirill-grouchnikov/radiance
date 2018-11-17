@@ -46,7 +46,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
 	 * 
 	 * @author Kirill Grouchnikov
 	 */
-	public enum CommandButtonSeparatorOrientation {
+	enum CommandButtonSeparatorOrientation {
 		/**
 		 * Vertical separator orientation.
 		 */
@@ -63,7 +63,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
 	 * 
 	 * @author Kirill Grouchnikov
 	 */
-	public class TextLayoutInfo {
+	class TextLayoutInfo {
 		/**
 		 * Text itself.
 		 */
@@ -80,7 +80,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
 	 * 
 	 * @author Kirill Grouchnikov
 	 */
-	public class CommandButtonLayoutInfo {
+	class CommandButtonLayoutInfo {
 		/**
 		 * The action area. A mouse click in this area will trigger all
 		 * listeners associated with the command button action model
@@ -145,7 +145,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
 	 * @return The preferred size of the specified command button when it uses
      * this layout manager.
 	 */
-	public Dimension getPreferredSize(AbstractCommandButton commandButton);
+	Dimension getPreferredSize(AbstractCommandButton commandButton);
 
 	/**
 	 * Returns the preferred icon size of the specified command button when it uses
@@ -156,7 +156,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
 	 * @return The preferred icon size of the specified command button when it uses
      * this layout manager.
 	 */
-	public int getPreferredIconSize(AbstractCommandButton commandButton);
+	int getPreferredIconSize(AbstractCommandButton commandButton);
 
 	/**
 	 * Returns the anchor center point of the key tip of the specified command
@@ -167,7 +167,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
 	 * @return The anchor center point of the key tip of the specified command
 	 *         button.
 	 */
-	public Point getKeyTipAnchorCenterPoint(AbstractCommandButton commandButton);
+	Point getKeyTipAnchorCenterPoint(AbstractCommandButton commandButton);
 
 	/**
 	 * Returns the layout information for the specified command button.
@@ -178,5 +178,5 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
 	 *            Graphics context.
 	 * @return The layout information for the specified command button.
 	 */
-    public CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton commandButton, Graphics g);
+    CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton commandButton, Graphics g);
 }

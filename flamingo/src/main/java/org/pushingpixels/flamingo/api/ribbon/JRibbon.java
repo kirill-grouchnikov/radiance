@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryModel;
+import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -293,16 +293,18 @@ public class JRibbon extends JComponent {
         return result;
     }
 
-    public synchronized void addTaskbarGalleryDropdown(RibbonGalleryModel galleryModel,
-            ResizableIcon icon) {
-        JCommandButton galleryDropdownButton = new JCommandButton(icon);
+    public synchronized void addTaskbarGalleryDropdown(
+            RibbonGalleryContentModel galleryContentModel,
+            RibbonGalleryPresentationModel galleryPresentationModel) {
+        JCommandButton galleryDropdownButton = new JCommandButton(galleryContentModel.getIcon());
         galleryDropdownButton.setDisplayState(CommandButtonDisplayState.SMALL);
         galleryDropdownButton.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
 
         // Configure the button popup callback to display the expanded popup menu
         // for the gallery
         galleryDropdownButton.setPopupCallback((JCommandButton commandButton) ->
-                JRibbonGallery.getExpandPopupMenu(galleryModel, galleryDropdownButton));
+                JRibbonGallery.getExpandPopupMenu(galleryContentModel, galleryPresentationModel,
+                        galleryDropdownButton));
 
         this.taskbarComponents.add(galleryDropdownButton);
         this.fireStateChanged();

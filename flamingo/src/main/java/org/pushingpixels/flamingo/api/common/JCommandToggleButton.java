@@ -76,7 +76,7 @@ public class JCommandToggleButton extends AbstractCommandButton {
 	 */
 	public JCommandToggleButton(String title, ResizableIcon icon) {
 		super(title, icon);
-		this.setActionModel(new ActionToggleButtonModel(false));
+		this.setActionModel(new ActionToggleButtonModel(this, false));
 		this.updateUI();
 	}
 

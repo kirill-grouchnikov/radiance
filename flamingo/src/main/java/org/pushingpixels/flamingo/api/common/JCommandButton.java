@@ -68,7 +68,7 @@ public class JCommandButton extends AbstractCommandButton {
      * @see #setCommandButtonKind(CommandButtonKind)
      * @see #getCommandButtonKind()
      */
-    protected CommandButtonKind commandButtonKind;
+    private CommandButtonKind commandButtonKind;
 
     /**
      * The popup orientation kind of this button.
@@ -76,7 +76,7 @@ public class JCommandButton extends AbstractCommandButton {
      * @see #setPopupOrientationKind(CommandButtonPopupOrientationKind)
      * @see #getPopupOrientationKind()
      */
-    protected CommandButtonPopupOrientationKind popupOrientationKind;
+    private CommandButtonPopupOrientationKind popupOrientationKind;
 
     /**
      * Indicates the auto-repeat action mode. When the button is not in the
@@ -94,7 +94,7 @@ public class JCommandButton extends AbstractCommandButton {
      * @see #setAutoRepeatAction(boolean)
      * @see #isAutoRepeatAction()
      */
-    protected boolean isAutoRepeatAction;
+    private boolean isAutoRepeatAction;
 
     /**
      * The initial interval for invoking the registered action listeners in the
@@ -105,7 +105,7 @@ public class JCommandButton extends AbstractCommandButton {
      * @see #getAutoRepeatInitialInterval()
      * @see #setAutoRepeatActionIntervals(int, int)
      */
-    protected int autoRepeatInitialInterval;
+    private int autoRepeatInitialInterval;
 
     /**
      * The subsequent interval for invoking the registered action listeners in
@@ -116,7 +116,7 @@ public class JCommandButton extends AbstractCommandButton {
      * @see #getAutoRepeatSubsequentInterval()
      * @see #setAutoRepeatActionIntervals(int, int)
      */
-    protected int autoRepeatSubsequentInterval;
+    private int autoRepeatSubsequentInterval;
 
     /**
      * Indicates that rollover should result in firing the action. Used in
@@ -126,7 +126,7 @@ public class JCommandButton extends AbstractCommandButton {
      * @see #setFireActionOnRollover(boolean)
      * @see #isFireActionOnRollover()
      */
-    protected boolean isFireActionOnRollover;
+    private boolean isFireActionOnRollover;
 
     /**
      * Popup model of this button.
@@ -134,12 +134,12 @@ public class JCommandButton extends AbstractCommandButton {
      * @see #setPopupModel(PopupButtonModel)
      * @see #getPopupModel()
      */
-    protected PopupButtonModel popupModel;
+    private PopupButtonModel popupModel;
 
     /**
      * Default popup handler for this button.
      */
-    protected PopupHandler popupHandler;
+    private PopupHandler popupHandler;
 
     /**
      * Rich tooltip for the popup area of this button.
@@ -155,7 +155,7 @@ public class JCommandButton extends AbstractCommandButton {
      * @see #setPopupKeyTip(String)
      * @see #getPopupKeyTip()
      */
-    protected String popupKeyTip;
+    private String popupKeyTip;
 
     /**
      * Enumerates the available command button kinds.

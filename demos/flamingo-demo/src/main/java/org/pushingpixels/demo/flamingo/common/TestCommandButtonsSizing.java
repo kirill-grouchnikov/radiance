@@ -116,8 +116,9 @@ public class TestCommandButtonsSizing extends JPanel {
         JCommandButton mainButton = new JCommandButton(text, mainPasteIcon);
         mainButton.setExtraText("Extra for " + text.toLowerCase());
         mainButton.addActionListener((ActionEvent e) -> System.out.println("Action invoked"));
-        mainButton.setPopupCallback((JCommandButton commandButton) -> new SamplePopupMenu(
-                commandButton.getComponentOrientation()));
+        mainButton.setPopupCallback(
+                (JCommandButton commandButton) -> SamplePopupMenu.getSamplePopupMenu(
+                        commandButton.getComponentOrientation()));
         mainButton.setCommandButtonKind(commandButtonKind);
         mainButton.setDisplayState(state);
         mainButton.setFlat(false);

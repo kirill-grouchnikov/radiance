@@ -82,6 +82,10 @@ class KRibbonTaskbar {
         return ribbonComponent
     }
 
+    fun gallery() {
+        // TODO: implement
+    }
+
     fun separator() {
         components.add(KCommandPopupMenu.KCommandPopupMenuSeparator())
     }

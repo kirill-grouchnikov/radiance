@@ -105,7 +105,7 @@ public class SvgFileViewPanel extends JPanel {
             JCommandButton svgButton = new JCommandButton(name.replace('-', ' '),
                     new EmptyResizableIcon(currDimension));
             svgButton
-                    .setActionRichTooltip(new RichTooltip.RichTooltipBuilder().setTitle("Transcode")
+                    .setActionRichTooltip(RichTooltip.builder().setTitle("Transcode")
                             .addDescriptionSection("Click to generate Java2D class").build());
             svgButton.updateCustomDimension(currDimension);
 
@@ -148,7 +148,7 @@ public class SvgFileViewPanel extends JPanel {
                     JCommandButton svgButton = newButtons.get(name);
                     svgButton.setIcon(svgIcon);
 
-                    svgButton.setActionRichTooltip(new RichTooltip.RichTooltipBuilder()
+                    svgButton.setActionRichTooltip(RichTooltip.builder()
                             .setTitle("Transcode")
                             .addDescriptionSection("Click to generate Java2D class").build());
                     svgButton.addActionListener((ActionEvent e) -> {

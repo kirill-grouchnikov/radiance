@@ -103,8 +103,7 @@ public class JCommandMenuButton extends JCommandButton {
         ActionEvent ae = new ActionEvent(this, ActionEvent.ACTION_PERFORMED,
                 this.getActionModel().getActionCommand());
         // Guaranteed to return a non-null array
-        RolloverActionListener[] listeners = this
-                .getListeners(RolloverActionListener.class);
+        RolloverActionListener[] listeners = this.getListeners(RolloverActionListener.class);
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 1; i >= 0; i--) {

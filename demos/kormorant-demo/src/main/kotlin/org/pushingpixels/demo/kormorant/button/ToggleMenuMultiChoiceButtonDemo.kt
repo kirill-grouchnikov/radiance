@@ -107,11 +107,11 @@ fun main(args: Array<String>) {
                             isToggle = true
                             isToggleSelected = isStrikeThrough
                         }
-                        toDismissOnChildClick = false
+                        toDismissOnCommandActivation = false
                     }.asCommandPopupMenu()
                 }
             }
-            display {
+            presentation {
                 isFlat = false
                 state = CommandButtonDisplayState.MEDIUM
             }

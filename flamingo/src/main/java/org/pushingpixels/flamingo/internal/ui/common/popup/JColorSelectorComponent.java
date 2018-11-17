@@ -55,7 +55,7 @@ public class JColorSelectorComponent extends JComponent {
             JColorSelectorPopupMenu.ColorSelectorCallback colorChooserCallback) {
         this.setOpaque(true);
         this.color = color;
-        this.colorChooserCallbacks = new ArrayList<JColorSelectorPopupMenu.ColorSelectorCallback>();
+        this.colorChooserCallbacks = new ArrayList<>();
         this.colorChooserCallbacks.add(colorChooserCallback);
 
         this.updateUI();

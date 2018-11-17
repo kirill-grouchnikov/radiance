@@ -70,11 +70,6 @@ public class IcoViewer extends JFrame {
         int initialSize = 32;
         this.fileViewPanel = new AbstractFileViewPanel<File>(32) {
             @Override
-            protected void configureCommandButton(AbstractFileViewPanel.Leaf leaf,
-                    JCommandButton button, ResizableIcon icon) {
-            }
-
-            @Override
             protected InputStream getLeafContent(File leaf) {
                 try {
                     return new FileInputStream(leaf);
@@ -122,7 +117,7 @@ public class IcoViewer extends JFrame {
                 if (newValue != currIconSize) {
                     currIconSize = newValue;
                     SwingUtilities.invokeLater(() -> {
-                        fileViewPanel.setIconDimension(currIconSize);
+                        fileViewPanel.getPresentationModel().setCommandIconDimension(currIconSize);
                         invalidate();
                         doLayout();
                     });

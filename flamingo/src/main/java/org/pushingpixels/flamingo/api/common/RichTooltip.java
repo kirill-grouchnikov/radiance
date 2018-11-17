@@ -236,6 +236,10 @@ public class RichTooltip {
         return this.footerSections;
     }
 
+    public static RichTooltipBuilder builder() {
+        return new RichTooltipBuilder();
+    }
+
     public static class RichTooltipBuilder {
         private String title;
         private ResizableIcon mainIcon;
@@ -290,6 +294,5 @@ public class RichTooltip {
             this.footerSections.add(section);
             return this;
         }
-
     }
 }

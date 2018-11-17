@@ -1,35 +1,36 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.neon.AsynchronousLoading;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
@@ -42,26 +43,25 @@ import java.util.List;
 /**
  * Panel that hosts file-related command buttons with progress indication and cancellation
  * capabilities.
- * 
+ *
+ * @param <T> Type tag.
  * @author Kirill Grouchnikov
- * @param <T>
- *            Type tag.
  */
 public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
     /**
      * Maps from file name to the buttons.
      */
-    protected Map<String, JCommandButton> buttonMap;
+    private Map<String, JCommandButton> buttonMap;
 
     /**
      * Progress listener to report back on loaded images.
      */
-    protected ProgressListener progressListener;
+    private ProgressListener progressListener;
 
     /**
      * Contains the buttons with completely loaded images.
      */
-    protected Set<JCommandButton> loadedSet;
+    private Set<FlamingoCommand> loadedSet;
 
     /**
      * The main worker that loads the images off EDT.
@@ -71,7 +71,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
     /**
      * Information on the specific file. Depending on the actual type of the file repository, the
      * property map will have different keys.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public static class Leaf {
@@ -92,11 +92,9 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
 
         /**
          * Creates a new leaf.
-         * 
-         * @param leafName
-         *            Leaf name.
-         * @param leafStream
-         *            Stream with the contents of the leaf file.
+         *
+         * @param leafName   Leaf name.
+         * @param leafStream Stream with the contents of the leaf file.
          */
         public Leaf(String leafName, InputStream leafStream) {
             this.leafName = leafName;
@@ -106,7 +104,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
 
         /**
          * Returns the leaf name.
-         * 
+         *
          * @return Leaf name.
          */
         public String getLeafName() {
@@ -115,7 +113,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
 
         /**
          * Returns the stream with the contents of the leaf file.
-         * 
+         *
          * @return Stream with the contents of the leaf file.
          */
         public InputStream getLeafStream() {
@@ -124,9 +122,8 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
 
         /**
          * Returns the leaf property with the specified name.
-         * 
-         * @param propName
-         *            Property name.
+         *
+         * @param propName Property name.
          * @return Leaf property with the specified name.
          */
         public Object getLeafProp(String propName) {
@@ -135,11 +132,9 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
 
         /**
          * Sets the leaf property with the specified name.
-         * 
-         * @param propName
-         *            Property name.
-         * @param propValue
-         *            Property value.
+         *
+         * @param propName  Property name.
+         * @param propValue Property value.
          */
         public void setLeafProp(String propName, Object propValue) {
             this.leafProps.put(propName, propValue);
@@ -147,7 +142,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
 
         /**
          * Returns the map of all the properties of this leaf.
-         * 
+         *
          * @return Unmodifiable view of the map of all the properties of this leaf.
          */
         public Map<String, Object> getLeafProps() {
@@ -157,30 +152,32 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
 
     /**
      * Creates a new panel.
-     * 
-     * @param startingDimension
-     *            Initial dimension for icons.
+     *
+     * @param startingDimension Initial dimension for icons.
      */
     public AbstractFileViewPanel(int startingDimension) {
-        super(startingDimension);
+        super(new CommandPanelContentModel(new ArrayList<>()),
+                CommandPanelPresentationModel.builder()
+                        .setCommandDisplayState(CommandButtonDisplayState.FIT_TO_ICON)
+                        .setCommandIconDimension(startingDimension)
+                        .setToShowGroupLabels(false).build());
         this.buttonMap = new HashMap<>();
         this.loadedSet = new HashSet<>();
-
-        this.setToShowGroupLabels(false);
     }
 
     /**
      * Creates a new panel.
-     * 
-     * @param startingState
-     *            Initial state for icons.
+     *
+     * @param startingState Initial state for icons.
      */
     public AbstractFileViewPanel(CommandButtonDisplayState startingState) {
-        super(startingState);
+        super(new CommandPanelContentModel(new ArrayList<>()),
+                CommandPanelPresentationModel.builder()
+                        .setCommandHorizontalAlignment(SwingUtilities.LEADING)
+                        .setCommandDisplayState(startingState)
+                        .setToShowGroupLabels(false).build());
         this.buttonMap = new HashMap<>();
         this.loadedSet = new HashSet<>();
-
-        this.setToShowGroupLabels(false);
     }
 
     public void setProgressListener(ProgressListener progressListener) {
@@ -196,37 +193,37 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      * matching entry determined by the {@link #toShowFile(StringValuePair)} call, a new
      * {@link JCommandButton} hosting an the matching implementation of {@link ResizableIcon} is
      * added to the panel.
-     * 
-     * @param leafs
-     *            Information on the entries to show in the panel.
+     *
+     * @param leafs Information on the entries to show in the panel.
      */
     public void setFolder(final java.util.List<StringValuePair<T>> leafs) {
-        this.removeAllGroups();
-        this.addButtonGroup("");
+        this.getContentModel().removeAllCommandGroups();
+        this.getContentModel().addCommandGroup(new CommandGroupModel(new ArrayList<>()));
         this.buttonMap.clear();
         int fileCount = 0;
 
-        final Map<String, JCommandButton> newButtons = new HashMap<>();
+        final Map<String, FlamingoCommand> newCommands = new HashMap<>();
+        final Map<String, JCommandButton> newCommandButtons = new HashMap<>();
         for (StringValuePair<T> leaf : leafs) {
             String name = leaf.getKey();
             if (!toShowFile(leaf)) {
                 continue;
             }
 
-            int initialSize = currDimension;
+            int initialSize = this.getPresentationModel().getCommandIconDimension();
             if (initialSize < 0) {
-                initialSize = currState.getPreferredIconSize();
+                initialSize = this.getPresentationModel().getCommandDisplayState()
+                        .getPreferredIconSize();
             }
-            JCommandButton button = new JCommandButton(name, new EmptyResizableIcon(initialSize));
-            button.setHorizontalAlignment(SwingUtilities.LEFT);
-            button.setDisplayState(this.currState);
-            if (this.currState == CommandButtonDisplayState.FIT_TO_ICON) {
-                button.updateCustomDimension(currDimension);
-            }
+            FlamingoCommand command = FlamingoCommand.builder()
+                    .setTitle(name).setIcon(new EmptyResizableIcon(initialSize)).build();
 
-            this.addButtonToLastGroup(button);
+            int buttonIndex = this.addCommandToLastGroup(command);
+            JCommandButton button = (JCommandButton) this.getGroupButtons(this.getGroupCount() - 1).
+                    get(buttonIndex);
 
-            newButtons.put(name, button);
+            newCommands.put(name, command);
+            newCommandButtons.put(name, button);
             buttonMap.put(name, button);
             fileCount++;
         }
@@ -265,22 +262,24 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                 for (final Leaf leaf : leaves) {
                     final String name = leaf.getLeafName();
                     InputStream stream = leaf.getLeafStream();
-                    Dimension dim = new Dimension(currDimension, currDimension);
-                    final ResizableIcon icon = getResizableIcon(leaf, stream, currState, dim);
+                    int iconDimension = getPresentationModel().getCommandIconDimension();
+                    Dimension dim = new Dimension(iconDimension, iconDimension);
+                    final ResizableIcon icon = getResizableIcon(leaf, stream,
+                            getPresentationModel().getCommandDisplayState(), dim);
                     if (icon == null) {
                         continue;
                     }
-                    final JCommandButton commandButton = newButtons.get(name);
-                    commandButton.setIcon(icon);
+                    final FlamingoCommand command = newCommands.get(name);
+                    command.setIcon(icon);
 
                     if (icon instanceof AsynchronousLoading) {
                         ((AsynchronousLoading) icon)
                                 .addAsynchronousLoadListener((boolean success) -> {
                                     synchronized (AbstractFileViewPanel.this) {
-                                        if (loadedSet.contains(commandButton)) {
+                                        if (loadedSet.contains(command)) {
                                             return;
                                         }
-                                        loadedSet.add(commandButton);
+                                        loadedSet.add(command);
                                         // loadedCount++;
                                         if (progressListener != null) {
                                             progressListener.onProgress(
@@ -291,12 +290,11 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                                 });
                     }
 
-                    configureCommandButton(leaf, commandButton, icon);
+                    configureCommand(leaf, command, icon);
 
-                    commandButton.setDisplayState(currState);
-                    if (currState == CommandButtonDisplayState.FIT_TO_ICON) {
-                        commandButton.updateCustomDimension(currDimension);
-                    }
+                    // TODO - remove in 2.0
+                    final JCommandButton commandButton = newCommandButtons.get(name);
+                    configureCommandButton(leaf, commandButton, icon);
                 }
             }
         };
@@ -305,7 +303,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
 
     /**
      * Returns the number of loaded icons.
-     * 
+     *
      * @return The number of loaded icons.
      */
     public int getLoadedIconCount() {
@@ -316,16 +314,18 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      * Cancels the pending processing.
      */
     public void cancelMainWorker() {
-        if (this.mainWorker == null)
+        if (this.mainWorker == null) {
             return;
-        if (this.mainWorker.isDone() || this.mainWorker.isCancelled())
+        }
+        if (this.mainWorker.isDone() || this.mainWorker.isCancelled()) {
             return;
+        }
         this.mainWorker.cancel(false);
     }
 
     /**
      * Returns the button map.
-     * 
+     *
      * @return Unmodifiable view on the button map.
      */
     public Map<String, JCommandButton> getButtonMap() {
@@ -334,25 +334,20 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
 
     /**
      * Returns indication whether the specified file should be shown on this panel.
-     * 
-     * @param pair
-     *            Information on the file.
+     *
+     * @param pair Information on the file.
      * @return <code>true</code> if the specified file should be shown on this panel,
-     *         <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      */
     protected abstract boolean toShowFile(StringValuePair<T> pair);
 
     /**
      * Returns the icon for the specified parameters.
-     * 
-     * @param leaf
-     *            Information on the file.
-     * @param stream
-     *            Input stream with the file contents.
-     * @param state
-     *            Icon state.
-     * @param dimension
-     *            Icon dimension.
+     *
+     * @param leaf      Information on the file.
+     * @param stream    Input stream with the file contents.
+     * @param state     Icon state.
+     * @param dimension Icon dimension.
      * @return File icon.
      */
     protected abstract ResizableIcon getResizableIcon(Leaf leaf, InputStream stream,
@@ -361,22 +356,32 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
     /**
      * Configures the specified command button. Can be used to wire additional behavior, such as
      * tooltips or action listeners if the specific view panel implementation requires it.
-     * 
-     * @param leaf
-     *            Information on the file "behind" the button.
-     * @param button
-     *            Button to configure.
-     * @param icon
-     *            Button icon.
+     *
+     * @param leaf   Information on the file "behind" the button.
+     * @param button Button to configure.
+     * @param icon   Button icon.
+     * @deprecated Override {@link #configureCommand(Leaf, FlamingoCommand, ResizableIcon)} instead.
      */
-    protected abstract void configureCommandButton(Leaf leaf, JCommandButton button,
-            ResizableIcon icon);
+    @Deprecated
+    protected void configureCommandButton(Leaf leaf, JCommandButton button,
+            ResizableIcon icon) {
+    }
+
+    /**
+     * Configures the specified command. Can be used to wire additional behavior, such as
+     * tooltips or action listeners if the specific panel implementation requires it.
+     *
+     * @param leaf    Information on the file "behind" the command.
+     * @param command Command to configure.
+     * @param icon    Command icon.
+     */
+    protected void configureCommand(Leaf leaf, FlamingoCommand command, ResizableIcon icon) {
+    }
 
     /**
      * Returns the input stream with the file contents.
-     * 
-     * @param leaf
-     *            Leaf (file behind a command button on this panel).
+     *
+     * @param leaf Leaf (file behind a command on this panel).
      * @return Input stream with the file contents.
      */
     protected abstract InputStream getLeafContent(T leaf);

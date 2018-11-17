@@ -967,7 +967,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     }
                     // show the tooltip with the full title
                     tabButton.setActionRichTooltip(
-                            new RichTooltip.RichTooltipBuilder().setTitle(task.getTitle()).build());
+                            RichTooltip.builder().setTitle(task.getTitle()).build());
                 }
                 ((JComponent) c).putClientProperty(TaskToggleButtonsHostPanel.IS_SQUISHED,
                         Boolean.TRUE);

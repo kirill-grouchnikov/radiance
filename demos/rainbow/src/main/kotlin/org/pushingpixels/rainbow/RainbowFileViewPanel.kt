@@ -37,6 +37,7 @@ import org.pushingpixels.flamingo.api.layout.TransitionLayoutManager
 import org.pushingpixels.photon.icon.SvgBatikResizableIcon
 import org.pushingpixels.neon.icon.ResizableIcon
 import java.awt.Dimension
+import java.awt.event.ActionListener
 import java.io.InputStream
 import javax.swing.SwingUtilities
 
@@ -51,11 +52,10 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
         TransitionLayoutManager.getInstance().track(this, true)
     }
 
-    override fun configureCommandButton(leaf: AbstractFileViewPanel.Leaf,
-            button: JCommandButton, icon: ResizableIcon) {
-        button.setActionRichTooltip(RichTooltip.RichTooltipBuilder().setTitle("Transcode")
-                .addDescriptionSection("Click to generate Java2D class").build())
-        button.addActionListener {
+    override fun configureCommand(leaf: Leaf, command: FlamingoCommand, icon: ResizableIcon?) {
+        command.actionRichTooltip = RichTooltip.builder().setTitle("Transcode")
+                .addDescriptionSection("Click to generate Java2D class").build()
+        command.action = ActionListener {
             SwingUtilities.invokeLater {
                 // can't pass the stream contents since the
                 // input can be .svgz

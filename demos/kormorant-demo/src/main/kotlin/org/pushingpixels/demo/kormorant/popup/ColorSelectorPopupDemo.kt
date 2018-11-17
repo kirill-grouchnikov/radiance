@@ -210,7 +210,7 @@ fun main(args: Array<String>) {
                     }.asColorSelectorPopupMenu()
                 }
             }
-            display {
+            presentation {
                 state = CommandButtonDisplayState.SMALL
                 isFlat = false
             }

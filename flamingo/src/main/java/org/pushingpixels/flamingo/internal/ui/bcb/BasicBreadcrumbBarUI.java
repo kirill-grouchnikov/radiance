@@ -1,34 +1,34 @@
 /*
  * Copyright (c) 2003-2018 Flamingo Kirill Grouchnikov
- * and <a href="http://www.topologi.com">Topologi</a>. 
- * Contributed by <b>Rick Jelliffe</b> of <b>Topologi</b> 
+ * and <a href="http://www.topologi.com">Topologi</a>.
+ * Contributed by <b>Rick Jelliffe</b> of <b>Topologi</b>
  * in January 2006. in All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov Topologi nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov Topologi nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.ui.bcb;
 
@@ -36,8 +36,9 @@ import org.pushingpixels.flamingo.api.bcb.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.*;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
-import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.internal.ui.common.JCircularProgress;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -55,7 +56,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Basic UI for breadcrumb bar ({@link JBreadcrumbBar}).
- * 
+ *
  * @author Topologi
  * @author Kirill Grouchnikov
  * @author Pawel Hajda
@@ -105,23 +106,24 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         c.setLayout(createLayoutManager());
 
         if (this.breadcrumbBar.getCallback() != null) {
-            SwingWorker<List<StringValuePair>, Void> worker = new SwingWorker<List<StringValuePair>, Void>() {
-                @Override
-                protected List<StringValuePair> doInBackground() throws Exception {
-                    startLoadingTimer();
-                    return breadcrumbBar.getCallback().getPathChoices(null);
-                }
+            SwingWorker<List<StringValuePair>, Void> worker =
+                    new SwingWorker<List<StringValuePair>, Void>() {
+                        @Override
+                        protected List<StringValuePair> doInBackground() throws Exception {
+                            startLoadingTimer();
+                            return breadcrumbBar.getCallback().getPathChoices(null);
+                        }
 
-                @Override
-                protected void done() {
-                    try {
-                        stopLoadingTimer();
-                        pushChoices(new BreadcrumbItemChoices(null, get()));
-                    } catch (Exception exc) {
-                        exc.printStackTrace(System.err);
-                    }
-                }
-            };
+                        @Override
+                        protected void done() {
+                            try {
+                                stopLoadingTimer();
+                                pushChoices(new BreadcrumbItemChoices(null, get()));
+                            } catch (Exception exc) {
+                                exc.printStackTrace(System.err);
+                            }
+                        }
+                    };
             worker.execute();
         }
 
@@ -326,9 +328,8 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     /**
      * Invoked by <code>installUI</code> to create a layout manager object to manage the
      * {@link JBreadcrumbBar}.
-     * 
+     *
      * @return a layout manager object
-     * 
      * @see BreadcrumbBarLayout
      */
     protected LayoutManager createLayoutManager() {
@@ -337,7 +338,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
     /**
      * Layout for the breadcrumb bar.
-     * 
+     *
      * @author Kirill Grouchnikov
      * @author Topologi
      */
@@ -493,14 +494,23 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
     private void configurePopupAction(JCommandButton button, final BreadcrumbItemChoices bic) {
         button.setPopupCallback((JCommandButton commandButton) -> {
-            JCommandPopupMenu popup = new JCommandPopupMenu();
+
+            List<FlamingoCommand> menuCommands = new ArrayList<>();
+
+            CommandPopupMenuPresentationModel.CommandPopupMenuPresentationModelBuilder menuPresentationModel =
+                    CommandPopupMenuPresentationModel.builder();
+
+
             for (int i = 0; i < bic.getChoices().length; i++) {
                 final BreadcrumbItem bi = bic.getChoices()[i];
 
-                JCommandMenuButton menuButton = new JCommandMenuButton(bi.getKey(), null);
+                FlamingoCommand.FlamingoCommandBuilder commandBuilder = FlamingoCommand.builder();
+
+                commandBuilder.setTitle(bi.getKey());
+
                 final Icon icon = bi.getIcon();
                 if (icon != null) {
-                    menuButton.setIcon(new ResizableIcon() {
+                    commandBuilder.setIcon(new ResizableIcon() {
                         int iw = icon.getIconWidth();
                         int ih = icon.getIconHeight();
 
@@ -528,12 +538,10 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                         }
                     });
                 }
-                if (i == bic.getSelectedIndex()) {
-                    menuButton.setFont(menuButton.getFont().deriveFont(Font.BOLD));
-                }
 
                 final int biIndex = i;
-                menuButton.getActionModel().addActionListener((ActionEvent e) -> {
+
+                commandBuilder.setAction((ActionEvent e) -> {
                     SwingUtilities.invokeLater(() -> {
                         BreadcrumbBarModel barModel = breadcrumbBar.getModel();
                         barModel.setCumulative(true);
@@ -551,11 +559,19 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                     });
                 });
 
-                popup.addMenuButton(menuButton);
-                menuButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                FlamingoCommand menuCommand = commandBuilder.build();
+                if (i == bic.getSelectedIndex()) {
+                    menuPresentationModel.setHighlightedCommand(menuCommand);
+                }
+
+                menuCommands.add(menuCommand);
             }
-            popup.setMaxVisibleMenuButtons(10);
-            return popup;
+
+            menuPresentationModel.setMaxVisibleMenuCommands(10);
+
+            return new JCommandPopupMenu(
+                    new CommandPopupMenuContentModel(new CommandGroupModel(menuCommands)),
+                    menuPresentationModel.build());
         });
     }
 
@@ -610,9 +626,8 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     /**
      * Pushes a choice to the top position of the stack. If the current top is already a
      * {@link BreadcrumbItemChoices}, replace it.
-     * 
-     * @param bic
-     *            The choice item to push.
+     *
+     * @param bic The choice item to push.
      * @return The item that has been pushed.
      */
     protected Object pushChoices(BreadcrumbItemChoices bic) {
@@ -622,11 +637,9 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     /**
      * Pushes a choice to the top position of the stack. If the current top is already a
      * {@link BreadcrumbItemChoices}, replace it.
-     * 
-     * @param bic
-     *            The choice item to push.
-     * @param toUpdateUI
-     *            Indication whether the bar should be repainted.
+     *
+     * @param bic        The choice item to push.
+     * @param toUpdateUI Indication whether the bar should be repainted.
      * @return The item that has been pushed.
      */
     protected synchronized Object pushChoices(BreadcrumbItemChoices bic, boolean toUpdateUI) {
@@ -645,11 +658,9 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     /**
      * Pushes an item to the top position of the stack. If the current top is already a
      * {@link BreadcrumbItemChoices}, replace it.
-     * 
-     * @param bi
-     *            The item to push.
-     * @param toUpdateUI
-     *            Indication whether the bar should be repainted.
+     *
+     * @param bi         The item to push.
+     * @param toUpdateUI Indication whether the bar should be repainted.
      * @return The item that has been pushed.
      */
     protected synchronized Object pushChoice(BreadcrumbItem bi, boolean toUpdateUI) {

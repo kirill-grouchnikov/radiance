@@ -74,7 +74,7 @@ fun main(args: Array<String>) {
                     }
                 }
             }
-            display {
+            presentation {
                 state = CommandButtonDisplayState.TILE
                 isFlat = false
             }

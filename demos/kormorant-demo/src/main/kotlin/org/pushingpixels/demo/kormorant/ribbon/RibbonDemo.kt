@@ -52,6 +52,7 @@ import org.pushingpixels.kormorant.ribbon.*
 import org.pushingpixels.meteor.DelayedActionListener
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.addDelayedItemListener
+import org.pushingpixels.meteor.awt.brightness
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
@@ -86,13 +87,39 @@ object SkinSwitcher {
 }
 
 class RulerPanel : JPanel() {
+    private var line = Color.darkGray
+    private var previewFill: Color? = null
+    private var selectFill = Color(200, 200, 200)
+    private var backgroundFill = selectFill
+
+    private fun setBackgroundFill(backgroundFill: Color) {
+        this.backgroundFill = backgroundFill
+        val brightness = this.backgroundFill.brightness()
+        this.line = if (brightness > 0.7f) Color.darkGray else Color.white
+        this.invalidate()
+        this.repaint()
+    }
+
+    fun previewBackgroundFill(previewFill: Color?) {
+        this.previewFill = previewFill
+        this.setBackgroundFill(this.previewFill ?: this.selectFill)
+    }
+
+    fun selectBackgroundFill(selectFill: Color) {
+        this.previewFill = null
+        this.selectFill = selectFill
+        this.setBackgroundFill(this.selectFill)
+    }
+
     override fun paintComponent(g: Graphics) {
         super.paintComponent(g)
 
         g.render {
             NeonCortex.installDesktopHints(it, this)
-            it.color = Color.gray
+            it.color = backgroundFill
+            it.fillRect(0, 0, width, height)
 
+            it.color = line
             if (componentOrientation.isLeftToRight) {
                 // horizontal ruler on top
                 val offset = 20
@@ -260,6 +287,8 @@ private class RibbonDemoBuilder {
     var currLocale = Locale.getDefault()
     var resourceBundle = ResourceBundle.getBundle(
             "org.pushingpixels.demo.kormorant.resources.Resources", currLocale)
+    lateinit var rulerPanel: RulerPanel
+    lateinit var documentNewCommand: KCommand
 
     fun getControlPanel(ribbonFrame: JRibbonFrame): JPanel {
         val ribbon = ribbonFrame.ribbon
@@ -316,46 +345,45 @@ private class RibbonDemoBuilder {
         return PopupPanelCallback {
             val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
             val popupMenuCommand = commandPopupMenu {
-                command {
-                    title = mf.format(arrayOf("1"))
-                    icon = ColorResizableIcon(16, Color(0x80, 0xDE, 0xEA))
-                    action = ActionListener {
-                        println("Test menu item 1 activated")
+                group {
+                    command(actionKeyTip = "1") {
+                        title = mf.format(arrayOf("1"))
+                        icon = ColorResizableIcon(16, Color(0x80, 0xDE, 0xEA))
+                        action = ActionListener {
+                            println("Test menu item 1 activated")
+                        }
                     }
-                    actionKeyTip = "1"
+                    command(actionKeyTip = "2") {
+                        title = mf.format(arrayOf("2"))
+                        icon = ColorResizableIcon(16, Color(0x80, 0xCB, 0xC4))
+                        action = ActionListener {
+                            println("Test menu item 2 activated")
+                        }
+                    }
+                    command(actionKeyTip = "3") {
+                        title = mf.format(arrayOf("3"))
+                        icon = ColorResizableIcon(16, Color(0xA5, 0xD6, 0xA7))
+                        action = ActionListener {
+                            println("Test menu item 3 activated")
+                        }
+                    }
                 }
-                command {
-                    title = mf.format(arrayOf("2"))
-                    icon = ColorResizableIcon(16, Color(0x80, 0xCB, 0xC4))
-                    action = ActionListener {
-                        println("Test menu item 2 activated")
+
+                group {
+                    command(actionKeyTip = "4") {
+                        title = mf.format(arrayOf("4"))
+                        icon = ColorResizableIcon(16, Color(0xC5, 0xE1, 0xA5))
+                        action = ActionListener {
+                            println("Test menu item 4 activated")
+                        }
                     }
-                    actionKeyTip = "2"
-                }
-                command {
-                    title = mf.format(arrayOf("3"))
-                    icon = ColorResizableIcon(16, Color(0xA5, 0xD6, 0xA7))
-                    action = ActionListener {
-                        println("Test menu item 3 activated")
+                    command(actionKeyTip = "5") {
+                        title = mf.format(arrayOf("5"))
+                        icon = ColorResizableIcon(16, Color(0xE6, 0xEE, 0x9C))
+                        action = ActionListener {
+                            println("Test menu item 5 activated")
+                        }
                     }
-                    actionKeyTip = "3"
-                }
-                separator()
-                command {
-                    title = mf.format(arrayOf("4"))
-                    icon = ColorResizableIcon(16, Color(0xC5, 0xE1, 0xA5))
-                    action = ActionListener {
-                        println("Test menu item 4 activated")
-                    }
-                    actionKeyTip = "4"
-                }
-                command {
-                    title = mf.format(arrayOf("5"))
-                    icon = ColorResizableIcon(16, Color(0xE6, 0xEE, 0x9C))
-                    action = ActionListener {
-                        println("Test menu item 5 activated")
-                    }
-                    actionKeyTip = "5"
                 }
             }
             popupMenuCommand.asCommandPopupMenu()
@@ -378,7 +406,7 @@ private class RibbonDemoBuilder {
             }
             collapsedStateKeyTip = "ZC"
 
-            command(RibbonElementPriority.TOP) {
+            command(priority = RibbonElementPriority.TOP, popupKeyTip = "V") {
                 title = resourceBundle.getString("Paste.text")
                 icon = Edit_paste.of(16, 16)
                 action = ActionListener { println("Pasted!") }
@@ -395,7 +423,6 @@ private class RibbonDemoBuilder {
                         +resourceBundle.getString("Paste.tooltip.popupParagraph1")
                     }
                 }
-                popupKeyTip = "V"
                 isTitleClickAction = true
             }
 
@@ -438,11 +465,11 @@ private class RibbonDemoBuilder {
 
                     val popupMenuCommand = commandPopupMenu {
                         commandPanel {
-                            display {
-                                dimension = 32
-                                maxButtonColumns = 5
-                                maxVisibleButtonRows = 3
-                                isShowingGroupTitles = true
+                            presentation {
+                                commandIconDimension = 32
+                                maxColumns = 5
+                                maxRows = 3
+                                toShowGroupLabels = true
                             }
 
                             for (groupIndex in 0 until 4) {
@@ -455,8 +482,8 @@ private class RibbonDemoBuilder {
                                                     DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
                                                         graphics.render {
                                                             it.color = Color.black
-                                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy().
-                                                                    getFontSet(null).controlFont
+                                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                                    .getFontSet(null).controlFont
                                                             NeonCortex.installDesktopHints(it, component)
                                                             it.drawString("" + i, x + 2, y + height - 2)
                                                         }
@@ -479,27 +506,26 @@ private class RibbonDemoBuilder {
                             isSingleSelectionMode = true
                         }
 
-                        command {
-                            title = resourceBundle.getString("Format.menuSaveSelection.text")
-                            icon = ColorResizableIcon(16, Color(0xFB, 0xC0, 0x2D))
-                            action = ActionListener { println("Save Selection activated") }
-                            actionKeyTip = "SS"
+                        group {
+                            command(actionKeyTip = "SS") {
+                                title = resourceBundle.getString("Format.menuSaveSelection.text")
+                                icon = ColorResizableIcon(16, Color(0xFB, 0xC0, 0x2D))
+                                action = ActionListener { println("Save Selection activated") }
+                            }
+
+                            command(actionKeyTip = "SC") {
+                                title = resourceBundle.getString("Format.menuClearSelection.text")
+                                icon = ColorResizableIcon(16, Color(0xFF, 0xA0, 0x00))
+                                action = ActionListener { println("Clear Selection activated") }
+                            }
                         }
 
-                        command {
-                            title = resourceBundle.getString("Format.menuClearSelection.text")
-                            icon = ColorResizableIcon(16, Color(0xFF, 0xA0, 0x00))
-                            action = ActionListener { println("Clear Selection activated") }
-                            actionKeyTip = "SC"
-                        }
-
-                        separator()
-
-                        command {
-                            title = resourceBundle.getString("Format.applyStyles.text")
-                            icon = ColorResizableIcon(16, Color(0xF5, 0x7C, 0x00))
-                            action = ActionListener { println("Apply Styles activated") }
-                            actionKeyTip = "SA"
+                        group {
+                            command(actionKeyTip = "SA") {
+                                title = resourceBundle.getString("Format.applyStyles.text")
+                                icon = ColorResizableIcon(16, Color(0xF5, 0x7C, 0x00))
+                                action = ActionListener { println("Apply Styles activated") }
+                            }
                         }
                     }
                     popupMenuCommand.asCommandPopupMenu()
@@ -535,10 +561,12 @@ private class RibbonDemoBuilder {
         val myColorSelectorCallback = object : JColorSelectorPopupMenu.ColorSelectorCallback {
             override fun onColorSelected(color: Color) {
                 println("Selected color $color")
+                rulerPanel.selectBackgroundFill(color)
             }
 
             override fun onColorRollover(color: Color?) {
                 println("Rollover color $color")
+                rulerPanel.previewBackgroundFill(color)
             }
         }
 
@@ -547,9 +575,9 @@ private class RibbonDemoBuilder {
             icon = Preferences_desktop_theme.of(16, 16)
             collapsedStateKeyTip = "ZS"
 
-            gallery(RibbonElementPriority.TOP) {
+            gallery(priority = RibbonElementPriority.TOP) {
                 title = "Styles"
-                display {
+                presentation {
                     state = JRibbonBand.BIG_FIXED_LANDSCAPE
                     preferredPopupMaxCommandColumns = 3
                     preferredPopupMaxVisibleCommandRows = 3
@@ -575,7 +603,6 @@ private class RibbonDemoBuilder {
                                         }
                                     }
                             )
-                            action = ActionListener { println("Invoked action on $i") }
                             isToggle = (i != 1)
                             isToggleSelected = (i == 1)
                         }
@@ -597,11 +624,15 @@ private class RibbonDemoBuilder {
                                         }
                                     }
                             )
-                            action = ActionListener { println("Invoked action on $i") }
                             isToggle = true
                         }
                     }
                 }
+
+                onCommandActivated = { command -> println("*** Command '" + command.title + "' activated! ***") }
+                onCommandPreviewActivated = { command -> println("Preview activated for '" + command.title + "'") }
+                onCommandPreviewCanceled = { command -> println("Preview canceled for '" + command.title + "'") }
+
                 extraPopupContent {
                     command {
                         title = resourceBundle.getString("Format.menuSaveSelection.text")
@@ -626,6 +657,7 @@ private class RibbonDemoBuilder {
                         actionKeyTip = "SA"
                     }
                 }
+
                 expandKeyTip = "L"
             }
 
@@ -861,9 +893,9 @@ private class RibbonDemoBuilder {
             collapsedStateKeyTip = "ZD"
 
             group {
-                val documentLocationToggleGroup = KCommandToggleGroup()
+                val documentLocationToggleGroup = KCommandToggleGroupModel()
 
-                command(RibbonElementPriority.TOP) {
+                command(priority = RibbonElementPriority.TOP) {
                     title = resourceBundle.getString("DocumentLocal.text")
                     icon = Folder.of(16, 16)
                     action = ActionListener { println("Document Local activated") }
@@ -871,7 +903,7 @@ private class RibbonDemoBuilder {
                     toggleGroup = documentLocationToggleGroup
                 }
 
-                command(RibbonElementPriority.TOP) {
+                command(priority = RibbonElementPriority.TOP) {
                     title = resourceBundle.getString("DocumentRemote.text")
                     icon = Folder_remote.of(16, 16)
                     action = ActionListener { println("Document Remote activated") }
@@ -879,7 +911,7 @@ private class RibbonDemoBuilder {
                     toggleGroup = documentLocationToggleGroup
                 }
 
-                command(RibbonElementPriority.TOP) {
+                command(priority = RibbonElementPriority.TOP) {
                     title = resourceBundle.getString("DocumentSaved.text")
                     icon = Folder_saved_search.of(16, 16)
                     action = ActionListener { println("Document Saved activated") }
@@ -889,37 +921,34 @@ private class RibbonDemoBuilder {
             }
 
             group {
-                command(RibbonElementPriority.MEDIUM) {
-                    title = resourceBundle.getString("DocumentNew.text")
-                    icon = Document_new.of(16, 16)
-                    action = ActionListener { println("Document New activated") }
-                }
+                command(priority = RibbonElementPriority.MEDIUM, command = documentNewCommand,
+                        actionKeyTip = "DN")
 
-                command(RibbonElementPriority.MEDIUM) {
+                command(priority = RibbonElementPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentOpen.text")
                     icon = Document_open.of(16, 16)
                     action = ActionListener { println("Document Open activated") }
                 }
 
-                command(RibbonElementPriority.MEDIUM) {
+                command(priority = RibbonElementPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentSave.text")
                     icon = Document_save.of(16, 16)
                     action = ActionListener { println("Document Save activated") }
                 }
 
-                command(RibbonElementPriority.MEDIUM) {
+                command(priority = RibbonElementPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentPrint.text")
                     icon = Document_print.of(16, 16)
                     action = ActionListener { println("Document Print activated") }
                 }
 
-                command(RibbonElementPriority.MEDIUM) {
+                command(priority = RibbonElementPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentPrintPreview.text")
                     icon = Document_print_preview.of(16, 16)
                     action = ActionListener { println("Document Print Preview activated") }
                 }
 
-                command(RibbonElementPriority.MEDIUM) {
+                command(priority = RibbonElementPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentProperties.text")
                     icon = Document_properties.of(16, 16)
                     action = ActionListener { println("Document Properties activated") }
@@ -993,41 +1022,36 @@ private class RibbonDemoBuilder {
             }
 
             group {
-                command(RibbonElementPriority.TOP) {
+                command(priority = RibbonElementPriority.TOP, actionKeyTip = "NA") {
                     title = resourceBundle.getString("AddressBook.text")
                     icon = Address_book_new.of(16, 16)
                     action = ActionListener { println("Address Book activated") }
-                    actionKeyTip = "NA"
                 }
             }
 
             group {
-                command(RibbonElementPriority.TOP) {
+                command(priority = RibbonElementPriority.TOP, actionKeyTip = "ND") {
                     title = resourceBundle.getString("Document.text")
                     icon = Document_new.of(16, 16)
                     action = ActionListener { println("Document activated") }
-                    actionKeyTip = "ND"
                 }
 
-                command(RibbonElementPriority.MEDIUM) {
+                command(priority = RibbonElementPriority.MEDIUM, actionKeyTip = "NP") {
                     title = resourceBundle.getString("Appointment.text")
                     icon = Appointment_new.of(16, 16)
                     action = ActionListener { println("Appointment activated") }
-                    actionKeyTip = "NP"
                 }
 
-                command(RibbonElementPriority.MEDIUM) {
+                command(priority = RibbonElementPriority.MEDIUM, actionKeyTip = "NB") {
                     title = resourceBundle.getString("Bookmark.text")
                     icon = Bookmark_new.of(16, 16)
                     action = ActionListener { println("Bookmark activated") }
-                    actionKeyTip = "NB"
                 }
 
-                command(RibbonElementPriority.MEDIUM) {
+                command(priority = RibbonElementPriority.MEDIUM, actionKeyTip = "NC") {
                     title = resourceBundle.getString("Contact.text")
                     icon = Contact_new.of(16, 16)
                     action = ActionListener { println("Contact activated") }
-                    actionKeyTip = "NC"
                 }
             }
 
@@ -1048,57 +1072,51 @@ private class RibbonDemoBuilder {
             }
 
             group {
-                command(RibbonElementPriority.MEDIUM) {
+                command(priority = RibbonElementPriority.MEDIUM, actionKeyTip = "Y") {
                     title = resourceBundle.getString("Accessibility.text")
                     icon = Preferences_desktop_accessibility.of(16, 16)
                     action = ActionListener { println("Accessibility activated") }
-                    actionKeyTip = "Y"
                 }
 
-                command(RibbonElementPriority.MEDIUM) {
+                command(priority = RibbonElementPriority.MEDIUM, actionKeyTip = "E") {
                     title = resourceBundle.getString("Assistive.text")
                     icon = Preferences_desktop_assistive_technology.of(16, 16)
                     action = ActionListener { println("Assistive activated") }
-                    actionKeyTip = "E"
                 }
 
-                command(RibbonElementPriority.MEDIUM) {
+                command(priority = RibbonElementPriority.MEDIUM, popupKeyTip = "H") {
                     title = resourceBundle.getString("KeyboardShortcuts.text")
                     icon = Preferences_desktop_keyboard_shortcuts.of(16, 16)
                     popupCallback = getSimplePopupMenu()
-                    popupKeyTip = "H"
                 }
             }
 
             group {
-                command(RibbonElementPriority.TOP) {
+                command(priority = RibbonElementPriority.TOP, actionKeyTip = "Z") {
                     title = resourceBundle.getString("Font.text")
                     icon = Preferences_desktop_font.of(16, 16)
                     action = ActionListener { println("Font activated") }
                     actionKeyTip = "Z"
                 }
 
-                command(RibbonElementPriority.TOP) {
+                command(priority = RibbonElementPriority.TOP, actionKeyTip = "L") {
                     title = resourceBundle.getString("Locale.text")
                     icon = Preferences_desktop_locale.of(16, 16)
                     action = ActionListener { println("Locale activated") }
-                    actionKeyTip = "L"
                 }
             }
 
             group {
-                command(RibbonElementPriority.MEDIUM) {
+                command(priority = RibbonElementPriority.MEDIUM, actionKeyTip = "V") {
                     title = resourceBundle.getString("Screensaver.text")
                     icon = Preferences_desktop_screensaver.of(16, 16)
                     action = ActionListener { println("Screensaver activated") }
-                    actionKeyTip = "V"
                 }
 
-                command(RibbonElementPriority.MEDIUM) {
+                command(priority = RibbonElementPriority.MEDIUM, actionKeyTip = "T") {
                     title = resourceBundle.getString("Themes.text")
                     icon = Preferences_desktop_theme.of(16, 16)
                     action = ActionListener { println("Themes activated") }
-                    actionKeyTip = "T"
                 }
             }
 
@@ -1305,7 +1323,7 @@ private class RibbonDemoBuilder {
 
             gallery(RibbonElementPriority.TOP) {
                 title = "Transitions"
-                display {
+                presentation {
                     state = CommandButtonDisplayState.SMALL
                     preferredPopupMaxCommandColumns = 6
                     preferredPopupMaxVisibleCommandRows = 6
@@ -1381,7 +1399,7 @@ private class RibbonDemoBuilder {
 
                 wrapper {
                     commandButton {
-                        display {
+                        presentation {
                             state = CommandButtonDisplayState.MEDIUM
                             verticalGapScaleFactor = 0.5
                         }
@@ -1582,6 +1600,12 @@ fun main(args: Array<String>) {
 
         val builder = RibbonDemoBuilder()
 
+        builder.documentNewCommand = command {
+            title = builder.resourceBundle.getString("DocumentNew.text")
+            icon = Document_new.of(16, 16)
+            action = ActionListener { println("Document New activated") }
+        }
+
         val ribbonFrame = ribbonFrame {
             title = builder.resourceBundle.getString("Frame.title")
             applicationIcon = Applications_internet.of(16, 16)
@@ -1678,6 +1702,8 @@ fun main(args: Array<String>) {
                     actionKeyTip = "3"
                 }
 
+                +builder.documentNewCommand
+
                 separator()
 
                 command {
@@ -1714,10 +1740,10 @@ fun main(args: Array<String>) {
                     targetPanel.removeAll()
 
                     val openHistoryPanel = commandButtonPanel {
-                        display {
-                            state = CommandButtonDisplayState.MEDIUM
-                            maxButtonColumns = 1
-                            buttonHorizontalAlignment = SwingConstants.LEADING
+                        presentation {
+                            commandDisplayState = CommandButtonDisplayState.MEDIUM
+                            maxColumns = 1
+                            commandHorizontalAlignment = SwingConstants.LEADING
                         }
                         commandGroup {
                             title = builder.resourceBundle.getString("AppMenu.default.textGroupTitle1")
@@ -1757,10 +1783,10 @@ fun main(args: Array<String>) {
                         targetPanel.removeAll()
 
                         val openHistoryPanel = commandButtonPanel {
-                            display {
-                                state = CommandButtonDisplayState.MEDIUM
-                                maxButtonColumns = 1
-                                buttonHorizontalAlignment = SwingConstants.LEADING
+                            presentation {
+                                commandDisplayState = CommandButtonDisplayState.MEDIUM
+                                maxColumns = 1
+                                commandHorizontalAlignment = SwingConstants.LEADING
                             }
                             commandGroup {
                                 title = builder.resourceBundle.getString("AppMenuOpen.secondary.textGroupTitle1")
@@ -1928,18 +1954,16 @@ fun main(args: Array<String>) {
                             extraText = builder.resourceBundle.getString("AppMenuSend.wireless.description")
                             popupCallback = PopupPanelCallback {
                                 commandPopupMenu {
-                                    command {
+                                    command(actionKeyTip = "W") {
                                         title = builder.resourceBundle.getString("AppMenuSend.wireless.wifi.text")
                                         icon = EmptyResizableIcon(16)
                                         action = ActionListener { println("WiFi activated") }
-                                        actionKeyTip = "W"
                                     }
 
-                                    command {
+                                    command(actionKeyTip = "B") {
                                         title = builder.resourceBundle.getString("AppMenuSend.wireless.bluetooth.text")
                                         icon = EmptyResizableIcon(16)
                                         action = ActionListener { println("Bluetooth activated") }
-                                        actionKeyTip = "B"
                                     }
                                 }.asCommandPopupMenu()
                             }
@@ -1977,7 +2001,8 @@ fun main(args: Array<String>) {
         val javaRibbonFrame = ribbonFrame.asRibbonFrame()
 
         javaRibbonFrame.add(builder.getControlPanel(javaRibbonFrame), BorderLayout.EAST)
-        javaRibbonFrame.add(RulerPanel(), BorderLayout.CENTER)
+        builder.rulerPanel = RulerPanel()
+        javaRibbonFrame.add(builder.rulerPanel, BorderLayout.CENTER)
 
         javaRibbonFrame.applyComponentOrientation(
                 ComponentOrientation.getOrientation(builder.currLocale))

@@ -29,16 +29,20 @@
  */
 package org.pushingpixels.kormorant.ribbon
 
-import org.pushingpixels.flamingo.api.common.*
+import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.FlamingoCommand
+import org.pushingpixels.flamingo.api.common.JCommandButton
+import org.pushingpixels.flamingo.api.common.model.CommandGroupModel
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.neon.icon.ResizableIcon
 import java.awt.event.ActionListener
-import java.util.*
 import javax.swing.JComponent
 
 @FlamingoElementMarker
@@ -65,7 +69,7 @@ class GalleryCommandVisibilityContainer {
 }
 
 @FlamingoElementMarker
-class KRibbonGalleryDisplay {
+class KRibbonGalleryPresentation {
     var state: CommandButtonDisplayState = CommandButtonDisplayState.FIT_TO_ICON
     var preferredPopupMaxCommandColumns: Int? by NullableDelegate { false }
     var preferredPopupMaxVisibleCommandRows: Int? by NullableDelegate { false }
@@ -73,6 +77,19 @@ class KRibbonGalleryDisplay {
 
     fun commandVisibilities(init: GalleryCommandVisibilityContainer.() -> Unit) {
         commandVisibilityContainer.init()
+    }
+
+
+    internal fun toRibbonGalleryPresentationModel(): RibbonGalleryPresentationModel {
+        val presentationModelBuilder = RibbonGalleryPresentationModel.builder()
+
+        presentationModelBuilder.setCommandDisplayState(this.state)
+        presentationModelBuilder.setPreferredPopupMaxCommandColumns(this.preferredPopupMaxCommandColumns!!)
+        presentationModelBuilder.setPreferredPopupMaxVisibleCommandRows(this.preferredPopupMaxVisibleCommandRows!!)
+        presentationModelBuilder.setPreferredVisibleCommandCounts(
+                this.commandVisibilityContainer.policies.map { it.second to it.first }.toMap())
+
+        return presentationModelBuilder.build()
     }
 }
 
@@ -94,30 +111,22 @@ class KRibbonGalleryExtraPopupContent {
 
 @FlamingoElementMarker
 class KRibbonGallery {
-    class KRibbonGalleryCommandGroup {
-        var title: String by NonNullDelegate { false }
-        internal val commands = arrayListOf<KCommand>()
-
-        fun command(init: KCommand.() -> Unit): KCommand {
-            val command = KCommand()
-            command.init()
-            commands.add(command)
-            return command
-        }
-    }
-
     var title: String by NonNullDelegate { false }
-    internal val display: KRibbonGalleryDisplay = KRibbonGalleryDisplay()
+    var icon: ResizableIcon? by NullableDelegate { false }
+    internal val presentation: KRibbonGalleryPresentation = KRibbonGalleryPresentation()
     var expandKeyTip: String? by NullableDelegate { false }
-    internal val commandGroups = arrayListOf<KRibbonGalleryCommandGroup>()
+    internal val commandGroups = arrayListOf<KCommandGroup>()
     internal val extraPopupContent: KRibbonGalleryExtraPopupContent = KRibbonGalleryExtraPopupContent()
+    var onCommandActivated: ((FlamingoCommand) -> Unit)? by NullableDelegate { false }
+    var onCommandPreviewActivated: ((FlamingoCommand) -> Unit)? by NullableDelegate { false }
+    var onCommandPreviewCanceled: ((FlamingoCommand) -> Unit)? by NullableDelegate { false }
 
-    fun display(init: KRibbonGalleryDisplay.() -> Unit) {
-        display.init()
+    fun presentation(init: KRibbonGalleryPresentation.() -> Unit) {
+        presentation.init()
     }
 
-    fun commandGroup(init: KRibbonGalleryCommandGroup.() -> Unit): KRibbonGalleryCommandGroup {
-        val commandGroup = KRibbonGalleryCommandGroup()
+    fun commandGroup(init: KCommandGroup.() -> Unit): KCommandGroup {
+        val commandGroup = KCommandGroup()
         commandGroup.init()
         commandGroups.add(commandGroup)
         return commandGroup
@@ -156,11 +165,19 @@ class KRibbonBandGroup {
 
     internal val content = arrayListOf<Pair<RibbonElementPriority?, Any>>()
 
-    fun command(priority: RibbonElementPriority, init: KCommand.() -> Unit): KCommand {
+    internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?, val popupKeyTip: String?)
+
+    fun command(priority: RibbonElementPriority, actionKeyTip: String? = null,
+            popupKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        content.add(Pair(priority, command))
+        content.add(Pair(priority, CommandConfig(command, actionKeyTip, popupKeyTip)))
         return command
+    }
+
+    fun command(priority: RibbonElementPriority, actionKeyTip: String? = null,
+            popupKeyTip: String? = null, command: KCommand) {
+        content.add(Pair(priority, CommandConfig(command, actionKeyTip, popupKeyTip)))
     }
 
     fun gallery(priority: RibbonElementPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {
@@ -187,14 +204,23 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         groups.add(defaultGroup)
     }
 
-    fun command(priority: RibbonElementPriority, init: KCommand.() -> Unit): KCommand {
+    fun command(priority: RibbonElementPriority, actionKeyTip: String? = null,
+            popupKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a command to default group after starting another group")
         }
         val command = KCommand()
         command.init()
-        defaultGroup.content.add(Pair(priority, command))
+        defaultGroup.content.add(Pair(priority, KRibbonBandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
         return command
+    }
+
+    fun command(priority: RibbonElementPriority, actionKeyTip: String? = null,
+            popupKeyTip: String? = null, command: KCommand) {
+        if (groups.size > 1) {
+            throw IllegalStateException("Can't add a command to default group after starting another group")
+        }
+        defaultGroup.content.add(Pair(priority, KRibbonBandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
     }
 
     fun gallery(priority: RibbonElementPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {
@@ -247,39 +273,61 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
             ribbonBand.startGroup(group.title)
             for ((priority, content) in group.content) {
                 when (content) {
-                    is KCommand -> {
-                        ribbonBand.addRibbonCommand(content.toFlamingoCommand(), priority)
+                    is KRibbonBandGroup.CommandConfig -> {
+                        val button = ribbonBand.addRibbonCommand(content.command.toFlamingoCommand(), priority)
+                        if (content.actionKeyTip != null) {
+                            button.actionKeyTip = content.actionKeyTip
+                        }
+                        if ((button is JCommandButton) && (content.popupKeyTip != null)) {
+                            button.popupKeyTip = content.popupKeyTip
+                        }
                     }
                     is KRibbonComponent -> {
                         ribbonBand.addRibbonComponent(content.asRibbonComponent())
                     }
                     is KRibbonGallery -> {
-                        val stylesGalleryCommands = ArrayList<StringValuePair<List<FlamingoCommand>>>()
-                        for (commandGroup in content.commandGroups) {
-                            stylesGalleryCommands.add(StringValuePair(commandGroup.title,
-                                    commandGroup.commands.map { it -> it.toFlamingoCommand() }))
-                        }
-                        ribbonBand.addRibbonGallery(content.title, stylesGalleryCommands,
-                                content.display.commandVisibilityContainer.policies.map { it.second to it.first }.toMap(),
-                                content.display.preferredPopupMaxCommandColumns!!,
-                                content.display.preferredPopupMaxVisibleCommandRows!!,
-                                content.display.state,
-                                priority)
-                        ribbonBand.setRibbonGalleryExpandKeyTip(content.title, content.expandKeyTip)
+                        // Get the presentation model
+                        val galleryPresentationModel = content.presentation.toRibbonGalleryPresentationModel()
+
+                        // Map primary gallery commands to the command group models expected for the content model
+                        val galleryContentModel = RibbonGalleryContentModel(this.icon,
+                                content.commandGroups.map { it.toCommandGroupModel() })
+
+                        // Wire extra popup content if we have it
                         if (!content.extraPopupContent.components.isEmpty()) {
-                            // A null entry in the mapped list means that the entry is a separator
-                            val javaExtraPopupContent =
-                                    content.extraPopupContent.components.map { it -> (it as? KCommand)?.asBaseMenuButton() }
-                            ribbonBand.setRibbonGalleryPopupCallback(content.title) { menu ->
-                                for (javaComponent in javaExtraPopupContent) {
-                                    when (javaComponent) {
-                                        is JCommandMenuButton -> menu.addMenuButton(javaComponent)
-                                        is JCommandToggleMenuButton -> menu.addMenuButton(javaComponent)
-                                        else -> menu.addMenuSeparator()
+                            var extraPopupContentGroup = CommandGroupModel()
+                            for (extraContent in content.extraPopupContent.components) {
+                                when (extraContent) {
+                                    is KCommand -> extraPopupContentGroup.addCommand(extraContent.toFlamingoCommand())
+                                    is KCommandPopupMenu.KCommandPopupMenuSeparator -> {
+                                        galleryContentModel.addExtraPopupCommandGroup(extraPopupContentGroup)
+                                        extraPopupContentGroup = CommandGroupModel()
                                     }
                                 }
                             }
+                            if (!extraPopupContentGroup.commandList.isEmpty()) {
+                                galleryContentModel.addExtraPopupCommandGroup(extraPopupContentGroup)
+                            }
                         }
+
+                        // Wire command preview and activation listeners
+                        galleryContentModel.addCommandPreviewListener(
+                                object : RibbonGalleryContentModel.GalleryCommandPreviewListener {
+                                    override fun onCommandPreviewActivated(command: FlamingoCommand) {
+                                        content.onCommandPreviewActivated?.invoke(command)
+                                    }
+
+                                    override fun onCommandPreviewCanceled(command: FlamingoCommand) {
+                                        content.onCommandPreviewCanceled?.invoke(command)
+                                    }
+                                }
+                        )
+                        if (content.onCommandActivated != null) {
+                            galleryContentModel.addCommandActivationListener(content.onCommandActivated)
+                        }
+
+                        ribbonBand.addRibbonGallery(content.title, galleryContentModel, galleryPresentationModel,
+                                priority, content.expandKeyTip)
                     }
                 }
             }

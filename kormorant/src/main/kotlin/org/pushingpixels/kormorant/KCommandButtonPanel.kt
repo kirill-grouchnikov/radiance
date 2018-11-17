@@ -29,18 +29,45 @@
  */
 package org.pushingpixels.kormorant
 
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.JCommandButton
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel
+import org.pushingpixels.flamingo.api.common.model.CommandGroupModel
+import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
+import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
 
 @FlamingoElementMarker
-class KCommandButtonPanelDisplay {
-    var maxButtonColumns: Int = -1
-    var maxButtonRows: Int = -1
-    var isShowingGroupTitles: Boolean = true
-    var state: CommandButtonDisplayState? = null
-    var dimension: Int = -1
+class KCommandButtonPanelPresentation {
+    var maxColumns: Int = -1
+    var maxRows: Int = -1
+    var toShowGroupLabels: Boolean = true
+    var commandDisplayState: CommandButtonDisplayState? = null
+    var commandIconDimension: Int = -1
     var layoutKind: JCommandButtonPanel.LayoutKind = JCommandButtonPanel.LayoutKind.ROW_FILL
-    var buttonHorizontalAlignment: Int? by NullableDelegate { false }
+    var commandHorizontalAlignment: Int = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
+    var isMenu: Boolean = false
+    var popupOrientationKind: JCommandButton.CommandButtonPopupOrientationKind =
+            JCommandButton.CommandButtonPopupOrientationKind.DOWNWARD
+
+    internal fun asCommandPanelPresentationModel() : CommandPanelPresentationModel {
+        val presentationModelBuilder = CommandPanelPresentationModel.builder()
+        if (this.commandDisplayState != null) {
+            presentationModelBuilder.setCommandDisplayState(this.commandDisplayState)
+        } else {
+            presentationModelBuilder.setCommandDisplayState(CommandButtonDisplayState.FIT_TO_ICON)
+            presentationModelBuilder.setCommandIconDimension(this.commandIconDimension)
+        }
+        presentationModelBuilder.setMaxColumns(this.maxColumns)
+        presentationModelBuilder.setMaxRows(this.maxRows)
+        presentationModelBuilder.setToShowGroupLabels(this.toShowGroupLabels)
+        presentationModelBuilder.setLayoutKind(this.layoutKind)
+        presentationModelBuilder.setCommandHorizontalAlignment(this.commandHorizontalAlignment)
+        presentationModelBuilder.setMenu(this.isMenu)
+        presentationModelBuilder.setPopupOrientationKind(this.popupOrientationKind)
+
+        return presentationModelBuilder.build()
+    }
 }
 
 @FlamingoElementMarker
@@ -55,13 +82,17 @@ class KCommandButtonPanel {
             commands.add(command)
             return command
         }
+
+        fun asCommandGroupModel() : CommandGroupModel {
+            return CommandGroupModel(this.title, this.commands.map { it.toFlamingoCommand() })
+        }
     }
 
     private lateinit var buttonPanel: JCommandButtonPanel
     private var hasBeenConverted: Boolean = false
 
     private val commandGroups = arrayListOf<KCommandButtonPanelGroup>()
-    internal val display: KCommandButtonPanelDisplay = KCommandButtonPanelDisplay()
+    internal val presentation: KCommandButtonPanelPresentation = KCommandButtonPanelPresentation()
     var isSingleSelectionMode: Boolean by NonNullDelegate { hasBeenConverted }
 
     init {
@@ -75,8 +106,8 @@ class KCommandButtonPanel {
         return commandGroup
     }
 
-    fun display(init: KCommandButtonPanelDisplay.() -> Unit) {
-        display.init()
+    fun presentation(init: KCommandButtonPanelPresentation.() -> Unit) {
+        presentation.init()
     }
 
     fun asButtonPanel(): JCommandButtonPanel {
@@ -84,37 +115,17 @@ class KCommandButtonPanel {
             throw IllegalStateException("This method can only be called once")
         }
 
-        val hasInitialState = (display.state != null)
-        val hasInitialDimension = (display.dimension > 0)
+        val hasInitialState = (presentation.commandDisplayState != null)
+        val hasInitialDimension = (presentation.commandIconDimension > 0)
 
         if (!hasInitialState && !hasInitialDimension) {
             throw IllegalStateException("No display state or dimension specified")
         }
 
-        buttonPanel = if (hasInitialState) JCommandButtonPanel(display.state)
-        else JCommandButtonPanel(display.dimension)
+        val presentationModel = presentation.asCommandPanelPresentationModel()
+        val contentModel = CommandPanelContentModel(commandGroups.map { it.asCommandGroupModel() })
 
-        if (display.maxButtonColumns > 0) {
-            buttonPanel.maxButtonColumns = display.maxButtonColumns
-        }
-        if (display.maxButtonRows > 0) {
-            buttonPanel.maxButtonRows = display.maxButtonRows
-        }
-        buttonPanel.isToShowGroupLabels = display.isShowingGroupTitles
-        buttonPanel.layoutKind = display.layoutKind
-
-        buttonPanel.setSingleSelectionMode(isSingleSelectionMode)
-
-        for (commandGroup in commandGroups) {
-            buttonPanel.addButtonGroup(commandGroup.title)
-            for (command in commandGroup.commands) {
-                val javaButton = command.asBaseButton()
-                if (display.buttonHorizontalAlignment != null) {
-                    javaButton.horizontalAlignment = display.buttonHorizontalAlignment!!
-                }
-                buttonPanel.addButtonToLastGroup(javaButton)
-            }
-        }
+        buttonPanel = JCommandButtonPanel(contentModel, presentationModel)
         hasBeenConverted = true
 
         return buttonPanel

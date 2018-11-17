@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.kormorant
 
-import org.pushingpixels.flamingo.api.common.FlamingoCommand
 import org.pushingpixels.flamingo.api.common.RichTooltip
+import org.pushingpixels.flamingo.api.common.model.CommandToggleGroupModel
 import org.pushingpixels.neon.icon.ResizableIcon
 import java.awt.Color
 import kotlin.properties.ReadWriteProperty
@@ -110,7 +110,7 @@ class KRichTooltip {
     }
 
     fun buildRichTooltip(): RichTooltip {
-        val builder = RichTooltip.RichTooltipBuilder()
+        val builder = RichTooltip.builder()
         builder.setTitle(title)
         builder.setMainIcon(mainIcon)
         for (descriptionSection in descriptionSections.strings) {
@@ -125,12 +125,12 @@ class KRichTooltip {
     }
 }
 
-class KCommandToggleGroup {
-    internal val flamingoCommandToggleGroup = FlamingoCommand.FlamingoCommandToggleGroup()
+class KCommandToggleGroupModel {
+    internal val flamingoCommandToggleModel = CommandToggleGroupModel()
 }
 
-fun commandToggleGroup(): KCommandToggleGroup {
-    return KCommandToggleGroup()
+fun commandToggleGroup(): KCommandToggleGroupModel {
+    return KCommandToggleGroupModel()
 }
 
 

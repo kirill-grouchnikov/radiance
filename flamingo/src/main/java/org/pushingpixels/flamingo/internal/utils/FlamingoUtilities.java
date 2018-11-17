@@ -45,6 +45,8 @@ import java.util.List;
  * @author Kirill Grouchnikov
  */
 public class FlamingoUtilities {
+    public final static String COMMAND = "radiance.internal.flamingo.commandProp";
+
     public static int getHLayoutGap(AbstractCommandButton commandButton) {
         Font font = commandButton.getFont();
         return (int) Math.ceil(commandButton.getHGapScaleFactor() * (font.getSize() - 4) / 4);

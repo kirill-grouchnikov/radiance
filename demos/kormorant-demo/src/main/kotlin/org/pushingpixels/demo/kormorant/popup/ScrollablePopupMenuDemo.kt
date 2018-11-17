@@ -73,12 +73,12 @@ fun main(args: Array<String>) {
                                 }
                             }
                         }
-                        maxVisibleMenuButtons = 8
+                        maxVisibleMenuCommands = 8
                     }
                     popupMenuCommand.asCommandPopupMenu()
                 }
             }
-            display {
+            presentation {
                 state = CommandButtonDisplayState.TILE
                 isFlat = false
             }

@@ -111,7 +111,7 @@ fun main(args: Array<String>) {
                     }.asCommandPopupMenu()
                 }
             }
-            display {
+            presentation {
                 isFlat = false
                 state = CommandButtonDisplayState.MEDIUM
             }

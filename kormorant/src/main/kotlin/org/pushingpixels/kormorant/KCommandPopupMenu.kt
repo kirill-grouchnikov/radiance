@@ -29,30 +29,18 @@
  */
 package org.pushingpixels.kormorant
 
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
-import org.pushingpixels.flamingo.api.common.JCommandButtonPanel
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton
-import org.pushingpixels.flamingo.api.common.JCommandToggleMenuButton
+import org.pushingpixels.flamingo.api.common.model.CommandGroupModel
+import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
+import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu
-
-@FlamingoElementMarker
-class KCommandPopupMenuButtonPanelDisplay {
-    var maxButtonColumns: Int by NonNullDelegate { false }
-    var maxVisibleButtonRows: Int by NonNullDelegate { false }
-    var isShowingGroupTitles: Boolean by NonNullDelegate { false }
-    var state: CommandButtonDisplayState? by NullableDelegate { false }
-    var dimension: Int by NonNullDelegate { false }
-
-    init {
-        isShowingGroupTitles = true
-        dimension = -1
-    }
-}
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
+import org.pushingpixels.kormorant.ribbon.KRibbonBandGroup
 
 @FlamingoElementMarker
 class KCommandPopupMenuButtonPanel {
     private val commandGroups = arrayListOf<KCommandButtonPanel.KCommandButtonPanelGroup>()
-    internal val display: KCommandPopupMenuButtonPanelDisplay = KCommandPopupMenuButtonPanelDisplay()
+    internal val presentation: KCommandButtonPanelPresentation = KCommandButtonPanelPresentation()
     var isSingleSelectionMode: Boolean by NonNullDelegate { false }
 
     init {
@@ -67,54 +55,38 @@ class KCommandPopupMenuButtonPanel {
         return commandGroup
     }
 
-    fun display(init: KCommandPopupMenuButtonPanelDisplay.() -> Unit) {
-        display.init()
+    fun presentation(init: KCommandButtonPanelPresentation.() -> Unit) {
+        presentation.init()
     }
 
-    fun asButtonPanel(): JCommandButtonPanel {
-        val hasInitialState = (display.state != null)
-        val hasInitialDimension = (display.dimension > 0)
+    internal fun getContentModel() : CommandPanelContentModel {
+        return CommandPanelContentModel(this.commandGroups.map { it.asCommandGroupModel() })
+    }
 
-        if (!hasInitialState && !hasInitialDimension) {
-            throw IllegalStateException("No display state or dimension specified")
-        }
-
-        val buttonPanel = if (hasInitialState) JCommandButtonPanel(display.state)
-        else JCommandButtonPanel(display.dimension)
-
-        if (display.maxButtonColumns > 0) {
-            buttonPanel.maxButtonColumns = display.maxButtonColumns
-        }
-        buttonPanel.isToShowGroupLabels = display.isShowingGroupTitles
-        buttonPanel.layoutKind = JCommandButtonPanel.LayoutKind.ROW_FILL
-
-        buttonPanel.setSingleSelectionMode(isSingleSelectionMode)
-
-        for (commandGroup in commandGroups) {
-            buttonPanel.addButtonGroup(commandGroup.title)
-            for (command in commandGroup.commands) {
-                buttonPanel.addButtonToLastGroup(command.asBaseButton())
-            }
-        }
-
-        return buttonPanel
+    internal fun getPresentationModel() : CommandPanelPresentationModel {
+        return presentation.asCommandPanelPresentationModel()
     }
 }
 
 @FlamingoElementMarker
 class KCommandPopupMenu {
+    internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?)
+
     private lateinit var popupMenu: JCommandPopupMenu
     private var hasBeenConverted: Boolean = false
 
-    private val components = arrayListOf<Any>()
-    var maxVisibleMenuButtons: Int by NonNullDelegate { hasBeenConverted }
-    var toDismissOnChildClick: Boolean by NonNullDelegate { hasBeenConverted }
+    private val groups = arrayListOf<KCommandGroup>()
+    private val defaultGroup = KCommandGroup()
+
+    var maxVisibleMenuCommands: Int by NonNullDelegate { hasBeenConverted }
+    var toDismissOnCommandActivation: Boolean by NonNullDelegate { hasBeenConverted }
 
     private var commandPanel: KCommandPopupMenuButtonPanel? = null
 
     init {
-        maxVisibleMenuButtons = -1
-        toDismissOnChildClick = false
+        maxVisibleMenuCommands = -1
+        toDismissOnCommandActivation = true
+        groups.add(defaultGroup)
     }
 
     class KCommandPopupMenuSeparator
@@ -127,15 +99,19 @@ class KCommandPopupMenu {
         commandPanel!!.init()
     }
 
-    fun command(init: KCommand.() -> Unit): KCommand {
+    fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
+        // TODO - handle action key tip
         val command = KCommand()
         command.init()
-        components.add(command)
+        defaultGroup.commands.add(command)
         return command
     }
 
-    fun separator() {
-        components.add(KCommandPopupMenuSeparator())
+    fun group(init: KCommandGroup.() -> Unit): KCommandGroup {
+        val group = KCommandGroup()
+        group.init()
+        groups.add(group)
+        return group
     }
 
     fun asCommandPopupMenu(): JCommandPopupMenu {
@@ -143,31 +119,53 @@ class KCommandPopupMenu {
             throw IllegalStateException("This method can only be called once")
         }
 
+        val presentationModelBuilder = CommandPopupMenuPresentationModel.builder()
+        if (maxVisibleMenuCommands > 0) {
+            presentationModelBuilder.setMaxVisibleMenuCommands(maxVisibleMenuCommands)
+        }
+        presentationModelBuilder.setToDismissOnCommandActivation(toDismissOnCommandActivation)
         if (commandPanel != null) {
-            popupMenu = JCommandPopupMenu(commandPanel!!.asButtonPanel(), commandPanel!!.display.maxButtonColumns,
-                    commandPanel!!.display.maxVisibleButtonRows)
-        } else {
-            popupMenu = JCommandPopupMenu()
+            presentationModelBuilder.setPanelPresentationModel(commandPanel!!.getPresentationModel())
         }
 
-        for (component in components) {
-            when (component) {
-                is KCommandPopupMenuSeparator -> popupMenu.addMenuSeparator()
-                is KCommand -> {
-                    val commandMenuButton = component.asBaseMenuButton()
-                    when (commandMenuButton) {
-                        is JCommandMenuButton -> popupMenu.addMenuButton(commandMenuButton)
-                        is JCommandToggleMenuButton -> popupMenu.addMenuButton(commandMenuButton)
-                        else -> throw IllegalStateException("Unsupported content")
-                    }
-                }
-                else -> throw IllegalStateException("Unsupported content")
-            }
+        if (defaultGroup.commands.isEmpty()) {
+            groups.remove(defaultGroup)
         }
-        if (maxVisibleMenuButtons > 0) {
-            popupMenu.maxVisibleMenuButtons = maxVisibleMenuButtons
-        }
-        popupMenu.isToDismissOnChildClick = toDismissOnChildClick
+        val commandGroupModels = groups.map { it.toCommandGroupModel() }
+//        for (group in groups) {
+//            // skip empty default group
+//            if ((group == defaultGroup) && group.content.isEmpty()) {
+//                continue
+//            }
+//        }
+//
+//        val commandGroupModels = ArrayList<CommandGroupModel>()
+//        var currCommandGroupModel = CommandGroupModel()
+//        for (component in components) {
+//            when (component) {
+//                is KCommandPopupMenuSeparator -> {
+//                    commandGroupModels.add(currCommandGroupModel)
+//                    currCommandGroupModel = CommandGroupModel()
+//                }
+//                is CommandConfig -> {
+//                    val flamingoCommand = component.command.toFlamingoCommand()
+//                    // TODO - wire on the correct display
+//                    if (component.actionKeyTip != null) {
+//                        flamingoCommand.actionKeyTip = component.actionKeyTip
+//                    }
+//                    currCommandGroupModel.addCommand(flamingoCommand)
+//                }
+//                else -> throw IllegalStateException("Unsupported content")
+//            }
+//        }
+//        if (!currCommandGroupModel.commandList.isEmpty()) {
+//            commandGroupModels.add(currCommandGroupModel)
+//        }
+
+        popupMenu = JCommandPopupMenu(
+                CommandPopupMenuContentModel(commandPanel?.getContentModel(), commandGroupModels),
+                presentationModelBuilder.build())
+
         hasBeenConverted = true
         return popupMenu
     }

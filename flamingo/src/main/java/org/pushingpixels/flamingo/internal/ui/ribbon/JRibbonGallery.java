@@ -30,29 +30,29 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonGalleryUI;
 
 import javax.swing.*;
 import javax.swing.event.*;
-import java.awt.*;
-import java.beans.PropertyChangeEvent;
+import java.awt.event.ActionEvent;
 import java.util.*;
-import java.util.List;
 
 /**
  * In-ribbon gallery. This class is for internal use only and should not be directly used by the
  * applications.
  *
  * @author Kirill Grouchnikov
- * @see JRibbonBand#addRibbonGallery(String, RibbonGalleryModel, RibbonElementPriority, String)
+ * @see JRibbonBand#addRibbonGallery(String, RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority, String)
+ * @see JRibbon#addTaskbarGalleryDropdown(RibbonGalleryContentModel, RibbonGalleryPresentationModel)
  */
 public class JRibbonGallery extends JComponent {
-    private static final String COMMAND = "radiance.flamingo.internal.galleryCommand";
-
-    private RibbonGalleryModel galleryModel;
+    private RibbonGalleryContentModel galleryContentModel;
+    private RibbonGalleryPresentationModel galleryPresentationModel;
 
     /**
      * The buttons of <code>this</code> gallery.
@@ -75,44 +75,32 @@ public class JRibbonGallery extends JComponent {
     private RibbonElementPriority displayPriority;
 
     /**
-     * Preferred widths for each possible display state (set in the user code according to design
-     * preferences).
-     */
-    private Map<RibbonElementPriority, Integer> preferredVisibleIconCount;
-
-    /**
-     * Gallery command groups.
-     */
-    private List<CommandGroupModel> commandGroups;
-
-    /**
      * The UI class ID string.
      */
     public static final String uiClassID = "RibbonGalleryUI";
 
     private String expandKeyTip;
 
-    private CommandButtonDisplayState buttonDisplayState;
-
-    public JRibbonGallery(String galleryName, RibbonGalleryModel ribbonGalleryModel) {
-        this.galleryModel = ribbonGalleryModel;
+    public JRibbonGallery(String galleryName, RibbonGalleryContentModel galleryContentModel,
+            RibbonGalleryPresentationModel galleryPresentationModel) {
+        this.galleryContentModel = galleryContentModel;
+        this.galleryPresentationModel = galleryPresentationModel;
 
         this.buttons = new ArrayList<>();
         this.commands = new ArrayList<>();
         this.buttonSelectionGroup = new CommandToggleButtonGroup();
-        this.preferredVisibleIconCount = new HashMap<>();
 
-        this.setCommandDisplayState(ribbonGalleryModel.getCommandDisplayState());
+        this.validateCommandDisplayState(galleryPresentationModel.getCommandDisplayState());
         this.setName(galleryName);
 
         this.populateContent();
 
-        this.galleryModel.addCommandSelectionListener((FlamingoCommand selected) -> {
-            int buttonIndex = this.commands.indexOf(selected);
+        this.galleryContentModel.addCommandActivationListener((FlamingoCommand activated) -> {
+            int buttonIndex = this.commands.indexOf(activated);
             this.buttonSelectionGroup.setSelected(this.buttons.get(buttonIndex), true);
         });
 
-        this.galleryModel.addChangeListener((ChangeEvent changeEvent) -> {
+        this.galleryContentModel.addChangeListener((ChangeEvent changeEvent) -> {
             this.buttons.clear();
             this.buttonSelectionGroup.removeAll();
             this.commands.clear();
@@ -121,24 +109,20 @@ public class JRibbonGallery extends JComponent {
             populateContent();
         });
 
-        this.buttonSelectionGroup.addPropertyChangeListener((PropertyChangeEvent evt) -> {
-            if (CommandToggleButtonGroup.SELECTED_PROPERTY.equals(evt.getPropertyName())) {
-                JCommandToggleButton selectedButton = this.buttonSelectionGroup.getSelected();
-                int index = this.buttons.indexOf(selectedButton);
-                this.galleryModel.setSelectedCommand(this.commands.get(index));
-            }
+        this.galleryPresentationModel.addChangeListener((ChangeEvent changeEvent) -> {
+            this.buttons.clear();
+            this.buttonSelectionGroup.removeAll();
+            this.commands.clear();
+            this.removeAll();
+
+            populateContent();
         });
 
         this.updateUI();
     }
 
     private void populateContent() {
-        for (Map.Entry<RibbonElementPriority, Integer> prefCountEntry :
-                this.galleryModel.getPreferredVisibleCommandCounts().entrySet()) {
-            this.setPreferredVisibleButtonCount(prefCountEntry.getKey(),
-                    prefCountEntry.getValue());
-        }
-        this.setGroupMapping(this.galleryModel.getCommandGroups());
+        this.setGroupMapping(this.galleryContentModel.getCommandGroups());
     }
 
     /**
@@ -196,36 +180,27 @@ public class JRibbonGallery extends JComponent {
             public void stateChanged(ChangeEvent e) {
                 boolean isRollover = button.getActionModel().isRollover();
                 if (wasRollover && !isRollover) {
-                    if (galleryModel != null) {
-                        galleryModel.cancelPreview(command);
+                    if (galleryContentModel != null) {
+                        galleryContentModel.cancelPreview(command);
                     }
                 }
                 if (!wasRollover && isRollover) {
-                    if (galleryModel != null) {
-                        galleryModel.activatePreview(command);
+                    if (galleryContentModel != null) {
+                        galleryContentModel.activatePreview(command);
                     }
                 }
                 wasRollover = isRollover;
             }
         });
+        button.getActionModel().addActionListener((ActionEvent e) ->
+                galleryContentModel.setSelectedCommand(command));
 
         this.buttons.add(button);
         this.buttonSelectionGroup.add(button);
         this.commands.add(command);
-        button.setDisplayState(this.buttonDisplayState);
+        button.setDisplayState(this.galleryPresentationModel.getCommandDisplayState());
 
         super.add(button);
-    }
-
-    /**
-     * Set preferred width of <code>this</code> in-ribbon gallery for the specified display state.
-     *
-     * @param state              Display state.
-     * @param visibleButtonCount Preferred width for the specified state.
-     */
-    private void setPreferredVisibleButtonCount(RibbonElementPriority state,
-            int visibleButtonCount) {
-        this.preferredVisibleIconCount.put(state, visibleButtonCount);
     }
 
     /**
@@ -238,7 +213,8 @@ public class JRibbonGallery extends JComponent {
      * state.
      */
     public int getPreferredWidth(RibbonElementPriority state, int availableHeight) {
-        int preferredVisibleButtonCount = this.preferredVisibleIconCount.get(state);
+        int preferredVisibleButtonCount = this.galleryPresentationModel.
+                getPreferredVisibleCommandCounts().get(state);
 
         BasicRibbonGalleryUI ui = (BasicRibbonGalleryUI) this.getUI();
         return ui.getPreferredWidth(preferredVisibleButtonCount, availableHeight);
@@ -290,59 +266,12 @@ public class JRibbonGallery extends JComponent {
         return this.buttonSelectionGroup.getSelected();
     }
 
-    public RibbonGalleryModel getGalleryModel() {
-        return this.galleryModel;
+    public RibbonGalleryContentModel getContentModel() {
+        return this.galleryContentModel;
     }
 
-    /**
-     * Creates a popup panel with all the gallery buttons.
-     *
-     * @return The popup panel with all the gallery buttons.
-     */
-    static JCommandButtonPanel createPopupButtonPanel(RibbonGalleryModel galleryModel) {
-        CommandToggleButtonGroup buttonGroup = new CommandToggleButtonGroup();
-        JCommandButtonPanel buttonPanel = new JCommandButtonPanel(
-                galleryModel.getCommandDisplayState());
-        buttonPanel.setMaxButtonColumns(galleryModel.getPreferredPopupMaxCommandColumns());
-        buttonPanel.setToShowGroupLabels(true);
-        buttonPanel.setSingleSelectionMode(true);
-
-        for (CommandGroupModel commandGroupModel : galleryModel.getCommandGroups()) {
-            String groupTitle = commandGroupModel.getTitle();
-            if (groupTitle == null) {
-                buttonPanel.setToShowGroupLabels(false);
-            }
-            buttonPanel.addButtonGroup(groupTitle);
-            for (FlamingoCommand command : commandGroupModel.getCommandList()) {
-                JCommandToggleButton button = (JCommandToggleButton) command.buildButton();
-                button.putClientProperty(COMMAND, command);
-                buttonGroup.add(button);
-                button.setDisplayState(galleryModel.getCommandDisplayState());
-                if (galleryModel.getSelectedCommand() == command) {
-                    button.getActionModel().setSelected(true);
-                }
-                button.setVisible(true);
-                buttonPanel.addButtonToLastGroup(button);
-
-                button.getActionModel().addChangeListener(new ChangeListener() {
-                    boolean wasRollover = false;
-
-                    @Override
-                    public void stateChanged(ChangeEvent e) {
-                        boolean isRollover = button.getActionModel().isRollover();
-                        if (wasRollover && !isRollover) {
-                            galleryModel.cancelPreview(command);
-                        }
-                        if (!wasRollover && isRollover) {
-                            galleryModel.activatePreview(command);
-                        }
-                        wasRollover = isRollover;
-                    }
-                });
-            }
-        }
-
-        return buttonPanel;
+    public RibbonGalleryPresentationModel getPresentationModel() {
+        return this.galleryPresentationModel;
     }
 
     /**
@@ -350,11 +279,16 @@ public class JRibbonGallery extends JComponent {
      *
      * @param commandGroups Command groups.
      */
+    @SuppressWarnings("deprecation")
     private void setGroupMapping(List<CommandGroupModel> commandGroups) {
         for (CommandGroupModel commandGroupModel : commandGroups) {
             for (FlamingoCommand command : commandGroupModel.getCommandList()) {
                 if (!command.isToggle()) {
                     throw new IllegalStateException("Gallery command must be toggle");
+                }
+                if (command.getToggleGroupModel() != null) {
+                    throw new IllegalStateException(
+                            "Gallery toggle command should not be associated with a toggle group");
                 }
                 if (command.getToggleGroup() != null) {
                     throw new IllegalStateException(
@@ -363,7 +297,6 @@ public class JRibbonGallery extends JComponent {
             }
         }
 
-        this.commandGroups = new ArrayList<>();
         boolean hasGroupWithNullTitle = false;
         for (CommandGroupModel commandGroupModel : commandGroups) {
             if (commandGroupModel.getTitle() == null) {
@@ -374,7 +307,6 @@ public class JRibbonGallery extends JComponent {
                 hasGroupWithNullTitle = true;
             }
 
-            this.commandGroups.add(commandGroupModel);
             // add all the commands to this gallery (creating a UI representation for each command)
             for (FlamingoCommand command : commandGroupModel.getCommandList()) {
                 this.addGalleryCommand(command);
@@ -392,7 +324,7 @@ public class JRibbonGallery extends JComponent {
         return expandKeyTip;
     }
 
-    private void setCommandDisplayState(CommandButtonDisplayState commandDisplayState) {
+    private void validateCommandDisplayState(CommandButtonDisplayState commandDisplayState) {
         boolean isSupported = (commandDisplayState == JRibbonBand.BIG_FIXED)
                 || (commandDisplayState == CommandButtonDisplayState.SMALL)
                 || (commandDisplayState == JRibbonBand.BIG_FIXED_LANDSCAPE);
@@ -401,66 +333,104 @@ public class JRibbonGallery extends JComponent {
                     "Display state " + commandDisplayState.getDisplayName()
                             + " is not supported in ribbon galleries");
         }
-        this.buttonDisplayState = commandDisplayState;
     }
 
-    public static JCommandPopupMenu getExpandPopupMenu(RibbonGalleryModel galleryModel,
+    @SuppressWarnings("deprecation")
+    public static JCommandPopupMenu getExpandPopupMenu(
+            RibbonGalleryContentModel galleryContentModel,
+            RibbonGalleryPresentationModel galleryPresentationModel,
             JComponent originator) {
-        JCommandButtonPanel popupButtonPanel = createPopupButtonPanel(galleryModel);
-        final JCommandPopupMenu popupMenu = new JCommandPopupMenu(popupButtonPanel,
-                galleryModel.getPreferredPopupMaxCommandColumns(),
-                galleryModel.getPreferredPopupMaxVisibleCommandRows());
 
-        List<CommandGroupModel> extraPopupCommandGroups = galleryModel.getExtraPopupCommandGroups();
-        if (!extraPopupCommandGroups.isEmpty()) {
-            for (int i = 0; i < extraPopupCommandGroups.size(); i++) {
-                CommandGroupModel extraPopupCommandGroup = extraPopupCommandGroups.get(i);
-                for (FlamingoCommand command: extraPopupCommandGroup.getCommandList()) {
-                    AbstractCommandButton menuButton = command.buildMenuButton();
-                    if (menuButton instanceof JCommandMenuButton) {
-                        popupMenu.addMenuButton((JCommandMenuButton) menuButton);
+        // Create the content model for the panel with all the primary gallery commands,
+        // wiring the preview listener for the panel to update the gallery content
+        // model
+        CommandPanelContentModel galleryPopupMenuPanelContentModel = new CommandPanelContentModel(
+                galleryContentModel.getCommandGroups());
+        galleryPopupMenuPanelContentModel.setSingleSelectionMode(true);
+        galleryPopupMenuPanelContentModel.setCommandPreviewListener(
+                new FlamingoCommand.CommandPreviewListener() {
+                    @Override
+                    public void onCommandPreviewActivated(FlamingoCommand command) {
+                        galleryContentModel.activatePreview(command);
                     }
-                    if (menuButton instanceof JCommandToggleMenuButton) {
-                        popupMenu.addMenuButton((JCommandToggleMenuButton) menuButton);
+
+                    @Override
+                    public void onCommandPreviewCanceled(FlamingoCommand command) {
+                        galleryContentModel.cancelPreview(command);
                     }
-                }
-                if (i < (extraPopupCommandGroups.size() - 1)) {
-                    popupMenu.addMenuSeparator();
-                }
+                });
+
+        // Create the content model for the entire popup based on the gallery commands,
+        // as well as on the extra popup commands set on the gallery content model
+        CommandPopupMenuContentModel galleryPopupMenuContentModel =
+                new CommandPopupMenuContentModel(
+                        galleryPopupMenuPanelContentModel,
+                        galleryContentModel.getExtraPopupCommandGroups());
+
+        // Do all the primary gallery command groups have titles?
+        boolean allGroupsHaveTitles = true;
+        for (CommandGroupModel commandGroupModel : galleryContentModel.getCommandGroups()) {
+            String groupTitle = commandGroupModel.getTitle();
+            if (groupTitle == null) {
+                allGroupsHaveTitles = false;
+                break;
             }
         }
-        JRibbonBand.RibbonGalleryPopupCallback galleryPopupCallback =
-                galleryModel.getPopupCallback();
-        if (galleryPopupCallback != null) {
-            galleryPopupCallback.popupToBeShown(popupMenu);
-        }
-        popupMenu.applyComponentOrientation(originator.getComponentOrientation());
 
+        // Configure the presentation model for the gallery popup menu. Here we configure
+        // the presentation model for the panel with primary gallery commands based on
+        // the gallery presentation model. This is what allows having different presentation
+        // for the same gallery popup content when it's in the ribbon band vs when it's shown
+        // in ribbon task bar.
+        CommandPopupMenuPresentationModel galleryPopupMenuPresentationModel =
+                CommandPopupMenuPresentationModel.builder()
+                        .setPanelPresentationModel(
+                                CommandPanelPresentationModel.builder()
+                                        .setToShowGroupLabels(allGroupsHaveTitles)
+                                        .setCommandDisplayState(
+                                                galleryPresentationModel.getCommandDisplayState())
+                                        .setMaxColumns(
+                                                galleryPresentationModel.getPreferredPopupMaxCommandColumns())
+                                        .setMaxRows(
+                                                galleryPresentationModel.getPreferredPopupMaxVisibleCommandRows())
+                                        .build())
+                        .build();
+
+        JCommandPopupMenu galleryPopupMenu = new JCommandPopupMenu(galleryPopupMenuContentModel,
+                galleryPopupMenuPresentationModel);
+
+        // TODO - remove in 2.0
+        JRibbonBand.RibbonGalleryPopupCallback galleryPopupCallback =
+                galleryContentModel.getPopupCallback();
+        if (galleryPopupCallback != null) {
+            galleryPopupCallback.popupToBeShown(galleryPopupMenu);
+        }
+
+        galleryPopupMenu.applyComponentOrientation(originator.getComponentOrientation());
+
+        // Configure the popup listener for two-way sync between the gallery model and
+        // its present popup menu manifestation.
         PopupPanelManager.PopupListener popupListener = new PopupPanelManager.PopupListener() {
             @Override
-            public void popupHidden(PopupPanelManager.PopupEvent event) {
-                JCommandToggleButton newSelection = popupButtonPanel.getSelectedButton();
-                FlamingoCommand selectedCommand =
-                        (FlamingoCommand) newSelection.getClientProperty(COMMAND);
-                galleryModel.setSelectedCommand(selectedCommand);
-                if (event.getPopupOriginator() == originator) {
-                    PopupPanelManager.defaultManager().removePopupListener(this);
-                }
+            public void popupShown(PopupPanelManager.PopupEvent event) {
+                // scroll the popup to reveal the selected command
+                galleryPopupMenu.getMainButtonPanel().scrollToSelectedCommand();
             }
 
             @Override
-            public void popupShown(PopupPanelManager.PopupEvent event) {
-                // scroll to reveal the selected button
-                if (popupButtonPanel.getSelectedButton() != null) {
-                    Rectangle selectionButtonBounds = popupButtonPanel.getSelectedButton()
-                            .getBounds();
-                    popupButtonPanel.scrollRectToVisible(selectionButtonBounds);
+            public void popupHidden(PopupPanelManager.PopupEvent event) {
+                // update the gallery content model with the command selection
+                FlamingoCommand selectedCommand =
+                        galleryPopupMenu.getMainButtonPanel().getSelectedCommand();
+                galleryContentModel.setSelectedCommand(selectedCommand);
+                if (event.getPopupOriginator() == originator) {
+                    PopupPanelManager.defaultManager().removePopupListener(this);
                 }
             }
         };
         PopupPanelManager.defaultManager().addPopupListener(popupListener);
 
-        return popupMenu;
+        return galleryPopupMenu;
     }
 }
 

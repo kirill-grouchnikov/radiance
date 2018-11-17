@@ -103,7 +103,7 @@ fun main(args: Array<String>) {
                     textPane.setAlignment(StyleConstants.ALIGN_JUSTIFIED)
                 }
             }
-            display {
+            presentation {
                 orientation = JCommandButtonStrip.StripOrientation.VERTICAL
                 horizontalGapScaleFactor = 0.8
                 verticalGapScaleFactor = 1.4

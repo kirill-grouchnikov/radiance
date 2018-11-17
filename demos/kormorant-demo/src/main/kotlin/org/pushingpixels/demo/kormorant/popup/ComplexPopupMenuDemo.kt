@@ -67,11 +67,11 @@ fun main(args: Array<String>) {
                     val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
                     val popupMenuCommand = commandPopupMenu {
                         commandPanel {
-                            display {
-                                dimension = 48
-                                maxButtonColumns = 5
-                                maxVisibleButtonRows = 3
-                                isShowingGroupTitles = false
+                            presentation {
+                                commandIconDimension = 48
+                                maxColumns = 5
+                                maxRows = 3
+                                toShowGroupLabels = false
                             }
 
                             for (groupIndex in 0 until 4) {
@@ -109,47 +109,50 @@ fun main(args: Array<String>) {
                             isSingleSelectionMode = true
                         }
 
-                        command {
-                            title = mf.format(arrayOf("1"))
-                            icon = Applications_games.of(16, 16)
-                            action = ActionListener {
-                                println("First!")
+                        group {
+                            command {
+                                title = mf.format(arrayOf("1"))
+                                icon = Applications_games.of(16, 16)
+                                action = ActionListener {
+                                    println("First!")
+                                }
+                            }
+                            command {
+                                title = mf.format(arrayOf("2"))
+                                icon = Applications_graphics.of(16, 16)
+                                action = ActionListener {
+                                    println("Second!")
+                                }
+                            }
+                            command {
+                                title = mf.format(arrayOf("3"))
+                                icon = Applications_internet.of(16, 16)
+                                action = ActionListener {
+                                    println("Third!")
+                                }
                             }
                         }
-                        command {
-                            title = mf.format(arrayOf("2"))
-                            icon = Applications_graphics.of(16, 16)
-                            action = ActionListener {
-                                println("Second!")
+                        group {
+                            command {
+                                title = mf.format(arrayOf("4"))
+                                icon = Applications_multimedia.of(16, 16)
+                                action = ActionListener {
+                                    println("Fourth!")
+                                }
                             }
-                        }
-                        command {
-                            title = mf.format(arrayOf("3"))
-                            icon = Applications_internet.of(16, 16)
-                            action = ActionListener {
-                                println("Third!")
-                            }
-                        }
-                        separator()
-                        command {
-                            title = mf.format(arrayOf("4"))
-                            icon = Applications_multimedia.of(16, 16)
-                            action = ActionListener {
-                                println("Fourth!")
-                            }
-                        }
-                        command {
-                            title = mf.format(arrayOf("5"))
-                            icon = Applications_office.of(16, 16)
-                            action = ActionListener {
-                                println("Fifth!")
+                            command {
+                                title = mf.format(arrayOf("5"))
+                                icon = Applications_office.of(16, 16)
+                                action = ActionListener {
+                                    println("Fifth!")
+                                }
                             }
                         }
                     }
                     popupMenuCommand.asCommandPopupMenu()
                 }
             }
-            display {
+            presentation {
                 state = CommandButtonDisplayState.TILE
                 isFlat = false
             }

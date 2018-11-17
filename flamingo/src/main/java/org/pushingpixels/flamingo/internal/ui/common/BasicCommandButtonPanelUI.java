@@ -31,13 +31,13 @@ package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel.LayoutKind;
+import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.beans.*;
 
 /**
  * Basic UI for command button panel {@link JCommandButtonPanel}.
@@ -61,14 +61,11 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
     protected Rectangle[] groupRects;
 
     /**
-     * Property change listener on {@link #buttonPanel}.
-     */
-    protected PropertyChangeListener propertyChangeListener;
-
-    /**
      * Change listener on {@link #buttonPanel}.
      */
     protected ChangeListener changeListener;
+
+    private ChangeListener presentationModelChangeListener;
 
     /**
      * Default insets of button panel groups.
@@ -108,35 +105,41 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      * Installs listeners on the associated button panel.
      */
     protected void installListeners() {
-        this.propertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("maxButtonColumns".equals(evt.getPropertyName())
-                    || "maxButtonRows".equals(evt.getPropertyName())
-                    || "toShowGroupLabels".equals(evt.getPropertyName())) {
+        if (this.buttonPanel.getPresentationModel() != null) {
+            this.presentationModelChangeListener = (ChangeEvent event) -> {
                 SwingUtilities.invokeLater(() -> {
                     if (buttonPanel != null) {
                         recomputeGroupHeaders();
-                        buttonPanel.revalidate();
-                        buttonPanel.doLayout();
-                    }
-                });
-            }
 
-            if ("layoutKind".equals(evt.getPropertyName())) {
-                SwingUtilities.invokeLater(() -> {
-                    if (buttonPanel != null) {
+                        int groupCount = (groupLabels != null) ? groupLabels.length : 0;
+
+                        for (int i = 0; i < groupCount; i++) {
+                            for (AbstractCommandButton button : buttonPanel.getGroupButtons(i)) {
+                                button.updateCustomDimension(
+                                        buttonPanel.getPresentationModel().getCommandIconDimension());
+                                button.setDisplayState(
+                                        buttonPanel.getPresentationModel().getCommandDisplayState());
+                            }
+                        }
+
                         buttonPanel.setLayout(createLayoutManager());
                         buttonPanel.revalidate();
                         buttonPanel.doLayout();
                     }
                 });
-            }
-        };
-        this.buttonPanel.addPropertyChangeListener(this.propertyChangeListener);
+            };
+            this.buttonPanel.getPresentationModel().addChangeListener(
+                    this.presentationModelChangeListener);
+        }
 
         this.changeListener = (ChangeEvent e) -> {
-            recomputeGroupHeaders();
-            buttonPanel.revalidate();
-            buttonPanel.doLayout();
+            SwingUtilities.invokeLater(() -> {
+                if (buttonPanel != null) {
+                    recomputeGroupHeaders();
+                    buttonPanel.revalidate();
+                    buttonPanel.doLayout();
+                }
+            });
         };
         this.buttonPanel.addChangeListener(this.changeListener);
     }
@@ -175,8 +178,9 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      * Uninstalls listeners from the associated button panel.
      */
     protected void uninstallListeners() {
-        this.buttonPanel.removePropertyChangeListener(this.propertyChangeListener);
-        this.propertyChangeListener = null;
+        this.buttonPanel.getPresentationModel().removeChangeListener(
+                this.presentationModelChangeListener);
+        this.presentationModelChangeListener = null;
 
         this.buttonPanel.removeChangeListener(this.changeListener);
         this.changeListener = null;
@@ -188,10 +192,14 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      * @return The layout manager for the associated button panel.
      */
     protected LayoutManager createLayoutManager() {
-        if (this.buttonPanel.getLayoutKind() == LayoutKind.ROW_FILL)
-            return new RowFillLayout();
-        else
+        CommandPanelPresentationModel panelPresentationModel =
+                this.buttonPanel.getPresentationModel();
+        if ((panelPresentationModel != null)
+                && (panelPresentationModel.getLayoutKind() == LayoutKind.COLUMN_FILL)) {
             return new ColumnFillLayout();
+        } else {
+            return new RowFillLayout();
+        }
     }
 
     @Override
@@ -200,7 +208,9 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         g.setColor(bg);
         g.fillRect(0, 0, c.getWidth(), c.getHeight());
 
-        for (int i = 0; i < this.buttonPanel.getGroupCount(); i++) {
+        int groupCount = (groupLabels != null) ? groupLabels.length : 0;
+
+        for (int i = 0; i < groupCount; i++) {
             Rectangle groupRect = this.groupRects[i];
             this.paintGroupBackground(g, i, groupRect.x, groupRect.y, groupRect.width,
                     groupRect.height);
@@ -286,7 +296,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             // compute max width of buttons
             int maxButtonWidth = 0;
             int maxButtonHeight = 0;
-            int groupCount = panel.getGroupCount();
+            int groupCount = (groupLabels != null) ? groupLabels.length : 0;
+
             for (int i = 0; i < groupCount; i++) {
                 for (AbstractCommandButton button : panel.getGroupButtons(i)) {
                     maxButtonWidth = Math.max(maxButtonWidth, button.getPreferredSize().width);
@@ -301,19 +312,18 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             // for N buttons, there are N-1 gaps. Add the gap to the
             // available width and divide by the max button width + gap.
             int buttonsInRow = (maxButtonWidth == 0) ? 0
-                                                     : (maxWidth + gap) / (maxButtonWidth + gap);
-            int maxButtonColumnsToUse = panel.getMaxButtonColumns();
+                    : (maxWidth + gap) / (maxButtonWidth + gap);
+            int maxButtonColumnsToUse = panel.getPresentationModel().getMaxColumns();
             if (maxButtonColumnsToUse > 0) {
                 buttonsInRow = Math.min(buttonsInRow, maxButtonColumnsToUse);
             }
 
-            // System.out.println("Layout : " + buttonsInRow);
             for (int i = 0; i < groupCount; i++) {
                 int topGroupY = y;
                 y += groupInsets.top;
 
                 JLabel groupLabel = groupLabels[i];
-                if (buttonPanel.isToShowGroupLabels()) {
+                if (buttonPanel.getPresentationModel().isToShowGroupLabels()) {
                     int labelWidth = groupLabel.getPreferredSize().width;
                     int labelHeight = getGroupTitleHeight(i);
                     if (groupLabel.getComponentOrientation().isLeftToRight()) {
@@ -327,8 +337,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 }
 
                 int buttonRows = (buttonsInRow == 0) ? 0
-                                                     : (int) (Math
-                        .ceil((double) panel.getGroupButtons(i).size() / buttonsInRow));
+                        : (int) (Math.ceil((double) panel.getGroupButtons(i).size()
+                        / buttonsInRow));
                 if (maxButtonColumnsToUse > 0) {
                     buttonsInRow = Math.min(buttonsInRow, maxButtonColumnsToUse);
                 }
@@ -336,8 +346,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 // spread the buttons so that we don't have extra space
                 // on the right
                 int actualButtonWidth = (buttonRows > 1)
-                                        ? (maxWidth - (buttonsInRow - 1) * gap) / buttonsInRow
-                                        : maxButtonWidth;
+                        ? (maxWidth - (buttonsInRow - 1) * gap) / buttonsInRow
+                        : maxButtonWidth;
                 if (maxButtonColumnsToUse == 1)
                     actualButtonWidth = maxWidth;
 
@@ -351,8 +361,6 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                             y += gap;
                         }
                         button.setBounds(currX, y, actualButtonWidth, maxButtonHeight);
-                        // System.out.println(button.getText() + ":"
-                        // + button.isVisible() + ":" + button.getBounds());
                         currX += actualButtonWidth;
                         currX += gap;
                     }
@@ -367,8 +375,6 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                         }
                         button.setBounds(currX - actualButtonWidth, y, actualButtonWidth,
                                 maxButtonHeight);
-                        // System.out.println(button.getText() + ":"
-                        // + button.isVisible() + ":" + button.getBounds());
                         currX -= actualButtonWidth;
                         currX -= gap;
                     }
@@ -390,7 +396,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         public Dimension preferredLayoutSize(Container parent) {
             JCommandButtonPanel panel = (JCommandButtonPanel) parent;
 
-            int maxButtonColumnsToUse = panel.getMaxButtonColumns();
+            int maxButtonColumnsToUse = panel.getPresentationModel().getMaxColumns();
 
             Insets bInsets = parent.getInsets();
             Insets groupInsets = getGroupInsets();
@@ -399,7 +405,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             // compute max width of buttons
             int maxButtonWidth = 0;
             int maxButtonHeight = 0;
-            int groupCount = panel.getGroupCount();
+            int groupCount = (groupLabels != null) ? groupLabels.length : 0;
             for (int i = 0; i < groupCount; i++) {
                 for (AbstractCommandButton button : panel.getGroupButtons(i)) {
                     maxButtonWidth = Math.max(maxButtonWidth, button.getPreferredSize().width);
@@ -414,8 +420,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             availableWidth -= insetsWidth;
 
             if (usePanelWidth) {
-                // this hasn't been set. Compute using the available
-                // width
+                // this hasn't been set. Compute using the available width
                 maxButtonColumnsToUse = (availableWidth + gap) / (maxButtonWidth + gap);
             }
             int height = bInsets.top + bInsets.bottom;
@@ -433,12 +438,11 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 // System.out.print(" " + height);
             }
             int prefWidth = usePanelWidth ? availableWidth
-                                          :
-                            maxButtonColumnsToUse * maxButtonWidth + (maxButtonColumnsToUse - 1)
-                                    * gap
-                                    + bInsets.left + bInsets.right + groupInsets.left +
-                                    groupInsets.right;
-            // System.out.println(" : " + height);
+                    :
+                    maxButtonColumnsToUse * maxButtonWidth + (maxButtonColumnsToUse - 1)
+                            * gap
+                            + bInsets.left + bInsets.right + groupInsets.left +
+                            groupInsets.right;
             return new Dimension(Math.max(10, prefWidth), Math.max(10, height));
         }
     }
@@ -485,7 +489,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             // for N buttons, there are N-1 gaps. Add the gap to the
             // available width and divide by the max button width + gap.
             int buttonsInRow = (maxButtonHeight == 0) ? 0
-                                                      : (maxHeight + gap) / (maxButtonHeight + gap);
+                    : (maxHeight + gap) / (maxButtonHeight + gap);
 
             if (ltr) {
                 int x = bInsets.left + groupInsets.left;
@@ -495,13 +499,13 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                     int currY = top + groupInsets.top;
 
                     int buttonColumns = (buttonsInRow == 0) ? 0
-                                                            : (int) (Math
+                            : (int) (Math
                             .ceil((double) panel.getGroupButtons(i).size() / buttonsInRow));
                     // spread the buttons so that we don't have extra space
                     // on the bottom
                     int actualButtonHeight = (buttonColumns > 1)
-                                             ? (maxHeight - (buttonsInRow - 1) * gap) / buttonsInRow
-                                             : maxButtonWidth;
+                            ? (maxHeight - (buttonsInRow - 1) * gap) / buttonsInRow
+                            : maxButtonWidth;
 
                     for (AbstractCommandButton button : panel.getGroupButtons(i)) {
                         int endY = currY + actualButtonHeight;
@@ -511,8 +515,6 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                             x += gap;
                         }
                         button.setBounds(x, currY, maxButtonWidth, actualButtonHeight);
-                        // System.out.println(button.getText() + ":"
-                        // + button.isVisible() + ":" + button.getBounds());
                         currY += actualButtonHeight;
                         currY += gap;
                     }
@@ -529,13 +531,13 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                     int currY = top + groupInsets.top;
 
                     int buttonColumns = (buttonsInRow == 0) ? 0
-                                                            : (int) (Math
+                            : (int) (Math
                             .ceil((double) panel.getGroupButtons(i).size() / buttonsInRow));
                     // spread the buttons so that we don't have extra space
                     // on the bottom
                     int actualButtonHeight = (buttonColumns > 1)
-                                             ? (maxHeight - (buttonsInRow - 1) * gap) / buttonsInRow
-                                             : maxButtonWidth;
+                            ? (maxHeight - (buttonsInRow - 1) * gap) / buttonsInRow
+                            : maxButtonWidth;
 
                     for (AbstractCommandButton button : panel.getGroupButtons(i)) {
                         int endY = currY + actualButtonHeight;
@@ -546,8 +548,6 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                         }
                         button.setBounds(x - maxButtonWidth, currY, maxButtonWidth,
                                 actualButtonHeight);
-                        // System.out.println(button.getText() + ":"
-                        // + button.isVisible() + ":" + button.getBounds());
                         currY += actualButtonHeight;
                         currY += gap;
                     }
@@ -568,7 +568,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         public Dimension preferredLayoutSize(Container parent) {
             JCommandButtonPanel panel = (JCommandButtonPanel) parent;
 
-            int maxButtonRowsToUse = panel.getMaxButtonRows();
+            int maxButtonRowsToUse = panel.getPresentationModel().getMaxRows();
 
             Insets bInsets = parent.getInsets();
             Insets groupInsets = getGroupInsets();
@@ -606,10 +606,10 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 width += buttonColumns * maxButtonWidth + (buttonColumns - 1) * gap;
             }
             int prefHeight = usePanelHeight ? availableHeight
-                                            :
-                             maxButtonRowsToUse * maxButtonWidth + (maxButtonRowsToUse - 1) * gap
-                                     + bInsets.top + bInsets.bottom + groupInsets.top +
-                                     groupInsets.bottom;
+                    :
+                    maxButtonRowsToUse * maxButtonWidth + (maxButtonRowsToUse - 1) * gap
+                            + bInsets.top + bInsets.bottom + groupInsets.top +
+                            groupInsets.bottom;
             return new Dimension(Math.max(10, width), Math.max(10, prefHeight));
         }
     }
@@ -641,7 +641,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
             this.buttonPanel.add(this.groupLabels[i]);
 
-            this.groupLabels[i].setVisible(this.buttonPanel.isToShowGroupLabels());
+            this.groupLabels[i].setVisible(
+                    this.buttonPanel.getPresentationModel().isToShowGroupLabels());
         }
     }
 

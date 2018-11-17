@@ -30,33 +30,18 @@
 package org.pushingpixels.flamingo.api.ribbon.model;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.CommandGroupModel;
 import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.event.*;
 import java.util.*;
 
-public class RibbonGalleryModel {
+public class RibbonGalleryContentModel {
     private List<CommandGroupModel> commandGroups;
-    private Map<RibbonElementPriority, Integer> preferredVisibleCommandCounts;
-
-    /**
-     * Preferred maximum number of button columns for the popup panel.
-     */
-    private int preferredPopupMaxCommandColumns;
-
-    /**
-     * Preferred maximum number of visible button rows for the popup panel.
-     */
-    private int preferredPopupMaxVisibleCommandRows;
-
-    private CommandButtonDisplayState commandDisplayState;
-    private JRibbonBand.RibbonGalleryPopupCallback popupCallback;
-
     private List<CommandGroupModel> extraPopupCommandGroups;
-
     private FlamingoCommand selectedCommand;
-
-    private CommandGroupModel.CommandGroupListener commandGroupListener;
+    private ResizableIcon icon;
 
     /**
      * Stores the listeners on this model.
@@ -69,14 +54,19 @@ public class RibbonGalleryModel {
         void onCommandPreviewCanceled(FlamingoCommand command);
     }
 
-    public interface GalleryCommandSelectionListener extends EventListener {
-        void onCommandSelected(FlamingoCommand command);
+    public interface GalleryCommandActivationListener extends EventListener {
+        void onCommandActivated(FlamingoCommand command);
     }
 
-    public RibbonGalleryModel(List<CommandGroupModel> commands,
-            Map<RibbonElementPriority, Integer> preferredVisibleCommandCounts,
-            int preferredPopupMaxCommandColumns, int preferredPopupMaxVisibleCommandRows,
-            CommandButtonDisplayState commandDisplayState) {
+    // Deprecated in favor of extraPopupCommandGroups
+    // TODO - remove in 2.0
+    @Deprecated
+    private JRibbonBand.RibbonGalleryPopupCallback popupCallback;
+
+    private CommandGroupModel.CommandGroupListener commandGroupListener;
+
+    public RibbonGalleryContentModel(ResizableIcon icon, List<CommandGroupModel> commands) {
+        this.icon = icon;
         this.commandGroups = new ArrayList<>(commands);
 
         this.commandGroupListener = new CommandGroupModel.CommandGroupListener() {
@@ -94,12 +84,11 @@ public class RibbonGalleryModel {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         }
 
-        this.preferredVisibleCommandCounts = preferredVisibleCommandCounts;
-        this.preferredPopupMaxCommandColumns = preferredPopupMaxCommandColumns;
-        this.preferredPopupMaxVisibleCommandRows = preferredPopupMaxVisibleCommandRows;
-        this.commandDisplayState = commandDisplayState;
-
         this.extraPopupCommandGroups = new ArrayList<>();
+    }
+
+    public ResizableIcon getIcon() {
+        return this.icon;
     }
 
     public List<CommandGroupModel> getCommandGroups() {
@@ -115,22 +104,6 @@ public class RibbonGalleryModel {
         return null;
     }
 
-    public Map<RibbonElementPriority, Integer> getPreferredVisibleCommandCounts() {
-        return preferredVisibleCommandCounts;
-    }
-
-    public int getPreferredPopupMaxCommandColumns() {
-        return preferredPopupMaxCommandColumns;
-    }
-
-    public int getPreferredPopupMaxVisibleCommandRows() {
-        return preferredPopupMaxVisibleCommandRows;
-    }
-
-    public CommandButtonDisplayState getCommandDisplayState() {
-        return commandDisplayState;
-    }
-
     public void addCommandGroup(CommandGroupModel commandGroupModel) {
         this.commandGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
@@ -141,13 +114,6 @@ public class RibbonGalleryModel {
         this.commandGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
-    }
-
-    public void setCommandDisplayState(CommandButtonDisplayState displayState) {
-        if (this.commandDisplayState != displayState) {
-            this.commandDisplayState = displayState;
-            this.fireStateChanged();
-        }
     }
 
     /**
@@ -170,6 +136,10 @@ public class RibbonGalleryModel {
         return Collections.unmodifiableList(this.extraPopupCommandGroups);
     }
 
+    /**
+     * @deprecated Use {@link #addExtraPopupCommandGroup(CommandGroupModel)}
+     * and {@link #getExtraPopupCommandGroups()}
+     */
     public JRibbonBand.RibbonGalleryPopupCallback getPopupCallback() {
         return this.popupCallback;
     }
@@ -197,8 +167,8 @@ public class RibbonGalleryModel {
      *
      * @param l the listener to add
      */
-    public void addCommandSelectionListener(GalleryCommandSelectionListener l) {
-        this.listenerList.add(GalleryCommandSelectionListener.class, l);
+    public void addCommandActivationListener(GalleryCommandActivationListener l) {
+        this.listenerList.add(GalleryCommandActivationListener.class, l);
     }
 
     /**
@@ -206,12 +176,12 @@ public class RibbonGalleryModel {
      *
      * @param l the listener to remove
      */
-    public void removeCommandSelectionListener(GalleryCommandSelectionListener l) {
-        this.listenerList.remove(GalleryCommandSelectionListener.class, l);
+    public void removeCommandSelectionListener(GalleryCommandActivationListener l) {
+        this.listenerList.remove(GalleryCommandActivationListener.class, l);
     }
 
     /**
-     * Adds the specified change listener to track changes to this model.
+     * Adds the specified change listener to track changes to the model.
      *
      * @param l Change listener to add.
      * @see #removeChangeListener(ChangeListener)
@@ -221,7 +191,7 @@ public class RibbonGalleryModel {
     }
 
     /**
-     * Removes the specified change listener from tracking changes to this model.
+     * Removes the specified change listener from tracking changes to the model.
      *
      * @param l Change listener to remove.
      * @see #addChangeListener(ChangeListener)
@@ -232,7 +202,13 @@ public class RibbonGalleryModel {
 
     public void setSelectedCommand(FlamingoCommand command) {
         if (this.selectedCommand != command) {
+            if (this.selectedCommand != null) {
+                this.selectedCommand.setToggleSelected(false);
+            }
             this.selectedCommand = command;
+            if (this.selectedCommand != null) {
+                this.selectedCommand.setToggleSelected(true);
+            }
             fireCommandSelected(this.selectedCommand);
         }
     }
@@ -281,8 +257,8 @@ public class RibbonGalleryModel {
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == GalleryCommandSelectionListener.class) {
-                ((GalleryCommandSelectionListener) listeners[i + 1]).onCommandSelected(command);
+            if (listeners[i] == GalleryCommandActivationListener.class) {
+                ((GalleryCommandActivationListener) listeners[i + 1]).onCommandActivated(command);
             }
         }
     }

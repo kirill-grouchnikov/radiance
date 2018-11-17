@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.flamingo.api.ribbon.model;
+package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.FlamingoCommand;
 
@@ -49,9 +49,16 @@ public class CommandGroupModel {
         void onCommandRemoved(FlamingoCommand command);
     }
 
+    public CommandGroupModel(FlamingoCommand... commands) {
+        this(null, commands);
+    }
+
+    public CommandGroupModel(List<FlamingoCommand> commands) {
+        this(null, commands);
+    }
+
     public CommandGroupModel(String title, FlamingoCommand... commands) {
-        this.title = title;
-        this.commandList = Arrays.asList(commands);
+        this(title, Arrays.asList(commands));
     }
 
     public CommandGroupModel(String title, List<FlamingoCommand> commands) {

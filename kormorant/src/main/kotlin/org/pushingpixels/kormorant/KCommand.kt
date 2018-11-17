@@ -32,11 +32,12 @@ package org.pushingpixels.kormorant
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton
 import org.pushingpixels.flamingo.api.common.FlamingoCommand
 import org.pushingpixels.flamingo.api.common.JCommandButton
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton
 import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
+import org.pushingpixels.flamingo.api.common.model.CommandGroupModel
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
+import org.pushingpixels.kormorant.ribbon.KBaseRibbonBand
 import org.pushingpixels.neon.icon.ResizableIcon
 import java.awt.event.ActionListener
 
@@ -50,7 +51,7 @@ interface PopupModelChangeInterface {
 
 @FlamingoElementMarker
 open class KCommand {
-    private val builder = FlamingoCommand.FlamingoCommandBuilder()
+    private val builder = FlamingoCommand.builder()
     private lateinit var button: AbstractCommandButton
     private var hasBeenConverted: Boolean = false
 
@@ -65,7 +66,6 @@ open class KCommand {
     var popupCallback: PopupPanelCallback? by NullableDelegate { hasBeenConverted }
     var popupModelChangeListener: PopupModelChangeInterface? by NullableDelegate { hasBeenConverted }
     private var popupRichTooltip: KRichTooltip? by NullableDelegate { hasBeenConverted }
-    var popupOrientationKind: CommandButtonPopupOrientationKind? by NullableDelegate { hasBeenConverted }
     var popupKeyTip: String? by NullableDelegate { hasBeenConverted }
     var isTitleClickAction: Boolean by NonNullDelegate { hasBeenConverted }
     var isTitleClickPopup: Boolean by NonNullDelegate { hasBeenConverted }
@@ -86,7 +86,7 @@ open class KCommand {
 
     var isToggle: Boolean by NonNullDelegate { hasBeenConverted }
     var isToggleSelected: Boolean by NonNullDelegate { hasBeenConverted }
-    var toggleGroup: KCommandToggleGroup? by NullableDelegate { hasBeenConverted }
+    var toggleGroup: KCommandToggleGroupModel? by NullableDelegate { hasBeenConverted }
     var isAutoRepeatAction: Boolean by NonNullDelegate { hasBeenConverted }
     var autoRepeatInitialInterval: Int by NonNullDelegate { hasBeenConverted }
     var autoRepeatSubsequentInterval: Int by NonNullDelegate { hasBeenConverted }
@@ -132,9 +132,6 @@ open class KCommand {
             builder.setActionKeyTip(command.actionKeyTip)
             builder.setPopupKeyTip(command.popupKeyTip)
 
-            if (command.popupOrientationKind != null) {
-                builder.setPopupOrientationKind(command.popupOrientationKind)
-            }
             builder.setPopupCallback(command.popupCallback)
 
             if (command.isTitleClickAction) {
@@ -152,7 +149,7 @@ open class KCommand {
                 }
             }
             if (command.toggleGroup != null) {
-                builder.inToggleGroup(command.toggleGroup!!.flamingoCommandToggleGroup)
+                builder.inToggleGroup(command.toggleGroup!!.flamingoCommandToggleModel)
             }
 
             builder.setEnabled(command.isEnabled)
@@ -207,6 +204,28 @@ fun command(init: KCommand.() -> Unit): KCommand {
     val command = KCommand()
     command.init()
     return command
+}
+
+@FlamingoElementMarker
+class KCommandGroup {
+    var title: String? by NullableDelegate { false }
+    internal val commands = arrayListOf<KCommand>()
+
+    operator fun KCommand.unaryPlus() {
+        this@KCommandGroup.commands.add(this)
+    }
+
+    fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
+        // TODO: handle action key tip override
+        val command = KCommand()
+        command.init()
+        commands.add(command)
+        return command
+    }
+
+    fun toCommandGroupModel(): CommandGroupModel {
+        return CommandGroupModel(title, commands.map { it -> it.toFlamingoCommand() })
+    }
 }
 
 
