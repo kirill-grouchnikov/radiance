@@ -112,7 +112,6 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
                             "org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser.ColorPalettesChooser",
                             "org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser.SwatchesChooser",
                             "org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser.CrayonsChooser",
-                            "org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser.Quaqua15ColorPicker",
                             "org.pushingpixels.substance.internal.contrib.xoetrope.editor.color.ColorWheelPanel"},
                     // "ColorChooser.swatchesDefaultRecentColor", ...,
                     // "ColorChooser.swatchesRecentSwatchSize", ...,

@@ -132,8 +132,6 @@ public class ColorChooserMainPanel extends javax.swing.JPanel {
         northPanel.setLayout(new java.awt.BorderLayout());
 
         previewPanelHolder.setLayout(new java.awt.BorderLayout());
-        boolean isLtr = northPanel.getComponentOrientation().isLeftToRight();
-        previewPanelHolder.setBorder(new EmptyBorder(0, isLtr ? 4 : 0, 0, isLtr ? 0 : 4));
 
         northPanel.add(previewPanelHolder, java.awt.BorderLayout.CENTER);
 
