@@ -34,7 +34,7 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.CommandToggleGroupModel;
 import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.skin.*;
+import org.pushingpixels.substance.api.skin.MarinerSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,21 +63,30 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
                 .setToggle().inToggleGroup(justifyGroup).build();
 
         this.setLayout(new FlowLayout(FlowLayout.CENTER));
-        this.add(new JLabel("<html>Selection state is <br>synced across the <br>strips below</html>"));
-        this.add(getToggleStrip(justifyLeft, justifyCenter, justifyRight, justifyFill));
-        this.add(getToggleStrip(justifyLeft, justifyCenter, justifyRight, justifyFill));
-        this.add(getToggleStrip(justifyLeft, justifyCenter, justifyRight, justifyFill));
+        this.add(new JLabel(
+                "<html>Selection state is <br>synced across the <br>strips below</html>"));
+        this.add(getToggleStrip(
+                FlamingoCommandDisplay.builder().setState(CommandButtonDisplayState.SMALL).build(),
+                justifyLeft, justifyCenter, justifyRight, justifyFill));
+        this.add(getToggleStrip(
+                FlamingoCommandDisplay.builder().setState(CommandButtonDisplayState.MEDIUM).build(),
+                justifyLeft, justifyCenter, justifyRight, justifyFill));
+        this.add(getToggleStrip(
+                FlamingoCommandDisplay.builder().setState(CommandButtonDisplayState.BIG).build(),
+                justifyLeft, justifyCenter, justifyRight, justifyFill));
 
 
-        this.setSize(150, 200);
+        this.setSize(300, 200);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
-    private JCommandButtonStrip getToggleStrip(FlamingoCommand... commands) {
+    private JCommandButtonStrip getToggleStrip(FlamingoCommandDisplay display,
+            FlamingoCommand... commands) {
         JCommandButtonStrip result = new JCommandButtonStrip();
+        result.setDisplayState(display.getState());
         for (FlamingoCommand command : commands) {
-            result.add(command.buildButton());
+            result.add(command.project(display).buildButton());
         }
         return result;
     }

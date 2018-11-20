@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.CommandProjection;
 import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
@@ -245,10 +246,11 @@ public class JRibbon extends JComponent {
      * @see #clearTaskbar()
      */
     public synchronized void addTaskbarCommand(FlamingoCommand command) {
-        AbstractCommandButton cb = command.buildButton();
-
-        cb.setDisplayState(CommandButtonDisplayState.SMALL);
-        cb.setGapScaleFactor(0.5);
+        CommandProjection projection = command.project(FlamingoCommandDisplay.builder()
+                .setState(CommandButtonDisplayState.SMALL)
+                .setHorizontalGapScaleFactor(0.5)
+                .setVerticalGapScaleFactor(0.5).build());
+        AbstractCommandButton cb = projection.buildButton();
         cb.setFocusable(false);
 
         this.taskbarComponents.add(cb);

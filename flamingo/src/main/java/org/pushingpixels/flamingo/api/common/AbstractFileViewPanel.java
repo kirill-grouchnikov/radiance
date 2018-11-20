@@ -197,13 +197,12 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      * @param leafs Information on the entries to show in the panel.
      */
     public void setFolder(final java.util.List<StringValuePair<T>> leafs) {
-        this.getContentModel().removeAllCommandGroups();
-        this.getContentModel().addCommandGroup(new CommandGroupModel(new ArrayList<>()));
+        this.getContentModel().removeAllCommandProjectionGroups();
+        this.getContentModel().addCommandProjectionGroup(new CommandProjectionGroupModel(new ArrayList<>()));
         this.buttonMap.clear();
         int fileCount = 0;
 
         final Map<String, FlamingoCommand> newCommands = new HashMap<>();
-        final Map<String, JCommandButton> newCommandButtons = new HashMap<>();
         for (StringValuePair<T> leaf : leafs) {
             String name = leaf.getKey();
             if (!toShowFile(leaf)) {
@@ -223,7 +222,6 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                     get(buttonIndex);
 
             newCommands.put(name, command);
-            newCommandButtons.put(name, button);
             buttonMap.put(name, button);
             fileCount++;
         }
@@ -291,10 +289,6 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                     }
 
                     configureCommand(leaf, command, icon);
-
-                    // TODO - remove in 2.0
-                    final JCommandButton commandButton = newCommandButtons.get(name);
-                    configureCommandButton(leaf, commandButton, icon);
                 }
             }
         };
@@ -352,20 +346,6 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      */
     protected abstract ResizableIcon getResizableIcon(Leaf leaf, InputStream stream,
             CommandButtonDisplayState state, Dimension dimension);
-
-    /**
-     * Configures the specified command button. Can be used to wire additional behavior, such as
-     * tooltips or action listeners if the specific view panel implementation requires it.
-     *
-     * @param leaf   Information on the file "behind" the button.
-     * @param button Button to configure.
-     * @param icon   Button icon.
-     * @deprecated Override {@link #configureCommand(Leaf, FlamingoCommand, ResizableIcon)} instead.
-     */
-    @Deprecated
-    protected void configureCommandButton(Leaf leaf, JCommandButton button,
-            ResizableIcon icon) {
-    }
 
     /**
      * Configures the specified command. Can be used to wire additional behavior, such as

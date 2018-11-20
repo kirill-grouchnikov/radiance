@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
-import org.pushingpixels.flamingo.api.common.model.CommandToggleGroupModel;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
@@ -273,6 +273,10 @@ public class FlamingoCommand {
         return this.isAutoRepeatAction;
     }
 
+    public boolean hasAutoRepeatIntervalsSet() {
+        return this.hasAutoRepeatIntervalsSet;
+    }
+
     public int getAutoRepeatInitialInterval() {
         return this.hasAutoRepeatIntervalsSet ? this.autoRepeatInitialInterval : -1;
     }
@@ -439,12 +443,28 @@ public class FlamingoCommand {
         }
     }
 
+    public CommandProjection project() {
+        return new CommandProjection(this, FlamingoCommandDisplay.builder().build());
+    }
+
+    public CommandProjection project(FlamingoCommandDisplay commandDisplay) {
+        return new CommandProjection(this, commandDisplay);
+    }
+
+    /**
+     * @deprecated Use {@link CommandProjection#buildButton()}
+     */
+    @Deprecated
     public AbstractCommandButton buildButton() {
         AbstractCommandButton result = createButton(false);
         populateButton(result);
         return result;
     }
 
+    /**
+     * @deprecated Use {@link CommandProjection#buildButton()}
+     */
+    @Deprecated
     public AbstractCommandButton buildButton(FlamingoCommandDisplay commandDisplay) {
         AbstractCommandButton result = createButton(commandDisplay.isMenu());
         populateButton(result);
@@ -463,6 +483,10 @@ public class FlamingoCommand {
         return result;
     }
 
+    /**
+     * @deprecated Use {@link CommandProjection#buildButton()}
+     */
+    @Deprecated
     public AbstractCommandButton buildMenuButton() {
         AbstractCommandButton result = createButton(true);
         populateButton(result);
@@ -470,8 +494,7 @@ public class FlamingoCommand {
     }
 
     /**
-     * @deprecated Use {@link #buildButton(FlamingoCommandDisplay)} and
-     * {@link FlamingoCommandDisplay.FlamingoCommandDisplayBuilder#setMenu(boolean)} with true.
+     * @deprecated Use {@link CommandProjection#buildButton()}
      */
     @Deprecated
     public AbstractCommandButton buildMenuButton(FlamingoCommandDisplay commandDisplay) {
@@ -505,7 +528,7 @@ public class FlamingoCommand {
      */
     @Deprecated
     public static class FlamingoCommandToggleGroup {
-        private CommandToggleButtonGroup toggleButtonGroup = new CommandToggleButtonGroup();
+        public CommandToggleButtonGroup toggleButtonGroup = new CommandToggleButtonGroup();
     }
 
     public abstract static class BaseFlamingoCommandBuilder<T extends FlamingoCommand,

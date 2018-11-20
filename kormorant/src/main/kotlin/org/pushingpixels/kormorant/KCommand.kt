@@ -34,10 +34,9 @@ import org.pushingpixels.flamingo.api.common.FlamingoCommand
 import org.pushingpixels.flamingo.api.common.JCommandButton
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton
 import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
-import org.pushingpixels.flamingo.api.common.model.CommandGroupModel
+import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
-import org.pushingpixels.kormorant.ribbon.KBaseRibbonBand
 import org.pushingpixels.neon.icon.ResizableIcon
 import java.awt.event.ActionListener
 
@@ -223,8 +222,9 @@ class KCommandGroup {
         return command
     }
 
-    fun toCommandGroupModel(): CommandGroupModel {
-        return CommandGroupModel(title, commands.map { it -> it.toFlamingoCommand() })
+    fun toCommandGroupModel(): CommandProjectionGroupModel {
+        return CommandProjectionGroupModel(title,
+                commands.map { it -> it.toFlamingoCommand().project() })
     }
 }
 

@@ -33,8 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand
-        .PrimaryRolloverCallback;
+import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicPopupPanelUI;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -60,7 +59,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
 
     private JPanel footerPanel;
 
-    private static final CommandButtonDisplayState MENU_TILE_LEVEL_1 = new CommandButtonDisplayState(
+    private static final CommandButtonDisplayState MENU_TILE_LEVEL_1 =
+            new CommandButtonDisplayState(
             "Ribbon application menu tile level 1", 32) {
         @Override
         public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton commandButton) {
@@ -155,8 +155,10 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             int primaryGroupCount = primaryEntries.size();
             for (int i = 0; i < primaryGroupCount; i++) {
                 for (final RibbonApplicationMenuPrimaryCommand menuEntry : primaryEntries.get(i)) {
-                    final JCommandMenuButton commandButton = (JCommandMenuButton) menuEntry
-                            .buildMenuButton();
+                    final JCommandMenuButton commandButton =
+                            (JCommandMenuButton) menuEntry.project(
+                                    FlamingoCommandDisplay.builder()
+                                            .setMenu(true).build()).buildButton();
 
                     if (menuEntry.getSecondaryGroupCount() == 0) {
                         // if there are no secondary menu items, register the
@@ -190,12 +192,12 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                             targetPanel.setLayout(new BorderLayout());
                             JRibbonApplicationMenuPopupPanelSecondary secondary =
                                     new JRibbonApplicationMenuPopupPanelSecondary(menuEntry) {
-                                @Override
-                                public void removeNotify() {
-                                    super.removeNotify();
-                                    commandButton.getPopupModel().setPopupShowing(false);
-                                }
-                            };
+                                        @Override
+                                        public void removeNotify() {
+                                            super.removeNotify();
+                                            commandButton.getPopupModel().setPopupShowing(false);
+                                        }
+                                    };
                             secondary.applyComponentOrientation(
                                     applicationMenuPopupPanel.getComponentOrientation());
                             targetPanel.add(secondary, BorderLayout.CENTER);
@@ -243,7 +245,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             @Override
             protected void paintComponent(Graphics g) {
                 SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(null);
-                SubstanceColorScheme baseFillScheme = SubstanceColorSchemeUtilities.getColorScheme(null,
+                SubstanceColorScheme baseFillScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                        null,
                         ComponentState.ENABLED);
                 fillPainter.paintContourBackground(g, null,
                         footerPanel.getWidth(), footerPanel.getHeight(),
@@ -253,7 +256,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         };
         if (ribbonAppMenu != null) {
             for (FlamingoCommand footerCommand : ribbonAppMenu.getFooterCommands()) {
-                JCommandButton commandFooterButton = (JCommandButton) footerCommand.buildButton();
+                JCommandButton commandFooterButton =
+                        (JCommandButton) footerCommand.project().buildButton();
                 commandFooterButton.setDisplayState(CommandButtonDisplayState.MEDIUM);
                 commandFooterButton.setFlat(false);
                 this.footerPanel.add(commandFooterButton);

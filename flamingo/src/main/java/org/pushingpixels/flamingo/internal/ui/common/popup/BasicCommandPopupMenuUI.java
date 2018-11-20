@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.internal.ui.common.*;
@@ -377,8 +378,10 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
     @SuppressWarnings("deprecation")
     private ScrollableCommandButtonPanel createScrollableButtonPanel() {
+        CommandPanelPresentationModel panelPresentationModel =
+                this.popupMenu.getPresentationModel().getPanelPresentationModel();
         return new ScrollableCommandButtonPanel(this.popupMenu.getMainButtonPanel(),
-                this.popupMenu.getMaxButtonColumns(), this.popupMenu.getMaxVisibleButtonRows());
+                panelPresentationModel.getMaxColumns(), panelPresentationModel.getMaxRows());
     }
 
     @Override
@@ -406,7 +409,8 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             @Override
             public void popupHidden(PopupEvent event) {
                 if (event.getSource() instanceof JColorSelectorPopupMenu) {
-                    ((JColorSelectorPopupMenu) event.getSource()).getColorSelectorCallback()
+                    ((JColorSelectorPopupMenu) event.getSource())
+                            .getColorSelectorPopupMenuContentModel().getColorSelectorCallback()
                             .onColorRollover(null);
                 }
             }

@@ -29,13 +29,11 @@
  */
 package org.pushingpixels.kormorant
 
-import org.pushingpixels.flamingo.api.common.model.CommandGroupModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
-import org.pushingpixels.kormorant.ribbon.KRibbonBandGroup
 
 @FlamingoElementMarker
 class KCommandPopupMenuButtonPanel {
@@ -153,7 +151,7 @@ class KCommandPopupMenu {
 //                    if (component.actionKeyTip != null) {
 //                        flamingoCommand.actionKeyTip = component.actionKeyTip
 //                    }
-//                    currCommandGroupModel.addCommand(flamingoCommand)
+//                    currCommandGroupModel.addCommandProjection(flamingoCommand)
 //                }
 //                else -> throw IllegalStateException("Unsupported content")
 //            }

@@ -158,47 +158,6 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
         COLUMN_FILL
     }
 
-    /**
-     * Creates a new panel.
-     */
-    private JCommandButtonPanel() {
-        this.buttons = new ArrayList<>();
-        this.groupTitles = new ArrayList<>();
-    }
-
-    /**
-     * Creates a new panel.
-     *
-     * @param startingDimension Initial dimension for buttons.
-     * @deprecated Use {@link #JCommandButtonPanel(CommandPanelContentModel, CommandPanelPresentationModel)}
-     */
-    @Deprecated
-    public JCommandButtonPanel(int startingDimension) {
-        this();
-        this.panelContentModel = new CommandPanelContentModel(new ArrayList<>());
-        this.panelPresentationModel = CommandPanelPresentationModel.builder()
-                .setLayoutKind(LayoutKind.ROW_FILL)
-                .setCommandIconDimension(startingDimension)
-                .setCommandDisplayState(CommandButtonDisplayState.FIT_TO_ICON).build();
-        this.updateUI();
-    }
-
-    /**
-     * Creates a new panel.
-     *
-     * @param startingState Initial state for buttons.
-     * @deprecated Use {@link #JCommandButtonPanel(CommandPanelContentModel, CommandPanelPresentationModel)}
-     */
-    @Deprecated
-    public JCommandButtonPanel(CommandButtonDisplayState startingState) {
-        this();
-        this.panelContentModel = new CommandPanelContentModel(new ArrayList<>());
-        this.panelPresentationModel = CommandPanelPresentationModel.builder()
-                .setLayoutKind(LayoutKind.ROW_FILL)
-                .setCommandDisplayState(startingState).build();
-        this.updateUI();
-    }
-
     public JCommandButtonPanel(CommandPanelContentModel panelContentModel,
             CommandPanelPresentationModel panelPresentationModel) {
         this.panelContentModel = panelContentModel;
@@ -247,13 +206,13 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
         FlamingoCommandDisplay commandDisplay = createCommandDisplay();
         FlamingoCommand.CommandPreviewListener commandPreviewListener =
                 panelContentModel.getCommandPreviewListener();
-        for (CommandGroupModel groupModel : panelContentModel.getCommandGroups()) {
+        for (CommandProjectionGroupModel groupModel : panelContentModel.getCommandProjectionGroups()) {
             this.groupTitles.add(groupIndex, groupModel.getTitle());
             List<AbstractCommandButton> list = new ArrayList<>();
             this.buttons.add(groupIndex, list);
 
-            for (FlamingoCommand command : groupModel.getCommandList()) {
-                AbstractCommandButton button = command.buildButton(commandDisplay);
+            for (CommandProjection projection : groupModel.getCommandProjections()) {
+                AbstractCommandButton button = projection.reproject(commandDisplay).buildButton();
 
                 // Wire preview listener is configured on the panel content model
                 if (commandPreviewListener != null) {
@@ -264,97 +223,24 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
                         public void stateChanged(ChangeEvent e) {
                             boolean isRollover = button.getActionModel().isRollover();
                             if (wasRollover && !isRollover) {
-                                commandPreviewListener.onCommandPreviewCanceled(command);
+                                commandPreviewListener.onCommandPreviewCanceled(projection.getCommand());
                             }
                             if (!wasRollover && isRollover) {
-                                commandPreviewListener.onCommandPreviewActivated(command);
+                                commandPreviewListener.onCommandPreviewActivated(projection.getCommand());
                             }
                             wasRollover = isRollover;
                         }
                     });
                 }
 
-                button.putClientProperty(COMMAND, command);
+                button.putClientProperty(COMMAND, projection);
                 this.addButtonToLastGroup(button);
             }
             groupIndex++;
         }
     }
 
-    /**
-     * Adds a new button group at the specified index.
-     *
-     * @param buttonGroupName Button group name.
-     * @param groupIndex      Button group index.
-     * @see #addButtonGroup(String)
-     * @see #removeButtonGroup(String)
-     * @see #removeAllGroups()
-     * @deprecated Use {@link CommandPanelContentModel#addCommandGroup(CommandGroupModel)}
-     */
-    @Deprecated
-    public void addButtonGroup(String buttonGroupName, int groupIndex) {
-        this.groupTitles.add(groupIndex, buttonGroupName);
-        List<AbstractCommandButton> list = new ArrayList<>();
-        this.buttons.add(groupIndex, list);
-        this.fireStateChanged();
-    }
-
-    /**
-     * Adds a new button group after all the existing button groups.
-     *
-     * @param buttonGroupName Button group name.
-     * @see #addButtonGroup(String, int)
-     * @see #removeButtonGroup(String)
-     * @see #removeAllGroups()
-     * @deprecated Use {@link CommandPanelContentModel#addCommandGroup(CommandGroupModel)}
-     */
-    @Deprecated
-    public void addButtonGroup(String buttonGroupName) {
-        this.addButtonGroup(buttonGroupName, this.groupTitles.size());
-    }
-
-    /**
-     * Removes the specified button group.
-     *
-     * @param buttonGroupName Name of the button group to remove.
-     * @see #addButtonGroup(String)
-     * @see #addButtonGroup(String, int)
-     * @see #removeAllGroups()
-     * @deprecated Use {@link CommandPanelContentModel#removeCommandGroup(CommandGroupModel)}
-     */
-    @Deprecated
-    public void removeButtonGroup(String buttonGroupName) {
-        int groupIndex = this.groupTitles.indexOf(buttonGroupName);
-        if (groupIndex < 0)
-            return;
-        this.groupTitles.remove(groupIndex);
-        List<AbstractCommandButton> list = this.buttons.get(groupIndex);
-        if (list != null) {
-            for (AbstractCommandButton button : list) {
-                this.remove(button);
-                if (this.panelContentModel.isSingleSelectionMode()
-                        && (button instanceof JCommandToggleButton)) {
-                    this.buttonGroup.remove((JCommandToggleButton) button);
-                }
-            }
-        }
-        this.buttons.remove(groupIndex);
-        this.fireStateChanged();
-    }
-
-    /**
-     * Adds a new button to the specified button group.
-     *
-     * @param commandButton Button to add.
-     * @return Returns the index of the button on the specified group, or -1 if
-     * no such group exists.
-     * @see #addButtonToGroup(String, AbstractCommandButton)
-     * @see #addButtonToGroup(String, int, AbstractCommandButton)
-     * @see #removeButtonFromGroup(String, int)
-     * @deprecated Use {@link CommandGroupModel#addCommand(FlamingoCommand)}
-     */
-    @Deprecated
-    public int addButtonToLastGroup(AbstractCommandButton commandButton) {
+    private int addButtonToLastGroup(AbstractCommandButton commandButton) {
         if (this.groupTitles.size() == 0) {
             return -1;
         }
@@ -364,48 +250,12 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
     }
 
     protected int addCommandToLastGroup(FlamingoCommand command) {
-        AbstractCommandButton button = command.buildButton(createCommandDisplay());
+        AbstractCommandButton button = command.project(createCommandDisplay()).buildButton();
         button.putClientProperty(COMMAND, command);
         return this.addButtonToLastGroup(button);
     }
 
-    /**
-     * Adds a new button to the specified button group.
-     *
-     * @param buttonGroupName Name of the button group.
-     * @param commandButton   Button to add.
-     * @return Returns the index of the button on the specified group, or -1 if
-     * no such group exists.
-     * @see #addButtonToGroup(String, int, AbstractCommandButton)
-     * @see #addButtonToLastGroup(AbstractCommandButton)
-     * @see #removeButtonFromGroup(String, int)
-     * @deprecated Use {@link CommandGroupModel#addCommand(FlamingoCommand)}
-     */
-    @Deprecated
-    public int addButtonToGroup(String buttonGroupName,
-            AbstractCommandButton commandButton) {
-        int groupIndex = this.groupTitles.indexOf(buttonGroupName);
-        if (groupIndex < 0)
-            return -1;
-        return this.addButtonToGroup(buttonGroupName, this.buttons.get(
-                groupIndex).size(), commandButton);
-    }
-
-    /**
-     * Adds a new button to the specified button group.
-     *
-     * @param buttonGroupName Name of the button group.
-     * @param indexInGroup    Index of the button in group.
-     * @param commandButton   Button to add.
-     * @return Returns the index of the button on the specified group, or -1 if
-     * no such group exists.
-     * @see #addButtonToGroup(String, int, AbstractCommandButton)
-     * @see #addButtonToLastGroup(AbstractCommandButton)
-     * @see #removeButtonFromGroup(String, int)
-     * @deprecated Use {@link CommandGroupModel#addCommand(FlamingoCommand)}
-     */
-    @Deprecated
-    public int addButtonToGroup(String buttonGroupName, int indexInGroup,
+    private int addButtonToGroup(String buttonGroupName, int indexInGroup,
             AbstractCommandButton commandButton) {
         int groupIndex = this.groupTitles.indexOf(buttonGroupName);
         if (groupIndex < 0) {
@@ -424,58 +274,6 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
     }
 
     /**
-     * Removes the button at the specified index from the specified button
-     * group.
-     *
-     * @param buttonGroupName Name of the button group.
-     * @param indexInGroup    Index of the button to remove.
-     * @see #addButtonToGroup(String, AbstractCommandButton)
-     * @see #addButtonToGroup(String, int, AbstractCommandButton)
-     * @see #addButtonToLastGroup(AbstractCommandButton)
-     * @deprecated Use {@link CommandGroupModel#removeCommand(FlamingoCommand)}
-     */
-    @Deprecated
-    public void removeButtonFromGroup(String buttonGroupName, int indexInGroup) {
-        int groupIndex = this.groupTitles.indexOf(buttonGroupName);
-        if (groupIndex < 0)
-            return;
-
-        AbstractCommandButton removed = this.buttons.get(groupIndex).remove(
-                indexInGroup);
-        this.remove(removed);
-        if (this.panelContentModel.isSingleSelectionMode()
-                && (removed instanceof JCommandToggleButton)) {
-            this.buttonGroup.remove((JCommandToggleButton) removed);
-        }
-        this.fireStateChanged();
-    }
-
-    /**
-     * Removes all the button groups and buttons from this panel.
-     *
-     * @see #addButtonGroup(String, int)
-     * @see #addButtonGroup(String)
-     * @see #removeButtonGroup(String)
-     * @see #removeButtonFromGroup(String, int)
-     * @deprecated Use {@link CommandPanelContentModel#removeAllCommandGroups()}
-     */
-    @Deprecated
-    public void removeAllGroups() {
-        for (List<AbstractCommandButton> ljcb : this.buttons) {
-            for (AbstractCommandButton jcb : ljcb) {
-                if (this.panelContentModel.isSingleSelectionMode()
-                        && (jcb instanceof JCommandToggleButton)) {
-                    this.buttonGroup.remove((JCommandToggleButton) jcb);
-                }
-                this.remove(jcb);
-            }
-        }
-        this.buttons.clear();
-        this.groupTitles.clear();
-        this.fireStateChanged();
-    }
-
-    /**
      * Returns the number of button groups in this panel.
      *
      * @return Number of button groups in this panel.
@@ -485,28 +283,13 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
     }
 
     /**
-     * Returns the number of buttons in this panel.
-     *
-     * @return Number of buttons in this panel.
-     * @deprecated Use {@link CommandPanelContentModel#getCommandCount()}
-     */
-    @Deprecated
-    public int getButtonCount() {
-        int result = 0;
-        for (List<AbstractCommandButton> ljcb : this.buttons) {
-            result += ljcb.size();
-        }
-        return result;
-    }
-
-    /**
      * Returns the title of the command group at the specified index.
      *
      * @param index Command group index.
      * @return Title of the command group at the specified index.
      */
     public String getGroupTitleAt(int index) {
-        return this.panelContentModel.getCommandGroups().get(index).getTitle();
+        return this.panelContentModel.getCommandProjectionGroups().get(index).getTitle();
     }
 
     @Override
@@ -520,66 +303,6 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
     }
 
     /**
-     * Sets the maximum button columns for this panel. When this panel is shown
-     * and the layout kind is {@link LayoutKind#ROW_FILL}, it will have no more
-     * than this number of buttons in each row. Fires a
-     * <code>maxButtonColumns</code> property change event.
-     *
-     * @param maxButtonColumns Maximum button columns for this panel.
-     * @see #getMaxButtonColumns()
-     * @see #setMaxButtonRows(int)
-     * @deprecated See {@link CommandPanelPresentationModel#setMaxColumns(int)}
-     */
-    @Deprecated
-    public void setMaxButtonColumns(int maxButtonColumns) {
-        this.getPresentationModel().setMaxColumns(maxButtonColumns);
-    }
-
-    /**
-     * Returns the maximum button columns for this panel. The return value is
-     * relevant only when the layout kind is {@link LayoutKind#ROW_FILL}.
-     *
-     * @return Maximum button columns for this panel.
-     * @see #setMaxButtonColumns(int)
-     * @see #getMaxButtonRows()
-     * @deprecated Use {@link CommandPanelPresentationModel#getMaxColumns()}
-     */
-    @Deprecated
-    public int getMaxButtonColumns() {
-        return this.getPresentationModel().getMaxColumns();
-    }
-
-    /**
-     * Sets the maximum button rows for this panel. When this panel is shown and
-     * the layout kind is {@link LayoutKind#COLUMN_FILL}, it will have no more
-     * than this number of buttons in each column. Fires a
-     * <code>maxButtonRows</code> property change event.
-     *
-     * @param maxButtonRows Maximum button rows for this panel.
-     * @see #getMaxButtonRows()
-     * @see #setMaxButtonColumns(int)
-     * @deprecated Use {@link CommandPanelPresentationModel#setMaxRows(int)}
-     */
-    @Deprecated
-    public void setMaxButtonRows(int maxButtonRows) {
-        this.getPresentationModel().setMaxRows(maxButtonRows);
-    }
-
-    /**
-     * Returns the maximum button rows for this panel. The return value is
-     * relevant only when the layout kind is {@link LayoutKind#COLUMN_FILL}.
-     *
-     * @return Maximum button rows for this panel.
-     * @see #setMaxButtonRows(int)
-     * @see #getMaxButtonColumns()
-     * @deprecated Use {@link CommandPanelPresentationModel#getMaxRows()}
-     */
-    @Deprecated
-    public int getMaxButtonRows() {
-        return this.getPresentationModel().getMaxRows();
-    }
-
-    /**
      * Returns the list of all buttons in the specified button group.
      *
      * @param groupIndex Group index.
@@ -589,106 +312,6 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
      */
     public List<AbstractCommandButton> getGroupButtons(int groupIndex) {
         return Collections.unmodifiableList(this.buttons.get(groupIndex));
-    }
-
-    /**
-     * Sets the selection mode for this panel. If <code>true</code> is passed as
-     * the parameter, all {@link JCommandToggleButton} in this panel are set to
-     * belong to the same button group.
-     *
-     * @param isSingleSelectionMode If <code>true</code>,all {@link JCommandToggleButton} in this
-     *                              panel are set to belong to the same button group.
-     * @see #getSelectedButton()
-     * @deprecated Use {@link CommandPanelContentModel#setSingleSelectionMode(boolean)}
-     */
-    @Deprecated
-    public void setSingleSelectionMode(boolean isSingleSelectionMode) {
-        this.panelContentModel.setSingleSelectionMode(isSingleSelectionMode);
-    }
-
-    /**
-     * Sets indication whether button group labels should be shown. Fires a
-     * <code>toShowGroupLabels</code> property change event.
-     *
-     * @param toShowGroupLabels If <code>true</code>, this panel will show the labels of the
-     *                          button groups.
-     * @see #isToShowGroupLabels()
-     * @deprecated Use {@link CommandPanelPresentationModel#setToShowGroupLabels(boolean)}
-     */
-    @Deprecated
-    public void setToShowGroupLabels(boolean toShowGroupLabels) {
-        this.getPresentationModel().setToShowGroupLabels(toShowGroupLabels);
-    }
-
-    /**
-     * Returns indication whether button group labels should be shown.
-     *
-     * @return If <code>true</code>, this panel shows the labels of the button
-     * groups, and <code>false</code> otherwise.
-     * @see #setToShowGroupLabels(boolean)
-     * @deprecated Use {@link CommandPanelPresentationModel#isToShowGroupLabels()}
-     */
-    public boolean isToShowGroupLabels() {
-        return this.getPresentationModel().isToShowGroupLabels();
-    }
-
-    /**
-     * Sets the new dimension for the icons in this panel. The state for all the
-     * icons is set to {@link CommandButtonDisplayState#FIT_TO_ICON}.
-     *
-     * @param dimension New dimension for the icons in this panel.
-     * @see #setIconState(CommandButtonDisplayState)
-     * @deprecated Use {@link CommandPanelPresentationModel#setCommandIconDimension(Integer)}
-     */
-    @Deprecated
-    public void setIconDimension(int dimension) {
-        this.panelPresentationModel.setCommandIconDimension(dimension);
-        this.panelPresentationModel.setCommandDisplayState(CommandButtonDisplayState.FIT_TO_ICON);
-    }
-
-    /**
-     * Sets the new state for the icons in this panel. The dimension for all the
-     * icons is set to -1; this method should only be called with a state that
-     * has an associated default size (like
-     * {@link CommandButtonDisplayState#BIG},
-     * {@link CommandButtonDisplayState#TILE},
-     * {@link CommandButtonDisplayState#MEDIUM} and
-     * {@link CommandButtonDisplayState#SMALL}).
-     *
-     * @param state New state for the icons in this panel.
-     * @see #setIconDimension(int)
-     * @deprecated Use {@link CommandPanelPresentationModel#setCommandDisplayState(CommandButtonDisplayState)}
-     */
-    @Deprecated
-    public void setIconState(CommandButtonDisplayState state) {
-        this.panelPresentationModel.setCommandIconDimension(-1);
-        this.panelPresentationModel.setCommandDisplayState(state);
-    }
-
-    /**
-     * Returns the selected button of this panel. Only relevant for single
-     * selection mode (set by {@link #setSingleSelectionMode(boolean)}),
-     * returning <code>null</code> otherwise.
-     *
-     * @return The selected button of this panel.
-     * @see #setSingleSelectionMode(boolean)
-     * @deprecated Use {@link #getSelectedCommand()}
-     */
-    @Deprecated
-    public JCommandToggleButton getSelectedButton() {
-        if (this.panelContentModel.isSingleSelectionMode()) {
-            for (List<AbstractCommandButton> ljrb : this.buttons) {
-                for (AbstractCommandButton jrb : ljrb) {
-                    if (jrb instanceof JCommandToggleButton) {
-                        JCommandToggleButton jctb = (JCommandToggleButton) jrb;
-                        if (jctb.getActionModel().isSelected()) {
-                            return jctb;
-                        }
-                    }
-                }
-            }
-        }
-        return null;
     }
 
     public FlamingoCommand getSelectedCommand() {
@@ -722,30 +345,6 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
                 }
             }
         }
-    }
-
-    /**
-     * Returns the layout kind of this panel.
-     *
-     * @return Layout kind of this panel.
-     * @see #setLayoutKind(LayoutKind)
-     * @deprecated Use {@link CommandPanelPresentationModel#getLayoutKind()}
-     */
-    public LayoutKind getLayoutKind() {
-        return this.getPresentationModel().getLayoutKind();
-    }
-
-    /**
-     * Sets the new layout kind for this panel. Fires a <code>layoutKind</code>
-     * property change event.
-     *
-     * @param layoutKind New layout kind for this panel.
-     * @see #getLayoutKind()
-     * @deprecated Use {@link CommandPanelPresentationModel#setLayoutKind(LayoutKind)}
-     */
-    @Deprecated
-    public void setLayoutKind(LayoutKind layoutKind) {
-        this.getPresentationModel().setLayoutKind(layoutKind);
     }
 
     /**

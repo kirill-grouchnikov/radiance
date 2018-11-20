@@ -495,7 +495,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     private void configurePopupAction(JCommandButton button, final BreadcrumbItemChoices bic) {
         button.setPopupCallback((JCommandButton commandButton) -> {
 
-            List<FlamingoCommand> menuCommands = new ArrayList<>();
+            List<CommandProjection> menuCommands = new ArrayList<>();
 
             CommandPopupMenuPresentationModel.CommandPopupMenuPresentationModelBuilder menuPresentationModel =
                     CommandPopupMenuPresentationModel.builder();
@@ -564,13 +564,13 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                     menuPresentationModel.setHighlightedCommand(menuCommand);
                 }
 
-                menuCommands.add(menuCommand);
+                menuCommands.add(menuCommand.project());
             }
 
             menuPresentationModel.setMaxVisibleMenuCommands(10);
 
             return new JCommandPopupMenu(
-                    new CommandPopupMenuContentModel(new CommandGroupModel(menuCommands)),
+                    new CommandPopupMenuContentModel(new CommandProjectionGroupModel(menuCommands)),
                     menuPresentationModel.build());
         });
     }

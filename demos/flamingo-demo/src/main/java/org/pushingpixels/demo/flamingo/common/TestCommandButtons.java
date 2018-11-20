@@ -138,36 +138,38 @@ public class TestCommandButtons extends JFrame {
             MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
             mf.setLocale(currLocale);
 
+            FlamingoCommandDisplay menuDisplay = FlamingoCommandDisplay.builder().setMenu(true).build();
+
             PopupKind popupKind = (PopupKind) popupCombo.getSelectedItem();
             switch (popupKind) {
                 case SIMPLE:
-                    List<FlamingoCommand> simpleEntries1 = new ArrayList<>();
-                    List<FlamingoCommand> simpleEntries2 = new ArrayList<>();
+                    List<CommandProjection> simpleEntries1 = new ArrayList<>();
+                    List<CommandProjection> simpleEntries2 = new ArrayList<>();
 
                     simpleEntries1.add(FlamingoCommand.builder()
                             .setTitle(mf.format(new Object[] { "1" }))
-                            .setIcon(new Address_book_new()).build());
+                            .setIcon(new Address_book_new()).build().project(menuDisplay));
                     simpleEntries1.add(FlamingoCommand.builder()
                             .setTitle(mf.format(new Object[] { "2" }))
-                            .setIcon(new EmptyResizableIcon(16)).build());
+                            .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
                     simpleEntries1.add(FlamingoCommand.builder()
                             .setTitle(mf.format(new Object[] { "3" }))
-                            .setIcon(new EmptyResizableIcon(16)).build());
+                            .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
 
                     simpleEntries2.add(FlamingoCommand.builder()
                             .setTitle(mf.format(new Object[] { "4" }))
-                            .setIcon(new EmptyResizableIcon(16)).build());
+                            .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
                     simpleEntries2.add(FlamingoCommand.builder()
                             .setTitle(mf.format(new Object[] { "5" }))
-                            .setIcon(new Text_x_generic()).build());
+                            .setIcon(new Text_x_generic()).build().project(menuDisplay));
 
                     return new JCommandPopupMenu(new CommandPopupMenuContentModel(
-                            Arrays.asList(new CommandGroupModel(simpleEntries1),
-                                    new CommandGroupModel(simpleEntries2))),
+                            Arrays.asList(new CommandProjectionGroupModel(simpleEntries1),
+                                    new CommandProjectionGroupModel(simpleEntries2))),
                             CommandPopupMenuPresentationModel.builder().build());
 
                 case SCROLLABLE:
-                    List<FlamingoCommand> scrollableEntries = new ArrayList<>();
+                    List<CommandProjection> scrollableEntries = new ArrayList<>();
 
                     for (int i = 0; i < 20; i++) {
                         final int index = i;
@@ -175,28 +177,32 @@ public class TestCommandButtons extends JFrame {
                                 .setTitle(mf.format(new Object[] { i }))
                                 .setIcon(new Text_x_generic())
                                 .setAction((ActionEvent e) -> System.out
-                                        .println("Invoked action on '" + index + "'")).build());
+                                        .println("Invoked action on '" + index + "'"))
+                                .build().project(menuDisplay));
                     }
 
                     return new JCommandPopupMenu(new CommandPopupMenuContentModel(
-                            new CommandGroupModel(scrollableEntries)),
+                            new CommandProjectionGroupModel(scrollableEntries)),
                             CommandPopupMenuPresentationModel.builder()
                                     .setMaxVisibleMenuCommands(8).build());
 
                 case COMPLEX:
-                    List<CommandGroupModel> extraEntries = new ArrayList<>();
-                    extraEntries.add(new CommandGroupModel(
+                    List<CommandProjectionGroupModel> extraEntries = new ArrayList<>();
+                    extraEntries.add(new CommandProjectionGroupModel(
                             FlamingoCommand.builder()
                                     .setTitle(resourceBundle.getString("SaveSelection.text"))
-                                    .setIcon(new X_office_document()).build(),
+                                    .setIcon(new X_office_document())
+                                    .build().project(menuDisplay),
                             FlamingoCommand.builder()
                                     .setTitle(resourceBundle.getString("ClearSelection.text"))
-                                    .setIcon(new EmptyResizableIcon(16)).build()
+                                    .setIcon(new EmptyResizableIcon(16))
+                                    .build().project(menuDisplay)
                     ));
-                    extraEntries.add(new CommandGroupModel(
+                    extraEntries.add(new CommandProjectionGroupModel(
                             FlamingoCommand.builder()
                                     .setTitle(resourceBundle.getString("ApplyStyles.text"))
-                                    .setIcon(new EmptyResizableIcon(16)).build()
+                                    .setIcon(new EmptyResizableIcon(16))
+                                    .build().project(menuDisplay)
                     ));
 
                     return new JCommandPopupMenu(

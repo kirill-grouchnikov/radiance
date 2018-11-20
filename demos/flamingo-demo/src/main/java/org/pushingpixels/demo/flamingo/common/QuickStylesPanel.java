@@ -18,14 +18,14 @@ import java.util.List;
 public class QuickStylesPanel {
     public static CommandPanelContentModel getQuickStylesContentModel(
             ResourceBundle resourceBundle, Locale locale) {
-        List<CommandGroupModel> commandGroups = new ArrayList<>();
+        List<CommandProjectionGroupModel> commandGroups = new ArrayList<>();
 
         MessageFormat mf = new MessageFormat(resourceBundle.getString("PanelStyles.text"));
         mf.setLocale(locale);
 
         for (int groupIndex = 0; groupIndex < 4; groupIndex++) {
             String commandGroupName = mf.format(new Object[] { groupIndex });
-            List<FlamingoCommand> commands = new ArrayList<>();
+            List<CommandProjection> projections = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
                 final String deco = groupIndex + "/" + i;
                 ResizableIcon fontIcon = new Font_x_generic();
@@ -47,10 +47,10 @@ public class QuickStylesPanel {
                         .setIcon(finalIcon).setToggle().setAction(
                                 (ActionEvent e) -> System.out.println(
                                         "Invoked action on " + deco)).build();
-                commands.add(command);
+                projections.add(command.project());
             }
 
-            commandGroups.add(new CommandGroupModel(commandGroupName, commands));
+            commandGroups.add(new CommandProjectionGroupModel(commandGroupName, projections));
         }
 
         CommandPanelContentModel commandPanelContentModel =

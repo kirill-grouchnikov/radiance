@@ -233,7 +233,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
             // disable JXLayer shaper and painter
             spotLightLayerUI.isShadowEnabled = false
             spotLightLayerUI.reset()
-            this.matchingFileCount = this.svgFileViewPanel.contentModel.commandCount
+            this.matchingFileCount = this.svgFileViewPanel.contentModel.commandProjectionCount
         } else {
             val buttonMapping = svgFileViewPanel.buttonMap
             // System.out.println("Matching:");
@@ -267,7 +267,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
      * Updates the status label.
      */
     private fun updateStatus() {
-        val svgFileCount = this.svgFileViewPanel.contentModel.commandCount
+        val svgFileCount = this.svgFileViewPanel.contentModel.commandProjectionCount
         statusLabel.text = ("Folder contains " + svgFileCount + " SVG files ("
                 + this.matchingFileCount + " matching filter)")
 

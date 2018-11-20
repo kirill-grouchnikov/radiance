@@ -32,7 +32,7 @@ package org.pushingpixels.kormorant.ribbon
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.FlamingoCommand
 import org.pushingpixels.flamingo.api.common.JCommandButton
-import org.pushingpixels.flamingo.api.common.model.CommandGroupModel
+import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
@@ -295,17 +295,20 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
 
                         // Wire extra popup content if we have it
                         if (!content.extraPopupContent.components.isEmpty()) {
-                            var extraPopupContentGroup = CommandGroupModel()
+                            var extraPopupContentGroup =
+                                    CommandProjectionGroupModel()
                             for (extraContent in content.extraPopupContent.components) {
                                 when (extraContent) {
-                                    is KCommand -> extraPopupContentGroup.addCommand(extraContent.toFlamingoCommand())
+                                    is KCommand -> extraPopupContentGroup.addCommandProjection(
+                                            extraContent.toFlamingoCommand().project())
                                     is KCommandPopupMenu.KCommandPopupMenuSeparator -> {
                                         galleryContentModel.addExtraPopupCommandGroup(extraPopupContentGroup)
-                                        extraPopupContentGroup = CommandGroupModel()
+                                        extraPopupContentGroup =
+                                                CommandProjectionGroupModel()
                                     }
                                 }
                             }
-                            if (!extraPopupContentGroup.commandList.isEmpty()) {
+                            if (!extraPopupContentGroup.commandProjections.isEmpty()) {
                                 galleryContentModel.addExtraPopupCommandGroup(extraPopupContentGroup)
                             }
                         }

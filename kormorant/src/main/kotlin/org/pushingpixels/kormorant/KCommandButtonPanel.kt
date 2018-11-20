@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.AbstractCommandButton
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.JCommandButton
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel
-import org.pushingpixels.flamingo.api.common.model.CommandGroupModel
+import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
 
@@ -83,8 +83,9 @@ class KCommandButtonPanel {
             return command
         }
 
-        fun asCommandGroupModel() : CommandGroupModel {
-            return CommandGroupModel(this.title, this.commands.map { it.toFlamingoCommand() })
+        fun asCommandGroupModel() : CommandProjectionGroupModel {
+            return CommandProjectionGroupModel(this.title,
+                    this.commands.map { it.toFlamingoCommand().project() })
         }
     }
 

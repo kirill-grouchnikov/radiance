@@ -45,6 +45,8 @@ public class FlamingoCommandDisplay {
     private Integer customDimension;
     private boolean isMenu;
     private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind;
+    private String actionKeyTip;
+    private String popupKeyTip;
 
     private FlamingoCommandDisplay() {
     }
@@ -85,6 +87,14 @@ public class FlamingoCommandDisplay {
         return this.isMenu;
     }
 
+    public String getActionKeyTip() {
+        return this.actionKeyTip;
+    }
+
+    public String getPopupKeyTip() {
+        return this.popupKeyTip;
+    }
+
     public static class FlamingoCommandDisplayBuilder {
         private CommandButtonDisplayState state = CommandButtonDisplayState.FIT_TO_ICON;
         private boolean isFlat = true;
@@ -95,6 +105,8 @@ public class FlamingoCommandDisplay {
         private boolean isMenu = false;
         private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind =
                 JCommandButton.CommandButtonPopupOrientationKind.DOWNWARD;
+        private String actionKeyTip;
+        private String popupKeyTip;
 
         public FlamingoCommandDisplayBuilder setFlat(boolean flat) {
             this.isFlat = flat;
@@ -137,6 +149,16 @@ public class FlamingoCommandDisplay {
             return this;
         }
 
+        public FlamingoCommandDisplayBuilder setActionKeyTip(String actionKeyTip) {
+            this.actionKeyTip = actionKeyTip;
+            return this;
+        }
+
+        public FlamingoCommandDisplayBuilder setPopupKeyTip(String popupKeyTip) {
+            this.popupKeyTip = popupKeyTip;
+            return this;
+        }
+
         public FlamingoCommandDisplay build() {
             FlamingoCommandDisplay commandDisplay = new FlamingoCommandDisplay();
             commandDisplay.state = this.state;
@@ -147,6 +169,8 @@ public class FlamingoCommandDisplay {
             commandDisplay.customDimension = this.customDimension;
             commandDisplay.isMenu = this.isMenu;
             commandDisplay.popupOrientationKind = this.popupOrientationKind;
+            commandDisplay.actionKeyTip = this.actionKeyTip;
+            commandDisplay.popupKeyTip = this.popupKeyTip;
             return commandDisplay;
         }
     }

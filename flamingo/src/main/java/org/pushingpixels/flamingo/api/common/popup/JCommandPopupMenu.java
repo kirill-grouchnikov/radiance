@@ -46,8 +46,8 @@ import java.util.List;
  * Popup menu. Can host any number of command menu buttons added with
  * {@link #addMenuButton(JCommandMenuButton)} separated with optional
  * {@link #addMenuSeparator()}. The
- * {@link #JCommandPopupMenu(JCommandButtonPanel, int, int)} constructor allows
- * placing a scrollable command button panel in the top part of the popup menu.
+ * {@link #JCommandPopupMenu(CommandPopupMenuContentModel, CommandPopupMenuPresentationModel)}
+ * constructor allows placing a scrollable command button panel in the top part of the popup menu.
  *
  * @author Kirill Grouchnikov
  */
@@ -67,7 +67,7 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
      * The main button panel. Can be <code>null</code> if this command popup
      * menu was created with the {@link #JCommandPopupMenu()} constructor.
      *
-     * @see #JCommandPopupMenu(JCommandButtonPanel, int, int)
+     * @see #JCommandPopupMenu(CommandPopupMenuContentModel, CommandPopupMenuPresentationModel)
      * @see #hasCommandButtonPanel()
      * @see #getMainButtonPanel()
      */
@@ -94,22 +94,6 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
     private List<Component> menuComponents;
 
     /**
-     * Maximum number of button columns visible in the {@link #mainButtonPanel}.
-     *
-     * @see #JCommandPopupMenu(JCommandButtonPanel, int, int)
-     * @see #getMaxButtonColumns()
-     */
-    private int maxButtonColumns;
-
-    /**
-     * Maximum number of button rows visible in the {@link #mainButtonPanel}.
-     *
-     * @see #JCommandPopupMenu(JCommandButtonPanel, int, int)
-     * @see #getMaxVisibleButtonRows()
-     */
-    private int maxVisibleButtonRows;
-
-    /**
      * Creates an empty popup menu with no button panel.
      *
      * @deprecated Use {@link #JCommandPopupMenu(CommandPopupMenuContentModel, CommandPopupMenuPresentationModel)}
@@ -121,28 +105,6 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
         this.popupMenuPresentationModel = CommandPopupMenuPresentationModel.builder()
                 .setMaxVisibleMenuCommands(-1)
                 .setToDismissOnCommandActivation(true).build();
-    }
-
-    /**
-     * Creates a popup menu hosting the specified button panel.
-     *
-     * @param buttonPanel          Fully constructed button panel.
-     * @param maxButtonColumns     Maximum number of button columns visible in
-     *                             <code>buttonPanel</code>.
-     * @param maxVisibleButtonRows Maximum number of button rows visible in
-     *                             <code>buttonPanel</code>.
-     * @deprecated Use {@link #JCommandPopupMenu(CommandPopupMenuContentModel, CommandPopupMenuPresentationModel)}
-     */
-    @Deprecated
-    public JCommandPopupMenu(JCommandButtonPanel buttonPanel,
-            int maxButtonColumns, int maxVisibleButtonRows) {
-        this();
-
-        this.mainButtonPanel = buttonPanel;
-        this.maxButtonColumns = maxButtonColumns;
-        this.maxVisibleButtonRows = maxVisibleButtonRows;
-
-        this.updateUI();
     }
 
     public JCommandPopupMenu(CommandPopupMenuContentModel popupMenuContentModel,
@@ -169,20 +131,22 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
                     this.popupMenuPanelContentModel,
                     this.popupMenuPresentationModel.getPanelPresentationModel());
         }
-        if (this.popupMenuPanelPresentationModel != null) {
-            this.maxButtonColumns = this.popupMenuPanelPresentationModel.getMaxColumns();
-            this.maxVisibleButtonRows = this.popupMenuPanelPresentationModel.getMaxRows();
-        }
 
-        List<CommandGroupModel> commandGroups = this.popupMenuContentModel.getCommandGroups();
+        List<CommandProjectionGroupModel> commandGroups =
+                this.popupMenuContentModel.getCommandGroups();
         for (int i = 0; i < commandGroups.size(); i++) {
-            for (FlamingoCommand command : commandGroups.get(i).getCommandList()) {
-                AbstractCommandButton commandButton = command.buildMenuButton();
+            for (CommandProjection projection : commandGroups.get(i).getCommandProjections()) {
+                if (!projection.getCommandDisplay().isMenu()) {
+                    throw new IllegalStateException("Command " + projection.getCommand().getTitle()
+                            + " is not configured to be projected in menu");
+                }
+
+                AbstractCommandButton commandButton = projection.buildButton();
 
                 // highlight?
                 FlamingoCommand highlightedCommand =
                         this.popupMenuPresentationModel.getHighlightedCommand();
-                if (command == highlightedCommand) {
+                if (projection.getCommand() == highlightedCommand) {
                     commandButton.setFont(commandButton.getFont().deriveFont(Font.BOLD));
                 }
 
@@ -210,48 +174,19 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
         return this.popupMenuPresentationModel;
     }
 
-    /**
-     * Adds the specified menu button to this menu.
-     *
-     * @param menuButton Menu button to add.
-     * @deprecated Use {@link CommandGroupModel#addCommand(FlamingoCommand)} on the content
-     * model of this popup menu. Use
-     * {@link CommandPopupMenuContentModel#addChangeListener(ChangeListener)} to get notified
-     * on changes to the content of this popup menu.
-     */
-    @Deprecated
-    public void addMenuButton(JCommandMenuButton menuButton) {
+    protected void addMenuButton(JCommandMenuButton menuButton) {
         menuButton.setHorizontalAlignment(SwingUtilities.LEFT);
         this.menuComponents.add(menuButton);
         this.fireStateChanged();
     }
 
-    /**
-     * Adds the specified toggle menu button to this menu.
-     *
-     * @param menuButton Menu button to add.
-     * @deprecated Use {@link CommandGroupModel#addCommand(FlamingoCommand)} on the content
-     * model of this popup menu. Use
-     * {@link CommandPopupMenuContentModel#addChangeListener(ChangeListener)} to get
-     * notified on changes to the content of this popup menu.
-     */
-    @Deprecated
-    public void addMenuButton(JCommandToggleMenuButton menuButton) {
+    protected void addMenuButton(JCommandToggleMenuButton menuButton) {
         menuButton.setHorizontalAlignment(SwingUtilities.LEFT);
         this.menuComponents.add(menuButton);
         this.fireStateChanged();
     }
 
-    /**
-     * Adds a menu separator to this menu.
-     *
-     * @deprecated Use {@link CommandPopupMenuContentModel#addCommandGroup(CommandGroupModel)}
-     * to start a new command group for this popup menu.  Use
-     * {@link CommandPopupMenuContentModel#addChangeListener(ChangeListener)} to get
-     * notified on changes to the content of this popup menu.
-     */
-    @Deprecated
-    public void addMenuSeparator() {
+    protected void addMenuSeparator() {
         this.menuComponents.add(new JPopupMenu.Separator());
         this.fireStateChanged();
     }
@@ -305,77 +240,6 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
         return Collections.unmodifiableList(this.menuComponents);
     }
 
-    /**
-     * Returns the maximum number of button columns visible in the command
-     * button panel of this menu.
-     *
-     * @return The maximum number of button columns visible in the command
-     * button panel of this menu.
-     * @see #JCommandPopupMenu(JCommandButtonPanel, int, int)
-     * @see #getMaxVisibleButtonRows()
-     * @deprecated Use {@link CommandPopupMenuPresentationModel#getPanelPresentationModel()}
-     * and {@link CommandPanelPresentationModel#getMaxColumns()}.
-     */
-    @Deprecated
-    public int getMaxButtonColumns() {
-        return (this.popupMenuPanelPresentationModel != null)
-                ? this.popupMenuPanelPresentationModel.getMaxColumns()
-                : this.maxButtonColumns;
-    }
-
-    /**
-     * Returns the maximum number of button rows visible in the command button
-     * panel of this menu.
-     *
-     * @return The maximum number of button rows visible in the command button
-     * panel of this menu.
-     * @see #JCommandPopupMenu(JCommandButtonPanel, int, int)
-     * @see #getMaxButtonColumns()
-     * @deprecated Use {@link CommandPopupMenuPresentationModel#getPanelPresentationModel()}
-     * and {@link CommandPanelPresentationModel#getMaxRows()}.
-     */
-    @Deprecated
-    public int getMaxVisibleButtonRows() {
-        return (this.popupMenuPanelPresentationModel != null)
-                ? this.popupMenuPanelPresentationModel.getMaxRows()
-                : this.maxVisibleButtonRows;
-    }
-
-    /**
-     * Returns the maximum number of menu items visible in this menu.
-     *
-     * @return The maximum number of menu items visible in this menu. If the
-     * value is negative, there is no limitation on how many menu
-     * buttons are shown, and the entire popup menu can overflow the
-     * monitor edges.
-     * @deprecated Use {@link CommandPopupMenuPresentationModel#getMaxVisibleMenuCommands()}
-     */
-    @Deprecated
-    public int getMaxVisibleMenuButtons() {
-        return this.popupMenuPresentationModel.getMaxVisibleMenuCommands();
-    }
-
-    /**
-     * Sets the maximum number of menu items visible in this menu. If the value
-     * is negative, there is no limitation on how many menu buttons are shown,
-     * and the entire popup menu can overflow the monitor edges.
-     *
-     * @param maxVisibleMenuButtons The new value for the maximum number of menu items visible in
-     *                              this menu.
-     * @deprecated Use {@link CommandPopupMenuPresentationModel#setMaxVisibleMenuCommands(int)}
-     */
-    @Deprecated
-    public void setMaxVisibleMenuButtons(int maxVisibleMenuButtons) {
-        for (Component menuComp : this.menuComponents) {
-            if (menuComp instanceof JPanel) {
-                throw new IllegalStateException(
-                        "This method is not supported on menus with panels");
-            }
-        }
-
-        this.popupMenuPresentationModel.setMaxVisibleMenuCommands(maxVisibleMenuButtons);
-    }
-
     @Override
     public String getUIClassID() {
         return uiClassID;
@@ -422,21 +286,5 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
                 ((ChangeListener) listeners[i + 1]).stateChanged(event);
             }
         }
-    }
-
-    /**
-     * @deprecated Use {@link CommandPopupMenuPresentationModel#isToDismissOnCommandActivation()}
-     */
-    @Deprecated
-    public boolean isToDismissOnChildClick() {
-        return this.popupMenuPresentationModel.isToDismissOnCommandActivation();
-    }
-
-    /**
-     * @deprecated Use {@link CommandPopupMenuPresentationModel#setToDismissOnCommandActivation(boolean)}
-     */
-    @Deprecated
-    public void setToDismissOnChildClick(boolean toDismissOnChildClick) {
-        this.popupMenuPresentationModel.setToDismissOnCommandActivation(toDismissOnChildClick);
     }
 }

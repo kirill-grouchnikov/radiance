@@ -1253,7 +1253,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             this.anchoredButtons = new Container();
             this.anchoredButtons.setLayout(new AnchoredButtonsPanelLayout());
             for (FlamingoCommand anchoredCommand : anchoredCommands) {
-                this.anchoredButtons.add(anchoredCommand.buildButton());
+                this.anchoredButtons.add(anchoredCommand.project().buildButton());
             }
             this.ribbon.add(this.anchoredButtons);
         }

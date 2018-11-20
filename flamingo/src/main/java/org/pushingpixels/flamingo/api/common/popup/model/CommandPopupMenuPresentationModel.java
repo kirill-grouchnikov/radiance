@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.common.popup.model;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
+import org.pushingpixels.flamingo.api.common.model.*;
 
 import javax.swing.event.*;
 
@@ -45,7 +45,7 @@ public class CommandPopupMenuPresentationModel {
     /**
      * Maximum number of menu items visible in this model. If more commands are
      * added with the
-     * {@link org.pushingpixels.flamingo.api.common.model.CommandGroupModel#addCommand(FlamingoCommand)}
+     * {@link CommandProjectionGroupModel#addCommandProjection(CommandProjection)}
      * on one or more of the command groups in {@link CommandPopupMenuContentModel}, the menu
      * part will show scroller buttons above the first and below the last menu command. If
      * the value is negative, there is no limitation on how many menu commands

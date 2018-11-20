@@ -172,7 +172,7 @@ public class JRibbonGallery extends JComponent {
      * @param command Command to add.
      */
     private void addGalleryCommand(FlamingoCommand command) {
-        JCommandToggleButton button = (JCommandToggleButton) command.buildButton();
+        JCommandToggleButton button = (JCommandToggleButton) command.project().buildButton();
         button.getActionModel().addChangeListener(new ChangeListener() {
             boolean wasRollover = false;
 
@@ -280,9 +280,10 @@ public class JRibbonGallery extends JComponent {
      * @param commandGroups Command groups.
      */
     @SuppressWarnings("deprecation")
-    private void setGroupMapping(List<CommandGroupModel> commandGroups) {
-        for (CommandGroupModel commandGroupModel : commandGroups) {
-            for (FlamingoCommand command : commandGroupModel.getCommandList()) {
+    private void setGroupMapping(List<CommandProjectionGroupModel> commandGroups) {
+        for (CommandProjectionGroupModel commandGroupModel : commandGroups) {
+            for (CommandProjection projection : commandGroupModel.getCommandProjections()) {
+                FlamingoCommand command = projection.getCommand();
                 if (!command.isToggle()) {
                     throw new IllegalStateException("Gallery command must be toggle");
                 }
@@ -298,7 +299,7 @@ public class JRibbonGallery extends JComponent {
         }
 
         boolean hasGroupWithNullTitle = false;
-        for (CommandGroupModel commandGroupModel : commandGroups) {
+        for (CommandProjectionGroupModel commandGroupModel : commandGroups) {
             if (commandGroupModel.getTitle() == null) {
                 if (hasGroupWithNullTitle) {
                     throw new IllegalArgumentException(
@@ -308,8 +309,8 @@ public class JRibbonGallery extends JComponent {
             }
 
             // add all the commands to this gallery (creating a UI representation for each command)
-            for (FlamingoCommand command : commandGroupModel.getCommandList()) {
-                this.addGalleryCommand(command);
+            for (CommandProjection projection : commandGroupModel.getCommandProjections()) {
+                this.addGalleryCommand(projection.getCommand());
             }
         }
     }
@@ -369,7 +370,7 @@ public class JRibbonGallery extends JComponent {
 
         // Do all the primary gallery command groups have titles?
         boolean allGroupsHaveTitles = true;
-        for (CommandGroupModel commandGroupModel : galleryContentModel.getCommandGroups()) {
+        for (CommandProjectionGroupModel commandGroupModel : galleryContentModel.getCommandGroups()) {
             String groupTitle = commandGroupModel.getTitle();
             if (groupTitle == null) {
                 allGroupsHaveTitles = false;
@@ -398,13 +399,6 @@ public class JRibbonGallery extends JComponent {
 
         JCommandPopupMenu galleryPopupMenu = new JCommandPopupMenu(galleryPopupMenuContentModel,
                 galleryPopupMenuPresentationModel);
-
-        // TODO - remove in 2.0
-        JRibbonBand.RibbonGalleryPopupCallback galleryPopupCallback =
-                galleryContentModel.getPopupCallback();
-        if (galleryPopupCallback != null) {
-            galleryPopupCallback.popupToBeShown(galleryPopupMenu);
-        }
 
         galleryPopupMenu.applyComponentOrientation(originator.getComponentOrientation());
 

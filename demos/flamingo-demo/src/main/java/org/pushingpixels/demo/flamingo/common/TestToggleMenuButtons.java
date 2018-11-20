@@ -52,6 +52,8 @@ public class TestToggleMenuButtons extends JFrame {
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
+        FlamingoCommandDisplay menuDisplay = FlamingoCommandDisplay.builder().setMenu(true).build();
+
         JCommandButton singleChoice = new JCommandButton("single");
         singleChoice.setCommandButtonKind(CommandButtonKind.POPUP_ONLY);
         singleChoice.setDisplayState(CommandButtonDisplayState.MEDIUM);
@@ -73,8 +75,11 @@ public class TestToggleMenuButtons extends JFrame {
                 .setToggle().inToggleGroup(justifyGroup).build();
 
         CommandPopupMenuContentModel justifyMenuContentModel =
-                new CommandPopupMenuContentModel(new CommandGroupModel(
-                        Arrays.asList(justifyLeft, justifyCenter, justifyRight, justifyFill)));
+                new CommandPopupMenuContentModel(new CommandProjectionGroupModel(
+                        Arrays.asList(justifyLeft.project(menuDisplay),
+                                justifyCenter.project(menuDisplay),
+                                justifyRight.project(menuDisplay),
+                                justifyFill.project(menuDisplay))));
 
         singleChoice.setPopupCallback((JCommandButton commandButton) ->
                 new JCommandPopupMenu(justifyMenuContentModel,
@@ -99,9 +104,11 @@ public class TestToggleMenuButtons extends JFrame {
                 .setToggle().build();
 
         CommandPopupMenuContentModel formatMenuContentModel =
-                new CommandPopupMenuContentModel(new CommandGroupModel(
-                        Arrays.asList(formatBold, formatItalic, formatUnderline,
-                                formatStrikethrough)));
+                new CommandPopupMenuContentModel(new CommandProjectionGroupModel(
+                        Arrays.asList(formatBold.project(menuDisplay),
+                                formatItalic.project(menuDisplay),
+                                formatUnderline.project(menuDisplay),
+                                formatStrikethrough.project(menuDisplay))));
 
         multiChoice.setPopupCallback((JCommandButton commandButton) ->
                 new JCommandPopupMenu(formatMenuContentModel,

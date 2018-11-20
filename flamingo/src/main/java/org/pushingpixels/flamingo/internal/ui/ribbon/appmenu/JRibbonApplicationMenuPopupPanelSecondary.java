@@ -50,20 +50,20 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends
 
     private static CommandPanelContentModel createCommandPanelContentModel(
             RibbonApplicationMenuPrimaryCommand primaryMenuCommand) {
-        List<CommandGroupModel> commandGroups = new ArrayList<>();
+        List<CommandProjectionGroupModel> commandGroups = new ArrayList<>();
 
         int groupCount = primaryMenuCommand.getSecondaryGroupCount();
         for (int i = 0; i < groupCount; i++) {
             String groupDesc = primaryMenuCommand.getSecondaryGroupTitleAt(i);
-            List<FlamingoCommand> groupCommands = new ArrayList<>();
+            List<CommandProjection> groupCommands = new ArrayList<>();
             for (FlamingoCommand menuCommand : primaryMenuCommand.getSecondaryGroupCommands(i)) {
                 if (menuCommand.isToggle()) {
                     throw new IllegalStateException("Secondary menu command cannot be toggle");
                 }
-                groupCommands.add(menuCommand);
+                groupCommands.add(menuCommand.project());
             }
 
-            CommandGroupModel commandGroupModel = new CommandGroupModel(groupDesc, groupCommands);
+            CommandProjectionGroupModel commandGroupModel = new CommandProjectionGroupModel(groupDesc, groupCommands);
             commandGroups.add(commandGroupModel);
         }
 

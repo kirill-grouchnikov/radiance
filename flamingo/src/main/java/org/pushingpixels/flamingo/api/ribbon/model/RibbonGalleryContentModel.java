@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon.model;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.CommandGroupModel;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
@@ -38,8 +38,8 @@ import javax.swing.event.*;
 import java.util.*;
 
 public class RibbonGalleryContentModel {
-    private List<CommandGroupModel> commandGroups;
-    private List<CommandGroupModel> extraPopupCommandGroups;
+    private List<CommandProjectionGroupModel> commandGroups;
+    private List<CommandProjectionGroupModel> extraPopupCommandGroups;
     private FlamingoCommand selectedCommand;
     private ResizableIcon icon;
 
@@ -58,29 +58,24 @@ public class RibbonGalleryContentModel {
         void onCommandActivated(FlamingoCommand command);
     }
 
-    // Deprecated in favor of extraPopupCommandGroups
-    // TODO - remove in 2.0
-    @Deprecated
-    private JRibbonBand.RibbonGalleryPopupCallback popupCallback;
+    private CommandProjectionGroupModel.CommandProjectionGroupListener commandGroupListener;
 
-    private CommandGroupModel.CommandGroupListener commandGroupListener;
-
-    public RibbonGalleryContentModel(ResizableIcon icon, List<CommandGroupModel> commands) {
+    public RibbonGalleryContentModel(ResizableIcon icon, List<CommandProjectionGroupModel> commands) {
         this.icon = icon;
         this.commandGroups = new ArrayList<>(commands);
 
-        this.commandGroupListener = new CommandGroupModel.CommandGroupListener() {
+        this.commandGroupListener = new CommandProjectionGroupModel.CommandProjectionGroupListener() {
             @Override
-            public void onCommandAdded(FlamingoCommand command) {
+            public void onCommandProjectionAdded(CommandProjection commandProjection) {
                 fireStateChanged();
             }
 
             @Override
-            public void onCommandRemoved(FlamingoCommand command) {
+            public void onCommandProjectionRemoved(CommandProjection commandProjection) {
                 fireStateChanged();
             }
         };
-        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+        for (CommandProjectionGroupModel commandGroupModel : this.commandGroups) {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         }
 
@@ -91,12 +86,12 @@ public class RibbonGalleryContentModel {
         return this.icon;
     }
 
-    public List<CommandGroupModel> getCommandGroups() {
+    public List<CommandProjectionGroupModel> getCommandGroups() {
         return Collections.unmodifiableList(this.commandGroups);
     }
 
-    public CommandGroupModel getCommandGroupByTitle(String commandGroupTitle) {
-        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+    public CommandProjectionGroupModel getCommandGroupByTitle(String commandGroupTitle) {
+        for (CommandProjectionGroupModel commandGroupModel : this.commandGroups) {
             if (commandGroupModel.getTitle().equals(commandGroupTitle)) {
                 return commandGroupModel;
             }
@@ -104,44 +99,28 @@ public class RibbonGalleryContentModel {
         return null;
     }
 
-    public void addCommandGroup(CommandGroupModel commandGroupModel) {
+    public void addCommandGroup(CommandProjectionGroupModel commandGroupModel) {
         this.commandGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
-    public void removeCommandGroup(CommandGroupModel commandGroupModel) {
+    public void removeCommandGroup(CommandProjectionGroupModel commandGroupModel) {
         this.commandGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
-    /**
-     * @deprecated Use {@link #addExtraPopupCommandGroup(CommandGroupModel)} instead
-     */
-    @Deprecated
-    public void setPopupCallback(JRibbonBand.RibbonGalleryPopupCallback popupCallback) {
-        this.popupCallback = popupCallback;
-    }
-
-    public void addExtraPopupCommandGroup(CommandGroupModel commandGroupModel) {
+    public void addExtraPopupCommandGroup(CommandProjectionGroupModel commandGroupModel) {
         this.extraPopupCommandGroups.add(commandGroupModel);
     }
 
-    public void removeExtraPopupCommandGroup(CommandGroupModel commandGroupModel) {
+    public void removeExtraPopupCommandGroup(CommandProjectionGroupModel commandGroupModel) {
         this.extraPopupCommandGroups.remove(commandGroupModel);
     }
 
-    public List<CommandGroupModel> getExtraPopupCommandGroups() {
+    public List<CommandProjectionGroupModel> getExtraPopupCommandGroups() {
         return Collections.unmodifiableList(this.extraPopupCommandGroups);
-    }
-
-    /**
-     * @deprecated Use {@link #addExtraPopupCommandGroup(CommandGroupModel)}
-     * and {@link #getExtraPopupCommandGroups()}
-     */
-    public JRibbonBand.RibbonGalleryPopupCallback getPopupCallback() {
-        return this.popupCallback;
     }
 
     /**

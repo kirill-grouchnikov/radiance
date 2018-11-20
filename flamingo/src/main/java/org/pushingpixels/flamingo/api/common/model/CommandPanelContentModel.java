@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.FlamingoCommand;
 
 import javax.swing.event.*;
 import java.util.*;
 
 public class CommandPanelContentModel {
-    private List<CommandGroupModel> commandGroups;
+    private List<CommandProjectionGroupModel> commandProjectionGroups;
 
     /**
      * Indicates the selection mode for the toggle commands in the panel.
@@ -49,54 +49,54 @@ public class CommandPanelContentModel {
      */
     private EventListenerList listenerList = new EventListenerList();
 
-    private CommandGroupModel.CommandGroupListener commandGroupListener;
+    private CommandProjectionGroupModel.CommandProjectionGroupListener commandGroupListener;
 
-    public CommandPanelContentModel(List<CommandGroupModel> commands) {
-        this.commandGroups = new ArrayList<>(commands);
-        this.commandGroupListener = new CommandGroupModel.CommandGroupListener() {
+    public CommandPanelContentModel(List<CommandProjectionGroupModel> commands) {
+        this.commandProjectionGroups = new ArrayList<>(commands);
+        this.commandGroupListener = new CommandProjectionGroupModel.CommandProjectionGroupListener() {
             @Override
-            public void onCommandAdded(FlamingoCommand command) {
+            public void onCommandProjectionAdded(CommandProjection commandProjection) {
                 fireStateChanged();
             }
 
             @Override
-            public void onCommandRemoved(FlamingoCommand command) {
+            public void onCommandProjectionRemoved(CommandProjection commandProjection) {
                 fireStateChanged();
             }
         };
-        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+        for (CommandProjectionGroupModel commandGroupModel : this.commandProjectionGroups) {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         }
     }
 
-    public void addCommandGroup(CommandGroupModel commandGroupModel) {
-        this.commandGroups.add(commandGroupModel);
+    public void addCommandProjectionGroup(CommandProjectionGroupModel commandGroupModel) {
+        this.commandProjectionGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
-    public void removeCommandGroup(CommandGroupModel commandGroupModel) {
-        this.commandGroups.remove(commandGroupModel);
+    public void removeCommandProjectionGroup(CommandProjectionGroupModel commandGroupModel) {
+        this.commandProjectionGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
-    public void removeAllCommandGroups() {
-        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+    public void removeAllCommandProjectionGroups() {
+        for (CommandProjectionGroupModel commandGroupModel : this.commandProjectionGroups) {
             commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         }
-        this.commandGroups.clear();
+        this.commandProjectionGroups.clear();
         this.fireStateChanged();
     }
 
-    public List<CommandGroupModel> getCommandGroups() {
-        return Collections.unmodifiableList(this.commandGroups);
+    public List<CommandProjectionGroupModel> getCommandProjectionGroups() {
+        return Collections.unmodifiableList(this.commandProjectionGroups);
     }
 
-    public int getCommandCount() {
+    public int getCommandProjectionCount() {
         int result = 0;
-        for (CommandGroupModel commandGroupModel : this.getCommandGroups()) {
-            result += commandGroupModel.getCommandList().size();
+        for (CommandProjectionGroupModel commandGroupModel : this.getCommandProjectionGroups()) {
+            result += commandGroupModel.getCommandProjections().size();
         }
         return result;
     }

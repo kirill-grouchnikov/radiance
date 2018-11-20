@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.api.common.popup.model;
 
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
 import org.pushingpixels.flamingo.api.common.model.*;
 
 import javax.swing.event.*;
@@ -37,38 +36,38 @@ import java.util.*;
 
 public class CommandPopupMenuContentModel {
     private CommandPanelContentModel panelContentModel;
-    private List<CommandGroupModel> commandGroups;
+    private List<CommandProjectionGroupModel> commandGroups;
 
     /**
      * Stores the listeners on this model.
      */
     private EventListenerList listenerList = new EventListenerList();
 
-    private CommandGroupModel.CommandGroupListener commandGroupListener;
+    private CommandProjectionGroupModel.CommandProjectionGroupListener commandGroupListener;
 
-    public CommandPopupMenuContentModel(CommandGroupModel commands) {
+    public CommandPopupMenuContentModel(CommandProjectionGroupModel commands) {
         this(null, Arrays.asList(commands));
     }
 
-    public CommandPopupMenuContentModel(List<CommandGroupModel> commands) {
+    public CommandPopupMenuContentModel(List<CommandProjectionGroupModel> commands) {
         this(null, commands);
     }
 
     public CommandPopupMenuContentModel(CommandPanelContentModel panelContentModel,
-            List<CommandGroupModel> commands) {
+            List<CommandProjectionGroupModel> commands) {
         this.commandGroups = new ArrayList<>(commands);
-        this.commandGroupListener = new CommandGroupModel.CommandGroupListener() {
+        this.commandGroupListener = new CommandProjectionGroupModel.CommandProjectionGroupListener() {
             @Override
-            public void onCommandAdded(FlamingoCommand command) {
+            public void onCommandProjectionAdded(CommandProjection commandProjection) {
                 fireStateChanged();
             }
 
             @Override
-            public void onCommandRemoved(FlamingoCommand command) {
+            public void onCommandProjectionRemoved(CommandProjection commandProjection) {
                 fireStateChanged();
             }
         };
-        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+        for (CommandProjectionGroupModel commandGroupModel : this.commandGroups) {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         }
         this.panelContentModel = panelContentModel;
@@ -82,27 +81,27 @@ public class CommandPopupMenuContentModel {
         return this.panelContentModel;
     }
 
-    public void addCommandGroup(CommandGroupModel commandGroupModel) {
+    public void addCommandGroup(CommandProjectionGroupModel commandGroupModel) {
         this.commandGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
-    public void removeCommandGroup(CommandGroupModel commandGroupModel) {
+    public void removeCommandGroup(CommandProjectionGroupModel commandGroupModel) {
         this.commandGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
     public void removeAllCommandGroups() {
-        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+        for (CommandProjectionGroupModel commandGroupModel : this.commandGroups) {
             commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         }
         this.commandGroups.clear();
         this.fireStateChanged();
     }
 
-    public List<CommandGroupModel> getCommandGroups() {
+    public List<CommandProjectionGroupModel> getCommandGroups() {
         return Collections.unmodifiableList(this.commandGroups);
     }
 

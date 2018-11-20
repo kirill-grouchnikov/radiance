@@ -33,7 +33,7 @@ import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.*;
-import org.pushingpixels.flamingo.api.common.model.CommandGroupModel;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.substance.api.*;
@@ -61,34 +61,35 @@ public class MultiLevelMenu extends JFrame {
 
         // first level menu
         main.setPopupCallback((JCommandButton commandButton) -> {
-            List<FlamingoCommand> menuCommands1 = new ArrayList<>();
-            List<FlamingoCommand> menuCommands2 = new ArrayList<>();
+            List<CommandProjection> menuCommands1 = new ArrayList<>();
+            List<CommandProjection> menuCommands2 = new ArrayList<>();
 
             menuCommands1.add(FlamingoCommand.builder()
-                    .setTitle("Copy").setIcon(new Edit_copy()).build());
+                    .setTitle("Copy").setIcon(new Edit_copy()).build().project());
             menuCommands1.add(FlamingoCommand.builder()
-                    .setTitle("Cut").setIcon(new Edit_cut()).build());
+                    .setTitle("Cut").setIcon(new Edit_cut()).build().project());
             menuCommands1.add(FlamingoCommand.builder()
-                    .setTitle("Paste").setIcon(new Edit_paste()).build());
+                    .setTitle("Paste").setIcon(new Edit_paste()).build().project());
 
             menuCommands2.add(FlamingoCommand.builder()
                     .setTitle("Find")
                     .setPopupCallback((JCommandButton commandButton2) -> {
-                        List<FlamingoCommand> menuCommandsSecondary = new ArrayList<>();
+                        List<CommandProjection> menuCommandsSecondary = new ArrayList<>();
 
                         menuCommandsSecondary.add(FlamingoCommand.builder()
-                                .setTitle("Find").setIcon(new Edit_find()).build());
+                                .setTitle("Find").setIcon(new Edit_find()).build().project());
                         menuCommandsSecondary.add(FlamingoCommand.builder()
-                                .setTitle("Find replace").setIcon(new Edit_find_replace()).build());
+                                .setTitle("Find replace").setIcon(
+                                        new Edit_find_replace()).build().project());
 
                         return new JCommandPopupMenu(new CommandPopupMenuContentModel(
-                                new CommandGroupModel(menuCommandsSecondary)),
+                                new CommandProjectionGroupModel(menuCommandsSecondary)),
                                 CommandPopupMenuPresentationModel.builder().build());
-                    }).build());
+                    }).build().project());
 
             CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
-                    Arrays.asList(new CommandGroupModel(menuCommands1),
-                            new CommandGroupModel(menuCommands2)));
+                    Arrays.asList(new CommandProjectionGroupModel(menuCommands1),
+                            new CommandProjectionGroupModel(menuCommands2)));
 
             return new JCommandPopupMenu(menuContentModel,
                     CommandPopupMenuPresentationModel.builder()
