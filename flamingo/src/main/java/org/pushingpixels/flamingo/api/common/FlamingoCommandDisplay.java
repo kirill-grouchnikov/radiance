@@ -51,8 +51,36 @@ public class FlamingoCommandDisplay {
     private FlamingoCommandDisplay() {
     }
 
+    public FlamingoCommandDisplay overlayWith(Overlay overlay) {
+        FlamingoCommandDisplay result = new FlamingoCommandDisplay();
+
+        result.state = (overlay.state != null) ? overlay.state : this.state;
+        result.isFlat = (overlay.isFlat != null) ? overlay.isFlat : this.isFlat;
+        result.horizontalAlignment = (overlay.horizontalAlignment != null)
+                ? overlay.horizontalAlignment : this.horizontalAlignment;
+        result.horizontalGapScaleFactor = (overlay.horizontalGapScaleFactor != null)
+                ? overlay.horizontalGapScaleFactor : this.horizontalGapScaleFactor;
+        result.verticalGapScaleFactor = (overlay.verticalGapScaleFactor != null)
+                ? overlay.verticalGapScaleFactor : this.verticalGapScaleFactor;
+        result.customDimension = (overlay.customDimension != null)
+                ? overlay.customDimension : this.customDimension;
+        result.isMenu = (overlay.isMenu != null) ? overlay.isMenu : this.isMenu;
+        result.popupOrientationKind = (overlay.popupOrientationKind != null)
+                ? overlay.popupOrientationKind : this.popupOrientationKind;
+        result.actionKeyTip = (overlay.actionKeyTip != null)
+                ? overlay.actionKeyTip : this.actionKeyTip;
+        result.popupKeyTip = (overlay.popupKeyTip != null)
+                ? overlay.popupKeyTip : this.popupKeyTip;
+
+        return result;
+    }
+
     public static FlamingoCommandDisplayBuilder builder() {
         return new FlamingoCommandDisplayBuilder();
+    }
+
+    public static Overlay overlay() {
+        return new Overlay();
     }
 
     public CommandButtonDisplayState getState() {
@@ -93,6 +121,70 @@ public class FlamingoCommandDisplay {
 
     public String getPopupKeyTip() {
         return this.popupKeyTip;
+    }
+
+    public static class Overlay {
+        private CommandButtonDisplayState state;
+        private Boolean isFlat;
+        private Integer horizontalAlignment;
+        private Double horizontalGapScaleFactor;
+        private Double verticalGapScaleFactor;
+        private Integer customDimension;
+        private Boolean isMenu;
+        private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind;
+        private String actionKeyTip;
+        private String popupKeyTip;
+
+        public Overlay setFlat(boolean flat) {
+            this.isFlat = flat;
+            return this;
+        }
+
+        public Overlay setHorizontalAlignment(int horizontalAlignment) {
+            this.horizontalAlignment = horizontalAlignment;
+            return this;
+        }
+
+        public Overlay setHorizontalGapScaleFactor(double horizontalGapScaleFactor) {
+            this.horizontalGapScaleFactor = horizontalGapScaleFactor;
+            return this;
+        }
+
+        public Overlay setVerticalGapScaleFactor(double verticalGapScaleFactor) {
+            this.verticalGapScaleFactor = verticalGapScaleFactor;
+            return this;
+        }
+
+        public Overlay setState(CommandButtonDisplayState state) {
+            this.state = state;
+            return this;
+        }
+
+        public Overlay setCustomDimension(Integer customDimension) {
+            this.customDimension = customDimension;
+            return this;
+        }
+
+        public Overlay setPopupOrientationKind(
+                JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind) {
+            this.popupOrientationKind = popupOrientationKind;
+            return this;
+        }
+
+        public Overlay setMenu(boolean isMenu) {
+            this.isMenu = isMenu;
+            return this;
+        }
+
+        public Overlay setActionKeyTip(String actionKeyTip) {
+            this.actionKeyTip = actionKeyTip;
+            return this;
+        }
+
+        public Overlay setPopupKeyTip(String popupKeyTip) {
+            this.popupKeyTip = popupKeyTip;
+            return this;
+        }
     }
 
     public static class FlamingoCommandDisplayBuilder {

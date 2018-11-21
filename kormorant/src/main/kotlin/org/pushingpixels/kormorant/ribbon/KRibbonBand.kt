@@ -31,6 +31,7 @@ package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.FlamingoCommand
+import org.pushingpixels.flamingo.api.common.FlamingoCommandDisplay
 import org.pushingpixels.flamingo.api.common.JCommandButton
 import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
@@ -97,7 +98,7 @@ class KRibbonGalleryPresentation {
 class KRibbonGalleryExtraPopupContent {
     internal val components = arrayListOf<Any>()
 
-    fun command(init: KCommand.() -> Unit): KCommand {
+    fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
         components.add(command)
@@ -274,13 +275,10 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
             for ((priority, content) in group.content) {
                 when (content) {
                     is KRibbonBandGroup.CommandConfig -> {
-                        val button = ribbonBand.addRibbonCommand(content.command.toFlamingoCommand(), priority)
-                        if (content.actionKeyTip != null) {
-                            button.actionKeyTip = content.actionKeyTip
-                        }
-                        if ((button is JCommandButton) && (content.popupKeyTip != null)) {
-                            button.popupKeyTip = content.popupKeyTip
-                        }
+                        ribbonBand.addRibbonCommand(
+                                content.command.toFlamingoCommand().project(
+                                        FlamingoCommandDisplay.builder().setActionKeyTip(content.actionKeyTip)
+                                                .setPopupKeyTip(content.popupKeyTip).build()), priority)
                     }
                     is KRibbonComponent -> {
                         ribbonBand.addRibbonComponent(content.asRibbonComponent())

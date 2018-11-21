@@ -376,7 +376,6 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
         this.popupMenu.add(this.menuItemsPanel);
     }
 
-    @SuppressWarnings("deprecation")
     private ScrollableCommandButtonPanel createScrollableButtonPanel() {
         CommandPanelPresentationModel panelPresentationModel =
                 this.popupMenu.getPresentationModel().getPanelPresentationModel();
@@ -405,7 +404,6 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             public void popupShown(PopupEvent event) {
             }
 
-            @SuppressWarnings("deprecation")
             @Override
             public void popupHidden(PopupEvent event) {
                 if (event.getSource() instanceof JColorSelectorPopupMenu) {

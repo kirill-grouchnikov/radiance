@@ -43,7 +43,8 @@ class KRibbonApplicationMenuCommandContainer {
         this@KRibbonApplicationMenuCommandContainer.commands.add(this)
     }
 
-    fun command(init: KCommand.() -> Unit): KCommand {
+    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+            init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
         commands.add(command)
@@ -96,7 +97,8 @@ class KRibbonApplicationMenu {
         (richTooltip as KRichTooltip).init()
     }
 
-    fun primaryCommand(init: KRibbonApplicationMenuPrimaryCommand.() -> Unit) {
+    fun primaryCommand(actionKeyTip: String? = null, popupKeyTip: String? = null,
+            init: KRibbonApplicationMenuPrimaryCommand.() -> Unit) {
         val primaryCommand = KRibbonApplicationMenuPrimaryCommand()
         primaryCommand.init()
         primaryContent.add(primaryCommand)

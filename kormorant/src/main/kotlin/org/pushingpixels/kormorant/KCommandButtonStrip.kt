@@ -30,6 +30,7 @@
 package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.FlamingoCommandDisplay
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip
 import org.pushingpixels.flamingo.api.common.JCommandToggleButton
 
@@ -39,6 +40,15 @@ class KCommandButtonStripPresentation {
     var state: CommandButtonDisplayState = CommandButtonDisplayState.SMALL
     var horizontalGapScaleFactor: Double = -1.0
     var verticalGapScaleFactor: Double = -1.0
+
+
+    fun toCommandDisplay() : FlamingoCommandDisplay {
+        return FlamingoCommandDisplay.builder()
+                .setState(state)
+                .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
+                .setVerticalGapScaleFactor(verticalGapScaleFactor)
+                .build()
+    }
 }
 
 @FlamingoElementMarker
@@ -54,7 +64,7 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
             }
         }
 
-    fun command(init: KCommand.() -> Unit): KCommand {
+    fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
         if (isToggleGroup) {
@@ -86,7 +96,8 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
             result.setVGapScaleFactor(presentation.verticalGapScaleFactor)
         }
         for (command in commands) {
-            val commandButton = command.asBaseButton()
+            val commandButton = command.toFlamingoCommand().project(
+                    presentation.toCommandDisplay()).buildButton()
             if (isToggleGroup && (commandButton !is JCommandToggleButton)) {
                 throw IllegalStateException("Command button should be toggle")
             }

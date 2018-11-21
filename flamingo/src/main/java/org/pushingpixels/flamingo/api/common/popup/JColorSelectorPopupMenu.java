@@ -63,7 +63,6 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
         void onColorSelected(Color color);
     }
 
-    @SuppressWarnings("deprecation")
     public JColorSelectorPopupMenu(ColorSelectorPopupMenuContentModel contentModel) {
         this.colorSelectorPopupMenuContentModel = contentModel;
         this.colorSelectorCallback =

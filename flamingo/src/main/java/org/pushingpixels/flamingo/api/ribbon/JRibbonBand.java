@@ -45,7 +45,7 @@ import java.util.*;
  *
  * <ul>
  * <li>Ribbon commands added with
- * {@link #addRibbonCommand(FlamingoCommand, RibbonElementPriority)}.</li>
+ * {@link #addRibbonCommand(CommandProjection, RibbonElementPriority)}.</li>
  * <li>Wrapped core / 3rd party components added with
  * {@link #addRibbonComponent(JRibbonComponent)}.</li>
  * <li>Ribbon galleries added with
@@ -130,16 +130,14 @@ public class JRibbonBand extends AbstractRibbonBand {
     }
 
     /**
-     * Adds the specified command to <code>this</code> band.
+     * Adds the specified command projection to <code>this</code> band.
      *
-     * @param ribbonCommand Command to add.
+     * @param projection Command projection to add.
      * @param priority      Priority of the command.
      * @return The command button that represents the command.
      */
-    public AbstractCommandButton addRibbonCommand(FlamingoCommand ribbonCommand,
+    public AbstractCommandButton addRibbonCommand(CommandProjection projection,
             RibbonElementPriority priority) {
-        CommandProjection projection = ribbonCommand.project(FlamingoCommandDisplay.builder()
-                .setHorizontalAlignment(SwingConstants.LEADING).build());
         AbstractCommandButton commandButton = projection.buildButton();
         ((JBandControlPanel) this.getControlPanel()).addCommandButton(commandButton, priority);
         return commandButton;

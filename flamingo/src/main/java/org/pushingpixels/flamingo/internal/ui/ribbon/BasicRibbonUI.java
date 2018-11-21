@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.CommandProjection;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.api.ribbon.*;
@@ -1248,12 +1249,12 @@ public abstract class BasicRibbonUI extends RibbonUI {
             }
         }
 
-        List<FlamingoCommand> anchoredCommands = this.ribbon.getAnchoredCommands();
+        List<CommandProjection> anchoredCommands = this.ribbon.getAnchoredCommands();
         if (anchoredCommands != null) {
             this.anchoredButtons = new Container();
             this.anchoredButtons.setLayout(new AnchoredButtonsPanelLayout());
-            for (FlamingoCommand anchoredCommand : anchoredCommands) {
-                this.anchoredButtons.add(anchoredCommand.project().buildButton());
+            for (CommandProjection anchoredCommandProjection : anchoredCommands) {
+                this.anchoredButtons.add(anchoredCommandProjection.buildButton());
             }
             this.ribbon.add(this.anchoredButtons);
         }

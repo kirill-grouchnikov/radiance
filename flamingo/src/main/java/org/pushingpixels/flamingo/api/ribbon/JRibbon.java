@@ -34,7 +34,6 @@ import org.pushingpixels.flamingo.api.common.model.CommandProjection;
 import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
-import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -53,8 +52,10 @@ import java.util.List;
  * <li>Contextual ribbon task groups added with
  * {@link #addContextualTaskGroup(RibbonContextualTaskGroup)}</li>
  * <li>Application menu button set by {@link #setApplicationMenu(RibbonApplicationMenu)}</li>
- * <li>Taskbar panel populated by {@link #addTaskbarCommand(FlamingoCommand)}</li>
- * <li>Anchored content set by {@link #addAnchoredCommand(FlamingoCommand)}</li>
+ * <li>Taskbar panel populated by {@link #addTaskbarCommand(CommandProjection)},
+ * {@link #addTaskbarGalleryDropdown(RibbonGalleryContentModel, RibbonGalleryPresentationModel)}
+ * and {@link #addTaskbarComponent(JRibbonComponent)}</li>
+ * <li>Anchored content set by {@link #addAnchoredCommand(CommandProjection)}</li>
  * </ul>
  *
  * <p>
@@ -82,9 +83,10 @@ import java.util.List;
  *
  * <p>
  * The taskbar panel allows showing controls that are visible no matter what ribbon task is
- * selected. To add a taskbar component use the {@link #addTaskbarCommand(FlamingoCommand)} API. The
- * taskbar panel lives to the right of the application menu button. Taskbar components can be
- * removed with the {@link #removeTaskbarCommand(FlamingoCommand)} API.
+ * selected. To add a taskbar component use the {@link #addTaskbarCommand(CommandProjection)},
+ * {@link #addTaskbarGalleryDropdown(RibbonGalleryContentModel, RibbonGalleryPresentationModel)}
+ * and {@link #addTaskbarComponent(JRibbonComponent)} APIs. The
+ * taskbar panel lives in the top-left corner of the application frame.
  * </p>
  *
  * <p>
@@ -149,10 +151,10 @@ public class JRibbon extends JComponent {
      * Commands anchored to the far edge of the task toggle strip (right under LTR and left under
      * RTL).
      *
-     * @see #addAnchoredCommand(FlamingoCommand)
+     * @see #addAnchoredCommand(CommandProjection)
      * @see #getAnchoredCommands()
      */
-    private ArrayList<FlamingoCommand> anchoredCommands;
+    private ArrayList<CommandProjection> anchoredCommands;
 
     /**
      * Visibility status of the contextual task group. Must contain a value for each group in
@@ -239,23 +241,24 @@ public class JRibbon extends JComponent {
     /**
      * Adds the specified command to the taskbar area of this ribbon.
      *
-     * @param command The taskbar command to add.
-     * @see #removeTaskbarCommand(FlamingoCommand)
+     * @param projection The taskbar command projection to add.
      * @see #getTaskbarCommands()
      * @see #addTaskbarSeparator()
      * @see #clearTaskbar()
      */
-    public synchronized void addTaskbarCommand(FlamingoCommand command) {
-        CommandProjection projection = command.project(FlamingoCommandDisplay.builder()
-                .setState(CommandButtonDisplayState.SMALL)
-                .setHorizontalGapScaleFactor(0.5)
-                .setVerticalGapScaleFactor(0.5).build());
-        AbstractCommandButton cb = projection.buildButton();
-        cb.setFocusable(false);
+    public synchronized void addTaskbarCommand(CommandProjection projection) {
+        FlamingoCommandDisplay withOverlay = projection.getCommandDisplay().overlayWith(
+                FlamingoCommandDisplay.overlay().setState(CommandButtonDisplayState.SMALL)
+                        .setHorizontalGapScaleFactor(0.5)
+                        .setVerticalGapScaleFactor(0.5));
 
-        this.taskbarComponents.add(cb);
-        this.taskbarCommandMap.put(command, cb);
-        this.taskbarCommands.add(command);
+        CommandProjection projectionWithOverlay = projection.reproject(withOverlay);
+        AbstractCommandButton commandButton = projectionWithOverlay.buildButton();
+        commandButton.setFocusable(false);
+
+        this.taskbarComponents.add(commandButton);
+        this.taskbarCommandMap.put(projection.getCommand(), commandButton);
+        this.taskbarCommands.add(projection.getCommand());
         this.fireStateChanged();
     }
 
@@ -263,9 +266,8 @@ public class JRibbon extends JComponent {
      * Adds the specified ribbon component to the taskbar area of this ribbon.
      *
      * @param ribbonComponent The ribbon component to add.
-     * @see #addTaskbarCommand(FlamingoCommand)
+     * @see #addTaskbarCommand(CommandProjection)
      * @see #addTaskbarSeparator()
-     * @see #removeTaskbarComponent(JRibbonComponent)
      * @see #clearTaskbar()
      */
     public synchronized void addTaskbarComponent(JRibbonComponent ribbonComponent) {
@@ -281,8 +283,7 @@ public class JRibbon extends JComponent {
      * Adds a separator to the taskbar area of this ribbon.
      *
      * @return the added separator
-     * @see #addTaskbarCommand(FlamingoCommand)
-     * @see #removeTaskbarCommand(FlamingoCommand)
+     * @see #addTaskbarCommand(CommandProjection)
      * @see #getTaskbarCommands()
      * @see #clearTaskbar()
      */
@@ -313,55 +314,10 @@ public class JRibbon extends JComponent {
     }
 
     /**
-     * Removes the specified command from the taskbar area of this ribbon.
-     *
-     * @param command The taskbar command to remove.
-     * @see #addTaskbarCommand(FlamingoCommand)
-     * @see #getTaskbarCommands()
-     * @see #clearTaskbar()
-     */
-    public synchronized void removeTaskbarCommand(FlamingoCommand command) {
-        AbstractCommandButton cb = this.taskbarCommandMap.get(command);
-        if (cb != null) {
-            this.taskbarComponents.remove(cb);
-            this.taskbarCommandMap.remove(command);
-            this.taskbarCommands.remove(command);
-            this.fireStateChanged();
-        }
-    }
-
-    /**
-     * Removes the specified ribbon component from the taskbar area of this ribbon.
-     *
-     * @param ribbonComponent The taskbar ribbon component to remove.
-     * @see #addTaskbarComponent(JRibbonComponent)
-     * @see #clearTaskbar()
-     */
-    public synchronized void removeTaskbarComponent(JRibbonComponent ribbonComponent) {
-        this.taskbarComponents.remove(ribbonComponent);
-        this.fireStateChanged();
-    }
-
-    /**
-     * Removes the specified separator from the taskbar area of this ribbon.
-     *
-     * @param separator The taskbar separator to remove.
-     * @see #addTaskbarCommand(FlamingoCommand)
-     * @see #removeTaskbarCommand(FlamingoCommand)
-     * @see #clearTaskbar()
-     * @see #getTaskbarCommands()
-     */
-    public synchronized void removeTaskbarSeparator(JSeparator separator) {
-        this.taskbarComponents.remove(separator);
-        this.fireStateChanged();
-    }
-
-    /**
      * Removes all taskbar content from this ribbon.
      *
-     * @see #addTaskbarCommand(FlamingoCommand)
+     * @see #addTaskbarCommand(CommandProjection)
      * @see #addTaskbarSeparator()
-     * @see #removeTaskbarCommand(FlamingoCommand)
      * @see #getTaskbarCommands()
      */
     public synchronized void clearTaskbar() {
@@ -392,15 +348,15 @@ public class JRibbon extends JComponent {
     }
 
     /**
-     * Adds the specified ribbon command to the trailing edge of the task toggle strip of this
-     * ribbon.
+     * Adds the specified ribbon command projection to the trailing edge of the task toggle strip
+     * of this ribbon.
      *
-     * @param ribbonCommand Command to add.
+     * @param projection Command projection to add.
      * @see #getAnchoredCommands()
-     * @see #removeAnchoredCommand(FlamingoCommand)
+     * @see #removeAnchoredCommand(CommandProjection)
      */
-    public synchronized void addAnchoredCommand(FlamingoCommand ribbonCommand) {
-        this.anchoredCommands.add(ribbonCommand);
+    public synchronized void addAnchoredCommand(CommandProjection projection) {
+        this.anchoredCommands.add(projection);
         this.fireStateChanged();
     }
 
@@ -408,12 +364,12 @@ public class JRibbon extends JComponent {
      * Removes the specified ribbon command from the trailing edge of the task toggle strip of this
      * ribbon.
      *
-     * @param ribbonCommand Command to remove.
+     * @param projection Command projection to remove.
      * @see #getAnchoredCommands()
-     * @see #addAnchoredCommand(FlamingoCommand)
+     * @see #addAnchoredCommand(CommandProjection)
      */
-    public synchronized void removeAnchoredCommand(FlamingoCommand ribbonCommand) {
-        this.anchoredCommands.remove(ribbonCommand);
+    public synchronized void removeAnchoredCommand(CommandProjection projection) {
+        this.anchoredCommands.remove(projection);
         this.fireStateChanged();
     }
 
@@ -421,10 +377,10 @@ public class JRibbon extends JComponent {
      * Returns the anchored commands for this ribbon.
      *
      * @return This ribbon's anchored commands.
-     * @see #addAnchoredCommand(FlamingoCommand)
-     * @see #removeAnchoredCommand(FlamingoCommand)
+     * @see #addAnchoredCommand(CommandProjection)
+     * @see #removeAnchoredCommand(CommandProjection)
      */
-    public synchronized List<FlamingoCommand> getAnchoredCommands() {
+    public synchronized List<CommandProjection> getAnchoredCommands() {
         return Collections.unmodifiableList(this.anchoredCommands);
     }
 
@@ -580,8 +536,6 @@ public class JRibbon extends JComponent {
      * Gets an unmodifiable list of all taskbar commands of <code>this</code> ribbon.
      *
      * @return All taskbar commands of <code>this</code> ribbon.
-     * @see #addTaskbarCommand(FlamingoCommand)
-     * @see #removeTaskbarCommand(FlamingoCommand)
      */
     public synchronized List<FlamingoCommand> getTaskbarCommands() {
         return Collections.unmodifiableList(this.taskbarCommands);

@@ -426,7 +426,7 @@ private class RibbonDemoBuilder {
                 isTitleClickAction = true
             }
 
-            command(RibbonElementPriority.MEDIUM) {
+            command(RibbonElementPriority.MEDIUM, popupKeyTip = "X") {
                 title = resourceBundle.getString("Cut.text")
                 icon = Edit_cut.of(16, 16)
                 action = ActionListener { println("Cut!") }
@@ -437,20 +437,18 @@ private class RibbonDemoBuilder {
                     }
                 }
                 popupCallback = getSimplePopupMenu()
-                popupKeyTip = "X"
                 isTitleClickAction = true
             }
 
-            command(RibbonElementPriority.MEDIUM) {
+            command(RibbonElementPriority.MEDIUM, popupKeyTip = "C") {
                 title = resourceBundle.getString("Copy.text")
                 icon = Edit_copy.of(16, 16)
                 action = ActionListener { println("Copy!") }
                 popupCallback = getSimplePopupMenu()
-                popupKeyTip = "C"
                 isTitleClickPopup = true
             }
 
-            command(RibbonElementPriority.MEDIUM) {
+            command(RibbonElementPriority.MEDIUM, popupKeyTip = "FP") {
                 title = resourceBundle.getString("Format.text")
                 icon = Edit_paste.of(16, 16)
                 popupCallback = PopupPanelCallback {
@@ -542,7 +540,6 @@ private class RibbonDemoBuilder {
                     }
                     footerIcon = Help_browser.of(16, 16)
                 }
-                popupKeyTip = "FP"
             }
 
             resizePolicies = { ribbonBand ->
@@ -634,48 +631,43 @@ private class RibbonDemoBuilder {
                 onCommandPreviewCanceled = { command -> println("Preview canceled for '" + command.title + "'") }
 
                 extraPopupContent {
-                    command {
+                    command(actionKeyTip = "SS") {
                         title = resourceBundle.getString("Format.menuSaveSelection.text")
                         icon = EmptyResizableIcon(16)
                         action = ActionListener { println("Save Selection activated") }
-                        actionKeyTip = "SS"
                     }
 
-                    command {
+                    command(actionKeyTip = "SC") {
                         title = resourceBundle.getString("Format.menuClearSelection.text")
                         icon = EmptyResizableIcon(16)
                         action = ActionListener { println("Clear Selection activated") }
-                        actionKeyTip = "SC"
                     }
 
                     separator()
 
-                    command {
+                    command(actionKeyTip = "SA") {
                         title = resourceBundle.getString("Format.applyStyles.text")
                         icon = Font_x_generic.of(16, 16)
                         action = ActionListener { println("Apply Styles activated") }
-                        actionKeyTip = "SA"
                     }
                 }
 
                 expandKeyTip = "L"
             }
 
-            command(RibbonElementPriority.MEDIUM) {
+            command(priority = RibbonElementPriority.MEDIUM, actionKeyTip = "SA") {
                 title = resourceBundle.getString("Styles1.text")
                 icon = Font_x_generic.of(16, 16)
                 action = ActionListener { println("Generic activated") }
-                actionKeyTip = "SA"
             }
 
-            command(RibbonElementPriority.MEDIUM) {
+            command(priority = RibbonElementPriority.MEDIUM, actionKeyTip = "SB") {
                 title = resourceBundle.getString("Styles2.text")
                 icon = Image_x_generic.of(16, 16)
                 action = ActionListener { println("Image activated") }
-                actionKeyTip = "SB"
             }
 
-            command(RibbonElementPriority.MEDIUM) {
+            command(priority = RibbonElementPriority.MEDIUM, popupKeyTip = "SC") {
                 title = resourceBundle.getString("Styles3.text")
                 icon = Text_html.of(16, 16)
                 popupCallback = PopupPanelCallback {
@@ -756,7 +748,6 @@ private class RibbonDemoBuilder {
                         }
                     }.asColorSelectorPopupMenu()
                 }
-                popupKeyTip = "SC"
             }
 
             resizePolicies = { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand) }
@@ -786,21 +777,19 @@ private class RibbonDemoBuilder {
             }
 
             flowCommandButtonStrip {
-                command {
+                command(actionKeyTip = "AO") {
                     icon = Format_indent_less.of(16, 16)
                     action = ActionListener { println("Indent less") }
-                    actionKeyTip = "AO"
                 }
 
-                command {
+                command(actionKeyTip = "AI") {
                     icon = Format_indent_more.of(16, 16)
                     action = ActionListener { println("Indent more") }
-                    actionKeyTip = "AI"
                 }
             }
 
             flowCommandButtonStrip {
-                command {
+                command(actionKeyTip = "1") {
                     icon = Format_text_bold.of(16, 16)
                     isToggleSelected = true
                     action = ActionListener { println("Bold toggled") }
@@ -810,10 +799,9 @@ private class RibbonDemoBuilder {
                             +resourceBundle.getString("FontBold.tooltip.textActionParagraph1")
                         }
                     }
-                    actionKeyTip = "1"
                 }
 
-                command {
+                command(actionKeyTip = "2") {
                     icon = Format_text_italic.of(16, 16)
                     isToggle = true
                     action = ActionListener { println("Italic toggled") }
@@ -823,10 +811,9 @@ private class RibbonDemoBuilder {
                             +resourceBundle.getString("FontItalic.tooltip.textActionParagraph1")
                         }
                     }
-                    actionKeyTip = "2"
                 }
 
-                command {
+                command(actionKeyTip = "3") {
                     icon = Format_text_underline.of(16, 16)
                     isToggle = true
                     action = ActionListener { println("Underline toggled") }
@@ -836,10 +823,9 @@ private class RibbonDemoBuilder {
                             +resourceBundle.getString("FontUnderline.tooltip.textActionParagraph1")
                         }
                     }
-                    actionKeyTip = "3"
                 }
 
-                command {
+                command(actionKeyTip = "4") {
                     icon = Format_text_strikethrough.of(16, 16)
                     isToggle = true
                     action = ActionListener { println("Strikethrough toggled") }
@@ -849,34 +835,29 @@ private class RibbonDemoBuilder {
                             +resourceBundle.getString("FontStrikethrough.tooltip.textActionParagraph1")
                         }
                     }
-                    actionKeyTip = "4"
                 }
             }
 
             flowCommandToggleButtonStrip {
-                command {
+                command(actionKeyTip = "AL") {
                     icon = Format_justify_left.of(16, 16)
                     action = ActionListener { println("Align left!") }
-                    actionKeyTip = "AL"
                 }
 
-                command {
+                command(actionKeyTip = "AC") {
                     icon = Format_justify_center.of(16, 16)
                     isToggleSelected = true
                     action = ActionListener { println("Align center!") }
-                    actionKeyTip = "AC"
                 }
 
-                command {
+                command(actionKeyTip = "AR") {
                     icon = Format_justify_right.of(16, 16)
                     action = ActionListener { println("Align right!") }
-                    actionKeyTip = "AR"
                 }
 
-                command {
+                command(actionKeyTip = "AF") {
                     icon = Format_justify_fill.of(16, 16)
                     action = ActionListener { println("Align justified!") }
-                    actionKeyTip = "AF"
                 }
             }
         }
@@ -965,27 +946,26 @@ private class RibbonDemoBuilder {
             icon = Edit_find.of(16, 16)
             collapsedStateKeyTip = "ZY"
 
-            command(RibbonElementPriority.TOP) {
+            command(priority = RibbonElementPriority.TOP, actionKeyTip = "FD") {
                 title = resourceBundle.getString("Search.text")
                 icon = System_search.of(16, 16)
                 action = ActionListener { println("Search activated") }
-                actionKeyTip = "FD"
             }
 
-            command(RibbonElementPriority.MEDIUM) {
+            command(priority = RibbonElementPriority.MEDIUM) {
                 title = resourceBundle.getString("Find.text")
                 icon = Edit_find.of(16, 16)
                 action = ActionListener { println("Find activated") }
             }
 
-            command(RibbonElementPriority.MEDIUM) {
+            command(priority = RibbonElementPriority.MEDIUM) {
                 title = resourceBundle.getString("FindReplace.text")
                 icon = Edit_find_replace.of(16, 16)
                 action = ActionListener { println("Find Replace activated") }
                 isEnabled = false
             }
 
-            command(RibbonElementPriority.MEDIUM) {
+            command(priority = RibbonElementPriority.MEDIUM) {
                 title = resourceBundle.getString("SelectAll.text")
                 icon = Edit_select_all.of(16, 16)
                 action = ActionListener { println("Select All activated") }
@@ -1096,7 +1076,6 @@ private class RibbonDemoBuilder {
                     title = resourceBundle.getString("Font.text")
                     icon = Preferences_desktop_font.of(16, 16)
                     action = ActionListener { println("Font activated") }
-                    actionKeyTip = "Z"
                 }
 
                 command(priority = RibbonElementPriority.TOP, actionKeyTip = "L") {
@@ -1642,22 +1621,19 @@ fun main(args: Array<String>) {
             }
 
             anchored {
-                command {
+                command(actionKeyTip = "GS") {
                     title = builder.resourceBundle.getString("Share.title")
                     icon = Internet_mail.of(16, 16)
-                    actionKeyTip = "GS"
                     action = ActionListener { JOptionPane.showMessageDialog(null, "Share button clicked") }
                 }
 
-                command {
+                command(actionKeyTip = "GC") {
                     icon = Internet_group_chat.of(16, 16)
-                    actionKeyTip = "GC"
                     action = ActionListener { JOptionPane.showMessageDialog(null, "Chat button clicked") }
                 }
 
-                command {
+                command(actionKeyTip = "GH") {
                     icon = Help_browser.of(16, 16)
-                    actionKeyTip = "GH"
                     action = ActionListener { JOptionPane.showMessageDialog(null, "Help button clicked") }
                     actionRichTooltip {
                         title = builder.resourceBundle.getString("Help.tooltip.title")
@@ -1669,7 +1645,7 @@ fun main(args: Array<String>) {
             }
 
             taskbar {
-                command {
+                command(actionKeyTip = "1") {
                     icon = Edit_paste.of(16, 16)
                     action = ActionListener { println("Taskbar Paste activated") }
                     actionRichTooltip {
@@ -1678,7 +1654,6 @@ fun main(args: Array<String>) {
                             +builder.resourceBundle.getString("Paste.tooltip.actionParagraph1")
                         }
                     }
-                    actionKeyTip = "1"
                     popupCallback = builder.getSimplePopupMenu()
                     popupRichTooltip {
                         title = builder.resourceBundle.getString("Paste.text")
@@ -1689,27 +1664,24 @@ fun main(args: Array<String>) {
                     isTitleClickAction = true
                 }
 
-                command {
+                command(actionKeyTip = "2") {
                     icon = Edit_clear.of(16, 16)
                     action = ActionListener { println("Taskbar Clear activated") }
-                    actionKeyTip = "2"
                     isEnabled = false
                 }
 
-                command {
+                command(actionKeyTip = "3") {
                     icon = Edit_copy.of(16, 16)
                     action = ActionListener { println("Taskbar Copy activated") }
-                    actionKeyTip = "3"
                 }
 
                 +builder.documentNewCommand
 
                 separator()
 
-                command {
+                command(actionKeyTip = "4") {
                     icon = Edit_find.of(16, 16)
                     action = ActionListener { println("Taskbar Find activated") }
-                    actionKeyTip = "4"
                 }
 
                 ribbonComponent {
@@ -1766,19 +1738,17 @@ fun main(args: Array<String>) {
                 }
 
                 // "Create new" primary
-                primaryCommand {
+                primaryCommand(actionKeyTip = "N") {
                     title = builder.resourceBundle.getString("AppMenuNew.text")
                     icon = Document_new.of(16, 16)
                     action = ActionListener { println("Invoked creating new document") }
-                    actionKeyTip = "N"
                 }
 
                 // "Open" primary
-                primaryCommand {
+                primaryCommand(actionKeyTip = "O") {
                     title = builder.resourceBundle.getString("AppMenuOpen.text")
                     icon = Document_open.of(16, 16)
                     action = ActionListener { println("Invoked opening document") }
-                    actionKeyTip = "O"
                     rolloverCallback = RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback { targetPanel ->
                         targetPanel.removeAll()
 
@@ -1810,49 +1780,43 @@ fun main(args: Array<String>) {
                 }
 
                 // "Save" primary
-                primaryCommand {
+                primaryCommand(actionKeyTip = "S") {
                     title = builder.resourceBundle.getString("AppMenuSave.text")
                     icon = Document_save.of(16, 16)
                     action = ActionListener { println("Invoked saving document") }
-                    actionKeyTip = "S"
                     isEnabled = false
                 }
 
                 // "Save as" primary + secondaries
-                primaryCommand {
+                primaryCommand(actionKeyTip = "A", popupKeyTip = "F") {
                     title = builder.resourceBundle.getString("AppMenuSaveAs.text")
                     icon = Document_save_as.of(16, 16)
                     action = ActionListener { println("Invoked saving document as") }
-                    actionKeyTip = "A"
-                    popupKeyTip = "F"
                     isTitleClickAction = true
 
                     secondaryGroup {
                         title = builder.resourceBundle.getString("AppMenuSaveAs.secondary.textGroupTitle1")
 
-                        command {
+                        command(actionKeyTip = "W") {
                             title = builder.resourceBundle.getString("AppMenuSaveAs.word.text")
                             icon = X_office_document.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuSaveAs.word.description")
                             action = ActionListener { println("Invoked saved as Word") }
-                            actionKeyTip = "W"
                         }
 
-                        command {
+                        command(actionKeyTip = "H") {
                             title = builder.resourceBundle.getString("AppMenuSaveAs.html.text")
                             icon = Text_html.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuSaveAs.html.description")
                             action = ActionListener { println("Invoked saved as HTML") }
-                            actionKeyTip = "H"
                             isEnabled = false
                         }
 
-                        command {
+                        command(actionKeyTip = "O") {
                             title = builder.resourceBundle.getString("AppMenuSaveAs.other.text")
                             icon = Document_save_as.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuSaveAs.other.description")
                             action = ActionListener { println("Invoked saved as other") }
-                            actionKeyTip = "O"
                         }
                     }
                 }
@@ -1860,95 +1824,84 @@ fun main(args: Array<String>) {
                 primarySeparator()
 
                 // "Print" primary + secondaries
-                primaryCommand {
+                primaryCommand(actionKeyTip = "P", popupKeyTip = "W") {
                     title = builder.resourceBundle.getString("AppMenuPrint.text")
                     icon = Document_print.of(16, 16)
                     action = ActionListener { println("Invoked printing as") }
-                    actionKeyTip = "P"
-                    popupKeyTip = "W"
                     isTitleClickAction = true
 
                     secondaryGroup {
                         title = builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle1")
 
-                        command {
+                        command(actionKeyTip = "P") {
                             title = builder.resourceBundle.getString("AppMenuPrint.print.text")
                             icon = Printer.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuPrint.print.description")
                             action = ActionListener { println("Invoked print") }
-                            actionKeyTip = "P"
                         }
 
-                        command {
+                        command(actionKeyTip = "Q") {
                             title = builder.resourceBundle.getString("AppMenuPrint.quick.text")
                             icon = Printer.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuPrint.quick.description")
                             action = ActionListener { println("Invoked quick") }
-                            actionKeyTip = "Q"
                         }
 
-                        command {
+                        command(actionKeyTip = "V") {
                             title = builder.resourceBundle.getString("AppMenuPrint.preview.text")
                             icon = Document_print_preview.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuPrint.preview.description")
                             action = ActionListener { println("Invoked preview") }
-                            actionKeyTip = "V"
                         }
                     }
 
                     secondaryGroup {
                         title = builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle2")
 
-                        command {
+                        command(actionKeyTip = "M") {
                             title = builder.resourceBundle.getString("AppMenuPrint.memo.text")
                             icon = Text_x_generic.of(16, 16)
                             action = ActionListener { println("Invoked memo") }
-                            actionKeyTip = "M"
                         }
 
-                        command {
+                        command(actionKeyTip = "C") {
                             title = builder.resourceBundle.getString("AppMenuPrint.custom.text")
                             icon = Text_x_generic.of(16, 16)
                             action = ActionListener { println("Invoked custom") }
-                            actionKeyTip = "C"
                         }
                     }
                 }
 
                 // "Send" primary + secondaries
-                primaryCommand {
+                primaryCommand(popupKeyTip = "D") {
                     title = builder.resourceBundle.getString("AppMenuSend.text")
                     icon = Mail_forward.of(16, 16)
-                    popupKeyTip = "D"
 
                     secondaryGroup {
                         title = builder.resourceBundle.getString("AppMenuSend.secondary.textGroupTitle1")
 
-                        command {
+                        command(actionKeyTip = "E") {
                             title = builder.resourceBundle.getString("AppMenuSend.email.text")
                             icon = Mail_message_new.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuSend.email.description")
                             action = ActionListener { println("Invoked email") }
-                            actionKeyTip = "E"
                         }
 
-                        command {
+                        command(actionKeyTip = "H") {
                             title = builder.resourceBundle.getString("AppMenuSend.html.text")
                             icon = Text_html.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuSend.html.description")
                             action = ActionListener { println("Invoked HTML") }
-                            actionKeyTip = "H"
                         }
 
-                        command {
+                        command(actionKeyTip = "W") {
                             title = builder.resourceBundle.getString("AppMenuSend.word.text")
                             icon = X_office_document.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuSend.word.description")
                             action = ActionListener { println("Invoked Word") }
-                            actionKeyTip = "W"
                         }
 
-                        command {
+                        command(popupKeyTip = "X") {
                             title = builder.resourceBundle.getString("AppMenuSend.wireless.text")
                             icon = Mail_message_new.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuSend.wireless.description")
@@ -1967,18 +1920,16 @@ fun main(args: Array<String>) {
                                     }
                                 }.asCommandPopupMenu()
                             }
-                            popupKeyTip = "X"
                         }
 
                     }
                 }
 
                 // "Exit" primary
-                primaryCommand {
+                primaryCommand(actionKeyTip = "X") {
                     title = builder.resourceBundle.getString("AppMenuExit.text")
                     icon = System_log_out.of(16, 16)
                     action = ActionListener { System.exit(0) }
-                    actionKeyTip = "X"
                     rolloverCallback = RibbonApplicationMenuPrimaryCommand.PrimaryClearRolloverCallback()
                 }
 

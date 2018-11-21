@@ -233,7 +233,7 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
                     });
                 }
 
-                button.putClientProperty(COMMAND, projection);
+                button.putClientProperty(COMMAND, projection.getCommand());
                 this.addButtonToLastGroup(button);
             }
             groupIndex++;

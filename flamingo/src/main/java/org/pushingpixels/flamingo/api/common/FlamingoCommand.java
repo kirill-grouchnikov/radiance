@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
-import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
@@ -45,12 +43,6 @@ import java.util.EventListener;
  * Encapsulates metadata associated with a single command. Use a new instance of
  * {@link FlamingoCommandBuilder} to configure a new command, and
  * {@link FlamingoCommandBuilder#build()} to build a command.
- * <p>
- * Note that while {@link #buildButton()} can be used to directly build the visual representation of
- * a command, commands represented by this class are passed to various APIs on the {@link JRibbon}
- * and {@link JRibbonBand} to construct and modify the ribbon content. Use
- * {@link #setEnabled(boolean)} to control the enabled state of the command and, by extension, its
- * visual representation that you acquire from the {@link #buildButton()} call.
  *
  * @author Kirill Grouchnikov
  */
@@ -61,16 +53,13 @@ public class FlamingoCommand {
     private String extraText;
     private ActionListener action;
     private RichTooltip actionRichTooltip;
-    private String actionKeyTip;
     private PopupPanelCallback popupCallback;
     private RichTooltip popupRichTooltip;
-    private String popupKeyTip;
     private boolean isTitleClickAction;
     private boolean isTitleClickPopup;
     private boolean isEnabled;
     private boolean isToggle;
     private boolean isToggleSelected;
-    private FlamingoCommandToggleGroup toggleGroup;
     private CommandToggleGroupModel toggleGroupModel;
     private boolean isAutoRepeatAction;
     private boolean hasAutoRepeatIntervalsSet;
@@ -93,21 +82,15 @@ public class FlamingoCommand {
         return new FlamingoCommand.FlamingoCommandBuilder();
     }
 
-    protected void checkConsistency() {
+    private void checkConsistency() {
         if (action == null) {
             if (actionRichTooltip != null) {
                 throw new IllegalStateException("Configured action rich tooltip with no action");
-            }
-            if (actionKeyTip != null) {
-                throw new IllegalStateException("Configured action key tip with no action");
             }
         }
         if (popupCallback == null) {
             if (popupRichTooltip != null) {
                 throw new IllegalStateException("Configured popup rich tooltip with no callback");
-            }
-            if (popupKeyTip != null) {
-                throw new IllegalStateException("Configured popup key tip with no callback");
             }
         }
 
@@ -138,10 +121,6 @@ public class FlamingoCommand {
             throw new IllegalStateException("Command configured to be toggle can't have popups");
         }
 
-        if ((toggleGroup != null) && !isToggle) {
-            throw new IllegalStateException(
-                    "Command configured to not be a toggle but is in a toggleGroup");
-        }
         if (isToggleSelected && !isToggle) {
             throw new IllegalStateException(
                     "Command configured to not be a toggle but is selected");
@@ -192,24 +171,12 @@ public class FlamingoCommand {
         }
     }
 
-    public String getActionKeyTip() {
-        return this.actionKeyTip;
-    }
-
-    public void setActionKeyTip(String actionKeyTip) {
-        this.actionKeyTip = actionKeyTip;
-    }
-
     public PopupPanelCallback getPopupCallback() {
         return this.popupCallback;
     }
 
     public RichTooltip getPopupRichTooltip() {
         return this.popupRichTooltip;
-    }
-
-    public String getPopupKeyTip() {
-        return this.popupKeyTip;
     }
 
     public boolean isTitleClickAction() {
@@ -256,15 +223,6 @@ public class FlamingoCommand {
         }
     }
 
-    /**
-     * @deprecated Use {@link FlamingoCommandBuilder#inToggleGroup(CommandToggleGroupModel)}
-     * and {@link #getToggleGroupModel()}
-     */
-    @Deprecated
-    public FlamingoCommandToggleGroup getToggleGroup() {
-        return this.toggleGroup;
-    }
-
     public CommandToggleGroupModel getToggleGroupModel() {
         return this.toggleGroupModel;
     }
@@ -293,118 +251,12 @@ public class FlamingoCommand {
         return this.previewListener;
     }
 
-    private AbstractCommandButton createButton(boolean isMenu) {
-        AbstractCommandButton result = isMenu
-                ? (this.isToggle() ? new JCommandToggleMenuButton(this.title, this.icon)
-                : new JCommandMenuButton(this.title, this.icon))
-                : (this.isToggle() ? new JCommandToggleButton(this.title, this.icon)
-                : new JCommandButton(this.title, this.icon));
-        result.putClientProperty(FlamingoUtilities.COMMAND, this);
-        return result;
-    }
-
     protected boolean hasAction() {
         return (this.getAction() != null);
     }
 
     protected boolean hasPopup() {
         return (this.getPopupCallback() != null);
-    }
-
-    private void populateButton(AbstractCommandButton button) {
-        if (this.getDisabledIcon() != null) {
-            button.setDisabledIcon(this.getDisabledIcon());
-        }
-
-        button.setExtraText(this.getExtraText());
-
-        boolean hasAction = this.hasAction();
-        boolean hasPopup = this.hasPopup();
-
-        if (hasAction) {
-            button.addActionListener(this.getAction());
-            button.setActionRichTooltip(this.getActionRichTooltip());
-            button.setActionKeyTip(this.getActionKeyTip());
-        }
-
-        if (!isToggle) {
-            JCommandButton jcb = (JCommandButton) button;
-            if (hasPopup) {
-                jcb.setPopupCallback(this.getPopupCallback());
-                jcb.setPopupRichTooltip(this.getPopupRichTooltip());
-                jcb.setPopupKeyTip(this.getPopupKeyTip());
-            }
-
-            if (hasAction && hasPopup) {
-                jcb.setCommandButtonKind(
-                        this.isTitleClickAction ? CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
-                                : CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
-            } else if (hasPopup) {
-                jcb.setCommandButtonKind(CommandButtonKind.POPUP_ONLY);
-            } else {
-                jcb.setCommandButtonKind(CommandButtonKind.ACTION_ONLY);
-            }
-
-            if (this.isAutoRepeatAction()) {
-                jcb.setAutoRepeatAction(true);
-                if (this.hasAutoRepeatIntervalsSet) {
-                    jcb.setAutoRepeatActionIntervals(this.getAutoRepeatInitialInterval(),
-                            this.getAutoRepeatSubsequentInterval());
-                }
-            }
-
-            jcb.setFireActionOnRollover(this.isFireActionOnRollover());
-        }
-
-        button.setEnabled(this.isEnabled());
-
-        if ((this.getToggleGroupModel() == null) && (this.getToggleGroup() != null)) {
-            this.getToggleGroup().toggleButtonGroup.add((JCommandToggleButton) button);
-        }
-
-        if (this.isToggleSelected()) {
-            button.getActionModel().setSelected(true);
-        }
-
-        if (this.previewListener != null) {
-            button.getActionModel().addChangeListener(new ChangeListener() {
-                boolean wasRollover = false;
-
-                @Override
-                public void stateChanged(ChangeEvent e) {
-                    boolean isRollover = button.getActionModel().isRollover();
-                    if (wasRollover && !isRollover) {
-                        previewListener.onCommandPreviewCanceled(FlamingoCommand.this);
-                    }
-                    if (!wasRollover && isRollover) {
-                        previewListener.onCommandPreviewActivated(FlamingoCommand.this);
-                    }
-                    wasRollover = isRollover;
-                }
-            });
-        }
-
-        this.pcs.addPropertyChangeListener((PropertyChangeEvent evt) -> {
-            if ("enabled".equals(evt.getPropertyName())) {
-                button.setEnabled((Boolean) evt.getNewValue());
-            }
-            if ("icon".equals(evt.getPropertyName())) {
-                button.setIcon((ResizableIcon) evt.getNewValue());
-            }
-            if ("isToggleSelected".equals(evt.getPropertyName())) {
-                button.getActionModel().setSelected((Boolean) evt.getNewValue());
-                if (toggleGroupModel != null) {
-                    toggleGroupModel.setSelected(FlamingoCommand.this, (Boolean) evt.getNewValue());
-                }
-            }
-            if ("extraText".equals(evt.getPropertyName())) {
-                button.setExtraText((String) evt.getNewValue());
-            }
-            if ("action".equals(evt.getPropertyName())) {
-                button.removeActionListener((ActionListener) evt.getOldValue());
-                button.addActionListener((ActionListener) evt.getNewValue());
-            }
-        });
     }
 
     /**
@@ -443,6 +295,14 @@ public class FlamingoCommand {
         }
     }
 
+    public void addPropertyChangeListener(PropertyChangeListener l) {
+        this.pcs.addPropertyChangeListener(l);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener l) {
+        this.pcs.removePropertyChangeListener(l);
+    }
+
     public CommandProjection project() {
         return new CommandProjection(this, FlamingoCommandDisplay.builder().build());
     }
@@ -451,84 +311,10 @@ public class FlamingoCommand {
         return new CommandProjection(this, commandDisplay);
     }
 
-    /**
-     * @deprecated Use {@link CommandProjection#buildButton()}
-     */
-    @Deprecated
-    public AbstractCommandButton buildButton() {
-        AbstractCommandButton result = createButton(false);
-        populateButton(result);
-        return result;
-    }
-
-    /**
-     * @deprecated Use {@link CommandProjection#buildButton()}
-     */
-    @Deprecated
-    public AbstractCommandButton buildButton(FlamingoCommandDisplay commandDisplay) {
-        AbstractCommandButton result = createButton(commandDisplay.isMenu());
-        populateButton(result);
-        result.setDisplayState(commandDisplay.getState());
-        result.setHorizontalAlignment(commandDisplay.getHorizontalAlignment());
-        result.setHGapScaleFactor(commandDisplay.getHorizontalGapScaleFactor());
-        result.setVGapScaleFactor(commandDisplay.getVerticalGapScaleFactor());
-        result.setFlat(commandDisplay.isFlat());
-        if (commandDisplay.getCustomDimension() != null) {
-            result.updateCustomDimension(commandDisplay.getCustomDimension());
-        }
-        if (result instanceof JCommandButton) {
-            ((JCommandButton) result).setPopupOrientationKind(
-                    commandDisplay.getPopupOrientationKind());
-        }
-        return result;
-    }
-
-    /**
-     * @deprecated Use {@link CommandProjection#buildButton()}
-     */
-    @Deprecated
-    public AbstractCommandButton buildMenuButton() {
-        AbstractCommandButton result = createButton(true);
-        populateButton(result);
-        return result;
-    }
-
-    /**
-     * @deprecated Use {@link CommandProjection#buildButton()}
-     */
-    @Deprecated
-    public AbstractCommandButton buildMenuButton(FlamingoCommandDisplay commandDisplay) {
-        AbstractCommandButton result = createButton(true);
-        populateButton(result);
-        result.setDisplayState(commandDisplay.getState());
-        result.setHorizontalAlignment(commandDisplay.getHorizontalAlignment());
-        result.setHGapScaleFactor(commandDisplay.getHorizontalGapScaleFactor());
-        result.setVGapScaleFactor(commandDisplay.getVerticalGapScaleFactor());
-        result.setFlat(commandDisplay.isFlat());
-        if (commandDisplay.getCustomDimension() != null) {
-            result.updateCustomDimension(commandDisplay.getCustomDimension());
-        }
-        if (result instanceof JCommandButton) {
-            ((JCommandButton) result).setPopupOrientationKind(
-                    commandDisplay.getPopupOrientationKind());
-        }
-        return result;
-    }
-
     public interface CommandPreviewListener extends EventListener {
         void onCommandPreviewActivated(FlamingoCommand command);
 
         void onCommandPreviewCanceled(FlamingoCommand command);
-    }
-
-    /**
-     * @deprecated Use {@link CommandToggleGroupModel},
-     * {@link FlamingoCommandBuilder#inToggleGroup(CommandToggleGroupModel)}
-     * and {@link FlamingoCommand#getToggleGroupModel()}
-     */
-    @Deprecated
-    public static class FlamingoCommandToggleGroup {
-        public CommandToggleButtonGroup toggleButtonGroup = new CommandToggleButtonGroup();
     }
 
     public abstract static class BaseFlamingoCommandBuilder<T extends FlamingoCommand,
@@ -539,16 +325,13 @@ public class FlamingoCommand {
         protected String extraText;
         protected ActionListener action;
         protected RichTooltip actionRichTooltip;
-        protected String actionKeyTip;
         protected PopupPanelCallback popupCallback;
         protected RichTooltip popupRichTooltip;
-        protected String popupKeyTip;
         protected boolean isTitleClickAction;
         protected boolean isTitleClickPopup;
         protected boolean isEnabled = true;
         protected boolean isToggle;
         protected boolean isToggleSelected;
-        protected FlamingoCommandToggleGroup toggleGroup;
         protected CommandToggleGroupModel toggleGroupModel;
         protected boolean isAutoRepeatAction;
         protected boolean hasAutoRepeatIntervalsSet;
@@ -564,16 +347,13 @@ public class FlamingoCommand {
             command.extraText = this.extraText;
             command.action = this.action;
             command.actionRichTooltip = this.actionRichTooltip;
-            command.actionKeyTip = this.actionKeyTip;
             command.popupCallback = this.popupCallback;
             command.popupRichTooltip = this.popupRichTooltip;
-            command.popupKeyTip = this.popupKeyTip;
             command.isTitleClickAction = this.isTitleClickAction;
             command.isTitleClickPopup = this.isTitleClickPopup;
             command.isEnabled = this.isEnabled;
             command.isToggle = this.isToggle;
             command.isToggleSelected = this.isToggleSelected;
-            command.toggleGroup = this.toggleGroup;
             command.toggleGroupModel = this.toggleGroupModel;
             command.isAutoRepeatAction = this.isAutoRepeatAction;
             command.hasAutoRepeatIntervalsSet = this.hasAutoRepeatIntervalsSet;
@@ -618,11 +398,6 @@ public class FlamingoCommand {
             return (B) this;
         }
 
-        public B setActionKeyTip(String actionKeyTip) {
-            this.actionKeyTip = actionKeyTip;
-            return (B) this;
-        }
-
         public B setPopupCallback(PopupPanelCallback popupCallback) {
             this.popupCallback = popupCallback;
             return (B) this;
@@ -630,11 +405,6 @@ public class FlamingoCommand {
 
         public B setPopupRichTooltip(RichTooltip popupRichTooltip) {
             this.popupRichTooltip = popupRichTooltip;
-            return (B) this;
-        }
-
-        public B setPopupKeyTip(String popupKeyTip) {
-            this.popupKeyTip = popupKeyTip;
             return (B) this;
         }
 
@@ -661,15 +431,6 @@ public class FlamingoCommand {
         public B setToggleSelected(boolean toggleSelected) {
             this.isToggle = true;
             this.isToggleSelected = toggleSelected;
-            return (B) this;
-        }
-
-        /**
-         * @deprecated Use {@link #inToggleGroup(CommandToggleGroupModel)}
-         */
-        @Deprecated
-        public B inToggleGroup(FlamingoCommandToggleGroup toggleGroup) {
-            this.toggleGroup = toggleGroup;
             return (B) this;
         }
 

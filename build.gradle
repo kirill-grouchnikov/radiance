@@ -76,6 +76,10 @@ allprojects {
 
         options.deprecation = true
         options.compilerArgs += ['-Werror']
+
+        clean {
+            delete 'out'     // interpreted relative to the project directory
+        }
     }
 }
 

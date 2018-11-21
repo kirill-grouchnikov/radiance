@@ -61,11 +61,9 @@ open class KCommand {
     var action: ActionListener? by NullableDelegate { hasBeenConverted }
     var actionModelChangeListener: ActionModelChangeInterface? by NullableDelegate { hasBeenConverted }
     private var actionRichTooltip: KRichTooltip? by NullableDelegate { hasBeenConverted }
-    var actionKeyTip: String? by NullableDelegate { hasBeenConverted }
     var popupCallback: PopupPanelCallback? by NullableDelegate { hasBeenConverted }
     var popupModelChangeListener: PopupModelChangeInterface? by NullableDelegate { hasBeenConverted }
     private var popupRichTooltip: KRichTooltip? by NullableDelegate { hasBeenConverted }
-    var popupKeyTip: String? by NullableDelegate { hasBeenConverted }
     var isTitleClickAction: Boolean by NonNullDelegate { hasBeenConverted }
     var isTitleClickPopup: Boolean by NonNullDelegate { hasBeenConverted }
 
@@ -128,9 +126,6 @@ open class KCommand {
             builder.setActionRichTooltip(command.actionRichTooltip?.buildRichTooltip())
             builder.setPopupRichTooltip(command.popupRichTooltip?.buildRichTooltip())
 
-            builder.setActionKeyTip(command.actionKeyTip)
-            builder.setPopupKeyTip(command.popupKeyTip)
-
             builder.setPopupCallback(command.popupCallback)
 
             if (command.isTitleClickAction) {
@@ -160,11 +155,11 @@ open class KCommand {
         return builder.build()
     }
 
-    internal fun asBaseButton(): AbstractCommandButton {
+    internal fun asBaseButton(display: KCommandButtonPresentation): AbstractCommandButton {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
-        button = toFlamingoCommand().buildButton()
+        button = toFlamingoCommand().project(display.toCommandDisplay()).buildButton()
         if (actionModelChangeListener != null) {
             button.actionModel.addChangeListener {
                 actionModelChangeListener!!.stateChanged(button.actionModel)
@@ -179,11 +174,11 @@ open class KCommand {
         return button
     }
 
-    internal fun asBaseMenuButton(): AbstractCommandButton {
+    internal fun asBaseMenuButton(display: KCommandButtonPresentation): AbstractCommandButton {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
-        button = toFlamingoCommand().buildMenuButton()
+        button = toFlamingoCommand().project(display.toCommandDisplay()).buildButton()
         if (actionModelChangeListener != null) {
             button.actionModel.addChangeListener {
                 actionModelChangeListener!!.stateChanged(button.actionModel)

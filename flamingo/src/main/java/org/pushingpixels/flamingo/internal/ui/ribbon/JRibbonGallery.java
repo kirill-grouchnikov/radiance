@@ -279,7 +279,6 @@ public class JRibbonGallery extends JComponent {
      *
      * @param commandGroups Command groups.
      */
-    @SuppressWarnings("deprecation")
     private void setGroupMapping(List<CommandProjectionGroupModel> commandGroups) {
         for (CommandProjectionGroupModel commandGroupModel : commandGroups) {
             for (CommandProjection projection : commandGroupModel.getCommandProjections()) {
@@ -288,10 +287,6 @@ public class JRibbonGallery extends JComponent {
                     throw new IllegalStateException("Gallery command must be toggle");
                 }
                 if (command.getToggleGroupModel() != null) {
-                    throw new IllegalStateException(
-                            "Gallery toggle command should not be associated with a toggle group");
-                }
-                if (command.getToggleGroup() != null) {
                     throw new IllegalStateException(
                             "Gallery toggle command should not be associated with a toggle group");
                 }
@@ -336,7 +331,6 @@ public class JRibbonGallery extends JComponent {
         }
     }
 
-    @SuppressWarnings("deprecation")
     public static JCommandPopupMenu getExpandPopupMenu(
             RibbonGalleryContentModel galleryContentModel,
             RibbonGalleryPresentationModel galleryPresentationModel,

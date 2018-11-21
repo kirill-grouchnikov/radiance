@@ -43,7 +43,7 @@ public class JRibbonApplicationMenuPopupPanel extends JPopupPanel
      */
     public static final String uiClassID = "RibbonApplicationMenuPopupPanelUI";
 
-    protected RibbonApplicationMenu ribbonAppMenu;
+    private RibbonApplicationMenu ribbonAppMenu;
 
     public JRibbonApplicationMenuPopupPanel(RibbonApplicationMenu ribbonAppMenu) {
         this.ribbonAppMenu = ribbonAppMenu;

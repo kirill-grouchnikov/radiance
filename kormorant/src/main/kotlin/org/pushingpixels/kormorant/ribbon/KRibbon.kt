@@ -52,7 +52,7 @@ class KRibbonAnchoredCommandContainer {
         this@KRibbonAnchoredCommandContainer.commands.add(this)
     }
 
-    fun command(init: KCommand.() -> Unit): KCommand {
+    fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
         commands.add(command)
@@ -68,7 +68,7 @@ class KRibbonTaskbar {
         this@KRibbonTaskbar.components.add(this)
     }
 
-    fun command(init: KCommand.() -> Unit): KCommand {
+    fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
         components.add(command)
@@ -163,12 +163,12 @@ class KRibbonFrame {
         }
 
         for (anchoredCommand in anchoredCommands.commands) {
-            ribbonFrame.ribbon.addAnchoredCommand(anchoredCommand.toFlamingoCommand())
+            ribbonFrame.ribbon.addAnchoredCommand(anchoredCommand.toFlamingoCommand().project())
         }
 
         for (taskbarComponent in taskbar.components) {
             when (taskbarComponent) {
-                is KCommand -> ribbonFrame.ribbon.addTaskbarCommand(taskbarComponent.toFlamingoCommand())
+                is KCommand -> ribbonFrame.ribbon.addTaskbarCommand(taskbarComponent.toFlamingoCommand().project())
                 is KRibbonComponent -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent.asRibbonComponent())
                 is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonFrame.ribbon.addTaskbarSeparator()
             }

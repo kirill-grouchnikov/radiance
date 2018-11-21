@@ -90,7 +90,7 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
                         .build())
                 .setAction((ActionEvent e) -> JOptionPane.showMessageDialog(SmallCheckRibbon.this,
                         "Help button clicked"))
-                .build());
+                .build().project());
 
         group1 = new RibbonContextualTaskGroup("Group 1", Color.red,
                 getContextualRibbonTask("Group 1-1", "XA"),

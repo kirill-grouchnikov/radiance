@@ -40,7 +40,6 @@ import java.beans.*;
 public class CommandProjection {
     private FlamingoCommand command;
     private FlamingoCommandDisplay commandDisplay;
-    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public CommandProjection(FlamingoCommand command, FlamingoCommandDisplay commandDisplay) {
         this.command = command;
@@ -150,7 +149,7 @@ public class CommandProjection {
             });
         }
 
-        this.pcs.addPropertyChangeListener((PropertyChangeEvent evt) -> {
+        this.command.addPropertyChangeListener((PropertyChangeEvent evt) -> {
             if ("enabled".equals(evt.getPropertyName())) {
                 button.setEnabled((Boolean) evt.getNewValue());
             }

@@ -93,13 +93,7 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
      */
     private List<Component> menuComponents;
 
-    /**
-     * Creates an empty popup menu with no button panel.
-     *
-     * @deprecated Use {@link #JCommandPopupMenu(CommandPopupMenuContentModel, CommandPopupMenuPresentationModel)}
-     */
-    @Deprecated
-    public JCommandPopupMenu() {
+    protected JCommandPopupMenu() {
         this.menuComponents = new ArrayList<>();
 
         this.popupMenuPresentationModel = CommandPopupMenuPresentationModel.builder()
@@ -136,17 +130,19 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
                 this.popupMenuContentModel.getCommandGroups();
         for (int i = 0; i < commandGroups.size(); i++) {
             for (CommandProjection projection : commandGroups.get(i).getCommandProjections()) {
-                if (!projection.getCommandDisplay().isMenu()) {
-                    throw new IllegalStateException("Command " + projection.getCommand().getTitle()
-                            + " is not configured to be projected in menu");
-                }
+                // Overlay the supplied projection command display to create menu content
+                FlamingoCommandDisplay withOverlay = projection.getCommandDisplay().overlayWith(
+                        FlamingoCommandDisplay.overlay().setMenu(true));
+                // Reproject to use the overlay
+                CommandProjection projectionWithOverlay = projection.reproject(withOverlay);
+                // And create a button that can be used in this popup menu
+                AbstractCommandButton commandButton = projectionWithOverlay.buildButton();
 
-                AbstractCommandButton commandButton = projection.buildButton();
-
-                // highlight?
+                // Need to highlight it?
                 FlamingoCommand highlightedCommand =
                         this.popupMenuPresentationModel.getHighlightedCommand();
                 if (projection.getCommand() == highlightedCommand) {
+                    // Use bold font
                     commandButton.setFont(commandButton.getFont().deriveFont(Font.BOLD));
                 }
 
