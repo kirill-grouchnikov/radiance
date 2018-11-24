@@ -68,8 +68,6 @@ class KCommandPopupMenuButtonPanel {
 
 @FlamingoElementMarker
 class KCommandPopupMenu {
-    internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?)
-
     private lateinit var popupMenu: JCommandPopupMenu
     private var hasBeenConverted: Boolean = false
 
@@ -97,11 +95,11 @@ class KCommandPopupMenu {
         commandPanel!!.init()
     }
 
-    fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
-        // TODO - handle action key tip
+    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+            init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        defaultGroup.commands.add(command)
+        defaultGroup.commands.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip))
         return command
     }
 
@@ -129,36 +127,8 @@ class KCommandPopupMenu {
         if (defaultGroup.commands.isEmpty()) {
             groups.remove(defaultGroup)
         }
+
         val commandGroupModels = groups.map { it.toCommandGroupModel() }
-//        for (group in groups) {
-//            // skip empty default group
-//            if ((group == defaultGroup) && group.content.isEmpty()) {
-//                continue
-//            }
-//        }
-//
-//        val commandGroupModels = ArrayList<CommandGroupModel>()
-//        var currCommandGroupModel = CommandGroupModel()
-//        for (component in components) {
-//            when (component) {
-//                is KCommandPopupMenuSeparator -> {
-//                    commandGroupModels.add(currCommandGroupModel)
-//                    currCommandGroupModel = CommandGroupModel()
-//                }
-//                is CommandConfig -> {
-//                    val flamingoCommand = component.command.toFlamingoCommand()
-//                    // TODO - wire on the correct display
-//                    if (component.actionKeyTip != null) {
-//                        flamingoCommand.actionKeyTip = component.actionKeyTip
-//                    }
-//                    currCommandGroupModel.addCommandProjection(flamingoCommand)
-//                }
-//                else -> throw IllegalStateException("Unsupported content")
-//            }
-//        }
-//        if (!currCommandGroupModel.commandList.isEmpty()) {
-//            commandGroupModels.add(currCommandGroupModel)
-//        }
 
         popupMenu = JCommandPopupMenu(
                 CommandPopupMenuContentModel(commandPanel?.getContentModel(), commandGroupModels),

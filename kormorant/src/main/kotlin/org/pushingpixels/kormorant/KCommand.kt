@@ -29,11 +29,9 @@
  */
 package org.pushingpixels.kormorant
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton
-import org.pushingpixels.flamingo.api.common.FlamingoCommand
-import org.pushingpixels.flamingo.api.common.JCommandButton
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton
+import org.pushingpixels.flamingo.api.common.*
 import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
+import org.pushingpixels.flamingo.api.common.model.CommandProjection
 import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
@@ -208,23 +206,33 @@ fun command(init: KCommand.() -> Unit): KCommand {
 @FlamingoElementMarker
 class KCommandGroup {
     var title: String? by NullableDelegate { false }
-    internal val commands = arrayListOf<KCommand>()
+    internal val commands = arrayListOf<CommandConfig>()
 
-    operator fun KCommand.unaryPlus() {
-        this@KCommandGroup.commands.add(this)
+    internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?, val popupKeyTip: String?) {
+        fun toProjection(): CommandProjection {
+            return command.toFlamingoCommand().project(
+                    FlamingoCommandDisplay.builder()
+                            .setActionKeyTip(actionKeyTip)
+                            .setPopupKeyTip(popupKeyTip)
+                            .build())
+        }
     }
 
-    fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
-        // TODO: handle action key tip override
+    operator fun KCommand.unaryPlus() {
+        this@KCommandGroup.commands.add(CommandConfig(this, null, null))
+    }
+
+    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+            init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        commands.add(command)
+        commands.add(CommandConfig(command, actionKeyTip, popupKeyTip))
         return command
     }
 
     fun toCommandGroupModel(): CommandProjectionGroupModel {
         return CommandProjectionGroupModel(title,
-                commands.map { it -> it.toFlamingoCommand().project() })
+                commands.map { it -> it.toProjection() })
     }
 }
 

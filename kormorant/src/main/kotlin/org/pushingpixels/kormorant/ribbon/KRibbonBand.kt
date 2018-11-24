@@ -32,8 +32,6 @@ package org.pushingpixels.kormorant.ribbon
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.FlamingoCommand
 import org.pushingpixels.flamingo.api.common.FlamingoCommandDisplay
-import org.pushingpixels.flamingo.api.common.JCommandButton
-import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
@@ -57,84 +55,6 @@ class KRibbonBandExpandCommand {
             richTooltip = KRichTooltip()
         }
         (richTooltip as KRichTooltip).init()
-    }
-}
-
-@FlamingoElementMarker
-class GalleryCommandVisibilityContainer {
-    internal val policies = arrayListOf<Pair<Int, RibbonElementPriority>>()
-
-    infix fun Int.at(priority: RibbonElementPriority) {
-        policies.add(Pair(this, priority))
-    }
-}
-
-@FlamingoElementMarker
-class KRibbonGalleryPresentation {
-    var state: CommandButtonDisplayState = CommandButtonDisplayState.FIT_TO_ICON
-    var preferredPopupMaxCommandColumns: Int? by NullableDelegate { false }
-    var preferredPopupMaxVisibleCommandRows: Int? by NullableDelegate { false }
-    internal val commandVisibilityContainer = GalleryCommandVisibilityContainer()
-
-    fun commandVisibilities(init: GalleryCommandVisibilityContainer.() -> Unit) {
-        commandVisibilityContainer.init()
-    }
-
-
-    internal fun toRibbonGalleryPresentationModel(): RibbonGalleryPresentationModel {
-        val presentationModelBuilder = RibbonGalleryPresentationModel.builder()
-
-        presentationModelBuilder.setCommandDisplayState(this.state)
-        presentationModelBuilder.setPreferredPopupMaxCommandColumns(this.preferredPopupMaxCommandColumns!!)
-        presentationModelBuilder.setPreferredPopupMaxVisibleCommandRows(this.preferredPopupMaxVisibleCommandRows!!)
-        presentationModelBuilder.setPreferredVisibleCommandCounts(
-                this.commandVisibilityContainer.policies.map { it.second to it.first }.toMap())
-
-        return presentationModelBuilder.build()
-    }
-}
-
-@FlamingoElementMarker
-class KRibbonGalleryExtraPopupContent {
-    internal val components = arrayListOf<Any>()
-
-    fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
-        val command = KCommand()
-        command.init()
-        components.add(command)
-        return command
-    }
-
-    fun separator() {
-        components.add(KCommandPopupMenu.KCommandPopupMenuSeparator())
-    }
-}
-
-@FlamingoElementMarker
-class KRibbonGallery {
-    var title: String by NonNullDelegate { false }
-    var icon: ResizableIcon? by NullableDelegate { false }
-    internal val presentation: KRibbonGalleryPresentation = KRibbonGalleryPresentation()
-    var expandKeyTip: String? by NullableDelegate { false }
-    internal val commandGroups = arrayListOf<KCommandGroup>()
-    internal val extraPopupContent: KRibbonGalleryExtraPopupContent = KRibbonGalleryExtraPopupContent()
-    var onCommandActivated: ((FlamingoCommand) -> Unit)? by NullableDelegate { false }
-    var onCommandPreviewActivated: ((FlamingoCommand) -> Unit)? by NullableDelegate { false }
-    var onCommandPreviewCanceled: ((FlamingoCommand) -> Unit)? by NullableDelegate { false }
-
-    fun presentation(init: KRibbonGalleryPresentation.() -> Unit) {
-        presentation.init()
-    }
-
-    fun commandGroup(init: KCommandGroup.() -> Unit): KCommandGroup {
-        val commandGroup = KCommandGroup()
-        commandGroup.init()
-        commandGroups.add(commandGroup)
-        return commandGroup
-    }
-
-    fun extraPopupContent(init: KRibbonGalleryExtraPopupContent.() -> Unit) {
-        extraPopupContent.init()
     }
 }
 
@@ -287,47 +207,11 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                         // Get the presentation model
                         val galleryPresentationModel = content.presentation.toRibbonGalleryPresentationModel()
 
-                        // Map primary gallery commands to the command group models expected for the content model
-                        val galleryContentModel = RibbonGalleryContentModel(this.icon,
-                                content.commandGroups.map { it.toCommandGroupModel() })
+                        // Get the content model
+                        val galleryContentModel = content.content.toRibbonGalleryContentModel()
 
-                        // Wire extra popup content if we have it
-                        if (!content.extraPopupContent.components.isEmpty()) {
-                            var extraPopupContentGroup =
-                                    CommandProjectionGroupModel()
-                            for (extraContent in content.extraPopupContent.components) {
-                                when (extraContent) {
-                                    is KCommand -> extraPopupContentGroup.addCommandProjection(
-                                            extraContent.toFlamingoCommand().project())
-                                    is KCommandPopupMenu.KCommandPopupMenuSeparator -> {
-                                        galleryContentModel.addExtraPopupCommandGroup(extraPopupContentGroup)
-                                        extraPopupContentGroup =
-                                                CommandProjectionGroupModel()
-                                    }
-                                }
-                            }
-                            if (!extraPopupContentGroup.commandProjections.isEmpty()) {
-                                galleryContentModel.addExtraPopupCommandGroup(extraPopupContentGroup)
-                            }
-                        }
-
-                        // Wire command preview and activation listeners
-                        galleryContentModel.addCommandPreviewListener(
-                                object : RibbonGalleryContentModel.GalleryCommandPreviewListener {
-                                    override fun onCommandPreviewActivated(command: FlamingoCommand) {
-                                        content.onCommandPreviewActivated?.invoke(command)
-                                    }
-
-                                    override fun onCommandPreviewCanceled(command: FlamingoCommand) {
-                                        content.onCommandPreviewCanceled?.invoke(command)
-                                    }
-                                }
-                        )
-                        if (content.onCommandActivated != null) {
-                            galleryContentModel.addCommandActivationListener(content.onCommandActivated)
-                        }
-
-                        ribbonBand.addRibbonGallery(content.title, galleryContentModel, galleryPresentationModel,
+                        ribbonBand.addRibbonGallery(content.content.title, galleryContentModel,
+                                galleryPresentationModel,
                                 priority, content.expandKeyTip)
                     }
                 }

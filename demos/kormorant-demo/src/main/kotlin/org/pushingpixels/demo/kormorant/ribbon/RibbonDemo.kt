@@ -288,38 +288,111 @@ private class RibbonDemoBuilder {
     var resourceBundle = ResourceBundle.getBundle(
             "org.pushingpixels.demo.kormorant.resources.Resources", currLocale)
     lateinit var rulerPanel: RulerPanel
-    var documentNewCommand: KCommand
-    var pasteCommand: KCommand
-    
-    init {
-        documentNewCommand = command {}
-        pasteCommand = command {}
+    val documentNewCommand: KCommand
+    val pasteCommand: KCommand
+    val styleGalleryContentModel: KRibbonGalleryContent
 
-//        documentNewCommand = command {
-//            title = resourceBundle.getString("DocumentNew.text")
-//            iconFactory = Document_new.factory()
-//            action = ActionListener { println("Document New activated") }
-//        }
-//
-//        pasteCommand = command {
-//            title = resourceBundle.getString("Paste.text")
-//            icon = Edit_paste.of(16, 16)
-//            action = ActionListener { println("Pasted!") }
-//            actionRichTooltip {
-//                title = resourceBundle.getString("Paste.text")
-//                description {
-//                    +resourceBundle.getString("Paste.tooltip.actionParagraph1")
-//                }
-//            }
-//            popupCallback = getSimplePopupMenu()
-//            popupRichTooltip {
-//                title = resourceBundle.getString("Paste.text")
-//                description {
-//                    +resourceBundle.getString("Paste.tooltip.popupParagraph1")
-//                }
-//            }
-//            isTitleClickAction = true
-//        }
+    init {
+        documentNewCommand = command {
+            title = resourceBundle.getString("DocumentNew.text")
+            iconFactory = Document_new.factory()
+            action = ActionListener { println("Document New activated") }
+        }
+
+        pasteCommand = command {
+            title = resourceBundle.getString("Paste.text")
+            iconFactory = Edit_paste.factory()
+            action = ActionListener { println("Pasted!") }
+            actionRichTooltip {
+                title = resourceBundle.getString("Paste.text")
+                description {
+                    +resourceBundle.getString("Paste.tooltip.actionParagraph1")
+                }
+            }
+            popupCallback = getSimplePopupMenu()
+            popupRichTooltip {
+                title = resourceBundle.getString("Paste.text")
+                description {
+                    +resourceBundle.getString("Paste.tooltip.popupParagraph1")
+                }
+            }
+            isTitleClickAction = true
+        }
+
+        val mfButtonText = MessageFormat(
+                resourceBundle.getString("StylesGallery.textButton"))
+        mfButtonText.locale = currLocale
+
+        styleGalleryContentModel = galleryContent {
+            title = "Styles"
+            commandGroup {
+                title = resourceBundle.getString("StylesGallery.textGroupTitle1")
+                for (i in 0 until 10) {
+                    command {
+                        title = mfButtonText.format(arrayOf<Any>(i))
+                        icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
+                                DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
+                                    graphics.render {
+                                        it.color = Color.black
+                                        NeonCortex.installDesktopHints(it, component)
+                                        it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                .getFontSet(null).controlFont
+                                        it.drawString("$i", x + 2, y + height - 2)
+                                    }
+                                }
+                        )
+                        isToggle = (i != 1)
+                        isToggleSelected = (i == 1)
+                    }
+                }
+            }
+            commandGroup {
+                title = resourceBundle.getString("StylesGallery.textGroupTitle2")
+                for (i in 10 until 30) {
+                    command {
+                        title = mfButtonText.format(arrayOf<Any>(i))
+                        icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
+                                DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
+                                    graphics.render {
+                                        it.color = Color.black
+                                        NeonCortex.installDesktopHints(it, component)
+                                        it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                .getFontSet(null).controlFont
+                                        it.drawString("$i", x + 2, y + height - 2)
+                                    }
+                                }
+                        )
+                        isToggle = true
+                    }
+                }
+            }
+
+            onCommandActivated = { command -> println("*** Command '" + command.title + "' activated! ***") }
+            onCommandPreviewActivated = { command -> println("Preview activated for '" + command.title + "'") }
+            onCommandPreviewCanceled = { command -> println("Preview canceled for '" + command.title + "'") }
+
+            extraPopupGroup {
+                command(actionKeyTip = "SS") {
+                    title = resourceBundle.getString("Format.menuSaveSelection.text")
+                    icon = EmptyResizableIcon(16)
+                    action = ActionListener { println("Save Selection activated") }
+                }
+
+                command(actionKeyTip = "SC") {
+                    title = resourceBundle.getString("Format.menuClearSelection.text")
+                    icon = EmptyResizableIcon(16)
+                    action = ActionListener { println("Clear Selection activated") }
+                }
+            }
+
+            extraPopupGroup {
+                command(actionKeyTip = "SA") {
+                    title = resourceBundle.getString("Format.applyStyles.text")
+                    icon = Font_x_generic.of(16, 16)
+                    action = ActionListener { println("Apply Styles activated") }
+                }
+            }
+        }
     }
 
     fun getControlPanel(ribbonFrame: JRibbonFrame): JPanel {
@@ -564,10 +637,6 @@ private class RibbonDemoBuilder {
     }
 
     fun getQuickStylesBand(): KRibbonBand {
-        val mfButtonText = MessageFormat(
-                resourceBundle.getString("StylesGallery.textButton"))
-        mfButtonText.locale = currLocale
-
         val defaultColor = Color(0xEE, 0xEE, 0xEE)
         val myColorSelectorCallback = object : JColorSelectorPopupMenu.ColorSelectorCallback {
             override fun onColorSelected(color: Color) {
@@ -587,7 +656,8 @@ private class RibbonDemoBuilder {
             collapsedStateKeyTip = "ZS"
 
             gallery(priority = RibbonElementPriority.TOP) {
-                title = "Styles"
+                content = styleGalleryContentModel
+
                 presentation {
                     state = JRibbonBand.BIG_FIXED_LANDSCAPE
                     preferredPopupMaxCommandColumns = 3
@@ -596,73 +666,6 @@ private class RibbonDemoBuilder {
                         1 at RibbonElementPriority.LOW
                         2 at RibbonElementPriority.MEDIUM
                         2 at RibbonElementPriority.TOP
-                    }
-                }
-                commandGroup {
-                    title = resourceBundle.getString("StylesGallery.textGroupTitle1")
-                    for (i in 0 until 10) {
-                        command {
-                            title = mfButtonText.format(arrayOf<Any>(i))
-                            icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
-                                    DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
-                                        graphics.render {
-                                            it.color = Color.black
-                                            NeonCortex.installDesktopHints(it, component)
-                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                    .getFontSet(null).controlFont
-                                            it.drawString("$i", x + 2, y + height - 2)
-                                        }
-                                    }
-                            )
-                            isToggle = (i != 1)
-                            isToggleSelected = (i == 1)
-                        }
-                    }
-                }
-                commandGroup {
-                    title = resourceBundle.getString("StylesGallery.textGroupTitle2")
-                    for (i in 10 until 30) {
-                        command {
-                            title = mfButtonText.format(arrayOf<Any>(i))
-                            icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
-                                    DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
-                                        graphics.render {
-                                            it.color = Color.black
-                                            NeonCortex.installDesktopHints(it, component)
-                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                    .getFontSet(null).controlFont
-                                            it.drawString("$i", x + 2, y + height - 2)
-                                        }
-                                    }
-                            )
-                            isToggle = true
-                        }
-                    }
-                }
-
-                onCommandActivated = { command -> println("*** Command '" + command.title + "' activated! ***") }
-                onCommandPreviewActivated = { command -> println("Preview activated for '" + command.title + "'") }
-                onCommandPreviewCanceled = { command -> println("Preview canceled for '" + command.title + "'") }
-
-                extraPopupContent {
-                    command(actionKeyTip = "SS") {
-                        title = resourceBundle.getString("Format.menuSaveSelection.text")
-                        icon = EmptyResizableIcon(16)
-                        action = ActionListener { println("Save Selection activated") }
-                    }
-
-                    command(actionKeyTip = "SC") {
-                        title = resourceBundle.getString("Format.menuClearSelection.text")
-                        icon = EmptyResizableIcon(16)
-                        action = ActionListener { println("Clear Selection activated") }
-                    }
-
-                    separator()
-
-                    command(actionKeyTip = "SA") {
-                        title = resourceBundle.getString("Format.applyStyles.text")
-                        icon = Font_x_generic.of(16, 16)
-                        action = ActionListener { println("Apply Styles activated") }
                     }
                 }
 
@@ -1315,7 +1318,6 @@ private class RibbonDemoBuilder {
             icon = SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32)
 
             gallery(RibbonElementPriority.TOP) {
-                title = "Transitions"
                 presentation {
                     state = CommandButtonDisplayState.SMALL
                     preferredPopupMaxCommandColumns = 6
@@ -1327,52 +1329,56 @@ private class RibbonDemoBuilder {
                     }
                 }
 
-                commandGroup {
-                    title = resourceBundle.getString("TransitionGallery.textGroupTitle1")
-                    for (i in 1..40) {
-                        command {
-                            icon = DecoratedResizableIcon(Appointment_new.of(16, 16),
-                                    DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
-                                        g.render {
-                                            NeonCortex.installDesktopHints(it, c)
-                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                    .getFontSet(null).controlFont.deriveFont(9.0f)
-                                            it.color = Color.black
-                                            it.drawString("" + i, x + 1, y + height - 2)
-                                            it.drawString("" + i, x + 3, y + height - 2)
-                                            it.drawString("" + i, x + 2, y + height - 1)
-                                            it.drawString("" + i, x + 2, y + height - 3)
-                                            it.color = Color.white
-                                            it.drawString("" + i, x + 2, y + height - 2)
-                                        }
-                                    })
-                            action = ActionListener { println("Activated action $i") }
-                            isToggle = true
+                content {
+                    title = "Transitions"
+
+                    commandGroup {
+                        title = resourceBundle.getString("TransitionGallery.textGroupTitle1")
+                        for (i in 1..40) {
+                            command {
+                                icon = DecoratedResizableIcon(Appointment_new.of(16, 16),
+                                        DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
+                                            g.render {
+                                                NeonCortex.installDesktopHints(it, c)
+                                                it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                        .getFontSet(null).controlFont.deriveFont(9.0f)
+                                                it.color = Color.black
+                                                it.drawString("" + i, x + 1, y + height - 2)
+                                                it.drawString("" + i, x + 3, y + height - 2)
+                                                it.drawString("" + i, x + 2, y + height - 1)
+                                                it.drawString("" + i, x + 2, y + height - 3)
+                                                it.color = Color.white
+                                                it.drawString("" + i, x + 2, y + height - 2)
+                                            }
+                                        })
+                                action = ActionListener { println("Activated action $i") }
+                                isToggle = true
+                            }
                         }
                     }
-                }
 
-                commandGroup {
-                    title = resourceBundle.getString("TransitionGallery.textGroupTitle2")
-                    for (i in 41..70) {
-                        command {
-                            icon = DecoratedResizableIcon(Appointment_new.of(16, 16),
-                                    DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
-                                        g.render {
-                                            NeonCortex.installDesktopHints(it, c)
-                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                    .getFontSet(null).controlFont.deriveFont(9.0f)
-                                            it.color = Color.black
-                                            it.drawString("" + i, x + 1, y + height - 2)
-                                            it.drawString("" + i, x + 3, y + height - 2)
-                                            it.drawString("" + i, x + 2, y + height - 1)
-                                            it.drawString("" + i, x + 2, y + height - 3)
-                                            it.color = Color.white
-                                            it.drawString("" + i, x + 2, y + height - 2)
-                                        }
-                                    })
-                            action = ActionListener { println("Activated action $i") }
-                            isToggle = true
+                    commandGroup {
+                        title = resourceBundle.getString("TransitionGallery.textGroupTitle2")
+                        for (i in 41..70) {
+                            command {
+                                icon = DecoratedResizableIcon(Appointment_new.of(16, 16),
+                                        DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
+                                            g.render {
+                                                NeonCortex.installDesktopHints(it, c)
+                                                it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                        .getFontSet(null).controlFont.deriveFont(9.0f)
+                                                it.color = Color.black
+                                                it.drawString("" + i, x + 1, y + height - 2)
+                                                it.drawString("" + i, x + 3, y + height - 2)
+                                                it.drawString("" + i, x + 2, y + height - 1)
+                                                it.drawString("" + i, x + 2, y + height - 3)
+                                                it.color = Color.white
+                                                it.drawString("" + i, x + 2, y + height - 2)
+                                            }
+                                        })
+                                action = ActionListener { println("Activated action $i") }
+                                isToggle = true
+                            }
                         }
                     }
                 }

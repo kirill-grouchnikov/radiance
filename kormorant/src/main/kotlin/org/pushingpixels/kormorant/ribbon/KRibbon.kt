@@ -45,22 +45,6 @@ class KRibbonTaskContainer {
 }
 
 @FlamingoElementMarker
-class KRibbonAnchoredCommandContainer {
-    internal val commands = arrayListOf<KCommand>()
-
-    operator fun KCommand.unaryPlus() {
-        this@KRibbonAnchoredCommandContainer.commands.add(this)
-    }
-
-    fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
-        val command = KCommand()
-        command.init()
-        commands.add(command)
-        return command
-    }
-}
-
-@FlamingoElementMarker
 class KRibbonTaskbar {
     internal val components = arrayListOf<Any>()
 
@@ -68,15 +52,16 @@ class KRibbonTaskbar {
         this@KRibbonTaskbar.components.add(this)
     }
 
-    fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
+    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+            init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        components.add(command)
+        components.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip))
         return command
     }
 
-    fun command(actionKeyTip: String? = null, command: KCommand): KCommand {
-        components.add(command)
+    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null, command: KCommand): KCommand {
+        components.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip))
         return command
     }
 
@@ -129,7 +114,7 @@ class KRibbonFrame {
     var applicationIcon: ResizableIcon? by NullableDelegate { hasBeenConverted }
     private val tasks = KRibbonTaskContainer()
     private val contextualTaskGroups = KRibbonContextualTaskGroupContainer()
-    private val anchoredCommands = KRibbonAnchoredCommandContainer()
+    private val anchoredCommands = KCommandGroup()
     private val taskbar = KRibbonTaskbar()
     private val applicationMenu = KRibbonApplicationMenu()
 
@@ -144,7 +129,7 @@ class KRibbonFrame {
         contextualTaskGroups.init()
     }
 
-    fun anchored(init: KRibbonAnchoredCommandContainer.() -> Unit) {
+    fun anchored(init: KCommandGroup.() -> Unit) {
         anchoredCommands.init()
     }
 
@@ -168,12 +153,12 @@ class KRibbonFrame {
         }
 
         for (anchoredCommand in anchoredCommands.commands) {
-            ribbonFrame.ribbon.addAnchoredCommand(anchoredCommand.toFlamingoCommand().project())
+            ribbonFrame.ribbon.addAnchoredCommand(anchoredCommand.toProjection())
         }
 
         for (taskbarComponent in taskbar.components) {
             when (taskbarComponent) {
-                is KCommand -> ribbonFrame.ribbon.addTaskbarCommand(taskbarComponent.toFlamingoCommand().project())
+                is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(taskbarComponent.toProjection())
                 is KRibbonComponent -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent.asRibbonComponent())
                 is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonFrame.ribbon.addTaskbarSeparator()
             }
