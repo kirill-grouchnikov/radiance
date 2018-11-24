@@ -8,6 +8,7 @@ import org.pushingpixels.neon.icon.IsHiDpiAware
 import org.pushingpixels.neon.icon.NeonIcon
 import org.pushingpixels.neon.icon.NeonIconUIResource
 import org.pushingpixels.neon.icon.ResizableIcon
+import org.pushingpixels.neon.icon.ResizableIconFactory
 
 /**
  * This class has been automatically generated using <a
@@ -87,6 +88,15 @@ class TOKEN_CLASSNAME(private var width: Int, private var height: Int) : Resizab
          */
         fun uiResourceOf(width: Int, height: Int): NeonIconUIResource {
             return NeonIconUIResource(TOKEN_CLASSNAME(width, height))
+        }
+
+        /**
+         * Returns a factory that returns instances of this icon on demand.
+         *
+         * @return Factory that returns instances of this icon on demand.
+         */
+        fun factory(): ResizableIconFactory {
+            return ResizableIconFactory { NeonIcon(TOKEN_CLASSNAME(16, 16)) }
         }
     }
 

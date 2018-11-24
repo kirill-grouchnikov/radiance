@@ -75,6 +75,11 @@ class KRibbonTaskbar {
         return command
     }
 
+    fun command(actionKeyTip: String? = null, command: KCommand): KCommand {
+        components.add(command)
+        return command
+    }
+
     fun ribbonComponent(init: KRibbonComponent.() -> Unit): KRibbonComponent {
         val ribbonComponent = KRibbonComponent()
         ribbonComponent.init()

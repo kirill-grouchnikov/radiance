@@ -138,7 +138,7 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
     /**
      * The button group for the single selection mode.
      */
-    private CommandToggleButtonGroup buttonGroup;
+    private CommandToggleGroupModel buttonGroup;
 
     /**
      * Enumerates the available layout kinds.
@@ -197,7 +197,7 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
         this.removeAll();
 
         if (this.panelContentModel.isSingleSelectionMode()) {
-            this.buttonGroup = new CommandToggleButtonGroup();
+            this.buttonGroup = new CommandToggleGroupModel();
         } else {
             this.buttonGroup = null;
         }
@@ -234,29 +234,30 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
                 }
 
                 button.putClientProperty(COMMAND, projection.getCommand());
-                this.addButtonToLastGroup(button);
+                this.addButtonToLastGroup(projection.getCommand(), button);
             }
             groupIndex++;
         }
     }
 
-    private int addButtonToLastGroup(AbstractCommandButton commandButton) {
+    private int addButtonToLastGroup(FlamingoCommand command,
+            AbstractCommandButton commandButton) {
         if (this.groupTitles.size() == 0) {
             return -1;
         }
         int groupIndex = this.groupTitles.size() - 1;
         return this.addButtonToGroup(this.groupTitles.get(groupIndex),
-                this.buttons.get(groupIndex).size(), commandButton);
+                this.buttons.get(groupIndex).size(), command, commandButton);
     }
 
     protected int addCommandToLastGroup(FlamingoCommand command) {
         AbstractCommandButton button = command.project(createCommandDisplay()).buildButton();
         button.putClientProperty(COMMAND, command);
-        return this.addButtonToLastGroup(button);
+        return this.addButtonToLastGroup(command, button);
     }
 
     private int addButtonToGroup(String buttonGroupName, int indexInGroup,
-            AbstractCommandButton commandButton) {
+            FlamingoCommand command, AbstractCommandButton commandButton) {
         int groupIndex = this.groupTitles.indexOf(buttonGroupName);
         if (groupIndex < 0) {
             return -1;
@@ -266,8 +267,8 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
         this.add(commandButton);
         this.buttons.get(groupIndex).add(indexInGroup, commandButton);
         if (this.panelContentModel.isSingleSelectionMode()
-                && (commandButton instanceof JCommandToggleButton)) {
-            this.buttonGroup.add((JCommandToggleButton) commandButton);
+                && command.isToggle()) {
+            this.buttonGroup.add(command);
         }
         this.fireStateChanged();
         return indexInGroup;

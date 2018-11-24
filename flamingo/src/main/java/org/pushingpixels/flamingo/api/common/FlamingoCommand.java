@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.api.common;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 
 import javax.swing.event.*;
 import java.awt.event.ActionListener;
@@ -49,7 +49,9 @@ import java.util.EventListener;
 public class FlamingoCommand {
     private String title;
     private ResizableIcon icon;
+    private ResizableIconFactory iconFactory;
     private ResizableIcon disabledIcon;
+    private ResizableIconFactory disabledIconFactory;
     private String extraText;
     private ActionListener action;
     private RichTooltip actionRichTooltip;
@@ -135,8 +137,16 @@ public class FlamingoCommand {
         return this.icon;
     }
 
+    public ResizableIconFactory getIconFactory() {
+        return this.iconFactory;
+    }
+
     public ResizableIcon getDisabledIcon() {
         return this.disabledIcon;
+    }
+
+    public ResizableIconFactory getDisabledIconFactory() {
+        return this.disabledIconFactory;
     }
 
     public String getExtraText() {
@@ -321,7 +331,9 @@ public class FlamingoCommand {
             B extends BaseFlamingoCommandBuilder> {
         protected String title;
         protected ResizableIcon icon;
+        protected ResizableIconFactory iconFactory;
         protected ResizableIcon disabledIcon;
+        protected ResizableIconFactory disabledIconFactory;
         protected String extraText;
         protected ActionListener action;
         protected RichTooltip actionRichTooltip;
@@ -343,7 +355,9 @@ public class FlamingoCommand {
         protected void configureBaseCommand(FlamingoCommand command) {
             command.title = this.title;
             command.icon = this.icon;
+            command.iconFactory = this.iconFactory;
             command.disabledIcon = this.disabledIcon;
+            command.disabledIconFactory = this.disabledIconFactory;
             command.extraText = this.extraText;
             command.action = this.action;
             command.actionRichTooltip = this.actionRichTooltip;
@@ -378,8 +392,18 @@ public class FlamingoCommand {
             return (B) this;
         }
 
+        public B setIconFactory(ResizableIconFactory iconFactory) {
+            this.iconFactory = iconFactory;
+            return (B) this;
+        }
+
         public B setDisabledIcon(ResizableIcon disabledIcon) {
             this.disabledIcon = disabledIcon;
+            return (B) this;
+        }
+
+        public B setDisabledIconFactory(ResizableIconFactory iconFactory) {
+            this.disabledIconFactory = iconFactory;
             return (B) this;
         }
 

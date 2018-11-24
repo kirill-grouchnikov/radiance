@@ -35,9 +35,7 @@ import javax.swing.event.*;
 import java.util.*;
 
 /**
- * Group of toggle commands. Unlike the
- * {@link org.pushingpixels.flamingo.api.common.CommandToggleButtonGroup}, this class
- * operates on commands and not buttons.
+ * Group of toggle commands.
  *
  * @author Kirill Grouchnikov
  */

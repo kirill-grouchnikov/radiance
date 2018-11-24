@@ -35,7 +35,7 @@ import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.event.*;
 import java.awt.event.ActionListener;
-import java.beans.*;
+import java.beans.PropertyChangeEvent;
 
 public class CommandProjection {
     private FlamingoCommand command;
@@ -60,7 +60,9 @@ public class CommandProjection {
 
     private AbstractCommandButton createButton() {
         String title = this.command.getTitle();
-        ResizableIcon icon = this.command.getIcon();
+        ResizableIcon icon = (this.command.getIconFactory() != null)
+                ? this.command.getIconFactory().createNewIcon()
+                : this.command.getIcon();
 
         AbstractCommandButton result = commandDisplay.isMenu()
                 ? (this.command.isToggle() ? new JCommandToggleMenuButton(title, icon)
@@ -80,7 +82,9 @@ public class CommandProjection {
     }
 
     private void populateButton(AbstractCommandButton button) {
-        if (this.command.getDisabledIcon() != null) {
+        if (this.command.getDisabledIconFactory() != null) {
+            button.setDisabledIcon(this.command.getDisabledIconFactory().createNewIcon());
+        } else if (this.command.getDisabledIcon() != null) {
             button.setDisabledIcon(this.command.getDisabledIcon());
         }
 

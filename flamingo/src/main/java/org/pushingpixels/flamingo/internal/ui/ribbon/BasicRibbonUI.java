@@ -1089,8 +1089,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
         for (final RibbonTask task : visibleTasks) {
             final JRibbonTaskToggleButton taskToggleButton = new JRibbonTaskToggleButton(task);
             taskToggleButton.setKeyTip(task.getKeyTip());
-            // wire listener to select the task when the button is
-            // selected
+            // wire listener to select the task when the button is selected
             taskToggleButton.addActionListener((ActionEvent e) -> {
                 SwingUtilities.invokeLater(() -> {
                     scrollAndRevealTaskToggleButton(taskToggleButton);

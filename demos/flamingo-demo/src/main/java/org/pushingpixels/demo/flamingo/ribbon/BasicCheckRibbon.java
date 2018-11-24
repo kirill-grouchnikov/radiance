@@ -66,6 +66,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
     private RibbonGalleryContentModel styleGalleryContentModel;
 
+    private FlamingoCommand pasteCommand;
+
     private class ExpandActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             JOptionPane.showMessageDialog(BasicCheckRibbon.this, "Expand button clicked");
@@ -513,28 +515,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
         clipboardBand.setCollapsedStateKeyTip("ZC");
 
         clipboardBand
-                .addRibbonCommand(
-                        FlamingoCommand.builder()
-                                .setTitle(resourceBundle.getString("Paste.text"))
-                                .setIcon(Edit_paste.of(16, 16))
-                                .setAction((ActionEvent e) -> System.out.println("Pasted!"))
-                                .setActionRichTooltip(
-                                        RichTooltip.builder()
-                                                .setTitle(resourceBundle.getString("Paste.text"))
-                                                .addDescriptionSection(resourceBundle.getString(
-                                                        "Paste.tooltip.actionParagraph1"))
-                                                .build())
-                                .setPopupCallback(
-                                        (JCommandButton commandButton) -> getSamplePopupMenu())
-                                .setPopupRichTooltip(RichTooltip.builder()
-                                        .setTitle(resourceBundle.getString("Paste.text"))
-                                        .addDescriptionSection(resourceBundle
-                                                .getString("Paste.tooltip.popupParagraph1"))
-                                        .build())
-                                .setTitleClickAction().build()
-                                .project(FlamingoCommandDisplay.builder()
-                                        .setHorizontalAlignment(SwingConstants.LEADING)
-                                        .setPopupKeyTip("V").build()),
+                .addRibbonCommand(this.pasteCommand.project(
+                        FlamingoCommandDisplay.builder()
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .setPopupKeyTip("V").build()),
                         RibbonElementPriority.TOP);
 
         clipboardBand
@@ -1116,6 +1100,28 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return transitionBand;
     }
 
+    private void createPasteCommand() {
+        this.pasteCommand = FlamingoCommand.builder()
+                .setTitle(resourceBundle.getString("Paste.text"))
+                .setIconFactory(Edit_paste.factory())
+                .setAction((ActionEvent e) -> System.out.println("Pasted!"))
+                .setActionRichTooltip(
+                        RichTooltip.builder()
+                                .setTitle(resourceBundle.getString("Paste.text"))
+                                .addDescriptionSection(resourceBundle.getString(
+                                        "Paste.tooltip.actionParagraph1"))
+                                .build())
+                .setPopupCallback(
+                        (JCommandButton commandButton) -> getSamplePopupMenu())
+                .setPopupRichTooltip(RichTooltip.builder()
+                        .setTitle(resourceBundle.getString("Paste.text"))
+                        .addDescriptionSection(resourceBundle
+                                .getString("Paste.tooltip.popupParagraph1"))
+                        .build())
+                .setTitleClickAction()
+                .build();
+    }
+
     private void createStyleGalleryModel() {
         List<CommandProjectionGroupModel> stylesGalleryCommands = new ArrayList<>();
         List<CommandProjection> stylesGalleryCommandsList = new ArrayList<>();
@@ -1223,6 +1229,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
     public void configureRibbon() {
         this.createStyleGalleryModel();
+        this.createPasteCommand();
 
         JRibbonBand clipboardBand = this.getClipboardBand();
         JRibbonBand quickStylesBand = this.getQuickStylesBand();
@@ -1318,22 +1325,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         JRibbon ribbon = this.getRibbon();
 
         // taskbar components
-        ribbon.addTaskbarCommand(FlamingoCommand.builder().setIcon(Edit_paste.of(16, 16))
-                .setAction((ActionEvent e) -> System.out.println("Taskbar Paste activated"))
-                .setActionRichTooltip(RichTooltip.builder()
-                        .setTitle(resourceBundle.getString("Paste.text"))
-                        .addDescriptionSection(
-                                resourceBundle.getString("Paste.tooltip.actionParagraph1"))
-                        .build())
-                .setPopupCallback((JCommandButton commandButton) -> getSamplePopupMenu())
-                .setPopupRichTooltip(RichTooltip.builder()
-                        .setTitle(resourceBundle.getString("Paste.text"))
-                        .addDescriptionSection(
-                                resourceBundle.getString("Paste.tooltip.popupParagraph1"))
-                        .build())
-                .setTitleClickAction()
-                .build()
-                .project(FlamingoCommandDisplay.builder().setActionKeyTip("1").build()));
+        ribbon.addTaskbarCommand(this.pasteCommand.project(
+                FlamingoCommandDisplay.builder().setActionKeyTip("1").build()));
 
         ribbon.addTaskbarCommand(FlamingoCommand.builder().setIcon(Edit_clear.of(16, 16))
                 .setAction((ActionEvent e) -> System.out.println("Taskbar Clear activated"))

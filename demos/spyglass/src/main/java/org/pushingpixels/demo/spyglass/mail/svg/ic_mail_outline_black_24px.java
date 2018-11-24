@@ -5,9 +5,10 @@ import java.awt.geom.*;
 import javax.swing.plaf.UIResource;
 
 import org.pushingpixels.neon.icon.IsHiDpiAware;
-import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.neon.icon.NeonIcon;
 import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.ResizableIconFactory;
 
 /**
  * This class has been automatically generated using <a
@@ -203,6 +204,15 @@ g.setTransform(defaultTransform_);
        base.width = width;
        base.height = height;
        return new NeonIconUIResource(base);
+    }
+
+    /**
+     * Returns a factory that returns instances of this icon on demand.
+     *
+     * @return Factory that returns instances of this icon on demand.
+     */
+    public static ResizableIconFactory factory() {
+        return () -> new NeonIcon(new ic_mail_outline_black_24px());
     }
 }
 

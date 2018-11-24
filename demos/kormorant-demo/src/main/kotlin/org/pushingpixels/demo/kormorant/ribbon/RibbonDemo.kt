@@ -288,7 +288,39 @@ private class RibbonDemoBuilder {
     var resourceBundle = ResourceBundle.getBundle(
             "org.pushingpixels.demo.kormorant.resources.Resources", currLocale)
     lateinit var rulerPanel: RulerPanel
-    lateinit var documentNewCommand: KCommand
+    var documentNewCommand: KCommand
+    var pasteCommand: KCommand
+    
+    init {
+        documentNewCommand = command {}
+        pasteCommand = command {}
+
+//        documentNewCommand = command {
+//            title = resourceBundle.getString("DocumentNew.text")
+//            iconFactory = Document_new.factory()
+//            action = ActionListener { println("Document New activated") }
+//        }
+//
+//        pasteCommand = command {
+//            title = resourceBundle.getString("Paste.text")
+//            icon = Edit_paste.of(16, 16)
+//            action = ActionListener { println("Pasted!") }
+//            actionRichTooltip {
+//                title = resourceBundle.getString("Paste.text")
+//                description {
+//                    +resourceBundle.getString("Paste.tooltip.actionParagraph1")
+//                }
+//            }
+//            popupCallback = getSimplePopupMenu()
+//            popupRichTooltip {
+//                title = resourceBundle.getString("Paste.text")
+//                description {
+//                    +resourceBundle.getString("Paste.tooltip.popupParagraph1")
+//                }
+//            }
+//            isTitleClickAction = true
+//        }
+    }
 
     fun getControlPanel(ribbonFrame: JRibbonFrame): JPanel {
         val ribbon = ribbonFrame.ribbon
@@ -406,25 +438,7 @@ private class RibbonDemoBuilder {
             }
             collapsedStateKeyTip = "ZC"
 
-            command(priority = RibbonElementPriority.TOP, popupKeyTip = "V") {
-                title = resourceBundle.getString("Paste.text")
-                icon = Edit_paste.of(16, 16)
-                action = ActionListener { println("Pasted!") }
-                actionRichTooltip {
-                    title = resourceBundle.getString("Paste.text")
-                    description {
-                        +resourceBundle.getString("Paste.tooltip.actionParagraph1")
-                    }
-                }
-                popupCallback = getSimplePopupMenu()
-                popupRichTooltip {
-                    title = resourceBundle.getString("Paste.text")
-                    description {
-                        +resourceBundle.getString("Paste.tooltip.popupParagraph1")
-                    }
-                }
-                isTitleClickAction = true
-            }
+            command(priority = RibbonElementPriority.TOP, popupKeyTip = "V", command = pasteCommand)
 
             command(RibbonElementPriority.MEDIUM, popupKeyTip = "X") {
                 title = resourceBundle.getString("Cut.text")
@@ -1579,12 +1593,6 @@ fun main(args: Array<String>) {
 
         val builder = RibbonDemoBuilder()
 
-        builder.documentNewCommand = command {
-            title = builder.resourceBundle.getString("DocumentNew.text")
-            icon = Document_new.of(16, 16)
-            action = ActionListener { println("Document New activated") }
-        }
-
         val ribbonFrame = ribbonFrame {
             title = builder.resourceBundle.getString("Frame.title")
             applicationIcon = Applications_internet.of(16, 16)
@@ -1645,24 +1653,7 @@ fun main(args: Array<String>) {
             }
 
             taskbar {
-                command(actionKeyTip = "1") {
-                    icon = Edit_paste.of(16, 16)
-                    action = ActionListener { println("Taskbar Paste activated") }
-                    actionRichTooltip {
-                        title = builder.resourceBundle.getString("Paste.text")
-                        description {
-                            +builder.resourceBundle.getString("Paste.tooltip.actionParagraph1")
-                        }
-                    }
-                    popupCallback = builder.getSimplePopupMenu()
-                    popupRichTooltip {
-                        title = builder.resourceBundle.getString("Paste.text")
-                        description {
-                            +builder.resourceBundle.getString("Paste.tooltip.actionParagraph1")
-                        }
-                    }
-                    isTitleClickAction = true
-                }
+                command(actionKeyTip = "1", command = builder.pasteCommand)
 
                 command(actionKeyTip = "2") {
                     icon = Edit_clear.of(16, 16)

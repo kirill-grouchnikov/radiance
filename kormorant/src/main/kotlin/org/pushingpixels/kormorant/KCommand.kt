@@ -38,6 +38,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.neon.icon.ResizableIcon
+import org.pushingpixels.neon.icon.ResizableIconFactory
 import java.awt.event.ActionListener
 
 interface ActionModelChangeInterface {
@@ -56,7 +57,9 @@ open class KCommand {
 
     var title: String? by NullableDelegate { hasBeenConverted }
     var icon: ResizableIcon? by NullableDelegate { hasBeenConverted }
+    var iconFactory: ResizableIconFactory? by NullableDelegate { hasBeenConverted }
     var disabledIcon: ResizableIcon? by NullableDelegate { hasBeenConverted }
+    var disabledIconFactory: ResizableIconFactory? by NullableDelegate { hasBeenConverted }
     var extraText: String? by NullableDelegate { hasBeenConverted }
     var action: ActionListener? by NullableDelegate { hasBeenConverted }
     var actionModelChangeListener: ActionModelChangeInterface? by NullableDelegate { hasBeenConverted }
@@ -118,7 +121,9 @@ open class KCommand {
         fun populateBuilder(builder: FlamingoCommand.BaseFlamingoCommandBuilder<*, *>, command: KCommand) {
             builder.setTitle(command.title)
             builder.setIcon(command.icon)
+            builder.setIconFactory(command.iconFactory)
             builder.setDisabledIcon(command.disabledIcon)
+            builder.setDisabledIconFactory(command.disabledIconFactory)
             builder.setExtraText(command.extraText)
             builder.setAction(command.action)
             builder.setAutoRepeatAction(command.isAutoRepeatAction)

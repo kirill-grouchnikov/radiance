@@ -8,6 +8,7 @@ import org.pushingpixels.neon.icon.IsHiDpiAware
 import org.pushingpixels.neon.icon.NeonIcon
 import org.pushingpixels.neon.icon.NeonIconUIResource
 import org.pushingpixels.neon.icon.ResizableIcon
+import org.pushingpixels.neon.icon.ResizableIconFactory
 
 /**
  * This class has been automatically generated using <a
@@ -419,6 +420,15 @@ g.transform = defaultTransform_
          */
         fun uiResourceOf(width: Int, height: Int): NeonIconUIResource {
             return NeonIconUIResource(Preferences_desktop_assistive_technology(width, height))
+        }
+
+        /**
+         * Returns a factory that returns instances of this icon on demand.
+         *
+         * @return Factory that returns instances of this icon on demand.
+         */
+        fun factory(): ResizableIconFactory {
+            return ResizableIconFactory { NeonIcon(Preferences_desktop_assistive_technology(16, 16)) }
         }
     }
 

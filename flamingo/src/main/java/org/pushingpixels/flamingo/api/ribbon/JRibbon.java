@@ -257,8 +257,11 @@ public class JRibbon extends JComponent {
         commandButton.setFocusable(false);
 
         this.taskbarComponents.add(commandButton);
-        this.taskbarCommandMap.put(projection.getCommand(), commandButton);
-        this.taskbarCommands.add(projection.getCommand());
+
+        FlamingoCommand command = projection.getCommand();
+        this.taskbarCommandMap.put(command, commandButton);
+        this.taskbarCommands.add(command);
+
         this.fireStateChanged();
     }
 
