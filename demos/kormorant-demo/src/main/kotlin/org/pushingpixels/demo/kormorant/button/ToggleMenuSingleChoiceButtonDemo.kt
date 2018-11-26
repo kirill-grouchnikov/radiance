@@ -34,6 +34,7 @@ import org.pushingpixels.demo.kormorant.svg.Format_justify_fill
 import org.pushingpixels.demo.kormorant.svg.Format_justify_left
 import org.pushingpixels.demo.kormorant.svg.Format_justify_right
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.model.CommandListener
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
@@ -42,7 +43,6 @@ import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.Dimension
 import java.awt.FlowLayout
-import java.awt.event.ActionListener
 import java.awt.image.BufferedImage
 import javax.swing.JFrame
 import javax.swing.SwingUtilities
@@ -67,7 +67,7 @@ fun main(args: Array<String>) {
                         command {
                             title = "left"
                             icon = Format_justify_left.of(16, 16)
-                            action = ActionListener {
+                            action = CommandListener {
                                 println("Justify left")
                                 currentAlignment = StyleConstants.ALIGN_LEFT
                             }
@@ -78,7 +78,7 @@ fun main(args: Array<String>) {
                         command {
                             title = "center"
                             icon = Format_justify_center.of(16, 16)
-                            action = ActionListener {
+                            action = CommandListener {
                                 println("Justify center")
                                 currentAlignment = StyleConstants.ALIGN_CENTER
                             }
@@ -89,7 +89,7 @@ fun main(args: Array<String>) {
                         command {
                             title = "right"
                             icon = Format_justify_right.of(16, 16)
-                            action = ActionListener {
+                            action = CommandListener {
                                 println("Justify right")
                                 currentAlignment = StyleConstants.ALIGN_RIGHT
                             }
@@ -100,7 +100,7 @@ fun main(args: Array<String>) {
                         command {
                             title = "fill"
                             icon = Format_justify_fill.of(16, 16)
-                            action = ActionListener {
+                            action = CommandListener {
                                 println("Justify fill")
                                 currentAlignment = StyleConstants.ALIGN_JUSTIFIED
                             }

@@ -84,31 +84,36 @@ public class BasicCheckRibbon extends JRibbonFrame {
         menuCommands1.add(FlamingoCommand.builder()
                 .setTitle(mf.format(new Object[] { "1" }))
                 .setIcon(new ColorResizableIcon(16, new Color(0xFF80DEEA)))
-                .setAction((ActionEvent e) -> System.out.println("Test menu item 1 activated"))
+                .setAction((CommandActionEvent e) ->
+                        System.out.println("Test menu item 1 activated"))
                 .build().project(FlamingoCommandDisplay.builder().setActionKeyTip("1").build()));
 
         menuCommands1.add(FlamingoCommand.builder()
                 .setTitle(mf.format(new Object[] { "2" }))
                 .setIcon(new ColorResizableIcon(16, new Color(0xFF80CBC4)))
-                .setAction((ActionEvent e) -> System.out.println("Test menu item 2 activated"))
+                .setAction((CommandActionEvent e) ->
+                        System.out.println("Test menu item 2 activated"))
                 .build().project(FlamingoCommandDisplay.builder().setActionKeyTip("2").build()));
 
         menuCommands1.add(FlamingoCommand.builder()
                 .setTitle(mf.format(new Object[] { "3" }))
                 .setIcon(new ColorResizableIcon(16, new Color(0xFFA5D6A7)))
-                .setAction((ActionEvent e) -> System.out.println("Test menu item 3 activated"))
+                .setAction((CommandActionEvent e) ->
+                        System.out.println("Test menu item 3 activated"))
                 .build().project(FlamingoCommandDisplay.builder().setActionKeyTip("3").build()));
 
         menuCommands2.add(FlamingoCommand.builder()
                 .setTitle(mf.format(new Object[] { "4" }))
                 .setIcon(new ColorResizableIcon(16, new Color(0xFFC5E1A5)))
-                .setAction((ActionEvent e) -> System.out.println("Test menu item 4 activated"))
+                .setAction((CommandActionEvent e) ->
+                        System.out.println("Test menu item 4 activated"))
                 .build().project(FlamingoCommandDisplay.builder().setActionKeyTip("4").build()));
 
         menuCommands2.add(FlamingoCommand.builder()
                 .setTitle(mf.format(new Object[] { "5" }))
                 .setIcon(new ColorResizableIcon(16, new Color(0xFFE6EE9C)))
-                .setAction((ActionEvent e) -> System.out.println("Test menu item 5 activated"))
+                .setAction((CommandActionEvent e) ->
+                        System.out.println("Test menu item 5 activated"))
                 .build().project(FlamingoCommandDisplay.builder().setActionKeyTip("5").build()));
 
         CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
@@ -127,7 +132,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         actionBand.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("AddressBook.text"))
                         .setIcon(Address_book_new.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Address Book activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Address Book activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setActionKeyTip("NA")
@@ -138,7 +144,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         actionBand.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("Document.text"))
                         .setIcon(Document_new.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Document activated"))
+                        .setAction(
+                                (CommandActionEvent e) -> System.out.println("Document activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setActionKeyTip("ND")
@@ -148,7 +155,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         actionBand.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("Appointment.text"))
                         .setIcon(Appointment_new.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Appointment activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Appointment activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setActionKeyTip("NP")
@@ -158,7 +166,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         actionBand.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("Bookmark.text"))
                         .setIcon(Bookmark_new.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Bookmark activated"))
+                        .setAction(
+                                (CommandActionEvent e) -> System.out.println("Bookmark activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setActionKeyTip("NB")
@@ -167,7 +176,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         actionBand.addRibbonCommand(FlamingoCommand.builder()
                         .setTitle(resourceBundle.getString("Contact.text")).setIcon(Contact_new.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Contact activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println("Contact " +
+                                "activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setActionKeyTip("NC")
@@ -195,7 +205,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         preferencesBand.addRibbonCommand(FlamingoCommand.builder()
                         .setTitle(resourceBundle.getString("Accessibility.text"))
                         .setIcon(Preferences_desktop_accessibility.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Accessibility activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println("Accessibility " +
+                                "activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setActionKeyTip("Y")
@@ -205,7 +216,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         preferencesBand.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("Assistive.text"))
                         .setIcon(Preferences_desktop_assistive_technology.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Assistive activated"))
+                        .setAction(
+                                (CommandActionEvent e) -> System.out.println("Assistive activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setActionKeyTip("E")
@@ -227,7 +239,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         preferencesBand.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("Font.text"))
                         .setIcon(Preferences_desktop_font.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Font activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println("Font activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setActionKeyTip("Z")
@@ -237,7 +249,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         preferencesBand.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("Locale.text"))
                         .setIcon(Preferences_desktop_locale.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Locale activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println("Locale activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setActionKeyTip("L")
@@ -249,7 +261,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         preferencesBand.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("Screensaver.text"))
                         .setIcon(Preferences_desktop_screensaver.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Screensaver activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Screensaver activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setActionKeyTip("V")
@@ -259,7 +272,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         preferencesBand.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("Themes.text"))
                         .setIcon(Preferences_desktop_theme.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Themes activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println("Themes activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setActionKeyTip("T")
@@ -403,7 +416,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setTitle(resourceBundle.getString("DocumentLocal.text"))
                         .setIcon(Folder.of(16, 16))
                         .setAction(
-                                (ActionEvent e) -> System.out.println("Document Local activated"))
+                                (CommandActionEvent e) -> System.out.println(
+                                        "Document Local activated"))
                         .setToggle().inToggleGroup(locationGroup)
                         .build()
                         .project(FlamingoCommandDisplay.builder()
@@ -415,7 +429,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setTitle(resourceBundle.getString("DocumentRemote.text"))
                         .setIcon(Folder_remote.of(16, 16))
                         .setAction(
-                                (ActionEvent e) -> System.out.println("Document Remote activated"))
+                                (CommandActionEvent e) -> System.out.println(
+                                        "Document Remote activated"))
                         .setToggle().inToggleGroup(locationGroup)
                         .build()
                         .project(FlamingoCommandDisplay.builder()
@@ -427,7 +442,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setTitle(resourceBundle.getString("DocumentSaved.text"))
                         .setIcon(Folder_saved_search.of(16, 16))
                         .setAction(
-                                (ActionEvent e) -> System.out.println("Document Saved activated"))
+                                (CommandActionEvent e) -> System.out.println(
+                                        "Document Saved activated"))
                         .setToggle().inToggleGroup(locationGroup)
                         .build()
                         .project(FlamingoCommandDisplay.builder()
@@ -439,7 +455,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         result.addRibbonCommand(FlamingoCommand.builder()
                         .setTitle(resourceBundle.getString("DocumentNew.text"))
                         .setIcon(Document_new.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Document New activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println("Document New " +
+                                "activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING).build()),
@@ -448,7 +465,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         result.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("DocumentOpen.text"))
                         .setIcon(Document_open.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Document Open activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Document Open activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING).build()),
@@ -457,7 +475,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         result.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("DocumentSave.text"))
                         .setIcon(Document_save.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Document Save activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Document Save activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING).build()),
@@ -466,7 +485,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         result.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("DocumentPrint.text"))
                         .setIcon(Document_print.of(16, 16))
-                        .setAction((ActionEvent e) ->
+                        .setAction((CommandActionEvent e) ->
                                 System.out.println("Document Print activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
@@ -477,7 +496,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 FlamingoCommand.builder()
                         .setTitle(resourceBundle.getString("DocumentPrintPreview.text"))
                         .setIcon(Document_print_preview.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out
+                        .setAction((CommandActionEvent e) -> System.out
                                 .println("Document Print Preview activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
@@ -488,7 +507,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 FlamingoCommand.builder()
                         .setTitle(resourceBundle.getString("DocumentProperties.text"))
                         .setIcon(Document_properties.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out
+                        .setAction((CommandActionEvent e) -> System.out
                                 .println("Document Properties activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
@@ -525,7 +544,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .addRibbonCommand(
                         FlamingoCommand.builder().setTitle(resourceBundle.getString("Cut.text"))
                                 .setIcon(Edit_cut.of(16, 16))
-                                .setAction((ActionEvent e) -> System.out.println("Cut!"))
+                                .setAction((CommandActionEvent e) -> System.out.println("Cut!"))
                                 .setActionRichTooltip(RichTooltip.builder()
                                         .setTitle(resourceBundle.getString("Cut.text"))
                                         .addDescriptionSection(resourceBundle
@@ -543,7 +562,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .addRibbonCommand(
                         FlamingoCommand.builder().setTitle(resourceBundle.getString("Copy.text"))
                                 .setIcon(Edit_copy.of(16, 16))
-                                .setAction((ActionEvent e) -> System.out.println("Copy!"))
+                                .setAction((CommandActionEvent e) -> System.out.println("Copy!"))
                                 .setPopupCallback(
                                         (JCommandButton commandButton) -> getSamplePopupMenu())
                                 .setTitleClickPopup().build()
@@ -559,7 +578,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     FlamingoCommand.builder()
                             .setTitle(resourceBundle.getString("Format.menuSaveSelection.text"))
                             .setIcon(new ColorResizableIcon(16, new Color(0xFFFBC02D)))
-                            .setAction((ActionEvent e) -> System.out.println(
+                            .setAction((CommandActionEvent e) -> System.out.println(
                                     "Save Selection activated"))
                             .build()
                             .project(FlamingoCommandDisplay.builder()
@@ -567,7 +586,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     FlamingoCommand.builder()
                             .setTitle(resourceBundle.getString("Format.menuClearSelection.text"))
                             .setIcon(new ColorResizableIcon(16, new Color(0xFFFFA000)))
-                            .setAction((ActionEvent e) -> System.out.println(
+                            .setAction((CommandActionEvent e) -> System.out.println(
                                     "Clear Selection activated"))
                             .build()
                             .project(FlamingoCommandDisplay.builder()
@@ -577,7 +596,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     FlamingoCommand.builder()
                             .setTitle(resourceBundle.getString("Format.applyStyles.text"))
                             .setIcon(new ColorResizableIcon(16, new Color(0xFFF57C00)))
-                            .setAction((ActionEvent e) -> System.out.println(
+                            .setAction((CommandActionEvent e) -> System.out.println(
                                     "Apply Styles activated"))
                             .build()
                             .project(FlamingoCommandDisplay.builder()
@@ -638,7 +657,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         findBand.addRibbonCommand(FlamingoCommand.builder()
                 .setTitle(resourceBundle.getString("Search.text")).setIcon(System_search.of(16, 16))
-                .setAction((ActionEvent e) -> System.out.println("Search activated"))
+                .setAction((CommandActionEvent e) -> System.out.println("Search activated"))
                 .build()
                 .project(FlamingoCommandDisplay.builder()
                         .setHorizontalAlignment(SwingConstants.LEADING)
@@ -647,7 +666,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         findBand.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("Find.text"))
                         .setIcon(Edit_find.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Find activated")).build()
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Find activated")).build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
                                 .build()),
@@ -656,7 +676,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         findBand.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("FindReplace.text"))
                         .setIcon(Edit_find_replace.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Find Replace activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Find Replace activated"))
                         .setEnabled(false).build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
@@ -666,7 +687,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         findBand.addRibbonCommand(FlamingoCommand.builder()
                         .setTitle(resourceBundle.getString("SelectAll.text"))
                         .setIcon(Edit_select_all.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Select All activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println("Select All " +
+                                "activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
@@ -705,7 +727,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         quickStylesBand.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("Styles1.text"))
                         .setIcon(Font_x_generic.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Generic activated"))
+                        .setAction(
+                                (CommandActionEvent e) -> System.out.println("Generic activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
@@ -715,25 +738,30 @@ public class BasicCheckRibbon extends JRibbonFrame {
         quickStylesBand.addRibbonCommand(
                 FlamingoCommand.builder().setTitle(resourceBundle.getString("Styles2.text"))
                         .setIcon(Image_x_generic.of(16, 16))
-                        .setAction((ActionEvent e) -> System.out.println("Image activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println("Image activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
                                 .setActionKeyTip("SB").build()),
                 RibbonElementPriority.MEDIUM);
 
-        final JColorSelectorPopupMenu.ColorSelectorCallback callback = new
-                JColorSelectorPopupMenu.ColorSelectorCallback() {
+        final ColorSelectorPopupMenuContentModel.ColorActivationListener colorActivationListener =
+                (Color color) -> {
+                    System.out.println("Activated color " + color);
+                    rulerPanel.selectBackgroundFill(color);
+                };
+        final ColorSelectorPopupMenuContentModel.ColorPreviewListener colorPreviewListener =
+                new ColorSelectorPopupMenuContentModel.ColorPreviewListener() {
                     @Override
-                    public void onColorSelected(Color color) {
-                        System.out.println("Selected color " + color);
-                        rulerPanel.selectBackgroundFill(color);
+                    public void onColorPreviewActivated(Color color) {
+                        System.out.println("Preview activated color " + color);
+                        rulerPanel.previewBackgroundFill(color);
                     }
 
                     @Override
-                    public void onColorRollover(Color color) {
-                        System.out.println("Rollover color " + color);
-                        rulerPanel.previewBackgroundFill(color);
+                    public void onColorPreviewCanceled() {
+                        System.out.println("Preview canceled color");
+                        rulerPanel.previewBackgroundFill(null);
                     }
                 };
 
@@ -746,20 +774,20 @@ public class BasicCheckRibbon extends JRibbonFrame {
             selectorBuilder.addCommand(FlamingoCommand.builder()
                     .setTitle(resourceBundle.getString("ColorSelector.textAutomatic"))
                     .setIcon(new ColorResizableIcon(16, defaultColor))
-                    .setAction((ActionEvent e) -> {
-                        callback.onColorSelected(defaultColor);
+                    .setAction((CommandActionEvent e) -> {
+                        colorActivationListener.onColorActivated(defaultColor);
                         JColorSelectorPopupMenu.addColorToRecentlyUsed(
                                 defaultColor);
                     })
                     .setPreviewListener(new FlamingoCommand.CommandPreviewListener() {
                         @Override
                         public void onCommandPreviewActivated(FlamingoCommand command) {
-                            callback.onColorRollover(Color.black);
+                            colorPreviewListener.onColorPreviewActivated(Color.black);
                         }
 
                         @Override
                         public void onCommandPreviewCanceled(FlamingoCommand command) {
-                            callback.onColorRollover(null);
+                            colorPreviewListener.onColorPreviewCanceled();
                         }
                     })
                     .build());
@@ -788,11 +816,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
             selectorBuilder.addCommand(FlamingoCommand.builder()
                     .setTitle(resourceBundle.getString("ColorSelector.textMoreColor"))
-                    .setAction((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                    .setAction((CommandActionEvent e) -> SwingUtilities.invokeLater(() -> {
                         Color color = JColorChooser.showDialog(BasicCheckRibbon.this,
                                 "Color chooser", defaultColor);
                         if (color != null) {
-                            callback.onColorSelected(color);
+                            colorActivationListener.onColorActivated(color);
                             JColorSelectorPopupMenu.addColorToRecentlyUsed(color);
                         }
                     })).build());
@@ -800,7 +828,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
             ColorSelectorPopupMenuContentModel selectorModel =
                     new ColorSelectorPopupMenuContentModel(
                             Collections.singletonList(selectorBuilder.build()));
-            selectorModel.setColorSelectorCallback(callback);
+            selectorModel.setColorActivationListener(colorActivationListener);
+            selectorModel.setColorPreviewListener(colorPreviewListener);
 
             return new JColorSelectorPopupMenu(selectorModel);
         };
@@ -827,7 +856,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         previewBand.addRibbonCommand(FlamingoCommand.builder()
                         .setTitle(resourceBundle.getString("Preview.text"))
                         .setIcon(new SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32))
-                        .setAction((ActionEvent e) -> System.out.println("Preview activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println("Preview " +
+                                "activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
@@ -838,7 +868,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         FlamingoCommand.builder()
                                 .setTitle(resourceBundle.getString("SlideShow.text"))
                                 .setIcon(new SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32))
-                                .setAction((ActionEvent e) -> System.out
+                                .setAction((CommandActionEvent e) -> System.out
                                         .println("Slide Show activated"))
                                 .build()
                                 .project(FlamingoCommandDisplay.builder()
@@ -931,7 +961,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         FlamingoCommand.builder()
                                 .setTitle(resourceBundle.getString("CustomAnimation.text"))
                                 .setIcon(new SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32))
-                                .setAction((ActionEvent e) -> System.out
+                                .setAction((CommandActionEvent e) -> System.out
                                         .println("Animation 1 activated"))
                                 .build()
                                 .project(FlamingoCommandDisplay.builder()
@@ -943,7 +973,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         FlamingoCommand.builder()
                                 .setTitle(resourceBundle.getString("CustomAnimation.text"))
                                 .setIcon(new SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32))
-                                .setAction((ActionEvent e) -> System.out
+                                .setAction((CommandActionEvent e) -> System.out
                                         .println("Animation 2 activated"))
                                 .build()
                                 .project(FlamingoCommandDisplay.builder()
@@ -955,7 +985,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         FlamingoCommand.builder()
                                 .setTitle(resourceBundle.getString("CustomAnimation.text"))
                                 .setIcon(new SimpleResizableIcon(RibbonElementPriority.TOP, 32, 32))
-                                .setAction((ActionEvent e) -> System.out
+                                .setAction((CommandActionEvent e) -> System.out
                                         .println("Animation 3 activated"))
                                 .build()
                                 .project(FlamingoCommandDisplay.builder()
@@ -1000,7 +1030,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     });
 
             FlamingoCommand ribbonCommand = FlamingoCommand.builder().setIcon(finalIcon)
-                    .setAction((ActionEvent e) -> System.out.println("Activated action " + index))
+                    .setAction((CommandActionEvent e) -> System.out.println(
+                            "Activated action " + index))
                     .setToggle().build();
 
             transitionGalleryCommandsList.add(ribbonCommand.project());
@@ -1033,7 +1064,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     });
 
             FlamingoCommand ribbonCommand = FlamingoCommand.builder().setIcon(finalIcon)
-                    .setAction((ActionEvent e) -> System.out.println("Activated action " + index))
+                    .setAction((CommandActionEvent e) -> System.out.println(
+                            "Activated action " + index))
                     .setToggle().build();
 
             transitionGalleryButtonsList2.add(ribbonCommand.project());
@@ -1104,7 +1136,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         this.pasteCommand = FlamingoCommand.builder()
                 .setTitle(resourceBundle.getString("Paste.text"))
                 .setIconFactory(Edit_paste.factory())
-                .setAction((ActionEvent e) -> System.out.println("Pasted!"))
+                .setAction((CommandActionEvent e) -> System.out.println("Pasted!"))
                 .setActionRichTooltip(
                         RichTooltip.builder()
                                 .setTitle(resourceBundle.getString("Paste.text"))
@@ -1163,7 +1195,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 resourceBundle.getString("StylesGallery.textGroupTitle2"),
                 stylesGalleryCommandsList2));
 
-        this.styleGalleryContentModel = new RibbonGalleryContentModel(Font_x_generic.of(16, 16),
+        this.styleGalleryContentModel = new RibbonGalleryContentModel(Font_x_generic.factory(),
                 stylesGalleryCommands);
         this.styleGalleryContentModel.setSelectedCommand(
                 stylesGalleryCommandsList.get(1).getCommand());
@@ -1186,14 +1218,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 FlamingoCommand.builder()
                         .setTitle(resourceBundle.getString("Format.menuSaveSelection.text"))
                         .setIcon(new EmptyResizableIcon(16))
-                        .setAction((ActionEvent e) ->
+                        .setAction((CommandActionEvent e) ->
                                 System.out.println("Save Selection activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder().setActionKeyTip("SS").build()),
                 FlamingoCommand.builder()
                         .setTitle(resourceBundle.getString("Format.menuClearSelection.text"))
                         .setIcon(new EmptyResizableIcon(16))
-                        .setAction((ActionEvent e) ->
+                        .setAction((CommandActionEvent e) ->
                                 System.out.println("Clear Selection activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder().setActionKeyTip("SC").build()));
@@ -1203,7 +1235,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 FlamingoCommand.builder()
                         .setTitle(resourceBundle.getString("Format.applyStyles.text"))
                         .setIcon(new Font_x_generic())
-                        .setAction((ActionEvent e) ->
+                        .setAction((CommandActionEvent e) ->
                                 System.out.println("Apply Styles activated"))
                         .build()
                         .project(FlamingoCommandDisplay.builder().setActionKeyTip("SA").build()));
@@ -1275,7 +1307,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .addAnchoredCommand(FlamingoCommand.builder()
                         .setTitle(resourceBundle.getString("Share.title"))
                         .setIcon(Internet_mail.of(16, 16))
-                        .setAction((ActionEvent e) -> JOptionPane
+                        .setAction((CommandActionEvent e) -> JOptionPane
                                 .showMessageDialog(BasicCheckRibbon.this, "Share button clicked"))
                         .build()
                         .project(FlamingoCommandDisplay.builder().setActionKeyTip("GS").build()));
@@ -1283,7 +1315,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         this.getRibbon()
                 .addAnchoredCommand(FlamingoCommand.builder()
                         .setIcon(Internet_group_chat.of(16, 16))
-                        .setAction((ActionEvent e) -> JOptionPane
+                        .setAction((CommandActionEvent e) -> JOptionPane
                                 .showMessageDialog(BasicCheckRibbon.this, "Chat button clicked"))
                         .build()
                         .project(FlamingoCommandDisplay.builder().setActionKeyTip("GC").build()));
@@ -1295,7 +1327,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .addDescriptionSection(
                                 resourceBundle.getString("Help.tooltip.actionParagraph"))
                         .build())
-                .setAction((ActionEvent e) -> JOptionPane
+                .setAction((CommandActionEvent e) -> JOptionPane
                         .showMessageDialog(BasicCheckRibbon.this, "Help button clicked"))
                 .build()
                 .project(FlamingoCommandDisplay.builder().setActionKeyTip("GH").build()));
@@ -1329,20 +1361,20 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 FlamingoCommandDisplay.builder().setActionKeyTip("1").build()));
 
         ribbon.addTaskbarCommand(FlamingoCommand.builder().setIcon(Edit_clear.of(16, 16))
-                .setAction((ActionEvent e) -> System.out.println("Taskbar Clear activated"))
+                .setAction((CommandActionEvent e) -> System.out.println("Taskbar Clear activated"))
                 .setEnabled(false)
                 .build()
                 .project(FlamingoCommandDisplay.builder().setActionKeyTip("2").build()));
 
         ribbon.addTaskbarCommand(FlamingoCommand.builder().setIcon(Edit_copy.of(16, 16))
-                .setAction((ActionEvent e) -> System.out.println("Taskbar Copy activated"))
+                .setAction((CommandActionEvent e) -> System.out.println("Taskbar Copy activated"))
                 .build()
                 .project(FlamingoCommandDisplay.builder().setActionKeyTip("3").build()));
 
         ribbon.addTaskbarSeparator();
 
         ribbon.addTaskbarCommand(FlamingoCommand.builder().setIcon(Edit_find.of(16, 16))
-                .setAction((ActionEvent e) -> System.out.println("Taskbar Find activated"))
+                .setAction((CommandActionEvent e) -> System.out.println("Taskbar Find activated"))
                 .build()
                 .project(FlamingoCommandDisplay.builder().setActionKeyTip("4").build()));
 
@@ -1373,7 +1405,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 RibbonApplicationMenuPrimaryCommandBuilder()
                 .setTitle(resourceBundle.getString("AppMenuNew.text"))
                 .setIcon(Document_new.of(16, 16))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked creating new document"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked creating new document"))
                 //.setActionKeyTip("N")
                 .build();
 
@@ -1382,7 +1414,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 RibbonApplicationMenuPrimaryCommandBuilder()
                 .setTitle(resourceBundle.getString("AppMenuOpen.text"))
                 .setIcon(Document_open.of(16, 16))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked opening document"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked opening document"))
                 .setRolloverCallback((JPanel targetPanel) -> {
                     List<CommandProjection> historyCommands = new ArrayList<>();
                     MessageFormat mf = new MessageFormat(
@@ -1406,7 +1438,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     JCommandButtonPanel openHistoryPanel = new JCommandButtonPanel(
                             historyPanelContentModel,
                             CommandPanelPresentationModel.builder()
-                                    .setLayoutKind(JCommandButtonPanel.LayoutKind.ROW_FILL)
+                                    .setLayoutKind(
+                                            CommandPanelPresentationModel.LayoutKind.ROW_FILL)
                                     .setCommandDisplayState(CommandButtonDisplayState.MEDIUM)
                                     .setCommandHorizontalAlignment(SwingUtilities.LEADING)
                                     .setMaxColumns(1).build());
@@ -1422,7 +1455,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 RibbonApplicationMenuPrimaryCommandBuilder()
                 .setTitle(resourceBundle.getString("AppMenuSave.text"))
                 .setIcon(Document_save.of(16, 16))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked saving document"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked saving document"))
                 //.setActionKeyTip("S")
                 .setEnabled(false).build();
 
@@ -1431,7 +1464,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setTitle(resourceBundle.getString("AppMenuSaveAs.word.text"))
                 .setIcon(X_office_document.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuSaveAs.word.description"))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked saved as Word"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked saved as Word"))
                 //.setActionKeyTip("W")
                 .build();
 
@@ -1439,7 +1472,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setTitle(resourceBundle.getString("AppMenuSaveAs.html.text"))
                 .setIcon(Text_html.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuSaveAs.html.description"))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked saved as HTML"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked saved as HTML"))
                 //.setActionKeyTip("H")
                 .setEnabled(false).build();
 
@@ -1447,7 +1480,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setTitle(resourceBundle.getString("AppMenuSaveAs.other.text"))
                 .setIcon(Document_save_as.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuSaveAs.other.description"))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked saved as other"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked saved as other"))
                 //.setActionKeyTip("O")
                 .build();
 
@@ -1455,7 +1488,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 RibbonApplicationMenuPrimaryCommandBuilder()
                 .setTitle(resourceBundle.getString("AppMenuSaveAs.text"))
                 .setIcon(Document_save_as.of(16, 16))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked saving document as"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked saving document as"))
                 //.setActionKeyTip("A")
                 //.setPopupKeyTip("F")
                 .setTitleClickAction()
@@ -1469,7 +1502,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setTitle(resourceBundle.getString("AppMenuPrint.print.text"))
                 .setIcon(Printer.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuPrint.print.description"))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked print"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked print"))
                 //.setActionKeyTip("P")
                 .build();
 
@@ -1477,7 +1510,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setTitle(resourceBundle.getString("AppMenuPrint.quick.text"))
                 .setIcon(Printer.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuPrint.quick.description"))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked quick"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked quick"))
                 //.setActionKeyTip("Q")
                 .build();
 
@@ -1485,21 +1518,21 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setTitle(resourceBundle.getString("AppMenuPrint.preview.text"))
                 .setIcon(Document_print_preview.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuPrint.preview.description"))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked preview"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked preview"))
                 //.setActionKeyTip("V")
                 .build();
 
         FlamingoCommand amEntryPrintMemo = FlamingoCommand.builder()
                 .setTitle(resourceBundle.getString("AppMenuPrint.memo.text"))
                 .setIcon(Text_x_generic.of(16, 16))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked memo"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked memo"))
                 //.setActionKeyTip("M")
                 .build();
 
         FlamingoCommand amEntryPrintCustom = FlamingoCommand.builder()
                 .setTitle(resourceBundle.getString("AppMenuPrint.custom.text"))
                 .setIcon(Text_x_generic.of(16, 16))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked custom"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked custom"))
                 //.setActionKeyTip("C")
                 .build();
 
@@ -1507,7 +1540,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 RibbonApplicationMenuPrimaryCommandBuilder()
                 .setTitle(resourceBundle.getString("AppMenuPrint.text"))
                 .setIcon(Document_print.of(16, 16))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked printing as"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked printing as"))
                 //.setActionKeyTip("P")
                 //.setPopupKeyTip("W")
                 .setTitleClickAction()
@@ -1524,7 +1557,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setTitle(resourceBundle.getString("AppMenuSend.email.text"))
                 .setIcon(Mail_message_new.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuSend.email.description"))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked email"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked email"))
                 //.setActionKeyTip("E")
                 .build();
 
@@ -1532,7 +1565,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setTitle(resourceBundle.getString("AppMenuSend.html.text"))
                 .setIcon(Text_html.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuSend.html.description"))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked HTML"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked HTML"))
                 //.setActionKeyTip("H")
                 .build();
 
@@ -1540,7 +1573,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setTitle(resourceBundle.getString("AppMenuSend.word.text"))
                 .setIcon(X_office_document.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuSend.word.description"))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked Word"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked Word"))
                 //.setActionKeyTip("W")
                 .build();
 
@@ -1554,7 +1587,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     wirelessCommands.add(FlamingoCommand.builder()
                             .setTitle(resourceBundle.getString("AppMenuSend.wireless.wifi.text"))
                             .setIcon(new EmptyResizableIcon(16))
-                            .setAction((ActionEvent e) -> System.out.println(
+                            .setAction((CommandActionEvent e) -> System.out.println(
                                     "WiFi activated"))
                             .build()
                             .project(FlamingoCommandDisplay.builder()
@@ -1565,7 +1598,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                             .setTitle(
                                     resourceBundle.getString("AppMenuSend.wireless.bluetooth.text"))
                             .setIcon(new EmptyResizableIcon(16))
-                            .setAction((ActionEvent e) -> System.out.println(
+                            .setAction((CommandActionEvent e) -> System.out.println(
                                     "Bluetooth activated"))
                             .build()
                             .project(FlamingoCommandDisplay.builder()
@@ -1597,7 +1630,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         RibbonApplicationMenuPrimaryCommand amEntryExit = new
                 RibbonApplicationMenuPrimaryCommandBuilder()
                 .setTitle(resourceBundle.getString("AppMenuExit.text"))
-                .setIcon(System_log_out.of(16, 16)).setAction((ActionEvent ae) -> System.exit(0))
+                .setIcon(System_log_out.of(16, 16)).setAction((CommandActionEvent ae) -> System.exit(0))
                 //.setActionKeyTip("X")
                 .setRolloverCallback(new PrimaryClearRolloverCallback())
                 .build();
@@ -1648,10 +1681,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
         FlamingoCommand amFooterProps = FlamingoCommand.builder()
                 .setTitle(resourceBundle.getString("AppMenuOptions.text"))
                 .setIcon(Document_properties.of(16, 16))
-                .setAction((ActionEvent ae) -> System.out.println("Invoked Options")).build();
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked Options")).build();
         FlamingoCommand amFooterExit = FlamingoCommand.builder()
                 .setTitle(resourceBundle.getString("AppMenuExit.text"))
-                .setIcon(System_log_out.of(16, 16)).setAction((ActionEvent ae) -> System.exit(0))
+                .setIcon(System_log_out.of(16, 16)).setAction((CommandActionEvent ae) -> System.exit(0))
                 .setEnabled(false).build();
 
         applicationMenu.addFooterCommand(amFooterProps);
@@ -2012,7 +2045,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         for (int i = 0; i < 10; i++) {
             FlamingoCommand command = FlamingoCommand.builder()
                     .setTitle("option " + i)
-                    .setAction((ActionEvent ae) -> {
+                    .setAction((CommandActionEvent ae) -> {
                         // get the command behind this event and check its selected state
                         FlamingoCommand source = ((CommandActionEvent) ae).getFlamingoCommand();
                         boolean isSelectedNow = source.isToggleSelected();

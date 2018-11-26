@@ -44,7 +44,7 @@ class KCommandButtonPanelPresentation {
     var toShowGroupLabels: Boolean = true
     var commandDisplayState: CommandButtonDisplayState? = null
     var commandIconDimension: Int = -1
-    var layoutKind: JCommandButtonPanel.LayoutKind = JCommandButtonPanel.LayoutKind.ROW_FILL
+    var layoutKind: CommandPanelPresentationModel.LayoutKind = CommandPanelPresentationModel.LayoutKind.ROW_FILL
     var commandHorizontalAlignment: Int = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
     var isMenu: Boolean = false
     var popupOrientationKind: JCommandButton.CommandButtonPopupOrientationKind =

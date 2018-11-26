@@ -72,8 +72,11 @@ class KRibbonTaskbar {
         return ribbonComponent
     }
 
-    fun gallery() {
-        // TODO: implement
+    fun gallery(init: KRibbonGallery.() -> Unit): KRibbonGallery {
+        val gallery = KRibbonGallery()
+        gallery.init()
+        components.add(gallery)
+        return gallery
     }
 
     fun separator() {
@@ -160,6 +163,9 @@ class KRibbonFrame {
             when (taskbarComponent) {
                 is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(taskbarComponent.toProjection())
                 is KRibbonComponent -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent.asRibbonComponent())
+                is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(
+                        taskbarComponent.content.asRibbonGalleryContentModel(),
+                        taskbarComponent.presentation.toRibbonGalleryPresentationModel())
                 is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonFrame.ribbon.addTaskbarSeparator()
             }
         }

@@ -45,7 +45,7 @@ public class QuickStylesPanel {
                         });
                 FlamingoCommand command = FlamingoCommand.builder()
                         .setIcon(finalIcon).setToggle().setAction(
-                                (ActionEvent e) -> System.out.println(
+                                (CommandActionEvent e) -> System.out.println(
                                         "Invoked action on " + deco)).build();
                 projections.add(command.project());
             }

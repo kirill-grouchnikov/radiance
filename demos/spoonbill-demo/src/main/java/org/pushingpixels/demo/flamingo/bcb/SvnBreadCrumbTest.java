@@ -32,6 +32,7 @@ package org.pushingpixels.demo.flamingo.bcb;
 import org.pushingpixels.demo.flamingo.*;
 import org.pushingpixels.flamingo.api.bcb.*;
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.CommandActionEvent;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.spoonbill.svn.BreadcrumbSvnSelector;
 import org.pushingpixels.substance.api.*;
@@ -40,7 +41,7 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ItemEvent;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -178,43 +179,46 @@ public class SvnBreadCrumbTest extends JFrame {
                 SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy");
                 command.setExtraText(size + " bytes, " + sdf.format(date));
 
-                command.setAction((ActionEvent ae) -> SwingUtilities.invokeLater(() -> {
-                    SwingWorker<InputStream, Void> worker = new SwingWorker<InputStream,
-                            Void>() {
-                        @Override
-                        protected InputStream doInBackground() throws Exception {
-                            String leafName = command.getTitle();
-                            BreadcrumbBarModel<String> model = bar.getModel();
-                            String path = model.getItem(model.getItemCount() - 1).getData();
-                            return bar.getCallback().getLeafContent(path + "/" + leafName);
-                        }
-
-                        @Override
-                        protected void done() {
-                            try {
-                                InputStream is = get();
-                                BufferedReader reader = new BufferedReader(
-                                        new InputStreamReader(is));
-                                JTextArea textArea = new JTextArea();
-                                while (true) {
-                                    String line = reader.readLine();
-                                    if (line == null) {
-                                        break;
-                                    }
-                                    textArea.append(line + "\n");
+                command.setAction(
+                        (CommandActionEvent cae) -> SwingUtilities.invokeLater(() -> {
+                            SwingWorker<InputStream, Void> worker = new SwingWorker<InputStream,
+                                    Void>() {
+                                @Override
+                                protected InputStream doInBackground() throws Exception {
+                                    String leafName = command.getTitle();
+                                    BreadcrumbBarModel<String> model = bar.getModel();
+                                    String path = model.getItem(model.getItemCount() - 1).getData();
+                                    return bar.getCallback().getLeafContent(path + "/" + leafName);
                                 }
-                                textArea.setCaretPosition(0);
-                                JDialog contDialog = new JDialog(SvnBreadCrumbTest.this, false);
-                                contDialog.add(new JScrollPane(textArea), BorderLayout.CENTER);
-                                contDialog.setSize(500, 400);
-                                contDialog.setLocationRelativeTo(null);
-                                contDialog.setVisible(true);
-                            } catch (Exception exc) {
-                            }
-                        }
-                    };
-                    worker.execute();
-                }));
+
+                                @Override
+                                protected void done() {
+                                    try {
+                                        InputStream is = get();
+                                        BufferedReader reader = new BufferedReader(
+                                                new InputStreamReader(is));
+                                        JTextArea textArea = new JTextArea();
+                                        while (true) {
+                                            String line = reader.readLine();
+                                            if (line == null) {
+                                                break;
+                                            }
+                                            textArea.append(line + "\n");
+                                        }
+                                        textArea.setCaretPosition(0);
+                                        JDialog contDialog = new JDialog(SvnBreadCrumbTest.this,
+                                                false);
+                                        contDialog.add(new JScrollPane(textArea),
+                                                BorderLayout.CENTER);
+                                        contDialog.setSize(500, 400);
+                                        contDialog.setLocationRelativeTo(null);
+                                        contDialog.setVisible(true);
+                                    } catch (Exception exc) {
+                                    }
+                                }
+                            };
+                            worker.execute();
+                        }));
             }
         };
         JScrollPane fileListScrollPane = new JScrollPane(this.filePanel);

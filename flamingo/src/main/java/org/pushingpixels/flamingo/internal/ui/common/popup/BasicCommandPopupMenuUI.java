@@ -408,8 +408,8 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             public void popupHidden(PopupEvent event) {
                 if (event.getSource() instanceof JColorSelectorPopupMenu) {
                     ((JColorSelectorPopupMenu) event.getSource())
-                            .getColorSelectorPopupMenuContentModel().getColorSelectorCallback()
-                            .onColorRollover(null);
+                            .getColorSelectorPopupMenuContentModel().getColorPreviewListener()
+                            .onColorPreviewCanceled();
                 }
             }
         };

@@ -29,15 +29,11 @@
  */
 package org.pushingpixels.kormorant.ribbon
 
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
-import org.pushingpixels.flamingo.api.common.FlamingoCommand
 import org.pushingpixels.flamingo.api.common.FlamingoCommandDisplay
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.neon.icon.ResizableIcon
@@ -208,7 +204,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                         val galleryPresentationModel = content.presentation.toRibbonGalleryPresentationModel()
 
                         // Get the content model
-                        val galleryContentModel = content.content.toRibbonGalleryContentModel()
+                        val galleryContentModel = content.content.asRibbonGalleryContentModel()
 
                         ribbonBand.addRibbonGallery(content.content.title, galleryContentModel,
                                 galleryPresentationModel,

@@ -32,6 +32,7 @@ package org.pushingpixels.kormorant
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel
+import java.awt.Color
 
 @FlamingoElementMarker
 class KColorSelectorPopupMenuColorSection(val isDerived: Boolean) {
@@ -53,8 +54,9 @@ class KColorSelectorPopupMenu {
     private lateinit var colorSelectorPopupMenu: JColorSelectorPopupMenu
     private var hasBeenConverted: Boolean = false
 
-    var colorSelectorCallback: JColorSelectorPopupMenu.ColorSelectorCallback
-            by NonNullDelegate { hasBeenConverted }
+    var onColorActivated: ((Color) -> Unit)? by NullableDelegate { hasBeenConverted }
+    var onColorPreviewActivated: ((Color) -> Unit)? by NullableDelegate { hasBeenConverted }
+    var onColorPreviewCanceled: (() -> Unit)? by NullableDelegate { hasBeenConverted }
 
     private val components = arrayListOf<Any>()
 
@@ -133,7 +135,20 @@ class KColorSelectorPopupMenu {
         hasBeenConverted = true
 
         val menuContentModel = ColorSelectorPopupMenuContentModel(menuGroups)
-        menuContentModel.colorSelectorCallback = colorSelectorCallback
+        menuContentModel.colorActivationListener =
+                ColorSelectorPopupMenuContentModel.ColorActivationListener {
+                    onColorActivated?.invoke(it)
+                }
+        menuContentModel.colorPreviewListener = object :
+                ColorSelectorPopupMenuContentModel.ColorPreviewListener {
+            override fun onColorPreviewActivated(color: Color) {
+                onColorPreviewActivated?.invoke(color)
+            }
+
+            override fun onColorPreviewCanceled() {
+                onColorPreviewCanceled?.invoke()
+            }
+        }
 
         colorSelectorPopupMenu = JColorSelectorPopupMenu(menuContentModel)
 

@@ -29,14 +29,16 @@
  */
 package org.pushingpixels.kormorant
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.flamingo.api.common.*
-import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
-import org.pushingpixels.flamingo.api.common.model.CommandProjection
-import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
-import org.pushingpixels.flamingo.api.common.model.PopupButtonModel
+import org.pushingpixels.flamingo.api.common.model.*
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.neon.icon.ResizableIconFactory
+import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 
 interface ActionModelChangeInterface {
@@ -59,7 +61,7 @@ open class KCommand {
     var disabledIcon: ResizableIcon? by NullableDelegate { hasBeenConverted }
     var disabledIconFactory: ResizableIconFactory? by NullableDelegate { hasBeenConverted }
     var extraText: String? by NullableDelegate { hasBeenConverted }
-    var action: ActionListener? by NullableDelegate { hasBeenConverted }
+    var action: CommandListener? by NullableDelegate { hasBeenConverted }
     var actionModelChangeListener: ActionModelChangeInterface? by NullableDelegate { hasBeenConverted }
     private var actionRichTooltip: KRichTooltip? by NullableDelegate { hasBeenConverted }
     var popupCallback: PopupPanelCallback? by NullableDelegate { hasBeenConverted }
@@ -233,6 +235,14 @@ class KCommandGroup {
     fun toCommandGroupModel(): CommandProjectionGroupModel {
         return CommandProjectionGroupModel(title,
                 commands.map { it -> it.toProjection() })
+    }
+}
+
+fun DelayedCommandListener(listener: (CommandActionEvent) -> Unit): CommandListener {
+    return CommandListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
     }
 }
 

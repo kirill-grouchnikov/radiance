@@ -33,6 +33,7 @@ import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
+import org.pushingpixels.flamingo.api.common.model.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.neon.NeonCortex;
@@ -89,23 +90,23 @@ public class TestColorSelector extends JFrame {
         jcb.setDisplayState(CommandButtonDisplayState.SMALL);
         jcb.setFlat(false);
 
-        final JColorSelectorPopupMenu.ColorSelectorCallback callback = new
-                JColorSelectorPopupMenu.ColorSelectorCallback() {
+        final ColorSelectorPopupMenuContentModel.ColorActivationListener colorActivationListener =
+                (Color color) -> {
+                    bColor = color;
+                    centerPanel.setBackground(bColor);
+                    colorIcon.setColor(bColor);
+                };
+        final ColorSelectorPopupMenuContentModel.ColorPreviewListener colorPreviewListener =
+                new ColorSelectorPopupMenuContentModel.ColorPreviewListener() {
                     @Override
-                    public void onColorSelected(Color color) {
-                        bColor = color;
-                        centerPanel.setBackground(bColor);
-                        colorIcon.setColor(bColor);
+                    public void onColorPreviewActivated(Color color) {
+                        centerPanel.setBackground(color);
                     }
 
                     @Override
-                    public void onColorRollover(Color color) {
-                        if (color != null) {
-                            centerPanel.setBackground(color);
-                        } else {
-                            centerPanel.setBackground(bColor);
-                            colorIcon.setColor(bColor);
-                        }
+                    public void onColorPreviewCanceled() {
+                        centerPanel.setBackground(bColor);
+                        colorIcon.setColor(bColor);
                     }
                 };
 
@@ -117,20 +118,20 @@ public class TestColorSelector extends JFrame {
             selectorBuilder.addCommand(FlamingoCommand.builder()
                     .setTitle(resourceBundle.getString("ColorSelector.textAutomatic"))
                     .setIcon(new ColorIcon(defaultPanelColor))
-                    .setAction((ActionEvent e) -> {
-                        callback.onColorSelected(defaultPanelColor);
+                    .setAction((CommandActionEvent e) -> {
+                        colorActivationListener.onColorActivated(defaultPanelColor);
                         JColorSelectorPopupMenu.addColorToRecentlyUsed(
                                 defaultPanelColor);
                     })
                     .setPreviewListener(new FlamingoCommand.CommandPreviewListener() {
                         @Override
                         public void onCommandPreviewActivated(FlamingoCommand command) {
-                            callback.onColorRollover(Color.black);
+                            colorPreviewListener.onColorPreviewActivated(Color.black);
                         }
 
                         @Override
                         public void onCommandPreviewCanceled(FlamingoCommand command) {
-                            callback.onColorRollover(null);
+                            colorPreviewListener.onColorPreviewCanceled();
                         }
                     })
                     .build());
@@ -163,11 +164,11 @@ public class TestColorSelector extends JFrame {
 
             selectorBuilder.addCommand(FlamingoCommand.builder()
                     .setTitle(resourceBundle.getString("ColorSelector.textMoreColor"))
-                    .setAction((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                    .setAction((CommandActionEvent e) -> SwingUtilities.invokeLater(() -> {
                         Color color = JColorChooser.showDialog(TestColorSelector.this,
                                 "Color chooser", bColor);
                         if (color != null) {
-                            callback.onColorSelected(color);
+                            colorActivationListener.onColorActivated(color);
                             JColorSelectorPopupMenu.addColorToRecentlyUsed(color);
                         }
                     })).build());
@@ -175,7 +176,8 @@ public class TestColorSelector extends JFrame {
             ColorSelectorPopupMenuContentModel selectorModel =
                     new ColorSelectorPopupMenuContentModel(
                             Collections.singletonList(selectorBuilder.build()));
-            selectorModel.setColorSelectorCallback(callback);
+            selectorModel.setColorActivationListener(colorActivationListener);
+            selectorModel.setColorPreviewListener(colorPreviewListener);
 
             return new JColorSelectorPopupMenu(selectorModel);
         });

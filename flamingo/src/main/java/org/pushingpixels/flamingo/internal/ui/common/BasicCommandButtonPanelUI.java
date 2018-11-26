@@ -30,7 +30,6 @@
 package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.JCommandButtonPanel.LayoutKind;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
@@ -195,7 +194,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         CommandPanelPresentationModel panelPresentationModel =
                 this.buttonPanel.getPresentationModel();
         if ((panelPresentationModel != null)
-                && (panelPresentationModel.getLayoutKind() == LayoutKind.COLUMN_FILL)) {
+                && (panelPresentationModel.getLayoutKind() == CommandPanelPresentationModel.LayoutKind.COLUMN_FILL)) {
             return new ColumnFillLayout();
         } else {
             return new RowFillLayout();

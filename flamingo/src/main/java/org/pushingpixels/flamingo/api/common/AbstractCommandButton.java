@@ -501,6 +501,26 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
     }
 
     /**
+     * Adds the specified command listener to this button.
+     *
+     * @param l Command listener to add.
+     * @see #removeCommandListener(CommandListener)
+     */
+    public void addCommandListener(CommandListener l) {
+        this.listenerList.add(CommandListener.class, l);
+    }
+
+    /**
+     * Removes the specified command listener from this button.
+     *
+     * @param l Command listener to remove.
+     * @see #addCommandListener(CommandListener)
+     */
+    public void removeCommandListener(CommandListener l) {
+        this.listenerList.remove(CommandListener.class, l);
+    }
+
+    /**
      * Adds the specified change listener to this button.
      *
      * @param l Change listener to add.
@@ -576,7 +596,22 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
     protected void fireActionPerformed(ActionEvent event) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
-        ActionEvent e = null;
+        CommandActionEvent e = null;
+        // Process the listeners last to first, notifying
+        // those that are interested in this event
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == CommandListener.class) {
+                // Lazily create the event:
+                if (e == null) {
+                    String actionCommand = event.getActionCommand();
+                    e = new CommandActionEvent(this, ActionEvent.ACTION_PERFORMED,
+                            (FlamingoCommand) this.getClientProperty(FlamingoUtilities.COMMAND),
+                            actionCommand, event.getWhen(), event.getModifiers());
+                }
+                ((CommandListener) listeners[i + 1]).commandActivated(e);
+            }
+        }
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {

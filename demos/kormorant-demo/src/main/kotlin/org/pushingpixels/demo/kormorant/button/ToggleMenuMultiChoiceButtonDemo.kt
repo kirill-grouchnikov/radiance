@@ -34,6 +34,7 @@ import org.pushingpixels.demo.kormorant.svg.Format_text_italic
 import org.pushingpixels.demo.kormorant.svg.Format_text_strikethrough
 import org.pushingpixels.demo.kormorant.svg.Format_text_underline
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.model.CommandListener
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
@@ -41,7 +42,6 @@ import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.Dimension
 import java.awt.FlowLayout
-import java.awt.event.ActionListener
 import java.awt.image.BufferedImage
 import java.util.*
 import javax.swing.JFrame
@@ -70,7 +70,7 @@ fun main(args: Array<String>) {
                         command {
                             title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
                             icon = Format_text_bold.of(16, 16)
-                            action = ActionListener {
+                            action = CommandListener {
                                 println("Toggle bold")
                                 isBold = !isBold
                             }
@@ -80,7 +80,7 @@ fun main(args: Array<String>) {
                         command {
                             title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
                             icon = Format_text_italic.of(16, 16)
-                            action = ActionListener {
+                            action = CommandListener {
                                 println("Toggle italic")
                                 isItalic = !isItalic
                             }
@@ -90,7 +90,7 @@ fun main(args: Array<String>) {
                         command {
                             title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
                             icon = Format_text_underline.of(16, 16)
-                            action = ActionListener {
+                            action = CommandListener {
                                 println("Toggle underline")
                                 isUnderline = !isUnderline
                             }
@@ -100,7 +100,7 @@ fun main(args: Array<String>) {
                         command {
                             title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
                             icon = Format_text_strikethrough.of(16, 16)
-                            action = ActionListener {
+                            action = CommandListener {
                                 println("Toggle strikethrough")
                                 isStrikeThrough = !isStrikeThrough
                             }

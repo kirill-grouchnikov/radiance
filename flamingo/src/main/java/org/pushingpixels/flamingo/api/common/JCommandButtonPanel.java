@@ -44,7 +44,7 @@ import java.util.List;
  * column-fill / row-fill layout.
  *
  * <p>
- * Under the default {@link LayoutKind#ROW_FILL}, the buttons are laid out in
+ * Under the default {@link CommandPanelPresentationModel.LayoutKind#ROW_FILL}, the buttons are laid out in
  * rows, never exceeding the available horizontal space. A vertical scroll bar
  * will kick in once there is not enough vertical space to show all the buttons.
  * The schematic below shows a row-fill command button panel:
@@ -76,7 +76,7 @@ import java.util.List;
  * </p>
  *
  * <p>
- * Under the {@link LayoutKind#COLUMN_FILL}, the buttons are laid out in
+ * Under the {@link CommandPanelPresentationModel.LayoutKind#COLUMN_FILL}, the buttons are laid out in
  * columns, never exceeding the available vertical space. A horizontal scroll
  * bar will kick in once there is not enough horizontal space to show all the
  * buttons. The schematic below shows a column-fill command button panel:
@@ -139,24 +139,6 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
      * The button group for the single selection mode.
      */
     private CommandToggleGroupModel buttonGroup;
-
-    /**
-     * Enumerates the available layout kinds.
-     *
-     * @author Kirill Grouchnikov
-     */
-    // TODO - move into CommandPanelPresentationModel in 2.0
-    public enum LayoutKind {
-        /**
-         * The buttons are laid out in rows respecting the available width.
-         */
-        ROW_FILL,
-
-        /**
-         * The buttons are laid out in columns respecting the available height.
-         */
-        COLUMN_FILL
-    }
 
     public JCommandButtonPanel(CommandPanelContentModel panelContentModel,
             CommandPanelPresentationModel panelPresentationModel) {
@@ -398,12 +380,12 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
 
     @Override
     public boolean getScrollableTracksViewportHeight() {
-        return (this.getPresentationModel().getLayoutKind() == LayoutKind.COLUMN_FILL);
+        return (this.getPresentationModel().getLayoutKind() == CommandPanelPresentationModel.LayoutKind.COLUMN_FILL);
     }
 
     @Override
     public boolean getScrollableTracksViewportWidth() {
-        return (this.getPresentationModel().getLayoutKind() == LayoutKind.ROW_FILL);
+        return (this.getPresentationModel().getLayoutKind() == CommandPanelPresentationModel.LayoutKind.ROW_FILL);
     }
 
     @Override

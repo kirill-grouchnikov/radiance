@@ -541,7 +541,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
                 final int biIndex = i;
 
-                commandBuilder.setAction((ActionEvent e) -> {
+                commandBuilder.setAction((CommandActionEvent e) -> {
                     SwingUtilities.invokeLater(() -> {
                         BreadcrumbBarModel barModel = breadcrumbBar.getModel();
                         barModel.setCumulative(true);

@@ -48,25 +48,19 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
 
     private ColorSelectorPopupMenuContentModel colorSelectorPopupMenuContentModel;
 
-    private ColorSelectorCallback colorSelectorCallback;
+    private ColorSelectorPopupMenuContentModel.ColorPreviewListener colorPreviewListener;
+    private ColorSelectorPopupMenuContentModel.ColorActivationListener colorActivationListener;
 
     private JColorSelectorPanel lastColorSelectorPanel;
 
     private static LinkedList<Color> recentlySelected = new LinkedList<>();
 
-    // TODO: Move into ColorSelectorMenuGroupModel, split into two interfaces as in
-    //  RibbonGalleryModel, replacing onColorRollover with onColorPreviewActivated and
-    //  onColorPreviewCanceled in 2.0
-    public interface ColorSelectorCallback {
-        void onColorRollover(Color color);
-
-        void onColorSelected(Color color);
-    }
-
     public JColorSelectorPopupMenu(ColorSelectorPopupMenuContentModel contentModel) {
         this.colorSelectorPopupMenuContentModel = contentModel;
-        this.colorSelectorCallback =
-                this.colorSelectorPopupMenuContentModel.getColorSelectorCallback();
+        this.colorPreviewListener =
+                this.colorSelectorPopupMenuContentModel.getColorPreviewListener();
+        this.colorActivationListener =
+                this.colorSelectorPopupMenuContentModel.getColorActivationListener();
         this.populateContent();
         this.colorSelectorPopupMenuContentModel.addChangeListener(
                 (ChangeEvent event) -> populateContent());
@@ -185,16 +179,7 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
     }
 
     private static void wireToLRU(JColorSelectorComponent colorSelector) {
-        colorSelector.addColorSelectorCallback(new JColorSelectorPopupMenu.ColorSelectorCallback() {
-            @Override
-            public void onColorSelected(Color color) {
-                addColorToRecentlyUsed(color);
-            }
-
-            @Override
-            public void onColorRollover(Color color) {
-            }
-        });
+        colorSelector.addColorActivationListener((Color color) ->  addColorToRecentlyUsed(color));
     }
 
     public synchronized static List<Color> getRecentlyUsedColors() {
@@ -222,7 +207,8 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
                 final Color... colors) {
             final JColorSelectorComponent[] comps = new JColorSelectorComponent[colors.length];
             for (int i = 0; i < colors.length; i++) {
-                comps[i] = new JColorSelectorComponent(colors[i], colorSelectorCallback);
+                comps[i] = new JColorSelectorComponent(colors[i], colorPreviewListener,
+                        colorActivationListener);
                 wireToLRU(comps[i]);
                 this.add(comps[i]);
             }
@@ -288,7 +274,8 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
             for (int i = 0; i < colors.length; i++) {
                 Color primary = colors[i];
 
-                comps[i][0] = new JColorSelectorComponent(primary, colorSelectorCallback);
+                comps[i][0] = new JColorSelectorComponent(primary, colorPreviewListener,
+                        colorActivationListener);
                 wireToLRU(comps[i][0]);
                 this.add(comps[i][0]);
 
@@ -309,7 +296,8 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
                     Color secondary = new Color(Color.HSBtoRGB(primaryHsb[0],
                             primaryHsb[1] * (row + 1) / (SECONDARY_ROWS + 1), brightness));
 
-                    comps[i][row] = new JColorSelectorComponent(secondary, colorSelectorCallback);
+                    comps[i][row] = new JColorSelectorComponent(secondary, colorPreviewListener,
+                            colorActivationListener);
                     comps[i][row].setTopOpen(row > 1);
                     comps[i][row].setBottomOpen(row < SECONDARY_ROWS);
                     wireToLRU(comps[i][row]);

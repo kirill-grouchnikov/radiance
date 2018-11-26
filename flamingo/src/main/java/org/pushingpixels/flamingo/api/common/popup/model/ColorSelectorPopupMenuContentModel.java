@@ -29,15 +29,16 @@
  */
 package org.pushingpixels.flamingo.api.common.popup.model;
 
-import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
-
 import javax.swing.event.*;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class ColorSelectorPopupMenuContentModel {
     private List<ColorSelectorPopupMenuGroupModel> menuGroups;
 
-    private JColorSelectorPopupMenu.ColorSelectorCallback colorSelectorCallback;
+    private ColorPreviewListener colorPreviewListener;
+    private ColorActivationListener colorActivationListener;
 
     /**
      * Stores the listeners on this model.
@@ -45,6 +46,16 @@ public class ColorSelectorPopupMenuContentModel {
     private EventListenerList listenerList = new EventListenerList();
 
     private ChangeListener menuGroupChangeListener;
+
+    public interface ColorPreviewListener extends EventListener {
+        void onColorPreviewActivated(Color color);
+
+        void onColorPreviewCanceled();
+    }
+
+    public interface ColorActivationListener extends EventListener {
+        void onColorActivated(Color color);
+    }
 
     public ColorSelectorPopupMenuContentModel(List<ColorSelectorPopupMenuGroupModel> menuGroups) {
         this.menuGroups = new ArrayList<>(menuGroups);
@@ -58,12 +69,20 @@ public class ColorSelectorPopupMenuContentModel {
         return this.menuGroups;
     }
 
-    public JColorSelectorPopupMenu.ColorSelectorCallback getColorSelectorCallback() {
-        return this.colorSelectorCallback;
+    public ColorPreviewListener getColorPreviewListener() {
+        return this.colorPreviewListener;
     }
 
-    public void setColorSelectorCallback(JColorSelectorPopupMenu.ColorSelectorCallback colorSelectorCallback) {
-        this.colorSelectorCallback = colorSelectorCallback;
+    public void setColorPreviewListener(ColorPreviewListener colorPreviewListener) {
+        this.colorPreviewListener = colorPreviewListener;
+    }
+
+    public ColorActivationListener getColorActivationListener() {
+        return this.colorActivationListener;
+    }
+
+    public void setColorActivationListener(ColorActivationListener colorActivationListener) {
+        this.colorActivationListener = colorActivationListener;
     }
 
     public void addMenuGroup(ColorSelectorPopupMenuGroupModel menuGroupModel) {

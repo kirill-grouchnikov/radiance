@@ -34,13 +34,13 @@ import org.pushingpixels.demo.kormorant.svg.Format_text_italic
 import org.pushingpixels.demo.kormorant.svg.Format_text_strikethrough
 import org.pushingpixels.demo.kormorant.svg.Format_text_underline
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip
+import org.pushingpixels.flamingo.api.common.model.CommandListener
 import org.pushingpixels.kormorant.commandButtonStrip
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.FlowLayout
-import java.awt.event.ActionListener
 import java.awt.image.BufferedImage
 import java.util.*
 import javax.swing.JFrame
@@ -98,7 +98,7 @@ fun main(args: Array<String>) {
         val commandStyleStrip = commandButtonStrip {
             command {
                 icon = Format_text_bold.of(16, 16)
-                action = ActionListener {
+                action = CommandListener {
                     textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Bold)
                 }
                 isEnabled = false
@@ -111,7 +111,7 @@ fun main(args: Array<String>) {
             }
             command {
                 icon = Format_text_italic.of(16, 16)
-                action = ActionListener {
+                action = CommandListener {
                     textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Italic)
                 }
                 isEnabled = false
@@ -124,7 +124,7 @@ fun main(args: Array<String>) {
             }
             command {
                 icon = Format_text_underline.of(16, 16)
-                action = ActionListener {
+                action = CommandListener {
                     textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Underline)
                 }
                 isEnabled = false
@@ -137,7 +137,7 @@ fun main(args: Array<String>) {
             }
             command {
                 icon = Format_text_strikethrough.of(16, 16)
-                action = ActionListener {
+                action = CommandListener {
                     textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.StrikeThrough)
                 }
                 isEnabled = false

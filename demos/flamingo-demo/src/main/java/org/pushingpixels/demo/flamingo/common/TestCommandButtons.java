@@ -176,7 +176,7 @@ public class TestCommandButtons extends JFrame {
                         scrollableEntries.add(FlamingoCommand.builder()
                                 .setTitle(mf.format(new Object[] { i }))
                                 .setIcon(new Text_x_generic())
-                                .setAction((ActionEvent e) -> System.out
+                                .setAction((CommandActionEvent e) -> System.out
                                         .println("Invoked action on '" + index + "'"))
                                 .build().project(menuDisplay));
                     }

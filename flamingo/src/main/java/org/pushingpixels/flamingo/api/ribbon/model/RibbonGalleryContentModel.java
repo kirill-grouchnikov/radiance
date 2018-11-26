@@ -29,10 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.model;
 
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.FlamingoCommand;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 
 import javax.swing.event.*;
 import java.util.*;
@@ -41,7 +40,7 @@ public class RibbonGalleryContentModel {
     private List<CommandProjectionGroupModel> commandGroups;
     private List<CommandProjectionGroupModel> extraPopupCommandGroups;
     private FlamingoCommand selectedCommand;
-    private ResizableIcon icon;
+    private ResizableIconFactory iconFactory;
 
     /**
      * Stores the listeners on this model.
@@ -60,8 +59,9 @@ public class RibbonGalleryContentModel {
 
     private CommandProjectionGroupModel.CommandProjectionGroupListener commandGroupListener;
 
-    public RibbonGalleryContentModel(ResizableIcon icon, List<CommandProjectionGroupModel> commands) {
-        this.icon = icon;
+    public RibbonGalleryContentModel(ResizableIconFactory iconFactory,
+            List<CommandProjectionGroupModel> commands) {
+        this.iconFactory = iconFactory;
         this.commandGroups = new ArrayList<>(commands);
 
         this.commandGroupListener = new CommandProjectionGroupModel.CommandProjectionGroupListener() {
@@ -82,8 +82,8 @@ public class RibbonGalleryContentModel {
         this.extraPopupCommandGroups = new ArrayList<>();
     }
 
-    public ResizableIcon getIcon() {
-        return this.icon;
+    public ResizableIconFactory getIconFactory() {
+        return this.iconFactory;
     }
 
     public List<CommandProjectionGroupModel> getCommandGroups() {

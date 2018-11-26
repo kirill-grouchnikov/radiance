@@ -35,7 +35,7 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel
 import org.pushingpixels.kormorant.*
-import org.pushingpixels.neon.icon.ResizableIcon
+import org.pushingpixels.neon.icon.ResizableIconFactory
 
 @FlamingoElementMarker
 class GalleryCommandVisibilityContainer {
@@ -72,15 +72,22 @@ class KRibbonGalleryPresentation {
 
 @FlamingoElementMarker
 class KRibbonGalleryContent {
-    var title: String by NonNullDelegate { false }
-    var icon: ResizableIcon? by NullableDelegate { false }
-    internal val commandGroups = arrayListOf<KCommandGroup>()
-    internal val extraPopupGroups = arrayListOf<KCommandGroup>()
-    internal val extraPopupDefaultGroup = KCommandGroup()
-    var onCommandActivated: ((FlamingoCommand) -> Unit)? by NullableDelegate { false }
-    var onCommandPreviewActivated: ((FlamingoCommand) -> Unit)? by NullableDelegate { false }
-    var onCommandPreviewCanceled: ((FlamingoCommand) -> Unit)? by NullableDelegate { false }
+    private var hasBeenConverted: Boolean = false
+    private lateinit var javaRibbonGalleryContentModel: RibbonGalleryContentModel
+
+    var title: String by NonNullDelegate { hasBeenConverted }
+    var iconFactory: ResizableIconFactory? by NullableDelegate { hasBeenConverted }
+    private val commandGroups = arrayListOf<KCommandGroup>()
+    private val extraPopupGroups = arrayListOf<KCommandGroup>()
+    private val extraPopupDefaultGroup = KCommandGroup()
+    var onCommandActivated: ((FlamingoCommand) -> Unit)? by NullableDelegate { hasBeenConverted }
+    var onCommandPreviewActivated: ((FlamingoCommand) -> Unit)? by NullableDelegate { hasBeenConverted }
+    var onCommandPreviewCanceled: ((FlamingoCommand) -> Unit)? by NullableDelegate { hasBeenConverted }
+
     fun commandGroup(init: KCommandGroup.() -> Unit): KCommandGroup {
+        if (hasBeenConverted) {
+            throw IllegalArgumentException("This gallery content model has already been converted")
+        }
         val commandGroup = KCommandGroup()
         commandGroup.init()
         commandGroups.add(commandGroup)
@@ -89,6 +96,10 @@ class KRibbonGalleryContent {
 
     fun extraPopupCommand(actionKeyTip: String? = null, popupKeyTip: String? = null,
             init: KCommand.() -> Unit): KCommand {
+        if (hasBeenConverted) {
+            throw IllegalArgumentException("This gallery content model has already been converted")
+        }
+
         val command = KCommand()
         command.init()
         extraPopupDefaultGroup.commands.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip))
@@ -96,15 +107,23 @@ class KRibbonGalleryContent {
     }
 
     fun extraPopupGroup(init: KCommandGroup.() -> Unit): KCommandGroup {
+        if (hasBeenConverted) {
+            throw IllegalArgumentException("This gallery content model has already been converted")
+        }
+
         val group = KCommandGroup()
         group.init()
         extraPopupGroups.add(group)
         return group
     }
     
-    internal fun toRibbonGalleryContentModel(): RibbonGalleryContentModel {
+    internal fun asRibbonGalleryContentModel(): RibbonGalleryContentModel {
+        if (hasBeenConverted) {
+            return javaRibbonGalleryContentModel
+        }
+
         // Map primary gallery commands to the command group models expected for the content model
-        val galleryContentModel = RibbonGalleryContentModel(this.icon,
+        javaRibbonGalleryContentModel = RibbonGalleryContentModel(this.iconFactory,
                 commandGroups.map { it.toCommandGroupModel() })
 
         // Wire extra popup content if we have it
@@ -113,11 +132,11 @@ class KRibbonGalleryContent {
         }
 
         for (extraContent in extraPopupGroups) {
-            galleryContentModel.addExtraPopupCommandGroup(extraContent.toCommandGroupModel())
+            javaRibbonGalleryContentModel.addExtraPopupCommandGroup(extraContent.toCommandGroupModel())
         }
 
         // Wire command preview and activation listeners
-        galleryContentModel.addCommandPreviewListener(
+        javaRibbonGalleryContentModel.addCommandPreviewListener(
                 object : RibbonGalleryContentModel.GalleryCommandPreviewListener {
                     override fun onCommandPreviewActivated(command: FlamingoCommand) {
                         onCommandPreviewActivated?.invoke(command)
@@ -126,13 +145,14 @@ class KRibbonGalleryContent {
                     override fun onCommandPreviewCanceled(command: FlamingoCommand) {
                         onCommandPreviewCanceled?.invoke(command)
                     }
-                }
-        )
+                })
         if (onCommandActivated != null) {
-            galleryContentModel.addCommandActivationListener(onCommandActivated)
+            javaRibbonGalleryContentModel.addCommandActivationListener(onCommandActivated)
         }
 
-        return galleryContentModel
+        hasBeenConverted = true
+
+        return javaRibbonGalleryContentModel
     }
 }
 

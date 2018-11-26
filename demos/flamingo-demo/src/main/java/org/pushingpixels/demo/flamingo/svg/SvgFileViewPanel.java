@@ -141,10 +141,8 @@ public class SvgFileViewPanel extends JPanel {
                     InputStream svgStream = pair.getValue();
                     Dimension svgDim = new Dimension(currDimension, currDimension);
                     final SvgBatikResizableIcon svgIcon = name.endsWith(".svg")
-                                                          ? SvgBatikResizableIcon.getSvgIcon(
-                            svgStream, svgDim)
-                                                          : SvgBatikResizableIcon.getSvgzIcon(
-                            svgStream, svgDim);
+                            ? SvgBatikResizableIcon.getSvgIcon(svgStream, svgDim)
+                            : SvgBatikResizableIcon.getSvgzIcon(svgStream, svgDim);
                     JCommandButton svgButton = newButtons.get(name);
                     svgButton.setIcon(svgIcon);
 

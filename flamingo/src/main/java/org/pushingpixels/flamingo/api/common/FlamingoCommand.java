@@ -31,7 +31,6 @@ package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.*;
 
 import javax.swing.event.*;
@@ -53,7 +52,7 @@ public class FlamingoCommand {
     private ResizableIcon disabledIcon;
     private ResizableIconFactory disabledIconFactory;
     private String extraText;
-    private ActionListener action;
+    private CommandListener action;
     private RichTooltip actionRichTooltip;
     private PopupPanelCallback popupCallback;
     private RichTooltip popupRichTooltip;
@@ -159,12 +158,12 @@ public class FlamingoCommand {
         this.pcs.firePropertyChange("extraText", old, this.extraText);
     }
 
-    public ActionListener getAction() {
+    public CommandListener getAction() {
         return this.action;
     }
 
-    public void setAction(ActionListener actionListener) {
-        ActionListener old = this.action;
+    public void setAction(CommandListener actionListener) {
+        CommandListener old = this.action;
         this.action = actionListener;
         this.pcs.firePropertyChange("action", old, this.action);
     }
@@ -335,7 +334,7 @@ public class FlamingoCommand {
         protected ResizableIcon disabledIcon;
         protected ResizableIconFactory disabledIconFactory;
         protected String extraText;
-        protected ActionListener action;
+        protected CommandListener action;
         protected RichTooltip actionRichTooltip;
         protected PopupPanelCallback popupCallback;
         protected RichTooltip popupRichTooltip;
@@ -412,7 +411,7 @@ public class FlamingoCommand {
             return (B) this;
         }
 
-        public B setAction(ActionListener action) {
+        public B setAction(CommandListener action) {
             this.action = action;
             return (B) this;
         }

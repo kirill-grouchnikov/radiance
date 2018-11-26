@@ -34,13 +34,13 @@ import org.pushingpixels.demo.kormorant.svg.Format_justify_fill
 import org.pushingpixels.demo.kormorant.svg.Format_justify_left
 import org.pushingpixels.demo.kormorant.svg.Format_justify_right
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip
+import org.pushingpixels.flamingo.api.common.model.CommandListener
 import org.pushingpixels.kormorant.commandToggleButtonStrip
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.FlowLayout
-import java.awt.event.ActionListener
 import java.awt.image.BufferedImage
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -81,25 +81,25 @@ fun main(args: Array<String>) {
             command {
                 icon = Format_justify_left.of(16, 16)
                 isToggleSelected = true
-                action = ActionListener {
+                action = CommandListener {
                     textPane.setAlignment(StyleConstants.ALIGN_LEFT)
                 }
             }
             command {
                 icon = Format_justify_center.of(16, 16)
-                action = ActionListener {
+                action = CommandListener {
                     textPane.setAlignment(StyleConstants.ALIGN_CENTER)
                 }
             }
             command {
                 icon = Format_justify_right.of(16, 16)
-                action = ActionListener {
+                action = CommandListener {
                     textPane.setAlignment(StyleConstants.ALIGN_RIGHT)
                 }
             }
             command {
                 icon = Format_justify_fill.of(16, 16)
-                action = ActionListener {
+                action = CommandListener {
                     textPane.setAlignment(StyleConstants.ALIGN_JUSTIFIED)
                 }
             }

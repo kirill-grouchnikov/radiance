@@ -34,7 +34,6 @@ import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.event.*;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 
 public class CommandProjection {
@@ -94,7 +93,7 @@ public class CommandProjection {
         boolean hasPopup = this.hasPopup();
 
         if (hasAction) {
-            button.addActionListener(this.command.getAction());
+            button.addCommandListener(this.command.getAction());
             button.setActionRichTooltip(this.command.getActionRichTooltip());
             button.setActionKeyTip(this.commandDisplay.getActionKeyTip());
         }
@@ -170,8 +169,8 @@ public class CommandProjection {
                 button.setExtraText((String) evt.getNewValue());
             }
             if ("action".equals(evt.getPropertyName())) {
-                button.removeActionListener((ActionListener) evt.getOldValue());
-                button.addActionListener((ActionListener) evt.getNewValue());
+                button.removeCommandListener((CommandListener) evt.getOldValue());
+                button.addCommandListener((CommandListener) evt.getNewValue());
             }
         });
     }

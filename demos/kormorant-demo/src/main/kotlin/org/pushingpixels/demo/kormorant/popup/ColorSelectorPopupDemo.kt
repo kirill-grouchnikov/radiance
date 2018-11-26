@@ -32,19 +32,19 @@ package org.pushingpixels.demo.kormorant.popup
 import org.pushingpixels.ember.setColorizationFactor
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
+import org.pushingpixels.flamingo.api.common.model.CommandListener
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.ActionModelChangeInterface
+import org.pushingpixels.kormorant.DelayedCommandListener
 import org.pushingpixels.kormorant.colorSelectorPopupMenu
 import org.pushingpixels.kormorant.commandButton
-import org.pushingpixels.meteor.DelayedActionListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.*
-import java.awt.event.ActionListener
 import java.awt.geom.Rectangle2D
 import java.awt.image.BufferedImage
 import java.util.*
@@ -108,23 +108,17 @@ fun main(args: Array<String>) {
 
         // Icon for our button
         val colorIcon = ColorIcon(backgroundColor)
-        // Color selector callback to update the background fill of the main panel
+        // Color selector listeners to update the background fill of the main panel
         // and keep the button icon in sync
-        val callback = object : JColorSelectorPopupMenu.ColorSelectorCallback {
-            override fun onColorSelected(color: Color) {
-                backgroundColor = color
-                centerPanel.background = backgroundColor
-                colorIcon.setColor(backgroundColor)
-            }
-
-            override fun onColorRollover(color: Color?) {
-                if (color != null) {
-                    centerPanel.background = color
-                } else {
-                    centerPanel.background = backgroundColor
-                    colorIcon.setColor(backgroundColor)
-                }
-            }
+        val onColorActivatedListener = { color: Color ->
+            backgroundColor = color
+            centerPanel.background = backgroundColor
+            colorIcon.setColor(backgroundColor)
+        }
+        val onColorPreviewActivatedListener = { color: Color -> centerPanel.background = color }
+        val onColorPreviewCanceledListener = {
+            centerPanel.background = backgroundColor
+            colorIcon.setColor(backgroundColor)
         }
 
         val defaultPanelColor = centerPanel.background
@@ -133,13 +127,15 @@ fun main(args: Array<String>) {
                 icon = colorIcon
                 popupCallback = PopupPanelCallback {
                     colorSelectorPopupMenu {
-                        colorSelectorCallback = callback
+                        onColorActivated = onColorActivatedListener
+                        onColorPreviewActivated = onColorPreviewActivatedListener
+                        onColorPreviewCanceled = onColorPreviewCanceledListener
 
                         command {
                             title = resourceBundle.getString("ColorSelector.textAutomatic")
                             icon = ColorIcon(defaultPanelColor)
-                            action = ActionListener {
-                                callback.onColorSelected(defaultPanelColor)
+                            action = CommandListener {
+                                onColorActivatedListener.invoke(defaultPanelColor)
                                 JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor)
                             }
                             // Register a listener on the action model
@@ -149,11 +145,11 @@ fun main(args: Array<String>) {
                                     val isRollover = model.isRollover
                                     if (wasRollover && !isRollover) {
                                         // Notify the callback that there is no rollover
-                                        callback.onColorRollover(null)
+                                        onColorPreviewCanceledListener.invoke()
                                     }
                                     if (!wasRollover && isRollover) {
                                         // Notify the callback that there is rollover with automatic (black) color
-                                        callback.onColorRollover(Color.black)
+                                        onColorPreviewActivatedListener.invoke(Color.black)
                                     }
                                     wasRollover = isRollover
                                 }
@@ -198,11 +194,11 @@ fun main(args: Array<String>) {
 
                         command {
                             title = resourceBundle.getString("ColorSelector.textMoreColor")
-                            action = DelayedActionListener {
+                            action = DelayedCommandListener {
                                 val color = JColorChooser.showDialog(it.source as Component,
                                         "Color chooser", backgroundColor)
                                 if (color != null) {
-                                    callback.onColorSelected(color)
+                                    onColorActivatedListener(color)
                                     JColorSelectorPopupMenu.addColorToRecentlyUsed(color)
                                 }
                             }

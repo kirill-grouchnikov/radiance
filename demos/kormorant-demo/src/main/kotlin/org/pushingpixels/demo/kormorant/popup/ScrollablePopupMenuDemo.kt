@@ -32,6 +32,7 @@ package org.pushingpixels.demo.kormorant.popup
 import org.pushingpixels.demo.kormorant.svg.Help_browser
 import org.pushingpixels.demo.kormorant.svg.Text_x_generic
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.model.CommandListener
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
@@ -39,7 +40,6 @@ import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.Dimension
 import java.awt.FlowLayout
-import java.awt.event.ActionListener
 import java.awt.image.BufferedImage
 import java.text.MessageFormat
 import java.util.*
@@ -68,7 +68,7 @@ fun main(args: Array<String>) {
                             command {
                                 title = mf.format(arrayOf<Any>(i))
                                 icon = Text_x_generic.of(16, 16)
-                                action = ActionListener {
+                                action = CommandListener {
                                     println("Invoked action on '$i'")
                                 }
                             }

@@ -32,7 +32,7 @@ package org.pushingpixels.demo.flamingo.common;
 import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
-import org.pushingpixels.flamingo.api.common.JCommandButtonPanel.LayoutKind;
+import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -80,10 +80,10 @@ public class TestCommandButtonPanel extends JFrame {
 
         final JCheckBox isRowFillLayout = new JCheckBox("use row fill layout");
         isRowFillLayout.setSelected(
-                buttonPanel.getPresentationModel().getLayoutKind() == LayoutKind.ROW_FILL);
+                buttonPanel.getPresentationModel().getLayoutKind() == CommandPanelPresentationModel.LayoutKind.ROW_FILL);
         isRowFillLayout.addActionListener((ActionEvent e) ->
                 buttonPanel.getPresentationModel().setLayoutKind(
-                        isRowFillLayout.isSelected() ? LayoutKind.ROW_FILL : LayoutKind
+                        isRowFillLayout.isSelected() ? CommandPanelPresentationModel.LayoutKind.ROW_FILL : CommandPanelPresentationModel.LayoutKind
                                 .COLUMN_FILL));
         controlPanel.add(isRowFillLayout);
 

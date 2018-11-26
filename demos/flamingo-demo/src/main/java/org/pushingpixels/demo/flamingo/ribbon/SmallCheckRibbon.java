@@ -31,6 +31,7 @@ package org.pushingpixels.demo.flamingo.ribbon;
 
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Help_browser;
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.CommandActionEvent;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
@@ -88,8 +89,8 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
                         .addDescriptionSection(
                                 resourceBundle.getString("Help.tooltip.actionParagraph"))
                         .build())
-                .setAction((ActionEvent e) -> JOptionPane.showMessageDialog(SmallCheckRibbon.this,
-                        "Help button clicked"))
+                .setAction((CommandActionEvent e) -> JOptionPane.showMessageDialog(
+                        SmallCheckRibbon.this, "Help button clicked"))
                 .build().project());
 
         group1 = new RibbonContextualTaskGroup("Group 1", Color.red,

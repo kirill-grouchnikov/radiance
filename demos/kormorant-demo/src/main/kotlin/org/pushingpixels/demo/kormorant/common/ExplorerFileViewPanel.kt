@@ -31,7 +31,10 @@
 package org.pushingpixels.demo.kormorant.common
 
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
-import org.pushingpixels.flamingo.api.common.*
+import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel
+import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.FlamingoCommand
+import org.pushingpixels.flamingo.api.common.StringValuePair
 import org.pushingpixels.flamingo.api.common.icon.IcoWrapperResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon
 import org.pushingpixels.neon.icon.ResizableIcon

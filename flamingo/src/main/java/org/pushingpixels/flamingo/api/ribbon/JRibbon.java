@@ -34,6 +34,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandProjection;
 import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -302,7 +303,10 @@ public class JRibbon extends JComponent {
     public synchronized void addTaskbarGalleryDropdown(
             RibbonGalleryContentModel galleryContentModel,
             RibbonGalleryPresentationModel galleryPresentationModel) {
-        JCommandButton galleryDropdownButton = new JCommandButton(galleryContentModel.getIcon());
+        ResizableIcon icon = (galleryContentModel.getIconFactory() != null)
+                ? galleryContentModel.getIconFactory().createNewIcon()
+                : null;
+        JCommandButton galleryDropdownButton = new JCommandButton(icon);
         galleryDropdownButton.setDisplayState(CommandButtonDisplayState.SMALL);
         galleryDropdownButton.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
 

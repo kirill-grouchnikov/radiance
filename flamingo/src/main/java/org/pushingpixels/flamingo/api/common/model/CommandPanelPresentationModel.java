@@ -41,13 +41,13 @@ public class CommandPanelPresentationModel {
 
     /**
      * Maximum number of columns for the panel. Relevant only when the layout
-     * kind is {@link JCommandButtonPanel.LayoutKind#ROW_FILL}.
+     * kind is {@link LayoutKind#ROW_FILL}.
      */
     private int maxColumns = -1;
 
     /**
      * Maximum number of rows for the panel. Relevant only when the layout kind
-     * is {@link JCommandButtonPanel.LayoutKind#COLUMN_FILL}.
+     * is {@link LayoutKind#COLUMN_FILL}.
      */
     private int maxRows = -1;
 
@@ -59,7 +59,7 @@ public class CommandPanelPresentationModel {
     /**
      * Layout kind of the panel.
      */
-    private JCommandButtonPanel.LayoutKind layoutKind = JCommandButtonPanel.LayoutKind.ROW_FILL;
+    private LayoutKind layoutKind = LayoutKind.ROW_FILL;
 
     private CommandButtonDisplayState commandDisplayState;
 
@@ -68,6 +68,23 @@ public class CommandPanelPresentationModel {
     private int commandHorizontalAlignment;
     private boolean isMenu;
     private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind;
+
+    /**
+     * Enumerates the available layout kinds.
+     *
+     * @author Kirill Grouchnikov
+     */
+    public enum LayoutKind {
+        /**
+         * The buttons are laid out in rows respecting the available width.
+         */
+        ROW_FILL,
+
+        /**
+         * The buttons are laid out in columns respecting the available height.
+         */
+        COLUMN_FILL
+    }
 
     private CommandPanelPresentationModel() {
     }
@@ -126,15 +143,15 @@ public class CommandPanelPresentationModel {
         }
     }
 
-    public JCommandButtonPanel.LayoutKind getLayoutKind() {
+    public LayoutKind getLayoutKind() {
         return this.layoutKind;
     }
 
-    public void setLayoutKind(JCommandButtonPanel.LayoutKind layoutKind) {
+    public void setLayoutKind(LayoutKind layoutKind) {
         if (layoutKind == null) {
             throw new IllegalArgumentException("Layout kind cannot be null");
         }
-        if ((layoutKind == JCommandButtonPanel.LayoutKind.COLUMN_FILL)
+        if ((layoutKind == LayoutKind.COLUMN_FILL)
                 && this.isToShowGroupLabels()) {
             throw new IllegalArgumentException(
                     "Column fill layout is not supported when group labels are shown");
@@ -150,7 +167,7 @@ public class CommandPanelPresentationModel {
     }
 
     public void setToShowGroupLabels(boolean toShowGroupLabels) {
-        if ((this.getLayoutKind() == JCommandButtonPanel.LayoutKind.COLUMN_FILL)
+        if ((this.getLayoutKind() == LayoutKind.COLUMN_FILL)
                 && toShowGroupLabels) {
             throw new IllegalArgumentException(
                     "Column fill layout is not supported when group labels are shown");
@@ -213,7 +230,7 @@ public class CommandPanelPresentationModel {
         private int maxColumns = -1;
         private int maxRows = -1;
         private boolean toShowGroupLabels = true;
-        private JCommandButtonPanel.LayoutKind layoutKind = JCommandButtonPanel.LayoutKind.ROW_FILL;
+        private LayoutKind layoutKind = LayoutKind.ROW_FILL;
         private CommandButtonDisplayState commandDisplayState;
         private Integer commandIconDimension = -1;
         private int commandHorizontalAlignment = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
@@ -237,7 +254,7 @@ public class CommandPanelPresentationModel {
         }
 
         public CommandPanelPresentationModelBuilder setLayoutKind(
-                JCommandButtonPanel.LayoutKind layoutKind) {
+                LayoutKind layoutKind) {
             this.layoutKind = layoutKind;
             return this;
         }

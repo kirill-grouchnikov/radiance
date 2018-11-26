@@ -67,7 +67,7 @@ public class JRibbonGallery extends JComponent {
     /**
      * Button group for ensuring that only one button is selected.
      */
-    private CommandToggleButtonGroup buttonSelectionGroup;
+    private CommandToggleGroupModel commandToggleGroupModel;
 
     /**
      * The current display priority of <code>this</code> in-ribbon gallery.
@@ -88,7 +88,7 @@ public class JRibbonGallery extends JComponent {
 
         this.buttons = new ArrayList<>();
         this.commands = new ArrayList<>();
-        this.buttonSelectionGroup = new CommandToggleButtonGroup();
+        this.commandToggleGroupModel = new CommandToggleGroupModel();
 
         this.validateCommandDisplayState(galleryPresentationModel.getCommandDisplayState());
         this.setName(galleryName);
@@ -96,13 +96,12 @@ public class JRibbonGallery extends JComponent {
         this.populateContent();
 
         this.galleryContentModel.addCommandActivationListener((FlamingoCommand activated) -> {
-            int buttonIndex = this.commands.indexOf(activated);
-            this.buttonSelectionGroup.setSelected(this.buttons.get(buttonIndex), true);
+            this.commandToggleGroupModel.setSelected(activated, true);
         });
 
         this.galleryContentModel.addChangeListener((ChangeEvent changeEvent) -> {
             this.buttons.clear();
-            this.buttonSelectionGroup.removeAll();
+            this.commandToggleGroupModel.removeAll();
             this.commands.clear();
             this.removeAll();
 
@@ -111,7 +110,7 @@ public class JRibbonGallery extends JComponent {
 
         this.galleryPresentationModel.addChangeListener((ChangeEvent changeEvent) -> {
             this.buttons.clear();
-            this.buttonSelectionGroup.removeAll();
+            this.commandToggleGroupModel.removeAll();
             this.commands.clear();
             this.removeAll();
 
@@ -196,7 +195,7 @@ public class JRibbonGallery extends JComponent {
                 galleryContentModel.setSelectedCommand(command));
 
         this.buttons.add(button);
-        this.buttonSelectionGroup.add(button);
+        this.commandToggleGroupModel.add(command);
         this.commands.add(command);
         button.setDisplayState(this.galleryPresentationModel.getCommandDisplayState());
 
@@ -263,7 +262,8 @@ public class JRibbonGallery extends JComponent {
      * @return The currently selected gallery button.
      */
     public JCommandToggleButton getSelectedButton() {
-        return this.buttonSelectionGroup.getSelected();
+        int buttonIndex = this.commands.indexOf(this.commandToggleGroupModel.getSelected());
+        return this.buttons.get(buttonIndex);
     }
 
     public RibbonGalleryContentModel getContentModel() {

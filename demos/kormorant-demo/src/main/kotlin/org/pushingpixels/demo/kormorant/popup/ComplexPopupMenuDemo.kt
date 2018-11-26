@@ -32,6 +32,7 @@ package org.pushingpixels.demo.kormorant.popup
 import org.pushingpixels.demo.kormorant.svg.*
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
+import org.pushingpixels.flamingo.api.common.model.CommandListener
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
@@ -41,7 +42,6 @@ import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.FlowLayout
-import java.awt.event.ActionListener
 import java.awt.image.BufferedImage
 import java.text.MessageFormat
 import java.util.*
@@ -98,7 +98,7 @@ fun main(args: Array<String>) {
                                             )
 
                                             isToggle = true
-                                            action = ActionListener {
+                                            action = CommandListener {
                                                 println("Invoked action on $decoration")
                                             }
                                         }
@@ -113,21 +113,21 @@ fun main(args: Array<String>) {
                             command {
                                 title = mf.format(arrayOf("1"))
                                 icon = Applications_games.of(16, 16)
-                                action = ActionListener {
+                                action = CommandListener {
                                     println("First!")
                                 }
                             }
                             command {
                                 title = mf.format(arrayOf("2"))
                                 icon = Applications_graphics.of(16, 16)
-                                action = ActionListener {
+                                action = CommandListener {
                                     println("Second!")
                                 }
                             }
                             command {
                                 title = mf.format(arrayOf("3"))
                                 icon = Applications_internet.of(16, 16)
-                                action = ActionListener {
+                                action = CommandListener {
                                     println("Third!")
                                 }
                             }
@@ -136,14 +136,14 @@ fun main(args: Array<String>) {
                             command {
                                 title = mf.format(arrayOf("4"))
                                 icon = Applications_multimedia.of(16, 16)
-                                action = ActionListener {
+                                action = CommandListener {
                                     println("Fourth!")
                                 }
                             }
                             command {
                                 title = mf.format(arrayOf("5"))
                                 icon = Applications_office.of(16, 16)
-                                action = ActionListener {
+                                action = CommandListener {
                                     println("Fifth!")
                                 }
                             }

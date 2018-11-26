@@ -30,9 +30,10 @@
 package org.pushingpixels.demo.kormorant.common
 
 import org.pushingpixels.neon.icon.ResizableIcon
-
-import javax.swing.*
-import java.awt.*
+import java.awt.Component
+import java.awt.Dimension
+import java.awt.Graphics
+import javax.swing.Icon
 
 class IconWrapperResizableIcon(val delegate: Icon) : ResizableIcon {
     override fun getIconHeight(): Int {

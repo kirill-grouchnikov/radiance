@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
-import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceColorSelectorComponentUI;
 
 import javax.swing.*;
@@ -40,7 +40,8 @@ import java.util.List;
 public class JColorSelectorComponent extends JComponent {
     private Color color;
 
-    private List<JColorSelectorPopupMenu.ColorSelectorCallback> colorChooserCallbacks;
+    private List<ColorSelectorPopupMenuContentModel.ColorPreviewListener> colorPreviewListeners;
+    private List<ColorSelectorPopupMenuContentModel.ColorActivationListener> colorActivationListeners;
 
     private boolean isTopOpen;
 
@@ -52,11 +53,14 @@ public class JColorSelectorComponent extends JComponent {
     public static final String uiClassID = "ColorSelectorComponentUI";
 
     public JColorSelectorComponent(Color color,
-            JColorSelectorPopupMenu.ColorSelectorCallback colorChooserCallback) {
+            ColorSelectorPopupMenuContentModel.ColorPreviewListener colorPreviewListener,
+            ColorSelectorPopupMenuContentModel.ColorActivationListener colorActivationListener) {
         this.setOpaque(true);
         this.color = color;
-        this.colorChooserCallbacks = new ArrayList<>();
-        this.colorChooserCallbacks.add(colorChooserCallback);
+        this.colorPreviewListeners = new ArrayList<>();
+        this.colorPreviewListeners.add(colorPreviewListener);
+        this.colorActivationListeners = new ArrayList<>();
+        this.colorActivationListeners.add(colorActivationListener);
 
         this.updateUI();
     }
@@ -75,20 +79,31 @@ public class JColorSelectorComponent extends JComponent {
         return this.color;
     }
 
-    public synchronized void addColorSelectorCallback(
-            JColorSelectorPopupMenu.ColorSelectorCallback callback) {
-        this.colorChooserCallbacks.add(callback);
+    public synchronized void addColorActivationListener(
+            ColorSelectorPopupMenuContentModel.ColorActivationListener listener) {
+        this.colorActivationListeners.add(listener);
     }
 
-    public synchronized void onColorSelected(Color selected) {
-        for (JColorSelectorPopupMenu.ColorSelectorCallback callback : this.colorChooserCallbacks) {
-            callback.onColorSelected(selected);
+    public synchronized void addColorPreviewListener(
+            ColorSelectorPopupMenuContentModel.ColorPreviewListener listener) {
+        this.colorPreviewListeners.add(listener);
+    }
+
+    public synchronized void onColorActivated(Color color) {
+        for (ColorSelectorPopupMenuContentModel.ColorActivationListener listener : this.colorActivationListeners) {
+            listener.onColorActivated(color);
         }
     }
 
-    public synchronized void onColorRollover(Color rollover) {
-        for (JColorSelectorPopupMenu.ColorSelectorCallback callback : this.colorChooserCallbacks) {
-            callback.onColorRollover(rollover);
+    public synchronized void onColorPreviewActivated(Color color) {
+        for (ColorSelectorPopupMenuContentModel.ColorPreviewListener listener : this.colorPreviewListeners) {
+            listener.onColorPreviewActivated(color);
+        }
+    }
+
+    public synchronized void onColorPreviewCanceled() {
+        for (ColorSelectorPopupMenuContentModel.ColorPreviewListener listener : this.colorPreviewListeners) {
+            listener.onColorPreviewCanceled();
         }
     }
 
