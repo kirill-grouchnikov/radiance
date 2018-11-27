@@ -32,7 +32,7 @@ package org.pushingpixels.demo.flamingo.bcb;
 import org.pushingpixels.demo.flamingo.*;
 import org.pushingpixels.flamingo.api.bcb.*;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.CommandActionEvent;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.spoonbill.svn.BreadcrumbSvnSelector;
 import org.pushingpixels.substance.api.*;
@@ -172,7 +172,7 @@ public class SvnBreadCrumbTest extends JFrame {
 
         this.filePanel = new ExplorerFileViewPanel<String>(bar, CommandButtonDisplayState.MEDIUM) {
             @Override
-            protected void configureCommand(Leaf leaf, FlamingoCommand command,
+            protected void configureCommand(Leaf leaf, Command command,
                     ResizableIcon icon) {
                 long size = (Long) leaf.getLeafProp("size");
                 Date date = (Date) leaf.getLeafProp("date");

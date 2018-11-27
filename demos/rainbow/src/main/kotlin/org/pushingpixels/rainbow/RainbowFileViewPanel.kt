@@ -33,7 +33,8 @@ package org.pushingpixels.rainbow
 
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.*
-import org.pushingpixels.flamingo.api.common.model.CommandListener
+import org.pushingpixels.flamingo.api.common.model.Command
+import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutManager
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.photon.icon.SvgBatikResizableIcon
@@ -52,7 +53,7 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
         TransitionLayoutManager.getInstance().track(this, true)
     }
 
-    override fun configureCommand(leaf: Leaf, command: FlamingoCommand, icon: ResizableIcon?) {
+    override fun configureCommand(leaf: Leaf, command: Command, icon: ResizableIcon?) {
         command.actionRichTooltip = RichTooltip.builder().setTitle("Transcode")
                 .addDescriptionSection("Click to generate Java2D class").build()
         command.action = CommandListener {

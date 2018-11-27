@@ -108,7 +108,7 @@ class KColorSelectorPopupMenu {
                     currMenuGroupBuilder = ColorSelectorPopupMenuGroupModel.builder()
                 }
                 is KCommand -> {
-                    currMenuGroupBuilder.addCommand(component.toFlamingoCommand())
+                    currMenuGroupBuilder.addCommand(component.toJavaCommand())
                 }
                 is KColorSelectorPopupMenuColorSection -> {
                     if (component.isDerived) {

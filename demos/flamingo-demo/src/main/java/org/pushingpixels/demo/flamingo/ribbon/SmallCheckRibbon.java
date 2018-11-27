@@ -31,14 +31,13 @@ package org.pushingpixels.demo.flamingo.ribbon;
 
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Help_browser;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.CommandActionEvent;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class SmallCheckRibbon extends BasicCheckRibbon {
     public SmallCheckRibbon() {
@@ -82,7 +81,7 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
         this.getRibbon().addTask(animationsTask);
         this.getRibbon().addTask(wrappedTask);
 
-        this.getRibbon().addAnchoredCommand(FlamingoCommand.builder()
+        this.getRibbon().addAnchoredCommand(Command.builder()
                 .setIcon(Help_browser.of(16, 16))
                 .setActionRichTooltip(RichTooltip.builder()
                         .setTitle(resourceBundle.getString("Help.tooltip.title"))

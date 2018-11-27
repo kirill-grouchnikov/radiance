@@ -32,7 +32,7 @@ package org.pushingpixels.demo.kormorant.popup
 import org.pushingpixels.demo.kormorant.svg.*
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.JCommandButton
-import org.pushingpixels.flamingo.api.common.model.CommandListener
+import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
@@ -120,13 +120,13 @@ fun main(args: Array<String>) {
                 }
             }
             presentation {
-                state = CommandButtonDisplayState.TILE
+                commandDisplayState = CommandButtonDisplayState.TILE
                 isFlat = false
                 popupOrientationKind = JCommandButton.CommandButtonPopupOrientationKind.SIDEWARD
             }
         }
 
-        frame.add(commandButton.asButton())
+        frame.add(commandButton.toButton())
 
         frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
         frame.size = Dimension(250, 200)

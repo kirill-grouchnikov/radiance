@@ -27,22 +27,22 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.flamingo.api.common.model;
+package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
+import org.pushingpixels.flamingo.api.common.model.Command;
 
 import java.awt.event.ActionEvent;
 
 public class CommandActionEvent extends ActionEvent {
-    private FlamingoCommand flamingoCommand;
+    private Command command;
 
-    public CommandActionEvent(Object source, int id, FlamingoCommand flamingoCommand,
+    public CommandActionEvent(Object source, int id, Command flamingoCommand,
             String command, long when, int modifiers) {
         super(source, id, command, when, modifiers);
-        this.flamingoCommand = flamingoCommand;
+        this.command = flamingoCommand;
     }
 
-    public FlamingoCommand getFlamingoCommand() {
-        return this.flamingoCommand;
+    public Command getCommand() {
+        return this.command;
     }
 }

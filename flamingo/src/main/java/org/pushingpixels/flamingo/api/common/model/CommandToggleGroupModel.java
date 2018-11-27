@@ -29,8 +29,6 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
-
 import javax.swing.event.*;
 import java.util.*;
 
@@ -43,22 +41,22 @@ public class CommandToggleGroupModel {
     /**
      * Contains all group commands.
      */
-    private Vector<FlamingoCommand> commands;
+    private Vector<Command> commands;
 
     /**
      * Map of registered model change listeners.
      */
-    private Map<FlamingoCommand, ChangeListener> modelChangeListeners;
+    private Map<Command, ChangeListener> modelChangeListeners;
 
     /**
      * The currently selected command. Can be <code>null</code>.
      */
-    private FlamingoCommand selection;
+    private Command selection;
 
     /**
      * If <code>false</code>, the selection cannot be cleared. By default the
      * command group allows clearing the selection in {@link #clearSelection()}
-     * or {@link #setSelected(FlamingoCommand, boolean)} (passing the
+     * or {@link #setSelected(Command, boolean)} (passing the
      * currently selected command and <code>false</code>).
      */
     private boolean allowsClearingSelection;
@@ -77,14 +75,14 @@ public class CommandToggleGroupModel {
      *
      * @return An unmodifiable collection with all the commands tracked by this model.
      */
-    public Collection<FlamingoCommand> getCommands() {
+    public Collection<Command> getCommands() {
         return Collections.unmodifiableCollection(this.commands);
     }
 
     /**
      * Sets the new value for clearing selection. If <code>true</code> is
      * passed, the selection can be cleared in {@link #clearSelection()} or
-     * {@link #setSelected(FlamingoCommand, boolean)} (passing the
+     * {@link #setSelected(Command, boolean)} (passing the
      * currently selected command and <code>false</code>).
      *
      * @param allowsClearingSelection The new value for clearing selection.
@@ -96,7 +94,7 @@ public class CommandToggleGroupModel {
     /**
      * Returns the current value for clearing selection. <code>true</code> is
      * returned when selection can be cleared in {@link #clearSelection()} or
-     * {@link #setSelected(FlamingoCommand, boolean)} (passing the
+     * {@link #setSelected(Command, boolean)} (passing the
      * currently selected command and <code>false</code>).
      *
      * @return The current value for clearing selection.
@@ -112,7 +110,7 @@ public class CommandToggleGroupModel {
      *
      * @param command The command to be added.
      */
-    public void add(final FlamingoCommand command) {
+    public void add(final Command command) {
         if (command == null) {
             return;
         }
@@ -148,7 +146,7 @@ public class CommandToggleGroupModel {
      *
      * @param command The command to be removed
      */
-    public void remove(FlamingoCommand command) {
+    public void remove(Command command) {
         if (command == null) {
             return;
         }
@@ -172,9 +170,9 @@ public class CommandToggleGroupModel {
      * @param command    command.
      * @param isSelected Selection indication.
      */
-    public void setSelected(FlamingoCommand command, boolean isSelected) {
+    public void setSelected(Command command, boolean isSelected) {
         if (isSelected && command != null && command != selection) {
-            FlamingoCommand oldSelection = selection;
+            Command oldSelection = selection;
             selection = command;
             if (oldSelection != null) {
                 oldSelection.setToggleSelected(false);
@@ -199,7 +197,7 @@ public class CommandToggleGroupModel {
      * @return The selected command of this group model. The result can be
      * <code>null</code>.
      */
-    public FlamingoCommand getSelected() {
+    public Command getSelected() {
         return this.selection;
     }
 

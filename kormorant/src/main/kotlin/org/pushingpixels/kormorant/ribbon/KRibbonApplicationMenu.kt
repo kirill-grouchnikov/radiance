@@ -54,7 +54,7 @@ class KRibbonApplicationMenuCommandContainer {
 
 @FlamingoElementMarker
 class KRibbonApplicationMenuPrimaryCommand : KCommand() {
-    private val builder = RibbonApplicationMenuPrimaryCommand.RibbonApplicationMenuPrimaryCommandBuilder()
+    private val builder = RibbonApplicationMenuPrimaryCommand.applicationMenuBuilder()
 
     var rolloverCallback: RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback? by NullableDelegate { false }
     private var secondaryCommands = arrayListOf<KRibbonApplicationMenuCommandContainer>()
@@ -70,7 +70,7 @@ class KRibbonApplicationMenuPrimaryCommand : KCommand() {
         builder.setRolloverCallback(rolloverCallback)
         for (secondaryCommandContainer in secondaryCommands) {
             builder.addSecondaryMenuGroup(secondaryCommandContainer.title,
-                    secondaryCommandContainer.commands.map { it -> it.toFlamingoCommand() })
+                    secondaryCommandContainer.commands.map { it -> it.toJavaCommand() })
         }
 
         return builder.build()
@@ -129,7 +129,7 @@ class KRibbonApplicationMenu {
         ribbonApplicationMenu.defaultCallback = defaultCallback
 
         for (footerCommand in footerCommands.commands) {
-            ribbonApplicationMenu.addFooterCommand(footerCommand.toFlamingoCommand())
+            ribbonApplicationMenu.addFooterCommand(footerCommand.toJavaCommand())
         }
         hasBeenConverted = true
         return ribbonApplicationMenu

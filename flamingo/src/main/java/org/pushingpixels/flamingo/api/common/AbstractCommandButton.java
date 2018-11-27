@@ -605,7 +605,7 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
                 if (e == null) {
                     String actionCommand = event.getActionCommand();
                     e = new CommandActionEvent(this, ActionEvent.ACTION_PERFORMED,
-                            (FlamingoCommand) this.getClientProperty(FlamingoUtilities.COMMAND),
+                            (Command) this.getClientProperty(FlamingoUtilities.COMMAND),
                             actionCommand, event.getWhen(), event.getModifiers());
                 }
                 ((CommandListener) listeners[i + 1]).commandActivated(e);
@@ -620,7 +620,7 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
                 if (e == null) {
                     String actionCommand = event.getActionCommand();
                     e = new CommandActionEvent(this, ActionEvent.ACTION_PERFORMED,
-                            (FlamingoCommand) this.getClientProperty(FlamingoUtilities.COMMAND),
+                            (Command) this.getClientProperty(FlamingoUtilities.COMMAND),
                             actionCommand, event.getWhen(), event.getModifiers());
                 }
                 ((ActionListener) listeners[i + 1]).actionPerformed(e);

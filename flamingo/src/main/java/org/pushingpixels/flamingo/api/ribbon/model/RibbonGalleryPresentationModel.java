@@ -58,8 +58,8 @@ public class RibbonGalleryPresentationModel {
     private RibbonGalleryPresentationModel() {
     }
 
-    public static RibbonGalleryPresentationModel.RibbonGalleryPresentationModelBuilder builder() {
-        return new RibbonGalleryPresentationModel.RibbonGalleryPresentationModelBuilder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     public Map<RibbonElementPriority, Integer> getPreferredVisibleCommandCounts() {
@@ -121,31 +121,31 @@ public class RibbonGalleryPresentationModel {
         }
     }
 
-    public static class RibbonGalleryPresentationModelBuilder {
+    public static class Builder {
         private Map<RibbonElementPriority, Integer> preferredVisibleCommandCounts;
         private int preferredPopupMaxCommandColumns = -1;
         private int preferredPopupMaxVisibleCommandRows = -1;
         private CommandButtonDisplayState commandDisplayState = CommandButtonDisplayState.BIG;
 
-        public RibbonGalleryPresentationModelBuilder setPreferredVisibleCommandCounts(
+        public Builder setPreferredVisibleCommandCounts(
                 Map<RibbonElementPriority, Integer> preferredVisibleCommandCounts) {
             this.preferredVisibleCommandCounts = preferredVisibleCommandCounts;
             return this;
         }
 
-        public RibbonGalleryPresentationModelBuilder setPreferredPopupMaxVisibleCommandRows(
+        public Builder setPreferredPopupMaxVisibleCommandRows(
                 int preferredPopupMaxVisibleCommandRows) {
             this.preferredPopupMaxVisibleCommandRows = preferredPopupMaxVisibleCommandRows;
             return this;
         }
 
-        public RibbonGalleryPresentationModelBuilder setPreferredPopupMaxCommandColumns(
+        public Builder setPreferredPopupMaxCommandColumns(
                 int preferredPopupMaxCommandColumns) {
             this.preferredPopupMaxCommandColumns = preferredPopupMaxCommandColumns;
             return this;
         }
 
-        public RibbonGalleryPresentationModelBuilder setCommandDisplayState(
+        public Builder setCommandDisplayState(
                 CommandButtonDisplayState commandDisplayState) {
             this.commandDisplayState = commandDisplayState;
             return this;

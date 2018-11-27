@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.CommandProjection;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.api.ribbon.*;
@@ -78,9 +78,9 @@ public abstract class BasicRibbonUI extends RibbonUI {
     protected Map<RibbonTask, JRibbonTaskToggleButton> taskToggleButtons;
 
     /**
-     * Button group for task toggle buttons.
+     * Group model for task toggle buttons.
      */
-    private CommandToggleButtonGroup taskToggleButtonGroup;
+    private CommandToggleGroupModel taskToggleGroupModel;
 
     /**
      * Change listener.
@@ -98,9 +98,9 @@ public abstract class BasicRibbonUI extends RibbonUI {
      * Creates a new basic ribbon UI delegate.
      */
     public BasicRibbonUI() {
-        this.taskToggleButtons = new HashMap<RibbonTask, JRibbonTaskToggleButton>();
-        this.taskToggleButtonGroup = new CommandToggleButtonGroup();
-        this.taskToggleButtonGroup.setAllowsClearingSelection(false);
+        this.taskToggleButtons = new HashMap<>();
+        this.taskToggleGroupModel = new CommandToggleGroupModel();
+        this.taskToggleGroupModel.setAllowsClearingSelection(false);
     }
 
     @Override
@@ -169,10 +169,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
      * Uninstalls listeners from the associated ribbon.
      */
     protected void uninstallListeners() {
-        // this.taskToggleButtonsScrollablePanel.getView()
-        // .removeMouseWheelListener(this.mouseWheelListener);
-        // this.mouseWheelListener = null;
-        //
         this.ribbon.removeChangeListener(this.ribbonChangeListener);
         this.ribbonChangeListener = null;
 
@@ -220,8 +216,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
         // need to repaint the entire ribbon on change since scrolling
         // the task toggle buttons affects the contour outline
         // of the ribbon
-        this.taskToggleButtonsScrollablePanel
-                .addChangeListener((ChangeEvent e) -> ribbon.repaint());
+        this.taskToggleButtonsScrollablePanel.addChangeListener(
+                (ChangeEvent e) -> ribbon.repaint());
         this.ribbon.add(this.taskToggleButtonsScrollablePanel);
 
         this.ribbon.setLayout(createLayoutManager());
@@ -263,9 +259,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
         bandHostPanel.setLayout(null);
         this.ribbon.remove(this.bandScrollablePanel);
 
-        TaskToggleButtonsHostPanel taskToggleButtonsHostPanel = this
-                .taskToggleButtonsScrollablePanel
-                .getView();
+        TaskToggleButtonsHostPanel taskToggleButtonsHostPanel =
+                this.taskToggleButtonsScrollablePanel.getView();
         taskToggleButtonsHostPanel.removeAll();
         taskToggleButtonsHostPanel.setLayout(null);
         this.ribbon.remove(this.taskToggleButtonsScrollablePanel);
@@ -309,10 +304,11 @@ public abstract class BasicRibbonUI extends RibbonUI {
         Rectangle rect = null;
         for (int j = 0; j < group.getTaskCount(); j++) {
             JRibbonTaskToggleButton button = taskToggleButtons.get(group.getTask(j));
-            if (rect == null)
+            if (rect == null) {
                 rect = button.getBounds();
-            else
+            } else {
                 rect = rect.union(button.getBounds());
+            }
         }
         int buttonGap = getTabButtonGap();
         Point location = SwingUtilities.convertPoint(taskToggleButtonsScrollablePanel.getView(),
@@ -491,7 +487,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int fullPreferredContentWidth = ins.left + ins.right + 2
                     + (isShowingAppMenuButton ? appMenuButtonWidth : 0)
                     + ((anchoredButtons.getComponentCount() > 0)
-                        ? (anchoredButtonsExpandedWidth + tabButtonGap) : 0)
+                    ? (anchoredButtonsExpandedWidth + tabButtonGap) : 0)
                     + taskToggleButtonsStrip.getPreferredSize().width;
 
             int anchoredButtonPanelWidth = 0;
@@ -562,8 +558,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
             y += taskToggleButtonHeight;
 
-            int extraHeight = taskToggleButtonHeight;
-
             if (bandScrollablePanel.getParent() == ribbon) {
                 if (!ribbon.isMinimized() && (ribbon.getTaskCount() > 0)) {
                     // y += ins.top;
@@ -572,8 +566,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
                             : ribbon.getSelectedTask().getBand(0).getInsets();
                     bandScrollablePanel.setBounds(ins.left, y + bandInsets.top,
                             c.getWidth() - 2 * ins.left - 2 * ins.right,
-                            c.getHeight() - extraHeight - ins.top - ins.bottom - bandInsets.top
-                                    - bandInsets.bottom);
+                            c.getHeight() - taskToggleButtonHeight - ins.top - ins.bottom
+                                    - bandInsets.top - bandInsets.bottom);
                     // System.out.println("Scrollable : "
                     // + bandScrollablePanel.getBounds());
                     JPanel bandHostPanel = bandScrollablePanel.getView();
@@ -641,9 +635,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 width += preferredCollapsedWidth;
                 // System.out.println("\t" + ribbonBand.getTitle() + ":" +
                 // preferredCollapsedWidth);
-                maxMinBandHeight = Math.max(maxMinBandHeight, bandPrefHeight
-                        // + bandInsets.top + bandInsets.bottom
-                );
+                maxMinBandHeight = Math.max(maxMinBandHeight, bandPrefHeight);
             }
             // add inter-band gaps
             width += gap * (selectedTask.getBandCount() + 1);
@@ -670,8 +662,9 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int y = 0;
 
             RibbonTask selectedTask = ribbon.getSelectedTask();
-            if (selectedTask == null)
+            if (selectedTask == null) {
                 return;
+            }
 
             // check that the resize policies are still consistent
             for (AbstractRibbonBand band : selectedTask.getBands()) {
@@ -704,8 +697,9 @@ public abstract class BasicRibbonUI extends RibbonUI {
                             break;
                         }
                     }
-                    if (noMore)
+                    if (noMore) {
                         break;
+                    }
 
                     // get the current preferred width of the bands
                     int totalWidth = 0;
@@ -744,8 +738,9 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     // System.out.println("\t:Total:" + totalWidth + "("
                     // + availableWidth + ")");
                     // System.out.println("\n");
-                    if (totalWidth < availableWidth)
+                    if (totalWidth < availableWidth) {
                         break;
+                    }
 
                     // try to take from the currently rotating band
                     List<RibbonBandResizePolicy> policies = currToTakeFrom.getResizePolicies();
@@ -834,8 +829,9 @@ public abstract class BasicRibbonUI extends RibbonUI {
         private void paintContextualTaskGroupsOutlines(Graphics g) {
             for (int i = 0; i < ribbon.getContextualTaskGroupCount(); i++) {
                 RibbonContextualTaskGroup group = ribbon.getContextualTaskGroup(i);
-                if (!ribbon.isVisible(group))
+                if (!ribbon.isVisible(group)) {
                     continue;
+                }
                 // go over all the tasks in this group and compute the union
                 // of bounds of the matching tab buttons
                 Rectangle rect = getContextualTaskGroupBounds(group);
@@ -1082,118 +1078,29 @@ public abstract class BasicRibbonUI extends RibbonUI {
             this.anchoredButtons = null;
         }
 
-        // go over all visible ribbon tasks and create a toggle button
-        // for each one of them
+        // go over all visible ribbon tasks and create a toggle button for each one of them
         List<RibbonTask> visibleTasks = this.getCurrentlyShownRibbonTasks();
         final RibbonTask selectedTask = this.ribbon.getSelectedTask();
         for (final RibbonTask task : visibleTasks) {
-            final JRibbonTaskToggleButton taskToggleButton = new JRibbonTaskToggleButton(task);
-            taskToggleButton.setKeyTip(task.getKeyTip());
-            // wire listener to select the task when the button is selected
-            taskToggleButton.addActionListener((ActionEvent e) -> {
-                SwingUtilities.invokeLater(() -> {
-                    scrollAndRevealTaskToggleButton(taskToggleButton);
+            Command taskToggleCommand = Command.builder()
+                    .setTitle(task.getTitle())
+                    .inToggleGroup(this.taskToggleGroupModel)
+                    .setAction((CommandActionEvent cae) -> SwingUtilities.invokeLater(() ->
+                            processTaskSelection(task, (JRibbonTaskToggleButton) cae.getSource())))
+                    .build();
 
-                    ribbon.setSelectedTask(task);
+            CommandProjection taskToggleCommandProjection =
+                    taskToggleCommand.project(CommandPresentation.builder()
+                            .setActionKeyTip(task.getKeyTip()).build());
 
-                    // System.out.println("Button click on "
-                    // + task.getTitle() + ", ribbon minimized? "
-                    // + ribbon.isMinimized());
+            taskToggleCommandProjection.setCommandButtonBuilder(
+                    (CommandProjection commandProjection) ->
+                            new JRibbonTaskToggleButton(commandProjection.getCommand().getTitle()));
 
-                    if (ribbon.isMinimized()) {
-                        if (Boolean.TRUE.equals(ribbon.getClientProperty(JUST_MINIMIZED))) {
-                            ribbon.putClientProperty(JUST_MINIMIZED, null);
-                            return;
-                        }
+            final JRibbonTaskToggleButton taskToggleButton =
+                    (JRibbonTaskToggleButton) taskToggleCommandProjection.buildButton();
 
-                        // special case - do we have this task currently
-                        // shown in a popup?
-                        List<PopupPanelManager.PopupInfo> popups = PopupPanelManager
-                                .defaultManager().getShownPath();
-                        if (popups.size() > 0) {
-                            for (PopupPanelManager.PopupInfo popup : popups) {
-                                if (popup.getPopupOriginator() == taskToggleButton) {
-                                    // hide all popups and return (hides
-                                    // the task popup and does not
-                                    // show any additional popup).
-                                    PopupPanelManager.defaultManager().hidePopups(null);
-                                    return;
-                                }
-                            }
-                        }
-
-                        PopupPanelManager.defaultManager().hidePopups(null);
-                        ribbon.remove(bandScrollablePanel);
-
-                        int prefHeight = bandScrollablePanel.getView().getPreferredSize().height;
-                        Insets ins = ribbon.getInsets();
-                        prefHeight += ins.top + ins.bottom;
-                        AbstractRibbonBand band = (ribbon.getSelectedTask().getBandCount() > 0)
-                                ? ribbon.getSelectedTask().getBand(0)
-                                : null;
-                        if (band != null) {
-                            Insets bandIns = band.getInsets();
-                            prefHeight += bandIns.top + bandIns.bottom;
-                        }
-
-                        // System.out.println(prefHeight
-                        // + ":"
-                        // + bandScrollablePanel.getView()
-                        // .getComponentCount());
-
-                        JPopupPanel popupPanel = new BandHostPopupPanel(bandScrollablePanel,
-                                new Dimension(ribbon.getWidth(), prefHeight));
-
-                        int x = ribbon.getLocationOnScreen().x;
-                        int y = ribbon.getLocationOnScreen().y + ribbon.getHeight();
-
-                        // make sure that the popup stays in
-                        // bounds
-                        Rectangle scrBounds = ribbon.getGraphicsConfiguration().getBounds();
-                        int pw = popupPanel.getPreferredSize().width;
-                        if ((x + pw) > (scrBounds.x + scrBounds.width)) {
-                            x = scrBounds.x + scrBounds.width - pw;
-                        }
-                        int ph = popupPanel.getPreferredSize().height;
-                        if ((y + ph) > (scrBounds.y + scrBounds.height)) {
-                            y = scrBounds.y + scrBounds.height - ph;
-                        }
-
-                        // get the popup and show it
-                        popupPanel.setPreferredSize(new Dimension(ribbon.getWidth(), prefHeight));
-                        Popup popup = PopupFactory.getSharedInstance().getPopup(taskToggleButton,
-                                popupPanel, x, y);
-                        PopupPanelManager.PopupListener tracker = new PopupPanelManager
-                                .PopupListener() {
-                            @Override
-                            public void popupShown(PopupEvent event) {
-                                JComponent originator = event.getPopupOriginator();
-                                if (originator instanceof JRibbonTaskToggleButton) {
-                                    bandScrollablePanel.doLayout();
-                                    bandScrollablePanel.repaint();
-                                }
-                            }
-
-                            @Override
-                            public void popupHidden(PopupEvent event) {
-                                JComponent originator = event.getPopupOriginator();
-                                if (originator instanceof JRibbonTaskToggleButton) {
-                                    ribbon.add(bandScrollablePanel);
-                                    PopupPanelManager.defaultManager().removePopupListener(this);
-                                    ribbon.revalidate();
-                                    ribbon.doLayout();
-                                    ribbon.repaint();
-                                }
-                            }
-                        };
-                        PopupPanelManager.defaultManager().addPopupListener(tracker);
-                        PopupPanelManager.defaultManager().addPopup(taskToggleButton, popup,
-                                popupPanel);
-                    }
-                });
-            });
-            // wire listener to toggle ribbon minimization on double
-            // mouse click
+            // wire listener to toggle ribbon minimization on double mouse click
             taskToggleButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -1216,11 +1123,11 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 taskToggleButton
                         .setContextualGroupHueColor(task.getContextualGroup().getHueColor());
             }
+            taskToggleButton.setRibbonTask(task);
 
             taskToggleButton.putClientProperty(BasicCommandButtonUI.DONT_DISPOSE_POPUPS,
                     Boolean.TRUE);
 
-            this.taskToggleButtonGroup.add(taskToggleButton);
             taskToggleButtonsHostPanel.add(taskToggleButton);
             this.taskToggleButtons.put(task, taskToggleButton);
         }
@@ -1260,6 +1167,105 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         this.ribbon.revalidate();
         this.ribbon.repaint();
+    }
+
+    private void processTaskSelection(RibbonTask task, JRibbonTaskToggleButton taskToggleButton) {
+        scrollAndRevealTaskToggleButton(taskToggleButton);
+
+        ribbon.setSelectedTask(task);
+
+        // System.out.println("Button click on "
+        // + task.getTitle() + ", ribbon minimized? "
+        // + ribbon.isMinimized());
+
+        if (ribbon.isMinimized()) {
+            if (Boolean.TRUE.equals(ribbon.getClientProperty(JUST_MINIMIZED))) {
+                ribbon.putClientProperty(JUST_MINIMIZED, null);
+                return;
+            }
+
+            // special case - do we have this task currently
+            // shown in a popup?
+            List<PopupPanelManager.PopupInfo> popups = PopupPanelManager
+                    .defaultManager().getShownPath();
+            if (popups.size() > 0) {
+                for (PopupPanelManager.PopupInfo popup : popups) {
+                    if (popup.getPopupOriginator() == taskToggleButton) {
+                        // hide all popups and return (hides
+                        // the task popup and does not
+                        // show any additional popup).
+                        PopupPanelManager.defaultManager().hidePopups(null);
+                        return;
+                    }
+                }
+            }
+
+            PopupPanelManager.defaultManager().hidePopups(null);
+            ribbon.remove(bandScrollablePanel);
+
+            int prefHeight = bandScrollablePanel.getView().getPreferredSize().height;
+            Insets ins = ribbon.getInsets();
+            prefHeight += ins.top + ins.bottom;
+            AbstractRibbonBand band = (ribbon.getSelectedTask().getBandCount() > 0)
+                    ? ribbon.getSelectedTask().getBand(0)
+                    : null;
+            if (band != null) {
+                Insets bandIns = band.getInsets();
+                prefHeight += bandIns.top + bandIns.bottom;
+            }
+
+            // System.out.println(prefHeight
+            // + ":"
+            // + bandScrollablePanel.getView()
+            // .getComponentCount());
+
+            JPopupPanel popupPanel = new BandHostPopupPanel(bandScrollablePanel,
+                    new Dimension(ribbon.getWidth(), prefHeight));
+
+            int x = ribbon.getLocationOnScreen().x;
+            int y = ribbon.getLocationOnScreen().y + ribbon.getHeight();
+
+            // make sure that the popup stays in
+            // bounds
+            Rectangle scrBounds = ribbon.getGraphicsConfiguration().getBounds();
+            int pw = popupPanel.getPreferredSize().width;
+            if ((x + pw) > (scrBounds.x + scrBounds.width)) {
+                x = scrBounds.x + scrBounds.width - pw;
+            }
+            int ph = popupPanel.getPreferredSize().height;
+            if ((y + ph) > (scrBounds.y + scrBounds.height)) {
+                y = scrBounds.y + scrBounds.height - ph;
+            }
+
+            // get the popup and show it
+            popupPanel.setPreferredSize(new Dimension(ribbon.getWidth(), prefHeight));
+            Popup popup = PopupFactory.getSharedInstance().getPopup(
+                    taskToggleButton, popupPanel, x, y);
+            PopupPanelManager.PopupListener tracker = new PopupPanelManager.PopupListener() {
+                @Override
+                public void popupShown(PopupEvent event) {
+                    JComponent originator = event.getPopupOriginator();
+                    if (originator instanceof JRibbonTaskToggleButton) {
+                        bandScrollablePanel.doLayout();
+                        bandScrollablePanel.repaint();
+                    }
+                }
+
+                @Override
+                public void popupHidden(PopupEvent event) {
+                    JComponent originator = event.getPopupOriginator();
+                    if (originator instanceof JRibbonTaskToggleButton) {
+                        ribbon.add(bandScrollablePanel);
+                        PopupPanelManager.defaultManager().removePopupListener(this);
+                        ribbon.revalidate();
+                        ribbon.doLayout();
+                        ribbon.repaint();
+                    }
+                }
+            };
+            PopupPanelManager.defaultManager().addPopupListener(tracker);
+            PopupPanelManager.defaultManager().addPopup(taskToggleButton, popup, popupPanel);
+        }
     }
 
     /**

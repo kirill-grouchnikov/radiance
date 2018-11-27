@@ -27,34 +27,45 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.flamingo.api.common;
+package org.pushingpixels.flamingo.api.common.model;
+
+import org.pushingpixels.flamingo.api.common.*;
 
 /**
- * Encapsulates display metadata associated with a single command. Use a new instance of
- * {@link FlamingoCommandDisplayBuilder} to configure a new command, and
- * {@link FlamingoCommandDisplayBuilder#build()} to build a command.
+ * Encapsulates presentation metadata for displaying commands. Use a new instance of
+ * {@link Builder} to configure a new presentation, and
+ * {@link Builder#build()} to build a presentation.
+ *
+ * <p>Note that you can use the same
+ * {@link CommandPresentation} instance on multiple calls to
+ * {@link Command#project(CommandPresentation)}. Use {@link #overlayWith(Overlay)} to create
+ * a new presentation instance that overlays the presentation configuration with values
+ * set on the passed {@link Overlay} object.</p>
  *
  * @author Kirill Grouchnikov
+ * @see Command
+ * @see CommandProjection
  */
-public class FlamingoCommandDisplay {
-    private CommandButtonDisplayState state;
+public class CommandPresentation {
+    private CommandButtonDisplayState commandDisplayState;
+    private Integer commandIconDimension;
     private boolean isFlat;
     private int horizontalAlignment;
     private double horizontalGapScaleFactor;
     private double verticalGapScaleFactor;
-    private Integer customDimension;
     private boolean isMenu;
     private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind;
     private String actionKeyTip;
     private String popupKeyTip;
 
-    private FlamingoCommandDisplay() {
+    private CommandPresentation() {
     }
 
-    public FlamingoCommandDisplay overlayWith(Overlay overlay) {
-        FlamingoCommandDisplay result = new FlamingoCommandDisplay();
+    public CommandPresentation overlayWith(Overlay overlay) {
+        CommandPresentation result = new CommandPresentation();
 
-        result.state = (overlay.state != null) ? overlay.state : this.state;
+        result.commandDisplayState = (overlay.commandDisplayState != null)
+                ? overlay.commandDisplayState : this.commandDisplayState;
         result.isFlat = (overlay.isFlat != null) ? overlay.isFlat : this.isFlat;
         result.horizontalAlignment = (overlay.horizontalAlignment != null)
                 ? overlay.horizontalAlignment : this.horizontalAlignment;
@@ -62,8 +73,8 @@ public class FlamingoCommandDisplay {
                 ? overlay.horizontalGapScaleFactor : this.horizontalGapScaleFactor;
         result.verticalGapScaleFactor = (overlay.verticalGapScaleFactor != null)
                 ? overlay.verticalGapScaleFactor : this.verticalGapScaleFactor;
-        result.customDimension = (overlay.customDimension != null)
-                ? overlay.customDimension : this.customDimension;
+        result.commandIconDimension = (overlay.commandIconDimension != null)
+                ? overlay.commandIconDimension : this.commandIconDimension;
         result.isMenu = (overlay.isMenu != null) ? overlay.isMenu : this.isMenu;
         result.popupOrientationKind = (overlay.popupOrientationKind != null)
                 ? overlay.popupOrientationKind : this.popupOrientationKind;
@@ -75,16 +86,16 @@ public class FlamingoCommandDisplay {
         return result;
     }
 
-    public static FlamingoCommandDisplayBuilder builder() {
-        return new FlamingoCommandDisplayBuilder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static Overlay overlay() {
         return new Overlay();
     }
 
-    public CommandButtonDisplayState getState() {
-        return this.state;
+    public CommandButtonDisplayState getCommandDisplayState() {
+        return this.commandDisplayState;
     }
 
     public boolean isFlat() {
@@ -103,8 +114,8 @@ public class FlamingoCommandDisplay {
         return this.verticalGapScaleFactor;
     }
 
-    public Integer getCustomDimension() {
-        return this.customDimension;
+    public Integer getCommandIconDimension() {
+        return this.commandIconDimension;
     }
 
     public JCommandButton.CommandButtonPopupOrientationKind getPopupOrientationKind() {
@@ -124,12 +135,12 @@ public class FlamingoCommandDisplay {
     }
 
     public static class Overlay {
-        private CommandButtonDisplayState state;
+        private CommandButtonDisplayState commandDisplayState;
         private Boolean isFlat;
         private Integer horizontalAlignment;
         private Double horizontalGapScaleFactor;
         private Double verticalGapScaleFactor;
-        private Integer customDimension;
+        private Integer commandIconDimension;
         private Boolean isMenu;
         private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind;
         private String actionKeyTip;
@@ -155,13 +166,13 @@ public class FlamingoCommandDisplay {
             return this;
         }
 
-        public Overlay setState(CommandButtonDisplayState state) {
-            this.state = state;
+        public Overlay setCommandDisplayState(CommandButtonDisplayState commandDisplayState) {
+            this.commandDisplayState = commandDisplayState;
             return this;
         }
 
-        public Overlay setCustomDimension(Integer customDimension) {
-            this.customDimension = customDimension;
+        public Overlay setCommandIconDimension(Integer commandIconDimension) {
+            this.commandIconDimension = commandIconDimension;
             return this;
         }
 
@@ -187,78 +198,81 @@ public class FlamingoCommandDisplay {
         }
     }
 
-    public static class FlamingoCommandDisplayBuilder {
-        private CommandButtonDisplayState state = CommandButtonDisplayState.FIT_TO_ICON;
+    public static class Builder {
+        private CommandButtonDisplayState commandDisplayState =
+                CommandButtonDisplayState.FIT_TO_ICON;
         private boolean isFlat = true;
         private int horizontalAlignment = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
         private double horizontalGapScaleFactor = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR;
         private double verticalGapScaleFactor = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR;
-        private Integer customDimension;
+        private Integer commandIconDimension;
         private boolean isMenu = false;
         private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind =
                 JCommandButton.CommandButtonPopupOrientationKind.DOWNWARD;
         private String actionKeyTip;
         private String popupKeyTip;
 
-        public FlamingoCommandDisplayBuilder setFlat(boolean flat) {
+        public Builder setFlat(boolean flat) {
             this.isFlat = flat;
             return this;
         }
 
-        public FlamingoCommandDisplayBuilder setHorizontalAlignment(int horizontalAlignment) {
+        public Builder setHorizontalAlignment(int horizontalAlignment) {
             this.horizontalAlignment = horizontalAlignment;
             return this;
         }
 
-        public FlamingoCommandDisplayBuilder setHorizontalGapScaleFactor(double horizontalGapScaleFactor) {
+        public Builder setHorizontalGapScaleFactor(
+                double horizontalGapScaleFactor) {
             this.horizontalGapScaleFactor = horizontalGapScaleFactor;
             return this;
         }
 
-        public FlamingoCommandDisplayBuilder setVerticalGapScaleFactor(double verticalGapScaleFactor) {
+        public Builder setVerticalGapScaleFactor(double verticalGapScaleFactor) {
             this.verticalGapScaleFactor = verticalGapScaleFactor;
             return this;
         }
 
-        public FlamingoCommandDisplayBuilder setState(CommandButtonDisplayState state) {
-            this.state = state;
+        public Builder setCommandDisplayState(
+                CommandButtonDisplayState commandDisplayState) {
+            this.commandDisplayState = commandDisplayState;
             return this;
         }
 
-        public FlamingoCommandDisplayBuilder setCustomDimension(Integer customDimension) {
-            this.customDimension = customDimension;
+        public Builder setCommandIconDimension(Integer commandIconDimension) {
+            this.commandIconDimension = commandIconDimension;
             return this;
         }
 
-        public FlamingoCommandDisplayBuilder setPopupOrientationKind(
+        public Builder setPopupOrientationKind(
                 JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
             return this;
         }
 
-        public FlamingoCommandDisplayBuilder setMenu(boolean isMenu) {
+        public Builder setMenu(boolean isMenu) {
             this.isMenu = isMenu;
             return this;
         }
 
-        public FlamingoCommandDisplayBuilder setActionKeyTip(String actionKeyTip) {
+        public Builder setActionKeyTip(String actionKeyTip) {
             this.actionKeyTip = actionKeyTip;
             return this;
         }
 
-        public FlamingoCommandDisplayBuilder setPopupKeyTip(String popupKeyTip) {
+        public Builder setPopupKeyTip(String popupKeyTip) {
             this.popupKeyTip = popupKeyTip;
             return this;
         }
 
-        public FlamingoCommandDisplay build() {
-            FlamingoCommandDisplay commandDisplay = new FlamingoCommandDisplay();
-            commandDisplay.state = this.state;
+        public CommandPresentation build() {
+            CommandPresentation commandDisplay = new CommandPresentation();
+            commandDisplay.commandDisplayState = this.commandDisplayState;
             commandDisplay.horizontalAlignment = this.horizontalAlignment;
             commandDisplay.horizontalGapScaleFactor = this.horizontalGapScaleFactor;
             commandDisplay.verticalGapScaleFactor = this.verticalGapScaleFactor;
             commandDisplay.isFlat = this.isFlat;
-            commandDisplay.customDimension = this.customDimension;
+            commandDisplay.commandIconDimension = this.commandIconDimension;
             commandDisplay.isMenu = this.isMenu;
             commandDisplay.popupOrientationKind = this.popupOrientationKind;
             commandDisplay.actionKeyTip = this.actionKeyTip;

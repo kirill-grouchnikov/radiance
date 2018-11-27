@@ -89,8 +89,8 @@ public class CommandPanelPresentationModel {
     private CommandPanelPresentationModel() {
     }
 
-    public static CommandPanelPresentationModelBuilder builder() {
-        return new CommandPanelPresentationModelBuilder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     public CommandButtonDisplayState getCommandDisplayState() {
@@ -226,7 +226,7 @@ public class CommandPanelPresentationModel {
         }
     }
 
-    public static class CommandPanelPresentationModelBuilder {
+    public static class Builder {
         private int maxColumns = -1;
         private int maxRows = -1;
         private boolean toShowGroupLabels = true;
@@ -238,50 +238,50 @@ public class CommandPanelPresentationModel {
         private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind =
                 JCommandButton.CommandButtonPopupOrientationKind.DOWNWARD;
 
-        public CommandPanelPresentationModelBuilder setMaxColumns(int maxColumns) {
+        public Builder setMaxColumns(int maxColumns) {
             this.maxColumns = maxColumns;
             return this;
         }
 
-        public CommandPanelPresentationModelBuilder setMaxRows(int maxRows) {
+        public Builder setMaxRows(int maxRows) {
             this.maxRows = maxRows;
             return this;
         }
 
-        public CommandPanelPresentationModelBuilder setToShowGroupLabels(boolean toShowGroupLabels) {
+        public Builder setToShowGroupLabels(boolean toShowGroupLabels) {
             this.toShowGroupLabels = toShowGroupLabels;
             return this;
         }
 
-        public CommandPanelPresentationModelBuilder setLayoutKind(
+        public Builder setLayoutKind(
                 LayoutKind layoutKind) {
             this.layoutKind = layoutKind;
             return this;
         }
 
-        public CommandPanelPresentationModelBuilder setCommandDisplayState(
+        public Builder setCommandDisplayState(
                 CommandButtonDisplayState commandDisplayState) {
             this.commandDisplayState = commandDisplayState;
             return this;
         }
 
-        public CommandPanelPresentationModelBuilder setCommandIconDimension(Integer commandIconDimension) {
+        public Builder setCommandIconDimension(Integer commandIconDimension) {
             this.commandIconDimension = commandIconDimension;
             return this;
         }
 
-        public CommandPanelPresentationModelBuilder setCommandHorizontalAlignment(int commandHorizontalAlignment) {
+        public Builder setCommandHorizontalAlignment(int commandHorizontalAlignment) {
             this.commandHorizontalAlignment = commandHorizontalAlignment;
             return this;
         }
 
-        public CommandPanelPresentationModelBuilder setPopupOrientationKind(
+        public Builder setPopupOrientationKind(
                 JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
             return this;
         }
 
-        public CommandPanelPresentationModelBuilder setMenu(boolean isMenu) {
+        public Builder setMenu(boolean isMenu) {
             this.isMenu = isMenu;
             return this;
         }

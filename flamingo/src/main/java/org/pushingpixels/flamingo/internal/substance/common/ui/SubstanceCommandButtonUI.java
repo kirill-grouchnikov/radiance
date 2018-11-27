@@ -31,8 +31,7 @@ package org.pushingpixels.flamingo.internal.substance.common.ui;
 
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager
-        .CommandButtonSeparatorOrientation;
+import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager.CommandButtonSeparatorOrientation;
 import org.pushingpixels.flamingo.api.common.JCommandButton.*;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;

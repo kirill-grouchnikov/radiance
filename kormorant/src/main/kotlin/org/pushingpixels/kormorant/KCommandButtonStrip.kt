@@ -30,21 +30,21 @@
 package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
-import org.pushingpixels.flamingo.api.common.FlamingoCommandDisplay
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip
 import org.pushingpixels.flamingo.api.common.JCommandToggleButton
+import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 
 @FlamingoElementMarker
 class KCommandButtonStripPresentation {
     var orientation: JCommandButtonStrip.StripOrientation = JCommandButtonStrip.StripOrientation.HORIZONTAL
-    var state: CommandButtonDisplayState = CommandButtonDisplayState.SMALL
+    var commandIconDimension: CommandButtonDisplayState = CommandButtonDisplayState.SMALL
     var horizontalGapScaleFactor: Double = -1.0
     var verticalGapScaleFactor: Double = -1.0
 
 
-    fun toCommandDisplay() : FlamingoCommandDisplay {
-        return FlamingoCommandDisplay.builder()
-                .setState(state)
+    fun toCommandDisplay() : CommandPresentation {
+        return CommandPresentation.builder()
+                .setCommandDisplayState(commandIconDimension)
                 .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
                 .setVerticalGapScaleFactor(verticalGapScaleFactor)
                 .build()
@@ -88,7 +88,7 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
 
     fun asButtonStrip(): JCommandButtonStrip {
         val result = JCommandButtonStrip(presentation.orientation)
-        result.setDisplayState(presentation.state)
+        result.setDisplayState(presentation.commandIconDimension)
         if (presentation.horizontalGapScaleFactor >= 0.0) {
             result.setHGapScaleFactor(presentation.horizontalGapScaleFactor)
         }
@@ -96,12 +96,12 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
             result.setVGapScaleFactor(presentation.verticalGapScaleFactor)
         }
         for (command in commands) {
-            val commandButton = command.toFlamingoCommand().project(
+            val commandButton = command.toJavaCommand().project(
                     presentation.toCommandDisplay()).buildButton()
             if (isToggleGroup && (commandButton !is JCommandToggleButton)) {
                 throw IllegalStateException("Command button should be toggle")
             }
-            commandButton.displayState = presentation.state
+            commandButton.displayState = presentation.commandIconDimension
             commandButton.isFlat = false
             result.add(commandButton)
         }

@@ -49,7 +49,7 @@ import java.util.*;
  * </pre>
  * 
  * <p>
- * The {@link RichTooltipBuilder#addDescriptionSection(String)} can be used to add multiple
+ * The {@link Builder#addDescriptionSection(String)} can be used to add multiple
  * sections to the description:
  * </p>
  * 
@@ -68,7 +68,7 @@ import java.util.*;
  * </pre>
  * 
  * <p>
- * The {@link RichTooltipBuilder#setMainIcon(ResizableIcon)} can be used to place an image below
+ * The {@link Builder#setMainIcon(ResizableIcon)} can be used to place an image below
  * the title and to the left of the description sections:
  * </p>
  * 
@@ -84,7 +84,7 @@ import java.util.*;
  * </pre>
  * 
  * <p>
- * The {@link RichTooltipBuilder#addFooterSection(String)} can be used to add (possibly) multiple
+ * The {@link Builder#addFooterSection(String)} can be used to add (possibly) multiple
  * footer sections that will be shown below a horizontal separator:
  * </p>
  * 
@@ -103,7 +103,7 @@ import java.util.*;
  * </pre>
  * 
  * <p>
- * The {@link RichTooltipBuilder#setFooterIcon(ResizableIcon)} can be used to place an image to
+ * The {@link Builder#setFooterIcon(ResizableIcon)} can be used to place an image to
  * the left of the footer sections:
  * </p>
  * 
@@ -236,11 +236,11 @@ public class RichTooltip {
         return this.footerSections;
     }
 
-    public static RichTooltipBuilder builder() {
-        return new RichTooltipBuilder();
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public static class RichTooltipBuilder {
+    public static class Builder {
         private String title;
         private ResizableIcon mainIcon;
         private List<String> descriptionSections;
@@ -264,17 +264,17 @@ public class RichTooltip {
             return richTooltip;
         }
 
-        public RichTooltipBuilder setTitle(String title) {
+        public Builder setTitle(String title) {
             this.title = title;
             return this;
         }
 
-        public RichTooltipBuilder setMainIcon(ResizableIcon mainIcon) {
+        public Builder setMainIcon(ResizableIcon mainIcon) {
             this.mainIcon = mainIcon;
             return this;
         }
 
-        public RichTooltipBuilder addDescriptionSection(String section) {
+        public Builder addDescriptionSection(String section) {
             if (this.descriptionSections == null) {
                 this.descriptionSections = new LinkedList<>();
             }
@@ -282,12 +282,12 @@ public class RichTooltip {
             return this;
         }
 
-        public RichTooltipBuilder setFooterIcon(ResizableIcon footerIcon) {
+        public Builder setFooterIcon(ResizableIcon footerIcon) {
             this.footerIcon = footerIcon;
             return this;
         }
 
-        public RichTooltipBuilder addFooterSection(String section) {
+        public Builder addFooterSection(String section) {
             if (this.footerSections == null) {
                 this.footerSections = new LinkedList<>();
             }

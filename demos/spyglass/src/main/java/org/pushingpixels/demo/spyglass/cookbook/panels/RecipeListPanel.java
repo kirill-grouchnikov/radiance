@@ -33,6 +33,7 @@ import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.cookbook.*;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 
@@ -63,22 +64,27 @@ public class RecipeListPanel extends SingleContentPanel {
 
         JCommandButtonStrip titlePaneControlButtons = new JCommandButtonStrip();
 
-        JCommandToggleButton headlineView = new JCommandToggleButton("", new EchoResizableIcon(
-                new ScaledResizableIcon(ic_view_headline_white_24px.of(16, 16), 0.75f)));
-        JCommandToggleButton listView = new JCommandToggleButton("", new EchoResizableIcon(
-                new ScaledResizableIcon(ic_view_list_white_24px.of(16, 16), 0.75f)));
-        JCommandToggleButton streamView = new JCommandToggleButton("", new EchoResizableIcon(
-                new ScaledResizableIcon(ic_view_stream_white_24px.of(16, 16), 0.75f)));
+        CommandToggleGroupModel viewGroup = new CommandToggleGroupModel();
+
+        AbstractCommandButton headlineView = Command.builder()
+                .setIcon(new EchoResizableIcon(
+                        new ScaledResizableIcon(ic_view_headline_white_24px.of(16, 16), 0.75f)))
+                .inToggleGroupAsSelected(viewGroup)
+                .buildButton();
+        AbstractCommandButton listView = Command.builder()
+                .setIcon(new EchoResizableIcon(
+                        new ScaledResizableIcon(ic_view_list_white_24px.of(16, 16), 0.75f)))
+                .inToggleGroup(viewGroup)
+                .buildButton();
+        AbstractCommandButton streamView = Command.builder()
+                .setIcon(new EchoResizableIcon(
+                        new ScaledResizableIcon(ic_view_stream_white_24px.of(16, 16), 0.75f)))
+                .inToggleGroup(viewGroup)
+                .buildButton();
 
         titlePaneControlButtons.add(headlineView);
         titlePaneControlButtons.add(listView);
         titlePaneControlButtons.add(streamView);
-
-        CommandToggleButtonGroup group = new CommandToggleButtonGroup();
-        group.add(headlineView);
-        group.add(listView);
-        group.add(streamView);
-        group.setSelected(headlineView, true);
 
         titlePaneBuilder.add(titlePaneControlButtons).xy(7, 1);
 

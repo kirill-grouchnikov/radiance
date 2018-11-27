@@ -138,7 +138,7 @@ public class TestCommandButtons extends JFrame {
             MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
             mf.setLocale(currLocale);
 
-            FlamingoCommandDisplay menuDisplay = FlamingoCommandDisplay.builder().setMenu(true).build();
+            CommandPresentation menuDisplay = CommandPresentation.builder().setMenu(true).build();
 
             PopupKind popupKind = (PopupKind) popupCombo.getSelectedItem();
             switch (popupKind) {
@@ -146,20 +146,20 @@ public class TestCommandButtons extends JFrame {
                     List<CommandProjection> simpleEntries1 = new ArrayList<>();
                     List<CommandProjection> simpleEntries2 = new ArrayList<>();
 
-                    simpleEntries1.add(FlamingoCommand.builder()
+                    simpleEntries1.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
                             .setTitle(mf.format(new Object[] { "1" }))
                             .setIcon(new Address_book_new()).build().project(menuDisplay));
-                    simpleEntries1.add(FlamingoCommand.builder()
+                    simpleEntries1.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
                             .setTitle(mf.format(new Object[] { "2" }))
                             .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
-                    simpleEntries1.add(FlamingoCommand.builder()
+                    simpleEntries1.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
                             .setTitle(mf.format(new Object[] { "3" }))
                             .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
 
-                    simpleEntries2.add(FlamingoCommand.builder()
+                    simpleEntries2.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
                             .setTitle(mf.format(new Object[] { "4" }))
                             .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
-                    simpleEntries2.add(FlamingoCommand.builder()
+                    simpleEntries2.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
                             .setTitle(mf.format(new Object[] { "5" }))
                             .setIcon(new Text_x_generic()).build().project(menuDisplay));
 
@@ -173,7 +173,7 @@ public class TestCommandButtons extends JFrame {
 
                     for (int i = 0; i < 20; i++) {
                         final int index = i;
-                        scrollableEntries.add(FlamingoCommand.builder()
+                        scrollableEntries.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
                                 .setTitle(mf.format(new Object[] { i }))
                                 .setIcon(new Text_x_generic())
                                 .setAction((CommandActionEvent e) -> System.out
@@ -189,17 +189,17 @@ public class TestCommandButtons extends JFrame {
                 case COMPLEX:
                     List<CommandProjectionGroupModel> extraEntries = new ArrayList<>();
                     extraEntries.add(new CommandProjectionGroupModel(
-                            FlamingoCommand.builder()
+                            org.pushingpixels.flamingo.api.common.model.Command.builder()
                                     .setTitle(resourceBundle.getString("SaveSelection.text"))
                                     .setIcon(new X_office_document())
                                     .build().project(menuDisplay),
-                            FlamingoCommand.builder()
+                            org.pushingpixels.flamingo.api.common.model.Command.builder()
                                     .setTitle(resourceBundle.getString("ClearSelection.text"))
                                     .setIcon(new EmptyResizableIcon(16))
                                     .build().project(menuDisplay)
                     ));
                     extraEntries.add(new CommandProjectionGroupModel(
-                            FlamingoCommand.builder()
+                            org.pushingpixels.flamingo.api.common.model.Command.builder()
                                     .setTitle(resourceBundle.getString("ApplyStyles.text"))
                                     .setIcon(new EmptyResizableIcon(16))
                                     .build().project(menuDisplay)

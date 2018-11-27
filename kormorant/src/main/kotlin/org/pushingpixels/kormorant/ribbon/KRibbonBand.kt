@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.kormorant.ribbon
 
-import org.pushingpixels.flamingo.api.common.FlamingoCommandDisplay
+import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
@@ -192,8 +192,8 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                 when (content) {
                     is KRibbonBandGroup.CommandConfig -> {
                         ribbonBand.addRibbonCommand(
-                                content.command.toFlamingoCommand().project(
-                                        FlamingoCommandDisplay.builder().setActionKeyTip(content.actionKeyTip)
+                                content.command.toJavaCommand().project(
+                                        CommandPresentation.builder().setActionKeyTip(content.actionKeyTip)
                                                 .setPopupKeyTip(content.popupKeyTip).build()), priority)
                     }
                     is KRibbonComponent -> {
@@ -206,8 +206,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                         // Get the content model
                         val galleryContentModel = content.content.asRibbonGalleryContentModel()
 
-                        ribbonBand.addRibbonGallery(content.content.title, galleryContentModel,
-                                galleryPresentationModel,
+                        ribbonBand.addRibbonGallery(galleryContentModel, galleryPresentationModel,
                                 priority, content.expandKeyTip)
                     }
                 }

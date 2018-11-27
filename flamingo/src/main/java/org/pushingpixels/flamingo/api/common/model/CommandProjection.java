@@ -37,39 +37,61 @@ import javax.swing.event.*;
 import java.beans.PropertyChangeEvent;
 
 public class CommandProjection {
-    private FlamingoCommand command;
-    private FlamingoCommandDisplay commandDisplay;
+    private Command command;
+    private CommandPresentation commandDisplay;
 
-    public CommandProjection(FlamingoCommand command, FlamingoCommandDisplay commandDisplay) {
-        this.command = command;
-        this.commandDisplay = commandDisplay;
+    private CommandButtonBuilder commandButtonBuilder;
+
+    private static CommandButtonBuilder DEFAULT_BUILDER = new DefaultCommandButtonBuilder();
+
+    public interface CommandButtonBuilder {
+        AbstractCommandButton buildButton(CommandProjection commandProjection);
     }
 
-    public CommandProjection reproject(FlamingoCommandDisplay newCommandDisplay) {
+    public static class DefaultCommandButtonBuilder implements CommandButtonBuilder {
+        @Override
+        public AbstractCommandButton buildButton(CommandProjection commandProjection) {
+            Command command = commandProjection.getCommand();
+            CommandPresentation commandDisplay = commandProjection.getCommandDisplay();
+
+            String title = command.getTitle();
+            ResizableIcon icon = (command.getIconFactory() != null)
+                    ? command.getIconFactory().createNewIcon()
+                    : command.getIcon();
+
+            AbstractCommandButton result = commandDisplay.isMenu()
+                    ? (command.isToggle() ? new JCommandToggleMenuButton(title, icon)
+                    : new JCommandMenuButton(title, icon))
+                    : (command.isToggle() ? new JCommandToggleButton(title, icon)
+                    : new JCommandButton(title, icon));
+            result.putClientProperty(FlamingoUtilities.COMMAND, command);
+            return result;
+        }
+    }
+
+    public CommandProjection(Command command, CommandPresentation commandDisplay) {
+        this.command = command;
+        this.commandDisplay = commandDisplay;
+        this.commandButtonBuilder = DEFAULT_BUILDER;
+    }
+
+    public CommandProjection reproject(CommandPresentation newCommandDisplay) {
         return this.command.project(newCommandDisplay);
     }
 
-    public FlamingoCommand getCommand() {
+    public void setCommandButtonBuilder(CommandButtonBuilder commandButtonBuilder) {
+        if (commandButtonBuilder == null) {
+            throw new IllegalArgumentException("Cannot pass null button builder");
+        }
+        this.commandButtonBuilder = commandButtonBuilder;
+    }
+
+    public Command getCommand() {
         return this.command;
     }
 
-    public FlamingoCommandDisplay getCommandDisplay() {
+    public CommandPresentation getCommandDisplay() {
         return this.commandDisplay;
-    }
-
-    private AbstractCommandButton createButton() {
-        String title = this.command.getTitle();
-        ResizableIcon icon = (this.command.getIconFactory() != null)
-                ? this.command.getIconFactory().createNewIcon()
-                : this.command.getIcon();
-
-        AbstractCommandButton result = commandDisplay.isMenu()
-                ? (this.command.isToggle() ? new JCommandToggleMenuButton(title, icon)
-                : new JCommandMenuButton(title, icon))
-                : (this.command.isToggle() ? new JCommandToggleButton(title, icon)
-                : new JCommandButton(title, icon));
-        result.putClientProperty(FlamingoUtilities.COMMAND, this.command);
-        return result;
     }
 
     protected boolean hasAction() {
@@ -176,16 +198,16 @@ public class CommandProjection {
     }
 
     public AbstractCommandButton buildButton() {
-        AbstractCommandButton result = createButton();
+        AbstractCommandButton result = this.commandButtonBuilder.buildButton(this);
         populateButton(result);
 
-        result.setDisplayState(commandDisplay.getState());
+        result.setDisplayState(commandDisplay.getCommandDisplayState());
         result.setHorizontalAlignment(commandDisplay.getHorizontalAlignment());
         result.setHGapScaleFactor(commandDisplay.getHorizontalGapScaleFactor());
         result.setVGapScaleFactor(commandDisplay.getVerticalGapScaleFactor());
         result.setFlat(commandDisplay.isFlat());
-        if (commandDisplay.getCustomDimension() != null) {
-            result.updateCustomDimension(commandDisplay.getCustomDimension());
+        if (commandDisplay.getCommandIconDimension() != null) {
+            result.updateCustomDimension(commandDisplay.getCommandIconDimension());
         }
         if (result instanceof JCommandButton) {
             ((JCommandButton) result).setPopupOrientationKind(

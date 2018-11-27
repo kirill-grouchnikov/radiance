@@ -33,7 +33,7 @@ import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
-import org.pushingpixels.flamingo.api.common.model.CommandActionEvent;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.neon.NeonCortex;
@@ -43,7 +43,6 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.*;
 
@@ -112,10 +111,10 @@ public class TestColorSelector extends JFrame {
 
         final Color defaultPanelColor = centerPanel.getBackground();
         jcb.setPopupCallback((JCommandButton commandButton) -> {
-            ColorSelectorPopupMenuGroupModel.ColorSelectorMenuGroupModelBuilder selectorBuilder =
+            ColorSelectorPopupMenuGroupModel.Builder selectorBuilder =
                     ColorSelectorPopupMenuGroupModel.builder();
 
-            selectorBuilder.addCommand(FlamingoCommand.builder()
+            selectorBuilder.addCommand(Command.builder()
                     .setTitle(resourceBundle.getString("ColorSelector.textAutomatic"))
                     .setIcon(new ColorIcon(defaultPanelColor))
                     .setAction((CommandActionEvent e) -> {
@@ -123,14 +122,14 @@ public class TestColorSelector extends JFrame {
                         JColorSelectorPopupMenu.addColorToRecentlyUsed(
                                 defaultPanelColor);
                     })
-                    .setPreviewListener(new FlamingoCommand.CommandPreviewListener() {
+                    .setPreviewListener(new Command.CommandPreviewListener() {
                         @Override
-                        public void onCommandPreviewActivated(FlamingoCommand command) {
+                        public void onCommandPreviewActivated(Command command) {
                             colorPreviewListener.onColorPreviewActivated(Color.black);
                         }
 
                         @Override
-                        public void onCommandPreviewCanceled(FlamingoCommand command) {
+                        public void onCommandPreviewCanceled(Command command) {
                             colorPreviewListener.onColorPreviewCanceled();
                         }
                     })
@@ -162,7 +161,7 @@ public class TestColorSelector extends JFrame {
                                 resourceBundle.getString("ColorSelector.textRecentCaption")));
             }
 
-            selectorBuilder.addCommand(FlamingoCommand.builder()
+            selectorBuilder.addCommand(Command.builder()
                     .setTitle(resourceBundle.getString("ColorSelector.textMoreColor"))
                     .setAction((CommandActionEvent e) -> SwingUtilities.invokeLater(() -> {
                         Color color = JColorChooser.showDialog(TestColorSelector.this,

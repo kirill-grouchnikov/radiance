@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.CommandProjection;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
@@ -134,9 +134,9 @@ public class JRibbon extends JComponent {
      */
     private ArrayList<Component> taskbarComponents;
 
-    private ArrayList<FlamingoCommand> taskbarCommands;
+    private ArrayList<Command> taskbarCommands;
 
-    private Map<FlamingoCommand, AbstractCommandButton> taskbarCommandMap;
+    private Map<Command, AbstractCommandButton> taskbarCommandMap;
 
     /**
      * Bands of the currently shown task.
@@ -248,8 +248,8 @@ public class JRibbon extends JComponent {
      * @see #clearTaskbar()
      */
     public synchronized void addTaskbarCommand(CommandProjection projection) {
-        FlamingoCommandDisplay withOverlay = projection.getCommandDisplay().overlayWith(
-                FlamingoCommandDisplay.overlay().setState(CommandButtonDisplayState.SMALL)
+        CommandPresentation withOverlay = projection.getCommandDisplay().overlayWith(
+                CommandPresentation.overlay().setCommandDisplayState(CommandButtonDisplayState.SMALL)
                         .setHorizontalGapScaleFactor(0.5)
                         .setVerticalGapScaleFactor(0.5));
 
@@ -259,7 +259,7 @@ public class JRibbon extends JComponent {
 
         this.taskbarComponents.add(commandButton);
 
-        FlamingoCommand command = projection.getCommand();
+        Command command = projection.getCommand();
         this.taskbarCommandMap.put(command, commandButton);
         this.taskbarCommands.add(command);
 
@@ -544,7 +544,7 @@ public class JRibbon extends JComponent {
      *
      * @return All taskbar commands of <code>this</code> ribbon.
      */
-    public synchronized List<FlamingoCommand> getTaskbarCommands() {
+    public synchronized List<Command> getTaskbarCommands() {
         return Collections.unmodifiableList(this.taskbarCommands);
     }
 

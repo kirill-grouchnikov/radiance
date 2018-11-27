@@ -74,7 +74,7 @@ class KRibbonComponent {
             throw IllegalStateException("This method can only be called once")
         }
         if (commandButton != null) {
-            component = commandButton!!.asButton()
+            component = commandButton!!.toButton()
         }
         ribbonComponent = if (caption != null)
             JRibbonComponent(icon, caption, component) else

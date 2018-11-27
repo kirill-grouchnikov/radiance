@@ -497,14 +497,13 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
             List<CommandProjection> menuCommands = new ArrayList<>();
 
-            CommandPopupMenuPresentationModel.CommandPopupMenuPresentationModelBuilder menuPresentationModel =
+            CommandPopupMenuPresentationModel.Builder menuPresentationModel =
                     CommandPopupMenuPresentationModel.builder();
-
 
             for (int i = 0; i < bic.getChoices().length; i++) {
                 final BreadcrumbItem bi = bic.getChoices()[i];
 
-                FlamingoCommand.FlamingoCommandBuilder commandBuilder = FlamingoCommand.builder();
+                Command.Builder commandBuilder = Command.builder();
 
                 commandBuilder.setTitle(bi.getKey());
 
@@ -559,7 +558,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                     });
                 });
 
-                FlamingoCommand menuCommand = commandBuilder.build();
+                Command menuCommand = commandBuilder.build();
                 if (i == bic.getSelectedIndex()) {
                     menuPresentationModel.setHighlightedCommand(menuCommand);
                 }

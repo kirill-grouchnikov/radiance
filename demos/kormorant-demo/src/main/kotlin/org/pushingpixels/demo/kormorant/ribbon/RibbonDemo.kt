@@ -39,7 +39,7 @@ import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
 import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
-import org.pushingpixels.flamingo.api.common.model.CommandListener
+import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
@@ -324,7 +324,6 @@ private class RibbonDemoBuilder {
         mfButtonText.locale = currLocale
 
         styleGalleryContentModel = galleryContent {
-            title = "Styles"
             iconFactory = Font_x_generic.factory()
             commandGroup {
                 title = resourceBundle.getString("StylesGallery.textGroupTitle1")
@@ -376,13 +375,17 @@ private class RibbonDemoBuilder {
                 command(actionKeyTip = "SS") {
                     title = resourceBundle.getString("Format.menuSaveSelection.text")
                     icon = EmptyResizableIcon(16)
-                    action = CommandListener { println("Save Selection activated") }
+                    action = CommandListener {
+                        println("Save Selection activated")
+                    }
                 }
 
                 command(actionKeyTip = "SC") {
                     title = resourceBundle.getString("Format.menuClearSelection.text")
                     icon = EmptyResizableIcon(16)
-                    action = CommandListener { println("Clear Selection activated") }
+                    action = CommandListener {
+                        println("Clear Selection activated")
+                    }
                 }
             }
 
@@ -577,7 +580,9 @@ private class RibbonDemoBuilder {
                                             )
 
                                             isToggle = true
-                                            action = CommandListener { println("Invoked action on $i") }
+                                            action = CommandListener {
+                                                println("Invoked action on $i")
+                                            }
                                             actionRichTooltip {
                                                 title = mfTooltipTitle.format(arrayOf<Any>(i))
                                                 description {
@@ -596,13 +601,17 @@ private class RibbonDemoBuilder {
                             command(actionKeyTip = "SS") {
                                 title = resourceBundle.getString("Format.menuSaveSelection.text")
                                 icon = ColorResizableIcon(16, Color(0xFB, 0xC0, 0x2D))
-                                action = CommandListener { println("Save Selection activated") }
+                                action = CommandListener {
+                                    println("Save Selection activated")
+                                }
                             }
 
                             command(actionKeyTip = "SC") {
                                 title = resourceBundle.getString("Format.menuClearSelection.text")
                                 icon = ColorResizableIcon(16, Color(0xFF, 0xA0, 0x00))
-                                action = CommandListener { println("Clear Selection activated") }
+                                action = CommandListener {
+                                    println("Clear Selection activated")
+                                }
                             }
                         }
 
@@ -610,7 +619,9 @@ private class RibbonDemoBuilder {
                             command(actionKeyTip = "SA") {
                                 title = resourceBundle.getString("Format.applyStyles.text")
                                 icon = ColorResizableIcon(16, Color(0xF5, 0x7C, 0x00))
-                                action = CommandListener { println("Apply Styles activated") }
+                                action = CommandListener {
+                                    println("Apply Styles activated")
+                                }
                             }
                         }
                     }
@@ -901,7 +912,9 @@ private class RibbonDemoBuilder {
                 command(priority = RibbonElementPriority.TOP) {
                     title = resourceBundle.getString("DocumentLocal.text")
                     icon = Folder.of(16, 16)
-                    action = CommandListener { println("Document Local activated") }
+                    action = CommandListener {
+                        println("Document Local activated")
+                    }
                     isToggle = true
                     toggleGroup = documentLocationToggleGroup
                 }
@@ -909,7 +922,9 @@ private class RibbonDemoBuilder {
                 command(priority = RibbonElementPriority.TOP) {
                     title = resourceBundle.getString("DocumentRemote.text")
                     icon = Folder_remote.of(16, 16)
-                    action = CommandListener { println("Document Remote activated") }
+                    action = CommandListener {
+                        println("Document Remote activated")
+                    }
                     isToggle = true
                     toggleGroup = documentLocationToggleGroup
                 }
@@ -917,7 +932,9 @@ private class RibbonDemoBuilder {
                 command(priority = RibbonElementPriority.TOP) {
                     title = resourceBundle.getString("DocumentSaved.text")
                     icon = Folder_saved_search.of(16, 16)
-                    action = CommandListener { println("Document Saved activated") }
+                    action = CommandListener {
+                        println("Document Saved activated")
+                    }
                     isToggle = true
                     toggleGroup = documentLocationToggleGroup
                 }
@@ -930,31 +947,39 @@ private class RibbonDemoBuilder {
                 command(priority = RibbonElementPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentOpen.text")
                     icon = Document_open.of(16, 16)
-                    action = CommandListener { println("Document Open activated") }
+                    action =
+                            CommandListener { println("Document Open activated") }
                 }
 
                 command(priority = RibbonElementPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentSave.text")
                     icon = Document_save.of(16, 16)
-                    action = CommandListener { println("Document Save activated") }
+                    action =
+                            CommandListener { println("Document Save activated") }
                 }
 
                 command(priority = RibbonElementPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentPrint.text")
                     icon = Document_print.of(16, 16)
-                    action = CommandListener { println("Document Print activated") }
+                    action = CommandListener {
+                        println("Document Print activated")
+                    }
                 }
 
                 command(priority = RibbonElementPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentPrintPreview.text")
                     icon = Document_print_preview.of(16, 16)
-                    action = CommandListener { println("Document Print Preview activated") }
+                    action = CommandListener {
+                        println("Document Print Preview activated")
+                    }
                 }
 
                 command(priority = RibbonElementPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentProperties.text")
                     icon = Document_properties.of(16, 16)
-                    action = CommandListener { println("Document Properties activated") }
+                    action = CommandListener {
+                        println("Document Properties activated")
+                    }
                 }
             }
 
@@ -1077,7 +1102,8 @@ private class RibbonDemoBuilder {
                 command(priority = RibbonElementPriority.MEDIUM, actionKeyTip = "Y") {
                     title = resourceBundle.getString("Accessibility.text")
                     icon = Preferences_desktop_accessibility.of(16, 16)
-                    action = CommandListener { println("Accessibility activated") }
+                    action =
+                            CommandListener { println("Accessibility activated") }
                 }
 
                 command(priority = RibbonElementPriority.MEDIUM, actionKeyTip = "E") {
@@ -1335,8 +1361,6 @@ private class RibbonDemoBuilder {
                 }
 
                 content {
-                    title = "Transitions"
-
                     commandGroup {
                         title = resourceBundle.getString("TransitionGallery.textGroupTitle1")
                         for (i in 1..40) {
@@ -1356,7 +1380,9 @@ private class RibbonDemoBuilder {
                                                 it.drawString("" + i, x + 2, y + height - 2)
                                             }
                                         })
-                                action = CommandListener { println("Activated action $i") }
+                                action = CommandListener {
+                                    println("Activated action $i")
+                                }
                                 isToggle = true
                             }
                         }
@@ -1381,7 +1407,9 @@ private class RibbonDemoBuilder {
                                                 it.drawString("" + i, x + 2, y + height - 2)
                                             }
                                         })
-                                action = CommandListener { println("Activated action $i") }
+                                action = CommandListener {
+                                    println("Activated action $i")
+                                }
                                 isToggle = true
                             }
                         }
@@ -1404,13 +1432,15 @@ private class RibbonDemoBuilder {
                 wrapper {
                     commandButton {
                         presentation {
-                            state = CommandButtonDisplayState.MEDIUM
+                            commandDisplayState = CommandButtonDisplayState.MEDIUM
                             verticalGapScaleFactor = 0.5
                         }
                         command {
                             title = resourceBundle.getString("ApplyToAll.text")
                             icon = SimpleResizableIcon(RibbonElementPriority.TOP, 16, 16)
-                            action = CommandListener { println("Apply To All activated") }
+                            action = CommandListener {
+                                println("Apply To All activated")
+                            }
                         }
                     }
                 }
@@ -1643,17 +1673,23 @@ fun main(args: Array<String>) {
                 command(actionKeyTip = "GS") {
                     title = builder.resourceBundle.getString("Share.title")
                     icon = Internet_mail.of(16, 16)
-                    action = CommandListener { JOptionPane.showMessageDialog(null, "Share button clicked") }
+                    action = CommandListener {
+                        JOptionPane.showMessageDialog(null, "Share button clicked")
+                    }
                 }
 
                 command(actionKeyTip = "GC") {
                     icon = Internet_group_chat.of(16, 16)
-                    action = CommandListener { JOptionPane.showMessageDialog(null, "Chat button clicked") }
+                    action = CommandListener {
+                        JOptionPane.showMessageDialog(null, "Chat button clicked")
+                    }
                 }
 
                 command(actionKeyTip = "GH") {
                     icon = Help_browser.of(16, 16)
-                    action = CommandListener { JOptionPane.showMessageDialog(null, "Help button clicked") }
+                    action = CommandListener {
+                        JOptionPane.showMessageDialog(null, "Help button clicked")
+                    }
                     actionRichTooltip {
                         title = builder.resourceBundle.getString("Help.tooltip.title")
                         description {
@@ -1668,7 +1704,8 @@ fun main(args: Array<String>) {
 
                 command(actionKeyTip = "2") {
                     icon = Edit_clear.of(16, 16)
-                    action = CommandListener { println("Taskbar Clear activated") }
+                    action =
+                            CommandListener { println("Taskbar Clear activated") }
                     isEnabled = false
                 }
 
@@ -1744,7 +1781,9 @@ fun main(args: Array<String>) {
                                 command {
                                     title = mf.format(arrayOf<Any>(i))
                                     icon = Text_html.of(16, 16)
-                                    action = CommandListener { println("Action $i activated") }
+                                    action = CommandListener {
+                                        println("Action $i activated")
+                                    }
                                 }
                             }
                         }
@@ -1758,14 +1797,18 @@ fun main(args: Array<String>) {
                 primaryCommand(actionKeyTip = "N") {
                     title = builder.resourceBundle.getString("AppMenuNew.text")
                     icon = Document_new.of(16, 16)
-                    action = CommandListener { println("Invoked creating new document") }
+                    action = CommandListener {
+                        println("Invoked creating new document")
+                    }
                 }
 
                 // "Open" primary
                 primaryCommand(actionKeyTip = "O") {
                     title = builder.resourceBundle.getString("AppMenuOpen.text")
                     icon = Document_open.of(16, 16)
-                    action = CommandListener { println("Invoked opening document") }
+                    action = CommandListener {
+                        println("Invoked opening document")
+                    }
                     rolloverCallback = RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback { targetPanel ->
                         targetPanel.removeAll()
 
@@ -1785,7 +1828,9 @@ fun main(args: Array<String>) {
                                     command {
                                         title = mf.format(arrayOf<Any>(i))
                                         icon = Text_html.of(16, 16)
-                                        action = CommandListener { println("Action $i activated") }
+                                        action = CommandListener {
+                                            println("Action $i activated")
+                                        }
                                     }
                                 }
                             }
@@ -1800,7 +1845,8 @@ fun main(args: Array<String>) {
                 primaryCommand(actionKeyTip = "S") {
                     title = builder.resourceBundle.getString("AppMenuSave.text")
                     icon = Document_save.of(16, 16)
-                    action = CommandListener { println("Invoked saving document") }
+                    action =
+                            CommandListener { println("Invoked saving document") }
                     isEnabled = false
                 }
 
@@ -1808,7 +1854,9 @@ fun main(args: Array<String>) {
                 primaryCommand(actionKeyTip = "A", popupKeyTip = "F") {
                     title = builder.resourceBundle.getString("AppMenuSaveAs.text")
                     icon = Document_save_as.of(16, 16)
-                    action = CommandListener { println("Invoked saving document as") }
+                    action = CommandListener {
+                        println("Invoked saving document as")
+                    }
                     isTitleClickAction = true
 
                     secondaryGroup {
@@ -1818,14 +1866,18 @@ fun main(args: Array<String>) {
                             title = builder.resourceBundle.getString("AppMenuSaveAs.word.text")
                             icon = X_office_document.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuSaveAs.word.description")
-                            action = CommandListener { println("Invoked saved as Word") }
+                            action = CommandListener {
+                                println("Invoked saved as Word")
+                            }
                         }
 
                         command(actionKeyTip = "H") {
                             title = builder.resourceBundle.getString("AppMenuSaveAs.html.text")
                             icon = Text_html.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuSaveAs.html.description")
-                            action = CommandListener { println("Invoked saved as HTML") }
+                            action = CommandListener {
+                                println("Invoked saved as HTML")
+                            }
                             isEnabled = false
                         }
 
@@ -1833,7 +1885,9 @@ fun main(args: Array<String>) {
                             title = builder.resourceBundle.getString("AppMenuSaveAs.other.text")
                             icon = Document_save_as.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuSaveAs.other.description")
-                            action = CommandListener { println("Invoked saved as other") }
+                            action = CommandListener {
+                                println("Invoked saved as other")
+                            }
                         }
                     }
                 }
@@ -1868,7 +1922,8 @@ fun main(args: Array<String>) {
                             title = builder.resourceBundle.getString("AppMenuPrint.preview.text")
                             icon = Document_print_preview.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuPrint.preview.description")
-                            action = CommandListener { println("Invoked preview") }
+                            action =
+                                    CommandListener { println("Invoked preview") }
                         }
                     }
 
@@ -1927,13 +1982,17 @@ fun main(args: Array<String>) {
                                     command(actionKeyTip = "W") {
                                         title = builder.resourceBundle.getString("AppMenuSend.wireless.wifi.text")
                                         icon = EmptyResizableIcon(16)
-                                        action = CommandListener { println("WiFi activated") }
+                                        action = CommandListener {
+                                            println("WiFi activated")
+                                        }
                                     }
 
                                     command(actionKeyTip = "B") {
                                         title = builder.resourceBundle.getString("AppMenuSend.wireless.bluetooth.text")
                                         icon = EmptyResizableIcon(16)
-                                        action = CommandListener { println("Bluetooth activated") }
+                                        action = CommandListener {
+                                            println("Bluetooth activated")
+                                        }
                                     }
                                 }.asCommandPopupMenu()
                             }

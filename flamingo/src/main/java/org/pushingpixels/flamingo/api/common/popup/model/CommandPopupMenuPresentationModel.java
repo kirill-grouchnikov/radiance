@@ -56,13 +56,13 @@ public class CommandPopupMenuPresentationModel {
     private int maxVisibleMenuCommands;
     private boolean toDismissOnCommandActivation;
     private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind;
-    private FlamingoCommand highlightedCommand;
+    private Command highlightedCommand;
 
     private CommandPopupMenuPresentationModel() {
     }
 
-    public static CommandPopupMenuPresentationModelBuilder builder() {
-        return new CommandPopupMenuPresentationModelBuilder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     public CommandPanelPresentationModel getPanelPresentationModel() {
@@ -95,7 +95,7 @@ public class CommandPopupMenuPresentationModel {
         return this.popupOrientationKind;
     }
 
-    public FlamingoCommand getHighlightedCommand() {
+    public Command getHighlightedCommand() {
         return this.highlightedCommand;
     }
 
@@ -135,40 +135,40 @@ public class CommandPopupMenuPresentationModel {
         }
     }
 
-    public static class CommandPopupMenuPresentationModelBuilder {
+    public static class Builder {
         private CommandPanelPresentationModel panelPresentationModel;
         private int maxVisibleMenuCommands = -1;
         private boolean toDismissOnCommandActivation = true;
         private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind =
                 JCommandButton.CommandButtonPopupOrientationKind.DOWNWARD;
-        private FlamingoCommand highlightedCommand;
+        private Command highlightedCommand;
 
-        public CommandPopupMenuPresentationModelBuilder setPanelPresentationModel(
+        public Builder setPanelPresentationModel(
                 CommandPanelPresentationModel panelPresentationModel) {
             this.panelPresentationModel = panelPresentationModel;
             return this;
         }
 
-        public CommandPopupMenuPresentationModelBuilder setMaxVisibleMenuCommands(
+        public Builder setMaxVisibleMenuCommands(
                 int maxVisibleMenuCommands) {
             this.maxVisibleMenuCommands = maxVisibleMenuCommands;
             return this;
         }
 
-        public CommandPopupMenuPresentationModelBuilder setToDismissOnCommandActivation(
+        public Builder setToDismissOnCommandActivation(
                 boolean toDismissOnCommandActivation) {
             this.toDismissOnCommandActivation = toDismissOnCommandActivation;
             return this;
         }
 
-        public CommandPopupMenuPresentationModelBuilder setPopupOrientationKind(
+        public Builder setPopupOrientationKind(
                 JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
             return this;
         }
 
-        public CommandPopupMenuPresentationModelBuilder setHighlightedCommand(
-                FlamingoCommand highlightedCommand) {
+        public Builder setHighlightedCommand(
+                Command highlightedCommand) {
             this.highlightedCommand = highlightedCommand;
             return this;
         }

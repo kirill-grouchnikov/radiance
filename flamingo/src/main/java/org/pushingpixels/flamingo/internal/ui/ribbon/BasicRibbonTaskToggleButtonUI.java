@@ -46,14 +46,15 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandToggleButtonUI {
-    protected PopupPanelManager.PopupListener popupListener;
+    private PopupPanelManager.PopupListener popupListener;
 
     @Override
     protected void installDefaults() {
         super.installDefaults();
         Font f = this.commandButton.getFont();
         if (f == null || f instanceof UIResource) {
-            this.commandButton.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).getControlFont());
+            this.commandButton.setFont(
+                    SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).getControlFont());
         }
 
         Border border = this.commandButton.getBorder();
@@ -101,8 +102,7 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandToggleBu
 
     @Override
     protected void uninstallListeners() {
-        PopupPanelManager.defaultManager().removePopupListener(
-                this.popupListener);
+        PopupPanelManager.defaultManager().removePopupListener(this.popupListener);
         this.popupListener = null;
 
         super.uninstallListeners();

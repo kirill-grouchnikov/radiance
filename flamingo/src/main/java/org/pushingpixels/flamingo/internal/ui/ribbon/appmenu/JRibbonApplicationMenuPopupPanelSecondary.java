@@ -56,7 +56,7 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends
         for (int i = 0; i < groupCount; i++) {
             String groupDesc = primaryMenuCommand.getSecondaryGroupTitleAt(i);
             List<CommandProjection> groupCommands = new ArrayList<>();
-            for (FlamingoCommand menuCommand : primaryMenuCommand.getSecondaryGroupCommands(i)) {
+            for (Command menuCommand : primaryMenuCommand.getSecondaryGroupCommands(i)) {
                 if (menuCommand.isToggle()) {
                     throw new IllegalStateException("Secondary menu command cannot be toggle");
                 }

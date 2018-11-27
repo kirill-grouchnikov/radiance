@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.model;
 
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
+import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.icon.ResizableIconFactory;
 
 import javax.swing.event.*;
 import java.util.*;
@@ -39,7 +39,7 @@ import java.util.*;
 public class RibbonGalleryContentModel {
     private List<CommandProjectionGroupModel> commandGroups;
     private List<CommandProjectionGroupModel> extraPopupCommandGroups;
-    private FlamingoCommand selectedCommand;
+    private Command selectedCommand;
     private ResizableIconFactory iconFactory;
 
     /**
@@ -48,13 +48,13 @@ public class RibbonGalleryContentModel {
     private EventListenerList listenerList = new EventListenerList();
 
     public interface GalleryCommandPreviewListener extends EventListener {
-        void onCommandPreviewActivated(FlamingoCommand command);
+        void onCommandPreviewActivated(Command command);
 
-        void onCommandPreviewCanceled(FlamingoCommand command);
+        void onCommandPreviewCanceled(Command command);
     }
 
     public interface GalleryCommandActivationListener extends EventListener {
-        void onCommandActivated(FlamingoCommand command);
+        void onCommandActivated(Command command);
     }
 
     private CommandProjectionGroupModel.CommandProjectionGroupListener commandGroupListener;
@@ -179,7 +179,7 @@ public class RibbonGalleryContentModel {
         this.listenerList.remove(ChangeListener.class, l);
     }
 
-    public void setSelectedCommand(FlamingoCommand command) {
+    public void setSelectedCommand(Command command) {
         if (this.selectedCommand != command) {
             if (this.selectedCommand != null) {
                 this.selectedCommand.setToggleSelected(false);
@@ -192,19 +192,19 @@ public class RibbonGalleryContentModel {
         }
     }
 
-    public FlamingoCommand getSelectedCommand() {
+    public Command getSelectedCommand() {
         return this.selectedCommand;
     }
 
-    public void activatePreview(FlamingoCommand command) {
+    public void activatePreview(Command command) {
         fireCommandPreviewActivated(command);
     }
 
-    public void cancelPreview(FlamingoCommand command) {
+    public void cancelPreview(Command command) {
         fireCommandPreviewCanceled(command);
     }
 
-    private void fireCommandPreviewActivated(FlamingoCommand command) {
+    private void fireCommandPreviewActivated(Command command) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
         // Process the listeners last to first, notifying
@@ -217,7 +217,7 @@ public class RibbonGalleryContentModel {
         }
     }
 
-    private void fireCommandPreviewCanceled(FlamingoCommand command) {
+    private void fireCommandPreviewCanceled(Command command) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
         // Process the listeners last to first, notifying
@@ -230,7 +230,7 @@ public class RibbonGalleryContentModel {
         }
     }
 
-    private void fireCommandSelected(FlamingoCommand command) {
+    private void fireCommandSelected(Command command) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
         // Process the listeners last to first, notifying

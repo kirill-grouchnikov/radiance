@@ -47,7 +47,7 @@ import java.util.*;
  * applications.
  *
  * @author Kirill Grouchnikov
- * @see JRibbonBand#addRibbonGallery(String, RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority, String)
+ * @see JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority, String)
  * @see JRibbon#addTaskbarGalleryDropdown(RibbonGalleryContentModel, RibbonGalleryPresentationModel)
  */
 public class JRibbonGallery extends JComponent {
@@ -62,7 +62,7 @@ public class JRibbonGallery extends JComponent {
     /**
      * The commands of <code>this</code> gallery.
      */
-    protected List<FlamingoCommand> commands;
+    protected List<Command> commands;
 
     /**
      * Button group for ensuring that only one button is selected.
@@ -81,7 +81,7 @@ public class JRibbonGallery extends JComponent {
 
     private String expandKeyTip;
 
-    public JRibbonGallery(String galleryName, RibbonGalleryContentModel galleryContentModel,
+    public JRibbonGallery(RibbonGalleryContentModel galleryContentModel,
             RibbonGalleryPresentationModel galleryPresentationModel) {
         this.galleryContentModel = galleryContentModel;
         this.galleryPresentationModel = galleryPresentationModel;
@@ -91,11 +91,10 @@ public class JRibbonGallery extends JComponent {
         this.commandToggleGroupModel = new CommandToggleGroupModel();
 
         this.validateCommandDisplayState(galleryPresentationModel.getCommandDisplayState());
-        this.setName(galleryName);
 
         this.populateContent();
 
-        this.galleryContentModel.addCommandActivationListener((FlamingoCommand activated) -> {
+        this.galleryContentModel.addCommandActivationListener((Command activated) -> {
             this.commandToggleGroupModel.setSelected(activated, true);
         });
 
@@ -170,7 +169,7 @@ public class JRibbonGallery extends JComponent {
      *
      * @param command Command to add.
      */
-    private void addGalleryCommand(FlamingoCommand command) {
+    private void addGalleryCommand(Command command) {
         JCommandToggleButton button = (JCommandToggleButton) command.project().buildButton();
         button.getActionModel().addChangeListener(new ChangeListener() {
             boolean wasRollover = false;
@@ -282,7 +281,7 @@ public class JRibbonGallery extends JComponent {
     private void setGroupMapping(List<CommandProjectionGroupModel> commandGroups) {
         for (CommandProjectionGroupModel commandGroupModel : commandGroups) {
             for (CommandProjection projection : commandGroupModel.getCommandProjections()) {
-                FlamingoCommand command = projection.getCommand();
+                Command command = projection.getCommand();
                 if (!command.isToggle()) {
                     throw new IllegalStateException("Gallery command must be toggle");
                 }
@@ -343,14 +342,14 @@ public class JRibbonGallery extends JComponent {
                 galleryContentModel.getCommandGroups());
         galleryPopupMenuPanelContentModel.setSingleSelectionMode(true);
         galleryPopupMenuPanelContentModel.setCommandPreviewListener(
-                new FlamingoCommand.CommandPreviewListener() {
+                new Command.CommandPreviewListener() {
                     @Override
-                    public void onCommandPreviewActivated(FlamingoCommand command) {
+                    public void onCommandPreviewActivated(Command command) {
                         galleryContentModel.activatePreview(command);
                     }
 
                     @Override
-                    public void onCommandPreviewCanceled(FlamingoCommand command) {
+                    public void onCommandPreviewCanceled(Command command) {
                         galleryContentModel.cancelPreview(command);
                     }
                 });
@@ -408,7 +407,7 @@ public class JRibbonGallery extends JComponent {
             @Override
             public void popupHidden(PopupPanelManager.PopupEvent event) {
                 // update the gallery content model with the command selection
-                FlamingoCommand selectedCommand =
+                Command selectedCommand =
                         galleryPopupMenu.getMainButtonPanel().getSelectedCommand();
                 galleryContentModel.setSelectedCommand(selectedCommand);
                 if (event.getPopupOriginator() == originator) {

@@ -34,7 +34,7 @@ import org.pushingpixels.demo.kormorant.svg.Format_text_italic
 import org.pushingpixels.demo.kormorant.svg.Format_text_strikethrough
 import org.pushingpixels.demo.kormorant.svg.Format_text_underline
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
-import org.pushingpixels.flamingo.api.common.model.CommandListener
+import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
@@ -113,11 +113,11 @@ fun main(args: Array<String>) {
             }
             presentation {
                 isFlat = false
-                state = CommandButtonDisplayState.MEDIUM
+                commandDisplayState = CommandButtonDisplayState.MEDIUM
             }
         }
 
-        frame.add(singleChoice.asButton())
+        frame.add(singleChoice.toButton())
 
         frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
         frame.size = Dimension(250, 200)

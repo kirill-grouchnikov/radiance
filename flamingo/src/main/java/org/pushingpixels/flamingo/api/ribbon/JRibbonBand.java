@@ -36,7 +36,6 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
-import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.*;
 
@@ -49,7 +48,7 @@ import java.util.*;
  * <li>Wrapped core / 3rd party components added with
  * {@link #addRibbonComponent(JRibbonComponent)}.</li>
  * <li>Ribbon galleries added with
- * {@link #addRibbonGallery(String, RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority, String)} .</li>
+ * {@link #addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority, String)} .</li>
  * </ul>
  *
  * <p>
@@ -60,23 +59,23 @@ import java.util.*;
  *
  * <p>
  * The content and behavior of galleries added with
- * {@link #addRibbonGallery(String, RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority, String)},
+ * {@link #addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority, String)}
  * can be reconfigured using the following APIs on the model classes:
  * </p>
  *
  * <ul>
  * <li>{@link CommandProjectionGroupModel#addCommandProjection(CommandProjection)}</li>
  * <li>{@link CommandProjectionGroupModel#removeCommandProjection(CommandProjection)}</li>
- * <li>{@link RibbonGalleryContentModel#setSelectedCommand(FlamingoCommand)}</li>
+ * <li>{@link RibbonGalleryContentModel#setSelectedCommand(Command)}</li>
  * <li>{@link RibbonGalleryContentModel#addExtraPopupCommandGroup(CommandProjectionGroupModel)}</li>
  * <li>{@link RibbonGalleryContentModel#removeExtraPopupCommandGroup(CommandProjectionGroupModel)}</li>
  * </ul>
  *
  * <p>
- * A ribbon band can have multiple visual groups separated with vertical separator lines. To start a
+ * A ribbon band can have multiple visual groups delineated by vertical separator lines. To start a
  * new unnamed group use the {@link #startGroup()} API. To start a new named group use the
  * {@link #startGroup(String)} API. Unnamed groups will have three rows of controls. Named groups
- * will have two rows of controls, with the top row showing the group title.
+ * will have two rows of controls, with an additional top row showing the group title.
  * </p>
  *
  * @author Kirill Grouchnikov
@@ -143,10 +142,10 @@ public class JRibbonBand extends AbstractRibbonBand {
         return commandButton;
     }
 
-    public void addRibbonGallery(String galleryName, RibbonGalleryContentModel galleryContentModel,
+    public void addRibbonGallery(RibbonGalleryContentModel galleryContentModel,
             RibbonGalleryPresentationModel galleryPresentationModel,
             RibbonElementPriority priority, String expandKeyTip) {
-        JRibbonGallery gallery = new JRibbonGallery(galleryName, galleryContentModel,
+        JRibbonGallery gallery = new JRibbonGallery(galleryContentModel,
                 galleryPresentationModel);
         gallery.setExpandKeyTip(expandKeyTip);
         ((JBandControlPanel) this.getControlPanel()).addRibbonGallery(gallery, priority);

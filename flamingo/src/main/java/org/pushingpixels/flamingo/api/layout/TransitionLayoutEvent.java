@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.layout;
 
-import java.awt.AWTEvent;
-import java.awt.Component;
+import java.awt.*;
 
 public class TransitionLayoutEvent extends AWTEvent {
 	public static final int TRANSITION_STARTED = 100;

@@ -126,7 +126,7 @@ class KRichTooltip {
 }
 
 class KCommandToggleGroupModel {
-    internal val flamingoCommandToggleModel = CommandToggleGroupModel()
+    internal val javaCommandToggleModel = CommandToggleGroupModel()
 }
 
 fun commandToggleGroup(): KCommandToggleGroupModel {

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.popup;
 
-import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandBuilder;
+import org.pushingpixels.flamingo.api.common.model.Command.Builder;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 
 /**
@@ -38,7 +38,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
  * 
  * @author Kirill Grouchnikov
  * @see JCommandButton#setPopupCallback(PopupPanelCallback)
- * @see FlamingoCommandBuilder#setPopupCallback(PopupPanelCallback)
+ * @see Builder#setPopupCallback(PopupPanelCallback)
  */
 public interface PopupPanelCallback {
 	/**

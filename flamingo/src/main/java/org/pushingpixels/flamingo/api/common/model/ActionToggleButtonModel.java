@@ -121,8 +121,8 @@ public class ActionToggleButtonModel extends ToggleButtonModel implements Action
             } else if (currentEvent instanceof ActionEvent) {
                 modifiers = ((ActionEvent) currentEvent).getModifiers();
             }
-            FlamingoCommand originalCommand =
-                    (FlamingoCommand) this.commandButton.getClientProperty(
+            Command originalCommand =
+                    (Command) this.commandButton.getClientProperty(
                             FlamingoUtilities.COMMAND);
             if (originalCommand != null) {
                 originalCommand.setToggleSelected(!originalCommand.isToggleSelected());

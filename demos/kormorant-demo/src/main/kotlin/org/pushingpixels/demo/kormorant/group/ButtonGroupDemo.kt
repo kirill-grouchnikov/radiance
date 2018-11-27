@@ -34,7 +34,7 @@ import org.pushingpixels.demo.kormorant.svg.Format_text_italic
 import org.pushingpixels.demo.kormorant.svg.Format_text_strikethrough
 import org.pushingpixels.demo.kormorant.svg.Format_text_underline
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip
-import org.pushingpixels.flamingo.api.common.model.CommandListener
+import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.kormorant.commandButtonStrip
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin

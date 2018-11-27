@@ -29,8 +29,6 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
-
 import javax.swing.event.*;
 import java.util.*;
 
@@ -42,7 +40,7 @@ public class CommandPanelContentModel {
      */
     private boolean isSingleSelectionMode;
 
-    private FlamingoCommand.CommandPreviewListener commandPreviewListener;
+    private Command.CommandPreviewListener commandPreviewListener;
 
     /**
      * Stores the listeners on this model.
@@ -122,11 +120,11 @@ public class CommandPanelContentModel {
     }
 
     public void setCommandPreviewListener(
-            FlamingoCommand.CommandPreviewListener commandPreviewListener) {
+            Command.CommandPreviewListener commandPreviewListener) {
         this.commandPreviewListener = commandPreviewListener;
     }
 
-    public FlamingoCommand.CommandPreviewListener getCommandPreviewListener() {
+    public Command.CommandPreviewListener getCommandPreviewListener() {
         return this.commandPreviewListener;
     }
 

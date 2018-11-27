@@ -31,9 +31,10 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip.StripOrientation;
+import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
-import org.pushingpixels.flamingo.api.ribbon.model.*;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.utils.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -305,7 +306,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
         this.expandActionButton.addActionListener(this.expandListener);
 
-        this.galleryCommandSelectionListener = (FlamingoCommand activated) ->
+        this.galleryCommandSelectionListener = (Command activated) ->
                 SwingUtilities.invokeLater(() -> {
                     scrollToSelected();
                     ribbonGallery.revalidate();

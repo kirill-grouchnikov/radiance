@@ -32,11 +32,14 @@ package org.pushingpixels.demo.flamingo.common;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.CommandToggleGroupModel;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.MarinerSkin;
+import org.pushingpixels.trident.Timeline;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class TestCommandToggleButtonsSameGroupModel extends JFrame {
@@ -49,43 +52,66 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
 
         CommandToggleGroupModel justifyGroup = new CommandToggleGroupModel();
 
-        FlamingoCommand justifyLeft = FlamingoCommand.builder()
-                .setTitle("left").setIcon(new Format_justify_left())
-                .setToggleSelected(true).inToggleGroup(justifyGroup).build();
-        FlamingoCommand justifyCenter = FlamingoCommand.builder()
-                .setTitle("center").setIcon(new Format_justify_center())
-                .setToggle().inToggleGroup(justifyGroup).build();
-        FlamingoCommand justifyRight = FlamingoCommand.builder()
-                .setTitle("right").setIcon(new Format_justify_right())
-                .setToggle().inToggleGroup(justifyGroup).build();
-        FlamingoCommand justifyFill = FlamingoCommand.builder()
-                .setTitle("fill").setIcon(new Format_justify_fill())
-                .setToggle().inToggleGroup(justifyGroup).build();
+        Command justifyLeft = Command.builder()
+                .setTitle("left")
+                .setIconFactory(Format_justify_left.factory())
+                .inToggleGroupAsSelected(justifyGroup)
+                .build();
+        Command justifyCenter = Command.builder()
+                .setTitle("center")
+                .setIconFactory(Format_justify_center.factory())
+                .inToggleGroup(justifyGroup)
+                .build();
+        Command justifyRight = Command.builder()
+                .setTitle("right")
+                .setIconFactory(Format_justify_right.factory())
+                .inToggleGroup(justifyGroup)
+                .build();
+        Command justifyFill = Command.builder()
+                .setTitle("fill")
+                .setIconFactory(Format_justify_fill.factory())
+                .inToggleGroup(justifyGroup)
+                .build();
 
-        this.setLayout(new FlowLayout(FlowLayout.CENTER));
-        this.add(new JLabel(
-                "<html>Selection state is <br>synced across the <br>strips below</html>"));
-        this.add(getToggleStrip(
-                FlamingoCommandDisplay.builder().setState(CommandButtonDisplayState.SMALL).build(),
-                justifyLeft, justifyCenter, justifyRight, justifyFill));
-        this.add(getToggleStrip(
-                FlamingoCommandDisplay.builder().setState(CommandButtonDisplayState.MEDIUM).build(),
-                justifyLeft, justifyCenter, justifyRight, justifyFill));
-        this.add(getToggleStrip(
-                FlamingoCommandDisplay.builder().setState(CommandButtonDisplayState.BIG).build(),
-                justifyLeft, justifyCenter, justifyRight, justifyFill));
+        this.setLayout(new BorderLayout());
 
+        JPanel contentPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        contentPanel.setBorder(new EmptyBorder(8, 8, 8, 8));
 
-        this.setSize(300, 200);
+        JLabel instructional = new JLabel("Selection state is synced across the strips below");
+        // create a looping animation to change the label foreground
+        // from black to blue and back to draw some attention.
+        Timeline instructionalTimeline = new SwingComponentTimeline(instructional);
+        instructionalTimeline.addPropertyToInterpolate("foreground", Color.black, Color.blue);
+        instructionalTimeline.setDuration(1000);
+        instructionalTimeline.playLoop(Timeline.RepeatBehavior.REVERSE);
+
+        instructional.setFont(instructional.getFont().deriveFont(Font.BOLD));
+        instructional.setBorder(new EmptyBorder(0, 0, 12, 0));
+        contentPanel.add(instructional);
+
+        // Three rows of toggle buttons with selection sync
+        contentPanel.add(getToggleStrip(CommandPresentation.builder().setCommandDisplayState(
+                CommandButtonDisplayState.SMALL).build(),
+                justifyLeft, justifyCenter, justifyRight, justifyFill));
+        contentPanel.add(getToggleStrip(CommandPresentation.builder().setCommandDisplayState(
+                CommandButtonDisplayState.MEDIUM).build(),
+                justifyLeft, justifyCenter, justifyRight, justifyFill));
+        contentPanel.add(getToggleStrip(CommandPresentation.builder().setCommandDisplayState(
+                CommandButtonDisplayState.BIG).build(),
+                justifyLeft, justifyCenter, justifyRight, justifyFill));
+        this.add(contentPanel, BorderLayout.CENTER);
+
+        this.setSize(400, 250);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
-    private JCommandButtonStrip getToggleStrip(FlamingoCommandDisplay display,
-            FlamingoCommand... commands) {
+    private JCommandButtonStrip getToggleStrip(CommandPresentation display,
+            Command... commands) {
         JCommandButtonStrip result = new JCommandButtonStrip();
-        result.setDisplayState(display.getState());
-        for (FlamingoCommand command : commands) {
+        result.setDisplayState(display.getCommandDisplayState());
+        for (Command command : commands) {
             result.add(command.project(display).buildButton());
         }
         return result;

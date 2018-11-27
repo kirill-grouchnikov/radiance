@@ -64,21 +64,21 @@ public class MultiLevelMenu extends JFrame {
             List<CommandProjection> menuCommands1 = new ArrayList<>();
             List<CommandProjection> menuCommands2 = new ArrayList<>();
 
-            menuCommands1.add(FlamingoCommand.builder()
+            menuCommands1.add(Command.builder()
                     .setTitle("Copy").setIcon(new Edit_copy()).build().project());
-            menuCommands1.add(FlamingoCommand.builder()
+            menuCommands1.add(Command.builder()
                     .setTitle("Cut").setIcon(new Edit_cut()).build().project());
-            menuCommands1.add(FlamingoCommand.builder()
+            menuCommands1.add(Command.builder()
                     .setTitle("Paste").setIcon(new Edit_paste()).build().project());
 
-            menuCommands2.add(FlamingoCommand.builder()
+            menuCommands2.add(Command.builder()
                     .setTitle("Find")
                     .setPopupCallback((JCommandButton commandButton2) -> {
                         List<CommandProjection> menuCommandsSecondary = new ArrayList<>();
 
-                        menuCommandsSecondary.add(FlamingoCommand.builder()
+                        menuCommandsSecondary.add(Command.builder()
                                 .setTitle("Find").setIcon(new Edit_find()).build().project());
-                        menuCommandsSecondary.add(FlamingoCommand.builder()
+                        menuCommandsSecondary.add(Command.builder()
                                 .setTitle("Find replace").setIcon(
                                         new Edit_find_replace()).build().project());
 

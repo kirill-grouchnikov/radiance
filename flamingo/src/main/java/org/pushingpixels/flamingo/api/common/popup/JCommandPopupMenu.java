@@ -131,15 +131,15 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
         for (int i = 0; i < commandGroups.size(); i++) {
             for (CommandProjection projection : commandGroups.get(i).getCommandProjections()) {
                 // Overlay the supplied projection command display to create menu content
-                FlamingoCommandDisplay withOverlay = projection.getCommandDisplay().overlayWith(
-                        FlamingoCommandDisplay.overlay().setMenu(true));
+                CommandPresentation withOverlay = projection.getCommandDisplay().overlayWith(
+                        CommandPresentation.overlay().setMenu(true));
                 // Reproject to use the overlay
                 CommandProjection projectionWithOverlay = projection.reproject(withOverlay);
                 // And create a button that can be used in this popup menu
                 AbstractCommandButton commandButton = projectionWithOverlay.buildButton();
 
                 // Need to highlight it?
-                FlamingoCommand highlightedCommand =
+                Command highlightedCommand =
                         this.popupMenuPresentationModel.getHighlightedCommand();
                 if (projection.getCommand() == highlightedCommand) {
                     // Use bold font

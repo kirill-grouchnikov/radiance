@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.layout;
 
-import java.awt.Container;
-import java.awt.LayoutManager;
+import java.awt.*;
 
 /**
  * Transition layout manager. Contains method for installing / uninstalling

@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.api.common.popup;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandPopupMenuUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.*;
@@ -81,8 +82,8 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
                 switch (groupEntry.getKey()) {
                     case COMMAND:
                         AbstractCommandButton commandButton =
-                                ((FlamingoCommand) groupEntry.getValue()).project(
-                                        FlamingoCommandDisplay.builder()
+                                ((Command) groupEntry.getValue()).project(
+                                        CommandPresentation.builder()
                                                 .setMenu(true).build()).buildButton();
                         if (commandButton instanceof JCommandMenuButton) {
                             this.addMenuButton((JCommandMenuButton) commandButton);

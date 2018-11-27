@@ -34,12 +34,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.flamingo.api.common.*
+import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.common.model.*
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.neon.icon.ResizableIconFactory
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
 
 interface ActionModelChangeInterface {
     fun stateChanged(model: ActionButtonModel)
@@ -51,7 +50,7 @@ interface PopupModelChangeInterface {
 
 @FlamingoElementMarker
 open class KCommand {
-    private val builder = FlamingoCommand.builder()
+    private val builder = Command.builder()
     private lateinit var button: AbstractCommandButton
     private var hasBeenConverted: Boolean = false
 
@@ -118,7 +117,7 @@ open class KCommand {
     }
 
     companion object {
-        fun populateBuilder(builder: FlamingoCommand.BaseFlamingoCommandBuilder<*, *>, command: KCommand) {
+        fun populateBuilder(builder: Command.BaseBuilder<*, *>, command: KCommand) {
             builder.setTitle(command.title)
             builder.setIcon(command.icon)
             builder.setIconFactory(command.iconFactory)
@@ -148,23 +147,20 @@ open class KCommand {
                 }
             }
             if (command.toggleGroup != null) {
-                builder.inToggleGroup(command.toggleGroup!!.flamingoCommandToggleModel)
+                builder.inToggleGroup(command.toggleGroup!!.javaCommandToggleModel)
             }
 
             builder.setEnabled(command.isEnabled)
         }
     }
 
-    fun toFlamingoCommand(): FlamingoCommand {
+    fun toJavaCommand(): Command {
         populateBuilder(builder, this)
         return builder.build()
     }
 
-    internal fun asBaseButton(display: KCommandButtonPresentation): AbstractCommandButton {
-        if (hasBeenConverted) {
-            throw IllegalStateException("This method can only be called once")
-        }
-        button = toFlamingoCommand().project(display.toCommandDisplay()).buildButton()
+    internal fun toCommandButton(display: KCommandPresentation): AbstractCommandButton {
+        button = toJavaCommand().project(display.toCommandDisplay()).buildButton()
         if (actionModelChangeListener != null) {
             button.actionModel.addChangeListener {
                 actionModelChangeListener!!.stateChanged(button.actionModel)
@@ -175,26 +171,6 @@ open class KCommand {
                 popupModelChangeListener!!.stateChanged((button as JCommandButton).popupModel)
             }
         }
-        hasBeenConverted = true
-        return button
-    }
-
-    internal fun asBaseMenuButton(display: KCommandButtonPresentation): AbstractCommandButton {
-        if (hasBeenConverted) {
-            throw IllegalStateException("This method can only be called once")
-        }
-        button = toFlamingoCommand().project(display.toCommandDisplay()).buildButton()
-        if (actionModelChangeListener != null) {
-            button.actionModel.addChangeListener {
-                actionModelChangeListener!!.stateChanged(button.actionModel)
-            }
-        }
-        if ((popupModelChangeListener != null) && (button is JCommandMenuButton)) {
-            (button as JCommandMenuButton).popupModel.addChangeListener {
-                popupModelChangeListener!!.stateChanged((button as JCommandMenuButton).popupModel)
-            }
-        }
-        hasBeenConverted = true
         return button
     }
 }
@@ -206,14 +182,44 @@ fun command(init: KCommand.() -> Unit): KCommand {
 }
 
 @FlamingoElementMarker
+class KCommandPresentation {
+    var commandDisplayState: CommandButtonDisplayState = CommandButtonDisplayState.FIT_TO_ICON
+    var isFlat: Boolean = true
+    var horizontalAlignment: Int = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
+    var horizontalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
+    var verticalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
+    var popupOrientationKind: JCommandButton.CommandButtonPopupOrientationKind
+            = JCommandButton.CommandButtonPopupOrientationKind.DOWNWARD
+    var commandIconDimension: Int? = null
+    var isMenu: Boolean = false
+    var actionKeyTip: String? = null
+    var popupKeyTip: String? = null
+
+    fun toCommandDisplay() : CommandPresentation {
+        return CommandPresentation.builder()
+                .setCommandDisplayState(commandDisplayState)
+                .setFlat(isFlat)
+                .setHorizontalAlignment(horizontalAlignment)
+                .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
+                .setVerticalGapScaleFactor(verticalGapScaleFactor)
+                .setPopupOrientationKind(popupOrientationKind)
+                .setCommandIconDimension(commandIconDimension)
+                .setActionKeyTip(actionKeyTip)
+                .setPopupKeyTip(popupKeyTip)
+                .setMenu(isMenu)
+                .build()
+    }
+}
+
+@FlamingoElementMarker
 class KCommandGroup {
     var title: String? by NullableDelegate { false }
     internal val commands = arrayListOf<CommandConfig>()
 
     internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?, val popupKeyTip: String?) {
         fun toProjection(): CommandProjection {
-            return command.toFlamingoCommand().project(
-                    FlamingoCommandDisplay.builder()
+            return command.toJavaCommand().project(
+                    CommandPresentation.builder()
                             .setActionKeyTip(actionKeyTip)
                             .setPopupKeyTip(popupKeyTip)
                             .build())

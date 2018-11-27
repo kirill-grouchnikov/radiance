@@ -57,14 +57,8 @@ public class JRibbonTaskToggleButton extends JCommandToggleButton {
 
     private RibbonTask ribbonTask;
 
-    /**
-     * Creates a new toggle button.
-     *
-     * @param ribbonTask Ribbon task
-     */
-    JRibbonTaskToggleButton(RibbonTask ribbonTask) {
-        super(ribbonTask.getTitle());
-        this.ribbonTask = ribbonTask;
+    public JRibbonTaskToggleButton(String title) {
+        super(title);
     }
 
     @Override
@@ -86,6 +80,10 @@ public class JRibbonTaskToggleButton extends JCommandToggleButton {
      */
     public Color getContextualGroupHueColor() {
         return this.contextualGroupHueColor;
+    }
+
+    public void setRibbonTask(RibbonTask ribbonTask) {
+        this.ribbonTask = ribbonTask;
     }
 
     public RibbonTask getRibbonTask() {

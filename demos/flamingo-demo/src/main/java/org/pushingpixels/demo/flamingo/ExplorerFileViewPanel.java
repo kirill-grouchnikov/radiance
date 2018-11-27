@@ -33,6 +33,7 @@ package org.pushingpixels.demo.flamingo;
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.*;
+import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.photon.icon.SvgBatikResizableIcon;
 
@@ -140,7 +141,7 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
     }
 
     @Override
-    protected void configureCommand(Leaf leaf, FlamingoCommand command, ResizableIcon icon) {
+    protected void configureCommand(Leaf leaf, Command command, ResizableIcon icon) {
         String filename = leaf.getLeafName();
         String ext = "Generic";
         int lastDot = filename.lastIndexOf('.');

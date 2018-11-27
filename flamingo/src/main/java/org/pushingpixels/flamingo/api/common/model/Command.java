@@ -27,25 +27,34 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.flamingo.api.common;
+package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.neon.icon.*;
 
 import javax.swing.event.*;
-import java.awt.event.ActionListener;
 import java.beans.*;
 import java.util.EventListener;
 
 /**
- * Encapsulates metadata associated with a single command. Use a new instance of
- * {@link FlamingoCommandBuilder} to configure a new command, and
- * {@link FlamingoCommandBuilder#build()} to build a command.
+ * Encapsulates metadata for a single command. Use a new instance of
+ * {@link Builder} to configure a new command, and {@link Builder#build()} to build a command.
+ *
+ * <p>A command can be "rendered" on screen using {@link CommandPresentation} and
+ * {@link CommandProjection}. Use {@link #project()} for default presentation settings or
+ * {@link #project(CommandPresentation)} to customize presentation settings. Then use
+ * {@link CommandProjection#buildButton()} to get an instance of {@link AbstractCommandButton}
+ * that can be added to the component hierarchy. Note that you can - and should - use the same
+ * {@link Command} instance and one or more {@link CommandPresentation}s if you need to have
+ * multiple instances (or projections) of the same command in your app UI. That way changes in the
+ * command are propagated and synced across all those projections.</p>
  *
  * @author Kirill Grouchnikov
+ * @see CommandPresentation
+ * @see CommandProjection
  */
-public class FlamingoCommand {
+public class Command {
     private String title;
     private ResizableIcon icon;
     private ResizableIconFactory iconFactory;
@@ -67,7 +76,7 @@ public class FlamingoCommand {
     private int autoRepeatInitialInterval;
     private int autoRepeatSubsequentInterval;
     private boolean isFireActionOnRollover;
-    private FlamingoCommand.CommandPreviewListener previewListener;
+    private Command.CommandPreviewListener previewListener;
 
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
@@ -76,11 +85,11 @@ public class FlamingoCommand {
      */
     private EventListenerList listenerList = new EventListenerList();
 
-    protected FlamingoCommand() {
+    protected Command() {
     }
 
-    public static FlamingoCommand.FlamingoCommandBuilder builder() {
-        return new FlamingoCommand.FlamingoCommandBuilder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     private void checkConsistency() {
@@ -313,21 +322,20 @@ public class FlamingoCommand {
     }
 
     public CommandProjection project() {
-        return new CommandProjection(this, FlamingoCommandDisplay.builder().build());
+        return new CommandProjection(this, CommandPresentation.builder().build());
     }
 
-    public CommandProjection project(FlamingoCommandDisplay commandDisplay) {
+    public CommandProjection project(CommandPresentation commandDisplay) {
         return new CommandProjection(this, commandDisplay);
     }
 
     public interface CommandPreviewListener extends EventListener {
-        void onCommandPreviewActivated(FlamingoCommand command);
+        void onCommandPreviewActivated(Command command);
 
-        void onCommandPreviewCanceled(FlamingoCommand command);
+        void onCommandPreviewCanceled(Command command);
     }
 
-    public abstract static class BaseFlamingoCommandBuilder<T extends FlamingoCommand,
-            B extends BaseFlamingoCommandBuilder> {
+    public abstract static class BaseBuilder<T extends Command, B extends BaseBuilder> {
         protected String title;
         protected ResizableIcon icon;
         protected ResizableIconFactory iconFactory;
@@ -351,7 +359,7 @@ public class FlamingoCommand {
         protected boolean isFireActionOnRollover;
         protected CommandPreviewListener previewListener;
 
-        protected void configureBaseCommand(FlamingoCommand command) {
+        protected void configureBaseCommand(Command command) {
             command.title = this.title;
             command.icon = this.icon;
             command.iconFactory = this.iconFactory;
@@ -458,6 +466,14 @@ public class FlamingoCommand {
         }
 
         public B inToggleGroup(CommandToggleGroupModel toggleGroup) {
+            this.isToggle = true;
+            this.toggleGroupModel = toggleGroup;
+            return (B) this;
+        }
+
+        public B inToggleGroupAsSelected(CommandToggleGroupModel toggleGroup) {
+            this.isToggle = true;
+            this.isToggleSelected = true;
             this.toggleGroupModel = toggleGroup;
             return (B) this;
         }
@@ -485,11 +501,10 @@ public class FlamingoCommand {
         }
     }
 
-    public static class FlamingoCommandBuilder
-            extends BaseFlamingoCommandBuilder<FlamingoCommand, FlamingoCommandBuilder> {
-
-        public FlamingoCommand build() {
-            FlamingoCommand command = new FlamingoCommand();
+    public static class Builder
+            extends BaseBuilder<Command, Builder> {
+        public Command build() {
+            Command command = new Command();
 
             this.configureBaseCommand(command);
 
@@ -497,5 +512,14 @@ public class FlamingoCommand {
 
             return command;
         }
+
+        public AbstractCommandButton buildButton() {
+            return build().project().buildButton();
+        }
+
+        public AbstractCommandButton buildButton(CommandPresentation commandDisplay) {
+            return build().project(commandDisplay).buildButton();
+        }
+
     }
 }

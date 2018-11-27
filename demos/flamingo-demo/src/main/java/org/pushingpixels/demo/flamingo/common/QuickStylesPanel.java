@@ -10,7 +10,6 @@ import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.text.MessageFormat;
 import java.util.*;
 import java.util.List;
@@ -43,7 +42,7 @@ public class QuickStylesPanel {
                             }
                             g2d.dispose();
                         });
-                FlamingoCommand command = FlamingoCommand.builder()
+                Command command = Command.builder()
                         .setIcon(finalIcon).setToggle().setAction(
                                 (CommandActionEvent e) -> System.out.println(
                                         "Invoked action on " + deco)).build();

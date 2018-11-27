@@ -61,7 +61,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
     /**
      * Contains the buttons with completely loaded images.
      */
-    private Set<FlamingoCommand> loadedSet;
+    private Set<Command> loadedSet;
 
     /**
      * The main worker that loads the images off EDT.
@@ -202,7 +202,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
         this.buttonMap.clear();
         int fileCount = 0;
 
-        final Map<String, FlamingoCommand> newCommands = new HashMap<>();
+        final Map<String, Command> newCommands = new HashMap<>();
         for (StringValuePair<T> leaf : leafs) {
             String name = leaf.getKey();
             if (!toShowFile(leaf)) {
@@ -214,7 +214,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                 initialSize = this.getPresentationModel().getCommandDisplayState()
                         .getPreferredIconSize();
             }
-            FlamingoCommand command = FlamingoCommand.builder()
+            Command command = Command.builder()
                     .setTitle(name).setIcon(new EmptyResizableIcon(initialSize)).build();
 
             int buttonIndex = this.addCommandToLastGroup(command);
@@ -267,7 +267,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                     if (icon == null) {
                         continue;
                     }
-                    final FlamingoCommand command = newCommands.get(name);
+                    final Command command = newCommands.get(name);
                     command.setIcon(icon);
 
                     if (icon instanceof AsynchronousLoading) {
@@ -278,7 +278,6 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                                             return;
                                         }
                                         loadedSet.add(command);
-                                        // loadedCount++;
                                         if (progressListener != null) {
                                             progressListener.onProgress(
                                                     new ProgressEvent(AbstractFileViewPanel.this, 0,
@@ -355,7 +354,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      * @param command Command to configure.
      * @param icon    Command icon.
      */
-    protected void configureCommand(Leaf leaf, FlamingoCommand command, ResizableIcon icon) {
+    protected void configureCommand(Leaf leaf, Command command, ResizableIcon icon) {
     }
 
     /**

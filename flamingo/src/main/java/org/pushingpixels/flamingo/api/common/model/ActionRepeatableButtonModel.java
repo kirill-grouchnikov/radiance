@@ -114,7 +114,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
         if (toFireFirstAction) {
             fireActionPerformed(new CommandActionEvent(this,
                     ActionEvent.ACTION_PERFORMED,
-                    (FlamingoCommand) this.commandButton.getClientProperty(
+                    (Command) this.commandButton.getClientProperty(
                             FlamingoUtilities.COMMAND),
                     getActionCommand(),
                     EventQueue.getMostRecentEventTime(), modifiers));
@@ -164,7 +164,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
 
                 fireActionPerformed(new CommandActionEvent(this,
                         ActionEvent.ACTION_PERFORMED,
-                        (FlamingoCommand) this.commandButton.getClientProperty(
+                        (Command) this.commandButton.getClientProperty(
                                 FlamingoUtilities.COMMAND),
                         getActionCommand(),
                         EventQueue.getMostRecentEventTime(), modifiers));
@@ -219,7 +219,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
                         return;
                     }
                     fireActionPerformed(new CommandActionEvent(this, ActionEvent.ACTION_PERFORMED,
-                            (FlamingoCommand) this.commandButton.getClientProperty(
+                            (Command) this.commandButton.getClientProperty(
                                     FlamingoUtilities.COMMAND),
                             getActionCommand(), EventQueue.getMostRecentEventTime(), modifiers));
                 });

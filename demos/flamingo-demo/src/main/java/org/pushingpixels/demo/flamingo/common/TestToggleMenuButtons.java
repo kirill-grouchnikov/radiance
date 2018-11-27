@@ -52,7 +52,7 @@ public class TestToggleMenuButtons extends JFrame {
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
-        FlamingoCommandDisplay menuDisplay = FlamingoCommandDisplay.builder().setMenu(true).build();
+        CommandPresentation menuDisplay = CommandPresentation.builder().setMenu(true).build();
 
         JCommandButton singleChoice = new JCommandButton("single");
         singleChoice.setCommandButtonKind(CommandButtonKind.POPUP_ONLY);
@@ -61,18 +61,18 @@ public class TestToggleMenuButtons extends JFrame {
 
         CommandToggleGroupModel justifyGroup = new CommandToggleGroupModel();
 
-        FlamingoCommand justifyLeft = FlamingoCommand.builder()
+        Command justifyLeft = Command.builder()
                 .setTitle("left").setIcon(new Format_justify_left())
-                .setToggle().inToggleGroup(justifyGroup).build();
-        FlamingoCommand justifyCenter = FlamingoCommand.builder()
+                .inToggleGroup(justifyGroup).build();
+        Command justifyCenter = Command.builder()
                 .setTitle("center").setIcon(new Format_justify_center())
-                .setToggle().inToggleGroup(justifyGroup).build();
-        FlamingoCommand justifyRight = FlamingoCommand.builder()
+                .inToggleGroup(justifyGroup).build();
+        Command justifyRight = Command.builder()
                 .setTitle("right").setIcon(new Format_justify_right())
-                .setToggle().inToggleGroup(justifyGroup).build();
-        FlamingoCommand justifyFill = FlamingoCommand.builder()
+                .inToggleGroup(justifyGroup).build();
+        Command justifyFill = Command.builder()
                 .setTitle("fill").setIcon(new Format_justify_fill())
-                .setToggle().inToggleGroup(justifyGroup).build();
+                .inToggleGroup(justifyGroup).build();
 
         CommandPopupMenuContentModel justifyMenuContentModel =
                 new CommandPopupMenuContentModel(new CommandProjectionGroupModel(
@@ -90,16 +90,16 @@ public class TestToggleMenuButtons extends JFrame {
         multiChoice.setDisplayState(CommandButtonDisplayState.MEDIUM);
         multiChoice.setFlat(false);
 
-        FlamingoCommand formatBold = FlamingoCommand.builder()
+        Command formatBold = Command.builder()
                 .setTitle("bold").setIcon(new Format_text_bold())
                 .setToggle().build();
-        FlamingoCommand formatItalic = FlamingoCommand.builder()
+        Command formatItalic = Command.builder()
                 .setTitle("italic").setIcon(new Format_text_italic())
                 .setToggle().build();
-        FlamingoCommand formatUnderline = FlamingoCommand.builder()
+        Command formatUnderline = Command.builder()
                 .setTitle("underline").setIcon(new Format_text_underline())
                 .setToggle().build();
-        FlamingoCommand formatStrikethrough = FlamingoCommand.builder()
+        Command formatStrikethrough = Command.builder()
                 .setTitle("strikethrough").setIcon(new Format_text_strikethrough())
                 .setToggle().build();
 

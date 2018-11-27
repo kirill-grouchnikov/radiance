@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
-import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceColorSelectorComponentUI;
 
 import javax.swing.*;

@@ -33,7 +33,7 @@ package org.pushingpixels.demo.kormorant.common
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
-import org.pushingpixels.flamingo.api.common.FlamingoCommand
+import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.StringValuePair
 import org.pushingpixels.flamingo.api.common.icon.IcoWrapperResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon
@@ -125,7 +125,7 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
         return icon
     }
 
-    override fun configureCommand(leaf: Leaf, command: FlamingoCommand, icon: ResizableIcon?) {
+    override fun configureCommand(leaf: Leaf, command: Command, icon: ResizableIcon?) {
         val filename = leaf.leafName
         val lastDot = filename.lastIndexOf('.')
         val ext = if (lastDot >= 0) filename.substring(lastDot + 1).toUpperCase() else "Generic"

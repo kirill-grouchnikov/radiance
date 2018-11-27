@@ -284,22 +284,17 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
         }
     }
 
-    /**
-     * Maps from gallery name to gallery.
-     */
-    private Map<String, JRibbonGallery> galleryNameMap;
-
     private LinkedList<ControlPanelGroup> controlPanelGroups;
 
     /**
      * Empty list of buttons.
      */
-    public static final List<AbstractCommandButton> EMPTY_GALLERY_BUTTONS_LIST = new LinkedList<>();
+    private static final List<AbstractCommandButton> EMPTY_GALLERY_BUTTONS_LIST = new LinkedList<>();
 
     /**
      * Empty list of galleries.
      */
-    public static final List<JRibbonGallery> EMPTY_RIBBON_GALLERIES_LIST = new LinkedList<>();
+    private static final List<JRibbonGallery> EMPTY_RIBBON_GALLERIES_LIST = new LinkedList<>();
 
     /**
      * The UI class ID string.
@@ -313,7 +308,6 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
         super();
 
         this.controlPanelGroups = new LinkedList<>();
-        this.galleryNameMap = new HashMap<>();
     }
 
     /**
@@ -365,24 +359,11 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
      */
     public synchronized void addRibbonGallery(JRibbonGallery ribbonGallery,
             RibbonElementPriority priority) {
-        // check the name
-        String galleryName = ribbonGallery.getName();
-        if ((galleryName == null) || (galleryName.isEmpty())) {
-            throw new IllegalArgumentException(
-                    "Ribbon gallery name null or empty");
-        }
-        if (this.galleryNameMap.containsKey(galleryName)) {
-            throw new IllegalArgumentException(
-                    "Another riboon gallery with the same name already exists");
-        }
-
         if (this.controlPanelGroups.size() == 0) {
             this.startGroup();
         }
 
         this.controlPanelGroups.getLast().addRibbonGallery(ribbonGallery, priority);
-
-        this.galleryNameMap.put(galleryName, ribbonGallery);
 
         super.add(ribbonGallery);
     }
@@ -428,16 +409,6 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
     public void setGroupTitle(int groupIndex, String groupTitle) {
         this.controlPanelGroups.get(groupIndex).setGroupTitle(groupTitle);
         this.fireChanged();
-    }
-
-    /**
-     * Returns the ribbon gallery based on its name.
-     *
-     * @param galleryName Ribbon gallery name.
-     * @return Ribbon gallery.
-     */
-    public JRibbonGallery getRibbonGallery(String galleryName) {
-        return this.galleryNameMap.get(galleryName);
     }
 
     public void addChangeListener(ChangeListener l) {

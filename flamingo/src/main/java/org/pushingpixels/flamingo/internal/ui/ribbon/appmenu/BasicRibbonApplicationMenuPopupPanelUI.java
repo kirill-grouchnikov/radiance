@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback;
@@ -157,7 +158,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 for (final RibbonApplicationMenuPrimaryCommand menuEntry : primaryEntries.get(i)) {
                     final JCommandMenuButton commandButton =
                             (JCommandMenuButton) menuEntry.project(
-                                    FlamingoCommandDisplay.builder()
+                                    CommandPresentation.builder()
                                             .setMenu(true).build()).buildButton();
 
                     if (menuEntry.getSecondaryGroupCount() == 0) {
@@ -255,7 +256,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             }
         };
         if (ribbonAppMenu != null) {
-            for (FlamingoCommand footerCommand : ribbonAppMenu.getFooterCommands()) {
+            for (Command footerCommand : ribbonAppMenu.getFooterCommands()) {
                 JCommandButton commandFooterButton =
                         (JCommandButton) footerCommand.project().buildButton();
                 commandFooterButton.setDisplayState(CommandButtonDisplayState.MEDIUM);

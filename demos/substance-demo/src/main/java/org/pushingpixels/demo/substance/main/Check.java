@@ -45,7 +45,6 @@ import org.pushingpixels.substance.extras.api.tabbed.DefaultTabPreviewPainter;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.*;
-import javax.swing.plaf.metal.MetalLookAndFeel;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;

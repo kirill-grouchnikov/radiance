@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.FlamingoCommand;
+import org.pushingpixels.flamingo.api.common.model.Command;
 
 import javax.swing.*;
 import java.util.*;
@@ -51,7 +51,7 @@ import java.util.*;
  * menu item is an example of such a primary menu entry, showing a list of recently opened files.
  * For a primary entry that is action-only, pass {@link PrimaryClearRolloverCallback} as the primary
  * rollover callback to clear the secondary area.</li>
- * <li>Associated list of {@link FlamingoCommand}s. When this entry is armed (with
+ * <li>Associated list of {@link Command}s. When this entry is armed (with
  * mouse rollover or via keyboard navigation), the secondary area shows menu buttons for the
  * registered secondary menu commands. The <code>Save As</code> menu item is an example of such a
  * primary menu item, showing a list of default save formats.</li>
@@ -59,7 +59,7 @@ import java.util.*;
  *
  * @author Kirill Grouchnikov
  */
-public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
+public class RibbonApplicationMenuPrimaryCommand extends Command {
     /**
      * An optional rollover callback. It allows the application to place custom content in the
      * secondary panel of the {@link RibbonApplicationMenu} when this primary menu entry is
@@ -103,7 +103,11 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
     /**
      * List of all menu groups.
      */
-    private List<List<FlamingoCommand>> groupEntries;
+    private List<List<Command>> groupEntries;
+
+    public static Builder applicationMenuBuilder() {
+        return new Builder();
+    }
 
     RibbonApplicationMenuPrimaryCommand() {
     }
@@ -139,7 +143,7 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
      * @see #getSecondaryGroupCount()
      * @see #getSecondaryGroupTitleAt(int)
      */
-    public List<FlamingoCommand> getSecondaryGroupCommands(int groupIndex) {
+    public List<Command> getSecondaryGroupCommands(int groupIndex) {
         return Collections.unmodifiableList(this.groupEntries.get(groupIndex));
     }
 
@@ -164,9 +168,7 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
         return super.hasPopup() || (this.getSecondaryGroupCount() > 0);
     }
 
-    public static class RibbonApplicationMenuPrimaryCommandBuilder extends
-            BaseFlamingoCommandBuilder<RibbonApplicationMenuPrimaryCommand,
-                    RibbonApplicationMenuPrimaryCommandBuilder> {
+    public static class Builder extends BaseBuilder<RibbonApplicationMenuPrimaryCommand, Builder> {
         /**
          * An optional rollover callback. It allows the application to place custom content in the
          * secondary panel of the {@link RibbonApplicationMenu} when this primary menu entry is
@@ -184,7 +186,7 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
         /**
          * List of all menu groups.
          */
-        private List<List<FlamingoCommand>> groupEntries = new ArrayList<>();
+        private List<List<Command>> groupEntries = new ArrayList<>();
 
         /**
          * Adds a titled group of secondary menu commands.
@@ -193,10 +195,10 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
          * @param secondaryCommands The secondary menu commands belonging to this group.
          * @return This builder for chaining API calls.
          */
-        public synchronized RibbonApplicationMenuPrimaryCommandBuilder addSecondaryMenuGroup(
-                String groupTitle, FlamingoCommand... secondaryCommands) {
+        public synchronized Builder addSecondaryMenuGroup(
+                String groupTitle, Command... secondaryCommands) {
             this.groupTitles.add(groupTitle);
-            List<FlamingoCommand> entryList = Arrays.asList(secondaryCommands);
+            List<Command> entryList = Arrays.asList(secondaryCommands);
             this.groupEntries.add(entryList);
             return this;
         }
@@ -208,12 +210,12 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
          * @param secondaryCommands The secondary menu commands belonging to this group.
          * @return This builder for chaining API calls.
          */
-        public synchronized RibbonApplicationMenuPrimaryCommandBuilder addSecondaryMenuGroup(
-                String groupTitle, Iterable<FlamingoCommand> secondaryCommands) {
+        public synchronized Builder addSecondaryMenuGroup(
+                String groupTitle, Iterable<Command> secondaryCommands) {
             this.groupTitles.add(groupTitle);
-            List<FlamingoCommand> entryList = new ArrayList<>();
+            List<Command> entryList = new ArrayList<>();
             this.groupEntries.add(entryList);
-            for (FlamingoCommand entry : secondaryCommands) {
+            for (Command entry : secondaryCommands) {
                 entryList.add(entry);
             }
             return this;
@@ -228,7 +230,7 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
          *                         of the {@link RibbonApplicationMenu}.
          * @return This builder for chaining API calls.
          */
-        public RibbonApplicationMenuPrimaryCommandBuilder setRolloverCallback(
+        public Builder setRolloverCallback(
                 PrimaryRolloverCallback rolloverCallback) {
             this.rolloverCallback = rolloverCallback;
             return this;
@@ -241,7 +243,7 @@ public class RibbonApplicationMenuPrimaryCommand extends FlamingoCommand {
          * @param newTitle   New title for the specified group.
          * @return This builder for chaining API calls.
          */
-        public synchronized RibbonApplicationMenuPrimaryCommandBuilder setSecondaryGroupTitle(
+        public synchronized Builder setSecondaryGroupTitle(
                 int groupIndex, String newTitle) {
             this.groupTitles.set(groupIndex, newTitle);
             return this;

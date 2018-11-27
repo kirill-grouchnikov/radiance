@@ -30,11 +30,14 @@
 package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
-import org.pushingpixels.flamingo.api.common.FlamingoCommand
+import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel
-import org.pushingpixels.kormorant.*
+import org.pushingpixels.kormorant.FlamingoElementMarker
+import org.pushingpixels.kormorant.KCommand
+import org.pushingpixels.kormorant.KCommandGroup
+import org.pushingpixels.kormorant.NullableDelegate
 import org.pushingpixels.neon.icon.ResizableIconFactory
 
 @FlamingoElementMarker
@@ -75,14 +78,13 @@ class KRibbonGalleryContent {
     private var hasBeenConverted: Boolean = false
     private lateinit var javaRibbonGalleryContentModel: RibbonGalleryContentModel
 
-    var title: String by NonNullDelegate { hasBeenConverted }
     var iconFactory: ResizableIconFactory? by NullableDelegate { hasBeenConverted }
     private val commandGroups = arrayListOf<KCommandGroup>()
     private val extraPopupGroups = arrayListOf<KCommandGroup>()
     private val extraPopupDefaultGroup = KCommandGroup()
-    var onCommandActivated: ((FlamingoCommand) -> Unit)? by NullableDelegate { hasBeenConverted }
-    var onCommandPreviewActivated: ((FlamingoCommand) -> Unit)? by NullableDelegate { hasBeenConverted }
-    var onCommandPreviewCanceled: ((FlamingoCommand) -> Unit)? by NullableDelegate { hasBeenConverted }
+    var onCommandActivated: ((Command) -> Unit)? by NullableDelegate { hasBeenConverted }
+    var onCommandPreviewActivated: ((Command) -> Unit)? by NullableDelegate { hasBeenConverted }
+    var onCommandPreviewCanceled: ((Command) -> Unit)? by NullableDelegate { hasBeenConverted }
 
     fun commandGroup(init: KCommandGroup.() -> Unit): KCommandGroup {
         if (hasBeenConverted) {
@@ -138,11 +140,11 @@ class KRibbonGalleryContent {
         // Wire command preview and activation listeners
         javaRibbonGalleryContentModel.addCommandPreviewListener(
                 object : RibbonGalleryContentModel.GalleryCommandPreviewListener {
-                    override fun onCommandPreviewActivated(command: FlamingoCommand) {
+                    override fun onCommandPreviewActivated(command: Command) {
                         onCommandPreviewActivated?.invoke(command)
                     }
 
-                    override fun onCommandPreviewCanceled(command: FlamingoCommand) {
+                    override fun onCommandPreviewCanceled(command: Command) {
                         onCommandPreviewCanceled?.invoke(command)
                     }
                 })

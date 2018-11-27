@@ -49,7 +49,7 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
     /**
      * List of icon decorators.
      */
-    protected java.util.List<IconDecorator> decorators;
+    private java.util.List<IconDecorator> decorators;
 
     /**
      * Icon decorator interface.
@@ -67,7 +67,7 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
          * @param mainIconWidth  Width of main icon.
          * @param mainIconHeight Height of main icon.
          */
-        public void paintIconDecoration(Component c, Graphics g, int mainIconX,
+        void paintIconDecoration(Component c, Graphics g, int mainIconX,
                 int mainIconY, int mainIconWidth, int mainIconHeight);
     }
 
@@ -130,8 +130,9 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
      * @param decorator Decorator to add.
      */
     public void addIconDecorator(IconDecorator decorator) {
-        if (this.decorators.contains(decorator))
+        if (this.decorators.contains(decorator)) {
             return;
+        }
         this.decorators.add(decorator);
     }
 
@@ -147,16 +148,14 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
     @Override
     public void addAsynchronousLoadListener(AsynchronousLoadListener l) {
         if (this.delegate instanceof AsynchronousLoading) {
-            ((AsynchronousLoading) this.delegate)
-                    .addAsynchronousLoadListener(l);
+            ((AsynchronousLoading) this.delegate).addAsynchronousLoadListener(l);
         }
     }
 
     @Override
     public void removeAsynchronousLoadListener(AsynchronousLoadListener l) {
         if (this.delegate instanceof AsynchronousLoading) {
-            ((AsynchronousLoading) this.delegate)
-                    .removeAsynchronousLoadListener(l);
+            ((AsynchronousLoading) this.delegate).removeAsynchronousLoadListener(l);
         }
     }
 

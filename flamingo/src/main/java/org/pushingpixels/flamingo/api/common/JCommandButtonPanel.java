@@ -162,10 +162,10 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
         return this.panelPresentationModel;
     }
 
-    private FlamingoCommandDisplay createCommandDisplay() {
-        FlamingoCommandDisplay commandDisplay = FlamingoCommandDisplay.builder()
-                .setState(this.panelPresentationModel.getCommandDisplayState())
-                .setCustomDimension(this.panelPresentationModel.getCommandIconDimension())
+    private CommandPresentation createCommandDisplay() {
+        CommandPresentation commandDisplay = CommandPresentation.builder()
+                .setCommandDisplayState(this.panelPresentationModel.getCommandDisplayState())
+                .setCommandIconDimension(this.panelPresentationModel.getCommandIconDimension())
                 .setMenu(this.panelPresentationModel.isMenu())
                 .setHorizontalAlignment(this.panelPresentationModel.getCommandHorizontalAlignment())
                 .setPopupOrientationKind(this.panelPresentationModel.getPopupOrientationKind())
@@ -185,8 +185,8 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
         }
 
         int groupIndex = 0;
-        FlamingoCommandDisplay commandDisplay = createCommandDisplay();
-        FlamingoCommand.CommandPreviewListener commandPreviewListener =
+        CommandPresentation commandDisplay = createCommandDisplay();
+        Command.CommandPreviewListener commandPreviewListener =
                 panelContentModel.getCommandPreviewListener();
         for (CommandProjectionGroupModel groupModel : panelContentModel.getCommandProjectionGroups()) {
             this.groupTitles.add(groupIndex, groupModel.getTitle());
@@ -222,7 +222,7 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
         }
     }
 
-    private int addButtonToLastGroup(FlamingoCommand command,
+    private int addButtonToLastGroup(Command command,
             AbstractCommandButton commandButton) {
         if (this.groupTitles.size() == 0) {
             return -1;
@@ -232,14 +232,14 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
                 this.buttons.get(groupIndex).size(), command, commandButton);
     }
 
-    protected int addCommandToLastGroup(FlamingoCommand command) {
+    protected int addCommandToLastGroup(Command command) {
         AbstractCommandButton button = command.project(createCommandDisplay()).buildButton();
         button.putClientProperty(COMMAND, command);
         return this.addButtonToLastGroup(command, button);
     }
 
     private int addButtonToGroup(String buttonGroupName, int indexInGroup,
-            FlamingoCommand command, AbstractCommandButton commandButton) {
+            Command command, AbstractCommandButton commandButton) {
         int groupIndex = this.groupTitles.indexOf(buttonGroupName);
         if (groupIndex < 0) {
             return -1;
@@ -297,14 +297,14 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
         return Collections.unmodifiableList(this.buttons.get(groupIndex));
     }
 
-    public FlamingoCommand getSelectedCommand() {
+    public Command getSelectedCommand() {
         if (this.panelContentModel.isSingleSelectionMode()) {
             for (List<AbstractCommandButton> ljrb : this.buttons) {
                 for (AbstractCommandButton jrb : ljrb) {
                     if (jrb instanceof JCommandToggleButton) {
                         JCommandToggleButton jctb = (JCommandToggleButton) jrb;
                         if (jctb.getActionModel().isSelected()) {
-                            return (FlamingoCommand) jctb.getClientProperty(COMMAND);
+                            return (Command) jctb.getClientProperty(COMMAND);
                         }
                     }
                 }

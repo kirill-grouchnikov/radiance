@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.api.common.popup.model;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.Command;
 
 import javax.swing.event.*;
 import java.awt.*;
@@ -70,8 +71,8 @@ public class ColorSelectorPopupMenuGroupModel {
         }
     }
 
-    public static ColorSelectorMenuGroupModelBuilder builder() {
-        return new ColorSelectorMenuGroupModelBuilder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     public List<KeyValuePair<GroupEntryKind, Object>> getGroupContent() {
@@ -114,29 +115,29 @@ public class ColorSelectorPopupMenuGroupModel {
         }
     }
 
-    public static class ColorSelectorMenuGroupModelBuilder {
+    public static class Builder {
         private List<KeyValuePair<GroupEntryKind, Object>> groupContent = new ArrayList<>();
 
-        public ColorSelectorMenuGroupModelBuilder addCommand(FlamingoCommand command) {
+        public Builder addCommand(Command command) {
             this.groupContent.add(new KeyValuePair<>(GroupEntryKind.COMMAND, command));
             return this;
         }
 
-        public ColorSelectorMenuGroupModelBuilder addColorSection(
+        public Builder addColorSection(
                 ColorSectionModel colorSectionModel) {
             this.groupContent.add(
                     new KeyValuePair<>(GroupEntryKind.COLOR_SECTION, colorSectionModel));
             return this;
         }
 
-        public ColorSelectorMenuGroupModelBuilder addColorSectionWithDerived(
+        public Builder addColorSectionWithDerived(
                 ColorSectionModel colorSectionModel) {
             this.groupContent.add(
                     new KeyValuePair<>(GroupEntryKind.COLOR_SECTION_WITH_DERIVED, colorSectionModel));
             return this;
         }
 
-        public ColorSelectorMenuGroupModelBuilder addRecentsSection(
+        public Builder addRecentsSection(
                 ColorSectionModel colorSectionModel) {
             this.groupContent.add(
                     new KeyValuePair<>(GroupEntryKind.RECENTS_SECTION, colorSectionModel));
