@@ -53,7 +53,6 @@ public class SkinSwitcher {
             String selected = (String) result.getSelectedItem();
             SubstanceCortex.GlobalScope.setSkin(
                     SubstanceCortex.GlobalScope.getAllSkins().get(selected).getClassName());
-            SwingUtilities.updateComponentTreeUI(frame);
         }));
 
         return result;

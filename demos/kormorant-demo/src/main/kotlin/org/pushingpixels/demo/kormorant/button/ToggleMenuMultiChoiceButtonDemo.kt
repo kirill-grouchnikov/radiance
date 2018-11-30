@@ -35,7 +35,6 @@ import org.pushingpixels.demo.kormorant.svg.Format_text_strikethrough
 import org.pushingpixels.demo.kormorant.svg.Format_text_underline
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.CommandListener
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -65,50 +64,48 @@ fun main(args: Array<String>) {
         val singleChoice = commandButton {
             command {
                 title = "multi"
-                popupCallback = PopupPanelCallback {
-                    commandPopupMenu {
-                        command {
-                            title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
-                            icon = Format_text_bold.of(16, 16)
-                            action = CommandListener {
-                                println("Toggle bold")
-                                isBold = !isBold
-                            }
-                            isToggle = true
-                            isToggleSelected = isBold
+                popupMenu = commandPopupMenu {
+                    command {
+                        title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
+                        icon = Format_text_bold.of(16, 16)
+                        action = CommandListener {
+                            println("Toggle bold")
+                            isBold = !isBold
                         }
-                        command {
-                            title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
-                            icon = Format_text_italic.of(16, 16)
-                            action = CommandListener {
-                                println("Toggle italic")
-                                isItalic = !isItalic
-                            }
-                            isToggle = true
-                            isToggleSelected = isItalic
+                        isToggle = true
+                        isToggleSelected = isBold
+                    }
+                    command {
+                        title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
+                        icon = Format_text_italic.of(16, 16)
+                        action = CommandListener {
+                            println("Toggle italic")
+                            isItalic = !isItalic
                         }
-                        command {
-                            title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
-                            icon = Format_text_underline.of(16, 16)
-                            action = CommandListener {
-                                println("Toggle underline")
-                                isUnderline = !isUnderline
-                            }
-                            isToggle = true
-                            isToggleSelected = isUnderline
+                        isToggle = true
+                        isToggleSelected = isItalic
+                    }
+                    command {
+                        title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
+                        icon = Format_text_underline.of(16, 16)
+                        action = CommandListener {
+                            println("Toggle underline")
+                            isUnderline = !isUnderline
                         }
-                        command {
-                            title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
-                            icon = Format_text_strikethrough.of(16, 16)
-                            action = CommandListener {
-                                println("Toggle strikethrough")
-                                isStrikeThrough = !isStrikeThrough
-                            }
-                            isToggle = true
-                            isToggleSelected = isStrikeThrough
+                        isToggle = true
+                        isToggleSelected = isUnderline
+                    }
+                    command {
+                        title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
+                        icon = Format_text_strikethrough.of(16, 16)
+                        action = CommandListener {
+                            println("Toggle strikethrough")
+                            isStrikeThrough = !isStrikeThrough
                         }
-                        toDismissOnCommandActivation = false
-                    }.asCommandPopupMenu()
+                        isToggle = true
+                        isToggleSelected = isStrikeThrough
+                    }
+                    toDismissOnCommandActivation = false
                 }
             }
             presentation {

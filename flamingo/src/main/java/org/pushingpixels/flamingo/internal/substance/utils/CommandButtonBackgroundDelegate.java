@@ -31,8 +31,7 @@ package org.pushingpixels.flamingo.internal.substance.utils;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton.CommandButtonLocationOrderKind;
-import org.pushingpixels.flamingo.api.common.JCommandButtonStrip.StripOrientation;
-import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.internal.substance.common.GlowingResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.neon.NeonCortex;
@@ -117,8 +116,9 @@ public class CommandButtonBackgroundDelegate {
         if ((locationOrderKind != null)
                 && (locationOrderKind != AbstractCommandButton.CommandButtonLocationOrderKind.ONLY)) {
             Component parent = commandButton.getParent();
-            if ((parent instanceof JCommandButtonStrip) && (((JCommandButtonStrip) parent)
-                    .getOrientation() == StripOrientation.VERTICAL)) {
+            if ((parent instanceof JCommandButtonStrip) &&
+                    (((JCommandButtonStrip) parent).getPresentationModel().getOrientation() ==
+                            CommandStripPresentationModel.StripOrientation.VERTICAL)) {
                 isVertical = true;
                 switch (locationOrderKind) {
                     case FIRST:

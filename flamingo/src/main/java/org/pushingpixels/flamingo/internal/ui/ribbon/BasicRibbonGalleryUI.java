@@ -30,22 +30,19 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.JCommandButtonStrip.StripOrientation;
-import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel.StripOrientation;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
-import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.utils.*;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.*;
 import javax.swing.plaf.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.beans.*;
 
 /**
  * Basic UI for ribbon gallery {@link JRibbonGallery}.
@@ -70,74 +67,25 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
     private int visibleButtonRowNumber;
 
-    /**
-     * The button that scrolls down the associated {@link #ribbonGallery}.
-     */
-    private JCommandButton scrollDownButton;
+    private Command scrollDownCommand;
+    private Command scrollUpCommand;
+    private Command expandCommand;
 
-    /**
-     * The button that scrolls up the associated {@link #ribbonGallery}.
-     */
-    private JCommandButton scrollUpButton;
-
-    /**
-     * The button that shows the associated popup gallery.
-     */
-    private ExpandCommandButton expandActionButton;
+    private CommandProjectionGroupModel galleryScrollerCommandProjections;
 
     /**
      * Contains the scroll down, scroll up and show popup buttons.
-     *
-     * @see #scrollDownButton
-     * @see #scrollUpButton
-     * @see #expandActionButton
      */
     private JCommandButtonStrip buttonStrip;
 
-    /**
-     * Listener on the gallery scroll-down button.
-     */
-    private ActionListener scrollDownListener;
-
-    /**
-     * Listener on the gallery scroll-up button.
-     */
-    private ActionListener scrollUpListener;
-
-    /**
-     * Listener on the gallery expand button.
-     */
-    private ActionListener expandListener;
-
-    /**
-     * Property change listener.
-     */
-    private PropertyChangeListener propertyChangeListener;
-
-    private RibbonGalleryContentModel.GalleryCommandActivationListener galleryCommandSelectionListener;
+    private RibbonGalleryContentModel.GalleryCommandActivationListener
+            galleryCommandSelectionListener;
     private ChangeListener galleryModelChangeListener;
 
     /**
      * Ribbon gallery margin.
      */
     protected Insets margin;
-
-    /**
-     * Button strip as a UI resource.
-     *
-     * @author Kirill Grouchnikov
-     */
-    private static class JButtonStripUIResource extends JCommandButtonStrip
-            implements UIResource {
-        /**
-         * Creates a new UI-resource button strip.
-         *
-         * @param orientation Orientation for this strip.
-         */
-        private JButtonStripUIResource(StripOrientation orientation) {
-            super(orientation);
-        }
-    }
 
     @Override
     public void installUI(JComponent c) {
@@ -155,72 +103,117 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * Installs subcomponents on the associated ribbon gallery.
      */
     protected void installComponents() {
-        this.buttonStrip = new JButtonStripUIResource(StripOrientation.VERTICAL);
-        this.buttonStrip.setDisplayState(CommandButtonDisplayState.FIT_TO_ICON);
+        // Gallery scroller commands
+        this.scrollUpCommand = Command.builder()
+                .setAction((CommandActionEvent e) -> {
+                    scrollOneRowUp();
+                    ribbonGallery.revalidate();
+                })
+                .setAutoRepeatAction(true)
+                .build();
+        this.scrollDownCommand = Command.builder()
+                .setAction((CommandActionEvent e) -> {
+                    scrollOneRowDown();
+                    ribbonGallery.revalidate();
+                })
+                .setAutoRepeatAction(true)
+                .build();
+        this.expandCommand = Command.builder()
+                .setAction((CommandActionEvent e) -> {
+                    PopupPanelManager.defaultManager().hidePopups(ribbonGallery);
+                    SwingUtilities.invokeLater(() -> {
+                        PopupFactory popupFactory = PopupFactory.getSharedInstance();
+
+                        JCommandPopupMenu popupMenu = JRibbonGallery.getExpandPopupMenu(
+                                ribbonGallery.getContentModel(),
+                                ribbonGallery.getPresentationModel(), ribbonGallery);
+                        final Point loc = ribbonGallery.getLocationOnScreen();
+                        popupMenu.setCustomizer(() -> {
+                            Rectangle scrBounds =
+                                    ribbonGallery.getGraphicsConfiguration().getBounds();
+
+                            boolean ltr = popupMenu.getComponentOrientation().isLeftToRight();
+
+                            Dimension pref = popupMenu.getPreferredSize();
+                            int width = Math.max(pref.width, ribbonGallery.getWidth());
+                            int height = pref.height;
+
+                            int x = ltr ? loc.x : loc.x + width - pref.width;
+                            int y = loc.y;
+
+                            // make sure that the popup stays in
+                            // bounds
+                            if ((x + width) > (scrBounds.x + scrBounds.width)) {
+                                x = scrBounds.x + scrBounds.width - width;
+                            }
+                            if ((y + height) > (scrBounds.y + scrBounds.height)) {
+                                y = scrBounds.y + scrBounds.height - height;
+                            }
+
+                            return new Rectangle(x, y, width, height);
+                        });
+
+                        // get the popup and show it
+                        Dimension pref = popupMenu.getPreferredSize();
+                        int width = Math.max(pref.width, ribbonGallery.getWidth());
+
+                        boolean ltr = ribbonGallery.getComponentOrientation().isLeftToRight();
+                        int x = ltr ? loc.x : loc.x + ribbonGallery.getWidth() - width;
+                        Popup popup = popupFactory.getPopup(ribbonGallery, popupMenu, x, loc.y);
+                        ribbonGallery.repaint();
+                        PopupPanelManager.defaultManager().addPopup(ribbonGallery, popup,
+                                popupMenu);
+                    });
+                })
+                .setFireActionOnPress(true)
+                .build();
+
+        // Common scroller command presentation
+        CommandPresentation galleryActionsPresentation = CommandPresentation.builder()
+                .setFocusable(false)
+                .setFlat(false)
+                .setToDismissPopupsOnActivation(false)
+                .build();
+
+        // Create command projections for scroller commands and set button customizers for
+        // icons and additional straight sides
+        CommandProjection scrollUpProjection = this.scrollUpCommand.project(
+                galleryActionsPresentation);
+        scrollUpProjection.setCommandButtonCustomizer((AbstractCommandButton button) ->
+                configureScrollUpButton(button));
+
+        CommandProjection scrollDownProjection = this.scrollDownCommand.project(
+                galleryActionsPresentation);
+        scrollDownProjection.setCommandButtonCustomizer((AbstractCommandButton button) ->
+                configureScrollDownButton(button));
+
+        CommandProjection expandProjection = this.expandCommand.project(
+                galleryActionsPresentation.overlayWith(
+                        CommandPresentation.overlay().setActionKeyTip(
+                                this.ribbonGallery.getExpandKeyTip())));
+        expandProjection.setCommandButtonCreator((CommandProjection commandProjection) ->
+                new ExpandCommandButton());
+        expandProjection.setCommandButtonCustomizer((AbstractCommandButton button) ->
+                configureExpandButton(button));
+
+        // Create a button strip that hosts all three scroller command projections
+        this.galleryScrollerCommandProjections = new CommandProjectionGroupModel(scrollUpProjection,
+                scrollDownProjection, expandProjection);
+        this.buttonStrip = new JCommandButtonStrip(this.galleryScrollerCommandProjections,
+                CommandStripPresentationModel.builder()
+                        .setOrientation(StripOrientation.VERTICAL)
+                        .setCommandDisplayState(CommandButtonDisplayState.FIT_TO_ICON)
+                        .build());
+
         this.ribbonGallery.add(this.buttonStrip);
-
-        this.scrollUpButton = this.createScrollUpButton();
-        this.scrollDownButton = this.createScrollDownButton();
-        this.expandActionButton = this.createExpandButton();
-        this.syncExpandKeyTip();
-
-        this.buttonStrip.add(this.scrollUpButton);
-        this.buttonStrip.add(this.scrollDownButton);
-        this.buttonStrip.add(this.expandActionButton);
-    }
-
-    /**
-     * Creates the scroll-down button.
-     *
-     * @return Scroll-down button.
-     */
-    protected JCommandButton createScrollDownButton() {
-        JCommandButton result = new JCommandButton(null, null);
-        result.setFocusable(false);
-        result.setName("RibbonGallery.scrollDownButton");
-        result.setFlat(false);
-        result.putClientProperty(BasicCommandButtonUI.DONT_DISPOSE_POPUPS, Boolean.TRUE);
-        result.setAutoRepeatAction(true);
-        return result;
-    }
-
-    /**
-     * Creates the scroll-up button.
-     *
-     * @return Scroll-up button.
-     */
-    protected JCommandButton createScrollUpButton() {
-        JCommandButton result = new JCommandButton(null, null);
-        result.setFocusable(false);
-        result.setName("RibbonGallery.scrollUpButton");
-        result.setFlat(false);
-        result.putClientProperty(BasicCommandButtonUI.DONT_DISPOSE_POPUPS, Boolean.TRUE);
-        result.setAutoRepeatAction(true);
-        return result;
-    }
-
-    /**
-     * Creates the expand button.
-     *
-     * @return Expand button.
-     */
-    protected ExpandCommandButton createExpandButton() {
-        ExpandCommandButton result = new ExpandCommandButton(null);
-        result.getActionModel().setFireActionOnPress(true);
-        result.setFocusable(false);
-        result.setName("RibbonGallery.expandButton");
-        result.setFlat(false);
-        result.putClientProperty(BasicCommandButtonUI.DONT_DISPOSE_POPUPS, Boolean.TRUE);
-        return result;
     }
 
     /**
      * Uninstalls subcomponents from the associated ribbon gallery.
      */
     protected void uninstallComponents() {
-        this.buttonStrip.remove(this.scrollUpButton);
-        this.buttonStrip.remove(this.scrollDownButton);
-        this.buttonStrip.remove(this.expandActionButton);
+        this.galleryScrollerCommandProjections.removeAllCommandProjections();
+        this.buttonStrip.removeAll();
         this.ribbonGallery.remove(this.buttonStrip);
     }
 
@@ -246,66 +239,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * Installs listeners on the associated ribbon gallery.
      */
     protected void installListeners() {
-        this.scrollDownListener = (ActionEvent e) -> {
-            scrollOneRowDown();
-            ribbonGallery.revalidate();
-        };
-
-        this.scrollDownButton.addActionListener(this.scrollDownListener);
-
-        this.scrollUpListener = (ActionEvent e) -> {
-            scrollOneRowUp();
-            ribbonGallery.revalidate();
-        };
-        this.scrollUpButton.addActionListener(this.scrollUpListener);
-
-        this.expandListener = (ActionEvent e) -> {
-            PopupPanelManager.defaultManager().hidePopups(ribbonGallery);
-            SwingUtilities.invokeLater(() -> {
-                PopupFactory popupFactory = PopupFactory.getSharedInstance();
-
-                JCommandPopupMenu popupMenu = JRibbonGallery.getExpandPopupMenu(
-                        ribbonGallery.getContentModel(),
-                        ribbonGallery.getPresentationModel(), ribbonGallery);
-                final Point loc = ribbonGallery.getLocationOnScreen();
-                popupMenu.setCustomizer(() -> {
-                    Rectangle scrBounds = ribbonGallery.getGraphicsConfiguration().getBounds();
-
-                    boolean ltr = popupMenu.getComponentOrientation().isLeftToRight();
-
-                    Dimension pref = popupMenu.getPreferredSize();
-                    int width = Math.max(pref.width, ribbonGallery.getWidth());
-                    int height = pref.height;
-
-                    int x = ltr ? loc.x : loc.x + width - pref.width;
-                    int y = loc.y;
-
-                    // make sure that the popup stays in
-                    // bounds
-                    if ((x + width) > (scrBounds.x + scrBounds.width)) {
-                        x = scrBounds.x + scrBounds.width - width;
-                    }
-                    if ((y + height) > (scrBounds.y + scrBounds.height)) {
-                        y = scrBounds.y + scrBounds.height - height;
-                    }
-
-                    return new Rectangle(x, y, width, height);
-                });
-
-                // get the popup and show it
-                Dimension pref = popupMenu.getPreferredSize();
-                int width = Math.max(pref.width, ribbonGallery.getWidth());
-
-                boolean ltr = ribbonGallery.getComponentOrientation().isLeftToRight();
-                int x = ltr ? loc.x : loc.x + ribbonGallery.getWidth() - width;
-                Popup popup = popupFactory.getPopup(ribbonGallery, popupMenu, x, loc.y);
-                ribbonGallery.repaint();
-                PopupPanelManager.defaultManager().addPopup(ribbonGallery, popup, popupMenu);
-            });
-        };
-
-        this.expandActionButton.addActionListener(this.expandListener);
-
         this.galleryCommandSelectionListener = (Command activated) ->
                 SwingUtilities.invokeLater(() -> {
                     scrollToSelected();
@@ -314,39 +247,18 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         this.ribbonGallery.getContentModel().addCommandActivationListener(
                 this.galleryCommandSelectionListener);
 
-        this.galleryModelChangeListener = (ChangeEvent changeEvent) ->
-                ribbonGallery.revalidate();
-        this.ribbonGallery.getContentModel().addChangeListener(
-                this.galleryModelChangeListener);
-
-        this.propertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("expandKeyTip".equals(evt.getPropertyName())) {
-                syncExpandKeyTip();
-            }
-        };
-        this.ribbonGallery.addPropertyChangeListener(this.propertyChangeListener);
+        this.galleryModelChangeListener = (ChangeEvent changeEvent) -> ribbonGallery.revalidate();
+        this.ribbonGallery.getContentModel().addChangeListener(this.galleryModelChangeListener);
     }
 
     /**
      * Uninstalls listeners from the associated ribbon gallery.
      */
     protected void uninstallListeners() {
-        this.scrollDownButton.removeActionListener(this.scrollDownListener);
-        this.scrollDownListener = null;
-
-        this.scrollUpButton.removeActionListener(this.scrollUpListener);
-        this.scrollUpListener = null;
-
-        this.expandActionButton.removeActionListener(this.expandListener);
-        this.expandListener = null;
-
         this.ribbonGallery.getContentModel().removeCommandSelectionListener(
                 this.galleryCommandSelectionListener);
         this.ribbonGallery.getContentModel().removeChangeListener(
                 this.galleryModelChangeListener);
-
-        this.ribbonGallery.removePropertyChangeListener(this.propertyChangeListener);
-        this.propertyChangeListener = null;
     }
 
     @Override
@@ -418,12 +330,12 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
             int scrollerButtonWidth = getScrollerButtonWidth();
             int buttonX = ltr ? width - scrollerButtonWidth - margin.right : margin.left;
 
-            scrollDownButton
-                    .setPreferredSize(new Dimension(scrollerButtonWidth, scrollerButtonHeight));
-            scrollUpButton
-                    .setPreferredSize(new Dimension(scrollerButtonWidth, scrollerButtonHeight));
+            buttonStrip.getButton(0).setPreferredSize(
+                    new Dimension(scrollerButtonWidth, scrollerButtonHeight));
+            buttonStrip.getButton(1).setPreferredSize(
+                    new Dimension(scrollerButtonWidth, scrollerButtonHeight));
             // special case (if available height doesn't divide 3)
-            expandActionButton.setPreferredSize(
+            buttonStrip.getButton(2).setPreferredSize(
                     new Dimension(scrollerButtonWidth, galleryHeight - 2 * scrollerButtonHeight));
             buttonStrip.setBounds(buttonX, margin.top, scrollerButtonWidth, galleryHeight);
             buttonStrip.doLayout();
@@ -500,16 +412,16 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 }
             }
             if (ribbonGallery.getCommandCount() == 0) {
-                scrollDownButton.setEnabled(false);
-                scrollUpButton.setEnabled(false);
-                expandActionButton.setEnabled(false);
+                scrollDownCommand.setEnabled(false);
+                scrollUpCommand.setEnabled(false);
+                expandCommand.setEnabled(false);
             } else {
-                // Scroll down button is enabled when the last button is not showing
-                scrollDownButton.setEnabled(!ribbonGallery
+                // Scroll down command is enabled when the last button is not showing
+                scrollDownCommand.setEnabled(!ribbonGallery
                         .getButtonAt(ribbonGallery.getCommandCount() - 1).isVisible());
-                // Scroll up button is enabled when the first button is not showing
-                scrollUpButton.setEnabled(!ribbonGallery.getButtonAt(0).isVisible());
-                expandActionButton.setEnabled(true);
+                // Scroll up command is enabled when the first button is not showing
+                scrollUpCommand.setEnabled(!ribbonGallery.getButtonAt(0).isVisible());
+                expandCommand.setEnabled(true);
             }
         }
     }
@@ -581,7 +493,8 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     }
 
     private int getScrollerButtonWidth() {
-        return FlamingoUtilities.getScaledSize(15, scrollDownButton.getFont().getSize(), 1.0f, 1);
+        return FlamingoUtilities.getScaledSize(15, SubstanceCortex.GlobalScope.getFontPolicy()
+                .getFontSet(null).getControlFont().getSize(), 1.0f, 1);
     }
 
     /**
@@ -643,14 +556,16 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         }
     }
 
-    private void syncExpandKeyTip() {
-        this.expandActionButton.setActionKeyTip(this.ribbonGallery.getExpandKeyTip());
-    }
-
     @KeyTipManager.HasNextKeyTipChain
-    protected static class ExpandCommandButton extends JCommandButton {
-        private ExpandCommandButton(ResizableIcon icon) {
-            super(icon);
+    private static class ExpandCommandButton extends JCommandButton {
+        private ExpandCommandButton() {
+            super((String) null);
         }
     }
+
+    protected abstract void configureScrollUpButton(AbstractCommandButton button);
+
+    protected abstract void configureScrollDownButton(AbstractCommandButton button);
+
+    protected abstract void configureExpandButton(AbstractCommandButton button);
 }

@@ -32,7 +32,7 @@ package org.pushingpixels.demo.flamingo.common;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -57,22 +57,24 @@ public class TestButtonStripMultiple extends JFrame {
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
-        JCommandButtonStrip buttonStrip = new JCommandButtonStrip();
-        buttonStrip.add(new JCommandButton("", new Format_justify_left()));
-        buttonStrip.add(new JCommandButton("", new Format_justify_center()));
-        buttonStrip.add(new JCommandButton("", new Format_justify_right()));
+        JCommandButtonStrip buttonStrip = new JCommandButtonStrip(
+                new CommandProjectionGroupModel(
+                        Command.builder().setIcon(new Format_justify_left()).build().project(),
+                        Command.builder().setIcon(new Format_justify_center()).build().project(),
+                        Command.builder().setIcon(new Format_justify_right()).build().project()));
         this.add(buttonStrip);
 
-        JCommandButtonStrip buttonStrip2 = new JCommandButtonStrip();
-        buttonStrip2.add(new JCommandButton("", new Format_text_bold()));
-        buttonStrip2.add(new JCommandButton("", new Format_text_italic()));
-        buttonStrip2.add(new JCommandButton("", new Format_text_underline()));
-        JCommandButton strike = new JCommandButton("", new Format_text_strikethrough());
-        strike.setCommandButtonKind(CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION);
-        strike.setPopupCallback(
-                (JCommandButton commandButton) -> SamplePopupMenu.getSamplePopupMenu(
-                        commandButton.getComponentOrientation()));
-        buttonStrip2.add(strike);
+        JCommandButtonStrip buttonStrip2 = new JCommandButtonStrip(
+                new CommandProjectionGroupModel(
+                        Command.builder().setIcon(new Format_text_bold()).build().project(),
+                        Command.builder().setIcon(new Format_text_italic()).build().project(),
+                        Command.builder().setIcon(new Format_text_underline()).build().project(),
+                        Command.builder()
+                                .setIcon(new Format_text_strikethrough())
+                                .setPopupCallback((JCommandButton commandButton) ->
+                                        SamplePopupMenu.getSamplePopupMenu(
+                                                commandButton.getComponentOrientation()))
+                                .build().project()));
         this.add(buttonStrip2);
 
         JCommandButton standalone = new JCommandButton("", new Format_justify_left());

@@ -234,10 +234,10 @@ public class KeyTipManager {
         RibbonUI ui = ribbon.getUI();
         if (ui instanceof BasicRibbonUI) {
             BasicRibbonUI brui = (BasicRibbonUI) ui;
-            for (Map.Entry<RibbonTask, JRibbonTaskToggleButton> ttbEntry : brui
+            for (Map.Entry<RibbonTask, AbstractCommandButton> ttbEntry : brui
                     .getTaskToggleButtons().entrySet()) {
                 final RibbonTask task = ttbEntry.getKey();
-                final JRibbonTaskToggleButton taskToggleButton = ttbEntry.getValue();
+                final AbstractCommandButton taskToggleButton = ttbEntry.getValue();
                 String keyTip = task.getKeyTip();
                 if (keyTip != null) {
                     final KeyTipLink taskToggleButtonLink = new KeyTipLink();

@@ -76,6 +76,7 @@ public class Command {
     private int autoRepeatInitialInterval;
     private int autoRepeatSubsequentInterval;
     private boolean isFireActionOnRollover;
+    private boolean isFireActionOnPress;
     private Command.CommandPreviewListener previewListener;
 
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
@@ -145,8 +146,24 @@ public class Command {
         return this.icon;
     }
 
+    public void setIcon(ResizableIcon icon) {
+        if (this.icon != icon) {
+            ResizableIcon old = this.icon;
+            this.icon = icon;
+            this.pcs.firePropertyChange("icon", old, this.icon);
+        }
+    }
+
     public ResizableIconFactory getIconFactory() {
         return this.iconFactory;
+    }
+
+    public void setIconFactory(ResizableIconFactory iconFactory) {
+        if (this.iconFactory != iconFactory) {
+            ResizableIconFactory old = this.iconFactory;
+            this.iconFactory = iconFactory;
+            this.pcs.firePropertyChange("iconFactory", old, this.iconFactory);
+        }
     }
 
     public ResizableIcon getDisabledIcon() {
@@ -216,14 +233,6 @@ public class Command {
         }
     }
 
-    public void setIcon(ResizableIcon icon) {
-        if (this.icon != icon) {
-            ResizableIcon old = this.icon;
-            this.icon = icon;
-            this.pcs.firePropertyChange("icon", old, this.icon);
-        }
-    }
-
     public boolean isToggle() {
         return this.isToggle;
     }
@@ -263,6 +272,10 @@ public class Command {
 
     public boolean isFireActionOnRollover() {
         return this.isFireActionOnRollover;
+    }
+
+    public boolean isFireActionOnPress() {
+        return this.isFireActionOnPress;
     }
 
     public CommandPreviewListener getPreviewListener() {
@@ -357,6 +370,7 @@ public class Command {
         protected int autoRepeatInitialInterval;
         protected int autoRepeatSubsequentInterval;
         protected boolean isFireActionOnRollover;
+        protected boolean isFireActionOnPress;
         protected CommandPreviewListener previewListener;
 
         protected void configureBaseCommand(Command command) {
@@ -381,6 +395,7 @@ public class Command {
             command.autoRepeatInitialInterval = this.autoRepeatInitialInterval;
             command.autoRepeatSubsequentInterval = this.autoRepeatSubsequentInterval;
             command.isFireActionOnRollover = this.isFireActionOnRollover;
+            command.isFireActionOnPress = this.isFireActionOnPress;
             command.previewListener = this.previewListener;
 
             // special handling for toggle group model
@@ -492,6 +507,11 @@ public class Command {
 
         public B setFireActionOnRollover(boolean isFireActionOnRollover) {
             this.isFireActionOnRollover = isFireActionOnRollover;
+            return (B) this;
+        }
+
+        public B setFireActionOnPress(boolean isFireActionOnPress) {
+            this.isFireActionOnPress = isFireActionOnPress;
             return (B) this;
         }
 

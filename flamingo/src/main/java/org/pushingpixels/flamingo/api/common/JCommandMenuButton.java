@@ -40,13 +40,19 @@ import java.awt.event.ActionEvent;
  * primary / secondary panels of the ribbon application menu.
  *
  * @author Kirill Grouchnikov
- * @see JCommandPopupMenu#addMenuButton(JCommandMenuButton)
  */
 public class JCommandMenuButton extends JCommandButton {
     /**
      * The UI class ID string.
      */
     public static final String uiClassID = "CommandMenuButtonUI";
+
+    /**
+     * Creates a new command menu button with no text and no icon.
+     */
+    public JCommandMenuButton() {
+        super();
+    }
 
     /**
      * Creates a new command menu button.

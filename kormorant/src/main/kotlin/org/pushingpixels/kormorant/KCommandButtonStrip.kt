@@ -31,36 +31,36 @@ package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip
-import org.pushingpixels.flamingo.api.common.JCommandToggleButton
-import org.pushingpixels.flamingo.api.common.model.CommandPresentation
+import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
+import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
 
 @FlamingoElementMarker
 class KCommandButtonStripPresentation {
-    var orientation: JCommandButtonStrip.StripOrientation = JCommandButtonStrip.StripOrientation.HORIZONTAL
+    var orientation: CommandStripPresentationModel.StripOrientation = CommandStripPresentationModel.StripOrientation.HORIZONTAL
     var commandIconDimension: CommandButtonDisplayState = CommandButtonDisplayState.SMALL
     var horizontalGapScaleFactor: Double = -1.0
     var verticalGapScaleFactor: Double = -1.0
 
-
-    fun toCommandDisplay() : CommandPresentation {
-        return CommandPresentation.builder()
+    fun toCommandStripPresentationModel() : CommandStripPresentationModel {
+        return CommandStripPresentationModel.builder()
                 .setCommandDisplayState(commandIconDimension)
                 .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
                 .setVerticalGapScaleFactor(verticalGapScaleFactor)
+                .setOrientation(orientation)
                 .build()
     }
 }
 
 @FlamingoElementMarker
 class KCommandStrip(private val isToggleGroup: Boolean) {
-    private val commands = arrayListOf<KCommand>()
+    private val commandConfigs = arrayListOf<KCommandGroup.CommandConfig>()
     internal val presentation: KCommandButtonStripPresentation = KCommandButtonStripPresentation()
     private val commandToggleGroup = KCommandToggleGroupModel()
     var isEnabled: Boolean
         get() = throw UnsupportedOperationException()
         set(value) {
-            for (command in commands) {
-                command.isEnabled = value
+            for (commandConfig in commandConfigs) {
+                commandConfig.command.isEnabled = value
             }
         }
 
@@ -78,7 +78,7 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
             // And associate it with our implicit toggle group
             command.toggleGroup = commandToggleGroup
         }
-        commands.add(command)
+        commandConfigs.add(KCommandGroup.CommandConfig(command, actionKeyTip, null))
         return command
     }
 
@@ -86,26 +86,11 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
         presentation.init()
     }
 
-    fun asButtonStrip(): JCommandButtonStrip {
-        val result = JCommandButtonStrip(presentation.orientation)
-        result.setDisplayState(presentation.commandIconDimension)
-        if (presentation.horizontalGapScaleFactor >= 0.0) {
-            result.setHGapScaleFactor(presentation.horizontalGapScaleFactor)
-        }
-        if (presentation.verticalGapScaleFactor >= 0.0) {
-            result.setVGapScaleFactor(presentation.verticalGapScaleFactor)
-        }
-        for (command in commands) {
-            val commandButton = command.toJavaCommand().project(
-                    presentation.toCommandDisplay()).buildButton()
-            if (isToggleGroup && (commandButton !is JCommandToggleButton)) {
-                throw IllegalStateException("Command button should be toggle")
-            }
-            commandButton.displayState = presentation.commandIconDimension
-            commandButton.isFlat = false
-            result.add(commandButton)
-        }
-        return result
+    fun toJavaButtonStrip(): JCommandButtonStrip {
+        val commandProjectionGroupModel = CommandProjectionGroupModel(
+                commandConfigs.map { it -> it.toProjection() })
+        val commandStripPresentationModel = presentation.toCommandStripPresentationModel()
+        return JCommandButtonStrip(commandProjectionGroupModel, commandStripPresentationModel)
     }
 }
 

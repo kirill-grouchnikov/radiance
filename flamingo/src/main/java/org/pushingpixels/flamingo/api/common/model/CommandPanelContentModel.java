@@ -61,6 +61,11 @@ public class CommandPanelContentModel {
             public void onCommandProjectionRemoved(CommandProjection commandProjection) {
                 fireStateChanged();
             }
+
+            @Override
+            public void onAllCommandProjectionsRemoved() {
+                fireStateChanged();
+            }
         };
         for (CommandProjectionGroupModel commandGroupModel : this.commandProjectionGroups) {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);

@@ -100,8 +100,7 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
             }
 
             for (RibbonTask taskWithTrailingSeparator : tasksWithTrailingSeparators) {
-                JRibbonTaskToggleButton taskToggleButton = taskToggleButtons
-                        .get(taskWithTrailingSeparator);
+                JComponent taskToggleButton = taskToggleButtons.get(taskWithTrailingSeparator);
                 Rectangle bounds = taskToggleButton.getBounds();
                 int x = bounds.x + bounds.width + getTabButtonGap() / 2 - 1;
                 g2d.translate(x, 0);

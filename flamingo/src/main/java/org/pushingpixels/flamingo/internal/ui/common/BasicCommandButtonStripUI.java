@@ -1,55 +1,57 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.JCommandButtonStrip.StripOrientation;
+import org.pushingpixels.flamingo.api.common.model.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.*;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
+import java.util.*;
 
 /**
  * Basic UI for button strip {@link JCommandButtonStrip}.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class BasicCommandButtonStripUI extends CommandButtonStripUI {
     /**
      * The associated button strip.
      */
-    protected JCommandButtonStrip buttonStrip;
+    private JCommandButtonStrip buttonStrip;
 
-    protected ChangeListener changeListener;
+    private CommandProjectionGroupModel.CommandProjectionGroupListener projectionGroupListener;
+
+    private Map<CommandProjection, AbstractCommandButton> commandButtonMap = new HashMap<>();
 
     public static ComponentUI createUI(JComponent c) {
         return new BasicCommandButtonStripUI();
@@ -78,31 +80,47 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
      * Installs listeners on the associated button strip.
      */
     protected void installListeners() {
-        this.changeListener = (ChangeEvent e) -> {
-            if (buttonStrip.getButtonCount() == 1) {
-                buttonStrip.getButton(0).setLocationOrderKind(
-                        AbstractCommandButton.CommandButtonLocationOrderKind.ONLY);
-            } else {
-                buttonStrip.getButton(0).setLocationOrderKind(
-                        AbstractCommandButton.CommandButtonLocationOrderKind.FIRST);
-                for (int i = 1; i < buttonStrip.getButtonCount() - 1; i++) {
-                    buttonStrip.getButton(i).setLocationOrderKind(
-                            AbstractCommandButton.CommandButtonLocationOrderKind.MIDDLE);
+        this.projectionGroupListener =
+                new CommandProjectionGroupModel.CommandProjectionGroupListener() {
+                    @Override
+                    public void onCommandProjectionAdded(CommandProjection commandProjection) {
+                        addButton(commandProjection);
+                        updateButtonOrder();
+                    }
 
-                }
-                buttonStrip.getButton(buttonStrip.getButtonCount() - 1).setLocationOrderKind(
-                        AbstractCommandButton.CommandButtonLocationOrderKind.LAST);
-            }
-        };
-        this.buttonStrip.addChangeListener(this.changeListener);
+                    @Override
+                    public void onCommandProjectionRemoved(CommandProjection commandProjection) {
+                        AbstractCommandButton commandButton = commandButtonMap.get(
+                                commandProjection);
+                        commandButton.removeCommandListener(
+                                commandProjection.getCommand().getAction());
+                        buttonStrip.remove(commandButton);
+                        commandButtonMap.remove(commandProjection);
+                        updateButtonOrder();
+                    }
+
+                    @Override
+                    public void onAllCommandProjectionsRemoved() {
+                        for (Map.Entry<CommandProjection, AbstractCommandButton> entry :
+                                commandButtonMap.entrySet()) {
+                            entry.getValue().removeCommandListener(
+                                    entry.getKey().getCommand().getAction());
+                            buttonStrip.remove(entry.getValue());
+                        }
+                        commandButtonMap.clear();
+                    }
+                };
+        this.buttonStrip.getProjectionGroupModel().addCommandGroupListener(
+                this.projectionGroupListener);
     }
 
     /**
      * Uninstalls listeners from the associated button strip.
      */
     protected void uninstallListeners() {
-        this.buttonStrip.removeChangeListener(this.changeListener);
-        this.changeListener = null;
+        this.buttonStrip.getProjectionGroupModel().removeCommandGroupListener(
+                this.projectionGroupListener);
+        this.projectionGroupListener = null;
     }
 
     /**
@@ -123,18 +141,73 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
      */
     protected void installComponents() {
         this.buttonStrip.setLayout(createLayoutManager());
+
+        CommandProjectionGroupModel projectionGroupModel =
+                this.buttonStrip.getProjectionGroupModel();
+        for (CommandProjection commandProjection : projectionGroupModel.getCommandProjections()) {
+            this.addButton(commandProjection);
+        }
+        this.updateButtonOrder();
     }
 
     /**
      * Uninstalls subcomponents from the associated ribbon.
      */
     protected void uninstallComponents() {
+        CommandProjectionGroupModel projectionGroupModel =
+                this.buttonStrip.getProjectionGroupModel();
+        for (CommandProjection commandProjection : projectionGroupModel.getCommandProjections()) {
+            AbstractCommandButton commandButton = commandButtonMap.get(commandProjection);
+            CommandListener commandListener = commandProjection.getCommand().getAction();
+            if (commandListener != null) {
+                commandButton.removeCommandListener(commandListener);
+            }
+            this.buttonStrip.remove(commandButton);
+        }
+        this.commandButtonMap.clear();
+    }
+
+    private void addButton(CommandProjection commandProjection) {
+        CommandStripPresentationModel presentationModel = this.buttonStrip.getPresentationModel();
+        CommandPresentation presentation = commandProjection.getCommandPresentation()
+                .overlayWith(CommandPresentation.overlay()
+                        .setCommandDisplayState(presentationModel.getCommandDisplayState())
+                        .setHorizontalGapScaleFactor(
+                                presentationModel.getHorizontalGapScaleFactor())
+                        .setVerticalGapScaleFactor(
+                                presentationModel.getVerticalGapScaleFactor())
+                        .setFlat(false));
+        AbstractCommandButton button = commandProjection.reproject(presentation).buildButton();
+        this.buttonStrip.add(button);
+        this.commandButtonMap.put(commandProjection, button);
+    }
+
+    private void updateButtonOrder() {
+        int buttonCount = buttonStrip.getButtonCount();
+        if (buttonCount == 0) {
+            return;
+        }
+
+        if (buttonCount == 1) {
+            buttonStrip.getButton(0).setLocationOrderKind(
+                    AbstractCommandButton.CommandButtonLocationOrderKind.ONLY);
+        } else {
+            buttonStrip.getButton(0).setLocationOrderKind(
+                    AbstractCommandButton.CommandButtonLocationOrderKind.FIRST);
+            for (int i = 1; i < buttonCount - 1; i++) {
+                buttonStrip.getButton(i).setLocationOrderKind(
+                        AbstractCommandButton.CommandButtonLocationOrderKind.MIDDLE);
+
+            }
+            buttonStrip.getButton(buttonCount - 1).setLocationOrderKind(
+                    AbstractCommandButton.CommandButtonLocationOrderKind.LAST);
+        }
     }
 
     /**
      * Invoked by <code>installUI</code> to create a layout manager object to manage the
      * {@link JCommandButtonStrip}.
-     * 
+     *
      * @return a layout manager object
      */
     protected LayoutManager createLayoutManager() {
@@ -143,7 +216,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
 
     /**
      * Layout for the button strip.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class ButtonStripLayout implements LayoutManager {
@@ -159,7 +232,8 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
         public Dimension preferredLayoutSize(Container c) {
             int width = 0;
             int height = 0;
-            if (buttonStrip.getOrientation() == StripOrientation.HORIZONTAL) {
+            if (buttonStrip.getPresentationModel().getOrientation() ==
+                    CommandStripPresentationModel.StripOrientation.HORIZONTAL) {
                 for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
                     width += buttonStrip.getButton(i).getPreferredSize().width;
                     height = Math.max(height, buttonStrip.getButton(i).getPreferredSize().height);
@@ -187,7 +261,8 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
             Insets ins = c.getInsets();
             int height = c.getHeight() - ins.top - ins.bottom;
             int width = c.getWidth() - ins.left - ins.right;
-            if (buttonStrip.getOrientation() == StripOrientation.HORIZONTAL) {
+            if (buttonStrip.getPresentationModel().getOrientation() ==
+                    CommandStripPresentationModel.StripOrientation.HORIZONTAL) {
                 int totalPreferredWidth = 0;
                 for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
                     AbstractCommandButton currButton = buttonStrip.getButton(i);

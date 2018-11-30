@@ -55,6 +55,7 @@ class KRibbonGalleryPresentation {
     var preferredPopupMaxCommandColumns: Int? by NullableDelegate { false }
     var preferredPopupMaxVisibleCommandRows: Int? by NullableDelegate { false }
     private val commandVisibilityContainer = GalleryCommandVisibilityContainer()
+    var expandKeyTip: String? by NullableDelegate { false }
 
     fun commandVisibilities(init: GalleryCommandVisibilityContainer.() -> Unit) {
         commandVisibilityContainer.init()
@@ -68,6 +69,7 @@ class KRibbonGalleryPresentation {
         presentationModelBuilder.setPreferredPopupMaxVisibleCommandRows(this.preferredPopupMaxVisibleCommandRows!!)
         presentationModelBuilder.setPreferredVisibleCommandCounts(
                 this.commandVisibilityContainer.policies.map { it.second to it.first }.toMap())
+        presentationModelBuilder.setExpandKeyTip(this.expandKeyTip)
 
         return presentationModelBuilder.build()
     }
@@ -119,7 +121,7 @@ class KRibbonGalleryContent {
         return group
     }
     
-    internal fun asRibbonGalleryContentModel(): RibbonGalleryContentModel {
+    internal fun asJavaRibbonGalleryContentModel(): RibbonGalleryContentModel {
         if (hasBeenConverted) {
             return javaRibbonGalleryContentModel
         }
@@ -162,7 +164,6 @@ class KRibbonGalleryContent {
 class KRibbonGallery {
     var content: KRibbonGalleryContent = KRibbonGalleryContent()
     internal val presentation: KRibbonGalleryPresentation = KRibbonGalleryPresentation()
-    var expandKeyTip: String? by NullableDelegate { false }
 
     fun content(init: KRibbonGalleryContent.() -> Unit) {
         content.init()

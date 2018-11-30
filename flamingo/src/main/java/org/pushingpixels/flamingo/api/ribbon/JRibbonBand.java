@@ -48,7 +48,7 @@ import java.util.*;
  * <li>Wrapped core / 3rd party components added with
  * {@link #addRibbonComponent(JRibbonComponent)}.</li>
  * <li>Ribbon galleries added with
- * {@link #addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority, String)} .</li>
+ * {@link #addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority)} .</li>
  * </ul>
  *
  * <p>
@@ -59,7 +59,7 @@ import java.util.*;
  *
  * <p>
  * The content and behavior of galleries added with
- * {@link #addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority, String)}
+ * {@link #addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority)}
  * can be reconfigured using the following APIs on the model classes:
  * </p>
  *
@@ -144,10 +144,9 @@ public class JRibbonBand extends AbstractRibbonBand {
 
     public void addRibbonGallery(RibbonGalleryContentModel galleryContentModel,
             RibbonGalleryPresentationModel galleryPresentationModel,
-            RibbonElementPriority priority, String expandKeyTip) {
+            RibbonElementPriority priority) {
         JRibbonGallery gallery = new JRibbonGallery(galleryContentModel,
                 galleryPresentationModel);
-        gallery.setExpandKeyTip(expandKeyTip);
         ((JBandControlPanel) this.getControlPanel()).addRibbonGallery(gallery, priority);
     }
 

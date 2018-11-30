@@ -58,11 +58,11 @@ class KRibbonTask {
         bands.init()
     }
 
-    fun asRibbonTask(): RibbonTask {
+    fun asJavaRibbonTask(): RibbonTask {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
-        val javaBands = bands.bands.map { it -> it.asRibbonBand() }
+        val javaBands = bands.bands.map { it -> it.asJavaRibbonBand() }
         ribbonTask = RibbonTask(title, javaBands.asIterable())
         ribbonTask.keyTip = keyTip
         if (bandResizeSequencingPolicySource != null) {

@@ -57,8 +57,8 @@ public class JRibbonTaskToggleButton extends JCommandToggleButton {
 
     private RibbonTask ribbonTask;
 
-    public JRibbonTaskToggleButton(String title) {
-        super(title);
+    public JRibbonTaskToggleButton() {
+        super();
     }
 
     @Override

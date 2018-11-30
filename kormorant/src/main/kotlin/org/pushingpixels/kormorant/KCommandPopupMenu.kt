@@ -58,16 +58,16 @@ class KCommandPopupMenuButtonPanel {
     }
 
     internal fun getContentModel() : CommandPanelContentModel {
-        return CommandPanelContentModel(this.commandGroups.map { it.asCommandGroupModel() })
+        return CommandPanelContentModel(this.commandGroups.map { it.toCommandGroupModel() })
     }
 
     internal fun getPresentationModel() : CommandPanelPresentationModel {
-        return presentation.asCommandPanelPresentationModel()
+        return presentation.toCommandPanelPresentationModel()
     }
 }
 
 @FlamingoElementMarker
-class KCommandPopupMenu {
+open class KCommandPopupMenu {
     private lateinit var popupMenu: JCommandPopupMenu
     private var hasBeenConverted: Boolean = false
 
@@ -110,11 +110,7 @@ class KCommandPopupMenu {
         return group
     }
 
-    fun asCommandPopupMenu(): JCommandPopupMenu {
-        if (hasBeenConverted) {
-            throw IllegalStateException("This method can only be called once")
-        }
-
+    open fun toCommandPopupMenu(): JCommandPopupMenu {
         val presentationModelBuilder = CommandPopupMenuPresentationModel.builder()
         if (maxVisibleMenuCommands > 0) {
             presentationModelBuilder.setMaxVisibleMenuCommands(maxVisibleMenuCommands)
@@ -134,7 +130,6 @@ class KCommandPopupMenu {
                 CommandPopupMenuContentModel(commandPanel?.getContentModel(), commandGroupModels),
                 presentationModelBuilder.build())
 
-        hasBeenConverted = true
         return popupMenu
     }
 }

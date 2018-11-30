@@ -30,68 +30,92 @@
 package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 
 import javax.swing.event.*;
 import java.beans.PropertyChangeEvent;
 
 public class CommandProjection {
     private Command command;
-    private CommandPresentation commandDisplay;
+    private CommandPresentation commandPresentation;
 
-    private CommandButtonBuilder commandButtonBuilder;
+    private CommandButtonCreator commandButtonCreator;
+    private CommandButtonCustomizer commandButtonCustomizer;
 
-    private static CommandButtonBuilder DEFAULT_BUILDER = new DefaultCommandButtonBuilder();
+    private static CommandButtonCreator DEFAULT_BUILDER = new DefaultCommandButtonBuilder();
 
-    public interface CommandButtonBuilder {
-        AbstractCommandButton buildButton(CommandProjection commandProjection);
+    /**
+     * This interface can be used as part of {@link #setCommandButtonCreator(CommandButtonCreator)}
+     * to return your own subclass of {@link AbstractCommandButton} (or one of the public
+     * Flamingo command button classes) as the result of {@link #buildButton()} call.
+     */
+    public interface CommandButtonCreator {
+        /**
+         * @param commandProjection Information on the command projection in case this
+         *                          creator has logic that depends on specific field(s) of
+         *                          the command and / or the command presentation.
+         * @return A new, unitialized command button.
+         */
+        AbstractCommandButton createUnitializedButton(CommandProjection commandProjection);
     }
 
-    public static class DefaultCommandButtonBuilder implements CommandButtonBuilder {
+    /**
+     * This interface can be used as part of
+     * {@link #setCommandButtonCustomizer(CommandButtonCustomizer)} to customize the result of
+     * {@link #buildButton()} with additional functionality not exposed via {@link Command}
+     * or {@link CommandPresentation}.
+     */
+    public interface CommandButtonCustomizer {
+        void customizeButton(AbstractCommandButton button);
+    }
+
+    public static class DefaultCommandButtonBuilder implements CommandButtonCreator {
         @Override
-        public AbstractCommandButton buildButton(CommandProjection commandProjection) {
+        public AbstractCommandButton createUnitializedButton(CommandProjection commandProjection) {
             Command command = commandProjection.getCommand();
-            CommandPresentation commandDisplay = commandProjection.getCommandDisplay();
+            CommandPresentation commandDisplay = commandProjection.getCommandPresentation();
 
-            String title = command.getTitle();
-            ResizableIcon icon = (command.getIconFactory() != null)
-                    ? command.getIconFactory().createNewIcon()
-                    : command.getIcon();
-
-            AbstractCommandButton result = commandDisplay.isMenu()
-                    ? (command.isToggle() ? new JCommandToggleMenuButton(title, icon)
-                    : new JCommandMenuButton(title, icon))
-                    : (command.isToggle() ? new JCommandToggleButton(title, icon)
-                    : new JCommandButton(title, icon));
-            result.putClientProperty(FlamingoUtilities.COMMAND, command);
-            return result;
+            if (commandDisplay.isMenu()) {
+                return command.isToggle() ? new JCommandToggleMenuButton()
+                        : new JCommandMenuButton();
+            } else {
+                return command.isToggle() ? new JCommandToggleButton() : new JCommandButton();
+            }
         }
     }
 
     public CommandProjection(Command command, CommandPresentation commandDisplay) {
         this.command = command;
-        this.commandDisplay = commandDisplay;
-        this.commandButtonBuilder = DEFAULT_BUILDER;
+        this.commandPresentation = commandDisplay;
+        this.commandButtonCreator = DEFAULT_BUILDER;
     }
 
     public CommandProjection reproject(CommandPresentation newCommandDisplay) {
-        return this.command.project(newCommandDisplay);
+        CommandProjection result = this.command.project(newCommandDisplay);
+        result.setCommandButtonCreator(this.commandButtonCreator);
+        result.setCommandButtonCustomizer(this.commandButtonCustomizer);
+        return result;
     }
 
-    public void setCommandButtonBuilder(CommandButtonBuilder commandButtonBuilder) {
-        if (commandButtonBuilder == null) {
+    public void setCommandButtonCreator(CommandButtonCreator commandButtonCreator) {
+        if (commandButtonCreator == null) {
             throw new IllegalArgumentException("Cannot pass null button builder");
         }
-        this.commandButtonBuilder = commandButtonBuilder;
+        this.commandButtonCreator = commandButtonCreator;
+    }
+
+    public void setCommandButtonCustomizer(CommandButtonCustomizer commandButtonCustomizer) {
+        this.commandButtonCustomizer = commandButtonCustomizer;
     }
 
     public Command getCommand() {
         return this.command;
     }
 
-    public CommandPresentation getCommandDisplay() {
-        return this.commandDisplay;
+    public CommandPresentation getCommandPresentation() {
+        return this.commandPresentation;
     }
 
     protected boolean hasAction() {
@@ -103,13 +127,15 @@ public class CommandProjection {
     }
 
     private void populateButton(AbstractCommandButton button) {
-        if (this.command.getDisabledIconFactory() != null) {
-            button.setDisabledIcon(this.command.getDisabledIconFactory().createNewIcon());
-        } else if (this.command.getDisabledIcon() != null) {
-            button.setDisabledIcon(this.command.getDisabledIcon());
-        }
-
+        button.setText(this.command.getTitle());
         button.setExtraText(this.command.getExtraText());
+
+        button.setIcon((command.getIconFactory() != null)
+                ? command.getIconFactory().createNewIcon()
+                : command.getIcon());
+        button.setDisabledIcon((command.getDisabledIconFactory() != null)
+                ? command.getDisabledIconFactory().createNewIcon()
+                : command.getDisabledIcon());
 
         boolean hasAction = this.hasAction();
         boolean hasPopup = this.hasPopup();
@@ -117,7 +143,7 @@ public class CommandProjection {
         if (hasAction) {
             button.addCommandListener(this.command.getAction());
             button.setActionRichTooltip(this.command.getActionRichTooltip());
-            button.setActionKeyTip(this.commandDisplay.getActionKeyTip());
+            button.setActionKeyTip(this.commandPresentation.getActionKeyTip());
         }
 
         if (!this.command.isToggle()) {
@@ -125,7 +151,7 @@ public class CommandProjection {
             if (hasPopup) {
                 jcb.setPopupCallback(this.command.getPopupCallback());
                 jcb.setPopupRichTooltip(this.command.getPopupRichTooltip());
-                jcb.setPopupKeyTip(this.commandDisplay.getPopupKeyTip());
+                jcb.setPopupKeyTip(this.commandPresentation.getPopupKeyTip());
             }
 
             if (hasAction && hasPopup) {
@@ -148,6 +174,7 @@ public class CommandProjection {
             }
 
             jcb.setFireActionOnRollover(this.command.isFireActionOnRollover());
+            jcb.getActionModel().setFireActionOnPress(this.command.isFireActionOnPress());
         }
 
         button.setEnabled(this.command.isEnabled());
@@ -174,12 +201,23 @@ public class CommandProjection {
             });
         }
 
+        if (!this.commandPresentation.isToDismissPopupsOnActivation()) {
+            button.putClientProperty(BasicCommandButtonUI.DONT_DISPOSE_POPUPS, Boolean.TRUE);
+        }
+
         this.command.addPropertyChangeListener((PropertyChangeEvent evt) -> {
             if ("enabled".equals(evt.getPropertyName())) {
                 button.setEnabled((Boolean) evt.getNewValue());
             }
             if ("icon".equals(evt.getPropertyName())) {
                 button.setIcon((ResizableIcon) evt.getNewValue());
+            }
+            if ("icon".equals(evt.getPropertyName()) && (command.getIconFactory() == null)) {
+                button.setIcon((ResizableIcon) evt.getNewValue());
+            }
+            if ("iconFactory".equals(evt.getPropertyName())) {
+                ResizableIconFactory factory = (ResizableIconFactory) evt.getNewValue();
+                button.setIcon((factory != null) ? factory.createNewIcon() : command.getIcon());
             }
             if ("isToggleSelected".equals(evt.getPropertyName())) {
                 button.getActionModel().setSelected((Boolean) evt.getNewValue());
@@ -198,21 +236,30 @@ public class CommandProjection {
     }
 
     public AbstractCommandButton buildButton() {
-        AbstractCommandButton result = this.commandButtonBuilder.buildButton(this);
+        AbstractCommandButton result = this.commandButtonCreator.createUnitializedButton(this);
+
         populateButton(result);
 
-        result.setDisplayState(commandDisplay.getCommandDisplayState());
-        result.setHorizontalAlignment(commandDisplay.getHorizontalAlignment());
-        result.setHGapScaleFactor(commandDisplay.getHorizontalGapScaleFactor());
-        result.setVGapScaleFactor(commandDisplay.getVerticalGapScaleFactor());
-        result.setFlat(commandDisplay.isFlat());
-        if (commandDisplay.getCommandIconDimension() != null) {
-            result.updateCustomDimension(commandDisplay.getCommandIconDimension());
+        result.setDisplayState(commandPresentation.getCommandDisplayState());
+        result.setHorizontalAlignment(commandPresentation.getHorizontalAlignment());
+        result.setHGapScaleFactor(commandPresentation.getHorizontalGapScaleFactor());
+        result.setVGapScaleFactor(commandPresentation.getVerticalGapScaleFactor());
+        result.setFlat(commandPresentation.isFlat());
+        result.setFocusable(commandPresentation.isFocusable());
+        if (commandPresentation.getCommandIconDimension() != null) {
+            result.updateCustomDimension(commandPresentation.getCommandIconDimension());
         }
         if (result instanceof JCommandButton) {
             ((JCommandButton) result).setPopupOrientationKind(
-                    commandDisplay.getPopupOrientationKind());
+                    commandPresentation.getPopupOrientationKind());
         }
+
+        if (this.commandButtonCustomizer != null) {
+            this.commandButtonCustomizer.customizeButton(result);
+        }
+
+        result.putClientProperty(FlamingoUtilities.COMMAND, this.command);
+
         return result;
     }
 

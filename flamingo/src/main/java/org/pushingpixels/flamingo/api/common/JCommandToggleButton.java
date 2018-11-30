@@ -47,6 +47,13 @@ public class JCommandToggleButton extends AbstractCommandButton {
 	public static final String uiClassID = "CommandToggleButtonUI";
 
 	/**
+	 * Creates a new command toggle button with no text and no icon.
+	 */
+	public JCommandToggleButton() {
+		this(null, null);
+	}
+
+	/**
 	 * Creates a new command toggle button with empty text
 	 * 
 	 * @param icon

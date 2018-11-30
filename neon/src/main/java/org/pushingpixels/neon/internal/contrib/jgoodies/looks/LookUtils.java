@@ -125,9 +125,15 @@ public final class LookUtils {
 	/**
 	 * True if this is Mac El Capitan or later (Sierra + High Sierra + Mojave for now)
 	 */
-	public static final boolean IS_OS_MAC_EL_CAPITAN_OR_LATER = IS_OS_MAC 
+	public static final boolean IS_OS_MAC_EL_CAPITAN_OR_LATER = IS_OS_MAC
 			&& (startsWith(OS_VERSION, "10.11") || startsWith(OS_VERSION, "10.12")
-			 || startsWith(OS_VERSION, "10.13") || startsWith(OS_VERSION, "10.14"));
+			|| startsWith(OS_VERSION, "10.13") || startsWith(OS_VERSION, "10.14"));
+
+	/**
+	 * True if this is Mac Mojave or later
+	 */
+	public static final boolean IS_OS_MAC_MOJAVE_OR_LATER = IS_OS_MAC
+            || startsWith(OS_VERSION, "10.14");
 
     public static final boolean IS_JAVA_9 = startsWith(JAVA_SPEC_VERSION, "9");
 	public static final boolean IS_JAVA_10 = startsWith(JAVA_SPEC_VERSION, "10");

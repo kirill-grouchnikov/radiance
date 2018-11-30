@@ -144,7 +144,7 @@ class KRibbonFrame {
         applicationMenu.init()
     }
 
-    fun asRibbonFrame(): JRibbonFrame {
+    fun asJavaRibbonFrame(): JRibbonFrame {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
@@ -152,7 +152,7 @@ class KRibbonFrame {
         ribbonFrame = JRibbonFrame(title)
         ribbonFrame.setApplicationIcon(applicationIcon)
         for (task in tasks.tasks) {
-            ribbonFrame.ribbon.addTask(task.asRibbonTask())
+            ribbonFrame.ribbon.addTask(task.asJavaRibbonTask())
         }
 
         for (anchoredCommand in anchoredCommands.commands) {
@@ -162,9 +162,9 @@ class KRibbonFrame {
         for (taskbarComponent in taskbar.components) {
             when (taskbarComponent) {
                 is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(taskbarComponent.toProjection())
-                is KRibbonComponent -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent.asRibbonComponent())
+                is KRibbonComponent -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent.asJavaRibbonComponent())
                 is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(
-                        taskbarComponent.content.asRibbonGalleryContentModel(),
+                        taskbarComponent.content.asJavaRibbonGalleryContentModel(),
                         taskbarComponent.presentation.toRibbonGalleryPresentationModel())
                 is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonFrame.ribbon.addTaskbarSeparator()
             }
@@ -174,11 +174,11 @@ class KRibbonFrame {
             ribbonFrame.ribbon.addContextualTaskGroup(
                     RibbonContextualTaskGroup(contextualTaskGroup.title,
                             contextualTaskGroup.color,
-                            contextualTaskGroup.tasks.tasks.map { it -> it.asRibbonTask() })
+                            contextualTaskGroup.tasks.tasks.map { it -> it.asJavaRibbonTask() })
             )
         }
 
-        ribbonFrame.ribbon.applicationMenu = applicationMenu.asRibbonApplicationMenu()
+        ribbonFrame.ribbon.applicationMenu = applicationMenu.asJavaRibbonApplicationMenu()
         ribbonFrame.ribbon.applicationMenuKeyTip = applicationMenu.keyTip
         ribbonFrame.ribbon.applicationMenuRichTooltip = applicationMenu.getRichTooltip()
 

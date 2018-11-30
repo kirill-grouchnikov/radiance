@@ -50,6 +50,7 @@ public class CommandPresentation {
     private CommandButtonDisplayState commandDisplayState;
     private Integer commandIconDimension;
     private boolean isFlat;
+    private boolean isFocusable;
     private int horizontalAlignment;
     private double horizontalGapScaleFactor;
     private double verticalGapScaleFactor;
@@ -57,6 +58,7 @@ public class CommandPresentation {
     private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind;
     private String actionKeyTip;
     private String popupKeyTip;
+    private boolean toDismissPopupsOnActivation;
 
     private CommandPresentation() {
     }
@@ -67,6 +69,7 @@ public class CommandPresentation {
         result.commandDisplayState = (overlay.commandDisplayState != null)
                 ? overlay.commandDisplayState : this.commandDisplayState;
         result.isFlat = (overlay.isFlat != null) ? overlay.isFlat : this.isFlat;
+        result.isFocusable = (overlay.isFocusable != null) ? overlay.isFocusable : this.isFocusable;
         result.horizontalAlignment = (overlay.horizontalAlignment != null)
                 ? overlay.horizontalAlignment : this.horizontalAlignment;
         result.horizontalGapScaleFactor = (overlay.horizontalGapScaleFactor != null)
@@ -78,6 +81,8 @@ public class CommandPresentation {
         result.isMenu = (overlay.isMenu != null) ? overlay.isMenu : this.isMenu;
         result.popupOrientationKind = (overlay.popupOrientationKind != null)
                 ? overlay.popupOrientationKind : this.popupOrientationKind;
+        result.toDismissPopupsOnActivation = (overlay.toDismissPopupsOnActivation != null)
+                ? overlay.toDismissPopupsOnActivation : this.toDismissPopupsOnActivation;
         result.actionKeyTip = (overlay.actionKeyTip != null)
                 ? overlay.actionKeyTip : this.actionKeyTip;
         result.popupKeyTip = (overlay.popupKeyTip != null)
@@ -100,6 +105,10 @@ public class CommandPresentation {
 
     public boolean isFlat() {
         return this.isFlat;
+    }
+
+    public boolean isFocusable() {
+        return this.isFocusable;
     }
 
     public int getHorizontalAlignment() {
@@ -126,6 +135,10 @@ public class CommandPresentation {
         return this.isMenu;
     }
 
+    public boolean isToDismissPopupsOnActivation() {
+        return this.toDismissPopupsOnActivation;
+    }
+
     public String getActionKeyTip() {
         return this.actionKeyTip;
     }
@@ -137,17 +150,24 @@ public class CommandPresentation {
     public static class Overlay {
         private CommandButtonDisplayState commandDisplayState;
         private Boolean isFlat;
+        private Boolean isFocusable;
         private Integer horizontalAlignment;
         private Double horizontalGapScaleFactor;
         private Double verticalGapScaleFactor;
         private Integer commandIconDimension;
         private Boolean isMenu;
         private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind;
+        private Boolean toDismissPopupsOnActivation;
         private String actionKeyTip;
         private String popupKeyTip;
 
         public Overlay setFlat(boolean flat) {
             this.isFlat = flat;
+            return this;
+        }
+
+        public Overlay setFocusable(boolean focusable) {
+            this.isFocusable = focusable;
             return this;
         }
 
@@ -187,6 +207,11 @@ public class CommandPresentation {
             return this;
         }
 
+        public Overlay setToDismissPopupsOnActivation(boolean toDismissPopupsOnActivation) {
+            this.toDismissPopupsOnActivation = toDismissPopupsOnActivation;
+            return this;
+        }
+
         public Overlay setActionKeyTip(String actionKeyTip) {
             this.actionKeyTip = actionKeyTip;
             return this;
@@ -202,6 +227,7 @@ public class CommandPresentation {
         private CommandButtonDisplayState commandDisplayState =
                 CommandButtonDisplayState.FIT_TO_ICON;
         private boolean isFlat = true;
+        private boolean isFocusable = true;
         private int horizontalAlignment = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
         private double horizontalGapScaleFactor = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR;
         private double verticalGapScaleFactor = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR;
@@ -211,9 +237,15 @@ public class CommandPresentation {
                 JCommandButton.CommandButtonPopupOrientationKind.DOWNWARD;
         private String actionKeyTip;
         private String popupKeyTip;
+        private boolean toDismissPopupsOnActivation = true;
 
         public Builder setFlat(boolean flat) {
             this.isFlat = flat;
+            return this;
+        }
+
+        public Builder setFocusable(boolean focusable) {
+            this.isFocusable = focusable;
             return this;
         }
 
@@ -255,6 +287,11 @@ public class CommandPresentation {
             return this;
         }
 
+        public Builder setToDismissPopupsOnActivation(boolean toDismissPopupsOnActivation) {
+            this.toDismissPopupsOnActivation = toDismissPopupsOnActivation;
+            return this;
+        }
+
         public Builder setActionKeyTip(String actionKeyTip) {
             this.actionKeyTip = actionKeyTip;
             return this;
@@ -272,11 +309,13 @@ public class CommandPresentation {
             commandDisplay.horizontalGapScaleFactor = this.horizontalGapScaleFactor;
             commandDisplay.verticalGapScaleFactor = this.verticalGapScaleFactor;
             commandDisplay.isFlat = this.isFlat;
+            commandDisplay.isFocusable = this.isFocusable;
             commandDisplay.commandIconDimension = this.commandIconDimension;
             commandDisplay.isMenu = this.isMenu;
             commandDisplay.popupOrientationKind = this.popupOrientationKind;
             commandDisplay.actionKeyTip = this.actionKeyTip;
             commandDisplay.popupKeyTip = this.popupKeyTip;
+            commandDisplay.toDismissPopupsOnActivation = this.toDismissPopupsOnActivation;
             return commandDisplay;
         }
     }

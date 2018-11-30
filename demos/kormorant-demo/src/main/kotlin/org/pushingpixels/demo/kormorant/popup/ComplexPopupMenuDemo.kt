@@ -31,9 +31,8 @@ package org.pushingpixels.demo.kormorant.popup
 
 import org.pushingpixels.demo.kormorant.svg.*
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
-import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
 import org.pushingpixels.flamingo.api.common.CommandListener
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
+import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
 import org.pushingpixels.meteor.awt.render
@@ -58,98 +57,95 @@ fun main(args: Array<String>) {
         val frame = JFrame("Test")
         frame.layout = FlowLayout()
 
+        val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
         val commandButton = commandButton {
             command {
                 title = resourceBundle.getString("Paste.text")
                 icon = Help_browser.of(16, 16)
                 extraText = resourceBundle.getString("Paste.textExtra")
-                popupCallback = PopupPanelCallback {
-                    val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
-                    val popupMenuCommand = commandPopupMenu {
-                        commandPanel {
-                            presentation {
-                                commandIconDimension = 48
-                                maxColumns = 5
-                                maxRows = 3
-                                toShowGroupLabels = false
-                            }
+                popupMenu = commandPopupMenu {
+                    commandPanel {
+                        presentation {
+                            commandIconDimension = 48
+                            maxColumns = 5
+                            maxRows = 3
+                            toShowGroupLabels = false
+                        }
 
-                            for (groupIndex in 0 until 4) {
-                                commandGroup {
-                                    title = mf.format(arrayOf(groupIndex))
+                        for (groupIndex in 0 until 4) {
+                            commandGroup {
+                                title = mf.format(arrayOf(groupIndex))
 
-                                    for (i in 0 until 15) {
-                                        command {
-                                            val decoration = "$groupIndex/$i"
-                                            icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
-                                                    DecoratedResizableIcon.IconDecorator { component, graphics, x, y, width, height ->
-                                                        graphics.render {
-                                                            it.color = Color.black
-                                                            if (component.componentOrientation.isLeftToRight) {
-                                                                it.drawString(decoration, x + 2, y + height - 2)
-                                                            } else {
-                                                                it.drawString(decoration,
-                                                                        x + width - it.fontMetrics.stringWidth(
-                                                                                decoration) - 2,
-                                                                        y + height - 2)
-                                                            }
+                                for (i in 0 until 15) {
+                                    command {
+                                        val decoration = "$groupIndex/$i"
+                                        icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
+                                                DecoratedResizableIcon.IconDecorator { component, graphics, x, y, width, height ->
+                                                    graphics.render {
+                                                        it.color = Color.black
+                                                        if (component.componentOrientation.isLeftToRight) {
+                                                            it.drawString(decoration, x + 2, y + height - 2)
+                                                        } else {
+                                                            it.drawString(decoration,
+                                                                    x + width - it.fontMetrics.stringWidth(
+                                                                            decoration) - 2,
+                                                                    y + height - 2)
                                                         }
                                                     }
-                                            )
+                                                }
+                                        )
 
-                                            isToggle = true
-                                            action = CommandListener {
-                                                println("Invoked action on $decoration")
-                                            }
+                                        isToggle = true
+                                        action = CommandListener {
+                                            println("Invoked action on $decoration")
                                         }
                                     }
                                 }
                             }
-
-                            isSingleSelectionMode = true
                         }
 
-                        group {
-                            command {
-                                title = mf.format(arrayOf("1"))
-                                icon = Applications_games.of(16, 16)
-                                action = CommandListener {
-                                    println("First!")
-                                }
-                            }
-                            command {
-                                title = mf.format(arrayOf("2"))
-                                icon = Applications_graphics.of(16, 16)
-                                action = CommandListener {
-                                    println("Second!")
-                                }
-                            }
-                            command {
-                                title = mf.format(arrayOf("3"))
-                                icon = Applications_internet.of(16, 16)
-                                action = CommandListener {
-                                    println("Third!")
-                                }
+                        isSingleSelectionMode = true
+                    }
+
+                    group {
+                        command {
+                            title = mf.format(arrayOf("1"))
+                            icon = Applications_games.of(16, 16)
+                            action = CommandListener {
+                                println("First!")
                             }
                         }
-                        group {
-                            command {
-                                title = mf.format(arrayOf("4"))
-                                icon = Applications_multimedia.of(16, 16)
-                                action = CommandListener {
-                                    println("Fourth!")
-                                }
+                        command {
+                            title = mf.format(arrayOf("2"))
+                            icon = Applications_graphics.of(16, 16)
+                            action = CommandListener {
+                                println("Second!")
                             }
-                            command {
-                                title = mf.format(arrayOf("5"))
-                                icon = Applications_office.of(16, 16)
-                                action = CommandListener {
-                                    println("Fifth!")
-                                }
+                        }
+                        command {
+                            title = mf.format(arrayOf("3"))
+                            icon = Applications_internet.of(16, 16)
+                            action = CommandListener {
+                                println("Third!")
                             }
                         }
                     }
-                    popupMenuCommand.asCommandPopupMenu()
+                    group {
+                        command {
+                            title = mf.format(arrayOf("4"))
+                            icon = Applications_multimedia.of(16, 16)
+                            action = CommandListener {
+                                println("Fourth!")
+                            }
+                        }
+                        command {
+                            title = mf.format(arrayOf("5"))
+                            icon = Applications_office.of(16, 16)
+                            action = CommandListener {
+                                println("Fifth!")
+                            }
+                        }
+                    }
                 }
             }
             presentation {

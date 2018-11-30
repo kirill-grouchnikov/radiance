@@ -47,7 +47,7 @@ import java.util.*;
  * applications.
  *
  * @author Kirill Grouchnikov
- * @see JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority, String)
+ * @see JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority)
  * @see JRibbon#addTaskbarGalleryDropdown(RibbonGalleryContentModel, RibbonGalleryPresentationModel)
  */
 public class JRibbonGallery extends JComponent {
@@ -307,12 +307,6 @@ public class JRibbonGallery extends JComponent {
                 this.addGalleryCommand(projection.getCommand());
             }
         }
-    }
-
-    public void setExpandKeyTip(String expandKeyTip) {
-        String old = this.expandKeyTip;
-        this.expandKeyTip = expandKeyTip;
-        this.firePropertyChange("expandKeyTip", old, this.expandKeyTip);
     }
 
     public String getExpandKeyTip() {

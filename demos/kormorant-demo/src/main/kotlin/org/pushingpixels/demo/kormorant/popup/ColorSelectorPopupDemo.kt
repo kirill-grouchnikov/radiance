@@ -31,11 +31,8 @@ package org.pushingpixels.demo.kormorant.popup
 
 import org.pushingpixels.ember.setColorizationFactor
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
-import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
 import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
-import org.pushingpixels.kormorant.ActionModelChangeInterface
 import org.pushingpixels.kormorant.DelayedCommandListener
 import org.pushingpixels.kormorant.colorSelectorPopupMenu
 import org.pushingpixels.kormorant.commandButton
@@ -92,6 +89,8 @@ fun main(args: Array<String>) {
     SwingUtilities.invokeLater {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
+        val defaultPanelColor = Color.lightGray
+
         val resourceBundle = ResourceBundle
                 .getBundle("org.pushingpixels.demo.kormorant.resources.Resources", Locale.getDefault())
 
@@ -99,6 +98,7 @@ fun main(args: Array<String>) {
         frame.layout = BorderLayout()
 
         val centerPanel = JPanel()
+        centerPanel.background = defaultPanelColor
         centerPanel.setColorizationFactor(1.0)
         var backgroundColor = centerPanel.background
         frame.add(centerPanel, BorderLayout.CENTER)
@@ -121,89 +121,80 @@ fun main(args: Array<String>) {
             colorIcon.setColor(backgroundColor)
         }
 
-        val defaultPanelColor = centerPanel.background
         val commandButton = commandButton {
             command {
                 icon = colorIcon
-                popupCallback = PopupPanelCallback {
-                    colorSelectorPopupMenu {
-                        onColorActivated = onColorActivatedListener
-                        onColorPreviewActivated = onColorPreviewActivatedListener
-                        onColorPreviewCanceled = onColorPreviewCanceledListener
+                popupMenu = colorSelectorPopupMenu {
+                    onColorActivated = onColorActivatedListener
+                    onColorPreviewActivated = onColorPreviewActivatedListener
+                    onColorPreviewCanceled = onColorPreviewCanceledListener
 
-                        command {
-                            title = resourceBundle.getString("ColorSelector.textAutomatic")
-                            icon = ColorIcon(defaultPanelColor)
-                            action = CommandListener {
-                                onColorActivatedListener.invoke(defaultPanelColor)
-                                JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor)
-                            }
-                            // Register a listener on the action model
-                            actionModelChangeListener = object : ActionModelChangeInterface {
-                                var wasRollover = false
-                                override fun stateChanged(model: ActionButtonModel) {
-                                    val isRollover = model.isRollover
-                                    if (wasRollover && !isRollover) {
-                                        // Notify the callback that there is no rollover
-                                        onColorPreviewCanceledListener.invoke()
-                                    }
-                                    if (!wasRollover && isRollover) {
-                                        // Notify the callback that there is rollover with automatic (black) color
-                                        onColorPreviewActivatedListener.invoke(Color.black)
-                                    }
-                                    wasRollover = isRollover
-                                }
-                            }
+                    command {
+                        title = resourceBundle.getString("ColorSelector.textAutomatic")
+                        icon = ColorIcon(defaultPanelColor)
+                        action = CommandListener {
+                            onColorActivatedListener.invoke(defaultPanelColor)
+                            JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor)
                         }
 
-                        colorSectionWithDerived {
-                            title = resourceBundle.getString("ColorSelector.textThemeCaption")
-                            colors {
-                                +Color(255, 255, 255)
-                                +Color(0, 0, 0)
-                                +Color(160, 160, 160)
-                                +Color(16, 64, 128)
-                                +Color(80, 128, 192)
-                                +Color(180, 80, 80)
-                                +Color(160, 192, 80)
-                                +Color(128, 92, 160)
-                                +Color(80, 160, 208)
-                                +Color(255, 144, 64)
+                        onCommandPreviewActivated = {
+                            // Notify the callback that there is rollover with automatic
+                            // (light gray) color
+                            onColorPreviewActivatedListener.invoke(defaultPanelColor)
+                        }
+                        onCommandPreviewCanceled = {
+                            // Notify the callback that there is no rollover
+                            onColorPreviewCanceledListener.invoke()
+                        }
+                    }
+
+                    colorSectionWithDerived {
+                        title = resourceBundle.getString("ColorSelector.textThemeCaption")
+                        colors {
+                            +Color(255, 255, 255)
+                            +Color(0, 0, 0)
+                            +Color(160, 160, 160)
+                            +Color(16, 64, 128)
+                            +Color(80, 128, 192)
+                            +Color(180, 80, 80)
+                            +Color(160, 192, 80)
+                            +Color(128, 92, 160)
+                            +Color(80, 160, 208)
+                            +Color(255, 144, 64)
+                        }
+                    }
+
+                    colorSection {
+                        title = resourceBundle.getString("ColorSelector.textStandardCaption")
+                        colors {
+                            +Color(140, 0, 0)
+                            +Color(253, 0, 0)
+                            +Color(255, 160, 0)
+                            +Color(255, 255, 0)
+                            +Color(144, 240, 144)
+                            +Color(0, 128, 0)
+                            +Color(160, 224, 224)
+                            +Color(0, 0, 255)
+                            +Color(0, 0, 128)
+                            +Color(128, 0, 128)
+                        }
+                    }
+
+                    recentSection {
+                        title = resourceBundle.getString("ColorSelector.textRecentCaption")
+                    }
+
+                    command {
+                        title = resourceBundle.getString("ColorSelector.textMoreColor")
+                        action = DelayedCommandListener {
+                            val color = JColorChooser.showDialog(it.source as Component,
+                                    "Color chooser", backgroundColor)
+                            if (color != null) {
+                                onColorActivatedListener(color)
+                                JColorSelectorPopupMenu.addColorToRecentlyUsed(color)
                             }
                         }
-
-                        colorSection {
-                            title = resourceBundle.getString("ColorSelector.textStandardCaption")
-                            colors {
-                                +Color(140, 0, 0)
-                                +Color(253, 0, 0)
-                                +Color(255, 160, 0)
-                                +Color(255, 255, 0)
-                                +Color(144, 240, 144)
-                                +Color(0, 128, 0)
-                                +Color(160, 224, 224)
-                                +Color(0, 0, 255)
-                                +Color(0, 0, 128)
-                                +Color(128, 0, 128)
-                            }
-                        }
-
-                        recentSection {
-                            title = resourceBundle.getString("ColorSelector.textRecentCaption")
-                        }
-
-                        command {
-                            title = resourceBundle.getString("ColorSelector.textMoreColor")
-                            action = DelayedCommandListener {
-                                val color = JColorChooser.showDialog(it.source as Component,
-                                        "Color chooser", backgroundColor)
-                                if (color != null) {
-                                    onColorActivatedListener(color)
-                                    JColorSelectorPopupMenu.addColorToRecentlyUsed(color)
-                                }
-                            }
-                        }
-                    }.asColorSelectorPopupMenu()
+                    }
                 }
             }
             presentation {

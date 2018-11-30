@@ -55,6 +55,8 @@ public class RibbonGalleryPresentationModel {
 
     private CommandButtonDisplayState commandDisplayState;
 
+    private String expandKeyTip;
+
     private RibbonGalleryPresentationModel() {
     }
 
@@ -83,6 +85,10 @@ public class RibbonGalleryPresentationModel {
             this.commandDisplayState = commandDisplayState;
             this.fireStateChanged();
         }
+    }
+
+    public String getExpandKeyTip() {
+        return this.expandKeyTip;
     }
 
     /**
@@ -126,6 +132,7 @@ public class RibbonGalleryPresentationModel {
         private int preferredPopupMaxCommandColumns = -1;
         private int preferredPopupMaxVisibleCommandRows = -1;
         private CommandButtonDisplayState commandDisplayState = CommandButtonDisplayState.BIG;
+        private String expandKeyTip;
 
         public Builder setPreferredVisibleCommandCounts(
                 Map<RibbonElementPriority, Integer> preferredVisibleCommandCounts) {
@@ -151,6 +158,11 @@ public class RibbonGalleryPresentationModel {
             return this;
         }
 
+        public Builder setExpandKeyTip(String expandKeyTip) {
+            this.expandKeyTip = expandKeyTip;
+            return this;
+        }
+
         public RibbonGalleryPresentationModel build() {
             RibbonGalleryPresentationModel presentationModel = new RibbonGalleryPresentationModel();
             presentationModel.preferredVisibleCommandCounts =
@@ -161,6 +173,7 @@ public class RibbonGalleryPresentationModel {
             presentationModel.preferredPopupMaxCommandColumns =
                     this.preferredPopupMaxCommandColumns;
             presentationModel.commandDisplayState = this.commandDisplayState;
+            presentationModel.expandKeyTip = this.expandKeyTip;
             return presentationModel;
         }
     }

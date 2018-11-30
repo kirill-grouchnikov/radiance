@@ -30,6 +30,7 @@
 package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
+import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel
 import java.awt.Color
@@ -50,7 +51,7 @@ class KColorSelectorPopupMenuRecentSection {
 }
 
 @FlamingoElementMarker
-class KColorSelectorPopupMenu {
+class KColorSelectorPopupMenu: KCommandPopupMenu() {
     private lateinit var colorSelectorPopupMenu: JColorSelectorPopupMenu
     private var hasBeenConverted: Boolean = false
 
@@ -93,11 +94,7 @@ class KColorSelectorPopupMenu {
         return recentSection
     }
 
-    fun asColorSelectorPopupMenu(): JColorSelectorPopupMenu {
-        if (hasBeenConverted) {
-            throw IllegalStateException("This method can only be called once")
-        }
-
+    override fun toCommandPopupMenu(): JCommandPopupMenu {
         val menuGroups = ArrayList<ColorSelectorPopupMenuGroupModel>()
         var currMenuGroupBuilder = ColorSelectorPopupMenuGroupModel.builder()
 
@@ -108,7 +105,7 @@ class KColorSelectorPopupMenu {
                     currMenuGroupBuilder = ColorSelectorPopupMenuGroupModel.builder()
                 }
                 is KCommand -> {
-                    currMenuGroupBuilder.addCommand(component.toJavaCommand())
+                    currMenuGroupBuilder.addCommand(component.asJavaCommand())
                 }
                 is KColorSelectorPopupMenuColorSection -> {
                     if (component.isDerived) {

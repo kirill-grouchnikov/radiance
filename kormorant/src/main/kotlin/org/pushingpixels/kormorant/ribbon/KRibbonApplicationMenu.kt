@@ -70,7 +70,7 @@ class KRibbonApplicationMenuPrimaryCommand : KCommand() {
         builder.setRolloverCallback(rolloverCallback)
         for (secondaryCommandContainer in secondaryCommands) {
             builder.addSecondaryMenuGroup(secondaryCommandContainer.title,
-                    secondaryCommandContainer.commands.map { it -> it.toJavaCommand() })
+                    secondaryCommandContainer.commands.map { it -> it.asJavaCommand() })
         }
 
         return builder.build()
@@ -112,7 +112,7 @@ class KRibbonApplicationMenu {
         footerCommands.init()
     }
 
-    fun asRibbonApplicationMenu(): RibbonApplicationMenu {
+    fun asJavaRibbonApplicationMenu(): RibbonApplicationMenu {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
@@ -129,13 +129,13 @@ class KRibbonApplicationMenu {
         ribbonApplicationMenu.defaultCallback = defaultCallback
 
         for (footerCommand in footerCommands.commands) {
-            ribbonApplicationMenu.addFooterCommand(footerCommand.toJavaCommand())
+            ribbonApplicationMenu.addFooterCommand(footerCommand.asJavaCommand())
         }
         hasBeenConverted = true
         return ribbonApplicationMenu
     }
 
     fun getRichTooltip(): RichTooltip? {
-        return richTooltip?.buildRichTooltip()
+        return richTooltip?.toJavaRichTooltip()
     }
 }

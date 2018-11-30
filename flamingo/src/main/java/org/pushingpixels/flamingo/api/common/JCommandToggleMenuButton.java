@@ -37,13 +37,19 @@ import org.pushingpixels.neon.icon.ResizableIcon;
  * A command toggle button that can be placed in {@link JCommandPopupMenu}.
  * 
  * @author Kirill Grouchnikov
- * @see JCommandPopupMenu#addMenuButton(JCommandToggleMenuButton)
  */
 public class JCommandToggleMenuButton extends JCommandToggleButton {
 	/**
 	 * The UI class ID string.
 	 */
 	public static final String uiClassID = "CommandToggleMenuButtonUI";
+
+	/**
+	 * Creates a new command toggle menu button with no text and no icon.
+	 */
+	public JCommandToggleMenuButton() {
+		super();
+	}
 
 	/**
 	 * Creates a new command toggle menu button.

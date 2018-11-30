@@ -169,16 +169,6 @@ public class NeonCortex {
         Map desktopHints = desktopHints(g2);
         if (desktopHints != null && !desktopHints.isEmpty()) {
             g2.addRenderingHints(desktopHints);
-            if (c != null) {
-                Font font = c.getFont();
-                if (font != null) {
-                    if (font.getSize() > 15) {
-                        g2.setRenderingHint(
-                                RenderingHints.KEY_TEXT_ANTIALIASING,
-                                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-                    }
-                }
-            }
         }
     }
 
@@ -206,6 +196,10 @@ public class NeonCortex {
 
             if (desktopHints == null) {
                 desktopHints = new HashMap();
+            }
+            if (getPlatform() == Platform.MACOS && LookUtils.IS_OS_MAC_MOJAVE_OR_LATER) {
+                desktopHints.put(RenderingHints.KEY_TEXT_ANTIALIASING,
+                        RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
             }
 
             desktopHintsCache.put(deviceId, desktopHints);

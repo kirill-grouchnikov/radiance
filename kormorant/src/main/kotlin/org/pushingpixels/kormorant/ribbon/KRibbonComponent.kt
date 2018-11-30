@@ -69,7 +69,7 @@ class KRibbonComponent {
         (richTooltip as KRichTooltip).init()
     }
 
-    fun asRibbonComponent(): JRibbonComponent {
+    fun asJavaRibbonComponent(): JRibbonComponent {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
@@ -80,7 +80,7 @@ class KRibbonComponent {
             JRibbonComponent(icon, caption, component) else
             JRibbonComponent(component)
         ribbonComponent.keyTip = keyTip
-        ribbonComponent.setRichTooltip(richTooltip?.buildRichTooltip())
+        ribbonComponent.setRichTooltip(richTooltip?.toJavaRichTooltip())
         if (horizontalAlignment != null) {
             ribbonComponent.horizontalAlignment = horizontalAlignment
         }

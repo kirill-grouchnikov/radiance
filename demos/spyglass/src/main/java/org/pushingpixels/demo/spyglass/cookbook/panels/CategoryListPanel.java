@@ -33,7 +33,9 @@ import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.cookbook.*;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
+import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.model.*;
 
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -47,21 +49,31 @@ public class CategoryListPanel extends SingleContentPanel {
                 rows("p").
                 padding(new EmptyBorder(6, 0, 4, 0));
 
-        JCommandButtonStrip controlButtons = new JCommandButtonStrip();
-
-        JCommandButton addButton = new JCommandButton("", new EchoResizableIcon(
-                new ScaledResizableIcon(ic_add_white_24px.of(16, 16), 0.75f)));
-        JCommandButton removeButton = new JCommandButton("", new EchoResizableIcon(
-                new ScaledResizableIcon(ic_remove_white_24px.of(12, 12), 0.75f)));
-        JCommandButton confButton = new JCommandButton("", new EchoResizableIcon(
-                new ScaledResizableIcon(ic_settings_white_24px.of(12, 12), 0.75f)));
-        confButton.setCommandButtonKind(CommandButtonKind.POPUP_ONLY);
-        controlButtons.add(addButton);
-        controlButtons.add(removeButton);
-        controlButtons.add(confButton);
+        JCommandButtonStrip controlButtons = new JCommandButtonStrip(
+                new CommandProjectionGroupModel(
+                        Command.builder()
+                                .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
+                                        ic_add_white_24px.of(16, 16), 0.75f)))
+                                .build().project(),
+                        Command.builder()
+                                .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
+                                        ic_remove_white_24px.of(12, 12), 0.75f)))
+                                .build().project(),
+                        Command.builder()
+                                .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
+                                        ic_settings_white_24px.of(12, 12), 0.75f)))
+                                .setPopupCallback((JCommandButton button) ->
+                                        new JCommandPopupMenu(
+                                                new CommandPopupMenuContentModel(
+                                                        new CommandProjectionGroupModel(
+                                                                Command.builder()
+                                                                        .setTitle("menu item")
+                                                                        .build().project())),
+                                                CommandPopupMenuPresentationModel.builder().build())
+                                ).build().project()));
 
         footerPaneBuilder.add(controlButtons).xy(1, 1);
-        
+
         this.getFooterContentPanel().add(footerPaneBuilder.build());
     }
 

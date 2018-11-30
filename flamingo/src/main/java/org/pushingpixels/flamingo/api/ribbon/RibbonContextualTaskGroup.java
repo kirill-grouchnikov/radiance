@@ -95,8 +95,7 @@ public class RibbonContextualTaskGroup {
 	 * @param tasks
 	 *            Tasks to add to the group.
 	 */
-	public RibbonContextualTaskGroup(String title, Color hueColor,
-			RibbonTask... tasks) {
+	public RibbonContextualTaskGroup(String title, Color hueColor, RibbonTask... tasks) {
 		this.title = title;
 		this.hueColor = hueColor;
 		this.tasks = new ArrayList<>();
@@ -117,8 +116,7 @@ public class RibbonContextualTaskGroup {
 	 * @param tasks
 	 *            Tasks to add to the group.
 	 */
-	public RibbonContextualTaskGroup(String title, Color hueColor,
-			Iterable<RibbonTask> tasks) {
+	public RibbonContextualTaskGroup(String title, Color hueColor, Iterable<RibbonTask> tasks) {
 		this.title = title;
 		this.hueColor = hueColor;
 		this.tasks = new ArrayList<>();
@@ -201,5 +199,4 @@ public class RibbonContextualTaskGroup {
 		}
 		this.ribbon = ribbon;
 	}
-
 }

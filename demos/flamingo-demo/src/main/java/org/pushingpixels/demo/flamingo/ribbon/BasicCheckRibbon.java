@@ -46,7 +46,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.skin.BusinessSkin;
+import org.pushingpixels.substance.api.skin.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -726,8 +726,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setPreferredVisibleCommandCounts(stylesGalleryVisibleCommandCounts)
                         .setPreferredPopupMaxVisibleCommandRows(3)
                         .setPreferredPopupMaxCommandColumns(3)
-                        .setCommandDisplayState(JRibbonBand.BIG_FIXED_LANDSCAPE).build(),
-                RibbonElementPriority.TOP, "L");
+                        .setCommandDisplayState(JRibbonBand.BIG_FIXED_LANDSCAPE)
+                        .setExpandKeyTip("L")
+                        .build(),
+                RibbonElementPriority.TOP);
 
         quickStylesBand.addRibbonCommand(
                 Command.builder().setTitle(resourceBundle.getString("Styles1.text"))
@@ -1098,7 +1100,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         transitionBand.addRibbonGallery(
                 transitionGalleryContentModel,
                 transitionGalleryPresentationModel,
-                RibbonElementPriority.TOP, null);
+                RibbonElementPriority.TOP);
 
         transitionBand.startGroup();
         transitionBand.addRibbonComponent(new JRibbonComponent(
@@ -1910,81 +1912,96 @@ public class BasicCheckRibbon extends JRibbonFrame {
         sizeComboWrapper.setKeyTip("SS");
         fontBand.addFlowComponent(sizeComboWrapper);
 
-        JCommandButtonStrip indentStrip = new JCommandButtonStrip();
-
-        JCommandButton indentLeftButton = new JCommandButton("", new Format_indent_less());
-        indentLeftButton.setActionKeyTip("AO");
-        indentStrip.add(indentLeftButton);
-
-        JCommandButton indentRightButton = new JCommandButton("", new Format_indent_more());
-        indentRightButton.setActionKeyTip("AI");
-        indentStrip.add(indentRightButton);
+        JCommandButtonStrip indentStrip = new JCommandButtonStrip(
+                new CommandProjectionGroupModel(
+                        Command.builder()
+                                .setIcon(new Format_indent_less())
+                                .setAction((CommandActionEvent e) -> System.out.println("<- Left"))
+                                .build()
+                                .project(CommandPresentation.builder()
+                                        .setActionKeyTip("AO").build()),
+                        Command.builder()
+                                .setIcon(new Format_indent_more())
+                                .setAction((CommandActionEvent e) -> System.out.println("-> Right"))
+                                .build()
+                                .project(CommandPresentation.builder()
+                                        .setActionKeyTip("AI").build())));
 
         fontBand.addFlowComponent(indentStrip);
 
-        JCommandButtonStrip styleStrip = new JCommandButtonStrip();
+        CommandProjection styleBold =
+                Command.builder().setIcon(new Format_text_bold())
+                        .setAction((CommandActionEvent e) -> System.out.println("Bold toggled"))
+                        .setToggleSelected(true)
+                        .setActionRichTooltip(RichTooltip.builder()
+                                .setTitle(resourceBundle.getString(
+                                        "FontBold.tooltip.textActionTitle"))
+                                .addDescriptionSection(resourceBundle.getString(
+                                        "FontBold.tooltip.textActionParagraph1"))
+                                .build())
+                        .build()
+                        .project(CommandPresentation.builder().setActionKeyTip("1").build());
 
-        JCommandToggleButton styleBoldButton = new JCommandToggleButton("", new Format_text_bold());
-        styleBoldButton.addActionListener((ActionEvent e) -> System.out.println("Bold toggled"));
-        styleBoldButton.getActionModel().setSelected(true);
-        styleBoldButton
-                .setActionRichTooltip(RichTooltip.builder()
-                        .setTitle(resourceBundle.getString("FontBold.tooltip.textActionTitle"))
-                        .addDescriptionSection(
-                                resourceBundle.getString("FontBold.tooltip.textActionParagraph1"))
-                        .build());
-        styleBoldButton.setActionKeyTip("1");
-        styleStrip.add(styleBoldButton);
+        CommandProjection styleItalic =
+                Command.builder().setIcon(new Format_text_italic())
+                        .setAction((CommandActionEvent e) -> System.out.println("Italic toggled"))
+                        .setToggle()
+                        .setActionRichTooltip(RichTooltip.builder()
+                                .setTitle(resourceBundle.getString(
+                                        "FontItalic.tooltip.textActionTitle"))
+                                .addDescriptionSection(resourceBundle.getString(
+                                        "FontItalic.tooltip.textActionParagraph1"))
+                                .build())
+                        .build()
+                        .project(CommandPresentation.builder().setActionKeyTip("2").build());
 
-        JCommandToggleButton styleItalicButton = new JCommandToggleButton("",
-                new Format_text_italic());
-        styleItalicButton.addActionListener(
-                (ActionEvent e) -> System.out.println("Italic toggled"));
-        styleItalicButton.setActionRichTooltip(RichTooltip.builder()
-                .setTitle(resourceBundle.getString("FontItalic.tooltip.textActionTitle"))
-                .addDescriptionSection(
-                        resourceBundle.getString("FontItalic.tooltip.textActionParagraph1"))
-                .build());
-        styleItalicButton.setActionKeyTip("2");
-        styleStrip.add(styleItalicButton);
+        CommandProjection styleUnderline =
+                Command.builder().setIcon(new Format_text_underline())
+                        .setAction((CommandActionEvent e) ->
+                                System.out.println("Underline toggled"))
+                        .setToggle()
+                        .setActionRichTooltip(RichTooltip.builder()
+                                .setTitle(resourceBundle.getString(
+                                        "FontUnderline.tooltip.textActionTitle"))
+                                .addDescriptionSection(resourceBundle.getString(
+                                        "FontUnderline.tooltip.textActionParagraph1"))
+                                .build())
+                        .build()
+                        .project(CommandPresentation.builder().setActionKeyTip("3").build());
 
-        JCommandToggleButton styleUnderlineButton = new JCommandToggleButton("",
-                new Format_text_underline());
-        styleUnderlineButton.addActionListener(
-                (ActionEvent e) -> System.out.println("Underline toggled"));
-        styleUnderlineButton.setActionRichTooltip(RichTooltip.builder()
-                .setTitle(resourceBundle.getString("FontUnderline.tooltip.textActionTitle"))
-                .addDescriptionSection(
-                        resourceBundle.getString("FontUnderline.tooltip.textActionParagraph1"))
-                .build());
-        styleUnderlineButton.setActionKeyTip("3");
-        styleStrip.add(styleUnderlineButton);
+        CommandProjection styleStrikethrough =
+                Command.builder().setIcon(new Format_text_strikethrough())
+                        .setAction((CommandActionEvent e) ->
+                                System.out.println("Strikethrough toggled"))
+                        .setToggle()
+                        .setActionRichTooltip(RichTooltip.builder()
+                                .setTitle(resourceBundle.getString(
+                                        "FontStrikethrough.tooltip.textActionTitle"))
+                                .addDescriptionSection(resourceBundle.getString(
+                                                "FontStrikethrough.tooltip.textActionParagraph1"))
+                                .build())
+                        .build()
+                        .project(CommandPresentation.builder().setActionKeyTip("4").build());
 
-        JCommandToggleButton styleStrikeThroughButton = new JCommandToggleButton("",
-                new Format_text_strikethrough());
-        styleStrikeThroughButton.addActionListener(
-                (ActionEvent e) -> System.out.println("Strikethrough toggled"));
-        styleStrikeThroughButton.setActionRichTooltip(RichTooltip.builder()
-                .setTitle(resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle"))
-                .addDescriptionSection(
-                        resourceBundle.getString("FontStrikethrough.tooltip.textActionParagraph1"))
-                .build());
-        styleStrikeThroughButton.setActionKeyTip("4");
-        styleStrip.add(styleStrikeThroughButton);
+        JCommandButtonStrip styleStrip = new JCommandButtonStrip(
+                new CommandProjectionGroupModel(styleBold, styleItalic, styleUnderline,
+                        styleStrikethrough));
 
         fontBand.addFlowComponent(styleStrip);
 
-        JCommandButtonStrip alignStrip = new JCommandButtonStrip();
-        CommandToggleGroupModel alignGroup = new CommandToggleGroupModel();
-
-        alignStrip.add(this.alignLeftCommand.project(
-                CommandPresentation.builder().setActionKeyTip("AL").build()).buildButton());
-        alignStrip.add(this.alignCenterCommand.project(
-                CommandPresentation.builder().setActionKeyTip("AC").build()).buildButton());
-        alignStrip.add(this.alignRightCommand.project(
-                CommandPresentation.builder().setActionKeyTip("AR").build()).buildButton());
-        alignStrip.add(this.alignFillCommand.project(
-                CommandPresentation.builder().setActionKeyTip("AF").build()).buildButton());
+        JCommandButtonStrip alignStrip = new JCommandButtonStrip(
+                new CommandProjectionGroupModel(
+                        this.alignLeftCommand.project(
+                                CommandPresentation.builder().setActionKeyTip("AL").build()),
+                        this.alignCenterCommand.project(
+                                CommandPresentation.builder().setActionKeyTip("AC").build()),
+                        this.alignRightCommand.project(
+                                CommandPresentation.builder().setActionKeyTip("AR").build()),
+                        this.alignFillCommand.project(
+                                CommandPresentation.builder().setActionKeyTip("AF").build())),
+                CommandStripPresentationModel.builder()
+                        .setCommandDisplayState(CommandButtonDisplayState.SMALL)
+                        .setOrientation(CommandStripPresentationModel.StripOrientation.HORIZONTAL).build());
 
         fontBand.addFlowComponent(alignStrip);
 
@@ -1999,7 +2016,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
 
             final BasicCheckRibbon c = new BasicCheckRibbon();
             c.configureRibbon();
@@ -2036,12 +2053,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
         JLabel helper = new JLabel("Right click to show menu");
         statusBar.add(helper);
 
-        JCommandButtonStrip alignStrip = new JCommandButtonStrip();
-
-        alignStrip.add(this.alignLeftCommand.project().buildButton());
-        alignStrip.add(this.alignCenterCommand.project().buildButton());
-        alignStrip.add(this.alignRightCommand.project().buildButton());
-        alignStrip.add(this.alignFillCommand.project().buildButton());
+        JCommandButtonStrip alignStrip = new JCommandButtonStrip(
+                new CommandProjectionGroupModel(
+                        this.alignLeftCommand.project(),
+                        this.alignCenterCommand.project(),
+                        this.alignRightCommand.project(),
+                        this.alignFillCommand.project()),
+                CommandStripPresentationModel.builder()
+                        .setCommandDisplayState(CommandButtonDisplayState.SMALL)
+                        .setOrientation(CommandStripPresentationModel.StripOrientation.HORIZONTAL).build());
 
         statusBar.add(alignStrip);
 

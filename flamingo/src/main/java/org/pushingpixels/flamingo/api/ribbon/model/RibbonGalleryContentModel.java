@@ -74,6 +74,11 @@ public class RibbonGalleryContentModel {
             public void onCommandProjectionRemoved(CommandProjection commandProjection) {
                 fireStateChanged();
             }
+
+            @Override
+            public void onAllCommandProjectionsRemoved() {
+                fireStateChanged();
+            }
         };
         for (CommandProjectionGroupModel commandGroupModel : this.commandGroups) {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);

@@ -109,7 +109,7 @@ class KRichTooltip {
         footerSections.init()
     }
 
-    fun buildRichTooltip(): RichTooltip {
+    internal fun toJavaRichTooltip(): RichTooltip {
         val builder = RichTooltip.builder()
         builder.setTitle(title)
         builder.setMainIcon(mainIcon)

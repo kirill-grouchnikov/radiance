@@ -41,6 +41,7 @@ import org.pushingpixels.trident.swing.SwingComponentTimeline;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class TestCommandToggleButtonsSameGroupModel extends JFrame {
     private TestCommandToggleButtonsSameGroupModel() {
@@ -109,12 +110,14 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
 
     private JCommandButtonStrip getToggleStrip(CommandPresentation display,
             Command... commands) {
-        JCommandButtonStrip result = new JCommandButtonStrip();
-        result.setDisplayState(display.getCommandDisplayState());
+        java.util.List<CommandProjection> commandProjections = new ArrayList<>();
         for (Command command : commands) {
-            result.add(command.project(display).buildButton());
+            commandProjections.add(command.project());
         }
-        return result;
+
+        return new JCommandButtonStrip(new CommandProjectionGroupModel(commandProjections),
+                CommandStripPresentationModel.builder()
+                        .setCommandDisplayState(display.getCommandDisplayState()).build());
     }
 
     public static void main(String[] args) {

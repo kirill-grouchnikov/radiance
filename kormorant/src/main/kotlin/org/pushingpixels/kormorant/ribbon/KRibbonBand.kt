@@ -73,7 +73,7 @@ sealed class KBaseRibbonBand<T : AbstractRibbonBand> {
         (expandCommand as KRibbonBandExpandCommand).init()
     }
 
-    abstract fun asRibbonBand(): AbstractRibbonBand
+    abstract fun asJavaRibbonBand(): AbstractRibbonBand
 }
 
 @FlamingoElementMarker
@@ -167,7 +167,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         return group
     }
 
-    override fun asRibbonBand(): AbstractRibbonBand {
+    override fun asJavaRibbonBand(): AbstractRibbonBand {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
@@ -176,7 +176,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
             ribbonBand.expandActionListener = expandCommand!!.action
             ribbonBand.expandButtonKeyTip = expandCommand!!.keyTip
             if (expandCommand!!.richTooltip != null) {
-                ribbonBand.expandButtonRichTooltip = expandCommand!!.richTooltip!!.buildRichTooltip()
+                ribbonBand.expandButtonRichTooltip = expandCommand!!.richTooltip!!.toJavaRichTooltip()
             }
         }
         ribbonBand.collapsedStateKeyTip = collapsedStateKeyTip
@@ -192,22 +192,23 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                 when (content) {
                     is KRibbonBandGroup.CommandConfig -> {
                         ribbonBand.addRibbonCommand(
-                                content.command.toJavaCommand().project(
-                                        CommandPresentation.builder().setActionKeyTip(content.actionKeyTip)
-                                                .setPopupKeyTip(content.popupKeyTip).build()), priority)
+                                content.command.asJavaCommand().project(
+                                        CommandPresentation.builder()
+                                                .setActionKeyTip(content.actionKeyTip)
+                                                .setPopupKeyTip(content.popupKeyTip)
+                                                .build()), priority)
                     }
                     is KRibbonComponent -> {
-                        ribbonBand.addRibbonComponent(content.asRibbonComponent())
+                        ribbonBand.addRibbonComponent(content.asJavaRibbonComponent())
                     }
                     is KRibbonGallery -> {
                         // Get the presentation model
                         val galleryPresentationModel = content.presentation.toRibbonGalleryPresentationModel()
 
                         // Get the content model
-                        val galleryContentModel = content.content.asRibbonGalleryContentModel()
+                        val galleryContentModel = content.content.asJavaRibbonGalleryContentModel()
 
-                        ribbonBand.addRibbonGallery(galleryContentModel, galleryPresentationModel,
-                                priority, content.expandKeyTip)
+                        ribbonBand.addRibbonGallery(galleryContentModel, galleryPresentationModel, priority)
                     }
                 }
             }
@@ -247,7 +248,7 @@ class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
         components.add(ribbonComponent)
     }
 
-    override fun asRibbonBand(): AbstractRibbonBand {
+    override fun asJavaRibbonBand(): AbstractRibbonBand {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
@@ -256,7 +257,7 @@ class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
             ribbonBand.expandActionListener = expandCommand!!.action
             ribbonBand.expandButtonKeyTip = expandCommand!!.keyTip
             if (expandCommand!!.richTooltip != null) {
-                ribbonBand.expandButtonRichTooltip = expandCommand!!.richTooltip!!.buildRichTooltip()
+                ribbonBand.expandButtonRichTooltip = expandCommand!!.richTooltip!!.toJavaRichTooltip()
             }
         }
         ribbonBand.collapsedStateKeyTip = collapsedStateKeyTip
@@ -264,8 +265,8 @@ class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
         for (component in components) {
             when (component) {
                 is JComponent -> ribbonBand.addFlowComponent(component)
-                is KCommandStrip -> ribbonBand.addFlowComponent(component.asButtonStrip())
-                is KRibbonComponent -> ribbonBand.addFlowComponent(component.asRibbonComponent())
+                is KCommandStrip -> ribbonBand.addFlowComponent(component.toJavaButtonStrip())
+                is KRibbonComponent -> ribbonBand.addFlowComponent(component.asJavaRibbonComponent())
                 else -> throw IllegalStateException("Unknown ${component.javaClass}")
             }
         }

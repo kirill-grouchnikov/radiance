@@ -45,6 +45,8 @@ public class CommandProjectionGroupModel {
         void onCommandProjectionAdded(CommandProjection commandProjection);
 
         void onCommandProjectionRemoved(CommandProjection commandProjection);
+
+        void onAllCommandProjectionsRemoved();
     }
 
     public CommandProjectionGroupModel(CommandProjection... commandProjections) {
@@ -85,6 +87,10 @@ public class CommandProjectionGroupModel {
         }
     }
 
+    public void removeAllCommandProjections() {
+        this.fireAllCommandProjectionsRemoved();
+    }
+
     /**
      * Adds an <code>CommandProjectionGroupListener</code> to the model.
      *
@@ -110,8 +116,8 @@ public class CommandProjectionGroupModel {
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == CommandProjectionGroupListener.class) {
-                ((CommandProjectionGroupListener) listeners[i + 1]).onCommandProjectionAdded(
-                        projection);
+                ((CommandProjectionGroupListener) listeners[i + 1]).
+                        onCommandProjectionAdded(projection);
             }
         }
     }
@@ -123,8 +129,21 @@ public class CommandProjectionGroupModel {
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == CommandProjectionGroupListener.class) {
-                ((CommandProjectionGroupListener) listeners[i + 1]).onCommandProjectionRemoved(
-                        projection);
+                ((CommandProjectionGroupListener) listeners[i + 1]).
+                        onCommandProjectionRemoved(projection);
+            }
+        }
+    }
+
+    private void fireAllCommandProjectionsRemoved() {
+        // Guaranteed to return a non-null array
+        Object[] listeners = listenerList.getListenerList();
+        // Process the listeners last to first, notifying
+        // those that are interested in this event
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == CommandProjectionGroupListener.class) {
+                ((CommandProjectionGroupListener) listeners[i + 1]).
+                        onAllCommandProjectionsRemoved();
             }
         }
     }

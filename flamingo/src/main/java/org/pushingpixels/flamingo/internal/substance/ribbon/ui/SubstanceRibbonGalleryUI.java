@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
@@ -77,8 +77,7 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
     }
 
     @Override
-    protected ExpandCommandButton createExpandButton() {
-        final ExpandCommandButton button = super.createExpandButton();
+    protected void configureExpandButton(AbstractCommandButton button) {
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
@@ -95,12 +94,10 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
                 ribbonGallery.getComponentOrientation().isLeftToRight()
                         ? SubstanceSlices.Side.LEFT
                         : SubstanceSlices.Side.RIGHT);
-        return button;
     }
 
     @Override
-    protected JCommandButton createScrollDownButton() {
-        final JCommandButton button = super.createScrollDownButton();
+    protected void configureScrollDownButton(AbstractCommandButton button) {
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
@@ -116,12 +113,10 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
                 ribbonGallery.getComponentOrientation().isLeftToRight()
                         ? SubstanceSlices.Side.LEFT
                         : SubstanceSlices.Side.RIGHT);
-        return button;
     }
 
     @Override
-    protected JCommandButton createScrollUpButton() {
-        final JCommandButton button = super.createScrollUpButton();
+    protected void configureScrollUpButton(AbstractCommandButton button) {
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
@@ -137,7 +132,6 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
                 ribbonGallery.getComponentOrientation().isLeftToRight()
                         ? SubstanceSlices.Side.LEFT
                         : SubstanceSlices.Side.RIGHT);
-        return button;
     }
 
     @Override

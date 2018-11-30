@@ -248,14 +248,15 @@ public class JRibbon extends JComponent {
      * @see #clearTaskbar()
      */
     public synchronized void addTaskbarCommand(CommandProjection projection) {
-        CommandPresentation withOverlay = projection.getCommandDisplay().overlayWith(
-                CommandPresentation.overlay().setCommandDisplayState(CommandButtonDisplayState.SMALL)
+        CommandPresentation withOverlay = projection.getCommandPresentation().overlayWith(
+                CommandPresentation.overlay()
+                        .setCommandDisplayState(CommandButtonDisplayState.SMALL)
+                        .setFocusable(false)
                         .setHorizontalGapScaleFactor(0.5)
                         .setVerticalGapScaleFactor(0.5));
 
         CommandProjection projectionWithOverlay = projection.reproject(withOverlay);
         AbstractCommandButton commandButton = projectionWithOverlay.buildButton();
-        commandButton.setFocusable(false);
 
         this.taskbarComponents.add(commandButton);
 
@@ -403,7 +404,7 @@ public class JRibbon extends JComponent {
         group.setRibbon(this);
 
         this.contextualTaskGroups.add(group);
-        this.groupVisibilityMap.put(group, Boolean.valueOf(false));
+        this.groupVisibilityMap.put(group, Boolean.FALSE);
 
         this.fireStateChanged();
     }
@@ -600,7 +601,7 @@ public class JRibbon extends JComponent {
      * @see #isVisible(RibbonContextualTaskGroup)
      */
     public synchronized void setVisible(RibbonContextualTaskGroup group, boolean isVisible) {
-        this.groupVisibilityMap.put(group, Boolean.valueOf(isVisible));
+        this.groupVisibilityMap.put(group, isVisible);
 
         // special handling of selected tab
         if (!isVisible) {
@@ -747,8 +748,9 @@ public class JRibbon extends JComponent {
 
     @Override
     public void setVisible(boolean flag) {
-        if (!flag && (getRibbonFrame() != null))
+        if (!flag && (getRibbonFrame() != null)) {
             throw new IllegalArgumentException("Can't hide ribbon on JRibbonFrame");
+        }
         super.setVisible(flag);
     }
 }

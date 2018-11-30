@@ -33,8 +33,8 @@ import org.pushingpixels.demo.kormorant.svg.Format_justify_center
 import org.pushingpixels.demo.kormorant.svg.Format_justify_fill
 import org.pushingpixels.demo.kormorant.svg.Format_justify_left
 import org.pushingpixels.demo.kormorant.svg.Format_justify_right
-import org.pushingpixels.flamingo.api.common.JCommandButtonStrip
 import org.pushingpixels.flamingo.api.common.CommandListener
+import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.kormorant.commandToggleButtonStrip
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
@@ -104,13 +104,13 @@ fun main(args: Array<String>) {
                 }
             }
             presentation {
-                orientation = JCommandButtonStrip.StripOrientation.VERTICAL
+                orientation = CommandStripPresentationModel.StripOrientation.VERTICAL
                 horizontalGapScaleFactor = 0.8
                 verticalGapScaleFactor = 1.4
             }
         }
 
-        alignButtonPanel.add(commandAlignStrip.asButtonStrip())
+        alignButtonPanel.add(commandAlignStrip.toJavaButtonStrip())
 
         // Show our frame in the center of the screen
         frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)

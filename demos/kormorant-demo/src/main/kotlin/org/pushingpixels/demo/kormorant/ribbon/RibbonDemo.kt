@@ -34,14 +34,13 @@ import org.pushingpixels.demo.kormorant.LocaleSwitcher
 import org.pushingpixels.demo.kormorant.popup.ColorIcon
 import org.pushingpixels.demo.kormorant.svg.*
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.common.HorizontalAlignment
 import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
 import org.pushingpixels.flamingo.api.common.model.ActionButtonModel
-import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand
@@ -309,7 +308,7 @@ private class RibbonDemoBuilder {
                     +resourceBundle.getString("Paste.tooltip.actionParagraph1")
                 }
             }
-            popupCallback = getSimplePopupMenu()
+            popupMenu = getSimplePopupMenu()
             popupRichTooltip {
                 title = resourceBundle.getString("Paste.text")
                 description {
@@ -450,52 +449,49 @@ private class RibbonDemoBuilder {
         return formBuilder.build()
     }
 
-    fun getSimplePopupMenu(): PopupPanelCallback {
-        return PopupPanelCallback {
+    fun getSimplePopupMenu(): KCommandPopupMenu {
+        return commandPopupMenu {
             val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
-            val popupMenuCommand = commandPopupMenu {
-                group {
-                    command(actionKeyTip = "1") {
-                        title = mf.format(arrayOf("1"))
-                        icon = ColorResizableIcon(16, Color(0x80, 0xDE, 0xEA))
-                        action = CommandListener {
-                            println("Test menu item 1 activated")
-                        }
-                    }
-                    command(actionKeyTip = "2") {
-                        title = mf.format(arrayOf("2"))
-                        icon = ColorResizableIcon(16, Color(0x80, 0xCB, 0xC4))
-                        action = CommandListener {
-                            println("Test menu item 2 activated")
-                        }
-                    }
-                    command(actionKeyTip = "3") {
-                        title = mf.format(arrayOf("3"))
-                        icon = ColorResizableIcon(16, Color(0xA5, 0xD6, 0xA7))
-                        action = CommandListener {
-                            println("Test menu item 3 activated")
-                        }
+            group {
+                command(actionKeyTip = "1") {
+                    title = mf.format(arrayOf("1"))
+                    icon = ColorResizableIcon(16, Color(0x80, 0xDE, 0xEA))
+                    action = CommandListener {
+                        println("Test menu item 1 activated")
                     }
                 }
-
-                group {
-                    command(actionKeyTip = "4") {
-                        title = mf.format(arrayOf("4"))
-                        icon = ColorResizableIcon(16, Color(0xC5, 0xE1, 0xA5))
-                        action = CommandListener {
-                            println("Test menu item 4 activated")
-                        }
+                command(actionKeyTip = "2") {
+                    title = mf.format(arrayOf("2"))
+                    icon = ColorResizableIcon(16, Color(0x80, 0xCB, 0xC4))
+                    action = CommandListener {
+                        println("Test menu item 2 activated")
                     }
-                    command(actionKeyTip = "5") {
-                        title = mf.format(arrayOf("5"))
-                        icon = ColorResizableIcon(16, Color(0xE6, 0xEE, 0x9C))
-                        action = CommandListener {
-                            println("Test menu item 5 activated")
-                        }
+                }
+                command(actionKeyTip = "3") {
+                    title = mf.format(arrayOf("3"))
+                    icon = ColorResizableIcon(16, Color(0xA5, 0xD6, 0xA7))
+                    action = CommandListener {
+                        println("Test menu item 3 activated")
                     }
                 }
             }
-            popupMenuCommand.asCommandPopupMenu()
+
+            group {
+                command(actionKeyTip = "4") {
+                    title = mf.format(arrayOf("4"))
+                    icon = ColorResizableIcon(16, Color(0xC5, 0xE1, 0xA5))
+                    action = CommandListener {
+                        println("Test menu item 4 activated")
+                    }
+                }
+                command(actionKeyTip = "5") {
+                    title = mf.format(arrayOf("5"))
+                    icon = ColorResizableIcon(16, Color(0xE6, 0xEE, 0x9C))
+                    action = CommandListener {
+                        println("Test menu item 5 activated")
+                    }
+                }
+            }
         }
     }
 
@@ -527,7 +523,7 @@ private class RibbonDemoBuilder {
                         +resourceBundle.getString("Cut.tooltip.actionParagraph1")
                     }
                 }
-                popupCallback = getSimplePopupMenu()
+                popupMenu = getSimplePopupMenu()
                 isTitleClickAction = true
             }
 
@@ -535,14 +531,14 @@ private class RibbonDemoBuilder {
                 title = resourceBundle.getString("Copy.text")
                 icon = Edit_copy.of(16, 16)
                 action = CommandListener { println("Copy!") }
-                popupCallback = getSimplePopupMenu()
+                popupMenu = getSimplePopupMenu()
                 isTitleClickPopup = true
             }
 
             command(RibbonElementPriority.MEDIUM, popupKeyTip = "FP") {
                 title = resourceBundle.getString("Format.text")
                 icon = Edit_paste.of(16, 16)
-                popupCallback = PopupPanelCallback {
+                popupMenu = commandPopupMenu {
                     val mfGroupTitle = MessageFormat(resourceBundle.getString("PanelStyles.text"))
                     mfGroupTitle.locale = currLocale
                     val mfTooltipTitle = MessageFormat(
@@ -552,80 +548,77 @@ private class RibbonDemoBuilder {
                             resourceBundle.getString("PanelStyles.tooltip.textActionParagraph1"))
                     mfTooltipParagraph.locale = currLocale
 
-                    val popupMenuCommand = commandPopupMenu {
-                        commandPanel {
-                            presentation {
-                                commandIconDimension = 32
-                                maxColumns = 5
-                                maxRows = 3
-                                toShowGroupLabels = true
-                            }
+                    commandPanel {
+                        presentation {
+                            commandIconDimension = 32
+                            maxColumns = 5
+                            maxRows = 3
+                            toShowGroupLabels = true
+                        }
 
-                            for (groupIndex in 0 until 4) {
-                                commandGroup {
-                                    title = mfGroupTitle.format(arrayOf<Any>(groupIndex))
+                        for (groupIndex in 0 until 4) {
+                            commandGroup {
+                                title = mfGroupTitle.format(arrayOf<Any>(groupIndex))
 
-                                    for (i in 0 until 15) {
-                                        command {
-                                            icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
-                                                    DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
-                                                        graphics.render {
-                                                            it.color = Color.black
-                                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                                    .getFontSet(null).controlFont
-                                                            NeonCortex.installDesktopHints(it, component)
-                                                            it.drawString("" + i, x + 2, y + height - 2)
-                                                        }
+                                for (i in 0 until 15) {
+                                    command {
+                                        icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
+                                                DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
+                                                    graphics.render {
+                                                        it.color = Color.black
+                                                        it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                                .getFontSet(null).controlFont
+                                                        NeonCortex.installDesktopHints(it, component)
+                                                        it.drawString("" + i, x + 2, y + height - 2)
                                                     }
-                                            )
-
-                                            isToggle = true
-                                            action = CommandListener {
-                                                println("Invoked action on $i")
-                                            }
-                                            actionRichTooltip {
-                                                title = mfTooltipTitle.format(arrayOf<Any>(i))
-                                                description {
-                                                    +mfTooltipParagraph.format(arrayOf<Any>(i))
                                                 }
+                                        )
+
+                                        isToggle = true
+                                        action = CommandListener {
+                                            println("Invoked action on $i")
+                                        }
+                                        actionRichTooltip {
+                                            title = mfTooltipTitle.format(arrayOf<Any>(i))
+                                            description {
+                                                +mfTooltipParagraph.format(arrayOf<Any>(i))
                                             }
                                         }
                                     }
                                 }
                             }
-
-                            isSingleSelectionMode = true
                         }
 
-                        group {
-                            command(actionKeyTip = "SS") {
-                                title = resourceBundle.getString("Format.menuSaveSelection.text")
-                                icon = ColorResizableIcon(16, Color(0xFB, 0xC0, 0x2D))
-                                action = CommandListener {
-                                    println("Save Selection activated")
-                                }
-                            }
+                        isSingleSelectionMode = true
+                    }
 
-                            command(actionKeyTip = "SC") {
-                                title = resourceBundle.getString("Format.menuClearSelection.text")
-                                icon = ColorResizableIcon(16, Color(0xFF, 0xA0, 0x00))
-                                action = CommandListener {
-                                    println("Clear Selection activated")
-                                }
+                    group {
+                        command(actionKeyTip = "SS") {
+                            title = resourceBundle.getString("Format.menuSaveSelection.text")
+                            icon = ColorResizableIcon(16, Color(0xFB, 0xC0, 0x2D))
+                            action = CommandListener {
+                                println("Save Selection activated")
                             }
                         }
 
-                        group {
-                            command(actionKeyTip = "SA") {
-                                title = resourceBundle.getString("Format.applyStyles.text")
-                                icon = ColorResizableIcon(16, Color(0xF5, 0x7C, 0x00))
-                                action = CommandListener {
-                                    println("Apply Styles activated")
-                                }
+                        command(actionKeyTip = "SC") {
+                            title = resourceBundle.getString("Format.menuClearSelection.text")
+                            icon = ColorResizableIcon(16, Color(0xFF, 0xA0, 0x00))
+                            action = CommandListener {
+                                println("Clear Selection activated")
                             }
                         }
                     }
-                    popupMenuCommand.asCommandPopupMenu()
+
+                    group {
+                        command(actionKeyTip = "SA") {
+                            title = resourceBundle.getString("Format.applyStyles.text")
+                            icon = ColorResizableIcon(16, Color(0xF5, 0x7C, 0x00))
+                            action = CommandListener {
+                                println("Apply Styles activated")
+                            }
+                        }
+                    }
                 }
                 popupRichTooltip {
                     title = "Main title that can go over multiple lines of text even exceeding the bigger"
@@ -681,9 +674,8 @@ private class RibbonDemoBuilder {
                         2 at RibbonElementPriority.MEDIUM
                         2 at RibbonElementPriority.TOP
                     }
+                    expandKeyTip = "L"
                 }
-
-                expandKeyTip = "L"
             }
 
             command(priority = RibbonElementPriority.MEDIUM, actionKeyTip = "SA") {
@@ -701,85 +693,77 @@ private class RibbonDemoBuilder {
             command(priority = RibbonElementPriority.MEDIUM, popupKeyTip = "SC") {
                 title = resourceBundle.getString("Styles3.text")
                 icon = Text_html.of(16, 16)
-                popupCallback = PopupPanelCallback {
-                    colorSelectorPopupMenu {
-                        onColorActivated = onColorActivatedListener
-                        onColorPreviewActivated = onColorPreviewActivatedListener
-                        onColorPreviewCanceled = onColorPreviewCanceledListener
+                popupMenu = colorSelectorPopupMenu {
+                    onColorActivated = onColorActivatedListener
+                    onColorPreviewActivated = onColorPreviewActivatedListener
+                    onColorPreviewCanceled = onColorPreviewCanceledListener
 
-                        command {
-                            title = resourceBundle.getString("ColorSelector.textAutomatic")
-                            icon = ColorIcon(defaultColor)
-                            action = CommandListener {
-                                onColorActivatedListener.invoke(defaultColor)
-                                JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultColor)
-                            }
-                            // Register a listener on the action model
-                            actionModelChangeListener = object : ActionModelChangeInterface {
-                                var wasRollover = false
-                                override fun stateChanged(model: ActionButtonModel) {
-                                    val isRollover = model.isRollover
-                                    if (wasRollover && !isRollover) {
-                                        // Notify the callback that there is no rollover
-                                        onColorPreviewCanceledListener.invoke()
-                                    }
-                                    if (!wasRollover && isRollover) {
-                                        // Notify the callback that there is rollover with automatic (black) color
-                                        onColorPreviewActivatedListener.invoke(Color.black)
-                                    }
-                                    wasRollover = isRollover
-                                }
-                            }
+                    command {
+                        title = resourceBundle.getString("ColorSelector.textAutomatic")
+                        icon = ColorIcon(defaultColor)
+                        action = CommandListener {
+                            onColorActivatedListener.invoke(defaultColor)
+                            JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultColor)
                         }
 
-                        colorSectionWithDerived {
-                            title = resourceBundle.getString("ColorSelector.textThemeCaption")
-                            colors {
-                                +Color(255, 255, 255)
-                                +Color(0, 0, 0)
-                                +Color(160, 160, 160)
-                                +Color(16, 64, 128)
-                                +Color(80, 128, 192)
-                                +Color(180, 80, 80)
-                                +Color(160, 192, 80)
-                                +Color(128, 92, 160)
-                                +Color(80, 160, 208)
-                                +Color(255, 144, 64)
+                        onCommandPreviewActivated = {
+                            // Notify the callback that there is rollover with automatic
+                            // (black) color
+                            onColorPreviewActivatedListener.invoke(Color.black)
+                        }
+                        onCommandPreviewCanceled = {
+                            // Notify the callback that there is no rollover
+                            onColorPreviewCanceledListener.invoke()
+                        }
+                    }
+
+                    colorSectionWithDerived {
+                        title = resourceBundle.getString("ColorSelector.textThemeCaption")
+                        colors {
+                            +Color(255, 255, 255)
+                            +Color(0, 0, 0)
+                            +Color(160, 160, 160)
+                            +Color(16, 64, 128)
+                            +Color(80, 128, 192)
+                            +Color(180, 80, 80)
+                            +Color(160, 192, 80)
+                            +Color(128, 92, 160)
+                            +Color(80, 160, 208)
+                            +Color(255, 144, 64)
+                        }
+                    }
+
+                    colorSection {
+                        title = resourceBundle.getString("ColorSelector.textStandardCaption")
+                        colors {
+                            +Color(140, 0, 0)
+                            +Color(253, 0, 0)
+                            +Color(255, 160, 0)
+                            +Color(255, 255, 0)
+                            +Color(144, 240, 144)
+                            +Color(0, 128, 0)
+                            +Color(160, 224, 224)
+                            +Color(0, 0, 255)
+                            +Color(0, 0, 128)
+                            +Color(128, 0, 128)
+                        }
+                    }
+
+                    recentSection {
+                        title = resourceBundle.getString("ColorSelector.textRecentCaption")
+                    }
+
+                    command {
+                        title = resourceBundle.getString("ColorSelector.textMoreColor")
+                        action = DelayedCommandListener {
+                            val newColor = JColorChooser.showDialog(it.source as Component,
+                                    "Color chooser", defaultColor)
+                            if (newColor != null) {
+                                onColorActivatedListener.invoke(newColor)
+                                JColorSelectorPopupMenu.addColorToRecentlyUsed(newColor)
                             }
                         }
-
-                        colorSection {
-                            title = resourceBundle.getString("ColorSelector.textStandardCaption")
-                            colors {
-                                +Color(140, 0, 0)
-                                +Color(253, 0, 0)
-                                +Color(255, 160, 0)
-                                +Color(255, 255, 0)
-                                +Color(144, 240, 144)
-                                +Color(0, 128, 0)
-                                +Color(160, 224, 224)
-                                +Color(0, 0, 255)
-                                +Color(0, 0, 128)
-                                +Color(128, 0, 128)
-                            }
-                        }
-
-                        recentSection {
-                            title = resourceBundle.getString("ColorSelector.textRecentCaption")
-                        }
-
-                        command {
-                            title = resourceBundle.getString("ColorSelector.textMoreColor")
-                            action = DelayedCommandListener {
-                                val newColor = JColorChooser.showDialog(it.source as Component,
-                                        "Color chooser", defaultColor)
-                                if (newColor != null) {
-                                    onColorActivatedListener.invoke(newColor)
-                                    JColorSelectorPopupMenu.addColorToRecentlyUsed(newColor)
-                                }
-                            }
-                        }
-                    }.asColorSelectorPopupMenu()
+                    }
                 }
             }
 
@@ -1115,7 +1099,7 @@ private class RibbonDemoBuilder {
                 command(priority = RibbonElementPriority.MEDIUM, popupKeyTip = "H") {
                     title = resourceBundle.getString("KeyboardShortcuts.text")
                     icon = Preferences_desktop_keyboard_shortcuts.of(16, 16)
-                    popupCallback = getSimplePopupMenu()
+                    popupMenu = getSimplePopupMenu()
                 }
             }
 
@@ -1790,7 +1774,7 @@ fun main(args: Array<String>) {
                     }
 
                     targetPanel.layout = BorderLayout()
-                    targetPanel.add(openHistoryPanel.asButtonPanel(), BorderLayout.CENTER)
+                    targetPanel.add(openHistoryPanel.toJavaButtonPanel(), BorderLayout.CENTER)
                 }
 
                 // "Create new" primary
@@ -1837,7 +1821,7 @@ fun main(args: Array<String>) {
                         }
 
                         targetPanel.layout = BorderLayout()
-                        targetPanel.add(openHistoryPanel.asButtonPanel(), BorderLayout.CENTER)
+                        targetPanel.add(openHistoryPanel.toJavaButtonPanel(), BorderLayout.CENTER)
                     }
                 }
 
@@ -1977,27 +1961,24 @@ fun main(args: Array<String>) {
                             title = builder.resourceBundle.getString("AppMenuSend.wireless.text")
                             icon = Mail_message_new.of(16, 16)
                             extraText = builder.resourceBundle.getString("AppMenuSend.wireless.description")
-                            popupCallback = PopupPanelCallback {
-                                commandPopupMenu {
-                                    command(actionKeyTip = "W") {
-                                        title = builder.resourceBundle.getString("AppMenuSend.wireless.wifi.text")
-                                        icon = EmptyResizableIcon(16)
-                                        action = CommandListener {
-                                            println("WiFi activated")
-                                        }
+                            popupMenu = commandPopupMenu {
+                                command(actionKeyTip = "W") {
+                                    title = builder.resourceBundle.getString("AppMenuSend.wireless.wifi.text")
+                                    icon = EmptyResizableIcon(16)
+                                    action = CommandListener {
+                                        println("WiFi activated")
                                     }
+                                }
 
-                                    command(actionKeyTip = "B") {
-                                        title = builder.resourceBundle.getString("AppMenuSend.wireless.bluetooth.text")
-                                        icon = EmptyResizableIcon(16)
-                                        action = CommandListener {
-                                            println("Bluetooth activated")
-                                        }
+                                command(actionKeyTip = "B") {
+                                    title = builder.resourceBundle.getString("AppMenuSend.wireless.bluetooth.text")
+                                    icon = EmptyResizableIcon(16)
+                                    action = CommandListener {
+                                        println("Bluetooth activated")
                                     }
-                                }.asCommandPopupMenu()
+                                }
                             }
                         }
-
                     }
                 }
 
@@ -2025,7 +2006,7 @@ fun main(args: Array<String>) {
             }
         }
 
-        val javaRibbonFrame = ribbonFrame.asRibbonFrame()
+        val javaRibbonFrame = ribbonFrame.asJavaRibbonFrame()
 
         javaRibbonFrame.add(builder.getControlPanel(javaRibbonFrame), BorderLayout.EAST)
         builder.rulerPanel = RulerPanel()

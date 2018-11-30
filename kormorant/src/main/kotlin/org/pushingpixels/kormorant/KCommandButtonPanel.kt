@@ -50,7 +50,7 @@ class KCommandButtonPanelPresentation {
     var popupOrientationKind: JCommandButton.CommandButtonPopupOrientationKind =
             JCommandButton.CommandButtonPopupOrientationKind.DOWNWARD
 
-    internal fun asCommandPanelPresentationModel() : CommandPanelPresentationModel {
+    internal fun toCommandPanelPresentationModel() : CommandPanelPresentationModel {
         val presentationModelBuilder = CommandPanelPresentationModel.builder()
         if (this.commandDisplayState != null) {
             presentationModelBuilder.setCommandDisplayState(this.commandDisplayState)
@@ -83,9 +83,9 @@ class KCommandButtonPanel {
             return command
         }
 
-        fun asCommandGroupModel() : CommandProjectionGroupModel {
+        fun toCommandGroupModel() : CommandProjectionGroupModel {
             return CommandProjectionGroupModel(this.title,
-                    this.commands.map { it.toJavaCommand().project() })
+                    this.commands.map { it.asJavaCommand().project() })
         }
     }
 
@@ -111,7 +111,7 @@ class KCommandButtonPanel {
         presentation.init()
     }
 
-    fun asButtonPanel(): JCommandButtonPanel {
+    fun toJavaButtonPanel(): JCommandButtonPanel {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
@@ -123,8 +123,8 @@ class KCommandButtonPanel {
             throw IllegalStateException("No display state or dimension specified")
         }
 
-        val presentationModel = presentation.asCommandPanelPresentationModel()
-        val contentModel = CommandPanelContentModel(commandGroups.map { it.asCommandGroupModel() })
+        val presentationModel = presentation.toCommandPanelPresentationModel()
+        val contentModel = CommandPanelContentModel(commandGroups.map { it.toCommandGroupModel() })
 
         buttonPanel = JCommandButtonPanel(contentModel, presentationModel)
         hasBeenConverted = true

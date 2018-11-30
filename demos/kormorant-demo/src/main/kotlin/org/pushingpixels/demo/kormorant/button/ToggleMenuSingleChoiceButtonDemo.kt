@@ -35,7 +35,6 @@ import org.pushingpixels.demo.kormorant.svg.Format_justify_left
 import org.pushingpixels.demo.kormorant.svg.Format_justify_right
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.CommandListener
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
 import org.pushingpixels.kormorant.commandToggleGroup
@@ -57,58 +56,56 @@ fun main(args: Array<String>) {
 
         var currentAlignment = StyleConstants.ALIGN_LEFT
 
+        val menuToggleGroup = commandToggleGroup()
+
         val singleChoice = commandButton {
             command {
                 title = "single"
-                popupCallback = PopupPanelCallback {
-                    val menuToggleGroup = commandToggleGroup()
-
-                    commandPopupMenu {
-                        command {
-                            title = "left"
-                            icon = Format_justify_left.of(16, 16)
-                            action = CommandListener {
-                                println("Justify left")
-                                currentAlignment = StyleConstants.ALIGN_LEFT
-                            }
-                            isToggle = true
-                            isToggleSelected = currentAlignment == StyleConstants.ALIGN_LEFT
-                            toggleGroup = menuToggleGroup
+                popupMenu = commandPopupMenu {
+                    command {
+                        title = "left"
+                        icon = Format_justify_left.of(16, 16)
+                        action = CommandListener {
+                            println("Justify left")
+                            currentAlignment = StyleConstants.ALIGN_LEFT
                         }
-                        command {
-                            title = "center"
-                            icon = Format_justify_center.of(16, 16)
-                            action = CommandListener {
-                                println("Justify center")
-                                currentAlignment = StyleConstants.ALIGN_CENTER
-                            }
-                            isToggle = true
-                            isToggleSelected = currentAlignment == StyleConstants.ALIGN_CENTER
-                            toggleGroup = menuToggleGroup
+                        isToggle = true
+                        isToggleSelected = (currentAlignment == StyleConstants.ALIGN_LEFT)
+                        toggleGroup = menuToggleGroup
+                    }
+                    command {
+                        title = "center"
+                        icon = Format_justify_center.of(16, 16)
+                        action = CommandListener {
+                            println("Justify center")
+                            currentAlignment = StyleConstants.ALIGN_CENTER
                         }
-                        command {
-                            title = "right"
-                            icon = Format_justify_right.of(16, 16)
-                            action = CommandListener {
-                                println("Justify right")
-                                currentAlignment = StyleConstants.ALIGN_RIGHT
-                            }
-                            isToggle = true
-                            isToggleSelected = currentAlignment == StyleConstants.ALIGN_RIGHT
-                            toggleGroup = menuToggleGroup
+                        isToggle = true
+                        isToggleSelected = (currentAlignment == StyleConstants.ALIGN_CENTER)
+                        toggleGroup = menuToggleGroup
+                    }
+                    command {
+                        title = "right"
+                        icon = Format_justify_right.of(16, 16)
+                        action = CommandListener {
+                            println("Justify right")
+                            currentAlignment = StyleConstants.ALIGN_RIGHT
                         }
-                        command {
-                            title = "fill"
-                            icon = Format_justify_fill.of(16, 16)
-                            action = CommandListener {
-                                println("Justify fill")
-                                currentAlignment = StyleConstants.ALIGN_JUSTIFIED
-                            }
-                            isToggle = true
-                            isToggleSelected = currentAlignment == StyleConstants.ALIGN_JUSTIFIED
-                            toggleGroup = menuToggleGroup
+                        isToggle = true
+                        isToggleSelected = (currentAlignment == StyleConstants.ALIGN_RIGHT)
+                        toggleGroup = menuToggleGroup
+                    }
+                    command {
+                        title = "fill"
+                        icon = Format_justify_fill.of(16, 16)
+                        action = CommandListener {
+                            println("Justify fill")
+                            currentAlignment = StyleConstants.ALIGN_JUSTIFIED
                         }
-                    }.asCommandPopupMenu()
+                        isToggle = true
+                        isToggleSelected = (currentAlignment == StyleConstants.ALIGN_JUSTIFIED)
+                        toggleGroup = menuToggleGroup
+                    }
                 }
             }
             presentation {

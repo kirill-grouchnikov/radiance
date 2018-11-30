@@ -348,6 +348,13 @@ public class JCommandButton extends AbstractCommandButton {
     }
 
     /**
+     * Creates a new command button with no text and no icon.
+     */
+    public JCommandButton() {
+        this(null, null);
+    }
+
+    /**
      * Creates a new command button with empty text
      *
      * @param icon Button icon.

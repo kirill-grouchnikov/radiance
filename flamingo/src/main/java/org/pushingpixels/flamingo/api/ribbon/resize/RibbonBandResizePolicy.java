@@ -68,7 +68,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.*;
  * policies that respect the application element priorities passed to
  * {@link JRibbonBand#addRibbonCommand(CommandProjection, RibbonElementPriority)}
  * and
- * {@link JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority, String)}
+ * {@link JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority)}
  * APIs. There are three types of built in resize policies:
  * </p>
  * 
