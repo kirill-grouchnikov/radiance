@@ -71,13 +71,15 @@ public class TestButtonStripMultiple extends JFrame {
                         Command.builder().setIcon(new Format_text_underline()).build().project(),
                         Command.builder()
                                 .setIcon(new Format_text_strikethrough())
-                                .setPopupCallback((JCommandButton commandButton) ->
-                                        SamplePopupMenu.getSamplePopupMenu(
-                                                commandButton.getComponentOrientation()))
+                                .setPopupMenuProjection(SamplePopupMenu.getSamplePopupMenu())
                                 .build().project()));
         this.add(buttonStrip2);
 
-        JCommandButton standalone = new JCommandButton("", new Format_justify_left());
+        AbstractCommandButton standalone = Command.builder().setIcon(new Format_justify_left())
+                .build().project(CommandPresentation.builder()
+                        .setCommandDisplayState(CommandButtonDisplayState.SMALL)
+                        .setFlat(false).build())
+                .buildButton();
         standalone.setDisplayState(CommandButtonDisplayState.SMALL);
         standalone.setFlat(false);
         this.add(standalone);

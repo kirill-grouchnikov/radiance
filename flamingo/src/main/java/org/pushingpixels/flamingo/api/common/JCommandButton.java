@@ -51,16 +51,13 @@ public class JCommandButton extends AbstractCommandButton {
      */
     public static final String uiClassID = "CommandButtonUI";
 
-    public static final int DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS = 500;
-    public static final int DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS = 100;
-
     /**
      * Associated popup callback. May be <code>null</code>.
      *
      * @see #setPopupCallback(PopupPanelCallback)
      * @see #getPopupCallback()
      */
-    protected PopupPanelCallback popupCallback;
+    private PopupPanelCallback popupCallback;
 
     /**
      * The command button kind of this button.
@@ -73,10 +70,10 @@ public class JCommandButton extends AbstractCommandButton {
     /**
      * The popup orientation kind of this button.
      *
-     * @see #setPopupOrientationKind(CommandButtonPopupOrientationKind)
+     * @see #setPopupOrientationKind(CommandPresentation.CommandButtonPopupOrientationKind)
      * @see #getPopupOrientationKind()
      */
-    private CommandButtonPopupOrientationKind popupOrientationKind;
+    private CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind;
 
     /**
      * Indicates the auto-repeat action mode. When the button is not in the
@@ -228,24 +225,6 @@ public class JCommandButton extends AbstractCommandButton {
     }
 
     /**
-     * Orientation kind for the popup.
-     *
-     * @author Kirill Grouchnikov
-     */
-    public enum CommandButtonPopupOrientationKind {
-        /**
-         * Indicates that the popup should be displayed below the button.
-         */
-        DOWNWARD,
-
-        /**
-         * Indicates that the popup should be displayed to the side of the
-         * button.
-         */
-        SIDEWARD
-    }
-
-    /**
      * Extension of the default button model that supports the
      * {@link PopupButtonModel} interface.
      *
@@ -390,11 +369,11 @@ public class JCommandButton extends AbstractCommandButton {
         this.setPopupModel(new DefaultPopupButtonModel());
 
         this.commandButtonKind = CommandButtonKind.ACTION_ONLY;
-        this.popupOrientationKind = CommandButtonPopupOrientationKind.DOWNWARD;
+        this.popupOrientationKind = CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD;
         // this.displayState = CommandButtonDisplayState.CUSTOM;
         this.isAutoRepeatAction = false;
-        this.autoRepeatInitialInterval = DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS;
-        this.autoRepeatSubsequentInterval = DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS;
+        this.autoRepeatInitialInterval = Command.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS;
+        this.autoRepeatSubsequentInterval = Command.DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS;
 
         this.updateUI();
     }
@@ -428,9 +407,9 @@ public class JCommandButton extends AbstractCommandButton {
      * Returns the popup orientation kind of this button.
      *
      * @return Popup orientation kind of this button.
-     * @see #setPopupOrientationKind(CommandButtonPopupOrientationKind)
+     * @see #setPopupOrientationKind(CommandPresentation.CommandButtonPopupOrientationKind)
      */
-    public CommandButtonPopupOrientationKind getPopupOrientationKind() {
+    public CommandPresentation.CommandButtonPopupOrientationKind getPopupOrientationKind() {
         return this.popupOrientationKind;
     }
 
@@ -442,8 +421,8 @@ public class JCommandButton extends AbstractCommandButton {
      * @see #getPopupOrientationKind()
      */
     public void setPopupOrientationKind(
-            CommandButtonPopupOrientationKind popupOrientationKind) {
-        CommandButtonPopupOrientationKind old = this.popupOrientationKind;
+            CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind) {
+        CommandPresentation.CommandButtonPopupOrientationKind old = this.popupOrientationKind;
         this.popupOrientationKind = popupOrientationKind;
         if (old != this.popupOrientationKind) {
             firePropertyChange("popupOrientationKind", old,

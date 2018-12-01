@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager.CommandButtonSeparatorOrientation;
 import org.pushingpixels.flamingo.api.common.JCommandButton.*;
-import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.internal.substance.common.*;
@@ -382,9 +382,9 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         ResizableIcon icon = new TransitionAwareResizableIcon(this.commandButton,
                 () -> getPopupTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> {
-                    CommandButtonPopupOrientationKind orientation = ((JCommandButton) commandButton)
+                    CommandPresentation.CommandButtonPopupOrientationKind orientation = ((JCommandButton) commandButton)
                             .getPopupOrientationKind();
-                    int direction = (orientation == CommandButtonPopupOrientationKind.DOWNWARD)
+                    int direction = (orientation == CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD)
                             ? SwingConstants.SOUTH
                             : (commandButton.getComponentOrientation().isLeftToRight()
                                     ? SwingConstants.EAST

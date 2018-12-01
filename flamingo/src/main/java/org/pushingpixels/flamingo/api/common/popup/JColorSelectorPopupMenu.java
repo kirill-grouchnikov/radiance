@@ -30,16 +30,17 @@
 package org.pushingpixels.flamingo.api.common.popup;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.CommandPresentation;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandPopupMenuUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.*;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class JColorSelectorPopupMenu extends JCommandPopupMenu {
     /**
@@ -80,11 +81,12 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
             for (KeyValuePair<ColorSelectorPopupMenuGroupModel.GroupEntryKind, Object> groupEntry :
                     menuGroup.getGroupContent()) {
                 switch (groupEntry.getKey()) {
-                    case COMMAND:
+                    case COMMAND_PROJECTION:
+                        CommandProjection commandProjection =
+                                (CommandProjection) groupEntry.getValue();
                         AbstractCommandButton commandButton =
-                                ((Command) groupEntry.getValue()).project(
-                                        CommandPresentation.builder()
-                                                .setMenu(true).build()).buildButton();
+                                commandProjection.reproject(CommandPresentation.builder()
+                                        .setMenu(true).build()).buildButton();
                         if (commandButton instanceof JCommandMenuButton) {
                             this.addMenuButton((JCommandMenuButton) commandButton);
                         }
@@ -180,7 +182,7 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
     }
 
     private static void wireToLRU(JColorSelectorComponent colorSelector) {
-        colorSelector.addColorActivationListener((Color color) ->  addColorToRecentlyUsed(color));
+        colorSelector.addColorActivationListener((Color color) -> addColorToRecentlyUsed(color));
     }
 
     public synchronized static List<Color> getRecentlyUsedColors() {

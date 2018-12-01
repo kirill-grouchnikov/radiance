@@ -36,6 +36,7 @@ import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -54,22 +55,8 @@ public class TestCommandToggleButtons extends JFrame {
 
     private JPanel buttonPanel;
 
-    interface Command {
-        void apply(JCommandToggleButton button);
-    }
-
-    static void apply(Container cont, Command cmd) {
-        for (int i = 0; i < cont.getComponentCount(); i++) {
-            Component comp = cont.getComponent(i);
-            if (comp instanceof JCommandToggleButton) {
-                JCommandToggleButton cb = (JCommandToggleButton) comp;
-                cmd.apply(cb);
-            }
-            if (comp instanceof Container) {
-                apply((Container) comp, cmd);
-            }
-        }
-    }
+    protected Command toggleCommandShort;
+    protected Command toggleCommandLong;
 
     TestCommandToggleButtons() {
         super("Command button test");
@@ -85,11 +72,36 @@ public class TestCommandToggleButtons extends JFrame {
         resourceBundle = ResourceBundle.getBundle(
                 "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
 
+        JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        this.configureControlPanel(controlPanel);
+
+        this.toggleCommandShort = Command.builder()
+                .setTitle(resourceBundle.getString("Short.text"))
+                .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
+                .setIconFactory(Edit_paste.factory())
+                .setDisabledIconFactory(() -> new FilteredResizableIcon(new Edit_paste(),
+                        new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)))
+                .setToggle()
+                .setAction((CommandActionEvent e) -> System.out
+                        .println(stamp() + ": command activated, selection state is "
+                                + e.getCommand().isToggleSelected()))
+                .build();
+
+        this.toggleCommandLong = Command.builder()
+                .setTitle(resourceBundle.getString("LongerLines.text"))
+                .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
+                .setIconFactory(Edit_paste.factory())
+                .setDisabledIconFactory(() -> new FilteredResizableIcon(new Edit_paste(),
+                        new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)))
+                .setToggle()
+                .setAction((CommandActionEvent e) -> System.out
+                        .println(stamp() + ": command activated, selection state is "
+                                + e.getCommand().isToggleSelected()))
+                .build();
+
         buttonPanel = getButtonPanel();
         this.add(buttonPanel, BorderLayout.CENTER);
 
-        JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        this.configureControlPanel(controlPanel);
 
         this.add(controlPanel, BorderLayout.SOUTH);
     }
@@ -118,26 +130,23 @@ public class TestCommandToggleButtons extends JFrame {
     private void addButtons(FormBuilder builder, CommandButtonDisplayState state, int row) {
         builder.add(state.getDisplayName() + " state").xy(1, row);
 
-        JCommandToggleButton buttonWithShortText = createToggleButton(state,
-                resourceBundle.getString("Short.text"));
+        AbstractCommandButton buttonWithShortText =
+                this.toggleCommandShort.project(
+                        CommandPresentation.builder()
+                                .setCommandDisplayState(state)
+                                .setFlat(false)
+                                .build())
+                        .buildButton();
         builder.add(buttonWithShortText).xy(3, row);
-        JCommandToggleButton buttonWithLongText = createToggleButton(state,
-                resourceBundle.getString("LongerLines.text"));
-        builder.add(buttonWithLongText).xy(5, row);
-    }
 
-    protected JCommandToggleButton createToggleButton(CommandButtonDisplayState state,
-            String title) {
-        final JCommandToggleButton mainButton = new JCommandToggleButton(title, new Edit_paste());
-        mainButton.setDisabledIcon(new FilteredResizableIcon(new Edit_paste(),
-                new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)));
-        mainButton.setExtraText(resourceBundle.getString("SelectAll.textExtra"));
-        mainButton.addActionListener((ActionEvent e) -> System.out
-                .println(stamp() + ": button activated, selection state is "
-                        + mainButton.getActionModel().isSelected()));
-        mainButton.setDisplayState(state);
-        mainButton.setFlat(false);
-        return mainButton;
+        AbstractCommandButton buttonWithLongText =
+                this.toggleCommandLong.project(
+                        CommandPresentation.builder()
+                                .setCommandDisplayState(state)
+                                .setFlat(false)
+                                .build())
+                        .buildButton();
+        builder.add(buttonWithLongText).xy(5, row);
     }
 
     protected void configureControlPanel(JPanel controlPanel) {
@@ -145,90 +154,27 @@ public class TestCommandToggleButtons extends JFrame {
 
         final JCheckBox enabled = new JCheckBox("enabled");
         enabled.setSelected(true);
-        enabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                scan(TestCommandToggleButtons.this);
-                repaint();
-            }
-
-            private void scan(Container c) {
-                for (int i = 0; i < c.getComponentCount(); i++) {
-                    Component child = c.getComponent(i);
-                    if (child instanceof JCommandToggleButton)
-                        child.setEnabled(enabled.isSelected());
-                    if (child instanceof Container)
-                        scan((Container) child);
-                }
-            }
+        enabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            toggleCommandShort.setEnabled(enabled.isSelected());
+            toggleCommandLong.setEnabled(enabled.isSelected());
         }));
         controlPanel.add(enabled);
 
         final JCheckBox actionEnabled = new JCheckBox("action enabled");
         actionEnabled.setSelected(true);
-        actionEnabled
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        scan(TestCommandToggleButtons.this);
-                        repaint();
-                    }
-
-                    private void scan(Container c) {
-                        for (int i = 0; i < c.getComponentCount(); i++) {
-                            Component child = c.getComponent(i);
-                            if (child instanceof JCommandToggleButton)
-                                ((JCommandToggleButton) child).getActionModel()
-                                        .setEnabled(actionEnabled.isSelected());
-                            if (child instanceof Container)
-                                scan((Container) child);
-                        }
-                    }
-                }));
+        actionEnabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            toggleCommandShort.setActionEnabled(actionEnabled.isSelected());
+            toggleCommandLong.setActionEnabled(actionEnabled.isSelected());
+        }));
         controlPanel.add(actionEnabled);
 
         final JCheckBox actionOnPress = new JCheckBox("action on press");
         actionOnPress.setSelected(false);
-        actionOnPress
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        scan(TestCommandToggleButtons.this);
-                        repaint();
-                    }
-
-                    private void scan(Container c) {
-                        for (int i = 0; i < c.getComponentCount(); i++) {
-                            Component child = c.getComponent(i);
-                            if (child instanceof JCommandToggleButton)
-                                ((JCommandToggleButton) child).getActionModel()
-                                        .setFireActionOnPress(actionOnPress.isSelected());
-                            if (child instanceof Container)
-                                scan((Container) child);
-                        }
-                    }
-                }));
-        controlPanel.add(actionOnPress);
-
-        final JCheckBox flat = new JCheckBox("flat");
-        flat.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                scan(TestCommandToggleButtons.this);
-                repaint();
-            }
-
-            private void scan(Container c) {
-                for (int i = 0; i < c.getComponentCount(); i++) {
-                    Component child = c.getComponent(i);
-                    if (child instanceof JCommandToggleButton)
-                        ((JCommandToggleButton) child).setFlat(flat.isSelected());
-                    if (child instanceof Container)
-                        scan((Container) child);
-                }
-            }
+        actionOnPress.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            toggleCommandShort.setFireActionOnPress(actionEnabled.isSelected());
+            toggleCommandLong.setFireActionOnPress(actionEnabled.isSelected());
         }));
-        controlPanel.add(flat);
+        controlPanel.add(actionOnPress);
 
         JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
             currLocale = selected;
@@ -242,11 +188,6 @@ public class TestCommandToggleButtons extends JFrame {
             SwingUtilities.updateComponentTreeUI(window);
         });
         controlPanel.add(localeSwitcher);
-    }
-
-    protected void wireCommandTo(JCheckBox checkbox, Command command) {
-        checkbox.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
-                () -> apply(TestCommandToggleButtons.this, command)));
     }
 
     /**

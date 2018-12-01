@@ -32,10 +32,10 @@ package org.pushingpixels.demo.spyglass.cookbook.panels;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.cookbook.*;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
 
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -62,14 +62,13 @@ public class CategoryListPanel extends SingleContentPanel {
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_settings_white_24px.of(12, 12), 0.75f)))
-                                .setPopupCallback((JCommandButton button) ->
-                                        new JCommandPopupMenu(
-                                                new CommandPopupMenuContentModel(
-                                                        new CommandProjectionGroupModel(
-                                                                Command.builder()
-                                                                        .setTitle("menu item")
-                                                                        .build().project())),
-                                                CommandPopupMenuPresentationModel.builder().build())
+                                .setPopupMenuProjection(new CommandPopupMenuProjection(
+                                        new CommandPopupMenuContentModel(
+                                                new CommandProjectionGroupModel(
+                                                        Command.builder()
+                                                                .setTitle("menu item")
+                                                                .build().project())),
+                                        CommandPopupMenuPresentationModel.builder().build())
                                 ).build().project()));
 
         footerPaneBuilder.add(controlButtons).xy(1, 1);

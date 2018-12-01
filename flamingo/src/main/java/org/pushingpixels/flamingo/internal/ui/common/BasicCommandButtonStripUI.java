@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -93,7 +94,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
                         AbstractCommandButton commandButton = commandButtonMap.get(
                                 commandProjection);
                         commandButton.removeCommandListener(
-                                commandProjection.getCommand().getAction());
+                                commandProjection.getContentModel().getAction());
                         buttonStrip.remove(commandButton);
                         commandButtonMap.remove(commandProjection);
                         updateButtonOrder();
@@ -104,7 +105,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
                         for (Map.Entry<CommandProjection, AbstractCommandButton> entry :
                                 commandButtonMap.entrySet()) {
                             entry.getValue().removeCommandListener(
-                                    entry.getKey().getCommand().getAction());
+                                    entry.getKey().getContentModel().getAction());
                             buttonStrip.remove(entry.getValue());
                         }
                         commandButtonMap.clear();
@@ -158,7 +159,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
                 this.buttonStrip.getProjectionGroupModel();
         for (CommandProjection commandProjection : projectionGroupModel.getCommandProjections()) {
             AbstractCommandButton commandButton = commandButtonMap.get(commandProjection);
-            CommandListener commandListener = commandProjection.getCommand().getAction();
+            CommandListener commandListener = commandProjection.getContentModel().getAction();
             if (commandListener != null) {
                 commandButton.removeCommandListener(commandListener);
             }
@@ -168,14 +169,15 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
     }
 
     private void addButton(CommandProjection commandProjection) {
-        CommandStripPresentationModel presentationModel = this.buttonStrip.getPresentationModel();
-        CommandPresentation presentation = commandProjection.getCommandPresentation()
+        CommandStripPresentationModel stripPresentationModel =
+                this.buttonStrip.getPresentationModel();
+        CommandPresentation presentation = commandProjection.getPresentationModel()
                 .overlayWith(CommandPresentation.overlay()
-                        .setCommandDisplayState(presentationModel.getCommandDisplayState())
+                        .setCommandDisplayState(stripPresentationModel.getCommandDisplayState())
                         .setHorizontalGapScaleFactor(
-                                presentationModel.getHorizontalGapScaleFactor())
+                                stripPresentationModel.getHorizontalGapScaleFactor())
                         .setVerticalGapScaleFactor(
-                                presentationModel.getVerticalGapScaleFactor())
+                                stripPresentationModel.getVerticalGapScaleFactor())
                         .setFlat(false));
         AbstractCommandButton button = commandProjection.reproject(presentation).buildButton();
         this.buttonStrip.add(button);

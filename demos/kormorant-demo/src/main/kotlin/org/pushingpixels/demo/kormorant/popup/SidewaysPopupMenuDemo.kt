@@ -32,7 +32,7 @@ package org.pushingpixels.demo.kormorant.popup
 import org.pushingpixels.demo.kormorant.svg.*
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
 import org.pushingpixels.flamingo.api.common.CommandListener
-import org.pushingpixels.flamingo.api.common.JCommandButton
+import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -118,7 +118,7 @@ fun main(args: Array<String>) {
             presentation {
                 commandDisplayState = CommandButtonDisplayState.TILE
                 isFlat = false
-                popupOrientationKind = JCommandButton.CommandButtonPopupOrientationKind.SIDEWARD
+                popupOrientationKind = CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD
             }
         }
 

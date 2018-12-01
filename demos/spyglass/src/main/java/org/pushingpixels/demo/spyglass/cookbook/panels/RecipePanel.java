@@ -34,6 +34,7 @@ import org.pushingpixels.demo.spyglass.cookbook.*;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
@@ -84,13 +85,16 @@ public class RecipePanel extends SingleContentPanel {
         this.titlePanel.add(titlePaneBuilder.build(), BorderLayout.CENTER);
     }
 
-    private JCommandButton getCommandButton(ResizableIcon icon, String tooltip) {
-        JCommandButton result = new JCommandButton(icon);
-        result.setFlat(true);
-        result.setCommandButtonKind(CommandButtonKind.ACTION_ONLY);
-        result.setDisplayState(CommandButtonDisplayState.SMALL);
-        result.setActionRichTooltip(RichTooltip.builder().setTitle(tooltip)
-                .addDescriptionSection("Description for " + tooltip).build());
-        return result;
+    private AbstractCommandButton getCommandButton(ResizableIcon icon, String tooltip) {
+        return Command.builder()
+                .setIcon(icon)
+                .setAction((CommandActionEvent e) -> System.out.println(tooltip + " activated"))
+                .setActionRichTooltip(RichTooltip.builder()
+                        .setTitle(tooltip)
+                        .addDescriptionSection("Description for " + tooltip).build())
+                .build()
+                .project(CommandPresentation.builder()
+                        .setCommandDisplayState(CommandButtonDisplayState.SMALL).build())
+                .buildButton();
     }
 }

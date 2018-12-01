@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.neon.icon.*;
 
 import javax.swing.event.*;
@@ -54,7 +55,10 @@ import java.util.EventListener;
  * @see CommandPresentation
  * @see CommandProjection
  */
-public class Command {
+public class Command implements ContentModel {
+    public static final int DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS = 500;
+    public static final int DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS = 100;
+
     private String title;
     private ResizableIcon icon;
     private ResizableIconFactory iconFactory;
@@ -63,11 +67,14 @@ public class Command {
     private String extraText;
     private CommandListener action;
     private RichTooltip actionRichTooltip;
+    private CommandPopupMenuProjection popupMenuProjection;
     private PopupPanelCallback popupCallback;
     private RichTooltip popupRichTooltip;
     private boolean isTitleClickAction;
     private boolean isTitleClickPopup;
     private boolean isEnabled;
+    private boolean isActionEnabled;
+    private boolean isPopupEnabled;
     private boolean isToggle;
     private boolean isToggleSelected;
     private CommandToggleGroupModel toggleGroupModel;
@@ -99,23 +106,25 @@ public class Command {
                 throw new IllegalStateException("Configured action rich tooltip with no action");
             }
         }
-        if (popupCallback == null) {
+        if ((popupMenuProjection == null) && (popupCallback == null)) {
             if (popupRichTooltip != null) {
                 throw new IllegalStateException("Configured popup rich tooltip with no callback");
             }
         }
 
-        if ((action != null) && (popupCallback == null) && isTitleClickPopup) {
+        if ((action != null) && (popupMenuProjection == null) && (popupCallback == null)
+                && isTitleClickPopup) {
             throw new IllegalStateException(
                     "Action-only command configured to activate popup on title click");
         }
 
-        if ((popupCallback != null) && (action == null) && isTitleClickAction) {
+        if (((popupCallback != null) || (popupMenuProjection != null))
+                && (action == null) && isTitleClickAction) {
             throw new IllegalStateException(
                     "Popup-only command configured to activate action on title click");
         }
 
-        if ((action != null) && (popupCallback != null)) {
+        if ((action != null) && ((popupCallback != null) || (popupMenuProjection != null))) {
             if (isTitleClickAction && isTitleClickPopup) {
                 throw new IllegalStateException(
                         "Command configured to have both action and popup can't have both " +
@@ -128,7 +137,7 @@ public class Command {
             }
         }
 
-        if (isToggle && (popupCallback != null)) {
+        if (isToggle && ((popupCallback != null) || (popupMenuProjection != null))) {
             throw new IllegalStateException("Command configured to be toggle can't have popups");
         }
 
@@ -140,6 +149,14 @@ public class Command {
 
     public String getTitle() {
         return this.title;
+    }
+
+    public void setTitle(String title) {
+        if (this.title != title) {
+            String old = this.title;
+            this.title = title;
+            this.pcs.firePropertyChange("title", old, this.title);
+        }
     }
 
     public ResizableIcon getIcon() {
@@ -206,12 +223,32 @@ public class Command {
         }
     }
 
+    public CommandPopupMenuProjection getPopupMenuProjection() {
+        return this.popupMenuProjection;
+    }
+
+    public void setPopupMenuProjection(CommandPopupMenuProjection popupMenuProjection) {
+        if (this.popupMenuProjection != popupMenuProjection) {
+            CommandPopupMenuProjection old = this.popupMenuProjection;
+            this.popupMenuProjection = popupMenuProjection;
+            this.pcs.firePropertyChange("popupMenuProjection", old, this.popupMenuProjection);
+        }
+    }
+
     public PopupPanelCallback getPopupCallback() {
         return this.popupCallback;
     }
 
     public RichTooltip getPopupRichTooltip() {
         return this.popupRichTooltip;
+    }
+
+    public void setPopupRichTooltip(RichTooltip popupRichTooltip) {
+        if (this.popupRichTooltip != popupRichTooltip) {
+            RichTooltip old = this.popupRichTooltip;
+            this.popupRichTooltip = popupRichTooltip;
+            this.pcs.firePropertyChange("popupRichTooltip", old, this.popupRichTooltip);
+        }
     }
 
     public boolean isTitleClickAction() {
@@ -230,6 +267,29 @@ public class Command {
         if (this.isEnabled != enabled) {
             this.isEnabled = enabled;
             this.pcs.firePropertyChange("enabled", !this.isEnabled, this.isEnabled);
+        }
+    }
+
+    public boolean isActionEnabled() {
+        return this.isActionEnabled;
+    }
+
+    public void setActionEnabled(boolean actionEnabled) {
+        if (this.isActionEnabled != actionEnabled) {
+            this.isActionEnabled = actionEnabled;
+            this.pcs.firePropertyChange("actionEnabled", !this.isActionEnabled,
+                    this.isActionEnabled);
+        }
+    }
+
+    public boolean isPopupEnabled() {
+        return this.isPopupEnabled;
+    }
+
+    public void setPopupEnabled(boolean popupEnabled) {
+        if (this.isPopupEnabled != popupEnabled) {
+            this.isPopupEnabled = popupEnabled;
+            this.pcs.firePropertyChange("popupEnabled", !this.isPopupEnabled, this.isPopupEnabled);
         }
     }
 
@@ -258,6 +318,15 @@ public class Command {
         return this.isAutoRepeatAction;
     }
 
+    public void setAutoRepeatAction(boolean isAutoRepeatAction) {
+        if (this.isAutoRepeatAction != isAutoRepeatAction) {
+            this.isAutoRepeatAction = isAutoRepeatAction;
+            this.pcs.firePropertyChange("isAutoRepeatAction", !this.isAutoRepeatAction,
+                    this.isAutoRepeatAction);
+            this.fireStateChanged();
+        }
+    }
+
     public boolean hasAutoRepeatIntervalsSet() {
         return this.hasAutoRepeatIntervalsSet;
     }
@@ -274,8 +343,26 @@ public class Command {
         return this.isFireActionOnRollover;
     }
 
+    public void setFireActionOnRollover(boolean isFireActionOnRollover) {
+        if (this.isFireActionOnRollover != isFireActionOnRollover) {
+            this.isFireActionOnRollover = isFireActionOnRollover;
+            this.pcs.firePropertyChange("isFireActionOnRollover", !this.isFireActionOnRollover,
+                    this.isFireActionOnRollover);
+            this.fireStateChanged();
+        }
+    }
+
     public boolean isFireActionOnPress() {
         return this.isFireActionOnPress;
+    }
+
+    public void setFireActionOnPress(boolean isFireActionOnPress) {
+        if (this.isFireActionOnPress != isFireActionOnPress) {
+            this.isFireActionOnPress = isFireActionOnPress;
+            this.pcs.firePropertyChange("isFireActionOnPress", !this.isFireActionOnPress,
+                    this.isFireActionOnPress);
+            this.fireStateChanged();
+        }
     }
 
     public CommandPreviewListener getPreviewListener() {
@@ -287,7 +374,7 @@ public class Command {
     }
 
     protected boolean hasPopup() {
-        return (this.getPopupCallback() != null);
+        return (this.getPopupMenuProjection() != null) || (this.getPopupCallback() != null);
     }
 
     /**
@@ -357,11 +444,14 @@ public class Command {
         protected String extraText;
         protected CommandListener action;
         protected RichTooltip actionRichTooltip;
+        protected CommandPopupMenuProjection popupMenuProjection;
         protected PopupPanelCallback popupCallback;
         protected RichTooltip popupRichTooltip;
         protected boolean isTitleClickAction;
         protected boolean isTitleClickPopup;
         protected boolean isEnabled = true;
+        protected boolean isActionEnabled = true;
+        protected boolean isPopupEnabled = true;
         protected boolean isToggle;
         protected boolean isToggleSelected;
         protected CommandToggleGroupModel toggleGroupModel;
@@ -382,11 +472,14 @@ public class Command {
             command.extraText = this.extraText;
             command.action = this.action;
             command.actionRichTooltip = this.actionRichTooltip;
+            command.popupMenuProjection = this.popupMenuProjection;
             command.popupCallback = this.popupCallback;
             command.popupRichTooltip = this.popupRichTooltip;
             command.isTitleClickAction = this.isTitleClickAction;
             command.isTitleClickPopup = this.isTitleClickPopup;
             command.isEnabled = this.isEnabled;
+            command.isActionEnabled = this.isActionEnabled;
+            command.isPopupEnabled = this.isPopupEnabled;
             command.isToggle = this.isToggle;
             command.isToggleSelected = this.isToggleSelected;
             command.toggleGroupModel = this.toggleGroupModel;
@@ -444,6 +537,11 @@ public class Command {
             return (B) this;
         }
 
+        public B setPopupMenuProjection(CommandPopupMenuProjection popupMenuProjection) {
+            this.popupMenuProjection = popupMenuProjection;
+            return (B) this;
+        }
+
         public B setPopupCallback(PopupPanelCallback popupCallback) {
             this.popupCallback = popupCallback;
             return (B) this;
@@ -466,6 +564,16 @@ public class Command {
 
         public B setEnabled(boolean isEnabled) {
             this.isEnabled = isEnabled;
+            return (B) this;
+        }
+
+        public B setActionEnabled(boolean isActionEnabled) {
+            this.isActionEnabled = isActionEnabled;
+            return (B) this;
+        }
+
+        public B setPopupEnabled(boolean isPopupEnabled) {
+            this.isPopupEnabled = isPopupEnabled;
             return (B) this;
         }
 

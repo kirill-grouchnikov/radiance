@@ -32,6 +32,7 @@ package org.pushingpixels.flamingo.api.common.popup;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandPopupMenuUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
 
@@ -43,11 +44,9 @@ import java.util.*;
 import java.util.List;
 
 /**
- * Popup menu. Can host any number of command menu buttons added with
- * {@link #addMenuButton(JCommandMenuButton)} separated with optional
- * {@link #addMenuSeparator()}. The
- * {@link #JCommandPopupMenu(CommandPopupMenuContentModel, CommandPopupMenuPresentationModel)}
- * constructor allows placing a scrollable command button panel in the top part of the popup menu.
+ * Popup menu with groups of command buttons. Use the
+ * {@link CommandPopupMenuContentModel#CommandPopupMenuContentModel(CommandPanelContentModel, List)}
+ * constructor to place a scrollable command button panel in the top part of the popup menu.
  *
  * @author Kirill Grouchnikov
  */
@@ -67,7 +66,7 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
      * The main button panel. Can be <code>null</code> if this command popup
      * menu was created with the {@link #JCommandPopupMenu()} constructor.
      *
-     * @see #JCommandPopupMenu(CommandPopupMenuContentModel, CommandPopupMenuPresentationModel)
+     * @see CommandPopupMenuContentModel#CommandPopupMenuContentModel(CommandPanelContentModel, List)
      * @see #hasCommandButtonPanel()
      * @see #getMainButtonPanel()
      */
@@ -131,7 +130,7 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
         for (int i = 0; i < commandGroups.size(); i++) {
             for (CommandProjection projection : commandGroups.get(i).getCommandProjections()) {
                 // Overlay the supplied projection command display to create menu content
-                CommandPresentation withOverlay = projection.getCommandPresentation().overlayWith(
+                CommandPresentation withOverlay = projection.getPresentationModel().overlayWith(
                         CommandPresentation.overlay().setMenu(true));
                 // Reproject to use the overlay
                 CommandProjection projectionWithOverlay = projection.reproject(withOverlay);
@@ -141,7 +140,7 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
                 // Need to highlight it?
                 Command highlightedCommand =
                         this.popupMenuPresentationModel.getHighlightedCommand();
-                if (projection.getCommand() == highlightedCommand) {
+                if (projection.getContentModel() == highlightedCommand) {
                     // Use bold font
                     commandButton.setFont(commandButton.getFont().deriveFont(Font.BOLD));
                 }
@@ -171,13 +170,13 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
     }
 
     protected void addMenuButton(JCommandMenuButton menuButton) {
-        menuButton.setHorizontalAlignment(SwingUtilities.LEFT);
+        menuButton.setHorizontalAlignment(SwingUtilities.LEADING);
         this.menuComponents.add(menuButton);
         this.fireStateChanged();
     }
 
     protected void addMenuButton(JCommandToggleMenuButton menuButton) {
-        menuButton.setHorizontalAlignment(SwingUtilities.LEFT);
+        menuButton.setHorizontalAlignment(SwingUtilities.LEADING);
         this.menuComponents.add(menuButton);
         this.fireStateChanged();
     }

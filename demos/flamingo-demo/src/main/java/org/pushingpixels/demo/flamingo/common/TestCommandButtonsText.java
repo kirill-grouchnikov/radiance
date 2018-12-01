@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -39,40 +39,34 @@ import java.awt.event.*;
 import java.text.MessageFormat;
 
 public class TestCommandButtonsText extends TestCommandButtons {
-    private class CounterActionListener implements ActionListener {
+    public TestCommandButtonsText() {
+        super();
+
+        // Override titles
+        this.copyCommand.setTitle(resourceBundle.getString("Click.text"));
+        this.cutCommand.setTitle(resourceBundle.getString("Click.text"));
+        this.pasteActionCommand.setTitle(resourceBundle.getString("Click.text"));
+        this.pastePopupCommand.setTitle(resourceBundle.getString("Click.text"));
+
+        // and actions
+        this.copyCommand.setAction(new CounterActionListener());
+        this.cutCommand.setAction(new CounterActionListener());
+        this.pasteActionCommand.setAction(new CounterActionListener());
+        this.pastePopupCommand.setAction(new CounterActionListener());
+    }
+
+    private class CounterActionListener implements CommandListener {
         int count = 0;
 
         @Override
-        public void actionPerformed(final ActionEvent e) {
+        public void commandActivated(CommandActionEvent e) {
             SwingUtilities.invokeLater(() -> {
                 count++;
-                AbstractCommandButton acb = (AbstractCommandButton) e.getSource();
                 MessageFormat mf = new MessageFormat(resourceBundle.getString("Clicked.text"));
                 mf.setLocale(currLocale);
-                acb.setText(mf.format(new Object[] { count }));
+                e.getCommand().setTitle(mf.format(new Object[] { count }));
             });
         }
-    }
-
-    private void scan(Container cont) {
-        for (int i = 0; i < cont.getComponentCount(); i++) {
-            Component comp = cont.getComponent(i);
-            if (comp instanceof AbstractCommandButton) {
-                AbstractCommandButton acb = (AbstractCommandButton) comp;
-                acb.setText(resourceBundle.getString("Click.text"));
-                acb.addActionListener(new CounterActionListener());
-            }
-            if (comp instanceof Container) {
-                scan((Container) comp);
-            }
-        }
-    }
-
-    @Override
-    protected JPanel getButtonPanel() {
-        JPanel result = super.getButtonPanel();
-        scan(result);
-        return result;
     }
 
     /**

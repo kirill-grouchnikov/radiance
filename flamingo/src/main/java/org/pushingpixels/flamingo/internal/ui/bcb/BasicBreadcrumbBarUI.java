@@ -37,21 +37,21 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.*;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.internal.ui.common.JCircularProgress;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
-import javax.swing.*;
 import javax.swing.Timer;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -568,9 +568,10 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
             menuPresentationModel.setMaxVisibleMenuCommands(10);
 
-            return new JCommandPopupMenu(
+            return new CommandPopupMenuProjection(
                     new CommandPopupMenuContentModel(new CommandProjectionGroupModel(menuCommands)),
-                    menuPresentationModel.build());
+                    menuPresentationModel.build())
+                    .project();
         });
     }
 
@@ -588,15 +589,15 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                     if (isRollover) {
                         // does any *other* button show popup?
                         for (JCommandButton bcbButton : buttonStack) {
-                            if (bcbButton == button)
+                            if (bcbButton == button) {
                                 continue;
+                            }
 
                             if (bcbButton.getPopupModel().isPopupShowing()) {
                                 // scroll to view
                                 scrollerPanel.scrollToIfNecessary(button.getBounds().x,
                                         button.getWidth());
-                                // simulate click on the popup area
-                                // of *this* button
+                                // simulate click on the popup area of *this* button
                                 button.doPopupClick();
                             }
                         }
@@ -610,14 +611,14 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
     private void configureBreadcrumbButton(final JCommandButton button) {
         button.setDisplayState(CommandButtonDisplayState.MEDIUM);
-        button.setPopupOrientationKind(CommandButtonPopupOrientationKind.SIDEWARD);
+        button.setPopupOrientationKind(CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD);
         button.setHGapScaleFactor(0.75);
         button.getPopupModel().addChangeListener((ChangeEvent e) -> {
             PopupButtonModel model = button.getPopupModel();
             boolean displayDownwards = model.isRollover() || model.isPopupShowing();
-            CommandButtonPopupOrientationKind popupOrientationKind = displayDownwards
-                    ? CommandButtonPopupOrientationKind.DOWNWARD
-                    : CommandButtonPopupOrientationKind.SIDEWARD;
+            CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind = displayDownwards
+                    ? CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD
+                    : CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD;
             button.setPopupOrientationKind(popupOrientationKind);
         });
     }

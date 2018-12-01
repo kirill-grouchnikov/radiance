@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
@@ -39,7 +39,7 @@ import java.beans.*;
 
 /**
  * Basic UI for scrollable panel {@link JScrollablePanel}.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
@@ -72,17 +72,14 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
     }
 
     protected void installListeners() {
-        this.mouseWheelListener = new MouseWheelListener() {
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                if (scrollablePanel.getScrollType() != JScrollablePanel.ScrollType.VERTICALLY) {
-                    return;
-                }
-
-                int scrollAmount = 8 * e.getScrollAmount() * e.getWheelRotation();
-                viewOffset += scrollAmount;
-                syncScrolling();
+        this.mouseWheelListener = (MouseWheelEvent e) -> {
+            if (scrollablePanel.getScrollType() != JScrollablePanel.ScrollType.VERTICALLY) {
+                return;
             }
+
+            int scrollAmount = 8 * e.getScrollAmount() * e.getWheelRotation();
+            viewOffset += scrollAmount;
+            syncScrolling();
         };
         this.scrollablePanel.addMouseWheelListener(this.mouseWheelListener);
 
@@ -231,7 +228,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         }
     }
 
-    protected void configureLeftScrollerButtonAction() {
+    private void configureLeftScrollerButtonAction() {
         this.leadingScroller.setAutoRepeatAction(true);
         this.leadingScroller.setAutoRepeatActionIntervals(200, 50);
         this.leadingScroller.setFireActionOnRollover(this.scrollablePanel.isScrollOnRollover());
@@ -241,7 +238,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         });
     }
 
-    protected void configureRightScrollerButtonAction() {
+    private void configureRightScrollerButtonAction() {
         this.trailingScroller.setAutoRepeatAction(true);
         this.trailingScroller.setAutoRepeatActionIntervals(200, 50);
         this.trailingScroller.setFireActionOnRollover(this.scrollablePanel.isScrollOnRollover());
@@ -306,7 +303,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
 
     /**
      * Layout for the scrollable panel.
-     * 
+     *
      * @author Kirill Grouchnikov
      * @author Topologi
      */
@@ -314,7 +311,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         /**
          * Creates new layout manager.
          */
-        public ScrollablePanelLayout() {
+        private ScrollablePanelLayout() {
         }
 
         @Override
@@ -364,7 +361,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
 
                 int scrollPanelWidth = shouldShowScrollerButtons
                         ? width - ins.left - ins.right - leadingScroller.getPreferredSize().width
-                                - trailingScroller.getPreferredSize().width - 4
+                        - trailingScroller.getPreferredSize().width - 4
                         : width - ins.left - ins.right;
                 int x = ins.left;
                 if (shouldShowScrollerButtons) {
@@ -397,7 +394,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
 
                 int scrollPanelHeight = shouldShowScrollerButtons
                         ? height - ins.top - ins.bottom - leadingScroller.getPreferredSize().height
-                                - trailingScroller.getPreferredSize().height - 4
+                        - trailingScroller.getPreferredSize().height - 4
                         : height - ins.top - ins.bottom;
                 int y = ins.top;
                 if (shouldShowScrollerButtons) {

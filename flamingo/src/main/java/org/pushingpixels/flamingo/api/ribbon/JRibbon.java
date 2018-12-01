@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
@@ -248,7 +249,7 @@ public class JRibbon extends JComponent {
      * @see #clearTaskbar()
      */
     public synchronized void addTaskbarCommand(CommandProjection projection) {
-        CommandPresentation withOverlay = projection.getCommandPresentation().overlayWith(
+        CommandPresentation withOverlay = projection.getPresentationModel().overlayWith(
                 CommandPresentation.overlay()
                         .setCommandDisplayState(CommandButtonDisplayState.SMALL)
                         .setFocusable(false)
@@ -260,7 +261,7 @@ public class JRibbon extends JComponent {
 
         this.taskbarComponents.add(commandButton);
 
-        Command command = projection.getCommand();
+        Command command = projection.getContentModel();
         this.taskbarCommandMap.put(command, commandButton);
         this.taskbarCommands.add(command);
 

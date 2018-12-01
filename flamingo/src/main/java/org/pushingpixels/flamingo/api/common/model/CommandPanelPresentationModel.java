@@ -67,7 +67,7 @@ public class CommandPanelPresentationModel {
 
     private int commandHorizontalAlignment;
     private boolean isMenu;
-    private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind;
+    private CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind;
 
     /**
      * Enumerates the available layout kinds.
@@ -186,7 +186,7 @@ public class CommandPanelPresentationModel {
         return this.isMenu;
     }
 
-    public JCommandButton.CommandButtonPopupOrientationKind getPopupOrientationKind() {
+    public CommandPresentation.CommandButtonPopupOrientationKind getPopupOrientationKind() {
         return this.popupOrientationKind;
     }
 
@@ -235,8 +235,8 @@ public class CommandPanelPresentationModel {
         private Integer commandIconDimension = -1;
         private int commandHorizontalAlignment = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
         private boolean isMenu = false;
-        private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind =
-                JCommandButton.CommandButtonPopupOrientationKind.DOWNWARD;
+        private CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind =
+                CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD;
 
         public Builder setMaxColumns(int maxColumns) {
             this.maxColumns = maxColumns;
@@ -276,7 +276,7 @@ public class CommandPanelPresentationModel {
         }
 
         public Builder setPopupOrientationKind(
-                JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind) {
+                CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
             return this;
         }

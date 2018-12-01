@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonPanelUI;
 
 import javax.swing.*;
@@ -205,18 +206,20 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
                         public void stateChanged(ChangeEvent e) {
                             boolean isRollover = button.getActionModel().isRollover();
                             if (wasRollover && !isRollover) {
-                                commandPreviewListener.onCommandPreviewCanceled(projection.getCommand());
+                                commandPreviewListener.onCommandPreviewCanceled(
+                                        projection.getContentModel());
                             }
                             if (!wasRollover && isRollover) {
-                                commandPreviewListener.onCommandPreviewActivated(projection.getCommand());
+                                commandPreviewListener.onCommandPreviewActivated(
+                                        projection.getContentModel());
                             }
                             wasRollover = isRollover;
                         }
                     });
                 }
 
-                button.putClientProperty(COMMAND, projection.getCommand());
-                this.addButtonToLastGroup(projection.getCommand(), button);
+                button.putClientProperty(COMMAND, projection.getContentModel());
+                this.addButtonToLastGroup(projection.getContentModel(), button);
             }
             groupIndex++;
         }

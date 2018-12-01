@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.api.ribbon.model;
 
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.neon.icon.ResizableIconFactory;
 
 import javax.swing.event.*;

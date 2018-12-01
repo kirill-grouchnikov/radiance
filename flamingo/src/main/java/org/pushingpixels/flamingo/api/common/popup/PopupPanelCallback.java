@@ -50,5 +50,5 @@ public interface PopupPanelCallback {
 	 * @return The popup panel to be shown when the popup area of the specified
 	 *         command button is activated.
 	 */
-	public JPopupPanel getPopupPanel(JCommandButton commandButton);
+	JPopupPanel getPopupPanel(JCommandButton commandButton);
 }

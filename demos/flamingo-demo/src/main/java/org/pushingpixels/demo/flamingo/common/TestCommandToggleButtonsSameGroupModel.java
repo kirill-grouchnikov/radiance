@@ -33,6 +33,7 @@ import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.MarinerSkin;
 import org.pushingpixels.trident.Timeline;

@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.flamingo.api.common.*
 import org.pushingpixels.flamingo.api.common.model.*
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.neon.icon.ResizableIconFactory
 
@@ -45,7 +45,35 @@ open class KCommand {
     private lateinit var javaCommand: Command
     private var hasBeenConverted: Boolean = false
 
-    var title: String? by NullableDelegate { hasBeenConverted }
+    // The "title" property can be modified even after [KCommandButton.toButton] has been called
+    // multiple times. Internally, the setter propagates the new value to the underlying
+    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
+    // command buttons created from this command.
+    private var _title: String? = null
+    var title: String?
+        get() = _title
+        set(value) {
+            _title = value
+            builder.setTitle(value)
+            if (hasBeenConverted) {
+                javaCommand.title = value
+            }
+        }
+
+    // The "extraText" property can be modified even after [KCommandButton.toButton] has been called
+    // multiple times. Internally, the setter propagates the new value to the underlying
+    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
+    // command buttons created from this command.
+    private var _extraText: String? = null
+    var extraText: String?
+        get() = _extraText
+        set(value) {
+            _extraText = value
+            builder.setExtraText(value)
+            if (hasBeenConverted) {
+                javaCommand.extraText = value
+            }
+        }
 
     // The "icon" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
@@ -79,21 +107,6 @@ open class KCommand {
 
     var disabledIcon: ResizableIcon? by NullableDelegate { hasBeenConverted }
     var disabledIconFactory: ResizableIconFactory? by NullableDelegate { hasBeenConverted }
-
-    // The "extraText" property can be modified even after [KCommandButton.toButton] has been called
-    // multiple times. Internally, the setter propagates the new value to the underlying
-    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
-    // command buttons created from this command.
-    private var _extraText: String? = null
-    var extraText: String?
-        get() = _extraText
-        set(value) {
-            _extraText = value
-            builder.setExtraText(value)
-            if (hasBeenConverted) {
-                javaCommand.extraText = value
-            }
-        }
 
     var onCommandPreviewActivated: (() -> Unit)? by NullableDelegate { hasBeenConverted }
     var onCommandPreviewCanceled: (() -> Unit)? by NullableDelegate { hasBeenConverted }
@@ -129,13 +142,27 @@ open class KCommand {
         }
 
     var popupMenu: KCommandPopupMenu? by NullableDelegate { hasBeenConverted }
-    var popupCallback: PopupPanelCallback? by NullableDelegate { hasBeenConverted }
-    private var popupRichTooltip: KRichTooltip? by NullableDelegate { hasBeenConverted }
+    var colorSelectorPopupMenu: KColorSelectorPopupMenu? by NullableDelegate { hasBeenConverted }
+
+    // The "popupRichTooltip" property can be modified even after [KCommandButton.toButton] has been called
+    // multiple times. Internally, the setter propagates the new value to the underlying
+    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
+    // command buttons created from this command.
+    private var _popupRichTooltip: KRichTooltip? = null
+    var popupRichTooltip: KRichTooltip?
+        get() = _popupRichTooltip
+        set(value) {
+            _popupRichTooltip = value
+            builder.setPopupRichTooltip(value?.toJavaRichTooltip())
+            if (hasBeenConverted) {
+                javaCommand.popupRichTooltip = value?.toJavaRichTooltip()
+            }
+        }
 
     var isTitleClickAction: Boolean by NonNullDelegate { hasBeenConverted }
     var isTitleClickPopup: Boolean by NonNullDelegate { hasBeenConverted }
 
-    // The "enabled" property can be modified even after [KCommandButton.toButton] has been called
+    // The "isEnabled" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
@@ -147,6 +174,36 @@ open class KCommand {
             builder.setEnabled(value)
             if (hasBeenConverted) {
                 javaCommand.isEnabled = value
+            }
+        }
+
+    // The "isActionEnabled" property can be modified even after [KCommandButton.toButton] has been called
+    // multiple times. Internally, the setter propagates the new value to the underlying
+    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
+    // command buttons created from this command.
+    private var _isActionEnabled: Boolean = true
+    var isActionEnabled: Boolean
+        get() = _isActionEnabled
+        set(value) {
+            _isActionEnabled = value
+            builder.setActionEnabled(value)
+            if (hasBeenConverted) {
+                javaCommand.isActionEnabled = value
+            }
+        }
+
+    // The "isPopupEnabled" property can be modified even after [KCommandButton.toButton] has been called
+    // multiple times. Internally, the setter propagates the new value to the underlying
+    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
+    // command buttons created from this command.
+    private var _isPopupEnabled: Boolean = true
+    var isPopupEnabled: Boolean
+        get() = _isPopupEnabled
+        set(value) {
+            _isPopupEnabled = value
+            builder.setPopupEnabled(value)
+            if (hasBeenConverted) {
+                javaCommand.isPopupEnabled = value
             }
         }
 
@@ -168,19 +225,64 @@ open class KCommand {
         }
 
     var toggleGroup: KCommandToggleGroupModel? by NullableDelegate { hasBeenConverted }
-    var isAutoRepeatAction: Boolean by NonNullDelegate { hasBeenConverted }
+
+    // The "isAutoRepeatAction" property can be modified even after [KCommandButton.toButton] has
+    // been called multiple times. Internally, the setter propagates the new value to the underlying
+    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
+    // command buttons created from this command.
+    private var _isAutoRepeatAction: Boolean = false
+    var isAutoRepeatAction: Boolean
+        get() = _isAutoRepeatAction
+        set(value) {
+            _isAutoRepeatAction = value
+            builder.setAutoRepeatAction(value)
+            if (hasBeenConverted) {
+                javaCommand.isAutoRepeatAction = value
+            }
+        }
+
     var autoRepeatInitialInterval: Int by NonNullDelegate { hasBeenConverted }
     var autoRepeatSubsequentInterval: Int by NonNullDelegate { hasBeenConverted }
-    var isFireActionOnRollover: Boolean by NonNullDelegate { hasBeenConverted }
+
+    // The "isFireActionOnRollover" property can be modified even after [KCommandButton.toButton] has
+    // been called multiple times. Internally, the setter propagates the new value to the underlying
+    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
+    // command buttons created from this command.
+    private var _isFireActionOnRollover: Boolean = false
+    var isFireActionOnRollover: Boolean
+        get() = _isFireActionOnRollover
+        set(value) {
+            _isFireActionOnRollover = value
+            builder.setFireActionOnRollover(value)
+            if (hasBeenConverted) {
+                javaCommand.isFireActionOnRollover = value
+            }
+        }
+
+    // The "isFireActionOnPress" property can be modified even after [KCommandButton.toButton] has
+    // been called multiple times. Internally, the setter propagates the new value to the underlying
+    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
+    // command buttons created from this command.
+    private var _isFireActionOnPress: Boolean = false
+    var isFireActionOnPress: Boolean
+        get() = _isFireActionOnPress
+        set(value) {
+            _isFireActionOnPress = value
+            builder.setFireActionOnPress(value)
+            if (hasBeenConverted) {
+                javaCommand.isFireActionOnPress = value
+            }
+        }
 
     init {
         isTitleClickAction = false
         isTitleClickPopup = false
         isToggle = false
         isAutoRepeatAction = false
-        autoRepeatInitialInterval = JCommandButton.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
-        autoRepeatSubsequentInterval = JCommandButton.DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS
+        autoRepeatInitialInterval = Command.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
+        autoRepeatSubsequentInterval = Command.DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS
         isFireActionOnRollover = false
+        isFireActionOnPress = false
     }
 
     fun actionRichTooltip(init: KRichTooltip.() -> Unit) {
@@ -212,11 +314,11 @@ open class KCommand {
             builder.setPopupRichTooltip(command.popupRichTooltip?.toJavaRichTooltip())
 
             if (command.popupMenu != null) {
+                builder.setPopupMenuProjection(command.popupMenu!!.toJavaCommandPopupMenuProjection())
+            } else if (command.colorSelectorPopupMenu != null) {
                 builder.setPopupCallback {
-                    command.popupMenu!!.toCommandPopupMenu()
+                    command.colorSelectorPopupMenu!!.toJavaColorSelectorPopupMenu()
                 }
-            } else {
-                builder.setPopupCallback(command.popupCallback)
             }
 
             if (command.isTitleClickAction) {
@@ -236,6 +338,9 @@ open class KCommand {
             if (command.toggleGroup != null) {
                 builder.inToggleGroup(command.toggleGroup!!.javaCommandToggleModel)
             }
+
+            builder.setFireActionOnRollover(command.isFireActionOnRollover)
+            builder.setFireActionOnPress(command.isFireActionOnPress)
 
             builder.setPreviewListener(object: Command.CommandPreviewListener {
                 override fun onCommandPreviewActivated(cmd: Command?) {
@@ -279,8 +384,8 @@ class KCommandPresentation {
     var horizontalAlignment: Int = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
     var horizontalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
     var verticalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
-    var popupOrientationKind: JCommandButton.CommandButtonPopupOrientationKind =
-            JCommandButton.CommandButtonPopupOrientationKind.DOWNWARD
+    var popupOrientationKind: CommandPresentation.CommandButtonPopupOrientationKind =
+            CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD
     var commandIconDimension: Int? = null
     var isMenu: Boolean = false
     var actionKeyTip: String? = null

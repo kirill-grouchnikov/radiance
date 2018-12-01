@@ -30,7 +30,6 @@
 package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
-import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -38,16 +37,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class TestCommandToggleButtonsNoIcon extends TestCommandToggleButtons {
-    @Override
-    protected JCommandToggleButton createToggleButton(CommandButtonDisplayState state,
-            String title) {
-        JCommandToggleButton mainButton = new JCommandToggleButton(title);
-        mainButton.setExtraText(resourceBundle.getString("SelectAll.textExtra"));
-        mainButton.addActionListener(
-                (ActionEvent e) -> System.out.println(stamp() + ": Main selection"));
-        mainButton.setDisplayState(state);
-        mainButton.setFlat(false);
-        return mainButton;
+    public TestCommandToggleButtonsNoIcon() {
+        super();
+
+        // reconfigure the commands to show no icons
+        this.toggleCommandShort.setIconFactory(null);
+        this.toggleCommandLong.setIconFactory(null);
     }
 
     @Override
@@ -55,8 +50,11 @@ public class TestCommandToggleButtonsNoIcon extends TestCommandToggleButtons {
         super.configureControlPanel(controlPanel);
         final JCheckBox noIcon = new JCheckBox("no icon");
         noIcon.setSelected(true);
-        wireCommandTo(noIcon, (JCommandToggleButton button) ->
-                button.setIcon(noIcon.isSelected() ? null : new Edit_paste()));
+        noIcon.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            boolean isSelected = noIcon.isSelected();
+            toggleCommandShort.setIconFactory(isSelected ? null : Edit_paste.factory());
+            toggleCommandLong.setIconFactory(isSelected ? null : Edit_paste.factory());
+        }));
         controlPanel.add(noIcon);
     }
 

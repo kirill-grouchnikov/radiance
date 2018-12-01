@@ -30,7 +30,6 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.ribbon.*;
@@ -214,7 +213,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     commandButton.setDisplayState(MENU_TILE_LEVEL_1);
                     commandButton.setHorizontalAlignment(SwingUtilities.LEADING);
                     commandButton
-                            .setPopupOrientationKind(CommandButtonPopupOrientationKind.SIDEWARD);
+                            .setPopupOrientationKind(
+                                    CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD);
                     commandButton.setEnabled(menuEntry.isEnabled());
                     this.panelLevel1.add(commandButton);
                 }

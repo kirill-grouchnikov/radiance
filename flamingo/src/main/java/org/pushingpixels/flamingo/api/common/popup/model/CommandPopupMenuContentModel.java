@@ -30,11 +30,12 @@
 package org.pushingpixels.flamingo.api.common.popup.model;
 
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 
 import javax.swing.event.*;
 import java.util.*;
 
-public class CommandPopupMenuContentModel {
+public class CommandPopupMenuContentModel implements ContentModel {
     private CommandPanelContentModel panelContentModel;
     private List<CommandProjectionGroupModel> commandGroups;
 

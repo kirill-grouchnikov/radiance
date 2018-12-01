@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
@@ -38,59 +38,30 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class TestCommandButtonsNoIcon extends TestCommandButtons {
-    @Override
-    protected JCommandButton createActionButton(CommandButtonDisplayState state) {
-        JCommandButton result = new JCommandButton(resourceBundle.getString("Paste.text"));
-        result.setExtraText(resourceBundle.getString("Paste.textExtra"));
-        result.addActionListener((ActionEvent e) -> System.out.println(stamp() + ": Main paste"));
-        result.setCommandButtonKind(JCommandButton.CommandButtonKind.ACTION_ONLY);
-        result.setDisplayState(state);
-        result.setFlat(false);
-        return result;
-    }
+    public TestCommandButtonsNoIcon() {
+        super();
 
-    @Override
-    protected JCommandButton createActionAndPopupMainActionButton(CommandButtonDisplayState state) {
-        JCommandButton result = new JCommandButton(resourceBundle.getString("Cut.text"));
-        result.setExtraText(resourceBundle.getString("Cut.textExtra"));
-        result.setPopupCallback(new TestPopupCallback());
-        result.setCommandButtonKind(JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION);
-        result.setDisplayState(state);
-        result.setFlat(false);
-        result.addActionListener((ActionEvent e) -> System.out.println(stamp() + ": Cut"));
-        return result;
-    }
-
-    @Override
-    protected JCommandButton createActionAndPopupMainPopupButton(CommandButtonDisplayState state) {
-        JCommandButton result = new JCommandButton(resourceBundle.getString("Copy.text"));
-        result.setExtraText(resourceBundle.getString("Copy.textExtra"));
-        result.setPopupCallback(new TestPopupCallback());
-        result.setCommandButtonKind(JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
-        result.setDisplayState(state);
-        result.setFlat(false);
-        result.addActionListener((ActionEvent e) -> System.out.println(stamp() + ": Copy"));
-        return result;
-    }
-
-    @Override
-    protected JCommandButton createPopupButton(CommandButtonDisplayState state) {
-        JCommandButton result = new JCommandButton(resourceBundle.getString("SelectAll.text"));
-        result.setExtraText(resourceBundle.getString("SelectAll.textExtra"));
-        result.setPopupCallback(new TestPopupCallback());
-        result.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
-        result.setDisplayState(state);
-        result.setFlat(false);
-        return result;
+        // reconfigure the commands to show no icons
+        copyCommand.setIconFactory(null);
+        cutCommand.setIconFactory(null);
+        pasteActionCommand.setIconFactory(null);
+        pastePopupCommand.setIconFactory(null);
     }
 
     @Override
     protected void configureControlPanel(JPanel controlPanel) {
         super.configureControlPanel(controlPanel);
+
         final JCheckBox noIcon = new JCheckBox("no icon");
         noIcon.setSelected(true);
-        wireCommandTo(noIcon, (JCommandButton button) ->
-                button.setIcon(noIcon.isSelected() ? null : new Edit_paste()));
+        noIcon.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            boolean isSelected = noIcon.isSelected();
+            copyCommand.setIconFactory(isSelected ? null : Edit_copy.factory());
+            cutCommand.setIconFactory(isSelected ? null : Edit_cut.factory());
+            pasteActionCommand.setIconFactory(isSelected ? null : Edit_paste.factory());
+            pastePopupCommand.setIconFactory(isSelected ? null : Edit_paste.factory());
+        }));
+
         controlPanel.add(noIcon);
     }
 

@@ -39,6 +39,7 @@ import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.PrimaryClearRolloverCallback;
 import org.pushingpixels.flamingo.api.ribbon.model.*;
@@ -46,7 +47,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.skin.*;
+import org.pushingpixels.substance.api.skin.GeminiSkin;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -56,8 +57,8 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class BasicCheckRibbon extends JRibbonFrame {
     protected Locale currLocale;
@@ -78,7 +79,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         }
     }
 
-    private JCommandPopupMenu getSamplePopupMenu() {
+    private CommandPopupMenuProjection getSamplePopupMenuProjection() {
         MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
         mf.setLocale(currLocale);
 
@@ -124,7 +125,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 Arrays.asList(new CommandProjectionGroupModel(menuCommands1),
                         new CommandProjectionGroupModel(menuCommands2)));
 
-        return new JCommandPopupMenu(menuContentModel,
+        return new CommandPopupMenuProjection(menuContentModel,
                 CommandPopupMenuPresentationModel.builder().build());
     }
 
@@ -231,7 +232,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         preferencesBand.addRibbonCommand(Command.builder()
                         .setTitle(resourceBundle.getString("KeyboardShortcuts.text"))
                         .setIcon(Preferences_desktop_keyboard_shortcuts.of(16, 16))
-                        .setPopupCallback((JCommandButton commandButton) -> getSamplePopupMenu())
+                        .setPopupMenuProjection(getSamplePopupMenuProjection())
                         .build()
                         .project(CommandPresentation.builder()
                                 .setPopupKeyTip("H")
@@ -554,8 +555,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                         .addDescriptionSection(resourceBundle
                                                 .getString("Cut.tooltip.actionParagraph1"))
                                         .build())
-                                .setPopupCallback(
-                                        (JCommandButton commandButton) -> getSamplePopupMenu())
+                                .setPopupMenuProjection(getSamplePopupMenuProjection())
                                 .setTitleClickAction().build()
                                 .project(CommandPresentation.builder()
                                         .setHorizontalAlignment(SwingConstants.LEADING)
@@ -567,65 +567,62 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         Command.builder().setTitle(resourceBundle.getString("Copy.text"))
                                 .setIcon(Edit_copy.of(16, 16))
                                 .setAction((CommandActionEvent e) -> System.out.println("Copy!"))
-                                .setPopupCallback(
-                                        (JCommandButton commandButton) -> getSamplePopupMenu())
+                                .setPopupMenuProjection(getSamplePopupMenuProjection())
                                 .setTitleClickPopup().build()
                                 .project(CommandPresentation.builder()
                                         .setHorizontalAlignment(SwingConstants.LEADING)
                                         .setPopupKeyTip("C").build()),
                         RibbonElementPriority.MEDIUM);
 
-        PopupPanelCallback formatButtonPopupCallback = (JCommandButton commandButton) -> {
-            List<CommandProjectionGroupModel> formatMenuEntries = new ArrayList<>();
+        List<CommandProjectionGroupModel> formatMenuEntries = new ArrayList<>();
 
-            formatMenuEntries.add(new CommandProjectionGroupModel(
-                    Command.builder()
-                            .setTitle(resourceBundle.getString("Format.menuSaveSelection.text"))
-                            .setIcon(new ColorResizableIcon(16, new Color(0xFFFBC02D)))
-                            .setAction((CommandActionEvent e) -> System.out.println(
-                                    "Save Selection activated"))
-                            .build()
-                            .project(CommandPresentation.builder()
-                                    .setActionKeyTip("SS").build()),
-                    Command.builder()
-                            .setTitle(resourceBundle.getString("Format.menuClearSelection.text"))
-                            .setIcon(new ColorResizableIcon(16, new Color(0xFFFFA000)))
-                            .setAction((CommandActionEvent e) -> System.out.println(
-                                    "Clear Selection activated"))
-                            .build()
-                            .project(CommandPresentation.builder()
-                                    .setActionKeyTip("SC").build())
-            ));
-            formatMenuEntries.add(new CommandProjectionGroupModel(
-                    Command.builder()
-                            .setTitle(resourceBundle.getString("Format.applyStyles.text"))
-                            .setIcon(new ColorResizableIcon(16, new Color(0xFFF57C00)))
-                            .setAction((CommandActionEvent e) -> System.out.println(
-                                    "Apply Styles activated"))
-                            .build()
-                            .project(CommandPresentation.builder()
-                                    .setActionKeyTip("SA").build())
-            ));
+        formatMenuEntries.add(new CommandProjectionGroupModel(
+                Command.builder()
+                        .setTitle(resourceBundle.getString("Format.menuSaveSelection.text"))
+                        .setIcon(new ColorResizableIcon(16, new Color(0xFFFBC02D)))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Save Selection activated"))
+                        .build()
+                        .project(CommandPresentation.builder()
+                                .setActionKeyTip("SS").build()),
+                Command.builder()
+                        .setTitle(resourceBundle.getString("Format.menuClearSelection.text"))
+                        .setIcon(new ColorResizableIcon(16, new Color(0xFFFFA000)))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Clear Selection activated"))
+                        .build()
+                        .project(CommandPresentation.builder()
+                                .setActionKeyTip("SC").build())
+        ));
+        formatMenuEntries.add(new CommandProjectionGroupModel(
+                Command.builder()
+                        .setTitle(resourceBundle.getString("Format.applyStyles.text"))
+                        .setIcon(new ColorResizableIcon(16, new Color(0xFFF57C00)))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Apply Styles activated"))
+                        .build()
+                        .project(CommandPresentation.builder()
+                                .setActionKeyTip("SA").build())
+        ));
 
-            return new JCommandPopupMenu(
-                    new CommandPopupMenuContentModel(
-                            QuickStylesPanel.getQuickStylesContentModel(resourceBundle,
-                                    currLocale), formatMenuEntries),
-                    CommandPopupMenuPresentationModel.builder()
-                            .setPanelPresentationModel(
-                                    CommandPanelPresentationModel.builder()
-                                            .setToShowGroupLabels(false)
-                                            .setCommandDisplayState(
-                                                    CommandButtonDisplayState.FIT_TO_ICON)
-                                            .setCommandIconDimension(48)
-                                            .setMaxColumns(5)
-                                            .setMaxRows(3).build())
-                            .build());
-        };
+        CommandPopupMenuProjection formatButtonPopupProjection = new CommandPopupMenuProjection(
+                new CommandPopupMenuContentModel(
+                        QuickStylesPanel.getQuickStylesContentModel(resourceBundle, currLocale),
+                        formatMenuEntries),
+                CommandPopupMenuPresentationModel.builder()
+                        .setPanelPresentationModel(
+                                CommandPanelPresentationModel.builder()
+                                        .setToShowGroupLabels(false)
+                                        .setCommandDisplayState(
+                                                CommandButtonDisplayState.FIT_TO_ICON)
+                                        .setCommandIconDimension(48)
+                                        .setMaxColumns(5)
+                                        .setMaxRows(3).build())
+                        .build());
 
         clipboardBand.addRibbonCommand(Command.builder()
                 .setTitle(resourceBundle.getString("Format.text")).setIcon(Edit_paste.of(16, 16))
-                .setPopupCallback(formatButtonPopupCallback)
+                .setPopupMenuProjection(formatButtonPopupProjection)
                 .setPopupRichTooltip(RichTooltip.builder().setTitle(
                         "Main title that can go over multiple lines of text even exceeding the " +
                                 "bigger")
@@ -797,7 +794,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                             colorPreviewListener.onColorPreviewCanceled();
                         }
                     })
-                    .build());
+                    .build().project());
 
             selectorBuilder.addColorSectionWithDerived(
                     new ColorSelectorPopupMenuGroupModel.ColorSectionModel(
@@ -830,7 +827,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                             colorActivationListener.onColorActivated(color);
                             JColorSelectorPopupMenu.addColorToRecentlyUsed(color);
                         }
-                    })).build());
+                    }))
+                    .build().project());
 
             ColorSelectorPopupMenuContentModel selectorModel =
                     new ColorSelectorPopupMenuContentModel(
@@ -1151,8 +1149,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 .addDescriptionSection(resourceBundle.getString(
                                         "Paste.tooltip.actionParagraph1"))
                                 .build())
-                .setPopupCallback(
-                        (JCommandButton commandButton) -> getSamplePopupMenu())
+                .setPopupMenuProjection(getSamplePopupMenuProjection())
                 .setPopupRichTooltip(RichTooltip.builder()
                         .setTitle(resourceBundle.getString("Paste.text"))
                         .addDescriptionSection(resourceBundle
@@ -1233,7 +1230,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         this.styleGalleryContentModel = new RibbonGalleryContentModel(Font_x_generic.factory(),
                 stylesGalleryCommands);
         this.styleGalleryContentModel.setSelectedCommand(
-                stylesGalleryCommandsList.get(1).getCommand());
+                stylesGalleryCommandsList.get(1).getContentModel());
         this.styleGalleryContentModel.addCommandActivationListener((Command activated) ->
                 System.out.println("*** Command '" + activated.getTitle() + "' activated! ***"));
         this.styleGalleryContentModel.addCommandPreviewListener(
@@ -1620,42 +1617,37 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 //.setActionKeyTip("W")
                 .build();
 
+        List<CommandProjection> wirelessCommands = new ArrayList<>();
+
+        wirelessCommands.add(Command.builder()
+                .setTitle(resourceBundle.getString("AppMenuSend.wireless.wifi.text"))
+                .setIcon(new EmptyResizableIcon(16))
+                .setAction((CommandActionEvent e) -> System.out.println(
+                        "WiFi activated"))
+                .build()
+                .project(CommandPresentation.builder()
+                        .setMenu(true)
+                        .setActionKeyTip("W").build()));
+
+        wirelessCommands.add(Command.builder()
+                .setTitle(
+                        resourceBundle.getString("AppMenuSend.wireless.bluetooth.text"))
+                .setIcon(new EmptyResizableIcon(16))
+                .setAction((CommandActionEvent e) -> System.out.println(
+                        "Bluetooth activated"))
+                .build()
+                .project(CommandPresentation.builder()
+                        .setMenu(true)
+                        .setActionKeyTip("B").build()));
+
         Command amEntrySendWireless = Command.builder()
                 .setTitle(resourceBundle.getString("AppMenuSend.wireless.text"))
                 .setIcon(Network_wireless.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuSend.wireless.description"))
-                .setPopupCallback((JCommandButton commandButton) -> {
-                    List<CommandProjection> wirelessCommands = new ArrayList<>();
-
-                    wirelessCommands.add(Command.builder()
-                            .setTitle(resourceBundle.getString("AppMenuSend.wireless.wifi.text"))
-                            .setIcon(new EmptyResizableIcon(16))
-                            .setAction((CommandActionEvent e) -> System.out.println(
-                                    "WiFi activated"))
-                            .build()
-                            .project(CommandPresentation.builder()
-                                    .setMenu(true)
-                                    .setActionKeyTip("W").build()));
-
-                    wirelessCommands.add(Command.builder()
-                            .setTitle(
-                                    resourceBundle.getString("AppMenuSend.wireless.bluetooth.text"))
-                            .setIcon(new EmptyResizableIcon(16))
-                            .setAction((CommandActionEvent e) -> System.out.println(
-                                    "Bluetooth activated"))
-                            .build()
-                            .project(CommandPresentation.builder()
-                                    .setMenu(true)
-                                    .setActionKeyTip("B").build()));
-
-
-                    JCommandPopupMenu wirelessChoices = new JCommandPopupMenu(
-                            new CommandPopupMenuContentModel(Collections.singletonList(
-                                    new CommandProjectionGroupModel(wirelessCommands))),
-                            CommandPopupMenuPresentationModel.builder().build());
-
-                    return wirelessChoices;
-                })
+                .setPopupMenuProjection(new CommandPopupMenuProjection(
+                        new CommandPopupMenuContentModel(Collections.singletonList(
+                                new CommandProjectionGroupModel(wirelessCommands))),
+                        CommandPopupMenuPresentationModel.builder().build()))
                 //.setPopupKeyTip("X")
                 .build();
 
@@ -1978,7 +1970,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 .setTitle(resourceBundle.getString(
                                         "FontStrikethrough.tooltip.textActionTitle"))
                                 .addDescriptionSection(resourceBundle.getString(
-                                                "FontStrikethrough.tooltip.textActionParagraph1"))
+                                        "FontStrikethrough.tooltip.textActionParagraph1"))
                                 .build())
                         .build()
                         .project(CommandPresentation.builder().setActionKeyTip("4").build());
@@ -2001,7 +1993,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 CommandPresentation.builder().setActionKeyTip("AF").build())),
                 CommandStripPresentationModel.builder()
                         .setCommandDisplayState(CommandButtonDisplayState.SMALL)
-                        .setOrientation(CommandStripPresentationModel.StripOrientation.HORIZONTAL).build());
+                        .setOrientation(
+                                CommandStripPresentationModel.StripOrientation.HORIZONTAL).build());
 
         fontBand.addFlowComponent(alignStrip);
 
@@ -2061,7 +2054,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         this.alignFillCommand.project()),
                 CommandStripPresentationModel.builder()
                         .setCommandDisplayState(CommandButtonDisplayState.SMALL)
-                        .setOrientation(CommandStripPresentationModel.StripOrientation.HORIZONTAL).build());
+                        .setOrientation(
+                                CommandStripPresentationModel.StripOrientation.HORIZONTAL).build());
 
         statusBar.add(alignStrip);
 
@@ -2129,8 +2123,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         CommandPopupMenuPresentationModel.builder()
                                 .setToDismissOnCommandActivation(false).build();
 
-                final JCommandPopupMenu menu = new JCommandPopupMenu(popupMenuContentModel,
-                        popupMenuPresentationModel);
+                final JCommandPopupMenu menu = new CommandPopupMenuProjection(popupMenuContentModel,
+                        popupMenuPresentationModel).project();
 
                 Popup popup = PopupFactory.getSharedInstance().getPopup(statusBar, menu, pt.x,
                         pt.y - menu.getPreferredSize().height);

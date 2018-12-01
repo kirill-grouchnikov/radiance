@@ -35,20 +35,19 @@ import org.pushingpixels.demo.flamingo.*;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import java.text.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class TestCommandButtons extends JFrame {
     private enum PopupKind {
@@ -64,26 +63,14 @@ public class TestCommandButtons extends JFrame {
 
     Locale currLocale;
 
+    protected Command pasteActionCommand;
+    protected Command cutCommand;
+    protected Command copyCommand;
+    protected Command pastePopupCommand;
+
     private JPanel buttonPanel;
 
     private JComboBox popupCombo;
-
-    interface Command {
-        void apply(JCommandButton button);
-    }
-
-    static void apply(Container cont, Command cmd) {
-        for (int i = 0; i < cont.getComponentCount(); i++) {
-            Component comp = cont.getComponent(i);
-            if (comp instanceof JCommandButton) {
-                JCommandButton cb = (JCommandButton) comp;
-                cmd.apply(cb);
-            }
-            if (comp instanceof Container) {
-                apply((Container) comp, cmd);
-            }
-        }
-    }
 
     TestCommandButtons() {
         super("Command button test");
@@ -95,17 +82,146 @@ public class TestCommandButtons extends JFrame {
 
         this.setLayout(new BorderLayout());
 
-        currLocale = Locale.getDefault();
-        resourceBundle = ResourceBundle
-                .getBundle("org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
-
-        buttonPanel = getButtonPanel();
-        this.add(buttonPanel, BorderLayout.CENTER);
-
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         this.configureControlPanel(controlPanel);
 
         this.add(controlPanel, BorderLayout.SOUTH);
+
+
+        currLocale = Locale.getDefault();
+        resourceBundle = ResourceBundle
+                .getBundle("org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
+
+        this.pastePopupCommand = Command.builder()
+                .setTitle(resourceBundle.getString("SelectAll.text"))
+                .setIconFactory(Edit_paste.factory())
+                .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
+                .setPopupMenuProjection(getCurrentPopupMenuProjection())
+                .build();
+
+        this.copyCommand = Command.builder()
+                .setTitle(resourceBundle.getString("Copy.text"))
+                .setIconFactory(Edit_copy.factory())
+                .setExtraText(resourceBundle.getString("Copy.textExtra"))
+                .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Copy"))
+                .setPopupMenuProjection(getCurrentPopupMenuProjection())
+                .setTitleClickPopup()
+                .build();
+
+        this.cutCommand = Command.builder()
+                .setTitle(resourceBundle.getString("Cut.text"))
+                .setIconFactory(Edit_cut.factory())
+                .setExtraText(resourceBundle.getString("Cut.textExtra"))
+                .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Cut"))
+                .setPopupMenuProjection(getCurrentPopupMenuProjection())
+                .setTitleClickAction()
+                .build();
+
+        this.pasteActionCommand = Command.builder()
+                .setTitle(resourceBundle.getString("Paste.text"))
+                .setIconFactory(Edit_paste.factory())
+                .setDisabledIconFactory(
+                        () -> SubstanceCortex.GlobalScope.colorize(Edit_paste.of(16, 16),
+                                SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(null,
+                                        ComponentState.DISABLED_UNSELECTED)))
+                .setExtraText(resourceBundle.getString("Paste.textExtra"))
+                .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Main paste"))
+                .build();
+
+        buttonPanel = getButtonPanel();
+        this.add(buttonPanel, BorderLayout.CENTER);
+
+    }
+
+    private CommandPopupMenuProjection getCurrentPopupMenuProjection() {
+        MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
+        mf.setLocale(currLocale);
+
+        CommandPresentation menuDisplay = CommandPresentation.builder().setMenu(true).build();
+
+        PopupKind popupKind = (PopupKind) popupCombo.getSelectedItem();
+        switch (popupKind) {
+            case SIMPLE:
+                List<CommandProjection> simpleEntries1 = new ArrayList<>();
+                List<CommandProjection> simpleEntries2 = new ArrayList<>();
+
+                simpleEntries1.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
+                        .setTitle(mf.format(new Object[] { "1" }))
+                        .setIcon(new Address_book_new()).build().project(menuDisplay));
+                simpleEntries1.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
+                        .setTitle(mf.format(new Object[] { "2" }))
+                        .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
+                simpleEntries1.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
+                        .setTitle(mf.format(new Object[] { "3" }))
+                        .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
+
+                simpleEntries2.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
+                        .setTitle(mf.format(new Object[] { "4" }))
+                        .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
+                simpleEntries2.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
+                        .setTitle(mf.format(new Object[] { "5" }))
+                        .setIcon(new Text_x_generic()).build().project(menuDisplay));
+
+                return new CommandPopupMenuProjection(
+                        new CommandPopupMenuContentModel(
+                                Arrays.asList(new CommandProjectionGroupModel(simpleEntries1),
+                                        new CommandProjectionGroupModel(simpleEntries2))),
+                        CommandPopupMenuPresentationModel.builder().build());
+
+            case SCROLLABLE:
+                List<CommandProjection> scrollableEntries = new ArrayList<>();
+
+                for (int i = 0; i < 20; i++) {
+                    final int index = i;
+                    scrollableEntries.add(
+                            org.pushingpixels.flamingo.api.common.model.Command.builder()
+                                    .setTitle(mf.format(new Object[] { i }))
+                                    .setIcon(new Text_x_generic())
+                                    .setAction((CommandActionEvent e) -> System.out
+                                            .println("Invoked action on '" + index + "'"))
+                                    .build().project(menuDisplay));
+                }
+
+                return new CommandPopupMenuProjection(
+                        new CommandPopupMenuContentModel(
+                                new CommandProjectionGroupModel(scrollableEntries)),
+                        CommandPopupMenuPresentationModel.builder()
+                                .setMaxVisibleMenuCommands(8).build());
+
+            default:
+                List<CommandProjectionGroupModel> extraEntries = new ArrayList<>();
+                extraEntries.add(new CommandProjectionGroupModel(
+                        org.pushingpixels.flamingo.api.common.model.Command.builder()
+                                .setTitle(resourceBundle.getString("SaveSelection.text"))
+                                .setIcon(new X_office_document())
+                                .build().project(menuDisplay),
+                        org.pushingpixels.flamingo.api.common.model.Command.builder()
+                                .setTitle(resourceBundle.getString("ClearSelection.text"))
+                                .setIcon(new EmptyResizableIcon(16))
+                                .build().project(menuDisplay)
+                ));
+                extraEntries.add(new CommandProjectionGroupModel(
+                        org.pushingpixels.flamingo.api.common.model.Command.builder()
+                                .setTitle(resourceBundle.getString("ApplyStyles.text"))
+                                .setIcon(new EmptyResizableIcon(16))
+                                .build().project(menuDisplay)
+                ));
+
+                return new CommandPopupMenuProjection(
+                        new CommandPopupMenuContentModel(
+                                QuickStylesPanel.getQuickStylesContentModel(resourceBundle,
+                                        currLocale), extraEntries),
+                        CommandPopupMenuPresentationModel.builder()
+                                .setPanelPresentationModel(
+                                        CommandPanelPresentationModel.builder()
+                                                .setToShowGroupLabels(false)
+                                                .setCommandDisplayState(
+                                                        CommandButtonDisplayState.FIT_TO_ICON)
+                                                .setCommandIconDimension(48)
+                                                .setMaxColumns(5)
+                                                .setMaxRows(3).build())
+                                .build());
+        }
     }
 
     protected JPanel getButtonPanel() {
@@ -132,170 +248,54 @@ public class TestCommandButtons extends JFrame {
         return new SimpleDateFormat("HH:mm:ss.SSS").format(new Date());
     }
 
-    protected class TestPopupCallback implements PopupPanelCallback {
-        @Override
-        public JPopupPanel getPopupPanel(JCommandButton commandButton) {
-            MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
-            mf.setLocale(currLocale);
-
-            CommandPresentation menuDisplay = CommandPresentation.builder().setMenu(true).build();
-
-            PopupKind popupKind = (PopupKind) popupCombo.getSelectedItem();
-            switch (popupKind) {
-                case SIMPLE:
-                    List<CommandProjection> simpleEntries1 = new ArrayList<>();
-                    List<CommandProjection> simpleEntries2 = new ArrayList<>();
-
-                    simpleEntries1.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
-                            .setTitle(mf.format(new Object[] { "1" }))
-                            .setIcon(new Address_book_new()).build().project(menuDisplay));
-                    simpleEntries1.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
-                            .setTitle(mf.format(new Object[] { "2" }))
-                            .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
-                    simpleEntries1.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
-                            .setTitle(mf.format(new Object[] { "3" }))
-                            .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
-
-                    simpleEntries2.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
-                            .setTitle(mf.format(new Object[] { "4" }))
-                            .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
-                    simpleEntries2.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
-                            .setTitle(mf.format(new Object[] { "5" }))
-                            .setIcon(new Text_x_generic()).build().project(menuDisplay));
-
-                    return new JCommandPopupMenu(new CommandPopupMenuContentModel(
-                            Arrays.asList(new CommandProjectionGroupModel(simpleEntries1),
-                                    new CommandProjectionGroupModel(simpleEntries2))),
-                            CommandPopupMenuPresentationModel.builder().build());
-
-                case SCROLLABLE:
-                    List<CommandProjection> scrollableEntries = new ArrayList<>();
-
-                    for (int i = 0; i < 20; i++) {
-                        final int index = i;
-                        scrollableEntries.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
-                                .setTitle(mf.format(new Object[] { i }))
-                                .setIcon(new Text_x_generic())
-                                .setAction((CommandActionEvent e) -> System.out
-                                        .println("Invoked action on '" + index + "'"))
-                                .build().project(menuDisplay));
-                    }
-
-                    return new JCommandPopupMenu(new CommandPopupMenuContentModel(
-                            new CommandProjectionGroupModel(scrollableEntries)),
-                            CommandPopupMenuPresentationModel.builder()
-                                    .setMaxVisibleMenuCommands(8).build());
-
-                case COMPLEX:
-                    List<CommandProjectionGroupModel> extraEntries = new ArrayList<>();
-                    extraEntries.add(new CommandProjectionGroupModel(
-                            org.pushingpixels.flamingo.api.common.model.Command.builder()
-                                    .setTitle(resourceBundle.getString("SaveSelection.text"))
-                                    .setIcon(new X_office_document())
-                                    .build().project(menuDisplay),
-                            org.pushingpixels.flamingo.api.common.model.Command.builder()
-                                    .setTitle(resourceBundle.getString("ClearSelection.text"))
-                                    .setIcon(new EmptyResizableIcon(16))
-                                    .build().project(menuDisplay)
-                    ));
-                    extraEntries.add(new CommandProjectionGroupModel(
-                            org.pushingpixels.flamingo.api.common.model.Command.builder()
-                                    .setTitle(resourceBundle.getString("ApplyStyles.text"))
-                                    .setIcon(new EmptyResizableIcon(16))
-                                    .build().project(menuDisplay)
-                    ));
-
-                    return new JCommandPopupMenu(
-                            new CommandPopupMenuContentModel(
-                                    QuickStylesPanel.getQuickStylesContentModel(resourceBundle,
-                                            currLocale), extraEntries),
-                            CommandPopupMenuPresentationModel.builder()
-                                    .setPanelPresentationModel(
-                                            CommandPanelPresentationModel.builder()
-                                                    .setToShowGroupLabels(false)
-                                                    .setCommandDisplayState(
-                                                            CommandButtonDisplayState.FIT_TO_ICON)
-                                                    .setCommandIconDimension(48)
-                                                    .setMaxColumns(5)
-                                                    .setMaxRows(3).build())
-                                    .build());
-            }
-            return null;
-        }
-    }
-
-    protected void wireCommandTo(JCheckBox checkbox, Command command) {
-        checkbox.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
-                () -> apply(TestCommandButtons.this, command)));
-    }
-
     private void addButtons(FormBuilder builder, CommandButtonDisplayState state, int row) {
         builder.add(state.getDisplayName() + " state").xy(1, row);
 
-        JCommandButton actionButton = createActionButton(state);
+        AbstractCommandButton actionButton = createActionButton(state);
         builder.add(actionButton).xy(3, row);
 
-        JCommandButton actionAndPopupMainActionButton = createActionAndPopupMainActionButton(state);
+        AbstractCommandButton actionAndPopupMainActionButton =
+                createActionAndPopupMainActionButton(state);
         builder.add(actionAndPopupMainActionButton).xy(5, row);
 
-        JCommandButton actionAndPopupMainPopupButton = createActionAndPopupMainPopupButton(state);
+        AbstractCommandButton actionAndPopupMainPopupButton =
+                createActionAndPopupMainPopupButton(state);
         builder.add(actionAndPopupMainPopupButton).xy(7, row);
 
-        JCommandButton popupButton = createPopupButton(state);
+        AbstractCommandButton popupButton = createPopupButton(state);
         builder.add(popupButton).xy(9, row);
     }
 
-    protected JCommandButton createPopupButton(CommandButtonDisplayState state) {
-        JCommandButton popupButton = new JCommandButton(resourceBundle.getString("SelectAll.text"),
-                new Edit_paste());
-        popupButton.setExtraText(resourceBundle.getString("SelectAll.textExtra"));
-        popupButton.setPopupCallback(new TestPopupCallback());
-        popupButton.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
-        popupButton.setDisplayState(state);
-        popupButton.setFlat(false);
-        return popupButton;
+    protected AbstractCommandButton createPopupButton(CommandButtonDisplayState state) {
+        return this.pastePopupCommand.project(
+                CommandPresentation.builder()
+                        .setCommandDisplayState(state)
+                        .setFlat(false)
+                        .build()).project();
     }
 
-    protected JCommandButton createActionAndPopupMainPopupButton(CommandButtonDisplayState state) {
-        JCommandButton copyButton = new JCommandButton(resourceBundle.getString("Copy.text"),
-                new Edit_copy());
-        copyButton.setExtraText(resourceBundle.getString("Copy.textExtra"));
-        copyButton.setPopupCallback(new TestPopupCallback());
-        copyButton
-                .setCommandButtonKind(JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
-        copyButton.setDisplayState(state);
-        copyButton.setFlat(false);
-        copyButton.addActionListener((ActionEvent e) -> System.out.println(stamp() + ": Copy"));
-        return copyButton;
+    protected AbstractCommandButton createActionAndPopupMainPopupButton(CommandButtonDisplayState state) {
+        return this.copyCommand.project(
+                CommandPresentation.builder()
+                        .setCommandDisplayState(state)
+                        .setFlat(false)
+                        .build()).project();
     }
 
-    protected JCommandButton createActionAndPopupMainActionButton(CommandButtonDisplayState state) {
-        JCommandButton cutButton = new JCommandButton(resourceBundle.getString("Cut.text"),
-                new Edit_cut());
-        cutButton.setExtraText(resourceBundle.getString("Cut.textExtra"));
-        cutButton.setPopupCallback(new TestPopupCallback());
-        cutButton.setCommandButtonKind(
-                JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION);
-        cutButton.setDisplayState(state);
-        cutButton.setFlat(false);
-        cutButton.addActionListener((ActionEvent e) -> System.out.println(stamp() + ": Cut"));
-        return cutButton;
+    protected AbstractCommandButton createActionAndPopupMainActionButton(CommandButtonDisplayState state) {
+        return this.cutCommand.project(
+                CommandPresentation.builder()
+                        .setCommandDisplayState(state)
+                        .setFlat(false)
+                        .build()).project();
     }
 
-    protected JCommandButton createActionButton(CommandButtonDisplayState state) {
-        JCommandButton mainButton = new JCommandButton(resourceBundle.getString("Paste.text"),
-                new Edit_paste());
-        mainButton.setDisabledIcon(
-                SubstanceCortex.GlobalScope.colorize(Edit_paste.of(16, 16),
-                        SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(mainButton,
-                                ComponentState.DISABLED_UNSELECTED)));
-        mainButton.setExtraText(resourceBundle.getString("Paste.textExtra"));
-        mainButton
-                .addActionListener((ActionEvent e) -> System.out.println(stamp() + ": Main paste"));
-        mainButton.setCommandButtonKind(JCommandButton.CommandButtonKind.ACTION_ONLY);
-        mainButton.setDisplayState(state);
-        mainButton.setFlat(false);
-        return mainButton;
+    protected AbstractCommandButton createActionButton(CommandButtonDisplayState state) {
+        return this.pasteActionCommand.project(
+                CommandPresentation.builder()
+                        .setCommandDisplayState(state)
+                        .setFlat(false)
+                        .build()).project();
     }
 
     protected void configureControlPanel(JPanel controlPanel) {
@@ -303,116 +303,41 @@ public class TestCommandButtons extends JFrame {
 
         final JCheckBox enabled = new JCheckBox("enabled");
         enabled.setSelected(true);
-        enabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                scan(TestCommandButtons.this);
-                repaint();
-            }
-
-            private void scan(Container c) {
-                for (int i = 0; i < c.getComponentCount(); i++) {
-                    Component child = c.getComponent(i);
-                    if (child instanceof AbstractCommandButton)
-                        child.setEnabled(enabled.isSelected());
-                    if (child instanceof Container)
-                        scan((Container) child);
-                }
-            }
+        enabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            copyCommand.setEnabled(enabled.isSelected());
+            cutCommand.setEnabled(enabled.isSelected());
+            pasteActionCommand.setEnabled(enabled.isSelected());
+            pastePopupCommand.setEnabled(enabled.isSelected());
         }));
         controlPanel.add(enabled);
 
         final JCheckBox actionEnabled = new JCheckBox("action enabled");
         actionEnabled.setSelected(true);
-        actionEnabled
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        scan(TestCommandButtons.this);
-                        repaint();
-                    }
-
-                    private void scan(Container c) {
-                        for (int i = 0; i < c.getComponentCount(); i++) {
-                            Component child = c.getComponent(i);
-                            if (child instanceof AbstractCommandButton)
-                                ((AbstractCommandButton) child).getActionModel()
-                                        .setEnabled(actionEnabled.isSelected());
-                            if (child instanceof Container)
-                                scan((Container) child);
-                        }
-                    }
-                }));
+        actionEnabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            copyCommand.setActionEnabled(actionEnabled.isSelected());
+            cutCommand.setActionEnabled(actionEnabled.isSelected());
+            pasteActionCommand.setActionEnabled(actionEnabled.isSelected());
+            pastePopupCommand.setActionEnabled(actionEnabled.isSelected());
+        }));
         controlPanel.add(actionEnabled);
 
         final JCheckBox popupEnabled = new JCheckBox("popup enabled");
         popupEnabled.setSelected(true);
-        popupEnabled
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        scan(TestCommandButtons.this);
-                        repaint();
-                    }
-
-                    private void scan(Container c) {
-                        for (int i = 0; i < c.getComponentCount(); i++) {
-                            Component child = c.getComponent(i);
-                            if (child instanceof JCommandButton)
-                                ((JCommandButton) child).getPopupModel()
-                                        .setEnabled(popupEnabled.isSelected());
-                            if (child instanceof Container)
-                                scan((Container) child);
-                        }
-                    }
-                }));
+        popupEnabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            copyCommand.setPopupEnabled(popupEnabled.isSelected());
+            cutCommand.setPopupEnabled(popupEnabled.isSelected());
+            pasteActionCommand.setPopupEnabled(popupEnabled.isSelected());
+            pastePopupCommand.setPopupEnabled(popupEnabled.isSelected());
+        }));
         controlPanel.add(popupEnabled);
-
-        final JCheckBox flat = new JCheckBox("flat");
-        flat.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                scan(TestCommandButtons.this);
-                repaint();
-            }
-
-            private void scan(Container c) {
-                for (int i = 0; i < c.getComponentCount(); i++) {
-                    Component child = c.getComponent(i);
-                    if (child instanceof AbstractCommandButton)
-                        ((AbstractCommandButton) child).setFlat(flat.isSelected());
-                    if (child instanceof Container)
-                        scan((Container) child);
-                }
-            }
-        }));
-        controlPanel.add(flat);
-
-        final JCheckBox downward = new JCheckBox("downward");
-        downward.setSelected(true);
-        downward.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                scan(TestCommandButtons.this);
-                repaint();
-            }
-
-            private void scan(Container c) {
-                for (int i = 0; i < c.getComponentCount(); i++) {
-                    Component child = c.getComponent(i);
-                    if (child instanceof JCommandButton)
-                        ((JCommandButton) child).setPopupOrientationKind(
-                                downward.isSelected() ? CommandButtonPopupOrientationKind.DOWNWARD
-                                        : CommandButtonPopupOrientationKind.SIDEWARD);
-                    if (child instanceof Container)
-                        scan((Container) child);
-                }
-            }
-        }));
-        controlPanel.add(downward);
 
         popupCombo = new JComboBox(PopupKind.values());
         popupCombo.setSelectedItem(PopupKind.SIMPLE);
+        popupCombo.addItemListener((ItemEvent e) -> SwingUtilities.invokeLater(() -> {
+            pastePopupCommand.setPopupMenuProjection(getCurrentPopupMenuProjection());
+            cutCommand.setPopupMenuProjection(getCurrentPopupMenuProjection());
+            copyCommand.setPopupMenuProjection(getCurrentPopupMenuProjection());
+        }));
         controlPanel.add(popupCombo);
 
         JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {

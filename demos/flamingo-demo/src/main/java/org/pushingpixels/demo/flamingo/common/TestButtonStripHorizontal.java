@@ -123,9 +123,7 @@ public class TestButtonStripHorizontal extends JFrame {
                         Command.builder().setIcon(new Format_text_underline()).build().project(),
                         Command.builder()
                                 .setIcon(new Format_text_strikethrough())
-                                .setPopupCallback((JCommandButton commandButton) ->
-                                        SamplePopupMenu.getSamplePopupMenu(
-                                                commandButton.getComponentOrientation()))
+                                .setPopupMenuProjection(SamplePopupMenu.getSamplePopupMenu())
                                 .build().project()),
                 CommandStripPresentationModel.builder()
                         .setCommandDisplayState(CommandButtonDisplayState.SMALL)

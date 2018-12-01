@@ -3,8 +3,11 @@ package org.pushingpixels.demo.flamingo.common;
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
+import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.photon.icon.SvgBatikResizableIcon;
 import org.pushingpixels.substance.api.*;
@@ -41,6 +44,7 @@ public class TestCommandButtonsSizing extends JPanel {
 
     private TestCommandButtonsSizing() {
         this.model = new LinkedList<>();
+
         for (final CommandButtonDisplayState state : new CommandButtonDisplayState[] {
                 CommandButtonDisplayState.BIG, CommandButtonDisplayState.MEDIUM,
                 CommandButtonDisplayState.TILE, CommandButtonDisplayState.SMALL }) {
@@ -107,23 +111,44 @@ public class TestCommandButtonsSizing extends JPanel {
                 }));
     }
 
-    private JCommandButton createActionOnlyButton(String text, CommandButtonDisplayState state,
+    private AbstractCommandButton createActionOnlyButton(String text, CommandButtonDisplayState state,
             CommandButtonKind commandButtonKind, int fontSize) {
-        ResizableIcon mainPasteIcon = SvgBatikResizableIcon.getSvgIcon(
-                TestCommandButtonsSizing.class.getClassLoader().getResource(
-                        "org/pushingpixels/demo/flamingo/svg/tango/Edit-paste.svg"),
-                new Dimension(32, 32));
-        JCommandButton mainButton = new JCommandButton(text, mainPasteIcon);
-        mainButton.setExtraText("Extra for " + text.toLowerCase());
-        mainButton.addActionListener((ActionEvent e) -> System.out.println("Action invoked"));
-        mainButton.setPopupCallback(
-                (JCommandButton commandButton) -> SamplePopupMenu.getSamplePopupMenu(
-                        commandButton.getComponentOrientation()));
-        mainButton.setCommandButtonKind(commandButtonKind);
-        mainButton.setDisplayState(state);
-        mainButton.setFlat(false);
-        mainButton.setFont(mainButton.getFont().deriveFont((float) fontSize));
-        return mainButton;
+
+        Command.Builder commandBuilder = Command.builder()
+                .setTitle(text)
+                .setExtraText("Extra for " + text.toLowerCase())
+                .setIconFactory(Edit_paste.factory());
+        switch (commandButtonKind) {
+            case ACTION_ONLY:
+                commandBuilder.setAction((CommandActionEvent e)
+                        -> System.out.println("Action invoked"));
+                break;
+            case ACTION_AND_POPUP_MAIN_ACTION:
+                commandBuilder
+                        .setAction((CommandActionEvent e) -> System.out.println("Action invoked"))
+                        .setPopupMenuProjection(SamplePopupMenu.getSamplePopupMenu())
+                        .setTitleClickAction();
+                break;
+            case ACTION_AND_POPUP_MAIN_POPUP:
+                commandBuilder
+                        .setAction((CommandActionEvent e) -> System.out.println("Action invoked"))
+                        .setPopupMenuProjection(SamplePopupMenu.getSamplePopupMenu())
+                        .setTitleClickPopup();
+                break;
+            case POPUP_ONLY:
+                commandBuilder.setPopupMenuProjection(SamplePopupMenu.getSamplePopupMenu());
+                break;
+        }
+
+        CommandProjection commandProjection = commandBuilder.build().project(
+                CommandPresentation.builder()
+                        .setCommandDisplayState(state)
+                        .setFlat(false)
+                        .build());
+        commandProjection.setCommandButtonCustomizer((AbstractCommandButton button) ->
+                button.setFont(button.getFont().deriveFont((float) fontSize)));
+
+        return commandProjection.buildButton();
     }
 
     /**

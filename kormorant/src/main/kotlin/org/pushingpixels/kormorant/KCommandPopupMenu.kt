@@ -34,6 +34,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
+import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection
 
 @FlamingoElementMarker
 class KCommandPopupMenuButtonPanel {
@@ -67,8 +68,7 @@ class KCommandPopupMenuButtonPanel {
 }
 
 @FlamingoElementMarker
-open class KCommandPopupMenu {
-    private lateinit var popupMenu: JCommandPopupMenu
+class KCommandPopupMenu {
     private var hasBeenConverted: Boolean = false
 
     private val groups = arrayListOf<KCommandGroup>()
@@ -110,7 +110,7 @@ open class KCommandPopupMenu {
         return group
     }
 
-    open fun toCommandPopupMenu(): JCommandPopupMenu {
+    fun toJavaCommandPopupMenuProjection(): CommandPopupMenuProjection {
         val presentationModelBuilder = CommandPopupMenuPresentationModel.builder()
         if (maxVisibleMenuCommands > 0) {
             presentationModelBuilder.setMaxVisibleMenuCommands(maxVisibleMenuCommands)
@@ -126,11 +126,9 @@ open class KCommandPopupMenu {
 
         val commandGroupModels = groups.map { it.toCommandGroupModel() }
 
-        popupMenu = JCommandPopupMenu(
+        return CommandPopupMenuProjection(
                 CommandPopupMenuContentModel(commandPanel?.getContentModel(), commandGroupModels),
                 presentationModelBuilder.build())
-
-        return popupMenu
     }
 }
 

@@ -32,17 +32,16 @@ package org.pushingpixels.demo.flamingo.common;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.JCommandButton.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class MultiLevelMenu extends JFrame {
 
@@ -54,51 +53,53 @@ public class MultiLevelMenu extends JFrame {
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
-        JCommandButton main = new JCommandButton("click me");
-        main.setCommandButtonKind(CommandButtonKind.POPUP_ONLY);
-        main.setDisplayState(CommandButtonDisplayState.MEDIUM);
-        main.setFlat(false);
+        List<CommandProjection> menuCommands1 = new ArrayList<>();
+        List<CommandProjection> menuCommands2 = new ArrayList<>();
 
-        // first level menu
-        main.setPopupCallback((JCommandButton commandButton) -> {
-            List<CommandProjection> menuCommands1 = new ArrayList<>();
-            List<CommandProjection> menuCommands2 = new ArrayList<>();
+        menuCommands1.add(Command.builder()
+                .setTitle("Copy").setIcon(new Edit_copy()).build().project());
+        menuCommands1.add(Command.builder()
+                .setTitle("Cut").setIcon(new Edit_cut()).build().project());
+        menuCommands1.add(Command.builder()
+                .setTitle("Paste").setIcon(new Edit_paste()).build().project());
 
-            menuCommands1.add(Command.builder()
-                    .setTitle("Copy").setIcon(new Edit_copy()).build().project());
-            menuCommands1.add(Command.builder()
-                    .setTitle("Cut").setIcon(new Edit_cut()).build().project());
-            menuCommands1.add(Command.builder()
-                    .setTitle("Paste").setIcon(new Edit_paste()).build().project());
+        List<CommandProjection> menuCommandsSecondary = new ArrayList<>();
 
-            menuCommands2.add(Command.builder()
-                    .setTitle("Find")
-                    .setPopupCallback((JCommandButton commandButton2) -> {
-                        List<CommandProjection> menuCommandsSecondary = new ArrayList<>();
+        menuCommandsSecondary.add(Command.builder()
+                .setTitle("Find").setIcon(new Edit_find()).build().project());
+        menuCommandsSecondary.add(Command.builder()
+                .setTitle("Find replace").setIcon(
+                        new Edit_find_replace()).build().project());
 
-                        menuCommandsSecondary.add(Command.builder()
-                                .setTitle("Find").setIcon(new Edit_find()).build().project());
-                        menuCommandsSecondary.add(Command.builder()
-                                .setTitle("Find replace").setIcon(
-                                        new Edit_find_replace()).build().project());
-
-                        return new JCommandPopupMenu(new CommandPopupMenuContentModel(
+        menuCommands2.add(Command.builder()
+                .setTitle("Find")
+                .setPopupMenuProjection(new CommandPopupMenuProjection(
+                        new CommandPopupMenuContentModel(
                                 new CommandProjectionGroupModel(menuCommandsSecondary)),
-                                CommandPopupMenuPresentationModel.builder().build());
-                    }).build().project());
+                        CommandPopupMenuPresentationModel.builder().build()))
+                .build().project());
 
-            CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
-                    Arrays.asList(new CommandProjectionGroupModel(menuCommands1),
-                            new CommandProjectionGroupModel(menuCommands2)));
+        CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
+                Arrays.asList(new CommandProjectionGroupModel(menuCommands1),
+                        new CommandProjectionGroupModel(menuCommands2)));
 
-            return new JCommandPopupMenu(menuContentModel,
-                    CommandPopupMenuPresentationModel.builder()
-                            .setPopupOrientationKind(CommandButtonPopupOrientationKind.SIDEWARD)
-                            .build());
-        });
+        Command mainCommand = Command.builder()
+                .setTitle("click me")
+                .setPopupMenuProjection(new CommandPopupMenuProjection(menuContentModel,
+                        CommandPopupMenuPresentationModel.builder()
+                                .setPopupOrientationKind(
+                                        CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD)
+                                .build()))
+                .build();
+
+        CommandProjection mainCommandProjection = mainCommand.project(
+                CommandPresentation.builder()
+                        .setCommandDisplayState(CommandButtonDisplayState.MEDIUM)
+                        .setFlat(false)
+                        .build());
 
         this.setLayout(new FlowLayout(FlowLayout.LEADING));
-        this.add(main);
+        this.add(mainCommandProjection.buildButton());
 
         this.setSize(300, 200);
         this.setLocationRelativeTo(null);

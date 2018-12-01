@@ -37,28 +37,32 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 import javax.swing.*;
 
 public class TestCommandButtonsRichTooltips extends TestCommandButtons {
+    public TestCommandButtonsRichTooltips() {
+        super();
 
-    @Override
-    protected JPanel getButtonPanel() {
-        JPanel result = super.getButtonPanel();
-        apply(result, (JCommandButton button) -> {
-            button.setActionRichTooltip(RichTooltip.builder()
-                    .setTitle(resourceBundle.getString("Tooltip.textActionTitle"))
-                    .addDescriptionSection(resourceBundle.getString("Tooltip.textParagraph1"))
-                    .addDescriptionSection(resourceBundle.getString("Tooltip.textParagraph2"))
-                    .setMainIcon(Address_book_new.of(32, 32))
-                    .setFooterIcon(Help_browser.of(32, 32))
-                    .addFooterSection(resourceBundle.getString("Tooltip.textFooterParagraph1"))
-                    .build());
+        RichTooltip actionRichTooltip = RichTooltip.builder()
+                .setTitle(resourceBundle.getString("Tooltip.textActionTitle"))
+                .addDescriptionSection(resourceBundle.getString("Tooltip.textParagraph1"))
+                .addDescriptionSection(resourceBundle.getString("Tooltip.textParagraph2"))
+                .setMainIcon(Address_book_new.of(32, 32))
+                .setFooterIcon(Help_browser.of(32, 32))
+                .addFooterSection(resourceBundle.getString("Tooltip.textFooterParagraph1"))
+                .build();
+        RichTooltip popupRichTooltip = RichTooltip.builder()
+                .setTitle(resourceBundle.getString("Tooltip.textPopupTitle"))
+                .addDescriptionSection(resourceBundle.getString("Tooltip.textParagraph1"))
+                .setFooterIcon(Help_browser.of(32, 32))
+                .addFooterSection(resourceBundle.getString("Tooltip.textFooterParagraph1"))
+                .build();
 
-            button.setPopupRichTooltip(RichTooltip.builder()
-                    .setTitle(resourceBundle.getString("Tooltip.textPopupTitle"))
-                    .addDescriptionSection(resourceBundle.getString("Tooltip.textParagraph1"))
-                    .setFooterIcon(Help_browser.of(32, 32))
-                    .addFooterSection(resourceBundle.getString("Tooltip.textFooterParagraph1"))
-                    .build());
-        });
-        return result;
+        this.copyCommand.setActionRichTooltip(actionRichTooltip);
+        this.copyCommand.setPopupRichTooltip(popupRichTooltip);
+        this.cutCommand.setActionRichTooltip(actionRichTooltip);
+        this.cutCommand.setPopupRichTooltip(popupRichTooltip);
+        this.pasteActionCommand.setActionRichTooltip(actionRichTooltip);
+        this.pasteActionCommand.setPopupRichTooltip(popupRichTooltip);
+        this.pastePopupCommand.setActionRichTooltip(actionRichTooltip);
+        this.pastePopupCommand.setPopupRichTooltip(popupRichTooltip);
     }
 
     /**

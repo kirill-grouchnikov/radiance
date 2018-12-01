@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+
 import javax.swing.event.*;
 import java.util.*;
 

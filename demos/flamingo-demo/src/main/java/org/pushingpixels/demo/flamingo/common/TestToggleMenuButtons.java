@@ -33,10 +33,9 @@ import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -54,25 +53,28 @@ public class TestToggleMenuButtons extends JFrame {
 
         CommandPresentation menuDisplay = CommandPresentation.builder().setMenu(true).build();
 
-        JCommandButton singleChoice = new JCommandButton("single");
-        singleChoice.setCommandButtonKind(CommandButtonKind.POPUP_ONLY);
-        singleChoice.setDisplayState(CommandButtonDisplayState.MEDIUM);
-        singleChoice.setFlat(false);
-
         CommandToggleGroupModel justifyGroup = new CommandToggleGroupModel();
 
         Command justifyLeft = Command.builder()
-                .setTitle("left").setIcon(new Format_justify_left())
-                .inToggleGroup(justifyGroup).build();
+                .setTitle("left")
+                .setIconFactory(Format_justify_left.factory())
+                .inToggleGroup(justifyGroup)
+                .build();
         Command justifyCenter = Command.builder()
-                .setTitle("center").setIcon(new Format_justify_center())
-                .inToggleGroup(justifyGroup).build();
+                .setTitle("center")
+                .setIconFactory(Format_justify_center.factory())
+                .inToggleGroup(justifyGroup)
+                .build();
         Command justifyRight = Command.builder()
-                .setTitle("right").setIcon(new Format_justify_right())
-                .inToggleGroup(justifyGroup).build();
+                .setTitle("right")
+                .setIconFactory(Format_justify_right.factory())
+                .inToggleGroup(justifyGroup)
+                .build();
         Command justifyFill = Command.builder()
-                .setTitle("fill").setIcon(new Format_justify_fill())
-                .inToggleGroup(justifyGroup).build();
+                .setTitle("fill")
+                .setIconFactory(Format_justify_fill.factory())
+                .inToggleGroup(justifyGroup)
+                .build();
 
         CommandPopupMenuContentModel justifyMenuContentModel =
                 new CommandPopupMenuContentModel(new CommandProjectionGroupModel(
@@ -81,27 +83,38 @@ public class TestToggleMenuButtons extends JFrame {
                                 justifyRight.project(menuDisplay),
                                 justifyFill.project(menuDisplay))));
 
-        singleChoice.setPopupCallback((JCommandButton commandButton) ->
-                new JCommandPopupMenu(justifyMenuContentModel,
-                        CommandPopupMenuPresentationModel.builder().build()));
-
-        JCommandButton multiChoice = new JCommandButton("multi");
-        multiChoice.setCommandButtonKind(CommandButtonKind.POPUP_ONLY);
-        multiChoice.setDisplayState(CommandButtonDisplayState.MEDIUM);
-        multiChoice.setFlat(false);
+        AbstractCommandButton singleChoice =
+                Command.builder()
+                        .setTitle("single")
+                        .setPopupMenuProjection(new CommandPopupMenuProjection(
+                                justifyMenuContentModel,
+                                CommandPopupMenuPresentationModel.builder().build()))
+                        .build()
+                        .project(CommandPresentation.builder()
+                                .setCommandDisplayState(CommandButtonDisplayState.MEDIUM)
+                                .setFlat(false).build())
+                        .buildButton();
 
         Command formatBold = Command.builder()
-                .setTitle("bold").setIcon(new Format_text_bold())
-                .setToggle().build();
+                .setTitle("bold")
+                .setIconFactory(Format_text_bold.factory())
+                .setToggle()
+                .build();
         Command formatItalic = Command.builder()
-                .setTitle("italic").setIcon(new Format_text_italic())
-                .setToggle().build();
+                .setTitle("italic")
+                .setIconFactory(Format_text_italic.factory())
+                .setToggle()
+                .build();
         Command formatUnderline = Command.builder()
-                .setTitle("underline").setIcon(new Format_text_underline())
-                .setToggle().build();
+                .setTitle("underline")
+                .setIconFactory(Format_text_underline.factory())
+                .setToggle()
+                .build();
         Command formatStrikethrough = Command.builder()
-                .setTitle("strikethrough").setIcon(new Format_text_strikethrough())
-                .setToggle().build();
+                .setTitle("strikethrough")
+                .setIconFactory(Format_text_strikethrough.factory())
+                .setToggle()
+                .build();
 
         CommandPopupMenuContentModel formatMenuContentModel =
                 new CommandPopupMenuContentModel(new CommandProjectionGroupModel(
@@ -110,10 +123,18 @@ public class TestToggleMenuButtons extends JFrame {
                                 formatUnderline.project(menuDisplay),
                                 formatStrikethrough.project(menuDisplay))));
 
-        multiChoice.setPopupCallback((JCommandButton commandButton) ->
-                new JCommandPopupMenu(formatMenuContentModel,
-                        CommandPopupMenuPresentationModel.builder()
-                                .setToDismissOnCommandActivation(false).build()));
+        AbstractCommandButton multiChoice =
+                Command.builder()
+                        .setTitle("multi")
+                        .setPopupMenuProjection(new CommandPopupMenuProjection(
+                                formatMenuContentModel,
+                                CommandPopupMenuPresentationModel.builder()
+                                        .setToDismissOnCommandActivation(false).build()))
+                        .build()
+                        .project(CommandPresentation.builder()
+                                .setCommandDisplayState(CommandButtonDisplayState.MEDIUM)
+                                .setFlat(false).build())
+                        .buildButton();
 
         JPanel main = new JPanel(new FlowLayout());
         main.add(singleChoice);
@@ -127,7 +148,6 @@ public class TestToggleMenuButtons extends JFrame {
         this.setSize(300, 200);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
     }
 
     public static void main(String[] args) {

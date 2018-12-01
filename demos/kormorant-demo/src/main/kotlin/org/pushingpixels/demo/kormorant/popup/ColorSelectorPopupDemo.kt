@@ -124,7 +124,7 @@ fun main(args: Array<String>) {
         val commandButton = commandButton {
             command {
                 icon = colorIcon
-                popupMenu = colorSelectorPopupMenu {
+                colorSelectorPopupMenu = colorSelectorPopupMenu {
                     onColorActivated = onColorActivatedListener
                     onColorPreviewActivated = onColorPreviewActivatedListener
                     onColorPreviewCanceled = onColorPreviewCanceledListener

@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.flamingo.api.common.popup.model;
 
-import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 
 import javax.swing.event.*;
 
-public class CommandPopupMenuPresentationModel {
+public class CommandPopupMenuPresentationModel implements PresentationModel {
     /**
      * Stores the listeners on this model.
      */
@@ -55,7 +55,7 @@ public class CommandPopupMenuPresentationModel {
      */
     private int maxVisibleMenuCommands;
     private boolean toDismissOnCommandActivation;
-    private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind;
+    private CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind;
     private Command highlightedCommand;
 
     private CommandPopupMenuPresentationModel() {
@@ -91,7 +91,7 @@ public class CommandPopupMenuPresentationModel {
         }
     }
 
-    public JCommandButton.CommandButtonPopupOrientationKind getPopupOrientationKind() {
+    public CommandPresentation.CommandButtonPopupOrientationKind getPopupOrientationKind() {
         return this.popupOrientationKind;
     }
 
@@ -139,8 +139,8 @@ public class CommandPopupMenuPresentationModel {
         private CommandPanelPresentationModel panelPresentationModel;
         private int maxVisibleMenuCommands = -1;
         private boolean toDismissOnCommandActivation = true;
-        private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind =
-                JCommandButton.CommandButtonPopupOrientationKind.DOWNWARD;
+        private CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind =
+                CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD;
         private Command highlightedCommand;
 
         public Builder setPanelPresentationModel(
@@ -162,7 +162,7 @@ public class CommandPopupMenuPresentationModel {
         }
 
         public Builder setPopupOrientationKind(
-                JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind) {
+                CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
             return this;
         }

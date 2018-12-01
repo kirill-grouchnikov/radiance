@@ -34,7 +34,7 @@ import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -84,11 +84,6 @@ public class TestColorSelector extends JFrame {
 
         final ColorIcon colorIcon = new ColorIcon(bColor);
 
-        JCommandButton jcb = new JCommandButton(colorIcon);
-        jcb.setCommandButtonKind(CommandButtonKind.POPUP_ONLY);
-        jcb.setDisplayState(CommandButtonDisplayState.SMALL);
-        jcb.setFlat(false);
-
         final ColorSelectorPopupMenuContentModel.ColorActivationListener colorActivationListener =
                 (Color color) -> {
                     bColor = color;
@@ -110,7 +105,7 @@ public class TestColorSelector extends JFrame {
                 };
 
         final Color defaultPanelColor = centerPanel.getBackground();
-        jcb.setPopupCallback((JCommandButton commandButton) -> {
+        PopupPanelCallback popupPanelCallback = ((JCommandButton commandButton) -> {
             ColorSelectorPopupMenuGroupModel.Builder selectorBuilder =
                     ColorSelectorPopupMenuGroupModel.builder();
 
@@ -133,7 +128,7 @@ public class TestColorSelector extends JFrame {
                             colorPreviewListener.onColorPreviewCanceled();
                         }
                     })
-                    .build());
+                    .build().project());
 
             if (hasTheme.isSelected()) {
                 selectorBuilder.addColorSectionWithDerived(
@@ -170,7 +165,8 @@ public class TestColorSelector extends JFrame {
                             colorActivationListener.onColorActivated(color);
                             JColorSelectorPopupMenu.addColorToRecentlyUsed(color);
                         }
-                    })).build());
+                    }))
+                    .build().project());
 
             ColorSelectorPopupMenuContentModel selectorModel =
                     new ColorSelectorPopupMenuContentModel(
@@ -181,7 +177,16 @@ public class TestColorSelector extends JFrame {
             return new JColorSelectorPopupMenu(selectorModel);
         });
 
-        top.add(jcb);
+        AbstractCommandButton colorButton = Command.builder()
+                .setIcon(colorIcon)
+                .setPopupCallback(popupPanelCallback)
+                .build()
+                .project(CommandPresentation.builder()
+                        .setCommandDisplayState(CommandButtonDisplayState.SMALL)
+                        .setFlat(false).build())
+                .buildButton();
+
+        top.add(colorButton);
         top.add(hasTheme);
         top.add(hasStandard);
         top.add(hasRecent);

@@ -29,23 +29,37 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class TestCommandButtonsAutoRepeat extends TestCommandButtons {
     @Override
     protected void configureControlPanel(JPanel controlPanel) {
         final JCheckBox autoRepeatActionMode = new JCheckBox("auto repeat action");
-        wireCommandTo(autoRepeatActionMode, (JCommandButton button) -> button
-                .setAutoRepeatAction(autoRepeatActionMode.isSelected()));
+        autoRepeatActionMode.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            boolean isSelected = autoRepeatActionMode.isSelected();
+            copyCommand.setAutoRepeatAction(isSelected);
+            cutCommand.setAutoRepeatAction(isSelected);
+            pasteActionCommand.setAutoRepeatAction(isSelected);
+            pastePopupCommand.setAutoRepeatAction(isSelected);
+        }));
+
         final JCheckBox actionOnRolloverMode = new JCheckBox("action on rollover");
-        wireCommandTo(actionOnRolloverMode, (JCommandButton button) -> button
-                .setFireActionOnRollover(actionOnRolloverMode.isSelected()));
+        actionOnRolloverMode.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            boolean isSelected = actionOnRolloverMode.isSelected();
+            copyCommand.setFireActionOnRollover(isSelected);
+            cutCommand.setFireActionOnRollover(isSelected);
+            pasteActionCommand.setFireActionOnRollover(isSelected);
+            pastePopupCommand.setFireActionOnRollover(isSelected);
+        }));
+
         controlPanel.add(autoRepeatActionMode);
         controlPanel.add(actionOnRolloverMode);
+
+        super.configureControlPanel(controlPanel);
     }
 
     /**

@@ -79,12 +79,13 @@ public class TestCommandButtonPanel extends JFrame {
         controlPanel.add(toShowGroupLabels);
 
         final JCheckBox isRowFillLayout = new JCheckBox("use row fill layout");
-        isRowFillLayout.setSelected(
-                buttonPanel.getPresentationModel().getLayoutKind() == CommandPanelPresentationModel.LayoutKind.ROW_FILL);
+        isRowFillLayout.setSelected(buttonPanel.getPresentationModel().getLayoutKind()
+                == CommandPanelPresentationModel.LayoutKind.ROW_FILL);
         isRowFillLayout.addActionListener((ActionEvent e) ->
                 buttonPanel.getPresentationModel().setLayoutKind(
-                        isRowFillLayout.isSelected() ? CommandPanelPresentationModel.LayoutKind.ROW_FILL : CommandPanelPresentationModel.LayoutKind
-                                .COLUMN_FILL));
+                        isRowFillLayout.isSelected()
+                                ? CommandPanelPresentationModel.LayoutKind.ROW_FILL
+                                : CommandPanelPresentationModel.LayoutKind.COLUMN_FILL));
         controlPanel.add(isRowFillLayout);
 
         JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {

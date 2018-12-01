@@ -30,8 +30,8 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand;
 
 import javax.swing.*;
@@ -77,7 +77,8 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends
                         .setCommandDisplayState(MENU_TILE_LEVEL_2)
                         .setMaxColumns(1)
                         .setCommandHorizontalAlignment(SwingUtilities.LEADING)
-                        .setPopupOrientationKind(CommandButtonPopupOrientationKind.SIDEWARD)
+                        .setPopupOrientationKind(
+                                CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD)
                         .setMenu(true)
                         .build());
     }

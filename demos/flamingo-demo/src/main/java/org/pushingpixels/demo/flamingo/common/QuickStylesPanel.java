@@ -7,6 +7,7 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Font_x_generic;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.*;

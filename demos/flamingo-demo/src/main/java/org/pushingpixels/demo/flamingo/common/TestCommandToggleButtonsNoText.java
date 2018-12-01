@@ -29,29 +29,21 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
-import java.awt.color.ColorSpace;
 import java.awt.event.ActionEvent;
-import java.awt.image.ColorConvertOp;
 
 public class TestCommandToggleButtonsNoText extends TestCommandToggleButtons {
-    @Override
-    protected JCommandToggleButton createToggleButton(CommandButtonDisplayState state,
-            String title) {
-        JCommandToggleButton mainButton = new JCommandToggleButton(new Edit_paste());
-        mainButton.setDisabledIcon(new FilteredResizableIcon(new Edit_paste(),
-                new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)));
-        mainButton.addActionListener(
-                (ActionEvent e) -> System.out.println(stamp() + ": Main selection"));
-        mainButton.setDisplayState(state);
-        mainButton.setFlat(false);
-        return mainButton;
+    public TestCommandToggleButtonsNoText() {
+        super();
+
+        // reconfigure the commands to show no texts
+        this.toggleCommandShort.setTitle(null);
+        this.toggleCommandShort.setExtraText(null);
+        this.toggleCommandLong.setTitle(null);
+        this.toggleCommandLong.setExtraText(null);
     }
 
     @Override
@@ -59,10 +51,13 @@ public class TestCommandToggleButtonsNoText extends TestCommandToggleButtons {
         super.configureControlPanel(controlPanel);
         final JCheckBox noText = new JCheckBox("no text");
         noText.setSelected(true);
-        wireCommandTo(noText, (JCommandToggleButton button) -> {
-            button.setText(noText.isSelected() ? null : "New caption");
-            button.setExtraText(noText.isSelected() ? null : "New extra text");
-        });
+        noText.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            boolean isSelected = noText.isSelected();
+            toggleCommandShort.setTitle(isSelected ? null : "New caption");
+            toggleCommandShort.setExtraText(isSelected ? null : "New extra text");
+            toggleCommandLong.setTitle(isSelected ? null : "New caption");
+            toggleCommandLong.setExtraText(isSelected ? null : "New extra text");
+        }));
         controlPanel.add(noText);
     }
 

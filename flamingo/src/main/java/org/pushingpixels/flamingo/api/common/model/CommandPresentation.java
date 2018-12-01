@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 
 /**
  * Encapsulates presentation metadata for displaying commands. Use a new instance of
@@ -46,7 +47,7 @@ import org.pushingpixels.flamingo.api.common.*;
  * @see Command
  * @see CommandProjection
  */
-public class CommandPresentation {
+public class CommandPresentation implements PresentationModel {
     private CommandButtonDisplayState commandDisplayState;
     private Integer commandIconDimension;
     private boolean isFlat;
@@ -55,7 +56,7 @@ public class CommandPresentation {
     private double horizontalGapScaleFactor;
     private double verticalGapScaleFactor;
     private boolean isMenu;
-    private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind;
+    private CommandButtonPopupOrientationKind popupOrientationKind;
     private String actionKeyTip;
     private String popupKeyTip;
     private boolean toDismissPopupsOnActivation;
@@ -127,7 +128,7 @@ public class CommandPresentation {
         return this.commandIconDimension;
     }
 
-    public JCommandButton.CommandButtonPopupOrientationKind getPopupOrientationKind() {
+    public CommandButtonPopupOrientationKind getPopupOrientationKind() {
         return this.popupOrientationKind;
     }
 
@@ -147,6 +148,24 @@ public class CommandPresentation {
         return this.popupKeyTip;
     }
 
+    /**
+     * Orientation kind for the popup.
+     *
+     * @author Kirill Grouchnikov
+     */
+    public enum CommandButtonPopupOrientationKind {
+        /**
+         * Indicates that the popup should be displayed below the button.
+         */
+        DOWNWARD,
+
+        /**
+         * Indicates that the popup should be displayed to the side of the
+         * button.
+         */
+        SIDEWARD
+    }
+
     public static class Overlay {
         private CommandButtonDisplayState commandDisplayState;
         private Boolean isFlat;
@@ -156,7 +175,7 @@ public class CommandPresentation {
         private Double verticalGapScaleFactor;
         private Integer commandIconDimension;
         private Boolean isMenu;
-        private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind;
+        private CommandButtonPopupOrientationKind popupOrientationKind;
         private Boolean toDismissPopupsOnActivation;
         private String actionKeyTip;
         private String popupKeyTip;
@@ -197,7 +216,7 @@ public class CommandPresentation {
         }
 
         public Overlay setPopupOrientationKind(
-                JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind) {
+                CommandButtonPopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
             return this;
         }
@@ -233,8 +252,8 @@ public class CommandPresentation {
         private double verticalGapScaleFactor = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR;
         private Integer commandIconDimension;
         private boolean isMenu = false;
-        private JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind =
-                JCommandButton.CommandButtonPopupOrientationKind.DOWNWARD;
+        private CommandButtonPopupOrientationKind popupOrientationKind =
+                CommandButtonPopupOrientationKind.DOWNWARD;
         private String actionKeyTip;
         private String popupKeyTip;
         private boolean toDismissPopupsOnActivation = true;
@@ -277,7 +296,7 @@ public class CommandPresentation {
         }
 
         public Builder setPopupOrientationKind(
-                JCommandButton.CommandButtonPopupOrientationKind popupOrientationKind) {
+                CommandButtonPopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
             return this;
         }

@@ -33,6 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonGalleryUI;
@@ -281,7 +282,7 @@ public class JRibbonGallery extends JComponent {
     private void setGroupMapping(List<CommandProjectionGroupModel> commandGroups) {
         for (CommandProjectionGroupModel commandGroupModel : commandGroups) {
             for (CommandProjection projection : commandGroupModel.getCommandProjections()) {
-                Command command = projection.getCommand();
+                Command command = projection.getContentModel();
                 if (!command.isToggle()) {
                     throw new IllegalStateException("Gallery command must be toggle");
                 }
@@ -304,7 +305,7 @@ public class JRibbonGallery extends JComponent {
 
             // add all the commands to this gallery (creating a UI representation for each command)
             for (CommandProjection projection : commandGroupModel.getCommandProjections()) {
-                this.addGalleryCommand(projection.getCommand());
+                this.addGalleryCommand(projection.getContentModel());
             }
         }
     }
@@ -384,8 +385,8 @@ public class JRibbonGallery extends JComponent {
                                         .build())
                         .build();
 
-        JCommandPopupMenu galleryPopupMenu = new JCommandPopupMenu(galleryPopupMenuContentModel,
-                galleryPopupMenuPresentationModel);
+        JCommandPopupMenu galleryPopupMenu = new CommandPopupMenuProjection(
+                galleryPopupMenuContentModel, galleryPopupMenuPresentationModel).project();
 
         galleryPopupMenu.applyComponentOrientation(originator.getComponentOrientation());
 

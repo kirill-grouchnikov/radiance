@@ -42,7 +42,7 @@ public interface ActionButtonModel extends ButtonModel {
 	/**
 	 * Sets indication whether the associated actions should be fired on mouse
 	 * press instead of mouse release.
-	 * 
+	 *
 	 * @param toFireActionOnPress
 	 *            if <code>true</code>, the associated actions will be fired on
 	 *            mouse press, otherwise the associated actions will be fired on
@@ -53,7 +53,7 @@ public interface ActionButtonModel extends ButtonModel {
 	/**
 	 * Returns indication whether the associated actions should be fired on
 	 * mouse press instead of mouse release.
-	 * 
+	 *
 	 * @return <code>true</code> if the associated actions are fired on mouse
 	 *         press, <code>false</code> if the associated actions are fired on
 	 *         mouse release.
