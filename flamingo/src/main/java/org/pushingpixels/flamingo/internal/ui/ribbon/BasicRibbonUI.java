@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
@@ -48,8 +48,8 @@ import javax.swing.plaf.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * Basic UI for ribbon {@link JRibbon}.
@@ -1100,12 +1100,14 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
             // Configure the projection to use our own subclass of command button (so that it can
             // use its own UI delegate class
-            taskToggleCommandProjection.setCommandButtonCreator(
-                    (CommandProjection commandProjection) -> new JRibbonTaskToggleButton());
+            taskToggleCommandProjection.setComponentCreator(
+                    (Projection<AbstractCommandButton, Command,
+                            CommandPresentation> commandProjection) ->
+                            new JRibbonTaskToggleButton());
 
             // Configure the projection with additional customizations on the command button that
             // is created to represent the task toggle command
-            taskToggleCommandProjection.setCommandButtonCustomizer(
+            taskToggleCommandProjection.setComponentCustomizer(
                     (AbstractCommandButton button) -> {
                         JRibbonTaskToggleButton taskToggleButton = (JRibbonTaskToggleButton) button;
 

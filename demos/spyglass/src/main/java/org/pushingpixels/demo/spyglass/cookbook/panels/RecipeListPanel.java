@@ -36,6 +36,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 
@@ -65,7 +66,7 @@ public class RecipeListPanel extends SingleContentPanel {
         titlePaneBuilder.add(bigger).xy(5, 1);
 
         CommandToggleGroupModel viewGroup = new CommandToggleGroupModel();
-        JCommandButtonStrip titlePaneControlButtons = new JCommandButtonStrip(
+        JCommandButtonStrip titlePaneControlButtons = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
@@ -81,7 +82,9 @@ public class RecipeListPanel extends SingleContentPanel {
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_view_stream_white_24px.of(16, 16), 0.75f)))
                                 .inToggleGroup(viewGroup)
-                                .build().project()));
+                                .build().project()),
+                CommandStripPresentationModel.builder().build())
+                .buildComponent();
 
         titlePaneBuilder.add(titlePaneControlButtons).xy(7, 1);
 
@@ -109,7 +112,7 @@ public class RecipeListPanel extends SingleContentPanel {
                 rows("p").
                 padding(new EmptyBorder(6, 0, 4, 0));
 
-        final JCommandButtonStrip controlButtons = new JCommandButtonStrip(
+        final JCommandButtonStrip controlButtons = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
@@ -118,7 +121,9 @@ public class RecipeListPanel extends SingleContentPanel {
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_remove_white_24px.of(12, 12), 0.75f)))
-                                .build().project()));
+                                .build().project()),
+                CommandStripPresentationModel.builder().build())
+                .buildComponent();
 
         final JTextField searchTextField = new JTextField(15);
         // mark the search text field with NONE decoration so that it

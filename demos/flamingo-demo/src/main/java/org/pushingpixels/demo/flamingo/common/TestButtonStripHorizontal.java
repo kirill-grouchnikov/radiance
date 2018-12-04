@@ -36,6 +36,7 @@ import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -102,7 +103,7 @@ public class TestButtonStripHorizontal extends JFrame {
     }
 
     private JCommandButtonStrip getStrip1(double hgapScaleFactor, double vgapScaleFactor) {
-        return new JCommandButtonStrip(
+        return new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder().setIcon(new Format_justify_left()).build().project(),
                         Command.builder().setIcon(new Format_justify_center()).build().project(),
@@ -112,11 +113,12 @@ public class TestButtonStripHorizontal extends JFrame {
                         .setOrientation(CommandStripPresentationModel.StripOrientation.HORIZONTAL)
                         .setHorizontalGapScaleFactor(hgapScaleFactor)
                         .setVerticalGapScaleFactor(vgapScaleFactor)
-                        .build());
+                        .build())
+                .buildComponent();
     }
 
     private JCommandButtonStrip getStrip2(double hgapScaleFactor, double vgapScaleFactor) {
-        return new JCommandButtonStrip(
+        return new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder().setIcon(new Format_text_bold()).build().project(),
                         Command.builder().setIcon(new Format_text_italic()).build().project(),
@@ -130,7 +132,8 @@ public class TestButtonStripHorizontal extends JFrame {
                         .setOrientation(CommandStripPresentationModel.StripOrientation.HORIZONTAL)
                         .setHorizontalGapScaleFactor(hgapScaleFactor)
                         .setVerticalGapScaleFactor(vgapScaleFactor)
-                        .build());
+                        .build())
+                .buildComponent();
     }
 
     public static void main(String[] args) {

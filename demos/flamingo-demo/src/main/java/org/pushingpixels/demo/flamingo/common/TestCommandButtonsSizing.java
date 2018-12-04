@@ -142,7 +142,7 @@ public class TestCommandButtonsSizing extends JPanel {
                         .setPresentationState(state)
                         .setFlat(false)
                         .build());
-        commandProjection.setCommandButtonCustomizer((AbstractCommandButton button) ->
+        commandProjection.setComponentCustomizer((AbstractCommandButton button) ->
                 button.setFont(button.getFont().deriveFont((float) fontSize)));
 
         return commandProjection.buildComponent();

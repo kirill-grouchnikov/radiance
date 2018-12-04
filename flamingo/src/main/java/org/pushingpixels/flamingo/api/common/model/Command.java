@@ -192,8 +192,24 @@ public class Command implements ContentModel {
         return this.disabledIcon;
     }
 
+    public void setDisabledIcon(ResizableIcon disabledIcon) {
+        if (this.disabledIcon != disabledIcon) {
+            ResizableIcon old = this.disabledIcon;
+            this.disabledIcon = disabledIcon;
+            this.pcs.firePropertyChange("disabledIcon", old, this.disabledIcon);
+        }
+    }
+
     public ResizableIconFactory getDisabledIconFactory() {
         return this.disabledIconFactory;
+    }
+
+    public void setDisabledIconFactory(ResizableIconFactory disabledIconFactory) {
+        if (this.disabledIconFactory != disabledIconFactory) {
+            ResizableIconFactory old = this.disabledIconFactory;
+            this.disabledIconFactory = disabledIconFactory;
+            this.pcs.firePropertyChange("disabledIconFactory", old, this.disabledIconFactory);
+        }
     }
 
     public String getExtraText() {

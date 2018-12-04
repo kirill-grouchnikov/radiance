@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel.StripOrientation;
 import org.pushingpixels.flamingo.api.common.popup.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.flamingo.internal.utils.*;
@@ -180,31 +180,33 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         // icons and additional straight sides
         CommandProjection scrollUpProjection = this.scrollUpCommand.project(
                 galleryActionsPresentation);
-        scrollUpProjection.setCommandButtonCustomizer((AbstractCommandButton button) ->
+        scrollUpProjection.setComponentCustomizer((AbstractCommandButton button) ->
                 configureScrollUpButton(button));
 
         CommandProjection scrollDownProjection = this.scrollDownCommand.project(
                 galleryActionsPresentation);
-        scrollDownProjection.setCommandButtonCustomizer((AbstractCommandButton button) ->
+        scrollDownProjection.setComponentCustomizer((AbstractCommandButton button) ->
                 configureScrollDownButton(button));
 
         CommandProjection expandProjection = this.expandCommand.project(
                 galleryActionsPresentation.overlayWith(
                         CommandPresentation.overlay().setActionKeyTip(
                                 this.ribbonGallery.getExpandKeyTip())));
-        expandProjection.setCommandButtonCreator((CommandProjection commandProjection) ->
-                new ExpandCommandButton());
-        expandProjection.setCommandButtonCustomizer((AbstractCommandButton button) ->
+        expandProjection.setComponentCreator((Projection<AbstractCommandButton, Command,
+                CommandPresentation> commandProjection) -> new ExpandCommandButton());
+        expandProjection.setComponentCustomizer((AbstractCommandButton button) ->
                 configureExpandButton(button));
 
         // Create a button strip that hosts all three scroller command projections
         this.galleryScrollerCommandProjections = new CommandProjectionGroupModel(scrollUpProjection,
                 scrollDownProjection, expandProjection);
-        this.buttonStrip = new JCommandButtonStrip(this.galleryScrollerCommandProjections,
+        this.buttonStrip = new CommandStripProjection(
+                this.galleryScrollerCommandProjections,
                 CommandStripPresentationModel.builder()
                         .setOrientation(StripOrientation.VERTICAL)
                         .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
-                        .build());
+                        .build())
+                .buildComponent();
 
         this.ribbonGallery.add(this.buttonStrip);
     }
@@ -299,8 +301,9 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
         @Override
         public Dimension preferredLayoutSize(Container c) {
-            return new Dimension(ribbonGallery.getPreferredWidth(ribbonGallery.getPresentationPriority(),
-                    c.getHeight()), c.getHeight());
+            return new Dimension(
+                    ribbonGallery.getPreferredWidth(ribbonGallery.getPresentationPriority(),
+                            c.getHeight()), c.getHeight());
         }
 
         @Override

@@ -33,7 +33,7 @@ import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.MarinerSkin;
 import org.pushingpixels.trident.Timeline;
@@ -116,9 +116,11 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
             commandProjections.add(command.project());
         }
 
-        return new JCommandButtonStrip(new CommandProjectionGroupModel(commandProjections),
+        return new CommandStripProjection(
+                new CommandProjectionGroupModel(commandProjections),
                 CommandStripPresentationModel.builder()
-                        .setCommandPresentationState(display.getPresentationState()).build());
+                        .setCommandPresentationState(display.getPresentationState()).build())
+                .buildComponent();
     }
 
     public static void main(String[] args) {

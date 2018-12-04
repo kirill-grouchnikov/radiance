@@ -33,6 +33,7 @@ import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -57,14 +58,16 @@ public class TestButtonStripMultiple extends JFrame {
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
-        JCommandButtonStrip buttonStrip = new JCommandButtonStrip(
+        JCommandButtonStrip buttonStrip = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder().setIcon(new Format_justify_left()).build().project(),
                         Command.builder().setIcon(new Format_justify_center()).build().project(),
-                        Command.builder().setIcon(new Format_justify_right()).build().project()));
+                        Command.builder().setIcon(new Format_justify_right()).build().project()),
+                CommandStripPresentationModel.builder().build())
+                .buildComponent();
         this.add(buttonStrip);
 
-        JCommandButtonStrip buttonStrip2 = new JCommandButtonStrip(
+        JCommandButtonStrip buttonStrip2 = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder().setIcon(new Format_text_bold()).build().project(),
                         Command.builder().setIcon(new Format_text_italic()).build().project(),
@@ -72,7 +75,9 @@ public class TestButtonStripMultiple extends JFrame {
                         Command.builder()
                                 .setIcon(new Format_text_strikethrough())
                                 .setPopupMenuProjection(SamplePopupMenu.getSamplePopupMenu())
-                                .build().project()));
+                                .build().project()),
+                CommandStripPresentationModel.builder().build())
+                .buildComponent();
         this.add(buttonStrip2);
 
         AbstractCommandButton standalone = Command.builder().setIcon(new Format_justify_left())

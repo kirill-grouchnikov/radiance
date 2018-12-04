@@ -95,22 +95,21 @@ apply plugin: "com.github.ben-manes.versions"
 // jars are grouped into three folders: 'core' for app-facing sub-projects (such as Trident,
 // Neon, Substance, Flamingo), 'demo' for sub-projects that have demos and 'tools' for
 // sub-projects with various tools.
-task copyJars(type: Zip) {
-    t ->
-        delete "drop/${project.version}"
-        subprojects {
-            project ->
-                project.afterEvaluate {
-                    copy {
-                        def projectName = project.name
-                        if (projectName.startsWith("demos/") || projectName.startsWith("tools/")) {
-                            projectName = projectName.substring(6)
-                        }
-                        from file("${project.buildDir}/libs/${rootProject.name}-${projectName}-${project.version}.jar")
-                        into file("drop/${project.version}/${project.designation}")
+task copyJars(type: Copy) {
+    delete "drop/${project.version}"
+    subprojects {
+        project ->
+            project.afterEvaluate {
+                copy {
+                    def projectName = project.name
+                    if (projectName.startsWith("demos/") || projectName.startsWith("tools/")) {
+                        projectName = projectName.substring(6)
                     }
+                    from file("${project.buildDir}/libs/${rootProject.name}-${projectName}-${project.version}.jar")
+                    into file("drop/${project.version}/${project.designation}")
                 }
-        }
+            }
+    }
 }
 
 // Collects all the dependencies of the core sub-projects in build/libs-core

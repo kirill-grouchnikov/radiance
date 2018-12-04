@@ -52,10 +52,6 @@ public class JCommandButtonStrip extends JComponent {
     private CommandProjectionGroupModel projectionGroupModel;
     private CommandStripPresentationModel commandStripPresentationModel;
 
-    public JCommandButtonStrip(CommandProjectionGroupModel commandProjections) {
-        this(commandProjections, CommandStripPresentationModel.builder().build());
-    }
-
     public JCommandButtonStrip(CommandProjectionGroupModel projectionGroupModel,
             CommandStripPresentationModel commandStripPresentationModel) {
         this.projectionGroupModel = projectionGroupModel;

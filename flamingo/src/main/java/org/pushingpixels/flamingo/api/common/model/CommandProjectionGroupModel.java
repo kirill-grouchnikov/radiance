@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import javax.swing.event.EventListenerList;
 import java.util.*;
 
-public class CommandProjectionGroupModel {
+public class CommandProjectionGroupModel implements ContentModel {
     private String title;
     private List<CommandProjection> commandProjections;
 

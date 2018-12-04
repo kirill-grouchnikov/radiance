@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.api.common.popup;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandPopupMenuUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
 
@@ -86,9 +86,9 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
 
     private void populateContent() {
         if (this.popupMenuPanelContentModel != null) {
-            this.mainButtonPanel = new JCommandButtonPanel(
+            this.mainButtonPanel = new CommandPanelProjection(
                     this.popupMenuPanelContentModel,
-                    this.popupMenuPresentationModel.getPanelPresentationModel());
+                    this.popupMenuPresentationModel.getPanelPresentationModel()).buildComponent();
         }
 
         List<CommandProjectionGroupModel> commandGroups =

@@ -36,6 +36,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
 import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
+import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection
 
 @FlamingoElementMarker
 class KCommandButtonPanelPresentation {
@@ -84,13 +85,12 @@ class KCommandButtonPanel {
             return command
         }
 
-        fun toCommandGroupModel() : CommandProjectionGroupModel {
+        fun toJavaCommandGroupModel() : CommandProjectionGroupModel {
             return CommandProjectionGroupModel(this.title,
                     this.commands.map { it.asJavaCommand().project() })
         }
     }
 
-    private lateinit var buttonPanel: JCommandButtonPanel
     private var hasBeenConverted: Boolean = false
 
     private val commandGroups = arrayListOf<KCommandButtonPanelGroup>()
@@ -113,10 +113,6 @@ class KCommandButtonPanel {
     }
 
     fun toJavaButtonPanel(): JCommandButtonPanel {
-        if (hasBeenConverted) {
-            throw IllegalStateException("This method can only be called once")
-        }
-
         val hasInitialState = (presentation.commandPresentationState != null)
         val hasInitialDimension = (presentation.commandIconDimension > 0)
 
@@ -124,13 +120,10 @@ class KCommandButtonPanel {
             throw IllegalStateException("No presentation state or dimension specified")
         }
 
+        val contentModel = CommandPanelContentModel(commandGroups.map { it.toJavaCommandGroupModel() })
         val presentationModel = presentation.toCommandPanelPresentationModel()
-        val contentModel = CommandPanelContentModel(commandGroups.map { it.toCommandGroupModel() })
 
-        buttonPanel = JCommandButtonPanel(contentModel, presentationModel)
-        hasBeenConverted = true
-
-        return buttonPanel
+        return CommandPanelProjection(contentModel, presentationModel).buildComponent()
     }
 }
 

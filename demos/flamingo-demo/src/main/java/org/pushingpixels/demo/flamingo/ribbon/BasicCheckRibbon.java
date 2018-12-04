@@ -1473,7 +1473,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                             CommandPanelContentModel historyPanelContentModel =
                                     new CommandPanelContentModel(Arrays.asList(historyGroupModel));
 
-                            JCommandButtonPanel openHistoryPanel = new JCommandButtonPanel(
+                            JCommandButtonPanel openHistoryPanel = new CommandPanelProjection(
                                     historyPanelContentModel,
                                     CommandPanelPresentationModel.builder()
                                             .setLayoutKind(
@@ -1481,7 +1481,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                             .setCommandPresentationState(
                                                     CommandButtonPresentationState.MEDIUM)
                                             .setCommandHorizontalAlignment(SwingUtilities.LEADING)
-                                            .setMaxColumns(1).build());
+                                            .setMaxColumns(1).build()).buildComponent();
 
                             targetPanel.setLayout(new BorderLayout());
                             targetPanel.add(openHistoryPanel, BorderLayout.CENTER);
@@ -1707,12 +1707,12 @@ public class BasicCheckRibbon extends JRibbonFrame {
             CommandPanelContentModel defaultPanelContentModel =
                     new CommandPanelContentModel(Arrays.asList(defaultGroupModel));
 
-            JCommandButtonPanel openDefaultPanel = new JCommandButtonPanel(
+            JCommandButtonPanel openDefaultPanel = new CommandPanelProjection(
                     defaultPanelContentModel,
                     CommandPanelPresentationModel.builder()
                             .setCommandPresentationState(CommandButtonPresentationState.MEDIUM)
                             .setCommandHorizontalAlignment(SwingUtilities.LEADING)
-                            .setMaxColumns(1).build());
+                            .setMaxColumns(1).build()).buildComponent();
 
             targetPanel.setLayout(new BorderLayout());
             targetPanel.add(openDefaultPanel, BorderLayout.CENTER);
@@ -1907,7 +1907,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         sizeComboWrapper.setKeyTip("SS");
         fontBand.addFlowComponent(sizeComboWrapper);
 
-        JCommandButtonStrip indentStrip = new JCommandButtonStrip(
+        JCommandButtonStrip indentStrip = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder()
                                 .setIcon(new Format_indent_less())
@@ -1920,7 +1920,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 .setAction((CommandActionEvent e) -> System.out.println("-> Right"))
                                 .build()
                                 .project(CommandPresentation.builder()
-                                        .setActionKeyTip("AI").build())));
+                                        .setActionKeyTip("AI").build())),
+                CommandStripPresentationModel.builder().build())
+                .buildComponent();
 
         fontBand.addFlowComponent(indentStrip);
 
@@ -1978,13 +1980,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandPresentation.builder().setActionKeyTip("4").build());
 
-        JCommandButtonStrip styleStrip = new JCommandButtonStrip(
+        JCommandButtonStrip styleStrip = new CommandStripProjection(
                 new CommandProjectionGroupModel(styleBold, styleItalic, styleUnderline,
-                        styleStrikethrough));
+                        styleStrikethrough),
+                CommandStripPresentationModel.builder().build())
+                .buildComponent();
 
         fontBand.addFlowComponent(styleStrip);
 
-        JCommandButtonStrip alignStrip = new JCommandButtonStrip(
+        JCommandButtonStrip alignStrip = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         this.alignLeftCommand.project(
                                 CommandPresentation.builder().setActionKeyTip("AL").build()),
@@ -1997,7 +2001,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 CommandStripPresentationModel.builder()
                         .setCommandPresentationState(CommandButtonPresentationState.SMALL)
                         .setOrientation(
-                                CommandStripPresentationModel.StripOrientation.HORIZONTAL).build());
+                                CommandStripPresentationModel.StripOrientation.HORIZONTAL).build())
+                .buildComponent();
 
         fontBand.addFlowComponent(alignStrip);
 
@@ -2049,7 +2054,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         JLabel helper = new JLabel("Right click to show menu");
         statusBar.add(helper);
 
-        JCommandButtonStrip alignStrip = new JCommandButtonStrip(
+        JCommandButtonStrip alignStrip = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         this.alignLeftCommand.project(),
                         this.alignCenterCommand.project(),
@@ -2058,7 +2063,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 CommandStripPresentationModel.builder()
                         .setCommandPresentationState(CommandButtonPresentationState.SMALL)
                         .setOrientation(
-                                CommandStripPresentationModel.StripOrientation.HORIZONTAL).build());
+                                CommandStripPresentationModel.StripOrientation.HORIZONTAL).build())
+                .buildComponent();
 
         statusBar.add(alignStrip);
 

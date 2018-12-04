@@ -31,13 +31,8 @@ package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
-import org.pushingpixels.flamingo.api.common.model.ContentModel
-import org.pushingpixels.flamingo.api.common.model.PresentationModel
-import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu
-import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
-import org.pushingpixels.flamingo.api.common.projection.AbstractPopupMenuProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection
 
 @FlamingoElementMarker
@@ -63,7 +58,7 @@ class KCommandPopupMenuButtonPanel {
     }
 
     internal fun getContentModel(): CommandPanelContentModel {
-        return CommandPanelContentModel(this.commandGroups.map { it.toCommandGroupModel() })
+        return CommandPanelContentModel(this.commandGroups.map { it.toJavaCommandGroupModel() })
     }
 
     internal fun getPresentationModel(): CommandPanelPresentationModel {

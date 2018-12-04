@@ -40,41 +40,17 @@ import java.beans.PropertyChangeEvent;
 
 public class CommandProjection extends Projection<AbstractCommandButton, Command,
         CommandPresentation> {
-    private CommandButtonCreator commandButtonCreator;
-    private CommandButtonCustomizer commandButtonCustomizer;
 
-    private static CommandButtonCreator DEFAULT_BUILDER = new DefaultCommandButtonBuilder();
+    private static Projection.ComponentCreator<AbstractCommandButton, Command,
+            CommandPresentation> DEFAULT_CREATOR = new DefaultCommandButtonCreator();
 
-    /**
-     * This interface can be used as part of {@link #setCommandButtonCreator(CommandButtonCreator)}
-     * to return your own subclass of {@link AbstractCommandButton} (or one of the public
-     * Flamingo command button classes) as the result of {@link #buildComponent()} call.
-     */
-    public interface CommandButtonCreator {
-        /**
-         * @param commandProjection Information on the command projection in case this
-         *                          creator has logic that depends on specific field(s) of
-         *                          the command and / or the command presentation.
-         * @return A new, unitialized command result.
-         */
-        AbstractCommandButton createUnitializedButton(CommandProjection commandProjection);
-    }
-
-    /**
-     * This interface can be used as part of
-     * {@link #setCommandButtonCustomizer(CommandButtonCustomizer)} to customize the result of
-     * {@link #buildComponent()} with additional functionality not exposed via {@link Command}
-     * or {@link CommandPresentation}.
-     */
-    public interface CommandButtonCustomizer {
-        void customizeButton(AbstractCommandButton button);
-    }
-
-    public static class DefaultCommandButtonBuilder implements CommandButtonCreator {
+    public static class DefaultCommandButtonCreator implements
+            Projection.ComponentCreator<AbstractCommandButton, Command, CommandPresentation> {
         @Override
-        public AbstractCommandButton createUnitializedButton(CommandProjection commandProjection) {
-            Command command = commandProjection.getContentModel();
-            CommandPresentation commandPresentation = commandProjection.getPresentationModel();
+        public AbstractCommandButton createUnitializedComponent(Projection<AbstractCommandButton,
+                Command, CommandPresentation> projection) {
+            Command command = projection.getContentModel();
+            CommandPresentation commandPresentation = projection.getPresentationModel();
 
             if (commandPresentation.isMenu()) {
                 return command.isToggle() ? new JCommandToggleMenuButton()
@@ -88,25 +64,14 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
     public CommandProjection(Command command, CommandPresentation commandPresentation) {
         super(command, commandPresentation);
 
-        this.commandButtonCreator = DEFAULT_BUILDER;
+        this.setComponentCreator(DEFAULT_CREATOR);
     }
 
     public CommandProjection reproject(CommandPresentation newCommandPresentation) {
         CommandProjection result = this.getContentModel().project(newCommandPresentation);
-        result.setCommandButtonCreator(this.commandButtonCreator);
-        result.setCommandButtonCustomizer(this.commandButtonCustomizer);
+        result.setComponentCreator(this.getComponentCreator());
+        result.setComponentCustomizer(this.getComponentCustomizer());
         return result;
-    }
-
-    public void setCommandButtonCreator(CommandButtonCreator commandButtonCreator) {
-        if (commandButtonCreator == null) {
-            throw new IllegalArgumentException("Cannot pass null button builder");
-        }
-        this.commandButtonCreator = commandButtonCreator;
-    }
-
-    public void setCommandButtonCustomizer(CommandButtonCustomizer commandButtonCustomizer) {
-        this.commandButtonCustomizer = commandButtonCustomizer;
     }
 
     protected boolean hasAction() {
@@ -120,7 +85,7 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
 
     @Override
     public AbstractCommandButton buildComponent() {
-        AbstractCommandButton result = this.commandButtonCreator.createUnitializedButton(this);
+        AbstractCommandButton result = this.getComponentCreator().createUnitializedComponent(this);
 
         Command command = this.getContentModel();
         CommandPresentation commandPresentation = this.getPresentationModel();
@@ -228,6 +193,15 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
                 ResizableIconFactory factory = (ResizableIconFactory) evt.getNewValue();
                 result.setIcon((factory != null) ? factory.createNewIcon() : command.getIcon());
             }
+            if ("disabledIcon".equals(evt.getPropertyName()) &&
+                    (command.getDisabledIconFactory() == null)) {
+                result.setDisabledIcon((ResizableIcon) evt.getNewValue());
+            }
+            if ("disabledIconFactory".equals(evt.getPropertyName())) {
+                ResizableIconFactory factory = (ResizableIconFactory) evt.getNewValue();
+                result.setDisabledIcon((factory != null) ? factory.createNewIcon()
+                        : command.getDisabledIcon());
+            }
             if ("isToggleSelected".equals(evt.getPropertyName())) {
                 result.getActionModel().setSelected((Boolean) evt.getNewValue());
                 if (command.getToggleGroupModel() != null) {
@@ -284,8 +258,8 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
                     commandPresentation.getPopupOrientationKind());
         }
 
-        if (this.commandButtonCustomizer != null) {
-            this.commandButtonCustomizer.customizeButton(result);
+        if (this.getComponentCustomizer() != null) {
+            this.getComponentCustomizer().customizeComponent(result);
         }
 
         result.putClientProperty(FlamingoUtilities.COMMAND, this.getContentModel());

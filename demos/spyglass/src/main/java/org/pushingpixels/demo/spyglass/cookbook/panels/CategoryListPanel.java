@@ -35,7 +35,7 @@ import org.pushingpixels.demo.spyglass.cookbook.svg.*;
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -49,7 +49,7 @@ public class CategoryListPanel extends SingleContentPanel {
                 rows("p").
                 padding(new EmptyBorder(6, 0, 4, 0));
 
-        JCommandButtonStrip controlButtons = new JCommandButtonStrip(
+        JCommandButtonStrip controlButtons = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
@@ -69,7 +69,9 @@ public class CategoryListPanel extends SingleContentPanel {
                                                                 .setTitle("menu item")
                                                                 .build().project())),
                                         CommandPopupMenuPresentationModel.builder().build())
-                                ).build().project()));
+                                ).build().project()),
+                CommandStripPresentationModel.builder().build())
+                .buildComponent();
 
         footerPaneBuilder.add(controlButtons).xy(1, 1);
 

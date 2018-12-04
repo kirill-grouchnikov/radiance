@@ -33,6 +33,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip
 import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
+import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection
 
 @FlamingoElementMarker
 class KCommandButtonStripPresentation {
@@ -90,7 +91,8 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
         val commandProjectionGroupModel = CommandProjectionGroupModel(
                 commandConfigs.map { it -> it.toJavaProjection() })
         val commandStripPresentationModel = presentation.toCommandStripPresentationModel()
-        return JCommandButtonStrip(commandProjectionGroupModel, commandStripPresentationModel)
+        return CommandStripProjection(commandProjectionGroupModel, commandStripPresentationModel)
+                .buildComponent()
     }
 }
 

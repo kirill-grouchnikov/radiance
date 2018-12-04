@@ -7,7 +7,7 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Font_x_generic;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.*;
@@ -69,8 +69,7 @@ public class QuickStylesPanel {
 
     public static JCommandButtonPanel getQuickStylesPanel(
             ResourceBundle resourceBundle, Locale locale) {
-        return new JCommandButtonPanel(
-                getQuickStylesContentModel(resourceBundle, locale),
-                getQuickStylesPresentationModel());
+        return new CommandPanelProjection(getQuickStylesContentModel(resourceBundle, locale),
+                getQuickStylesPresentationModel()).buildComponent();
     }
 }
