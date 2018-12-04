@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
-import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority
+import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.neon.icon.ResizableIcon
@@ -80,24 +80,22 @@ sealed class KBaseRibbonBand<T : AbstractRibbonBand> {
 class KRibbonBandGroup {
     var title: String? by NullableDelegate { false }
 
-    internal val content = arrayListOf<Pair<RibbonElementPriority?, Any>>()
+    internal val content = arrayListOf<Pair<PresentationPriority?, Any>>()
 
-    internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?, val popupKeyTip: String?)
-
-    fun command(priority: RibbonElementPriority, actionKeyTip: String? = null,
+    fun command(priority: PresentationPriority, actionKeyTip: String? = null,
             popupKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        content.add(Pair(priority, CommandConfig(command, actionKeyTip, popupKeyTip)))
+        content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
         return command
     }
 
-    fun command(priority: RibbonElementPriority, actionKeyTip: String? = null,
+    fun command(priority: PresentationPriority, actionKeyTip: String? = null,
             popupKeyTip: String? = null, command: KCommand) {
-        content.add(Pair(priority, CommandConfig(command, actionKeyTip, popupKeyTip)))
+        content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
     }
 
-    fun gallery(priority: RibbonElementPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {
+    fun gallery(priority: PresentationPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {
         val gallery = KRibbonGallery()
         gallery.init()
         content.add(Pair(priority, gallery))
@@ -121,26 +119,26 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         groups.add(defaultGroup)
     }
 
-    fun command(priority: RibbonElementPriority, actionKeyTip: String? = null,
+    fun command(priority: PresentationPriority, actionKeyTip: String? = null,
             popupKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a command to default group after starting another group")
         }
         val command = KCommand()
         command.init()
-        defaultGroup.content.add(Pair(priority, KRibbonBandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
+        defaultGroup.content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
         return command
     }
 
-    fun command(priority: RibbonElementPriority, actionKeyTip: String? = null,
+    fun command(priority: PresentationPriority, actionKeyTip: String? = null,
             popupKeyTip: String? = null, command: KCommand) {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a command to default group after starting another group")
         }
-        defaultGroup.content.add(Pair(priority, KRibbonBandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
+        defaultGroup.content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
     }
 
-    fun gallery(priority: RibbonElementPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {
+    fun gallery(priority: PresentationPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a gallery to default group after starting another group")
         }
@@ -190,7 +188,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
             ribbonBand.startGroup(group.title)
             for ((priority, content) in group.content) {
                 when (content) {
-                    is KRibbonBandGroup.CommandConfig -> {
+                    is KCommandGroup.CommandConfig -> {
                         ribbonBand.addRibbonCommand(
                                 content.command.asJavaCommand().project(
                                         CommandPresentation.builder()

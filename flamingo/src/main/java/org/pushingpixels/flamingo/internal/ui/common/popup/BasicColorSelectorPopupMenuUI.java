@@ -33,4 +33,19 @@ public abstract class BasicColorSelectorPopupMenuUI extends BasicCommandPopupMen
     public abstract int getColorSelectorCellSize();
     
     public abstract int getColorSelectorCellGap();
+
+    @Override
+    protected boolean hasLeadingButtonPanel() {
+        return false;
+    }
+
+    @Override
+    protected ScrollableCommandButtonPanel createScrollableButtonPanel() {
+        return null;
+    }
+
+    @Override
+    protected int getMaxVisibleMenuCommands() {
+        return 0;
+    }
 }

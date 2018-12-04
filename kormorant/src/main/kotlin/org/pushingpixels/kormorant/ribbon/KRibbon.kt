@@ -156,12 +156,12 @@ class KRibbonFrame {
         }
 
         for (anchoredCommand in anchoredCommands.commands) {
-            ribbonFrame.ribbon.addAnchoredCommand(anchoredCommand.toProjection())
+            ribbonFrame.ribbon.addAnchoredCommand(anchoredCommand.toJavaProjection())
         }
 
         for (taskbarComponent in taskbar.components) {
             when (taskbarComponent) {
-                is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(taskbarComponent.toProjection())
+                is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(taskbarComponent.toJavaProjection())
                 is KRibbonComponent -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent.asJavaRibbonComponent())
                 is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(
                         taskbarComponent.content.asJavaRibbonGalleryContentModel(),

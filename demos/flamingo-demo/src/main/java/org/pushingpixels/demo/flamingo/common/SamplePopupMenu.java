@@ -6,7 +6,7 @@ package org.pushingpixels.demo.flamingo.common;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
 
@@ -16,7 +16,7 @@ import java.util.List;
 
 public class SamplePopupMenu {
 
-    public static JCommandPopupMenu getSamplePopupMenu(ComponentOrientation orientation) {
+    public static AbstractPopupMenu getSamplePopupMenu(ComponentOrientation orientation) {
         List<CommandProjection> menuProjections1 = new ArrayList<>();
         List<CommandProjection> menuProjections2 = new ArrayList<>();
 
@@ -47,7 +47,7 @@ public class SamplePopupMenu {
                         new CommandProjectionGroupModel(menuProjections2)));
 
         JCommandPopupMenu result = new CommandPopupMenuProjection(menuContentModel,
-                CommandPopupMenuPresentationModel.builder().build()).project();
+                CommandPopupMenuPresentationModel.builder().build()).buildComponent();
         result.applyComponentOrientation(orientation);
         return result;
     }

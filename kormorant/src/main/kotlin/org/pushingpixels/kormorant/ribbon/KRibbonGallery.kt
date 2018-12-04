@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.kormorant.ribbon
 
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority
+import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel
 import org.pushingpixels.kormorant.FlamingoElementMarker
@@ -42,16 +42,16 @@ import org.pushingpixels.neon.icon.ResizableIconFactory
 
 @FlamingoElementMarker
 class GalleryCommandVisibilityContainer {
-    internal val policies = arrayListOf<Pair<Int, RibbonElementPriority>>()
+    internal val policies = arrayListOf<Pair<Int, PresentationPriority>>()
 
-    infix fun Int.at(priority: RibbonElementPriority) {
+    infix fun Int.at(priority: PresentationPriority) {
         policies.add(Pair(this, priority))
     }
 }
 
 @FlamingoElementMarker
 class KRibbonGalleryPresentation {
-    var state: CommandButtonDisplayState = CommandButtonDisplayState.FIT_TO_ICON
+    var state: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
     var preferredPopupMaxCommandColumns: Int? by NullableDelegate { false }
     var preferredPopupMaxVisibleCommandRows: Int? by NullableDelegate { false }
     private val commandVisibilityContainer = GalleryCommandVisibilityContainer()
@@ -64,7 +64,7 @@ class KRibbonGalleryPresentation {
     internal fun toRibbonGalleryPresentationModel(): RibbonGalleryPresentationModel {
         val presentationModelBuilder = RibbonGalleryPresentationModel.builder()
 
-        presentationModelBuilder.setCommandDisplayState(this.state)
+        presentationModelBuilder.setCommandPresentationState(this.state)
         presentationModelBuilder.setPreferredPopupMaxCommandColumns(this.preferredPopupMaxCommandColumns!!)
         presentationModelBuilder.setPreferredPopupMaxVisibleCommandRows(this.preferredPopupMaxVisibleCommandRows!!)
         presentationModelBuilder.setPreferredVisibleCommandCounts(

@@ -81,7 +81,7 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
     protected ActionButtonModel actionModel;
 
     /**
-     * Additional text. This is shown for {@link CommandButtonDisplayState#TILE}
+     * Additional text. This is shown for {@link CommandButtonPresentationState#TILE}
      * .
      *
      * @see #setExtraText(String)
@@ -90,16 +90,16 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
     protected String extraText;
 
     /**
-     * Current display state of <code>this</code> button.
+     * Current presentation state of <code>this</code> button.
      *
-     * @see #setDisplayState(CommandButtonDisplayState)
-     * @see #getDisplayState()
+     * @see #setPresentationState(CommandButtonPresentationState)
+     * @see #getPresentationState()
      */
-    protected CommandButtonDisplayState displayState;
+    protected CommandButtonPresentationState presentationState;
 
     /**
      * The dimension of the icon of the associated command button in the
-     * {@link CommandButtonDisplayState#FIT_TO_ICON} state.
+     * {@link CommandButtonPresentationState#FIT_TO_ICON} state.
      *
      * @see #getCustomDimension()
      * @see #updateCustomDimension(int)
@@ -206,7 +206,7 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
     public AbstractCommandButton(String text, ResizableIcon icon) {
         this.icon = icon;
         this.customDimension = -1;
-        this.displayState = CommandButtonDisplayState.FIT_TO_ICON;
+        this.presentationState = CommandButtonPresentationState.FIT_TO_ICON;
         this.horizontalAlignment = DEFAULT_HORIZONTAL_ALIGNMENT;
         this.actionHandler = new ActionHandler();
         this.isFlat = true;
@@ -235,17 +235,17 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
     }
 
     /**
-     * Sets new display state for <code>this</code> button. Fires a
-     * <code>displayState</code> property change event.
+     * Sets new presentation state for <code>this</code> button. Fires a
+     * <code>presentationState</code> property change event.
      *
-     * @param state New display state.
-     * @see #getDisplayState()
+     * @param state New presentation state.
+     * @see #getPresentationState()
      */
-    public void setDisplayState(CommandButtonDisplayState state) {
-        CommandButtonDisplayState old = this.displayState;
-        this.displayState = state;
+    public void setPresentationState(CommandButtonPresentationState state) {
+        CommandButtonPresentationState old = this.presentationState;
+        this.presentationState = state;
 
-        this.firePropertyChange("displayState", old, this.displayState);
+        this.firePropertyChange("presentationState", old, this.presentationState);
     }
 
     /**
@@ -305,13 +305,13 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
     }
 
     /**
-     * Return the current display state of <code>this</code> button.
+     * Return the current presentation state of <code>this</code> button.
      *
-     * @return The current display state of <code>this</code> button.
-     * @see #setDisplayState(CommandButtonDisplayState)
+     * @return The current presentation state of <code>this</code> button.
+     * @see #setPresentationState(CommandButtonPresentationState)
      */
-    public CommandButtonDisplayState getDisplayState() {
-        return displayState;
+    public CommandButtonPresentationState getPresentationState() {
+        return presentationState;
     }
 
     /**
@@ -383,11 +383,11 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
 
     /**
      * Updates the dimension of the icon of the associated command button in the
-     * {@link CommandButtonDisplayState#FIT_TO_ICON} state. Fires a
+     * {@link CommandButtonPresentationState#FIT_TO_ICON} state. Fires a
      * <code>customDimension</code> property change event.
      *
      * @param dimension New dimension of the icon of the associated command button in
-     *                  the {@link CommandButtonDisplayState#FIT_TO_ICON} state.
+     *                  the {@link CommandButtonPresentationState#FIT_TO_ICON} state.
      * @see #getCustomDimension()
      */
     public void updateCustomDimension(int dimension) {
@@ -400,10 +400,10 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
 
     /**
      * Returns the dimension of the icon of the associated command button in the
-     * {@link CommandButtonDisplayState#FIT_TO_ICON} state.
+     * {@link CommandButtonPresentationState#FIT_TO_ICON} state.
      *
      * @return The dimension of the icon of the associated command button in the
-     * {@link CommandButtonDisplayState#FIT_TO_ICON} state.
+     * {@link CommandButtonPresentationState#FIT_TO_ICON} state.
      * @see #updateCustomDimension(int)
      */
     public int getCustomDimension() {

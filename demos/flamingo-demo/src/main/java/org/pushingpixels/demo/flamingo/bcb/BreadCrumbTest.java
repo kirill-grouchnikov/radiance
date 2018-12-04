@@ -87,7 +87,7 @@ public class BreadCrumbTest extends JFrame {
                 SubstanceSlices.DecorationAreaType.HEADER);
         this.add(bar, BorderLayout.NORTH);
 
-        this.filePanel = new ExplorerFileViewPanel<>(bar, CommandButtonDisplayState.MEDIUM);
+        this.filePanel = new ExplorerFileViewPanel<>(bar, CommandButtonPresentationState.MEDIUM);
         JScrollPane fileListScrollPane = new JScrollPane(this.filePanel);
         this.add(fileListScrollPane, BorderLayout.CENTER);
 

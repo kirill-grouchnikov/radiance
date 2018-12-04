@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.kormorant.popup
 
 import org.pushingpixels.ember.setColorizationFactor
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.kormorant.DelayedCommandListener
@@ -124,7 +124,7 @@ fun main(args: Array<String>) {
         val commandButton = commandButton {
             command {
                 icon = colorIcon
-                colorSelectorPopupMenu = colorSelectorPopupMenu {
+                popupMenu = colorSelectorPopupMenu {
                     onColorActivated = onColorActivatedListener
                     onColorPreviewActivated = onColorPreviewActivatedListener
                     onColorPreviewCanceled = onColorPreviewCanceledListener
@@ -198,7 +198,7 @@ fun main(args: Array<String>) {
                 }
             }
             presentation {
-                commandDisplayState = CommandButtonDisplayState.SMALL
+                presentationState = CommandButtonPresentationState.SMALL
                 isFlat = false
             }
         }

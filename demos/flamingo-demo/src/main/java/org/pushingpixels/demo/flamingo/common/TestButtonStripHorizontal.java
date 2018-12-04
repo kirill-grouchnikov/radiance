@@ -108,7 +108,7 @@ public class TestButtonStripHorizontal extends JFrame {
                         Command.builder().setIcon(new Format_justify_center()).build().project(),
                         Command.builder().setIcon(new Format_justify_right()).build().project()),
                 CommandStripPresentationModel.builder()
-                        .setCommandDisplayState(CommandButtonDisplayState.SMALL)
+                        .setCommandPresentationState(CommandButtonPresentationState.SMALL)
                         .setOrientation(CommandStripPresentationModel.StripOrientation.HORIZONTAL)
                         .setHorizontalGapScaleFactor(hgapScaleFactor)
                         .setVerticalGapScaleFactor(vgapScaleFactor)
@@ -126,7 +126,7 @@ public class TestButtonStripHorizontal extends JFrame {
                                 .setPopupMenuProjection(SamplePopupMenu.getSamplePopupMenu())
                                 .build().project()),
                 CommandStripPresentationModel.builder()
-                        .setCommandDisplayState(CommandButtonDisplayState.SMALL)
+                        .setCommandPresentationState(CommandButtonPresentationState.SMALL)
                         .setOrientation(CommandStripPresentationModel.StripOrientation.HORIZONTAL)
                         .setHorizontalGapScaleFactor(hgapScaleFactor)
                         .setVerticalGapScaleFactor(vgapScaleFactor)

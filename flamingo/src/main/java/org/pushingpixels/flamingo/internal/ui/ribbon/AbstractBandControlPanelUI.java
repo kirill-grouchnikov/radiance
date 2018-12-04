@@ -65,7 +65,7 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
         this.controlPanel = (AbstractBandControlPanel) c;
 
         this.dummy = new JCommandButton("Dummy", new EmptyResizableIcon(16));
-        this.dummy.setDisplayState(CommandButtonDisplayState.BIG);
+        this.dummy.setPresentationState(CommandButtonPresentationState.BIG);
         this.dummy.setCommandButtonKind(CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION);
 
         installDefaults();

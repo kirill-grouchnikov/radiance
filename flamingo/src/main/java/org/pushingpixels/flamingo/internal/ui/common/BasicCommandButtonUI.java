@@ -119,7 +119,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         installListeners();
         installKeyboardActions();
 
-        this.layoutManager = this.commandButton.getDisplayState()
+        this.layoutManager = this.commandButton.getPresentationState()
                 .createLayoutManager(this.commandButton);
 
         this.updateCustomDimension();
@@ -251,7 +251,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                     newModel.addPopupActionListener(popupActionListener);
                 }
             }
-            if ("displayState".equals(evt.getPropertyName())) {
+            if ("presentationState".equals(evt.getPropertyName())) {
                 syncIconDimension();
                 syncDisabledIcon();
 
@@ -427,7 +427,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
         if (dimension > 0) {
             this.commandButton.getIcon().setDimension(new Dimension(dimension, dimension));
-            this.commandButton.setDisplayState(CommandButtonDisplayState.FIT_TO_ICON);
+            this.commandButton.setPresentationState(CommandButtonPresentationState.FIT_TO_ICON);
 
             this.commandButton.invalidate();
             this.commandButton.revalidate();
@@ -626,7 +626,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     protected void syncIconDimension() {
         ResizableIcon icon = this.commandButton.getIcon();
-        CommandButtonDisplayState commandButtonState = this.commandButton.getDisplayState();
+        CommandButtonPresentationState commandButtonState = this.commandButton.getPresentationState();
 
         this.layoutManager = commandButtonState.createLayoutManager(this.commandButton);
 
@@ -638,7 +638,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             maxHeight = this.commandButton.getIcon().getIconHeight();
         }
 
-        if (commandButtonState != CommandButtonDisplayState.FIT_TO_ICON) {
+        if (commandButtonState != CommandButtonPresentationState.FIT_TO_ICON) {
             Dimension newDim = new Dimension(maxHeight, maxHeight);
             icon.setDimension(newDim);
         }

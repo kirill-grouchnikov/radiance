@@ -251,13 +251,13 @@ public class JRibbon extends JComponent {
     public synchronized void addTaskbarCommand(CommandProjection projection) {
         CommandPresentation withOverlay = projection.getPresentationModel().overlayWith(
                 CommandPresentation.overlay()
-                        .setCommandDisplayState(CommandButtonDisplayState.SMALL)
+                        .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setFocusable(false)
                         .setHorizontalGapScaleFactor(0.5)
                         .setVerticalGapScaleFactor(0.5));
 
         CommandProjection projectionWithOverlay = projection.reproject(withOverlay);
-        AbstractCommandButton commandButton = projectionWithOverlay.buildButton();
+        AbstractCommandButton commandButton = projectionWithOverlay.buildComponent();
 
         this.taskbarComponents.add(commandButton);
 
@@ -309,7 +309,7 @@ public class JRibbon extends JComponent {
                 ? galleryContentModel.getIconFactory().createNewIcon()
                 : null;
         JCommandButton galleryDropdownButton = new JCommandButton(icon);
-        galleryDropdownButton.setDisplayState(CommandButtonDisplayState.SMALL);
+        galleryDropdownButton.setPresentationState(CommandButtonPresentationState.SMALL);
         galleryDropdownButton.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
 
         // Configure the button popup callback to display the expanded popup menu

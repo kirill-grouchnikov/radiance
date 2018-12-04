@@ -32,7 +32,7 @@ package org.pushingpixels.demo.kormorant.common
 
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.StringValuePair
 import org.pushingpixels.flamingo.api.common.icon.IcoWrapperResizableIcon
@@ -51,7 +51,7 @@ import javax.swing.filechooser.FileSystemView
  * @param <T> Type tag.
  * @author Kirill Grouchnikov
  */
-class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: CommandButtonDisplayState) :
+class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: CommandButtonPresentationState) :
         AbstractFileViewPanel<T>(startingState) {
     private var useNativeIcons: Boolean = false
 
@@ -64,7 +64,7 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
     }
 
     override fun getResizableIcon(leaf: AbstractFileViewPanel.Leaf,
-            stream: InputStream, state: CommandButtonDisplayState, dimension: Dimension): ResizableIcon? {
+            stream: InputStream, state: CommandButtonPresentationState, dimension: Dimension): ResizableIcon? {
         var dimensionToUse = dimension
         val prefSize = state.preferredIconSize
         if (prefSize > 0) {

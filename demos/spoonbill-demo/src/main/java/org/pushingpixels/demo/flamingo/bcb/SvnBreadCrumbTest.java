@@ -170,7 +170,7 @@ public class SvnBreadCrumbTest extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(toolbar, BorderLayout.NORTH);
 
-        this.filePanel = new ExplorerFileViewPanel<String>(bar, CommandButtonDisplayState.MEDIUM) {
+        this.filePanel = new ExplorerFileViewPanel<String>(bar, CommandButtonPresentationState.MEDIUM) {
             @Override
             protected void configureCommand(Leaf leaf, Command command,
                     ResizableIcon icon) {

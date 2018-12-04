@@ -33,7 +33,6 @@ import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.cookbook.*;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -94,7 +93,7 @@ public class RecipePanel extends SingleContentPanel {
                         .addDescriptionSection("Description for " + tooltip).build())
                 .build()
                 .project(CommandPresentation.builder()
-                        .setCommandDisplayState(CommandButtonDisplayState.SMALL).build())
-                .buildButton();
+                        .setPresentationState(CommandButtonPresentationState.SMALL).build())
+                .buildComponent();
     }
 }

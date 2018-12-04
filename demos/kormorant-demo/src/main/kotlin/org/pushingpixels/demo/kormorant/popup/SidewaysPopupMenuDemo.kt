@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.kormorant.popup
 
 import org.pushingpixels.demo.kormorant.svg.*
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.kormorant.commandButton
@@ -116,7 +116,7 @@ fun main(args: Array<String>) {
                 }
             }
             presentation {
-                commandDisplayState = CommandButtonDisplayState.TILE
+                presentationState = CommandButtonPresentationState.TILE
                 isFlat = false
                 popupOrientationKind = CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD
             }

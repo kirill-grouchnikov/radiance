@@ -33,8 +33,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.flamingo.api.common.*
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton
+import org.pushingpixels.flamingo.api.common.CommandActionEvent
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
+import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.common.model.*
+import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu
+import org.pushingpixels.flamingo.api.common.projection.AbstractPopupMenuProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.neon.icon.ResizableIconFactory
@@ -141,8 +146,7 @@ open class KCommand {
             }
         }
 
-    var popupMenu: KCommandPopupMenu? by NullableDelegate { hasBeenConverted }
-    var colorSelectorPopupMenu: KColorSelectorPopupMenu? by NullableDelegate { hasBeenConverted }
+    var popupMenu: KAbstractPopupMenu<*>? by NullableDelegate { hasBeenConverted }
 
     // The "popupRichTooltip" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
@@ -314,11 +318,8 @@ open class KCommand {
             builder.setPopupRichTooltip(command.popupRichTooltip?.toJavaRichTooltip())
 
             if (command.popupMenu != null) {
-                builder.setPopupMenuProjection(command.popupMenu!!.toJavaCommandPopupMenuProjection())
-            } else if (command.colorSelectorPopupMenu != null) {
-                builder.setPopupCallback {
-                    command.colorSelectorPopupMenu!!.toJavaColorSelectorPopupMenu()
-                }
+                builder.setPopupMenuProjection(command.popupMenu!!.toJavaPopupMenuProjection()
+                    as AbstractPopupMenuProjection<*, *, *>)
             }
 
             if (command.isTitleClickAction) {
@@ -367,7 +368,7 @@ open class KCommand {
     }
 
     internal fun toCommandButton(presentation: KCommandPresentation): AbstractCommandButton {
-        return asJavaCommand().project(presentation.toCommandPresentation()).buildButton()
+        return asJavaCommand().project(presentation.toCommandPresentation()).buildComponent()
     }
 }
 
@@ -379,27 +380,27 @@ fun command(init: KCommand.() -> Unit): KCommand {
 
 @FlamingoElementMarker
 class KCommandPresentation {
-    var commandDisplayState: CommandButtonDisplayState = CommandButtonDisplayState.FIT_TO_ICON
+    var presentationState: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
     var isFlat: Boolean = true
     var horizontalAlignment: Int = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
     var horizontalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
     var verticalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
     var popupOrientationKind: CommandPresentation.CommandButtonPopupOrientationKind =
             CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD
-    var commandIconDimension: Int? = null
+    var iconDimension: Int? = null
     var isMenu: Boolean = false
     var actionKeyTip: String? = null
     var popupKeyTip: String? = null
 
     fun toCommandPresentation(): CommandPresentation {
         return CommandPresentation.builder()
-                .setCommandDisplayState(commandDisplayState)
+                .setPresentationState(presentationState)
                 .setFlat(isFlat)
                 .setHorizontalAlignment(horizontalAlignment)
                 .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
                 .setVerticalGapScaleFactor(verticalGapScaleFactor)
                 .setPopupOrientationKind(popupOrientationKind)
-                .setCommandIconDimension(commandIconDimension)
+                .setIconDimension(iconDimension)
                 .setActionKeyTip(actionKeyTip)
                 .setPopupKeyTip(popupKeyTip)
                 .setMenu(isMenu)
@@ -413,7 +414,7 @@ class KCommandGroup {
     internal val commands = arrayListOf<CommandConfig>()
 
     internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?, val popupKeyTip: String?) {
-        fun toProjection(): CommandProjection {
+        fun toJavaProjection(): CommandProjection {
             return command.asJavaCommand().project(
                     CommandPresentation.builder()
                             .setActionKeyTip(actionKeyTip)
@@ -436,7 +437,7 @@ class KCommandGroup {
 
     fun toCommandGroupModel(): CommandProjectionGroupModel {
         return CommandProjectionGroupModel(title,
-                commands.map { it -> it.toProjection() })
+                commands.map { it -> it.toJavaProjection() })
     }
 }
 

@@ -370,7 +370,6 @@ public class JCommandButton extends AbstractCommandButton {
 
         this.commandButtonKind = CommandButtonKind.ACTION_ONLY;
         this.popupOrientationKind = CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD;
-        // this.displayState = CommandButtonDisplayState.CUSTOM;
         this.isAutoRepeatAction = false;
         this.autoRepeatInitialInterval = Command.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS;
         this.autoRepeatSubsequentInterval = Command.DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS;

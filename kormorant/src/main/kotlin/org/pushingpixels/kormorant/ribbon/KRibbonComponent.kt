@@ -31,7 +31,7 @@ package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.common.HorizontalAlignment
 import org.pushingpixels.flamingo.api.ribbon.JRibbonComponent
-import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority
+import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.neon.icon.ResizableIcon
 import javax.swing.JComponent
@@ -48,7 +48,7 @@ class KRibbonComponent {
     var keyTip: String? by NullableDelegate { hasBeenConverted }
     private var richTooltip: KRichTooltip? by NullableDelegate { hasBeenConverted }
     var horizontalAlignment: HorizontalAlignment? by NullableDelegate { hasBeenConverted }
-    var displayPriority: RibbonElementPriority? by NullableDelegate { hasBeenConverted }
+    var presentationPriority: PresentationPriority? by NullableDelegate { hasBeenConverted }
     var isResizingAware: Boolean? by NullableDelegate { hasBeenConverted }
     var isEnabled: Boolean by NonNullDelegate { hasBeenConverted }
 
@@ -84,8 +84,8 @@ class KRibbonComponent {
         if (horizontalAlignment != null) {
             ribbonComponent.horizontalAlignment = horizontalAlignment
         }
-        if (displayPriority != null) {
-            ribbonComponent.displayPriority = displayPriority
+        if (presentationPriority != null) {
+            ribbonComponent.presentationPriority = presentationPriority
         }
         if (isResizingAware != null) {
             ribbonComponent.isResizingAware = isResizingAware!!

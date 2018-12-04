@@ -149,14 +149,12 @@ public class CommandPopupMenuPresentationModel implements PresentationModel {
             return this;
         }
 
-        public Builder setMaxVisibleMenuCommands(
-                int maxVisibleMenuCommands) {
+        public Builder setMaxVisibleMenuCommands(int maxVisibleMenuCommands) {
             this.maxVisibleMenuCommands = maxVisibleMenuCommands;
             return this;
         }
 
-        public Builder setToDismissOnCommandActivation(
-                boolean toDismissOnCommandActivation) {
+        public Builder setToDismissOnCommandActivation(boolean toDismissOnCommandActivation) {
             this.toDismissOnCommandActivation = toDismissOnCommandActivation;
             return this;
         }
@@ -167,8 +165,7 @@ public class CommandPopupMenuPresentationModel implements PresentationModel {
             return this;
         }
 
-        public Builder setHighlightedCommand(
-                Command highlightedCommand) {
+        public Builder setHighlightedCommand(Command highlightedCommand) {
             this.highlightedCommand = highlightedCommand;
             return this;
         }

@@ -543,7 +543,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         // not have min size enforced as well
         // Additional fix - buttons in popup menus and breadcrumb bars should
         // not have min size enforced
-        if ((button.getDisplayState() == CommandButtonDisplayState.MEDIUM)
+        if ((button.getPresentationState() == CommandButtonPresentationState.MEDIUM)
                 && (SwingUtilities.getAncestorOfClass(JRibbon.class, button) == null)
                 && (SwingUtilities.getAncestorOfClass(JBreadcrumbBar.class, button) == null)
                 && (SwingUtilities.getAncestorOfClass(JCommandPopupMenu.class, button) == null)) {

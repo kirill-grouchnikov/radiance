@@ -31,7 +31,7 @@ package org.pushingpixels.demo.kormorant.popup
 
 import org.pushingpixels.demo.kormorant.svg.Help_browser
 import org.pushingpixels.demo.kormorant.svg.Text_x_generic
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
@@ -75,7 +75,7 @@ fun main(args: Array<String>) {
                 }
             }
             presentation {
-                commandDisplayState = CommandButtonDisplayState.TILE
+                presentationState = CommandButtonPresentationState.TILE
                 isFlat = false
             }
         }

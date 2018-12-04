@@ -38,7 +38,7 @@ import org.pushingpixels.demo.kormorant.RadianceLogo
 import org.pushingpixels.demo.kormorant.common.ExplorerFileViewPanel
 import org.pushingpixels.ember.setDecorationType
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.kormorant.bcb.addDelayedPathListener
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.substance.api.ComponentState
@@ -57,7 +57,7 @@ fun main(args: Array<String>) {
         val frame = JFrame("BreadCrumb test")
 
         val bar = BreadcrumbFileSelector()
-        val filePanel = ExplorerFileViewPanel(bar, CommandButtonDisplayState.MEDIUM)
+        val filePanel = ExplorerFileViewPanel(bar, CommandButtonPresentationState.MEDIUM)
 
         // Configure the breadcrumb bar to update the file panel every time
         // the path changes

@@ -29,13 +29,11 @@
  */
 package org.pushingpixels.kormorant
 
-import org.pushingpixels.flamingo.api.common.model.CommandPresentation
-import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
-import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuPresentationModel
+import org.pushingpixels.flamingo.api.common.projection.ColorSelectorPopupMenuProjection
 import java.awt.Color
 
 @FlamingoElementMarker
@@ -96,7 +94,7 @@ class KColorSelectorPopupMenuGroup {
         for (component in content) {
             when (component) {
                 is KCommandGroup.CommandConfig -> {
-                    menuGroupBuilder.addCommand(component.toProjection())
+                    menuGroupBuilder.addCommand(component.toJavaProjection())
                 }
                 is KColorSelectorPopupMenuColorSection -> {
                     if (component.isDerived) {
@@ -121,8 +119,7 @@ class KColorSelectorPopupMenuGroup {
 }
 
 @FlamingoElementMarker
-class KColorSelectorPopupMenu {
-    private lateinit var colorSelectorPopupMenu: JColorSelectorPopupMenu
+class KColorSelectorPopupMenu: KAbstractPopupMenu<ColorSelectorPopupMenuProjection>() {
     private var hasBeenConverted: Boolean = false
 
     var onColorActivated: ((Color) -> Unit)? by NullableDelegate { hasBeenConverted }
@@ -178,7 +175,7 @@ class KColorSelectorPopupMenu {
         return group
     }
 
-    fun toJavaColorSelectorPopupMenu(): JColorSelectorPopupMenu {
+    override fun toJavaPopupMenuProjection(): ColorSelectorPopupMenuProjection {
         if (defaultGroup.content.isEmpty()) {
             groups.remove(defaultGroup)
         }
@@ -203,9 +200,8 @@ class KColorSelectorPopupMenu {
             }
         }
 
-        colorSelectorPopupMenu = JColorSelectorPopupMenu(menuContentModel)
-
-        return colorSelectorPopupMenu
+        return ColorSelectorPopupMenuProjection(menuContentModel,
+                ColorSelectorPopupMenuPresentationModel.builder().build())
     }
 }
 

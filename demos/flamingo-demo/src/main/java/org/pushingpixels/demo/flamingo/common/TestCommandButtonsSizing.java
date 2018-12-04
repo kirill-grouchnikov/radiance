@@ -8,8 +8,6 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
-import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.photon.icon.SvgBatikResizableIcon;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
@@ -17,7 +15,6 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.*;
 import java.util.List;
 
@@ -45,9 +42,9 @@ public class TestCommandButtonsSizing extends JPanel {
     private TestCommandButtonsSizing() {
         this.model = new LinkedList<>();
 
-        for (final CommandButtonDisplayState state : new CommandButtonDisplayState[] {
-                CommandButtonDisplayState.BIG, CommandButtonDisplayState.MEDIUM,
-                CommandButtonDisplayState.TILE, CommandButtonDisplayState.SMALL }) {
+        for (final CommandButtonPresentationState state : new CommandButtonPresentationState[] {
+                CommandButtonPresentationState.BIG, CommandButtonPresentationState.MEDIUM,
+                CommandButtonPresentationState.TILE, CommandButtonPresentationState.SMALL }) {
             for (final CommandButtonKind commandButtonKind : CommandButtonKind.values()) {
                 this.model.add(new Mapping(
                         state.getDisplayName() + " + " + commandButtonKind.name(), (int fontSize) ->
@@ -111,7 +108,7 @@ public class TestCommandButtonsSizing extends JPanel {
                 }));
     }
 
-    private AbstractCommandButton createActionOnlyButton(String text, CommandButtonDisplayState state,
+    private AbstractCommandButton createActionOnlyButton(String text, CommandButtonPresentationState state,
             CommandButtonKind commandButtonKind, int fontSize) {
 
         Command.Builder commandBuilder = Command.builder()
@@ -142,13 +139,13 @@ public class TestCommandButtonsSizing extends JPanel {
 
         CommandProjection commandProjection = commandBuilder.build().project(
                 CommandPresentation.builder()
-                        .setCommandDisplayState(state)
+                        .setPresentationState(state)
                         .setFlat(false)
                         .build());
         commandProjection.setCommandButtonCustomizer((AbstractCommandButton button) ->
                 button.setFont(button.getFont().deriveFont((float) fontSize)));
 
-        return commandProjection.buildButton();
+        return commandProjection.buildComponent();
     }
 
     /**

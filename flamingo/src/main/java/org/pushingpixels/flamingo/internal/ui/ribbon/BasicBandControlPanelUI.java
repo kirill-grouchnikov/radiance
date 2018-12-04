@@ -211,7 +211,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                     return;
                 }
 
-                // Installs the resize policy - this updates the display
+                // Installs the resize policy - this updates the presentation
                 // priority of all the galleries and buttons
                 currentResizePolicy.install(availableHeight, gap);
             }
@@ -342,10 +342,10 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                     }
                 } else {
                     // The galleries
-                    for (RibbonElementPriority elementPriority : RibbonElementPriority.values()) {
+                    for (JRibbonBand.PresentationPriority elementPriority : JRibbonBand.PresentationPriority.values()) {
                         for (JRibbonGallery gallery : controlPanelGroup
                                 .getRibbonGalleries(elementPriority)) {
-                            int pw = gallery.getPreferredWidth(gallery.getDisplayPriority(),
+                            int pw = gallery.getPreferredWidth(gallery.getPresentationPriority(),
                                     availableHeight);
                             if (ltr) {
                                 gallery.setBounds(x, ins.top, pw, availableHeight);
@@ -362,11 +362,11 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         }
                     }
 
-                    Map<CommandButtonDisplayState, List<AbstractCommandButton>> buttonMap = new HashMap<CommandButtonDisplayState, List<AbstractCommandButton>>();
-                    for (RibbonElementPriority elementPriority : RibbonElementPriority.values()) {
+                    Map<CommandButtonPresentationState, List<AbstractCommandButton>> buttonMap = new HashMap<CommandButtonPresentationState, List<AbstractCommandButton>>();
+                    for (JRibbonBand.PresentationPriority elementPriority : JRibbonBand.PresentationPriority.values()) {
                         for (AbstractCommandButton commandButton : controlPanelGroup
                                 .getRibbonButtons(elementPriority)) {
-                            CommandButtonDisplayState state = commandButton.getDisplayState();
+                            CommandButtonPresentationState state = commandButton.getPresentationState();
                             if (buttonMap.get(state) == null) {
                                 buttonMap.put(state, new ArrayList<AbstractCommandButton>());
                             }
@@ -374,7 +374,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         }
                     }
 
-                    List<AbstractCommandButton> bigs = buttonMap.get(CommandButtonDisplayState.BIG);
+                    List<AbstractCommandButton> bigs = buttonMap.get(CommandButtonPresentationState.BIG);
                     if (bigs != null) {
                         for (AbstractCommandButton bigButton : bigs) {
                             // Big buttons
@@ -411,7 +411,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                     int index3 = 0;
                     int maxWidth3 = 0;
                     List<AbstractCommandButton> mediums = buttonMap
-                            .get(CommandButtonDisplayState.MEDIUM);
+                            .get(CommandButtonPresentationState.MEDIUM);
                     if (mediums != null) {
                         for (AbstractCommandButton mediumButton : mediums) {
                             int medWidth = mediumButton.getPreferredSize().width;
@@ -467,7 +467,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                     index3 = 0;
                     maxWidth3 = 0;
                     List<AbstractCommandButton> smalls = buttonMap
-                            .get(CommandButtonDisplayState.SMALL);
+                            .get(CommandButtonPresentationState.SMALL);
                     if (smalls != null) {
                         for (AbstractCommandButton smallButton : smalls) {
                             int lowWidth = smallButton.getPreferredSize().width;

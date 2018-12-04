@@ -37,7 +37,7 @@ import kotlinx.coroutines.withContext
 import org.pushingpixels.demo.kormorant.RadianceLogo
 import org.pushingpixels.ember.setDecorationType
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.kormorant.bcb.addDelayedPathListener
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.substance.api.ComponentState
@@ -55,7 +55,7 @@ fun main(args: Array<String>) {
 
         val frame = JFrame("File explorer")
         val bar = BreadcrumbFileSelector()
-        val filePanel = ExplorerFileViewPanel(bar, CommandButtonDisplayState.BIG)
+        val filePanel = ExplorerFileViewPanel(bar, CommandButtonPresentationState.BIG)
 
         // Configure the breadcrumb bar to update the file panel every time
         // the path changes
@@ -88,12 +88,13 @@ fun main(args: Array<String>) {
         }
         controls.add(setPath)
 
-        val states = JComboBox<CommandButtonDisplayState>(DefaultComboBoxModel(
-                arrayOf<CommandButtonDisplayState>(CommandButtonDisplayState.BIG, CommandButtonDisplayState.TILE,
-                        CommandButtonDisplayState.MEDIUM, CommandButtonDisplayState.SMALL)))
+        val states = JComboBox<CommandButtonPresentationState>(DefaultComboBoxModel(
+                arrayOf<CommandButtonPresentationState>(
+                        CommandButtonPresentationState.BIG, CommandButtonPresentationState.TILE,
+                        CommandButtonPresentationState.MEDIUM, CommandButtonPresentationState.SMALL)))
         states.addItemListener {
             filePanel.cancelMainWorker()
-            filePanel.presentationModel.commandDisplayState = states.getItemAt(states.selectedIndex)
+            filePanel.presentationModel.commandPresentationState = states.getItemAt(states.selectedIndex)
         }
         controls.add(states)
 

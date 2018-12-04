@@ -64,7 +64,7 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
      *                      repository of image files.
      * @param startingState Initial state for image icons.
      */
-    public ExplorerFileViewPanel(JBreadcrumbBar<T> bar, CommandButtonDisplayState startingState) {
+    public ExplorerFileViewPanel(JBreadcrumbBar<T> bar, CommandButtonPresentationState startingState) {
         super(startingState);
         this.bar = bar;
         this.useNativeIcons = false;
@@ -81,7 +81,7 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
 
     @Override
     protected ResizableIcon getResizableIcon(AbstractFileViewPanel.Leaf leaf,
-            InputStream stream, CommandButtonDisplayState state, Dimension dimension) {
+            InputStream stream, CommandButtonPresentationState state, Dimension dimension) {
         int prefSize = state.getPreferredIconSize();
         if (prefSize > 0) {
             dimension = new Dimension(prefSize, prefSize);

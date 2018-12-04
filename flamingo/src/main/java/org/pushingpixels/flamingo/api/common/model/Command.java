@@ -45,7 +45,7 @@ import java.util.EventListener;
  * <p>A command can be "rendered" on screen using {@link CommandPresentation} and
  * {@link CommandProjection}. Use {@link #project()} for default presentation settings or
  * {@link #project(CommandPresentation)} to customize presentation settings. Then use
- * {@link CommandProjection#buildButton()} to get an instance of {@link AbstractCommandButton}
+ * {@link CommandProjection#buildComponent()} to get an instance of {@link AbstractCommandButton}
  * that can be added to the component hierarchy. Note that you can - and should - use the same
  * {@link Command} instance and one or more {@link CommandPresentation}s if you need to have
  * multiple instances (or projections) of the same command in your app UI. That way changes in the
@@ -67,7 +67,7 @@ public class Command implements ContentModel {
     private String extraText;
     private CommandListener action;
     private RichTooltip actionRichTooltip;
-    private CommandPopupMenuProjection popupMenuProjection;
+    private AbstractPopupMenuProjection popupMenuProjection;
     private PopupPanelCallback popupCallback;
     private RichTooltip popupRichTooltip;
     private boolean isTitleClickAction;
@@ -139,6 +139,11 @@ public class Command implements ContentModel {
 
         if (isToggle && ((popupCallback != null) || (popupMenuProjection != null))) {
             throw new IllegalStateException("Command configured to be toggle can't have popups");
+        }
+
+        if (isToggle && isFireActionOnRollover) {
+            throw new IllegalStateException(
+                    "Command configured to be toggle can't fire action on rollover");
         }
 
         if (isToggleSelected && !isToggle) {
@@ -223,13 +228,13 @@ public class Command implements ContentModel {
         }
     }
 
-    public CommandPopupMenuProjection getPopupMenuProjection() {
+    public AbstractPopupMenuProjection getPopupMenuProjection() {
         return this.popupMenuProjection;
     }
 
-    public void setPopupMenuProjection(CommandPopupMenuProjection popupMenuProjection) {
+    public void setPopupMenuProjection(AbstractPopupMenuProjection popupMenuProjection) {
         if (this.popupMenuProjection != popupMenuProjection) {
-            CommandPopupMenuProjection old = this.popupMenuProjection;
+            AbstractPopupMenuProjection old = this.popupMenuProjection;
             this.popupMenuProjection = popupMenuProjection;
             this.pcs.firePropertyChange("popupMenuProjection", old, this.popupMenuProjection);
         }
@@ -425,8 +430,8 @@ public class Command implements ContentModel {
         return new CommandProjection(this, CommandPresentation.builder().build());
     }
 
-    public CommandProjection project(CommandPresentation commandDisplay) {
-        return new CommandProjection(this, commandDisplay);
+    public CommandProjection project(CommandPresentation commandPresentation) {
+        return new CommandProjection(this, commandPresentation);
     }
 
     public interface CommandPreviewListener extends EventListener {
@@ -444,7 +449,7 @@ public class Command implements ContentModel {
         protected String extraText;
         protected CommandListener action;
         protected RichTooltip actionRichTooltip;
-        protected CommandPopupMenuProjection popupMenuProjection;
+        protected AbstractPopupMenuProjection popupMenuProjection;
         protected PopupPanelCallback popupCallback;
         protected RichTooltip popupRichTooltip;
         protected boolean isTitleClickAction;
@@ -537,7 +542,7 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
-        public B setPopupMenuProjection(CommandPopupMenuProjection popupMenuProjection) {
+        public B setPopupMenuProjection(AbstractPopupMenuProjection popupMenuProjection) {
             this.popupMenuProjection = popupMenuProjection;
             return (B) this;
         }
@@ -629,8 +634,7 @@ public class Command implements ContentModel {
         }
     }
 
-    public static class Builder
-            extends BaseBuilder<Command, Builder> {
+    public static class Builder extends BaseBuilder<Command, Builder> {
         public Command build() {
             Command command = new Command();
 
@@ -640,14 +644,5 @@ public class Command implements ContentModel {
 
             return command;
         }
-
-        public AbstractCommandButton buildButton() {
-            return build().project().buildButton();
-        }
-
-        public AbstractCommandButton buildButton(CommandPresentation commandDisplay) {
-            return build().project(commandDisplay).buildButton();
-        }
-
     }
 }

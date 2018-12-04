@@ -77,10 +77,10 @@ public class TestButtonStripMultiple extends JFrame {
 
         AbstractCommandButton standalone = Command.builder().setIcon(new Format_justify_left())
                 .build().project(CommandPresentation.builder()
-                        .setCommandDisplayState(CommandButtonDisplayState.SMALL)
+                        .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setFlat(false).build())
-                .buildButton();
-        standalone.setDisplayState(CommandButtonDisplayState.SMALL);
+                .buildComponent();
+        standalone.setPresentationState(CommandButtonPresentationState.SMALL);
         standalone.setFlat(false);
         this.add(standalone);
 

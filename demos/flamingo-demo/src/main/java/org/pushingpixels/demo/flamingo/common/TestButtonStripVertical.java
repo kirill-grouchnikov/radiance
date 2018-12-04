@@ -112,7 +112,7 @@ public class TestButtonStripVertical extends JFrame {
                         Command.builder().setIcon(new Format_justify_center()).build().project(),
                         Command.builder().setIcon(new Format_justify_right()).build().project()),
                 CommandStripPresentationModel.builder()
-                        .setCommandDisplayState(CommandButtonDisplayState.SMALL)
+                        .setCommandPresentationState(CommandButtonPresentationState.SMALL)
                         .setOrientation(CommandStripPresentationModel.StripOrientation.VERTICAL)
                         .setHorizontalGapScaleFactor(hgapScaleFactor)
                         .setVerticalGapScaleFactor(vgapScaleFactor)
@@ -128,7 +128,7 @@ public class TestButtonStripVertical extends JFrame {
                         Command.builder().setIcon(
                                 new Format_text_strikethrough()).build().project()),
                 CommandStripPresentationModel.builder()
-                        .setCommandDisplayState(CommandButtonDisplayState.SMALL)
+                        .setCommandPresentationState(CommandButtonPresentationState.SMALL)
                         .setOrientation(CommandStripPresentationModel.StripOrientation.VERTICAL)
                         .setHorizontalGapScaleFactor(hgapScaleFactor)
                         .setVerticalGapScaleFactor(vgapScaleFactor)

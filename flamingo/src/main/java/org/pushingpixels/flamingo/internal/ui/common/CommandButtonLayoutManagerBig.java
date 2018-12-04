@@ -145,7 +145,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
 	}
 
 	/**
-	 * Updates the title strings for {@link CommandButtonDisplayState#BIG} and
+	 * Updates the title strings for {@link CommandButtonPresentationState#BIG} and
 	 * other relevant states.
 	 */
 	protected void updateTitleStrings() {

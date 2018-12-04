@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.kormorant
 
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip
 import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
@@ -37,13 +37,13 @@ import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
 @FlamingoElementMarker
 class KCommandButtonStripPresentation {
     var orientation: CommandStripPresentationModel.StripOrientation = CommandStripPresentationModel.StripOrientation.HORIZONTAL
-    var commandIconDimension: CommandButtonDisplayState = CommandButtonDisplayState.SMALL
+    var commandIconDimension: CommandButtonPresentationState = CommandButtonPresentationState.SMALL
     var horizontalGapScaleFactor: Double = -1.0
     var verticalGapScaleFactor: Double = -1.0
 
     fun toCommandStripPresentationModel() : CommandStripPresentationModel {
         return CommandStripPresentationModel.builder()
-                .setCommandDisplayState(commandIconDimension)
+                .setCommandPresentationState(commandIconDimension)
                 .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
                 .setVerticalGapScaleFactor(verticalGapScaleFactor)
                 .setOrientation(orientation)
@@ -88,7 +88,7 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
 
     fun toJavaButtonStrip(): JCommandButtonStrip {
         val commandProjectionGroupModel = CommandProjectionGroupModel(
-                commandConfigs.map { it -> it.toProjection() })
+                commandConfigs.map { it -> it.toJavaProjection() })
         val commandStripPresentationModel = presentation.toCommandStripPresentationModel()
         return JCommandButtonStrip(commandProjectionGroupModel, commandStripPresentationModel)
     }

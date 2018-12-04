@@ -163,15 +163,15 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
         return this.panelPresentationModel;
     }
 
-    private CommandPresentation createCommandDisplay() {
-        CommandPresentation commandDisplay = CommandPresentation.builder()
-                .setCommandDisplayState(this.panelPresentationModel.getCommandDisplayState())
-                .setCommandIconDimension(this.panelPresentationModel.getCommandIconDimension())
+    private CommandPresentation createCommandPresentation() {
+        CommandPresentation commandPresentation = CommandPresentation.builder()
+                .setPresentationState(this.panelPresentationModel.getCommandPresentationState())
+                .setIconDimension(this.panelPresentationModel.getCommandIconDimension())
                 .setMenu(this.panelPresentationModel.isMenu())
                 .setHorizontalAlignment(this.panelPresentationModel.getCommandHorizontalAlignment())
                 .setPopupOrientationKind(this.panelPresentationModel.getPopupOrientationKind())
                 .build();
-        return commandDisplay;
+        return commandPresentation;
     }
 
     private void populateContent() {
@@ -186,7 +186,7 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
         }
 
         int groupIndex = 0;
-        CommandPresentation commandDisplay = createCommandDisplay();
+        CommandPresentation commandPresentation = createCommandPresentation();
         Command.CommandPreviewListener commandPreviewListener =
                 panelContentModel.getCommandPreviewListener();
         for (CommandProjectionGroupModel groupModel : panelContentModel.getCommandProjectionGroups()) {
@@ -195,7 +195,8 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
             this.buttons.add(groupIndex, list);
 
             for (CommandProjection projection : groupModel.getCommandProjections()) {
-                AbstractCommandButton button = projection.reproject(commandDisplay).buildButton();
+                AbstractCommandButton button = projection.reproject(commandPresentation)
+                        .buildComponent();
 
                 // Wire preview listener is configured on the panel content model
                 if (commandPreviewListener != null) {
@@ -236,7 +237,8 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
     }
 
     protected int addCommandToLastGroup(Command command) {
-        AbstractCommandButton button = command.project(createCommandDisplay()).buildButton();
+        AbstractCommandButton button = command.project(createCommandPresentation())
+                .buildComponent();
         button.putClientProperty(COMMAND, command);
         return this.addButtonToLastGroup(command, button);
     }
@@ -248,7 +250,7 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
             return -1;
         }
         commandButton.updateCustomDimension(this.panelPresentationModel.getCommandIconDimension());
-        commandButton.setDisplayState(this.panelPresentationModel.getCommandDisplayState());
+        commandButton.setPresentationState(this.panelPresentationModel.getCommandPresentationState());
         this.add(commandButton);
         this.buttons.get(groupIndex).add(indexInGroup, commandButton);
         if (this.panelContentModel.isSingleSelectionMode()

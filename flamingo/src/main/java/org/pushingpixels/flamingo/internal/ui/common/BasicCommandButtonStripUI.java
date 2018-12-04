@@ -173,13 +173,13 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
                 this.buttonStrip.getPresentationModel();
         CommandPresentation presentation = commandProjection.getPresentationModel()
                 .overlayWith(CommandPresentation.overlay()
-                        .setCommandDisplayState(stripPresentationModel.getCommandDisplayState())
+                        .setPresentationState(stripPresentationModel.getCommandPresentationState())
                         .setHorizontalGapScaleFactor(
                                 stripPresentationModel.getHorizontalGapScaleFactor())
                         .setVerticalGapScaleFactor(
                                 stripPresentationModel.getVerticalGapScaleFactor())
                         .setFlat(false));
-        AbstractCommandButton button = commandProjection.reproject(presentation).buildButton();
+        AbstractCommandButton button = commandProjection.reproject(presentation).buildComponent();
         this.buttonStrip.add(button);
         this.commandButtonMap.put(commandProjection, button);
     }

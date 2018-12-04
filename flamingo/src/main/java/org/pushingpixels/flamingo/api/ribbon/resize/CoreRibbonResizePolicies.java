@@ -37,15 +37,15 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * The core resize policies. Provides a number of built in resize policies that
  * respect the application element priorities passed to
- * {@link JRibbonBand#addRibbonCommand(CommandProjection, RibbonElementPriority)}
+ * {@link JRibbonBand#addRibbonCommand(CommandProjection, JRibbonBand.PresentationPriority)}
  * and
- * {@link JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority)}
+ * {@link JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, JRibbonBand.PresentationPriority)}
  * APIs. There are three types of built in resize policies:
  *
  * <ul>
@@ -54,15 +54,15 @@ import java.util.List;
  * and three rows respectively.</li>
  * <li>Resize policies for the {@link JRibbonBand}s. The
  * {@link BaseCoreRibbonBandResizePolicy} is the base class for these policies.
- * These policies respect the {@link RibbonElementPriority} associated on
+ * These policies respect the {@link JRibbonBand.PresentationPriority} associated on
  * command buttons and ribbon galleries in
  * {@link RibbonBandResizePolicy#getPreferredWidth(int, int)} and
  * {@link RibbonBandResizePolicy#install(int, int)}. While
  * {@link RibbonBandResizePolicy#install(int, int)} call on a
  * {@link JFlowRibbonBand} only changes the bounds of the flow components, this
- * call on a {@link JRibbonBand} can also change the display state of the
+ * call on a {@link JRibbonBand} can also change the presentation state of the
  * command buttons (with
- * {@link AbstractCommandButton#setDisplayState(org.pushingpixels.flamingo.api.common.CommandButtonDisplayState)}
+ * {@link AbstractCommandButton#setPresentationState(CommandButtonPresentationState)}
  * ) and the number of visible buttons in the ribbon galleries.</li>
  * <li>The collapsed policy that replaces the entire content of the ribbon band
  * with a single popup button. This is done when there is not enough horizontal
@@ -80,7 +80,7 @@ import java.util.List;
  * <ul>
  * <li>{@link #getCorePoliciesPermissive(JRibbonBand)} returns a list that
  * starts with a resize policy that shows all command buttons in the
- * {@link CommandButtonDisplayState#BIG} and ribbon galleries with the largest
+ * {@link CommandButtonPresentationState#BIG} and ribbon galleries with the largest
  * number of visible buttons, fully utilizing the available screen space.</li>
  * <li>{@link #getCorePoliciesRestrictive(JRibbonBand)} returns a list that
  * starts with a resize policy that respects the associated ribbon element
@@ -121,7 +121,7 @@ public class CoreRibbonResizePolicies {
          *                 component
          * @return The element priority assigned by the specific resize policy.
          */
-        RibbonElementPriority map(RibbonElementPriority priority);
+        JRibbonBand.PresentationPriority map(JRibbonBand.PresentationPriority priority);
     }
 
     public static abstract class BaseRibbonBandResizePolicy<B extends AbstractRibbonBand>
@@ -146,7 +146,7 @@ public class CoreRibbonResizePolicies {
 
     /**
      * Returns a list that starts with a resize policy that shows all command
-     * buttons in the {@link CommandButtonDisplayState#BIG} and ribbon galleries
+     * buttons in the {@link CommandButtonPresentationState#BIG} and ribbon galleries
      * with the largest number of visible buttons. The last entry is the
      * {@link IconRibbonBandResizePolicy}.
      *
@@ -217,8 +217,8 @@ public class CoreRibbonResizePolicies {
         /**
          * Creates a new resize policy.
          *
-         * @param ribbonBand   The associated ribbon band.
-         * @param mapping      The element priority mapping.
+         * @param ribbonBand The associated ribbon band.
+         * @param mapping    The element priority mapping.
          */
         protected BaseCoreRibbonBandResizePolicy(JRibbonBand ribbonBand, Mapping mapping) {
             super(ribbonBand);
@@ -229,9 +229,9 @@ public class CoreRibbonResizePolicies {
          * Returns the total width of the specified buttons.
          *
          * @param gap           Inter component gap.
-         * @param bigButtons    List of buttons in big display state.
-         * @param mediumButtons List of buttons in medium display state.
-         * @param smallButtons  List of buttons in small display state.
+         * @param bigButtons    List of buttons in big presentation state.
+         * @param mediumButtons List of buttons in medium presentation state.
+         * @param smallButtons  List of buttons in small presentation state.
          * @return Total width of the specified buttons.
          */
         protected int getWidth(int gap,
@@ -244,7 +244,7 @@ public class CoreRibbonResizePolicies {
                 if (hasLeadingContent) {
                     result += gap;
                 }
-                result += getPreferredWidth(top, RibbonElementPriority.TOP);
+                result += getPreferredWidth(top, JRibbonBand.PresentationPriority.TOP);
                 hasLeadingContent = true;
             }
 
@@ -265,7 +265,7 @@ public class CoreRibbonResizePolicies {
             int maxWidth3 = 0;
             for (AbstractCommandButton medium : mediumButtons) {
                 int medWidth = getPreferredWidth(medium,
-                        RibbonElementPriority.MEDIUM);
+                        JRibbonBand.PresentationPriority.MEDIUM);
                 maxWidth3 = Math.max(maxWidth3, medWidth);
                 index3++;
 
@@ -294,7 +294,7 @@ public class CoreRibbonResizePolicies {
             index3 = 0;
             maxWidth3 = 0;
             for (AbstractCommandButton low : smallButtons) {
-                int lowWidth = getPreferredWidth(low, RibbonElementPriority.LOW);
+                int lowWidth = getPreferredWidth(low, JRibbonBand.PresentationPriority.LOW);
                 maxWidth3 = Math.max(maxWidth3, lowWidth);
                 index3++;
 
@@ -324,28 +324,28 @@ public class CoreRibbonResizePolicies {
 
         /**
          * Returns the preferred width of the specified command button under the
-         * specified display priority.
+         * specified presentation priority.
          *
-         * @param button                Command button.
-         * @param buttonDisplayPriority Button display priority.
+         * @param button                     Command button.
+         * @param buttonPresentationPriority Button presentation priority.
          * @return The preferred width of the specified command button under the
-         * specified display priority.
+         * specified presentation priority.
          */
         private int getPreferredWidth(AbstractCommandButton button,
-                RibbonElementPriority buttonDisplayPriority) {
-            CommandButtonDisplayState displayState = null;
-            switch (buttonDisplayPriority) {
+                JRibbonBand.PresentationPriority buttonPresentationPriority) {
+            CommandButtonPresentationState presentationState = null;
+            switch (buttonPresentationPriority) {
                 case TOP:
-                    displayState = CommandButtonDisplayState.BIG;
+                    presentationState = CommandButtonPresentationState.BIG;
                     break;
                 case MEDIUM:
-                    displayState = CommandButtonDisplayState.MEDIUM;
+                    presentationState = CommandButtonPresentationState.MEDIUM;
                     break;
                 case LOW:
-                    displayState = CommandButtonDisplayState.SMALL;
+                    presentationState = CommandButtonPresentationState.SMALL;
                     break;
             }
-            return displayState.createLayoutManager(button).getPreferredSize(button).width;
+            return presentationState.createLayoutManager(button).getPreferredSize(button).width;
         }
 
         @Override
@@ -377,9 +377,9 @@ public class CoreRibbonResizePolicies {
                             rowIndex = startRowIndex;
                         }
 
-                        RibbonElementPriority targetPriority = RibbonElementPriority.TOP;
+                        JRibbonBand.PresentationPriority targetPriority = JRibbonBand.PresentationPriority.TOP;
                         if (ribbonComp.isResizingAware()) {
-                            targetPriority = this.mapping.map(RibbonElementPriority.TOP);
+                            targetPriority = this.mapping.map(JRibbonBand.PresentationPriority.TOP);
                         }
                         int prefWidth = ribbonComp.getUI().getPreferredSize(targetPriority).width;
                         maxWidthInCurrColumn = Math.max(maxWidthInCurrColumn, prefWidth);
@@ -423,15 +423,15 @@ public class CoreRibbonResizePolicies {
          */
         protected int getPreferredButtonWidth(
                 JBandControlPanel.ControlPanelGroup controlPanelGroup, int gap) {
-            Map<RibbonElementPriority, List<AbstractCommandButton>> mapped = new HashMap<>();
-            for (RibbonElementPriority rep : RibbonElementPriority.values()) {
+            Map<JRibbonBand.PresentationPriority, List<AbstractCommandButton>> mapped = new HashMap<>();
+            for (JRibbonBand.PresentationPriority rep : JRibbonBand.PresentationPriority.values()) {
                 mapped.put(rep, new ArrayList<>());
             }
 
-            for (RibbonElementPriority elementPriority : RibbonElementPriority
+            for (JRibbonBand.PresentationPriority elementPriority : JRibbonBand.PresentationPriority
                     .values()) {
                 // map the priority
-                RibbonElementPriority mappedPriority = mapping.map(elementPriority);
+                JRibbonBand.PresentationPriority mappedPriority = mapping.map(elementPriority);
                 for (AbstractCommandButton button : controlPanelGroup
                         .getRibbonButtons(elementPriority)) {
                     // and add the button to a list based on the mapped priority
@@ -441,9 +441,9 @@ public class CoreRibbonResizePolicies {
 
             // at this point, the lists in the 'mapped' contain the buttons
             // grouped by the priority computed by the resize policy.
-            return this.getWidth(gap, mapped.get(RibbonElementPriority.TOP),
-                    mapped.get(RibbonElementPriority.MEDIUM), mapped
-                            .get(RibbonElementPriority.LOW));
+            return this.getWidth(gap, mapped.get(JRibbonBand.PresentationPriority.TOP),
+                    mapped.get(JRibbonBand.PresentationPriority.MEDIUM), mapped
+                            .get(JRibbonBand.PresentationPriority.LOW));
 
         }
 
@@ -462,9 +462,9 @@ public class CoreRibbonResizePolicies {
                 JBandControlPanel.ControlPanelGroup controlPanelGroup,
                 int galleryAvailableHeight, int gap) {
             int result = 0;
-            for (RibbonElementPriority elementPriority : RibbonElementPriority.values()) {
+            for (JRibbonBand.PresentationPriority elementPriority : JRibbonBand.PresentationPriority.values()) {
                 // map the priority
-                RibbonElementPriority mappedPriority = mapping.map(elementPriority);
+                JRibbonBand.PresentationPriority mappedPriority = mapping.map(elementPriority);
                 // go over all galleries registered with the specific priority
                 for (JRibbonGallery gallery : controlPanelGroup
                         .getRibbonGalleries(elementPriority))
@@ -485,36 +485,36 @@ public class CoreRibbonResizePolicies {
                     List<JRibbonComponent> ribbonComps = controlPanelGroup.getRibbonComps();
                     for (int i = 0; i < ribbonComps.size(); i++) {
                         JRibbonComponent ribbonComp = ribbonComps.get(i);
-                        RibbonElementPriority targetPriority = RibbonElementPriority.TOP;
+                        JRibbonBand.PresentationPriority targetPriority = JRibbonBand.PresentationPriority.TOP;
                         if (ribbonComp.isResizingAware()) {
-                            targetPriority = this.mapping.map(RibbonElementPriority.TOP);
+                            targetPriority = this.mapping.map(JRibbonBand.PresentationPriority.TOP);
                         }
-                        ribbonComp.setDisplayPriority(targetPriority);
+                        ribbonComp.setPresentationPriority(targetPriority);
                     }
                 } else {
-                    // set the display priority for the galleries
-                    for (RibbonElementPriority elementPriority : RibbonElementPriority.values()) {
+                    // set the presentation priority for the galleries
+                    for (JRibbonBand.PresentationPriority elementPriority : JRibbonBand.PresentationPriority.values()) {
                         // map the priority
-                        RibbonElementPriority mappedPriority = mapping.map(elementPriority);
+                        JRibbonBand.PresentationPriority mappedPriority = mapping.map(elementPriority);
                         // go over all galleries registered with the specific
                         // priority
                         for (JRibbonGallery gallery : controlPanelGroup
                                 .getRibbonGalleries(elementPriority))
-                            // and set the display priority based on the
+                            // and set the presentation priority based on the
                             // specific resize policy
-                            gallery.setDisplayPriority(mappedPriority);
+                            gallery.setPresentationPriority(mappedPriority);
                     }
 
-                    // set the display priority for the buttons
-                    Map<RibbonElementPriority, List<AbstractCommandButton>> mapped = new
-                            HashMap<>();
-                    for (RibbonElementPriority rep : RibbonElementPriority.values()) {
+                    // set the presentation priority for the buttons
+                    Map<JRibbonBand.PresentationPriority, List<AbstractCommandButton>> mapped =
+                            new HashMap<>();
+                    for (JRibbonBand.PresentationPriority rep : JRibbonBand.PresentationPriority.values()) {
                         mapped.put(rep, new ArrayList<>());
                     }
 
-                    for (RibbonElementPriority elementPriority : RibbonElementPriority.values()) {
+                    for (JRibbonBand.PresentationPriority elementPriority : JRibbonBand.PresentationPriority.values()) {
                         // map the priority
-                        RibbonElementPriority mappedPriority = mapping
+                        JRibbonBand.PresentationPriority mappedPriority = mapping
                                 .map(elementPriority);
                         for (AbstractCommandButton button : controlPanelGroup
                                 .getRibbonButtons(elementPriority)) {
@@ -525,30 +525,30 @@ public class CoreRibbonResizePolicies {
                     }
 
                     // start from the top priority
-                    for (AbstractCommandButton big : mapped.get(RibbonElementPriority.TOP)) {
-                        big.setDisplayState(CommandButtonDisplayState.BIG);
+                    for (AbstractCommandButton big : mapped.get(JRibbonBand.PresentationPriority.TOP)) {
+                        big.setPresentationState(CommandButtonPresentationState.BIG);
                     }
 
                     // next - medium priority
-                    if (mapped.get(RibbonElementPriority.MEDIUM).size() > 0) {
+                    if (mapped.get(JRibbonBand.PresentationPriority.MEDIUM).size() > 0) {
                         // try to move buttons from small to medium to make
                         // three-somes.
-                        while (((mapped.get(RibbonElementPriority.MEDIUM).size() % 3) != 0)
-                                && (mapped.get(RibbonElementPriority.LOW).size() > 0)) {
+                        while (((mapped.get(JRibbonBand.PresentationPriority.MEDIUM).size() % 3) != 0)
+                                && (mapped.get(JRibbonBand.PresentationPriority.LOW).size() > 0)) {
                             AbstractCommandButton low = mapped.get(
-                                    RibbonElementPriority.LOW).get(0);
-                            mapped.get(RibbonElementPriority.LOW).remove(low);
-                            mapped.get(RibbonElementPriority.MEDIUM).add(low);
+                                    JRibbonBand.PresentationPriority.LOW).get(0);
+                            mapped.get(JRibbonBand.PresentationPriority.LOW).remove(low);
+                            mapped.get(JRibbonBand.PresentationPriority.MEDIUM).add(low);
                         }
                     }
                     for (AbstractCommandButton medium : mapped
-                            .get(RibbonElementPriority.MEDIUM)) {
-                        medium.setDisplayState(CommandButtonDisplayState.MEDIUM);
+                            .get(JRibbonBand.PresentationPriority.MEDIUM)) {
+                        medium.setPresentationState(CommandButtonPresentationState.MEDIUM);
                     }
 
                     // finally - low priority
-                    for (AbstractCommandButton low : mapped.get(RibbonElementPriority.LOW)) {
-                        low.setDisplayState(CommandButtonDisplayState.SMALL);
+                    for (AbstractCommandButton low : mapped.get(JRibbonBand.PresentationPriority.LOW)) {
+                        low.setPresentationState(CommandButtonPresentationState.SMALL);
                     }
                 }
             }
@@ -556,8 +556,8 @@ public class CoreRibbonResizePolicies {
     }
 
     /**
-     * Core resize policy that maps all {@link RibbonElementPriority}s to
-     * {@link RibbonElementPriority#TOP}.
+     * Core resize policy that maps all {@link JRibbonBand.PresentationPriority}s to
+     * {@link JRibbonBand.PresentationPriority#TOP}.
      *
      * @author Kirill Grouchnikov
      */
@@ -568,7 +568,7 @@ public class CoreRibbonResizePolicies {
          * @param ribbonBand The associated ribbon band.
          */
         public None(JRibbonBand ribbonBand) {
-            super(ribbonBand, (RibbonElementPriority priority) -> RibbonElementPriority.TOP);
+            super(ribbonBand, (JRibbonBand.PresentationPriority priority) -> JRibbonBand.PresentationPriority.TOP);
         }
     }
 
@@ -576,12 +576,12 @@ public class CoreRibbonResizePolicies {
      * Core resize policy that maps:
      *
      * <ul>
-     * <li>{@link RibbonElementPriority#TOP} -&gt;
-     * {@link RibbonElementPriority#TOP}</li>
-     * <li>{@link RibbonElementPriority#MEDIUM} -&gt;
-     * {@link RibbonElementPriority#TOP}</li>
-     * <li>{@link RibbonElementPriority#LOW} -&gt;
-     * {@link RibbonElementPriority#MEDIUM}</li>
+     * <li>{@link JRibbonBand.PresentationPriority#TOP} -&gt;
+     * {@link JRibbonBand.PresentationPriority#TOP}</li>
+     * <li>{@link JRibbonBand.PresentationPriority#MEDIUM} -&gt;
+     * {@link JRibbonBand.PresentationPriority#TOP}</li>
+     * <li>{@link JRibbonBand.PresentationPriority#LOW} -&gt;
+     * {@link JRibbonBand.PresentationPriority#MEDIUM}</li>
      * </ul>
      *
      * @author Kirill Grouchnikov
@@ -593,14 +593,14 @@ public class CoreRibbonResizePolicies {
          * @param ribbonBand The associated ribbon band.
          */
         public Low2Mid(JRibbonBand ribbonBand) {
-            super(ribbonBand, (RibbonElementPriority priority) -> {
+            super(ribbonBand, (JRibbonBand.PresentationPriority priority) -> {
                 switch (priority) {
                     case TOP:
-                        return RibbonElementPriority.TOP;
+                        return JRibbonBand.PresentationPriority.TOP;
                     case MEDIUM:
-                        return RibbonElementPriority.TOP;
+                        return JRibbonBand.PresentationPriority.TOP;
                     case LOW:
-                        return RibbonElementPriority.MEDIUM;
+                        return JRibbonBand.PresentationPriority.MEDIUM;
                 }
                 return null;
             });
@@ -611,12 +611,12 @@ public class CoreRibbonResizePolicies {
      * Core resize policy that maps:
      *
      * <ul>
-     * <li>{@link RibbonElementPriority#TOP} -&gt;
-     * {@link RibbonElementPriority#TOP}</li>
-     * <li>{@link RibbonElementPriority#MEDIUM} -&gt;
-     * {@link RibbonElementPriority#MEDIUM}</li>
-     * <li>{@link RibbonElementPriority#LOW} -&gt;
-     * {@link RibbonElementPriority#MEDIUM}</li>
+     * <li>{@link JRibbonBand.PresentationPriority#TOP} -&gt;
+     * {@link JRibbonBand.PresentationPriority#TOP}</li>
+     * <li>{@link JRibbonBand.PresentationPriority#MEDIUM} -&gt;
+     * {@link JRibbonBand.PresentationPriority#MEDIUM}</li>
+     * <li>{@link JRibbonBand.PresentationPriority#LOW} -&gt;
+     * {@link JRibbonBand.PresentationPriority#MEDIUM}</li>
      * </ul>
      *
      * @author Kirill Grouchnikov
@@ -628,14 +628,14 @@ public class CoreRibbonResizePolicies {
          * @param ribbonBand The associated ribbon band.
          */
         public Mid2Mid(JRibbonBand ribbonBand) {
-            super(ribbonBand, (RibbonElementPriority priority) -> {
+            super(ribbonBand, (JRibbonBand.PresentationPriority priority) -> {
                 switch (priority) {
                     case TOP:
-                        return RibbonElementPriority.TOP;
+                        return JRibbonBand.PresentationPriority.TOP;
                     case MEDIUM:
-                        return RibbonElementPriority.MEDIUM;
+                        return JRibbonBand.PresentationPriority.MEDIUM;
                     case LOW:
-                        return RibbonElementPriority.MEDIUM;
+                        return JRibbonBand.PresentationPriority.MEDIUM;
                 }
                 return null;
             });
@@ -644,7 +644,7 @@ public class CoreRibbonResizePolicies {
 
     /**
      * Mirror core resize policy that maps the values of
-     * {@link RibbonElementPriority}s to themselves.
+     * {@link JRibbonBand.PresentationPriority}s to themselves.
      *
      * @author Kirill Grouchnikov
      */
@@ -655,7 +655,7 @@ public class CoreRibbonResizePolicies {
          * @param ribbonBand The associated ribbon band.
          */
         public Mirror(JRibbonBand ribbonBand) {
-            super(ribbonBand, (RibbonElementPriority priority) -> priority);
+            super(ribbonBand, (JRibbonBand.PresentationPriority priority) -> priority);
         }
     }
 
@@ -663,12 +663,12 @@ public class CoreRibbonResizePolicies {
      * Core resize policy that maps:
      *
      * <ul>
-     * <li>{@link RibbonElementPriority#TOP} -&gt;
-     * {@link RibbonElementPriority#TOP}</li>
-     * <li>{@link RibbonElementPriority#MEDIUM} -&gt;
-     * {@link RibbonElementPriority#LOW}</li>
-     * <li>{@link RibbonElementPriority#LOW} -&gt;
-     * {@link RibbonElementPriority#LOW}</li>
+     * <li>{@link JRibbonBand.PresentationPriority#TOP} -&gt;
+     * {@link JRibbonBand.PresentationPriority#TOP}</li>
+     * <li>{@link JRibbonBand.PresentationPriority#MEDIUM} -&gt;
+     * {@link JRibbonBand.PresentationPriority#LOW}</li>
+     * <li>{@link JRibbonBand.PresentationPriority#LOW} -&gt;
+     * {@link JRibbonBand.PresentationPriority#LOW}</li>
      * </ul>
      *
      * @author Kirill Grouchnikov
@@ -680,14 +680,14 @@ public class CoreRibbonResizePolicies {
          * @param ribbonBand The associated ribbon band.
          */
         public Mid2Low(JRibbonBand ribbonBand) {
-            super(ribbonBand, (RibbonElementPriority priority) -> {
+            super(ribbonBand, (JRibbonBand.PresentationPriority priority) -> {
                 switch (priority) {
                     case TOP:
-                        return RibbonElementPriority.TOP;
+                        return JRibbonBand.PresentationPriority.TOP;
                     case MEDIUM:
-                        return RibbonElementPriority.LOW;
+                        return JRibbonBand.PresentationPriority.LOW;
                     case LOW:
-                        return RibbonElementPriority.LOW;
+                        return JRibbonBand.PresentationPriority.LOW;
                 }
                 return null;
             });
@@ -698,12 +698,12 @@ public class CoreRibbonResizePolicies {
      * Core resize policy that maps:
      *
      * <ul>
-     * <li>{@link RibbonElementPriority#TOP} -&gt;
-     * {@link RibbonElementPriority#MEDIUM}</li>
-     * <li>{@link RibbonElementPriority#MEDIUM} -&gt;
-     * {@link RibbonElementPriority#LOW}</li>
-     * <li>{@link RibbonElementPriority#LOW} -&gt;
-     * {@link RibbonElementPriority#LOW}</li>
+     * <li>{@link JRibbonBand.PresentationPriority#TOP} -&gt;
+     * {@link JRibbonBand.PresentationPriority#MEDIUM}</li>
+     * <li>{@link JRibbonBand.PresentationPriority#MEDIUM} -&gt;
+     * {@link JRibbonBand.PresentationPriority#LOW}</li>
+     * <li>{@link JRibbonBand.PresentationPriority#LOW} -&gt;
+     * {@link JRibbonBand.PresentationPriority#LOW}</li>
      * </ul>
      *
      * @author Kirill Grouchnikov
@@ -715,14 +715,14 @@ public class CoreRibbonResizePolicies {
          * @param ribbonBand The associated ribbon band.
          */
         public High2Mid(JRibbonBand ribbonBand) {
-            super(ribbonBand, (RibbonElementPriority priority) -> {
+            super(ribbonBand, (JRibbonBand.PresentationPriority priority) -> {
                 switch (priority) {
                     case TOP:
-                        return RibbonElementPriority.MEDIUM;
+                        return JRibbonBand.PresentationPriority.MEDIUM;
                     case MEDIUM:
-                        return RibbonElementPriority.LOW;
+                        return JRibbonBand.PresentationPriority.LOW;
                     case LOW:
-                        return RibbonElementPriority.LOW;
+                        return JRibbonBand.PresentationPriority.LOW;
                 }
                 return null;
             });
@@ -730,8 +730,8 @@ public class CoreRibbonResizePolicies {
     }
 
     /**
-     * Core resize policy that maps all {@link RibbonElementPriority}s to
-     * {@link RibbonElementPriority#LOW}.
+     * Core resize policy that maps all {@link JRibbonBand.PresentationPriority}s to
+     * {@link JRibbonBand.PresentationPriority#LOW}.
      *
      * @author Kirill Grouchnikov
      */
@@ -742,7 +742,7 @@ public class CoreRibbonResizePolicies {
          * @param ribbonBand The associated ribbon band.
          */
         public High2Low(JRibbonBand ribbonBand) {
-            super(ribbonBand, (RibbonElementPriority priority) -> RibbonElementPriority.LOW);
+            super(ribbonBand, (JRibbonBand.PresentationPriority priority) -> JRibbonBand.PresentationPriority.LOW);
         }
     }
 

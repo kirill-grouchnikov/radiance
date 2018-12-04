@@ -128,7 +128,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         }
 
         this.dummy = new JCommandButton("Dummy", new EmptyResizableIcon(16));
-        this.dummy.setDisplayState(CommandButtonDisplayState.MEDIUM);
+        this.dummy.setPresentationState(CommandButtonPresentationState.MEDIUM);
         this.dummy.setCommandButtonKind(CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION);
         int preferredHeight = dummy.getPreferredSize().height;
         this.circularProgress.setBorder(
@@ -571,7 +571,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             return new CommandPopupMenuProjection(
                     new CommandPopupMenuContentModel(new CommandProjectionGroupModel(menuCommands)),
                     menuPresentationModel.build())
-                    .project();
+                    .buildComponent();
         });
     }
 
@@ -610,7 +610,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     }
 
     private void configureBreadcrumbButton(final JCommandButton button) {
-        button.setDisplayState(CommandButtonDisplayState.MEDIUM);
+        button.setPresentationState(CommandButtonPresentationState.MEDIUM);
         button.setPopupOrientationKind(CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD);
         button.setHGapScaleFactor(0.75);
         button.getPopupModel().addChangeListener((ChangeEvent e) -> {

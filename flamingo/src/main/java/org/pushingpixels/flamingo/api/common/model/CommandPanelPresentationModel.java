@@ -61,7 +61,7 @@ public class CommandPanelPresentationModel {
      */
     private LayoutKind layoutKind = LayoutKind.ROW_FILL;
 
-    private CommandButtonDisplayState commandDisplayState;
+    private CommandButtonPresentationState commandPresentationState;
 
     private Integer commandIconDimension;
 
@@ -93,14 +93,14 @@ public class CommandPanelPresentationModel {
         return new Builder();
     }
 
-    public CommandButtonDisplayState getCommandDisplayState() {
-        return commandDisplayState;
+    public CommandButtonPresentationState getCommandPresentationState() {
+        return commandPresentationState;
     }
 
-    public void setCommandDisplayState(CommandButtonDisplayState commandDisplayState) {
-        if (this.commandDisplayState != commandDisplayState) {
-            this.commandDisplayState = commandDisplayState;
-            if (this.commandDisplayState != CommandButtonDisplayState.FIT_TO_ICON) {
+    public void setCommandPresentationState(CommandButtonPresentationState commandPresentationState) {
+        if (this.commandPresentationState != commandPresentationState) {
+            this.commandPresentationState = commandPresentationState;
+            if (this.commandPresentationState != CommandButtonPresentationState.FIT_TO_ICON) {
                 this.commandIconDimension = -1;
             }
             this.fireStateChanged();
@@ -115,7 +115,7 @@ public class CommandPanelPresentationModel {
         if (this.commandIconDimension != commandIconDimension) {
             this.commandIconDimension = commandIconDimension;
             if (this.commandIconDimension != -1) {
-                this.commandDisplayState = CommandButtonDisplayState.FIT_TO_ICON;
+                this.commandPresentationState = CommandButtonPresentationState.FIT_TO_ICON;
             }
             this.fireStateChanged();
         }
@@ -231,7 +231,7 @@ public class CommandPanelPresentationModel {
         private int maxRows = -1;
         private boolean toShowGroupLabels = true;
         private LayoutKind layoutKind = LayoutKind.ROW_FILL;
-        private CommandButtonDisplayState commandDisplayState;
+        private CommandButtonPresentationState commandPresentationState;
         private Integer commandIconDimension = -1;
         private int commandHorizontalAlignment = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
         private boolean isMenu = false;
@@ -259,9 +259,9 @@ public class CommandPanelPresentationModel {
             return this;
         }
 
-        public Builder setCommandDisplayState(
-                CommandButtonDisplayState commandDisplayState) {
-            this.commandDisplayState = commandDisplayState;
+        public Builder setCommandPresentationState(
+                CommandButtonPresentationState commandPresentationState) {
+            this.commandPresentationState = commandPresentationState;
             return this;
         }
 
@@ -293,7 +293,7 @@ public class CommandPanelPresentationModel {
             presentationModel.layoutKind = this.layoutKind;
             presentationModel.toShowGroupLabels = this.toShowGroupLabels;
             presentationModel.commandIconDimension = this.commandIconDimension;
-            presentationModel.commandDisplayState = this.commandDisplayState;
+            presentationModel.commandPresentationState = this.commandPresentationState;
             presentationModel.commandHorizontalAlignment = this.commandHorizontalAlignment;
             presentationModel.isMenu = this.isMenu;
             presentationModel.popupOrientationKind = this.popupOrientationKind;

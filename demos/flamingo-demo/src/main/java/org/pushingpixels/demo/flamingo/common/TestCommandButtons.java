@@ -215,8 +215,8 @@ public class TestCommandButtons extends JFrame {
                                 .setPanelPresentationModel(
                                         CommandPanelPresentationModel.builder()
                                                 .setToShowGroupLabels(false)
-                                                .setCommandDisplayState(
-                                                        CommandButtonDisplayState.FIT_TO_ICON)
+                                                .setCommandPresentationState(
+                                                        CommandButtonPresentationState.FIT_TO_ICON)
                                                 .setCommandIconDimension(48)
                                                 .setMaxColumns(5)
                                                 .setMaxRows(3).build())
@@ -236,10 +236,10 @@ public class TestCommandButtons extends JFrame {
         builder.add("Action + popup (main)").xy(7, 1);
         builder.add("Popup only").xy(9, 1);
 
-        addButtons(builder, CommandButtonDisplayState.BIG, 3);
-        addButtons(builder, CommandButtonDisplayState.TILE, 5);
-        addButtons(builder, CommandButtonDisplayState.MEDIUM, 7);
-        addButtons(builder, CommandButtonDisplayState.SMALL, 9);
+        addButtons(builder, CommandButtonPresentationState.BIG, 3);
+        addButtons(builder, CommandButtonPresentationState.TILE, 5);
+        addButtons(builder, CommandButtonPresentationState.MEDIUM, 7);
+        addButtons(builder, CommandButtonPresentationState.SMALL, 9);
 
         return builder.build();
     }
@@ -248,7 +248,7 @@ public class TestCommandButtons extends JFrame {
         return new SimpleDateFormat("HH:mm:ss.SSS").format(new Date());
     }
 
-    private void addButtons(FormBuilder builder, CommandButtonDisplayState state, int row) {
+    private void addButtons(FormBuilder builder, CommandButtonPresentationState state, int row) {
         builder.add(state.getDisplayName() + " state").xy(1, row);
 
         AbstractCommandButton actionButton = createActionButton(state);
@@ -266,36 +266,36 @@ public class TestCommandButtons extends JFrame {
         builder.add(popupButton).xy(9, row);
     }
 
-    protected AbstractCommandButton createPopupButton(CommandButtonDisplayState state) {
+    protected AbstractCommandButton createPopupButton(CommandButtonPresentationState state) {
         return this.pastePopupCommand.project(
                 CommandPresentation.builder()
-                        .setCommandDisplayState(state)
+                        .setPresentationState(state)
                         .setFlat(false)
-                        .build()).project();
+                        .build()).buildComponent();
     }
 
-    protected AbstractCommandButton createActionAndPopupMainPopupButton(CommandButtonDisplayState state) {
+    protected AbstractCommandButton createActionAndPopupMainPopupButton(CommandButtonPresentationState state) {
         return this.copyCommand.project(
                 CommandPresentation.builder()
-                        .setCommandDisplayState(state)
+                        .setPresentationState(state)
                         .setFlat(false)
-                        .build()).project();
+                        .build()).buildComponent();
     }
 
-    protected AbstractCommandButton createActionAndPopupMainActionButton(CommandButtonDisplayState state) {
+    protected AbstractCommandButton createActionAndPopupMainActionButton(CommandButtonPresentationState state) {
         return this.cutCommand.project(
                 CommandPresentation.builder()
-                        .setCommandDisplayState(state)
+                        .setPresentationState(state)
                         .setFlat(false)
-                        .build()).project();
+                        .build()).buildComponent();
     }
 
-    protected AbstractCommandButton createActionButton(CommandButtonDisplayState state) {
+    protected AbstractCommandButton createActionButton(CommandButtonPresentationState state) {
         return this.pasteActionCommand.project(
                 CommandPresentation.builder()
-                        .setCommandDisplayState(state)
+                        .setPresentationState(state)
                         .setFlat(false)
-                        .build()).project();
+                        .build()).buildComponent();
     }
 
     protected void configureControlPanel(JPanel controlPanel) {

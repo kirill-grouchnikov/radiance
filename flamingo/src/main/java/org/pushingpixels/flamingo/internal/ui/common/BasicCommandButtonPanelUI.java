@@ -116,8 +116,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                             for (AbstractCommandButton button : buttonPanel.getGroupButtons(i)) {
                                 button.updateCustomDimension(
                                         buttonPanel.getPresentationModel().getCommandIconDimension());
-                                button.setDisplayState(
-                                        buttonPanel.getPresentationModel().getCommandDisplayState());
+                                button.setPresentationState(
+                                        buttonPanel.getPresentationModel().getCommandPresentationState());
                             }
                         }
 

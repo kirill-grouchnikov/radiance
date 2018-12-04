@@ -203,7 +203,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         this.buttonStrip = new JCommandButtonStrip(this.galleryScrollerCommandProjections,
                 CommandStripPresentationModel.builder()
                         .setOrientation(StripOrientation.VERTICAL)
-                        .setCommandDisplayState(CommandButtonDisplayState.FIT_TO_ICON)
+                        .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
                         .build());
 
         this.ribbonGallery.add(this.buttonStrip);
@@ -299,7 +299,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
         @Override
         public Dimension preferredLayoutSize(Container c) {
-            return new Dimension(ribbonGallery.getPreferredWidth(ribbonGallery.getDisplayPriority(),
+            return new Dimension(ribbonGallery.getPreferredWidth(ribbonGallery.getPresentationPriority(),
                     c.getHeight()), c.getHeight());
         }
 
@@ -319,9 +319,9 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
             int buttonHeight = galleryHeight - borderInsets.top - borderInsets.bottom;
 
             visibleButtonRowNumber = 1;
-            CommandButtonDisplayState galleryButtonDisplayState = ribbonGallery
-                    .getPresentationModel().getCommandDisplayState();
-            if (galleryButtonDisplayState == CommandButtonDisplayState.SMALL) {
+            CommandButtonPresentationState galleryButtonPresentationState = ribbonGallery
+                    .getPresentationModel().getCommandPresentationState();
+            if (galleryButtonPresentationState == CommandButtonPresentationState.SMALL) {
                 buttonHeight /= 3;
                 visibleButtonRowNumber = 3;
             }
@@ -343,7 +343,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
             // hide all buttons and compute the button width
             int maxButtonWidth = buttonHeight;
-            if (galleryButtonDisplayState == JRibbonBand.BIG_FIXED_LANDSCAPE) {
+            if (galleryButtonPresentationState == JRibbonBand.BIG_FIXED_LANDSCAPE) {
                 maxButtonWidth = maxButtonWidth * 5 / 4;
             }
             for (int i = 0; i < ribbonGallery.getCommandCount(); i++) {
@@ -469,16 +469,16 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
         // start at the left margin
         int result = margin.left;
-        // add all the gallery buttons - based on the display state
-        CommandButtonDisplayState galleryButtonDisplayState = ribbonGallery.
-                getPresentationModel().getCommandDisplayState();
-        if (galleryButtonDisplayState == CommandButtonDisplayState.SMALL) {
+        // add all the gallery buttons - based on the presentation state
+        CommandButtonPresentationState galleryButtonPresentationState = ribbonGallery.
+                getPresentationModel().getCommandPresentationState();
+        if (galleryButtonPresentationState == CommandButtonPresentationState.SMALL) {
             result += buttonCount * buttonHeight / 3;
         }
-        if (galleryButtonDisplayState == JRibbonBand.BIG_FIXED) {
+        if (galleryButtonPresentationState == JRibbonBand.BIG_FIXED) {
             result += buttonCount * buttonHeight;
         }
-        if (galleryButtonDisplayState == JRibbonBand.BIG_FIXED_LANDSCAPE) {
+        if (galleryButtonPresentationState == JRibbonBand.BIG_FIXED_LANDSCAPE) {
             result += buttonCount * buttonHeight * 5 / 4;
         }
         // and the gaps between them (including before first and after last)

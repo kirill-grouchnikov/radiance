@@ -39,8 +39,8 @@ import java.util.*;
 
 public class JRibbonApplicationMenuPopupPanelSecondary extends
         JCommandButtonPanel {
-    private static final CommandButtonDisplayState MENU_TILE_LEVEL_2 =
-            new CommandButtonDisplayState("Ribbon application menu tile level 2", 32) {
+    private static final CommandButtonPresentationState MENU_TILE_LEVEL_2 =
+            new CommandButtonPresentationState("Ribbon application menu tile level 2", 32) {
                 @Override
                 public CommandButtonLayoutManager createLayoutManager(
                         AbstractCommandButton commandButton) {
@@ -74,7 +74,7 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends
             RibbonApplicationMenuPrimaryCommand primaryMenuEntry) {
         super(createCommandPanelContentModel(primaryMenuEntry),
                 CommandPanelPresentationModel.builder()
-                        .setCommandDisplayState(MENU_TILE_LEVEL_2)
+                        .setCommandPresentationState(MENU_TILE_LEVEL_2)
                         .setMaxColumns(1)
                         .setCommandHorizontalAlignment(SwingUtilities.LEADING)
                         .setPopupOrientationKind(

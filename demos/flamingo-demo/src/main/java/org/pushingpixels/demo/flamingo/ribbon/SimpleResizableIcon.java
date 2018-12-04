@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.flamingo.ribbon;
 
-import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
+import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.*;
@@ -39,9 +39,9 @@ public class SimpleResizableIcon implements ResizableIcon {
 
     private int currHeight;
 
-    private RibbonElementPriority priority;
+    private JRibbonBand.PresentationPriority priority;
 
-    public SimpleResizableIcon(RibbonElementPriority priority, int startWidth,
+    public SimpleResizableIcon(JRibbonBand.PresentationPriority priority, int startWidth,
             int startHeight) {
         this.priority = priority;
         this.currWidth = startWidth;

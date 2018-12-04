@@ -30,7 +30,7 @@
 package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
@@ -42,7 +42,7 @@ class KCommandButtonPanelPresentation {
     var maxColumns: Int = -1
     var maxRows: Int = -1
     var toShowGroupLabels: Boolean = true
-    var commandDisplayState: CommandButtonDisplayState? = null
+    var commandPresentationState: CommandButtonPresentationState? = null
     var commandIconDimension: Int = -1
     var layoutKind: CommandPanelPresentationModel.LayoutKind = CommandPanelPresentationModel.LayoutKind.ROW_FILL
     var commandHorizontalAlignment: Int = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
@@ -52,10 +52,11 @@ class KCommandButtonPanelPresentation {
 
     internal fun toCommandPanelPresentationModel() : CommandPanelPresentationModel {
         val presentationModelBuilder = CommandPanelPresentationModel.builder()
-        if (this.commandDisplayState != null) {
-            presentationModelBuilder.setCommandDisplayState(this.commandDisplayState)
+        if (this.commandPresentationState != null) {
+            presentationModelBuilder.setCommandPresentationState(this.commandPresentationState)
         } else {
-            presentationModelBuilder.setCommandDisplayState(CommandButtonDisplayState.FIT_TO_ICON)
+            presentationModelBuilder.setCommandPresentationState(
+                    CommandButtonPresentationState.FIT_TO_ICON)
             presentationModelBuilder.setCommandIconDimension(this.commandIconDimension)
         }
         presentationModelBuilder.setMaxColumns(this.maxColumns)
@@ -116,11 +117,11 @@ class KCommandButtonPanel {
             throw IllegalStateException("This method can only be called once")
         }
 
-        val hasInitialState = (presentation.commandDisplayState != null)
+        val hasInitialState = (presentation.commandPresentationState != null)
         val hasInitialDimension = (presentation.commandIconDimension > 0)
 
         if (!hasInitialState && !hasInitialDimension) {
-            throw IllegalStateException("No display state or dimension specified")
+            throw IllegalStateException("No presentation state or dimension specified")
         }
 
         val presentationModel = presentation.toCommandPanelPresentationModel()

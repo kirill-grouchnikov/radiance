@@ -31,9 +31,13 @@ package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
+import org.pushingpixels.flamingo.api.common.model.ContentModel
+import org.pushingpixels.flamingo.api.common.model.PresentationModel
+import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
+import org.pushingpixels.flamingo.api.common.projection.AbstractPopupMenuProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection
 
 @FlamingoElementMarker
@@ -58,17 +62,21 @@ class KCommandPopupMenuButtonPanel {
         presentation.init()
     }
 
-    internal fun getContentModel() : CommandPanelContentModel {
+    internal fun getContentModel(): CommandPanelContentModel {
         return CommandPanelContentModel(this.commandGroups.map { it.toCommandGroupModel() })
     }
 
-    internal fun getPresentationModel() : CommandPanelPresentationModel {
+    internal fun getPresentationModel(): CommandPanelPresentationModel {
         return presentation.toCommandPanelPresentationModel()
     }
 }
 
+abstract class KAbstractPopupMenu<out P> {
+    abstract fun toJavaPopupMenuProjection(): P
+}
+
 @FlamingoElementMarker
-class KCommandPopupMenu {
+class KCommandPopupMenu : KAbstractPopupMenu<CommandPopupMenuProjection>() {
     private var hasBeenConverted: Boolean = false
 
     private val groups = arrayListOf<KCommandGroup>()
@@ -110,7 +118,7 @@ class KCommandPopupMenu {
         return group
     }
 
-    fun toJavaCommandPopupMenuProjection(): CommandPopupMenuProjection {
+    override fun toJavaPopupMenuProjection(): CommandPopupMenuProjection {
         val presentationModelBuilder = CommandPopupMenuPresentationModel.builder()
         if (maxVisibleMenuCommands > 0) {
             presentationModelBuilder.setMaxVisibleMenuCommands(maxVisibleMenuCommands)

@@ -46,7 +46,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
     /**
      * The associated popup menu
      */
-    protected JCommandPopupMenu popupMenu;
+    protected AbstractPopupMenu popupMenu;
 
     private ChangeListener popupMenuChangeListener;
 
@@ -58,18 +58,19 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
     public static final String FORCE_ICON = "flamingo.internal.commandPopupMenu.forceIcon";
 
-    private static final CommandButtonDisplayState POPUP_MENU = new CommandButtonDisplayState(
-            "Popup menu", 16) {
-        @Override
-        public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton commandButton) {
-            return new CommandButtonLayoutManagerMedium() {
+    private static final CommandButtonPresentationState POPUP_MENU =
+            new CommandButtonPresentationState(
+                    "Popup menu", 16) {
                 @Override
-                protected float getIconTextGapFactor() {
-                    return 2.0f;
+                public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton commandButton) {
+                    return new CommandButtonLayoutManagerMedium() {
+                        @Override
+                        protected float getIconTextGapFactor() {
+                            return 2.0f;
+                        }
+                    };
                 }
             };
-        }
-    };
 
     /**
      * Popup panel that hosts groups of icons.
@@ -227,7 +228,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
     @Override
     public void installUI(JComponent c) {
-        this.popupMenu = (JCommandPopupMenu) c;
+        this.popupMenu = (AbstractPopupMenu) c;
         super.installUI(this.popupMenu);
 
         this.popupMenu.setLayout(this.createLayoutManager());
@@ -240,8 +241,16 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
         syncComponents();
     }
 
+    protected boolean hasLeadingButtonPanel() {
+        return ((JCommandPopupMenu) this.popupMenu).hasCommandButtonPanel();
+    }
+
+    protected int getMaxVisibleMenuCommands() {
+        return ((JCommandPopupMenu) popupMenu).getPresentationModel().getMaxVisibleMenuCommands();
+    }
+
     protected void syncComponents() {
-        if (this.popupMenu.hasCommandButtonPanel()) {
+        if (this.hasLeadingButtonPanel()) {
             this.commandButtonPanel = createScrollableButtonPanel();
             this.popupMenu.add(this.commandButtonPanel);
         }
@@ -317,12 +326,12 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
                     JCommandMenuButton menuButton = (JCommandMenuButton) menuComponent;
                     menuButton.putClientProperty(BasicCommandPopupMenuUI.FORCE_ICON,
                             atLeastOneButtonHasIcon ? Boolean.TRUE : null);
-                    menuButton.setDisplayState(POPUP_MENU);
+                    menuButton.setPresentationState(POPUP_MENU);
                 }
                 if (menuComponent instanceof JCommandToggleMenuButton) {
                     JCommandToggleMenuButton menuButton = (JCommandToggleMenuButton) menuComponent;
                     menuButton.putClientProperty(BasicCommandPopupMenuUI.FORCE_ICON, Boolean.TRUE);
-                    menuButton.setDisplayState(POPUP_MENU);
+                    menuButton.setPresentationState(POPUP_MENU);
                 }
             }
         }
@@ -344,8 +353,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             @Override
             public Dimension preferredLayoutSize(Container parent) {
                 Dimension result = menuPanel.getPreferredSize();
-                int maxMenuButtonCount =
-                        popupMenu.getPresentationModel().getMaxVisibleMenuCommands();
+                int maxMenuButtonCount = getMaxVisibleMenuCommands();
                 if ((maxMenuButtonCount < 0)
                         || (maxMenuButtonCount >= menuPanel.getComponentCount())) {
                     return result;
@@ -376,10 +384,12 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
         this.popupMenu.add(this.menuItemsPanel);
     }
 
-    private ScrollableCommandButtonPanel createScrollableButtonPanel() {
+    protected ScrollableCommandButtonPanel createScrollableButtonPanel() {
         CommandPanelPresentationModel panelPresentationModel =
-                this.popupMenu.getPresentationModel().getPanelPresentationModel();
-        return new ScrollableCommandButtonPanel(this.popupMenu.getMainButtonPanel(),
+                ((JCommandPopupMenu) this.popupMenu).getPresentationModel()
+                        .getPanelPresentationModel();
+        return new ScrollableCommandButtonPanel(
+                ((JCommandPopupMenu) this.popupMenu).getMainButtonPanel(),
                 panelPresentationModel.getMaxColumns(), panelPresentationModel.getMaxRows());
     }
 
@@ -408,7 +418,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             public void popupHidden(PopupEvent event) {
                 if (event.getSource() instanceof JColorSelectorPopupMenu) {
                     ((JColorSelectorPopupMenu) event.getSource())
-                            .getColorSelectorPopupMenuContentModel().getColorPreviewListener()
+                            .getContentModel().getColorPreviewListener()
                             .onColorPreviewCanceled();
                 }
             }
@@ -456,10 +466,9 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
                 width = commandButtonPanel.getPreferredSize().width;
                 height = commandButtonPanel.getPreferredSize().height;
             }
-            Dimension menuItemsPref =
-                    (popupMenu.getPresentationModel().getMaxVisibleMenuCommands() > 0)
-                            ? menuItemsPanel.getPreferredSize()
-                            : menuItemsPanel.getView().getPreferredSize();
+            Dimension menuItemsPref = (getMaxVisibleMenuCommands() > 0)
+                    ? menuItemsPanel.getPreferredSize()
+                    : menuItemsPanel.getView().getPreferredSize();
             width = Math.max(menuItemsPref.width, width);
             height += menuItemsPref.height;
 
@@ -472,10 +481,9 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             Insets ins = parent.getInsets();
 
             int bottomY = parent.getHeight() - ins.bottom;
-            Dimension menuItemsPref =
-                    (popupMenu.getPresentationModel().getMaxVisibleMenuCommands() > 0)
-                            ? menuItemsPanel.getPreferredSize()
-                            : menuItemsPanel.getView().getPreferredSize();
+            Dimension menuItemsPref = (getMaxVisibleMenuCommands() > 0)
+                    ? menuItemsPanel.getPreferredSize()
+                    : menuItemsPanel.getView().getPreferredSize();
             menuItemsPanel.setBounds(ins.left, bottomY - menuItemsPref.height,
                     parent.getWidth() - ins.left - ins.right, menuItemsPref.height);
             menuItemsPanel.doLayout();
@@ -495,16 +503,16 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            JCommandPopupMenu menu = (JCommandPopupMenu) SwingUtilities
-                    .getAncestorOfClass(JCommandPopupMenu.class, this);
+            AbstractPopupMenu menu = (AbstractPopupMenu) SwingUtilities
+                    .getAncestorOfClass(AbstractPopupMenu.class, this);
             if (Boolean.TRUE.equals(menu.getClientProperty(FORCE_ICON))) {
                 this.paintIconGutterBackground(g);
             }
         }
 
         protected int getSeparatorX() {
-            JCommandPopupMenu menu = (JCommandPopupMenu) SwingUtilities
-                    .getAncestorOfClass(JCommandPopupMenu.class, this);
+            AbstractPopupMenu menu = (AbstractPopupMenu) SwingUtilities
+                    .getAncestorOfClass(AbstractPopupMenu.class, this);
             if (!Boolean.TRUE.equals(menu.getClientProperty(FORCE_ICON))) {
                 return -1;
             }

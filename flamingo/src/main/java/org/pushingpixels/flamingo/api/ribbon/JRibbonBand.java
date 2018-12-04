@@ -45,22 +45,22 @@ import java.util.*;
  *
  * <ul>
  * <li>Ribbon commands added with
- * {@link #addRibbonCommand(CommandProjection, RibbonElementPriority)}.</li>
+ * {@link #addRibbonCommand(CommandProjection, PresentationPriority)}.</li>
  * <li>Wrapped core / 3rd party components added with
  * {@link #addRibbonComponent(JRibbonComponent)}.</li>
  * <li>Ribbon galleries added with
- * {@link #addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority)} .</li>
+ * {@link #addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, PresentationPriority)} .</li>
  * </ul>
  *
  * <p>
- * Commands are added with associated {@link RibbonElementPriority}. The higher the priority, the
- * longer the presentation button "stays" in the {@link CommandButtonDisplayState#BIG} or
- * {@link CommandButtonDisplayState#MEDIUM} state - depending on the available resize policies.
+ * Commands are added with associated {@link PresentationPriority}. The higher the priority, the
+ * longer the presentation button "stays" in the {@link CommandButtonPresentationState#BIG} or
+ * {@link CommandButtonPresentationState#MEDIUM} state - depending on the available resize policies.
  * </p>
  *
  * <p>
  * The content and behavior of galleries added with
- * {@link #addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority)}
+ * {@link #addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, PresentationPriority)}
  * can be reconfigured using the following APIs on the model classes:
  * </p>
  *
@@ -85,8 +85,8 @@ public class JRibbonBand extends AbstractRibbonBand {
     /**
      * Big size with landscape orientation. Used for buttons in in-ribbon galleries.
      */
-    public static final CommandButtonDisplayState BIG_FIXED_LANDSCAPE =
-            new CommandButtonDisplayState(
+    public static final CommandButtonPresentationState BIG_FIXED_LANDSCAPE =
+            new CommandButtonPresentationState(
                     "Big Fixed Landscape", 32) {
                 @Override
                 public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton button) {
@@ -97,13 +97,35 @@ public class JRibbonBand extends AbstractRibbonBand {
     /**
      * Big size with landscape orientation. Used for buttons in in-ribbon galleries.
      */
-    public static final CommandButtonDisplayState BIG_FIXED = new CommandButtonDisplayState(
+    public static final CommandButtonPresentationState BIG_FIXED = new CommandButtonPresentationState(
             "Big Fixed", 32) {
         @Override
         public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton button) {
             return new CommandButtonLayoutManagerBigFixed();
         }
     };
+
+    /**
+     * Presentation priority of ribbon band components.
+     *
+     * @author Kirill Grouchnikov
+     */
+    public enum PresentationPriority {
+        /**
+         * Top priority.
+         */
+        TOP,
+
+        /**
+         * Medium priority.
+         */
+        MEDIUM,
+
+        /**
+         * Low priority.
+         */
+        LOW;
+    }
 
     /**
      * Creates a new ribbon band.
@@ -137,15 +159,15 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @return The command button that represents the command.
      */
     public AbstractCommandButton addRibbonCommand(CommandProjection projection,
-            RibbonElementPriority priority) {
-        AbstractCommandButton commandButton = projection.buildButton();
+            PresentationPriority priority) {
+        AbstractCommandButton commandButton = projection.buildComponent();
         ((JBandControlPanel) this.getControlPanel()).addCommandButton(commandButton, priority);
         return commandButton;
     }
 
     public void addRibbonGallery(RibbonGalleryContentModel galleryContentModel,
             RibbonGalleryPresentationModel galleryPresentationModel,
-            RibbonElementPriority priority) {
+            PresentationPriority priority) {
         JRibbonGallery gallery = new JRibbonGallery(galleryContentModel,
                 galleryPresentationModel);
         ((JBandControlPanel) this.getControlPanel()).addRibbonGallery(gallery, priority);

@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.CommandPresentation;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
-import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandPopupMenuUI;
+import org.pushingpixels.flamingo.internal.substance.common.ui.*;
 import org.pushingpixels.flamingo.internal.ui.common.popup.*;
 
 import javax.swing.*;
@@ -42,40 +42,44 @@ import java.awt.*;
 import java.util.List;
 import java.util.*;
 
-public class JColorSelectorPopupMenu extends JCommandPopupMenu {
+public class JColorSelectorPopupMenu extends AbstractPopupMenu {
     /**
      * @see #getUIClassID
      */
     public static final String uiClassID = "ColorSelectorPopupMenuUI";
 
-    private ColorSelectorPopupMenuContentModel colorSelectorPopupMenuContentModel;
+    private ColorSelectorPopupMenuContentModel contentModel;
+    private ColorSelectorPopupMenuPresentationModel presentationModel;
 
     private ColorSelectorPopupMenuContentModel.ColorPreviewListener colorPreviewListener;
     private ColorSelectorPopupMenuContentModel.ColorActivationListener colorActivationListener;
 
+    private int colorColumns;
     private JColorSelectorPanel lastColorSelectorPanel;
 
     private static LinkedList<Color> recentlySelected = new LinkedList<>();
 
-    public JColorSelectorPopupMenu(ColorSelectorPopupMenuContentModel contentModel) {
-        this.colorSelectorPopupMenuContentModel = contentModel;
-        this.colorPreviewListener =
-                this.colorSelectorPopupMenuContentModel.getColorPreviewListener();
-        this.colorActivationListener =
-                this.colorSelectorPopupMenuContentModel.getColorActivationListener();
+    public JColorSelectorPopupMenu(ColorSelectorPopupMenuContentModel contentModel,
+            ColorSelectorPopupMenuPresentationModel presentationModel) {
+        this.contentModel = contentModel;
+        this.presentationModel = presentationModel;
+        this.colorPreviewListener = this.contentModel.getColorPreviewListener();
+        this.colorActivationListener = this.contentModel.getColorActivationListener();
+        this.colorColumns = this.presentationModel.getColorColumns();
+
         this.populateContent();
-        this.colorSelectorPopupMenuContentModel.addChangeListener(
-                (ChangeEvent event) -> populateContent());
+        this.contentModel.addChangeListener((ChangeEvent event) -> populateContent());
+
+        this.updateUI();
     }
 
-    public ColorSelectorPopupMenuContentModel getColorSelectorPopupMenuContentModel() {
-        return this.colorSelectorPopupMenuContentModel;
+    public ColorSelectorPopupMenuContentModel getContentModel() {
+        return this.contentModel;
     }
 
-    @Override
-    protected void populateContent() {
+    private void populateContent() {
         List<ColorSelectorPopupMenuGroupModel> menuGroups =
-                this.colorSelectorPopupMenuContentModel.getMenuGroups();
+                this.contentModel.getMenuGroups();
         for (int i = 0; i < menuGroups.size(); i++) {
             ColorSelectorPopupMenuGroupModel menuGroup = menuGroups.get(i);
             for (KeyValuePair<ColorSelectorPopupMenuGroupModel.GroupEntryKind, Object> groupEntry :
@@ -86,7 +90,7 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
                                 (CommandProjection) groupEntry.getValue();
                         AbstractCommandButton commandButton =
                                 commandProjection.reproject(CommandPresentation.builder()
-                                        .setMenu(true).build()).buildButton();
+                                        .setMenu(true).build()).buildComponent();
                         if (commandButton instanceof JCommandMenuButton) {
                             this.addMenuButton((JCommandMenuButton) commandButton);
                         }
@@ -125,12 +129,13 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
 
     @Override
     public void updateUI() {
-        setUI(SubstanceCommandPopupMenuUI.createUI(this));
+        setUI(SubstanceColorSelectorPopupMenuUI.createUI(this));
     }
 
     private void addColorSectionWithDerived(String label, Color[] primaryColors) {
-        if ((primaryColors == null) || (primaryColors.length != 10)) {
-            throw new IllegalArgumentException("Must pass exactly 10 colors");
+        if ((primaryColors == null) || (primaryColors.length != this.colorColumns)) {
+            throw new IllegalArgumentException("Must pass exactly " + this.colorColumns +
+                    " colors");
         }
         JPanel selectorContainer = new MultiRowSelector(this, primaryColors);
         JColorSelectorPanel selector = new JColorSelectorPanel(label,
@@ -141,8 +146,9 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
     }
 
     private void addColorSection(String label, Color[] primaryColors) {
-        if ((primaryColors == null) || (primaryColors.length != 10)) {
-            throw new IllegalArgumentException("Must pass exactly 10 colors");
+        if ((primaryColors == null) || (primaryColors.length != this.colorColumns)) {
+            throw new IllegalArgumentException("Must pass exactly " + this.colorColumns +
+                    " colors");
         }
         JPanel selectorContainer = new SingleRowSelector(this, primaryColors);
         JColorSelectorPanel selector = new JColorSelectorPanel(label,
@@ -159,17 +165,20 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
         this.lastColorSelectorPanel = recentPanel;
     }
 
-    protected void addMenuButton(JCommandMenuButton menuButton) {
+    @Override
+    void addMenuButton(JCommandMenuButton menuButton) {
         super.addMenuButton(menuButton);
         this.updateLastColorSelectorPanel();
     }
 
-    protected void addMenuButton(JCommandToggleMenuButton menuButton) {
+    @Override
+    void addMenuButton(JCommandToggleMenuButton menuButton) {
         super.addMenuButton(menuButton);
         this.updateLastColorSelectorPanel();
     }
 
-    protected void addMenuSeparator() {
+    @Override
+    void addMenuSeparator() {
         super.addMenuSeparator();
         this.updateLastColorSelectorPanel();
     }
@@ -198,7 +207,7 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
             return;
         }
 
-        if (recentlySelected.size() == 10) {
+        if (recentlySelected.size() == 100) {
             // too many in history, bump out the least recently used or added
             recentlySelected.removeFirst();
         }
@@ -206,7 +215,7 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
     }
 
     private class SingleRowSelector extends JPanel {
-        public SingleRowSelector(final JColorSelectorPopupMenu colorSelectorPopupMenu,
+        private SingleRowSelector(final JColorSelectorPopupMenu colorSelectorPopupMenu,
                 final Color... colors) {
             final JColorSelectorComponent[] comps = new JColorSelectorComponent[colors.length];
             for (int i = 0; i < colors.length; i++) {
@@ -270,7 +279,7 @@ public class JColorSelectorPopupMenu extends JCommandPopupMenu {
     private class MultiRowSelector extends JPanel {
         private static final int SECONDARY_ROWS = 5;
 
-        public MultiRowSelector(final JColorSelectorPopupMenu colorSelectorPopupMenu,
+        private MultiRowSelector(final JColorSelectorPopupMenu colorSelectorPopupMenu,
                 final Color... colors) {
             final JColorSelectorComponent[][] comps =
                     new JColorSelectorComponent[colors.length][1 + SECONDARY_ROWS];

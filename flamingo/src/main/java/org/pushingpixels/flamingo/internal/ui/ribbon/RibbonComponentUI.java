@@ -42,5 +42,5 @@ import java.awt.*;
 public abstract class RibbonComponentUI extends ComponentUI {
 	public abstract Point getKeyTipAnchorCenterPoint();
 
-	public abstract Dimension getPreferredSize(RibbonElementPriority priority);
+	public abstract Dimension getPreferredSize(JRibbonBand.PresentationPriority priority);
 }

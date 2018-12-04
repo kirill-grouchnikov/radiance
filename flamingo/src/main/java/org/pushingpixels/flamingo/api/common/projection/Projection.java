@@ -51,5 +51,5 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
         return this.presentationModel;
     }
 
-    public abstract T project();
+    public abstract T buildComponent();
 }

@@ -158,7 +158,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
     public AbstractFileViewPanel(int startingDimension) {
         super(new CommandPanelContentModel(new ArrayList<>()),
                 CommandPanelPresentationModel.builder()
-                        .setCommandDisplayState(CommandButtonDisplayState.FIT_TO_ICON)
+                        .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
                         .setCommandIconDimension(startingDimension)
                         .setToShowGroupLabels(false).build());
         this.buttonMap = new HashMap<>();
@@ -170,11 +170,11 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      *
      * @param startingState Initial state for icons.
      */
-    public AbstractFileViewPanel(CommandButtonDisplayState startingState) {
+    public AbstractFileViewPanel(CommandButtonPresentationState startingState) {
         super(new CommandPanelContentModel(new ArrayList<>()),
                 CommandPanelPresentationModel.builder()
                         .setCommandHorizontalAlignment(SwingUtilities.LEADING)
-                        .setCommandDisplayState(startingState)
+                        .setCommandPresentationState(startingState)
                         .setToShowGroupLabels(false).build());
         this.buttonMap = new HashMap<>();
         this.loadedSet = new HashSet<>();
@@ -211,7 +211,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
 
             int initialSize = this.getPresentationModel().getCommandIconDimension();
             if (initialSize < 0) {
-                initialSize = this.getPresentationModel().getCommandDisplayState()
+                initialSize = this.getPresentationModel().getCommandPresentationState()
                         .getPreferredIconSize();
             }
             Command command = Command.builder()
@@ -263,7 +263,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                     int iconDimension = getPresentationModel().getCommandIconDimension();
                     Dimension dim = new Dimension(iconDimension, iconDimension);
                     final ResizableIcon icon = getResizableIcon(leaf, stream,
-                            getPresentationModel().getCommandDisplayState(), dim);
+                            getPresentationModel().getCommandPresentationState(), dim);
                     if (icon == null) {
                         continue;
                     }
@@ -344,7 +344,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      * @return File icon.
      */
     protected abstract ResizableIcon getResizableIcon(Leaf leaf, InputStream stream,
-            CommandButtonDisplayState state, Dimension dimension);
+            CommandButtonPresentationState state, Dimension dimension);
 
     /**
      * Configures the specified command. Can be used to wire additional behavior, such as

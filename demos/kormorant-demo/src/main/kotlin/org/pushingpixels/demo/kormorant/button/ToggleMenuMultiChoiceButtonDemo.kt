@@ -33,7 +33,7 @@ import org.pushingpixels.demo.kormorant.svg.Format_text_bold
 import org.pushingpixels.demo.kormorant.svg.Format_text_italic
 import org.pushingpixels.demo.kormorant.svg.Format_text_strikethrough
 import org.pushingpixels.demo.kormorant.svg.Format_text_underline
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
@@ -110,7 +110,7 @@ fun main(args: Array<String>) {
             }
             presentation {
                 isFlat = false
-                commandDisplayState = CommandButtonDisplayState.MEDIUM
+                presentationState = CommandButtonPresentationState.MEDIUM
             }
         }
 

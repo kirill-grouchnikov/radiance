@@ -60,10 +60,10 @@ public class CommandStripPresentationModel {
     private EventListenerList listenerList = new EventListenerList();
 
     /**
-     * Element state for the buttons in this button strip. Default state is
-     * {@link CommandButtonDisplayState#SMALL}.
+     * Presentation state for the buttons in this button strip. Default state is
+     * {@link CommandButtonPresentationState#SMALL}.
      */
-    private CommandButtonDisplayState commandDisplayState;
+    private CommandButtonPresentationState commandPresentationState;
 
     /**
      * Scale factor for horizontal gaps.
@@ -87,13 +87,13 @@ public class CommandStripPresentationModel {
         return new Builder();
     }
 
-    public CommandButtonDisplayState getCommandDisplayState() {
-        return this.commandDisplayState;
+    public CommandButtonPresentationState getCommandPresentationState() {
+        return this.commandPresentationState;
     }
 
-    public void setCommandDisplayState(CommandButtonDisplayState commandDisplayState) {
-        if (this.commandDisplayState != commandDisplayState) {
-            this.commandDisplayState = commandDisplayState;
+    public void setCommandPresentationState(CommandButtonPresentationState commandPresentationState) {
+        if (this.commandPresentationState != commandPresentationState) {
+            this.commandPresentationState = commandPresentationState;
             this.fireStateChanged();
         }
     }
@@ -147,13 +147,15 @@ public class CommandStripPresentationModel {
     }
 
     public static class Builder {
-        private CommandButtonDisplayState commandDisplayState = CommandButtonDisplayState.SMALL;
+        private CommandButtonPresentationState commandPresentationState
+                = CommandButtonPresentationState.SMALL;
         private double hgapScaleFactor = -1;
         private double vgapScaleFactor = -1;
         private StripOrientation orientation = StripOrientation.HORIZONTAL;
 
-        public Builder setCommandDisplayState(CommandButtonDisplayState commandDisplayState) {
-            this.commandDisplayState = commandDisplayState;
+        public Builder setCommandPresentationState(
+                CommandButtonPresentationState commandPresentationState) {
+            this.commandPresentationState = commandPresentationState;
             return this;
         }
 
@@ -174,7 +176,7 @@ public class CommandStripPresentationModel {
 
         public CommandStripPresentationModel build() {
             CommandStripPresentationModel presentationModel = new CommandStripPresentationModel();
-            presentationModel.commandDisplayState = this.commandDisplayState;
+            presentationModel.commandPresentationState = this.commandPresentationState;
             presentationModel.orientation = this.orientation;
             if (this.hgapScaleFactor < 0) {
                 presentationModel.hgapScaleFactor =

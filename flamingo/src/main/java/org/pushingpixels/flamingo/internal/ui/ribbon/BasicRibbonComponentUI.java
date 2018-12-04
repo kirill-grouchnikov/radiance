@@ -111,7 +111,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
             if ("caption".equals(evt.getPropertyName())) {
                 captionLabel.setText((String) evt.getNewValue());
             }
-            if ("displayPriority".equals(evt.getPropertyName())) {
+            if ("presentationPriority".equals(evt.getPropertyName())) {
                 ribbonComponent.revalidate();
                 ribbonComponent.doLayout();
             }
@@ -179,14 +179,14 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
 
             int width = ins.left;
             int height = minMain.height;
-            if (isIconVisible(ribbonComponent.getDisplayPriority())) {
+            if (isIconVisible(ribbonComponent.getPresentationPriority())) {
                 ResizableIcon icon = ribbonComponent.getIcon();
                 if (icon != null) {
                     width += (icon.getIconWidth() + getLayoutGap());
                     height = Math.max(height, icon.getIconHeight());
                 }
             }
-            if (isCaptionVisible(ribbonComponent.getDisplayPriority())) {
+            if (isCaptionVisible(ribbonComponent.getPresentationPriority())) {
                 Dimension minCaption = captionLabel.getMinimumSize();
                 width += (minCaption.width + getLayoutGap());
                 height = Math.max(height, minCaption.height);
@@ -200,7 +200,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
 
         @Override
         public Dimension preferredLayoutSize(Container parent) {
-            return getPreferredSize(ribbonComponent.getDisplayPriority());
+            return getPreferredSize(ribbonComponent.getPresentationPriority());
         }
 
         @Override
@@ -260,7 +260,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
                 mainComp.doLayout();
             } else {
                 int x = ltr ? ins.left : ribbonComp.getWidth() - ins.right;
-                if (isIconVisible(ribbonComponent.getDisplayPriority())) {
+                if (isIconVisible(ribbonComponent.getPresentationPriority())) {
                     if (ribbonComp.getIcon() != null) {
                         // icon is painted separately
                         int iconW = ribbonComp.getIcon().getIconWidth();
@@ -268,7 +268,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
                     }
                 }
 
-                if (isCaptionVisible(ribbonComponent.getDisplayPriority())) {
+                if (isCaptionVisible(ribbonComponent.getPresentationPriority())) {
                     captionLabel.setVisible(true);
                     Dimension prefCaptionDim = captionLabel.getPreferredSize();
                     if (ltr) {
@@ -337,7 +337,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
         Graphics2D graphics = (Graphics2D) g.create();
 
         JRibbonComponent ribbonComp = (JRibbonComponent) c;
-        if (isIconVisible(this.ribbonComponent.getDisplayPriority())) {
+        if (isIconVisible(this.ribbonComponent.getPresentationPriority())) {
             Insets ins = ribbonComp.getInsets();
             ResizableIcon icon = ribbonComp.isEnabled() ? ribbonComp.getIcon() : this.disabledIcon;
             if (icon != null) {
@@ -362,23 +362,23 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
 
     protected abstract ResizableIcon createDisabledIcon();
 
-    private boolean isIconVisible(RibbonElementPriority displayPriority) {
+    private boolean isIconVisible(JRibbonBand.PresentationPriority presentationPriority) {
         if (this.ribbonComponent.isSimpleWrapper()) {
             return false;
         }
-        return (displayPriority == RibbonElementPriority.TOP)
-                || (displayPriority == RibbonElementPriority.MEDIUM);
+        return (presentationPriority == JRibbonBand.PresentationPriority.TOP)
+                || (presentationPriority == JRibbonBand.PresentationPriority.MEDIUM);
     }
 
-    private boolean isCaptionVisible(RibbonElementPriority displayPriority) {
+    private boolean isCaptionVisible(JRibbonBand.PresentationPriority presentationPriority) {
         if (this.ribbonComponent.isSimpleWrapper()) {
             return false;
         }
-        return (displayPriority == RibbonElementPriority.TOP);
+        return (presentationPriority == JRibbonBand.PresentationPriority.TOP);
     }
 
     @Override
-    public Dimension getPreferredSize(RibbonElementPriority priority) {
+    public Dimension getPreferredSize(JRibbonBand.PresentationPriority priority) {
         Insets ins = ribbonComponent.getInsets();
         JComponent mainComponent = ribbonComponent.getMainComponent();
         Dimension prefMain = mainComponent.getPreferredSize();

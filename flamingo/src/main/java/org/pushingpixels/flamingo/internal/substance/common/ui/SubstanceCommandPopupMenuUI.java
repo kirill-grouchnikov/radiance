@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.internal.substance.common.ui;
 
-import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
-import org.pushingpixels.flamingo.internal.ui.common.popup.BasicColorSelectorPopupMenuUI;
+import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.internal.ui.common.popup.*;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -48,7 +48,7 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
-public class SubstanceCommandPopupMenuUI extends BasicColorSelectorPopupMenuUI {
+public class SubstanceCommandPopupMenuUI extends BasicCommandPopupMenuUI {
     public static ComponentUI createUI(JComponent c) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(c);
         return new SubstanceCommandPopupMenuUI();
@@ -58,7 +58,7 @@ public class SubstanceCommandPopupMenuUI extends BasicColorSelectorPopupMenuUI {
 
     @Override
     public void installUI(JComponent c) {
-        this.popupInvokerLink = () -> ((JCommandPopupMenu) c).getInvoker();
+        this.popupInvokerLink = ((AbstractPopupMenu) c)::getInvoker;
         super.installUI(c);
     }
 
@@ -117,16 +117,5 @@ public class SubstanceCommandPopupMenuUI extends BasicColorSelectorPopupMenuUI {
     @Override
     public void update(Graphics g, JComponent c) {
         BackgroundPaintingUtils.update(g, c, false);
-    }
-
-    @Override
-    public int getColorSelectorCellSize() {
-        return SubstanceSizeUtils.getComponentFontSize(popupPanel);
-    }
-
-    @Override
-    public int getColorSelectorCellGap() {
-        return (int) SubstanceSizeUtils.getAdjustedSize(
-                SubstanceSizeUtils.getComponentFontSize(popupPanel), 4, 1, 0.25f);
     }
 }

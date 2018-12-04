@@ -300,7 +300,7 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
 
         // fix for issue 35 on Flamingo - do not enforce
         // min size on buttons in the ribbon
-        if ((button.getDisplayState() == CommandButtonDisplayState.MEDIUM)
+        if ((button.getPresentationState() == CommandButtonPresentationState.MEDIUM)
                 && (SwingUtilities.getAncestorOfClass(AbstractRibbonBand.class, button) == null)) {
             JButton dummy = new JButton(button.getText(), button.getIcon());
             return shaper.getPreferredSize(dummy, superPref);

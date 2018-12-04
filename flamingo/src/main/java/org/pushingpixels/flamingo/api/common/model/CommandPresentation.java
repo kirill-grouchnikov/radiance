@@ -48,8 +48,8 @@ import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
  * @see CommandProjection
  */
 public class CommandPresentation implements PresentationModel {
-    private CommandButtonDisplayState commandDisplayState;
-    private Integer commandIconDimension;
+    private CommandButtonPresentationState presentationState;
+    private Integer iconDimension;
     private boolean isFlat;
     private boolean isFocusable;
     private int horizontalAlignment;
@@ -67,8 +67,8 @@ public class CommandPresentation implements PresentationModel {
     public CommandPresentation overlayWith(Overlay overlay) {
         CommandPresentation result = new CommandPresentation();
 
-        result.commandDisplayState = (overlay.commandDisplayState != null)
-                ? overlay.commandDisplayState : this.commandDisplayState;
+        result.presentationState = (overlay.presentationState != null)
+                ? overlay.presentationState : this.presentationState;
         result.isFlat = (overlay.isFlat != null) ? overlay.isFlat : this.isFlat;
         result.isFocusable = (overlay.isFocusable != null) ? overlay.isFocusable : this.isFocusable;
         result.horizontalAlignment = (overlay.horizontalAlignment != null)
@@ -77,8 +77,8 @@ public class CommandPresentation implements PresentationModel {
                 ? overlay.horizontalGapScaleFactor : this.horizontalGapScaleFactor;
         result.verticalGapScaleFactor = (overlay.verticalGapScaleFactor != null)
                 ? overlay.verticalGapScaleFactor : this.verticalGapScaleFactor;
-        result.commandIconDimension = (overlay.commandIconDimension != null)
-                ? overlay.commandIconDimension : this.commandIconDimension;
+        result.iconDimension = (overlay.iconDimension != null)
+                ? overlay.iconDimension : this.iconDimension;
         result.isMenu = (overlay.isMenu != null) ? overlay.isMenu : this.isMenu;
         result.popupOrientationKind = (overlay.popupOrientationKind != null)
                 ? overlay.popupOrientationKind : this.popupOrientationKind;
@@ -100,8 +100,8 @@ public class CommandPresentation implements PresentationModel {
         return new Overlay();
     }
 
-    public CommandButtonDisplayState getCommandDisplayState() {
-        return this.commandDisplayState;
+    public CommandButtonPresentationState getPresentationState() {
+        return this.presentationState;
     }
 
     public boolean isFlat() {
@@ -124,8 +124,8 @@ public class CommandPresentation implements PresentationModel {
         return this.verticalGapScaleFactor;
     }
 
-    public Integer getCommandIconDimension() {
-        return this.commandIconDimension;
+    public Integer getIconDimension() {
+        return this.iconDimension;
     }
 
     public CommandButtonPopupOrientationKind getPopupOrientationKind() {
@@ -167,13 +167,13 @@ public class CommandPresentation implements PresentationModel {
     }
 
     public static class Overlay {
-        private CommandButtonDisplayState commandDisplayState;
+        private CommandButtonPresentationState presentationState;
         private Boolean isFlat;
         private Boolean isFocusable;
         private Integer horizontalAlignment;
         private Double horizontalGapScaleFactor;
         private Double verticalGapScaleFactor;
-        private Integer commandIconDimension;
+        private Integer iconDimension;
         private Boolean isMenu;
         private CommandButtonPopupOrientationKind popupOrientationKind;
         private Boolean toDismissPopupsOnActivation;
@@ -205,13 +205,13 @@ public class CommandPresentation implements PresentationModel {
             return this;
         }
 
-        public Overlay setCommandDisplayState(CommandButtonDisplayState commandDisplayState) {
-            this.commandDisplayState = commandDisplayState;
+        public Overlay setPresentationState(CommandButtonPresentationState presentationState) {
+            this.presentationState = presentationState;
             return this;
         }
 
-        public Overlay setCommandIconDimension(Integer commandIconDimension) {
-            this.commandIconDimension = commandIconDimension;
+        public Overlay setIconDimension(Integer iconDimension) {
+            this.iconDimension = iconDimension;
             return this;
         }
 
@@ -243,14 +243,14 @@ public class CommandPresentation implements PresentationModel {
     }
 
     public static class Builder {
-        private CommandButtonDisplayState commandDisplayState =
-                CommandButtonDisplayState.FIT_TO_ICON;
+        private CommandButtonPresentationState presentationState =
+                CommandButtonPresentationState.FIT_TO_ICON;
         private boolean isFlat = true;
         private boolean isFocusable = true;
         private int horizontalAlignment = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
         private double horizontalGapScaleFactor = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR;
         private double verticalGapScaleFactor = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR;
-        private Integer commandIconDimension;
+        private Integer iconDimension;
         private boolean isMenu = false;
         private CommandButtonPopupOrientationKind popupOrientationKind =
                 CommandButtonPopupOrientationKind.DOWNWARD;
@@ -284,14 +284,14 @@ public class CommandPresentation implements PresentationModel {
             return this;
         }
 
-        public Builder setCommandDisplayState(
-                CommandButtonDisplayState commandDisplayState) {
-            this.commandDisplayState = commandDisplayState;
+        public Builder setPresentationState(
+                CommandButtonPresentationState presentationState) {
+            this.presentationState = presentationState;
             return this;
         }
 
-        public Builder setCommandIconDimension(Integer commandIconDimension) {
-            this.commandIconDimension = commandIconDimension;
+        public Builder setIconDimension(Integer iconDimension) {
+            this.iconDimension = iconDimension;
             return this;
         }
 
@@ -322,20 +322,20 @@ public class CommandPresentation implements PresentationModel {
         }
 
         public CommandPresentation build() {
-            CommandPresentation commandDisplay = new CommandPresentation();
-            commandDisplay.commandDisplayState = this.commandDisplayState;
-            commandDisplay.horizontalAlignment = this.horizontalAlignment;
-            commandDisplay.horizontalGapScaleFactor = this.horizontalGapScaleFactor;
-            commandDisplay.verticalGapScaleFactor = this.verticalGapScaleFactor;
-            commandDisplay.isFlat = this.isFlat;
-            commandDisplay.isFocusable = this.isFocusable;
-            commandDisplay.commandIconDimension = this.commandIconDimension;
-            commandDisplay.isMenu = this.isMenu;
-            commandDisplay.popupOrientationKind = this.popupOrientationKind;
-            commandDisplay.actionKeyTip = this.actionKeyTip;
-            commandDisplay.popupKeyTip = this.popupKeyTip;
-            commandDisplay.toDismissPopupsOnActivation = this.toDismissPopupsOnActivation;
-            return commandDisplay;
+            CommandPresentation commandPresentation = new CommandPresentation();
+            commandPresentation.presentationState = this.presentationState;
+            commandPresentation.horizontalAlignment = this.horizontalAlignment;
+            commandPresentation.horizontalGapScaleFactor = this.horizontalGapScaleFactor;
+            commandPresentation.verticalGapScaleFactor = this.verticalGapScaleFactor;
+            commandPresentation.isFlat = this.isFlat;
+            commandPresentation.isFocusable = this.isFocusable;
+            commandPresentation.iconDimension = this.iconDimension;
+            commandPresentation.isMenu = this.isMenu;
+            commandPresentation.popupOrientationKind = this.popupOrientationKind;
+            commandPresentation.actionKeyTip = this.actionKeyTip;
+            commandPresentation.popupKeyTip = this.popupKeyTip;
+            commandPresentation.toDismissPopupsOnActivation = this.toDismissPopupsOnActivation;
+            return commandPresentation;
         }
     }
 }

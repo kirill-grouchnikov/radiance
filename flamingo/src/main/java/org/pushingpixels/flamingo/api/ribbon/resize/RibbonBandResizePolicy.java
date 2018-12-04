@@ -42,7 +42,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.*;
  * <p>
  * The resize policy defines a single visual state of the given ribbon band. For
  * every control in the specific ribbon band (command button, gallery etc), the
- * resize policy defines what is its display state.
+ * resize policy defines what is its presentation state.
  * </p>
  * 
  * <p>
@@ -66,9 +66,9 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.*;
  * <p>
  * The {@link CoreRibbonResizePolicies} provides a number of built in resize
  * policies that respect the application element priorities passed to
- * {@link JRibbonBand#addRibbonCommand(CommandProjection, RibbonElementPriority)}
+ * {@link JRibbonBand#addRibbonCommand(CommandProjection, JRibbonBand.PresentationPriority)}
  * and
- * {@link JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority)}
+ * {@link JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, JRibbonBand.PresentationPriority)}
  * APIs. There are three types of built in resize policies:
  * </p>
  * 
@@ -78,13 +78,13 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.*;
  * and three rows respectively.</li>
  * <li>Resize policies for the {@link JRibbonBand}s. The
  * {@link BaseCoreRibbonBandResizePolicy} is the base class for these policies.
- * These policies respect the {@link RibbonElementPriority} associated on
+ * These policies respect the {@link JRibbonBand.PresentationPriority} associated on
  * command buttons and ribbon galleries in {@link #getPreferredWidth(int, int)}
  * and {@link #install(int, int)}. While {@link #install(int, int)} call on a
  * {@link JFlowRibbonBand} only changes the bounds of the flow components, this
- * call on a {@link JRibbonBand} can also change the display state of the
+ * call on a {@link JRibbonBand} can also change the presentation state of the
  * command buttons (with
- * {@link AbstractCommandButton#setDisplayState(org.pushingpixels.flamingo.api.common.CommandButtonDisplayState)}
+ * {@link AbstractCommandButton#setPresentationState(CommandButtonPresentationState)}
  * ) and the number of visible buttons in the ribbon galleries.</li>
  * <li>The collapsed policy that replaces the entire content of the ribbon band
  * with a single popup button. This is done when there is not enough horizontal
@@ -103,7 +103,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.*;
  * <ul>
  * <li>{@link CoreRibbonResizePolicies#getCorePoliciesPermissive(JRibbonBand)}
  * returns a list that starts with a resize policy that shows all command
- * buttons in the {@link CommandButtonDisplayState#BIG} and ribbon galleries
+ * buttons in the {@link CommandButtonPresentationState#BIG} and ribbon galleries
  * with the largest number of visible buttons, fully utilizing the available
  * screen space.</li>
  * <li>{@link CoreRibbonResizePolicies#getCorePoliciesRestrictive(JRibbonBand)}
@@ -146,9 +146,9 @@ public interface RibbonBandResizePolicy {
 	/**
 	 * Installs this resize policy on the associated ribbon band. For
 	 * {@link JFlowRibbonBand}s only changes the bounds of the flow components.
-	 * For {@link JRibbonBand}s can also change the display state of the command
+	 * For {@link JRibbonBand}s can also change the presentation state of the command
 	 * buttons (with
-	 * {@link AbstractCommandButton#setDisplayState(org.pushingpixels.flamingo.api.common.CommandButtonDisplayState)}
+	 * {@link AbstractCommandButton#setPresentationState(CommandButtonPresentationState)}
 	 * ) and the number of visible buttons in the ribbon galleries. Note that
 	 * this method is for internal use only and should not be called by the
 	 * application code.

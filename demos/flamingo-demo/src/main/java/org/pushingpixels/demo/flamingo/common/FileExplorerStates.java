@@ -56,7 +56,7 @@ public class FileExplorerStates extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(bar, BorderLayout.NORTH);
 
-        this.filePanel = new ExplorerFileViewPanel<>(bar, CommandButtonDisplayState.BIG);
+        this.filePanel = new ExplorerFileViewPanel<>(bar, CommandButtonPresentationState.BIG);
         JScrollPane fileListScrollPane = new JScrollPane(this.filePanel);
 
         this.bar.getModel()
@@ -85,13 +85,13 @@ public class FileExplorerStates extends JFrame {
                         }));
 
         final JComboBox states = new JComboBox(new DefaultComboBoxModel(new Object[] {
-                CommandButtonDisplayState.BIG, CommandButtonDisplayState.TILE,
-                CommandButtonDisplayState.MEDIUM, CommandButtonDisplayState.SMALL }));
+                CommandButtonPresentationState.BIG, CommandButtonPresentationState.TILE,
+                CommandButtonPresentationState.MEDIUM, CommandButtonPresentationState.SMALL }));
         states.addItemListener((ItemEvent e) -> {
-            CommandButtonDisplayState selected = (CommandButtonDisplayState) states
+            CommandButtonPresentationState selected = (CommandButtonPresentationState) states
                     .getSelectedItem();
             filePanel.cancelMainWorker();
-            filePanel.getPresentationModel().setCommandDisplayState(selected);
+            filePanel.getPresentationModel().setCommandPresentationState(selected);
         });
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));

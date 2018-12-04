@@ -48,7 +48,7 @@ import java.util.*;
  * applications.
  *
  * @author Kirill Grouchnikov
- * @see JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, RibbonElementPriority)
+ * @see JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, JRibbonBand.PresentationPriority)
  * @see JRibbon#addTaskbarGalleryDropdown(RibbonGalleryContentModel, RibbonGalleryPresentationModel)
  */
 public class JRibbonGallery extends JComponent {
@@ -71,9 +71,9 @@ public class JRibbonGallery extends JComponent {
     private CommandToggleGroupModel commandToggleGroupModel;
 
     /**
-     * The current display priority of <code>this</code> in-ribbon gallery.
+     * The current presentation priority of <code>this</code> in-ribbon gallery.
      */
-    private RibbonElementPriority displayPriority;
+    private JRibbonBand.PresentationPriority presentationPriority;
 
     /**
      * The UI class ID string.
@@ -91,7 +91,8 @@ public class JRibbonGallery extends JComponent {
         this.commands = new ArrayList<>();
         this.commandToggleGroupModel = new CommandToggleGroupModel();
 
-        this.validateCommandDisplayState(galleryPresentationModel.getCommandDisplayState());
+        this.validateCommandPresentationState(
+                galleryPresentationModel.getCommandPresentationState());
 
         this.populateContent();
 
@@ -171,7 +172,7 @@ public class JRibbonGallery extends JComponent {
      * @param command Command to add.
      */
     private void addGalleryCommand(Command command) {
-        JCommandToggleButton button = (JCommandToggleButton) command.project().buildButton();
+        JCommandToggleButton button = (JCommandToggleButton) command.project().buildComponent();
         button.getActionModel().addChangeListener(new ChangeListener() {
             boolean wasRollover = false;
 
@@ -197,21 +198,22 @@ public class JRibbonGallery extends JComponent {
         this.buttons.add(button);
         this.commandToggleGroupModel.add(command);
         this.commands.add(command);
-        button.setDisplayState(this.galleryPresentationModel.getCommandDisplayState());
+        button.setPresentationState(this.galleryPresentationModel.getCommandPresentationState());
 
         super.add(button);
     }
 
     /**
-     * Returns the preferred width of <code>this</code> in-ribbon gallery for the specified display
-     * state.
+     * Returns the preferred width of <code>this</code> in-ribbon gallery for the specified
+     * presentation state.
      *
-     * @param state           Display state.
+     * @param state           Presentation state.
      * @param availableHeight Available height in pixels.
-     * @return The preferred width of <code>this</code> in-ribbon gallery for the specified display
+     * @return The preferred width of <code>this</code> in-ribbon gallery for the specified
+     * presentation
      * state.
      */
-    public int getPreferredWidth(RibbonElementPriority state, int availableHeight) {
+    public int getPreferredWidth(JRibbonBand.PresentationPriority state, int availableHeight) {
         int preferredVisibleButtonCount = this.galleryPresentationModel.
                 getPreferredVisibleCommandCounts().get(state);
 
@@ -220,21 +222,22 @@ public class JRibbonGallery extends JComponent {
     }
 
     /**
-     * Sets new display priority for <code>this</code> in-ribbon gallery.
+     * Sets new presentation priority for <code>this</code> in-ribbon gallery.
      *
-     * @param displayPriority New display priority for <code>this</code> in-ribbon gallery.
+     * @param presentationPriority New presentation priority for <code>this</code> in-ribbon
+     *                             gallery.
      */
-    public void setDisplayPriority(RibbonElementPriority displayPriority) {
-        this.displayPriority = displayPriority;
+    public void setPresentationPriority(JRibbonBand.PresentationPriority presentationPriority) {
+        this.presentationPriority = presentationPriority;
     }
 
     /**
-     * Returns the current display priority for <code>this</code> in-ribbon gallery.
+     * Returns the current presentation priority for <code>this</code> in-ribbon gallery.
      *
-     * @return The current display priority for <code>this</code> in-ribbon gallery.
+     * @return The current presentation priority for <code>this</code> in-ribbon gallery.
      */
-    public RibbonElementPriority getDisplayPriority() {
-        return this.displayPriority;
+    public JRibbonBand.PresentationPriority getPresentationPriority() {
+        return this.presentationPriority;
     }
 
     /**
@@ -314,13 +317,14 @@ public class JRibbonGallery extends JComponent {
         return expandKeyTip;
     }
 
-    private void validateCommandDisplayState(CommandButtonDisplayState commandDisplayState) {
-        boolean isSupported = (commandDisplayState == JRibbonBand.BIG_FIXED)
-                || (commandDisplayState == CommandButtonDisplayState.SMALL)
-                || (commandDisplayState == JRibbonBand.BIG_FIXED_LANDSCAPE);
+    private void validateCommandPresentationState(
+            CommandButtonPresentationState commandPresentationState) {
+        boolean isSupported = (commandPresentationState == JRibbonBand.BIG_FIXED)
+                || (commandPresentationState == CommandButtonPresentationState.SMALL)
+                || (commandPresentationState == JRibbonBand.BIG_FIXED_LANDSCAPE);
         if (!isSupported) {
             throw new IllegalArgumentException(
-                    "Display state " + commandDisplayState.getDisplayName()
+                    "Presentation state " + commandPresentationState.getDisplayName()
                             + " is not supported in ribbon galleries");
         }
     }
@@ -358,7 +362,8 @@ public class JRibbonGallery extends JComponent {
 
         // Do all the primary gallery command groups have titles?
         boolean allGroupsHaveTitles = true;
-        for (CommandProjectionGroupModel commandGroupModel : galleryContentModel.getCommandGroups()) {
+        for (CommandProjectionGroupModel commandGroupModel :
+                galleryContentModel.getCommandGroups()) {
             String groupTitle = commandGroupModel.getTitle();
             if (groupTitle == null) {
                 allGroupsHaveTitles = false;
@@ -376,8 +381,8 @@ public class JRibbonGallery extends JComponent {
                         .setPanelPresentationModel(
                                 CommandPanelPresentationModel.builder()
                                         .setToShowGroupLabels(allGroupsHaveTitles)
-                                        .setCommandDisplayState(
-                                                galleryPresentationModel.getCommandDisplayState())
+                                        .setCommandPresentationState(
+                                                galleryPresentationModel.getCommandPresentationState())
                                         .setMaxColumns(
                                                 galleryPresentationModel.getPreferredPopupMaxCommandColumns())
                                         .setMaxRows(
@@ -386,7 +391,7 @@ public class JRibbonGallery extends JComponent {
                         .build();
 
         JCommandPopupMenu galleryPopupMenu = new CommandPopupMenuProjection(
-                galleryPopupMenuContentModel, galleryPopupMenuPresentationModel).project();
+                galleryPopupMenuContentModel, galleryPopupMenuPresentationModel).buildComponent();
 
         galleryPopupMenu.applyComponentOrientation(originator.getComponentOrientation());
 

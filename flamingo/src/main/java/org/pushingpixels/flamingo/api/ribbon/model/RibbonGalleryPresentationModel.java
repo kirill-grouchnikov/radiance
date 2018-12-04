@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.model;
 
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
-import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.ribbon.*;
 
 import javax.swing.event.*;
 import java.util.*;
@@ -41,7 +41,7 @@ public class RibbonGalleryPresentationModel {
      */
     private EventListenerList listenerList = new EventListenerList();
 
-    private Map<RibbonElementPriority, Integer> preferredVisibleCommandCounts;
+    private Map<JRibbonBand.PresentationPriority, Integer> preferredVisibleCommandCounts;
 
     /**
      * Preferred maximum number of button columns for the popup panel.
@@ -53,7 +53,7 @@ public class RibbonGalleryPresentationModel {
      */
     private int preferredPopupMaxVisibleCommandRows;
 
-    private CommandButtonDisplayState commandDisplayState;
+    private CommandButtonPresentationState commandPresentationState;
 
     private String expandKeyTip;
 
@@ -64,7 +64,7 @@ public class RibbonGalleryPresentationModel {
         return new Builder();
     }
 
-    public Map<RibbonElementPriority, Integer> getPreferredVisibleCommandCounts() {
+    public Map<JRibbonBand.PresentationPriority, Integer> getPreferredVisibleCommandCounts() {
         return preferredVisibleCommandCounts;
     }
 
@@ -76,13 +76,13 @@ public class RibbonGalleryPresentationModel {
         return preferredPopupMaxVisibleCommandRows;
     }
 
-    public CommandButtonDisplayState getCommandDisplayState() {
-        return commandDisplayState;
+    public CommandButtonPresentationState getCommandPresentationState() {
+        return commandPresentationState;
     }
 
-    public void setCommandDisplayState(CommandButtonDisplayState commandDisplayState) {
-        if (this.commandDisplayState != commandDisplayState) {
-            this.commandDisplayState = commandDisplayState;
+    public void setCommandPresentationState(CommandButtonPresentationState commandPresentationState) {
+        if (this.commandPresentationState != commandPresentationState) {
+            this.commandPresentationState = commandPresentationState;
             this.fireStateChanged();
         }
     }
@@ -128,14 +128,15 @@ public class RibbonGalleryPresentationModel {
     }
 
     public static class Builder {
-        private Map<RibbonElementPriority, Integer> preferredVisibleCommandCounts;
+        private Map<JRibbonBand.PresentationPriority, Integer> preferredVisibleCommandCounts;
         private int preferredPopupMaxCommandColumns = -1;
         private int preferredPopupMaxVisibleCommandRows = -1;
-        private CommandButtonDisplayState commandDisplayState = CommandButtonDisplayState.BIG;
+        private CommandButtonPresentationState commandPresentationState
+                = CommandButtonPresentationState.BIG;
         private String expandKeyTip;
 
         public Builder setPreferredVisibleCommandCounts(
-                Map<RibbonElementPriority, Integer> preferredVisibleCommandCounts) {
+                Map<JRibbonBand.PresentationPriority, Integer> preferredVisibleCommandCounts) {
             this.preferredVisibleCommandCounts = preferredVisibleCommandCounts;
             return this;
         }
@@ -152,9 +153,9 @@ public class RibbonGalleryPresentationModel {
             return this;
         }
 
-        public Builder setCommandDisplayState(
-                CommandButtonDisplayState commandDisplayState) {
-            this.commandDisplayState = commandDisplayState;
+        public Builder setCommandPresentationState(
+                CommandButtonPresentationState commandPresentationState) {
+            this.commandPresentationState = commandPresentationState;
             return this;
         }
 
@@ -172,7 +173,7 @@ public class RibbonGalleryPresentationModel {
                     this.preferredPopupMaxVisibleCommandRows;
             presentationModel.preferredPopupMaxCommandColumns =
                     this.preferredPopupMaxCommandColumns;
-            presentationModel.commandDisplayState = this.commandDisplayState;
+            presentationModel.commandPresentationState = this.commandPresentationState;
             presentationModel.expandKeyTip = this.expandKeyTip;
             return presentationModel;
         }

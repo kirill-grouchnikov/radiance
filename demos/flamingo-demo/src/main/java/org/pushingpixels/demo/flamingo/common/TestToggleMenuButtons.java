@@ -91,9 +91,9 @@ public class TestToggleMenuButtons extends JFrame {
                                 CommandPopupMenuPresentationModel.builder().build()))
                         .build()
                         .project(CommandPresentation.builder()
-                                .setCommandDisplayState(CommandButtonDisplayState.MEDIUM)
+                                .setPresentationState(CommandButtonPresentationState.MEDIUM)
                                 .setFlat(false).build())
-                        .buildButton();
+                        .buildComponent();
 
         Command formatBold = Command.builder()
                 .setTitle("bold")
@@ -132,9 +132,9 @@ public class TestToggleMenuButtons extends JFrame {
                                         .setToDismissOnCommandActivation(false).build()))
                         .build()
                         .project(CommandPresentation.builder()
-                                .setCommandDisplayState(CommandButtonDisplayState.MEDIUM)
+                                .setPresentationState(CommandButtonPresentationState.MEDIUM)
                                 .setFlat(false).build())
-                        .buildButton();
+                        .buildComponent();
 
         JPanel main = new JPanel(new FlowLayout());
         main.add(singleChoice);

@@ -36,11 +36,8 @@ import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandPopupMenuUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
 
-import javax.swing.*;
-import javax.swing.JPopupMenu.Separator;
 import javax.swing.event.*;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
 
 /**
@@ -50,7 +47,7 @@ import java.util.List;
  *
  * @author Kirill Grouchnikov
  */
-public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
+public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHost {
     /**
      * @see #getUIClassID
      */
@@ -63,8 +60,7 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
     private CommandPanelPresentationModel popupMenuPanelPresentationModel;
 
     /**
-     * The main button panel. Can be <code>null</code> if this command popup
-     * menu was created with the {@link #JCommandPopupMenu()} constructor.
+     * The main button panel.
      *
      * @see CommandPopupMenuContentModel#CommandPopupMenuContentModel(CommandPanelContentModel, List)
      * @see #hasCommandButtonPanel()
@@ -72,38 +68,8 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
      */
     private JCommandButtonPanel mainButtonPanel;
 
-    /**
-     * Menu components. This list holds:
-     * <ul>
-     * <li>{@link JCommandMenuButton}s added with
-     * {@link #addMenuButton(JCommandMenuButton)}</li>
-     * <li>{@link JCommandToggleMenuButton}s added with
-     * {@link #addMenuButton(JCommandToggleMenuButton)}</li>
-     * <li>{@link Separator}s added with {@link #addMenuSeparator()}</li>
-     * <li>{@link JPanel}s added by the subclasses with
-     * {@link #addMenuPanel(JPanel)}</li>
-     * </ul>
-     *
-     * @see #addMenuButton(JCommandMenuButton)
-     * @see #addMenuButton(JCommandToggleMenuButton)
-     * @see #addMenuSeparator()
-     * @see #addMenuPanel(JPanel)
-     * @see #getMenuComponents()
-     */
-    private List<Component> menuComponents;
-
-    protected JCommandPopupMenu() {
-        this.menuComponents = new ArrayList<>();
-
-        this.popupMenuPresentationModel = CommandPopupMenuPresentationModel.builder()
-                .setMaxVisibleMenuCommands(-1)
-                .setToDismissOnCommandActivation(true).build();
-    }
-
     public JCommandPopupMenu(CommandPopupMenuContentModel popupMenuContentModel,
             CommandPopupMenuPresentationModel popupMenuPresentationModel) {
-        this.menuComponents = new ArrayList<>();
-
         this.popupMenuContentModel = popupMenuContentModel;
         this.popupMenuPresentationModel = popupMenuPresentationModel;
         this.popupMenuPanelContentModel = (this.popupMenuContentModel != null) ?
@@ -118,7 +84,7 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
         this.updateUI();
     }
 
-    protected void populateContent() {
+    private void populateContent() {
         if (this.popupMenuPanelContentModel != null) {
             this.mainButtonPanel = new JCommandButtonPanel(
                     this.popupMenuPanelContentModel,
@@ -129,13 +95,13 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
                 this.popupMenuContentModel.getCommandGroups();
         for (int i = 0; i < commandGroups.size(); i++) {
             for (CommandProjection projection : commandGroups.get(i).getCommandProjections()) {
-                // Overlay the supplied projection command display to create menu content
+                // Overlay the supplied projection command presentation to create menu content
                 CommandPresentation withOverlay = projection.getPresentationModel().overlayWith(
                         CommandPresentation.overlay().setMenu(true));
                 // Reproject to use the overlay
                 CommandProjection projectionWithOverlay = projection.reproject(withOverlay);
                 // And create a button that can be used in this popup menu
-                AbstractCommandButton commandButton = projectionWithOverlay.buildButton();
+                AbstractCommandButton commandButton = projectionWithOverlay.buildComponent();
 
                 // Need to highlight it?
                 Command highlightedCommand =
@@ -169,37 +135,6 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
         return this.popupMenuPresentationModel;
     }
 
-    protected void addMenuButton(JCommandMenuButton menuButton) {
-        menuButton.setHorizontalAlignment(SwingUtilities.LEADING);
-        this.menuComponents.add(menuButton);
-        this.fireStateChanged();
-    }
-
-    protected void addMenuButton(JCommandToggleMenuButton menuButton) {
-        menuButton.setHorizontalAlignment(SwingUtilities.LEADING);
-        this.menuComponents.add(menuButton);
-        this.fireStateChanged();
-    }
-
-    protected void addMenuSeparator() {
-        this.menuComponents.add(new JPopupMenu.Separator());
-        this.fireStateChanged();
-    }
-
-    /**
-     * Adds a menu panel to this menu.
-     *
-     * @param menuPanel Menu panel to add.
-     */
-    void addMenuPanel(JPanel menuPanel) {
-        if (this.popupMenuPresentationModel.getMaxVisibleMenuCommands() > 0) {
-            throw new IllegalStateException(
-                    "This method is not supported on menu configured with max visible entry count");
-        }
-        this.menuComponents.add(menuPanel);
-        this.fireStateChanged();
-    }
-
     /**
      * Returns indication whether this menu has a command button panel.
      *
@@ -222,19 +157,6 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
         return this.mainButtonPanel;
     }
 
-    /**
-     * Returns an unmodifiable list of all the menu components. Can return
-     * <code>null</code>.
-     *
-     * @return An unmodifiable list of all the menu components
-     */
-    public java.util.List<Component> getMenuComponents() {
-        if (this.menuComponents == null) {
-            return null;
-        }
-        return Collections.unmodifiableList(this.menuComponents);
-    }
-
     @Override
     public String getUIClassID() {
         return uiClassID;
@@ -243,43 +165,5 @@ public class JCommandPopupMenu extends JPopupPanel implements ScrollableHost {
     @Override
     public void updateUI() {
         setUI(SubstanceCommandPopupMenuUI.createUI(this));
-    }
-
-    /**
-     * Adds the specified change listener to track changes to this popup menu.
-     *
-     * @param l Change listener to add.
-     * @see #removeChangeListener(ChangeListener)
-     */
-    public void addChangeListener(ChangeListener l) {
-        this.listenerList.add(ChangeListener.class, l);
-    }
-
-    /**
-     * Removes the specified change listener from tracking changes to this popup
-     * menu.
-     *
-     * @param l Change listener to remove.
-     * @see #addChangeListener(ChangeListener)
-     */
-    public void removeChangeListener(ChangeListener l) {
-        this.listenerList.remove(ChangeListener.class, l);
-    }
-
-    /**
-     * Notifies all registered listener that the state of this popup menu has
-     * changed.
-     */
-    protected void fireStateChanged() {
-        // Guaranteed to return a non-null array
-        Object[] listeners = this.listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        ChangeEvent event = new ChangeEvent(this);
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ChangeListener.class) {
-                ((ChangeListener) listeners[i + 1]).stateChanged(event);
-            }
-        }
     }
 }

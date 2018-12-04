@@ -37,7 +37,7 @@ import kotlinx.coroutines.withContext
 import org.pushingpixels.demo.kormorant.RadianceLogo
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel
-import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.StringValuePair
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon
 import org.pushingpixels.kormorant.bcb.addDelayedPathListener
@@ -78,7 +78,7 @@ fun main(args: Array<String>) {
             }
 
             override fun getResizableIcon(leaf: AbstractFileViewPanel.Leaf,
-                    stream: InputStream, state: CommandButtonDisplayState,
+                    stream: InputStream, state: CommandButtonPresentationState,
                     dimension: Dimension): ResizableIcon {
                 var dimensionForIcon = dimension
                 val prefSize = state.preferredIconSize

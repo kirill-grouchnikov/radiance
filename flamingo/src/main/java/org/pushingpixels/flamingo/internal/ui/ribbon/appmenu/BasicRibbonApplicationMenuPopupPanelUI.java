@@ -59,8 +59,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
 
     private JPanel footerPanel;
 
-    private static final CommandButtonDisplayState MENU_TILE_LEVEL_1 =
-            new CommandButtonDisplayState(
+    private static final CommandButtonPresentationState MENU_TILE_LEVEL_1 =
+            new CommandButtonPresentationState(
             "Ribbon application menu tile level 1", 32) {
         @Override
         public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton commandButton) {
@@ -158,7 +158,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     final JCommandMenuButton commandButton =
                             (JCommandMenuButton) menuEntry.project(
                                     CommandPresentation.builder()
-                                            .setMenu(true).build()).buildButton();
+                                            .setMenu(true).build()).buildComponent();
 
                     if (menuEntry.getSecondaryGroupCount() == 0) {
                         // if there are no secondary menu items, register the
@@ -210,7 +210,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                             commandButton.getPopupModel().setPopupShowing(true);
                         });
                     }
-                    commandButton.setDisplayState(MENU_TILE_LEVEL_1);
+                    commandButton.setPresentationState(MENU_TILE_LEVEL_1);
                     commandButton.setHorizontalAlignment(SwingUtilities.LEADING);
                     commandButton
                             .setPopupOrientationKind(
@@ -258,8 +258,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         if (ribbonAppMenu != null) {
             for (Command footerCommand : ribbonAppMenu.getFooterCommands()) {
                 JCommandButton commandFooterButton =
-                        (JCommandButton) footerCommand.project().buildButton();
-                commandFooterButton.setDisplayState(CommandButtonDisplayState.MEDIUM);
+                        (JCommandButton) footerCommand.project().buildComponent();
+                commandFooterButton.setPresentationState(CommandButtonPresentationState.MEDIUM);
                 commandFooterButton.setFlat(false);
                 this.footerPanel.add(commandFooterButton);
             }

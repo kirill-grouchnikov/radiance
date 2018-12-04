@@ -101,7 +101,7 @@ public class SVGZBatikTestApplication extends JFrame {
             SvgBatikResizableIcon icon = SvgBatikResizableIcon.getSvgzIcon(is,
                     new Dimension(32, 32));
             iconButton = new JCommandButton("just icon", icon);
-            iconButton.setDisplayState(CommandButtonDisplayState.BIG);
+            iconButton.setPresentationState(CommandButtonPresentationState.BIG);
             add(iconButton);
         }
 

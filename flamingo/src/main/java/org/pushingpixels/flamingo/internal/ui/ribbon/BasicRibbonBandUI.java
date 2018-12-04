@@ -159,7 +159,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
     protected void installComponents() {
         this.collapsedButton = new JCommandButton(this.ribbonBand.getTitle(),
                 this.ribbonBand.getIcon());
-        this.collapsedButton.setDisplayState(CommandButtonDisplayState.BIG);
+        this.collapsedButton.setPresentationState(CommandButtonPresentationState.BIG);
         this.collapsedButton.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
         this.collapsedButton.setPopupKeyTip(this.ribbonBand.getCollapsedStateKeyTip());
         this.ribbonBand.add(this.collapsedButton);

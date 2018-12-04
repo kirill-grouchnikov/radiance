@@ -45,8 +45,8 @@ import java.util.ArrayList;
  * @author Kirill Grouchnikov
  */
 public class JRibbonApplicationMenuButton extends JCommandButton {
-    private final static CommandButtonDisplayState APP_MENU_BUTTON_STATE =
-            new CommandButtonDisplayState("Ribbon Application Menu Button", 16) {
+    private final static CommandButtonPresentationState APP_MENU_BUTTON_STATE =
+            new CommandButtonPresentationState("Ribbon Application Menu Button", 16) {
                 @Override
                 public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton
                         commandButton) {
@@ -119,7 +119,7 @@ public class JRibbonApplicationMenuButton extends JCommandButton {
     public JRibbonApplicationMenuButton(JRibbon ribbon) {
         super("", null);
         this.setCommandButtonKind(CommandButtonKind.POPUP_ONLY);
-        this.setDisplayState(APP_MENU_BUTTON_STATE);
+        this.setPresentationState(APP_MENU_BUTTON_STATE);
         this.setHorizontalAlignment(SwingUtilities.CENTER);
 
         this.setPopupCallback((JCommandButton commandButton) -> {

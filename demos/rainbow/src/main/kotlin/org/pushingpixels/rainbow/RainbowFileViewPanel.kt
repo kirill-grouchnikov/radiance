@@ -76,7 +76,7 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
     }
 
     override fun getResizableIcon(leaf: AbstractFileViewPanel.Leaf, stream: InputStream,
-            state: CommandButtonDisplayState, dimension: Dimension): ResizableIcon? {
+            state: CommandButtonPresentationState, dimension: Dimension): ResizableIcon? {
         val name = leaf.leafName
         return if (name.endsWith(".svg"))
             SvgBatikResizableIcon.getSvgIcon(leaf.leafStream, dimension)

@@ -79,7 +79,7 @@ public class Viewer extends JFrame {
 
             @Override
             protected ResizableIcon getResizableIcon(AbstractFileViewPanel.Leaf leaf,
-                    InputStream stream, CommandButtonDisplayState state, Dimension dimension) {
+                    InputStream stream, CommandButtonPresentationState state, Dimension dimension) {
                 int prefSize = state.getPreferredIconSize();
                 if (prefSize > 0) {
                     dimension = new Dimension(prefSize, prefSize);

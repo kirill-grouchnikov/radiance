@@ -94,12 +94,12 @@ public class MultiLevelMenu extends JFrame {
 
         CommandProjection mainCommandProjection = mainCommand.project(
                 CommandPresentation.builder()
-                        .setCommandDisplayState(CommandButtonDisplayState.MEDIUM)
+                        .setPresentationState(CommandButtonPresentationState.MEDIUM)
                         .setFlat(false)
                         .build());
 
         this.setLayout(new FlowLayout(FlowLayout.LEADING));
-        this.add(mainCommandProjection.buildButton());
+        this.add(mainCommandProjection.buildComponent());
 
         this.setSize(300, 200);
         this.setLocationRelativeTo(null);

@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.flamingo.api.common.projection;
 
-import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 
-public class CommandPopupMenuProjection extends Projection<JCommandPopupMenu,
-        CommandPopupMenuContentModel, CommandPopupMenuPresentationModel> {
+public class CommandPopupMenuProjection extends AbstractPopupMenuProjection<
+        JCommandPopupMenu, CommandPopupMenuContentModel, CommandPopupMenuPresentationModel> {
 
     public CommandPopupMenuProjection(CommandPopupMenuContentModel contentModel,
             CommandPopupMenuPresentationModel presentationModel) {
@@ -41,7 +41,7 @@ public class CommandPopupMenuProjection extends Projection<JCommandPopupMenu,
     }
 
     @Override
-    public JCommandPopupMenu project() {
+    public JCommandPopupMenu buildComponent() {
         return new JCommandPopupMenu(this.getContentModel(), this.getPresentationModel());
     }
 }

@@ -115,10 +115,10 @@ public class TestCommandToggleButtons extends JFrame {
         builder.add("Short text").xy(3, 1);
         builder.add("Long text").xy(5, 1);
 
-        addButtons(builder, CommandButtonDisplayState.BIG, 3);
-        addButtons(builder, CommandButtonDisplayState.TILE, 5);
-        addButtons(builder, CommandButtonDisplayState.MEDIUM, 7);
-        addButtons(builder, CommandButtonDisplayState.SMALL, 9);
+        addButtons(builder, CommandButtonPresentationState.BIG, 3);
+        addButtons(builder, CommandButtonPresentationState.TILE, 5);
+        addButtons(builder, CommandButtonPresentationState.MEDIUM, 7);
+        addButtons(builder, CommandButtonPresentationState.SMALL, 9);
 
         return builder.getPanel();
     }
@@ -127,25 +127,25 @@ public class TestCommandToggleButtons extends JFrame {
         return new SimpleDateFormat("HH:mm:ss.SSS").format(new Date());
     }
 
-    private void addButtons(FormBuilder builder, CommandButtonDisplayState state, int row) {
+    private void addButtons(FormBuilder builder, CommandButtonPresentationState state, int row) {
         builder.add(state.getDisplayName() + " state").xy(1, row);
 
         AbstractCommandButton buttonWithShortText =
                 this.toggleCommandShort.project(
                         CommandPresentation.builder()
-                                .setCommandDisplayState(state)
+                                .setPresentationState(state)
                                 .setFlat(false)
                                 .build())
-                        .buildButton();
+                        .buildComponent();
         builder.add(buttonWithShortText).xy(3, row);
 
         AbstractCommandButton buttonWithLongText =
                 this.toggleCommandLong.project(
                         CommandPresentation.builder()
-                                .setCommandDisplayState(state)
+                                .setPresentationState(state)
                                 .setFlat(false)
                                 .build())
-                        .buildButton();
+                        .buildComponent();
         builder.add(buttonWithLongText).xy(5, row);
     }
 

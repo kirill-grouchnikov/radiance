@@ -48,7 +48,7 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
     /**
      * This interface can be used as part of {@link #setCommandButtonCreator(CommandButtonCreator)}
      * to return your own subclass of {@link AbstractCommandButton} (or one of the public
-     * Flamingo command button classes) as the result of {@link #buildButton()} call.
+     * Flamingo command button classes) as the result of {@link #buildComponent()} call.
      */
     public interface CommandButtonCreator {
         /**
@@ -63,7 +63,7 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
     /**
      * This interface can be used as part of
      * {@link #setCommandButtonCustomizer(CommandButtonCustomizer)} to customize the result of
-     * {@link #buildButton()} with additional functionality not exposed via {@link Command}
+     * {@link #buildComponent()} with additional functionality not exposed via {@link Command}
      * or {@link CommandPresentation}.
      */
     public interface CommandButtonCustomizer {
@@ -74,9 +74,9 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
         @Override
         public AbstractCommandButton createUnitializedButton(CommandProjection commandProjection) {
             Command command = commandProjection.getContentModel();
-            CommandPresentation commandDisplay = commandProjection.getPresentationModel();
+            CommandPresentation commandPresentation = commandProjection.getPresentationModel();
 
-            if (commandDisplay.isMenu()) {
+            if (commandPresentation.isMenu()) {
                 return command.isToggle() ? new JCommandToggleMenuButton()
                         : new JCommandMenuButton();
             } else {
@@ -85,14 +85,14 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
         }
     }
 
-    public CommandProjection(Command command, CommandPresentation commandDisplay) {
-        super(command, commandDisplay);
+    public CommandProjection(Command command, CommandPresentation commandPresentation) {
+        super(command, commandPresentation);
 
         this.commandButtonCreator = DEFAULT_BUILDER;
     }
 
-    public CommandProjection reproject(CommandPresentation newCommandDisplay) {
-        CommandProjection result = this.getContentModel().project(newCommandDisplay);
+    public CommandProjection reproject(CommandPresentation newCommandPresentation) {
+        CommandProjection result = this.getContentModel().project(newCommandPresentation);
         result.setCommandButtonCreator(this.commandButtonCreator);
         result.setCommandButtonCustomizer(this.commandButtonCustomizer);
         return result;
@@ -118,7 +118,8 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
                 || (this.getContentModel().getPopupCallback() != null);
     }
 
-    public AbstractCommandButton buildButton() {
+    @Override
+    public AbstractCommandButton buildComponent() {
         AbstractCommandButton result = this.commandButtonCreator.createUnitializedButton(this);
 
         Command command = this.getContentModel();
@@ -148,7 +149,7 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
             if (hasPopup) {
                 if (command.getPopupMenuProjection() != null) {
                     jcb.setPopupCallback((JCommandButton commandButton)
-                            -> command.getPopupMenuProjection().project());
+                            -> command.getPopupMenuProjection().buildComponent());
                 } else {
                     jcb.setPopupCallback(command.getPopupCallback());
                 }
@@ -157,10 +158,9 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
             }
 
             if (hasAction && hasPopup) {
-                jcb.setCommandButtonKind(
-                        command.isTitleClickAction()
-                                ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
-                                : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
+                jcb.setCommandButtonKind(command.isTitleClickAction()
+                        ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
+                        : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
             } else if (hasPopup) {
                 jcb.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
             } else {
@@ -270,14 +270,14 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
             }
         });
 
-        result.setDisplayState(commandPresentation.getCommandDisplayState());
+        result.setPresentationState(commandPresentation.getPresentationState());
         result.setHorizontalAlignment(commandPresentation.getHorizontalAlignment());
         result.setHGapScaleFactor(commandPresentation.getHorizontalGapScaleFactor());
         result.setVGapScaleFactor(commandPresentation.getVerticalGapScaleFactor());
         result.setFlat(commandPresentation.isFlat());
         result.setFocusable(commandPresentation.isFocusable());
-        if (commandPresentation.getCommandIconDimension() != null) {
-            result.updateCustomDimension(commandPresentation.getCommandIconDimension());
+        if (commandPresentation.getIconDimension() != null) {
+            result.updateCustomDimension(commandPresentation.getIconDimension());
         }
         if (result instanceof JCommandButton) {
             ((JCommandButton) result).setPopupOrientationKind(
@@ -291,10 +291,5 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
         result.putClientProperty(FlamingoUtilities.COMMAND, this.getContentModel());
 
         return result;
-    }
-
-    @Override
-    public AbstractCommandButton project() {
-        return this.buildButton();
     }
 }

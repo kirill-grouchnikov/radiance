@@ -93,14 +93,14 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
         contentPanel.add(instructional);
 
         // Three rows of toggle buttons with selection sync
-        contentPanel.add(getToggleStrip(CommandPresentation.builder().setCommandDisplayState(
-                CommandButtonDisplayState.SMALL).build(),
+        contentPanel.add(getToggleStrip(CommandPresentation.builder().setPresentationState(
+                CommandButtonPresentationState.SMALL).build(),
                 justifyLeft, justifyCenter, justifyRight, justifyFill));
-        contentPanel.add(getToggleStrip(CommandPresentation.builder().setCommandDisplayState(
-                CommandButtonDisplayState.MEDIUM).build(),
+        contentPanel.add(getToggleStrip(CommandPresentation.builder().setPresentationState(
+                CommandButtonPresentationState.MEDIUM).build(),
                 justifyLeft, justifyCenter, justifyRight, justifyFill));
-        contentPanel.add(getToggleStrip(CommandPresentation.builder().setCommandDisplayState(
-                CommandButtonDisplayState.BIG).build(),
+        contentPanel.add(getToggleStrip(CommandPresentation.builder().setPresentationState(
+                CommandButtonPresentationState.BIG).build(),
                 justifyLeft, justifyCenter, justifyRight, justifyFill));
         this.add(contentPanel, BorderLayout.CENTER);
 
@@ -118,7 +118,7 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
 
         return new JCommandButtonStrip(new CommandProjectionGroupModel(commandProjections),
                 CommandStripPresentationModel.builder()
-                        .setCommandDisplayState(display.getCommandDisplayState()).build());
+                        .setCommandPresentationState(display.getPresentationState()).build());
     }
 
     public static void main(String[] args) {

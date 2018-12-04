@@ -93,7 +93,7 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
      */
     private HorizontalAlignment horizontalAlignment;
 
-    private RibbonElementPriority displayPriority;
+    private JRibbonBand.PresentationPriority presentationPriority;
 
     private boolean isResizingAware;
 
@@ -116,7 +116,7 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
         this.isSimpleWrapper = true;
         this.horizontalAlignment = HorizontalAlignment.LEADING;
         this.isResizingAware = false;
-        this.displayPriority = RibbonElementPriority.TOP;
+        this.presentationPriority = JRibbonBand.PresentationPriority.TOP;
 
         this.updateUI();
     }
@@ -285,15 +285,15 @@ public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
         this.horizontalAlignment = horizontalAlignment;
     }
 
-    public RibbonElementPriority getDisplayPriority() {
-        return this.displayPriority;
+    public JRibbonBand.PresentationPriority getPresentationPriority() {
+        return this.presentationPriority;
     }
 
-    public void setDisplayPriority(RibbonElementPriority displayPriority) {
-        RibbonElementPriority old = this.displayPriority;
-        this.displayPriority = displayPriority;
-        if (old != displayPriority) {
-            this.firePropertyChange("displayPriority", old, this.displayPriority);
+    public void setPresentationPriority(JRibbonBand.PresentationPriority presentationPriority) {
+        JRibbonBand.PresentationPriority old = this.presentationPriority;
+        this.presentationPriority = presentationPriority;
+        if (old != presentationPriority) {
+            this.firePropertyChange("presentationPriority", old, this.presentationPriority);
         }
     }
 

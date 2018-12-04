@@ -60,22 +60,22 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
         /**
          * Mapping from priority to galleries.
          */
-        private Map<RibbonElementPriority, List<JRibbonGallery>> ribbonGalleries;
+        private Map<JRibbonBand.PresentationPriority, List<JRibbonGallery>> ribbonGalleries;
 
         /**
          * Mapping from gallery to priority.
          */
-        private Map<JRibbonGallery, RibbonElementPriority> ribbonGalleriesPriorities;
+        private Map<JRibbonGallery, JRibbonBand.PresentationPriority> ribbonGalleriesPriorities;
 
         /**
          * Mapping from priority to ribbon buttons.
          */
-        private Map<RibbonElementPriority, List<AbstractCommandButton>> ribbonButtons;
+        private Map<JRibbonBand.PresentationPriority, List<AbstractCommandButton>> ribbonButtons;
 
         /**
          * Mapping from ribbon button to priority.
          */
-        private Map<AbstractCommandButton, RibbonElementPriority> ribbonButtonsPriorities;
+        private Map<AbstractCommandButton, JRibbonBand.PresentationPriority> ribbonButtonsPriorities;
 
         private List<JRibbonComponent> coreComps;
 
@@ -118,7 +118,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
          */
         public synchronized void addCommandButton(
                 AbstractCommandButton ribbonButton,
-                RibbonElementPriority priority) {
+                JRibbonBand.PresentationPriority priority) {
             if (this.groupTitle != null) {
                 throw new UnsupportedOperationException(
                         "Can't add command buttons to ribbon band group with non-null title");
@@ -135,7 +135,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
 
             this.ribbonButtonsPriorities.put(ribbonButton, priority);
 
-            ribbonButton.setDisplayState(CommandButtonDisplayState.BIG);
+            ribbonButton.setPresentationState(CommandButtonPresentationState.BIG);
         }
 
         /**
@@ -145,7 +145,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
          * @param priority      Ribbon gallery priority.
          */
         public synchronized void addRibbonGallery(JRibbonGallery ribbonGallery,
-                RibbonElementPriority priority) {
+                JRibbonBand.PresentationPriority priority) {
             if (this.groupTitle != null) {
                 throw new UnsupportedOperationException(
                         "Can't add galleries to ribbon band group with non-null title");
@@ -163,7 +163,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
 
             this.ribbonGalleriesPriorities.put(ribbonGallery, priority);
 
-            ribbonGallery.setDisplayPriority(RibbonElementPriority.TOP);
+            ribbonGallery.setPresentationPriority(JRibbonBand.PresentationPriority.TOP);
 
             this.hasGalleries = true;
             this.galleryCount++;
@@ -177,8 +177,8 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
          * @param newPriority  New priority for the specified ribbon button.
          */
         public synchronized void setPriority(JCommandButton ribbonButton,
-                RibbonElementPriority newPriority) {
-            RibbonElementPriority oldPriority = this.ribbonButtonsPriorities
+                JRibbonBand.PresentationPriority newPriority) {
+            JRibbonBand.PresentationPriority oldPriority = this.ribbonButtonsPriorities
                     .get(ribbonButton);
             if (newPriority == oldPriority)
                 return;
@@ -199,8 +199,8 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
          * @param newPriority   New priority for the specified in-ribbon gallery.
          */
         public synchronized void setPriority(JRibbonGallery ribbonGallery,
-                RibbonElementPriority newPriority) {
-            RibbonElementPriority oldPriority = this.ribbonGalleriesPriorities
+                JRibbonBand.PresentationPriority newPriority) {
+            JRibbonBand.PresentationPriority oldPriority = this.ribbonGalleriesPriorities
                     .get(ribbonGallery);
             if (newPriority == oldPriority)
                 return;
@@ -232,7 +232,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
          * <code>this</code> control panel.
          */
         public List<AbstractCommandButton> getRibbonButtons(
-                RibbonElementPriority priority) {
+                JRibbonBand.PresentationPriority priority) {
             List<AbstractCommandButton> result = this.ribbonButtons
                     .get(priority);
             if (result == null) {
@@ -249,7 +249,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
          * @return All in-ribbon galleries of specified priority from
          * <code>this</code> control panel.
          */
-        public List<JRibbonGallery> getRibbonGalleries(RibbonElementPriority priority) {
+        public List<JRibbonGallery> getRibbonGalleries(JRibbonBand.PresentationPriority priority) {
             List<JRibbonGallery> result = this.ribbonGalleries.get(priority);
             if (result == null) {
                 return EMPTY_RIBBON_GALLERIES_LIST;
@@ -341,7 +341,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
      * @param priority     Ribbon button priority.
      */
     public synchronized void addCommandButton(
-            AbstractCommandButton ribbonButton, RibbonElementPriority priority) {
+            AbstractCommandButton ribbonButton, JRibbonBand.PresentationPriority priority) {
         if (this.controlPanelGroups.size() == 0) {
             this.startGroup();
         }
@@ -358,7 +358,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
      * @param priority      Ribbon gallery priority.
      */
     public synchronized void addRibbonGallery(JRibbonGallery ribbonGallery,
-            RibbonElementPriority priority) {
+            JRibbonBand.PresentationPriority priority) {
         if (this.controlPanelGroups.size() == 0) {
             this.startGroup();
         }

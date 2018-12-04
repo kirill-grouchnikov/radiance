@@ -430,7 +430,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             return new Dimension(width, maxMinBandHeight + extraHeight + ins.top + ins.bottom);
         }
 
-        private int getAnchoredButtonsWidth(CommandButtonDisplayState state) {
+        private int getAnchoredButtonsWidth(CommandButtonPresentationState state) {
             int result = 0;
 
             for (Component comp : anchoredButtons.getComponents()) {
@@ -473,9 +473,9 @@ public abstract class BasicRibbonUI extends RibbonUI {
             // how much horizontal space do anchored buttons need in expanded (text + icon) and
             // collapsed (icon only) modes?
             int anchoredButtonsCollapsedWidth = getAnchoredButtonsWidth(
-                    CommandButtonDisplayState.SMALL);
+                    CommandButtonPresentationState.SMALL);
             int anchoredButtonsExpandedWidth = getAnchoredButtonsWidth(
-                    CommandButtonDisplayState.MEDIUM);
+                    CommandButtonPresentationState.MEDIUM);
 
             // if anchored buttons are expanded, do we have enough horizontal space to display
             // the task toggle buttons in their preferred size (without cutting off on the sides
@@ -495,14 +495,14 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 // can fit everything with no cuts
                 for (Component comp : anchoredButtons.getComponents()) {
                     AbstractCommandButton anchoredButton = (AbstractCommandButton) comp;
-                    anchoredButton.setDisplayState(CommandButtonDisplayState.MEDIUM);
+                    anchoredButton.setPresentationState(CommandButtonPresentationState.MEDIUM);
                 }
                 anchoredButtonPanelWidth = anchoredButtonsExpandedWidth;
             } else {
                 // switch anchored buttons to icon-only mode
                 for (Component comp : anchoredButtons.getComponents()) {
                     AbstractCommandButton anchoredButton = (AbstractCommandButton) comp;
-                    anchoredButton.setDisplayState(CommandButtonDisplayState.SMALL);
+                    anchoredButton.setPresentationState(CommandButtonPresentationState.SMALL);
                 }
                 anchoredButtonPanelWidth = anchoredButtonsCollapsedWidth;
             }
@@ -1140,7 +1140,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             );
 
             final AbstractCommandButton taskToggleButton =
-                    taskToggleCommandProjection.buildButton();
+                    taskToggleCommandProjection.buildComponent();
 
             taskToggleButtonsHostPanel.add(taskToggleButton);
             this.taskToggleButtons.put(task, taskToggleButton);
@@ -1174,7 +1174,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             this.anchoredButtons = new Container();
             this.anchoredButtons.setLayout(new AnchoredButtonsPanelLayout());
             for (CommandProjection anchoredCommandProjection : anchoredCommands) {
-                this.anchoredButtons.add(anchoredCommandProjection.buildButton());
+                this.anchoredButtons.add(anchoredCommandProjection.buildComponent());
             }
             this.ribbon.add(this.anchoredButtons);
         }
