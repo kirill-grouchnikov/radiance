@@ -30,9 +30,9 @@
 package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
+import org.pushingpixels.flamingo.internal.ui.common.*;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 
 import javax.accessibility.AccessibleContext;
 import javax.swing.*;
@@ -45,7 +45,7 @@ import java.awt.event.*;
  *
  * @author Kirill Grouchnikov
  */
-public abstract class AbstractCommandButton extends RichToolTipManager.JTrackableComponent {
+public abstract class AbstractCommandButton extends RichTooltipManager.JTrackableComponent {
     public static final int DEFAULT_HORIZONTAL_ALIGNMENT = SwingConstants.CENTER;
     public static final double DEFAULT_GAP_SCALE_FACTOR = 1.0;
     /**
@@ -213,6 +213,45 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
         this.hgapScaleFactor = DEFAULT_GAP_SCALE_FACTOR;
         this.vgapScaleFactor = DEFAULT_GAP_SCALE_FACTOR;
         this.setText(text);
+        this.setOpaque(false);
+    }
+
+    public AbstractCommandButton(Command command, CommandPresentation commandPresentation) {
+        this.setText(command.getTitle());
+        this.setExtraText(command.getExtraText());
+
+        this.setIcon((command.getIconFactory() != null)
+                ? command.getIconFactory().createNewIcon()
+                : command.getIcon());
+        this.setDisabledIcon((command.getDisabledIconFactory() != null)
+                ? command.getDisabledIconFactory().createNewIcon()
+                : command.getDisabledIcon());
+
+        boolean hasAction = (command.getAction() != null);
+
+        if (hasAction) {
+            this.addCommandListener(command.getAction());
+            this.setActionRichTooltip(command.getActionRichTooltip());
+            this.setActionKeyTip(commandPresentation.getActionKeyTip());
+        }
+
+        this.setEnabled(command.isEnabled());
+
+        if (!commandPresentation.isToDismissPopupsOnActivation()) {
+            this.putClientProperty(BasicCommandButtonUI.DONT_DISPOSE_POPUPS, Boolean.TRUE);
+        }
+
+        this.setPresentationState(commandPresentation.getPresentationState());
+        this.setHorizontalAlignment(commandPresentation.getHorizontalAlignment());
+        this.setHGapScaleFactor(commandPresentation.getHorizontalGapScaleFactor());
+        this.setVGapScaleFactor(commandPresentation.getVerticalGapScaleFactor());
+        this.setFlat(commandPresentation.isFlat());
+        this.setFocusable(commandPresentation.isFocusable());
+        if (commandPresentation.getIconDimension() != null) {
+            this.updateCustomDimension(commandPresentation.getIconDimension());
+        }
+
+        this.actionHandler = new ActionHandler();
         this.setOpaque(false);
     }
 
@@ -542,11 +581,15 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
 
     @Override
     public void setEnabled(boolean b) {
-        if (!b && actionModel.isRollover()) {
-            actionModel.setRollover(false);
+        if (this.actionModel != null) {
+            if (!b && this.actionModel.isRollover()) {
+                this.actionModel.setRollover(false);
+            }
         }
         super.setEnabled(b);
-        actionModel.setEnabled(b);
+        if (this.actionModel != null) {
+            this.actionModel.setEnabled(b);
+        }
     }
 
     /**
@@ -764,7 +807,7 @@ public abstract class AbstractCommandButton extends RichToolTipManager.JTrackabl
      */
     public void setActionRichTooltip(RichTooltip richTooltip) {
         this.actionRichTooltip = richTooltip;
-        RichToolTipManager richToolTipManager = RichToolTipManager.sharedInstance();
+        RichTooltipManager richToolTipManager = RichTooltipManager.sharedInstance();
         if (this.hasRichTooltips()) {
             richToolTipManager.registerComponent(this);
         } else {

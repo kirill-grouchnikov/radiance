@@ -35,14 +35,18 @@ import org.pushingpixels.flamingo.api.common.model.*;
 public class CommandPanelProjection extends Projection<JCommandButtonPanel,
         CommandPanelContentModel, CommandPanelPresentationModel> {
 
+    private static ComponentSupplier<JCommandButtonPanel,
+            CommandPanelContentModel, CommandPanelPresentationModel> DEFAULT_SUPPLIER =
+            (Projection<JCommandButtonPanel,
+                    CommandPanelContentModel, CommandPanelPresentationModel> projection) ->
+                    JCommandButtonPanel::new;
+
     public CommandPanelProjection(CommandPanelContentModel contentModel,
             CommandPanelPresentationModel presentationModel) {
-        super(contentModel, presentationModel);
+        super(contentModel, presentationModel, DEFAULT_SUPPLIER);
     }
 
     @Override
-    public JCommandButtonPanel buildComponent() {
-        return new JCommandButtonPanel(this.getContentModel(), this.getPresentationModel());
+    protected void configureComponent(JCommandButtonPanel component) {
     }
-
 }

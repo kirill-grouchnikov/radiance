@@ -37,7 +37,6 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
-import java.awt.event.ActionListener;
 import java.util.*;
 
 /**
@@ -69,7 +68,8 @@ import java.util.*;
  * <li>{@link CommandProjectionGroupModel#removeCommandProjection(CommandProjection)}</li>
  * <li>{@link RibbonGalleryContentModel#setSelectedCommand(Command)}</li>
  * <li>{@link RibbonGalleryContentModel#addExtraPopupCommandGroup(CommandProjectionGroupModel)}</li>
- * <li>{@link RibbonGalleryContentModel#removeExtraPopupCommandGroup(CommandProjectionGroupModel)}</li>
+ * <li
+ * >{@link RibbonGalleryContentModel#removeExtraPopupCommandGroup(CommandProjectionGroupModel)}</li>
  * </ul>
  *
  * <p>
@@ -97,7 +97,8 @@ public class JRibbonBand extends AbstractRibbonBand {
     /**
      * Big size with landscape orientation. Used for buttons in in-ribbon galleries.
      */
-    public static final CommandButtonPresentationState BIG_FIXED = new CommandButtonPresentationState(
+    public static final CommandButtonPresentationState BIG_FIXED =
+            new CommandButtonPresentationState(
             "Big Fixed", 32) {
         @Override
         public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton button) {
@@ -140,12 +141,12 @@ public class JRibbonBand extends AbstractRibbonBand {
     /**
      * Creates a new ribbon band.
      *
-     * @param title                Band title.
-     * @param icon                 Associated icon (for collapsed state).
-     * @param expandActionListener Expand action listener (can be <code>null</code>).
+     * @param title                 Band title.
+     * @param icon                  Associated icon (for collapsed state).
+     * @param expandCommandListener Expand command listener (can be <code>null</code>).
      */
-    public JRibbonBand(String title, ResizableIcon icon, ActionListener expandActionListener) {
-        super(title, icon, expandActionListener, new JBandControlPanel());
+    public JRibbonBand(String title, ResizableIcon icon, CommandListener expandCommandListener) {
+        super(title, icon, expandCommandListener, new JBandControlPanel());
         this.resizePolicies = Collections
                 .unmodifiableList(CoreRibbonResizePolicies.getCorePoliciesPermissive(this));
         updateUI();
@@ -155,7 +156,7 @@ public class JRibbonBand extends AbstractRibbonBand {
      * Adds the specified command projection to <code>this</code> band.
      *
      * @param projection Command projection to add.
-     * @param priority      Priority of the command.
+     * @param priority   Priority of the command.
      * @return The command button that represents the command.
      */
     public AbstractCommandButton addRibbonCommand(CommandProjection projection,
@@ -217,8 +218,8 @@ public class JRibbonBand extends AbstractRibbonBand {
 
     @Override
     public AbstractRibbonBand cloneBand() {
-        AbstractRibbonBand result = new JRibbonBand(this.getTitle(),
-                this.getIcon(), this.getExpandActionListener());
+        AbstractRibbonBand result = new JRibbonBand(this.getTitle(), this.getIcon(),
+                this.getExpandCommandListener());
         result.applyComponentOrientation(this.getComponentOrientation());
         return result;
     }

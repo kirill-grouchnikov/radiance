@@ -198,7 +198,8 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      */
     public void setFolder(final java.util.List<StringValuePair<T>> leafs) {
         this.getContentModel().removeAllCommandProjectionGroups();
-        this.getContentModel().addCommandProjectionGroup(new CommandProjectionGroupModel(new ArrayList<>()));
+        this.getContentModel().addCommandProjectionGroup(
+                new CommandProjectionGroupModel(new ArrayList<>()));
         this.buttonMap.clear();
         int fileCount = 0;
 

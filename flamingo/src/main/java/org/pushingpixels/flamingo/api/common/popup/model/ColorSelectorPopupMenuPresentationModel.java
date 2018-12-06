@@ -29,15 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.common.popup.model;
 
-import org.pushingpixels.flamingo.api.common.model.PresentationModel;
+import org.pushingpixels.flamingo.api.common.model.ImmutablePresentationModel;
 
-import javax.swing.event.*;
-
-public class ColorSelectorPopupMenuPresentationModel implements PresentationModel {
-    /**
-     * Stores the listeners on this model.
-     */
-    private EventListenerList listenerList = new EventListenerList();
+public class ColorSelectorPopupMenuPresentationModel implements ImmutablePresentationModel {
     private int colorColumns;
 
     private ColorSelectorPopupMenuPresentationModel() {
@@ -49,42 +43,6 @@ public class ColorSelectorPopupMenuPresentationModel implements PresentationMode
 
     public int getColorColumns() {
         return this.colorColumns;
-    }
-
-    /**
-     * Adds the specified change listener to track changes to the model.
-     *
-     * @param l Change listener to add.
-     * @see #removeChangeListener(ChangeListener)
-     */
-    public void addChangeListener(ChangeListener l) {
-        this.listenerList.add(ChangeListener.class, l);
-    }
-
-    /**
-     * Removes the specified change listener from tracking changes to the model.
-     *
-     * @param l Change listener to remove.
-     * @see #addChangeListener(ChangeListener)
-     */
-    public void removeChangeListener(ChangeListener l) {
-        this.listenerList.remove(ChangeListener.class, l);
-    }
-
-    /**
-     * Notifies all registered listeners that the state of this model has changed.
-     */
-    private void fireStateChanged() {
-        // Guaranteed to return a non-null array
-        Object[] listeners = this.listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        ChangeEvent event = new ChangeEvent(this);
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ChangeListener.class) {
-                ((ChangeListener) listeners[i + 1]).stateChanged(event);
-            }
-        }
     }
 
     public static class Builder {

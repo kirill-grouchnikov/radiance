@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.RichTooltip;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonBandUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
@@ -37,7 +37,6 @@ import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.util.*;
 
 /**
@@ -86,11 +85,10 @@ public abstract class AbstractRibbonBand extends JComponent {
      * shows button with plus sign. The action listener on the button will be
      * <code>this</code> listener.
      *
-     * @see #getExpandActionListener()
-     * @see #AbstractRibbonBand(String, ResizableIcon, ActionListener,
-     * AbstractBandControlPanel)
+     * @see #getExpandCommandListener()
+     * @see #AbstractRibbonBand(String, ResizableIcon, CommandListener, AbstractBandControlPanel)
      */
-    private ActionListener expandActionListener;
+    private CommandListener expandCommandListener;
 
     /**
      * Band control panel. When there is not enough horizontal space to show
@@ -146,7 +144,7 @@ public abstract class AbstractRibbonBand extends JComponent {
 
     /**
      * The key tip for the ribbon band expand button. Is relevant only when
-     * {@link #expandActionListener} is not <code>null</code>.
+     * {@link #expandCommandListener} is not <code>null</code>.
      *
      * @see #setExpandButtonKeyTip(String)
      * @see #getExpandButtonKeyTip()
@@ -155,7 +153,7 @@ public abstract class AbstractRibbonBand extends JComponent {
 
     /**
      * The rich tooltip for the ribbon band expand button. Is relevant only when
-     * {@link #expandActionListener} is not <code>null</code>.
+     * {@link #expandCommandListener} is not <code>null</code>.
      *
      * @see #setExpandButtonRichTooltip(RichTooltip)
      * @see #getExpandButtonRichTooltip()
@@ -176,17 +174,17 @@ public abstract class AbstractRibbonBand extends JComponent {
     /**
      * Creates a new ribbon band.
      *
-     * @param title                Band title.
-     * @param icon                 Associated icon (for collapsed state).
-     * @param expandActionListener Expand action listener (can be <code>null</code>).
-     * @param controlPanel         The control panel of this ribbon band.
+     * @param title                 Band title.
+     * @param icon                  Associated icon (for collapsed state).
+     * @param expandCommandListener Expand command listener (can be <code>null</code>).
+     * @param controlPanel          The control panel of this ribbon band.
      */
     public AbstractRibbonBand(String title, ResizableIcon icon,
-            ActionListener expandActionListener, AbstractBandControlPanel controlPanel) {
+            CommandListener expandCommandListener, AbstractBandControlPanel controlPanel) {
         super();
         this.title = title;
         this.icon = icon;
-        this.expandActionListener = expandActionListener;
+        this.expandCommandListener = expandCommandListener;
 
         this.controlPanel = controlPanel;
         this.controlPanel.setRibbonBand(this);
@@ -245,8 +243,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * Returns the icon for the collapsed state.
      *
      * @return The icon for the collapsed state.
-     * @see #AbstractRibbonBand(String, ResizableIcon, ActionListener,
-     * AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIcon, CommandListener, AbstractBandControlPanel)
      */
     public ResizableIcon getIcon() {
         return this.icon;
@@ -257,8 +254,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * property change event.
      *
      * @param title The new title for this ribbon band.
-     * @see #AbstractRibbonBand(String, ResizableIcon, ActionListener,
-     * AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIcon, CommandListener, AbstractBandControlPanel)
      * @see #getTitle()
      */
     public void setTitle(String title) {
@@ -272,12 +268,11 @@ public abstract class AbstractRibbonBand extends JComponent {
      * result may be <code>null</code>.
      *
      * @return Expand action listener of <code>this</code> ribbon band.
-     * @see #AbstractRibbonBand(String, ResizableIcon, ActionListener,
-     * AbstractBandControlPanel)
-     * @see #setExpandActionListener(ActionListener)
+     * @see #AbstractRibbonBand(String, ResizableIcon, CommandListener, AbstractBandControlPanel)
+     * @see #setExpandCommandListener(CommandListener)
      */
-    public ActionListener getExpandActionListener() {
-        return this.expandActionListener;
+    public CommandListener getExpandCommandListener() {
+        return this.expandCommandListener;
     }
 
     /**
@@ -285,14 +280,13 @@ public abstract class AbstractRibbonBand extends JComponent {
      * the expand button on this ribbon band. Passing <code>null</code> will
      * remove the expand button from this ribbon band.
      *
-     * @param expandActionListener Expand action listener for this ribbon band.
-     * @see #getExpandActionListener()
+     * @param expandCommandListener Expand action listener for this ribbon band.
+     * @see #getExpandCommandListener()
      */
-    public void setExpandActionListener(ActionListener expandActionListener) {
-        ActionListener old = this.expandActionListener;
-        this.expandActionListener = expandActionListener;
-        this.firePropertyChange("expandActionListener", old,
-                this.expandActionListener);
+    public void setExpandCommandListener(CommandListener expandCommandListener) {
+        CommandListener old = this.expandCommandListener;
+        this.expandCommandListener = expandCommandListener;
+        this.firePropertyChange("expandCommandListener", old, this.expandCommandListener);
     }
 
     /**
@@ -300,8 +294,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * may be <code>null</code>.
      *
      * @return Control panel of <code>this</code> ribbon band.
-     * @see #AbstractRibbonBand(String, ResizableIcon, ActionListener,
-     * AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIcon, CommandListener, AbstractBandControlPanel)
      * @see #setControlPanel(AbstractBandControlPanel)
      */
     public AbstractBandControlPanel getControlPanel() {
@@ -314,8 +307,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      *
      * @param controlPanel The new control panel for <code>this</code> ribbon band. May
      *                     be <code>null</code>.
-     * @see #AbstractRibbonBand(String, ResizableIcon, ActionListener,
-     * AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIcon, CommandListener, AbstractBandControlPanel)
      * @see #getControlPanel()
      */
     public void setControlPanel(AbstractBandControlPanel controlPanel) {

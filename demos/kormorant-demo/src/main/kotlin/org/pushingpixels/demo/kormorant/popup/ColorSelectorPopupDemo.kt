@@ -137,12 +137,12 @@ fun main(args: Array<String>) {
                             JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor)
                         }
 
-                        onCommandPreviewActivated = {
+                        onActionPreviewActivated = {
                             // Notify the callback that there is rollover with automatic
                             // (light gray) color
                             onColorPreviewActivatedListener.invoke(defaultPanelColor)
                         }
-                        onCommandPreviewCanceled = {
+                        onActionPreviewCanceled = {
                             // Notify the callback that there is no rollover
                             onColorPreviewCanceledListener.invoke()
                         }

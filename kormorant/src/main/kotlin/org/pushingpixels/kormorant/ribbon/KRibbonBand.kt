@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.kormorant.ribbon
 
+import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand
@@ -37,12 +38,11 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.neon.icon.ResizableIcon
-import java.awt.event.ActionListener
 import javax.swing.JComponent
 
 @FlamingoElementMarker
 class KRibbonBandExpandCommand {
-    var action: ActionListener? by NullableDelegate { false }
+    var action: CommandListener? by NullableDelegate { false }
     internal var richTooltip: KRichTooltip? by NullableDelegate { false }
     var keyTip: String? by NullableDelegate { false }
 
@@ -171,7 +171,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         }
         ribbonBand = JRibbonBand(title, icon)
         if (expandCommand != null) {
-            ribbonBand.expandActionListener = expandCommand!!.action
+            ribbonBand.expandCommandListener = expandCommand!!.action
             ribbonBand.expandButtonKeyTip = expandCommand!!.keyTip
             if (expandCommand!!.richTooltip != null) {
                 ribbonBand.expandButtonRichTooltip = expandCommand!!.richTooltip!!.toJavaRichTooltip()
@@ -252,7 +252,7 @@ class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
         }
         ribbonBand = JFlowRibbonBand(title, icon)
         if (expandCommand != null) {
-            ribbonBand.expandActionListener = expandCommand!!.action
+            ribbonBand.expandCommandListener = expandCommand!!.action
             ribbonBand.expandButtonKeyTip = expandCommand!!.keyTip
             if (expandCommand!!.richTooltip != null) {
                 ribbonBand.expandButtonRichTooltip = expandCommand!!.richTooltip!!.toJavaRichTooltip()

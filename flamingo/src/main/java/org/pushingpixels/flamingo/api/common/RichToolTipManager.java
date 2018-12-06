@@ -38,7 +38,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
-public class RichToolTipManager {
+public class RichTooltipManager {
     private Timer initialDelayTimer;
 
     private Timer dismissTimer;
@@ -51,7 +51,7 @@ public class RichToolTipManager {
 
     private MouseEvent lastMouseEventInCurrentActiveTrackableCoordinates;
 
-    private final static RichToolTipManager sharedInstance = new RichToolTipManager();
+    private final static RichTooltipManager sharedInstance = new RichTooltipManager();
 
     private Popup tipWindow;
 
@@ -63,7 +63,7 @@ public class RichToolTipManager {
         public abstract RichTooltip getRichTooltip(MouseEvent mouseEvent);
     }
 
-    private RichToolTipManager() {
+    private RichTooltipManager() {
         initialDelayTimer = new Timer(750, new InitialDelayTimerAction());
         initialDelayTimer.setRepeats(false);
         dismissTimer = new Timer(20000, new DismissTimerAction());
@@ -265,7 +265,7 @@ public class RichToolTipManager {
      *
      * @return a shared <code>ToolTipManager</code> object
      */
-    public static RichToolTipManager sharedInstance() {
+    public static RichTooltipManager sharedInstance() {
         return sharedInstance;
     }
 

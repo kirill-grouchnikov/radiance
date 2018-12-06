@@ -33,6 +33,7 @@ import com.jgoodies.forms.builder.FormBuilder
 import org.pushingpixels.demo.kormorant.LocaleSwitcher
 import org.pushingpixels.demo.kormorant.popup.ColorIcon
 import org.pushingpixels.demo.kormorant.svg.*
+import org.pushingpixels.flamingo.api.common.CommandActionEvent
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.common.HorizontalAlignment
@@ -57,8 +58,6 @@ import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.*
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
 import java.text.MessageFormat
 import java.util.*
 import javax.imageio.ImageIO
@@ -233,8 +232,8 @@ class RulerPanel : JPanel() {
     }
 }
 
-private class ExpandActionListener : ActionListener {
-    override fun actionPerformed(e: ActionEvent) {
+private class ExpandCommandListener : CommandListener {
+    override fun commandActivated(e: CommandActionEvent?) {
         JOptionPane.showMessageDialog(null, "Expand button clicked")
     }
 }
@@ -506,7 +505,7 @@ private class RibbonDemoBuilder {
                         +resourceBundle.getString("Clipboard.textBandTooltipParagraph1")
                     }
                 }
-                action = ExpandActionListener()
+                action = ExpandCommandListener()
             }
             collapsedStateKeyTip = "ZC"
 
@@ -705,12 +704,12 @@ private class RibbonDemoBuilder {
                             JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultColor)
                         }
 
-                        onCommandPreviewActivated = {
+                        onActionPreviewActivated = {
                             // Notify the callback that there is rollover with automatic
                             // (black) color
                             onColorPreviewActivatedListener.invoke(Color.black)
                         }
-                        onCommandPreviewCanceled = {
+                        onActionPreviewCanceled = {
                             // Notify the callback that there is no rollover
                             onColorPreviewCanceledListener.invoke()
                         }
@@ -777,7 +776,7 @@ private class RibbonDemoBuilder {
             collapsedStateKeyTip = "ZF"
             expandCommand {
                 keyTip = "FN"
-                action = ExpandActionListener()
+                action = ExpandCommandListener()
             }
 
             ribbonComponent {
@@ -884,7 +883,7 @@ private class RibbonDemoBuilder {
             title = resourceBundle.getString("Document.textBandTitle")
             icon = Applications_office.of(16, 16)
             expandCommand {
-                action = ExpandActionListener()
+                action = ExpandCommandListener()
                 keyTip = "FY"
             }
             collapsedStateKeyTip = "ZD"
@@ -1028,7 +1027,7 @@ private class RibbonDemoBuilder {
             title = resourceBundle.getString("Action.textBandTitle")
             icon = Document_new.of(16, 16)
             expandCommand {
-                action = ExpandActionListener()
+                action = ExpandCommandListener()
             }
 
             group {
@@ -1078,7 +1077,7 @@ private class RibbonDemoBuilder {
             title = resourceBundle.getString("Preferences.textBandTitle")
             icon = Preferences_desktop_font.of(16, 16)
             expandCommand {
-                action = ExpandActionListener()
+                action = ExpandCommandListener()
             }
 
             group {
@@ -1139,7 +1138,7 @@ private class RibbonDemoBuilder {
             title = resourceBundle.getString("Applications.textBandTitle")
             icon = Applications_other.of(16, 16)
             expandCommand {
-                action = ExpandActionListener()
+                action = ExpandCommandListener()
             }
 
             wrapper {

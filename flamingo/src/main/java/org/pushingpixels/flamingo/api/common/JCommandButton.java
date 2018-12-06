@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -327,13 +328,6 @@ public class JCommandButton extends AbstractCommandButton {
     }
 
     /**
-     * Creates a new command button with no text and no icon.
-     */
-    public JCommandButton() {
-        this(null, null);
-    }
-
-    /**
      * Creates a new command button with empty text
      *
      * @param icon Button icon.
@@ -373,6 +367,76 @@ public class JCommandButton extends AbstractCommandButton {
         this.isAutoRepeatAction = false;
         this.autoRepeatInitialInterval = Command.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS;
         this.autoRepeatSubsequentInterval = Command.DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS;
+
+        this.updateUI();
+    }
+
+    public JCommandButton(Command command, CommandPresentation commandPresentation) {
+        super(command, commandPresentation);
+
+        this.setActionModel(new ActionRepeatableButtonModel(this));
+
+        // important - handler creation must be done before setting
+        // the popup model so that it can be registered to track the
+        // changes
+        this.popupHandler = new PopupHandler();
+        this.setPopupModel(new DefaultPopupButtonModel());
+
+        boolean hasAction = (command.getAction() != null);
+        boolean hasPopup = (command.getPopupMenuProjection() != null)
+                || (command.getPopupCallback() != null);
+
+        if (hasPopup) {
+            if (command.getPopupMenuProjection() != null) {
+                this.setPopupCallback((JCommandButton commandButton)
+                        -> command.getPopupMenuProjection().buildComponent());
+            } else {
+                this.setPopupCallback(command.getPopupCallback());
+            }
+            this.setPopupRichTooltip(command.getPopupRichTooltip());
+            this.setPopupKeyTip(commandPresentation.getPopupKeyTip());
+        }
+
+        if (hasAction && hasPopup) {
+            this.setCommandButtonKind(command.isTitleClickAction()
+                    ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
+                    : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
+        } else if (hasPopup) {
+            this.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
+        } else {
+            this.setCommandButtonKind(JCommandButton.CommandButtonKind.ACTION_ONLY);
+        }
+
+        if (command.isAutoRepeatAction()) {
+            this.setAutoRepeatAction(true);
+            if (command.hasAutoRepeatIntervalsSet()) {
+                this.setAutoRepeatActionIntervals(command.getAutoRepeatInitialInterval(),
+                        command.getAutoRepeatSubsequentInterval());
+            }
+        }
+
+        this.setFireActionOnRollover(command.isFireActionOnRollover());
+        this.getActionModel().setFireActionOnPress(command.isFireActionOnPress());
+
+        this.setPopupOrientationKind(commandPresentation.getPopupOrientationKind());
+
+        if (command.getActionPreview() != null) {
+            this.getActionModel().addChangeListener(new ChangeListener() {
+                boolean wasRollover = false;
+
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    boolean isRollover = getActionModel().isRollover();
+                    if (wasRollover && !isRollover) {
+                        command.getActionPreview().onCommandPreviewCanceled(command);
+                    }
+                    if (!wasRollover && isRollover) {
+                        command.getActionPreview().onCommandPreviewActivated(command);
+                    }
+                    wasRollover = isRollover;
+                }
+            });
+        }
 
         this.updateUI();
     }
@@ -585,7 +649,6 @@ public class JCommandButton extends AbstractCommandButton {
      * @see #getPopupModel()
      */
     public void setPopupModel(PopupButtonModel newModel) {
-
         PopupButtonModel oldModel = getPopupModel();
 
         if (oldModel != null) {
@@ -609,11 +672,15 @@ public class JCommandButton extends AbstractCommandButton {
 
     @Override
     public void setEnabled(boolean b) {
-        if (!b && popupModel.isRollover()) {
-            popupModel.setRollover(false);
+        if (this.popupModel != null) {
+            if (!b && this.popupModel.isRollover()) {
+                this.popupModel.setRollover(false);
+            }
         }
         super.setEnabled(b);
-        popupModel.setEnabled(b);
+        if (this.popupModel != null) {
+            this.popupModel.setEnabled(b);
+        }
     }
 
     /**

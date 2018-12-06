@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 
 import javax.swing.event.*;
 
-public class CommandPopupMenuPresentationModel implements PresentationModel {
+public class CommandPopupMenuPresentationModel implements MutablePresentationModel {
     /**
      * Stores the listeners on this model.
      */

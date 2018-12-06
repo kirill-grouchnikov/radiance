@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel.ScrollType;
+import org.pushingpixels.flamingo.api.common.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -193,24 +194,26 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
     }
 
     protected JCommandButton createLeadingScroller() {
-        JCommandButton b = new JCommandButton(null, null);
+        JCommandButton b = new JCommandButton(
+                Command.builder().build(),
+                CommandPresentation.builder().setToDismissPopupsOnActivation(false).build());
 
         b.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         b.setFocusable(false);
         b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         b.putClientProperty(BasicCommandButtonUI.EMULATE_SQUARE_BUTTON, Boolean.TRUE);
-        b.putClientProperty(BasicCommandButtonUI.DONT_DISPOSE_POPUPS, Boolean.TRUE);
         return b;
     }
 
     protected JCommandButton createTrailingScroller() {
-        JCommandButton b = new JCommandButton(null, null);
+        JCommandButton b = new JCommandButton(
+                Command.builder().build(),
+                CommandPresentation.builder().setToDismissPopupsOnActivation(false).build());
 
         b.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         b.setFocusable(false);
         b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         b.putClientProperty(BasicCommandButtonUI.EMULATE_SQUARE_BUTTON, Boolean.TRUE);
-        b.putClientProperty(BasicCommandButtonUI.DONT_DISPOSE_POPUPS, Boolean.TRUE);
         return b;
     }
 

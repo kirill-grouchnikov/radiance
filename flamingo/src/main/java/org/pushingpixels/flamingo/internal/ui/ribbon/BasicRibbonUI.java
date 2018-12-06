@@ -148,7 +148,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             }
             if ("minimized".equals(evt.getPropertyName())) {
                 PopupPanelManager.defaultManager().hidePopups(null);
-                RichToolTipManager.sharedInstance().hideCurrentlyShowingTipIfNecessary();
+                RichTooltipManager.sharedInstance().hideCurrentlyShowingTipIfNecessary();
                 ribbon.revalidate();
                 ribbon.doLayout();
                 ribbon.repaint();
@@ -1100,10 +1100,10 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
             // Configure the projection to use our own subclass of command button (so that it can
             // use its own UI delegate class
-            taskToggleCommandProjection.setComponentCreator(
+            taskToggleCommandProjection.setComponentSupplier(
                     (Projection<AbstractCommandButton, Command,
                             CommandPresentation> commandProjection) ->
-                            new JRibbonTaskToggleButton());
+                            JRibbonTaskToggleButton::new);
 
             // Configure the projection with additional customizations on the command button that
             // is created to represent the task toggle command

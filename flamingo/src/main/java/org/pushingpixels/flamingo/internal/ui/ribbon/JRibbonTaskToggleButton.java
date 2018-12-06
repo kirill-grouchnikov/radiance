@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonTaskToggleButtonUI;
 
@@ -57,8 +58,8 @@ public class JRibbonTaskToggleButton extends JCommandToggleButton {
 
     private RibbonTask ribbonTask;
 
-    public JRibbonTaskToggleButton() {
-        super();
+    public JRibbonTaskToggleButton(Command command, CommandPresentation commandPresentation) {
+        super(command, commandPresentation);
     }
 
     @Override

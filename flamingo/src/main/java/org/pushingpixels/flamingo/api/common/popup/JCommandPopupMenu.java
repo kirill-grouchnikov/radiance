@@ -36,7 +36,7 @@ import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandPopupMenuUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
 
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.util.List;
 
@@ -72,6 +72,21 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
             CommandPopupMenuPresentationModel popupMenuPresentationModel) {
         this.popupMenuContentModel = popupMenuContentModel;
         this.popupMenuPresentationModel = popupMenuPresentationModel;
+        this.popupMenuPanelContentModel = (this.popupMenuContentModel != null) ?
+                this.popupMenuContentModel.getPanelContentModel() : null;
+        this.popupMenuPanelPresentationModel = (this.popupMenuPresentationModel != null) ?
+                this.popupMenuPresentationModel.getPanelPresentationModel() : null;
+
+        this.populateContent();
+        this.popupMenuContentModel.addChangeListener((ChangeEvent event) -> populateContent());
+        this.popupMenuPresentationModel.addChangeListener((ChangeEvent event) -> populateContent());
+
+        this.updateUI();
+    }
+
+    public JCommandPopupMenu(CommandPopupMenuProjection popupMenuProjection) {
+        this.popupMenuContentModel = popupMenuProjection.getContentModel();
+        this.popupMenuPresentationModel = popupMenuProjection.getPresentationModel();
         this.popupMenuPanelContentModel = (this.popupMenuContentModel != null) ?
                 this.popupMenuContentModel.getPanelContentModel() : null;
         this.popupMenuPanelPresentationModel = (this.popupMenuPresentationModel != null) ?

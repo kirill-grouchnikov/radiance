@@ -33,8 +33,8 @@ import org.pushingpixels.flamingo.api.common.model.ContentModel;
 
 import javax.swing.event.*;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class ColorSelectorPopupMenuContentModel implements ContentModel {
     private List<ColorSelectorPopupMenuGroupModel> menuGroups;

@@ -115,7 +115,7 @@ public class TestColorSelector extends JFrame {
                     colorActivationListener.onColorActivated(defaultPanelColor);
                     JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor);
                 })
-                .setPreviewListener(new Command.CommandPreviewListener() {
+                .setActionPreview(new Command.CommandPreviewListener() {
                     @Override
                     public void onCommandPreviewActivated(Command command) {
                         colorPreviewListener.onColorPreviewActivated(Color.black);

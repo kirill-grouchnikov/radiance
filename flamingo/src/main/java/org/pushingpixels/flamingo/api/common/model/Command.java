@@ -66,6 +66,7 @@ public class Command implements ContentModel {
     private ResizableIconFactory disabledIconFactory;
     private String extraText;
     private CommandListener action;
+    private Command.CommandPreviewListener actionPreview;
     private RichTooltip actionRichTooltip;
     private AbstractPopupMenuProjection popupMenuProjection;
     private PopupPanelCallback popupCallback;
@@ -84,7 +85,6 @@ public class Command implements ContentModel {
     private int autoRepeatSubsequentInterval;
     private boolean isFireActionOnRollover;
     private boolean isFireActionOnPress;
-    private Command.CommandPreviewListener previewListener;
 
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
@@ -386,8 +386,8 @@ public class Command implements ContentModel {
         }
     }
 
-    public CommandPreviewListener getPreviewListener() {
-        return this.previewListener;
+    public CommandPreviewListener getActionPreview() {
+        return this.actionPreview;
     }
 
     protected boolean hasAction() {
@@ -443,7 +443,7 @@ public class Command implements ContentModel {
     }
 
     public CommandProjection project() {
-        return new CommandProjection(this, CommandPresentation.builder().build());
+        return new CommandProjection(this, CommandPresentation.withDefaults());
     }
 
     public CommandProjection project(CommandPresentation commandPresentation) {
@@ -464,6 +464,7 @@ public class Command implements ContentModel {
         protected ResizableIconFactory disabledIconFactory;
         protected String extraText;
         protected CommandListener action;
+        protected CommandPreviewListener actionPreview;
         protected RichTooltip actionRichTooltip;
         protected AbstractPopupMenuProjection popupMenuProjection;
         protected PopupPanelCallback popupCallback;
@@ -482,7 +483,6 @@ public class Command implements ContentModel {
         protected int autoRepeatSubsequentInterval;
         protected boolean isFireActionOnRollover;
         protected boolean isFireActionOnPress;
-        protected CommandPreviewListener previewListener;
 
         protected void configureBaseCommand(Command command) {
             command.title = this.title;
@@ -510,7 +510,7 @@ public class Command implements ContentModel {
             command.autoRepeatSubsequentInterval = this.autoRepeatSubsequentInterval;
             command.isFireActionOnRollover = this.isFireActionOnRollover;
             command.isFireActionOnPress = this.isFireActionOnPress;
-            command.previewListener = this.previewListener;
+            command.actionPreview = this.actionPreview;
 
             // special handling for toggle group model
             if (command.toggleGroupModel != null) {
@@ -644,8 +644,8 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
-        public B setPreviewListener(CommandPreviewListener previewListener) {
-            this.previewListener = previewListener;
+        public B setActionPreview(CommandPreviewListener actionPreview) {
+            this.actionPreview = actionPreview;
             return (B) this;
         }
     }

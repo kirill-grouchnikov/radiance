@@ -36,13 +36,18 @@ public class ColorSelectorPopupMenuProjection extends AbstractPopupMenuProjectio
         JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
         ColorSelectorPopupMenuPresentationModel> {
 
+    private static ComponentSupplier<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
+            ColorSelectorPopupMenuPresentationModel> DEFAULT_SUPPLIER =
+            (Projection<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
+                    ColorSelectorPopupMenuPresentationModel> projection) ->
+                    JColorSelectorPopupMenu::new;
+
     public ColorSelectorPopupMenuProjection(ColorSelectorPopupMenuContentModel contentModel,
             ColorSelectorPopupMenuPresentationModel presentationModel) {
-        super(contentModel, presentationModel);
+        super(contentModel, presentationModel, DEFAULT_SUPPLIER);
     }
 
     @Override
-    public JColorSelectorPopupMenu buildComponent() {
-        return new JColorSelectorPopupMenu(this.getContentModel(), this.getPresentationModel());
+    protected void configureComponent(JColorSelectorPopupMenu component) {
     }
 }

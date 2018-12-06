@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.model.ActionToggleButtonModel;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandToggleButtonUI;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
@@ -47,33 +47,6 @@ public class JCommandToggleButton extends AbstractCommandButton {
 	public static final String uiClassID = "CommandToggleButtonUI";
 
 	/**
-	 * Creates a new command toggle button with no text and no icon.
-	 */
-	public JCommandToggleButton() {
-		this(null, null);
-	}
-
-	/**
-	 * Creates a new command toggle button with empty text
-	 * 
-	 * @param icon
-	 *            Button icon.
-	 */
-	public JCommandToggleButton(ResizableIcon icon) {
-		this(null, icon);
-	}
-
-	/**
-	 * Creates a new command toggle button without an icon.
-	 * 
-	 * @param title
-	 *            Button title. May contain any number of words.
-	 */
-	public JCommandToggleButton(String title) {
-		this(title, null);
-	}
-
-	/**
 	 * Creates a new command toggle button.
 	 * 
 	 * @param title
@@ -84,6 +57,17 @@ public class JCommandToggleButton extends AbstractCommandButton {
 	public JCommandToggleButton(String title, ResizableIcon icon) {
 		super(title, icon);
 		this.setActionModel(new ActionToggleButtonModel(this, false));
+		this.updateUI();
+	}
+
+	public JCommandToggleButton(Command command, CommandPresentation commandPresentation) {
+		super(command, commandPresentation);
+		this.setActionModel(new ActionToggleButtonModel(this, false));
+
+		if (command.isToggleSelected()) {
+			this.getActionModel().setSelected(true);
+		}
+
 		this.updateUI();
 	}
 

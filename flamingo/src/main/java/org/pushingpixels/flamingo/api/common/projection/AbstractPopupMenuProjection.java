@@ -35,10 +35,16 @@ import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu;
 public abstract class AbstractPopupMenuProjection<M extends AbstractPopupMenu,
         C extends ContentModel, P extends PresentationModel> extends Projection<M, C, P> {
 
-    AbstractPopupMenuProjection(C contentModel, P presentationModel) {
-        super(contentModel, presentationModel);
+    AbstractPopupMenuProjection(C contentModel, P presentationModel,
+            ComponentSupplier<M, C, P> componentSupplier) {
+        super(contentModel, presentationModel, componentSupplier);
     }
 
     @Override
-    public abstract M buildComponent();
+    protected abstract void configureComponent(M component);
+
+    @Override
+    public M buildComponent() {
+        return super.buildComponent();
+    }
 }

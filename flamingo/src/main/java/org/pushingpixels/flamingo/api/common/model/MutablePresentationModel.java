@@ -27,51 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.flamingo.internal.ui.common;
+package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRichTooltipPanelUI;
-
-import javax.swing.*;
-
-public class JRichTooltipPanel extends JPanel {
-    private RichTooltip tooltipInfo;
-
-    /**
-     * @see #getUIClassID
-     */
-    public static final String uiClassID = "RichTooltipPanelUI";
-
-    public JRichTooltipPanel(RichTooltip tooltipInfo) {
-        this.tooltipInfo = tooltipInfo;
-    }
-
-    @Override
-    public RichTooltipPanelUI getUI() {
-        return (RichTooltipPanelUI) ui;
-    }
-
-    /**
-     * Sets the UI delegate for this component.
-     *
-     * @param ui The UI delegate.
-     */
-    protected void setUI(RichTooltipPanelUI ui) {
-        super.setUI(ui);
-    }
-
-    @Override
-    public String getUIClassID() {
-        return uiClassID;
-    }
-
-    @Override
-    public void updateUI() {
-        setUI(SubstanceRichTooltipPanelUI.createUI(this));
-    }
-
-    public RichTooltip getTooltipInfo() {
-        return tooltipInfo;
-    }
-
+public interface MutablePresentationModel extends PresentationModel {
 }

@@ -32,11 +32,11 @@ package org.pushingpixels.demo.spyglass.cookbook.panels;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.cookbook.*;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
-import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
 
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
@@ -49,7 +49,7 @@ public class CategoryListPanel extends SingleContentPanel {
                 rows("p").
                 padding(new EmptyBorder(6, 0, 4, 0));
 
-        JCommandButtonStrip controlButtons = new CommandStripProjection(
+        JComponent controlButtons = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(

@@ -31,8 +31,8 @@ package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
-import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
-import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
+import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -48,7 +48,8 @@ public class TestCommandButtonPanel extends JFrame {
 
     private JScrollPane scroller;
 
-    private JCommandButtonPanel buttonPanel;
+    private CommandPanelContentModel panelContentModel;
+    private CommandPanelPresentationModel panelPresentationModel;
 
     private TestCommandButtonPanel() {
         super("Command button panel test");
@@ -62,27 +63,30 @@ public class TestCommandButtonPanel extends JFrame {
         resourceBundle = ResourceBundle.getBundle(
                 "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
 
-        buttonPanel = QuickStylesPanel.getQuickStylesPanel(resourceBundle, currLocale);
+        this.panelContentModel = QuickStylesPanel.getQuickStylesContentModel(resourceBundle,
+                currLocale);
+        this.panelPresentationModel = QuickStylesPanel.getQuickStylesPresentationModel();
+
+        JComponent buttonPanel = new CommandPanelProjection(this.panelContentModel,
+                this.panelPresentationModel).buildComponent();
         scroller = new JScrollPane(buttonPanel);
 
         add(scroller, BorderLayout.CENTER);
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         final JCheckBox toShowGroupLabels = new JCheckBox("show group labels");
-        toShowGroupLabels.setSelected(
-                buttonPanel.getPresentationModel().isToShowGroupLabels());
+        toShowGroupLabels.setSelected(panelPresentationModel.isToShowGroupLabels());
         toShowGroupLabels.addActionListener((ActionEvent e) -> {
-            buttonPanel.getPresentationModel().setToShowGroupLabels(
-                    toShowGroupLabels.isSelected());
+            panelPresentationModel.setToShowGroupLabels(toShowGroupLabels.isSelected());
             scroller.revalidate();
         });
         controlPanel.add(toShowGroupLabels);
 
         final JCheckBox isRowFillLayout = new JCheckBox("use row fill layout");
-        isRowFillLayout.setSelected(buttonPanel.getPresentationModel().getLayoutKind()
+        isRowFillLayout.setSelected(panelPresentationModel.getLayoutKind()
                 == CommandPanelPresentationModel.LayoutKind.ROW_FILL);
         isRowFillLayout.addActionListener((ActionEvent e) ->
-                buttonPanel.getPresentationModel().setLayoutKind(
+                panelPresentationModel.setLayoutKind(
                         isRowFillLayout.isSelected()
                                 ? CommandPanelPresentationModel.LayoutKind.ROW_FILL
                                 : CommandPanelPresentationModel.LayoutKind.COLUMN_FILL));
@@ -92,11 +96,12 @@ public class TestCommandButtonPanel extends JFrame {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle(
                     "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
-            remove(scroller);
 
-            buttonPanel = QuickStylesPanel.getQuickStylesPanel(resourceBundle, currLocale);
-            scroller = new JScrollPane(buttonPanel);
-            add(scroller, BorderLayout.CENTER);
+            // Update the content model without creating / projecting a whole new
+            // command panel
+            QuickStylesPanel.updatePanelContentModel(this.panelContentModel, resourceBundle,
+                    currLocale);
+
             Window window = SwingUtilities.getWindowAncestor(buttonPanel);
             window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
             SwingUtilities.updateComponentTreeUI(window);

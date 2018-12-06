@@ -73,8 +73,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private Command alignRightCommand;
     private Command alignFillCommand;
 
-    private class ExpandActionListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
+    private class ExpandActionListener implements CommandListener {
+        @Override
+        public void commandActivated(CommandActionEvent e) {
             JOptionPane.showMessageDialog(BasicCheckRibbon.this, "Expand button clicked");
         }
     }
@@ -782,7 +783,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     colorActivationListener.onColorActivated(defaultColor);
                     JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultColor);
                 })
-                .setPreviewListener(new Command.CommandPreviewListener() {
+                .setActionPreview(new Command.CommandPreviewListener() {
                     @Override
                     public void onCommandPreviewActivated(Command command) {
                         colorPreviewListener.onColorPreviewActivated(Color.black);
@@ -1473,7 +1474,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                             CommandPanelContentModel historyPanelContentModel =
                                     new CommandPanelContentModel(Arrays.asList(historyGroupModel));
 
-                            JCommandButtonPanel openHistoryPanel = new CommandPanelProjection(
+                            JComponent openHistoryPanel = new CommandPanelProjection(
                                     historyPanelContentModel,
                                     CommandPanelPresentationModel.builder()
                                             .setLayoutKind(
@@ -1707,7 +1708,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             CommandPanelContentModel defaultPanelContentModel =
                     new CommandPanelContentModel(Arrays.asList(defaultGroupModel));
 
-            JCommandButtonPanel openDefaultPanel = new CommandPanelProjection(
+            JComponent openDefaultPanel = new CommandPanelProjection(
                     defaultPanelContentModel,
                     CommandPanelPresentationModel.builder()
                             .setCommandPresentationState(CommandButtonPresentationState.MEDIUM)
@@ -1907,7 +1908,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         sizeComboWrapper.setKeyTip("SS");
         fontBand.addFlowComponent(sizeComboWrapper);
 
-        JCommandButtonStrip indentStrip = new CommandStripProjection(
+        JComponent indentStrip = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder()
                                 .setIcon(new Format_indent_less())
@@ -1980,7 +1981,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandPresentation.builder().setActionKeyTip("4").build());
 
-        JCommandButtonStrip styleStrip = new CommandStripProjection(
+        JComponent styleStrip = new CommandStripProjection(
                 new CommandProjectionGroupModel(styleBold, styleItalic, styleUnderline,
                         styleStrikethrough),
                 CommandStripPresentationModel.builder().build())
@@ -1988,7 +1989,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         fontBand.addFlowComponent(styleStrip);
 
-        JCommandButtonStrip alignStrip = new CommandStripProjection(
+        JComponent alignStrip = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         this.alignLeftCommand.project(
                                 CommandPresentation.builder().setActionKeyTip("AL").build()),
@@ -2054,7 +2055,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         JLabel helper = new JLabel("Right click to show menu");
         statusBar.add(helper);
 
-        JCommandButtonStrip alignStrip = new CommandStripProjection(
+        JComponent alignStrip = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         this.alignLeftCommand.project(),
                         this.alignCenterCommand.project(),

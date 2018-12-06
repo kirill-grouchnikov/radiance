@@ -47,7 +47,7 @@ import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
  * @see Command
  * @see CommandProjection
  */
-public class CommandPresentation implements PresentationModel {
+public class CommandPresentation implements ImmutablePresentationModel {
     private CommandButtonPresentationState presentationState;
     private Integer iconDimension;
     private boolean isFlat;
@@ -90,6 +90,10 @@ public class CommandPresentation implements PresentationModel {
                 ? overlay.popupKeyTip : this.popupKeyTip;
 
         return result;
+    }
+
+    public static CommandPresentation withDefaults() {
+        return CommandPresentation.builder().build();
     }
 
     public static Builder builder() {

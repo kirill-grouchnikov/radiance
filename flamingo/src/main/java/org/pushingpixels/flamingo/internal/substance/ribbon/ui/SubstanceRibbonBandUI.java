@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
@@ -51,7 +52,7 @@ import java.util.EnumSet;
 
 /**
  * UI for ribbon bands in <b>Substance</b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
@@ -219,12 +220,15 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     @SubstanceInternalButton
     private class RibbonBandExpandButton extends JCommandButton {
         public RibbonBandExpandButton() {
-            super(null, null);
-            this.setFocusable(false);
+            super(Command.builder()
+                            .setAction(ribbonBand.getExpandCommandListener())
+                            .setActionRichTooltip(ribbonBand.getExpandButtonRichTooltip()).build(),
+                    CommandPresentation.builder()
+                            .setFocusable(false)
+                            .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
+                            .build());
 
             this.setBorder(new EmptyBorder(3, 2, 3, 2));
-            this.setActionKeyTip(ribbonBand.getExpandButtonKeyTip());
-            this.setActionRichTooltip(ribbonBand.getExpandButtonRichTooltip());
         }
     }
 }

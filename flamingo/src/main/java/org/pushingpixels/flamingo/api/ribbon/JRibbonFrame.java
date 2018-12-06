@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.RichToolTipManager;
+import org.pushingpixels.flamingo.api.common.RichTooltipManager;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.utils.*;
@@ -454,7 +454,7 @@ public class JRibbonFrame extends JFrame {
             }
         });
 
-        RichToolTipManager.sharedInstance();
+        RichTooltipManager.sharedInstance();
 
         ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
         JPopupMenu.setDefaultLightWeightPopupEnabled(false);

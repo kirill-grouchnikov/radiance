@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandMenuButtonUI;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -47,21 +48,8 @@ public class JCommandMenuButton extends JCommandButton {
      */
     public static final String uiClassID = "CommandMenuButtonUI";
 
-    /**
-     * Creates a new command menu button with no text and no icon.
-     */
-    public JCommandMenuButton() {
-        super();
-    }
-
-    /**
-     * Creates a new command menu button.
-     *
-     * @param title Command menu button title.
-     * @param icon  Command menu button icon.
-     */
-    public JCommandMenuButton(String title, ResizableIcon icon) {
-        super(title, icon);
+    public JCommandMenuButton(Command command, CommandPresentation presentation) {
+        super(command, presentation);
     }
 
     /**

@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.CommandPresentation;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
-import org.pushingpixels.flamingo.internal.substance.common.ui.*;
+import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceColorSelectorPopupMenuUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.*;
 
 import javax.swing.*;

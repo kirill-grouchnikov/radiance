@@ -61,7 +61,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
     private JCommandButton collapsedButton;
 
     /**
-     * The band expand button. Is visible when the {@link JRibbonBand#getExpandActionListener()} of
+     * The band expand button. Is visible when the {@link JRibbonBand#getExpandCommandListener()} of
      * the associated ribbon band is not <code>null</code>.
      */
     protected AbstractCommandButton expandButton;
@@ -93,7 +93,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
          * @param component    The main component of the popup gallery.
          * @param originalSize The original dimension of the main component.
          */
-        public CollapsedButtonPopupPanel(Component component, Dimension originalSize) {
+        private CollapsedButtonPopupPanel(Component component, Dimension originalSize) {
             this.component = component;
             this.setLayout(new BorderLayout());
             this.add(component, BorderLayout.CENTER);
@@ -164,7 +164,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         this.collapsedButton.setPopupKeyTip(this.ribbonBand.getCollapsedStateKeyTip());
         this.ribbonBand.add(this.collapsedButton);
 
-        if (this.ribbonBand.getExpandActionListener() != null) {
+        if (this.ribbonBand.getExpandCommandListener() != null) {
             this.expandButton = this.createExpandButton();
             this.ribbonBand.add(this.expandButton);
         }
@@ -189,8 +189,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         };
         this.ribbonBand.addMouseListener(this.mouseListener);
 
-        configureExpandButton();
-
         this.propertyChangeListener = (PropertyChangeEvent evt) -> {
             if ("title".equals(evt.getPropertyName()))
                 ribbonBand.repaint();
@@ -209,13 +207,12 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                     collapsedButton.setPopupKeyTip((String) evt.getNewValue());
                 }
             }
-            if ("expandActionListener".equals(evt.getPropertyName())) {
-                ActionListener oldListener = (ActionListener) evt.getOldValue();
-                ActionListener newListener = (ActionListener) evt.getNewValue();
+            if ("expandCommandListener".equals(evt.getPropertyName())) {
+                CommandListener oldListener = (CommandListener) evt.getOldValue();
+                CommandListener newListener = (CommandListener) evt.getNewValue();
 
                 if ((oldListener != null) && (newListener == null)) {
                     // need to remove
-                    unconfigureExpandButton();
                     ribbonBand.remove(expandButton);
                     expandButton = null;
                     ribbonBand.revalidate();
@@ -223,14 +220,13 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 if ((oldListener == null) && (newListener != null)) {
                     // need to add
                     expandButton = createExpandButton();
-                    configureExpandButton();
                     ribbonBand.add(expandButton);
                     ribbonBand.revalidate();
                 }
                 if ((oldListener != null) && (newListener != null)) {
                     // need to reconfigure
-                    expandButton.removeActionListener(oldListener);
-                    expandButton.addActionListener(newListener);
+                    expandButton.removeCommandListener(oldListener);
+                    expandButton.addCommandListener(newListener);
                 }
             }
             if ("componentOrientation".equals(evt.getPropertyName())) {
@@ -240,12 +236,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             }
         };
         this.ribbonBand.addPropertyChangeListener(this.propertyChangeListener);
-    }
-
-    protected void configureExpandButton() {
-        if (this.expandButton != null) {
-            this.expandButton.addActionListener(this.ribbonBand.getExpandActionListener());
-        }
     }
 
     /**
@@ -295,19 +285,11 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
 
         this.ribbonBand.removeMouseListener(this.mouseListener);
         this.mouseListener = null;
-
-        unconfigureExpandButton();
-    }
-
-    protected void unconfigureExpandButton() {
-        if (this.expandButton != null) {
-            this.expandButton.removeActionListener(this.ribbonBand.getExpandActionListener());
-        }
     }
 
     /**
      * Invoked by <code>installUI</code> to create a layout manager object to manage the
-     * {@link JCommandButtonStrip}.
+     * ribbon band.
      *
      * @return a layout manager object
      */

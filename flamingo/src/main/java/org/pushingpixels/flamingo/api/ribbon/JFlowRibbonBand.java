@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
+import org.pushingpixels.flamingo.api.common.CommandListener;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JFlowBandControlPanel;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 
 /**
  * Flow ribbon band component. Hosts components added with
@@ -57,13 +57,13 @@ public class JFlowRibbonBand extends AbstractRibbonBand {
     /**
      * Creates a new flow ribbon band.
      *
-     * @param title                Band title.
-     * @param icon                 Associated icon (for collapsed state).
-     * @param expandActionListener Expand action listener (can be <code>null</code>).
+     * @param title                 Band title.
+     * @param icon                  Associated icon (for collapsed state).
+     * @param expandCommandListener Expand command listener (can be <code>null</code>).
      */
     public JFlowRibbonBand(String title, ResizableIcon icon,
-            ActionListener expandActionListener) {
-        super(title, icon, expandActionListener, new JFlowBandControlPanel());
+            CommandListener expandCommandListener) {
+        super(title, icon, expandCommandListener, new JFlowBandControlPanel());
         this.resizePolicies = CoreRibbonResizePolicies.getCoreFlowPoliciesRestrictive(this, 3);
         updateUI();
     }
@@ -80,7 +80,7 @@ public class JFlowRibbonBand extends AbstractRibbonBand {
     @Override
     public AbstractRibbonBand cloneBand() {
         AbstractRibbonBand result = new JFlowRibbonBand(
-                this.getTitle(), this.getIcon(), this.getExpandActionListener());
+                this.getTitle(), this.getIcon(), this.getExpandCommandListener());
         result.applyComponentOrientation(this.getComponentOrientation());
         return result;
     }

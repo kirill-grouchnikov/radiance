@@ -34,7 +34,7 @@ import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
 import org.pushingpixels.substance.api.*;
@@ -106,7 +106,7 @@ public class TestButtonStripVertical extends JFrame {
         return builder.build();
     }
 
-    private JCommandButtonStrip getStrip1(double hgapScaleFactor, double vgapScaleFactor) {
+    private JComponent getStrip1(double hgapScaleFactor, double vgapScaleFactor) {
         return new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder().setIcon(new Format_justify_left()).build().project(),
@@ -121,7 +121,7 @@ public class TestButtonStripVertical extends JFrame {
                 .buildComponent();
     }
 
-    private JCommandButtonStrip getStrip2(double hgapScaleFactor, double vgapScaleFactor) {
+    private JComponent getStrip2(double hgapScaleFactor, double vgapScaleFactor) {
         return new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder().setIcon(new Format_text_bold()).build().project(),

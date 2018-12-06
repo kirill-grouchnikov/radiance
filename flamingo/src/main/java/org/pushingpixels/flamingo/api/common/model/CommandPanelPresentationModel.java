@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 
 import javax.swing.event.*;
 
-public class CommandPanelPresentationModel implements PresentationModel {
+public class CommandPanelPresentationModel implements MutablePresentationModel {
     /**
      * Stores the listeners on this model.
      */

@@ -77,7 +77,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     /**
      * Contains the scroll down, scroll up and show popup buttons.
      */
-    private JCommandButtonStrip buttonStrip;
+    private JComponent buttonStrip;
 
     private RibbonGalleryContentModel.GalleryCommandActivationListener
             galleryCommandSelectionListener;
@@ -142,8 +142,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                             int x = ltr ? loc.x : loc.x + width - pref.width;
                             int y = loc.y;
 
-                            // make sure that the popup stays in
-                            // bounds
+                            // make sure that the popup stays in bounds
                             if ((x + width) > (scrBounds.x + scrBounds.width)) {
                                 x = scrBounds.x + scrBounds.width - width;
                             }
@@ -161,7 +160,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                         boolean ltr = ribbonGallery.getComponentOrientation().isLeftToRight();
                         int x = ltr ? loc.x : loc.x + ribbonGallery.getWidth() - width;
                         Popup popup = popupFactory.getPopup(ribbonGallery, popupMenu, x, loc.y);
-                        ribbonGallery.repaint();
                         PopupPanelManager.defaultManager().addPopup(ribbonGallery, popup,
                                 popupMenu);
                     });
@@ -192,8 +190,8 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 galleryActionsPresentation.overlayWith(
                         CommandPresentation.overlay().setActionKeyTip(
                                 this.ribbonGallery.getExpandKeyTip())));
-        expandProjection.setComponentCreator((Projection<AbstractCommandButton, Command,
-                CommandPresentation> commandProjection) -> new ExpandCommandButton());
+        expandProjection.setComponentSupplier((Projection<AbstractCommandButton, Command,
+                CommandPresentation> commandProjection) -> ExpandCommandButton::new);
         expandProjection.setComponentCustomizer((AbstractCommandButton button) ->
                 configureExpandButton(button));
 
@@ -277,7 +275,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
     /**
      * Invoked by <code>installUI</code> to create a layout manager object to manage the
-     * {@link JCommandButtonStrip}.
+     * ribbon gallery.
      *
      * @return a layout manager object
      */
@@ -334,12 +332,12 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
             int scrollerButtonWidth = getScrollerButtonWidth();
             int buttonX = ltr ? width - scrollerButtonWidth - margin.right : margin.left;
 
-            buttonStrip.getButton(0).setPreferredSize(
+            buttonStrip.getComponent(0).setPreferredSize(
                     new Dimension(scrollerButtonWidth, scrollerButtonHeight));
-            buttonStrip.getButton(1).setPreferredSize(
+            buttonStrip.getComponent(1).setPreferredSize(
                     new Dimension(scrollerButtonWidth, scrollerButtonHeight));
             // special case (if available height doesn't divide 3)
-            buttonStrip.getButton(2).setPreferredSize(
+            buttonStrip.getComponent(2).setPreferredSize(
                     new Dimension(scrollerButtonWidth, galleryHeight - 2 * scrollerButtonHeight));
             buttonStrip.setBounds(buttonX, margin.top, scrollerButtonWidth, galleryHeight);
             buttonStrip.doLayout();
@@ -562,8 +560,8 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
     @KeyTipManager.HasNextKeyTipChain
     private static class ExpandCommandButton extends JCommandButton {
-        private ExpandCommandButton() {
-            super((String) null);
+        public ExpandCommandButton(Command command, CommandPresentation commandPresentation) {
+            super(command, commandPresentation);
         }
     }
 

@@ -37,6 +37,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
+import java.beans.PropertyChangeListener;
 
 /**
  * Basic UI for command button panel {@link JCommandButtonPanel}.
@@ -57,14 +58,13 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
     /**
      * Bounds of button panel groups.
      */
-    protected Rectangle[] groupRects;
+    private Rectangle[] groupRects;
 
-    /**
-     * Change listener on {@link #buttonPanel}.
-     */
-    protected ChangeListener changeListener;
+    private ChangeListener contentModelChangeListener;
 
     private ChangeListener presentationModelChangeListener;
+
+    private PropertyChangeListener groupPropertyChangeListener;
 
     /**
      * Default insets of button panel groups.
@@ -104,20 +104,22 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      * Installs listeners on the associated button panel.
      */
     protected void installListeners() {
-        if (this.buttonPanel.getPresentationModel() != null) {
-            this.presentationModelChangeListener = (ChangeEvent event) -> {
+        this.presentationModelChangeListener = (ChangeEvent event) ->
                 SwingUtilities.invokeLater(() -> {
                     if (buttonPanel != null) {
                         recomputeGroupHeaders();
 
                         int groupCount = (groupLabels != null) ? groupLabels.length : 0;
 
+                        CommandPanelPresentationModel presentationModel =
+                                buttonPanel.getPresentationModel();
                         for (int i = 0; i < groupCount; i++) {
-                            for (AbstractCommandButton button : buttonPanel.getGroupButtons(i)) {
+                            for (AbstractCommandButton button :
+                                    buttonPanel.getGroupButtons(i)) {
                                 button.updateCustomDimension(
-                                        buttonPanel.getPresentationModel().getCommandIconDimension());
+                                        presentationModel.getCommandIconDimension());
                                 button.setPresentationState(
-                                        buttonPanel.getPresentationModel().getCommandPresentationState());
+                                        presentationModel.getCommandPresentationState());
                             }
                         }
 
@@ -126,21 +128,18 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                         buttonPanel.doLayout();
                     }
                 });
-            };
-            this.buttonPanel.getPresentationModel().addChangeListener(
-                    this.presentationModelChangeListener);
-        }
+        this.buttonPanel.getPresentationModel().addChangeListener(
+                this.presentationModelChangeListener);
 
-        this.changeListener = (ChangeEvent e) -> {
-            SwingUtilities.invokeLater(() -> {
-                if (buttonPanel != null) {
-                    recomputeGroupHeaders();
-                    buttonPanel.revalidate();
-                    buttonPanel.doLayout();
-                }
-            });
-        };
-        this.buttonPanel.addChangeListener(this.changeListener);
+        this.contentModelChangeListener = (ChangeEvent e) ->
+                SwingUtilities.invokeLater(() -> {
+                    if (buttonPanel != null) {
+                        recomputeGroupHeaders();
+                        buttonPanel.revalidate();
+                        buttonPanel.doLayout();
+                    }
+                });
+        this.buttonPanel.getContentModel().addChangeListener(this.contentModelChangeListener);
     }
 
     @Override
@@ -167,9 +166,6 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             for (JLabel groupLabel : this.groupLabels) {
                 this.buttonPanel.remove(groupLabel);
             }
-            // for (JSeparator groupSeparator : this.groupSeparators) {
-            // this.buttonPanel.remove(groupSeparator);
-            // }
         }
     }
 
@@ -181,8 +177,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 this.presentationModelChangeListener);
         this.presentationModelChangeListener = null;
 
-        this.buttonPanel.removeChangeListener(this.changeListener);
-        this.changeListener = null;
+        this.buttonPanel.getContentModel().removeChangeListener(this.contentModelChangeListener);
+        this.contentModelChangeListener = null;
     }
 
     /**

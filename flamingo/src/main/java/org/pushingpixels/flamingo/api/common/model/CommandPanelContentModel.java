@@ -32,6 +32,7 @@ package org.pushingpixels.flamingo.api.common.model;
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 
 import javax.swing.event.*;
+import java.beans.*;
 import java.util.*;
 
 public class CommandPanelContentModel implements ContentModel {
@@ -50,6 +51,7 @@ public class CommandPanelContentModel implements ContentModel {
     private EventListenerList listenerList = new EventListenerList();
 
     private CommandProjectionGroupModel.CommandProjectionGroupListener commandGroupListener;
+    private PropertyChangeListener commandGroupPropertyChangeListener;
 
     public CommandPanelContentModel(List<CommandProjectionGroupModel> commands) {
         this.commandProjectionGroups = new ArrayList<>(commands);
@@ -72,23 +74,30 @@ public class CommandPanelContentModel implements ContentModel {
         for (CommandProjectionGroupModel commandGroupModel : this.commandProjectionGroups) {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         }
+        this.commandGroupPropertyChangeListener = (PropertyChangeEvent evt) -> fireStateChanged();
+        for (CommandProjectionGroupModel commandGroupModel : this.commandProjectionGroups) {
+            commandGroupModel.addPropertyChangeListener(this.commandGroupPropertyChangeListener);
+        }
     }
 
     public void addCommandProjectionGroup(CommandProjectionGroupModel commandGroupModel) {
         this.commandProjectionGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
+        commandGroupModel.addPropertyChangeListener(this.commandGroupPropertyChangeListener);
         this.fireStateChanged();
     }
 
     public void removeCommandProjectionGroup(CommandProjectionGroupModel commandGroupModel) {
         this.commandProjectionGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
+        commandGroupModel.removePropertyChangeListener(this.commandGroupPropertyChangeListener);
         this.fireStateChanged();
     }
 
     public void removeAllCommandProjectionGroups() {
         for (CommandProjectionGroupModel commandGroupModel : this.commandProjectionGroups) {
             commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
+            commandGroupModel.removePropertyChangeListener(this.commandGroupPropertyChangeListener);
         }
         this.commandProjectionGroups.clear();
         this.fireStateChanged();

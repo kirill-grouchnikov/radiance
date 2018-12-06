@@ -32,6 +32,7 @@ package org.pushingpixels.flamingo.api.common;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonPanelUI;
+import org.pushingpixels.flamingo.internal.ui.common.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -109,7 +110,7 @@ import java.util.List;
  *
  * @author Kirill Grouchnikov
  */
-public class JCommandButtonPanel extends JPanel implements Scrollable {
+public class JCommandButtonPanel extends JComponent implements Scrollable {
     private static final String COMMAND = "radiance.flamingo.internal.panelCommand";
 
     /**
@@ -257,7 +258,6 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
                 && command.isToggle()) {
             this.buttonGroup.add(command);
         }
-        this.fireStateChanged();
         return indexInGroup;
     }
 
@@ -278,6 +278,16 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
      */
     public String getGroupTitleAt(int index) {
         return this.panelContentModel.getCommandProjectionGroups().get(index).getTitle();
+    }
+
+    /**
+     * Returns the UI delegate for this component.
+     *
+     * @return a <code>CommandButtonPanelUI</code> object
+     * @see #setUI
+     */
+    public CommandButtonPanelUI getUI() {
+        return (CommandButtonPanelUI) ui;
     }
 
     @Override
@@ -331,43 +341,6 @@ public class JCommandButtonPanel extends JPanel implements Scrollable {
                         }
                     }
                 }
-            }
-        }
-    }
-
-    /**
-     * Adds the specified change listener to this button panel.
-     *
-     * @param l Change listener to add.
-     * @see #removeChangeListener(ChangeListener)
-     */
-    public void addChangeListener(ChangeListener l) {
-        this.listenerList.add(ChangeListener.class, l);
-    }
-
-    /**
-     * Removes the specified change listener from this button panel.
-     *
-     * @param l Change listener to remove.
-     * @see #addChangeListener(ChangeListener)
-     */
-    public void removeChangeListener(ChangeListener l) {
-        this.listenerList.remove(ChangeListener.class, l);
-    }
-
-    /**
-     * Notifies all registered listener that the state of this command button
-     * panel has changed.
-     */
-    protected void fireStateChanged() {
-        // Guaranteed to return a non-null array
-        Object[] listeners = listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        ChangeEvent event = new ChangeEvent(this);
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ChangeListener.class) {
-                ((ChangeListener) listeners[i + 1]).stateChanged(event);
             }
         }
     }

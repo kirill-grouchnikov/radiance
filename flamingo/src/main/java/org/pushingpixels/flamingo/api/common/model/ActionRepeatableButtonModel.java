@@ -72,6 +72,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
         super();
         this.commandButton = commandButton;
         this.toFireActionOnPress = false;
+        this.setEnabled(commandButton.isEnabled());
     }
 
     @Override

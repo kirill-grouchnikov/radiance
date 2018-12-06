@@ -38,7 +38,6 @@ import org.pushingpixels.flamingo.api.common.CommandActionEvent
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.CommandListener
 import org.pushingpixels.flamingo.api.common.model.*
-import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu
 import org.pushingpixels.flamingo.api.common.projection.AbstractPopupMenuProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection
 import org.pushingpixels.neon.icon.ResizableIcon
@@ -113,8 +112,8 @@ open class KCommand {
     var disabledIcon: ResizableIcon? by NullableDelegate { hasBeenConverted }
     var disabledIconFactory: ResizableIconFactory? by NullableDelegate { hasBeenConverted }
 
-    var onCommandPreviewActivated: (() -> Unit)? by NullableDelegate { hasBeenConverted }
-    var onCommandPreviewCanceled: (() -> Unit)? by NullableDelegate { hasBeenConverted }
+    var onActionPreviewActivated: (() -> Unit)? by NullableDelegate { hasBeenConverted }
+    var onActionPreviewCanceled: (() -> Unit)? by NullableDelegate { hasBeenConverted }
 
     // The "action" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
@@ -343,13 +342,13 @@ open class KCommand {
             builder.setFireActionOnRollover(command.isFireActionOnRollover)
             builder.setFireActionOnPress(command.isFireActionOnPress)
 
-            builder.setPreviewListener(object: Command.CommandPreviewListener {
+            builder.setActionPreview(object: Command.CommandPreviewListener {
                 override fun onCommandPreviewActivated(cmd: Command?) {
-                    command.onCommandPreviewActivated?.invoke()
+                    command.onActionPreviewActivated?.invoke()
                 }
 
                 override fun onCommandPreviewCanceled(cmd: Command?) {
-                    command.onCommandPreviewCanceled?.invoke()
+                    command.onActionPreviewCanceled?.invoke()
                 }
             })
 

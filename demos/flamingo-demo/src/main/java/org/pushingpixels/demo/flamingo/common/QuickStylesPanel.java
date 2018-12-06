@@ -60,16 +60,25 @@ public class QuickStylesPanel {
         return commandPanelContentModel;
     }
 
+    public static void updatePanelContentModel(CommandPanelContentModel model,
+            ResourceBundle resourceBundle, Locale locale) {
+        MessageFormat mf = new MessageFormat(resourceBundle.getString("PanelStyles.text"));
+        mf.setLocale(locale);
+
+        List<CommandProjectionGroupModel> projectionGroupModels =
+                model.getCommandProjectionGroups();
+        for (int groupIndex = 0; groupIndex < projectionGroupModels.size(); groupIndex++) {
+            CommandProjectionGroupModel projectionGroupModel =
+                    projectionGroupModels.get(groupIndex);
+            String commandGroupName = mf.format(new Object[] { groupIndex });
+            projectionGroupModel.setTitle(commandGroupName);
+        }
+    }
+
     public static CommandPanelPresentationModel getQuickStylesPresentationModel() {
         return CommandPanelPresentationModel.builder()
                 .setToShowGroupLabels(false)
                 .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
                 .setCommandIconDimension(48).build();
-    }
-
-    public static JCommandButtonPanel getQuickStylesPanel(
-            ResourceBundle resourceBundle, Locale locale) {
-        return new CommandPanelProjection(getQuickStylesContentModel(resourceBundle, locale),
-                getQuickStylesPresentationModel()).buildComponent();
     }
 }

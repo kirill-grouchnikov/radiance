@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 
 import javax.swing.event.*;
 
-public class CommandStripPresentationModel implements PresentationModel {
+public class CommandStripPresentationModel implements MutablePresentationModel {
     public static final double DEFAULT_GAP_SCALE_FACTOR_PRIMARY_AXIS = 0.75;
     public static final double DEFAULT_GAP_SCALE_FACTOR_SECONDARY_AXIS = 1.0;
 

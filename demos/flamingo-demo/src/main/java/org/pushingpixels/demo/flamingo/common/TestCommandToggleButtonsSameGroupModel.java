@@ -109,8 +109,7 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
-    private JCommandButtonStrip getToggleStrip(CommandPresentation display,
-            Command... commands) {
+    private JComponent getToggleStrip(CommandPresentation display, Command... commands) {
         java.util.List<CommandProjection> commandProjections = new ArrayList<>();
         for (Command command : commands) {
             commandProjections.add(command.project());

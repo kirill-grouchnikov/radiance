@@ -31,12 +31,12 @@ package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.JCommandButtonPanel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
 import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
 import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection
+import javax.swing.JComponent
 
 @FlamingoElementMarker
 class KCommandButtonPanelPresentation {
@@ -112,7 +112,7 @@ class KCommandButtonPanel {
         presentation.init()
     }
 
-    fun toJavaButtonPanel(): JCommandButtonPanel {
+    fun toJavaButtonPanel(): JComponent {
         val hasInitialState = (presentation.commandPresentationState != null)
         val hasInitialDimension = (presentation.commandIconDimension > 0)
 

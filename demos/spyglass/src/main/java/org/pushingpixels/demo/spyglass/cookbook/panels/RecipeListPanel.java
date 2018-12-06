@@ -32,10 +32,7 @@ package org.pushingpixels.demo.spyglass.cookbook.panels;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.cookbook.*;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
-import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
-import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
@@ -66,7 +63,7 @@ public class RecipeListPanel extends SingleContentPanel {
         titlePaneBuilder.add(bigger).xy(5, 1);
 
         CommandToggleGroupModel viewGroup = new CommandToggleGroupModel();
-        JCommandButtonStrip titlePaneControlButtons = new CommandStripProjection(
+        JComponent titlePaneControlButtons = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
@@ -112,7 +109,7 @@ public class RecipeListPanel extends SingleContentPanel {
                 rows("p").
                 padding(new EmptyBorder(6, 0, 4, 0));
 
-        final JCommandButtonStrip controlButtons = new CommandStripProjection(
+        final JComponent controlButtons = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(

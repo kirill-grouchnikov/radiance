@@ -32,6 +32,7 @@ package org.pushingpixels.flamingo.api.common.model;
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 
 import javax.swing.event.EventListenerList;
+import java.beans.*;
 import java.util.*;
 
 public class CommandProjectionGroupModel implements ContentModel {
@@ -42,6 +43,7 @@ public class CommandProjectionGroupModel implements ContentModel {
      * Stores the listeners on this model.
      */
     private EventListenerList listenerList = new EventListenerList();
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public interface CommandProjectionGroupListener extends EventListener {
         void onCommandProjectionAdded(CommandProjection commandProjection);
@@ -70,6 +72,14 @@ public class CommandProjectionGroupModel implements ContentModel {
 
     public String getTitle() {
         return this.title;
+    }
+
+    public void setTitle(String title) {
+        if (this.title != title) {
+            String old = this.title;
+            this.title = title;
+            this.pcs.firePropertyChange("title", old, this.title);
+        }
     }
 
     public List<CommandProjection> getCommandProjections() {
@@ -148,5 +158,13 @@ public class CommandProjectionGroupModel implements ContentModel {
                         onAllCommandProjectionsRemoved();
             }
         }
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener l) {
+        this.pcs.addPropertyChangeListener(l);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener l) {
+        this.pcs.removePropertyChangeListener(l);
     }
 }

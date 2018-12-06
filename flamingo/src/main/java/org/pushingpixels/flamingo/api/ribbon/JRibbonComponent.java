@@ -43,7 +43,7 @@ import java.awt.event.MouseEvent;
  *
  * @author Kirill Grouchnikov
  */
-public class JRibbonComponent extends RichToolTipManager.JTrackableComponent {
+public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
     /**
      * Wrapper icon. Can be <code>null</code>.
      *

@@ -40,11 +40,6 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Test application for {@link JCommandButtonStrip} component.
- *
- * @author Kirill Grouchnikov
- */
 public class TestButtonStripMultiple extends JFrame {
     /**
      * Creates the test application.
@@ -58,7 +53,7 @@ public class TestButtonStripMultiple extends JFrame {
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
-        JCommandButtonStrip buttonStrip = new CommandStripProjection(
+        JComponent buttonStrip = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder().setIcon(new Format_justify_left()).build().project(),
                         Command.builder().setIcon(new Format_justify_center()).build().project(),
@@ -67,7 +62,7 @@ public class TestButtonStripMultiple extends JFrame {
                 .buildComponent();
         this.add(buttonStrip);
 
-        JCommandButtonStrip buttonStrip2 = new CommandStripProjection(
+        JComponent buttonStrip2 = new CommandStripProjection(
                 new CommandProjectionGroupModel(
                         Command.builder().setIcon(new Format_text_bold()).build().project(),
                         Command.builder().setIcon(new Format_text_italic()).build().project(),
