@@ -31,7 +31,6 @@ package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.internal.ui.common.*;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.*;
 
 import javax.accessibility.AccessibleContext;
@@ -48,6 +47,10 @@ import java.awt.event.*;
 public abstract class AbstractCommandButton extends RichTooltipManager.JTrackableComponent {
     public static final int DEFAULT_HORIZONTAL_ALIGNMENT = SwingConstants.CENTER;
     public static final double DEFAULT_GAP_SCALE_FACTOR = 1.0;
+
+    protected Command command;
+    protected CommandPresentation commandPresentation;
+
     /**
      * Associated icon.
      *
@@ -101,10 +104,10 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      * The dimension of the icon of the associated command button in the
      * {@link CommandButtonPresentationState#FIT_TO_ICON} state.
      *
-     * @see #getCustomDimension()
-     * @see #updateCustomDimension(int)
+     * @see #getIconDimension()
+     * @see #setIconDimension(int)
      */
-    protected int customDimension;
+    private int iconDimension;
 
     /**
      * Indication whether this button is flat.
@@ -205,7 +208,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      */
     public AbstractCommandButton(String text, ResizableIcon icon) {
         this.icon = icon;
-        this.customDimension = -1;
+        this.iconDimension = -1;
         this.presentationState = CommandButtonPresentationState.FIT_TO_ICON;
         this.horizontalAlignment = DEFAULT_HORIZONTAL_ALIGNMENT;
         this.actionHandler = new ActionHandler();
@@ -217,6 +220,9 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
     }
 
     public AbstractCommandButton(Command command, CommandPresentation commandPresentation) {
+        this.command = command;
+        this.commandPresentation = commandPresentation;
+
         this.setText(command.getTitle());
         this.setExtraText(command.getExtraText());
 
@@ -248,7 +254,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         this.setFlat(commandPresentation.isFlat());
         this.setFocusable(commandPresentation.isFocusable());
         if (commandPresentation.getIconDimension() != null) {
-            this.updateCustomDimension(commandPresentation.getIconDimension());
+            this.setIconDimension(commandPresentation.getIconDimension());
         }
 
         this.actionHandler = new ActionHandler();
@@ -285,6 +291,14 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         this.presentationState = state;
 
         this.firePropertyChange("presentationState", old, this.presentationState);
+    }
+
+    public Command getCommand() {
+        return this.command;
+    }
+
+    public CommandPresentation getCommandPresentation() {
+        return this.commandPresentation;
     }
 
     /**
@@ -350,7 +364,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      * @see #setPresentationState(CommandButtonPresentationState)
      */
     public CommandButtonPresentationState getPresentationState() {
-        return presentationState;
+        return this.presentationState;
     }
 
     /**
@@ -427,13 +441,13 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      *
      * @param dimension New dimension of the icon of the associated command button in
      *                  the {@link CommandButtonPresentationState#FIT_TO_ICON} state.
-     * @see #getCustomDimension()
+     * @see #getIconDimension()
      */
-    public void updateCustomDimension(int dimension) {
-        if (this.customDimension != dimension) {
-            int old = this.customDimension;
-            this.customDimension = dimension;
-            this.firePropertyChange("customDimension", old, this.customDimension);
+    public void setIconDimension(int dimension) {
+        if (this.iconDimension != dimension) {
+            int old = this.iconDimension;
+            this.iconDimension = dimension;
+            this.firePropertyChange("iconDimension", old, this.iconDimension);
         }
     }
 
@@ -443,10 +457,10 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      *
      * @return The dimension of the icon of the associated command button in the
      * {@link CommandButtonPresentationState#FIT_TO_ICON} state.
-     * @see #updateCustomDimension(int)
+     * @see #setIconDimension(int)
      */
-    public int getCustomDimension() {
-        return this.customDimension;
+    public int getIconDimension() {
+        return this.iconDimension;
     }
 
     /**
@@ -520,43 +534,23 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
     }
 
     /**
-     * Adds the specified action listener to this button.
-     *
-     * @param l Action listener to add.
-     * @see #removeActionListener(ActionListener)
-     */
-    public void addActionListener(ActionListener l) {
-        this.listenerList.add(ActionListener.class, l);
-    }
-
-    /**
-     * Removes the specified action listener from this button.
-     *
-     * @param l Action listener to remove.
-     * @see #addActionListener(ActionListener)
-     */
-    public void removeActionListener(ActionListener l) {
-        this.listenerList.remove(ActionListener.class, l);
-    }
-
-    /**
      * Adds the specified command listener to this button.
      *
      * @param l Command listener to add.
-     * @see #removeCommandListener(CommandListener)
+     * @see #removeCommandListener(CommandAction)
      */
-    public void addCommandListener(CommandListener l) {
-        this.listenerList.add(CommandListener.class, l);
+    public void addCommandListener(CommandAction l) {
+        this.listenerList.add(CommandAction.class, l);
     }
 
     /**
      * Removes the specified command listener from this button.
      *
      * @param l Command listener to remove.
-     * @see #addCommandListener(CommandListener)
+     * @see #addCommandListener(CommandAction)
      */
-    public void removeCommandListener(CommandListener l) {
-        this.listenerList.remove(CommandListener.class, l);
+    public void removeCommandListener(CommandAction l) {
+        this.listenerList.remove(CommandAction.class, l);
     }
 
     /**
@@ -643,15 +637,14 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == CommandListener.class) {
+            if (listeners[i] == CommandAction.class) {
                 // Lazily create the event:
                 if (e == null) {
                     String actionCommand = event.getActionCommand();
-                    e = new CommandActionEvent(this, ActionEvent.ACTION_PERFORMED,
-                            (Command) this.getClientProperty(FlamingoUtilities.COMMAND),
+                    e = new CommandActionEvent(this, ActionEvent.ACTION_PERFORMED, this.command,
                             actionCommand, event.getWhen(), event.getModifiers());
                 }
-                ((CommandListener) listeners[i + 1]).commandActivated(e);
+                ((CommandAction) listeners[i + 1]).commandActivated(e);
             }
         }
 
@@ -662,8 +655,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
                 // Lazily create the event:
                 if (e == null) {
                     String actionCommand = event.getActionCommand();
-                    e = new CommandActionEvent(this, ActionEvent.ACTION_PERFORMED,
-                            (Command) this.getClientProperty(FlamingoUtilities.COMMAND),
+                    e = new CommandActionEvent(this, ActionEvent.ACTION_PERFORMED, this.command,
                             actionCommand, event.getWhen(), event.getModifiers());
                 }
                 ((ActionListener) listeners[i + 1]).actionPerformed(e);

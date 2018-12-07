@@ -111,8 +111,8 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
                 }
             }
             if ("action".equals(evt.getPropertyName())) {
-                component.removeCommandListener((CommandListener) evt.getOldValue());
-                component.addCommandListener((CommandListener) evt.getNewValue());
+                component.removeCommandListener((CommandAction) evt.getOldValue());
+                component.addCommandListener((CommandAction) evt.getNewValue());
             }
             if ("actionRichTooltip".equals(evt.getPropertyName())) {
                 component.setActionRichTooltip((RichTooltip) evt.getNewValue());
@@ -146,8 +146,18 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
                             (Boolean) evt.getNewValue());
                 }
             }
+            if ("popupMenuProjection".equals(evt.getPropertyName())) {
+                if (component instanceof JCommandButton) {
+                    CommandPopupMenuProjection newPopupMenuProjection =
+                            (CommandPopupMenuProjection) evt.getNewValue();
+                    if (newPopupMenuProjection != null) {
+                        ((JCommandButton) component).setPopupCallback((JCommandButton commandButton)
+                                -> newPopupMenuProjection.buildComponent());
+                    } else {
+                        ((JCommandButton) component).setPopupCallback(command.getPopupCallback());
+                    }
+                }
+            }
         });
-
-        component.putClientProperty(FlamingoUtilities.COMMAND, this.getContentModel());
     }
 }

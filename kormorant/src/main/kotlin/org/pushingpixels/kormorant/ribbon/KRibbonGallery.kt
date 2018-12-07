@@ -141,7 +141,8 @@ class KRibbonGalleryContent {
 
         // Wire command preview and activation listeners
         javaRibbonGalleryContentModel.addCommandPreviewListener(
-                object : RibbonGalleryContentModel.GalleryCommandPreviewListener {
+                object :
+                        RibbonGalleryContentModel.GalleryCommandActionPreview {
                     override fun onCommandPreviewActivated(command: Command) {
                         onCommandPreviewActivated?.invoke(command)
                     }

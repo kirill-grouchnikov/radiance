@@ -32,7 +32,7 @@ package org.pushingpixels.demo.kormorant.popup
 import org.pushingpixels.demo.kormorant.svg.Help_browser
 import org.pushingpixels.demo.kormorant.svg.Text_x_generic
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.CommandListener
+import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -66,7 +66,7 @@ fun main(args: Array<String>) {
                         command {
                             title = mf.format(arrayOf<Any>(i))
                             icon = Text_x_generic.of(16, 16)
-                            action = CommandListener {
+                            action = CommandAction {
                                 println("Invoked action on '$i'")
                             }
                         }

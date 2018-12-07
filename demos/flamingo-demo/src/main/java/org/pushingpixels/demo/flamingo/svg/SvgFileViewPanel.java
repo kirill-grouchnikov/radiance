@@ -32,33 +32,25 @@ package org.pushingpixels.demo.flamingo.svg;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarCallBack;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
+import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.photon.icon.SvgBatikResizableIcon;
 import org.pushingpixels.photon.transcoder.SvgStreamTranscoder;
 import org.pushingpixels.photon.transcoder.java.JavaLanguageRenderer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * Panel that hosts SVG-based gallery buttons.
  *
  * @author Kirill Grouchnikov
  */
-public class SvgFileViewPanel extends JPanel {
-    /**
-     * All icon groups.
-     */
-    private ArrayList<JCommandButton> allButtons;
-
-    /**
-     * Current icon dimension.
-     */
-    private int currDimension;
-
+public class SvgFileViewPanel extends JCommandButtonPanel {
     /**
      * Callback into the underlying breadcrumb bar.
      */
@@ -76,81 +68,51 @@ public class SvgFileViewPanel extends JPanel {
      * @param startingDimension Initial dimension for SVG icons.
      */
     public SvgFileViewPanel(BreadcrumbBarCallBack<File> callback, int startingDimension) {
+        super(new CommandPanelContentModel(new ArrayList<>()),
+                CommandPanelPresentationModel.builder()
+                        .setToShowGroupLabels(false)
+                        .setLayoutKind(CommandPanelPresentationModel.LayoutKind.ROW_FILL)
+                        .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
+                        .setCommandIconDimension(startingDimension)
+                        .build());
+
         this.callback = callback;
-        this.currDimension = startingDimension;
-        this.allButtons = new ArrayList<>();
-        this.setLayout(new SvgFileViewPanelLayout());
     }
 
     /**
      * Sets the current files to show. The current contents of the panel are discarded. The file
-     * list is scanned for files ending with <code>.svg</code>. For each such file a new
-     * {@link JCommandButton} hosting an SVG-based implementation of
-     * {@link org.pushingpixels.neon.icon.ResizableIcon} is added
-     * to the panel.
+     * list is scanned for files ending with <code>.svg</code> or <code>.svgz</code>. For each such
+     * file a new {@link Command} with an SVG-based implementation of
+     * {@link org.pushingpixels.neon.icon.ResizableIcon} is added to the panel content model.
      *
      * @param leafs Information on the files to show in the panel.
      */
     public void setFolder(final java.util.List<StringValuePair<File>> leafs) {
-        for (JCommandButton rb : this.allButtons)
-            this.remove(rb);
-        this.allButtons.clear();
+        this.getContentModel().removeAllCommandProjectionGroups();
 
-        final Map<String, JCommandButton> newButtons = new HashMap<>();
+        List<CommandProjection> commandProjections = new ArrayList<>();
+        CommandPresentation panelPresentation = CommandPresentation.withDefaults();
+
+        final Map<String, Command> newCommands = new HashMap<>();
         for (StringValuePair<File> leaf : leafs) {
             String name = leaf.getKey();
-            if (!name.endsWith(".svg") && !name.endsWith(".svgz"))
+            if (!name.endsWith(".svg") && !name.endsWith(".svgz")) {
                 continue;
-
-            JCommandButton svgButton = new JCommandButton(name.replace('-', ' '),
-                    new EmptyResizableIcon(currDimension));
-            svgButton
-                    .setActionRichTooltip(RichTooltip.builder().setTitle("Transcode")
-                            .addDescriptionSection("Click to generate Java2D class").build());
-            svgButton.updateCustomDimension(currDimension);
-
-            allButtons.add(svgButton);
-            add(svgButton);
-
-            newButtons.put(name, svgButton);
-        }
-        doLayout();
-        repaint();
-
-        mainWorker = new SwingWorker<Void, StringValuePair<InputStream>>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                for (final StringValuePair<File> leafPair : leafs) {
-                    if (isCancelled())
-                        break;
-                    final String name = leafPair.getKey();
-                    if (!name.endsWith(".svg") && !name.endsWith(".svgz"))
-                        continue;
-                    InputStream stream = callback.getLeafContent(leafPair.getValue());
-                    StringValuePair<InputStream> pair = new StringValuePair<InputStream>(name,
-                            stream);
-                    publish(pair);
-                }
-                return null;
             }
 
-            @Override
-            protected void process(List<StringValuePair<InputStream>> pairs) {
-                for (final StringValuePair<InputStream> pair : pairs) {
-                    final String name = pair.getKey();
-                    InputStream svgStream = pair.getValue();
-                    Dimension svgDim = new Dimension(currDimension, currDimension);
-                    final SvgBatikResizableIcon svgIcon = name.endsWith(".svg")
-                            ? SvgBatikResizableIcon.getSvgIcon(svgStream, svgDim)
-                            : SvgBatikResizableIcon.getSvgzIcon(svgStream, svgDim);
-                    JCommandButton svgButton = newButtons.get(name);
-                    svgButton.setIcon(svgIcon);
-
-                    svgButton.setActionRichTooltip(RichTooltip.builder()
-                            .setTitle("Transcode")
-                            .addDescriptionSection("Click to generate Java2D class").build());
-                    svgButton.addActionListener((ActionEvent e) -> {
+            Command svgCommand = Command.builder()
+                    .setTitle(name.replace('-', ' '))
+                    .setIcon(new EmptyResizableIcon(getPresentationModel()
+                            .getCommandIconDimension()))
+                    .setAction((CommandActionEvent e) -> {
                         try {
+                            ResizableIcon icon = e.getCommand().getIcon();
+                            if (!(icon instanceof SvgBatikResizableIcon)) {
+                                return;
+                            }
+
+                            SvgBatikResizableIcon svgIcon = (SvgBatikResizableIcon) icon;
+
                             System.out.println(name);
                             String svgClassName = name.substring(0, name.lastIndexOf('.'));
                             svgClassName = svgClassName.replace('-', '_');
@@ -166,19 +128,59 @@ public class SvgFileViewPanel extends JPanel {
                                     new JavaLanguageRenderer());
 
                             transcoder.setPrintWriter(pw);
-                            transcoder.transcode(this.getClass()
-                                    .getResourceAsStream(
-                                            "/org/pushingpixels/photon/transcoder/kotlin" +
-                                                    "/SvgTranscoderTemplateResizable.templ"));
+                            transcoder.transcode(this.getClass().getResourceAsStream(
+                                    "/org/pushingpixels/photon/transcoder/java" +
+                                            "/SvgTranscoderTemplateResizable.templ"));
                             JOptionPane.showMessageDialog(
                                     SwingUtilities.getWindowAncestor(SvgFileViewPanel.this),
                                     "Finished with '" + javaClassFilename + "'");
                         } catch (Throwable exc) {
                             exc.printStackTrace();
                         }
-                    });
+                    })
+                    .setActionRichTooltip(RichTooltip.builder().setTitle("Transcode")
+                            .addDescriptionSection("Click to generate Java2D class").build())
+                    .build();
 
-                    svgButton.updateCustomDimension(currDimension);
+            commandProjections.add(svgCommand.project(panelPresentation));
+
+            newCommands.put(name, svgCommand);
+        }
+
+        this.getContentModel().addCommandProjectionGroup(
+                new CommandProjectionGroupModel(commandProjections));
+
+        mainWorker = new SwingWorker<Void, StringValuePair<InputStream>>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                for (final StringValuePair<File> leafPair : leafs) {
+                    if (isCancelled()) {
+                        break;
+                    }
+                    final String name = leafPair.getKey();
+                    if (!name.endsWith(".svg") && !name.endsWith(".svgz")) {
+                        continue;
+                    }
+                    InputStream stream = callback.getLeafContent(leafPair.getValue());
+                    StringValuePair<InputStream> pair = new StringValuePair<>(name, stream);
+                    publish(pair);
+                }
+                return null;
+            }
+
+            @Override
+            protected void process(List<StringValuePair<InputStream>> pairs) {
+                for (final StringValuePair<InputStream> pair : pairs) {
+                    final String name = pair.getKey();
+                    InputStream svgStream = pair.getValue();
+                    int iconDimension = getPresentationModel().getCommandIconDimension();
+                    Dimension svgDim = new Dimension(iconDimension, iconDimension);
+
+                    final SvgBatikResizableIcon svgIcon = name.endsWith(".svg")
+                            ? SvgBatikResizableIcon.getSvgIcon(svgStream, svgDim)
+                            : SvgBatikResizableIcon.getSvgzIcon(svgStream, svgDim);
+
+                    newCommands.get(name).setIcon(svgIcon);
                 }
             }
         };
@@ -188,109 +190,22 @@ public class SvgFileViewPanel extends JPanel {
     /**
      * Changes the current dimension of all displayed icons.
      *
-     * @param dimension
+     * @param dimension New dimension for the icons.
      */
     public void setIconDimension(int dimension) {
-        for (JCommandButton rb : this.allButtons) {
-            rb.updateCustomDimension(dimension);
-            rb.revalidate();
-            rb.doLayout();
-        }
-        this.revalidate();
-        this.doLayout();
-        this.repaint();
-        this.currDimension = dimension;
-    }
-
-    /**
-     * Layout manager for <code>this</code> popup gallery.
-     *
-     * @author Kirill Grouchnikov
-     */
-    protected class SvgFileViewPanelLayout implements LayoutManager {
-        /**
-         * Strut dimension.
-         */
-        public static final int STRUT = 2;
-
-        @Override
-        public void addLayoutComponent(String name, Component comp) {
-        }
-
-        @Override
-        public void removeLayoutComponent(Component comp) {
-        }
-
-        @Override
-        public void layoutContainer(Container parent) {
-            Insets bInsets = SvgFileViewPanel.this.getInsets();
-            int left = bInsets.left + STRUT;
-            int right = bInsets.right + STRUT;
-            int top = bInsets.top + STRUT;
-            // int bottom = bInsets.bottom + STRUT;
-            int y = top;
-            // compute max width of icon buttons
-            int maxButtonWidth = 0;
-            int maxButtonHeight = 0;
-            for (JCommandButton gb : allButtons) {
-                maxButtonWidth = Math.max(maxButtonWidth, gb.getPreferredSize().width);
-                maxButtonHeight = Math.max(maxButtonHeight, gb.getPreferredSize().height);
-            }
-            int currX = left;
-            int maxWidth = parent.getWidth() - left - right;
-            for (JCommandButton gb : allButtons) {
-                int endX = currX + maxButtonWidth;
-                if (endX > (maxWidth - right)) {
-                    currX = left;
-                    y += (maxButtonHeight + STRUT);
-                }
-                gb.setBounds(currX, y, maxButtonWidth, maxButtonHeight);
-                currX += maxButtonWidth;
-            }
-        }
-
-        @Override
-        public Dimension minimumLayoutSize(Container parent) {
-            return this.preferredLayoutSize(parent);
-        }
-
-        @Override
-        public Dimension preferredLayoutSize(Container parent) {
-            if (allButtons.size() == 0)
-                return new Dimension(0, 0);
-            // go over all groups and see how many rows each one needs
-            Insets bInsets = SvgFileViewPanel.this.getInsets();
-            int left = bInsets.left + STRUT;
-            int right = bInsets.right + STRUT;
-            int top = bInsets.top + STRUT;
-            int bottom = bInsets.bottom + STRUT;
-            int height = top + bottom;
-
-            // compute max width of icon buttons
-            int maxButtonWidth = 0;
-            int maxButtonHeight = 0;
-            for (JCommandButton gb : allButtons) {
-                maxButtonWidth = Math.max(maxButtonWidth, gb.getPreferredSize().width);
-                maxButtonHeight = Math.max(maxButtonHeight, gb.getPreferredSize().height);
-            }
-            int maxWidth = parent.getWidth() - left - right;
-            int buttonsInRow = maxWidth / maxButtonWidth;
-
-            // total height
-            int iconRows = (int) (Math.ceil((double) allButtons.size() / (double) buttonsInRow));
-            height += iconRows * (maxButtonHeight + STRUT);
-            return new Dimension(maxWidth, height);
-        }
+        this.getPresentationModel().setCommandIconDimension(dimension);
     }
 
     /**
      * Cancels the main worker.
      */
     public void cancelMainWorker() {
-        if (this.mainWorker == null)
+        if (this.mainWorker == null) {
             return;
-        if (this.mainWorker.isDone() || this.mainWorker.isCancelled())
+        }
+        if (this.mainWorker.isDone() || this.mainWorker.isCancelled()) {
             return;
+        }
         this.mainWorker.cancel(false);
     }
 }

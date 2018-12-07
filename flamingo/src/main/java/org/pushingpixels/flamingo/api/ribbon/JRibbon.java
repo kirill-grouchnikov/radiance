@@ -40,8 +40,8 @@ import org.pushingpixels.neon.icon.ResizableIcon;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * The ribbon component.
@@ -305,20 +305,21 @@ public class JRibbon extends JComponent {
     public synchronized void addTaskbarGalleryDropdown(
             RibbonGalleryContentModel galleryContentModel,
             RibbonGalleryPresentationModel galleryPresentationModel) {
-        ResizableIcon icon = (galleryContentModel.getIconFactory() != null)
-                ? galleryContentModel.getIconFactory().createNewIcon()
-                : null;
-        JCommandButton galleryDropdownButton = new JCommandButton(icon);
-        galleryDropdownButton.setPresentationState(CommandButtonPresentationState.SMALL);
-        galleryDropdownButton.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
 
-        // Configure the button popup callback to display the expanded popup menu
-        // for the gallery
-        galleryDropdownButton.setPopupCallback((JCommandButton commandButton) ->
-                JRibbonGallery.getExpandPopupMenu(galleryContentModel, galleryPresentationModel,
-                        galleryDropdownButton));
+        // The popup callback displays the expanded popup menu for the gallery
+        Command galleryDropdownCommand = Command.builder()
+                .setIconFactory(galleryContentModel.getIconFactory())
+                .setPopupCallback((JCommandButton commandButton) ->
+                        JRibbonGallery.getExpandPopupMenu(galleryContentModel,
+                                galleryPresentationModel,
+                                commandButton))
+                .build();
 
-        this.taskbarComponents.add(galleryDropdownButton);
+        this.taskbarComponents.add(galleryDropdownCommand.project(
+                CommandPresentation.builder().setPresentationState(
+                        CommandButtonPresentationState.SMALL).build())
+                .buildComponent());
+
         this.fireStateChanged();
     }
 

@@ -43,7 +43,7 @@ public class CommandPanelContentModel implements ContentModel {
      */
     private boolean isSingleSelectionMode;
 
-    private Command.CommandPreviewListener commandPreviewListener;
+    private Command.CommandActionPreview commandPreviewListener;
 
     /**
      * Stores the listeners on this model.
@@ -136,11 +136,11 @@ public class CommandPanelContentModel implements ContentModel {
     }
 
     public void setCommandPreviewListener(
-            Command.CommandPreviewListener commandPreviewListener) {
+            Command.CommandActionPreview commandPreviewListener) {
         this.commandPreviewListener = commandPreviewListener;
     }
 
-    public Command.CommandPreviewListener getCommandPreviewListener() {
+    public Command.CommandActionPreview getCommandPreviewListener() {
         return this.commandPreviewListener;
     }
 

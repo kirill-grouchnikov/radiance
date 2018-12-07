@@ -159,7 +159,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
                 this.buttonStrip.getProjectionGroupModel();
         for (CommandProjection commandProjection : projectionGroupModel.getCommandProjections()) {
             AbstractCommandButton commandButton = commandButtonMap.get(commandProjection);
-            CommandListener commandListener = commandProjection.getContentModel().getAction();
+            CommandAction commandListener = commandProjection.getContentModel().getAction();
             if (commandListener != null) {
                 commandButton.removeCommandListener(commandListener);
             }

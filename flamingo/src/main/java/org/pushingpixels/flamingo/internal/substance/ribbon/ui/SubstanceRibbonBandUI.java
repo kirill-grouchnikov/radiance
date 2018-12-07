@@ -31,9 +31,10 @@ package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
+import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.*;
@@ -92,10 +93,6 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
 
         ComponentOrParentChainScope.setDecorationType(this.ribbonBand,
                 DecorationAreaType.GENERAL);
-
-        if (this.expandButton != null) {
-            this.expandButton.setFocusable(false);
-        }
     }
 
     @Override
@@ -165,17 +162,33 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     }
 
     @Override
-    protected JCommandButton createExpandButton() {
-        RibbonBandExpandButton result = new RibbonBandExpandButton();
-        // since paintBandTitleBackground uses GENERAL, mark this button with
-        // GENERAL as well to sync the mark color
-        ComponentOrParentChainScope.setDecorationType(result, DecorationAreaType.GENERAL);
-        SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.ribbonBand);
-        result.setIcon(getExpandButtonIcon(skin, result));
-        // Mark the button as rectangular
-        SubstanceCortex.ComponentScope.setButtonStraightSides(result,
-                EnumSet.allOf(SubstanceSlices.Side.class));
-        return result;
+    protected AbstractCommandButton createExpandButton() {
+        CommandProjection expandCommandProjection = new CommandProjection(this.expandCommand,
+                CommandPresentation.builder()
+                        .setFocusable(false)
+                        .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
+                        .build());
+        expandCommandProjection.setComponentSupplier((Projection<AbstractCommandButton, Command,
+                CommandPresentation> commandProjection) -> RibbonBandExpandButton::new);
+        expandCommandProjection.setComponentCustomizer((AbstractCommandButton button) -> {
+            // since paintBandTitleBackground uses GENERAL, mark this button with
+            // GENERAL as well to sync the mark color
+            ComponentOrParentChainScope.setDecorationType(button, DecorationAreaType.GENERAL);
+            SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.ribbonBand);
+            button.setIcon(getExpandButtonIcon(skin, button));
+            // Mark the button as rectangular
+            SubstanceCortex.ComponentScope.setButtonStraightSides(button,
+                    EnumSet.allOf(SubstanceSlices.Side.class));
+        });
+
+        return expandCommandProjection.buildComponent();
+    }
+
+    @Override
+    protected Command createExpandCommand() {
+        return Command.builder()
+                .setAction(ribbonBand.getExpandCommandListener())
+                .setActionRichTooltip(ribbonBand.getExpandButtonRichTooltip()).build();
     }
 
     private ResizableIcon getExpandButtonIcon(final SubstanceSkin skin,
@@ -205,7 +218,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     protected void syncExpandButtonIcon() {
         SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.ribbonBand);
         ResizableIcon icon = getExpandButtonIcon(skin, this.expandButton);
-        this.expandButton.setIcon(icon);
+        this.expandCommand.setIcon(icon);
     }
 
     @Override
@@ -219,14 +232,8 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
 
     @SubstanceInternalButton
     private class RibbonBandExpandButton extends JCommandButton {
-        public RibbonBandExpandButton() {
-            super(Command.builder()
-                            .setAction(ribbonBand.getExpandCommandListener())
-                            .setActionRichTooltip(ribbonBand.getExpandButtonRichTooltip()).build(),
-                    CommandPresentation.builder()
-                            .setFocusable(false)
-                            .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
-                            .build());
+        public RibbonBandExpandButton(Command command, CommandPresentation commandPresentation) {
+            super(command, commandPresentation);
 
             this.setBorder(new EmptyBorder(3, 2, 3, 2));
         }

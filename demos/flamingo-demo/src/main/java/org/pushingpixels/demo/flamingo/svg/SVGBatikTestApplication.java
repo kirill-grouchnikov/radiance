@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. 
+ * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov.
  * All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -7,15 +7,15 @@
  *
  *  o Redistributions of source code must retain the above copyright notice,
  *    this list of conditions and the following disclaimer.
- *    
+ *
  *  o Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *    
+ *
  *  o Neither the name of Flamingo, Kirill Grouchnikov nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *    
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
  * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -31,6 +31,7 @@
 package org.pushingpixels.demo.flamingo.svg;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.photon.icon.SvgBatikResizableIcon;
 
 import javax.swing.*;
@@ -42,9 +43,8 @@ public class SVGBatikTestApplication extends JFrame {
 
     /**
      * Main method for testing.
-     * 
-     * @param args
-     *            Ignored.
+     *
+     * @param args Ignored.
      */
     public static void main(String[] args) {
         SVGBatikTestApplication app = new SVGBatikTestApplication();
@@ -54,8 +54,6 @@ public class SVGBatikTestApplication extends JFrame {
         app.setVisible(true);
     }
 
-    JFrame frame;
-
     SvgIconPanel panel;
 
     public SVGBatikTestApplication() {
@@ -63,21 +61,21 @@ public class SVGBatikTestApplication extends JFrame {
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton size16 = new JButton("size16");
         size16.addActionListener((ActionEvent e) -> {
-            panel.iconButton.updateCustomDimension(16);
+            panel.iconButton.setIconDimension(16);
             panel.doLayout();
             panel.iconButton.doLayout();
             panel.repaint();
         });
         JButton size32 = new JButton("size32");
         size32.addActionListener((ActionEvent e) -> {
-            panel.iconButton.updateCustomDimension(32);
+            panel.iconButton.setIconDimension(32);
             panel.doLayout();
             panel.iconButton.doLayout();
             panel.repaint();
         });
         JButton size128 = new JButton("size128");
         size128.addActionListener((ActionEvent e) -> {
-            panel.iconButton.updateCustomDimension(128);
+            panel.iconButton.setIconDimension(128);
             panel.doLayout();
             panel.iconButton.doLayout();
             panel.repaint();
@@ -91,7 +89,7 @@ public class SVGBatikTestApplication extends JFrame {
     }
 
     private static class SvgIconPanel extends JPanel {
-        JCommandButton iconButton;
+        AbstractCommandButton iconButton;
 
         public SvgIconPanel() {
             this.setLayout(new SvgIconPanelLayout());
@@ -99,8 +97,9 @@ public class SVGBatikTestApplication extends JFrame {
                     "/org/pushingpixels/demo/flamingo/svg/tango/transcoded/Edit-paste.svg");
             SvgBatikResizableIcon icon = SvgBatikResizableIcon.getSvgIcon(is,
                     new Dimension(32, 32));
-            iconButton = new JCommandButton("just icon", icon);
-            iconButton.setPresentationState(CommandButtonPresentationState.BIG);
+            iconButton = Command.builder().setTitle("just icon").setIcon(icon).build()
+                    .project(CommandPresentation.builder().setPresentationState(
+                            CommandButtonPresentationState.BIG).build()).buildComponent();
             add(iconButton);
         }
 

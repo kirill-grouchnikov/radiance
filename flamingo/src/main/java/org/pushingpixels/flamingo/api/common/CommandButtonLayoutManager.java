@@ -86,7 +86,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
         /**
          * The action area. A mouse click in this area will trigger all
          * listeners associated with the command button action model
-         * {@link AbstractCommandButton#addActionListener(java.awt.event.ActionListener)}
+         * {@link AbstractCommandButton#addCommandListener(CommandAction)}
          */
         public Rectangle actionClickArea;
 

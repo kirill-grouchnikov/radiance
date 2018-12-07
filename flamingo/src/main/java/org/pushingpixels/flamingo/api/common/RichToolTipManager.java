@@ -297,10 +297,9 @@ public class RichTooltipManager {
     }
 
     private void initiateToolTip(MouseEvent original, JTrackableComponent component) {
-        // do not show tooltips on components in popup panels that are not
-        // in the last shown one
-        List<PopupPanelManager.PopupInfo> popups = PopupPanelManager
-                .defaultManager().getShownPath();
+        // do not show tooltips on components in popup panels that are not in the last shown one
+        List<PopupPanelManager.PopupInfo> popups =
+                PopupPanelManager.defaultManager().getShownPath();
         if (popups.size() > 0) {
             JPopupPanel popupPanel = popups.get(popups.size() - 1).getPopupPanel();
             boolean ignore = true;

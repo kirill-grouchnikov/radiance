@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.internal.substance.common.ui;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel.ScrollType;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
-import org.pushingpixels.flamingo.internal.ui.common.BasicScrollablePanelUI;
+import org.pushingpixels.flamingo.internal.ui.common.*;
 import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -71,13 +71,12 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
     }
 
     @Override
-    public JCommandButton createLeadingScroller() {
-        final JCommandButton result = super.createLeadingScroller();
-        final int fontSize = SubstanceSizeUtils.getComponentFontSize(result);
+    protected void configureLeadingScrollerButton(AbstractCommandButton button) {
+        final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
-        ResizableIcon arrowIcon = new TransitionAwareResizableIcon(result,
-                () -> ((ActionPopupTransitionAwareUI) result.getUI()).getActionTransitionTracker(),
+        ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
+                () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> {
                     NeonIconUIResource doubleArrowIcon = SubstanceImageCreator
                             .getDoubleArrowIcon(
@@ -90,24 +89,24 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
                                     scheme);
                     return doubleArrowIcon;
                 }, new Dimension(arrowIconHeight, arrowIconWidth));
-        result.setIcon(arrowIcon);
-        SubstanceCortex.ComponentScope.setButtonStraightSides(result,
+        button.setIcon(arrowIcon);
+        SubstanceCortex.ComponentScope.setButtonStraightSides(button,
                 (scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY)
                         ? EnumSet.of(SubstanceSlices.Side.RIGHT)
                         : EnumSet.of(SubstanceSlices.Side.BOTTOM));
-        result.setHorizontalAlignment(SwingConstants.CENTER);
-        result.setFlat(true);
-        return result;
+
+        button.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.putClientProperty(BasicCommandButtonUI.EMULATE_SQUARE_BUTTON, Boolean.TRUE);
     }
 
     @Override
-    public JCommandButton createTrailingScroller() {
-        final JCommandButton result = super.createTrailingScroller();
-        final int fontSize = SubstanceSizeUtils.getComponentFontSize(result);
+    protected void configureTrailingScrollerButton(AbstractCommandButton button) {
+        final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
-        ResizableIcon arrowIcon = new TransitionAwareResizableIcon(result,
-                () -> ((ActionPopupTransitionAwareUI) result.getUI()).getActionTransitionTracker(),
+        ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
+                () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> {
                     NeonIconUIResource doubleArrowIcon = SubstanceImageCreator
                             .getDoubleArrowIcon(
@@ -120,13 +119,14 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
                                     scheme);
                     return doubleArrowIcon;
                 }, new Dimension(arrowIconHeight, arrowIconWidth));
-        result.setIcon(arrowIcon);
-        SubstanceCortex.ComponentScope.setButtonStraightSides(result,
+        button.setIcon(arrowIcon);
+        SubstanceCortex.ComponentScope.setButtonStraightSides(button,
                 (scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY)
                         ? EnumSet.of(SubstanceSlices.Side.LEFT)
                         : EnumSet.of(SubstanceSlices.Side.TOP));
-        result.setHorizontalAlignment(SwingConstants.CENTER);
-        result.setFlat(true);
-        return result;
+
+        button.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.putClientProperty(BasicCommandButtonUI.EMULATE_SQUARE_BUTTON, Boolean.TRUE);
     }
 }

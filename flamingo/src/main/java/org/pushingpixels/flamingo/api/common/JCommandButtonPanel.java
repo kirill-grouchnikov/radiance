@@ -111,8 +111,6 @@ import java.util.List;
  * @author Kirill Grouchnikov
  */
 public class JCommandButtonPanel extends JComponent implements Scrollable {
-    private static final String COMMAND = "radiance.flamingo.internal.panelCommand";
-
     /**
      * @see #getUIClassID
      */
@@ -188,7 +186,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
 
         int groupIndex = 0;
         CommandPresentation commandPresentation = createCommandPresentation();
-        Command.CommandPreviewListener commandPreviewListener =
+        Command.CommandActionPreview commandPreviewListener =
                 panelContentModel.getCommandPreviewListener();
         for (CommandProjectionGroupModel groupModel : panelContentModel.getCommandProjectionGroups()) {
             this.groupTitles.add(groupIndex, groupModel.getTitle());
@@ -220,7 +218,6 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
                     });
                 }
 
-                button.putClientProperty(COMMAND, projection.getContentModel());
                 this.addButtonToLastGroup(projection.getContentModel(), button);
             }
             groupIndex++;
@@ -240,7 +237,6 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
     protected int addCommandToLastGroup(Command command) {
         AbstractCommandButton button = command.project(createCommandPresentation())
                 .buildComponent();
-        button.putClientProperty(COMMAND, command);
         return this.addButtonToLastGroup(command, button);
     }
 
@@ -250,7 +246,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         if (groupIndex < 0) {
             return -1;
         }
-        commandButton.updateCustomDimension(this.panelPresentationModel.getCommandIconDimension());
+        commandButton.setIconDimension(this.panelPresentationModel.getCommandIconDimension());
         commandButton.setPresentationState(this.panelPresentationModel.getCommandPresentationState());
         this.add(commandButton);
         this.buttons.get(groupIndex).add(indexInGroup, commandButton);
@@ -319,7 +315,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
                     if (jrb instanceof JCommandToggleButton) {
                         JCommandToggleButton jctb = (JCommandToggleButton) jrb;
                         if (jctb.getActionModel().isSelected()) {
-                            return (Command) jctb.getClientProperty(COMMAND);
+                            return jctb.getCommand();
                         }
                     }
                 }
@@ -351,24 +347,24 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
     }
 
     @Override
-    public int getScrollableBlockIncrement(Rectangle visibleRect,
-            int orientation, int direction) {
+    public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
         return 30;
     }
 
     @Override
     public boolean getScrollableTracksViewportHeight() {
-        return (this.getPresentationModel().getLayoutKind() == CommandPanelPresentationModel.LayoutKind.COLUMN_FILL);
+        return (this.getPresentationModel().getLayoutKind() ==
+                CommandPanelPresentationModel.LayoutKind.COLUMN_FILL);
     }
 
     @Override
     public boolean getScrollableTracksViewportWidth() {
-        return (this.getPresentationModel().getLayoutKind() == CommandPanelPresentationModel.LayoutKind.ROW_FILL);
+        return (this.getPresentationModel().getLayoutKind() ==
+                CommandPanelPresentationModel.LayoutKind.ROW_FILL);
     }
 
     @Override
-    public int getScrollableUnitIncrement(Rectangle visibleRect,
-            int orientation, int direction) {
+    public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
         return 10;
     }
 }

@@ -31,7 +31,6 @@ package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -327,50 +326,6 @@ public class JCommandButton extends AbstractCommandButton {
         }
     }
 
-    /**
-     * Creates a new command button with empty text
-     *
-     * @param icon Button icon.
-     */
-    public JCommandButton(ResizableIcon icon) {
-        this(null, icon);
-    }
-
-    /**
-     * Creates a new command button without an icon.
-     *
-     * @param title Button title. May contain any number of words.
-     */
-    public JCommandButton(String title) {
-        this(title, null);
-    }
-
-    /**
-     * Creates a new command button.
-     *
-     * @param title Button title. May contain any number of words.
-     * @param icon  Button icon.
-     */
-    public JCommandButton(String title, ResizableIcon icon) {
-        super(title, icon);
-
-        this.setActionModel(new ActionRepeatableButtonModel(this));
-
-        // important - handler creation must be done before setting
-        // the popup model so that it can be registered to track the
-        // changes
-        this.popupHandler = new PopupHandler();
-        this.setPopupModel(new DefaultPopupButtonModel());
-
-        this.commandButtonKind = CommandButtonKind.ACTION_ONLY;
-        this.popupOrientationKind = CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD;
-        this.isAutoRepeatAction = false;
-        this.autoRepeatInitialInterval = Command.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS;
-        this.autoRepeatSubsequentInterval = Command.DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS;
-
-        this.updateUI();
-    }
-
     public JCommandButton(Command command, CommandPresentation commandPresentation) {
         super(command, commandPresentation);
 
@@ -521,6 +476,26 @@ public class JCommandButton extends AbstractCommandButton {
      */
     public void setPopupCallback(PopupPanelCallback popupCallback) {
         this.popupCallback = popupCallback;
+
+        if (command != null) {
+            boolean hasAction = (command.getAction() != null);
+            boolean hasPopup = (this.popupCallback != null);
+
+            if (hasPopup) {
+                this.setPopupRichTooltip(command.getPopupRichTooltip());
+                this.setPopupKeyTip(commandPresentation.getPopupKeyTip());
+            }
+
+            if (hasAction && hasPopup) {
+                this.setCommandButtonKind(command.isTitleClickAction()
+                        ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
+                        : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
+            } else if (hasPopup) {
+                this.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
+            } else {
+                this.setCommandButtonKind(JCommandButton.CommandButtonKind.ACTION_ONLY);
+            }
+        }
     }
 
     /**

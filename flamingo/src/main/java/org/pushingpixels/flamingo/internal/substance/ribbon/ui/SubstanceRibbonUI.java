@@ -184,9 +184,9 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
 
     @Override
     protected void syncApplicationMenuTips() {
-        if ((this.applicationMenuButton == null)
-                || !this.applicationMenuButton.isVisible())
+        if ((this.applicationMenuButton == null) || !this.applicationMenuButton.isVisible()) {
             return;
+        }
 
         JRibbonRootPane ribbonRootPane = (JRibbonRootPane) SwingUtilities.getRootPane(this.ribbon);
         if (ribbonRootPane == null)
@@ -194,10 +194,8 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
         JRibbonFrame ribbonFrame = (JRibbonFrame) ribbonRootPane.getParent();
         JRibbon ribbon = ribbonFrame.getRibbon();
         if (ribbon != null) {
-            this.applicationMenuButton.setPopupRichTooltip(ribbon
-                    .getApplicationMenuRichTooltip());
-            this.applicationMenuButton.setPopupKeyTip(ribbon
-                    .getApplicationMenuKeyTip());
+            this.applicationMenuButton.setPopupRichTooltip(ribbon.getApplicationMenuRichTooltip());
+            this.applicationMenuButton.setPopupKeyTip(ribbon.getApplicationMenuKeyTip());
         }
     }
 

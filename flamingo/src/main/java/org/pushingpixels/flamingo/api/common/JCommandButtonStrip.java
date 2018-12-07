@@ -39,8 +39,7 @@ import java.awt.*;
 /**
  * Button strip component. Provides visual appearance of a strip. The buttons in
  * the strip are either drawn horizontally with no horizontal space between them
- * or drawn vertically with no vertical space between them. This class is for internal use only
- * and should not be directly used by the applications.
+ * or drawn vertically with no vertical space between them.
  *
  * @author Kirill Grouchnikov
  */

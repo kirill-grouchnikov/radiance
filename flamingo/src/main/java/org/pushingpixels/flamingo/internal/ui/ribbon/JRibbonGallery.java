@@ -341,7 +341,7 @@ public class JRibbonGallery extends JComponent {
                 galleryContentModel.getCommandGroups());
         galleryPopupMenuPanelContentModel.setSingleSelectionMode(true);
         galleryPopupMenuPanelContentModel.setCommandPreviewListener(
-                new Command.CommandPreviewListener() {
+                new Command.CommandActionPreview() {
                     @Override
                     public void onCommandPreviewActivated(Command command) {
                         galleryContentModel.activatePreview(command);

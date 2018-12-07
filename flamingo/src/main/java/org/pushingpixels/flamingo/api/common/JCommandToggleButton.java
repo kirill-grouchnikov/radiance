@@ -46,20 +46,6 @@ public class JCommandToggleButton extends AbstractCommandButton {
 	 */
 	public static final String uiClassID = "CommandToggleButtonUI";
 
-	/**
-	 * Creates a new command toggle button.
-	 * 
-	 * @param title
-	 *            Button title. May contain any number of words.
-	 * @param icon
-	 *            Button icon.
-	 */
-	public JCommandToggleButton(String title, ResizableIcon icon) {
-		super(title, icon);
-		this.setActionModel(new ActionToggleButtonModel(this, false));
-		this.updateUI();
-	}
-
 	public JCommandToggleButton(Command command, CommandPresentation commandPresentation) {
 		super(command, commandPresentation);
 		this.setActionModel(new ActionToggleButtonModel(this, false));

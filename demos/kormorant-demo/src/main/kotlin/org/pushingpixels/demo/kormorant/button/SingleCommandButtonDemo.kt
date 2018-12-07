@@ -32,7 +32,7 @@ package org.pushingpixels.demo.kormorant.button
 import org.pushingpixels.demo.kormorant.svg.Help_browser
 import org.pushingpixels.demo.kormorant.svg.Image_x_generic
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.CommandListener
+import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
@@ -59,7 +59,7 @@ fun main(args: Array<String>) {
                 icon = Help_browser.of(16, 16)
                 extraText = resourceBundle.getString("Paste.textExtra")
                 isAutoRepeatAction = true
-                action = CommandListener {
+                action = CommandAction {
                     println("Activated at " + System.currentTimeMillis() + "!")
                 }
                 actionRichTooltip {

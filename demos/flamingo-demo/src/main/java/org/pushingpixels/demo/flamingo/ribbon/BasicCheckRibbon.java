@@ -73,7 +73,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private Command alignRightCommand;
     private Command alignFillCommand;
 
-    private class ExpandActionListener implements CommandListener {
+    private class ExpandActionListener implements CommandAction {
         @Override
         public void commandActivated(CommandActionEvent e) {
             JOptionPane.showMessageDialog(BasicCheckRibbon.this, "Expand button clicked");
@@ -421,9 +421,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 Command.builder()
                         .setTitle(resourceBundle.getString("DocumentLocal.text"))
                         .setIcon(Folder.of(16, 16))
-                        .setAction(
-                                (CommandActionEvent e) -> System.out.println(
-                                        "Document Local activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Document Local activated"))
                         .inToggleGroup(locationGroup)
                         .build()
                         .project(CommandPresentation.builder()
@@ -434,9 +433,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 Command.builder()
                         .setTitle(resourceBundle.getString("DocumentRemote.text"))
                         .setIcon(Folder_remote.of(16, 16))
-                        .setAction(
-                                (CommandActionEvent e) -> System.out.println(
-                                        "Document Remote activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Document Remote activated"))
                         .inToggleGroup(locationGroup)
                         .build()
                         .project(CommandPresentation.builder()
@@ -447,9 +445,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 Command.builder()
                         .setTitle(resourceBundle.getString("DocumentSaved.text"))
                         .setIcon(Folder_saved_search.of(16, 16))
-                        .setAction(
-                                (CommandActionEvent e) -> System.out.println(
-                                        "Document Saved activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Document Saved activated"))
                         .inToggleGroup(locationGroup)
                         .build()
                         .project(CommandPresentation.builder()
@@ -461,8 +458,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
         result.addRibbonCommand(Command.builder()
                         .setTitle(resourceBundle.getString("DocumentNew.text"))
                         .setIcon(Document_new.of(16, 16))
-                        .setAction((CommandActionEvent e) -> System.out.println("Document New " +
-                                "activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Document New activated"))
                         .build()
                         .project(CommandPresentation.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING).build()),
@@ -502,8 +499,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 Command.builder()
                         .setTitle(resourceBundle.getString("DocumentPrintPreview.text"))
                         .setIcon(Document_print_preview.of(16, 16))
-                        .setAction((CommandActionEvent e) -> System.out
-                                .println("Document Print Preview activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Document Print Preview activated"))
                         .build()
                         .project(CommandPresentation.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING).build()),
@@ -513,8 +510,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 Command.builder()
                         .setTitle(resourceBundle.getString("DocumentProperties.text"))
                         .setIcon(Document_properties.of(16, 16))
-                        .setAction((CommandActionEvent e) -> System.out
-                                .println("Document Properties activated"))
+                        .setAction((CommandActionEvent e) -> System.out.println(
+                                "Document Properties activated"))
                         .build()
                         .project(CommandPresentation.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING).build()),
@@ -783,7 +780,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     colorActivationListener.onColorActivated(defaultColor);
                     JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultColor);
                 })
-                .setActionPreview(new Command.CommandPreviewListener() {
+                .setActionPreview(new Command.CommandActionPreview() {
                     @Override
                     public void onCommandPreviewActivated(Command command) {
                         colorPreviewListener.onColorPreviewActivated(Color.black);
@@ -1111,10 +1108,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
         transitionBand.addRibbonComponent(
                 new JRibbonComponent(null, resourceBundle.getString("Speed.text"), new JComboBox(
                         new Object[] { resourceBundle.getString("Medium.text") + "           " })));
-        JCommandButton applyToAll = new JCommandButton(resourceBundle.getString("ApplyToAll.text"),
-                new SimpleResizableIcon(JRibbonBand.PresentationPriority.TOP, 16, 16));
-        applyToAll.setPresentationState(CommandButtonPresentationState.MEDIUM);
-        applyToAll.setVGapScaleFactor(0.5);
+
+        AbstractCommandButton applyToAll = Command.builder()
+                .setTitle(resourceBundle.getString("ApplyToAll.text"))
+                .setIcon(new SimpleResizableIcon(JRibbonBand.PresentationPriority.TOP, 16, 16))
+                .build().project(CommandPresentation.builder()
+                        .setPresentationState(CommandButtonPresentationState.MEDIUM)
+                        .setVerticalGapScaleFactor(0.5)
+                        .build())
+                .buildComponent();
         transitionBand.addRibbonComponent(new JRibbonComponent(applyToAll));
 
         return transitionBand;
@@ -1238,7 +1240,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         this.styleGalleryContentModel.addCommandActivationListener((Command activated) ->
                 System.out.println("*** Command '" + activated.getTitle() + "' activated! ***"));
         this.styleGalleryContentModel.addCommandPreviewListener(
-                new RibbonGalleryContentModel.GalleryCommandPreviewListener() {
+                new RibbonGalleryContentModel.GalleryCommandActionPreview() {
                     @Override
                     public void onCommandPreviewActivated(Command command) {
                         System.out.println("Preview activated for '" + command.getTitle() + "'");

@@ -34,7 +34,7 @@ import org.pushingpixels.demo.kormorant.svg.Format_justify_fill
 import org.pushingpixels.demo.kormorant.svg.Format_justify_left
 import org.pushingpixels.demo.kormorant.svg.Format_justify_right
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.CommandListener
+import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
 import org.pushingpixels.kormorant.commandToggleGroup
@@ -65,7 +65,7 @@ fun main(args: Array<String>) {
                     command {
                         title = "left"
                         icon = Format_justify_left.of(16, 16)
-                        action = CommandListener {
+                        action = CommandAction {
                             println("Justify left")
                             currentAlignment = StyleConstants.ALIGN_LEFT
                         }
@@ -76,7 +76,7 @@ fun main(args: Array<String>) {
                     command {
                         title = "center"
                         icon = Format_justify_center.of(16, 16)
-                        action = CommandListener {
+                        action = CommandAction {
                             println("Justify center")
                             currentAlignment = StyleConstants.ALIGN_CENTER
                         }
@@ -87,7 +87,7 @@ fun main(args: Array<String>) {
                     command {
                         title = "right"
                         icon = Format_justify_right.of(16, 16)
-                        action = CommandListener {
+                        action = CommandAction {
                             println("Justify right")
                             currentAlignment = StyleConstants.ALIGN_RIGHT
                         }
@@ -98,7 +98,7 @@ fun main(args: Array<String>) {
                     command {
                         title = "fill"
                         icon = Format_justify_fill.of(16, 16)
-                        action = CommandListener {
+                        action = CommandAction {
                             println("Justify fill")
                             currentAlignment = StyleConstants.ALIGN_JUSTIFIED
                         }

@@ -45,71 +45,67 @@ import java.util.*;
 /**
  * UI for {@link JCommandButtonPanel} components in <b>Substance</b> look and
  * feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
-	public static ComponentUI createUI(JComponent comp) {
-		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
-		return new SubstanceCommandButtonPanelUI();
-	}
+    public static ComponentUI createUI(JComponent comp) {
+        SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
+        return new SubstanceCommandButtonPanelUI();
+    }
 
-	@Override
-	protected Insets getGroupInsets() {
-		int extraPadding = SubstanceSizeUtils
-				.getExtraPadding(SubstanceSizeUtils
-						.getComponentFontSize(this.buttonPanel));
-		Insets result = BasicCommandButtonPanelUI.GROUP_INSETS;
-		return new Insets(result.top + extraPadding,
-				result.left + extraPadding, result.bottom + extraPadding,
-				result.right + extraPadding);
-	}
+    @Override
+    protected Insets getGroupInsets() {
+        int extraPadding = SubstanceSizeUtils.getExtraPadding(SubstanceSizeUtils
+                .getComponentFontSize(this.buttonPanel));
+        Insets result = BasicCommandButtonPanelUI.GROUP_INSETS;
+        return new Insets(result.top + extraPadding,
+                result.left + extraPadding, result.bottom + extraPadding,
+                result.right + extraPadding);
+    }
 
-	@Override
-	protected int getGroupTitleHeight(int groupIndex) {
-		int extraPadding = SubstanceSizeUtils
-				.getExtraPadding(SubstanceSizeUtils
-						.getComponentFontSize(this.buttonPanel));
-		return this.groupLabels[groupIndex].getPreferredSize().height + 2 * extraPadding;
-	}
+    @Override
+    protected int getGroupTitleHeight(int groupIndex) {
+        int extraPadding = SubstanceSizeUtils.getExtraPadding(SubstanceSizeUtils
+                .getComponentFontSize(this.buttonPanel));
+        return this.groupLabels[groupIndex].getPreferredSize().height + 2 * extraPadding;
+    }
 
-	@Override
-	protected void paintGroupBackground(Graphics g, int groupIndex, int x,
-			int y, int width, int height) {
-		SubstanceColorScheme scheme = SubstanceColorSchemeUtilities
-				.getColorScheme(buttonPanel, ComponentState.ENABLED);
-		Color background = scheme.getBackgroundFillColor();
-		if (groupIndex % 2 == 1)
-			background = SubstanceColorUtilities.getDarkerColor(background,
-					0.06);
+    @Override
+    protected void paintGroupBackground(Graphics g, int groupIndex, int x,
+            int y, int width, int height) {
+        SubstanceColorScheme scheme = SubstanceColorSchemeUtilities
+                .getColorScheme(buttonPanel, ComponentState.ENABLED);
+        Color background = scheme.getBackgroundFillColor();
+        if (groupIndex % 2 == 1) {
+            background = SubstanceColorUtilities.getDarkerColor(background, 0.06);
+        }
 
-		BackgroundPaintingUtils.fillAndWatermark(g, this.buttonPanel,
-				background, new Rectangle(x, y, width, height));
-	}
+        BackgroundPaintingUtils.fillAndWatermark(g, this.buttonPanel,
+                background, new Rectangle(x, y, width, height));
+    }
 
-	@Override
-	protected void paintGroupTitleBackground(Graphics g, int groupIndex, int x,
-			int y, int width, int height) {
-		Set<SubstanceSlices.Side> openSides = EnumSet.of(Side.LEFT,
-				Side.RIGHT);
-		if (groupIndex == 0)
-			openSides.add(Side.TOP);
-		SubstanceColorScheme bgFillScheme = SubstanceColorSchemeUtilities
-				.getColorScheme(this.buttonPanel,
-						ColorSchemeAssociationKind.HIGHLIGHT,
-						ComponentState.ENABLED);
-		SubstanceColorScheme bgBorderScheme = SubstanceColorSchemeUtilities
-				.getColorScheme(this.buttonPanel,
-						ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-						ComponentState.ENABLED);
-		HighlightPainterUtils.paintHighlight(g, null, this.buttonPanel,
-				new Rectangle(x, y, width, height), 1.0f, openSides,
-				bgFillScheme, bgBorderScheme);
-	}
+    @Override
+    protected void paintGroupTitleBackground(Graphics g, int groupIndex, int x,
+            int y, int width, int height) {
+        Set<SubstanceSlices.Side> openSides = EnumSet.of(Side.LEFT, Side.RIGHT);
+        if (groupIndex == 0) {
+            openSides.add(Side.TOP);
+        }
+        SubstanceColorScheme bgFillScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                this.buttonPanel, ColorSchemeAssociationKind.HIGHLIGHT,
+                ComponentState.ENABLED);
+        SubstanceColorScheme bgBorderScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                this.buttonPanel, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
+                ComponentState.ENABLED);
+        HighlightPainterUtils.paintHighlight(g, null, this.buttonPanel,
+                new Rectangle(x, y, width, height), 1.0f, openSides,
+                bgFillScheme, bgBorderScheme);
+    }
 
-	@Override
-	public void update(Graphics g, JComponent c) {
-		BackgroundPaintingUtils.updateIfOpaque(g, c);
-		this.paint(g, c);
-	}
+    @Override
+    public void update(Graphics g, JComponent c) {
+        BackgroundPaintingUtils.updateIfOpaque(g, c);
+        this.paint(g, c);
+    }
 }

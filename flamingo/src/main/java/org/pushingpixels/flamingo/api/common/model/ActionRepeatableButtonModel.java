@@ -114,9 +114,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
 
         if (toFireFirstAction) {
             fireActionPerformed(new CommandActionEvent(this,
-                    ActionEvent.ACTION_PERFORMED,
-                    (Command) this.commandButton.getClientProperty(
-                            FlamingoUtilities.COMMAND),
+                    ActionEvent.ACTION_PERFORMED, this.commandButton.getCommand(),
                     getActionCommand(),
                     EventQueue.getMostRecentEventTime(), modifiers));
             if (commandButton.isAutoRepeatAction()) {
@@ -164,9 +162,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
                 }
 
                 fireActionPerformed(new CommandActionEvent(this,
-                        ActionEvent.ACTION_PERFORMED,
-                        (Command) this.commandButton.getClientProperty(
-                                FlamingoUtilities.COMMAND),
+                        ActionEvent.ACTION_PERFORMED, this.commandButton.getCommand(),
                         getActionCommand(),
                         EventQueue.getMostRecentEventTime(), modifiers));
                 if (commandButton.isAutoRepeatAction()) {
@@ -220,8 +216,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
                         return;
                     }
                     fireActionPerformed(new CommandActionEvent(this, ActionEvent.ACTION_PERFORMED,
-                            (Command) this.commandButton.getClientProperty(
-                                    FlamingoUtilities.COMMAND),
+                            this.commandButton.getCommand(),
                             getActionCommand(), EventQueue.getMostRecentEventTime(), modifiers));
                 });
         this.autoRepeatTimer.setInitialDelay(this.commandButton

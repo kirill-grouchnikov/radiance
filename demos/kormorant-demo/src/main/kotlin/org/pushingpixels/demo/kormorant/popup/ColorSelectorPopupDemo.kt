@@ -31,7 +31,7 @@ package org.pushingpixels.demo.kormorant.popup
 
 import org.pushingpixels.ember.setColorizationFactor
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.CommandListener
+import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.kormorant.DelayedCommandListener
 import org.pushingpixels.kormorant.colorSelectorPopupMenu
@@ -132,7 +132,7 @@ fun main(args: Array<String>) {
                     command {
                         title = resourceBundle.getString("ColorSelector.textAutomatic")
                         icon = ColorIcon(defaultPanelColor)
-                        action = CommandListener {
+                        action = CommandAction {
                             onColorActivatedListener.invoke(defaultPanelColor)
                             JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor)
                         }

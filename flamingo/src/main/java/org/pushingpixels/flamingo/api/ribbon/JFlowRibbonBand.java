@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.CommandListener;
+import org.pushingpixels.flamingo.api.common.CommandAction;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JFlowBandControlPanel;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -62,7 +62,7 @@ public class JFlowRibbonBand extends AbstractRibbonBand {
      * @param expandCommandListener Expand command listener (can be <code>null</code>).
      */
     public JFlowRibbonBand(String title, ResizableIcon icon,
-            CommandListener expandCommandListener) {
+            CommandAction expandCommandListener) {
         super(title, icon, expandCommandListener, new JFlowBandControlPanel());
         this.resizePolicies = CoreRibbonResizePolicies.getCoreFlowPoliciesRestrictive(this, 3);
         updateUI();

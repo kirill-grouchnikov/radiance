@@ -36,7 +36,7 @@ import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton
 import org.pushingpixels.flamingo.api.common.CommandActionEvent
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.CommandListener
+import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.model.*
 import org.pushingpixels.flamingo.api.common.projection.AbstractPopupMenuProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection
@@ -119,8 +119,8 @@ open class KCommand {
     // multiple times. Internally, the setter propagates the new value to the underlying
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
-    private var _action: CommandListener? = null
-    var action: CommandListener?
+    private var _action: CommandAction? = null
+    var action: CommandAction?
         get() = _action
         set(value) {
             _action = value
@@ -342,7 +342,7 @@ open class KCommand {
             builder.setFireActionOnRollover(command.isFireActionOnRollover)
             builder.setFireActionOnPress(command.isFireActionOnPress)
 
-            builder.setActionPreview(object: Command.CommandPreviewListener {
+            builder.setActionPreview(object: Command.CommandActionPreview {
                 override fun onCommandPreviewActivated(cmd: Command?) {
                     command.onActionPreviewActivated?.invoke()
                 }
@@ -440,8 +440,8 @@ class KCommandGroup {
     }
 }
 
-fun DelayedCommandListener(listener: (CommandActionEvent) -> Unit): CommandListener {
-    return CommandListener { event ->
+fun DelayedCommandListener(listener: (CommandActionEvent) -> Unit): CommandAction {
+    return CommandAction { event ->
         GlobalScope.launch(Dispatchers.Swing) {
             listener.invoke(event)
         }

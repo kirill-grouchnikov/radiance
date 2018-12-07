@@ -90,12 +90,12 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      * 
      * @see #DONT_DISPOSE_POPUPS
      */
-    protected ActionListener disposePopupsActionListener;
+    private CommandAction disposePopupsActionListener;
 
     /**
      * Action listener on the popup area.
      */
-    protected PopupActionListener popupActionListener;
+    private PopupActionListener popupActionListener;
 
     /**
      * The "expand" action icon.
@@ -122,7 +122,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.layoutManager = this.commandButton.getPresentationState()
                 .createLayoutManager(this.commandButton);
 
-        this.updateCustomDimension();
+        this.updateIconDimension();
     }
 
     @Override
@@ -226,8 +226,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             if ("popupOrientationKind".equals(evt.getPropertyName())) {
                 updatePopupActionIcon();
             }
-            if ("customDimension".equals(evt.getPropertyName())) {
-                updateCustomDimension();
+            if ("iconDimension".equals(evt.getPropertyName())) {
+                updateIconDimension();
             }
             if ("hgapScaleFactor".equals(evt.getPropertyName())) {
                 updateBorder();
@@ -272,7 +272,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         };
         this.commandButton.addPropertyChangeListener(this.propertyChangeListener);
 
-        this.disposePopupsActionListener = (ActionEvent e) -> {
+        this.disposePopupsActionListener = (CommandActionEvent e) -> {
             boolean toDismiss = !Boolean.TRUE
                     .equals(commandButton.getClientProperty(DONT_DISPOSE_POPUPS));
             if (toDismiss) {
@@ -298,7 +298,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 PopupPanelManager.defaultManager().hidePopups(null);
             }
         };
-        this.commandButton.addActionListener(this.disposePopupsActionListener);
+        this.commandButton.addCommandListener(this.disposePopupsActionListener);
 
         if (this.commandButton instanceof JCommandButton) {
             this.popupActionListener = this.createPopupActionListener();
@@ -364,7 +364,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.commandButton.removePropertyChangeListener(this.propertyChangeListener);
         this.propertyChangeListener = null;
 
-        this.commandButton.removeActionListener(this.disposePopupsActionListener);
+        this.commandButton.removeCommandListener(this.disposePopupsActionListener);
         this.disposePopupsActionListener = null;
 
         if (this.commandButton instanceof JCommandButton) {
@@ -420,10 +420,10 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     }
 
     /**
-     * Updates the custom dimension.
+     * Updates the icon dimension.
      */
-    protected void updateCustomDimension() {
-        int dimension = this.commandButton.getCustomDimension();
+    private void updateIconDimension() {
+        int dimension = this.commandButton.getIconDimension();
 
         if (dimension > 0) {
             this.commandButton.getIcon().setDimension(new Dimension(dimension, dimension));

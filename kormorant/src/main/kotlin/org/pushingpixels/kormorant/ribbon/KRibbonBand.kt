@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.kormorant.ribbon
 
-import org.pushingpixels.flamingo.api.common.CommandListener
+import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand
@@ -42,7 +42,7 @@ import javax.swing.JComponent
 
 @FlamingoElementMarker
 class KRibbonBandExpandCommand {
-    var action: CommandListener? by NullableDelegate { false }
+    var action: CommandAction? by NullableDelegate { false }
     internal var richTooltip: KRichTooltip? by NullableDelegate { false }
     var keyTip: String? by NullableDelegate { false }
 

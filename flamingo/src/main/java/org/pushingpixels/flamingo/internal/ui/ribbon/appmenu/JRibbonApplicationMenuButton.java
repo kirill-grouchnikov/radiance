@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
 
 import javax.swing.*;
@@ -117,39 +118,41 @@ public class JRibbonApplicationMenuButton extends JCommandButton {
      * @param ribbon Associated ribbon.
      */
     public JRibbonApplicationMenuButton(JRibbon ribbon) {
-        super("", null);
-        this.setCommandButtonKind(CommandButtonKind.POPUP_ONLY);
-        this.setPresentationState(APP_MENU_BUTTON_STATE);
-        this.setHorizontalAlignment(SwingUtilities.CENTER);
+        super(Command.builder().setPopupCallback((JCommandButton commandButton) -> {
+                    RibbonApplicationMenu ribbonMenu = ribbon.getApplicationMenu();
+                    final JRibbonApplicationMenuPopupPanel menuPopupPanel =
+                            new JRibbonApplicationMenuPopupPanel(ribbonMenu);
+                    menuPopupPanel.applyComponentOrientation(
+                            commandButton.getComponentOrientation());
+                    menuPopupPanel.setCustomizer(() -> {
+                        boolean ltr =
+                                commandButton.getComponentOrientation().isLeftToRight();
 
-        this.setPopupCallback((JCommandButton commandButton) -> {
-            RibbonApplicationMenu ribbonMenu = ribbon.getApplicationMenu();
-            final JRibbonApplicationMenuPopupPanel menuPopupPanel =
-                    new JRibbonApplicationMenuPopupPanel(ribbonMenu);
-            menuPopupPanel.applyComponentOrientation(getComponentOrientation());
-            menuPopupPanel.setCustomizer(() -> {
-                boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
+                        int pw = menuPopupPanel.getPreferredSize().width;
+                        int x = ltr ? ribbon.getLocationOnScreen().x
+                                : ribbon.getLocationOnScreen().x + ribbon.getWidth() - pw;
+                        int y = commandButton.getLocationOnScreen().y +
+                                commandButton.getSize().height + 2;
 
-                int pw = menuPopupPanel.getPreferredSize().width;
-                int x = ltr ? ribbon.getLocationOnScreen().x
-                        : ribbon.getLocationOnScreen().x + ribbon.getWidth() - pw;
-                int y = commandButton.getLocationOnScreen().y + commandButton.getSize().height
-                        + 2;
+                        // make sure that the menu popup stays in bounds
+                        Rectangle scrBounds =
+                                commandButton.getGraphicsConfiguration().getBounds();
+                        if ((x + pw) > (scrBounds.x + scrBounds.width)) {
+                            x = scrBounds.x + scrBounds.width - pw;
+                        }
+                        int ph = menuPopupPanel.getPreferredSize().height;
+                        if ((y + ph) > (scrBounds.y + scrBounds.height)) {
+                            y = scrBounds.y + scrBounds.height - ph;
+                        }
 
-                // make sure that the menu popup stays in bounds
-                Rectangle scrBounds = commandButton.getGraphicsConfiguration().getBounds();
-                if ((x + pw) > (scrBounds.x + scrBounds.width)) {
-                    x = scrBounds.x + scrBounds.width - pw;
-                }
-                int ph = menuPopupPanel.getPreferredSize().height;
-                if ((y + ph) > (scrBounds.y + scrBounds.height)) {
-                    y = scrBounds.y + scrBounds.height - ph;
-                }
-
-                return new Rectangle(x, y, menuPopupPanel.getPreferredSize().width,
-                        menuPopupPanel.getPreferredSize().height);
-            });
-            return menuPopupPanel;
-        });
+                        return new Rectangle(x, y, menuPopupPanel.getPreferredSize().width,
+                                menuPopupPanel.getPreferredSize().height);
+                    });
+                    return menuPopupPanel;
+                }).build(),
+                CommandPresentation.builder()
+                        .setPresentationState(APP_MENU_BUTTON_STATE)
+                        .setHorizontalAlignment(SwingConstants.CENTER)
+                        .build());
     }
 }

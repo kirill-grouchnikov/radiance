@@ -106,6 +106,7 @@ public class SvgViewer extends JFrame {
                                     svgFileViewPanel.setFolder(get());
                                     svgFileViewPanel.setIconDimension(currIconSize);
                                 } catch (Exception exc) {
+                                    exc.printStackTrace();
                                 }
                             }
                         };

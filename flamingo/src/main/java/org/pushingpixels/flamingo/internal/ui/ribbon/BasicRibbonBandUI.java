@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
@@ -59,12 +60,14 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      * The button for collapsed state.
      */
     private JCommandButton collapsedButton;
+    private Command collapseCommand;
 
     /**
      * The band expand button. Is visible when the {@link JRibbonBand#getExpandCommandListener()} of
      * the associated ribbon band is not <code>null</code>.
      */
     protected AbstractCommandButton expandButton;
+    protected Command expandCommand;
 
     /**
      * Mouse listener on the associated ribbon band.
@@ -157,14 +160,21 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      * Installs subcomponents on the associated ribbon band.
      */
     protected void installComponents() {
-        this.collapsedButton = new JCommandButton(this.ribbonBand.getTitle(),
-                this.ribbonBand.getIcon());
-        this.collapsedButton.setPresentationState(CommandButtonPresentationState.BIG);
-        this.collapsedButton.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
-        this.collapsedButton.setPopupKeyTip(this.ribbonBand.getCollapsedStateKeyTip());
+        this.collapseCommand = Command.builder()
+                .setTitle(this.ribbonBand.getTitle())
+                .setIcon(this.ribbonBand.getIcon())
+                .build();
+
+        this.collapsedButton = (JCommandButton) this.collapseCommand.project(
+                CommandPresentation.builder()
+                        .setPresentationState(CommandButtonPresentationState.BIG)
+                        .setPopupKeyTip(this.ribbonBand.getCollapsedStateKeyTip())
+                        .build())
+                .buildComponent();
         this.ribbonBand.add(this.collapsedButton);
 
         if (this.ribbonBand.getExpandCommandListener() != null) {
+            this.expandCommand = this.createExpandCommand();
             this.expandButton = this.createExpandButton();
             this.ribbonBand.add(this.expandButton);
         }
@@ -175,7 +185,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      *
      * @return Expand button for the associated ribbon band.
      */
-    protected abstract JCommandButton createExpandButton();
+    protected abstract AbstractCommandButton createExpandButton();
+    protected abstract Command createExpandCommand();
 
     protected abstract void syncExpandButtonIcon();
 
@@ -193,13 +204,14 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             if ("title".equals(evt.getPropertyName()))
                 ribbonBand.repaint();
             if ("expandButtonKeyTip".equals(evt.getPropertyName())) {
+                // TODO - remove this when ribbon bands are constructed from models
                 if (expandButton != null) {
                     expandButton.setActionKeyTip((String) evt.getNewValue());
                 }
             }
             if ("expandButtonRichTooltip".equals(evt.getPropertyName())) {
-                if (expandButton != null) {
-                    expandButton.setActionRichTooltip((RichTooltip) evt.getNewValue());
+                if (expandCommand != null) {
+                    expandCommand.setActionRichTooltip((RichTooltip) evt.getNewValue());
                 }
             }
             if ("collapsedStateKeyTip".equals(evt.getPropertyName())) {
@@ -208,8 +220,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 }
             }
             if ("expandCommandListener".equals(evt.getPropertyName())) {
-                CommandListener oldListener = (CommandListener) evt.getOldValue();
-                CommandListener newListener = (CommandListener) evt.getNewValue();
+                CommandAction oldListener = (CommandAction) evt.getOldValue();
+                CommandAction newListener = (CommandAction) evt.getNewValue();
 
                 if ((oldListener != null) && (newListener == null)) {
                     // need to remove
@@ -225,8 +237,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 }
                 if ((oldListener != null) && (newListener != null)) {
                     // need to reconfigure
-                    expandButton.removeCommandListener(oldListener);
-                    expandButton.addCommandListener(newListener);
+                    expandCommand.setAction(newListener);
                 }
             }
             if ("componentOrientation".equals(evt.getPropertyName())) {
@@ -253,9 +264,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             // restore the control panel to the ribbon band.
             CollapsedButtonPopupPanel popupPanel = (collapsedButton.getPopupCallback() == null)
                     ? null
-                    :
-                    (CollapsedButtonPopupPanel) collapsedButton
-                            .getPopupCallback()
+                    : (CollapsedButtonPopupPanel) collapsedButton.getPopupCallback()
                             .getPopupPanel(collapsedButton);
             if (popupPanel != null) {
                 AbstractRibbonBand bandFromPopup = (AbstractRibbonBand) popupPanel
@@ -410,8 +419,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             }
 
             if (collapsedButton.isVisible()) {
-                // was icon and now is normal band - have to restore the
-                // control panel
+                // was icon and now is normal band - have to restore the control panel
                 CollapsedButtonPopupPanel popupPanel =
                         (collapsedButton.getPopupCallback() != null) ?
                                 (CollapsedButtonPopupPanel) collapsedButton.getPopupCallback()

@@ -32,6 +32,7 @@ package org.pushingpixels.flamingo.internal.ui.common;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel.ScrollType;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,9 +52,12 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
 
     private JPanel viewport;
 
-    private JCommandButton leadingScroller;
+    private AbstractCommandButton leadingScroller;
 
-    private JCommandButton trailingScroller;
+    private AbstractCommandButton trailingScroller;
+
+    private Command leadingScrollCommand;
+    private Command trailingScrollCommand;
 
     private int viewOffset;
 
@@ -87,8 +91,8 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         this.propertyChangeListener = (PropertyChangeEvent evt) -> {
             if ("scrollOnRollover".equals(evt.getPropertyName())) {
                 boolean isScrollOnRollover = (Boolean) evt.getNewValue();
-                leadingScroller.setFireActionOnRollover(isScrollOnRollover);
-                trailingScroller.setFireActionOnRollover(isScrollOnRollover);
+                leadingScrollCommand.setFireActionOnRollover(isScrollOnRollover);
+                trailingScrollCommand.setFireActionOnRollover(isScrollOnRollover);
             }
         };
         this.scrollablePanel.addPropertyChangeListener(this.propertyChangeListener);
@@ -150,12 +154,50 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         }
         this.scrollablePanel.add(this.viewport);
 
-        this.leadingScroller = this.createLeadingScroller();
-        this.configureLeftScrollerButtonAction();
+        this.leadingScrollCommand = Command.builder()
+                .setAutoRepeatAction(true)
+                .setAutoRepeatActionIntervals(200, 50)
+                .setFireActionOnRollover(this.scrollablePanel.isScrollOnRollover())
+                .setAction((CommandActionEvent e) -> {
+                    viewOffset -= 12;
+                    syncScrolling();
+                })
+                .build();
+
+        this.trailingScrollCommand = Command.builder()
+                .setAutoRepeatAction(true)
+                .setAutoRepeatActionIntervals(200, 50)
+                .setFireActionOnRollover(this.scrollablePanel.isScrollOnRollover())
+                .setAction((CommandActionEvent e) -> {
+                    viewOffset += 12;
+                    syncScrolling();
+                })
+                .build();
+
+        // Common scroller command presentation
+        CommandPresentation scrollerActionsPresentation = CommandPresentation.builder()
+                .setFocusable(false)
+                .setToDismissPopupsOnActivation(false)
+                .setHorizontalAlignment(SwingConstants.CENTER)
+                .setFlat(true)
+                .build();
+
+        // Create command projections for scroller commands and set button customizers for
+        // icons and additional straight sides
+        CommandProjection leadingScrollerProjection = this.leadingScrollCommand.project(
+                scrollerActionsPresentation);
+        leadingScrollerProjection.setComponentCustomizer((AbstractCommandButton button) ->
+                configureLeadingScrollerButton(button));
+
+        CommandProjection trailingScrollerProjection = this.trailingScrollCommand.project(
+                scrollerActionsPresentation);
+        trailingScrollerProjection.setComponentCustomizer((AbstractCommandButton button) ->
+                configureTrailingScrollerButton(button));
+
+        this.leadingScroller = leadingScrollerProjection.buildComponent();
         this.scrollablePanel.add(this.leadingScroller);
 
-        this.trailingScroller = this.createTrailingScroller();
-        this.configureRightScrollerButtonAction();
+        this.trailingScroller = trailingScrollerProjection.buildComponent();
         this.scrollablePanel.add(this.trailingScroller);
     }
 
@@ -193,29 +235,9 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         }
     }
 
-    protected JCommandButton createLeadingScroller() {
-        JCommandButton b = new JCommandButton(
-                Command.builder().build(),
-                CommandPresentation.builder().setToDismissPopupsOnActivation(false).build());
+    protected abstract void configureLeadingScrollerButton(AbstractCommandButton button);
 
-        b.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        b.setFocusable(false);
-        b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        b.putClientProperty(BasicCommandButtonUI.EMULATE_SQUARE_BUTTON, Boolean.TRUE);
-        return b;
-    }
-
-    protected JCommandButton createTrailingScroller() {
-        JCommandButton b = new JCommandButton(
-                Command.builder().build(),
-                CommandPresentation.builder().setToDismissPopupsOnActivation(false).build());
-
-        b.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        b.setFocusable(false);
-        b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        b.putClientProperty(BasicCommandButtonUI.EMULATE_SQUARE_BUTTON, Boolean.TRUE);
-        return b;
-    }
+    protected abstract void configureTrailingScrollerButton(AbstractCommandButton button);
 
     private void syncScrolling() {
         this.scrollablePanel.doLayout();
@@ -229,26 +251,6 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
             this.scrollablePanel.revalidate();
             this.scrollablePanel.repaint();
         }
-    }
-
-    private void configureLeftScrollerButtonAction() {
-        this.leadingScroller.setAutoRepeatAction(true);
-        this.leadingScroller.setAutoRepeatActionIntervals(200, 50);
-        this.leadingScroller.setFireActionOnRollover(this.scrollablePanel.isScrollOnRollover());
-        this.leadingScroller.addActionListener((ActionEvent e) -> {
-            viewOffset -= 12;
-            syncScrolling();
-        });
-    }
-
-    private void configureRightScrollerButtonAction() {
-        this.trailingScroller.setAutoRepeatAction(true);
-        this.trailingScroller.setAutoRepeatActionIntervals(200, 50);
-        this.trailingScroller.setFireActionOnRollover(this.scrollablePanel.isScrollOnRollover());
-        this.trailingScroller.addActionListener((ActionEvent e) -> {
-            viewOffset += 12;
-            syncScrolling();
-        });
     }
 
     @Override

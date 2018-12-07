@@ -145,7 +145,7 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @param icon                  Associated icon (for collapsed state).
      * @param expandCommandListener Expand command listener (can be <code>null</code>).
      */
-    public JRibbonBand(String title, ResizableIcon icon, CommandListener expandCommandListener) {
+    public JRibbonBand(String title, ResizableIcon icon, CommandAction expandCommandListener) {
         super(title, icon, expandCommandListener, new JBandControlPanel());
         this.resizePolicies = Collections
                 .unmodifiableList(CoreRibbonResizePolicies.getCorePoliciesPermissive(this));

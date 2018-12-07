@@ -78,8 +78,7 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
     }
 
     private void populateContent() {
-        List<ColorSelectorPopupMenuGroupModel> menuGroups =
-                this.contentModel.getMenuGroups();
+        List<ColorSelectorPopupMenuGroupModel> menuGroups = this.contentModel.getMenuGroups();
         for (int i = 0; i < menuGroups.size(); i++) {
             ColorSelectorPopupMenuGroupModel menuGroup = menuGroups.get(i);
             for (KeyValuePair<ColorSelectorPopupMenuGroupModel.GroupEntryKind, Object> groupEntry :

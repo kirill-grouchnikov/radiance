@@ -33,7 +33,7 @@ import org.pushingpixels.demo.kormorant.svg.Format_justify_center
 import org.pushingpixels.demo.kormorant.svg.Format_justify_fill
 import org.pushingpixels.demo.kormorant.svg.Format_justify_left
 import org.pushingpixels.demo.kormorant.svg.Format_justify_right
-import org.pushingpixels.flamingo.api.common.CommandListener
+import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.kormorant.commandToggleButtonStrip
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -81,25 +81,25 @@ fun main(args: Array<String>) {
             command {
                 icon = Format_justify_left.of(16, 16)
                 isToggleSelected = true
-                action = CommandListener {
+                action = CommandAction {
                     textPane.setAlignment(StyleConstants.ALIGN_LEFT)
                 }
             }
             command {
                 icon = Format_justify_center.of(16, 16)
-                action = CommandListener {
+                action = CommandAction {
                     textPane.setAlignment(StyleConstants.ALIGN_CENTER)
                 }
             }
             command {
                 icon = Format_justify_right.of(16, 16)
-                action = CommandListener {
+                action = CommandAction {
                     textPane.setAlignment(StyleConstants.ALIGN_RIGHT)
                 }
             }
             command {
                 icon = Format_justify_fill.of(16, 16)
-                action = CommandListener {
+                action = CommandAction {
                     textPane.setAlignment(StyleConstants.ALIGN_JUSTIFIED)
                 }
             }

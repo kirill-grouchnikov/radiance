@@ -48,7 +48,7 @@ public class RibbonGalleryContentModel {
      */
     private EventListenerList listenerList = new EventListenerList();
 
-    public interface GalleryCommandPreviewListener extends EventListener {
+    public interface GalleryCommandActionPreview extends EventListener {
         void onCommandPreviewActivated(Command command);
 
         void onCommandPreviewCanceled(Command command);
@@ -134,8 +134,8 @@ public class RibbonGalleryContentModel {
      *
      * @param l the listener to add
      */
-    public void addCommandPreviewListener(GalleryCommandPreviewListener l) {
-        this.listenerList.add(GalleryCommandPreviewListener.class, l);
+    public void addCommandPreviewListener(GalleryCommandActionPreview l) {
+        this.listenerList.add(GalleryCommandActionPreview.class, l);
     }
 
     /**
@@ -143,8 +143,8 @@ public class RibbonGalleryContentModel {
      *
      * @param l the listener to remove
      */
-    public void removeCommandPreviewListener(GalleryCommandPreviewListener l) {
-        this.listenerList.remove(GalleryCommandPreviewListener.class, l);
+    public void removeCommandPreviewListener(GalleryCommandActionPreview l) {
+        this.listenerList.remove(GalleryCommandActionPreview.class, l);
     }
 
     /**
@@ -216,8 +216,8 @@ public class RibbonGalleryContentModel {
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == GalleryCommandPreviewListener.class) {
-                ((GalleryCommandPreviewListener) listeners[i + 1]).
+            if (listeners[i] == GalleryCommandActionPreview.class) {
+                ((GalleryCommandActionPreview) listeners[i + 1]).
                         onCommandPreviewActivated(command);
             }
         }
@@ -229,8 +229,8 @@ public class RibbonGalleryContentModel {
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == GalleryCommandPreviewListener.class) {
-                ((GalleryCommandPreviewListener) listeners[i + 1]).
+            if (listeners[i] == GalleryCommandActionPreview.class) {
+                ((GalleryCommandActionPreview) listeners[i + 1]).
                         onCommandPreviewCanceled(command);
             }
         }

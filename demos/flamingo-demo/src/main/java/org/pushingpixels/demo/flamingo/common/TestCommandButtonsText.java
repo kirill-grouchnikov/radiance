@@ -34,8 +34,6 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 import java.text.MessageFormat;
 
 public class TestCommandButtonsText extends TestCommandButtons {
@@ -55,7 +53,7 @@ public class TestCommandButtonsText extends TestCommandButtons {
         this.pastePopupCommand.setAction(new CounterActionListener());
     }
 
-    private class CounterActionListener implements CommandListener {
+    private class CounterActionListener implements CommandAction {
         int count = 0;
 
         @Override

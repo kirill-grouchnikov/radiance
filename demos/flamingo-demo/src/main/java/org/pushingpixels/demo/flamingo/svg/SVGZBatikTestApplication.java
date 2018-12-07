@@ -31,6 +31,7 @@
 package org.pushingpixels.demo.flamingo.svg;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.photon.icon.SvgBatikResizableIcon;
 
 import javax.swing.*;
@@ -54,8 +55,6 @@ public class SVGZBatikTestApplication extends JFrame {
         app.setVisible(true);
     }
 
-    JFrame frame;
-
     SvgIconPanel panel;
 
     public SVGZBatikTestApplication() {
@@ -63,21 +62,21 @@ public class SVGZBatikTestApplication extends JFrame {
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton size16 = new JButton("size16");
         size16.addActionListener((ActionEvent e) -> {
-            panel.iconButton.updateCustomDimension(16);
+            panel.iconButton.setIconDimension(16);
             panel.doLayout();
             panel.iconButton.doLayout();
             panel.repaint();
         });
         JButton size32 = new JButton("size32");
         size32.addActionListener((ActionEvent e) -> {
-            panel.iconButton.updateCustomDimension(32);
+            panel.iconButton.setIconDimension(32);
             panel.doLayout();
             panel.iconButton.doLayout();
             panel.repaint();
         });
         JButton size256 = new JButton("size256");
         size256.addActionListener((ActionEvent e) -> {
-            panel.iconButton.updateCustomDimension(256);
+            panel.iconButton.setIconDimension(256);
             panel.doLayout();
             panel.iconButton.doLayout();
             panel.repaint();
@@ -91,8 +90,7 @@ public class SVGZBatikTestApplication extends JFrame {
     }
 
     private static class SvgIconPanel extends JPanel {
-        // SvgBatikResizableIcon icon;
-        JCommandButton iconButton;
+        AbstractCommandButton iconButton;
 
         public SvgIconPanel() {
             this.setLayout(new SvgIconPanelLayout());
@@ -100,8 +98,9 @@ public class SVGZBatikTestApplication extends JFrame {
                     "/org/pushingpixels/demo/flamingo/svg/oxygen/office-address-book.svgz");
             SvgBatikResizableIcon icon = SvgBatikResizableIcon.getSvgzIcon(is,
                     new Dimension(32, 32));
-            iconButton = new JCommandButton("just icon", icon);
-            iconButton.setPresentationState(CommandButtonPresentationState.BIG);
+            iconButton = Command.builder().setTitle("just icon").setIcon(icon).build()
+                    .project(CommandPresentation.builder().setPresentationState(
+                            CommandButtonPresentationState.BIG).build()).buildComponent();
             add(iconButton);
         }
 

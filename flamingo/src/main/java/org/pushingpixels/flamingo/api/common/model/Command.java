@@ -65,8 +65,8 @@ public class Command implements ContentModel {
     private ResizableIcon disabledIcon;
     private ResizableIconFactory disabledIconFactory;
     private String extraText;
-    private CommandListener action;
-    private Command.CommandPreviewListener actionPreview;
+    private CommandAction action;
+    private CommandActionPreview actionPreview;
     private RichTooltip actionRichTooltip;
     private AbstractPopupMenuProjection popupMenuProjection;
     private PopupPanelCallback popupCallback;
@@ -222,12 +222,12 @@ public class Command implements ContentModel {
         this.pcs.firePropertyChange("extraText", old, this.extraText);
     }
 
-    public CommandListener getAction() {
+    public CommandAction getAction() {
         return this.action;
     }
 
-    public void setAction(CommandListener actionListener) {
-        CommandListener old = this.action;
+    public void setAction(CommandAction actionListener) {
+        CommandAction old = this.action;
         this.action = actionListener;
         this.pcs.firePropertyChange("action", old, this.action);
     }
@@ -386,7 +386,7 @@ public class Command implements ContentModel {
         }
     }
 
-    public CommandPreviewListener getActionPreview() {
+    public CommandActionPreview getActionPreview() {
         return this.actionPreview;
     }
 
@@ -450,7 +450,7 @@ public class Command implements ContentModel {
         return new CommandProjection(this, commandPresentation);
     }
 
-    public interface CommandPreviewListener extends EventListener {
+    public interface CommandActionPreview extends EventListener {
         void onCommandPreviewActivated(Command command);
 
         void onCommandPreviewCanceled(Command command);
@@ -463,8 +463,8 @@ public class Command implements ContentModel {
         protected ResizableIcon disabledIcon;
         protected ResizableIconFactory disabledIconFactory;
         protected String extraText;
-        protected CommandListener action;
-        protected CommandPreviewListener actionPreview;
+        protected CommandAction action;
+        protected CommandActionPreview actionPreview;
         protected RichTooltip actionRichTooltip;
         protected AbstractPopupMenuProjection popupMenuProjection;
         protected PopupPanelCallback popupCallback;
@@ -548,7 +548,7 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
-        public B setAction(CommandListener action) {
+        public B setAction(CommandAction action) {
             this.action = action;
             return (B) this;
         }
@@ -644,7 +644,7 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
-        public B setActionPreview(CommandPreviewListener actionPreview) {
+        public B setActionPreview(CommandActionPreview actionPreview) {
             this.actionPreview = actionPreview;
             return (B) this;
         }
