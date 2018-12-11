@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 
 import javax.swing.event.*;
 
@@ -80,6 +80,10 @@ public class CommandStripPresentationModel implements MutablePresentationModel {
      */
     private StripOrientation orientation;
 
+    private boolean isFlat;
+    private boolean isFocusable;
+    private boolean toDismissPopupsOnActivation;
+
     private CommandStripPresentationModel() {
     }
 
@@ -108,6 +112,18 @@ public class CommandStripPresentationModel implements MutablePresentationModel {
 
     public StripOrientation getOrientation() {
         return this.orientation;
+    }
+
+    public boolean isFlat() {
+        return this.isFlat;
+    }
+
+    public boolean isFocusable() {
+        return this.isFocusable;
+    }
+
+    public boolean isToDismissPopupsOnActivation() {
+        return this.toDismissPopupsOnActivation;
     }
 
     /**
@@ -152,6 +168,9 @@ public class CommandStripPresentationModel implements MutablePresentationModel {
         private double hgapScaleFactor = -1;
         private double vgapScaleFactor = -1;
         private StripOrientation orientation = StripOrientation.HORIZONTAL;
+        private boolean isFlat = false;
+        private boolean isFocusable = true;
+        private boolean toDismissPopupsOnActivation = true;
 
         public Builder setCommandPresentationState(
                 CommandButtonPresentationState commandPresentationState) {
@@ -171,6 +190,21 @@ public class CommandStripPresentationModel implements MutablePresentationModel {
 
         public Builder setOrientation(StripOrientation orientation) {
             this.orientation = orientation;
+            return this;
+        }
+
+        public Builder setFlat(boolean flat) {
+            this.isFlat = flat;
+            return this;
+        }
+
+        public Builder setFocusable(boolean focusable) {
+            this.isFocusable = focusable;
+            return this;
+        }
+
+        public Builder setToDismissPopupsOnActivation(boolean toDismissPopupsOnActivation) {
+            this.toDismissPopupsOnActivation = toDismissPopupsOnActivation;
             return this;
         }
 
@@ -194,6 +228,9 @@ public class CommandStripPresentationModel implements MutablePresentationModel {
             } else {
                 presentationModel.vgapScaleFactor = this.vgapScaleFactor;
             }
+            presentationModel.isFlat = this.isFlat;
+            presentationModel.isFocusable = this.isFocusable;
+            presentationModel.toDismissPopupsOnActivation = this.toDismissPopupsOnActivation;
             return presentationModel;
         }
     }

@@ -29,17 +29,15 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.model;
 
-import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.neon.icon.ResizableIconFactory;
 
 import javax.swing.event.*;
 import java.util.*;
 
-public class RibbonGalleryContentModel {
-    private List<CommandProjectionGroupModel> commandGroups;
-    private List<CommandProjectionGroupModel> extraPopupCommandGroups;
+public class RibbonGalleryContentModel implements ContentModel {
+    private List<CommandGroupModel> commandGroups;
+    private List<CommandGroupModel> extraPopupCommandGroups;
     private Command selectedCommand;
     private ResizableIconFactory iconFactory;
 
@@ -58,30 +56,30 @@ public class RibbonGalleryContentModel {
         void onCommandActivated(Command command);
     }
 
-    private CommandProjectionGroupModel.CommandProjectionGroupListener commandGroupListener;
+    private CommandGroupModel.CommandGroupListener commandGroupListener;
 
     public RibbonGalleryContentModel(ResizableIconFactory iconFactory,
-            List<CommandProjectionGroupModel> commands) {
+            List<CommandGroupModel> commands) {
         this.iconFactory = iconFactory;
         this.commandGroups = new ArrayList<>(commands);
 
-        this.commandGroupListener = new CommandProjectionGroupModel.CommandProjectionGroupListener() {
+        this.commandGroupListener = new CommandGroupModel.CommandGroupListener() {
             @Override
-            public void onCommandProjectionAdded(CommandProjection commandProjection) {
+            public void onCommandAdded(Command command) {
                 fireStateChanged();
             }
 
             @Override
-            public void onCommandProjectionRemoved(CommandProjection commandProjection) {
+            public void onCommandRemoved(Command command) {
                 fireStateChanged();
             }
 
             @Override
-            public void onAllCommandProjectionsRemoved() {
+            public void onAllCommandsRemoved() {
                 fireStateChanged();
             }
         };
-        for (CommandProjectionGroupModel commandGroupModel : this.commandGroups) {
+        for (CommandGroupModel commandGroupModel : this.commandGroups) {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         }
 
@@ -92,12 +90,12 @@ public class RibbonGalleryContentModel {
         return this.iconFactory;
     }
 
-    public List<CommandProjectionGroupModel> getCommandGroups() {
+    public List<CommandGroupModel> getCommandGroups() {
         return Collections.unmodifiableList(this.commandGroups);
     }
 
-    public CommandProjectionGroupModel getCommandGroupByTitle(String commandGroupTitle) {
-        for (CommandProjectionGroupModel commandGroupModel : this.commandGroups) {
+    public CommandGroupModel getCommandGroupByTitle(String commandGroupTitle) {
+        for (CommandGroupModel commandGroupModel : this.commandGroups) {
             if (commandGroupModel.getTitle().equals(commandGroupTitle)) {
                 return commandGroupModel;
             }
@@ -105,27 +103,27 @@ public class RibbonGalleryContentModel {
         return null;
     }
 
-    public void addCommandGroup(CommandProjectionGroupModel commandGroupModel) {
+    public void addCommandGroup(CommandGroupModel commandGroupModel) {
         this.commandGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
-    public void removeCommandGroup(CommandProjectionGroupModel commandGroupModel) {
+    public void removeCommandGroup(CommandGroupModel commandGroupModel) {
         this.commandGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
-    public void addExtraPopupCommandGroup(CommandProjectionGroupModel commandGroupModel) {
+    public void addExtraPopupCommandGroup(CommandGroupModel commandGroupModel) {
         this.extraPopupCommandGroups.add(commandGroupModel);
     }
 
-    public void removeExtraPopupCommandGroup(CommandProjectionGroupModel commandGroupModel) {
+    public void removeExtraPopupCommandGroup(CommandGroupModel commandGroupModel) {
         this.extraPopupCommandGroups.remove(commandGroupModel);
     }
 
-    public List<CommandProjectionGroupModel> getExtraPopupCommandGroups() {
+    public List<CommandGroupModel> getExtraPopupCommandGroups() {
         return Collections.unmodifiableList(this.extraPopupCommandGroups);
     }
 

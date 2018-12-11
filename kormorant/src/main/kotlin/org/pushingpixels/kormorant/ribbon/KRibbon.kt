@@ -31,6 +31,7 @@ package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.neon.icon.ResizableIcon
 import java.awt.Color
@@ -163,9 +164,9 @@ class KRibbonFrame {
             when (taskbarComponent) {
                 is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(taskbarComponent.toJavaProjection())
                 is KRibbonComponent -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent.asJavaRibbonComponent())
-                is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(
+                is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(RibbonGalleryProjection(
                         taskbarComponent.content.asJavaRibbonGalleryContentModel(),
-                        taskbarComponent.presentation.toRibbonGalleryPresentationModel())
+                        taskbarComponent.presentation.toRibbonGalleryPresentationModel()))
                 is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonFrame.ribbon.addTaskbarSeparator()
             }
         }

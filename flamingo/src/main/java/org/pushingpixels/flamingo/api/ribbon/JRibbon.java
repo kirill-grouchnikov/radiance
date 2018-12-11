@@ -33,9 +33,9 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.api.ribbon.model.*;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
-import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -55,7 +55,7 @@ import java.util.*;
  * {@link #addContextualTaskGroup(RibbonContextualTaskGroup)}</li>
  * <li>Application menu button set by {@link #setApplicationMenu(RibbonApplicationMenu)}</li>
  * <li>Taskbar panel populated by {@link #addTaskbarCommand(CommandProjection)},
- * {@link #addTaskbarGalleryDropdown(RibbonGalleryContentModel, RibbonGalleryPresentationModel)}
+ * {@link #addTaskbarGalleryDropdown(RibbonGalleryContentModel, RibbonGalleryPresentationModel, Map)}
  * and {@link #addTaskbarComponent(JRibbonComponent)}</li>
  * <li>Anchored content set by {@link #addAnchoredCommand(CommandProjection)}</li>
  * </ul>
@@ -86,7 +86,7 @@ import java.util.*;
  * <p>
  * The taskbar panel allows showing controls that are visible no matter what ribbon task is
  * selected. To add a taskbar component use the {@link #addTaskbarCommand(CommandProjection)},
- * {@link #addTaskbarGalleryDropdown(RibbonGalleryContentModel, RibbonGalleryPresentationModel)}
+ * {@link #addTaskbarGalleryDropdown(RibbonGalleryContentModel, RibbonGalleryPresentationModel, Map)}
  * and {@link #addTaskbarComponent(JRibbonComponent)} APIs. The
  * taskbar panel lives in the top-left corner of the application frame.
  * </p>
@@ -302,17 +302,12 @@ public class JRibbon extends JComponent {
         return result;
     }
 
-    public synchronized void addTaskbarGalleryDropdown(
-            RibbonGalleryContentModel galleryContentModel,
-            RibbonGalleryPresentationModel galleryPresentationModel) {
-
+    public synchronized void addTaskbarGalleryDropdown(RibbonGalleryProjection galleryProjection) {
         // The popup callback displays the expanded popup menu for the gallery
         Command galleryDropdownCommand = Command.builder()
-                .setIconFactory(galleryContentModel.getIconFactory())
+                .setIconFactory(galleryProjection.getContentModel().getIconFactory())
                 .setPopupCallback((JCommandButton commandButton) ->
-                        JRibbonGallery.getExpandPopupMenu(galleryContentModel,
-                                galleryPresentationModel,
-                                commandButton))
+                        JRibbonGallery.getExpandPopupMenu(galleryProjection, commandButton))
                 .build();
 
         this.taskbarComponents.add(galleryDropdownCommand.project(

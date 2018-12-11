@@ -30,8 +30,9 @@
 package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.ui.common.*;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.accessibility.AccessibleContext;
 import javax.swing.*;
@@ -48,6 +49,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
     public static final int DEFAULT_HORIZONTAL_ALIGNMENT = SwingConstants.CENTER;
     public static final double DEFAULT_GAP_SCALE_FACTOR = 1.0;
 
+    protected Projection<AbstractCommandButton, Command, CommandPresentation> projection;
     protected Command command;
     protected CommandPresentation commandPresentation;
 
@@ -200,22 +202,46 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         LAST
     }
 
-    /**
-     * Creates a new command button.
-     *
-     * @param text Button title. May contain any number of words.
-     * @param icon Button icon.
-     */
-    public AbstractCommandButton(String text, ResizableIcon icon) {
-        this.icon = icon;
-        this.iconDimension = -1;
-        this.presentationState = CommandButtonPresentationState.FIT_TO_ICON;
-        this.horizontalAlignment = DEFAULT_HORIZONTAL_ALIGNMENT;
+    public AbstractCommandButton(Projection<AbstractCommandButton, Command, CommandPresentation> projection) {
+        this.projection = projection;
+        this.command = projection.getContentModel();
+        this.commandPresentation = projection.getPresentationModel();
+
+        this.setText(command.getText());
+        this.setExtraText(command.getExtraText());
+
+        this.setIcon((command.getIconFactory() != null)
+                ? command.getIconFactory().createNewIcon()
+                : command.getIcon());
+        this.setDisabledIcon((command.getDisabledIconFactory() != null)
+                ? command.getDisabledIconFactory().createNewIcon()
+                : command.getDisabledIcon());
+
+        boolean hasAction = (command.getAction() != null);
+
+        if (hasAction) {
+            this.addCommandListener(command.getAction());
+            this.setActionRichTooltip(command.getActionRichTooltip());
+            this.setActionKeyTip(commandPresentation.getActionKeyTip());
+        }
+
+        this.setEnabled(command.isEnabled());
+
+        if (!commandPresentation.isToDismissPopupsOnActivation()) {
+            this.putClientProperty(BasicCommandButtonUI.DONT_DISPOSE_POPUPS, Boolean.TRUE);
+        }
+
+        this.setPresentationState(commandPresentation.getPresentationState());
+        this.setHorizontalAlignment(commandPresentation.getHorizontalAlignment());
+        this.setHGapScaleFactor(commandPresentation.getHorizontalGapScaleFactor());
+        this.setVGapScaleFactor(commandPresentation.getVerticalGapScaleFactor());
+        this.setFlat(commandPresentation.isFlat());
+        this.setFocusable(commandPresentation.isFocusable());
+        if (commandPresentation.getIconDimension() != null) {
+            this.setIconDimension(commandPresentation.getIconDimension());
+        }
+
         this.actionHandler = new ActionHandler();
-        this.isFlat = true;
-        this.hgapScaleFactor = DEFAULT_GAP_SCALE_FACTOR;
-        this.vgapScaleFactor = DEFAULT_GAP_SCALE_FACTOR;
-        this.setText(text);
         this.setOpaque(false);
     }
 
@@ -223,7 +249,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         this.command = command;
         this.commandPresentation = commandPresentation;
 
-        this.setText(command.getTitle());
+        this.setText(command.getText());
         this.setExtraText(command.getExtraText());
 
         this.setIcon((command.getIconFactory() != null)
@@ -279,6 +305,10 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         return (CommandButtonUI) ui;
     }
 
+    public Projection<AbstractCommandButton, Command, CommandPresentation> getProjection() {
+        return this.projection;
+    }
+
     /**
      * Sets new presentation state for <code>this</code> button. Fires a
      * <code>presentationState</code> property change event.
@@ -291,14 +321,6 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         this.presentationState = state;
 
         this.firePropertyChange("presentationState", old, this.presentationState);
-    }
-
-    public Command getCommand() {
-        return this.command;
-    }
-
-    public CommandPresentation getCommandPresentation() {
-        return this.commandPresentation;
     }
 
     /**
@@ -436,8 +458,8 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
 
     /**
      * Updates the dimension of the icon of the associated command button in the
-     * {@link CommandButtonPresentationState#FIT_TO_ICON} state. Fires a
-     * <code>customDimension</code> property change event.
+     * {@link CommandButtonPresentationState#FIT_TO_ICON} state. Fires an
+     * <code>iconDimension</code> property change event.
      *
      * @param dimension New dimension of the icon of the associated command button in
      *                  the {@link CommandButtonPresentationState#FIT_TO_ICON} state.

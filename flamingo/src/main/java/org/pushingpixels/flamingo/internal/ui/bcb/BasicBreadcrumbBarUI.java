@@ -129,7 +129,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             worker.execute();
         }
 
-        this.dummy = Command.builder().setTitle("Dummy").setIcon(new EmptyResizableIcon(16))
+        this.dummy = Command.builder().setText("Dummy").setIcon(new EmptyResizableIcon(16))
                 .setAction((CommandActionEvent e) -> {})
                 .build().project(CommandPresentation.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL).build())
@@ -427,7 +427,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             } else if (element instanceof BreadcrumbItem) {
                 BreadcrumbItem bi = (BreadcrumbItem) element;
 
-                Command command = Command.builder().setTitle(bi.getKey()).build();
+                Command command = Command.builder().setText(bi.getKey()).build();
                 JCommandButton button = (JCommandButton) command.project(commandPresentation)
                         .buildComponent();
                 configureBreadcrumbButton(button);
@@ -514,7 +514,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     }
 
     private void configurePopupAction(Command command, final BreadcrumbItemChoices bic) {
-        List<CommandProjection> menuCommands = new ArrayList<>();
+        List<Command> menuCommands = new ArrayList<>();
 
         CommandPopupMenuPresentationModel.Builder menuPresentationModel =
                 CommandPopupMenuPresentationModel.builder();
@@ -524,7 +524,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
             Command.Builder commandBuilder = Command.builder();
 
-            commandBuilder.setTitle(bi.getKey());
+            commandBuilder.setText(bi.getKey());
 
             final Icon icon = bi.getIcon();
             if (icon != null) {
@@ -582,14 +582,13 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                 menuPresentationModel.setHighlightedCommand(menuCommand);
             }
 
-            menuCommands.add(menuCommand.project());
+            menuCommands.add(menuCommand);
         }
 
         menuPresentationModel.setMaxVisibleMenuCommands(10);
 
         command.setPopupMenuProjection(new CommandPopupMenuProjection(
-                new CommandPopupMenuContentModel(
-                        new CommandProjectionGroupModel(menuCommands)),
+                new CommandPopupMenuContentModel(new CommandGroupModel(menuCommands)),
                 menuPresentationModel.build()));
     }
 

@@ -30,15 +30,15 @@
 package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonPanelUI;
-import org.pushingpixels.flamingo.internal.ui.common.*;
+import org.pushingpixels.flamingo.internal.ui.common.CommandButtonPanelUI;
 
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * Panel that hosts command buttons. Provides support for button groups, single
@@ -116,6 +116,8 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
      */
     public static final String uiClassID = "CommandButtonPanelUI";
 
+    private Projection<JCommandButtonPanel,
+            CommandPanelContentModel, CommandPanelPresentationModel> projection;
     private CommandPanelContentModel panelContentModel;
     private CommandPanelPresentationModel panelPresentationModel;
 
@@ -140,10 +142,11 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
      */
     private CommandToggleGroupModel buttonGroup;
 
-    public JCommandButtonPanel(CommandPanelContentModel panelContentModel,
-            CommandPanelPresentationModel panelPresentationModel) {
-        this.panelContentModel = panelContentModel;
-        this.panelPresentationModel = panelPresentationModel;
+    public JCommandButtonPanel(Projection<JCommandButtonPanel,
+            CommandPanelContentModel, CommandPanelPresentationModel> projection) {
+        this.projection = projection;
+        this.panelContentModel = projection.getContentModel();
+        this.panelPresentationModel = projection.getPresentationModel();
 
         this.buttons = new ArrayList<>();
         this.groupTitles = new ArrayList<>();
@@ -154,12 +157,9 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         this.updateUI();
     }
 
-    public CommandPanelContentModel getContentModel() {
-        return this.panelContentModel;
-    }
-
-    public CommandPanelPresentationModel getPresentationModel() {
-        return this.panelPresentationModel;
+    public Projection<JCommandButtonPanel, CommandPanelContentModel,
+            CommandPanelPresentationModel> getProjection() {
+        return this.projection;
     }
 
     private CommandPresentation createCommandPresentation() {
@@ -188,13 +188,13 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         CommandPresentation commandPresentation = createCommandPresentation();
         Command.CommandActionPreview commandPreviewListener =
                 panelContentModel.getCommandPreviewListener();
-        for (CommandProjectionGroupModel groupModel : panelContentModel.getCommandProjectionGroups()) {
+        for (CommandGroupModel groupModel : panelContentModel.getCommandGroups()) {
             this.groupTitles.add(groupIndex, groupModel.getTitle());
             List<AbstractCommandButton> list = new ArrayList<>();
             this.buttons.add(groupIndex, list);
 
-            for (CommandProjection projection : groupModel.getCommandProjections()) {
-                AbstractCommandButton button = projection.reproject(commandPresentation)
+            for (Command command : groupModel.getCommands()) {
+                AbstractCommandButton button = command.project(commandPresentation)
                         .buildComponent();
 
                 // Wire preview listener is configured on the panel content model
@@ -206,19 +206,17 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
                         public void stateChanged(ChangeEvent e) {
                             boolean isRollover = button.getActionModel().isRollover();
                             if (wasRollover && !isRollover) {
-                                commandPreviewListener.onCommandPreviewCanceled(
-                                        projection.getContentModel());
+                                commandPreviewListener.onCommandPreviewCanceled(command);
                             }
                             if (!wasRollover && isRollover) {
-                                commandPreviewListener.onCommandPreviewActivated(
-                                        projection.getContentModel());
+                                commandPreviewListener.onCommandPreviewActivated(command);
                             }
                             wasRollover = isRollover;
                         }
                     });
                 }
 
-                this.addButtonToLastGroup(projection.getContentModel(), button);
+                this.addButtonToLastGroup(command, button);
             }
             groupIndex++;
         }
@@ -273,7 +271,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
      * @return Title of the command group at the specified index.
      */
     public String getGroupTitleAt(int index) {
-        return this.panelContentModel.getCommandProjectionGroups().get(index).getTitle();
+        return this.panelContentModel.getCommandGroups().get(index).getTitle();
     }
 
     /**
@@ -315,7 +313,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
                     if (jrb instanceof JCommandToggleButton) {
                         JCommandToggleButton jctb = (JCommandToggleButton) jrb;
                         if (jctb.getActionModel().isSelected()) {
-                            return jctb.getCommand();
+                            return jctb.getProjection().getContentModel();
                         }
                     }
                 }
@@ -353,13 +351,13 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
 
     @Override
     public boolean getScrollableTracksViewportHeight() {
-        return (this.getPresentationModel().getLayoutKind() ==
+        return (this.getProjection().getPresentationModel().getLayoutKind() ==
                 CommandPanelPresentationModel.LayoutKind.COLUMN_FILL);
     }
 
     @Override
     public boolean getScrollableTracksViewportWidth() {
-        return (this.getPresentationModel().getLayoutKind() ==
+        return (this.getProjection().getPresentationModel().getLayoutKind() ==
                 CommandPanelPresentationModel.LayoutKind.ROW_FILL);
     }
 

@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandToggleMenuButtonUI;
 
 /**
@@ -44,8 +45,9 @@ public class JCommandToggleMenuButton extends JCommandToggleButton {
      */
     public static final String uiClassID = "CommandToggleMenuButtonUI";
 
-    public JCommandToggleMenuButton(Command command, CommandPresentation commandPresentation) {
-        super(command, commandPresentation);
+    public JCommandToggleMenuButton(Projection<AbstractCommandButton, Command,
+            CommandPresentation> projection) {
+        super(projection);
     }
 
     @Override

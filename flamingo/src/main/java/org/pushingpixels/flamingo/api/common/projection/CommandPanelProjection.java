@@ -36,7 +36,7 @@ public class CommandPanelProjection extends Projection<JCommandButtonPanel,
         CommandPanelContentModel, CommandPanelPresentationModel> {
 
     private static ComponentSupplier<JCommandButtonPanel,
-            CommandPanelContentModel, CommandPanelPresentationModel> DEFAULT_SUPPLIER =
+                CommandPanelContentModel, CommandPanelPresentationModel> DEFAULT_SUPPLIER =
             (Projection<JCommandButtonPanel,
                     CommandPanelContentModel, CommandPanelPresentationModel> projection) ->
                     JCommandButtonPanel::new;

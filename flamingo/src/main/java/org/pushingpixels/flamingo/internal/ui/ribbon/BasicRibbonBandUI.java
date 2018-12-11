@@ -161,7 +161,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      */
     protected void installComponents() {
         this.collapseCommand = Command.builder()
-                .setTitle(this.ribbonBand.getTitle())
+                .setText(this.ribbonBand.getTitle())
                 .setIcon(this.ribbonBand.getIcon())
                 .build();
 

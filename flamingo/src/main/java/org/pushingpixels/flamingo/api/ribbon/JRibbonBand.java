@@ -32,7 +32,8 @@ package org.pushingpixels.flamingo.api.ribbon;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
-import org.pushingpixels.flamingo.api.ribbon.model.*;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -48,7 +49,7 @@ import java.util.*;
  * <li>Wrapped core / 3rd party components added with
  * {@link #addRibbonComponent(JRibbonComponent)}.</li>
  * <li>Ribbon galleries added with
- * {@link #addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, PresentationPriority)} .</li>
+ * {@link #addRibbonGallery(RibbonGalleryProjection, PresentationPriority)} .</li>
  * </ul>
  *
  * <p>
@@ -59,17 +60,17 @@ import java.util.*;
  *
  * <p>
  * The content and behavior of galleries added with
- * {@link #addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, PresentationPriority)}
+ * {@link #addRibbonGallery(RibbonGalleryProjection, PresentationPriority)}
  * can be reconfigured using the following APIs on the model classes:
  * </p>
  *
  * <ul>
- * <li>{@link CommandProjectionGroupModel#addCommandProjection(CommandProjection)}</li>
- * <li>{@link CommandProjectionGroupModel#removeCommandProjection(CommandProjection)}</li>
+ * <li>{@link CommandGroupModel#addCommand(Command)}</li>
+ * <li>{@link CommandGroupModel#removeCommand(Command)}</li>
  * <li>{@link RibbonGalleryContentModel#setSelectedCommand(Command)}</li>
- * <li>{@link RibbonGalleryContentModel#addExtraPopupCommandGroup(CommandProjectionGroupModel)}</li>
+ * <li>{@link RibbonGalleryContentModel#addExtraPopupCommandGroup(CommandGroupModel)}</li>
  * <li
- * >{@link RibbonGalleryContentModel#removeExtraPopupCommandGroup(CommandProjectionGroupModel)}</li>
+ * >{@link RibbonGalleryContentModel#removeExtraPopupCommandGroup(CommandGroupModel)}</li>
  * </ul>
  *
  * <p>
@@ -99,12 +100,12 @@ public class JRibbonBand extends AbstractRibbonBand {
      */
     public static final CommandButtonPresentationState BIG_FIXED =
             new CommandButtonPresentationState(
-            "Big Fixed", 32) {
-        @Override
-        public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton button) {
-            return new CommandButtonLayoutManagerBigFixed();
-        }
-    };
+                    "Big Fixed", 32) {
+                @Override
+                public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton button) {
+                    return new CommandButtonLayoutManagerBigFixed();
+                }
+            };
 
     /**
      * Presentation priority of ribbon band components.
@@ -166,11 +167,9 @@ public class JRibbonBand extends AbstractRibbonBand {
         return commandButton;
     }
 
-    public void addRibbonGallery(RibbonGalleryContentModel galleryContentModel,
-            RibbonGalleryPresentationModel galleryPresentationModel,
+    public void addRibbonGallery(RibbonGalleryProjection galleryProjection,
             PresentationPriority priority) {
-        JRibbonGallery gallery = new JRibbonGallery(galleryContentModel,
-                galleryPresentationModel);
+        JRibbonGallery gallery = new JRibbonGallery(galleryProjection);
         ((JBandControlPanel) this.getControlPanel()).addRibbonGallery(gallery, priority);
     }
 

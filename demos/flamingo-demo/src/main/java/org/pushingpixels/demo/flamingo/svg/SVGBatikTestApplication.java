@@ -97,7 +97,7 @@ public class SVGBatikTestApplication extends JFrame {
                     "/org/pushingpixels/demo/flamingo/svg/tango/transcoded/Edit-paste.svg");
             SvgBatikResizableIcon icon = SvgBatikResizableIcon.getSvgIcon(is,
                     new Dimension(32, 32));
-            iconButton = Command.builder().setTitle("just icon").setIcon(icon).build()
+            iconButton = Command.builder().setText("just icon").setIcon(icon).build()
                     .project(CommandPresentation.builder().setPresentationState(
                             CommandButtonPresentationState.BIG).build()).buildComponent();
             add(iconButton);

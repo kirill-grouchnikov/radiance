@@ -53,6 +53,9 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
      */
     public static final String uiClassID = "CommandPopupMenuUI";
 
+    private Projection<JCommandPopupMenu, CommandPopupMenuContentModel,
+            CommandPopupMenuPresentationModel> projection;
+
     private CommandPopupMenuContentModel popupMenuContentModel;
     private CommandPopupMenuPresentationModel popupMenuPresentationModel;
 
@@ -68,10 +71,11 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
      */
     private JCommandButtonPanel mainButtonPanel;
 
-    public JCommandPopupMenu(CommandPopupMenuContentModel popupMenuContentModel,
-            CommandPopupMenuPresentationModel popupMenuPresentationModel) {
-        this.popupMenuContentModel = popupMenuContentModel;
-        this.popupMenuPresentationModel = popupMenuPresentationModel;
+    public JCommandPopupMenu(Projection<JCommandPopupMenu, CommandPopupMenuContentModel,
+            CommandPopupMenuPresentationModel> projection) {
+        this.projection = projection;
+        this.popupMenuContentModel = projection.getContentModel();
+        this.popupMenuPresentationModel = projection.getPresentationModel();
         this.popupMenuPanelContentModel = (this.popupMenuContentModel != null) ?
                 this.popupMenuContentModel.getPanelContentModel() : null;
         this.popupMenuPanelPresentationModel = (this.popupMenuPresentationModel != null) ?
@@ -91,22 +95,34 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
                     this.popupMenuPresentationModel.getPanelPresentationModel()).buildComponent();
         }
 
-        List<CommandProjectionGroupModel> commandGroups =
+        // Command presentation for menu content
+        CommandPresentation presentation =
+                CommandPresentation.builder()
+                        .setPresentationState(
+                                this.popupMenuPresentationModel.getMenuPresentationState())
+                        .setMenu(true)
+                        .build();
+
+        List<CommandGroupModel> commandGroups =
                 this.popupMenuContentModel.getCommandGroups();
         for (int i = 0; i < commandGroups.size(); i++) {
-            for (CommandProjection projection : commandGroups.get(i).getCommandProjections()) {
-                // Overlay the supplied projection command presentation to create menu content
-                CommandPresentation withOverlay = projection.getPresentationModel().overlayWith(
-                        CommandPresentation.overlay().setMenu(true));
-                // Reproject to use the overlay
-                CommandProjection projectionWithOverlay = projection.reproject(withOverlay);
-                // And create a button that can be used in this popup menu
-                AbstractCommandButton commandButton = projectionWithOverlay.buildComponent();
+            for (Command command : commandGroups.get(i).getCommands()) {
+                CommandProjection commandProjection;
+                // Do we need to apply a command-specific overlay?
+                CommandPresentation.Overlay overlay =
+                        this.projection.getCommandOverlays().get(command);
+                if (overlay != null) {
+                    commandProjection = command.project(presentation.overlayWith(overlay));
+                } else {
+                    commandProjection = command.project(presentation);
+                }
+                // Create a button that can be used in this popup menu
+                AbstractCommandButton commandButton = commandProjection.buildComponent();
 
                 // Need to highlight it?
                 Command highlightedCommand =
                         this.popupMenuPresentationModel.getHighlightedCommand();
-                if (projection.getContentModel() == highlightedCommand) {
+                if (command == highlightedCommand) {
                     // Use bold font
                     commandButton.setFont(commandButton.getFont().deriveFont(Font.BOLD));
                 }
@@ -127,12 +143,9 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
         }
     }
 
-    public CommandPopupMenuContentModel getContentModel() {
-        return this.popupMenuContentModel;
-    }
-
-    public CommandPopupMenuPresentationModel getPresentationModel() {
-        return this.popupMenuPresentationModel;
+    public Projection<JCommandPopupMenu, CommandPopupMenuContentModel,
+            CommandPopupMenuPresentationModel> getProjection() {
+        return this.projection;
     }
 
     /**

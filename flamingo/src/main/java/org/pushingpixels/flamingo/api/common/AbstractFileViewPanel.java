@@ -31,14 +31,15 @@ package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.neon.AsynchronousLoading;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.InputStream;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * Panel that hosts file-related command buttons with progress indication and cancellation
@@ -156,11 +157,11 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      * @param startingDimension Initial dimension for icons.
      */
     public AbstractFileViewPanel(int startingDimension) {
-        super(new CommandPanelContentModel(new ArrayList<>()),
+        super(new CommandPanelProjection(new CommandPanelContentModel(new ArrayList<>()),
                 CommandPanelPresentationModel.builder()
                         .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
                         .setCommandIconDimension(startingDimension)
-                        .setToShowGroupLabels(false).build());
+                        .setToShowGroupLabels(false).build()));
         this.buttonMap = new HashMap<>();
         this.loadedSet = new HashSet<>();
     }
@@ -171,11 +172,11 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      * @param startingState Initial state for icons.
      */
     public AbstractFileViewPanel(CommandButtonPresentationState startingState) {
-        super(new CommandPanelContentModel(new ArrayList<>()),
+        super(new CommandPanelProjection(new CommandPanelContentModel(new ArrayList<>()),
                 CommandPanelPresentationModel.builder()
                         .setCommandHorizontalAlignment(SwingUtilities.LEADING)
                         .setCommandPresentationState(startingState)
-                        .setToShowGroupLabels(false).build());
+                        .setToShowGroupLabels(false).build()));
         this.buttonMap = new HashMap<>();
         this.loadedSet = new HashSet<>();
     }
@@ -197,9 +198,9 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      * @param leafs Information on the entries to show in the panel.
      */
     public void setFolder(final java.util.List<StringValuePair<T>> leafs) {
-        this.getContentModel().removeAllCommandProjectionGroups();
-        this.getContentModel().addCommandProjectionGroup(
-                new CommandProjectionGroupModel(new ArrayList<>()));
+        this.getProjection().getContentModel().removeAllCommandGroups();
+        this.getProjection().getContentModel().addCommandGroup(
+                new CommandGroupModel(new ArrayList<>()));
         this.buttonMap.clear();
         int fileCount = 0;
 
@@ -210,13 +211,13 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                 continue;
             }
 
-            int initialSize = this.getPresentationModel().getCommandIconDimension();
+            int initialSize = this.getProjection().getPresentationModel().getCommandIconDimension();
             if (initialSize < 0) {
-                initialSize = this.getPresentationModel().getCommandPresentationState()
-                        .getPreferredIconSize();
+                initialSize = this.getProjection().getPresentationModel()
+                        .getCommandPresentationState().getPreferredIconSize();
             }
             Command command = Command.builder()
-                    .setTitle(name).setIcon(new EmptyResizableIcon(initialSize)).build();
+                    .setText(name).setIcon(new EmptyResizableIcon(initialSize)).build();
 
             int buttonIndex = this.addCommandToLastGroup(command);
             JCommandButton button = (JCommandButton) this.getGroupButtons(this.getGroupCount() - 1).
@@ -261,10 +262,12 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                 for (final Leaf leaf : leaves) {
                     final String name = leaf.getLeafName();
                     InputStream stream = leaf.getLeafStream();
-                    int iconDimension = getPresentationModel().getCommandIconDimension();
+                    int iconDimension = getProjection().getPresentationModel()
+                            .getCommandIconDimension();
                     Dimension dim = new Dimension(iconDimension, iconDimension);
                     final ResizableIcon icon = getResizableIcon(leaf, stream,
-                            getPresentationModel().getCommandPresentationState(), dim);
+                            getProjection().getPresentationModel().getCommandPresentationState(),
+                            dim);
                     if (icon == null) {
                         continue;
                     }

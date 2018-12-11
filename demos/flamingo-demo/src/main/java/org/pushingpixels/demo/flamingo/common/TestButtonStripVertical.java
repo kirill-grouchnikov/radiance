@@ -108,10 +108,10 @@ public class TestButtonStripVertical extends JFrame {
 
     private JComponent getStrip1(double hgapScaleFactor, double vgapScaleFactor) {
         return new CommandStripProjection(
-                new CommandProjectionGroupModel(
-                        Command.builder().setIcon(new Format_justify_left()).build().project(),
-                        Command.builder().setIcon(new Format_justify_center()).build().project(),
-                        Command.builder().setIcon(new Format_justify_right()).build().project()),
+                new CommandGroupModel(
+                        Command.builder().setIcon(new Format_justify_left()).build(),
+                        Command.builder().setIcon(new Format_justify_center()).build(),
+                        Command.builder().setIcon(new Format_justify_right()).build()),
                 CommandStripPresentationModel.builder()
                         .setCommandPresentationState(CommandButtonPresentationState.SMALL)
                         .setOrientation(CommandStripPresentationModel.StripOrientation.VERTICAL)
@@ -123,12 +123,12 @@ public class TestButtonStripVertical extends JFrame {
 
     private JComponent getStrip2(double hgapScaleFactor, double vgapScaleFactor) {
         return new CommandStripProjection(
-                new CommandProjectionGroupModel(
-                        Command.builder().setIcon(new Format_text_bold()).build().project(),
-                        Command.builder().setIcon(new Format_text_italic()).build().project(),
-                        Command.builder().setIcon(new Format_text_underline()).build().project(),
+                new CommandGroupModel(
+                        Command.builder().setIcon(new Format_text_bold()).build(),
+                        Command.builder().setIcon(new Format_text_italic()).build(),
+                        Command.builder().setIcon(new Format_text_underline()).build(),
                         Command.builder().setIcon(
-                                new Format_text_strikethrough()).build().project()),
+                                new Format_text_strikethrough()).build()),
                 CommandStripPresentationModel.builder()
                         .setCommandPresentationState(CommandButtonPresentationState.SMALL)
                         .setOrientation(CommandStripPresentationModel.StripOrientation.VERTICAL)

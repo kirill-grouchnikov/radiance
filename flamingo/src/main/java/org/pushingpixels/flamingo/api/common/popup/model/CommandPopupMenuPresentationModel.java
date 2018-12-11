@@ -29,12 +29,26 @@
  */
 package org.pushingpixels.flamingo.api.common.popup.model;
 
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.internal.ui.common.CommandButtonLayoutManagerMedium;
 
 import javax.swing.event.*;
 
 public class CommandPopupMenuPresentationModel implements MutablePresentationModel {
+    public static final CommandButtonPresentationState DEFAULT_POPUP_MENU_PRESENTATION_STATE =
+            new CommandButtonPresentationState("Popup menu", 16) {
+                @Override
+                public CommandButtonLayoutManager createLayoutManager(
+                        AbstractCommandButton commandButton) {
+                    return new CommandButtonLayoutManagerMedium() {
+                        @Override
+                        protected float getIconTextGapFactor() {
+                            return 2.0f;
+                        }
+                    };
+                }
+            };
     /**
      * Stores the listeners on this model.
      */
@@ -42,10 +56,12 @@ public class CommandPopupMenuPresentationModel implements MutablePresentationMod
 
     private CommandPanelPresentationModel panelPresentationModel;
 
+    private CommandButtonPresentationState menuPresentationState;
+
     /**
      * Maximum number of menu items visible in this model. If more commands are
      * added with the
-     * {@link CommandProjectionGroupModel#addCommandProjection(CommandProjection)}
+     * {@link CommandGroupModel#addCommand(Command)}
      * on one or more of the command groups in {@link CommandPopupMenuContentModel}, the menu
      * part will show scroller buttons above the first and below the last menu command. If
      * the value is negative, there is no limitation on how many menu commands
@@ -67,6 +83,10 @@ public class CommandPopupMenuPresentationModel implements MutablePresentationMod
 
     public CommandPanelPresentationModel getPanelPresentationModel() {
         return this.panelPresentationModel;
+    }
+
+    public CommandButtonPresentationState getMenuPresentationState() {
+        return this.menuPresentationState;
     }
 
     public int getMaxVisibleMenuCommands() {
@@ -137,6 +157,8 @@ public class CommandPopupMenuPresentationModel implements MutablePresentationMod
 
     public static class Builder {
         private CommandPanelPresentationModel panelPresentationModel;
+        private CommandButtonPresentationState menuPresentationState =
+                DEFAULT_POPUP_MENU_PRESENTATION_STATE;
         private int maxVisibleMenuCommands = -1;
         private boolean toDismissOnCommandActivation = true;
         private CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind =
@@ -146,6 +168,12 @@ public class CommandPopupMenuPresentationModel implements MutablePresentationMod
         public Builder setPanelPresentationModel(
                 CommandPanelPresentationModel panelPresentationModel) {
             this.panelPresentationModel = panelPresentationModel;
+            return this;
+        }
+
+        public Builder setMenuPresentationState(
+                CommandButtonPresentationState menuPresentationState) {
+            this.menuPresentationState = menuPresentationState;
             return this;
         }
 
@@ -174,6 +202,7 @@ public class CommandPopupMenuPresentationModel implements MutablePresentationMod
             CommandPopupMenuPresentationModel presentationModel =
                     new CommandPopupMenuPresentationModel();
             presentationModel.panelPresentationModel = this.panelPresentationModel;
+            presentationModel.menuPresentationState = this.menuPresentationState;
             presentationModel.maxVisibleMenuCommands = this.maxVisibleMenuCommands;
             presentationModel.toDismissOnCommandActivation = this.toDismissOnCommandActivation;
             presentationModel.popupOrientationKind = this.popupOrientationKind;

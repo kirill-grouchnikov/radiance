@@ -279,7 +279,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 JCommandPopupMenu menu = (JCommandPopupMenu) SwingUtilities
                         .getAncestorOfClass(JCommandPopupMenu.class, commandButton);
                 if (menu != null) {
-                    toDismiss = menu.getPresentationModel().isToDismissOnCommandActivation();
+                    toDismiss = menu.getProjection().getPresentationModel()
+                            .isToDismissOnCommandActivation();
                 }
             }
             if (toDismiss) {
@@ -462,6 +463,11 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.layoutInfo = this.layoutManager.getLayoutInfo(commandButton,
                 this.commandButton.getGraphics());
         return this.layoutInfo;
+    }
+
+    @Override
+    public CommandButtonLayoutManager getLayoutManager() {
+        return this.layoutManager;
     }
 
     /**

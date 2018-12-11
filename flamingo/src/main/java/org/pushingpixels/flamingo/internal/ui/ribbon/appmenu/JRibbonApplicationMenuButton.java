@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.api.ribbon.*;
 
 import javax.swing.*;
@@ -118,7 +119,8 @@ public class JRibbonApplicationMenuButton extends JCommandButton {
      * @param ribbon Associated ribbon.
      */
     public JRibbonApplicationMenuButton(JRibbon ribbon) {
-        super(Command.builder().setPopupCallback((JCommandButton commandButton) -> {
+        super(new CommandProjection(Command.builder()
+                .setPopupCallback((JCommandButton commandButton) -> {
                     RibbonApplicationMenu ribbonMenu = ribbon.getApplicationMenu();
                     final JRibbonApplicationMenuPopupPanel menuPopupPanel =
                             new JRibbonApplicationMenuPopupPanel(ribbonMenu);
@@ -153,6 +155,6 @@ public class JRibbonApplicationMenuButton extends JCommandButton {
                 CommandPresentation.builder()
                         .setPresentationState(APP_MENU_BUTTON_STATE)
                         .setHorizontalAlignment(SwingConstants.CENTER)
-                        .build());
+                        .build()));
     }
 }

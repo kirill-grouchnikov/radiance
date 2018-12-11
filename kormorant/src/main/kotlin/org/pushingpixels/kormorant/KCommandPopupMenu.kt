@@ -29,8 +29,10 @@
  */
 package org.pushingpixels.kormorant
 
+import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
+import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
 import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection
@@ -128,10 +130,16 @@ class KCommandPopupMenu : KAbstractPopupMenu<CommandPopupMenuProjection>() {
         }
 
         val commandGroupModels = groups.map { it.toCommandGroupModel() }
+        val commandOverlays = HashMap<Command, CommandPresentation.Overlay>()
+        for (groupOverlays in groups.map { it.toPresentationOverlays() }) {
+            commandOverlays.putAll(groupOverlays)
+        }
 
-        return CommandPopupMenuProjection(
+        val result = CommandPopupMenuProjection(
                 CommandPopupMenuContentModel(commandPanel?.getContentModel(), commandGroupModels),
                 presentationModelBuilder.build())
+        result.withCommandOverlays(commandOverlays)
+        return result
     }
 }
 

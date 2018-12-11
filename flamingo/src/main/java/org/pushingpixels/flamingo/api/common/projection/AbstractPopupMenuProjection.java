@@ -36,8 +36,8 @@ public abstract class AbstractPopupMenuProjection<M extends AbstractPopupMenu,
         C extends ContentModel, P extends PresentationModel> extends Projection<M, C, P> {
 
     AbstractPopupMenuProjection(C contentModel, P presentationModel,
-            ComponentSupplier<M, C, P> componentSupplier) {
-        super(contentModel, presentationModel, componentSupplier);
+            ComponentSupplier<M, C, P> componentSupplier2) {
+        super(contentModel, presentationModel, componentSupplier2);
     }
 
     @Override

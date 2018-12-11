@@ -41,7 +41,6 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 public class TestToggleMenuButtons extends JFrame {
     private TestToggleMenuButtons() {
@@ -51,41 +50,35 @@ public class TestToggleMenuButtons extends JFrame {
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
-        CommandPresentation menuDisplay = CommandPresentation.builder().setMenu(true).build();
-
         CommandToggleGroupModel justifyGroup = new CommandToggleGroupModel();
 
         Command justifyLeft = Command.builder()
-                .setTitle("left")
+                .setText("left")
                 .setIconFactory(Format_justify_left.factory())
                 .inToggleGroup(justifyGroup)
                 .build();
         Command justifyCenter = Command.builder()
-                .setTitle("center")
+                .setText("center")
                 .setIconFactory(Format_justify_center.factory())
                 .inToggleGroup(justifyGroup)
                 .build();
         Command justifyRight = Command.builder()
-                .setTitle("right")
+                .setText("right")
                 .setIconFactory(Format_justify_right.factory())
                 .inToggleGroup(justifyGroup)
                 .build();
         Command justifyFill = Command.builder()
-                .setTitle("fill")
+                .setText("fill")
                 .setIconFactory(Format_justify_fill.factory())
                 .inToggleGroup(justifyGroup)
                 .build();
 
-        CommandPopupMenuContentModel justifyMenuContentModel =
-                new CommandPopupMenuContentModel(new CommandProjectionGroupModel(
-                        Arrays.asList(justifyLeft.project(menuDisplay),
-                                justifyCenter.project(menuDisplay),
-                                justifyRight.project(menuDisplay),
-                                justifyFill.project(menuDisplay))));
+        CommandPopupMenuContentModel justifyMenuContentModel = new CommandPopupMenuContentModel(
+                new CommandGroupModel(justifyLeft, justifyCenter, justifyRight, justifyFill));
 
         AbstractCommandButton singleChoice =
                 Command.builder()
-                        .setTitle("single")
+                        .setText("single")
                         .setPopupMenuProjection(new CommandPopupMenuProjection(
                                 justifyMenuContentModel,
                                 CommandPopupMenuPresentationModel.builder().build()))
@@ -96,36 +89,33 @@ public class TestToggleMenuButtons extends JFrame {
                         .buildComponent();
 
         Command formatBold = Command.builder()
-                .setTitle("bold")
+                .setText("bold")
                 .setIconFactory(Format_text_bold.factory())
                 .setToggle()
                 .build();
         Command formatItalic = Command.builder()
-                .setTitle("italic")
+                .setText("italic")
                 .setIconFactory(Format_text_italic.factory())
                 .setToggle()
                 .build();
         Command formatUnderline = Command.builder()
-                .setTitle("underline")
+                .setText("underline")
                 .setIconFactory(Format_text_underline.factory())
                 .setToggle()
                 .build();
         Command formatStrikethrough = Command.builder()
-                .setTitle("strikethrough")
+                .setText("strikethrough")
                 .setIconFactory(Format_text_strikethrough.factory())
                 .setToggle()
                 .build();
 
-        CommandPopupMenuContentModel formatMenuContentModel =
-                new CommandPopupMenuContentModel(new CommandProjectionGroupModel(
-                        Arrays.asList(formatBold.project(menuDisplay),
-                                formatItalic.project(menuDisplay),
-                                formatUnderline.project(menuDisplay),
-                                formatStrikethrough.project(menuDisplay))));
+        CommandPopupMenuContentModel formatMenuContentModel = new CommandPopupMenuContentModel(
+                new CommandGroupModel(formatBold, formatItalic, formatUnderline,
+                        formatStrikethrough));
 
         AbstractCommandButton multiChoice =
                 Command.builder()
-                        .setTitle("multi")
+                        .setText("multi")
                         .setPopupMenuProjection(new CommandPopupMenuProjection(
                                 formatMenuContentModel,
                                 CommandPopupMenuPresentationModel.builder()

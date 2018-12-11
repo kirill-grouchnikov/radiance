@@ -64,22 +64,22 @@ public class RecipeListPanel extends SingleContentPanel {
 
         CommandToggleGroupModel viewGroup = new CommandToggleGroupModel();
         JComponent titlePaneControlButtons = new CommandStripProjection(
-                new CommandProjectionGroupModel(
+                new CommandGroupModel(
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_view_headline_white_24px.of(16, 16), 0.75f)))
                                 .inToggleGroupAsSelected(viewGroup)
-                                .build().project(),
+                                .build(),
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_view_list_white_24px.of(16, 16), 0.75f)))
                                 .inToggleGroup(viewGroup)
-                                .build().project(),
+                                .build(),
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_view_stream_white_24px.of(16, 16), 0.75f)))
                                 .inToggleGroup(viewGroup)
-                                .build().project()),
+                                .build()),
                 CommandStripPresentationModel.builder().build())
                 .buildComponent();
 
@@ -110,15 +110,15 @@ public class RecipeListPanel extends SingleContentPanel {
                 padding(new EmptyBorder(6, 0, 4, 0));
 
         final JComponent controlButtons = new CommandStripProjection(
-                new CommandProjectionGroupModel(
+                new CommandGroupModel(
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_add_white_24px.of(16, 16), 0.75f)))
-                                .build().project(),
+                                .build(),
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_remove_white_24px.of(12, 12), 0.75f)))
-                                .build().project()),
+                                .build()),
                 CommandStripPresentationModel.builder().build())
                 .buildComponent();
 

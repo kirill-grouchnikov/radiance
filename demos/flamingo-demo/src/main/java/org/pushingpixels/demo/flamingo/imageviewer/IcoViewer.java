@@ -117,7 +117,8 @@ public class IcoViewer extends JFrame {
                 if (newValue != currIconSize) {
                     currIconSize = newValue;
                     SwingUtilities.invokeLater(() -> {
-                        fileViewPanel.getPresentationModel().setCommandIconDimension(currIconSize);
+                        fileViewPanel.getProjection().getPresentationModel()
+                                .setCommandIconDimension(currIconSize);
                         invalidate();
                         doLayout();
                     });

@@ -185,7 +185,7 @@ public class SvnBreadCrumbTest extends JFrame {
                                     Void>() {
                                 @Override
                                 protected InputStream doInBackground() throws Exception {
-                                    String leafName = command.getTitle();
+                                    String leafName = command.getText();
                                     BreadcrumbBarModel<String> model = bar.getModel();
                                     String path = model.getItem(model.getItemCount() - 1).getData();
                                     return bar.getCallback().getLeafContent(path + "/" + leafName);

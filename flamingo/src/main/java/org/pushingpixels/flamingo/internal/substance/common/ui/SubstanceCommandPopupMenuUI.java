@@ -29,8 +29,10 @@
  */
 package org.pushingpixels.flamingo.internal.substance.common.ui;
 
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
-import org.pushingpixels.flamingo.internal.ui.common.popup.*;
+import org.pushingpixels.flamingo.internal.ui.common.CommandButtonLayoutManagerMedium;
+import org.pushingpixels.flamingo.internal.ui.common.popup.BasicCommandPopupMenuUI;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -45,7 +47,7 @@ import java.awt.*;
 /**
  * UI for {@link JCommandPopupMenu} components in <b>Substance</b> look and
  * feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceCommandPopupMenuUI extends BasicCommandPopupMenuUI {
@@ -82,9 +84,33 @@ public class SubstanceCommandPopupMenuUI extends BasicCommandPopupMenuUI {
         return result;
     }
 
-    protected static class SubstanceMenuPanel extends MenuPanel {
+    protected class SubstanceMenuPanel extends MenuPanel {
         @Override
         protected void paintIconGutterBackground(Graphics g) {
+            // Only paint the gutter background when the layout manager for the menu command
+            // buttons is CommandButtonLayoutManagerMedium. Otherwise there's no guarantee where
+            // the icons are, and what the overall layout is
+            java.util.List<Component> menuComponents = popupMenu.getMenuComponents();
+            if (menuComponents != null) {
+                for (Component menuComponent : menuComponents) {
+                    if (menuComponent instanceof JCommandMenuButton) {
+                        JCommandMenuButton menuButton = (JCommandMenuButton) menuComponent;
+                        if (!(menuButton.getUI().getLayoutManager() instanceof
+                                CommandButtonLayoutManagerMedium)) {
+                            return;
+                        }
+                    }
+                    if (menuComponent instanceof JCommandToggleMenuButton) {
+                        JCommandToggleMenuButton menuButton =
+                                (JCommandToggleMenuButton) menuComponent;
+                        if (!(menuButton.getUI().getLayoutManager() instanceof
+                                CommandButtonLayoutManagerMedium)) {
+                            return;
+                        }
+                    }
+                }
+            }
+
             Graphics2D g2d = (Graphics2D) g.create();
             MenuGutterFillKind fillKind = SubstanceCoreUtilities.getMenuGutterFillKind();
             if (fillKind != MenuGutterFillKind.NONE) {

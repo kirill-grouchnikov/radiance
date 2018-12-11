@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -50,9 +50,9 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
      */
     private JCommandButtonStrip buttonStrip;
 
-    private CommandProjectionGroupModel.CommandProjectionGroupListener projectionGroupListener;
+    private CommandGroupModel.CommandGroupListener commandGroupListener;
 
-    private Map<CommandProjection, AbstractCommandButton> commandButtonMap = new HashMap<>();
+    private Map<Command, AbstractCommandButton> commandButtonMap = new HashMap<>();
 
     public static ComponentUI createUI(JComponent c) {
         return new BasicCommandButtonStripUI();
@@ -81,47 +81,44 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
      * Installs listeners on the associated button strip.
      */
     protected void installListeners() {
-        this.projectionGroupListener =
-                new CommandProjectionGroupModel.CommandProjectionGroupListener() {
+        this.commandGroupListener =
+                new CommandGroupModel.CommandGroupListener() {
                     @Override
-                    public void onCommandProjectionAdded(CommandProjection commandProjection) {
-                        addButton(commandProjection);
+                    public void onCommandAdded(Command command) {
+                        addButton(command);
                         updateButtonOrder();
                     }
 
                     @Override
-                    public void onCommandProjectionRemoved(CommandProjection commandProjection) {
-                        AbstractCommandButton commandButton = commandButtonMap.get(
-                                commandProjection);
-                        commandButton.removeCommandListener(
-                                commandProjection.getContentModel().getAction());
+                    public void onCommandRemoved(Command command) {
+                        AbstractCommandButton commandButton = commandButtonMap.get(command);
+                        commandButton.removeCommandListener(command.getAction());
                         buttonStrip.remove(commandButton);
-                        commandButtonMap.remove(commandProjection);
+                        commandButtonMap.remove(command);
                         updateButtonOrder();
                     }
 
                     @Override
-                    public void onAllCommandProjectionsRemoved() {
-                        for (Map.Entry<CommandProjection, AbstractCommandButton> entry :
+                    public void onAllCommandsRemoved() {
+                        for (Map.Entry<Command, AbstractCommandButton> entry :
                                 commandButtonMap.entrySet()) {
-                            entry.getValue().removeCommandListener(
-                                    entry.getKey().getContentModel().getAction());
+                            entry.getValue().removeCommandListener(entry.getKey().getAction());
                             buttonStrip.remove(entry.getValue());
                         }
                         commandButtonMap.clear();
                     }
                 };
-        this.buttonStrip.getProjectionGroupModel().addCommandGroupListener(
-                this.projectionGroupListener);
+        this.buttonStrip.getProjection().getContentModel().addCommandGroupListener(
+                this.commandGroupListener);
     }
 
     /**
      * Uninstalls listeners from the associated button strip.
      */
     protected void uninstallListeners() {
-        this.buttonStrip.getProjectionGroupModel().removeCommandGroupListener(
-                this.projectionGroupListener);
-        this.projectionGroupListener = null;
+        this.buttonStrip.getProjection().getContentModel().removeCommandGroupListener(
+                this.commandGroupListener);
+        this.commandGroupListener = null;
     }
 
     /**
@@ -143,10 +140,9 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
     protected void installComponents() {
         this.buttonStrip.setLayout(createLayoutManager());
 
-        CommandProjectionGroupModel projectionGroupModel =
-                this.buttonStrip.getProjectionGroupModel();
-        for (CommandProjection commandProjection : projectionGroupModel.getCommandProjections()) {
-            this.addButton(commandProjection);
+        CommandGroupModel commandGroupModel = this.buttonStrip.getProjection().getContentModel();
+        for (Command command : commandGroupModel.getCommands()) {
+            this.addButton(command);
         }
         this.updateButtonOrder();
     }
@@ -155,11 +151,10 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
      * Uninstalls subcomponents from the associated ribbon.
      */
     protected void uninstallComponents() {
-        CommandProjectionGroupModel projectionGroupModel =
-                this.buttonStrip.getProjectionGroupModel();
-        for (CommandProjection commandProjection : projectionGroupModel.getCommandProjections()) {
-            AbstractCommandButton commandButton = commandButtonMap.get(commandProjection);
-            CommandAction commandListener = commandProjection.getContentModel().getAction();
+        CommandGroupModel commandGroupModel = this.buttonStrip.getProjection().getContentModel();
+        for (Command command : commandGroupModel.getCommands()) {
+            AbstractCommandButton commandButton = commandButtonMap.get(command);
+            CommandAction commandListener = command.getAction();
             if (commandListener != null) {
                 commandButton.removeCommandListener(commandListener);
             }
@@ -168,20 +163,42 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
         this.commandButtonMap.clear();
     }
 
-    private void addButton(CommandProjection commandProjection) {
+    private void addButton(Command command) {
         CommandStripPresentationModel stripPresentationModel =
-                this.buttonStrip.getPresentationModel();
-        CommandPresentation presentation = commandProjection.getPresentationModel()
+                this.buttonStrip.getProjection().getPresentationModel();
+        CommandPresentation presentation = CommandPresentation.withDefaults()
                 .overlayWith(CommandPresentation.overlay()
                         .setPresentationState(stripPresentationModel.getCommandPresentationState())
                         .setHorizontalGapScaleFactor(
                                 stripPresentationModel.getHorizontalGapScaleFactor())
                         .setVerticalGapScaleFactor(
                                 stripPresentationModel.getVerticalGapScaleFactor())
-                        .setFlat(false));
-        AbstractCommandButton button = commandProjection.reproject(presentation).buildComponent();
+                        .setFlat(stripPresentationModel.isFlat())
+                        .setFocusable(stripPresentationModel.isFocusable())
+                        .setToDismissPopupsOnActivation(
+                                stripPresentationModel.isToDismissPopupsOnActivation()));
+        CommandPresentation.Overlay extraOverlay =
+                this.buttonStrip.getProjection().getCommandOverlays().get(command);
+        if (extraOverlay != null) {
+            presentation = presentation.overlayWith(extraOverlay);
+        }
+
+        CommandProjection commandProjection = command.project(presentation);
+        CommandProjection.ComponentCustomizer componentCustomizer =
+                this.buttonStrip.getProjection().getCommandComponentCustomizers().get(command);
+        if (componentCustomizer != null) {
+            commandProjection.setComponentCustomizer(componentCustomizer);
+        }
+        Projection.ComponentSupplier componentSupplier =
+                this.buttonStrip.getProjection().getCommandComponentSuppliers().get(command);
+        if (componentSupplier != null) {
+            commandProjection.setComponentSupplier(componentSupplier);
+        }
+
+        AbstractCommandButton button = commandProjection.buildComponent();
+
         this.buttonStrip.add(button);
-        this.commandButtonMap.put(commandProjection, button);
+        this.commandButtonMap.put(command, button);
     }
 
     private void updateButtonOrder() {
@@ -234,7 +251,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
         public Dimension preferredLayoutSize(Container c) {
             int width = 0;
             int height = 0;
-            if (buttonStrip.getPresentationModel().getOrientation() ==
+            if (buttonStrip.getProjection().getPresentationModel().getOrientation() ==
                     CommandStripPresentationModel.StripOrientation.HORIZONTAL) {
                 for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
                     width += buttonStrip.getButton(i).getPreferredSize().width;
@@ -263,7 +280,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
             Insets ins = c.getInsets();
             int height = c.getHeight() - ins.top - ins.bottom;
             int width = c.getWidth() - ins.left - ins.right;
-            if (buttonStrip.getPresentationModel().getOrientation() ==
+            if (buttonStrip.getProjection().getPresentationModel().getOrientation() ==
                     CommandStripPresentationModel.StripOrientation.HORIZONTAL) {
                 int totalPreferredWidth = 0;
                 for (int i = 0; i < buttonStrip.getButtonCount(); i++) {

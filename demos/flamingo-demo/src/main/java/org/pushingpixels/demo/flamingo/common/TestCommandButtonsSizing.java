@@ -112,7 +112,7 @@ public class TestCommandButtonsSizing extends JPanel {
             CommandButtonKind commandButtonKind, int fontSize) {
 
         Command.Builder commandBuilder = Command.builder()
-                .setTitle(text)
+                .setText(text)
                 .setExtraText("Extra for " + text.toLowerCase())
                 .setIconFactory(Edit_paste.factory());
         switch (commandButtonKind) {

@@ -111,11 +111,11 @@ public class Viewer extends JFrame {
         this.iconSizeSlider.setValue(initialSize);
         this.iconSizeSlider.addChangeListener((ChangeEvent e) -> {
             if (!iconSizeSlider.getModel().getValueIsAdjusting()) {
-                if (iconSizeSlider.getValue() !=
-                        fileViewPanel.getPresentationModel().getCommandIconDimension()) {
+                if (iconSizeSlider.getValue() != fileViewPanel.getProjection()
+                        .getPresentationModel().getCommandIconDimension()) {
                     SwingUtilities.invokeLater(() ->
-                            fileViewPanel.getPresentationModel().setCommandIconDimension(
-                                    iconSizeSlider.getValue()));
+                            fileViewPanel.getProjection().getPresentationModel()
+                                    .setCommandIconDimension(iconSizeSlider.getValue()));
                 }
             }
         });

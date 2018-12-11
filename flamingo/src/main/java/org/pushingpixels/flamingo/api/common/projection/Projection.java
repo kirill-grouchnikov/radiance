@@ -29,18 +29,21 @@
  */
 package org.pushingpixels.flamingo.api.common.projection;
 
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.model.*;
 
 import javax.swing.*;
-import java.util.function.BiFunction;
+import java.util.*;
+import java.util.function.Function;
 
 public abstract class Projection<T extends JComponent, C extends ContentModel,
-        P extends PresentationModel> {
-    private C contentModel;
-    private P presentationModel;
-
+        P extends PresentationModel> extends BlackboxProjection<C, P> {
     private ComponentSupplier<T, C, P> componentSupplier;
     private ComponentCustomizer<T> componentCustomizer;
+
+    private Map<Command, ComponentCustomizer<AbstractCommandButton>> commandComponentCustomizers;
+    private Map<Command, ComponentSupplier<AbstractCommandButton, Command, CommandPresentation>>
+            commandComponentSuppliers;
 
     /**
      * This interface can be used as part of {@link #setComponentSupplier(ComponentSupplier)}
@@ -54,12 +57,12 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
          *                   creator has logic that depends on specific field(s) of
          *                   the content model and / or the presentation model.
          * @return A supplier of the target component. It should be a reference to a function that
-         * gets two parameters - content model and presentation model, and returns an instance
-         * of the matching {@link JComponent} subclass that represents the Swing component to be
+         * gets one parameter - projection, and returns an instance of the matching
+         * {@link JComponent} subclass that represents the Swing component to be
          * used to configure the projected component in {@link #configureComponent(JComponent)}
          * call.
          */
-        BiFunction<CC, PC, TC> getComponentSupplier(Projection<TC, CC, PC> projection);
+        Function<Projection, TC> getComponentSupplier(Projection<TC, CC, PC> projection);
     }
 
     /**
@@ -74,17 +77,10 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
 
     protected Projection(C contentModel, P presentationModel,
             ComponentSupplier<T, C, P> componentSupplier) {
-        this.contentModel = contentModel;
-        this.presentationModel = presentationModel;
+        super(contentModel, presentationModel);
         this.componentSupplier = componentSupplier;
-    }
-
-    public C getContentModel() {
-        return this.contentModel;
-    }
-
-    public P getPresentationModel() {
-        return this.presentationModel;
+        this.commandComponentCustomizers = new HashMap<>();
+        this.commandComponentSuppliers = new HashMap<>();
     }
 
     public void setComponentSupplier(ComponentSupplier<T, C, P> componentSupplier) {
@@ -98,6 +94,18 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
         this.componentCustomizer = componentCustomizer;
     }
 
+    public Projection<T, C, P> withCommandComponentCustomizers(Map<Command,
+            ComponentCustomizer<AbstractCommandButton>> commandComponentCustomizers) {
+        this.commandComponentCustomizers = commandComponentCustomizers;
+        return this;
+    }
+
+    public Projection<T, C, P> withCommandComponentSuppliers(Map<Command,
+            ComponentSupplier<AbstractCommandButton, Command, CommandPresentation>> commandComponentSuppliers) {
+        this.commandComponentSuppliers = commandComponentSuppliers;
+        return this;
+    }
+
     public ComponentSupplier<T, C, P> getComponentSupplier() {
         return this.componentSupplier;
     }
@@ -106,9 +114,16 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
         return this.componentCustomizer;
     }
 
+    public Map<Command, ComponentSupplier<AbstractCommandButton, Command, CommandPresentation>> getCommandComponentSuppliers() {
+        return this.commandComponentSuppliers;
+    }
+
+    public Map<Command, ComponentCustomizer<AbstractCommandButton>> getCommandComponentCustomizers() {
+        return this.commandComponentCustomizers;
+    }
+
     public T buildComponent() {
-        T result = this.getComponentSupplier().getComponentSupplier(this).apply(
-                this.getContentModel(), this.getPresentationModel());
+        T result = this.getComponentSupplier().getComponentSupplier(this).apply(this);
 
         this.configureComponent(result);
 

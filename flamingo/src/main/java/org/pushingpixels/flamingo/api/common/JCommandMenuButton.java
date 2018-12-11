@@ -31,8 +31,8 @@ package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandMenuButtonUI;
-import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.event.ActionEvent;
 
@@ -48,8 +48,8 @@ public class JCommandMenuButton extends JCommandButton {
      */
     public static final String uiClassID = "CommandMenuButtonUI";
 
-    public JCommandMenuButton(Command command, CommandPresentation presentation) {
-        super(command, presentation);
+    public JCommandMenuButton(Projection<AbstractCommandButton, Command, CommandPresentation> projection) {
+        super(projection);
     }
 
     /**

@@ -94,7 +94,7 @@ fun main(args: Array<String>) {
                         CommandButtonPresentationState.MEDIUM, CommandButtonPresentationState.SMALL)))
         states.addItemListener {
             filePanel.cancelMainWorker()
-            filePanel.presentationModel.commandPresentationState = states.getItemAt(states.selectedIndex)
+            filePanel.projection.presentationModel.commandPresentationState = states.getItemAt(states.selectedIndex)
         }
         controls.add(states)
 

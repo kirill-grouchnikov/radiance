@@ -36,8 +36,8 @@ import javax.swing.*;
 import javax.swing.tree.TreeModel;
 import java.awt.*;
 import java.io.InputStream;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * Breadcrumb bar that allows wrapping an existing {@link JTree} or a

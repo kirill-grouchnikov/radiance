@@ -263,7 +263,7 @@ public class TransitionLayout implements LayoutManager {
         this.eventListeners.remove(listener);
     }
 
-    protected void fireEvent(Component child, int id) {
+    private void fireEvent(Component child, int id) {
         TransitionLayoutEvent event = new TransitionLayoutEvent(this.container, child, id);
         for (TransitionLayoutListener listener : this.eventListeners) {
             listener.onTransitionLayoutEvent(event);

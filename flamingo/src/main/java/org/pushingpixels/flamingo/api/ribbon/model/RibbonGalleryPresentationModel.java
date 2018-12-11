@@ -30,17 +30,12 @@
 package org.pushingpixels.flamingo.api.ribbon.model;
 
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
-import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.api.common.model.ImmutablePresentationModel;
+import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 
-import javax.swing.event.*;
 import java.util.*;
 
-public class RibbonGalleryPresentationModel {
-    /**
-     * Stores the listeners on this model.
-     */
-    private EventListenerList listenerList = new EventListenerList();
-
+public class RibbonGalleryPresentationModel implements ImmutablePresentationModel {
     private Map<JRibbonBand.PresentationPriority, Integer> preferredVisibleCommandCounts;
 
     /**
@@ -80,51 +75,8 @@ public class RibbonGalleryPresentationModel {
         return commandPresentationState;
     }
 
-    public void setCommandPresentationState(CommandButtonPresentationState commandPresentationState) {
-        if (this.commandPresentationState != commandPresentationState) {
-            this.commandPresentationState = commandPresentationState;
-            this.fireStateChanged();
-        }
-    }
-
     public String getExpandKeyTip() {
         return this.expandKeyTip;
-    }
-
-    /**
-     * Adds the specified change listener to track changes to the model.
-     *
-     * @param l Change listener to add.
-     * @see #removeChangeListener(ChangeListener)
-     */
-    public void addChangeListener(ChangeListener l) {
-        this.listenerList.add(ChangeListener.class, l);
-    }
-
-    /**
-     * Removes the specified change listener from tracking changes to the model.
-     *
-     * @param l Change listener to remove.
-     * @see #addChangeListener(ChangeListener)
-     */
-    public void removeChangeListener(ChangeListener l) {
-        this.listenerList.remove(ChangeListener.class, l);
-    }
-
-    /**
-     * Notifies all registered listeners that the state of this model has changed.
-     */
-    private void fireStateChanged() {
-        // Guaranteed to return a non-null array
-        Object[] listeners = this.listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        ChangeEvent event = new ChangeEvent(this);
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ChangeListener.class) {
-                ((ChangeListener) listeners[i + 1]).stateChanged(event);
-            }
-        }
     }
 
     public static class Builder {

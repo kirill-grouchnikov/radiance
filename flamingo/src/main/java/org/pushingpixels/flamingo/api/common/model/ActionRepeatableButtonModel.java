@@ -31,7 +31,6 @@ package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -114,8 +113,8 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
 
         if (toFireFirstAction) {
             fireActionPerformed(new CommandActionEvent(this,
-                    ActionEvent.ACTION_PERFORMED, this.commandButton.getCommand(),
-                    getActionCommand(),
+                    ActionEvent.ACTION_PERFORMED,
+                    this.commandButton.getProjection().getContentModel(), getActionCommand(),
                     EventQueue.getMostRecentEventTime(), modifiers));
             if (commandButton.isAutoRepeatAction()) {
                 // start timer
@@ -162,8 +161,8 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
                 }
 
                 fireActionPerformed(new CommandActionEvent(this,
-                        ActionEvent.ACTION_PERFORMED, this.commandButton.getCommand(),
-                        getActionCommand(),
+                        ActionEvent.ACTION_PERFORMED,
+                        this.commandButton.getProjection().getContentModel(), getActionCommand(),
                         EventQueue.getMostRecentEventTime(), modifiers));
                 if (commandButton.isAutoRepeatAction()) {
                     // start timer
@@ -216,7 +215,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
                         return;
                     }
                     fireActionPerformed(new CommandActionEvent(this, ActionEvent.ACTION_PERFORMED,
-                            this.commandButton.getCommand(),
+                            this.commandButton.getProjection().getContentModel(),
                             getActionCommand(), EventQueue.getMostRecentEventTime(), modifiers));
                 });
         this.autoRepeatTimer.setInitialDelay(this.commandButton

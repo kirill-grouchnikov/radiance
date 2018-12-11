@@ -31,9 +31,9 @@ package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
-import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -326,8 +326,8 @@ public class JCommandButton extends AbstractCommandButton {
         }
     }
 
-    public JCommandButton(Command command, CommandPresentation commandPresentation) {
-        super(command, commandPresentation);
+    public JCommandButton(Projection<AbstractCommandButton, Command, CommandPresentation> projection) {
+        super(projection);
 
         this.setActionModel(new ActionRepeatableButtonModel(this));
 

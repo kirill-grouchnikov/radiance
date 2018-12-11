@@ -76,7 +76,7 @@ public class TestCommandToggleButtons extends JFrame {
         this.configureControlPanel(controlPanel);
 
         this.toggleCommandShort = Command.builder()
-                .setTitle(resourceBundle.getString("Short.text"))
+                .setText(resourceBundle.getString("Short.text"))
                 .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
                 .setIconFactory(Edit_paste.factory())
                 .setDisabledIconFactory(() -> new FilteredResizableIcon(new Edit_paste(),
@@ -88,7 +88,7 @@ public class TestCommandToggleButtons extends JFrame {
                 .build();
 
         this.toggleCommandLong = Command.builder()
-                .setTitle(resourceBundle.getString("LongerLines.text"))
+                .setText(resourceBundle.getString("LongerLines.text"))
                 .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
                 .setIconFactory(Edit_paste.factory())
                 .setDisabledIconFactory(() -> new FilteredResizableIcon(new Edit_paste(),

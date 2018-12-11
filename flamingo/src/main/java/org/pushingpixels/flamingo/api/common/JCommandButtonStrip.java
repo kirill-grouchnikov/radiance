@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.ui.common.*;
 
 import javax.swing.*;
@@ -49,25 +49,19 @@ public class JCommandButtonStrip extends JComponent {
      */
     public static final String uiClassID = "CommandButtonStripUI";
 
-    private CommandProjectionGroupModel projectionGroupModel;
-    private CommandStripPresentationModel commandStripPresentationModel;
+    private Projection<JCommandButtonStrip, CommandGroupModel, CommandStripPresentationModel> projection;
 
-    public JCommandButtonStrip(CommandProjectionGroupModel projectionGroupModel,
-            CommandStripPresentationModel commandStripPresentationModel) {
-        this.projectionGroupModel = projectionGroupModel;
-        this.commandStripPresentationModel = commandStripPresentationModel;
+    public JCommandButtonStrip(Projection<JCommandButtonStrip, CommandGroupModel,
+            CommandStripPresentationModel> projection) {
+        this.projection = projection;
 
         this.setOpaque(false);
 
         updateUI();
     }
 
-    public CommandProjectionGroupModel getProjectionGroupModel() {
-        return this.projectionGroupModel;
-    }
-
-    public CommandStripPresentationModel getPresentationModel() {
-        return this.commandStripPresentationModel;
+    public Projection<JCommandButtonStrip, CommandGroupModel, CommandStripPresentationModel> getProjection() {
+        return this.projection;
     }
 
     @Override

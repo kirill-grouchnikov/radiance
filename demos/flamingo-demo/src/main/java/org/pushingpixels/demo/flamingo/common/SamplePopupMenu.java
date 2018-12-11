@@ -3,84 +3,44 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
 
-import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class SamplePopupMenu {
-
-    public static AbstractPopupMenu getSamplePopupMenu(ComponentOrientation orientation) {
-        List<CommandProjection> menuProjections1 = new ArrayList<>();
-        List<CommandProjection> menuProjections2 = new ArrayList<>();
-
-        menuProjections1.add(Command.builder()
-                .setTitle("Test menu item 1")
-                .setIcon(new EmptyResizableIcon(16))
-                .build().project());
-        menuProjections1.add(Command.builder()
-                .setTitle("Test menu item 2")
-                .setIcon(new EmptyResizableIcon(16))
-                .build().project());
-        menuProjections1.add(Command.builder()
-                .setTitle("Test menu item 3")
-                .setIcon(new EmptyResizableIcon(16))
-                .build().project());
-
-        menuProjections2.add(Command.builder()
-                .setTitle("Test menu item 4")
-                .setIcon(new EmptyResizableIcon(16))
-                .build().project());
-        menuProjections2.add(Command.builder()
-                .setTitle("Test menu item 5")
-                .setIcon(new EmptyResizableIcon(16))
-                .build().project());
-
-        CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
-                Arrays.asList(new CommandProjectionGroupModel(menuProjections1),
-                        new CommandProjectionGroupModel(menuProjections2)));
-
-        JCommandPopupMenu result = new CommandPopupMenuProjection(menuContentModel,
-                CommandPopupMenuPresentationModel.builder().build()).buildComponent();
-        result.applyComponentOrientation(orientation);
-        return result;
-    }
-
     public static CommandPopupMenuProjection getSamplePopupMenu() {
-        List<CommandProjection> menuProjections1 = new ArrayList<>();
-        List<CommandProjection> menuProjections2 = new ArrayList<>();
+        List<Command> menuProjections1 = new ArrayList<>();
+        List<Command> menuProjections2 = new ArrayList<>();
 
         menuProjections1.add(Command.builder()
-                .setTitle("Test menu item 1")
+                .setText("Test menu item 1")
                 .setIcon(new EmptyResizableIcon(16))
-                .build().project());
+                .build());
         menuProjections1.add(Command.builder()
-                .setTitle("Test menu item 2")
+                .setText("Test menu item 2")
                 .setIcon(new EmptyResizableIcon(16))
-                .build().project());
+                .build());
         menuProjections1.add(Command.builder()
-                .setTitle("Test menu item 3")
+                .setText("Test menu item 3")
                 .setIcon(new EmptyResizableIcon(16))
-                .build().project());
+                .build());
 
         menuProjections2.add(Command.builder()
-                .setTitle("Test menu item 4")
+                .setText("Test menu item 4")
                 .setIcon(new EmptyResizableIcon(16))
-                .build().project());
+                .build());
         menuProjections2.add(Command.builder()
-                .setTitle("Test menu item 5")
+                .setText("Test menu item 5")
                 .setIcon(new EmptyResizableIcon(16))
-                .build().project());
+                .build());
 
         CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
-                Arrays.asList(new CommandProjectionGroupModel(menuProjections1),
-                        new CommandProjectionGroupModel(menuProjections2)));
+                Arrays.asList(new CommandGroupModel(menuProjections1),
+                        new CommandGroupModel(menuProjections2)));
 
         return new CommandPopupMenuProjection(menuContentModel,
                 CommandPopupMenuPresentationModel.builder().build());

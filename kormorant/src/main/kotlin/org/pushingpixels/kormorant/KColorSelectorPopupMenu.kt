@@ -94,7 +94,7 @@ class KColorSelectorPopupMenuGroup {
         for (component in content) {
             when (component) {
                 is KCommandGroup.CommandConfig -> {
-                    menuGroupBuilder.addCommand(component.toJavaProjection())
+                    menuGroupBuilder.addCommand(component.toJavaCommand())
                 }
                 is KColorSelectorPopupMenuColorSection -> {
                     if (component.isDerived) {

@@ -40,10 +40,10 @@ public class TestCommandButtonsNoText extends TestCommandButtons {
         super();
 
         // reconfigure the commands to show no texts
-        copyCommand.setTitle(null);
-        cutCommand.setTitle(null);
-        pasteActionCommand.setTitle(null);
-        pastePopupCommand.setTitle(null);
+        copyCommand.setText(null);
+        cutCommand.setText(null);
+        pasteActionCommand.setText(null);
+        pastePopupCommand.setText(null);
     }
 
     @Override
@@ -54,10 +54,10 @@ public class TestCommandButtonsNoText extends TestCommandButtons {
         noText.setSelected(true);
         noText.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
             boolean isSelected = noText.isSelected();
-            copyCommand.setTitle(isSelected ? null : "New caption");
-            cutCommand.setTitle(isSelected ? null : "New caption");
-            pasteActionCommand.setTitle(isSelected ? null : "New caption");
-            pastePopupCommand.setTitle(isSelected ? null : "New caption");
+            copyCommand.setText(isSelected ? null : "New caption");
+            cutCommand.setText(isSelected ? null : "New caption");
+            pasteActionCommand.setText(isSelected ? null : "New caption");
+            pastePopupCommand.setText(isSelected ? null : "New caption");
         }));
 
         controlPanel.add(noText);

@@ -30,8 +30,8 @@
 package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandToggleButtonUI;
-import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 
@@ -46,8 +46,8 @@ public class JCommandToggleButton extends AbstractCommandButton {
 	 */
 	public static final String uiClassID = "CommandToggleButtonUI";
 
-	public JCommandToggleButton(Command command, CommandPresentation commandPresentation) {
-		super(command, commandPresentation);
+	public JCommandToggleButton(Projection<AbstractCommandButton, Command, CommandPresentation> projection) {
+		super(projection);
 		this.setActionModel(new ActionToggleButtonModel(this, false));
 
 		if (command.isToggleSelected()) {

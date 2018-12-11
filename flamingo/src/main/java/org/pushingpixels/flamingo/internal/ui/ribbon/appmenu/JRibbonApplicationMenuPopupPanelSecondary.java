@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand;
 
 import javax.swing.*;
@@ -50,20 +50,27 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends
 
     private static CommandPanelContentModel createCommandPanelContentModel(
             RibbonApplicationMenuPrimaryCommand primaryMenuCommand) {
-        List<CommandProjectionGroupModel> commandGroups = new ArrayList<>();
+        if (primaryMenuCommand.getPopupMenuProjection() != null) {
+            CommandPopupMenuProjection commandPopupMenuProjection =
+                    (CommandPopupMenuProjection) primaryMenuCommand.getPopupMenuProjection();
+            return new CommandPanelContentModel(commandPopupMenuProjection.getContentModel()
+                    .getCommandGroups());
+        }
+
+        List<CommandGroupModel> commandGroups = new ArrayList<>();
 
         int groupCount = primaryMenuCommand.getSecondaryGroupCount();
         for (int i = 0; i < groupCount; i++) {
             String groupDesc = primaryMenuCommand.getSecondaryGroupTitleAt(i);
-            List<CommandProjection> groupCommands = new ArrayList<>();
+            List<Command> groupCommands = new ArrayList<>();
             for (Command menuCommand : primaryMenuCommand.getSecondaryGroupCommands(i)) {
                 if (menuCommand.isToggle()) {
                     throw new IllegalStateException("Secondary menu command cannot be toggle");
                 }
-                groupCommands.add(menuCommand.project());
+                groupCommands.add(menuCommand);
             }
 
-            CommandProjectionGroupModel commandGroupModel = new CommandProjectionGroupModel(groupDesc, groupCommands);
+            CommandGroupModel commandGroupModel = new CommandGroupModel(groupDesc, groupCommands);
             commandGroups.add(commandGroupModel);
         }
 
@@ -72,7 +79,7 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends
 
     public JRibbonApplicationMenuPopupPanelSecondary(
             RibbonApplicationMenuPrimaryCommand primaryMenuEntry) {
-        super(createCommandPanelContentModel(primaryMenuEntry),
+        super(new CommandPanelProjection(createCommandPanelContentModel(primaryMenuEntry),
                 CommandPanelPresentationModel.builder()
                         .setCommandPresentationState(MENU_TILE_LEVEL_2)
                         .setMaxColumns(1)
@@ -80,6 +87,6 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends
                         .setPopupOrientationKind(
                                 CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD)
                         .setMenu(true)
-                        .build());
+                        .build()));
     }
 }

@@ -54,23 +54,23 @@ public class TestButtonStripMultiple extends JFrame {
                         ComponentState.ENABLED)));
 
         JComponent buttonStrip = new CommandStripProjection(
-                new CommandProjectionGroupModel(
-                        Command.builder().setIcon(new Format_justify_left()).build().project(),
-                        Command.builder().setIcon(new Format_justify_center()).build().project(),
-                        Command.builder().setIcon(new Format_justify_right()).build().project()),
+                new CommandGroupModel(
+                        Command.builder().setIcon(new Format_justify_left()).build(),
+                        Command.builder().setIcon(new Format_justify_center()).build(),
+                        Command.builder().setIcon(new Format_justify_right()).build()),
                 CommandStripPresentationModel.builder().build())
                 .buildComponent();
         this.add(buttonStrip);
 
         JComponent buttonStrip2 = new CommandStripProjection(
-                new CommandProjectionGroupModel(
-                        Command.builder().setIcon(new Format_text_bold()).build().project(),
-                        Command.builder().setIcon(new Format_text_italic()).build().project(),
-                        Command.builder().setIcon(new Format_text_underline()).build().project(),
+                new CommandGroupModel(
+                        Command.builder().setIcon(new Format_text_bold()).build(),
+                        Command.builder().setIcon(new Format_text_italic()).build(),
+                        Command.builder().setIcon(new Format_text_underline()).build(),
                         Command.builder()
                                 .setIcon(new Format_text_strikethrough())
                                 .setPopupMenuProjection(SamplePopupMenu.getSamplePopupMenu())
-                                .build().project()),
+                                .build()),
                 CommandStripPresentationModel.builder().build())
                 .buildComponent();
         this.add(buttonStrip2);
@@ -80,8 +80,6 @@ public class TestButtonStripMultiple extends JFrame {
                         .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setFlat(false).build())
                 .buildComponent();
-        standalone.setPresentationState(CommandButtonPresentationState.SMALL);
-        standalone.setFlat(false);
         this.add(standalone);
 
         this.setSize(300, 100);

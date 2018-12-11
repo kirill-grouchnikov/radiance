@@ -44,6 +44,7 @@ import javax.swing.border.Border;
 import javax.swing.event.*;
 import javax.swing.plaf.*;
 import java.awt.*;
+import java.util.*;
 
 /**
  * Basic UI for ribbon gallery {@link JRibbonGallery}.
@@ -72,7 +73,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     private Command scrollUpCommand;
     private Command expandCommand;
 
-    private CommandProjectionGroupModel galleryScrollerCommandProjections;
+    private CommandGroupModel galleryScrollerCommands;
 
     /**
      * Contains the scroll down, scroll up and show popup buttons.
@@ -111,6 +112,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                     ribbonGallery.revalidate();
                 })
                 .setAutoRepeatAction(true)
+                .setAutoRepeatActionIntervals(200, 50)
                 .build();
         this.scrollDownCommand = Command.builder()
                 .setAction((CommandActionEvent e) -> {
@@ -118,6 +120,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                     ribbonGallery.revalidate();
                 })
                 .setAutoRepeatAction(true)
+                .setAutoRepeatActionIntervals(200, 50)
                 .build();
         this.expandCommand = Command.builder()
                 .setAction((CommandActionEvent e) -> {
@@ -126,8 +129,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                         PopupFactory popupFactory = PopupFactory.getSharedInstance();
 
                         JCommandPopupMenu popupMenu = JRibbonGallery.getExpandPopupMenu(
-                                ribbonGallery.getContentModel(),
-                                ribbonGallery.getPresentationModel(), ribbonGallery);
+                                ribbonGallery.getProjection(), ribbonGallery);
                         final Point loc = ribbonGallery.getLocationOnScreen();
                         popupMenu.setCustomizer(() -> {
                             Rectangle scrBounds =
@@ -167,44 +169,47 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 .setFireActionOnPress(true)
                 .build();
 
-        // Common scroller command presentation
-        CommandPresentation galleryActionsPresentation = CommandPresentation.builder()
-                .setFocusable(false)
-                .setFlat(false)
-                .setToDismissPopupsOnActivation(false)
-                .build();
+        // Configure the overlay for the expand command to show the gallery's expand key tip
+        Map<Command, CommandPresentation.Overlay> galleryScrollerOverlays = new HashMap<>();
+        galleryScrollerOverlays.put(this.expandCommand,
+                CommandPresentation.overlay().setActionKeyTip(this.ribbonGallery.getProjection()
+                        .getPresentationModel().getExpandKeyTip()));
 
-        // Create command projections for scroller commands and set button customizers for
-        // icons and additional straight sides
-        CommandProjection scrollUpProjection = this.scrollUpCommand.project(
-                galleryActionsPresentation);
-        scrollUpProjection.setComponentCustomizer((AbstractCommandButton button) ->
-                configureScrollUpButton(button));
+        // Configure customizers for all the scroller buttons (setting icons and additional
+        // straight sides)
+        Map<Command, Projection.ComponentCustomizer<AbstractCommandButton>> galleryScrollerCustomizers = new HashMap<>();
+        galleryScrollerCustomizers.put(this.scrollUpCommand,
+                (AbstractCommandButton button) -> configureScrollUpButton(button));
+        galleryScrollerCustomizers.put(this.scrollDownCommand,
+                (AbstractCommandButton button) -> configureScrollDownButton(button));
+        galleryScrollerCustomizers.put(this.expandCommand,
+                (AbstractCommandButton button) -> configureExpandButton(button));
 
-        CommandProjection scrollDownProjection = this.scrollDownCommand.project(
-                galleryActionsPresentation);
-        scrollDownProjection.setComponentCustomizer((AbstractCommandButton button) ->
-                configureScrollDownButton(button));
+        // Configure the component supplier for the expand command to return our own subclass
+        Map<Command, Projection.ComponentSupplier<AbstractCommandButton, Command,
+                CommandPresentation>> galleryScrollerSuppliers = new HashMap<>();
+        galleryScrollerSuppliers.put(this.expandCommand,
+                (Projection<AbstractCommandButton, Command, CommandPresentation> commandProjection)
+                        -> ExpandCommandButton::new);
 
-        CommandProjection expandProjection = this.expandCommand.project(
-                galleryActionsPresentation.overlayWith(
-                        CommandPresentation.overlay().setActionKeyTip(
-                                this.ribbonGallery.getExpandKeyTip())));
-        expandProjection.setComponentSupplier((Projection<AbstractCommandButton, Command,
-                CommandPresentation> commandProjection) -> ExpandCommandButton::new);
-        expandProjection.setComponentCustomizer((AbstractCommandButton button) ->
-                configureExpandButton(button));
-
-        // Create a button strip that hosts all three scroller command projections
-        this.galleryScrollerCommandProjections = new CommandProjectionGroupModel(scrollUpProjection,
-                scrollDownProjection, expandProjection);
-        this.buttonStrip = new CommandStripProjection(
-                this.galleryScrollerCommandProjections,
+        // Create a button strip that hosts all three scroller commands with all the additional
+        // command-specific configurations
+        this.galleryScrollerCommands = new CommandGroupModel(this.scrollUpCommand,
+                this.scrollDownCommand, this.expandCommand);
+        CommandStripProjection projection = new CommandStripProjection(
+                this.galleryScrollerCommands,
                 CommandStripPresentationModel.builder()
                         .setOrientation(StripOrientation.VERTICAL)
                         .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
-                        .build())
-                .buildComponent();
+                        .setFocusable(false)
+                        .setFlat(false)
+                        .setToDismissPopupsOnActivation(false)
+                        .build());
+        projection.withCommandComponentSuppliers(galleryScrollerSuppliers)
+                .withCommandComponentCustomizers(galleryScrollerCustomizers)
+                .withCommandOverlays(galleryScrollerOverlays);
+
+        this.buttonStrip = projection.buildComponent();
 
         this.ribbonGallery.add(this.buttonStrip);
     }
@@ -213,7 +218,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * Uninstalls subcomponents from the associated ribbon gallery.
      */
     protected void uninstallComponents() {
-        this.galleryScrollerCommandProjections.removeAllCommandProjections();
+        this.galleryScrollerCommands.removeAllCommands();
         this.buttonStrip.removeAll();
         this.ribbonGallery.remove(this.buttonStrip);
     }
@@ -245,20 +250,21 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                     scrollToSelected();
                     ribbonGallery.revalidate();
                 });
-        this.ribbonGallery.getContentModel().addCommandActivationListener(
+        this.ribbonGallery.getProjection().getContentModel().addCommandActivationListener(
                 this.galleryCommandSelectionListener);
 
         this.galleryModelChangeListener = (ChangeEvent changeEvent) -> ribbonGallery.revalidate();
-        this.ribbonGallery.getContentModel().addChangeListener(this.galleryModelChangeListener);
+        this.ribbonGallery.getProjection().getContentModel().addChangeListener(
+                this.galleryModelChangeListener);
     }
 
     /**
      * Uninstalls listeners from the associated ribbon gallery.
      */
     protected void uninstallListeners() {
-        this.ribbonGallery.getContentModel().removeCommandSelectionListener(
+        this.ribbonGallery.getProjection().getContentModel().removeCommandSelectionListener(
                 this.galleryCommandSelectionListener);
-        this.ribbonGallery.getContentModel().removeChangeListener(
+        this.ribbonGallery.getProjection().getContentModel().removeChangeListener(
                 this.galleryModelChangeListener);
     }
 
@@ -321,7 +327,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
             visibleButtonRowNumber = 1;
             CommandButtonPresentationState galleryButtonPresentationState = ribbonGallery
-                    .getPresentationModel().getCommandPresentationState();
+                    .getProjection().getPresentationModel().getCommandPresentationState();
             if (galleryButtonPresentationState == CommandButtonPresentationState.SMALL) {
                 buttonHeight /= 3;
                 visibleButtonRowNumber = 3;
@@ -471,8 +477,8 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         // start at the left margin
         int result = margin.left;
         // add all the gallery buttons - based on the presentation state
-        CommandButtonPresentationState galleryButtonPresentationState = ribbonGallery.
-                getPresentationModel().getCommandPresentationState();
+        CommandButtonPresentationState galleryButtonPresentationState = ribbonGallery
+                .getProjection().getPresentationModel().getCommandPresentationState();
         if (galleryButtonPresentationState == CommandButtonPresentationState.SMALL) {
             result += buttonCount * buttonHeight / 3;
         }
@@ -560,8 +566,9 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
     @KeyTipManager.HasNextKeyTipChain
     private static class ExpandCommandButton extends JCommandButton {
-        public ExpandCommandButton(Command command, CommandPresentation commandPresentation) {
-            super(command, commandPresentation);
+        public ExpandCommandButton(Projection<AbstractCommandButton, Command,
+                CommandPresentation> projection) {
+            super(projection);
         }
     }
 

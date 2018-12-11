@@ -109,7 +109,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                         int groupCount = (groupLabels != null) ? groupLabels.length : 0;
 
                         CommandPanelPresentationModel presentationModel =
-                                buttonPanel.getPresentationModel();
+                                buttonPanel.getProjection().getPresentationModel();
                         for (int i = 0; i < groupCount; i++) {
                             for (AbstractCommandButton button :
                                     buttonPanel.getGroupButtons(i)) {
@@ -125,7 +125,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                         buttonPanel.doLayout();
                     }
                 });
-        this.buttonPanel.getPresentationModel().addChangeListener(
+        this.buttonPanel.getProjection().getPresentationModel().addChangeListener(
                 this.presentationModelChangeListener);
 
         this.contentModelChangeListener = (ChangeEvent e) ->
@@ -136,7 +136,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                         buttonPanel.doLayout();
                     }
                 });
-        this.buttonPanel.getContentModel().addChangeListener(this.contentModelChangeListener);
+        this.buttonPanel.getProjection().getContentModel().addChangeListener(
+                this.contentModelChangeListener);
     }
 
     @Override
@@ -170,11 +171,12 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      * Uninstalls listeners from the associated button panel.
      */
     protected void uninstallListeners() {
-        this.buttonPanel.getPresentationModel().removeChangeListener(
+        this.buttonPanel.getProjection().getPresentationModel().removeChangeListener(
                 this.presentationModelChangeListener);
         this.presentationModelChangeListener = null;
 
-        this.buttonPanel.getContentModel().removeChangeListener(this.contentModelChangeListener);
+        this.buttonPanel.getProjection().getContentModel().removeChangeListener(
+                this.contentModelChangeListener);
         this.contentModelChangeListener = null;
     }
 
@@ -185,7 +187,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      */
     protected LayoutManager createLayoutManager() {
         CommandPanelPresentationModel panelPresentationModel =
-                this.buttonPanel.getPresentationModel();
+                this.buttonPanel.getProjection().getPresentationModel();
         if ((panelPresentationModel != null)
                 && (panelPresentationModel.getLayoutKind() ==
                 CommandPanelPresentationModel.LayoutKind.COLUMN_FILL)) {
@@ -304,7 +306,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             // available width and divide by the max button width + gap.
             int buttonsInRow = (maxButtonWidth == 0) ? 0
                     : (maxWidth + gap) / (maxButtonWidth + gap);
-            int maxButtonColumnsToUse = panel.getPresentationModel().getMaxColumns();
+            int maxButtonColumnsToUse = panel.getProjection().getPresentationModel()
+                    .getMaxColumns();
             if (maxButtonColumnsToUse > 0) {
                 buttonsInRow = Math.min(buttonsInRow, maxButtonColumnsToUse);
             }
@@ -314,7 +317,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 y += groupInsets.top;
 
                 JLabel groupLabel = groupLabels[i];
-                if (buttonPanel.getPresentationModel().isToShowGroupLabels()) {
+                if (buttonPanel.getProjection().getPresentationModel().isToShowGroupLabels()) {
                     int labelWidth = groupLabel.getPreferredSize().width;
                     int labelHeight = getGroupTitleHeight(i);
                     if (groupLabel.getComponentOrientation().isLeftToRight()) {
@@ -387,7 +390,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         public Dimension preferredLayoutSize(Container parent) {
             JCommandButtonPanel panel = (JCommandButtonPanel) parent;
 
-            int maxButtonColumnsToUse = panel.getPresentationModel().getMaxColumns();
+            int maxButtonColumnsToUse = panel.getProjection().getPresentationModel()
+                    .getMaxColumns();
 
             Insets bInsets = parent.getInsets();
             Insets groupInsets = getGroupInsets();
@@ -556,7 +560,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         public Dimension preferredLayoutSize(Container parent) {
             JCommandButtonPanel panel = (JCommandButtonPanel) parent;
 
-            int maxButtonRowsToUse = panel.getPresentationModel().getMaxRows();
+            int maxButtonRowsToUse = panel.getProjection().getPresentationModel().getMaxRows();
 
             Insets bInsets = parent.getInsets();
             Insets groupInsets = getGroupInsets();
@@ -628,7 +632,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             this.buttonPanel.add(this.groupLabels[i]);
 
             this.groupLabels[i].setVisible(
-                    this.buttonPanel.getPresentationModel().isToShowGroupLabels());
+                    this.buttonPanel.getProjection().getPresentationModel().isToShowGroupLabels());
         }
     }
 

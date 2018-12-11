@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.internal.substance.common.ui;
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager.CommandButtonSeparatorOrientation;
-import org.pushingpixels.flamingo.api.common.JCommandButton.*;
+import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
@@ -65,7 +65,7 @@ import java.util.Map;
 
 /**
  * UI for command buttons {@link JCommandButton} in <b>Substance </b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceCommandButtonUI extends BasicCommandButtonUI
@@ -107,9 +107,9 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
     /**
      * Creates a new UI delegate for command button.
      *
-     * @button command button
+     * @param button command button
      */
-     SubstanceCommandButtonUI(JCommandButton button) {
+    SubstanceCommandButtonUI(JCommandButton button) {
         super();
 
         this.overallRolloverModel = new DefaultButtonModel();
@@ -167,6 +167,13 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                 substanceModelChangeListener.registerListeners();
             }
             if ("enabled".equals(evt.getPropertyName())) {
+                if (!commandButton.isEnabled() &&
+                        !commandButton.getProjection().getContentModel().isToggle()) {
+                    overallRolloverModel.setSelected(false);
+                    overallRolloverModel.setRollover(false);
+                    overallRolloverModel.setArmed(false);
+                    overallRolloverModel.setPressed(false);
+                }
                 overallRolloverModel.setEnabled(commandButton.isEnabled());
             }
             if ("icon".equals(evt.getPropertyName())) {
@@ -212,7 +219,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
     /**
      * Tracks possible usage of glowing icon.
      */
-    protected void trackGlowingIcon() {
+    private void trackGlowingIcon() {
         ResizableIcon currIcon = this.commandButton.getIcon();
         if (currIcon instanceof GlowingResizableIcon)
             return;
@@ -382,11 +389,13 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         ResizableIcon icon = new TransitionAwareResizableIcon(this.commandButton,
                 () -> getPopupTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> {
-                    CommandPresentation.CommandButtonPopupOrientationKind orientation = ((JCommandButton) commandButton)
+                    CommandPresentation.CommandButtonPopupOrientationKind orientation =
+                            ((JCommandButton) commandButton)
                             .getPopupOrientationKind();
-                    int direction = (orientation == CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD)
-                            ? SwingConstants.SOUTH
-                            : (commandButton.getComponentOrientation().isLeftToRight()
+                    int direction =
+                            (orientation == CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD)
+                                    ? SwingConstants.SOUTH
+                                    : (commandButton.getComponentOrientation().isLeftToRight()
                                     ? SwingConstants.EAST
                                     : SwingConstants.WEST);
                     // System.out.println(direction + ":" + width + ":"
@@ -432,7 +441,8 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         }
 
         if (layoutInfo.textLayoutInfoList != null) {
-            for (CommandButtonLayoutManager.TextLayoutInfo mainTextLayoutInfo : layoutInfo.textLayoutInfoList) {
+            for (CommandButtonLayoutManager.TextLayoutInfo mainTextLayoutInfo :
+                    layoutInfo.textLayoutInfoList) {
                 if (mainTextLayoutInfo.text != null) {
                     SubstanceTextUtilities.paintText(g2d, c, mainTextLayoutInfo.textRect,
                             mainTextLayoutInfo.text, -1, g2d.getFont(), fgColor,
@@ -442,14 +452,13 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         }
 
         if (layoutInfo.extraTextLayoutInfoList != null) {
-            Color disabledFgColor = SubstanceColorSchemeUtilities
-                    .getColorScheme(this.commandButton, ComponentState.DISABLED_UNSELECTED)
-                    .getForegroundColor();
+            Color disabledFgColor = SubstanceColorSchemeUtilities.getColorScheme(
+                    this.commandButton, ComponentState.DISABLED_UNSELECTED).getForegroundColor();
             float buttonAlpha = SubstanceColorSchemeUtilities.getAlpha(this.commandButton,
                     ComponentState.DISABLED_UNSELECTED);
             if (buttonAlpha < 1.0f) {
-                Color bgFillColor = SubstanceColorUtilities
-                        .getBackgroundFillColor(this.commandButton);
+                Color bgFillColor = SubstanceColorUtilities.getBackgroundFillColor(
+                        this.commandButton);
                 disabledFgColor = SubstanceColorUtilities.getInterpolatedColor(disabledFgColor,
                         bgFillColor, buttonAlpha);
             }
@@ -457,7 +466,10 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                 disabledFgColor = SubstanceColorUtilities.getInterpolatedColor(disabledFgColor,
                         SubstanceColorUtilities.getBackgroundFillColor(c), 0.5);
             }
-            for (CommandButtonLayoutManager.TextLayoutInfo extraTextLayoutInfo : layoutInfo.extraTextLayoutInfoList) {
+            disabledFgColor = SubstanceColorUtilities.getInterpolatedColor(disabledFgColor,
+                    fgColor, 0.5);
+            for (CommandButtonLayoutManager.TextLayoutInfo extraTextLayoutInfo :
+                    layoutInfo.extraTextLayoutInfoList) {
                 if (extraTextLayoutInfo.text != null) {
                     SubstanceTextUtilities.paintText(g2d, c, extraTextLayoutInfo.textRect,
                             extraTextLayoutInfo.text, -1, g2d.getFont(), disabledFgColor,
@@ -559,7 +571,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
 
     /**
      * Computes the alpha value for painting the separators.
-     * 
+     *
      * @return Alpha value for painting the separators.
      */
     private float getSeparatorAlpha() {

@@ -40,9 +40,9 @@ public class TestCommandToggleButtonsNoText extends TestCommandToggleButtons {
         super();
 
         // reconfigure the commands to show no texts
-        this.toggleCommandShort.setTitle(null);
+        this.toggleCommandShort.setText(null);
         this.toggleCommandShort.setExtraText(null);
-        this.toggleCommandLong.setTitle(null);
+        this.toggleCommandLong.setText(null);
         this.toggleCommandLong.setExtraText(null);
     }
 
@@ -53,9 +53,9 @@ public class TestCommandToggleButtonsNoText extends TestCommandToggleButtons {
         noText.setSelected(true);
         noText.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
             boolean isSelected = noText.isSelected();
-            toggleCommandShort.setTitle(isSelected ? null : "New caption");
+            toggleCommandShort.setText(isSelected ? null : "New caption");
             toggleCommandShort.setExtraText(isSelected ? null : "New extra text");
-            toggleCommandLong.setTitle(isSelected ? null : "New caption");
+            toggleCommandLong.setText(isSelected ? null : "New caption");
             toggleCommandLong.setExtraText(isSelected ? null : "New extra text");
         }));
         controlPanel.add(noText);

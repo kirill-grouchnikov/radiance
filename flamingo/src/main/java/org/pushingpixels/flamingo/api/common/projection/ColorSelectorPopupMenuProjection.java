@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.projection;
 
-import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 
 public class ColorSelectorPopupMenuProjection extends AbstractPopupMenuProjection<
@@ -37,7 +37,7 @@ public class ColorSelectorPopupMenuProjection extends AbstractPopupMenuProjectio
         ColorSelectorPopupMenuPresentationModel> {
 
     private static ComponentSupplier<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
-            ColorSelectorPopupMenuPresentationModel> DEFAULT_SUPPLIER =
+                ColorSelectorPopupMenuPresentationModel> DEFAULT_SUPPLIER =
             (Projection<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
                     ColorSelectorPopupMenuPresentationModel> projection) ->
                     JColorSelectorPopupMenu::new;

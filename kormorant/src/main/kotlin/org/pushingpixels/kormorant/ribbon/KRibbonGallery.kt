@@ -31,6 +31,7 @@ package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.model.Command
+import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel
@@ -120,7 +121,15 @@ class KRibbonGalleryContent {
         extraPopupGroups.add(group)
         return group
     }
-    
+
+    internal fun toCommandOverlayMap(): Map<Command, CommandPresentation.Overlay> {
+        val commandOverlays = HashMap<Command, CommandPresentation.Overlay>()
+        for (groupOverlays in extraPopupGroups.map { it.toPresentationOverlays() }) {
+            commandOverlays.putAll(groupOverlays)
+        }
+        return commandOverlays
+    }
+
     internal fun asJavaRibbonGalleryContentModel(): RibbonGalleryContentModel {
         if (hasBeenConverted) {
             return javaRibbonGalleryContentModel
@@ -141,8 +150,7 @@ class KRibbonGalleryContent {
 
         // Wire command preview and activation listeners
         javaRibbonGalleryContentModel.addCommandPreviewListener(
-                object :
-                        RibbonGalleryContentModel.GalleryCommandActionPreview {
+                object : RibbonGalleryContentModel.GalleryCommandActionPreview {
                     override fun onCommandPreviewActivated(command: Command) {
                         onCommandPreviewActivated?.invoke(command)
                     }

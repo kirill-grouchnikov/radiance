@@ -29,10 +29,12 @@
  */
 package org.pushingpixels.flamingo.api.common.popup.model;
 
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.ImmutablePresentationModel;
 
 public class ColorSelectorPopupMenuPresentationModel implements ImmutablePresentationModel {
     private int colorColumns;
+    private CommandButtonPresentationState menuPresentationState;
 
     private ColorSelectorPopupMenuPresentationModel() {
     }
@@ -45,11 +47,23 @@ public class ColorSelectorPopupMenuPresentationModel implements ImmutablePresent
         return this.colorColumns;
     }
 
+    public CommandButtonPresentationState getMenuPresentationState() {
+        return this.menuPresentationState;
+    }
+
     public static class Builder {
         private int colorColumns = 10;
+        private CommandButtonPresentationState menuPresentationState =
+                CommandPopupMenuPresentationModel.DEFAULT_POPUP_MENU_PRESENTATION_STATE;
 
         public Builder setColorColumns(int colorColumns) {
             this.colorColumns = colorColumns;
+            return this;
+        }
+
+        public Builder setMenuPresentationState(
+                CommandButtonPresentationState menuPresentationState) {
+            this.menuPresentationState = menuPresentationState;
             return this;
         }
 
@@ -57,6 +71,7 @@ public class ColorSelectorPopupMenuPresentationModel implements ImmutablePresent
             ColorSelectorPopupMenuPresentationModel presentationModel =
                     new ColorSelectorPopupMenuPresentationModel();
             presentationModel.colorColumns = this.colorColumns;
+            presentationModel.menuPresentationState = this.menuPresentationState;
             return presentationModel;
         }
     }

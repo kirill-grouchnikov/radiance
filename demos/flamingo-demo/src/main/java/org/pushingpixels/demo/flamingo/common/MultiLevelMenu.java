@@ -31,7 +31,7 @@ package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
@@ -53,38 +53,38 @@ public class MultiLevelMenu extends JFrame {
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
-        List<CommandProjection> menuCommands1 = new ArrayList<>();
-        List<CommandProjection> menuCommands2 = new ArrayList<>();
+        List<Command> menuCommands1 = new ArrayList<>();
+        List<Command> menuCommands2 = new ArrayList<>();
 
         menuCommands1.add(Command.builder()
-                .setTitle("Copy").setIcon(new Edit_copy()).build().project());
+                .setText("Copy").setIcon(new Edit_copy()).build());
         menuCommands1.add(Command.builder()
-                .setTitle("Cut").setIcon(new Edit_cut()).build().project());
+                .setText("Cut").setIcon(new Edit_cut()).build());
         menuCommands1.add(Command.builder()
-                .setTitle("Paste").setIcon(new Edit_paste()).build().project());
+                .setText("Paste").setIcon(new Edit_paste()).build());
 
-        List<CommandProjection> menuCommandsSecondary = new ArrayList<>();
+        List<Command> menuCommandsSecondary = new ArrayList<>();
 
         menuCommandsSecondary.add(Command.builder()
-                .setTitle("Find").setIcon(new Edit_find()).build().project());
+                .setText("Find").setIcon(new Edit_find()).build());
         menuCommandsSecondary.add(Command.builder()
-                .setTitle("Find replace").setIcon(
-                        new Edit_find_replace()).build().project());
+                .setText("Find replace").setIcon(
+                        new Edit_find_replace()).build());
 
         menuCommands2.add(Command.builder()
-                .setTitle("Find")
+                .setText("Find")
                 .setPopupMenuProjection(new CommandPopupMenuProjection(
                         new CommandPopupMenuContentModel(
-                                new CommandProjectionGroupModel(menuCommandsSecondary)),
+                                new CommandGroupModel(menuCommandsSecondary)),
                         CommandPopupMenuPresentationModel.builder().build()))
-                .build().project());
+                .build());
 
         CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
-                Arrays.asList(new CommandProjectionGroupModel(menuCommands1),
-                        new CommandProjectionGroupModel(menuCommands2)));
+                Arrays.asList(new CommandGroupModel(menuCommands1),
+                        new CommandGroupModel(menuCommands2)));
 
         Command mainCommand = Command.builder()
-                .setTitle("click me")
+                .setText("click me")
                 .setPopupMenuProjection(new CommandPopupMenuProjection(menuContentModel,
                         CommandPopupMenuPresentationModel.builder()
                                 .setPopupOrientationKind(

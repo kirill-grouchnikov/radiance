@@ -127,9 +127,9 @@ fun main(args: Array<String>) {
 
         iconSizeSlider.addChangeListener {
             if (!iconSizeSlider.model.valueIsAdjusting) {
-                if (iconSizeSlider.value != fileViewPanel.presentationModel.commandIconDimension) {
+                if (iconSizeSlider.value != fileViewPanel.projection.presentationModel.commandIconDimension) {
                     GlobalScope.launch(Dispatchers.Swing) {
-                        fileViewPanel.presentationModel.commandIconDimension = iconSizeSlider.value
+                        fileViewPanel.projection.presentationModel.commandIconDimension = iconSizeSlider.value
                     }
                 }
             }

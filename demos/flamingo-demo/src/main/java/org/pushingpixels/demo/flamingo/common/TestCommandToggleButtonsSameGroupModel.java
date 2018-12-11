@@ -31,9 +31,9 @@ package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.MarinerSkin;
 import org.pushingpixels.trident.Timeline;
@@ -42,7 +42,7 @@ import org.pushingpixels.trident.swing.SwingComponentTimeline;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TestCommandToggleButtonsSameGroupModel extends JFrame {
     private TestCommandToggleButtonsSameGroupModel() {
@@ -55,22 +55,22 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
         CommandToggleGroupModel justifyGroup = new CommandToggleGroupModel();
 
         Command justifyLeft = Command.builder()
-                .setTitle("left")
+                .setText("left")
                 .setIconFactory(Format_justify_left.factory())
                 .inToggleGroupAsSelected(justifyGroup)
                 .build();
         Command justifyCenter = Command.builder()
-                .setTitle("center")
+                .setText("center")
                 .setIconFactory(Format_justify_center.factory())
                 .inToggleGroup(justifyGroup)
                 .build();
         Command justifyRight = Command.builder()
-                .setTitle("right")
+                .setText("right")
                 .setIconFactory(Format_justify_right.factory())
                 .inToggleGroup(justifyGroup)
                 .build();
         Command justifyFill = Command.builder()
-                .setTitle("fill")
+                .setText("fill")
                 .setIconFactory(Format_justify_fill.factory())
                 .inToggleGroup(justifyGroup)
                 .build();
@@ -110,13 +110,8 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
     }
 
     private JComponent getToggleStrip(CommandPresentation display, Command... commands) {
-        java.util.List<CommandProjection> commandProjections = new ArrayList<>();
-        for (Command command : commands) {
-            commandProjections.add(command.project());
-        }
-
         return new CommandStripProjection(
-                new CommandProjectionGroupModel(commandProjections),
+                new CommandGroupModel(Arrays.asList(commands)),
                 CommandStripPresentationModel.builder()
                         .setCommandPresentationState(display.getPresentationState()).build())
                 .buildComponent();

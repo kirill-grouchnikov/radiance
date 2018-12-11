@@ -7,25 +7,24 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Font_x_generic;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.*;
 import java.text.MessageFormat;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class QuickStylesPanel {
     public static CommandPanelContentModel getQuickStylesContentModel(
             ResourceBundle resourceBundle, Locale locale) {
-        List<CommandProjectionGroupModel> commandGroups = new ArrayList<>();
+        List<CommandGroupModel> commandGroups = new ArrayList<>();
 
         MessageFormat mf = new MessageFormat(resourceBundle.getString("PanelStyles.text"));
         mf.setLocale(locale);
 
         for (int groupIndex = 0; groupIndex < 4; groupIndex++) {
             String commandGroupName = mf.format(new Object[] { groupIndex });
-            List<CommandProjection> projections = new ArrayList<>();
+            List<Command> commands = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
                 final String deco = groupIndex + "/" + i;
                 ResizableIcon fontIcon = new Font_x_generic();
@@ -47,10 +46,10 @@ public class QuickStylesPanel {
                         .setIcon(finalIcon).setToggle().setAction(
                                 (CommandActionEvent e) -> System.out.println(
                                         "Invoked action on " + deco)).build();
-                projections.add(command.project());
+                commands.add(command);
             }
 
-            commandGroups.add(new CommandProjectionGroupModel(commandGroupName, projections));
+            commandGroups.add(new CommandGroupModel(commandGroupName, commands));
         }
 
         CommandPanelContentModel commandPanelContentModel =
@@ -65,13 +64,11 @@ public class QuickStylesPanel {
         MessageFormat mf = new MessageFormat(resourceBundle.getString("PanelStyles.text"));
         mf.setLocale(locale);
 
-        List<CommandProjectionGroupModel> projectionGroupModels =
-                model.getCommandProjectionGroups();
-        for (int groupIndex = 0; groupIndex < projectionGroupModels.size(); groupIndex++) {
-            CommandProjectionGroupModel projectionGroupModel =
-                    projectionGroupModels.get(groupIndex);
+        List<CommandGroupModel> commandGroups = model.getCommandGroups();
+        for (int groupIndex = 0; groupIndex < commandGroups.size(); groupIndex++) {
+            CommandGroupModel commandGroup = commandGroups.get(groupIndex);
             String commandGroupName = mf.format(new Object[] { groupIndex });
-            projectionGroupModel.setTitle(commandGroupName);
+            commandGroup.setTitle(commandGroupName);
         }
     }
 

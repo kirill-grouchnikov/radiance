@@ -36,7 +36,7 @@ public class CommandPopupMenuProjection extends AbstractPopupMenuProjection<
         JCommandPopupMenu, CommandPopupMenuContentModel, CommandPopupMenuPresentationModel> {
 
     private static ComponentSupplier<JCommandPopupMenu, CommandPopupMenuContentModel,
-            CommandPopupMenuPresentationModel> DEFAULT_SUPPLIER =
+                CommandPopupMenuPresentationModel> DEFAULT_SUPPLIER =
             (Projection<JCommandPopupMenu, CommandPopupMenuContentModel,
                     CommandPopupMenuPresentationModel> projection) ->
                     JCommandPopupMenu::new;

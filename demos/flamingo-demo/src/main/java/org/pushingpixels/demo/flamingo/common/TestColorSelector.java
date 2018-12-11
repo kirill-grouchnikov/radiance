@@ -109,7 +109,7 @@ public class TestColorSelector extends JFrame {
                 ColorSelectorPopupMenuGroupModel.builder();
 
         selectorBuilder.addCommand(Command.builder()
-                .setTitle(resourceBundle.getString("ColorSelector.textAutomatic"))
+                .setText(resourceBundle.getString("ColorSelector.textAutomatic"))
                 .setIcon(new ColorIcon(defaultPanelColor))
                 .setAction((CommandActionEvent e) -> {
                     colorActivationListener.onColorActivated(defaultPanelColor);
@@ -126,7 +126,7 @@ public class TestColorSelector extends JFrame {
                         colorPreviewListener.onColorPreviewCanceled();
                     }
                 })
-                .build().project());
+                .build());
 
         if (hasTheme.isSelected()) {
             selectorBuilder.addColorSectionWithDerived(
@@ -155,7 +155,7 @@ public class TestColorSelector extends JFrame {
         }
 
         selectorBuilder.addCommand(Command.builder()
-                .setTitle(resourceBundle.getString("ColorSelector.textMoreColor"))
+                .setText(resourceBundle.getString("ColorSelector.textMoreColor"))
                 .setAction((CommandActionEvent e) -> SwingUtilities.invokeLater(() -> {
                     Color color = JColorChooser.showDialog(TestColorSelector.this,
                             "Color chooser", bColor);
@@ -164,7 +164,7 @@ public class TestColorSelector extends JFrame {
                         JColorSelectorPopupMenu.addColorToRecentlyUsed(color);
                     }
                 }))
-                .build().project());
+                .build());
 
         ColorSelectorPopupMenuContentModel selectorModel =
                 new ColorSelectorPopupMenuContentModel(

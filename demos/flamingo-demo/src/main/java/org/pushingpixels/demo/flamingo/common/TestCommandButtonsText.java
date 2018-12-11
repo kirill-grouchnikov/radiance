@@ -41,10 +41,10 @@ public class TestCommandButtonsText extends TestCommandButtons {
         super();
 
         // Override titles
-        this.copyCommand.setTitle(resourceBundle.getString("Click.text"));
-        this.cutCommand.setTitle(resourceBundle.getString("Click.text"));
-        this.pasteActionCommand.setTitle(resourceBundle.getString("Click.text"));
-        this.pastePopupCommand.setTitle(resourceBundle.getString("Click.text"));
+        this.copyCommand.setText(resourceBundle.getString("Click.text"));
+        this.cutCommand.setText(resourceBundle.getString("Click.text"));
+        this.pasteActionCommand.setText(resourceBundle.getString("Click.text"));
+        this.pastePopupCommand.setText(resourceBundle.getString("Click.text"));
 
         // and actions
         this.copyCommand.setAction(new CounterActionListener());
@@ -62,7 +62,7 @@ public class TestCommandButtonsText extends TestCommandButtons {
                 count++;
                 MessageFormat mf = new MessageFormat(resourceBundle.getString("Clicked.text"));
                 mf.setLocale(currLocale);
-                e.getCommand().setTitle(mf.format(new Object[] { count }));
+                e.getCommand().setText(mf.format(new Object[] { count }));
             });
         }
     }

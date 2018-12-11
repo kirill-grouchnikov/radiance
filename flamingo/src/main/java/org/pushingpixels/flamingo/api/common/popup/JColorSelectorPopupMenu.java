@@ -30,9 +30,9 @@
 package org.pushingpixels.flamingo.api.common.popup;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.CommandPresentation;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceColorSelectorPopupMenuUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.*;
 
@@ -48,6 +48,8 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
      */
     public static final String uiClassID = "ColorSelectorPopupMenuUI";
 
+    private Projection<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
+            ColorSelectorPopupMenuPresentationModel> projection;
     private ColorSelectorPopupMenuContentModel contentModel;
     private ColorSelectorPopupMenuPresentationModel presentationModel;
 
@@ -59,10 +61,11 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
 
     private static LinkedList<Color> recentlySelected = new LinkedList<>();
 
-    public JColorSelectorPopupMenu(ColorSelectorPopupMenuContentModel contentModel,
-            ColorSelectorPopupMenuPresentationModel presentationModel) {
-        this.contentModel = contentModel;
-        this.presentationModel = presentationModel;
+    public JColorSelectorPopupMenu(Projection<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
+            ColorSelectorPopupMenuPresentationModel> projection) {
+        this.projection = projection;
+        this.contentModel = projection.getContentModel();
+        this.presentationModel = projection.getPresentationModel();
         this.colorPreviewListener = this.contentModel.getColorPreviewListener();
         this.colorActivationListener = this.contentModel.getColorActivationListener();
         this.colorColumns = this.presentationModel.getColorColumns();
@@ -73,23 +76,30 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
         this.updateUI();
     }
 
-    public ColorSelectorPopupMenuContentModel getContentModel() {
-        return this.contentModel;
+    public Projection<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
+            ColorSelectorPopupMenuPresentationModel> getProjection() {
+        return this.projection;
     }
 
     private void populateContent() {
+        // Command presentation for menu content
+        CommandPresentation presentation =
+                CommandPresentation.builder()
+                        .setPresentationState(
+                                this.presentationModel.getMenuPresentationState())
+                        .setMenu(true)
+                        .build();
+
         List<ColorSelectorPopupMenuGroupModel> menuGroups = this.contentModel.getMenuGroups();
         for (int i = 0; i < menuGroups.size(); i++) {
             ColorSelectorPopupMenuGroupModel menuGroup = menuGroups.get(i);
             for (KeyValuePair<ColorSelectorPopupMenuGroupModel.GroupEntryKind, Object> groupEntry :
                     menuGroup.getGroupContent()) {
                 switch (groupEntry.getKey()) {
-                    case COMMAND_PROJECTION:
-                        CommandProjection commandProjection =
-                                (CommandProjection) groupEntry.getValue();
+                    case COMMAND:
+                        Command command = (Command) groupEntry.getValue();
                         AbstractCommandButton commandButton =
-                                commandProjection.reproject(CommandPresentation.builder()
-                                        .setMenu(true).build()).buildComponent();
+                                command.project(presentation).buildComponent();
                         if (commandButton instanceof JCommandMenuButton) {
                             this.addMenuButton((JCommandMenuButton) commandButton);
                         }

@@ -98,7 +98,7 @@ public class SVGZBatikTestApplication extends JFrame {
                     "/org/pushingpixels/demo/flamingo/svg/oxygen/office-address-book.svgz");
             SvgBatikResizableIcon icon = SvgBatikResizableIcon.getSvgzIcon(is,
                     new Dimension(32, 32));
-            iconButton = Command.builder().setTitle("just icon").setIcon(icon).build()
+            iconButton = Command.builder().setText("just icon").setIcon(icon).build()
                     .project(CommandPresentation.builder().setPresentationState(
                             CommandButtonPresentationState.BIG).build()).buildComponent();
             add(iconButton);

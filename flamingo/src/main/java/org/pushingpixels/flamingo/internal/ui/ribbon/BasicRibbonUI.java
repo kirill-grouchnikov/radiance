@@ -1084,7 +1084,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
         for (final RibbonTask task : visibleTasks) {
             // Configure the task toggle command
             Command taskToggleCommand = Command.builder()
-                    .setTitle(task.getTitle())
+                    .setText(task.getTitle())
                     .inToggleGroup(this.taskToggleGroupModel)
                     .setAction((CommandActionEvent cae) -> SwingUtilities.invokeLater(() ->
                             processTaskSelection(task, (JRibbonTaskToggleButton) cae.getSource())))

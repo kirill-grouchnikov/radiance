@@ -29,14 +29,12 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
-
 import javax.swing.event.*;
 import java.beans.*;
 import java.util.*;
 
 public class CommandPanelContentModel implements ContentModel {
-    private List<CommandProjectionGroupModel> commandProjectionGroups;
+    private List<CommandGroupModel> commandGroups;
 
     /**
      * Indicates the selection mode for the toggle commands in the panel.
@@ -50,67 +48,67 @@ public class CommandPanelContentModel implements ContentModel {
      */
     private EventListenerList listenerList = new EventListenerList();
 
-    private CommandProjectionGroupModel.CommandProjectionGroupListener commandGroupListener;
+    private CommandGroupModel.CommandGroupListener commandGroupListener;
     private PropertyChangeListener commandGroupPropertyChangeListener;
 
-    public CommandPanelContentModel(List<CommandProjectionGroupModel> commands) {
-        this.commandProjectionGroups = new ArrayList<>(commands);
-        this.commandGroupListener = new CommandProjectionGroupModel.CommandProjectionGroupListener() {
+    public CommandPanelContentModel(List<CommandGroupModel> commands) {
+        this.commandGroups = new ArrayList<>(commands);
+        this.commandGroupListener = new CommandGroupModel.CommandGroupListener() {
             @Override
-            public void onCommandProjectionAdded(CommandProjection commandProjection) {
+            public void onCommandAdded(Command command) {
                 fireStateChanged();
             }
 
             @Override
-            public void onCommandProjectionRemoved(CommandProjection commandProjection) {
+            public void onCommandRemoved(Command command) {
                 fireStateChanged();
             }
 
             @Override
-            public void onAllCommandProjectionsRemoved() {
+            public void onAllCommandsRemoved() {
                 fireStateChanged();
             }
         };
-        for (CommandProjectionGroupModel commandGroupModel : this.commandProjectionGroups) {
+        for (CommandGroupModel commandGroupModel : this.commandGroups) {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         }
         this.commandGroupPropertyChangeListener = (PropertyChangeEvent evt) -> fireStateChanged();
-        for (CommandProjectionGroupModel commandGroupModel : this.commandProjectionGroups) {
+        for (CommandGroupModel commandGroupModel : this.commandGroups) {
             commandGroupModel.addPropertyChangeListener(this.commandGroupPropertyChangeListener);
         }
     }
 
-    public void addCommandProjectionGroup(CommandProjectionGroupModel commandGroupModel) {
-        this.commandProjectionGroups.add(commandGroupModel);
+    public void addCommandGroup(CommandGroupModel commandGroupModel) {
+        this.commandGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         commandGroupModel.addPropertyChangeListener(this.commandGroupPropertyChangeListener);
         this.fireStateChanged();
     }
 
-    public void removeCommandProjectionGroup(CommandProjectionGroupModel commandGroupModel) {
-        this.commandProjectionGroups.remove(commandGroupModel);
+    public void removeCommandGroup(CommandGroupModel commandGroupModel) {
+        this.commandGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         commandGroupModel.removePropertyChangeListener(this.commandGroupPropertyChangeListener);
         this.fireStateChanged();
     }
 
-    public void removeAllCommandProjectionGroups() {
-        for (CommandProjectionGroupModel commandGroupModel : this.commandProjectionGroups) {
+    public void removeAllCommandGroups() {
+        for (CommandGroupModel commandGroupModel : this.commandGroups) {
             commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
             commandGroupModel.removePropertyChangeListener(this.commandGroupPropertyChangeListener);
         }
-        this.commandProjectionGroups.clear();
+        this.commandGroups.clear();
         this.fireStateChanged();
     }
 
-    public List<CommandProjectionGroupModel> getCommandProjectionGroups() {
-        return Collections.unmodifiableList(this.commandProjectionGroups);
+    public List<CommandGroupModel> getCommandGroups() {
+        return Collections.unmodifiableList(this.commandGroups);
     }
 
-    public int getCommandProjectionCount() {
+    public int getCommandCount() {
         int result = 0;
-        for (CommandProjectionGroupModel commandGroupModel : this.getCommandProjectionGroups()) {
-            result += commandGroupModel.getCommandProjections().size();
+        for (CommandGroupModel commandGroupModel : this.getCommandGroups()) {
+            result += commandGroupModel.getCommands().size();
         }
         return result;
     }

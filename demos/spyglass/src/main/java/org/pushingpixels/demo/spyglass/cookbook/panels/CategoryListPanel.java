@@ -50,26 +50,25 @@ public class CategoryListPanel extends SingleContentPanel {
                 padding(new EmptyBorder(6, 0, 4, 0));
 
         JComponent controlButtons = new CommandStripProjection(
-                new CommandProjectionGroupModel(
+                new CommandGroupModel(
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_add_white_24px.of(16, 16), 0.75f)))
-                                .build().project(),
+                                .build(),
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_remove_white_24px.of(12, 12), 0.75f)))
-                                .build().project(),
+                                .build(),
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_settings_white_24px.of(12, 12), 0.75f)))
                                 .setPopupMenuProjection(new CommandPopupMenuProjection(
                                         new CommandPopupMenuContentModel(
-                                                new CommandProjectionGroupModel(
-                                                        Command.builder()
-                                                                .setTitle("menu item")
-                                                                .build().project())),
-                                        CommandPopupMenuPresentationModel.builder().build())
-                                ).build().project()),
+                                                new CommandGroupModel(Command.builder()
+                                                        .setText("menu item")
+                                                        .build())),
+                                        CommandPopupMenuPresentationModel.builder().build()))
+                                .build()),
                 CommandStripPresentationModel.builder().build())
                 .buildComponent();
 

@@ -31,7 +31,6 @@ package org.pushingpixels.flamingo.api.common.projection;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.*;
 
 import java.beans.PropertyChangeEvent;
@@ -41,14 +40,14 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
 
     private static ComponentSupplier<AbstractCommandButton, Command, CommandPresentation> DEFAULT_SUPPLIER =
             (Projection<AbstractCommandButton, Command, CommandPresentation> projection) -> {
-        if (projection.getPresentationModel().isMenu()) {
-            return projection.getContentModel().isToggle() ? JCommandToggleMenuButton::new
-                    : JCommandMenuButton::new;
-        } else {
-            return projection.getContentModel().isToggle() ? JCommandToggleButton::new
-                    : JCommandButton::new;
-        }
-    };
+                if (projection.getPresentationModel().isMenu()) {
+                    return projection.getContentModel().isToggle() ? JCommandToggleMenuButton::new
+                            : JCommandMenuButton::new;
+                } else {
+                    return projection.getContentModel().isToggle() ? JCommandToggleButton::new
+                            : JCommandButton::new;
+                }
+            };
 
     public CommandProjection(Command command, CommandPresentation commandPresentation) {
         super(command, commandPresentation, DEFAULT_SUPPLIER);
@@ -82,7 +81,7 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
             if ("enabled".equals(evt.getPropertyName())) {
                 component.setEnabled((Boolean) evt.getNewValue());
             }
-            if ("title".equals(evt.getPropertyName())) {
+            if ("text".equals(evt.getPropertyName())) {
                 component.setText((String) evt.getNewValue());
             }
             if ("extraText".equals(evt.getPropertyName())) {

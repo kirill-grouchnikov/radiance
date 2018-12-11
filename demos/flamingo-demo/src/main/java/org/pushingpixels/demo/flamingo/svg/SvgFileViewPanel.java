@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarCallBack;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.photon.icon.SvgBatikResizableIcon;
 import org.pushingpixels.photon.transcoder.SvgStreamTranscoder;
@@ -68,13 +68,13 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
      * @param startingDimension Initial dimension for SVG icons.
      */
     public SvgFileViewPanel(BreadcrumbBarCallBack<File> callback, int startingDimension) {
-        super(new CommandPanelContentModel(new ArrayList<>()),
+        super(new CommandPanelProjection(new CommandPanelContentModel(new ArrayList<>()),
                 CommandPanelPresentationModel.builder()
                         .setToShowGroupLabels(false)
                         .setLayoutKind(CommandPanelPresentationModel.LayoutKind.ROW_FILL)
                         .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
                         .setCommandIconDimension(startingDimension)
-                        .build());
+                        .build()));
 
         this.callback = callback;
     }
@@ -88,10 +88,9 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
      * @param leafs Information on the files to show in the panel.
      */
     public void setFolder(final java.util.List<StringValuePair<File>> leafs) {
-        this.getContentModel().removeAllCommandProjectionGroups();
+        this.getProjection().getContentModel().removeAllCommandGroups();
 
-        List<CommandProjection> commandProjections = new ArrayList<>();
-        CommandPresentation panelPresentation = CommandPresentation.withDefaults();
+        List<Command> commands = new ArrayList<>();
 
         final Map<String, Command> newCommands = new HashMap<>();
         for (StringValuePair<File> leaf : leafs) {
@@ -101,8 +100,8 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
             }
 
             Command svgCommand = Command.builder()
-                    .setTitle(name.replace('-', ' '))
-                    .setIcon(new EmptyResizableIcon(getPresentationModel()
+                    .setText(name.replace('-', ' '))
+                    .setIcon(new EmptyResizableIcon(getProjection().getPresentationModel()
                             .getCommandIconDimension()))
                     .setAction((CommandActionEvent e) -> {
                         try {
@@ -142,13 +141,12 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
                             .addDescriptionSection("Click to generate Java2D class").build())
                     .build();
 
-            commandProjections.add(svgCommand.project(panelPresentation));
+            commands.add(svgCommand);
 
             newCommands.put(name, svgCommand);
         }
 
-        this.getContentModel().addCommandProjectionGroup(
-                new CommandProjectionGroupModel(commandProjections));
+        this.getProjection().getContentModel().addCommandGroup(new CommandGroupModel(commands));
 
         mainWorker = new SwingWorker<Void, StringValuePair<InputStream>>() {
             @Override
@@ -173,7 +171,8 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
                 for (final StringValuePair<InputStream> pair : pairs) {
                     final String name = pair.getKey();
                     InputStream svgStream = pair.getValue();
-                    int iconDimension = getPresentationModel().getCommandIconDimension();
+                    int iconDimension = getProjection().getPresentationModel()
+                            .getCommandIconDimension();
                     Dimension svgDim = new Dimension(iconDimension, iconDimension);
 
                     final SvgBatikResizableIcon svgIcon = name.endsWith(".svg")
@@ -193,7 +192,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
      * @param dimension New dimension for the icons.
      */
     public void setIconDimension(int dimension) {
-        this.getPresentationModel().setCommandIconDimension(dimension);
+        this.getProjection().getPresentationModel().setCommandIconDimension(dimension);
     }
 
     /**

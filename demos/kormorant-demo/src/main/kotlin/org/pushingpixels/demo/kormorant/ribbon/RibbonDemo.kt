@@ -40,6 +40,7 @@ import org.pushingpixels.flamingo.api.common.HorizontalAlignment
 import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
+import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
@@ -287,6 +288,10 @@ private class RibbonDemoBuilder {
     lateinit var rulerPanel: RulerPanel
     val documentNewCommand: KCommand
     val pasteCommand: KCommand
+    val menuSaveSelection: KCommand
+    val menuClearSelection: KCommand
+    val applyStyles: KCommand
+
     val styleGalleryContentModel: KRibbonGalleryContent
 
     init {
@@ -315,6 +320,31 @@ private class RibbonDemoBuilder {
             }
             isTitleClickAction = true
         }
+
+        menuSaveSelection = command {
+            title = resourceBundle.getString("Format.menuSaveSelection.text")
+            icon = ColorResizableIcon(16, Color(0xFB, 0xC0, 0x2D))
+            action = CommandAction {
+                println("Save Selection activated")
+            }
+        }
+
+        menuClearSelection = command {
+            title = resourceBundle.getString("Format.menuClearSelection.text")
+            icon = ColorResizableIcon(16, Color(0xFF, 0xA0, 0x00))
+            action = CommandAction {
+                println("Clear Selection activated")
+            }
+        }
+
+        applyStyles = command {
+            title = resourceBundle.getString("Format.applyStyles.text")
+            icon = ColorResizableIcon(16, Color(0xF5, 0x7C, 0x00))
+            action = CommandAction {
+                println("Apply Styles activated")
+            }
+        }
+
 
         val mfButtonText = MessageFormat(
                 resourceBundle.getString("StylesGallery.textButton"))
@@ -364,34 +394,17 @@ private class RibbonDemoBuilder {
                 }
             }
 
-            onCommandActivated = { command -> println("*** Command '" + command.title + "' activated! ***") }
-            onCommandPreviewActivated = { command -> println("Preview activated for '" + command.title + "'") }
-            onCommandPreviewCanceled = { command -> println("Preview canceled for '" + command.title + "'") }
+            onCommandActivated = { command -> println("*** Command '" + command.text + "' activated! ***") }
+            onCommandPreviewActivated = { command -> println("Preview activated for '" + command.text + "'") }
+            onCommandPreviewCanceled = { command -> println("Preview canceled for '" + command.text + "'") }
 
             extraPopupGroup {
-                command(actionKeyTip = "SS") {
-                    title = resourceBundle.getString("Format.menuSaveSelection.text")
-                    icon = EmptyResizableIcon(16)
-                    action = CommandAction {
-                        println("Save Selection activated")
-                    }
-                }
-
-                command(actionKeyTip = "SC") {
-                    title = resourceBundle.getString("Format.menuClearSelection.text")
-                    icon = EmptyResizableIcon(16)
-                    action = CommandAction {
-                        println("Clear Selection activated")
-                    }
-                }
+                command(command = menuSaveSelection, actionKeyTip = "SS")
+                command(command = menuClearSelection, actionKeyTip = "SC")
             }
 
             extraPopupGroup {
-                command(actionKeyTip = "SA") {
-                    title = resourceBundle.getString("Format.applyStyles.text")
-                    icon = Font_x_generic.of(16, 16)
-                    action = CommandAction { println("Apply Styles activated") }
-                }
+                command(command = applyStyles, actionKeyTip = "SA")
             }
         }
     }
@@ -591,31 +604,12 @@ private class RibbonDemoBuilder {
                     }
 
                     group {
-                        command(actionKeyTip = "SS") {
-                            title = resourceBundle.getString("Format.menuSaveSelection.text")
-                            icon = ColorResizableIcon(16, Color(0xFB, 0xC0, 0x2D))
-                            action = CommandAction {
-                                println("Save Selection activated")
-                            }
-                        }
-
-                        command(actionKeyTip = "SC") {
-                            title = resourceBundle.getString("Format.menuClearSelection.text")
-                            icon = ColorResizableIcon(16, Color(0xFF, 0xA0, 0x00))
-                            action = CommandAction {
-                                println("Clear Selection activated")
-                            }
-                        }
+                        command(command = menuSaveSelection, actionKeyTip = "SS")
+                        command(command = menuClearSelection, actionKeyTip = "SC")
                     }
 
                     group {
-                        command(actionKeyTip = "SA") {
-                            title = resourceBundle.getString("Format.applyStyles.text")
-                            icon = ColorResizableIcon(16, Color(0xF5, 0x7C, 0x00))
-                            action = CommandAction {
-                                println("Apply Styles activated")
-                            }
-                        }
+                        command(command = applyStyles, actionKeyTip = "SA")
                     }
                 }
                 popupRichTooltip {

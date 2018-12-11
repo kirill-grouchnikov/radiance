@@ -30,50 +30,49 @@
 package org.pushingpixels.flamingo.api.common.popup.model;
 
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 
 import javax.swing.event.*;
 import java.util.*;
 
 public class CommandPopupMenuContentModel implements ContentModel {
     private CommandPanelContentModel panelContentModel;
-    private List<CommandProjectionGroupModel> commandGroups;
+    private List<CommandGroupModel> commandGroups;
 
     /**
      * Stores the listeners on this model.
      */
     private EventListenerList listenerList = new EventListenerList();
 
-    private CommandProjectionGroupModel.CommandProjectionGroupListener commandGroupListener;
+    private CommandGroupModel.CommandGroupListener commandGroupListener;
 
-    public CommandPopupMenuContentModel(CommandProjectionGroupModel commands) {
+    public CommandPopupMenuContentModel(CommandGroupModel commands) {
         this(null, Arrays.asList(commands));
     }
 
-    public CommandPopupMenuContentModel(List<CommandProjectionGroupModel> commands) {
+    public CommandPopupMenuContentModel(List<CommandGroupModel> commands) {
         this(null, commands);
     }
 
     public CommandPopupMenuContentModel(CommandPanelContentModel panelContentModel,
-            List<CommandProjectionGroupModel> commands) {
+            List<CommandGroupModel> commands) {
         this.commandGroups = new ArrayList<>(commands);
-        this.commandGroupListener = new CommandProjectionGroupModel.CommandProjectionGroupListener() {
+        this.commandGroupListener = new CommandGroupModel.CommandGroupListener() {
             @Override
-            public void onCommandProjectionAdded(CommandProjection commandProjection) {
+            public void onCommandAdded(Command command) {
                 fireStateChanged();
             }
 
             @Override
-            public void onCommandProjectionRemoved(CommandProjection commandProjection) {
+            public void onCommandRemoved(Command command) {
                 fireStateChanged();
             }
 
             @Override
-            public void onAllCommandProjectionsRemoved() {
+            public void onAllCommandsRemoved() {
                 fireStateChanged();
             }
         };
-        for (CommandProjectionGroupModel commandGroupModel : this.commandGroups) {
+        for (CommandGroupModel commandGroupModel : this.commandGroups) {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         }
         this.panelContentModel = panelContentModel;
@@ -87,27 +86,27 @@ public class CommandPopupMenuContentModel implements ContentModel {
         return this.panelContentModel;
     }
 
-    public void addCommandGroup(CommandProjectionGroupModel commandGroupModel) {
+    public void addCommandGroup(CommandGroupModel commandGroupModel) {
         this.commandGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
-    public void removeCommandGroup(CommandProjectionGroupModel commandGroupModel) {
+    public void removeCommandGroup(CommandGroupModel commandGroupModel) {
         this.commandGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
     public void removeAllCommandGroups() {
-        for (CommandProjectionGroupModel commandGroupModel : this.commandGroups) {
+        for (CommandGroupModel commandGroupModel : this.commandGroups) {
             commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         }
         this.commandGroups.clear();
         this.fireStateChanged();
     }
 
-    public List<CommandProjectionGroupModel> getCommandGroups() {
+    public List<CommandGroupModel> getCommandGroups() {
         return Collections.unmodifiableList(this.commandGroups);
     }
 

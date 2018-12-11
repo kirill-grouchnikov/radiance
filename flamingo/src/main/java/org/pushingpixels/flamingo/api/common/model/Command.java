@@ -59,7 +59,7 @@ public class Command implements ContentModel {
     public static final int DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS = 500;
     public static final int DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS = 100;
 
-    private String title;
+    private String text;
     private ResizableIcon icon;
     private ResizableIconFactory iconFactory;
     private ResizableIcon disabledIcon;
@@ -152,15 +152,15 @@ public class Command implements ContentModel {
         }
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getText() {
+        return this.text;
     }
 
-    public void setTitle(String title) {
-        if (this.title != title) {
-            String old = this.title;
-            this.title = title;
-            this.pcs.firePropertyChange("title", old, this.title);
+    public void setText(String text) {
+        if (this.text != text) {
+            String old = this.text;
+            this.text = text;
+            this.pcs.firePropertyChange("text", old, this.text);
         }
     }
 
@@ -457,7 +457,7 @@ public class Command implements ContentModel {
     }
 
     public abstract static class BaseBuilder<T extends Command, B extends BaseBuilder> {
-        protected String title;
+        protected String text;
         protected ResizableIcon icon;
         protected ResizableIconFactory iconFactory;
         protected ResizableIcon disabledIcon;
@@ -485,7 +485,7 @@ public class Command implements ContentModel {
         protected boolean isFireActionOnPress;
 
         protected void configureBaseCommand(Command command) {
-            command.title = this.title;
+            command.text = this.text;
             command.icon = this.icon;
             command.iconFactory = this.iconFactory;
             command.disabledIcon = this.disabledIcon;
@@ -518,8 +518,8 @@ public class Command implements ContentModel {
             }
         }
 
-        public B setTitle(String title) {
-            this.title = title;
+        public B setText(String text) {
+            this.text = text;
             return (B) this;
         }
 

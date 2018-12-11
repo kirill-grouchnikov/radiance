@@ -38,7 +38,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -93,14 +93,14 @@ public class TestCommandButtons extends JFrame {
                 .getBundle("org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
 
         this.pastePopupCommand = Command.builder()
-                .setTitle(resourceBundle.getString("SelectAll.text"))
+                .setText(resourceBundle.getString("SelectAll.text"))
                 .setIconFactory(Edit_paste.factory())
                 .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
                 .setPopupMenuProjection(getCurrentPopupMenuProjection())
                 .build();
 
         this.copyCommand = Command.builder()
-                .setTitle(resourceBundle.getString("Copy.text"))
+                .setText(resourceBundle.getString("Copy.text"))
                 .setIconFactory(Edit_copy.factory())
                 .setExtraText(resourceBundle.getString("Copy.textExtra"))
                 .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Copy"))
@@ -109,7 +109,7 @@ public class TestCommandButtons extends JFrame {
                 .build();
 
         this.cutCommand = Command.builder()
-                .setTitle(resourceBundle.getString("Cut.text"))
+                .setText(resourceBundle.getString("Cut.text"))
                 .setIconFactory(Edit_cut.factory())
                 .setExtraText(resourceBundle.getString("Cut.textExtra"))
                 .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Cut"))
@@ -118,7 +118,7 @@ public class TestCommandButtons extends JFrame {
                 .build();
 
         this.pasteActionCommand = Command.builder()
-                .setTitle(resourceBundle.getString("Paste.text"))
+                .setText(resourceBundle.getString("Paste.text"))
                 .setIconFactory(Edit_paste.factory())
                 .setDisabledIconFactory(
                         () -> SubstanceCortex.GlobalScope.colorize(Edit_paste.of(16, 16),
@@ -137,74 +137,72 @@ public class TestCommandButtons extends JFrame {
         MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
         mf.setLocale(currLocale);
 
-        CommandPresentation menuDisplay = CommandPresentation.builder().setMenu(true).build();
-
         PopupKind popupKind = (PopupKind) popupCombo.getSelectedItem();
         switch (popupKind) {
             case SIMPLE:
-                List<CommandProjection> simpleEntries1 = new ArrayList<>();
-                List<CommandProjection> simpleEntries2 = new ArrayList<>();
+                List<Command> simpleEntries1 = new ArrayList<>();
+                List<Command> simpleEntries2 = new ArrayList<>();
 
-                simpleEntries1.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
-                        .setTitle(mf.format(new Object[] { "1" }))
-                        .setIcon(new Address_book_new()).build().project(menuDisplay));
-                simpleEntries1.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
-                        .setTitle(mf.format(new Object[] { "2" }))
-                        .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
-                simpleEntries1.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
-                        .setTitle(mf.format(new Object[] { "3" }))
-                        .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
+                simpleEntries1.add(Command.builder()
+                        .setText(mf.format(new Object[] { "1" }))
+                        .setIcon(new Address_book_new()).build());
+                simpleEntries1.add(Command.builder()
+                        .setText(mf.format(new Object[] { "2" }))
+                        .setIcon(new EmptyResizableIcon(16)).build());
+                simpleEntries1.add(Command.builder()
+                        .setText(mf.format(new Object[] { "3" }))
+                        .setIcon(new EmptyResizableIcon(16)).build());
 
-                simpleEntries2.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
-                        .setTitle(mf.format(new Object[] { "4" }))
-                        .setIcon(new EmptyResizableIcon(16)).build().project(menuDisplay));
-                simpleEntries2.add(org.pushingpixels.flamingo.api.common.model.Command.builder()
-                        .setTitle(mf.format(new Object[] { "5" }))
-                        .setIcon(new Text_x_generic()).build().project(menuDisplay));
+                simpleEntries2.add(Command.builder()
+                        .setText(mf.format(new Object[] { "4" }))
+                        .setIcon(new EmptyResizableIcon(16)).build());
+                simpleEntries2.add(Command.builder()
+                        .setText(mf.format(new Object[] { "5" }))
+                        .setIcon(new Text_x_generic()).build());
 
                 return new CommandPopupMenuProjection(
                         new CommandPopupMenuContentModel(
-                                Arrays.asList(new CommandProjectionGroupModel(simpleEntries1),
-                                        new CommandProjectionGroupModel(simpleEntries2))),
+                                Arrays.asList(new CommandGroupModel(simpleEntries1),
+                                        new CommandGroupModel(simpleEntries2))),
                         CommandPopupMenuPresentationModel.builder().build());
 
             case SCROLLABLE:
-                List<CommandProjection> scrollableEntries = new ArrayList<>();
+                List<Command> scrollableEntries = new ArrayList<>();
 
                 for (int i = 0; i < 20; i++) {
                     final int index = i;
                     scrollableEntries.add(
-                            org.pushingpixels.flamingo.api.common.model.Command.builder()
-                                    .setTitle(mf.format(new Object[] { i }))
+                            Command.builder()
+                                    .setText(mf.format(new Object[] { i }))
                                     .setIcon(new Text_x_generic())
                                     .setAction((CommandActionEvent e) -> System.out
                                             .println("Invoked action on '" + index + "'"))
-                                    .build().project(menuDisplay));
+                                    .build());
                 }
 
                 return new CommandPopupMenuProjection(
                         new CommandPopupMenuContentModel(
-                                new CommandProjectionGroupModel(scrollableEntries)),
+                                new CommandGroupModel(scrollableEntries)),
                         CommandPopupMenuPresentationModel.builder()
                                 .setMaxVisibleMenuCommands(8).build());
 
             default:
-                List<CommandProjectionGroupModel> extraEntries = new ArrayList<>();
-                extraEntries.add(new CommandProjectionGroupModel(
-                        org.pushingpixels.flamingo.api.common.model.Command.builder()
-                                .setTitle(resourceBundle.getString("SaveSelection.text"))
+                List<CommandGroupModel> extraEntries = new ArrayList<>();
+                extraEntries.add(new CommandGroupModel(
+                        Command.builder()
+                                .setText(resourceBundle.getString("SaveSelection.text"))
                                 .setIcon(new X_office_document())
-                                .build().project(menuDisplay),
-                        org.pushingpixels.flamingo.api.common.model.Command.builder()
-                                .setTitle(resourceBundle.getString("ClearSelection.text"))
+                                .build(),
+                        Command.builder()
+                                .setText(resourceBundle.getString("ClearSelection.text"))
                                 .setIcon(new EmptyResizableIcon(16))
-                                .build().project(menuDisplay)
+                                .build()
                 ));
-                extraEntries.add(new CommandProjectionGroupModel(
-                        org.pushingpixels.flamingo.api.common.model.Command.builder()
-                                .setTitle(resourceBundle.getString("ApplyStyles.text"))
+                extraEntries.add(new CommandGroupModel(
+                        Command.builder()
+                                .setText(resourceBundle.getString("ApplyStyles.text"))
                                 .setIcon(new EmptyResizableIcon(16))
-                                .build().project(menuDisplay)
+                                .build()
                 ));
 
                 return new CommandPopupMenuProjection(
@@ -224,7 +222,7 @@ public class TestCommandButtons extends JFrame {
         }
     }
 
-    protected JPanel getButtonPanel() {
+    private JPanel getButtonPanel() {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 10dlu, center:pref, 4dlu,"
                         + "center:pref, 4dlu, center:pref, 4dlu, center:pref").
@@ -244,7 +242,7 @@ public class TestCommandButtons extends JFrame {
         return builder.build();
     }
 
-    static String stamp() {
+    private static String stamp() {
         return new SimpleDateFormat("HH:mm:ss.SSS").format(new Date());
     }
 
@@ -266,7 +264,7 @@ public class TestCommandButtons extends JFrame {
         builder.add(popupButton).xy(9, row);
     }
 
-    protected AbstractCommandButton createPopupButton(CommandButtonPresentationState state) {
+    private AbstractCommandButton createPopupButton(CommandButtonPresentationState state) {
         return this.pastePopupCommand.project(
                 CommandPresentation.builder()
                         .setPresentationState(state)
@@ -274,7 +272,7 @@ public class TestCommandButtons extends JFrame {
                         .build()).buildComponent();
     }
 
-    protected AbstractCommandButton createActionAndPopupMainPopupButton(CommandButtonPresentationState state) {
+    private AbstractCommandButton createActionAndPopupMainPopupButton(CommandButtonPresentationState state) {
         return this.copyCommand.project(
                 CommandPresentation.builder()
                         .setPresentationState(state)
@@ -282,7 +280,7 @@ public class TestCommandButtons extends JFrame {
                         .build()).buildComponent();
     }
 
-    protected AbstractCommandButton createActionAndPopupMainActionButton(CommandButtonPresentationState state) {
+    private AbstractCommandButton createActionAndPopupMainActionButton(CommandButtonPresentationState state) {
         return this.cutCommand.project(
                 CommandPresentation.builder()
                         .setPresentationState(state)
@@ -290,7 +288,7 @@ public class TestCommandButtons extends JFrame {
                         .build()).buildComponent();
     }
 
-    protected AbstractCommandButton createActionButton(CommandButtonPresentationState state) {
+    private AbstractCommandButton createActionButton(CommandButtonPresentationState state) {
         return this.pasteActionCommand.project(
                 CommandPresentation.builder()
                         .setPresentationState(state)

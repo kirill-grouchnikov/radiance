@@ -30,11 +30,13 @@
 package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.common.CommandAction
+import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.neon.icon.ResizableIcon
@@ -206,7 +208,13 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                         // Get the content model
                         val galleryContentModel = content.content.asJavaRibbonGalleryContentModel()
 
-                        ribbonBand.addRibbonGallery(galleryContentModel, galleryPresentationModel, priority)
+                        // Create gallery projection
+                        val galleryProjection = RibbonGalleryProjection(galleryContentModel, galleryPresentationModel)
+
+                        // Configure with command overlays
+                        galleryProjection.withCommandOverlays(content.content.toCommandOverlayMap())
+
+                        ribbonBand.addRibbonGallery(galleryProjection, priority)
                     }
                 }
             }

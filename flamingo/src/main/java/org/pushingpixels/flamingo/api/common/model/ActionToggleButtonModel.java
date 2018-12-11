@@ -30,7 +30,6 @@
 package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 
 import javax.swing.JToggleButton.ToggleButtonModel;
 import java.awt.*;
@@ -121,10 +120,8 @@ public class ActionToggleButtonModel extends ToggleButtonModel implements Action
             } else if (currentEvent instanceof ActionEvent) {
                 modifiers = ((ActionEvent) currentEvent).getModifiers();
             }
-            Command originalCommand = this.commandButton.getCommand();
-            if (originalCommand != null) {
-                originalCommand.setToggleSelected(!originalCommand.isToggleSelected());
-            }
+            Command originalCommand = this.commandButton.getProjection().getContentModel();
+            originalCommand.setToggleSelected(!originalCommand.isToggleSelected());
             fireActionPerformed(new CommandActionEvent(this,
                     ActionEvent.ACTION_PERFORMED,
                     originalCommand, getActionCommand(),

@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.common.popup.model;
 
 import org.pushingpixels.flamingo.api.common.KeyValuePair;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.model.Command;
 
 import javax.swing.event.*;
 import java.awt.*;
@@ -39,7 +39,7 @@ import java.util.*;
 
 public class ColorSelectorPopupMenuGroupModel {
     public enum GroupEntryKind {
-        COMMAND_PROJECTION, COLOR_SECTION, COLOR_SECTION_WITH_DERIVED, RECENTS_SECTION
+        COMMAND, COLOR_SECTION, COLOR_SECTION_WITH_DERIVED, RECENTS_SECTION
     }
 
     private List<KeyValuePair<GroupEntryKind, Object>> groupContent;
@@ -118,8 +118,8 @@ public class ColorSelectorPopupMenuGroupModel {
     public static class Builder {
         private List<KeyValuePair<GroupEntryKind, Object>> groupContent = new ArrayList<>();
 
-        public Builder addCommand(CommandProjection commandProjection) {
-            this.groupContent.add(new KeyValuePair<>(GroupEntryKind.COMMAND_PROJECTION, commandProjection));
+        public Builder addCommand(Command command) {
+            this.groupContent.add(new KeyValuePair<>(GroupEntryKind.COMMAND, command));
             return this;
         }
 

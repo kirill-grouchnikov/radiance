@@ -40,6 +40,7 @@ import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.model.*
 import org.pushingpixels.flamingo.api.common.projection.AbstractPopupMenuProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection
+import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.neon.icon.ResizableIconFactory
 
@@ -58,9 +59,9 @@ open class KCommand {
         get() = _title
         set(value) {
             _title = value
-            builder.setTitle(value)
+            builder.setText(value)
             if (hasBeenConverted) {
-                javaCommand.title = value
+                javaCommand.text = value
             }
         }
 
@@ -304,7 +305,7 @@ open class KCommand {
 
     companion object {
         fun populateBuilder(builder: Command.BaseBuilder<*, *>, command: KCommand) {
-            builder.setTitle(command.title)
+            builder.setText(command.title)
             builder.setIcon(command.icon)
             builder.setIconFactory(command.iconFactory)
             builder.setDisabledIcon(command.disabledIcon)
@@ -413,12 +414,21 @@ class KCommandGroup {
     internal val commands = arrayListOf<CommandConfig>()
 
     internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?, val popupKeyTip: String?) {
+        fun toJavaCommand(): Command {
+            return command.asJavaCommand()
+        }
+
         fun toJavaProjection(): CommandProjection {
             return command.asJavaCommand().project(
                     CommandPresentation.builder()
                             .setActionKeyTip(actionKeyTip)
                             .setPopupKeyTip(popupKeyTip)
                             .build())
+        }
+
+        fun toJavaPresentationOverlay(): CommandPresentation.Overlay {
+            return CommandPresentation.overlay().setActionKeyTip(actionKeyTip)
+                    .setPopupKeyTip(popupKeyTip)
         }
     }
 
@@ -434,9 +444,16 @@ class KCommandGroup {
         return command
     }
 
-    fun toCommandGroupModel(): CommandProjectionGroupModel {
-        return CommandProjectionGroupModel(title,
-                commands.map { it -> it.toJavaProjection() })
+    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null, command: KCommand) {
+        commands.add(CommandConfig(command, actionKeyTip, popupKeyTip))
+    }
+
+    fun toCommandGroupModel(): CommandGroupModel {
+        return CommandGroupModel(title, commands.map { it -> it.toJavaCommand() })
+    }
+
+    fun toPresentationOverlays(): Map<Command, CommandPresentation.Overlay> {
+        return commands.map { it.command.asJavaCommand() to it.toJavaPresentationOverlay() }.toMap()
     }
 }
 

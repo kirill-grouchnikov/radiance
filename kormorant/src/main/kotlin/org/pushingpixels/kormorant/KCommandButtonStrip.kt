@@ -30,7 +30,7 @@
 package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.model.CommandProjectionGroupModel
+import org.pushingpixels.flamingo.api.common.model.CommandGroupModel
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection
 import javax.swing.JComponent
@@ -88,11 +88,13 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
     }
 
     fun toJavaButtonStrip(): JComponent {
-        val commandProjectionGroupModel = CommandProjectionGroupModel(
-                commandConfigs.map { it -> it.toJavaProjection() })
+        val commandGroupModel = CommandGroupModel(commandConfigs.map { it -> it.command.asJavaCommand()})
         val commandStripPresentationModel = presentation.toCommandStripPresentationModel()
-        return CommandStripProjection(commandProjectionGroupModel, commandStripPresentationModel)
-                .buildComponent()
+        val commandOverlays = commandConfigs.map { it.command.asJavaCommand() to it.toJavaPresentationOverlay() }.toMap()
+
+        val commandStripProjection = CommandStripProjection(commandGroupModel, commandStripPresentationModel)
+        commandStripProjection.withCommandOverlays(commandOverlays)
+        return commandStripProjection.buildComponent()
     }
 }
 

@@ -232,8 +232,9 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
 
     @SubstanceInternalButton
     private class RibbonBandExpandButton extends JCommandButton {
-        public RibbonBandExpandButton(Command command, CommandPresentation commandPresentation) {
-            super(command, commandPresentation);
+        private RibbonBandExpandButton(Projection<AbstractCommandButton, Command,
+                CommandPresentation> projection) {
+            super(projection);
 
             this.setBorder(new EmptyBorder(3, 2, 3, 2));
         }

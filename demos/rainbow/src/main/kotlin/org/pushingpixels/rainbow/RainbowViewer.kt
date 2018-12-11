@@ -103,7 +103,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
         get() = this.currIconSize
         set(iconSize) {
             this.currIconSize = iconSize
-            svgFileViewPanel.presentationModel.commandIconDimension = currIconSize
+            svgFileViewPanel.projection.presentationModel.commandIconDimension = currIconSize
         }
 
     init {
@@ -148,7 +148,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
                         bar.callback.getLeafs(newPath)
                     }
                     svgFileViewPanel.setFolder(folder)
-                    svgFileViewPanel.presentationModel.commandIconDimension = currIconSize
+                    svgFileViewPanel.projection.presentationModel.commandIconDimension = currIconSize
                 }
                 updateSpotLightPainter()
             }
@@ -233,7 +233,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
             // disable JXLayer shaper and painter
             spotLightLayerUI.isShadowEnabled = false
             spotLightLayerUI.reset()
-            this.matchingFileCount = this.svgFileViewPanel.contentModel.commandProjectionCount
+            this.matchingFileCount = this.svgFileViewPanel.projection.contentModel.commandCount
         } else {
             val buttonMapping = svgFileViewPanel.buttonMap
             // System.out.println("Matching:");
@@ -267,7 +267,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
      * Updates the status label.
      */
     private fun updateStatus() {
-        val svgFileCount = this.svgFileViewPanel.contentModel.commandProjectionCount
+        val svgFileCount = this.svgFileViewPanel.projection.contentModel.commandCount
         statusLabel.text = ("Folder contains " + svgFileCount + " SVG files ("
                 + this.matchingFileCount + " matching filter)")
 

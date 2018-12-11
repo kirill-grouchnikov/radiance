@@ -45,7 +45,7 @@ import java.util.*;
  * respect the application element priorities passed to
  * {@link JRibbonBand#addRibbonCommand(CommandProjection, JRibbonBand.PresentationPriority)}
  * and
- * {@link JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, JRibbonBand.PresentationPriority)}
+ * {@link JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, Map, JRibbonBand.PresentationPriority)}
  * APIs. There are three types of built in resize policies:
  *
  * <ul>

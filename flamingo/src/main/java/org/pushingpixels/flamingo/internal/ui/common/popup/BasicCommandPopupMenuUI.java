@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
-import org.pushingpixels.flamingo.internal.ui.common.*;
+import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonPanelUI;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.internal.utils.*;
 
@@ -57,20 +57,6 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
     private JScrollablePanel<JPanel> menuItemsPanel;
 
     public static final String FORCE_ICON = "flamingo.internal.commandPopupMenu.forceIcon";
-
-    private static final CommandButtonPresentationState POPUP_MENU =
-            new CommandButtonPresentationState(
-                    "Popup menu", 16) {
-                @Override
-                public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton commandButton) {
-                    return new CommandButtonLayoutManagerMedium() {
-                        @Override
-                        protected float getIconTextGapFactor() {
-                            return 2.0f;
-                        }
-                    };
-                }
-            };
 
     /**
      * Popup panel that hosts groups of icons.
@@ -109,7 +95,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
         public ScrollableCommandButtonPanel(JCommandButtonPanel iconPanel, int maxButtonColumns,
                 int maxVisibleButtonRows) {
             this.buttonPanel = iconPanel;
-            this.buttonPanel.getPresentationModel().setMaxColumns(maxButtonColumns);
+            this.buttonPanel.getProjection().getPresentationModel().setMaxColumns(maxButtonColumns);
             this.maxVisibleButtonRows = maxVisibleButtonRows;
 
             int maxButtonWidth = 0;
@@ -167,8 +153,8 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             Dimension prefIconPanelDim = this.buttonPanel.getPreferredSize();
             // fix for issue 13 - respect the gaps and insets
             BasicCommandButtonPanelUI panelUI = (BasicCommandButtonPanelUI) buttonPanel.getUI();
-            int titlePanelCount =
-                    buttonPanel.getPresentationModel().isToShowGroupLabels() ? 1 : 0;
+            int titlePanelCount = buttonPanel.getProjection().getPresentationModel()
+                    .isToShowGroupLabels() ? 1 : 0;
             this.maxDimension = new Dimension(prefIconPanelDim.width,
                     panelUI.getPreferredHeight(this.maxVisibleButtonRows, titlePanelCount));
             this.setPreferredSize(null);
@@ -246,7 +232,8 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
     }
 
     protected int getMaxVisibleMenuCommands() {
-        return ((JCommandPopupMenu) popupMenu).getPresentationModel().getMaxVisibleMenuCommands();
+        return ((JCommandPopupMenu) popupMenu).getProjection().getPresentationModel()
+                .getMaxVisibleMenuCommands();
     }
 
     protected void syncComponents() {
@@ -326,12 +313,10 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
                     JCommandMenuButton menuButton = (JCommandMenuButton) menuComponent;
                     menuButton.putClientProperty(BasicCommandPopupMenuUI.FORCE_ICON,
                             atLeastOneButtonHasIcon ? Boolean.TRUE : null);
-                    menuButton.setPresentationState(POPUP_MENU);
                 }
                 if (menuComponent instanceof JCommandToggleMenuButton) {
                     JCommandToggleMenuButton menuButton = (JCommandToggleMenuButton) menuComponent;
                     menuButton.putClientProperty(BasicCommandPopupMenuUI.FORCE_ICON, Boolean.TRUE);
-                    menuButton.setPresentationState(POPUP_MENU);
                 }
             }
         }
@@ -386,7 +371,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
     protected ScrollableCommandButtonPanel createScrollableButtonPanel() {
         CommandPanelPresentationModel panelPresentationModel =
-                ((JCommandPopupMenu) this.popupMenu).getPresentationModel()
+                ((JCommandPopupMenu) this.popupMenu).getProjection().getPresentationModel()
                         .getPanelPresentationModel();
         return new ScrollableCommandButtonPanel(
                 ((JCommandPopupMenu) this.popupMenu).getMainButtonPanel(),
@@ -418,7 +403,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             public void popupHidden(PopupEvent event) {
                 if (event.getSource() instanceof JColorSelectorPopupMenu) {
                     ((JColorSelectorPopupMenu) event.getSource())
-                            .getContentModel().getColorPreviewListener()
+                            .getProjection().getContentModel().getColorPreviewListener()
                             .onColorPreviewCanceled();
                 }
             }
