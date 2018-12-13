@@ -37,28 +37,18 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
 import java.text.*;
 import java.util.List;
 import java.util.*;
 
 public class TestCommandButtons extends JFrame {
-    private enum PopupKind {
-        SIMPLE, SCROLLABLE, COMPLEX;
-
-        @Override
-        public String toString() {
-            return name().toLowerCase();
-        }
-    }
-
     ResourceBundle resourceBundle;
 
     Locale currLocale;
@@ -69,8 +59,6 @@ public class TestCommandButtons extends JFrame {
     protected Command pastePopupCommand;
 
     private JPanel buttonPanel;
-
-    private JComboBox popupCombo;
 
     TestCommandButtons() {
         super("Command button test");
@@ -87,7 +75,6 @@ public class TestCommandButtons extends JFrame {
 
         this.add(controlPanel, BorderLayout.SOUTH);
 
-
         currLocale = Locale.getDefault();
         resourceBundle = ResourceBundle
                 .getBundle("org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
@@ -96,7 +83,7 @@ public class TestCommandButtons extends JFrame {
                 .setText(resourceBundle.getString("SelectAll.text"))
                 .setIconFactory(Edit_paste.factory())
                 .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
-                .setPopupMenuProjection(getCurrentPopupMenuProjection())
+                .setPopupMenuContentModel(getPopupMenuContentModel())
                 .build();
 
         this.copyCommand = Command.builder()
@@ -104,7 +91,7 @@ public class TestCommandButtons extends JFrame {
                 .setIconFactory(Edit_copy.factory())
                 .setExtraText(resourceBundle.getString("Copy.textExtra"))
                 .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Copy"))
-                .setPopupMenuProjection(getCurrentPopupMenuProjection())
+                .setPopupMenuContentModel(getPopupMenuContentModel())
                 .setTitleClickPopup()
                 .build();
 
@@ -113,7 +100,7 @@ public class TestCommandButtons extends JFrame {
                 .setIconFactory(Edit_cut.factory())
                 .setExtraText(resourceBundle.getString("Cut.textExtra"))
                 .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Cut"))
-                .setPopupMenuProjection(getCurrentPopupMenuProjection())
+                .setPopupMenuContentModel(getPopupMenuContentModel())
                 .setTitleClickAction()
                 .build();
 
@@ -130,97 +117,37 @@ public class TestCommandButtons extends JFrame {
 
         buttonPanel = getButtonPanel();
         this.add(buttonPanel, BorderLayout.CENTER);
-
     }
 
-    private CommandPopupMenuProjection getCurrentPopupMenuProjection() {
+    private CommandPopupMenuContentModel getPopupMenuContentModel() {
         MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
         mf.setLocale(currLocale);
 
-        PopupKind popupKind = (PopupKind) popupCombo.getSelectedItem();
-        switch (popupKind) {
-            case SIMPLE:
-                List<Command> simpleEntries1 = new ArrayList<>();
-                List<Command> simpleEntries2 = new ArrayList<>();
+        List<Command> simpleEntries1 = new ArrayList<>();
+        List<Command> simpleEntries2 = new ArrayList<>();
 
-                simpleEntries1.add(Command.builder()
-                        .setText(mf.format(new Object[] { "1" }))
-                        .setIcon(new Address_book_new()).build());
-                simpleEntries1.add(Command.builder()
-                        .setText(mf.format(new Object[] { "2" }))
-                        .setIcon(new EmptyResizableIcon(16)).build());
-                simpleEntries1.add(Command.builder()
-                        .setText(mf.format(new Object[] { "3" }))
-                        .setIcon(new EmptyResizableIcon(16)).build());
+        simpleEntries1.add(Command.builder()
+                .setText(mf.format(new Object[] { "1" }))
+                .setIcon(new Address_book_new()).build());
+        simpleEntries1.add(Command.builder()
+                .setText(mf.format(new Object[] { "2" }))
+                .setIcon(new EmptyResizableIcon(16)).build());
+        simpleEntries1.add(Command.builder()
+                .setText(mf.format(new Object[] { "3" }))
+                .setIcon(new EmptyResizableIcon(16)).build());
 
-                simpleEntries2.add(Command.builder()
-                        .setText(mf.format(new Object[] { "4" }))
-                        .setIcon(new EmptyResizableIcon(16)).build());
-                simpleEntries2.add(Command.builder()
-                        .setText(mf.format(new Object[] { "5" }))
-                        .setIcon(new Text_x_generic()).build());
+        simpleEntries2.add(Command.builder()
+                .setText(mf.format(new Object[] { "4" }))
+                .setIcon(new EmptyResizableIcon(16)).build());
+        simpleEntries2.add(Command.builder()
+                .setText(mf.format(new Object[] { "5" }))
+                .setIcon(new Text_x_generic()).build());
 
-                return new CommandPopupMenuProjection(
-                        new CommandPopupMenuContentModel(
-                                Arrays.asList(new CommandGroupModel(simpleEntries1),
-                                        new CommandGroupModel(simpleEntries2))),
-                        CommandPopupMenuPresentationModel.builder().build());
-
-            case SCROLLABLE:
-                List<Command> scrollableEntries = new ArrayList<>();
-
-                for (int i = 0; i < 20; i++) {
-                    final int index = i;
-                    scrollableEntries.add(
-                            Command.builder()
-                                    .setText(mf.format(new Object[] { i }))
-                                    .setIcon(new Text_x_generic())
-                                    .setAction((CommandActionEvent e) -> System.out
-                                            .println("Invoked action on '" + index + "'"))
-                                    .build());
-                }
-
-                return new CommandPopupMenuProjection(
-                        new CommandPopupMenuContentModel(
-                                new CommandGroupModel(scrollableEntries)),
-                        CommandPopupMenuPresentationModel.builder()
-                                .setMaxVisibleMenuCommands(8).build());
-
-            default:
-                List<CommandGroupModel> extraEntries = new ArrayList<>();
-                extraEntries.add(new CommandGroupModel(
-                        Command.builder()
-                                .setText(resourceBundle.getString("SaveSelection.text"))
-                                .setIcon(new X_office_document())
-                                .build(),
-                        Command.builder()
-                                .setText(resourceBundle.getString("ClearSelection.text"))
-                                .setIcon(new EmptyResizableIcon(16))
-                                .build()
-                ));
-                extraEntries.add(new CommandGroupModel(
-                        Command.builder()
-                                .setText(resourceBundle.getString("ApplyStyles.text"))
-                                .setIcon(new EmptyResizableIcon(16))
-                                .build()
-                ));
-
-                return new CommandPopupMenuProjection(
-                        new CommandPopupMenuContentModel(
-                                QuickStylesPanel.getQuickStylesContentModel(resourceBundle,
-                                        currLocale), extraEntries),
-                        CommandPopupMenuPresentationModel.builder()
-                                .setPanelPresentationModel(
-                                        CommandPanelPresentationModel.builder()
-                                                .setToShowGroupLabels(false)
-                                                .setCommandPresentationState(
-                                                        CommandButtonPresentationState.FIT_TO_ICON)
-                                                .setCommandIconDimension(48)
-                                                .setMaxColumns(5)
-                                                .setMaxRows(3).build())
-                                .build());
-        }
+        return new CommandPopupMenuContentModel(
+                Arrays.asList(new CommandGroupModel(simpleEntries1),
+                        new CommandGroupModel(simpleEntries2)));
     }
+
 
     private JPanel getButtonPanel() {
         FormBuilder builder = FormBuilder.create().
@@ -328,15 +255,6 @@ public class TestCommandButtons extends JFrame {
             pastePopupCommand.setPopupEnabled(popupEnabled.isSelected());
         }));
         controlPanel.add(popupEnabled);
-
-        popupCombo = new JComboBox(PopupKind.values());
-        popupCombo.setSelectedItem(PopupKind.SIMPLE);
-        popupCombo.addItemListener((ItemEvent e) -> SwingUtilities.invokeLater(() -> {
-            pastePopupCommand.setPopupMenuProjection(getCurrentPopupMenuProjection());
-            cutCommand.setPopupMenuProjection(getCurrentPopupMenuProjection());
-            copyCommand.setPopupMenuProjection(getCurrentPopupMenuProjection());
-        }));
-        controlPanel.add(popupCombo);
 
         JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
             currLocale = selected;

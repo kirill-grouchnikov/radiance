@@ -15,8 +15,8 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class TestCommandButtonsSizing extends JPanel {
     private interface Creator {
@@ -108,7 +108,8 @@ public class TestCommandButtonsSizing extends JPanel {
                 }));
     }
 
-    private AbstractCommandButton createActionOnlyButton(String text, CommandButtonPresentationState state,
+    private AbstractCommandButton createActionOnlyButton(String text,
+            CommandButtonPresentationState state,
             CommandButtonKind commandButtonKind, int fontSize) {
 
         Command.Builder commandBuilder = Command.builder()
@@ -123,17 +124,18 @@ public class TestCommandButtonsSizing extends JPanel {
             case ACTION_AND_POPUP_MAIN_ACTION:
                 commandBuilder
                         .setAction((CommandActionEvent e) -> System.out.println("Action invoked"))
-                        .setPopupMenuProjection(SamplePopupMenu.getSamplePopupMenu())
+                        .setPopupMenuContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
                         .setTitleClickAction();
                 break;
             case ACTION_AND_POPUP_MAIN_POPUP:
                 commandBuilder
                         .setAction((CommandActionEvent e) -> System.out.println("Action invoked"))
-                        .setPopupMenuProjection(SamplePopupMenu.getSamplePopupMenu())
+                        .setPopupMenuContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
                         .setTitleClickPopup();
                 break;
             case POPUP_ONLY:
-                commandBuilder.setPopupMenuProjection(SamplePopupMenu.getSamplePopupMenu());
+                commandBuilder.setPopupMenuContentModel(
+                        SamplePopupMenu.getSamplePopupMenuContentModel());
                 break;
         }
 

@@ -33,9 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonLayoutManagerMedium;
 
-import javax.swing.event.*;
-
-public class CommandPopupMenuPresentationModel implements MutablePresentationModel {
+public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresentationModel {
     public static final CommandButtonPresentationState DEFAULT_POPUP_MENU_PRESENTATION_STATE =
             new CommandButtonPresentationState("Popup menu", 16) {
                 @Override
@@ -49,10 +47,6 @@ public class CommandPopupMenuPresentationModel implements MutablePresentationMod
                     };
                 }
             };
-    /**
-     * Stores the listeners on this model.
-     */
-    private EventListenerList listenerList = new EventListenerList();
 
     private CommandPanelPresentationModel panelPresentationModel;
 
@@ -72,7 +66,6 @@ public class CommandPopupMenuPresentationModel implements MutablePresentationMod
     private int maxVisibleMenuCommands;
     private boolean toDismissOnCommandActivation;
     private CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind;
-    private Command highlightedCommand;
 
     private CommandPopupMenuPresentationModel() {
     }
@@ -93,66 +86,12 @@ public class CommandPopupMenuPresentationModel implements MutablePresentationMod
         return this.maxVisibleMenuCommands;
     }
 
-    public void setMaxVisibleMenuCommands(int maxVisibleMenuCommands) {
-        if (this.maxVisibleMenuCommands != maxVisibleMenuCommands) {
-            this.maxVisibleMenuCommands = maxVisibleMenuCommands;
-            this.fireStateChanged();
-        }
-    }
-
     public boolean isToDismissOnCommandActivation() {
         return this.toDismissOnCommandActivation;
     }
 
-    public void setToDismissOnCommandActivation(boolean toDismissOnCommandActivation) {
-        if (this.toDismissOnCommandActivation != toDismissOnCommandActivation) {
-            this.toDismissOnCommandActivation = toDismissOnCommandActivation;
-            this.fireStateChanged();
-        }
-    }
-
     public CommandPresentation.CommandButtonPopupOrientationKind getPopupOrientationKind() {
         return this.popupOrientationKind;
-    }
-
-    public Command getHighlightedCommand() {
-        return this.highlightedCommand;
-    }
-
-    /**
-     * Adds the specified change listener to track changes to the model.
-     *
-     * @param l Change listener to add.
-     * @see #removeChangeListener(ChangeListener)
-     */
-    public void addChangeListener(ChangeListener l) {
-        this.listenerList.add(ChangeListener.class, l);
-    }
-
-    /**
-     * Removes the specified change listener from tracking changes to the model.
-     *
-     * @param l Change listener to remove.
-     * @see #addChangeListener(ChangeListener)
-     */
-    public void removeChangeListener(ChangeListener l) {
-        this.listenerList.remove(ChangeListener.class, l);
-    }
-
-    /**
-     * Notifies all registered listeners that the state of this model has changed.
-     */
-    private void fireStateChanged() {
-        // Guaranteed to return a non-null array
-        Object[] listeners = this.listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        ChangeEvent event = new ChangeEvent(this);
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ChangeListener.class) {
-                ((ChangeListener) listeners[i + 1]).stateChanged(event);
-            }
-        }
     }
 
     public static class Builder {
@@ -163,7 +102,6 @@ public class CommandPopupMenuPresentationModel implements MutablePresentationMod
         private boolean toDismissOnCommandActivation = true;
         private CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind =
                 CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD;
-        private Command highlightedCommand;
 
         public Builder setPanelPresentationModel(
                 CommandPanelPresentationModel panelPresentationModel) {
@@ -193,11 +131,6 @@ public class CommandPopupMenuPresentationModel implements MutablePresentationMod
             return this;
         }
 
-        public Builder setHighlightedCommand(Command highlightedCommand) {
-            this.highlightedCommand = highlightedCommand;
-            return this;
-        }
-
         public CommandPopupMenuPresentationModel build() {
             CommandPopupMenuPresentationModel presentationModel =
                     new CommandPopupMenuPresentationModel();
@@ -206,7 +139,6 @@ public class CommandPopupMenuPresentationModel implements MutablePresentationMod
             presentationModel.maxVisibleMenuCommands = this.maxVisibleMenuCommands;
             presentationModel.toDismissOnCommandActivation = this.toDismissOnCommandActivation;
             presentationModel.popupOrientationKind = this.popupOrientationKind;
-            presentationModel.highlightedCommand = this.highlightedCommand;
             return presentationModel;
         }
     }

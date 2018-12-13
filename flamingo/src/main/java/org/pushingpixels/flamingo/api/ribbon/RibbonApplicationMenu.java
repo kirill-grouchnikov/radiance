@@ -30,7 +30,8 @@
 package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuContentModel;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.*;
 
 import java.util.*;
@@ -93,7 +94,7 @@ import java.util.*;
  *
  * @author Kirill Grouchnikov
  */
-public class RibbonApplicationMenu {
+public class RibbonApplicationMenu extends AbstractPopupMenuContentModel {
     /**
      * Indicates whether this ribbon application menu has been set on the {@link JRibbon} with the
      * {@link JRibbon#setApplicationMenu(RibbonApplicationMenu)}. Once that API is called, the
@@ -250,7 +251,7 @@ public class RibbonApplicationMenu {
      * @see #addFooterCommand(Command)
      * @see JRibbon#setApplicationMenu(RibbonApplicationMenu)
      */
-    synchronized void setFrozen() {
+    synchronized void freeze() {
         this.isFrozen = true;
         if (this.primaryCommands.get(this.primaryCommands.size() - 1).isEmpty()) {
             this.primaryCommands.remove(this.primaryCommands.size() - 1);

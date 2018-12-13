@@ -113,48 +113,86 @@ public class JRibbonApplicationMenuButton extends JCommandButton {
                 }
             };
 
-    /**
-     * Creates a new application menu button.
-     *
-     * @param ribbon Associated ribbon.
-     */
-    public JRibbonApplicationMenuButton(JRibbon ribbon) {
-        super(new CommandProjection(Command.builder()
-                .setPopupCallback((JCommandButton commandButton) -> {
-                    RibbonApplicationMenu ribbonMenu = ribbon.getApplicationMenu();
-                    final JRibbonApplicationMenuPopupPanel menuPopupPanel =
-                            new JRibbonApplicationMenuPopupPanel(ribbonMenu);
-                    menuPopupPanel.applyComponentOrientation(
-                            commandButton.getComponentOrientation());
-                    menuPopupPanel.setCustomizer(() -> {
-                        boolean ltr =
-                                commandButton.getComponentOrientation().isLeftToRight();
+    private JRibbonApplicationMenuButton(CommandProjection projection) {
+        super(projection);
+    }
 
-                        int pw = menuPopupPanel.getPreferredSize().width;
-                        int x = ltr ? ribbon.getLocationOnScreen().x
-                                : ribbon.getLocationOnScreen().x + ribbon.getWidth() - pw;
-                        int y = commandButton.getLocationOnScreen().y +
-                                commandButton.getSize().height + 2;
+    public static JRibbonApplicationMenuButton getApplicationMenuButton(JRibbon ribbon) {
+        Command applicationMenuCommand = Command.builder()
+                .setPopupMenuContentModel(ribbon.getApplicationMenu())
+//                .setPopupCallback((JCommandButton commandButton) -> {
+//                    RibbonApplicationMenu ribbonMenu = ribbon.getApplicationMenu();
+//                    final JRibbonApplicationMenuPopupPanel menuPopupPanel =
+//                            new JRibbonApplicationMenuPopupPanel(ribbonMenu);
+//                    menuPopupPanel.applyComponentOrientation(
+//                            commandButton.getComponentOrientation());
+//                    menuPopupPanel.setCustomizer(() -> {
+//                        boolean ltr =
+//                                commandButton.getComponentOrientation().isLeftToRight();
+//
+//                        int pw = menuPopupPanel.getPreferredSize().width;
+//                        int x = ltr ? ribbon.getLocationOnScreen().x
+//                                : ribbon.getLocationOnScreen().x + ribbon.getWidth() - pw;
+//                        int y = commandButton.getLocationOnScreen().y +
+//                                commandButton.getSize().height + 2;
+//
+//                        // make sure that the menu popup stays in bounds
+//                        Rectangle scrBounds =
+//                                commandButton.getGraphicsConfiguration().getBounds();
+//                        if ((x + pw) > (scrBounds.x + scrBounds.width)) {
+//                            x = scrBounds.x + scrBounds.width - pw;
+//                        }
+//                        int ph = menuPopupPanel.getPreferredSize().height;
+//                        if ((y + ph) > (scrBounds.y + scrBounds.height)) {
+//                            y = scrBounds.y + scrBounds.height - ph;
+//                        }
+//
+//                        return new Rectangle(x, y, menuPopupPanel.getPreferredSize().width,
+//                                menuPopupPanel.getPreferredSize().height);
+//                    });
+//                    return menuPopupPanel;
+//                })
+                .build();
 
-                        // make sure that the menu popup stays in bounds
-                        Rectangle scrBounds =
-                                commandButton.getGraphicsConfiguration().getBounds();
-                        if ((x + pw) > (scrBounds.x + scrBounds.width)) {
-                            x = scrBounds.x + scrBounds.width - pw;
-                        }
-                        int ph = menuPopupPanel.getPreferredSize().height;
-                        if ((y + ph) > (scrBounds.y + scrBounds.height)) {
-                            y = scrBounds.y + scrBounds.height - ph;
-                        }
+        CommandPresentation applicationMenuCommandPresentation = CommandPresentation.builder()
+                .setPresentationState(APP_MENU_BUTTON_STATE)
+                .setHorizontalAlignment(SwingConstants.CENTER)
+                .build();
 
-                        return new Rectangle(x, y, menuPopupPanel.getPreferredSize().width,
-                                menuPopupPanel.getPreferredSize().height);
-                    });
-                    return menuPopupPanel;
-                }).build(),
-                CommandPresentation.builder()
-                        .setPresentationState(APP_MENU_BUTTON_STATE)
-                        .setHorizontalAlignment(SwingConstants.CENTER)
-                        .build()));
+        CommandProjection applicationMenuCommandProjection =
+                applicationMenuCommand.project(applicationMenuCommandPresentation);
+
+        applicationMenuCommandProjection.setPopupMenuSupplier(projection ->
+                JRibbonApplicationMenuPopupPanel::new);
+//        applicationMenuCommandProjection.setPopupMenuCustomizer(menuPopupPanel -> {
+//            menuPopupPanel.applyComponentOrientation(
+//                    commandButton.getComponentOrientation());
+//            menuPopupPanel.setCustomizer(() -> {
+//                boolean ltr =
+//                        commandButton.getComponentOrientation().isLeftToRight();
+//
+//                int pw = menuPopupPanel.getPreferredSize().width;
+//                int x = ltr ? ribbon.getLocationOnScreen().x
+//                        : ribbon.getLocationOnScreen().x + ribbon.getWidth() - pw;
+//                int y = commandButton.getLocationOnScreen().y +
+//                        commandButton.getSize().height + 2;
+//
+//                // make sure that the menu popup stays in bounds
+//                Rectangle scrBounds =
+//                        commandButton.getGraphicsConfiguration().getBounds();
+//                if ((x + pw) > (scrBounds.x + scrBounds.width)) {
+//                    x = scrBounds.x + scrBounds.width - pw;
+//                }
+//                int ph = menuPopupPanel.getPreferredSize().height;
+//                if ((y + ph) > (scrBounds.y + scrBounds.height)) {
+//                    y = scrBounds.y + scrBounds.height - ph;
+//                }
+//
+//                return new Rectangle(x, y, menuPopupPanel.getPreferredSize().width,
+//                        menuPopupPanel.getPreferredSize().height);
+//            });
+//        });
+
+        return new JRibbonApplicationMenuButton(applicationMenuCommandProjection);
     }
 }

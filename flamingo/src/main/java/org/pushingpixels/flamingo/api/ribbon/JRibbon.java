@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
@@ -303,17 +303,25 @@ public class JRibbon extends JComponent {
     }
 
     public synchronized void addTaskbarGalleryDropdown(RibbonGalleryProjection galleryProjection) {
+        CommandPopupMenuProjection popupMenuProjection =
+                JRibbonGallery.getExpandPopupMenu(galleryProjection,
+                        this.getComponentOrientation());
         // The popup callback displays the expanded popup menu for the gallery
         Command galleryDropdownCommand = Command.builder()
                 .setIconFactory(galleryProjection.getContentModel().getIconFactory())
-                .setPopupCallback((JCommandButton commandButton) ->
-                        JRibbonGallery.getExpandPopupMenu(galleryProjection, commandButton))
+                .setPopupMenuContentModel(popupMenuProjection.getContentModel())
                 .build();
 
-        this.taskbarComponents.add(galleryDropdownCommand.project(
-                CommandPresentation.builder().setPresentationState(
-                        CommandButtonPresentationState.SMALL).build())
-                .buildComponent());
+        CommandProjection galleryDropdownProjection = galleryDropdownCommand.project(
+                CommandPresentation.builder()
+                        .setPresentationState(CommandButtonPresentationState.SMALL)
+                        .setPopupMenuPresentationModel(popupMenuProjection.getPresentationModel())
+                        .build());
+        galleryDropdownProjection.setPopupMenuCustomizer(
+                popupMenuProjection.getComponentCustomizer());
+        galleryDropdownProjection.setCommandOverlays(popupMenuProjection.getCommandOverlays());
+
+        this.taskbarComponents.add(galleryDropdownProjection.buildComponent());
 
         this.fireStateChanged();
     }
@@ -642,7 +650,7 @@ public class JRibbon extends JComponent {
         if (old != applicationMenu) {
             this.applicationMenu = applicationMenu;
             if (this.applicationMenu != null) {
-                this.applicationMenu.setFrozen();
+                this.applicationMenu.freeze();
             }
             this.firePropertyChange("applicationMenu", old, this.applicationMenu);
         }

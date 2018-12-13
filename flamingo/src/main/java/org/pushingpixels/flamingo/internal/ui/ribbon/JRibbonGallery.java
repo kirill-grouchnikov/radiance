@@ -41,8 +41,10 @@ import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonGa
 
 import javax.swing.*;
 import javax.swing.event.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
+import java.util.List;
 
 /**
  * In-ribbon gallery. This class is for internal use only and should not be directly used by the
@@ -321,8 +323,9 @@ public class JRibbonGallery extends JComponent {
         }
     }
 
-    public static JCommandPopupMenu getExpandPopupMenu(RibbonGalleryProjection galleryProjection,
-            JComponent originator) {
+    public static CommandPopupMenuProjection getExpandPopupMenu(
+            RibbonGalleryProjection galleryProjection,
+            ComponentOrientation componentOrientation) {
 
         // Create the content model for the panel with all the primary gallery commands,
         // wiring the preview listener for the panel to update the gallery content
@@ -385,35 +388,34 @@ public class JRibbonGallery extends JComponent {
         CommandPopupMenuProjection commandPopupMenuProjection = new CommandPopupMenuProjection(
                 galleryPopupMenuContentModel, galleryPopupMenuPresentationModel);
         if (galleryProjection.getCommandOverlays() != null) {
-            commandPopupMenuProjection.withCommandOverlays(galleryProjection.getCommandOverlays());
+            commandPopupMenuProjection.setCommandOverlays(galleryProjection.getCommandOverlays());
         }
-        JCommandPopupMenu galleryPopupMenu = commandPopupMenuProjection.buildComponent();
 
-        galleryPopupMenu.applyComponentOrientation(originator.getComponentOrientation());
+        commandPopupMenuProjection.setComponentCustomizer((JCommandPopupMenu galleryPopupMenu) -> {
+            galleryPopupMenu.applyComponentOrientation(componentOrientation);
 
-        // Configure the popup listener for two-way sync between the gallery model and
-        // its present popup menu manifestation.
-        PopupPanelManager.PopupListener popupListener = new PopupPanelManager.PopupListener() {
-            @Override
-            public void popupShown(PopupPanelManager.PopupEvent event) {
-                // scroll the popup to reveal the selected command
-                galleryPopupMenu.getMainButtonPanel().scrollToSelectedCommand();
-            }
+            // Configure a popup listener for the two-way sync between the gallery model and
+            // its present popup menu manifestation.
+            PopupPanelManager.PopupListener popupListener = new PopupPanelManager.PopupListener() {
+                @Override
+                public void popupShown(PopupPanelManager.PopupEvent event) {
+                    // scroll the popup to reveal the selected command
+                    galleryPopupMenu.getMainButtonPanel().scrollToSelectedCommand();
+                }
 
-            @Override
-            public void popupHidden(PopupPanelManager.PopupEvent event) {
-                // update the gallery content model with the command selection
-                Command selectedCommand =
-                        galleryPopupMenu.getMainButtonPanel().getSelectedCommand();
-                galleryProjection.getContentModel().setSelectedCommand(selectedCommand);
-                if (event.getPopupOriginator() == originator) {
+                @Override
+                public void popupHidden(PopupPanelManager.PopupEvent event) {
+                    // update the gallery content model with the command selection
+                    Command selectedCommand =
+                            galleryPopupMenu.getMainButtonPanel().getSelectedCommand();
+                    galleryProjection.getContentModel().setSelectedCommand(selectedCommand);
                     PopupPanelManager.defaultManager().removePopupListener(this);
                 }
-            }
-        };
-        PopupPanelManager.defaultManager().addPopupListener(popupListener);
+            };
+            PopupPanelManager.defaultManager().addPopupListener(popupListener);
+        });
 
-        return galleryPopupMenu;
+        return commandPopupMenuProjection;
     }
 }
 

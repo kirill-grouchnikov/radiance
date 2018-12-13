@@ -38,7 +38,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
 import org.pushingpixels.flamingo.internal.ui.common.JCircularProgress;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -400,6 +400,8 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                 .setPopupOrientationKind(
                         CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD)
                 .setHorizontalGapScaleFactor(0.75)
+                .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
+                        .setMaxVisibleMenuCommands(10).build())
                 .build();
 
         // update the ui
@@ -408,7 +410,10 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             if (element instanceof BreadcrumbItemChoices) {
                 BreadcrumbItemChoices bic = (BreadcrumbItemChoices) element;
                 if (buttonStack.isEmpty()) {
-                    Command command = Command.builder().build();
+                    Command command = Command.builder()
+                            .setPopupMenuContentModel(new CommandPopupMenuContentModel(
+                                    new CommandGroupModel()))
+                            .build();
                     JCommandButton button = (JCommandButton) command.project(commandPresentation)
                             .buildComponent();
                     button.setCommandButtonKind(CommandButtonKind.POPUP_ONLY);
@@ -427,7 +432,11 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             } else if (element instanceof BreadcrumbItem) {
                 BreadcrumbItem bi = (BreadcrumbItem) element;
 
-                Command command = Command.builder().setText(bi.getKey()).build();
+                Command command = Command.builder()
+                        .setText(bi.getKey())
+                        .setPopupMenuContentModel(new CommandPopupMenuContentModel(
+                                new CommandGroupModel()))
+                        .build();
                 JCommandButton button = (JCommandButton) command.project(commandPresentation)
                         .buildComponent();
                 configureBreadcrumbButton(button);
@@ -518,7 +527,6 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
         CommandPopupMenuPresentationModel.Builder menuPresentationModel =
                 CommandPopupMenuPresentationModel.builder();
-
         for (int i = 0; i < bic.getChoices().length; i++) {
             final BreadcrumbItem bi = bic.getChoices()[i];
 
@@ -578,18 +586,21 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             });
 
             Command menuCommand = commandBuilder.build();
-            if (i == bic.getSelectedIndex()) {
-                menuPresentationModel.setHighlightedCommand(menuCommand);
-            }
-
             menuCommands.add(menuCommand);
         }
 
         menuPresentationModel.setMaxVisibleMenuCommands(10);
 
-        command.setPopupMenuProjection(new CommandPopupMenuProjection(
-                new CommandPopupMenuContentModel(new CommandGroupModel(menuCommands)),
-                menuPresentationModel.build()));
+        CommandPopupMenuContentModel popupMenuContentModel =
+                new CommandPopupMenuContentModel(new CommandGroupModel(menuCommands));
+        if (bic.getSelectedIndex() >= 0) {
+            popupMenuContentModel.setHighlightedCommand(menuCommands.get(bic.getSelectedIndex()));
+        }
+
+        CommandPopupMenuContentModel commandPopupMenuContentModel =
+                (CommandPopupMenuContentModel) command.getPopupMenuContentModel();
+        commandPopupMenuContentModel.removeAllCommandGroups();
+        commandPopupMenuContentModel.addCommandGroup(new CommandGroupModel(menuCommands));
     }
 
     private void configurePopupRollover(final JCommandButton button) {

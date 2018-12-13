@@ -83,7 +83,6 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
 
         this.populateContent();
         this.popupMenuContentModel.addChangeListener((ChangeEvent event) -> populateContent());
-        this.popupMenuPresentationModel.addChangeListener((ChangeEvent event) -> populateContent());
 
         this.updateUI();
     }
@@ -92,7 +91,8 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
         if (this.popupMenuPanelContentModel != null) {
             this.mainButtonPanel = new CommandPanelProjection(
                     this.popupMenuPanelContentModel,
-                    this.popupMenuPresentationModel.getPanelPresentationModel()).buildComponent();
+                    this.popupMenuPresentationModel.getPanelPresentationModel())
+                    .buildComponent();
         }
 
         // Command presentation for menu content
@@ -121,7 +121,7 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
 
                 // Need to highlight it?
                 Command highlightedCommand =
-                        this.popupMenuPresentationModel.getHighlightedCommand();
+                        this.popupMenuContentModel.getHighlightedCommand();
                 if (command == highlightedCommand) {
                     // Use bold font
                     commandButton.setFont(commandButton.getFont().deriveFont(Font.BOLD));

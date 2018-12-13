@@ -30,7 +30,6 @@
 package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.common.CommandAction
-import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand
@@ -212,7 +211,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                         val galleryProjection = RibbonGalleryProjection(galleryContentModel, galleryPresentationModel)
 
                         // Configure with command overlays
-                        galleryProjection.withCommandOverlays(content.content.toCommandOverlayMap())
+                        galleryProjection.setCommandOverlays(content.content.toCommandOverlayMap())
 
                         ribbonBand.addRibbonGallery(galleryProjection, priority)
                     }

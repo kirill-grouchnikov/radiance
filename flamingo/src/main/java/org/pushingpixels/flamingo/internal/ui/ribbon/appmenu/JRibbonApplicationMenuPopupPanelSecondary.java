@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel;
 import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand;
 
@@ -50,11 +51,10 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends
 
     private static CommandPanelContentModel createCommandPanelContentModel(
             RibbonApplicationMenuPrimaryCommand primaryMenuCommand) {
-        if (primaryMenuCommand.getPopupMenuProjection() != null) {
-            CommandPopupMenuProjection commandPopupMenuProjection =
-                    (CommandPopupMenuProjection) primaryMenuCommand.getPopupMenuProjection();
-            return new CommandPanelContentModel(commandPopupMenuProjection.getContentModel()
-                    .getCommandGroups());
+        if (primaryMenuCommand.getPopupMenuContentModel() != null) {
+            CommandPopupMenuContentModel commandPopupMenuContentModel =
+                    (CommandPopupMenuContentModel) primaryMenuCommand.getPopupMenuContentModel();
+            return new CommandPanelContentModel(commandPopupMenuContentModel.getCommandGroups());
         }
 
         List<CommandGroupModel> commandGroups = new ArrayList<>();
@@ -79,7 +79,8 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends
 
     public JRibbonApplicationMenuPopupPanelSecondary(
             RibbonApplicationMenuPrimaryCommand primaryMenuEntry) {
-        super(new CommandPanelProjection(createCommandPanelContentModel(primaryMenuEntry),
+        super(new CommandPanelProjection(
+                createCommandPanelContentModel(primaryMenuEntry),
                 CommandPanelPresentationModel.builder()
                         .setCommandPresentationState(MENU_TILE_LEVEL_2)
                         .setMaxColumns(1)

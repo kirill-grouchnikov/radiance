@@ -54,7 +54,7 @@ public abstract class AbstractPopupMenu extends JPopupPanel implements Scrollabl
      */
     private List<Component> menuComponents;
 
-    AbstractPopupMenu() {
+    protected AbstractPopupMenu() {
         this.menuComponents = new ArrayList<>();
     }
 

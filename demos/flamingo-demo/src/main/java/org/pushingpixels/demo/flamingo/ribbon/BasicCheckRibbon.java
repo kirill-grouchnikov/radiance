@@ -77,67 +77,18 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private Command menuClearSelection;
     private Command applyStyles;
 
+    private Command popupCommand1;
+    private Command popupCommand2;
+    private Command popupCommand3;
+    private Command popupCommand4;
+    private Command popupCommand5;
+    private CommandPopupMenuContentModel popupMenuContentModel;
+
     private class ExpandActionListener implements CommandAction {
         @Override
         public void commandActivated(CommandActionEvent e) {
             JOptionPane.showMessageDialog(BasicCheckRibbon.this, "Expand button clicked");
         }
-    }
-
-    private CommandPopupMenuProjection getSamplePopupMenuProjection() {
-        MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
-        mf.setLocale(currLocale);
-
-
-        Command command1 = Command.builder()
-                .setText(mf.format(new Object[] { "1" }))
-                .setIcon(new ColorResizableIcon(16, new Color(0xFF80DEEA)))
-                .setAction((CommandActionEvent e) ->
-                        System.out.println("Test menu item 1 activated"))
-                .build();
-        Command command2 = Command.builder()
-                .setText(mf.format(new Object[] { "2" }))
-                .setIcon(new ColorResizableIcon(16, new Color(0xFF80CBC4)))
-                .setAction((CommandActionEvent e) ->
-                        System.out.println("Test menu item 2 activated"))
-                .build();
-        Command command3 = Command.builder()
-                .setText(mf.format(new Object[] { "3" }))
-                .setIcon(new ColorResizableIcon(16, new Color(0xFFA5D6A7)))
-                .setAction((CommandActionEvent e) ->
-                        System.out.println("Test menu item 3 activated"))
-                .build();
-        Command command4 = Command.builder()
-                .setText(mf.format(new Object[] { "4" }))
-                .setIcon(new ColorResizableIcon(16, new Color(0xFFC5E1A5)))
-                .setAction((CommandActionEvent e) ->
-                        System.out.println("Test menu item 4 activated"))
-                .build();
-        Command command5 = Command.builder()
-                .setText(mf.format(new Object[] { "5" }))
-                .setIcon(new ColorResizableIcon(16, new Color(0xFFE6EE9C)))
-                .setAction((CommandActionEvent e) ->
-                        System.out.println("Test menu item 5 activated"))
-                .build();
-
-        List<Command> menuCommands1 = Arrays.asList(command1, command2, command3);
-        List<Command> menuCommands2 = Arrays.asList(command4, command5);
-
-        Map<Command, CommandPresentation.Overlay> commandOverlays = new HashMap<>();
-        commandOverlays.put(command1, CommandPresentation.overlay().setActionKeyTip("1"));
-        commandOverlays.put(command2, CommandPresentation.overlay().setActionKeyTip("2"));
-        commandOverlays.put(command3, CommandPresentation.overlay().setActionKeyTip("3"));
-        commandOverlays.put(command4, CommandPresentation.overlay().setActionKeyTip("4"));
-        commandOverlays.put(command5, CommandPresentation.overlay().setActionKeyTip("5"));
-
-        CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
-                Arrays.asList(new CommandGroupModel(menuCommands1),
-                        new CommandGroupModel(menuCommands2)));
-
-        CommandPopupMenuProjection result = new CommandPopupMenuProjection(menuContentModel,
-                CommandPopupMenuPresentationModel.builder().build());
-        result.withCommandOverlays(commandOverlays);
-        return result;
     }
 
     protected JRibbonBand getActionBand() {
@@ -243,7 +194,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         preferencesBand.addRibbonCommand(Command.builder()
                         .setText(resourceBundle.getString("KeyboardShortcuts.text"))
                         .setIcon(Preferences_desktop_keyboard_shortcuts.of(16, 16))
-                        .setPopupMenuProjection(getSamplePopupMenuProjection())
+                        .setPopupMenuContentModel(this.popupMenuContentModel)
                         .build()
                         .project(CommandPresentation.builder()
                                 .setPopupKeyTip("H")
@@ -546,12 +497,20 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         clipboardBand.setCollapsedStateKeyTip("ZC");
 
-        clipboardBand
-                .addRibbonCommand(this.pasteCommand.project(
-                        CommandPresentation.builder()
-                                .setHorizontalAlignment(SwingConstants.LEADING)
-                                .setPopupKeyTip("V").build()),
-                        JRibbonBand.PresentationPriority.TOP);
+        CommandProjection pasteCommandProjection = this.pasteCommand.project(
+                CommandPresentation.builder()
+                        .setHorizontalAlignment(SwingConstants.LEADING)
+                        .setPopupKeyTip("V").build());
+        Map<Command, CommandPresentation.Overlay> pasteOverlays = new HashMap<>();
+        pasteOverlays.put(this.popupCommand1, CommandPresentation.overlay().setActionKeyTip("1"));
+        pasteOverlays.put(this.popupCommand2, CommandPresentation.overlay().setActionKeyTip("2"));
+        pasteOverlays.put(this.popupCommand3, CommandPresentation.overlay().setActionKeyTip("3"));
+        pasteOverlays.put(this.popupCommand4, CommandPresentation.overlay().setActionKeyTip("4"));
+        pasteOverlays.put(this.popupCommand5, CommandPresentation.overlay().setActionKeyTip("5"));
+        pasteCommandProjection.setCommandOverlays(pasteOverlays);
+
+        clipboardBand.addRibbonCommand(pasteCommandProjection,
+                JRibbonBand.PresentationPriority.TOP);
 
         clipboardBand
                 .addRibbonCommand(
@@ -563,7 +522,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                         .addDescriptionSection(resourceBundle
                                                 .getString("Cut.tooltip.actionParagraph1"))
                                         .build())
-                                .setPopupMenuProjection(getSamplePopupMenuProjection())
+                                .setPopupMenuContentModel(this.popupMenuContentModel)
                                 .setTitleClickAction().build()
                                 .project(CommandPresentation.builder()
                                         .setHorizontalAlignment(SwingConstants.LEADING)
@@ -575,7 +534,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         Command.builder().setText(resourceBundle.getString("Copy.text"))
                                 .setIcon(Edit_copy.of(16, 16))
                                 .setAction((CommandActionEvent e) -> System.out.println("Copy!"))
-                                .setPopupMenuProjection(getSamplePopupMenuProjection())
+                                .setPopupMenuContentModel(this.popupMenuContentModel)
                                 .setTitleClickPopup().build()
                                 .project(CommandPresentation.builder()
                                         .setHorizontalAlignment(SwingConstants.LEADING)
@@ -588,33 +547,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 this.menuClearSelection));
         formatMenuEntries.add(new CommandGroupModel(this.applyStyles));
 
-        Map<Command, CommandPresentation.Overlay> formatMenuOverlays = new HashMap<>();
-        formatMenuOverlays.put(this.menuSaveSelection,
-                CommandPresentation.overlay().setActionKeyTip("SS"));
-        formatMenuOverlays.put(this.menuClearSelection,
-                CommandPresentation.overlay().setActionKeyTip("SC"));
-        formatMenuOverlays.put(this.applyStyles,
-                CommandPresentation.overlay().setActionKeyTip("SA"));
-
-        CommandPopupMenuProjection formatButtonPopupProjection = new CommandPopupMenuProjection(
-                new CommandPopupMenuContentModel(
-                        QuickStylesPanel.getQuickStylesContentModel(resourceBundle, currLocale),
-                        formatMenuEntries),
-                CommandPopupMenuPresentationModel.builder()
-                        .setPanelPresentationModel(
-                                CommandPanelPresentationModel.builder()
-                                        .setToShowGroupLabels(false)
-                                        .setCommandPresentationState(
-                                                CommandButtonPresentationState.FIT_TO_ICON)
-                                        .setCommandIconDimension(48)
-                                        .setMaxColumns(5)
-                                        .setMaxRows(3).build())
-                        .build());
-        formatButtonPopupProjection.withCommandOverlays(formatMenuOverlays);
-
-        clipboardBand.addRibbonCommand(Command.builder()
+        CommandProjection formatCommandProjection = Command.builder()
                 .setText(resourceBundle.getString("Format.text")).setIcon(Edit_paste.of(16, 16))
-                .setPopupMenuProjection(formatButtonPopupProjection)
+                .setPopupMenuContentModel(new CommandPopupMenuContentModel(
+                        QuickStylesPanel.getQuickStylesContentModel(resourceBundle, currLocale),
+                        formatMenuEntries))
                 .setPopupRichTooltip(RichTooltip.builder().setTitle(
                         "Main title that can go over multiple lines of text even exceeding the " +
                                 "bigger")
@@ -633,7 +570,30 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .build()
                 .project(CommandPresentation.builder()
                         .setHorizontalAlignment(SwingConstants.LEADING)
-                        .setPopupKeyTip("FP").build()), JRibbonBand.PresentationPriority.MEDIUM);
+                        .setPopupKeyTip("FP")
+                        .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
+                                .setPanelPresentationModel(
+                                        CommandPanelPresentationModel.builder()
+                                                .setToShowGroupLabels(false)
+                                                .setCommandPresentationState(
+                                                        CommandButtonPresentationState.FIT_TO_ICON)
+                                                .setCommandIconDimension(48)
+                                                .setMaxColumns(5)
+                                                .setMaxRows(3).build())
+                                .build())
+                        .build());
+
+        Map<Command, CommandPresentation.Overlay> formatMenuOverlays = new HashMap<>();
+        formatMenuOverlays.put(this.menuSaveSelection,
+                CommandPresentation.overlay().setActionKeyTip("SS"));
+        formatMenuOverlays.put(this.menuClearSelection,
+                CommandPresentation.overlay().setActionKeyTip("SC"));
+        formatMenuOverlays.put(this.applyStyles,
+                CommandPresentation.overlay().setActionKeyTip("SA"));
+        formatCommandProjection.setCommandOverlays(formatMenuOverlays);
+
+        clipboardBand.addRibbonCommand(formatCommandProjection,
+                JRibbonBand.PresentationPriority.MEDIUM);
 
         List<RibbonBandResizePolicy> resizePolicies = new ArrayList<>();
         resizePolicies.add(new CoreRibbonResizePolicies.Mirror(clipboardBand));
@@ -728,7 +688,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 .setCommandPresentationState(JRibbonBand.BIG_FIXED_LANDSCAPE)
                                 .setExpandKeyTip("L")
                                 .build());
-        quickStylesGalleryProjection.withCommandOverlays(formatMenuOverlays);
+        quickStylesGalleryProjection.setCommandOverlays(formatMenuOverlays);
         quickStylesBand.addRibbonGallery(quickStylesGalleryProjection,
                 JRibbonBand.PresentationPriority.TOP);
 
@@ -841,8 +801,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         quickStylesBand.addRibbonCommand(Command.builder()
                         .setText(resourceBundle.getString("Styles3.text"))
                         .setIcon(Text_html.of(16, 16))
-                        .setPopupMenuProjection(new ColorSelectorPopupMenuProjection(selectorModel,
-                                ColorSelectorPopupMenuPresentationModel.builder().build()))
+                        .setPopupMenuContentModel(selectorModel)
                         .build()
                         .project(CommandPresentation.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
@@ -1150,6 +1109,49 @@ public class BasicCheckRibbon extends JRibbonFrame {
     }
 
     private void createCommands() {
+        MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
+        mf.setLocale(currLocale);
+
+        this.popupCommand1 = Command.builder()
+                .setText(mf.format(new Object[] { "1" }))
+                .setIcon(new ColorResizableIcon(16, new Color(0xFF80DEEA)))
+                .setAction((CommandActionEvent e) ->
+                        System.out.println("Test menu item 1 activated"))
+                .build();
+        this.popupCommand2 = Command.builder()
+                .setText(mf.format(new Object[] { "2" }))
+                .setIcon(new ColorResizableIcon(16, new Color(0xFF80CBC4)))
+                .setAction((CommandActionEvent e) ->
+                        System.out.println("Test menu item 2 activated"))
+                .build();
+        this.popupCommand3 = Command.builder()
+                .setText(mf.format(new Object[] { "3" }))
+                .setIcon(new ColorResizableIcon(16, new Color(0xFFA5D6A7)))
+                .setAction((CommandActionEvent e) ->
+                        System.out.println("Test menu item 3 activated"))
+                .build();
+        this.popupCommand4 = Command.builder()
+                .setText(mf.format(new Object[] { "4" }))
+                .setIcon(new ColorResizableIcon(16, new Color(0xFFC5E1A5)))
+                .setAction((CommandActionEvent e) ->
+                        System.out.println("Test menu item 4 activated"))
+                .build();
+        this.popupCommand5 = Command.builder()
+                .setText(mf.format(new Object[] { "5" }))
+                .setIcon(new ColorResizableIcon(16, new Color(0xFFE6EE9C)))
+                .setAction((CommandActionEvent e) ->
+                        System.out.println("Test menu item 5 activated"))
+                .build();
+
+        List<Command> menuCommands1 = Arrays.asList(
+                this.popupCommand1, this.popupCommand2, this.popupCommand3);
+        List<Command> menuCommands2 = Arrays.asList(
+                this.popupCommand4, this.popupCommand5);
+
+        this.popupMenuContentModel = new CommandPopupMenuContentModel(
+                Arrays.asList(new CommandGroupModel(menuCommands1),
+                        new CommandGroupModel(menuCommands2)));
+
         this.pasteCommand = Command.builder()
                 .setText(resourceBundle.getString("Paste.text"))
                 .setIconFactory(Edit_paste.factory())
@@ -1160,7 +1162,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 .addDescriptionSection(resourceBundle.getString(
                                         "Paste.tooltip.actionParagraph1"))
                                 .build())
-                .setPopupMenuProjection(getSamplePopupMenuProjection())
+                .setPopupMenuContentModel(this.popupMenuContentModel)
                 .setPopupRichTooltip(RichTooltip.builder()
                         .setTitle(resourceBundle.getString("Paste.text"))
                         .addDescriptionSection(resourceBundle
@@ -1529,6 +1531,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 //.setActionKeyTip("O")
                 .build();
 
+        // TODO - propagate the command overlays at the level of the entire application menu
         Map<Command, CommandPresentation.Overlay> saveAsMenuOverlays = new HashMap<>();
         saveAsMenuOverlays.put(amEntrySaveAsWord,
                 CommandPresentation.overlay().setActionKeyTip("W"));
@@ -1537,11 +1540,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
         saveAsMenuOverlays.put(amEntrySaveAsOtherFormats,
                 CommandPresentation.overlay().setActionKeyTip("O"));
 
-        CommandPopupMenuProjection saveAsMenu = new CommandPopupMenuProjection(
-                new CommandPopupMenuContentModel(new CommandGroupModel(
-                        amEntrySaveAsWord, amEntrySaveAsHtml, amEntrySaveAsOtherFormats)),
-                CommandPopupMenuPresentationModel.builder().build());
-        saveAsMenu.withCommandOverlays(saveAsMenuOverlays);
+        CommandPopupMenuContentModel saveAsMenu = new CommandPopupMenuContentModel(
+                new CommandGroupModel(amEntrySaveAsWord, amEntrySaveAsHtml,
+                        amEntrySaveAsOtherFormats));
 
         RibbonApplicationMenuPrimaryCommand amEntrySaveAs =
                 RibbonApplicationMenuPrimaryCommand.applicationMenuBuilder()
@@ -1553,7 +1554,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         //.setActionKeyTip("A")
                         //.setPopupKeyTip("F")
                         .setTitleClickAction()
-                        .setPopupMenuProjection(saveAsMenu)
+                        .setPopupMenuContentModel(saveAsMenu)
                         .addSecondaryMenuGroup(
                                 resourceBundle.getString("AppMenuSaveAs.secondary.textGroupTitle1"),
                                 amEntrySaveAsWord, amEntrySaveAsHtml, amEntrySaveAsOtherFormats)
@@ -1651,24 +1652,22 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setAction((CommandActionEvent e) -> System.out.println("Bluetooth activated"))
                 .build();
 
+        // TODO: propagate overlays at the level of the application menu
         Map<Command, CommandPresentation.Overlay> wirelessOverlays = new HashMap<>();
         wirelessOverlays.put(wirelessWiFi,
                 CommandPresentation.overlay().setActionKeyTip("W"));
         wirelessOverlays.put(wirelessBluetooth,
                 CommandPresentation.overlay().setActionKeyTip("B"));
 
-        CommandPopupMenuProjection wirelessPopupMenuProjection =
-                new CommandPopupMenuProjection(
-                        new CommandPopupMenuContentModel(Collections.singletonList(
-                                new CommandGroupModel(wirelessWiFi, wirelessBluetooth))),
-                        CommandPopupMenuPresentationModel.builder().build());
-        wirelessPopupMenuProjection.withCommandOverlays(wirelessOverlays);
+        CommandPopupMenuContentModel wirelessPopupMenuContentModel =
+                new CommandPopupMenuContentModel(Collections.singletonList(
+                        new CommandGroupModel(wirelessWiFi, wirelessBluetooth)));
 
         Command amEntrySendWireless = Command.builder()
                 .setText(resourceBundle.getString("AppMenuSend.wireless.text"))
                 .setIcon(Network_wireless.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuSend.wireless.description"))
-                .setPopupMenuProjection(wirelessPopupMenuProjection)
+                .setPopupMenuContentModel(wirelessPopupMenuContentModel)
                 //.setPopupKeyTip("X")
                 .build();
 
@@ -1939,7 +1938,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         CommandStripProjection indentStripProjection = new CommandStripProjection(
                 new CommandGroupModel(indentLeft, indentRight),
                 CommandStripPresentationModel.builder().build());
-        indentStripProjection.withCommandOverlays(indentOverlays);
+        indentStripProjection.setCommandOverlays(indentOverlays);
         JComponent indentStrip = indentStripProjection.buildComponent();
 
         fontBand.addFlowComponent(indentStrip);
@@ -2004,7 +2003,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 new CommandGroupModel(styleBold, styleItalic, styleUnderline,
                         styleStrikethrough),
                 CommandStripPresentationModel.builder().build());
-        styleStripProjection.withCommandOverlays(styleOverlays);
+        styleStripProjection.setCommandOverlays(styleOverlays);
         JComponent styleStrip = styleStripProjection.buildComponent();
 
         fontBand.addFlowComponent(styleStrip);
@@ -2023,7 +2022,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 new CommandGroupModel(this.alignLeftCommand, this.alignCenterCommand,
                         this.alignRightCommand, this.alignFillCommand),
                 CommandStripPresentationModel.builder().build());
-        alignStripProjection.withCommandOverlays(alignOverlays);
+        alignStripProjection.setCommandOverlays(alignOverlays);
         JComponent alignStrip = alignStripProjection.buildComponent();
 
         fontBand.addFlowComponent(alignStrip);

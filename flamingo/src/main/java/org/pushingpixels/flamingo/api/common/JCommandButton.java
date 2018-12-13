@@ -30,10 +30,13 @@
 package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
-import org.pushingpixels.flamingo.api.common.projection.Projection;
+import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
+import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -338,15 +341,84 @@ public class JCommandButton extends AbstractCommandButton {
         this.setPopupModel(new DefaultPopupButtonModel());
 
         boolean hasAction = (command.getAction() != null);
-        boolean hasPopup = (command.getPopupMenuProjection() != null)
-                || (command.getPopupCallback() != null);
+        boolean hasPopup = (command.getPopupMenuContentModel() != null);
 
         if (hasPopup) {
-            if (command.getPopupMenuProjection() != null) {
-                this.setPopupCallback((JCommandButton commandButton)
-                        -> command.getPopupMenuProjection().buildComponent());
-            } else {
-                this.setPopupCallback(command.getPopupCallback());
+            if (command.getPopupMenuContentModel() != null) {
+                AbstractPopupMenuContentModel popupMenuContentModel =
+                        command.getPopupMenuContentModel();
+                AbstractPopupMenuPresentationModel popupMenuPresentationModel =
+                        commandPresentation.getPopupMenuPresentationModel();
+                CommandProjection commandProjection = (CommandProjection) this.projection;
+                if (popupMenuContentModel instanceof CommandPopupMenuContentModel) {
+                    if (popupMenuPresentationModel == null) {
+                        popupMenuPresentationModel =
+                                CommandPopupMenuPresentationModel.builder().build();
+                    }
+                    CommandPopupMenuProjection commandPopupMenuProjection =
+                            new CommandPopupMenuProjection(
+                                    (CommandPopupMenuContentModel) popupMenuContentModel,
+                                    (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
+                    commandPopupMenuProjection.setCommandOverlays(
+                            this.projection.getCommandOverlays());
+                    if (commandProjection.getPopupMenuSupplier() != null) {
+                        commandPopupMenuProjection.setComponentSupplier(
+                                (Projection.ComponentSupplier<JCommandPopupMenu,
+                                        CommandPopupMenuContentModel,
+                                        CommandPopupMenuPresentationModel>) commandProjection.getPopupMenuSupplier());
+                    }
+                    if (commandProjection.getPopupMenuCustomizer() != null) {
+                        commandPopupMenuProjection.setComponentCustomizer(
+                                (Projection.ComponentCustomizer<JCommandPopupMenu>) commandProjection.getPopupMenuCustomizer());
+                    }
+                    this.setPopupCallback((JCommandButton commandButton)
+                            -> commandPopupMenuProjection.buildComponent());
+                } else if (popupMenuContentModel instanceof ColorSelectorPopupMenuContentModel) {
+                    if (popupMenuPresentationModel == null) {
+                        popupMenuPresentationModel =
+                                ColorSelectorPopupMenuPresentationModel.builder().build();
+                    }
+                    ColorSelectorPopupMenuProjection colorSelectorPopupMenuProjection =
+                            new ColorSelectorPopupMenuProjection(
+                                    (ColorSelectorPopupMenuContentModel) popupMenuContentModel,
+                                    (ColorSelectorPopupMenuPresentationModel) popupMenuPresentationModel);
+                    colorSelectorPopupMenuProjection.setCommandOverlays(
+                            this.projection.getCommandOverlays());
+                    if (commandProjection.getPopupMenuSupplier() != null) {
+                        colorSelectorPopupMenuProjection.setComponentSupplier(
+                                (Projection.ComponentSupplier<JColorSelectorPopupMenu,
+                                        ColorSelectorPopupMenuContentModel,
+                                        ColorSelectorPopupMenuPresentationModel>) commandProjection.getPopupMenuSupplier());
+                    }
+                    if (commandProjection.getPopupMenuCustomizer() != null) {
+                        colorSelectorPopupMenuProjection.setComponentCustomizer(
+                                (Projection.ComponentCustomizer<JColorSelectorPopupMenu>) commandProjection.getPopupMenuCustomizer());
+                    }
+                    this.setPopupCallback((JCommandButton commandButton)
+                            -> colorSelectorPopupMenuProjection.buildComponent());
+                } else if (popupMenuContentModel instanceof RibbonApplicationMenu) {
+                    if (popupMenuPresentationModel == null) {
+                        popupMenuPresentationModel =
+                                CommandPopupMenuPresentationModel.builder().build();
+                    }
+                    RibbonApplicationMenuProjection ribbonApplicationMenuProjection =
+                            new RibbonApplicationMenuProjection(
+                                    (RibbonApplicationMenu) popupMenuContentModel,
+                                    (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
+                    ribbonApplicationMenuProjection.setCommandOverlays(
+                            this.projection.getCommandOverlays());
+                    if (commandProjection.getPopupMenuSupplier() != null) {
+                        ribbonApplicationMenuProjection.setComponentSupplier(
+                                (Projection.ComponentSupplier<JRibbonApplicationMenuPopupPanel,
+                                        RibbonApplicationMenu, CommandPopupMenuPresentationModel>) commandProjection.getPopupMenuSupplier());
+                    }
+                    if (commandProjection.getPopupMenuCustomizer() != null) {
+                        ribbonApplicationMenuProjection.setComponentCustomizer(
+                                (Projection.ComponentCustomizer<JRibbonApplicationMenuPopupPanel>) commandProjection.getPopupMenuCustomizer());
+                    }
+                    this.setPopupCallback((JCommandButton commandButton)
+                            -> ribbonApplicationMenuProjection.buildComponent());
+                }
             }
             this.setPopupRichTooltip(command.getPopupRichTooltip());
             this.setPopupKeyTip(commandPresentation.getPopupKeyTip());

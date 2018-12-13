@@ -168,8 +168,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
                         .setFocusable(false)
                         .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
                         .build());
-        expandCommandProjection.setComponentSupplier((Projection<AbstractCommandButton, Command,
-                CommandPresentation> commandProjection) -> RibbonBandExpandButton::new);
+        expandCommandProjection.setComponentSupplier(projection -> RibbonBandExpandButton::new);
         expandCommandProjection.setComponentCustomizer((AbstractCommandButton button) -> {
             // since paintBandTitleBackground uses GENERAL, mark this button with
             // GENERAL as well to sync the mark color

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.*;
 
 public class SamplePopupMenu {
-    public static CommandPopupMenuProjection getSamplePopupMenu() {
+    public static CommandPopupMenuContentModel getSamplePopupMenuContentModel() {
         List<Command> menuProjections1 = new ArrayList<>();
         List<Command> menuProjections2 = new ArrayList<>();
 
@@ -42,7 +42,6 @@ public class SamplePopupMenu {
                 Arrays.asList(new CommandGroupModel(menuProjections1),
                         new CommandGroupModel(menuProjections2)));
 
-        return new CommandPopupMenuProjection(menuContentModel,
-                CommandPopupMenuPresentationModel.builder().build());
+        return menuContentModel;
     }
 }

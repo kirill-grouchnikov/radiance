@@ -52,10 +52,8 @@ public abstract class BlackboxProjection<C extends ContentModel, P extends Prese
         return this.presentationModel;
     }
 
-    public BlackboxProjection<C, P> withCommandOverlays(
-            Map<Command, CommandPresentation.Overlay> commandOverlays) {
+    public void setCommandOverlays(Map<Command, CommandPresentation.Overlay> commandOverlays) {
         this.commandOverlays = commandOverlays;
-        return this;
     }
 
     public Map<Command, CommandPresentation.Overlay> getCommandOverlays() {

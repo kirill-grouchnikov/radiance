@@ -174,8 +174,7 @@ public class TestColorSelector extends JFrame {
 
         AbstractCommandButton colorButton = Command.builder()
                 .setIcon(colorIcon)
-                .setPopupMenuProjection(new ColorSelectorPopupMenuProjection(selectorModel,
-                        ColorSelectorPopupMenuPresentationModel.builder().build()))
+                .setPopupMenuContentModel(selectorModel)
                 .build()
                 .project(CommandPresentation.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)

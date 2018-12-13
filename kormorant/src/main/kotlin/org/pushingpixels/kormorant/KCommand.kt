@@ -38,6 +38,9 @@ import org.pushingpixels.flamingo.api.common.CommandActionEvent
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.model.*
+import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuContentModel
+import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
 import org.pushingpixels.flamingo.api.common.projection.AbstractPopupMenuProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
@@ -146,7 +149,7 @@ open class KCommand {
             }
         }
 
-    var popupMenu: KAbstractPopupMenu<*>? by NullableDelegate { hasBeenConverted }
+    var popupMenu: KAbstractPopupMenu<*, *>? by NullableDelegate { hasBeenConverted }
 
     // The "popupRichTooltip" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
@@ -318,8 +321,8 @@ open class KCommand {
             builder.setPopupRichTooltip(command.popupRichTooltip?.toJavaRichTooltip())
 
             if (command.popupMenu != null) {
-                builder.setPopupMenuProjection(command.popupMenu!!.toJavaPopupMenuProjection()
-                    as AbstractPopupMenuProjection<*, *, *>)
+                builder.setPopupMenuContentModel(command.popupMenu!!.toJavaPopupMenuContentModel()
+                    as AbstractPopupMenuContentModel)
             }
 
             if (command.isTitleClickAction) {
@@ -368,7 +371,7 @@ open class KCommand {
     }
 
     internal fun toCommandButton(presentation: KCommandPresentation): AbstractCommandButton {
-        return asJavaCommand().project(presentation.toCommandPresentation()).buildComponent()
+        return asJavaCommand().project(presentation.toCommandPresentation(this)).buildComponent()
     }
 }
 
@@ -392,7 +395,7 @@ class KCommandPresentation {
     var actionKeyTip: String? = null
     var popupKeyTip: String? = null
 
-    fun toCommandPresentation(): CommandPresentation {
+    fun toCommandPresentation(command: KCommand): CommandPresentation {
         return CommandPresentation.builder()
                 .setPresentationState(presentationState)
                 .setFlat(isFlat)
@@ -404,6 +407,8 @@ class KCommandPresentation {
                 .setActionKeyTip(actionKeyTip)
                 .setPopupKeyTip(popupKeyTip)
                 .setMenu(isMenu)
+                .setPopupMenuPresentationModel(command.popupMenu!!.toJavaPopupMenuPresentationModel()
+                        as AbstractPopupMenuPresentationModel)
                 .build()
     }
 }

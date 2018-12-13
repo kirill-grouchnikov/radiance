@@ -129,7 +129,8 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                         PopupFactory popupFactory = PopupFactory.getSharedInstance();
 
                         JCommandPopupMenu popupMenu = JRibbonGallery.getExpandPopupMenu(
-                                ribbonGallery.getProjection(), ribbonGallery);
+                                ribbonGallery.getProjection(),
+                                ribbonGallery.getComponentOrientation()).buildComponent();
                         final Point loc = ribbonGallery.getLocationOnScreen();
                         popupMenu.setCustomizer(() -> {
                             Rectangle scrBounds =
@@ -205,9 +206,9 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                         .setFlat(false)
                         .setToDismissPopupsOnActivation(false)
                         .build());
-        projection.withCommandComponentSuppliers(galleryScrollerSuppliers)
-                .withCommandComponentCustomizers(galleryScrollerCustomizers)
-                .withCommandOverlays(galleryScrollerOverlays);
+        projection.setCommandComponentSuppliers(galleryScrollerSuppliers);
+        projection.setCommandComponentCustomizers(galleryScrollerCustomizers);
+        projection.setCommandOverlays(galleryScrollerOverlays);
 
         this.buttonStrip = projection.buildComponent();
 

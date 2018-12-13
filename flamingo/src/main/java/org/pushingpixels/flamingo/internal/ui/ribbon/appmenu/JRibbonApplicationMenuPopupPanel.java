@@ -29,15 +29,16 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
-import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
+import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonApplicationMenuPopupPanelUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
 
 import javax.swing.*;
 
-public class JRibbonApplicationMenuPopupPanel extends JPopupPanel
-        implements ScrollableHost {
+public class JRibbonApplicationMenuPopupPanel extends AbstractPopupMenu implements ScrollableHost {
     /**
      * The UI class ID string.
      */
@@ -45,8 +46,11 @@ public class JRibbonApplicationMenuPopupPanel extends JPopupPanel
 
     private RibbonApplicationMenu ribbonAppMenu;
 
-    public JRibbonApplicationMenuPopupPanel(RibbonApplicationMenu ribbonAppMenu) {
-        this.ribbonAppMenu = ribbonAppMenu;
+    public JRibbonApplicationMenuPopupPanel(Projection<JRibbonApplicationMenuPopupPanel,
+            RibbonApplicationMenu, CommandPopupMenuPresentationModel> projection) {
+        super();
+
+        this.ribbonAppMenu = projection.getContentModel();
 
         this.updateUI();
     }

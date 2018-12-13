@@ -29,14 +29,12 @@
  */
 package org.pushingpixels.flamingo.api.common.popup.model;
 
-import org.pushingpixels.flamingo.api.common.model.ContentModel;
-
 import javax.swing.event.*;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
 
-public class ColorSelectorPopupMenuContentModel implements ContentModel {
+public class ColorSelectorPopupMenuContentModel extends AbstractPopupMenuContentModel {
     private List<ColorSelectorPopupMenuGroupModel> menuGroups;
 
     private ColorPreviewListener colorPreviewListener;

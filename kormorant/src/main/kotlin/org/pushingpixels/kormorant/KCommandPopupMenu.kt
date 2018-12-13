@@ -68,12 +68,14 @@ class KCommandPopupMenuButtonPanel {
     }
 }
 
-abstract class KAbstractPopupMenu<out P> {
-    abstract fun toJavaPopupMenuProjection(): P
+abstract class KAbstractPopupMenu<out CM, out PM> {
+    abstract fun toJavaPopupMenuContentModel(): CM
+    abstract fun toJavaPopupMenuPresentationModel(): PM
+    abstract fun toJavaCommandOverlays(): Map<Command, CommandPresentation.Overlay>
 }
 
 @FlamingoElementMarker
-class KCommandPopupMenu : KAbstractPopupMenu<CommandPopupMenuProjection>() {
+class KCommandPopupMenu : KAbstractPopupMenu<CommandPopupMenuContentModel, CommandPopupMenuPresentationModel>() {
     private var hasBeenConverted: Boolean = false
 
     private val groups = arrayListOf<KCommandGroup>()
@@ -115,7 +117,25 @@ class KCommandPopupMenu : KAbstractPopupMenu<CommandPopupMenuProjection>() {
         return group
     }
 
-    override fun toJavaPopupMenuProjection(): CommandPopupMenuProjection {
+    override fun toJavaCommandOverlays(): Map<Command, CommandPresentation.Overlay> {
+        val commandOverlays = HashMap<Command, CommandPresentation.Overlay>()
+        for (groupOverlays in groups.map { it.toPresentationOverlays() }) {
+            commandOverlays.putAll(groupOverlays)
+        }
+        return commandOverlays
+    }
+
+    override fun toJavaPopupMenuContentModel(): CommandPopupMenuContentModel {
+        if (defaultGroup.commands.isEmpty()) {
+            groups.remove(defaultGroup)
+        }
+
+        val commandGroupModels = groups.map { it.toCommandGroupModel() }
+
+        return CommandPopupMenuContentModel(commandPanel?.getContentModel(), commandGroupModels)
+    }
+
+    override fun toJavaPopupMenuPresentationModel(): CommandPopupMenuPresentationModel {
         val presentationModelBuilder = CommandPopupMenuPresentationModel.builder()
         if (maxVisibleMenuCommands > 0) {
             presentationModelBuilder.setMaxVisibleMenuCommands(maxVisibleMenuCommands)
@@ -125,21 +145,7 @@ class KCommandPopupMenu : KAbstractPopupMenu<CommandPopupMenuProjection>() {
             presentationModelBuilder.setPanelPresentationModel(commandPanel!!.getPresentationModel())
         }
 
-        if (defaultGroup.commands.isEmpty()) {
-            groups.remove(defaultGroup)
-        }
-
-        val commandGroupModels = groups.map { it.toCommandGroupModel() }
-        val commandOverlays = HashMap<Command, CommandPresentation.Overlay>()
-        for (groupOverlays in groups.map { it.toPresentationOverlays() }) {
-            commandOverlays.putAll(groupOverlays)
-        }
-
-        val result = CommandPopupMenuProjection(
-                CommandPopupMenuContentModel(commandPanel?.getContentModel(), commandGroupModels),
-                presentationModelBuilder.build())
-        result.withCommandOverlays(commandOverlays)
-        return result
+        return presentationModelBuilder.build()
     }
 }
 

@@ -35,7 +35,6 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -79,9 +78,7 @@ public class TestToggleMenuButtons extends JFrame {
         AbstractCommandButton singleChoice =
                 Command.builder()
                         .setText("single")
-                        .setPopupMenuProjection(new CommandPopupMenuProjection(
-                                justifyMenuContentModel,
-                                CommandPopupMenuPresentationModel.builder().build()))
+                        .setPopupMenuContentModel(justifyMenuContentModel)
                         .build()
                         .project(CommandPresentation.builder()
                                 .setPresentationState(CommandButtonPresentationState.MEDIUM)
@@ -116,14 +113,15 @@ public class TestToggleMenuButtons extends JFrame {
         AbstractCommandButton multiChoice =
                 Command.builder()
                         .setText("multi")
-                        .setPopupMenuProjection(new CommandPopupMenuProjection(
-                                formatMenuContentModel,
-                                CommandPopupMenuPresentationModel.builder()
-                                        .setToDismissOnCommandActivation(false).build()))
+                        .setPopupMenuContentModel(formatMenuContentModel)
                         .build()
                         .project(CommandPresentation.builder()
                                 .setPresentationState(CommandButtonPresentationState.MEDIUM)
-                                .setFlat(false).build())
+                                .setFlat(false)
+                                .setPopupMenuPresentationModel(
+                                        CommandPopupMenuPresentationModel.builder()
+                                                .setToDismissOnCommandActivation(false).build())
+                                .build())
                         .buildComponent();
 
         JPanel main = new JPanel(new FlowLayout());

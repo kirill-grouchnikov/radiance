@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.kormorant
 
+import org.pushingpixels.flamingo.api.common.model.Command
+import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel
@@ -119,7 +121,8 @@ class KColorSelectorPopupMenuGroup {
 }
 
 @FlamingoElementMarker
-class KColorSelectorPopupMenu: KAbstractPopupMenu<ColorSelectorPopupMenuProjection>() {
+class KColorSelectorPopupMenu: KAbstractPopupMenu<ColorSelectorPopupMenuContentModel,
+        ColorSelectorPopupMenuPresentationModel>() {
     private var hasBeenConverted: Boolean = false
 
     var onColorActivated: ((Color) -> Unit)? by NullableDelegate { hasBeenConverted }
@@ -175,14 +178,16 @@ class KColorSelectorPopupMenu: KAbstractPopupMenu<ColorSelectorPopupMenuProjecti
         return group
     }
 
-    override fun toJavaPopupMenuProjection(): ColorSelectorPopupMenuProjection {
+    override fun toJavaCommandOverlays(): Map<Command, CommandPresentation.Overlay> {
+        return hashMapOf()
+    }
+
+    override fun toJavaPopupMenuContentModel(): ColorSelectorPopupMenuContentModel {
         if (defaultGroup.content.isEmpty()) {
             groups.remove(defaultGroup)
         }
 
         val menuGroups = groups.map { it.toJavaColorSelectorPopupMenuGroupModel() }
-
-        hasBeenConverted = true
 
         val menuContentModel = ColorSelectorPopupMenuContentModel(menuGroups)
         menuContentModel.colorActivationListener =
@@ -200,8 +205,11 @@ class KColorSelectorPopupMenu: KAbstractPopupMenu<ColorSelectorPopupMenuProjecti
             }
         }
 
-        return ColorSelectorPopupMenuProjection(menuContentModel,
-                ColorSelectorPopupMenuPresentationModel.builder().build())
+        return menuContentModel
+    }
+
+    override fun toJavaPopupMenuPresentationModel(): ColorSelectorPopupMenuPresentationModel {
+        return ColorSelectorPopupMenuPresentationModel.builder().build()
     }
 }
 

@@ -76,18 +76,18 @@ public class TileMenu extends JFrame {
 
         Command mainCommand = Command.builder()
                 .setText("click me")
-                .setPopupMenuProjection(new CommandPopupMenuProjection(menuContentModel,
-                        CommandPopupMenuPresentationModel.builder()
-                                .setMenuPresentationState(CommandButtonPresentationState.TILE)
-                                .setPopupOrientationKind(
-                                        CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD)
-                                .build()))
+                .setPopupMenuContentModel(menuContentModel)
                 .build();
 
         CommandProjection mainCommandProjection = mainCommand.project(
                 CommandPresentation.builder()
                         .setPresentationState(CommandButtonPresentationState.MEDIUM)
                         .setFlat(false)
+                        .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
+                                .setMenuPresentationState(CommandButtonPresentationState.TILE)
+                                .setPopupOrientationKind(
+                                        CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD)
+                                .build())
                         .build());
 
         this.setLayout(new FlowLayout(FlowLayout.LEADING));

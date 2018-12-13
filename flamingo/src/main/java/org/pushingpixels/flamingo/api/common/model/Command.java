@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
+import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuContentModel;
 import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.neon.icon.*;
 
@@ -68,8 +69,7 @@ public class Command implements ContentModel {
     private CommandAction action;
     private CommandActionPreview actionPreview;
     private RichTooltip actionRichTooltip;
-    private AbstractPopupMenuProjection popupMenuProjection;
-    private PopupPanelCallback popupCallback;
+    private AbstractPopupMenuContentModel popupMenuContentModel;
     private RichTooltip popupRichTooltip;
     private boolean isTitleClickAction;
     private boolean isTitleClickPopup;
@@ -106,25 +106,23 @@ public class Command implements ContentModel {
                 throw new IllegalStateException("Configured action rich tooltip with no action");
             }
         }
-        if ((popupMenuProjection == null) && (popupCallback == null)) {
+        if (popupMenuContentModel == null) {
             if (popupRichTooltip != null) {
                 throw new IllegalStateException("Configured popup rich tooltip with no callback");
             }
         }
 
-        if ((action != null) && (popupMenuProjection == null) && (popupCallback == null)
-                && isTitleClickPopup) {
+        if ((action != null) && (popupMenuContentModel == null) && isTitleClickPopup) {
             throw new IllegalStateException(
                     "Action-only command configured to activate popup on title click");
         }
 
-        if (((popupCallback != null) || (popupMenuProjection != null))
-                && (action == null) && isTitleClickAction) {
+        if ((popupMenuContentModel != null) && (action == null) && isTitleClickAction) {
             throw new IllegalStateException(
                     "Popup-only command configured to activate action on title click");
         }
 
-        if ((action != null) && ((popupCallback != null) || (popupMenuProjection != null))) {
+        if ((action != null) && (popupMenuContentModel != null)) {
             if (isTitleClickAction && isTitleClickPopup) {
                 throw new IllegalStateException(
                         "Command configured to have both action and popup can't have both " +
@@ -137,7 +135,7 @@ public class Command implements ContentModel {
             }
         }
 
-        if (isToggle && ((popupCallback != null) || (popupMenuProjection != null))) {
+        if (isToggle && (popupMenuContentModel != null)) {
             throw new IllegalStateException("Command configured to be toggle can't have popups");
         }
 
@@ -244,20 +242,8 @@ public class Command implements ContentModel {
         }
     }
 
-    public AbstractPopupMenuProjection getPopupMenuProjection() {
-        return this.popupMenuProjection;
-    }
-
-    public void setPopupMenuProjection(AbstractPopupMenuProjection popupMenuProjection) {
-        if (this.popupMenuProjection != popupMenuProjection) {
-            AbstractPopupMenuProjection old = this.popupMenuProjection;
-            this.popupMenuProjection = popupMenuProjection;
-            this.pcs.firePropertyChange("popupMenuProjection", old, this.popupMenuProjection);
-        }
-    }
-
-    public PopupPanelCallback getPopupCallback() {
-        return this.popupCallback;
+    public AbstractPopupMenuContentModel getPopupMenuContentModel() {
+        return this.popupMenuContentModel;
     }
 
     public RichTooltip getPopupRichTooltip() {
@@ -395,7 +381,7 @@ public class Command implements ContentModel {
     }
 
     protected boolean hasPopup() {
-        return (this.getPopupMenuProjection() != null) || (this.getPopupCallback() != null);
+        return (this.getPopupMenuContentModel() != null);
     }
 
     /**
@@ -466,8 +452,7 @@ public class Command implements ContentModel {
         protected CommandAction action;
         protected CommandActionPreview actionPreview;
         protected RichTooltip actionRichTooltip;
-        protected AbstractPopupMenuProjection popupMenuProjection;
-        protected PopupPanelCallback popupCallback;
+        protected AbstractPopupMenuContentModel popupMenuContentModel;
         protected RichTooltip popupRichTooltip;
         protected boolean isTitleClickAction;
         protected boolean isTitleClickPopup;
@@ -493,8 +478,7 @@ public class Command implements ContentModel {
             command.extraText = this.extraText;
             command.action = this.action;
             command.actionRichTooltip = this.actionRichTooltip;
-            command.popupMenuProjection = this.popupMenuProjection;
-            command.popupCallback = this.popupCallback;
+            command.popupMenuContentModel = this.popupMenuContentModel;
             command.popupRichTooltip = this.popupRichTooltip;
             command.isTitleClickAction = this.isTitleClickAction;
             command.isTitleClickPopup = this.isTitleClickPopup;
@@ -558,13 +542,8 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
-        public B setPopupMenuProjection(AbstractPopupMenuProjection popupMenuProjection) {
-            this.popupMenuProjection = popupMenuProjection;
-            return (B) this;
-        }
-
-        public B setPopupCallback(PopupPanelCallback popupCallback) {
-            this.popupCallback = popupCallback;
+        public B setPopupMenuContentModel(AbstractPopupMenuContentModel popupMenuContentModel) {
+            this.popupMenuContentModel = popupMenuContentModel;
             return (B) this;
         }
 

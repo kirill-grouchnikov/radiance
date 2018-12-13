@@ -138,9 +138,18 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 syncApplicationMenuTips();
             }
             if ("applicationMenu".equals(evt.getPropertyName())) {
+                this.ribbon.remove(this.applicationMenuButton);
+
+                this.applicationMenuButton = JRibbonApplicationMenuButton.getApplicationMenuButton(
+                        this.ribbon);
+                this.applicationMenuButton.applyComponentOrientation(this.ribbon.getComponentOrientation());
+                this.syncApplicationMenuTips();
+                this.ribbon.add(this.applicationMenuButton);
+
                 ribbon.revalidate();
                 ribbon.doLayout();
                 ribbon.repaint();
+
                 Window windowAncestor = SwingUtilities.getWindowAncestor(ribbon);
                 if (windowAncestor instanceof JRibbonFrame) {
                     applicationMenuButton.setText(ribbon.getApplicationMenu().getTitle());
@@ -225,7 +234,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
         this.syncRibbonState();
 
         boolean isShowingAppMenuButton = (ribbon.getApplicationMenu() != null);
-        this.applicationMenuButton = new JRibbonApplicationMenuButton(this.ribbon);
+        this.applicationMenuButton = JRibbonApplicationMenuButton.getApplicationMenuButton(
+                this.ribbon);
         this.applicationMenuButton.applyComponentOrientation(this.ribbon.getComponentOrientation());
         this.syncApplicationMenuTips();
         this.ribbon.add(this.applicationMenuButton);
@@ -1101,9 +1111,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             // Configure the projection to use our own subclass of command button (so that it can
             // use its own UI delegate class
             taskToggleCommandProjection.setComponentSupplier(
-                    (Projection<AbstractCommandButton, Command,
-                            CommandPresentation> commandProjection) ->
-                            JRibbonTaskToggleButton::new);
+                    projection -> JRibbonTaskToggleButton::new);
 
             // Configure the projection with additional customizations on the command button that
             // is created to represent the task toggle command

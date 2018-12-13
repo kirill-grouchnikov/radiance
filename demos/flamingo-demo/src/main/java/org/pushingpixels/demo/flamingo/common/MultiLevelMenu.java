@@ -73,10 +73,8 @@ public class MultiLevelMenu extends JFrame {
 
         menuCommands2.add(Command.builder()
                 .setText("Find")
-                .setPopupMenuProjection(new CommandPopupMenuProjection(
-                        new CommandPopupMenuContentModel(
-                                new CommandGroupModel(menuCommandsSecondary)),
-                        CommandPopupMenuPresentationModel.builder().build()))
+                .setPopupMenuContentModel(new CommandPopupMenuContentModel(
+                        new CommandGroupModel(menuCommandsSecondary)))
                 .build());
 
         CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
@@ -85,17 +83,17 @@ public class MultiLevelMenu extends JFrame {
 
         Command mainCommand = Command.builder()
                 .setText("click me")
-                .setPopupMenuProjection(new CommandPopupMenuProjection(menuContentModel,
-                        CommandPopupMenuPresentationModel.builder()
-                                .setPopupOrientationKind(
-                                        CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD)
-                                .build()))
+                .setPopupMenuContentModel(menuContentModel)
                 .build();
 
         CommandProjection mainCommandProjection = mainCommand.project(
                 CommandPresentation.builder()
                         .setPresentationState(CommandButtonPresentationState.MEDIUM)
                         .setFlat(false)
+                        .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
+                                .setPopupOrientationKind(
+                                        CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD)
+                                .build())
                         .build());
 
         this.setLayout(new FlowLayout(FlowLayout.LEADING));

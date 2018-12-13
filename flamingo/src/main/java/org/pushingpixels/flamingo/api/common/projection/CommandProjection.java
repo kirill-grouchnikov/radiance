@@ -31,6 +31,8 @@ package org.pushingpixels.flamingo.api.common.projection;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.neon.icon.*;
 
 import java.beans.PropertyChangeEvent;
@@ -49,6 +51,10 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
                 }
             };
 
+    private ComponentSupplier<? extends AbstractPopupMenu, ? extends AbstractPopupMenuContentModel,
+            ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier;
+    private ComponentCustomizer<? extends AbstractPopupMenu> popupMenuCustomizer;
+
     public CommandProjection(Command command, CommandPresentation commandPresentation) {
         super(command, commandPresentation, DEFAULT_SUPPLIER);
     }
@@ -60,13 +66,32 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
         return result;
     }
 
+    public void setPopupMenuCustomizer(
+            ComponentCustomizer<? extends AbstractPopupMenu> popupMenuCustomizer) {
+        this.popupMenuCustomizer = popupMenuCustomizer;
+    }
+
+    public ComponentCustomizer<? extends AbstractPopupMenu> getPopupMenuCustomizer() {
+        return this.popupMenuCustomizer;
+    }
+
+    public void setPopupMenuSupplier(ComponentSupplier<? extends AbstractPopupMenu,
+            ? extends AbstractPopupMenuContentModel,
+            ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier) {
+        this.popupMenuSupplier = popupMenuSupplier;
+    }
+
+    public ComponentSupplier<? extends AbstractPopupMenu, ? extends AbstractPopupMenuContentModel,
+            ? extends AbstractPopupMenuPresentationModel> getPopupMenuSupplier() {
+        return this.popupMenuSupplier;
+    }
+
     public boolean hasAction() {
         return (this.getContentModel().getAction() != null);
     }
 
     public boolean hasPopup() {
-        return (this.getContentModel().getPopupMenuProjection() != null)
-                || (this.getContentModel().getPopupCallback() != null);
+        return (this.getContentModel().getPopupMenuContentModel() != null);
     }
 
     @Override
@@ -143,18 +168,6 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
                 if (component instanceof JCommandButton) {
                     ((JCommandButton) component).getPopupModel().setEnabled(
                             (Boolean) evt.getNewValue());
-                }
-            }
-            if ("popupMenuProjection".equals(evt.getPropertyName())) {
-                if (component instanceof JCommandButton) {
-                    CommandPopupMenuProjection newPopupMenuProjection =
-                            (CommandPopupMenuProjection) evt.getNewValue();
-                    if (newPopupMenuProjection != null) {
-                        ((JCommandButton) component).setPopupCallback((JCommandButton commandButton)
-                                -> newPopupMenuProjection.buildComponent());
-                    } else {
-                        ((JCommandButton) component).setPopupCallback(command.getPopupCallback());
-                    }
                 }
             }
         });

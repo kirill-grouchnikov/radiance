@@ -34,9 +34,10 @@ import org.pushingpixels.flamingo.api.common.model.*;
 import javax.swing.event.*;
 import java.util.*;
 
-public class CommandPopupMenuContentModel implements ContentModel {
+public class CommandPopupMenuContentModel extends AbstractPopupMenuContentModel {
     private CommandPanelContentModel panelContentModel;
     private List<CommandGroupModel> commandGroups;
+    private Command highlightedCommand;
 
     /**
      * Stores the listeners on this model.
@@ -103,6 +104,15 @@ public class CommandPopupMenuContentModel implements ContentModel {
             commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         }
         this.commandGroups.clear();
+        this.fireStateChanged();
+    }
+
+    public Command getHighlightedCommand() {
+        return this.highlightedCommand;
+    }
+
+    public void setHighlightedCommand(Command highlightedCommand) {
+        this.highlightedCommand = highlightedCommand;
         this.fireStateChanged();
     }
 

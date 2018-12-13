@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 
 /**
@@ -60,6 +61,7 @@ public class CommandPresentation implements ImmutablePresentationModel {
     private String actionKeyTip;
     private String popupKeyTip;
     private boolean toDismissPopupsOnActivation;
+    private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
 
     private CommandPresentation() {
     }
@@ -84,6 +86,8 @@ public class CommandPresentation implements ImmutablePresentationModel {
                 ? overlay.popupOrientationKind : this.popupOrientationKind;
         result.toDismissPopupsOnActivation = (overlay.toDismissPopupsOnActivation != null)
                 ? overlay.toDismissPopupsOnActivation : this.toDismissPopupsOnActivation;
+        result.popupMenuPresentationModel = (overlay.popupMenuPresentationModel != null)
+                ? overlay.popupMenuPresentationModel : this.popupMenuPresentationModel;
         result.actionKeyTip = (overlay.actionKeyTip != null)
                 ? overlay.actionKeyTip : this.actionKeyTip;
         result.popupKeyTip = (overlay.popupKeyTip != null)
@@ -144,6 +148,10 @@ public class CommandPresentation implements ImmutablePresentationModel {
         return this.toDismissPopupsOnActivation;
     }
 
+    public AbstractPopupMenuPresentationModel getPopupMenuPresentationModel() {
+        return this.popupMenuPresentationModel;
+    }
+
     public String getActionKeyTip() {
         return this.actionKeyTip;
     }
@@ -183,6 +191,7 @@ public class CommandPresentation implements ImmutablePresentationModel {
         private Boolean toDismissPopupsOnActivation;
         private String actionKeyTip;
         private String popupKeyTip;
+        private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
 
         public Overlay setFlat(boolean flat) {
             this.isFlat = flat;
@@ -235,6 +244,12 @@ public class CommandPresentation implements ImmutablePresentationModel {
             return this;
         }
 
+        public Overlay setPopupMenuPresentationModel(
+                AbstractPopupMenuPresentationModel popupMenuPresentationModel) {
+            this.popupMenuPresentationModel = popupMenuPresentationModel;
+            return this;
+        }
+
         public Overlay setActionKeyTip(String actionKeyTip) {
             this.actionKeyTip = actionKeyTip;
             return this;
@@ -261,6 +276,7 @@ public class CommandPresentation implements ImmutablePresentationModel {
         private String actionKeyTip;
         private String popupKeyTip;
         private boolean toDismissPopupsOnActivation = true;
+        private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
 
         public Builder setFlat(boolean flat) {
             this.isFlat = flat;
@@ -315,6 +331,12 @@ public class CommandPresentation implements ImmutablePresentationModel {
             return this;
         }
 
+        public Builder setPopupMenuPresentationModel(
+                AbstractPopupMenuPresentationModel popupMenuPresentationModel) {
+            this.popupMenuPresentationModel = popupMenuPresentationModel;
+            return this;
+        }
+
         public Builder setActionKeyTip(String actionKeyTip) {
             this.actionKeyTip = actionKeyTip;
             return this;
@@ -339,6 +361,7 @@ public class CommandPresentation implements ImmutablePresentationModel {
             commandPresentation.actionKeyTip = this.actionKeyTip;
             commandPresentation.popupKeyTip = this.popupKeyTip;
             commandPresentation.toDismissPopupsOnActivation = this.toDismissPopupsOnActivation;
+            commandPresentation.popupMenuPresentationModel = this.popupMenuPresentationModel;
             return commandPresentation;
         }
     }

@@ -30,9 +30,8 @@
 package org.pushingpixels.flamingo.api.common.popup.model;
 
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
-import org.pushingpixels.flamingo.api.common.model.ImmutablePresentationModel;
 
-public class ColorSelectorPopupMenuPresentationModel implements ImmutablePresentationModel {
+public class ColorSelectorPopupMenuPresentationModel extends AbstractPopupMenuPresentationModel {
     private int colorColumns;
     private CommandButtonPresentationState menuPresentationState;
 

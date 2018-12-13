@@ -67,7 +67,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      * @see #setDisabledIcon(ResizableIcon)
      * @see #getDisabledIcon()
      */
-    protected ResizableIcon disabledIcon;
+    private ResizableIcon disabledIcon;
 
     /**
      * The button text.
@@ -83,7 +83,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      * @see #getActionModel()
      * @see #setActionModel(ActionButtonModel)
      */
-    protected ActionButtonModel actionModel;
+    private ActionButtonModel actionModel;
 
     /**
      * Additional text. This is shown for {@link CommandButtonPresentationState#TILE}
