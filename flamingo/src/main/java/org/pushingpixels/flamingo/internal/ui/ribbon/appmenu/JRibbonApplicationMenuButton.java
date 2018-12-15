@@ -33,6 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandProjection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,8 +42,7 @@ import java.util.ArrayList;
 
 /**
  * The main application menu button for {@link JRibbon} component placed in a
- * {@link JRibbonFrame}. This class is for internal use only and is intended for
- * look-and-feel layer customization.
+ * {@link JRibbonFrame}. This class is for internal use only.
  *
  * @author Kirill Grouchnikov
  */
@@ -80,8 +80,8 @@ public class JRibbonApplicationMenuButton extends JCommandButton {
                             result.textLayoutInfoList.add(lineLayoutInfo);
 
                             lineLayoutInfo.textRect.x = (availableWidth - textWidth) / 2;
-                            lineLayoutInfo.textRect.y = (commandButton.getHeight() - labelHeight)
-                                    / 2;
+                            lineLayoutInfo.textRect.y =
+                                    (commandButton.getHeight() - labelHeight) / 2;
                             lineLayoutInfo.textRect.width = textWidth;
                             lineLayoutInfo.textRect.height = labelHeight;
 
@@ -113,86 +113,12 @@ public class JRibbonApplicationMenuButton extends JCommandButton {
                 }
             };
 
-    private JRibbonApplicationMenuButton(CommandProjection projection) {
-        super(projection);
-    }
-
-    public static JRibbonApplicationMenuButton getApplicationMenuButton(JRibbon ribbon) {
-        Command applicationMenuCommand = Command.builder()
-                .setPopupMenuContentModel(ribbon.getApplicationMenu())
-//                .setPopupCallback((JCommandButton commandButton) -> {
-//                    RibbonApplicationMenu ribbonMenu = ribbon.getApplicationMenu();
-//                    final JRibbonApplicationMenuPopupPanel menuPopupPanel =
-//                            new JRibbonApplicationMenuPopupPanel(ribbonMenu);
-//                    menuPopupPanel.applyComponentOrientation(
-//                            commandButton.getComponentOrientation());
-//                    menuPopupPanel.setCustomizer(() -> {
-//                        boolean ltr =
-//                                commandButton.getComponentOrientation().isLeftToRight();
-//
-//                        int pw = menuPopupPanel.getPreferredSize().width;
-//                        int x = ltr ? ribbon.getLocationOnScreen().x
-//                                : ribbon.getLocationOnScreen().x + ribbon.getWidth() - pw;
-//                        int y = commandButton.getLocationOnScreen().y +
-//                                commandButton.getSize().height + 2;
-//
-//                        // make sure that the menu popup stays in bounds
-//                        Rectangle scrBounds =
-//                                commandButton.getGraphicsConfiguration().getBounds();
-//                        if ((x + pw) > (scrBounds.x + scrBounds.width)) {
-//                            x = scrBounds.x + scrBounds.width - pw;
-//                        }
-//                        int ph = menuPopupPanel.getPreferredSize().height;
-//                        if ((y + ph) > (scrBounds.y + scrBounds.height)) {
-//                            y = scrBounds.y + scrBounds.height - ph;
-//                        }
-//
-//                        return new Rectangle(x, y, menuPopupPanel.getPreferredSize().width,
-//                                menuPopupPanel.getPreferredSize().height);
-//                    });
-//                    return menuPopupPanel;
-//                })
-                .build();
-
-        CommandPresentation applicationMenuCommandPresentation = CommandPresentation.builder()
+    public JRibbonApplicationMenuButton(
+            RibbonApplicationMenuCommandProjection ribbonApplicationMenuCommandProjection) {
+        // Reproject the command so that the button uses our custom state and centered text
+        super(ribbonApplicationMenuCommandProjection.reproject(CommandPresentation.builder()
                 .setPresentationState(APP_MENU_BUTTON_STATE)
                 .setHorizontalAlignment(SwingConstants.CENTER)
-                .build();
-
-        CommandProjection applicationMenuCommandProjection =
-                applicationMenuCommand.project(applicationMenuCommandPresentation);
-
-        applicationMenuCommandProjection.setPopupMenuSupplier(projection ->
-                JRibbonApplicationMenuPopupPanel::new);
-//        applicationMenuCommandProjection.setPopupMenuCustomizer(menuPopupPanel -> {
-//            menuPopupPanel.applyComponentOrientation(
-//                    commandButton.getComponentOrientation());
-//            menuPopupPanel.setCustomizer(() -> {
-//                boolean ltr =
-//                        commandButton.getComponentOrientation().isLeftToRight();
-//
-//                int pw = menuPopupPanel.getPreferredSize().width;
-//                int x = ltr ? ribbon.getLocationOnScreen().x
-//                        : ribbon.getLocationOnScreen().x + ribbon.getWidth() - pw;
-//                int y = commandButton.getLocationOnScreen().y +
-//                        commandButton.getSize().height + 2;
-//
-//                // make sure that the menu popup stays in bounds
-//                Rectangle scrBounds =
-//                        commandButton.getGraphicsConfiguration().getBounds();
-//                if ((x + pw) > (scrBounds.x + scrBounds.width)) {
-//                    x = scrBounds.x + scrBounds.width - pw;
-//                }
-//                int ph = menuPopupPanel.getPreferredSize().height;
-//                if ((y + ph) > (scrBounds.y + scrBounds.height)) {
-//                    y = scrBounds.y + scrBounds.height - ph;
-//                }
-//
-//                return new Rectangle(x, y, menuPopupPanel.getPreferredSize().width,
-//                        menuPopupPanel.getPreferredSize().height);
-//            });
-//        });
-
-        return new JRibbonApplicationMenuButton(applicationMenuCommandProjection);
+                .build()));
     }
 }

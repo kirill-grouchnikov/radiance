@@ -17,7 +17,7 @@ import java.util.*;
 public class QuickStylesPanel {
     public static CommandPanelContentModel getQuickStylesContentModel(
             ResourceBundle resourceBundle, Locale locale) {
-        List<CommandGroupModel> commandGroups = new ArrayList<>();
+        List<CommandGroup> commandGroups = new ArrayList<>();
 
         MessageFormat mf = new MessageFormat(resourceBundle.getString("PanelStyles.text"));
         mf.setLocale(locale);
@@ -49,7 +49,7 @@ public class QuickStylesPanel {
                 commands.add(command);
             }
 
-            commandGroups.add(new CommandGroupModel(commandGroupName, commands));
+            commandGroups.add(new CommandGroup(commandGroupName, commands));
         }
 
         CommandPanelContentModel commandPanelContentModel =
@@ -64,9 +64,9 @@ public class QuickStylesPanel {
         MessageFormat mf = new MessageFormat(resourceBundle.getString("PanelStyles.text"));
         mf.setLocale(locale);
 
-        List<CommandGroupModel> commandGroups = model.getCommandGroups();
+        List<CommandGroup> commandGroups = model.getCommandGroups();
         for (int groupIndex = 0; groupIndex < commandGroups.size(); groupIndex++) {
-            CommandGroupModel commandGroup = commandGroups.get(groupIndex);
+            CommandGroup commandGroup = commandGroups.get(groupIndex);
             String commandGroupName = mf.format(new Object[] { groupIndex });
             commandGroup.setTitle(commandGroupName);
         }

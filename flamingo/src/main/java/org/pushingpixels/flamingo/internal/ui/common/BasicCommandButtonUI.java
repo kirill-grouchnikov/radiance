@@ -58,12 +58,12 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     /**
      * Property change listener.
      */
-    protected PropertyChangeListener propertyChangeListener;
+    private PropertyChangeListener propertyChangeListener;
 
     /**
      * Tracks user interaction with the command button (including keyboard and mouse).
      */
-    protected BasicCommandButtonListener basicPopupButtonListener;
+    private BasicCommandButtonListener basicPopupButtonListener;
 
     /**
      * Layout information.

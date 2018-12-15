@@ -73,7 +73,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     private Command scrollUpCommand;
     private Command expandCommand;
 
-    private CommandGroupModel galleryScrollerCommands;
+    private CommandGroup galleryScrollerCommands;
 
     /**
      * Contains the scroll down, scroll up and show popup buttons.
@@ -195,7 +195,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
         // Create a button strip that hosts all three scroller commands with all the additional
         // command-specific configurations
-        this.galleryScrollerCommands = new CommandGroupModel(this.scrollUpCommand,
+        this.galleryScrollerCommands = new CommandGroup(this.scrollUpCommand,
                 this.scrollDownCommand, this.expandCommand);
         CommandStripProjection projection = new CommandStripProjection(
                 this.galleryScrollerCommands,

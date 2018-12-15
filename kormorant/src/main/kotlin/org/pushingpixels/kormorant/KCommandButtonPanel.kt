@@ -31,7 +31,10 @@ package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.model.*
+import org.pushingpixels.flamingo.api.common.model.CommandGroup
+import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
+import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
+import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection
 import javax.swing.JComponent
 
@@ -82,8 +85,9 @@ class KCommandButtonPanel {
             return command
         }
 
-        fun toJavaCommandGroupModel() : CommandGroupModel {
-            return CommandGroupModel(this.title, this.commands.map { it.asJavaCommand() })
+        fun toJavaCommandGroupModel() : CommandGroup {
+            return CommandGroup(this.title,
+                    this.commands.map { it.asJavaCommand() })
         }
     }
 

@@ -36,8 +36,8 @@ import javax.swing.event.*;
 import java.util.*;
 
 public class RibbonGalleryContentModel implements ContentModel {
-    private List<CommandGroupModel> commandGroups;
-    private List<CommandGroupModel> extraPopupCommandGroups;
+    private List<CommandGroup> commandGroups;
+    private List<CommandGroup> extraPopupCommandGroups;
     private Command selectedCommand;
     private ResizableIconFactory iconFactory;
 
@@ -56,14 +56,14 @@ public class RibbonGalleryContentModel implements ContentModel {
         void onCommandActivated(Command command);
     }
 
-    private CommandGroupModel.CommandGroupListener commandGroupListener;
+    private CommandGroup.CommandGroupListener commandGroupListener;
 
     public RibbonGalleryContentModel(ResizableIconFactory iconFactory,
-            List<CommandGroupModel> commands) {
+            List<CommandGroup> commands) {
         this.iconFactory = iconFactory;
         this.commandGroups = new ArrayList<>(commands);
 
-        this.commandGroupListener = new CommandGroupModel.CommandGroupListener() {
+        this.commandGroupListener = new CommandGroup.CommandGroupListener() {
             @Override
             public void onCommandAdded(Command command) {
                 fireStateChanged();
@@ -79,7 +79,7 @@ public class RibbonGalleryContentModel implements ContentModel {
                 fireStateChanged();
             }
         };
-        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+        for (CommandGroup commandGroupModel : this.commandGroups) {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         }
 
@@ -90,12 +90,12 @@ public class RibbonGalleryContentModel implements ContentModel {
         return this.iconFactory;
     }
 
-    public List<CommandGroupModel> getCommandGroups() {
+    public List<CommandGroup> getCommandGroups() {
         return Collections.unmodifiableList(this.commandGroups);
     }
 
-    public CommandGroupModel getCommandGroupByTitle(String commandGroupTitle) {
-        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+    public CommandGroup getCommandGroupByTitle(String commandGroupTitle) {
+        for (CommandGroup commandGroupModel : this.commandGroups) {
             if (commandGroupModel.getTitle().equals(commandGroupTitle)) {
                 return commandGroupModel;
             }
@@ -103,27 +103,27 @@ public class RibbonGalleryContentModel implements ContentModel {
         return null;
     }
 
-    public void addCommandGroup(CommandGroupModel commandGroupModel) {
+    public void addCommandGroup(CommandGroup commandGroupModel) {
         this.commandGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
-    public void removeCommandGroup(CommandGroupModel commandGroupModel) {
+    public void removeCommandGroup(CommandGroup commandGroupModel) {
         this.commandGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
-    public void addExtraPopupCommandGroup(CommandGroupModel commandGroupModel) {
+    public void addExtraPopupCommandGroup(CommandGroup commandGroupModel) {
         this.extraPopupCommandGroups.add(commandGroupModel);
     }
 
-    public void removeExtraPopupCommandGroup(CommandGroupModel commandGroupModel) {
+    public void removeExtraPopupCommandGroup(CommandGroup commandGroupModel) {
         this.extraPopupCommandGroups.remove(commandGroupModel);
     }
 
-    public List<CommandGroupModel> getExtraPopupCommandGroups() {
+    public List<CommandGroup> getExtraPopupCommandGroups() {
         return Collections.unmodifiableList(this.extraPopupCommandGroups);
     }
 

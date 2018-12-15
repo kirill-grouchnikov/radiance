@@ -64,7 +64,7 @@ public class RecipeListPanel extends SingleContentPanel {
 
         CommandToggleGroupModel viewGroup = new CommandToggleGroupModel();
         JComponent titlePaneControlButtons = new CommandStripProjection(
-                new CommandGroupModel(
+                new CommandGroup(
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_view_headline_white_24px.of(16, 16), 0.75f)))
@@ -110,7 +110,7 @@ public class RecipeListPanel extends SingleContentPanel {
                 padding(new EmptyBorder(6, 0, 4, 0));
 
         final JComponent controlButtons = new CommandStripProjection(
-                new CommandGroupModel(
+                new CommandGroup(
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_add_white_24px.of(16, 16), 0.75f)))

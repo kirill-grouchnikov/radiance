@@ -48,7 +48,7 @@ public class JCommandMenuButton extends JCommandButton {
      */
     public static final String uiClassID = "CommandMenuButtonUI";
 
-    public JCommandMenuButton(Projection<AbstractCommandButton, Command, CommandPresentation> projection) {
+    public JCommandMenuButton(Projection<AbstractCommandButton, ? extends Command, CommandPresentation> projection) {
         super(projection);
     }
 

@@ -50,7 +50,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
      */
     private JCommandButtonStrip buttonStrip;
 
-    private CommandGroupModel.CommandGroupListener commandGroupListener;
+    private CommandGroup.CommandGroupListener commandGroupListener;
 
     private Map<Command, AbstractCommandButton> commandButtonMap = new HashMap<>();
 
@@ -82,7 +82,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
      */
     protected void installListeners() {
         this.commandGroupListener =
-                new CommandGroupModel.CommandGroupListener() {
+                new CommandGroup.CommandGroupListener() {
                     @Override
                     public void onCommandAdded(Command command) {
                         addButton(command);
@@ -140,7 +140,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
     protected void installComponents() {
         this.buttonStrip.setLayout(createLayoutManager());
 
-        CommandGroupModel commandGroupModel = this.buttonStrip.getProjection().getContentModel();
+        CommandGroup commandGroupModel = this.buttonStrip.getProjection().getContentModel();
         for (Command command : commandGroupModel.getCommands()) {
             this.addButton(command);
         }
@@ -151,7 +151,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
      * Uninstalls subcomponents from the associated ribbon.
      */
     protected void uninstallComponents() {
-        CommandGroupModel commandGroupModel = this.buttonStrip.getProjection().getContentModel();
+        CommandGroup commandGroupModel = this.buttonStrip.getProjection().getContentModel();
         for (Command command : commandGroupModel.getCommands()) {
             AbstractCommandButton commandButton = commandButtonMap.get(command);
             CommandAction commandListener = command.getAction();
@@ -183,7 +183,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
             presentation = presentation.overlayWith(extraOverlay);
         }
 
-        CommandProjection commandProjection = command.project(presentation);
+        CommandProjection<Command> commandProjection = command.project(presentation);
         CommandProjection.ComponentCustomizer componentCustomizer =
                 this.buttonStrip.getProjection().getCommandComponentCustomizers().get(command);
         if (componentCustomizer != null) {

@@ -35,7 +35,6 @@ import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
 import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
-import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection
 
 @FlamingoElementMarker
 class KCommandPopupMenuButtonPanel {
@@ -68,14 +67,14 @@ class KCommandPopupMenuButtonPanel {
     }
 }
 
-abstract class KAbstractPopupMenu<out CM, out PM> {
-    abstract fun toJavaPopupMenuContentModel(): CM
+abstract class KAbstractPopupMenu<out PM> {
+    abstract fun toJavaPopupMenuContentModel(): CommandPopupMenuContentModel
     abstract fun toJavaPopupMenuPresentationModel(): PM
     abstract fun toJavaCommandOverlays(): Map<Command, CommandPresentation.Overlay>
 }
 
 @FlamingoElementMarker
-class KCommandPopupMenu : KAbstractPopupMenu<CommandPopupMenuContentModel, CommandPopupMenuPresentationModel>() {
+class KCommandPopupMenu : KAbstractPopupMenu<CommandPopupMenuPresentationModel>() {
     private var hasBeenConverted: Boolean = false
 
     private val groups = arrayListOf<KCommandGroup>()

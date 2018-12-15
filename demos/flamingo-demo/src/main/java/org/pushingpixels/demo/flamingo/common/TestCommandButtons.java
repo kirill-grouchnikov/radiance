@@ -144,8 +144,8 @@ public class TestCommandButtons extends JFrame {
                 .setIcon(new Text_x_generic()).build());
 
         return new CommandPopupMenuContentModel(
-                Arrays.asList(new CommandGroupModel(simpleEntries1),
-                        new CommandGroupModel(simpleEntries2)));
+                Arrays.asList(new CommandGroup(simpleEntries1),
+                        new CommandGroup(simpleEntries2)));
     }
 
 

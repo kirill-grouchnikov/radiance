@@ -103,11 +103,11 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
                         .setMenu(true)
                         .build();
 
-        List<CommandGroupModel> commandGroups =
+        List<CommandGroup> commandGroups =
                 this.popupMenuContentModel.getCommandGroups();
         for (int i = 0; i < commandGroups.size(); i++) {
             for (Command command : commandGroups.get(i).getCommands()) {
-                CommandProjection commandProjection;
+                CommandProjection<Command> commandProjection;
                 // Do we need to apply a command-specific overlay?
                 CommandPresentation.Overlay overlay =
                         this.projection.getCommandOverlays().get(command);

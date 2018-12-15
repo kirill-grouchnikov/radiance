@@ -30,8 +30,8 @@
 package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.common.HorizontalAlignment
-import org.pushingpixels.flamingo.api.ribbon.JRibbonComponent
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
+import org.pushingpixels.flamingo.api.ribbon.JRibbonComponent
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.neon.icon.ResizableIcon
 import javax.swing.JComponent

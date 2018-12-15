@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.Projection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonPanelUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonPanelUI;
 
@@ -46,7 +46,8 @@ import java.util.*;
  * column-fill / row-fill layout.
  *
  * <p>
- * Under the default {@link CommandPanelPresentationModel.LayoutKind#ROW_FILL}, the buttons are laid out in
+ * Under the default {@link CommandPanelPresentationModel.LayoutKind#ROW_FILL}, the buttons are
+ * laid out in
  * rows, never exceeding the available horizontal space. A vertical scroll bar
  * will kick in once there is not enough vertical space to show all the buttons.
  * The schematic below shows a row-fill command button panel:
@@ -78,7 +79,8 @@ import java.util.*;
  * </p>
  *
  * <p>
- * Under the {@link CommandPanelPresentationModel.LayoutKind#COLUMN_FILL}, the buttons are laid out in
+ * Under the {@link CommandPanelPresentationModel.LayoutKind#COLUMN_FILL}, the buttons are laid
+ * out in
  * columns, never exceeding the available vertical space. A horizontal scroll
  * bar will kick in once there is not enough horizontal space to show all the
  * buttons. The schematic below shows a column-fill command button panel:
@@ -162,15 +164,14 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         return this.projection;
     }
 
-    private CommandPresentation createCommandPresentation() {
-        CommandPresentation commandPresentation = CommandPresentation.builder()
+    private CommandPresentation createBaseCommandPresentation() {
+        return CommandPresentation.builder()
                 .setPresentationState(this.panelPresentationModel.getCommandPresentationState())
                 .setIconDimension(this.panelPresentationModel.getCommandIconDimension())
                 .setMenu(this.panelPresentationModel.isMenu())
                 .setHorizontalAlignment(this.panelPresentationModel.getCommandHorizontalAlignment())
                 .setPopupOrientationKind(this.panelPresentationModel.getPopupOrientationKind())
                 .build();
-        return commandPresentation;
     }
 
     private void populateContent() {
@@ -185,17 +186,27 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         }
 
         int groupIndex = 0;
-        CommandPresentation commandPresentation = createCommandPresentation();
+        CommandPresentation baseCommandPresentation = createBaseCommandPresentation();
         Command.CommandActionPreview commandPreviewListener =
                 panelContentModel.getCommandPreviewListener();
-        for (CommandGroupModel groupModel : panelContentModel.getCommandGroups()) {
+        for (CommandGroup groupModel : panelContentModel.getCommandGroups()) {
             this.groupTitles.add(groupIndex, groupModel.getTitle());
             List<AbstractCommandButton> list = new ArrayList<>();
             this.buttons.add(groupIndex, list);
 
             for (Command command : groupModel.getCommands()) {
-                AbstractCommandButton button = command.project(commandPresentation)
-                        .buildComponent();
+                // Apply overlay if we have it in the top-level projection
+                CommandPresentation commandPresentation =
+                        this.projection.getCommandOverlays().containsKey(command)
+                                ? baseCommandPresentation.overlayWith(
+                                this.projection.getCommandOverlays().get(command))
+                                : baseCommandPresentation;
+
+                CommandProjection<Command> commandProjection = command.project(commandPresentation);
+                // Propagate command overlays so that key tips are properly displayed
+                // on secondary content of this command's projection
+                commandProjection.setCommandOverlays(this.projection.getCommandOverlays());
+                AbstractCommandButton button = commandProjection.buildComponent();
 
                 // Wire preview listener is configured on the panel content model
                 if (commandPreviewListener != null) {
@@ -233,7 +244,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
     }
 
     protected int addCommandToLastGroup(Command command) {
-        AbstractCommandButton button = command.project(createCommandPresentation())
+        AbstractCommandButton button = command.project(createBaseCommandPresentation())
                 .buildComponent();
         return this.addButtonToLastGroup(command, button);
     }
@@ -245,7 +256,8 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
             return -1;
         }
         commandButton.setIconDimension(this.panelPresentationModel.getCommandIconDimension());
-        commandButton.setPresentationState(this.panelPresentationModel.getCommandPresentationState());
+        commandButton.setPresentationState(
+                this.panelPresentationModel.getCommandPresentationState());
         this.add(commandButton);
         this.buttons.get(groupIndex).add(indexInGroup, commandButton);
         if (this.panelContentModel.isSingleSelectionMode()

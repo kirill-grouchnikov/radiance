@@ -30,9 +30,8 @@
 package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
-import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuContentModel;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.neon.icon.*;
 
 import javax.swing.event.*;
@@ -43,14 +42,15 @@ import java.util.EventListener;
  * Encapsulates metadata for a single command. Use a new instance of
  * {@link Builder} to configure a new command, and {@link Builder#build()} to build a command.
  *
- * <p>A command can be "rendered" on screen using {@link CommandPresentation} and
- * {@link CommandProjection}. Use {@link #project()} for default presentation settings or
- * {@link #project(CommandPresentation)} to customize presentation settings. Then use
- * {@link CommandProjection#buildComponent()} to get an instance of {@link AbstractCommandButton}
- * that can be added to the component hierarchy. Note that you can - and should - use the same
- * {@link Command} instance and one or more {@link CommandPresentation}s if you need to have
- * multiple instances (or projections) of the same command in your app UI. That way changes in the
- * command are propagated and synced across all those projections.</p>
+ * <p>A command can be projected to screen (creating a visual representation of that command)
+ * using {@link CommandPresentation} and {@link CommandProjection}. Use {@link #project()} for
+ * default presentation settings or {@link #project(CommandPresentation)} to customize
+ * presentation settings. Then use {@link CommandProjection#buildComponent()} to get an instance
+ * of {@link AbstractCommandButton} that can be added to the component hierarchy. Note that you
+ * can - and should - use the same {@link Command} instance and one or more
+ * {@link CommandPresentation}s if you need to have multiple instances (or projections) of the
+ * same command in your app UI. That way changes in thecommand are propagated and synced across
+ * all those projections.</p>
  *
  * @author Kirill Grouchnikov
  * @see CommandPresentation
@@ -69,7 +69,7 @@ public class Command implements ContentModel {
     private CommandAction action;
     private CommandActionPreview actionPreview;
     private RichTooltip actionRichTooltip;
-    private AbstractPopupMenuContentModel popupMenuContentModel;
+    private CommandPopupMenuContentModel popupMenuContentModel;
     private RichTooltip popupRichTooltip;
     private boolean isTitleClickAction;
     private boolean isTitleClickPopup;
@@ -242,7 +242,7 @@ public class Command implements ContentModel {
         }
     }
 
-    public AbstractPopupMenuContentModel getPopupMenuContentModel() {
+    public CommandPopupMenuContentModel getPopupMenuContentModel() {
         return this.popupMenuContentModel;
     }
 
@@ -428,12 +428,13 @@ public class Command implements ContentModel {
         this.pcs.removePropertyChangeListener(l);
     }
 
-    public CommandProjection project() {
-        return new CommandProjection(this, CommandPresentation.withDefaults());
+    public CommandProjection<Command> project() {
+        return new CommandProjection<>(this, CommandPresentation.withDefaults());
     }
 
-    public CommandProjection project(CommandPresentation commandPresentation) {
-        return new CommandProjection(this, commandPresentation);
+    public CommandProjection<Command> project(
+            CommandPresentation commandPresentation) {
+        return new CommandProjection<>(this, commandPresentation);
     }
 
     public interface CommandActionPreview extends EventListener {
@@ -452,7 +453,7 @@ public class Command implements ContentModel {
         protected CommandAction action;
         protected CommandActionPreview actionPreview;
         protected RichTooltip actionRichTooltip;
-        protected AbstractPopupMenuContentModel popupMenuContentModel;
+        protected CommandPopupMenuContentModel popupMenuContentModel;
         protected RichTooltip popupRichTooltip;
         protected boolean isTitleClickAction;
         protected boolean isTitleClickPopup;
@@ -542,7 +543,7 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
-        public B setPopupMenuContentModel(AbstractPopupMenuContentModel popupMenuContentModel) {
+        public B setPopupMenuContentModel(CommandPopupMenuContentModel popupMenuContentModel) {
             this.popupMenuContentModel = popupMenuContentModel;
             return (B) this;
         }

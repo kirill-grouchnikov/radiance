@@ -31,7 +31,6 @@ package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.common.RichTooltip
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand
 import org.pushingpixels.kormorant.*
 
 @FlamingoElementMarker
@@ -53,31 +52,6 @@ class KRibbonApplicationMenuCommandContainer {
 }
 
 @FlamingoElementMarker
-class KRibbonApplicationMenuPrimaryCommand : KCommand() {
-    private val builder = RibbonApplicationMenuPrimaryCommand.applicationMenuBuilder()
-
-    var rolloverCallback: RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback? by NullableDelegate { false }
-    private var secondaryCommands = arrayListOf<KRibbonApplicationMenuCommandContainer>()
-
-    fun secondaryGroup(init: KRibbonApplicationMenuCommandContainer.() -> Unit) {
-        val secondaryGroup = KRibbonApplicationMenuCommandContainer()
-        secondaryGroup.init()
-        secondaryCommands.add(secondaryGroup)
-    }
-
-    fun toFlamingoApplicationMenuPrimaryCommand(): RibbonApplicationMenuPrimaryCommand {
-        populateBuilder(builder, this)
-        builder.setRolloverCallback(rolloverCallback)
-        for (secondaryCommandContainer in secondaryCommands) {
-            builder.addSecondaryMenuGroup(secondaryCommandContainer.title,
-                    secondaryCommandContainer.commands.map { it -> it.asJavaCommand() })
-        }
-
-        return builder.build()
-    }
-}
-
-@FlamingoElementMarker
 class KRibbonApplicationMenu {
     private lateinit var ribbonApplicationMenu: RibbonApplicationMenu
     private var hasBeenConverted: Boolean = false
@@ -86,8 +60,6 @@ class KRibbonApplicationMenu {
     private var richTooltip: KRichTooltip? by NullableDelegate { hasBeenConverted }
     var keyTip: String? by NullableDelegate { hasBeenConverted }
     private val footerCommands = KRibbonApplicationMenuCommandContainer()
-    var defaultCallback: RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback?
-            by NullableDelegate { hasBeenConverted }
     private var primaryContent = arrayListOf<Any>()
 
     fun richTooltip(init: KRichTooltip.() -> Unit) {
@@ -98,8 +70,8 @@ class KRibbonApplicationMenu {
     }
 
     fun primaryCommand(actionKeyTip: String? = null, popupKeyTip: String? = null,
-            init: KRibbonApplicationMenuPrimaryCommand.() -> Unit) {
-        val primaryCommand = KRibbonApplicationMenuPrimaryCommand()
+            init: KCommand.() -> Unit) {
+        val primaryCommand = KCommand()
         primaryCommand.init()
         primaryContent.add(primaryCommand)
     }
@@ -120,13 +92,10 @@ class KRibbonApplicationMenu {
         ribbonApplicationMenu = RibbonApplicationMenu(title)
         for (primaryEntry in primaryContent) {
             when (primaryEntry) {
-                is KRibbonApplicationMenuPrimaryCommand -> ribbonApplicationMenu.addMenuCommand(
-                        primaryEntry.toFlamingoApplicationMenuPrimaryCommand())
+                is KCommand -> ribbonApplicationMenu.addMenuCommand(primaryEntry.asJavaCommand())
                 is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonApplicationMenu.addMenuSeparator()
             }
         }
-
-        ribbonApplicationMenu.defaultCallback = defaultCallback
 
         for (footerCommand in footerCommands.commands) {
             ribbonApplicationMenu.addFooterCommand(footerCommand.asJavaCommand())

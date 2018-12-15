@@ -111,7 +111,7 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
 
     private JComponent getToggleStrip(CommandPresentation display, Command... commands) {
         return new CommandStripProjection(
-                new CommandGroupModel(Arrays.asList(commands)),
+                new CommandGroup(Arrays.asList(commands)),
                 CommandStripPresentationModel.builder()
                         .setCommandPresentationState(display.getPresentationState()).build())
                 .buildComponent();

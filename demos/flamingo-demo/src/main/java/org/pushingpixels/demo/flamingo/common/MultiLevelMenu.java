@@ -74,12 +74,12 @@ public class MultiLevelMenu extends JFrame {
         menuCommands2.add(Command.builder()
                 .setText("Find")
                 .setPopupMenuContentModel(new CommandPopupMenuContentModel(
-                        new CommandGroupModel(menuCommandsSecondary)))
+                        new CommandGroup(menuCommandsSecondary)))
                 .build());
 
         CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
-                Arrays.asList(new CommandGroupModel(menuCommands1),
-                        new CommandGroupModel(menuCommands2)));
+                Arrays.asList(new CommandGroup(menuCommands1),
+                        new CommandGroup(menuCommands2)));
 
         Command mainCommand = Command.builder()
                 .setText("click me")

@@ -104,7 +104,7 @@ public class TestButtonStripHorizontal extends JFrame {
 
     private JComponent getStrip1(double hgapScaleFactor, double vgapScaleFactor) {
         return new CommandStripProjection(
-                new CommandGroupModel(
+                new CommandGroup(
                         Command.builder().setIcon(new Format_justify_left()).build(),
                         Command.builder().setIcon(new Format_justify_center()).build(),
                         Command.builder().setIcon(new Format_justify_right()).build()),
@@ -119,7 +119,7 @@ public class TestButtonStripHorizontal extends JFrame {
 
     private JComponent getStrip2(double hgapScaleFactor, double vgapScaleFactor) {
         return new CommandStripProjection(
-                new CommandGroupModel(
+                new CommandGroup(
                         Command.builder().setIcon(new Format_text_bold()).build(),
                         Command.builder().setIcon(new Format_text_italic()).build(),
                         Command.builder().setIcon(new Format_text_underline()).build(),

@@ -34,9 +34,10 @@ import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandProjection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.*;
+import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelProjection;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -329,7 +330,8 @@ public class JCommandButton extends AbstractCommandButton {
         }
     }
 
-    public JCommandButton(Projection<AbstractCommandButton, Command, CommandPresentation> projection) {
+    public JCommandButton(Projection<AbstractCommandButton, ? extends Command,
+            CommandPresentation> projection) {
         super(projection);
 
         this.setActionModel(new ActionRepeatableButtonModel(this));
@@ -345,19 +347,35 @@ public class JCommandButton extends AbstractCommandButton {
 
         if (hasPopup) {
             if (command.getPopupMenuContentModel() != null) {
-                AbstractPopupMenuContentModel popupMenuContentModel =
+                CommandPopupMenuContentModel popupMenuContentModel =
                         command.getPopupMenuContentModel();
                 AbstractPopupMenuPresentationModel popupMenuPresentationModel =
                         commandPresentation.getPopupMenuPresentationModel();
-                CommandProjection commandProjection = (CommandProjection) this.projection;
-                if (popupMenuContentModel instanceof CommandPopupMenuContentModel) {
+                if (popupMenuContentModel instanceof RibbonApplicationMenu) {
+                    RibbonApplicationMenuCommandProjection ribbonApplicationMenuProjection =
+                            (RibbonApplicationMenuCommandProjection) this.projection;
+                    if (popupMenuPresentationModel == null) {
+                        popupMenuPresentationModel =
+                                CommandPopupMenuPresentationModel.builder().build();
+                    }
+                    RibbonApplicationMenuPanelProjection menuPanelProjection =
+                            new RibbonApplicationMenuPanelProjection(
+                                    (RibbonApplicationMenu) popupMenuContentModel,
+                                    (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
+                    menuPanelProjection.setCommandOverlays(
+                            ribbonApplicationMenuProjection.getCommandOverlays());
+                    menuPanelProjection.setSecondaryLevelCommandPresentationState(
+                            ribbonApplicationMenuProjection.getSecondaryLevelCommandPresentationState());
+                    this.setPopupCallback((JCommandButton commandButton)
+                            -> menuPanelProjection.buildComponent());
+                } else if (popupMenuContentModel instanceof CommandPopupMenuContentModel) {
+                    CommandProjection commandProjection = (CommandProjection) this.projection;
                     if (popupMenuPresentationModel == null) {
                         popupMenuPresentationModel =
                                 CommandPopupMenuPresentationModel.builder().build();
                     }
                     CommandPopupMenuProjection commandPopupMenuProjection =
-                            new CommandPopupMenuProjection(
-                                    (CommandPopupMenuContentModel) popupMenuContentModel,
+                            new CommandPopupMenuProjection(popupMenuContentModel,
                                     (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
                     commandPopupMenuProjection.setCommandOverlays(
                             this.projection.getCommandOverlays());
@@ -373,51 +391,6 @@ public class JCommandButton extends AbstractCommandButton {
                     }
                     this.setPopupCallback((JCommandButton commandButton)
                             -> commandPopupMenuProjection.buildComponent());
-                } else if (popupMenuContentModel instanceof ColorSelectorPopupMenuContentModel) {
-                    if (popupMenuPresentationModel == null) {
-                        popupMenuPresentationModel =
-                                ColorSelectorPopupMenuPresentationModel.builder().build();
-                    }
-                    ColorSelectorPopupMenuProjection colorSelectorPopupMenuProjection =
-                            new ColorSelectorPopupMenuProjection(
-                                    (ColorSelectorPopupMenuContentModel) popupMenuContentModel,
-                                    (ColorSelectorPopupMenuPresentationModel) popupMenuPresentationModel);
-                    colorSelectorPopupMenuProjection.setCommandOverlays(
-                            this.projection.getCommandOverlays());
-                    if (commandProjection.getPopupMenuSupplier() != null) {
-                        colorSelectorPopupMenuProjection.setComponentSupplier(
-                                (Projection.ComponentSupplier<JColorSelectorPopupMenu,
-                                        ColorSelectorPopupMenuContentModel,
-                                        ColorSelectorPopupMenuPresentationModel>) commandProjection.getPopupMenuSupplier());
-                    }
-                    if (commandProjection.getPopupMenuCustomizer() != null) {
-                        colorSelectorPopupMenuProjection.setComponentCustomizer(
-                                (Projection.ComponentCustomizer<JColorSelectorPopupMenu>) commandProjection.getPopupMenuCustomizer());
-                    }
-                    this.setPopupCallback((JCommandButton commandButton)
-                            -> colorSelectorPopupMenuProjection.buildComponent());
-                } else if (popupMenuContentModel instanceof RibbonApplicationMenu) {
-                    if (popupMenuPresentationModel == null) {
-                        popupMenuPresentationModel =
-                                CommandPopupMenuPresentationModel.builder().build();
-                    }
-                    RibbonApplicationMenuProjection ribbonApplicationMenuProjection =
-                            new RibbonApplicationMenuProjection(
-                                    (RibbonApplicationMenu) popupMenuContentModel,
-                                    (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
-                    ribbonApplicationMenuProjection.setCommandOverlays(
-                            this.projection.getCommandOverlays());
-                    if (commandProjection.getPopupMenuSupplier() != null) {
-                        ribbonApplicationMenuProjection.setComponentSupplier(
-                                (Projection.ComponentSupplier<JRibbonApplicationMenuPopupPanel,
-                                        RibbonApplicationMenu, CommandPopupMenuPresentationModel>) commandProjection.getPopupMenuSupplier());
-                    }
-                    if (commandProjection.getPopupMenuCustomizer() != null) {
-                        ribbonApplicationMenuProjection.setComponentCustomizer(
-                                (Projection.ComponentCustomizer<JRibbonApplicationMenuPopupPanel>) commandProjection.getPopupMenuCustomizer());
-                    }
-                    this.setPopupCallback((JCommandButton commandButton)
-                            -> ribbonApplicationMenuProjection.buildComponent());
                 }
             }
             this.setPopupRichTooltip(command.getPopupRichTooltip());

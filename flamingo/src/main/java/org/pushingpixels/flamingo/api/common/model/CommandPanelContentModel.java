@@ -34,7 +34,7 @@ import java.beans.*;
 import java.util.*;
 
 public class CommandPanelContentModel implements ContentModel {
-    private List<CommandGroupModel> commandGroups;
+    private List<CommandGroup> commandGroups;
 
     /**
      * Indicates the selection mode for the toggle commands in the panel.
@@ -48,12 +48,12 @@ public class CommandPanelContentModel implements ContentModel {
      */
     private EventListenerList listenerList = new EventListenerList();
 
-    private CommandGroupModel.CommandGroupListener commandGroupListener;
+    private CommandGroup.CommandGroupListener commandGroupListener;
     private PropertyChangeListener commandGroupPropertyChangeListener;
 
-    public CommandPanelContentModel(List<CommandGroupModel> commands) {
+    public CommandPanelContentModel(List<CommandGroup> commands) {
         this.commandGroups = new ArrayList<>(commands);
-        this.commandGroupListener = new CommandGroupModel.CommandGroupListener() {
+        this.commandGroupListener = new CommandGroup.CommandGroupListener() {
             @Override
             public void onCommandAdded(Command command) {
                 fireStateChanged();
@@ -69,23 +69,23 @@ public class CommandPanelContentModel implements ContentModel {
                 fireStateChanged();
             }
         };
-        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+        for (CommandGroup commandGroupModel : this.commandGroups) {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         }
         this.commandGroupPropertyChangeListener = (PropertyChangeEvent evt) -> fireStateChanged();
-        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+        for (CommandGroup commandGroupModel : this.commandGroups) {
             commandGroupModel.addPropertyChangeListener(this.commandGroupPropertyChangeListener);
         }
     }
 
-    public void addCommandGroup(CommandGroupModel commandGroupModel) {
+    public void addCommandGroup(CommandGroup commandGroupModel) {
         this.commandGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         commandGroupModel.addPropertyChangeListener(this.commandGroupPropertyChangeListener);
         this.fireStateChanged();
     }
 
-    public void removeCommandGroup(CommandGroupModel commandGroupModel) {
+    public void removeCommandGroup(CommandGroup commandGroupModel) {
         this.commandGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         commandGroupModel.removePropertyChangeListener(this.commandGroupPropertyChangeListener);
@@ -93,7 +93,7 @@ public class CommandPanelContentModel implements ContentModel {
     }
 
     public void removeAllCommandGroups() {
-        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+        for (CommandGroup commandGroupModel : this.commandGroups) {
             commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
             commandGroupModel.removePropertyChangeListener(this.commandGroupPropertyChangeListener);
         }
@@ -101,13 +101,13 @@ public class CommandPanelContentModel implements ContentModel {
         this.fireStateChanged();
     }
 
-    public List<CommandGroupModel> getCommandGroups() {
+    public List<CommandGroup> getCommandGroups() {
         return Collections.unmodifiableList(this.commandGroups);
     }
 
     public int getCommandCount() {
         int result = 0;
-        for (CommandGroupModel commandGroupModel : this.getCommandGroups()) {
+        for (CommandGroup commandGroupModel : this.getCommandGroups()) {
             result += commandGroupModel.getCommands().size();
         }
         return result;

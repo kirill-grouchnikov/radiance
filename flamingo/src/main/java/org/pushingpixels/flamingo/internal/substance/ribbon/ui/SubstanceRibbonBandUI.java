@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.*;
+import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.*;
@@ -163,11 +163,12 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
 
     @Override
     protected AbstractCommandButton createExpandButton() {
-        CommandProjection expandCommandProjection = new CommandProjection(this.expandCommand,
-                CommandPresentation.builder()
-                        .setFocusable(false)
-                        .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
-                        .build());
+        CommandProjection<Command> expandCommandProjection =
+                new CommandProjection<>(this.expandCommand,
+                        CommandPresentation.builder()
+                                .setFocusable(false)
+                                .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
+                                .build());
         expandCommandProjection.setComponentSupplier(projection -> RibbonBandExpandButton::new);
         expandCommandProjection.setComponentCustomizer((AbstractCommandButton button) -> {
             // since paintBandTitleBackground uses GENERAL, mark this button with

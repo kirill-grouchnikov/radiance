@@ -49,9 +49,9 @@ public class JCommandButtonStrip extends JComponent {
      */
     public static final String uiClassID = "CommandButtonStripUI";
 
-    private Projection<JCommandButtonStrip, CommandGroupModel, CommandStripPresentationModel> projection;
+    private Projection<JCommandButtonStrip, CommandGroup, CommandStripPresentationModel> projection;
 
-    public JCommandButtonStrip(Projection<JCommandButtonStrip, CommandGroupModel,
+    public JCommandButtonStrip(Projection<JCommandButtonStrip, CommandGroup,
             CommandStripPresentationModel> projection) {
         this.projection = projection;
 
@@ -60,7 +60,7 @@ public class JCommandButtonStrip extends JComponent {
         updateUI();
     }
 
-    public Projection<JCommandButtonStrip, CommandGroupModel, CommandStripPresentationModel> getProjection() {
+    public Projection<JCommandButtonStrip, CommandGroup, CommandStripPresentationModel> getProjection() {
         return this.projection;
     }
 

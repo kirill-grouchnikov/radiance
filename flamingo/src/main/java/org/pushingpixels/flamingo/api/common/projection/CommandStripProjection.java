@@ -33,15 +33,15 @@ import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
 import org.pushingpixels.flamingo.api.common.model.*;
 
 public class CommandStripProjection extends Projection<JCommandButtonStrip,
-        CommandGroupModel, CommandStripPresentationModel> {
+        CommandGroup, CommandStripPresentationModel> {
 
     private static ComponentSupplier<JCommandButtonStrip,
-                CommandGroupModel, CommandStripPresentationModel> DEFAULT_SUPPLIER =
-            (Projection<JCommandButtonStrip, CommandGroupModel,
+            CommandGroup, CommandStripPresentationModel> DEFAULT_SUPPLIER =
+            (Projection<JCommandButtonStrip, CommandGroup,
                     CommandStripPresentationModel> projection) ->
                     JCommandButtonStrip::new;
 
-    public CommandStripProjection(CommandGroupModel contentModel,
+    public CommandStripProjection(CommandGroup contentModel,
             CommandStripPresentationModel presentationModel) {
         super(contentModel, presentationModel, DEFAULT_SUPPLIER);
     }

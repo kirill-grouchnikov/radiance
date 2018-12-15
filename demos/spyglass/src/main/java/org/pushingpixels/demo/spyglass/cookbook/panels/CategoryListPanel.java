@@ -50,7 +50,7 @@ public class CategoryListPanel extends SingleContentPanel {
                 padding(new EmptyBorder(6, 0, 4, 0));
 
         JComponent controlButtons = new CommandStripProjection(
-                new CommandGroupModel(
+                new CommandGroup(
                         Command.builder()
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_add_white_24px.of(16, 16), 0.75f)))
@@ -63,7 +63,7 @@ public class CategoryListPanel extends SingleContentPanel {
                                 .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
                                         ic_settings_white_24px.of(12, 12), 0.75f)))
                                 .setPopupMenuContentModel(new CommandPopupMenuContentModel(
-                                        new CommandGroupModel(Command.builder()
+                                        new CommandGroup(Command.builder()
                                                 .setText("menu item")
                                                 .build())))
                                 .build()),

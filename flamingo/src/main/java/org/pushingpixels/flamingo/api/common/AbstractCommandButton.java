@@ -49,7 +49,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
     public static final int DEFAULT_HORIZONTAL_ALIGNMENT = SwingConstants.CENTER;
     public static final double DEFAULT_GAP_SCALE_FACTOR = 1.0;
 
-    protected Projection<AbstractCommandButton, Command, CommandPresentation> projection;
+    protected Projection<AbstractCommandButton, ? extends Command, CommandPresentation> projection;
     protected Command command;
     protected CommandPresentation commandPresentation;
 
@@ -202,7 +202,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         LAST
     }
 
-    public AbstractCommandButton(Projection<AbstractCommandButton, Command, CommandPresentation> projection) {
+    public AbstractCommandButton(Projection<AbstractCommandButton, ? extends Command, CommandPresentation> projection) {
         this.projection = projection;
         this.command = projection.getContentModel();
         this.commandPresentation = projection.getPresentationModel();
@@ -305,7 +305,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         return (CommandButtonUI) ui;
     }
 
-    public Projection<AbstractCommandButton, Command, CommandPresentation> getProjection() {
+    public Projection<AbstractCommandButton, ? extends Command, CommandPresentation> getProjection() {
         return this.projection;
     }
 

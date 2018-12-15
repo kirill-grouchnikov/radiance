@@ -34,16 +34,14 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton
+import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.CommandActionEvent
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.CommandAction
-import org.pushingpixels.flamingo.api.common.model.*
-import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuContentModel
+import org.pushingpixels.flamingo.api.common.model.Command
+import org.pushingpixels.flamingo.api.common.model.CommandGroup
+import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel
-import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
-import org.pushingpixels.flamingo.api.common.projection.AbstractPopupMenuProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandProjection
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.neon.icon.ResizableIconFactory
 
@@ -149,7 +147,7 @@ open class KCommand {
             }
         }
 
-    var popupMenu: KAbstractPopupMenu<*, *>? by NullableDelegate { hasBeenConverted }
+    var popupMenu: KAbstractPopupMenu<*>? by NullableDelegate { hasBeenConverted }
 
     // The "popupRichTooltip" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
@@ -321,8 +319,7 @@ open class KCommand {
             builder.setPopupRichTooltip(command.popupRichTooltip?.toJavaRichTooltip())
 
             if (command.popupMenu != null) {
-                builder.setPopupMenuContentModel(command.popupMenu!!.toJavaPopupMenuContentModel()
-                    as AbstractPopupMenuContentModel)
+                builder.setPopupMenuContentModel(command.popupMenu!!.toJavaPopupMenuContentModel())
             }
 
             if (command.isTitleClickAction) {
@@ -423,7 +420,7 @@ class KCommandGroup {
             return command.asJavaCommand()
         }
 
-        fun toJavaProjection(): CommandProjection {
+        fun toJavaProjection(): CommandProjection<Command> {
             return command.asJavaCommand().project(
                     CommandPresentation.builder()
                             .setActionKeyTip(actionKeyTip)
@@ -453,8 +450,9 @@ class KCommandGroup {
         commands.add(CommandConfig(command, actionKeyTip, popupKeyTip))
     }
 
-    fun toCommandGroupModel(): CommandGroupModel {
-        return CommandGroupModel(title, commands.map { it -> it.toJavaCommand() })
+    fun toCommandGroupModel(): CommandGroup {
+        return CommandGroup(title,
+                commands.map { it -> it.toJavaCommand() })
     }
 
     fun toPresentationOverlays(): Map<Command, CommandPresentation.Overlay> {

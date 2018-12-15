@@ -29,26 +29,14 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
-import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.model.CommandPresentation;
+import org.pushingpixels.flamingo.api.common.projection.BlackboxProjection;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 
-public class RibbonApplicationMenuProjection extends AbstractPopupMenuProjection<
-        JRibbonApplicationMenuPopupPanel, RibbonApplicationMenu,
-        CommandPopupMenuPresentationModel> {
-
-    private static ComponentSupplier<JRibbonApplicationMenuPopupPanel, RibbonApplicationMenu,
-            CommandPopupMenuPresentationModel> DEFAULT_SUPPLIER =
-            (Projection<JRibbonApplicationMenuPopupPanel, RibbonApplicationMenu,
-                    CommandPopupMenuPresentationModel> projection) ->
-                    JRibbonApplicationMenuPopupPanel::new;
-
+public class RibbonApplicationMenuProjection extends BlackboxProjection<RibbonApplicationMenu,
+        CommandPresentation> {
     public RibbonApplicationMenuProjection(RibbonApplicationMenu contentModel,
-            CommandPopupMenuPresentationModel presentationModel) {
-        super(contentModel, presentationModel, DEFAULT_SUPPLIER);
-    }
-
-    @Override
-    protected void configureComponent(JRibbonApplicationMenuPopupPanel component) {
+            CommandPresentation presentationModel) {
+        super(contentModel, presentationModel);
     }
 }

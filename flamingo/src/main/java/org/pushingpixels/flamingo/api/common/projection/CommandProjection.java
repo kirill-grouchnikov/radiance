@@ -37,33 +37,41 @@ import org.pushingpixels.neon.icon.*;
 
 import java.beans.PropertyChangeEvent;
 
-public class CommandProjection extends Projection<AbstractCommandButton, Command,
-        CommandPresentation> {
+public class CommandProjection<M extends Command>
+        extends Projection<AbstractCommandButton, M, CommandPresentation> {
 
-    private static ComponentSupplier<AbstractCommandButton, Command, CommandPresentation> DEFAULT_SUPPLIER =
-            (Projection<AbstractCommandButton, Command, CommandPresentation> projection) -> {
-                if (projection.getPresentationModel().isMenu()) {
-                    return projection.getContentModel().isToggle() ? JCommandToggleMenuButton::new
-                            : JCommandMenuButton::new;
-                } else {
-                    return projection.getContentModel().isToggle() ? JCommandToggleButton::new
-                            : JCommandButton::new;
-                }
-            };
+    private static <M extends Command>
+            ComponentSupplier<AbstractCommandButton, M, CommandPresentation> getDefaultSupplier() {
+        return (Projection<AbstractCommandButton, M, CommandPresentation> projection) -> {
+            if (projection.getPresentationModel().isMenu()) {
+                return projection.getContentModel().isToggle() ? JCommandToggleMenuButton::new
+                        : JCommandMenuButton::new;
+            } else {
+                return projection.getContentModel().isToggle() ? JCommandToggleButton::new
+                        : JCommandButton::new;
+            }
+        };
+    }
 
-    private ComponentSupplier<? extends AbstractPopupMenu, ? extends AbstractPopupMenuContentModel,
+    private ComponentSupplier<? extends AbstractPopupMenu, ? extends CommandPopupMenuContentModel,
             ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier;
     private ComponentCustomizer<? extends AbstractPopupMenu> popupMenuCustomizer;
 
-    public CommandProjection(Command command, CommandPresentation commandPresentation) {
-        super(command, commandPresentation, DEFAULT_SUPPLIER);
+    public CommandProjection(M command, CommandPresentation commandPresentation) {
+        this(command, commandPresentation, getDefaultSupplier());
     }
 
-    public CommandProjection reproject(CommandPresentation newCommandPresentation) {
+    public CommandProjection(M command, CommandPresentation commandPresentation,
+            ComponentSupplier<AbstractCommandButton, M, CommandPresentation> componentSupplier) {
+        super(command, commandPresentation, componentSupplier);
+    }
+
+    public CommandProjection<M> reproject(CommandPresentation newCommandPresentation) {
         CommandProjection result = this.getContentModel().project(newCommandPresentation);
         result.setComponentSupplier(this.getComponentSupplier());
         result.setComponentCustomizer(this.getComponentCustomizer());
-        return result;
+        result.setCommandOverlays(this.getCommandOverlays());
+        return (CommandProjection<M>) result;
     }
 
     public void setPopupMenuCustomizer(
@@ -76,22 +84,14 @@ public class CommandProjection extends Projection<AbstractCommandButton, Command
     }
 
     public void setPopupMenuSupplier(ComponentSupplier<? extends AbstractPopupMenu,
-            ? extends AbstractPopupMenuContentModel,
+            ? extends CommandPopupMenuContentModel,
             ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier) {
         this.popupMenuSupplier = popupMenuSupplier;
     }
 
-    public ComponentSupplier<? extends AbstractPopupMenu, ? extends AbstractPopupMenuContentModel,
+    public ComponentSupplier<? extends AbstractPopupMenu, ? extends CommandPopupMenuContentModel,
             ? extends AbstractPopupMenuPresentationModel> getPopupMenuSupplier() {
         return this.popupMenuSupplier;
-    }
-
-    public boolean hasAction() {
-        return (this.getContentModel().getAction() != null);
-    }
-
-    public boolean hasPopup() {
-        return (this.getContentModel().getPopupMenuContentModel() != null);
     }
 
     @Override

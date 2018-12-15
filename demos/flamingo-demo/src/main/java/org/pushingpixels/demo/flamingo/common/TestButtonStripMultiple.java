@@ -54,7 +54,7 @@ public class TestButtonStripMultiple extends JFrame {
                         ComponentState.ENABLED)));
 
         JComponent buttonStrip = new CommandStripProjection(
-                new CommandGroupModel(
+                new CommandGroup(
                         Command.builder().setIcon(new Format_justify_left()).build(),
                         Command.builder().setIcon(new Format_justify_center()).build(),
                         Command.builder().setIcon(new Format_justify_right()).build()),
@@ -63,7 +63,7 @@ public class TestButtonStripMultiple extends JFrame {
         this.add(buttonStrip);
 
         JComponent buttonStrip2 = new CommandStripProjection(
-                new CommandGroupModel(
+                new CommandGroup(
                         Command.builder().setIcon(new Format_text_bold()).build(),
                         Command.builder().setIcon(new Format_text_italic()).build(),
                         Command.builder().setIcon(new Format_text_underline()).build(),

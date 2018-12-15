@@ -34,9 +34,9 @@ import org.pushingpixels.flamingo.api.common.model.*;
 import javax.swing.event.*;
 import java.util.*;
 
-public class CommandPopupMenuContentModel extends AbstractPopupMenuContentModel {
+public class CommandPopupMenuContentModel implements ContentModel {
     private CommandPanelContentModel panelContentModel;
-    private List<CommandGroupModel> commandGroups;
+    private List<CommandGroup> commandGroups;
     private Command highlightedCommand;
 
     /**
@@ -44,20 +44,24 @@ public class CommandPopupMenuContentModel extends AbstractPopupMenuContentModel 
      */
     private EventListenerList listenerList = new EventListenerList();
 
-    private CommandGroupModel.CommandGroupListener commandGroupListener;
+    private CommandGroup.CommandGroupListener commandGroupListener;
 
-    public CommandPopupMenuContentModel(CommandGroupModel commands) {
+    public CommandPopupMenuContentModel(CommandGroup commands) {
         this(null, Arrays.asList(commands));
     }
 
-    public CommandPopupMenuContentModel(List<CommandGroupModel> commands) {
+    public CommandPopupMenuContentModel(CommandGroup... commandGroups) {
+        this(null, Arrays.asList(commandGroups));
+    }
+
+    public CommandPopupMenuContentModel(List<CommandGroup> commands) {
         this(null, commands);
     }
 
     public CommandPopupMenuContentModel(CommandPanelContentModel panelContentModel,
-            List<CommandGroupModel> commands) {
+            List<CommandGroup> commands) {
         this.commandGroups = new ArrayList<>(commands);
-        this.commandGroupListener = new CommandGroupModel.CommandGroupListener() {
+        this.commandGroupListener = new CommandGroup.CommandGroupListener() {
             @Override
             public void onCommandAdded(Command command) {
                 fireStateChanged();
@@ -73,7 +77,7 @@ public class CommandPopupMenuContentModel extends AbstractPopupMenuContentModel 
                 fireStateChanged();
             }
         };
-        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+        for (CommandGroup commandGroupModel : this.commandGroups) {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         }
         this.panelContentModel = panelContentModel;
@@ -87,20 +91,20 @@ public class CommandPopupMenuContentModel extends AbstractPopupMenuContentModel 
         return this.panelContentModel;
     }
 
-    public void addCommandGroup(CommandGroupModel commandGroupModel) {
+    public void addCommandGroup(CommandGroup commandGroupModel) {
         this.commandGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
-    public void removeCommandGroup(CommandGroupModel commandGroupModel) {
+    public void removeCommandGroup(CommandGroup commandGroupModel) {
         this.commandGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         this.fireStateChanged();
     }
 
     public void removeAllCommandGroups() {
-        for (CommandGroupModel commandGroupModel : this.commandGroups) {
+        for (CommandGroup commandGroupModel : this.commandGroups) {
             commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         }
         this.commandGroups.clear();
@@ -116,7 +120,7 @@ public class CommandPopupMenuContentModel extends AbstractPopupMenuContentModel 
         this.fireStateChanged();
     }
 
-    public List<CommandGroupModel> getCommandGroups() {
+    public List<CommandGroup> getCommandGroups() {
         return Collections.unmodifiableList(this.commandGroups);
     }
 

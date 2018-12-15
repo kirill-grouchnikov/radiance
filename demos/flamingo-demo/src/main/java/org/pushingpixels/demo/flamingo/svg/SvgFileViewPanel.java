@@ -146,7 +146,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
             newCommands.put(name, svgCommand);
         }
 
-        this.getProjection().getContentModel().addCommandGroup(new CommandGroupModel(commands));
+        this.getProjection().getContentModel().addCommandGroup(new CommandGroup(commands));
 
         mainWorker = new SwingWorker<Void, StringValuePair<InputStream>>() {
             @Override

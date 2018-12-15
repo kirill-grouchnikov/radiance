@@ -5,10 +5,8 @@ package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel;
 
-import java.util.List;
 import java.util.*;
 
 public class SamplePopupMenu {
@@ -39,8 +37,8 @@ public class SamplePopupMenu {
                 .build());
 
         CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
-                Arrays.asList(new CommandGroupModel(menuProjections1),
-                        new CommandGroupModel(menuProjections2)));
+                Arrays.asList(new CommandGroup(menuProjections1),
+                        new CommandGroup(menuProjections2)));
 
         return menuContentModel;
     }

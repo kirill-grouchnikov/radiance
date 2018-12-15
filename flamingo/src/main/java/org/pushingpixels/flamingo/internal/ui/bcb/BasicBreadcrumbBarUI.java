@@ -38,7 +38,6 @@ import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
 import org.pushingpixels.flamingo.internal.ui.common.JCircularProgress;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -412,7 +411,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                 if (buttonStack.isEmpty()) {
                     Command command = Command.builder()
                             .setPopupMenuContentModel(new CommandPopupMenuContentModel(
-                                    new CommandGroupModel()))
+                                    new CommandGroup()))
                             .build();
                     JCommandButton button = (JCommandButton) command.project(commandPresentation)
                             .buildComponent();
@@ -435,7 +434,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                 Command command = Command.builder()
                         .setText(bi.getKey())
                         .setPopupMenuContentModel(new CommandPopupMenuContentModel(
-                                new CommandGroupModel()))
+                                new CommandGroup()))
                         .build();
                 JCommandButton button = (JCommandButton) command.project(commandPresentation)
                         .buildComponent();
@@ -592,7 +591,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         menuPresentationModel.setMaxVisibleMenuCommands(10);
 
         CommandPopupMenuContentModel popupMenuContentModel =
-                new CommandPopupMenuContentModel(new CommandGroupModel(menuCommands));
+                new CommandPopupMenuContentModel(new CommandGroup(menuCommands));
         if (bic.getSelectedIndex() >= 0) {
             popupMenuContentModel.setHighlightedCommand(menuCommands.get(bic.getSelectedIndex()));
         }
@@ -600,7 +599,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         CommandPopupMenuContentModel commandPopupMenuContentModel =
                 (CommandPopupMenuContentModel) command.getPopupMenuContentModel();
         commandPopupMenuContentModel.removeAllCommandGroups();
-        commandPopupMenuContentModel.addCommandGroup(new CommandGroupModel(menuCommands));
+        commandPopupMenuContentModel.addCommandGroup(new CommandGroup(menuCommands));
     }
 
     private void configurePopupRollover(final JCommandButton button) {

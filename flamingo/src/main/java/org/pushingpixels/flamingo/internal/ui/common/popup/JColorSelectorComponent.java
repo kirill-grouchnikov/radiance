@@ -34,8 +34,8 @@ import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceColorSel
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class JColorSelectorComponent extends JComponent {
     private Color color;
@@ -90,19 +90,22 @@ public class JColorSelectorComponent extends JComponent {
     }
 
     public synchronized void onColorActivated(Color color) {
-        for (ColorSelectorPopupMenuContentModel.ColorActivationListener listener : this.colorActivationListeners) {
+        for (ColorSelectorPopupMenuContentModel.ColorActivationListener listener :
+                this.colorActivationListeners) {
             listener.onColorActivated(color);
         }
     }
 
     public synchronized void onColorPreviewActivated(Color color) {
-        for (ColorSelectorPopupMenuContentModel.ColorPreviewListener listener : this.colorPreviewListeners) {
+        for (ColorSelectorPopupMenuContentModel.ColorPreviewListener listener :
+                this.colorPreviewListeners) {
             listener.onColorPreviewActivated(color);
         }
     }
 
     public synchronized void onColorPreviewCanceled() {
-        for (ColorSelectorPopupMenuContentModel.ColorPreviewListener listener : this.colorPreviewListeners) {
+        for (ColorSelectorPopupMenuContentModel.ColorPreviewListener listener :
+                this.colorPreviewListeners) {
             listener.onColorPreviewCanceled();
         }
     }

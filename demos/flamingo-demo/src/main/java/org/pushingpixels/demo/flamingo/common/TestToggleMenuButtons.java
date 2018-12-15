@@ -73,7 +73,7 @@ public class TestToggleMenuButtons extends JFrame {
                 .build();
 
         CommandPopupMenuContentModel justifyMenuContentModel = new CommandPopupMenuContentModel(
-                new CommandGroupModel(justifyLeft, justifyCenter, justifyRight, justifyFill));
+                new CommandGroup(justifyLeft, justifyCenter, justifyRight, justifyFill));
 
         AbstractCommandButton singleChoice =
                 Command.builder()
@@ -107,7 +107,7 @@ public class TestToggleMenuButtons extends JFrame {
                 .build();
 
         CommandPopupMenuContentModel formatMenuContentModel = new CommandPopupMenuContentModel(
-                new CommandGroupModel(formatBold, formatItalic, formatUnderline,
+                new CommandGroup(formatBold, formatItalic, formatUnderline,
                         formatStrikethrough));
 
         AbstractCommandButton multiChoice =

@@ -29,8 +29,11 @@
  */
 package org.pushingpixels.kormorant.ribbon
 
+import org.pushingpixels.flamingo.api.common.model.Command
+import org.pushingpixels.flamingo.api.common.model.CommandPresentation
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandProjection
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.neon.icon.ResizableIcon
@@ -162,7 +165,8 @@ class KRibbonFrame {
 
         for (taskbarComponent in taskbar.components) {
             when (taskbarComponent) {
-                is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(taskbarComponent.toJavaProjection())
+                is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(
+                        taskbarComponent.toJavaProjection())
                 is KRibbonComponent -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent.asJavaRibbonComponent())
                 is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(RibbonGalleryProjection(
                         taskbarComponent.content.asJavaRibbonGalleryContentModel(),
@@ -179,9 +183,20 @@ class KRibbonFrame {
             )
         }
 
-        ribbonFrame.ribbon.applicationMenu = applicationMenu.asJavaRibbonApplicationMenu()
-        ribbonFrame.ribbon.applicationMenuKeyTip = applicationMenu.keyTip
-        ribbonFrame.ribbon.applicationMenuRichTooltip = applicationMenu.getRichTooltip()
+        val ribbonMenuCommandProjection = RibbonApplicationMenuCommandProjection(
+                Command.builder()
+                        .setText(applicationMenu.title)
+                        .setPopupRichTooltip(applicationMenu.getRichTooltip())
+                        .setPopupMenuContentModel(applicationMenu.asJavaRibbonApplicationMenu())
+                        .build(),
+                CommandPresentation.builder()
+                        .setPopupKeyTip(applicationMenu.keyTip)
+                        .build())
+
+        // TODO - collect command overlays (action + popup key tips)
+        //ribbonMenuCommandProjection.commandOverlays =
+
+        ribbonFrame.ribbon.setApplicationMenuCommand(ribbonMenuCommandProjection)
 
         hasBeenConverted = true
 

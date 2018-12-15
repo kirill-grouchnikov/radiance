@@ -147,8 +147,7 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
                     " colors");
         }
         JPanel selectorContainer = new MultiRowSelector(this, primaryColors);
-        JColorSelectorPanel selector = new JColorSelectorPanel(label,
-                selectorContainer);
+        JColorSelectorPanel selector = new JColorSelectorPanel(label, selectorContainer);
         this.addMenuPanel(selector);
 
         this.lastColorSelectorPanel = selector;
@@ -160,8 +159,7 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
                     " colors");
         }
         JPanel selectorContainer = new SingleRowSelector(this, primaryColors);
-        JColorSelectorPanel selector = new JColorSelectorPanel(label,
-                selectorContainer);
+        JColorSelectorPanel selector = new JColorSelectorPanel(label, selectorContainer);
         this.addMenuPanel(selector);
         this.lastColorSelectorPanel = selector;
     }

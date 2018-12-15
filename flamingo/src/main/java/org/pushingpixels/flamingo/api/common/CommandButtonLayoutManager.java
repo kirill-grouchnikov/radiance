@@ -97,7 +97,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
          * associated with the command button.
          *
          * @see {@link JCommandButton#setPopupCallback(PopupPanelCallback)}
-         * @see {@link Command.Builder#setPopupMenuContentModel(AbstractPopupMenuContentModel)}
+         * @see {@link Command.Builder#setPopupMenuContentModel(CommandPopupMenuContentModel)}
          * @see {@link CommandPresentation.Builder#setPopupMenuPresentationModel(AbstractPopupMenuPresentationModel)}
          */
         public Rectangle popupClickArea;

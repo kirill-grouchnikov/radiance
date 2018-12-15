@@ -184,13 +184,13 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
 
         // Create command projections for scroller commands and set button customizers for
         // icons and additional straight sides
-        CommandProjection leadingScrollerProjection = this.leadingScrollCommand.project(
-                scrollerActionsPresentation);
+        CommandProjection<Command> leadingScrollerProjection =
+                this.leadingScrollCommand.project(scrollerActionsPresentation);
         leadingScrollerProjection.setComponentCustomizer((AbstractCommandButton button) ->
                 configureLeadingScrollerButton(button));
 
-        CommandProjection trailingScrollerProjection = this.trailingScrollCommand.project(
-                scrollerActionsPresentation);
+        CommandProjection<Command> trailingScrollerProjection =
+                this.trailingScrollCommand.project(scrollerActionsPresentation);
         trailingScrollerProjection.setComponentCustomizer((AbstractCommandButton button) ->
                 configureTrailingScrollerButton(button));
 

@@ -31,8 +31,8 @@ package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuContentModel;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.*;
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandProjection;
 
 import java.util.*;
 
@@ -55,21 +55,9 @@ import java.util.*;
  *
  * <p>
  * The entries in the primary area are always visible. The secondary area entries are shown based on
- * the currently active element in the primary area. There are two different types of primary
- * entries:
- * </p>
- *
- * <ul>
- * <li>Associated {@link PrimaryRolloverCallback} configured by the
- * {@link Builder#setRolloverCallback(RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback)}
- * . When this entry is armed (with mouse rollover or via keyboard navigation), the contents of the
- * secondary area are populated by the application callback implementation of
- * {@link PrimaryRolloverCallback#menuEntryActivated(javax.swing.JPanel)}. The <code>Open</code>
- * menu item is an example of such a primary menu entry, showing a list of recently opened files.
- * For a primary entry that is action-only, pass {@link PrimaryClearRolloverCallback} as the primary
- * rollover callback to clear the secondary area.</li>
- * <li>Associated list of {@link Command}s added with the
- * {@link Builder#addSecondaryMenuGroup(String, Command...)}
+ * the currently active element in the primary area. The secondary entries are {@link Command}s
+ * configured with the
+ * {@link Command.Builder#setPopupMenuContentModel(CommandPopupMenuContentModel)}
  * API. When this entry is armed (with mouse rollover or via keyboard navigation), the secondary
  * area shows menu buttons for the registered secondary menu entries. The <code>Save As</code> menu
  * item is an example of such a primary menu item, showing a list of default save formats.</li>
@@ -78,31 +66,30 @@ import java.util.*;
  * <p>
  * At runtime, the application menu entries are implemented as {@link JCommandMenuButton}, but the
  * application code does not operate on that level. Instead, the application code creates
- * metadata-driven description of the ribbon application menu with
- * {@link Builder} and
- * {@link Command.Builder}, and those commands is used to create and populate the "real"
+ * metadata-driven description of the ribbon application menu with {@link Command.Builder}, and
+ * those commands is used to create and populate the "real"
  * controls of the application menu popup.
  * </p>
  *
  * <p>
  * Note that once a {@link RibbonApplicationMenu} is set on the {@link JRibbon} with the
- * {@link JRibbon#setApplicationMenu(RibbonApplicationMenu)}, its contents cannot be changed. An
- * {@link IllegalStateException} will be thrown from
- * {@link #addMenuCommand(RibbonApplicationMenuPrimaryCommand)}, {@link #addMenuSeparator()} and
+ * {@link JRibbon#setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)},
+ * its contents cannot be changed. An {@link IllegalStateException} will be thrown from
+ * {@link #addMenuCommand(Command)}, {@link #addMenuSeparator()} and
  * {@link #addFooterCommand(Command)}.
  * </p>
  *
  * @author Kirill Grouchnikov
  */
-public class RibbonApplicationMenu extends AbstractPopupMenuContentModel {
+public class RibbonApplicationMenu extends CommandPopupMenuContentModel {
     /**
      * Indicates whether this ribbon application menu has been set on the {@link JRibbon} with the
-     * {@link JRibbon#setApplicationMenu(RibbonApplicationMenu)}. Once that API is called, the
-     * contents of this menu cannot be changed. An {@link IllegalStateException} will be thrown from
-     * {@link #addMenuCommand(RibbonApplicationMenuPrimaryCommand)} and
-     * {@link #addFooterCommand(Command)}.
+     * {@link JRibbon#setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)}.
+     * Once that API is called, the contents of this menu cannot be changed. An
+     * {@link IllegalStateException} will be thrown from
+     * {@link #addMenuCommand(Command)} and {@link #addFooterCommand(Command)}.
      *
-     * @see #addMenuCommand(RibbonApplicationMenuPrimaryCommand)
+     * @see #addMenuCommand(Command)
      * @see #addFooterCommand(Command)
      */
     private boolean isFrozen;
@@ -112,23 +99,12 @@ public class RibbonApplicationMenu extends AbstractPopupMenuContentModel {
     /**
      * Primary commands.
      */
-    private List<List<RibbonApplicationMenuPrimaryCommand>> primaryCommands;
+    private List<List<Command>> primaryCommands;
 
     /**
      * Footer commands.
      */
-    private List<Command> footerCommands;
-
-    /**
-     * The default callback to be called when:
-     *
-     * <ul>
-     * <li>The ribbon application menu is first shown.</li>
-     * <li>The currently active (rollover) primary application menu entry has no secondary menu
-     * entries and no associated rollover callback.
-     * </ul>
-     */
-    private PrimaryRolloverCallback defaultCallback;
+    private CommandGroup footerCommands;
 
     /**
      * Creates an empty ribbon application menu.
@@ -136,13 +112,14 @@ public class RibbonApplicationMenu extends AbstractPopupMenuContentModel {
      * @param title Application menu title. Must not be null or empty.
      */
     public RibbonApplicationMenu(String title) {
+        super(new ArrayList<>());
         if ((title == null) || title.isEmpty()) {
             throw new IllegalArgumentException("Menu title can not be null or empty");
         }
         this.title = title;
         this.primaryCommands = new ArrayList<>();
         this.primaryCommands.add(new ArrayList<>());
-        this.footerCommands = new ArrayList<>();
+        this.footerCommands = new CommandGroup();
     }
 
     public String getTitle() {
@@ -154,12 +131,32 @@ public class RibbonApplicationMenu extends AbstractPopupMenuContentModel {
      *
      * @param command Primary menu command to add.
      * @throws IllegalStateException if this ribbon application menu has already been set on the
-     *                               {@link JRibbon} with
-     *                               the {@link JRibbon#setApplicationMenu(RibbonApplicationMenu)}.
+     *                               {@link JRibbon} with the
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *           {@link JRibbon#setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)} .
      * @see #getPrimaryCommands()
      * @see #addFooterCommand(Command)
      */
-    public synchronized void addMenuCommand(RibbonApplicationMenuPrimaryCommand command) {
+    public synchronized void addMenuCommand(Command command) {
         if (this.isFrozen) {
             throw new IllegalStateException(
                     "Cannot add menu entries after the menu has been set on the ribbon");
@@ -180,10 +177,10 @@ public class RibbonApplicationMenu extends AbstractPopupMenuContentModel {
      * result is guaranteed to be non-<code>null</code>.
      *
      * @return An unmodifiable list of all primary menu commands of this application menu.
-     * @see #addMenuCommand(RibbonApplicationMenuPrimaryCommand)
+     * @see #addMenuCommand(Command)
      * @see #getFooterCommands()
      */
-    public List<List<RibbonApplicationMenuPrimaryCommand>> getPrimaryCommands() {
+    public List<List<Command>> getPrimaryCommands() {
         return Collections.unmodifiableList(this.primaryCommands);
     }
 
@@ -192,64 +189,59 @@ public class RibbonApplicationMenu extends AbstractPopupMenuContentModel {
      *
      * @param entry Footer command to add.
      * @throws IllegalStateException if this ribbon application menu has already been set on the
-     *                               {@link JRibbon} with
-     *                               the {@link JRibbon#setApplicationMenu(RibbonApplicationMenu)}.
+     *                               {@link JRibbon} with the
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *            {@link JRibbon#setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)}.
      * @see #getFooterCommands()
-     * @see #addMenuCommand(RibbonApplicationMenuPrimaryCommand)
+     * @see #addMenuCommand(Command)
      */
     public synchronized void addFooterCommand(Command entry) {
         if (this.isFrozen) {
             throw new IllegalStateException(
                     "Cannot add footer commands after the menu has been set on the ribbon");
         }
-        this.footerCommands.add(entry);
+        this.footerCommands.addCommand(entry);
     }
 
     /**
-     * Returns an unmodifiable list of all footer commands of this application menu. The result is
+     * Returns the footer commands of this application menu. The result is
      * guaranteed to be non-<code>null</code>.
      *
-     * @return An unmodifiable list of all footer commands of this application menu.
+     * @return The footer commands of this application menu.
      * @see #addFooterCommand(Command)
      * @see #getPrimaryCommands()
      */
-    public List<Command> getFooterCommands() {
-        return Collections.unmodifiableList(this.footerCommands);
-    }
-
-    /**
-     * Sets the default callback to be called when:
-     *
-     * <ul>
-     * <li>The ribbon application menu is first shown.</li>
-     * <li>The currently active (rollover) primary application menu entry has no secondary menu
-     * entries and no associated rollover callback.
-     * </ul>
-     *
-     * @param defaultCallback Default callback.
-     */
-    public void setDefaultCallback(PrimaryRolloverCallback defaultCallback) {
-        this.defaultCallback = defaultCallback;
-    }
-
-    /**
-     * Returns the default callback of this ribbon application menu.
-     *
-     * @return The default callback of this ribbon application menu.
-     */
-    public PrimaryRolloverCallback getDefaultCallback() {
-        return defaultCallback;
+    public CommandGroup getFooterCommands() {
+        return this.footerCommands;
     }
 
     /**
      * Marks this application menu as frozen. Subsequent calls to
-     * {@link #addMenuCommand(RibbonApplicationMenuPrimaryCommand)} and
+     * {@link #addMenuCommand(Command)} and
      * {@link #addFooterCommand(Command)} will throw an
      * {@link IllegalStateException}.
      *
-     * @see #addMenuCommand(RibbonApplicationMenuPrimaryCommand)
+     * @see #addMenuCommand(Command)
      * @see #addFooterCommand(Command)
-     * @see JRibbon#setApplicationMenu(RibbonApplicationMenu)
+     * @see JRibbon#setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
      */
     synchronized void freeze() {
         this.isFrozen = true;

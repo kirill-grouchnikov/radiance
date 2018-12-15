@@ -33,7 +33,6 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.PrimaryRolloverCallback;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicPopupPanelUI;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -44,6 +43,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
+import java.util.*;
 
 /**
  * Basic UI for ribbon application menu button {@link JRibbonApplicationMenuButton}.
@@ -61,12 +61,12 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
 
     private static final CommandButtonPresentationState MENU_TILE_LEVEL_1 =
             new CommandButtonPresentationState(
-            "Ribbon application menu tile level 1", 32) {
-        @Override
-        public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton commandButton) {
-            return new CommandButtonLayoutManagerMenuTileLevel1();
-        }
-    };
+                    "Ribbon application menu tile level 1", 32) {
+                @Override
+                public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton commandButton) {
+                    return new CommandButtonLayoutManagerMenuTileLevel1();
+                }
+            };
 
     /**
      * The associated application menu button.
@@ -146,75 +146,72 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             }
         });
 
-        final RibbonApplicationMenu ribbonAppMenu = this.applicationMenuPopupPanel
-                .getRibbonAppMenu();
+        final RibbonApplicationMenuPanelProjection ribbonAppMenuProjection =
+                (RibbonApplicationMenuPanelProjection) this.applicationMenuPopupPanel.getRibbonAppMenuProjection();
+        final RibbonApplicationMenu ribbonAppMenu = (ribbonAppMenuProjection != null)
+                ? ribbonAppMenuProjection.getContentModel() : null;
 
         if (ribbonAppMenu != null) {
-            List<List<RibbonApplicationMenuPrimaryCommand>> primaryEntries = ribbonAppMenu
+            final Map<Command, CommandPresentation.Overlay> commandOverlays =
+                    ribbonAppMenuProjection.getCommandOverlays();
+            CommandPresentation baseCommandPresentation = CommandPresentation.builder()
+                    .setMenu(true).build();
+            List<List<Command>> primaryEntries = ribbonAppMenu
                     .getPrimaryCommands();
             int primaryGroupCount = primaryEntries.size();
             for (int i = 0; i < primaryGroupCount; i++) {
-                for (final RibbonApplicationMenuPrimaryCommand menuEntry : primaryEntries.get(i)) {
+                for (final Command menuEntry : primaryEntries.get(i)) {
+                    // Check to see if we have an overlay for the current command
+                    CommandPresentation commandPresentation = baseCommandPresentation;
+                    if (commandOverlays.containsKey(menuEntry)) {
+                        commandPresentation = commandPresentation.overlayWith(
+                                commandOverlays.get(menuEntry));
+                    }
                     final JCommandMenuButton commandButton =
-                            (JCommandMenuButton) menuEntry.project(
-                                    CommandPresentation.builder()
-                                            .setMenu(true).build()).buildComponent();
+                            (JCommandMenuButton) menuEntry.project(commandPresentation)
+                                    .buildComponent();
 
-                    if (menuEntry.getSecondaryGroupCount() == 0) {
-                        // if there are no secondary menu items, register the
-                        // application rollover callback to populate the
-                        // second level panel
+                    if (menuEntry.getPopupMenuContentModel() == null) {
+                        // if there are no secondary menu items, remove all entries from the
+                        // secondary panel
                         commandButton.addRolloverActionListener((ActionEvent e) -> {
-                            PrimaryRolloverCallback callback = menuEntry.getRolloverCallback();
                             panelLevel2.removeAll();
-                            if (callback != null) {
-                                callback.menuEntryActivated(panelLevel2);
-                            } else {
-                                // default callback?
-                                PrimaryRolloverCallback defaultCallback = ribbonAppMenu
-                                        .getDefaultCallback();
-                                if (defaultCallback != null) {
-                                    defaultCallback.menuEntryActivated(panelLevel2);
-                                } else {
-                                    panelLevel2.removeAll();
-                                }
-                            }
                             panelScrollerLevel2.applyComponentOrientation(
                                     applicationMenuPopupPanel.getComponentOrientation());
                             panelLevel2.revalidate();
                             panelLevel2.repaint();
                         });
                     } else {
-                        // register a core callback to populate the second level
-                        // panel with secondary menu items
-                        final PrimaryRolloverCallback coreCallback = (JPanel targetPanel) -> {
-                            targetPanel.removeAll();
-                            targetPanel.setLayout(new BorderLayout());
+                        commandButton.addRolloverActionListener((ActionEvent e) -> {
+                            // populate the second level panel with secondary level items
+                            panelLevel2.removeAll();
+                            panelLevel2.setLayout(new BorderLayout());
+
+                            CommandButtonPresentationState secondaryMenuPresentationState =
+                                    ribbonAppMenuProjection.getSecondaryLevelCommandPresentationState()
+                                            .get(menuEntry);
+                            if (secondaryMenuPresentationState == null) {
+                                secondaryMenuPresentationState =
+                                        CommandButtonPresentationState.MEDIUM;
+                            }
+
                             JRibbonApplicationMenuPopupPanelSecondary secondary =
-                                    new JRibbonApplicationMenuPopupPanelSecondary(menuEntry) {
-                                        @Override
-                                        public void removeNotify() {
-                                            super.removeNotify();
-                                            commandButton.getPopupModel().setPopupShowing(false);
-                                        }
-                                    };
+                                    JRibbonApplicationMenuPopupPanelSecondary.getPanel(menuEntry,
+                                            commandOverlays, secondaryMenuPresentationState,
+                                            commandButton);
                             secondary.applyComponentOrientation(
                                     applicationMenuPopupPanel.getComponentOrientation());
-                            targetPanel.add(secondary, BorderLayout.CENTER);
-                            targetPanel.revalidate();
-                            targetPanel.repaint();
-                        };
-                        commandButton.addRolloverActionListener((ActionEvent e) -> {
-                            coreCallback.menuEntryActivated(panelLevel2);
+                            panelLevel2.add(secondary, BorderLayout.CENTER);
+                            panelLevel2.revalidate();
+                            panelLevel2.repaint();
                             // emulate showing the popup so the button remains "selected"
                             commandButton.getPopupModel().setPopupShowing(true);
                         });
                     }
                     commandButton.setPresentationState(MENU_TILE_LEVEL_1);
                     commandButton.setHorizontalAlignment(SwingUtilities.LEADING);
-                    commandButton
-                            .setPopupOrientationKind(
-                                    CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD);
+                    commandButton.setPopupOrientationKind(
+                            CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD);
                     commandButton.setEnabled(menuEntry.isEnabled());
                     this.panelLevel1.add(commandButton);
                 }
@@ -234,12 +231,6 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
 
         mainPanel.add(this.panelScrollerLevel2, BorderLayout.CENTER);
 
-        if (ribbonAppMenu != null) {
-            if (ribbonAppMenu.getDefaultCallback() != null) {
-                ribbonAppMenu.getDefaultCallback().menuEntryActivated(this.panelLevel2);
-            }
-        }
-
         this.applicationMenuPopupPanel.add(mainPanel, BorderLayout.CENTER);
 
         this.footerPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING)) {
@@ -256,7 +247,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             }
         };
         if (ribbonAppMenu != null) {
-            for (Command footerCommand : ribbonAppMenu.getFooterCommands()) {
+            for (Command footerCommand : ribbonAppMenu.getFooterCommands().getCommands()) {
                 JCommandButton commandFooterButton =
                         (JCommandButton) footerCommand.project().buildComponent();
                 commandFooterButton.setPresentationState(CommandButtonPresentationState.MEDIUM);

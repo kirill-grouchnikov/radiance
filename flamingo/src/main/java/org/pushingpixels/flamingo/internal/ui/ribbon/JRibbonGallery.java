@@ -281,8 +281,8 @@ public class JRibbonGallery extends JComponent {
      *
      * @param commandGroups Command groups.
      */
-    private void setGroupMapping(List<CommandGroupModel> commandGroups) {
-        for (CommandGroupModel commandGroupModel : commandGroups) {
+    private void setGroupMapping(List<CommandGroup> commandGroups) {
+        for (CommandGroup commandGroupModel : commandGroups) {
             for (Command command : commandGroupModel.getCommands()) {
                 if (!command.isToggle()) {
                     throw new IllegalStateException("Gallery command must be toggle");
@@ -295,7 +295,7 @@ public class JRibbonGallery extends JComponent {
         }
 
         boolean hasGroupWithNullTitle = false;
-        for (CommandGroupModel commandGroupModel : commandGroups) {
+        for (CommandGroup commandGroupModel : commandGroups) {
             if (commandGroupModel.getTitle() == null) {
                 if (hasGroupWithNullTitle) {
                     throw new IllegalArgumentException(
@@ -355,7 +355,7 @@ public class JRibbonGallery extends JComponent {
 
         // Do all the primary gallery command groups have titles?
         boolean allGroupsHaveTitles = true;
-        for (CommandGroupModel commandGroupModel :
+        for (CommandGroup commandGroupModel :
                 galleryProjection.getContentModel().getCommandGroups()) {
             String groupTitle = commandGroupModel.getTitle();
             if (groupTitle == null) {

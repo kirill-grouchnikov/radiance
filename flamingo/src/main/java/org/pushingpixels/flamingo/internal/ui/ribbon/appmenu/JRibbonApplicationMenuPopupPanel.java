@@ -44,13 +44,14 @@ public class JRibbonApplicationMenuPopupPanel extends AbstractPopupMenu implemen
      */
     public static final String uiClassID = "RibbonApplicationMenuPopupPanelUI";
 
-    private RibbonApplicationMenu ribbonAppMenu;
+    private Projection<JRibbonApplicationMenuPopupPanel,
+            RibbonApplicationMenu, CommandPopupMenuPresentationModel> ribbonAppMenuProjection;
 
     public JRibbonApplicationMenuPopupPanel(Projection<JRibbonApplicationMenuPopupPanel,
             RibbonApplicationMenu, CommandPopupMenuPresentationModel> projection) {
         super();
 
-        this.ribbonAppMenu = projection.getContentModel();
+        this.ribbonAppMenuProjection = projection;
 
         this.updateUI();
     }
@@ -73,7 +74,8 @@ public class JRibbonApplicationMenuPopupPanel extends AbstractPopupMenu implemen
         return uiClassID;
     }
 
-    public RibbonApplicationMenu getRibbonAppMenu() {
-        return ribbonAppMenu;
+    public Projection<JRibbonApplicationMenuPopupPanel, RibbonApplicationMenu,
+            CommandPopupMenuPresentationModel> getRibbonAppMenuProjection() {
+        return this.ribbonAppMenuProjection;
     }
 }

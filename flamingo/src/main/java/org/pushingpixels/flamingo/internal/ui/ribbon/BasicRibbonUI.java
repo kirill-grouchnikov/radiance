@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
@@ -138,11 +138,14 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 syncApplicationMenuTips();
             }
             if ("applicationMenu".equals(evt.getPropertyName())) {
-                this.ribbon.remove(this.applicationMenuButton);
+                if (this.applicationMenuButton != null) {
+                    this.ribbon.remove(this.applicationMenuButton);
+                }
 
-                this.applicationMenuButton = JRibbonApplicationMenuButton.getApplicationMenuButton(
-                        this.ribbon);
-                this.applicationMenuButton.applyComponentOrientation(this.ribbon.getComponentOrientation());
+                this.applicationMenuButton = new JRibbonApplicationMenuButton(
+                        this.ribbon.getApplicationMenuCommandProjection());
+                this.applicationMenuButton.applyComponentOrientation(
+                        this.ribbon.getComponentOrientation());
                 this.syncApplicationMenuTips();
                 this.ribbon.add(this.applicationMenuButton);
 
@@ -152,7 +155,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
                 Window windowAncestor = SwingUtilities.getWindowAncestor(ribbon);
                 if (windowAncestor instanceof JRibbonFrame) {
-                    applicationMenuButton.setText(ribbon.getApplicationMenu().getTitle());
+                    applicationMenuButton.setText(
+                            ribbon.getApplicationMenu().getContentModel().getTitle());
                 }
             }
             if ("minimized".equals(evt.getPropertyName())) {
@@ -234,14 +238,18 @@ public abstract class BasicRibbonUI extends RibbonUI {
         this.syncRibbonState();
 
         boolean isShowingAppMenuButton = (ribbon.getApplicationMenu() != null);
-        this.applicationMenuButton = JRibbonApplicationMenuButton.getApplicationMenuButton(
-                this.ribbon);
-        this.applicationMenuButton.applyComponentOrientation(this.ribbon.getComponentOrientation());
-        this.syncApplicationMenuTips();
-        this.ribbon.add(this.applicationMenuButton);
-        Window windowAncestor = SwingUtilities.getWindowAncestor(this.ribbon);
-        if ((windowAncestor instanceof JRibbonFrame) && isShowingAppMenuButton) {
-            this.applicationMenuButton.setText(this.ribbon.getApplicationMenu().getTitle());
+        if (isShowingAppMenuButton) {
+            this.applicationMenuButton = new JRibbonApplicationMenuButton(
+                    this.ribbon.getApplicationMenuCommandProjection());
+            this.applicationMenuButton.applyComponentOrientation(
+                    this.ribbon.getComponentOrientation());
+            this.syncApplicationMenuTips();
+            this.ribbon.add(this.applicationMenuButton);
+            Window windowAncestor = SwingUtilities.getWindowAncestor(this.ribbon);
+            if (windowAncestor instanceof JRibbonFrame) {
+                this.applicationMenuButton.setText(
+                        this.ribbon.getApplicationMenu().getContentModel().getTitle());
+            }
         }
     }
 
@@ -473,7 +481,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
             boolean isShowingAppMenuButton = (ribbon.getApplicationMenu() != null);
             FontMetrics fm = applicationMenuButton.getFontMetrics(applicationMenuButton.getFont());
             int appMenuButtonWidth = isShowingAppMenuButton
-                    ? fm.stringWidth(ribbon.getApplicationMenu().getTitle()) + 40 : 0;
+                    ? fm.stringWidth(ribbon.getApplicationMenu().getContentModel().getTitle()) + 40
+                    : 0;
 
             x = ltr ? x + 2 : x - 2;
             if (isShowingAppMenuButton) {
@@ -1101,12 +1110,11 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     .build();
 
             // And create a specific projection
-            CommandProjection taskToggleCommandProjection =
-                    taskToggleCommand.project(
-                            CommandPresentation.builder()
-                                    .setActionKeyTip(task.getKeyTip())
-                                    .setToDismissPopupsOnActivation(false)
-                                    .build());
+            CommandProjection<Command> taskToggleCommandProjection = taskToggleCommand.project(
+                    CommandPresentation.builder()
+                            .setActionKeyTip(task.getKeyTip())
+                            .setToDismissPopupsOnActivation(false)
+                            .build());
 
             // Configure the projection to use our own subclass of command button (so that it can
             // use its own UI delegate class

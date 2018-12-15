@@ -32,62 +32,44 @@ package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel;
-import org.pushingpixels.flamingo.api.common.projection.*;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand;
+import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
 
 import javax.swing.*;
-import java.util.*;
+import java.util.Map;
 
-public class JRibbonApplicationMenuPopupPanelSecondary extends
-        JCommandButtonPanel {
-    private static final CommandButtonPresentationState MENU_TILE_LEVEL_2 =
-            new CommandButtonPresentationState("Ribbon application menu tile level 2", 32) {
-                @Override
-                public CommandButtonLayoutManager createLayoutManager(
-                        AbstractCommandButton commandButton) {
-                    return new CommandButtonLayoutManagerMenuTileLevel2();
-                }
-            };
-
-    private static CommandPanelContentModel createCommandPanelContentModel(
-            RibbonApplicationMenuPrimaryCommand primaryMenuCommand) {
-        if (primaryMenuCommand.getPopupMenuContentModel() != null) {
-            CommandPopupMenuContentModel commandPopupMenuContentModel =
-                    (CommandPopupMenuContentModel) primaryMenuCommand.getPopupMenuContentModel();
-            return new CommandPanelContentModel(commandPopupMenuContentModel.getCommandGroups());
-        }
-
-        List<CommandGroupModel> commandGroups = new ArrayList<>();
-
-        int groupCount = primaryMenuCommand.getSecondaryGroupCount();
-        for (int i = 0; i < groupCount; i++) {
-            String groupDesc = primaryMenuCommand.getSecondaryGroupTitleAt(i);
-            List<Command> groupCommands = new ArrayList<>();
-            for (Command menuCommand : primaryMenuCommand.getSecondaryGroupCommands(i)) {
-                if (menuCommand.isToggle()) {
-                    throw new IllegalStateException("Secondary menu command cannot be toggle");
-                }
-                groupCommands.add(menuCommand);
-            }
-
-            CommandGroupModel commandGroupModel = new CommandGroupModel(groupDesc, groupCommands);
-            commandGroups.add(commandGroupModel);
-        }
-
-        return new CommandPanelContentModel(commandGroups);
-    }
-
-    public JRibbonApplicationMenuPopupPanelSecondary(
-            RibbonApplicationMenuPrimaryCommand primaryMenuEntry) {
-        super(new CommandPanelProjection(
-                createCommandPanelContentModel(primaryMenuEntry),
+public class JRibbonApplicationMenuPopupPanelSecondary extends JCommandButtonPanel {
+    public static JRibbonApplicationMenuPopupPanelSecondary getPanel(
+            Command primaryMenuEntry,
+            Map<Command, CommandPresentation.Overlay> commandOverlays,
+            CommandButtonPresentationState secondaryMenuPresentationState,
+            JCommandButton commandButton) {
+        CommandPanelProjection projection = new CommandPanelProjection(
+                new CommandPanelContentModel(primaryMenuEntry.getPopupMenuContentModel()
+                        .getCommandGroups()),
                 CommandPanelPresentationModel.builder()
-                        .setCommandPresentationState(MENU_TILE_LEVEL_2)
                         .setMaxColumns(1)
+                        .setCommandPresentationState(secondaryMenuPresentationState)
                         .setCommandHorizontalAlignment(SwingUtilities.LEADING)
                         .setPopupOrientationKind(
                                 CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD)
                         .setMenu(true)
-                        .build()));
+                        .build());
+        projection.setCommandOverlays(commandOverlays);
+
+        return new JRibbonApplicationMenuPopupPanelSecondary(projection, commandButton);
+    }
+
+    private JCommandButton toTrack;
+
+    private JRibbonApplicationMenuPopupPanelSecondary(CommandPanelProjection projection,
+            JCommandButton toTrack) {
+        super(projection);
+        this.toTrack = toTrack;
+    }
+
+    @Override
+    public void removeNotify() {
+        super.removeNotify();
+        this.toTrack.getPopupModel().setPopupShowing(false);
     }
 }

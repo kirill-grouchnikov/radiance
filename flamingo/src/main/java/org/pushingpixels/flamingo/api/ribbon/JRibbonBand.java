@@ -65,12 +65,12 @@ import java.util.*;
  * </p>
  *
  * <ul>
- * <li>{@link CommandGroupModel#addCommand(Command)}</li>
- * <li>{@link CommandGroupModel#removeCommand(Command)}</li>
+ * <li>{@link CommandGroup#addCommand(Command)}</li>
+ * <li>{@link CommandGroup#removeCommand(Command)}</li>
  * <li>{@link RibbonGalleryContentModel#setSelectedCommand(Command)}</li>
- * <li>{@link RibbonGalleryContentModel#addExtraPopupCommandGroup(CommandGroupModel)}</li>
+ * <li>{@link RibbonGalleryContentModel#addExtraPopupCommandGroup(CommandGroup)}</li>
  * <li
- * >{@link RibbonGalleryContentModel#removeExtraPopupCommandGroup(CommandGroupModel)}</li>
+ * >{@link RibbonGalleryContentModel#removeExtraPopupCommandGroup(CommandGroup)}</li>
  * </ul>
  *
  * <p>
@@ -160,7 +160,7 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @param priority   Priority of the command.
      * @return The command button that represents the command.
      */
-    public AbstractCommandButton addRibbonCommand(CommandProjection projection,
+    public AbstractCommandButton addRibbonCommand(CommandProjection<? extends Command> projection,
             PresentationPriority priority) {
         AbstractCommandButton commandButton = projection.buildComponent();
         ((JBandControlPanel) this.getControlPanel()).addCommandButton(commandButton, priority);

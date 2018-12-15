@@ -41,9 +41,8 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuPrimaryCommand.PrimaryClearRolloverCallback;
 import org.pushingpixels.flamingo.api.ribbon.model.*;
-import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
+import org.pushingpixels.flamingo.api.ribbon.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -83,6 +82,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private Command popupCommand4;
     private Command popupCommand5;
     private CommandPopupMenuContentModel popupMenuContentModel;
+
+    private Command amEntrySaveAsWord;
+    private Command amEntrySaveAsHtml;
+    private Command amEntrySaveAsOtherFormats;
+    private Command amEntrySaveAs;
 
     private class ExpandActionListener implements CommandAction {
         @Override
@@ -541,11 +545,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                         .setPopupKeyTip("C").build()),
                         JRibbonBand.PresentationPriority.MEDIUM);
 
-        List<CommandGroupModel> formatMenuEntries = new ArrayList<>();
+        List<CommandGroup> formatMenuEntries = new ArrayList<>();
 
-        formatMenuEntries.add(new CommandGroupModel(this.menuSaveSelection,
+        formatMenuEntries.add(new CommandGroup(this.menuSaveSelection,
                 this.menuClearSelection));
-        formatMenuEntries.add(new CommandGroupModel(this.applyStyles));
+        formatMenuEntries.add(new CommandGroup(this.applyStyles));
 
         CommandProjection formatCommandProjection = Command.builder()
                 .setText(resourceBundle.getString("Format.text")).setIcon(Edit_paste.of(16, 16))
@@ -798,12 +802,13 @@ public class BasicCheckRibbon extends JRibbonFrame {
         selectorModel.setColorActivationListener(colorActivationListener);
         selectorModel.setColorPreviewListener(colorPreviewListener);
 
-        quickStylesBand.addRibbonCommand(Command.builder()
-                        .setText(resourceBundle.getString("Styles3.text"))
-                        .setIcon(Text_html.of(16, 16))
-                        .setPopupMenuContentModel(selectorModel)
-                        .build()
-                        .project(CommandPresentation.builder()
+        quickStylesBand.addRibbonCommand(new ColorSelectorCommandProjection(
+                        ColorSelectorCommand.colorSelectorBuilder()
+                                .setText(resourceBundle.getString("Styles3.text"))
+                                .setIcon(Text_html.of(16, 16))
+                                .setColorSelectorPopupMenuContentModel(selectorModel)
+                                .build(),
+                        CommandPresentation.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
                                 .setPopupKeyTip("SC").build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
@@ -973,7 +978,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 resourceBundle.getString("TransitionToThis.textBandTitle"),
                 new SimpleResizableIcon(JRibbonBand.PresentationPriority.TOP, 32, 32));
 
-        List<CommandGroupModel> transitionGalleryCommands = new ArrayList<>();
+        List<CommandGroup> transitionGalleryCommands = new ArrayList<>();
 
         List<Command> transitionGalleryCommandsList = new ArrayList<>();
         for (int i = 1; i <= 40; i++) {
@@ -1005,7 +1010,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
             transitionGalleryCommandsList.add(ribbonCommand);
         }
-        transitionGalleryCommands.add(new CommandGroupModel(
+        transitionGalleryCommands.add(new CommandGroup(
                 resourceBundle.getString("TransitionGallery.textGroupTitle1"),
                 transitionGalleryCommandsList));
 
@@ -1039,7 +1044,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
             transitionGalleryButtonsList2.add(ribbonCommand);
         }
-        transitionGalleryCommands.add(new CommandGroupModel(
+        transitionGalleryCommands.add(new CommandGroup(
                 resourceBundle.getString("TransitionGallery.textGroupTitle2"),
                 transitionGalleryButtonsList2));
 
@@ -1149,8 +1154,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 this.popupCommand4, this.popupCommand5);
 
         this.popupMenuContentModel = new CommandPopupMenuContentModel(
-                Arrays.asList(new CommandGroupModel(menuCommands1),
-                        new CommandGroupModel(menuCommands2)));
+                Arrays.asList(new CommandGroup(menuCommands1),
+                        new CommandGroup(menuCommands2)));
 
         this.pasteCommand = Command.builder()
                 .setText(resourceBundle.getString("Paste.text"))
@@ -1217,10 +1222,45 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         "Apply Styles activated"))
                 .build();
 
+        this.amEntrySaveAsWord = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSaveAs.word.text"))
+                .setIconFactory(X_office_document.factory())
+                .setExtraText(resourceBundle.getString("AppMenuSaveAs.word.description"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked saved as Word"))
+                .build();
+
+        this.amEntrySaveAsHtml = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSaveAs.html.text"))
+                .setIconFactory(Text_html.factory())
+                .setExtraText(resourceBundle.getString("AppMenuSaveAs.html.description"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked saved as HTML"))
+                .setEnabled(false).build();
+
+        this.amEntrySaveAsOtherFormats = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSaveAs.other.text"))
+                .setIconFactory(Document_save_as.factory())
+                .setExtraText(resourceBundle.getString("AppMenuSaveAs.other.description"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked saved as other"))
+                .build();
+
+        CommandPopupMenuContentModel saveAsMenu = new CommandPopupMenuContentModel(
+                new CommandGroup(
+                        resourceBundle.getString("AppMenuSaveAs.secondary.textGroupTitle1"),
+                        amEntrySaveAsWord, amEntrySaveAsHtml,
+                        amEntrySaveAsOtherFormats));
+
+        this.amEntrySaveAs = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSaveAs.text"))
+                .setIconFactory(Document_save_as.factory())
+                .setAction((CommandActionEvent ae) ->
+                        System.out.println("Invoked saving document as"))
+                .setTitleClickAction()
+                .setPopupMenuContentModel(saveAsMenu)
+                .build();
     }
 
     private void createStyleGalleryModel() {
-        List<CommandGroupModel> stylesGalleryCommands = new ArrayList<>();
+        List<CommandGroup> stylesGalleryCommands = new ArrayList<>();
         List<Command> stylesGalleryCommandsList = new ArrayList<>();
         List<Command> stylesGalleryCommandsList2 = new ArrayList<>();
         MessageFormat mfButtonText = new MessageFormat(
@@ -1253,10 +1293,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
             }
         }
 
-        stylesGalleryCommands.add(new CommandGroupModel(
+        stylesGalleryCommands.add(new CommandGroup(
                 resourceBundle.getString("StylesGallery.textGroupTitle1"),
                 stylesGalleryCommandsList));
-        stylesGalleryCommands.add(new CommandGroupModel(
+        stylesGalleryCommands.add(new CommandGroup(
                 resourceBundle.getString("StylesGallery.textGroupTitle2"),
                 stylesGalleryCommandsList2));
 
@@ -1280,9 +1320,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 });
 
         this.styleGalleryContentModel.addExtraPopupCommandGroup(
-                new CommandGroupModel(this.menuSaveSelection, this.menuClearSelection));
+                new CommandGroup(this.menuSaveSelection, this.menuClearSelection));
         this.styleGalleryContentModel.addExtraPopupCommandGroup(
-                new CommandGroupModel(this.applyStyles));
+                new CommandGroup(this.applyStyles));
     }
 
     protected RibbonContextualTaskGroup group1;
@@ -1440,125 +1480,101 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setPreferredPopupMaxCommandColumns(4)
                         .setPreferredPopupMaxVisibleCommandRows(2)
                         .setCommandPresentationState(JRibbonBand.BIG_FIXED).build()));
+
+        // Add the same "Save as" command that we have in the application menu to the taskbar
+        ribbon.addTaskbarCommand(this.amEntrySaveAs.project(
+                CommandPresentation.builder().setPopupKeyTip("6").build()));
     }
 
     protected void configureApplicationMenu() {
+        Map<Command, CommandPresentation.Overlay> applicationMenuOverlays = new HashMap<>();
+        Map<Command, CommandButtonPresentationState> applicationMenuSecondaryStates =
+                new HashMap<>();
+
         // "Create new" primary
-        RibbonApplicationMenuPrimaryCommand amEntryNew =
-                RibbonApplicationMenuPrimaryCommand.applicationMenuBuilder()
-                        .setText(resourceBundle.getString("AppMenuNew.text"))
-                        .setIcon(Document_new.of(16, 16))
-                        .setAction((CommandActionEvent ae) -> System.out.println(
-                                "Invoked creating new document"))
-                        //.setActionKeyTip("N")
-                        .build();
+        List<Command> defaultCommands = new ArrayList<>();
+        MessageFormat mfDefault = new MessageFormat(
+                resourceBundle.getString("AppMenu.default.textButton"));
+        mfDefault.setLocale(currLocale);
+        for (int i = 0; i < 5; i++) {
+            Command command = Command.builder()
+                    .setText(mfDefault.format(new Object[] { i }))
+                    .setIcon(new Text_html())
+                    .setAction((CommandActionEvent e) ->
+                            System.out.println("Creating " + e.getCommand().getText()))
+                    .build();
+            defaultCommands.add(command);
+        }
+
+        CommandPopupMenuContentModel newMenu = new CommandPopupMenuContentModel(
+                new CommandGroup(resourceBundle.getString("AppMenu.default.textGroupTitle1"),
+                        defaultCommands));
+
+        Command amEntryNew = Command.builder()
+                .setText(resourceBundle.getString("AppMenuNew.text"))
+                .setIcon(Document_new.of(16, 16))
+                .setAction((CommandActionEvent ae) -> System.out.println(
+                        "Invoked creating new document"))
+                .setPopupMenuContentModel(newMenu)
+                .setTitleClickAction()
+                .build();
+        applicationMenuSecondaryStates.put(amEntryNew,
+                CommandButtonPresentationState.MEDIUM);
+        applicationMenuOverlays.put(amEntryNew, CommandPresentation.overlay().setActionKeyTip("N"));
 
         // "Open" primary
-        RibbonApplicationMenuPrimaryCommand amEntryOpen =
-                RibbonApplicationMenuPrimaryCommand.applicationMenuBuilder()
-                        .setText(resourceBundle.getString("AppMenuOpen.text"))
-                        .setIcon(Document_open.of(16, 16))
-                        .setAction(
-                                (CommandActionEvent ae) -> System.out.println(
-                                        "Invoked opening document"))
-                        .setRolloverCallback((JPanel targetPanel) -> {
-                            List<Command> historyCommands = new ArrayList<>();
-                            MessageFormat mf = new MessageFormat(
-                                    resourceBundle.getString("AppMenuOpen.secondary.textButton"));
-                            mf.setLocale(currLocale);
-                            for (int i = 0; i < 5; i++) {
-                                Command command = Command.builder()
-                                        .setText(mf.format(new Object[] { i }))
-                                        .setIcon(new Text_html()).build();
-                                historyCommands.add(command);
-                            }
+        List<Command> historyCommands = new ArrayList<>();
+        MessageFormat mf = new MessageFormat(
+                resourceBundle.getString("AppMenuOpen.secondary.textButton"));
+        mf.setLocale(currLocale);
+        for (int i = 0; i < 5; i++) {
+            Command command = Command.builder()
+                    .setText(mf.format(new Object[] { i }))
+                    .setIcon(new Text_html())
+                    .setAction((CommandActionEvent e) ->
+                            System.out.println("Opening " + e.getCommand().getText()))
+                    .build();
+            historyCommands.add(command);
+        }
 
-                            String groupName = resourceBundle
-                                    .getString("AppMenuOpen.secondary.textGroupTitle1");
-                            CommandGroupModel historyGroupModel = new CommandGroupModel(
-                                    groupName, historyCommands);
-                            CommandPanelContentModel historyPanelContentModel =
-                                    new CommandPanelContentModel(Arrays.asList(historyGroupModel));
+        CommandPopupMenuContentModel historyOpenMenu = new CommandPopupMenuContentModel(
+                new CommandGroup(resourceBundle.getString("AppMenuOpen.secondary.textGroupTitle1"),
+                        historyCommands));
 
-                            JComponent openHistoryPanel = new CommandPanelProjection(
-                                    historyPanelContentModel,
-                                    CommandPanelPresentationModel.builder()
-                                            .setLayoutKind(
-                                                    CommandPanelPresentationModel.LayoutKind.ROW_FILL)
-                                            .setCommandPresentationState(
-                                                    CommandButtonPresentationState.MEDIUM)
-                                            .setCommandHorizontalAlignment(SwingUtilities.LEADING)
-                                            .setMaxColumns(1).build()).buildComponent();
-
-                            targetPanel.setLayout(new BorderLayout());
-                            targetPanel.add(openHistoryPanel, BorderLayout.CENTER);
-                        })
-                        //.setActionKeyTip("O")
-                        .build();
-
-        // "Save" primary
-        RibbonApplicationMenuPrimaryCommand amEntrySave =
-                RibbonApplicationMenuPrimaryCommand.applicationMenuBuilder()
-                        .setText(resourceBundle.getString("AppMenuSave.text"))
-                        .setIcon(Document_save.of(16, 16))
-                        .setAction((CommandActionEvent ae) -> System.out.println(
-                                "Invoked saving document"))
-                        //.setActionKeyTip("S")
-                        .setEnabled(false).build();
-
-        // "Save as" primary + secondaries
-        Command amEntrySaveAsWord = Command.builder()
-                .setText(resourceBundle.getString("AppMenuSaveAs.word.text"))
-                .setIcon(X_office_document.of(16, 16))
-                .setExtraText(resourceBundle.getString("AppMenuSaveAs.word.description"))
-                .setAction((CommandActionEvent ae) -> System.out.println("Invoked saved as Word"))
-                //.setActionKeyTip("W")
+        Command amEntryOpen = Command.builder()
+                .setText(resourceBundle.getString("AppMenuOpen.text"))
+                .setIcon(Document_open.of(16, 16))
+                .setAction((CommandActionEvent ae) ->
+                        System.out.println("Invoked opening document"))
+                .setPopupMenuContentModel(historyOpenMenu)
+                .setTitleClickAction()
                 .build();
-
-        Command amEntrySaveAsHtml = Command.builder()
-                .setText(resourceBundle.getString("AppMenuSaveAs.html.text"))
-                .setIcon(Text_html.of(16, 16))
-                .setExtraText(resourceBundle.getString("AppMenuSaveAs.html.description"))
-                .setAction((CommandActionEvent ae) -> System.out.println("Invoked saved as HTML"))
-                //.setActionKeyTip("H")
-                .setEnabled(false).build();
-
-        Command amEntrySaveAsOtherFormats = Command.builder()
-                .setText(resourceBundle.getString("AppMenuSaveAs.other.text"))
-                .setIcon(Document_save_as.of(16, 16))
-                .setExtraText(resourceBundle.getString("AppMenuSaveAs.other.description"))
-                .setAction((CommandActionEvent ae) -> System.out.println("Invoked saved as other"))
-                //.setActionKeyTip("O")
-                .build();
-
-        // TODO - propagate the command overlays at the level of the entire application menu
-        Map<Command, CommandPresentation.Overlay> saveAsMenuOverlays = new HashMap<>();
-        saveAsMenuOverlays.put(amEntrySaveAsWord,
-                CommandPresentation.overlay().setActionKeyTip("W"));
-        saveAsMenuOverlays.put(amEntrySaveAsHtml,
-                CommandPresentation.overlay().setActionKeyTip("H"));
-        saveAsMenuOverlays.put(amEntrySaveAsOtherFormats,
+        applicationMenuSecondaryStates.put(amEntryOpen,
+                CommandButtonPresentationState.MEDIUM);
+        applicationMenuOverlays.put(amEntryOpen,
                 CommandPresentation.overlay().setActionKeyTip("O"));
 
-        CommandPopupMenuContentModel saveAsMenu = new CommandPopupMenuContentModel(
-                new CommandGroupModel(amEntrySaveAsWord, amEntrySaveAsHtml,
-                        amEntrySaveAsOtherFormats));
+        // "Save" primary
+        Command amEntrySave = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSave.text"))
+                .setIcon(Document_save.of(16, 16))
+                .setAction((CommandActionEvent ae) ->
+                        System.out.println("Invoked saving document"))
+                .setEnabled(false).build();
+        applicationMenuOverlays.put(amEntrySave,
+                CommandPresentation.overlay().setActionKeyTip("S"));
 
-        RibbonApplicationMenuPrimaryCommand amEntrySaveAs =
-                RibbonApplicationMenuPrimaryCommand.applicationMenuBuilder()
-                        .setText(resourceBundle.getString("AppMenuSaveAs.text"))
-                        .setIcon(Document_save_as.of(16, 16))
-                        .setAction(
-                                (CommandActionEvent ae) -> System.out.println(
-                                        "Invoked saving document as"))
-                        //.setActionKeyTip("A")
-                        //.setPopupKeyTip("F")
-                        .setTitleClickAction()
-                        .setPopupMenuContentModel(saveAsMenu)
-                        .addSecondaryMenuGroup(
-                                resourceBundle.getString("AppMenuSaveAs.secondary.textGroupTitle1"),
-                                amEntrySaveAsWord, amEntrySaveAsHtml, amEntrySaveAsOtherFormats)
-                        .build();
+        // "Save as" primary + secondaries
+        applicationMenuOverlays.put(this.amEntrySaveAsWord,
+                CommandPresentation.overlay().setActionKeyTip("W"));
+        applicationMenuOverlays.put(this.amEntrySaveAsHtml,
+                CommandPresentation.overlay().setActionKeyTip("H"));
+        applicationMenuOverlays.put(this.amEntrySaveAsOtherFormats,
+                CommandPresentation.overlay().setActionKeyTip("O"));
+        applicationMenuOverlays.put(this.amEntrySaveAs,
+                CommandPresentation.overlay().setActionKeyTip("A").setPopupKeyTip("F"));
+        applicationMenuSecondaryStates.put(this.amEntrySaveAs,
+                RibbonApplicationMenuCommandProjection.RIBBON_APP_MENU_SECONDARY_LEVEL);
 
         // "Print" primary + secondaries
         Command amEntryPrintSelect = Command.builder()
@@ -1566,7 +1582,6 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIcon(Printer.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuPrint.print.description"))
                 .setAction((CommandActionEvent ae) -> System.out.println("Invoked print"))
-                //.setActionKeyTip("P")
                 .build();
 
         Command amEntryPrintDefault = Command.builder()
@@ -1574,7 +1589,6 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIcon(Printer.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuPrint.quick.description"))
                 .setAction((CommandActionEvent ae) -> System.out.println("Invoked quick"))
-                //.setActionKeyTip("Q")
                 .build();
 
         Command amEntryPrintPreview = Command.builder()
@@ -1582,39 +1596,49 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIcon(Document_print_preview.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuPrint.preview.description"))
                 .setAction((CommandActionEvent ae) -> System.out.println("Invoked preview"))
-                //.setActionKeyTip("V")
                 .build();
 
         Command amEntryPrintMemo = Command.builder()
                 .setText(resourceBundle.getString("AppMenuPrint.memo.text"))
                 .setIcon(Text_x_generic.of(16, 16))
                 .setAction((CommandActionEvent ae) -> System.out.println("Invoked memo"))
-                //.setActionKeyTip("M")
                 .build();
 
         Command amEntryPrintCustom = Command.builder()
                 .setText(resourceBundle.getString("AppMenuPrint.custom.text"))
                 .setIcon(Text_x_generic.of(16, 16))
                 .setAction((CommandActionEvent ae) -> System.out.println("Invoked custom"))
-                //.setActionKeyTip("C")
                 .build();
 
-        RibbonApplicationMenuPrimaryCommand amEntryPrint =
-                RibbonApplicationMenuPrimaryCommand.applicationMenuBuilder()
-                        .setText(resourceBundle.getString("AppMenuPrint.text"))
-                        .setIcon(Document_print.of(16, 16))
-                        .setAction((CommandActionEvent ae) -> System.out.println(
-                                "Invoked printing as"))
-                        //.setActionKeyTip("P")
-                        //.setPopupKeyTip("W")
-                        .setTitleClickAction()
-                        .addSecondaryMenuGroup(
-                                resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle1"),
-                                amEntryPrintSelect, amEntryPrintDefault, amEntryPrintPreview)
-                        .addSecondaryMenuGroup(
-                                resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle2"),
-                                amEntryPrintMemo, amEntryPrintCustom)
-                        .build();
+        applicationMenuOverlays.put(amEntryPrintSelect,
+                CommandPresentation.overlay().setActionKeyTip("P"));
+        applicationMenuOverlays.put(amEntryPrintDefault,
+                CommandPresentation.overlay().setActionKeyTip("Q"));
+        applicationMenuOverlays.put(amEntryPrintPreview,
+                CommandPresentation.overlay().setActionKeyTip("V"));
+        applicationMenuOverlays.put(amEntryPrintMemo,
+                CommandPresentation.overlay().setActionKeyTip("M"));
+        applicationMenuOverlays.put(amEntryPrintCustom,
+                CommandPresentation.overlay().setActionKeyTip("C"));
+
+        CommandPopupMenuContentModel printMenu = new CommandPopupMenuContentModel(
+                new CommandGroup(resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle1"),
+                        amEntryPrintSelect, amEntryPrintDefault, amEntryPrintPreview),
+                new CommandGroup(resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle2"),
+                        amEntryPrintMemo, amEntryPrintCustom));
+
+        Command amEntryPrint = Command.builder()
+                .setText(resourceBundle.getString("AppMenuPrint.text"))
+                .setIcon(Document_print.of(16, 16))
+                .setAction((CommandActionEvent ae) ->
+                        System.out.println("Invoked printing as"))
+                .setTitleClickAction()
+                .setPopupMenuContentModel(printMenu)
+                .build();
+        applicationMenuSecondaryStates.put(amEntryPrint,
+                RibbonApplicationMenuCommandProjection.RIBBON_APP_MENU_SECONDARY_LEVEL);
+        applicationMenuOverlays.put(amEntryPrint,
+                CommandPresentation.overlay().setActionKeyTip("P").setPopupKeyTip("W"));
 
         // "Send" primary + secondaries
         Command amEntrySendMail = Command.builder()
@@ -1622,7 +1646,6 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIcon(Mail_message_new.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuSend.email.description"))
                 .setAction((CommandActionEvent ae) -> System.out.println("Invoked email"))
-                //.setActionKeyTip("E")
                 .build();
 
         Command amEntrySendHtml = Command.builder()
@@ -1630,7 +1653,6 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIcon(Text_html.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuSend.html.description"))
                 .setAction((CommandActionEvent ae) -> System.out.println("Invoked HTML"))
-                //.setActionKeyTip("H")
                 .build();
 
         Command amEntrySendDoc = Command.builder()
@@ -1638,8 +1660,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIcon(X_office_document.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuSend.word.description"))
                 .setAction((CommandActionEvent ae) -> System.out.println("Invoked Word"))
-                //.setActionKeyTip("W")
                 .build();
+
+        applicationMenuOverlays.put(amEntrySendMail,
+                CommandPresentation.overlay().setActionKeyTip("E"));
+        applicationMenuOverlays.put(amEntrySendHtml,
+                CommandPresentation.overlay().setActionKeyTip("H"));
+        applicationMenuOverlays.put(amEntrySendDoc,
+                CommandPresentation.overlay().setActionKeyTip("W"));
 
         Command wirelessWiFi = Command.builder()
                 .setText(resourceBundle.getString("AppMenuSend.wireless.wifi.text"))
@@ -1652,103 +1680,77 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setAction((CommandActionEvent e) -> System.out.println("Bluetooth activated"))
                 .build();
 
-        // TODO: propagate overlays at the level of the application menu
-        Map<Command, CommandPresentation.Overlay> wirelessOverlays = new HashMap<>();
-        wirelessOverlays.put(wirelessWiFi,
+        applicationMenuOverlays.put(wirelessWiFi,
                 CommandPresentation.overlay().setActionKeyTip("W"));
-        wirelessOverlays.put(wirelessBluetooth,
+        applicationMenuOverlays.put(wirelessBluetooth,
                 CommandPresentation.overlay().setActionKeyTip("B"));
 
         CommandPopupMenuContentModel wirelessPopupMenuContentModel =
                 new CommandPopupMenuContentModel(Collections.singletonList(
-                        new CommandGroupModel(wirelessWiFi, wirelessBluetooth)));
+                        new CommandGroup(wirelessWiFi, wirelessBluetooth)));
 
         Command amEntrySendWireless = Command.builder()
                 .setText(resourceBundle.getString("AppMenuSend.wireless.text"))
                 .setIcon(Network_wireless.of(16, 16))
                 .setExtraText(resourceBundle.getString("AppMenuSend.wireless.description"))
                 .setPopupMenuContentModel(wirelessPopupMenuContentModel)
-                //.setPopupKeyTip("X")
                 .build();
+        applicationMenuSecondaryStates.put(amEntrySendWireless,
+                RibbonApplicationMenuCommandProjection.RIBBON_APP_MENU_SECONDARY_LEVEL);
+        applicationMenuOverlays.put(amEntrySendWireless,
+                CommandPresentation.overlay().setPopupKeyTip("X"));
 
-        RibbonApplicationMenuPrimaryCommand amEntrySend =
-                RibbonApplicationMenuPrimaryCommand.applicationMenuBuilder()
-                        .setText(resourceBundle.getString("AppMenuSend.text"))
-                        .setIcon(Mail_forward.of(16, 16))
-                        //.setPopupKeyTip("D")
-                        .addSecondaryMenuGroup(
-                                resourceBundle.getString("AppMenuSend.secondary.textGroupTitle1"),
-                                amEntrySendMail, amEntrySendHtml, amEntrySendDoc,
-                                amEntrySendWireless)
-                        .build();
+        CommandPopupMenuContentModel sendMenu = new CommandPopupMenuContentModel(
+                new CommandGroup(resourceBundle.getString("AppMenuSend.secondary.textGroupTitle1"),
+                        amEntrySendMail, amEntrySendHtml, amEntrySendDoc,
+                        amEntrySendWireless));
+
+        Command amEntrySend = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.text"))
+                .setIcon(Mail_forward.of(16, 16))
+                .setPopupMenuContentModel(sendMenu)
+                .build();
+        applicationMenuSecondaryStates.put(amEntrySend,
+                RibbonApplicationMenuCommandProjection.RIBBON_APP_MENU_SECONDARY_LEVEL);
+        applicationMenuOverlays.put(amEntrySend,
+                CommandPresentation.overlay().setPopupKeyTip("D"));
 
         // "Exit" primary
-        RibbonApplicationMenuPrimaryCommand amEntryExit =
-                RibbonApplicationMenuPrimaryCommand.applicationMenuBuilder()
-                        .setText(resourceBundle.getString("AppMenuExit.text"))
-                        .setIcon(System_log_out.of(16, 16)).setAction(
-                        (CommandActionEvent ae) -> System.exit(0))
-                        //.setActionKeyTip("X")
-                        .setRolloverCallback(new PrimaryClearRolloverCallback())
-                        .build();
+        Command amEntryExit = Command.builder()
+                .setText(resourceBundle.getString("AppMenuExit.text"))
+                .setIcon(System_log_out.of(16, 16))
+                .setAction((CommandActionEvent ae) -> System.exit(0))
+                .build();
+
+        applicationMenuOverlays.put(amEntryExit,
+                CommandPresentation.overlay().setActionKeyTip("X"));
 
         RibbonApplicationMenu applicationMenu = new RibbonApplicationMenu(
                 resourceBundle.getString("AppMenu.title"));
         applicationMenu.addMenuCommand(amEntryNew);
         applicationMenu.addMenuCommand(amEntryOpen);
         applicationMenu.addMenuCommand(amEntrySave);
-        applicationMenu.addMenuCommand(amEntrySaveAs);
+        applicationMenu.addMenuCommand(this.amEntrySaveAs);
         applicationMenu.addMenuSeparator();
         applicationMenu.addMenuCommand(amEntryPrint);
         applicationMenu.addMenuCommand(amEntrySend);
         applicationMenu.addMenuSeparator();
         applicationMenu.addMenuCommand(amEntryExit);
 
-        applicationMenu.setDefaultCallback((JPanel targetPanel) -> {
-            List<Command> defaultCommands = new ArrayList<>();
-            MessageFormat mf = new MessageFormat(
-                    resourceBundle.getString("AppMenu.default.textButton"));
-            mf.setLocale(currLocale);
-            for (int i = 0; i < 5; i++) {
-                Command command = Command.builder()
-                        .setText(mf.format(new Object[] { i }))
-                        .setIcon(new Text_html()).build();
-                defaultCommands.add(command);
-            }
-
-            String groupName = resourceBundle
-                    .getString("AppMenu.default.textGroupTitle1");
-            CommandGroupModel defaultGroupModel = new CommandGroupModel(
-                    groupName, defaultCommands);
-            CommandPanelContentModel defaultPanelContentModel =
-                    new CommandPanelContentModel(Arrays.asList(defaultGroupModel));
-
-            JComponent openDefaultPanel = new CommandPanelProjection(
-                    defaultPanelContentModel,
-                    CommandPanelPresentationModel.builder()
-                            .setCommandPresentationState(CommandButtonPresentationState.MEDIUM)
-                            .setCommandHorizontalAlignment(SwingUtilities.LEADING)
-                            .setMaxColumns(1).build()).buildComponent();
-
-            targetPanel.setLayout(new BorderLayout());
-            targetPanel.add(openDefaultPanel, BorderLayout.CENTER);
-        });
-
         Command amFooterProps = Command.builder()
                 .setText(resourceBundle.getString("AppMenuOptions.text"))
                 .setIcon(Document_properties.of(16, 16))
-                .setAction(
-                        (CommandActionEvent ae) -> System.out.println("Invoked Options")).build();
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked Options"))
+                .build();
         Command amFooterExit = Command.builder()
                 .setText(resourceBundle.getString("AppMenuExit.text"))
-                .setIcon(System_log_out.of(16, 16)).setAction(
-                        (CommandActionEvent ae) -> System.exit(0))
-                .setEnabled(false).build();
+                .setIcon(System_log_out.of(16, 16))
+                .setAction((CommandActionEvent ae) -> System.exit(0))
+                .setEnabled(false)
+                .build();
 
         applicationMenu.addFooterCommand(amFooterProps);
         applicationMenu.addFooterCommand(amFooterExit);
-
-        this.getRibbon().setApplicationMenu(applicationMenu);
 
         ResizableIcon appMenuRichTooltipMainIcon = null;
         try {
@@ -1795,12 +1797,28 @@ public class BasicCheckRibbon extends JRibbonFrame {
         } catch (IOException ioe) {
         }
 
-        this.getRibbon().setApplicationMenuRichTooltip(RichTooltip.builder()
-                .setTitle(resourceBundle.getString("AppMenu.tooltip.title"))
-                .addDescriptionSection(resourceBundle.getString("AppMenu.tooltip.paragraph1"))
-                .setMainIcon(appMenuRichTooltipMainIcon).setFooterIcon(Help_browser.of(16, 16))
-                .addFooterSection(resourceBundle.getString("AppMenu.tooltip.footer1")).build());
-        this.getRibbon().setApplicationMenuKeyTip("F");
+        RibbonApplicationMenuCommandProjection ribbonMenuCommandProjection =
+                new RibbonApplicationMenuCommandProjection(
+                        Command.builder()
+                                .setText(resourceBundle.getString("AppMenu.title"))
+                                .setPopupRichTooltip(RichTooltip.builder()
+                                        .setTitle(resourceBundle.getString("AppMenu.tooltip.title"))
+                                        .addDescriptionSection(resourceBundle.getString(
+                                                "AppMenu.tooltip.paragraph1"))
+                                        .setMainIcon(appMenuRichTooltipMainIcon)
+                                        .setFooterIcon(Help_browser.of(16, 16))
+                                        .addFooterSection(
+                                                resourceBundle.getString("AppMenu.tooltip.footer1"))
+                                        .build())
+                                .setPopupMenuContentModel(applicationMenu)
+                                .build(),
+                        CommandPresentation.builder().setPopupKeyTip("F").build());
+
+        ribbonMenuCommandProjection.setCommandOverlays(applicationMenuOverlays);
+        ribbonMenuCommandProjection.setSecondaryLevelCommandPresentationState(
+                applicationMenuSecondaryStates);
+
+        this.getRibbon().setApplicationMenuCommand(ribbonMenuCommandProjection);
     }
 
     protected RibbonTask getContextualRibbonTask(String title, String keyTip) {
@@ -1835,7 +1853,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         appMenuVisible.setSelected(true);
         appMenuVisible.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
             if (!appMenuVisible.isSelected())
-                getRibbon().setApplicationMenu(null);
+                getRibbon().setApplicationMenuCommand(null);
             else
                 configureApplicationMenu();
         }));
@@ -1936,7 +1954,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         indentOverlays.put(indentRight, CommandPresentation.overlay().setActionKeyTip("AI"));
 
         CommandStripProjection indentStripProjection = new CommandStripProjection(
-                new CommandGroupModel(indentLeft, indentRight),
+                new CommandGroup(indentLeft, indentRight),
                 CommandStripPresentationModel.builder().build());
         indentStripProjection.setCommandOverlays(indentOverlays);
         JComponent indentStrip = indentStripProjection.buildComponent();
@@ -2000,7 +2018,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         styleOverlays.put(styleStrikethrough, CommandPresentation.overlay().setActionKeyTip("4"));
 
         CommandStripProjection styleStripProjection = new CommandStripProjection(
-                new CommandGroupModel(styleBold, styleItalic, styleUnderline,
+                new CommandGroup(styleBold, styleItalic, styleUnderline,
                         styleStrikethrough),
                 CommandStripPresentationModel.builder().build());
         styleStripProjection.setCommandOverlays(styleOverlays);
@@ -2019,7 +2037,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 CommandPresentation.overlay().setActionKeyTip("AF"));
 
         CommandStripProjection alignStripProjection = new CommandStripProjection(
-                new CommandGroupModel(this.alignLeftCommand, this.alignCenterCommand,
+                new CommandGroup(this.alignLeftCommand, this.alignCenterCommand,
                         this.alignRightCommand, this.alignFillCommand),
                 CommandStripPresentationModel.builder().build());
         alignStripProjection.setCommandOverlays(alignOverlays);
@@ -2076,7 +2094,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         statusBar.add(helper);
 
         JComponent alignStrip = new CommandStripProjection(
-                new CommandGroupModel(this.alignLeftCommand, this.alignCenterCommand,
+                new CommandGroup(this.alignLeftCommand, this.alignCenterCommand,
                         this.alignRightCommand, this.alignFillCommand),
                 CommandStripPresentationModel.builder()
                         .setCommandPresentationState(CommandButtonPresentationState.SMALL)
@@ -2123,9 +2141,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         CommandPopupMenuContentModel popupMenuContentModel =
                 new CommandPopupMenuContentModel(Arrays.asList(
-                        new CommandGroupModel(commands1),
-                        new CommandGroupModel(commands2),
-                        new CommandGroupModel(commands3)));
+                        new CommandGroup(commands1),
+                        new CommandGroup(commands2),
+                        new CommandGroup(commands3)));
 
         statusBar.addMouseListener(new MouseAdapter() {
             @Override

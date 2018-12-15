@@ -72,7 +72,7 @@ public class TileMenu extends JFrame {
                 .build());
 
         CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
-                new CommandGroupModel(menuCommands));
+                new CommandGroup(menuCommands));
 
         Command mainCommand = Command.builder()
                 .setText("click me")

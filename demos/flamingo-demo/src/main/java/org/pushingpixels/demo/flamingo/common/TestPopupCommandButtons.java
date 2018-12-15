@@ -127,8 +127,8 @@ public class TestPopupCommandButtons extends JFrame {
                         .setIcon(new Text_x_generic()).build());
 
                 return new CommandPopupMenuContentModel(
-                        Arrays.asList(new CommandGroupModel(simpleEntries1),
-                                new CommandGroupModel(simpleEntries2)));
+                        Arrays.asList(new CommandGroup(simpleEntries1),
+                                new CommandGroup(simpleEntries2)));
 
             case SCROLLABLE:
                 List<Command> scrollableEntries = new ArrayList<>();
@@ -144,11 +144,11 @@ public class TestPopupCommandButtons extends JFrame {
                                     .build());
                 }
 
-                return new CommandPopupMenuContentModel(new CommandGroupModel(scrollableEntries));
+                return new CommandPopupMenuContentModel(new CommandGroup(scrollableEntries));
 
             default:
-                List<CommandGroupModel> extraEntries = new ArrayList<>();
-                extraEntries.add(new CommandGroupModel(
+                List<CommandGroup> extraEntries = new ArrayList<>();
+                extraEntries.add(new CommandGroup(
                         Command.builder()
                                 .setText(resourceBundle.getString("SaveSelection.text"))
                                 .setIcon(new X_office_document())
@@ -158,7 +158,7 @@ public class TestPopupCommandButtons extends JFrame {
                                 .setIcon(new EmptyResizableIcon(16))
                                 .build()
                 ));
-                extraEntries.add(new CommandGroupModel(
+                extraEntries.add(new CommandGroup(
                         Command.builder()
                                 .setText(resourceBundle.getString("ApplyStyles.text"))
                                 .setIcon(new EmptyResizableIcon(16))

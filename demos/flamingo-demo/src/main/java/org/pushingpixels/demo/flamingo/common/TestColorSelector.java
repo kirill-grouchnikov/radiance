@@ -35,7 +35,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.ColorSelectorPopupMenuProjection;
+import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandProjection;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.*;
@@ -172,13 +172,15 @@ public class TestColorSelector extends JFrame {
         selectorModel.setColorActivationListener(colorActivationListener);
         selectorModel.setColorPreviewListener(colorPreviewListener);
 
-        AbstractCommandButton colorButton = Command.builder()
-                .setIcon(colorIcon)
-                .setPopupMenuContentModel(selectorModel)
-                .build()
-                .project(CommandPresentation.builder()
+        AbstractCommandButton colorButton = new ColorSelectorCommandProjection(
+                ColorSelectorCommand.colorSelectorBuilder()
+                        .setIcon(colorIcon)
+                        .setColorSelectorPopupMenuContentModel(selectorModel)
+                        .build(),
+                CommandPresentation.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
-                        .setFlat(false).build())
+                        .setFlat(false)
+                        .build())
                 .buildComponent();
 
         top.add(colorButton);

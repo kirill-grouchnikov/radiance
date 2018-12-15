@@ -32,10 +32,11 @@ package org.pushingpixels.flamingo.api.ribbon;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
-import org.pushingpixels.flamingo.api.ribbon.model.*;
-import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonApplicationMenuPresentationModel;
+import org.pushingpixels.flamingo.api.ribbon.projection.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
+import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuProjection;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -53,9 +54,10 @@ import java.util.*;
  * <li>Ribbon tasks added with {@link #addTask(RibbonTask)}</li>
  * <li>Contextual ribbon task groups added with
  * {@link #addContextualTaskGroup(RibbonContextualTaskGroup)}</li>
- * <li>Application menu button set by {@link #setApplicationMenu(RibbonApplicationMenu)}</li>
+ * <li>Application menu content set by
+ * {@link #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)} </li>
  * <li>Taskbar panel populated by {@link #addTaskbarCommand(CommandProjection)},
- * {@link #addTaskbarGalleryDropdown(RibbonGalleryContentModel, RibbonGalleryPresentationModel, Map)}
+ * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)}
  * and {@link #addTaskbarComponent(JRibbonComponent)}</li>
  * <li>Anchored content set by {@link #addAnchoredCommand(CommandProjection)}</li>
  * </ul>
@@ -78,17 +80,17 @@ import java.util.*;
  *
  * <p>
  * The application menu button is a rectangular button shown in the top left corner of the ribbon.
- * If the {@link #setApplicationMenu(RibbonApplicationMenu)} is not called, or called with the
- * <code>null</code> value, the application menu button is not shown, and ribbon task buttons are
- * shifted to the left.
+ * If the {@link #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)} is not called,
+ * or called with the <code>null</code> value, the application menu button is not shown, and ribbon
+ * task buttons are shifted to the left.
  * </p>
  *
  * <p>
  * The taskbar panel allows showing controls that are visible no matter what ribbon task is
  * selected. To add a taskbar component use the {@link #addTaskbarCommand(CommandProjection)},
- * {@link #addTaskbarGalleryDropdown(RibbonGalleryContentModel, RibbonGalleryPresentationModel, Map)}
- * and {@link #addTaskbarComponent(JRibbonComponent)} APIs. The
- * taskbar panel lives in the top-left corner of the application frame.
+ * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)} and
+ * {@link #addTaskbarComponent(JRibbonComponent)} APIs. The taskbar panel lives in the top-left
+ * corner of the application frame.
  * </p>
  *
  * <p>
@@ -167,29 +169,23 @@ public class JRibbon extends JComponent {
      */
     private Map<RibbonContextualTaskGroup, Boolean> groupVisibilityMap;
 
+    private RibbonApplicationMenuCommandProjection applicationMenuCommandProjection;
+
     /**
      * The application menu.
      *
-     * @see #setApplicationMenu(RibbonApplicationMenu)
+     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
      * @see #getApplicationMenu()
      */
-    private RibbonApplicationMenu applicationMenu;
+    private RibbonApplicationMenuProjection applicationMenu;
 
     /**
      * The rich tooltip of {@link #applicationMenu} button.
-     *
-     * @see #applicationMenu
-     * @see #setApplicationMenuRichTooltip(RichTooltip)
-     * @see #getApplicationMenuRichTooltip()
      */
     private RichTooltip applicationMenuRichTooltip;
 
     /**
      * The key tip of {@link #applicationMenu} button.
-     *
-     * @see #applicationMenu
-     * @see #setApplicationMenuKeyTip(String)
-     * @see #getApplicationMenuKeyTip()
      */
     private String applicationMenuKeyTip;
 
@@ -248,7 +244,7 @@ public class JRibbon extends JComponent {
      * @see #addTaskbarSeparator()
      * @see #clearTaskbar()
      */
-    public synchronized void addTaskbarCommand(CommandProjection projection) {
+    public synchronized void addTaskbarCommand(CommandProjection<Command> projection) {
         CommandPresentation withOverlay = projection.getPresentationModel().overlayWith(
                 CommandPresentation.overlay()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
@@ -256,7 +252,7 @@ public class JRibbon extends JComponent {
                         .setHorizontalGapScaleFactor(0.5)
                         .setVerticalGapScaleFactor(0.5));
 
-        CommandProjection projectionWithOverlay = projection.reproject(withOverlay);
+        CommandProjection<Command> projectionWithOverlay = projection.reproject(withOverlay);
         AbstractCommandButton commandButton = projectionWithOverlay.buildComponent();
 
         this.taskbarComponents.add(commandButton);
@@ -645,24 +641,48 @@ public class JRibbon extends JComponent {
      * @param applicationMenu The new application menu. Can be <code>null</code>.
      * @see #getApplicationMenu()
      */
-    public synchronized void setApplicationMenu(RibbonApplicationMenu applicationMenu) {
-        RibbonApplicationMenu old = this.applicationMenu;
+    private void setApplicationMenu(RibbonApplicationMenuProjection applicationMenu) {
+        RibbonApplicationMenuProjection old = this.applicationMenu;
         if (old != applicationMenu) {
             this.applicationMenu = applicationMenu;
             if (this.applicationMenu != null) {
-                this.applicationMenu.freeze();
+                this.applicationMenu.getContentModel().freeze();
             }
             this.firePropertyChange("applicationMenu", old, this.applicationMenu);
         }
+    }
+
+    public synchronized void setApplicationMenuCommand(
+            RibbonApplicationMenuCommandProjection applicationMenuCommandProjection) {
+        this.applicationMenuCommandProjection = applicationMenuCommandProjection;
+
+        if (applicationMenuCommandProjection == null) {
+            this.setApplicationMenu(null);
+        } else {
+            RibbonApplicationMenu ribbonApplicationMenu = (RibbonApplicationMenu)
+                    applicationMenuCommandProjection.getContentModel().getPopupMenuContentModel();
+            RibbonApplicationMenuProjection ribbonApplicationMenuProjection =
+                    new RibbonApplicationMenuProjection(
+                            ribbonApplicationMenu, CommandPresentation.withDefaults());
+            setApplicationMenu(ribbonApplicationMenuProjection);
+            setApplicationMenuKeyTip(
+                    applicationMenuCommandProjection.getPresentationModel().getPopupKeyTip());
+            setApplicationMenuRichTooltip(
+                    applicationMenuCommandProjection.getContentModel().getPopupRichTooltip());
+        }
+    }
+
+    public RibbonApplicationMenuCommandProjection getApplicationMenuCommandProjection() {
+        return this.applicationMenuCommandProjection;
     }
 
     /**
      * Returns the application menu of this ribbon.
      *
      * @return The application menu of this ribbon.
-     * @see #setApplicationMenu(RibbonApplicationMenu)
+     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
      */
-    public synchronized RibbonApplicationMenu getApplicationMenu() {
+    public synchronized RibbonApplicationMenuProjection getApplicationMenu() {
         return this.applicationMenu;
     }
 
@@ -672,9 +692,9 @@ public class JRibbon extends JComponent {
      *
      * @param tooltip The rich tooltip of the application menu button.
      * @see #getApplicationMenuRichTooltip()
-     * @see #setApplicationMenu(RibbonApplicationMenu)
+     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
      */
-    public synchronized void setApplicationMenuRichTooltip(RichTooltip tooltip) {
+    private synchronized void setApplicationMenuRichTooltip(RichTooltip tooltip) {
         RichTooltip old = this.applicationMenuRichTooltip;
         this.applicationMenuRichTooltip = tooltip;
         this.firePropertyChange("applicationMenuRichTooltip", old, this.applicationMenuRichTooltip);
@@ -685,7 +705,7 @@ public class JRibbon extends JComponent {
      *
      * @return The rich tooltip of the application menu button.
      * @see #setApplicationMenuRichTooltip(RichTooltip)
-     * @see #setApplicationMenu(RibbonApplicationMenu)
+     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
      */
     public synchronized RichTooltip getApplicationMenuRichTooltip() {
         return this.applicationMenuRichTooltip;
@@ -696,10 +716,10 @@ public class JRibbon extends JComponent {
      * property change event.
      *
      * @param keyTip The new key tip for the application menu button.
-     * @see #setApplicationMenu(RibbonApplicationMenu)
+     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
      * @see #getApplicationMenuKeyTip()
      */
-    public synchronized void setApplicationMenuKeyTip(String keyTip) {
+    private synchronized void setApplicationMenuKeyTip(String keyTip) {
         String old = this.applicationMenuKeyTip;
         this.applicationMenuKeyTip = keyTip;
         this.firePropertyChange("applicationMenuKeyTip", old, this.applicationMenuKeyTip);
@@ -709,8 +729,7 @@ public class JRibbon extends JComponent {
      * Returns the key tip of the application menu button.
      *
      * @return The key tip of the application menu button.
-     * @see #setApplicationMenuKeyTip(String)
-     * @see #setApplicationMenu(RibbonApplicationMenu)
+     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
      */
     public synchronized String getApplicationMenuKeyTip() {
         return this.applicationMenuKeyTip;
