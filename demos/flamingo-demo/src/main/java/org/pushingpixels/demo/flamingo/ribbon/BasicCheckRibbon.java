@@ -44,6 +44,8 @@ import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.model.*;
 import org.pushingpixels.flamingo.api.ribbon.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
+import org.pushingpixels.flamingo.api.ribbon.wrapper.model.*;
+import org.pushingpixels.flamingo.api.ribbon.wrapper.projection.*;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.*;
@@ -52,6 +54,7 @@ import org.pushingpixels.substance.api.skin.GeminiSkin;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -87,6 +90,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private Command amEntrySaveAsHtml;
     private Command amEntrySaveAsOtherFormats;
     private Command amEntrySaveAs;
+
+    private RibbonComboBoxContentModel<String> fontComboBoxModel;
 
     private class ExpandActionListener implements CommandAction {
         @Override
@@ -259,46 +264,58 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 null);
 
         paragraphBand.startGroup(resourceBundle.getString("Indent.text"));
-        JRibbonComponent justifyLeftWrapper = new JRibbonComponent(new Format_justify_left(),
-                resourceBundle.getString("IndentLeft.text"),
-                new JSpinner(new SpinnerNumberModel(0, 0, 100, 5)));
-        justifyLeftWrapper.setKeyTip("PL");
 
-        justifyLeftWrapper.setRichTooltip(RichTooltip.builder()
-                .setTitle(resourceBundle.getString("IndentLeft.tooltip.title"))
-                .addDescriptionSection(
-                        resourceBundle.getString("IndentLeft.tooltip.actionParagraph1"))
-                .addDescriptionSection(
-                        resourceBundle.getString("IndentLeft.tooltip.actionParagraph2"))
-                .build());
+        paragraphBand.addWrappedComponent(new RibbonSpinnerProjection(
+                RibbonSpinnerNumberContentModel.builder()
+                        .setValues(0, 0, 100, 5)
+                        .setIconFactory(Format_justify_left.factory())
+                        .setCaption(resourceBundle.getString("IndentLeft.text"))
+                        .setRichTooltip(RichTooltip.builder()
+                                .setTitle(resourceBundle.getString("IndentLeft.tooltip.title"))
+                                .addDescriptionSection(resourceBundle.getString(
+                                        "IndentLeft.tooltip.actionParagraph1"))
+                                .addDescriptionSection(resourceBundle.getString(
+                                        "IndentLeft.tooltip.actionParagraph2"))
+                                .build())
+                        .build(),
+                WrapperPresentation.builder()
+                        .setKeyTip("PL")
+                        .build()));
 
-        paragraphBand.addRibbonComponent(justifyLeftWrapper);
-
-        JRibbonComponent justifyRightWrapper = new JRibbonComponent(new Format_justify_right(),
-                resourceBundle.getString("IndentRight.text"),
-                new JSpinner(new SpinnerNumberModel(0, 0, 100, 5)));
-        justifyRightWrapper.setKeyTip("PR");
-
-        justifyRightWrapper.setRichTooltip(RichTooltip.builder()
-                .setTitle(resourceBundle.getString("IndentRight.tooltip.title"))
-                .addDescriptionSection(
-                        resourceBundle.getString("IndentRight.tooltip.actionParagraph1"))
-                .addDescriptionSection(
-                        resourceBundle.getString("IndentRight.tooltip.actionParagraph2"))
-                .build());
-
-        paragraphBand.addRibbonComponent(justifyRightWrapper);
+        paragraphBand.addWrappedComponent(new RibbonSpinnerProjection(
+                RibbonSpinnerNumberContentModel.builder()
+                        .setValues(0, 0, 100, 5)
+                        .setIconFactory(Format_justify_right.factory())
+                        .setCaption(resourceBundle.getString("IndentRight.text"))
+                        .setRichTooltip(RichTooltip.builder()
+                                .setTitle(resourceBundle.getString("IndentRight.tooltip.title"))
+                                .addDescriptionSection(resourceBundle.getString(
+                                        "IndentRight.tooltip.actionParagraph1"))
+                                .addDescriptionSection(resourceBundle.getString(
+                                        "IndentRight.tooltip.actionParagraph2"))
+                                .build())
+                        .build(),
+                WrapperPresentation.builder()
+                        .setKeyTip("PR")
+                        .build()));
 
         paragraphBand.startGroup(resourceBundle.getString("Spacing.text"));
-        JRibbonComponent beforeWrapper = new JRibbonComponent(
-                new JSpinner(new SpinnerNumberModel(0, 0, 100, 5)));
-        beforeWrapper.setKeyTip("PB");
-        paragraphBand.addRibbonComponent(beforeWrapper);
 
-        JRibbonComponent afterWrapper = new JRibbonComponent(
-                new JSpinner(new SpinnerNumberModel(10, 0, 100, 5)));
-        afterWrapper.setKeyTip("PA");
-        paragraphBand.addRibbonComponent(afterWrapper);
+        paragraphBand.addWrappedComponent(new RibbonSpinnerProjection(
+                RibbonSpinnerNumberContentModel.builder()
+                        .setValues(0, 0, 100, 5)
+                        .build(),
+                WrapperPresentation.builder()
+                        .setKeyTip("PB")
+                        .build()));
+
+        paragraphBand.addWrappedComponent(new RibbonSpinnerProjection(
+                RibbonSpinnerNumberContentModel.builder()
+                        .setValues(0, 0, 100, 5)
+                        .build(),
+                WrapperPresentation.builder()
+                        .setKeyTip("PA")
+                        .build()));
 
         return paragraphBand;
     }
@@ -343,32 +360,44 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 resourceBundle.getString("Applications.textBandTitle"), new Applications_other(),
                 new ExpandActionListener());
 
-        JRibbonComponent games = new JRibbonComponent(new Applications_games(),
-                resourceBundle.getString("Games.text"),
-                new JComboBox(new Object[] { "Tetris", "Minesweeper", "Doom" }));
-        games.setKeyTip("AG");
-        games.setResizingAware(true);
-        games.setHorizontalAlignment(HorizontalAlignment.FILL);
-        applicationsBand.addRibbonComponent(games);
+        applicationsBand.addWrappedComponent(new RibbonComboBoxProjection(
+                RibbonDefaultComboBoxContentModel.<String>builder()
+                        .setItems(new String[] { "Tetris", "Minesweeper", "Doom" })
+                        .setIconFactory(Applications_games.factory())
+                        .setCaption(resourceBundle.getString("Games.text"))
+                        .build(),
+                WrapperPresentation.builder()
+                        .setKeyTip("AG")
+                        .setResizingAware(true)
+                        .setHorizontalAlignment(HorizontalAlignment.FILL)
+                        .build()));
 
-        JRibbonComponent internet = new JRibbonComponent(new Applications_internet(),
-                resourceBundle.getString("Internet.text"),
-                new JComboBox(new Object[] { "Firefox", "Opera", "Konqueror" }));
-        internet.setKeyTip("AI");
-        internet.setEnabled(false);
-        internet.setResizingAware(true);
-        internet.setHorizontalAlignment(HorizontalAlignment.FILL);
-        applicationsBand.addRibbonComponent(internet);
+        applicationsBand.addWrappedComponent(new RibbonComboBoxProjection(
+                RibbonDefaultComboBoxContentModel.<String>builder()
+                        .setItems(new String[] { "Firefox", "Opera", "Konqueror" })
+                        .setEnabled(false)
+                        .setIconFactory(Applications_internet.factory())
+                        .setCaption(resourceBundle.getString("Internet.text"))
+                        .build(),
+                WrapperPresentation.builder()
+                        .setKeyTip("AI")
+                        .setResizingAware(true)
+                        .setHorizontalAlignment(HorizontalAlignment.FILL)
+                        .build()));
 
-        JRibbonComponent multimedia = new JRibbonComponent(null,
-                resourceBundle.getString("Multimedia.text"),
-                new JComboBox(new Object[] { resourceBundle.getString("Pictures.text"),
-                        resourceBundle.getString("Video.text"),
-                        resourceBundle.getString("Audio.text") }));
-        multimedia.setKeyTip("AM");
-        multimedia.setResizingAware(true);
-        multimedia.setHorizontalAlignment(HorizontalAlignment.FILL);
-        applicationsBand.addRibbonComponent(multimedia);
+        applicationsBand.addWrappedComponent(new RibbonComboBoxProjection(
+                RibbonDefaultComboBoxContentModel.<String>builder()
+                        .setItems(new String[] {
+                                resourceBundle.getString("Pictures.text"),
+                                resourceBundle.getString("Video.text"),
+                                resourceBundle.getString("Audio.text") })
+                        .setCaption(resourceBundle.getString("Multimedia.text"))
+                        .build(),
+                WrapperPresentation.builder()
+                        .setKeyTip("AM")
+                        .setResizingAware(true)
+                        .setHorizontalAlignment(HorizontalAlignment.FILL)
+                        .build()));
 
         return applicationsBand;
     }
@@ -1070,13 +1099,22 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 JRibbonBand.PresentationPriority.TOP);
 
         transitionBand.startGroup();
-        transitionBand.addRibbonComponent(new JRibbonComponent(
-                new SimpleResizableIcon(JRibbonBand.PresentationPriority.TOP, 16, 16),
-                resourceBundle.getString("Sound.text"), new JComboBox(new Object[] {
-                "[" + resourceBundle.getString("NoSound.text") + "]     " })));
-        transitionBand.addRibbonComponent(
-                new JRibbonComponent(null, resourceBundle.getString("Speed.text"), new JComboBox(
-                        new Object[] { resourceBundle.getString("Medium.text") + "           " })));
+        transitionBand.addWrappedComponent(
+                new RibbonComboBoxProjection(
+                        RibbonDefaultComboBoxContentModel.<String>builder()
+                                .setItems(new String[] {
+                                        "[" + resourceBundle.getString("NoSound.text") + "]     " })
+                                .setIconFactory(new SimpleResizableIcon.FactoryTop())
+                                .build(),
+                        WrapperPresentation.builder().build()));
+        transitionBand.addWrappedComponent(
+                new RibbonComboBoxProjection(
+                        RibbonDefaultComboBoxContentModel.<String>builder()
+                                .setItems(new String[] {
+                                        resourceBundle.getString("Medium.text") + "           " })
+                                .setCaption(resourceBundle.getString("Speed.text"))
+                                .build(),
+                        WrapperPresentation.builder().build()));
 
         AbstractCommandButton applyToAll = Command.builder()
                 .setText(resourceBundle.getString("ApplyToAll.text"))
@@ -1257,6 +1295,40 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setTitleClickAction()
                 .setPopupMenuContentModel(saveAsMenu)
                 .build();
+
+        this.fontComboBoxModel = RibbonDefaultComboBoxContentModel.<String>builder()
+                .setItems(new String[] {
+                        "+ Minor (Calibri)   ", "+ Minor (Columbus)   ",
+                        "+ Minor (Consolas)   ", "+ Minor (Cornelius)   ",
+                        "+ Minor (Cleopatra)   ", "+ Minor (Cornucopia)   ",
+                        "+ Minor (California)   ", "+ Minor (Calendula)   ",
+                        "+ Minor (Coriander)   ", "+ Minor (Callisto)   ",
+                        "+ Minor (Cajun)   ", "+ Minor (Congola)   ",
+                        "+ Minor (Candella)   ", "+ Minor (Cambria)   " })
+                .setRichTooltip(RichTooltip.builder()
+                        .setTitle(resourceBundle.getString("Seasons.tooltip.title"))
+                        .build())
+                .build();
+        this.fontComboBoxModel.addListDataListener(new ListDataListener() {
+            Object selected = fontComboBoxModel.getSelectedItem();
+
+            @Override
+            public void intervalAdded(ListDataEvent e) {
+            }
+
+            @Override
+            public void intervalRemoved(ListDataEvent e) {
+            }
+
+            @Override
+            public void contentsChanged(ListDataEvent e) {
+                Object newSelection = fontComboBoxModel.getSelectedItem();
+                if (this.selected != newSelection) {
+                    System.out.println("New font selection -> " + newSelection);
+                    this.selected = newSelection;
+                }
+            }
+        });
     }
 
     private void createStyleGalleryModel() {
@@ -1461,14 +1533,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .build()
                 .project(CommandPresentation.builder().setActionKeyTip("4").build()));
 
-        JComboBox seasonCombo = new JComboBox<>(new String[] { "Winter",
-                "Spring", "Summer", "Autumn" });
-        JRibbonComponent seasonComboWrapper = new JRibbonComponent(seasonCombo);
-        seasonComboWrapper.setKeyTip("5");
-        seasonComboWrapper.setRichTooltip(RichTooltip.builder()
-                .setTitle(resourceBundle.getString("Seasons.tooltip.title"))
-                .build());
-        ribbon.addTaskbarComponent(seasonComboWrapper);
+        ribbon.addTaskbarComponent(new RibbonComboBoxProjection(this.fontComboBoxModel,
+                WrapperPresentation.builder().setKeyTip("5").build()));
 
         // Add the same gallery we have in the first ribbon task to the taskbar, configuring
         // its popup presentation with a 4x2 grid of slightly smaller buttons (instead of a 3x3
@@ -1726,16 +1792,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 CommandPresentation.overlay().setActionKeyTip("X"));
 
         RibbonApplicationMenu applicationMenu = new RibbonApplicationMenu(
-                resourceBundle.getString("AppMenu.title"));
-        applicationMenu.addMenuCommand(amEntryNew);
-        applicationMenu.addMenuCommand(amEntryOpen);
-        applicationMenu.addMenuCommand(amEntrySave);
-        applicationMenu.addMenuCommand(this.amEntrySaveAs);
-        applicationMenu.addMenuSeparator();
-        applicationMenu.addMenuCommand(amEntryPrint);
-        applicationMenu.addMenuCommand(amEntrySend);
-        applicationMenu.addMenuSeparator();
-        applicationMenu.addMenuCommand(amEntryExit);
+                new CommandGroup(amEntryNew, amEntryOpen, amEntrySave, this.amEntrySaveAs),
+                new CommandGroup(amEntryPrint, amEntrySend),
+                new CommandGroup(amEntryExit));
 
         Command amFooterProps = Command.builder()
                 .setText(resourceBundle.getString("AppMenuOptions.text"))
@@ -1925,21 +1984,13 @@ public class BasicCheckRibbon extends JRibbonFrame {
         fontBand.setExpandButtonKeyTip("FN");
         fontBand.setCollapsedStateKeyTip("ZF");
 
-        JComboBox fontCombo = new JComboBox<>(new String[] { "+ Minor (Calibri)   ",
-                "+ Minor (Columbus)   ", "+ Minor (Consolas)   ", "+ Minor (Cornelius)   ",
-                "+ Minor (Cleopatra)   ", "+ Minor (Cornucopia)   ",
-                "+ Minor (California)   ", "+ Minor (Calendula)   ",
-                "+ Minor (Coriander)   ", "+ Minor (Callisto)   ",
-                "+ Minor (Cajun)   ", "+ Minor (Congola)   ",
-                "+ Minor (Candella)   ", "+ Minor (Cambria)   " });
-        JRibbonComponent fontComboWrapper = new JRibbonComponent(fontCombo);
-        fontComboWrapper.setKeyTip("SF");
-        fontBand.addFlowComponent(fontComboWrapper);
+        fontBand.addFlowComponent(new RibbonComboBoxProjection(this.fontComboBoxModel,
+                WrapperPresentation.builder().setKeyTip("SF").build()));
 
-        JComboBox sizeCombo = new JComboBox<>(new String[] { "11  " });
-        JRibbonComponent sizeComboWrapper = new JRibbonComponent(sizeCombo);
-        sizeComboWrapper.setKeyTip("SS");
-        fontBand.addFlowComponent(sizeComboWrapper);
+        fontBand.addFlowComponent(new RibbonComboBoxProjection(
+                RibbonDefaultComboBoxContentModel.<String>builder()
+                        .setItems(new String[] { "11  " }).build(),
+                WrapperPresentation.builder().setKeyTip("SS").build()));
 
         Command indentLeft = Command.builder()
                 .setIcon(new Format_indent_less())

@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.flamingo.ribbon;
 
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 
 import java.awt.*;
 
@@ -95,4 +95,12 @@ public class SimpleResizableIcon implements ResizableIcon {
 
         graphics.dispose();
     }
+
+    public static class FactoryTop implements ResizableIconFactory {
+        @Override
+        public ResizableIcon createNewIcon() {
+            return new SimpleResizableIcon(JRibbonBand.PresentationPriority.TOP, 16, 16);
+        }
+    }
+
 }

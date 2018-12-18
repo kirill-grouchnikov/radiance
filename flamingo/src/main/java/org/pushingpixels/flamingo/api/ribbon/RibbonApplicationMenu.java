@@ -67,157 +67,45 @@ import java.util.*;
  * At runtime, the application menu entries are implemented as {@link JCommandMenuButton}, but the
  * application code does not operate on that level. Instead, the application code creates
  * metadata-driven description of the ribbon application menu with {@link Command.Builder}, and
- * those commands is used to create and populate the "real"
- * controls of the application menu popup.
+ * those commands is used to create and populate the "real" controls of the application menu popup.
  * </p>
  *
  * <p>
  * Note that once a {@link RibbonApplicationMenu} is set on the {@link JRibbon} with the
  * {@link JRibbon#setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)},
- * its contents cannot be changed. An {@link IllegalStateException} will be thrown from
- * {@link #addMenuCommand(Command)}, {@link #addMenuSeparator()} and
- * {@link #addFooterCommand(Command)}.
+ * its contents cannot be changed.
  * </p>
  *
  * @author Kirill Grouchnikov
  */
 public class RibbonApplicationMenu extends CommandPopupMenuContentModel {
     /**
-     * Indicates whether this ribbon application menu has been set on the {@link JRibbon} with the
-     * {@link JRibbon#setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)}.
-     * Once that API is called, the contents of this menu cannot be changed. An
-     * {@link IllegalStateException} will be thrown from
-     * {@link #addMenuCommand(Command)} and {@link #addFooterCommand(Command)}.
-     *
-     * @see #addMenuCommand(Command)
-     * @see #addFooterCommand(Command)
-     */
-    private boolean isFrozen;
-
-    private String title;
-
-    /**
-     * Primary commands.
-     */
-    private List<List<Command>> primaryCommands;
-
-    /**
      * Footer commands.
      */
     private CommandGroup footerCommands;
 
-    /**
-     * Creates an empty ribbon application menu.
-     *
-     * @param title Application menu title. Must not be null or empty.
-     */
-    public RibbonApplicationMenu(String title) {
-        super(new ArrayList<>());
-        if ((title == null) || title.isEmpty()) {
-            throw new IllegalArgumentException("Menu title can not be null or empty");
-        }
-        this.title = title;
-        this.primaryCommands = new ArrayList<>();
-        this.primaryCommands.add(new ArrayList<>());
+    public RibbonApplicationMenu(CommandGroup commands) {
+        super(commands);
         this.footerCommands = new CommandGroup();
     }
 
-    public String getTitle() {
-        return this.title;
+    public RibbonApplicationMenu(CommandGroup... commandGroups) {
+        super(commandGroups);
+        this.footerCommands = new CommandGroup();
     }
 
-    /**
-     * Adds the specified primary menu command.
-     *
-     * @param command Primary menu command to add.
-     * @throws IllegalStateException if this ribbon application menu has already been set on the
-     *                               {@link JRibbon} with the
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *           {@link JRibbon#setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)} .
-     * @see #getPrimaryCommands()
-     * @see #addFooterCommand(Command)
-     */
-    public synchronized void addMenuCommand(Command command) {
-        if (this.isFrozen) {
-            throw new IllegalStateException(
-                    "Cannot add menu entries after the menu has been set on the ribbon");
-        }
-        this.primaryCommands.get(this.primaryCommands.size() - 1).add(command);
-    }
-
-    public synchronized void addMenuSeparator() {
-        if (this.isFrozen) {
-            throw new IllegalStateException(
-                    "Cannot add menu entries after the menu has been set on the ribbon");
-        }
-        this.primaryCommands.add(new ArrayList<>());
-    }
-
-    /**
-     * Returns an unmodifiable list of all primary menu commands of this application menu. The
-     * result is guaranteed to be non-<code>null</code>.
-     *
-     * @return An unmodifiable list of all primary menu commands of this application menu.
-     * @see #addMenuCommand(Command)
-     * @see #getFooterCommands()
-     */
-    public List<List<Command>> getPrimaryCommands() {
-        return Collections.unmodifiableList(this.primaryCommands);
+    public RibbonApplicationMenu(List<CommandGroup> commands) {
+        super(commands);
+        this.footerCommands = new CommandGroup();
     }
 
     /**
      * Adds the specified footer command.
      *
      * @param entry Footer command to add.
-     * @throws IllegalStateException if this ribbon application menu has already been set on the
-     *                               {@link JRibbon} with the
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *            {@link JRibbon#setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)}.
      * @see #getFooterCommands()
-     * @see #addMenuCommand(Command)
      */
     public synchronized void addFooterCommand(Command entry) {
-        if (this.isFrozen) {
-            throw new IllegalStateException(
-                    "Cannot add footer commands after the menu has been set on the ribbon");
-        }
         this.footerCommands.addCommand(entry);
     }
 
@@ -227,26 +115,8 @@ public class RibbonApplicationMenu extends CommandPopupMenuContentModel {
      *
      * @return The footer commands of this application menu.
      * @see #addFooterCommand(Command)
-     * @see #getPrimaryCommands()
      */
     public CommandGroup getFooterCommands() {
         return this.footerCommands;
-    }
-
-    /**
-     * Marks this application menu as frozen. Subsequent calls to
-     * {@link #addMenuCommand(Command)} and
-     * {@link #addFooterCommand(Command)} will throw an
-     * {@link IllegalStateException}.
-     *
-     * @see #addMenuCommand(Command)
-     * @see #addFooterCommand(Command)
-     * @see JRibbon#setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
-     */
-    synchronized void freeze() {
-        this.isFrozen = true;
-        if (this.primaryCommands.get(this.primaryCommands.size() - 1).isEmpty()) {
-            this.primaryCommands.remove(this.primaryCommands.size() - 1);
-        }
     }
 }

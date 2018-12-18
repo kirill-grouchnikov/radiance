@@ -155,8 +155,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
                 Window windowAncestor = SwingUtilities.getWindowAncestor(ribbon);
                 if (windowAncestor instanceof JRibbonFrame) {
-                    applicationMenuButton.setText(
-                            ribbon.getApplicationMenu().getContentModel().getTitle());
+                    applicationMenuButton.setText(ribbon.getApplicationMenuCommandProjection()
+                            .getContentModel().getText());
                 }
             }
             if ("minimized".equals(evt.getPropertyName())) {
@@ -247,8 +247,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
             this.ribbon.add(this.applicationMenuButton);
             Window windowAncestor = SwingUtilities.getWindowAncestor(this.ribbon);
             if (windowAncestor instanceof JRibbonFrame) {
-                this.applicationMenuButton.setText(
-                        this.ribbon.getApplicationMenu().getContentModel().getTitle());
+                this.applicationMenuButton.setText(ribbon.getApplicationMenuCommandProjection()
+                        .getContentModel().getText());
             }
         }
     }
@@ -481,7 +481,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
             boolean isShowingAppMenuButton = (ribbon.getApplicationMenu() != null);
             FontMetrics fm = applicationMenuButton.getFontMetrics(applicationMenuButton.getFont());
             int appMenuButtonWidth = isShowingAppMenuButton
-                    ? fm.stringWidth(ribbon.getApplicationMenu().getContentModel().getTitle()) + 40
+                    ? fm.stringWidth(ribbon.getApplicationMenuCommandProjection()
+                    .getContentModel().getText()) + 40
                     : 0;
 
             x = ltr ? x + 2 : x - 2;

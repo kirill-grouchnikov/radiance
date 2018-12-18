@@ -31,7 +31,10 @@ package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.CommandAction;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
-import org.pushingpixels.flamingo.internal.ui.ribbon.JFlowBandControlPanel;
+import org.pushingpixels.flamingo.api.ribbon.wrapper.model.BaseWrappedContentModel;
+import org.pushingpixels.flamingo.api.ribbon.wrapper.projection.WrapperProjection;
+import org.pushingpixels.flamingo.internal.ui.ribbon.*;
+import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
@@ -75,6 +78,12 @@ public class JFlowRibbonBand extends AbstractRibbonBand {
      */
     public void addFlowComponent(JComponent comp) {
         ((JFlowBandControlPanel) this.getControlPanel()).addFlowComponent(comp);
+    }
+
+    public void addFlowComponent(
+            WrapperProjection<? extends JComponent, ? extends BaseWrappedContentModel> projection) {
+        JRibbonComponent ribbonComponent = FlamingoUtilities.buildRibbonComponent(projection);
+        ((JFlowBandControlPanel) this.getControlPanel()).addFlowComponent(ribbonComponent);
     }
 
     @Override

@@ -33,7 +33,10 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
+import org.pushingpixels.flamingo.api.ribbon.wrapper.model.BaseWrappedContentModel;
+import org.pushingpixels.flamingo.api.ribbon.wrapper.projection.WrapperProjection;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -143,5 +146,23 @@ public class FlamingoUtilities {
 
     public static int getCommandButtonSmallIconSize(int fontSize) {
         return FlamingoUtilities.getScaledSize(16, fontSize, 1.0, 4);
+    }
+
+    public static JRibbonComponent buildRibbonComponent(
+            WrapperProjection<? extends JComponent, ? extends BaseWrappedContentModel> projection) {
+        JRibbonComponent ribbonComponent = new JRibbonComponent(projection.buildComponent());
+        ribbonComponent.setKeyTip(projection.getPresentationModel().getKeyTip());
+        ribbonComponent.setResizingAware(projection.getPresentationModel().isResizingAware());
+        ribbonComponent.setHorizontalAlignment(
+                projection.getPresentationModel().getHorizontalAlignment());
+        if (projection.getContentModel().getIconFactory() != null) {
+            ResizableIcon icon = projection.getContentModel().getIconFactory().createNewIcon();
+            icon.setDimension(new Dimension(16, 16));
+            ribbonComponent.setIcon(icon);
+        }
+        ribbonComponent.setCaption(projection.getContentModel().getCaption());
+        ribbonComponent.setRichTooltip(projection.getContentModel().getRichTooltip());
+        ribbonComponent.setEnabled(projection.getContentModel().isEnabled());
+        return ribbonComponent;
     }
 }

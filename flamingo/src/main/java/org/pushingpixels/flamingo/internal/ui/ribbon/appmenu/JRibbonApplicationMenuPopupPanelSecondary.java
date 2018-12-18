@@ -31,8 +31,8 @@ package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
+import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonPanelUI;
 
 import javax.swing.*;
 import java.util.Map;
@@ -65,6 +65,7 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends JCommandButtonPan
             JCommandButton toTrack) {
         super(projection);
         this.toTrack = toTrack;
+        this.putClientProperty(BasicCommandButtonPanelUI.SKIP_BACKGROUND_FILL, Boolean.TRUE);
     }
 
     @Override

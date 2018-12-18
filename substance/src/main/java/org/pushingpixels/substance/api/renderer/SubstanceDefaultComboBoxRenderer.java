@@ -63,16 +63,14 @@ public class SubstanceDefaultComboBoxRenderer extends SubstanceDefaultListCellRe
     public SubstanceDefaultComboBoxRenderer(JComboBox combo) {
         super();
         this.combo = combo;
-        // this.setOpaque(true);
 
         Insets ins = SubstanceSizeUtils.getListCellRendererInsets(SubstanceSizeUtils
                 .getComponentFontSize(combo));
         this.setBorder(new EmptyBorder(ins.top, ins.left, ins.bottom, ins.right));
-        //
-        // Insets i = b.getBorderInsets(combo);
-        // System.out.println("Combo inner - " + combo.getFont().getSize() +" :
-        // "
-        // + i.top + ", " + i.left + ", " + i.bottom + ", " + i.right);
+    }
+
+    public SubstanceDefaultComboBoxRenderer() {
+
     }
 
     @Override

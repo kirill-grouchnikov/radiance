@@ -31,13 +31,17 @@ package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
+import org.pushingpixels.flamingo.api.ribbon.wrapper.model.BaseWrappedContentModel;
+import org.pushingpixels.flamingo.api.ribbon.wrapper.projection.WrapperProjection;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
+import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
+import javax.swing.*;
 import java.util.*;
 
 /**
@@ -87,8 +91,7 @@ public class JRibbonBand extends AbstractRibbonBand {
      * Big size with landscape orientation. Used for buttons in in-ribbon galleries.
      */
     public static final CommandButtonPresentationState BIG_FIXED_LANDSCAPE =
-            new CommandButtonPresentationState(
-                    "Big Fixed Landscape", 32) {
+            new CommandButtonPresentationState("Big Fixed Landscape", 32) {
                 @Override
                 public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton button) {
                     return new CommandButtonLayoutManagerBigFixedLandscape();
@@ -99,8 +102,7 @@ public class JRibbonBand extends AbstractRibbonBand {
      * Big size with landscape orientation. Used for buttons in in-ribbon galleries.
      */
     public static final CommandButtonPresentationState BIG_FIXED =
-            new CommandButtonPresentationState(
-                    "Big Fixed", 32) {
+            new CommandButtonPresentationState("Big Fixed", 32) {
                 @Override
                 public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton button) {
                     return new CommandButtonLayoutManagerBigFixed();
@@ -180,6 +182,12 @@ public class JRibbonBand extends AbstractRibbonBand {
      */
     public void addRibbonComponent(JRibbonComponent comp) {
         ((JBandControlPanel) this.getControlPanel()).addRibbonComponent(comp);
+    }
+
+    public void addWrappedComponent(
+            WrapperProjection<? extends JComponent, ? extends BaseWrappedContentModel> projection) {
+        JRibbonComponent ribbonComponent = FlamingoUtilities.buildRibbonComponent(projection);
+        ((JBandControlPanel) this.getControlPanel()).addRibbonComponent(ribbonComponent);
     }
 
     /**

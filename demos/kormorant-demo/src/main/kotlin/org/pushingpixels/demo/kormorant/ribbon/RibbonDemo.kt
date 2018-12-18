@@ -1737,230 +1737,235 @@ fun main(args: Array<String>) {
                 }
                 keyTip = "F"
 
-                // "Create new" primary
-                primaryCommand(actionKeyTip = "N") {
-                    title = builder.resourceBundle.getString("AppMenuNew.text")
-                    icon = Document_new.of(16, 16)
-                    action = CommandAction {
-                        println("Invoked creating new document")
-                    }
-
-                    commandPopupMenu {
-                        group {
-                            title = builder.resourceBundle.getString("AppMenu.default.textGroupTitle1")
-
-                            val mf = MessageFormat(
-                                    builder.resourceBundle.getString("AppMenu.default.textButton"))
-                            mf.locale = builder.currLocale
-                            for (i in 0..4) {
-                                command {
-                                    title = mf.format(arrayOf<Any>(i))
-                                    icon = Text_html.of(16, 16)
-                                    action = CommandAction {
-                                        println("Action $i activated")
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // "Open" primary
-                primaryCommand(actionKeyTip = "O") {
-                    title = builder.resourceBundle.getString("AppMenuOpen.text")
-                    icon = Document_open.of(16, 16)
-                    action = CommandAction {
-                        println("Invoked opening document")
-                    }
-
-                    commandPopupMenu {
-                        group {
-                            title = builder.resourceBundle.getString("AppMenuOpen.secondary.textGroupTitle1")
-
-                            val mf = MessageFormat(
-                                    builder.resourceBundle.getString("AppMenuOpen.secondary.textButton"))
-                            mf.locale = builder.currLocale
-                            for (i in 0..4) {
-                                command {
-                                    title = mf.format(arrayOf<Any>(i))
-                                    icon = Text_html.of(16, 16)
-                                    action = CommandAction {
-                                        println("Action $i activated")
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // "Save" primary
-                primaryCommand(actionKeyTip = "S") {
-                    title = builder.resourceBundle.getString("AppMenuSave.text")
-                    icon = Document_save.of(16, 16)
-                    action = CommandAction { println("Invoked saving document") }
-                    isEnabled = false
-                }
-
-                // "Save as" primary + secondaries
-                primaryCommand(actionKeyTip = "A", popupKeyTip = "F") {
-                    title = builder.resourceBundle.getString("AppMenuSaveAs.text")
-                    icon = Document_save_as.of(16, 16)
-                    action = CommandAction {
-                        println("Invoked saving document as")
-                    }
-                    isTitleClickAction = true
-
-                    commandPopupMenu {
-                        group {
-                            title = builder.resourceBundle.getString("AppMenuSaveAs.secondary.textGroupTitle1")
-
-                            command(actionKeyTip = "W") {
-                                title = builder.resourceBundle.getString("AppMenuSaveAs.word.text")
-                                icon = X_office_document.of(16, 16)
-                                extraText = builder.resourceBundle.getString("AppMenuSaveAs.word.description")
-                                action = CommandAction {
-                                    println("Invoked saved as Word")
-                                }
-                            }
-
-                            command(actionKeyTip = "H") {
-                                title = builder.resourceBundle.getString("AppMenuSaveAs.html.text")
-                                icon = Text_html.of(16, 16)
-                                extraText = builder.resourceBundle.getString("AppMenuSaveAs.html.description")
-                                action = CommandAction {
-                                    println("Invoked saved as HTML")
-                                }
-                                isEnabled = false
-                            }
-
-                            command(actionKeyTip = "O") {
-                                title = builder.resourceBundle.getString("AppMenuSaveAs.other.text")
-                                icon = Document_save_as.of(16, 16)
-                                extraText = builder.resourceBundle.getString("AppMenuSaveAs.other.description")
-                                action = CommandAction {
-                                    println("Invoked saved as other")
-                                }
-                            }
-                        }
-                    }
-                }
-
-                primarySeparator()
-
-                // "Print" primary + secondaries
-                primaryCommand(actionKeyTip = "P", popupKeyTip = "W") {
-                    title = builder.resourceBundle.getString("AppMenuPrint.text")
-                    icon = Document_print.of(16, 16)
-                    action = CommandAction { println("Invoked printing as") }
-                    isTitleClickAction = true
-
-                    commandPopupMenu {
-                        group {
-                            title = builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle1")
-
-                            command(actionKeyTip = "P") {
-                                title = builder.resourceBundle.getString("AppMenuPrint.print.text")
-                                icon = Printer.of(16, 16)
-                                extraText = builder.resourceBundle.getString("AppMenuPrint.print.description")
-                                action = CommandAction { println("Invoked print") }
-                            }
-
-                            command(actionKeyTip = "Q") {
-                                title = builder.resourceBundle.getString("AppMenuPrint.quick.text")
-                                icon = Printer.of(16, 16)
-                                extraText = builder.resourceBundle.getString("AppMenuPrint.quick.description")
-                                action = CommandAction { println("Invoked quick") }
-                            }
-
-                            command(actionKeyTip = "V") {
-                                title = builder.resourceBundle.getString("AppMenuPrint.preview.text")
-                                icon = Document_print_preview.of(16, 16)
-                                extraText = builder.resourceBundle.getString("AppMenuPrint.preview.description")
-                                action =
-                                        CommandAction { println("Invoked preview") }
-                            }
+                group {
+                    // "Create new" primary
+                    command(actionKeyTip = "N") {
+                        title = builder.resourceBundle.getString("AppMenuNew.text")
+                        icon = Document_new.of(16, 16)
+                        action = CommandAction {
+                            println("Invoked creating new document")
                         }
 
-                        group {
-                            title = builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle2")
+                        commandPopupMenu {
+                            group {
+                                title = builder.resourceBundle.getString("AppMenu.default.textGroupTitle1")
 
-                            command(actionKeyTip = "M") {
-                                title = builder.resourceBundle.getString("AppMenuPrint.memo.text")
-                                icon = Text_x_generic.of(16, 16)
-                                action = CommandAction { println("Invoked memo") }
-                            }
-
-                            command(actionKeyTip = "C") {
-                                title = builder.resourceBundle.getString("AppMenuPrint.custom.text")
-                                icon = Text_x_generic.of(16, 16)
-                                action = CommandAction { println("Invoked custom") }
-                            }
-                        }
-                    }
-                }
-
-                // "Send" primary + secondaries
-                primaryCommand(popupKeyTip = "D") {
-                    title = builder.resourceBundle.getString("AppMenuSend.text")
-                    icon = Mail_forward.of(16, 16)
-
-                    commandPopupMenu {
-                        group {
-                            title = builder.resourceBundle.getString("AppMenuSend.secondary.textGroupTitle1")
-
-                            command(actionKeyTip = "E") {
-                                title = builder.resourceBundle.getString("AppMenuSend.email.text")
-                                icon = Mail_message_new.of(16, 16)
-                                extraText = builder.resourceBundle.getString("AppMenuSend.email.description")
-                                action = CommandAction { println("Invoked email") }
-                            }
-
-                            command(actionKeyTip = "H") {
-                                title = builder.resourceBundle.getString("AppMenuSend.html.text")
-                                icon = Text_html.of(16, 16)
-                                extraText = builder.resourceBundle.getString("AppMenuSend.html.description")
-                                action = CommandAction { println("Invoked HTML") }
-                            }
-
-                            command(actionKeyTip = "W") {
-                                title = builder.resourceBundle.getString("AppMenuSend.word.text")
-                                icon = X_office_document.of(16, 16)
-                                extraText = builder.resourceBundle.getString("AppMenuSend.word.description")
-                                action = CommandAction { println("Invoked Word") }
-                            }
-
-                            command(popupKeyTip = "X") {
-                                title = builder.resourceBundle.getString("AppMenuSend.wireless.text")
-                                icon = Mail_message_new.of(16, 16)
-                                extraText = builder.resourceBundle.getString("AppMenuSend.wireless.description")
-                                popupMenu = commandPopupMenu {
-                                    command(actionKeyTip = "W") {
-                                        title = builder.resourceBundle.getString("AppMenuSend.wireless.wifi.text")
-                                        icon = EmptyResizableIcon(16)
+                                val mf = MessageFormat(
+                                        builder.resourceBundle.getString("AppMenu.default.textButton"))
+                                mf.locale = builder.currLocale
+                                for (i in 0..4) {
+                                    command {
+                                        title = mf.format(arrayOf<Any>(i))
+                                        icon = Text_html.of(16, 16)
                                         action = CommandAction {
-                                            println("WiFi activated")
-                                        }
-                                    }
-
-                                    command(actionKeyTip = "B") {
-                                        title = builder.resourceBundle.getString("AppMenuSend.wireless.bluetooth.text")
-                                        icon = EmptyResizableIcon(16)
-                                        action = CommandAction {
-                                            println("Bluetooth activated")
+                                            println("Action $i activated")
                                         }
                                     }
                                 }
                             }
                         }
                     }
+
+                    // "Open" primary
+                    command(actionKeyTip = "O") {
+                        title = builder.resourceBundle.getString("AppMenuOpen.text")
+                        icon = Document_open.of(16, 16)
+                        action = CommandAction {
+                            println("Invoked opening document")
+                        }
+
+                        commandPopupMenu {
+                            group {
+                                title = builder.resourceBundle.getString("AppMenuOpen.secondary.textGroupTitle1")
+
+                                val mf = MessageFormat(
+                                        builder.resourceBundle.getString("AppMenuOpen.secondary.textButton"))
+                                mf.locale = builder.currLocale
+                                for (i in 0..4) {
+                                    command {
+                                        title = mf.format(arrayOf<Any>(i))
+                                        icon = Text_html.of(16, 16)
+                                        action = CommandAction {
+                                            println("Action $i activated")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // "Save" primary
+                    command(actionKeyTip = "S") {
+                        title = builder.resourceBundle.getString("AppMenuSave.text")
+                        icon = Document_save.of(16, 16)
+                        action = CommandAction { println("Invoked saving document") }
+                        isEnabled = false
+                    }
+
+                    // "Save as" primary + secondaries
+                    command(actionKeyTip = "A", popupKeyTip = "F") {
+                        title = builder.resourceBundle.getString("AppMenuSaveAs.text")
+                        icon = Document_save_as.of(16, 16)
+                        action = CommandAction {
+                            println("Invoked saving document as")
+                        }
+                        isTitleClickAction = true
+
+                        commandPopupMenu {
+                            group {
+                                title = builder.resourceBundle.getString("AppMenuSaveAs.secondary.textGroupTitle1")
+
+                                command(actionKeyTip = "W") {
+                                    title = builder.resourceBundle.getString("AppMenuSaveAs.word.text")
+                                    icon = X_office_document.of(16, 16)
+                                    extraText = builder.resourceBundle.getString("AppMenuSaveAs.word.description")
+                                    action = CommandAction {
+                                        println("Invoked saved as Word")
+                                    }
+                                }
+
+                                command(actionKeyTip = "H") {
+                                    title = builder.resourceBundle.getString("AppMenuSaveAs.html.text")
+                                    icon = Text_html.of(16, 16)
+                                    extraText = builder.resourceBundle.getString("AppMenuSaveAs.html.description")
+                                    action = CommandAction {
+                                        println("Invoked saved as HTML")
+                                    }
+                                    isEnabled = false
+                                }
+
+                                command(actionKeyTip = "O") {
+                                    title = builder.resourceBundle.getString("AppMenuSaveAs.other.text")
+                                    icon = Document_save_as.of(16, 16)
+                                    extraText = builder.resourceBundle.getString("AppMenuSaveAs.other.description")
+                                    action = CommandAction {
+                                        println("Invoked saved as other")
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
 
-                // "Exit" primary
-                primaryCommand(actionKeyTip = "X") {
-                    title = builder.resourceBundle.getString("AppMenuExit.text")
-                    icon = System_log_out.of(16, 16)
-                    action = CommandAction { System.exit(0) }
-                    popupMenu = null
+                group {
+                    // "Print" primary + secondaries
+                    command(actionKeyTip = "P", popupKeyTip = "W") {
+                        title = builder.resourceBundle.getString("AppMenuPrint.text")
+                        icon = Document_print.of(16, 16)
+                        action = CommandAction { println("Invoked printing as") }
+                        isTitleClickAction = true
+
+                        commandPopupMenu {
+                            group {
+                                title = builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle1")
+
+                                command(actionKeyTip = "P") {
+                                    title = builder.resourceBundle.getString("AppMenuPrint.print.text")
+                                    icon = Printer.of(16, 16)
+                                    extraText = builder.resourceBundle.getString("AppMenuPrint.print.description")
+                                    action = CommandAction { println("Invoked print") }
+                                }
+
+                                command(actionKeyTip = "Q") {
+                                    title = builder.resourceBundle.getString("AppMenuPrint.quick.text")
+                                    icon = Printer.of(16, 16)
+                                    extraText = builder.resourceBundle.getString("AppMenuPrint.quick.description")
+                                    action = CommandAction { println("Invoked quick") }
+                                }
+
+                                command(actionKeyTip = "V") {
+                                    title = builder.resourceBundle.getString("AppMenuPrint.preview.text")
+                                    icon = Document_print_preview.of(16, 16)
+                                    extraText = builder.resourceBundle.getString("AppMenuPrint.preview.description")
+                                    action =
+                                            CommandAction { println("Invoked preview") }
+                                }
+                            }
+
+                            group {
+                                title = builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle2")
+
+                                command(actionKeyTip = "M") {
+                                    title = builder.resourceBundle.getString("AppMenuPrint.memo.text")
+                                    icon = Text_x_generic.of(16, 16)
+                                    action = CommandAction { println("Invoked memo") }
+                                }
+
+                                command(actionKeyTip = "C") {
+                                    title = builder.resourceBundle.getString("AppMenuPrint.custom.text")
+                                    icon = Text_x_generic.of(16, 16)
+                                    action = CommandAction { println("Invoked custom") }
+                                }
+                            }
+                        }
+                    }
+
+                    // "Send" primary + secondaries
+                    command(popupKeyTip = "D") {
+                        title = builder.resourceBundle.getString("AppMenuSend.text")
+                        icon = Mail_forward.of(16, 16)
+
+                        commandPopupMenu {
+                            group {
+                                title = builder.resourceBundle.getString("AppMenuSend.secondary.textGroupTitle1")
+
+                                command(actionKeyTip = "E") {
+                                    title = builder.resourceBundle.getString("AppMenuSend.email.text")
+                                    icon = Mail_message_new.of(16, 16)
+                                    extraText = builder.resourceBundle.getString("AppMenuSend.email.description")
+                                    action = CommandAction { println("Invoked email") }
+                                }
+
+                                command(actionKeyTip = "H") {
+                                    title = builder.resourceBundle.getString("AppMenuSend.html.text")
+                                    icon = Text_html.of(16, 16)
+                                    extraText = builder.resourceBundle.getString("AppMenuSend.html.description")
+                                    action = CommandAction { println("Invoked HTML") }
+                                }
+
+                                command(actionKeyTip = "W") {
+                                    title = builder.resourceBundle.getString("AppMenuSend.word.text")
+                                    icon = X_office_document.of(16, 16)
+                                    extraText = builder.resourceBundle.getString("AppMenuSend.word.description")
+                                    action = CommandAction { println("Invoked Word") }
+                                }
+
+                                command(popupKeyTip = "X") {
+                                    title = builder.resourceBundle.getString("AppMenuSend.wireless.text")
+                                    icon = Mail_message_new.of(16, 16)
+                                    extraText = builder.resourceBundle.getString("AppMenuSend.wireless.description")
+                                    popupMenu = commandPopupMenu {
+                                        command(actionKeyTip = "W") {
+                                            title = builder.resourceBundle.getString("AppMenuSend.wireless.wifi.text")
+                                            icon = EmptyResizableIcon(16)
+                                            action = CommandAction {
+                                                println("WiFi activated")
+                                            }
+                                        }
+
+                                        command(actionKeyTip = "B") {
+                                            title = builder.resourceBundle.getString(
+                                                    "AppMenuSend.wireless.bluetooth.text")
+                                            icon = EmptyResizableIcon(16)
+                                            action = CommandAction {
+                                                println("Bluetooth activated")
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                group {
+                    // "Exit" primary
+                    command(actionKeyTip = "X") {
+                        title = builder.resourceBundle.getString("AppMenuExit.text")
+                        icon = System_log_out.of(16, 16)
+                        action = CommandAction { System.exit(0) }
+                        popupMenu = null
+                    }
                 }
 
                 footer {

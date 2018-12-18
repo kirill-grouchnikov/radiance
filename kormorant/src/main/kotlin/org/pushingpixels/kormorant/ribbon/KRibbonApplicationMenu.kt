@@ -60,7 +60,8 @@ class KRibbonApplicationMenu {
     private var richTooltip: KRichTooltip? by NullableDelegate { hasBeenConverted }
     var keyTip: String? by NullableDelegate { hasBeenConverted }
     private val footerCommands = KRibbonApplicationMenuCommandContainer()
-    private var primaryContent = arrayListOf<Any>()
+    private val groups = arrayListOf<KCommandGroup>()
+    private val defaultGroup = KCommandGroup()
 
     fun richTooltip(init: KRichTooltip.() -> Unit) {
         if (richTooltip == null) {
@@ -69,15 +70,19 @@ class KRibbonApplicationMenu {
         (richTooltip as KRichTooltip).init()
     }
 
-    fun primaryCommand(actionKeyTip: String? = null, popupKeyTip: String? = null,
-            init: KCommand.() -> Unit) {
-        val primaryCommand = KCommand()
-        primaryCommand.init()
-        primaryContent.add(primaryCommand)
+    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+            init: KCommand.() -> Unit): KCommand {
+        val command = KCommand()
+        command.init()
+        defaultGroup.commands.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip))
+        return command
     }
 
-    fun primarySeparator() {
-        primaryContent.add(KCommandPopupMenu.KCommandPopupMenuSeparator())
+    fun group(init: KCommandGroup.() -> Unit): KCommandGroup {
+        val group = KCommandGroup()
+        group.init()
+        groups.add(group)
+        return group
     }
 
     fun footer(init: KRibbonApplicationMenuCommandContainer.() -> Unit) {
@@ -89,12 +94,13 @@ class KRibbonApplicationMenu {
             throw IllegalStateException("This method can only be called once")
         }
 
-        ribbonApplicationMenu = RibbonApplicationMenu(title)
-        for (primaryEntry in primaryContent) {
-            when (primaryEntry) {
-                is KCommand -> ribbonApplicationMenu.addMenuCommand(primaryEntry.asJavaCommand())
-                is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonApplicationMenu.addMenuSeparator()
-            }
+        ribbonApplicationMenu = RibbonApplicationMenu()
+        if (defaultGroup.commands.isEmpty()) {
+            groups.remove(defaultGroup)
+        }
+
+        for (group in groups) {
+            ribbonApplicationMenu.addCommandGroup(group.toCommandGroupModel())
         }
 
         for (footerCommand in footerCommands.commands) {

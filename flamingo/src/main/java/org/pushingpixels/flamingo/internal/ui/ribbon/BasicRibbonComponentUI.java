@@ -110,6 +110,18 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
             }
             if ("caption".equals(evt.getPropertyName())) {
                 captionLabel.setText((String) evt.getNewValue());
+                ribbonComponent.revalidate();
+                ribbonComponent.doLayout();
+            }
+            if ("icon".equals(evt.getPropertyName())) {
+                ResizableIcon newIcon = (ResizableIcon) evt.getNewValue();
+                if (newIcon != null) {
+                    newIcon.setDimension(new Dimension(16, 16));
+                    this.disabledIcon = createDisabledIcon();
+                }
+
+                ribbonComponent.revalidate();
+                ribbonComponent.doLayout();
             }
             if ("presentationPriority".equals(evt.getPropertyName())) {
                 ribbonComponent.revalidate();
@@ -150,11 +162,13 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
         int smallIconSize = FlamingoUtilities.getCommandButtonSmallIconSize(
                 this.ribbonComponent.getFont().getSize());
         int tipCenterY = (this.ribbonComponent.getHeight() + smallIconSize) / 2;
-        if (this.ribbonComponent.isSimpleWrapper()) {
+        String caption = this.ribbonComponent.getCaption();
+        boolean hasCaption = (caption != null) && (caption.length() > 0);
+        if (hasCaption) {
+            return new Point(this.captionLabel.getX(), tipCenterY);
+        } else {
             return new Point(this.ribbonComponent.getMainComponent().getX() +
                     this.ribbonComponent.getMainComponent().getWidth() / 2, tipCenterY);
-        } else {
-            return new Point(this.captionLabel.getX(), tipCenterY);
         }
     }
 

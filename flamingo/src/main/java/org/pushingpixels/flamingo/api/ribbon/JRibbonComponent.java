@@ -194,16 +194,16 @@ public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
      * @param caption The new caption.
      */
     public void setCaption(String caption) {
-        if (this.isSimpleWrapper) {
-            throw new IllegalArgumentException("Cannot set caption on a simple component");
-        }
-        if (caption == null) {
-            throw new IllegalArgumentException("Caption must be non-null");
-        }
-
         String old = this.caption;
         this.caption = caption;
+        this.isSimpleWrapper = (caption != null);
         this.firePropertyChange("caption", old, this.caption);
+    }
+
+    public void setIcon(ResizableIcon icon) {
+        ResizableIcon old = this.icon;
+        this.icon = icon;
+        this.firePropertyChange("icon", old, this.icon);
     }
 
     /**
@@ -224,7 +224,7 @@ public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
      * <code>false</code> otherwise.
      */
     public boolean isSimpleWrapper() {
-        return this.isSimpleWrapper;
+        return (this.caption == null) || (this.caption.length() == 0);
     }
 
     /**

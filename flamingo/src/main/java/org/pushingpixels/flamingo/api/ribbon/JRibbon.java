@@ -32,11 +32,13 @@ package org.pushingpixels.flamingo.api.ribbon;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonApplicationMenuPresentationModel;
 import org.pushingpixels.flamingo.api.ribbon.projection.*;
+import org.pushingpixels.flamingo.api.ribbon.wrapper.model.BaseWrappedContentModel;
+import org.pushingpixels.flamingo.api.ribbon.wrapper.projection.WrapperProjection;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuProjection;
+import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -280,6 +282,14 @@ public class JRibbon extends JComponent {
         this.taskbarComponents.add(ribbonComponent);
         this.fireStateChanged();
     }
+
+    public synchronized void addTaskbarComponent(
+            WrapperProjection<? extends JComponent, ? extends BaseWrappedContentModel> projection) {
+        JRibbonComponent ribbonComponent = FlamingoUtilities.buildRibbonComponent(projection);
+        this.taskbarComponents.add(ribbonComponent);
+        this.fireStateChanged();
+    }
+
 
     /**
      * Adds a separator to the taskbar area of this ribbon.
@@ -645,9 +655,6 @@ public class JRibbon extends JComponent {
         RibbonApplicationMenuProjection old = this.applicationMenu;
         if (old != applicationMenu) {
             this.applicationMenu = applicationMenu;
-            if (this.applicationMenu != null) {
-                this.applicationMenu.getContentModel().freeze();
-            }
             this.firePropertyChange("applicationMenu", old, this.applicationMenu);
         }
     }

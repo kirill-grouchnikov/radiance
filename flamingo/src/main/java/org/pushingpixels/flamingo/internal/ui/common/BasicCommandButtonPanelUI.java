@@ -45,6 +45,12 @@ import java.awt.*;
  */
 public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
     /**
+     * Client property to mark the the command button panel to not draw the background fill
+     */
+    public static final String SKIP_BACKGROUND_FILL =
+            "radiance.flamingo.internal.commandButtonPanel.ui.skipBackgroundFill";
+
+    /**
      * The associated command button panel.
      */
     protected JCommandButtonPanel buttonPanel;
@@ -199,16 +205,23 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
     @Override
     public void paint(Graphics g, JComponent c) {
-        Color bg = this.buttonPanel.getBackground();
-        g.setColor(bg);
-        g.fillRect(0, 0, c.getWidth(), c.getHeight());
+        boolean skipBackgroundFill = Boolean.TRUE.equals(
+                this.buttonPanel.getClientProperty(SKIP_BACKGROUND_FILL));
+
+        if (!skipBackgroundFill) {
+            Color bg = this.buttonPanel.getBackground();
+            g.setColor(bg);
+            g.fillRect(0, 0, c.getWidth(), c.getHeight());
+        }
 
         int groupCount = (groupLabels != null) ? groupLabels.length : 0;
 
         for (int i = 0; i < groupCount; i++) {
             Rectangle groupRect = this.groupRects[i];
-            this.paintGroupBackground(g, i, groupRect.x, groupRect.y, groupRect.width,
-                    groupRect.height);
+            if (!skipBackgroundFill) {
+                this.paintGroupBackground(g, i, groupRect.x, groupRect.y, groupRect.width,
+                        groupRect.height);
+            }
 
             if (this.groupLabels[i].isVisible()) {
                 Rectangle groupTitleBackground = this.groupLabels[i].getBounds();

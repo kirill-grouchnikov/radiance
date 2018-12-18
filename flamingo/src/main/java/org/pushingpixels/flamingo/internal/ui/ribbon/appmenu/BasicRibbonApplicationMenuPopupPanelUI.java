@@ -156,11 +156,10 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     ribbonAppMenuProjection.getCommandOverlays();
             CommandPresentation baseCommandPresentation = CommandPresentation.builder()
                     .setMenu(true).build();
-            List<List<Command>> primaryEntries = ribbonAppMenu
-                    .getPrimaryCommands();
+            List<CommandGroup> primaryEntries = ribbonAppMenu.getCommandGroups();
             int primaryGroupCount = primaryEntries.size();
             for (int i = 0; i < primaryGroupCount; i++) {
-                for (final Command menuEntry : primaryEntries.get(i)) {
+                for (final Command menuEntry : primaryEntries.get(i).getCommands()) {
                     // Check to see if we have an overlay for the current command
                     CommandPresentation commandPresentation = baseCommandPresentation;
                     if (commandOverlays.containsKey(menuEntry)) {
@@ -238,8 +237,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             protected void paintComponent(Graphics g) {
                 SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(null);
                 SubstanceColorScheme baseFillScheme = SubstanceColorSchemeUtilities.getColorScheme(
-                        null,
-                        ComponentState.ENABLED);
+                        null, ComponentState.ENABLED);
                 fillPainter.paintContourBackground(g, null,
                         footerPanel.getWidth(), footerPanel.getHeight(),
                         new Rectangle(0, 0, footerPanel.getWidth(), footerPanel.getHeight()), false,

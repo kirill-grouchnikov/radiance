@@ -518,8 +518,7 @@ public class CoreRibbonResizePolicies {
                                 .map(elementPriority);
                         for (AbstractCommandButton button : controlPanelGroup
                                 .getRibbonButtons(elementPriority)) {
-                            // and add the button to a list based on the mapped
-                            // priority
+                            // and add the button to a list based on the mapped priority
                             mapped.get(mappedPriority).add(button);
                         }
                     }
