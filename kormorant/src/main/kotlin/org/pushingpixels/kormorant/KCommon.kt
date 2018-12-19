@@ -32,6 +32,7 @@ package org.pushingpixels.kormorant
 import org.pushingpixels.flamingo.api.common.RichTooltip
 import org.pushingpixels.flamingo.api.common.model.CommandToggleGroupModel
 import org.pushingpixels.neon.icon.ResizableIcon
+import org.pushingpixels.neon.icon.ResizableIconFactory
 import java.awt.Color
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -96,9 +97,9 @@ class ColorContainer {
 @FlamingoElementMarker
 class KRichTooltip {
     lateinit var title: String
-    var mainIcon: ResizableIcon? = null
+    var mainIconFactory: ResizableIconFactory? = null
     private val descriptionSections = TextContainer()
-    var footerIcon: ResizableIcon? = null
+    var footerIconFactory: ResizableIconFactory? = null
     private val footerSections = TextContainer()
 
     fun description(init: TextContainer.() -> Unit) {
@@ -112,11 +113,11 @@ class KRichTooltip {
     internal fun toJavaRichTooltip(): RichTooltip {
         val builder = RichTooltip.builder()
         builder.setTitle(title)
-        builder.setMainIcon(mainIcon)
+        builder.setMainIconFactory(mainIconFactory)
         for (descriptionSection in descriptionSections.strings) {
             builder.addDescriptionSection(descriptionSection)
         }
-        builder.setFooterIcon(footerIcon)
+        builder.setFooterIconFactory(footerIconFactory)
         for (footerSection in footerSections.strings) {
             builder.addFooterSection(footerSection)
         }

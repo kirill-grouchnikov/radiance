@@ -30,19 +30,20 @@
 package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.CommandAction;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
-import org.pushingpixels.flamingo.api.ribbon.wrapper.model.BaseWrappedContentModel;
-import org.pushingpixels.flamingo.api.ribbon.wrapper.projection.WrapperProjection;
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 
 /**
  * Flow ribbon band component. Hosts components added with
- * {@link #addFlowComponent(JComponent)} in flowing rows. Depending on the
- * current resize policy, the content is shown in either two or three rows.
+ * {@link #addFlowComponent(Projection)} and {@link #addFlowComponent(ComponentProjection)} in
+ * flowing rows. Depending on the current resize policy, the content is shown in either two or
+ * three rows.
  *
  * @author Kirill Grouchnikov
  */
@@ -71,18 +72,14 @@ public class JFlowRibbonBand extends AbstractRibbonBand {
         updateUI();
     }
 
-    /**
-     * Adds the specified component to this flow ribbon band.
-     *
-     * @param comp Component to add.
-     */
-    public void addFlowComponent(JComponent comp) {
-        ((JFlowBandControlPanel) this.getControlPanel()).addFlowComponent(comp);
+    public void addFlowComponent(Projection projection) {
+        ((JFlowBandControlPanel) this.getControlPanel()).addFlowComponent(
+                projection.buildComponent());
     }
 
     public void addFlowComponent(
-            WrapperProjection<? extends JComponent, ? extends BaseWrappedContentModel> projection) {
-        JRibbonComponent ribbonComponent = FlamingoUtilities.buildRibbonComponent(projection);
+            ComponentProjection<? extends JComponent, ? extends ComponentContentModel> projection) {
+        JRibbonComponent ribbonComponent = new JRibbonComponent(projection);
         ((JFlowBandControlPanel) this.getControlPanel()).addFlowComponent(ribbonComponent);
     }
 

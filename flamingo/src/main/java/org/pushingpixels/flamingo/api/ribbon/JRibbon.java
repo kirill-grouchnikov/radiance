@@ -33,12 +33,11 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.projection.*;
-import org.pushingpixels.flamingo.api.ribbon.wrapper.model.BaseWrappedContentModel;
-import org.pushingpixels.flamingo.api.ribbon.wrapper.projection.WrapperProjection;
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuProjection;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -60,7 +59,7 @@ import java.util.*;
  * {@link #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)} </li>
  * <li>Taskbar panel populated by {@link #addTaskbarCommand(CommandProjection)},
  * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)}
- * and {@link #addTaskbarComponent(JRibbonComponent)}</li>
+ * and {@link #addTaskbarComponent(ComponentProjection)}</li>
  * <li>Anchored content set by {@link #addAnchoredCommand(CommandProjection)}</li>
  * </ul>
  *
@@ -74,7 +73,7 @@ import java.util.*;
  * <p>
  * The contextual ribbon task groups allow showing and hiding ribbon tasks based on the current
  * selection in the application. For example, Word only shows the table tasks when a table is
- * selected in the document. By default, tasks belonging to the groups adde by
+ * selected in the document. By default, tasks belonging to the groups added by
  * {@link #addContextualTaskGroup(RibbonContextualTaskGroup)} are not visible. To show the tasks
  * belonging to the specific group, call {@link #setVisible(RibbonContextualTaskGroup, boolean)}
  * API. Note that you can have multiple task groups visible at the same time.
@@ -91,7 +90,7 @@ import java.util.*;
  * The taskbar panel allows showing controls that are visible no matter what ribbon task is
  * selected. To add a taskbar component use the {@link #addTaskbarCommand(CommandProjection)},
  * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)} and
- * {@link #addTaskbarComponent(JRibbonComponent)} APIs. The taskbar panel lives in the top-left
+ * {@link #addTaskbarComponent(ComponentProjection)} APIs. The taskbar panel lives in the top-left
  * corner of the application frame.
  * </p>
  *
@@ -107,7 +106,7 @@ import java.util.*;
  *
  * <p>
  * A minimized ribbon shows the application menu button, taskbar panel, task buttons and anchored
- * contnet, but not the ribbon bands of the selected task. Clicking a task button shows the ribbon
+ * contet, but not the ribbon bands of the selected task. Clicking a task button shows the ribbon
  * bands of that task in a popup <strong>without</strong> shifting the application content down.
  * </p>
  *
@@ -177,19 +176,9 @@ public class JRibbon extends JComponent {
      * The application menu.
      *
      * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
-     * @see #getApplicationMenu()
+     * @see #getApplicationMenuProjection()
      */
-    private RibbonApplicationMenuProjection applicationMenu;
-
-    /**
-     * The rich tooltip of {@link #applicationMenu} button.
-     */
-    private RichTooltip applicationMenuRichTooltip;
-
-    /**
-     * The key tip of {@link #applicationMenu} button.
-     */
-    private String applicationMenuKeyTip;
+    private RibbonApplicationMenuProjection applicationMenuProjection;
 
     /**
      * Indicates whether the ribbon is currently minimized.
@@ -266,26 +255,9 @@ public class JRibbon extends JComponent {
         this.fireStateChanged();
     }
 
-    /**
-     * Adds the specified ribbon component to the taskbar area of this ribbon.
-     *
-     * @param ribbonComponent The ribbon component to add.
-     * @see #addTaskbarCommand(CommandProjection)
-     * @see #addTaskbarSeparator()
-     * @see #clearTaskbar()
-     */
-    public synchronized void addTaskbarComponent(JRibbonComponent ribbonComponent) {
-        String caption = ribbonComponent.getCaption();
-        if ((caption != null) && (caption.length() > 0)) {
-            throw new IllegalArgumentException("Taskbar ribbon components do not support captions");
-        }
-        this.taskbarComponents.add(ribbonComponent);
-        this.fireStateChanged();
-    }
-
     public synchronized void addTaskbarComponent(
-            WrapperProjection<? extends JComponent, ? extends BaseWrappedContentModel> projection) {
-        JRibbonComponent ribbonComponent = FlamingoUtilities.buildRibbonComponent(projection);
+            ComponentProjection<? extends JComponent, ? extends ComponentContentModel> projection) {
+        JRibbonComponent ribbonComponent = new JRibbonComponent(projection);
         this.taskbarComponents.add(ribbonComponent);
         this.fireStateChanged();
     }
@@ -645,38 +617,34 @@ public class JRibbon extends JComponent {
     }
 
     /**
-     * Sets the application menu for this ribbon. If <code>null</code> is passed, the application
-     * menu button is hidden. Fires an <code>applicationMenu</code> property change event.
+     * Sets the application menu command for this ribbon. If <code>null</code> is passed, the
+     * application menu button is hidden.
      *
-     * @param applicationMenu The new application menu. Can be <code>null</code>.
-     * @see #getApplicationMenu()
+     * @param applicationMenuCommandProjection The new application menu command. Can be
+     *                                         <code>null</code>.
+     * @see #getApplicationMenuProjection()
      */
-    private void setApplicationMenu(RibbonApplicationMenuProjection applicationMenu) {
-        RibbonApplicationMenuProjection old = this.applicationMenu;
-        if (old != applicationMenu) {
-            this.applicationMenu = applicationMenu;
-            this.firePropertyChange("applicationMenu", old, this.applicationMenu);
-        }
-    }
-
     public synchronized void setApplicationMenuCommand(
             RibbonApplicationMenuCommandProjection applicationMenuCommandProjection) {
+        if (this.applicationMenuCommandProjection == applicationMenuCommandProjection) {
+            return;
+        }
+
+        RibbonApplicationMenuProjection old = this.applicationMenuProjection;
+
         this.applicationMenuCommandProjection = applicationMenuCommandProjection;
 
         if (applicationMenuCommandProjection == null) {
-            this.setApplicationMenu(null);
+            this.applicationMenuProjection = null;
         } else {
             RibbonApplicationMenu ribbonApplicationMenu = (RibbonApplicationMenu)
                     applicationMenuCommandProjection.getContentModel().getPopupMenuContentModel();
             RibbonApplicationMenuProjection ribbonApplicationMenuProjection =
                     new RibbonApplicationMenuProjection(
                             ribbonApplicationMenu, CommandPresentation.withDefaults());
-            setApplicationMenu(ribbonApplicationMenuProjection);
-            setApplicationMenuKeyTip(
-                    applicationMenuCommandProjection.getPresentationModel().getPopupKeyTip());
-            setApplicationMenuRichTooltip(
-                    applicationMenuCommandProjection.getContentModel().getPopupRichTooltip());
+            this.applicationMenuProjection = ribbonApplicationMenuProjection;
         }
+        this.firePropertyChange("applicationMenu", old, this.applicationMenuProjection);
     }
 
     public RibbonApplicationMenuCommandProjection getApplicationMenuCommandProjection() {
@@ -689,57 +657,8 @@ public class JRibbon extends JComponent {
      * @return The application menu of this ribbon.
      * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
      */
-    public synchronized RibbonApplicationMenuProjection getApplicationMenu() {
-        return this.applicationMenu;
-    }
-
-    /**
-     * Sets the rich tooltip of the application menu button. Fires an
-     * <code>applicationMenuRichTooltip</code> property change event.
-     *
-     * @param tooltip The rich tooltip of the application menu button.
-     * @see #getApplicationMenuRichTooltip()
-     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
-     */
-    private synchronized void setApplicationMenuRichTooltip(RichTooltip tooltip) {
-        RichTooltip old = this.applicationMenuRichTooltip;
-        this.applicationMenuRichTooltip = tooltip;
-        this.firePropertyChange("applicationMenuRichTooltip", old, this.applicationMenuRichTooltip);
-    }
-
-    /**
-     * Returns the rich tooltip of the application menu button.
-     *
-     * @return The rich tooltip of the application menu button.
-     * @see #setApplicationMenuRichTooltip(RichTooltip)
-     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
-     */
-    public synchronized RichTooltip getApplicationMenuRichTooltip() {
-        return this.applicationMenuRichTooltip;
-    }
-
-    /**
-     * Sets the key tip of the application menu button. Fires an <code>applicationMenuKeyTip</code>
-     * property change event.
-     *
-     * @param keyTip The new key tip for the application menu button.
-     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
-     * @see #getApplicationMenuKeyTip()
-     */
-    private synchronized void setApplicationMenuKeyTip(String keyTip) {
-        String old = this.applicationMenuKeyTip;
-        this.applicationMenuKeyTip = keyTip;
-        this.firePropertyChange("applicationMenuKeyTip", old, this.applicationMenuKeyTip);
-    }
-
-    /**
-     * Returns the key tip of the application menu button.
-     *
-     * @return The key tip of the application menu button.
-     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
-     */
-    public synchronized String getApplicationMenuKeyTip() {
-        return this.applicationMenuKeyTip;
+    public synchronized RibbonApplicationMenuProjection getApplicationMenuProjection() {
+        return this.applicationMenuProjection;
     }
 
     /**

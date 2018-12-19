@@ -33,9 +33,6 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.neon.icon.*;
-
-import java.beans.PropertyChangeEvent;
 
 public class CommandProjection<M extends Command>
         extends Projection<AbstractCommandButton, M, CommandPresentation> {
@@ -96,80 +93,5 @@ public class CommandProjection<M extends Command>
 
     @Override
     protected void configureComponent(AbstractCommandButton component) {
-        Command command = this.getContentModel();
-
-        // TODO: this should be looking at the weakly-referenced command button so that
-        //  it doesn't prevent unused buttons from being GC'd. When that reference is null,
-        //  the matching property change listener should be removed. Another option is to
-        //  have each projection have a list of weak references to buttons and cull that list.
-        command.addPropertyChangeListener((PropertyChangeEvent evt) -> {
-            if ("enabled".equals(evt.getPropertyName())) {
-                component.setEnabled((Boolean) evt.getNewValue());
-            }
-            if ("text".equals(evt.getPropertyName())) {
-                component.setText((String) evt.getNewValue());
-            }
-            if ("extraText".equals(evt.getPropertyName())) {
-                component.setExtraText((String) evt.getNewValue());
-            }
-            if ("icon".equals(evt.getPropertyName()) && (command.getIconFactory() == null)) {
-                component.setIcon((ResizableIcon) evt.getNewValue());
-            }
-            if ("iconFactory".equals(evt.getPropertyName())) {
-                ResizableIconFactory factory = (ResizableIconFactory) evt.getNewValue();
-                component.setIcon((factory != null) ? factory.createNewIcon() : command.getIcon());
-            }
-            if ("disabledIcon".equals(evt.getPropertyName()) &&
-                    (command.getDisabledIconFactory() == null)) {
-                component.setDisabledIcon((ResizableIcon) evt.getNewValue());
-            }
-            if ("disabledIconFactory".equals(evt.getPropertyName())) {
-                ResizableIconFactory factory = (ResizableIconFactory) evt.getNewValue();
-                component.setDisabledIcon((factory != null) ? factory.createNewIcon()
-                        : command.getDisabledIcon());
-            }
-            if ("isToggleSelected".equals(evt.getPropertyName())) {
-                component.getActionModel().setSelected((Boolean) evt.getNewValue());
-                if (command.getToggleGroupModel() != null) {
-                    command.getToggleGroupModel().setSelected(command, (Boolean) evt.getNewValue());
-                }
-            }
-            if ("action".equals(evt.getPropertyName())) {
-                component.removeCommandListener((CommandAction) evt.getOldValue());
-                component.addCommandListener((CommandAction) evt.getNewValue());
-            }
-            if ("actionRichTooltip".equals(evt.getPropertyName())) {
-                component.setActionRichTooltip((RichTooltip) evt.getNewValue());
-            }
-            if ("popupRichTooltip".equals(evt.getPropertyName())) {
-                if (component instanceof JCommandButton) {
-                    ((JCommandButton) component).setPopupRichTooltip(
-                            (RichTooltip) evt.getNewValue());
-                }
-            }
-            if ("isAutoRepeatAction".equals(evt.getPropertyName())) {
-                if (component instanceof JCommandButton) {
-                    ((JCommandButton) component).setAutoRepeatAction((Boolean) evt.getNewValue());
-                }
-            }
-            if ("isFireActionOnRollover".equals(evt.getPropertyName())) {
-                if (component instanceof JCommandButton) {
-                    ((JCommandButton) component).setFireActionOnRollover(
-                            (Boolean) evt.getNewValue());
-                }
-            }
-            if ("isFireActionOnPress".equals(evt.getPropertyName())) {
-                component.getActionModel().setFireActionOnPress((Boolean) evt.getNewValue());
-            }
-            if ("actionEnabled".equals(evt.getPropertyName())) {
-                component.getActionModel().setEnabled((Boolean) evt.getNewValue());
-            }
-            if ("popupEnabled".equals(evt.getPropertyName())) {
-                if (component instanceof JCommandButton) {
-                    ((JCommandButton) component).getPopupModel().setEnabled(
-                            (Boolean) evt.getNewValue());
-                }
-            }
-        });
     }
 }

@@ -77,8 +77,7 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
      * @param delegate   The main icon.
      * @param decorators Icon decorators.
      */
-    public DecoratedResizableIcon(ResizableIcon delegate,
-            IconDecorator... decorators) {
+    public DecoratedResizableIcon(ResizableIcon delegate, IconDecorator... decorators) {
         this.delegate = delegate;
         this.decorators = new ArrayList<>();
         if (decorators != null) {

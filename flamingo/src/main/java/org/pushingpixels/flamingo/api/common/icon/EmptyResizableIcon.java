@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 
 import java.awt.*;
 
@@ -86,5 +86,9 @@ public class EmptyResizableIcon implements ResizableIcon {
 
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
+    }
+
+    public static ResizableIconFactory factory() {
+        return () -> new EmptyResizableIcon(16);
     }
 }

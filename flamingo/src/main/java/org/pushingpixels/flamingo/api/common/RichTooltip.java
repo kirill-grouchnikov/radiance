@@ -1,58 +1,58 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 
 import java.util.*;
 
 /**
  * Rich tooltip for command buttons.
- * 
+ *
  * <p>
  * In its most basic form, the rich tooltip has a title and one (possible multiline) description
  * text:
  * </p>
- * 
+ *
  * <pre>
  * +--------------------------------+
  * | Title                          |
  * |        Some description text   |
  * +--------------------------------+
  * </pre>
- * 
+ *
  * <p>
  * The {@link Builder#addDescriptionSection(String)} can be used to add multiple
  * sections to the description:
  * </p>
- * 
+ *
  * <pre>
  * +--------------------------------+
  * | Title                          |
@@ -66,12 +66,12 @@ import java.util.*;
  * |        description section     |
  * +--------------------------------+
  * </pre>
- * 
+ *
  * <p>
- * The {@link Builder#setMainIcon(ResizableIcon)} can be used to place an image below
+ * The {@link Builder#setMainIconFactory(ResizableIconFactory)} can be used to place an image below
  * the title and to the left of the description sections:
  * </p>
- * 
+ *
  * <pre>
  * +--------------------------------+
  * | Title                          |
@@ -82,12 +82,12 @@ import java.util.*;
  * |          description section   |
  * +--------------------------------+
  * </pre>
- * 
+ *
  * <p>
  * The {@link Builder#addFooterSection(String)} can be used to add (possibly) multiple
  * footer sections that will be shown below a horizontal separator:
  * </p>
- * 
+ *
  * <pre>
  * +--------------------------------+
  * | Title                          |
@@ -101,12 +101,12 @@ import java.util.*;
  * | placed below a separator       |
  * +--------------------------------+
  * </pre>
- * 
+ *
  * <p>
- * The {@link Builder#setFooterIcon(ResizableIcon)} can be used to place an image to
+ * The {@link Builder#setFooterIconFactory(ResizableIconFactory)}  can be used to place an image to
  * the left of the footer sections:
  * </p>
- * 
+ *
  * <pre>
  * +--------------------------------+
  * | Title                          |
@@ -121,11 +121,11 @@ import java.util.*;
  * | *******                        |
  * +--------------------------------+
  * </pre>
- * 
+ *
  * <p>
  * Here is a fully fledged rich tooltip that shows all these APIs in action:
  * </p>
- * 
+ *
  * <pre>
  * +--------------------------------+
  * | Title                          |
@@ -142,41 +142,41 @@ import java.util.*;
  * |          footer section        |
  * +--------------------------------+
  * </pre>
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class RichTooltip {
     /**
      * The main title of this tooltip.
-     * 
+     *
      * @see #getTitle()
      */
     private String title;
 
     /**
      * The main icon of this tooltip. Can be <code>null</code>.
-     * 
+     *
      * @see #getMainIcon()
      */
     private ResizableIcon mainIcon;
 
     /**
      * The description sections of this tooltip.
-     * 
+     *
      * @see #getDescriptionSections()
      */
     private List<String> descriptionSections;
 
     /**
-     * The footer image of this tooltip. Can be <code>null</code>.
-     * 
+     * The ooter icon of this tooltip. Can be <code>null</code>.
+     *
      * @see #getFooterIcon()
      */
     private ResizableIcon footerIcon;
 
     /**
      * The footer sections of this tooltip. Can be empty.
-     * 
+     *
      * @see #getFooterSections()
      */
     private List<String> footerSections;
@@ -186,7 +186,7 @@ public class RichTooltip {
 
     /**
      * Returns the main title of this tooltip.
-     * 
+     *
      * @return The main title of this tooltip.
      */
     public String getTitle() {
@@ -195,7 +195,7 @@ public class RichTooltip {
 
     /**
      * Returns the main icon of this tooltip. Can return <code>null</code>.
-     * 
+     *
      * @return The main icon of this tooltip.
      * @see #getDescriptionSections()
      */
@@ -206,7 +206,7 @@ public class RichTooltip {
     /**
      * Returns an unmodifiable list of description sections of this tooltip. Guaranteed to return a
      * non-<code>null</code> list.
-     * 
+     *
      * @return An unmodifiable list of description sections of this tooltip.
      * @see #getTitle()
      * @see #getMainIcon()
@@ -217,7 +217,7 @@ public class RichTooltip {
 
     /**
      * Returns the footer icon of this tooltip. Can return <code>null</code>.
-     * 
+     *
      * @return The footer icon of this tooltip.
      * @see #getFooterSections()
      */
@@ -228,7 +228,7 @@ public class RichTooltip {
     /**
      * Returns an unmodifiable list of footer sections of this tooltip. Guaranteed to return a
      * non-<code>null</code> list.
-     * 
+     *
      * @return An unmodifiable list of footer sections of this tooltip.
      * @see #getFooterIcon()
      */
@@ -242,9 +242,9 @@ public class RichTooltip {
 
     public static class Builder {
         private String title;
-        private ResizableIcon mainIcon;
+        private ResizableIconFactory mainIconFactory;
         private List<String> descriptionSections;
-        private ResizableIcon footerIcon;
+        private ResizableIconFactory footerIconFactory;
         private List<String> footerSections;
 
         @SuppressWarnings("unchecked")
@@ -252,11 +252,13 @@ public class RichTooltip {
             RichTooltip richTooltip = new RichTooltip();
 
             richTooltip.title = this.title;
-            richTooltip.mainIcon = this.mainIcon;
+            richTooltip.mainIcon = (this.mainIconFactory != null)
+                    ? this.mainIconFactory.createNewIcon() : null;
             richTooltip.descriptionSections = (this.descriptionSections != null)
                     ? Collections.unmodifiableList(this.descriptionSections)
                     : Collections.EMPTY_LIST;
-            richTooltip.footerIcon = this.footerIcon;
+            richTooltip.footerIcon = (this.footerIconFactory != null)
+                    ? this.footerIconFactory.createNewIcon() : null;
             richTooltip.footerSections = (this.footerSections != null)
                     ? Collections.unmodifiableList(this.footerSections)
                     : Collections.EMPTY_LIST;
@@ -269,8 +271,8 @@ public class RichTooltip {
             return this;
         }
 
-        public Builder setMainIcon(ResizableIcon mainIcon) {
-            this.mainIcon = mainIcon;
+        public Builder setMainIconFactory(ResizableIconFactory mainIconFactory) {
+            this.mainIconFactory = mainIconFactory;
             return this;
         }
 
@@ -282,8 +284,8 @@ public class RichTooltip {
             return this;
         }
 
-        public Builder setFooterIcon(ResizableIcon footerIcon) {
-            this.footerIcon = footerIcon;
+        public Builder setFooterIconFactory(ResizableIconFactory footerIconFactory) {
+            this.footerIconFactory = footerIconFactory;
             return this;
         }
 

@@ -55,7 +55,8 @@ public class TestRichTooltipPanels extends JFrame {
                                 "exceeding the bigger")
                 .addDescriptionSection(
                         "Second paragraph that can be multiline as well to test this feature")
-                .setMainIcon(Address_book_new.of(32, 32)).setFooterIcon(Help_browser.of(32, 32))
+                .setMainIconFactory(Address_book_new.factory())
+                .setFooterIconFactory(Help_browser.factory())
                 .addFooterSection(
                         "Multiline footer description to provide a little bit more information on" +
                                 " this subject")

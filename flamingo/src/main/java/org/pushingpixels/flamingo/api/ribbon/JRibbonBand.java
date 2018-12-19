@@ -31,18 +31,17 @@ package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
-import org.pushingpixels.flamingo.api.ribbon.wrapper.model.BaseWrappedContentModel;
-import org.pushingpixels.flamingo.api.ribbon.wrapper.projection.WrapperProjection;
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
-import java.util.*;
+import java.util.Collections;
 
 /**
  * Ribbon band component. Can host three types of content:
@@ -51,7 +50,7 @@ import java.util.*;
  * <li>Ribbon commands added with
  * {@link #addRibbonCommand(CommandProjection, PresentationPriority)}.</li>
  * <li>Wrapped core / 3rd party components added with
- * {@link #addRibbonComponent(JRibbonComponent)}.</li>
+ * {@link #addRibbonComponent(ComponentProjection)}.</li>
  * <li>Ribbon galleries added with
  * {@link #addRibbonGallery(RibbonGalleryProjection, PresentationPriority)} .</li>
  * </ul>
@@ -73,8 +72,7 @@ import java.util.*;
  * <li>{@link CommandGroup#removeCommand(Command)}</li>
  * <li>{@link RibbonGalleryContentModel#setSelectedCommand(Command)}</li>
  * <li>{@link RibbonGalleryContentModel#addExtraPopupCommandGroup(CommandGroup)}</li>
- * <li
- * >{@link RibbonGalleryContentModel#removeExtraPopupCommandGroup(CommandGroup)}</li>
+ * <li>{@link RibbonGalleryContentModel#removeExtraPopupCommandGroup(CommandGroup)}</li>
  * </ul>
  *
  * <p>
@@ -175,18 +173,9 @@ public class JRibbonBand extends AbstractRibbonBand {
         ((JBandControlPanel) this.getControlPanel()).addRibbonGallery(gallery, priority);
     }
 
-    /**
-     * Adds the specified ribbon component to this ribbon band.
-     *
-     * @param comp The ribbon component to add.
-     */
-    public void addRibbonComponent(JRibbonComponent comp) {
-        ((JBandControlPanel) this.getControlPanel()).addRibbonComponent(comp);
-    }
-
-    public void addWrappedComponent(
-            WrapperProjection<? extends JComponent, ? extends BaseWrappedContentModel> projection) {
-        JRibbonComponent ribbonComponent = FlamingoUtilities.buildRibbonComponent(projection);
+    public void addRibbonComponent(
+            ComponentProjection<? extends JComponent, ? extends ComponentContentModel> projection) {
+        JRibbonComponent ribbonComponent = new JRibbonComponent(projection);
         ((JBandControlPanel) this.getControlPanel()).addRibbonComponent(ribbonComponent);
     }
 
@@ -217,10 +206,6 @@ public class JRibbonBand extends AbstractRibbonBand {
      */
     public void setGroupTitle(int groupIndex, String groupTitle) {
         ((JBandControlPanel) this.getControlPanel()).setGroupTitle(groupIndex, groupTitle);
-    }
-
-    public List<JRibbonComponent> getRibbonComponents(int groupIndex) {
-        return ((JBandControlPanel) this.getControlPanel()).getRibbonComponents(groupIndex);
     }
 
     @Override

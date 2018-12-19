@@ -30,13 +30,11 @@
 package org.pushingpixels.demo.kormorant.ribbon
 
 import com.jgoodies.forms.builder.FormBuilder
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Applications_games
 import org.pushingpixels.demo.kormorant.LocaleSwitcher
 import org.pushingpixels.demo.kormorant.popup.ColorIcon
 import org.pushingpixels.demo.kormorant.svg.*
-import org.pushingpixels.flamingo.api.common.CommandAction
-import org.pushingpixels.flamingo.api.common.CommandActionEvent
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.HorizontalAlignment
+import org.pushingpixels.flamingo.api.common.*
 import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
@@ -46,6 +44,10 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.*
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonCheckBoxProjection
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonComboBoxProjection
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonSpinnerProjection
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.kormorant.ribbon.*
 import org.pushingpixels.meteor.addDelayedActionListener
@@ -54,6 +56,7 @@ import org.pushingpixels.meteor.awt.brightness
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
+import org.pushingpixels.neon.icon.ResizableIconFactory
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.*
@@ -62,6 +65,8 @@ import java.util.*
 import javax.imageio.ImageIO
 import javax.swing.*
 import javax.swing.border.EmptyBorder
+import javax.swing.event.ListDataEvent
+import javax.swing.event.ListDataListener
 
 object SkinSwitcher {
     fun getSkinSwitcher(): JComboBox<String> {
@@ -277,6 +282,12 @@ private class SimpleResizableIcon(private val priority: PresentationPriority,
 
         graphics.dispose()
     }
+
+    class FactoryTop : ResizableIconFactory {
+        override fun createNewIcon(): ResizableIcon {
+            return SimpleResizableIcon(PresentationPriority.TOP, 16, 16)
+        }
+    }
 }
 
 private class RibbonDemoBuilder {
@@ -289,6 +300,10 @@ private class RibbonDemoBuilder {
     val menuSaveSelection: KCommand
     val menuClearSelection: KCommand
     val applyStyles: KCommand
+
+    val fontComboBoxModel: RibbonComboBoxContentModel<String>
+    val rulerCheckBoxModel: RibbonCheckBoxContentModel
+    val indentLeftSpinnerModel: RibbonSpinnerNumberContentModel
 
     val styleGalleryContentModel: KRibbonGalleryContent
 
@@ -405,6 +420,53 @@ private class RibbonDemoBuilder {
                 command(command = applyStyles, actionKeyTip = "SA")
             }
         }
+
+        fontComboBoxModel = RibbonDefaultComboBoxContentModel.builder<String>()
+                .setItems(arrayOf(
+                        "+ Minor (Calibri)   ", "+ Minor (Columbus)   ",
+                        "+ Minor (Consolas)   ", "+ Minor (Cornelius)   ",
+                        "+ Minor (Cleopatra)   ", "+ Minor (Cornucopia)   ",
+                        "+ Minor (California)   ", "+ Minor (Calendula)   ",
+                        "+ Minor (Coriander)   ", "+ Minor (Callisto)   ",
+                        "+ Minor (Cajun)   ", "+ Minor (Congola)   ",
+                        "+ Minor (Candella)   ", "+ Minor (Cambria)   "))
+                .setRichTooltip(RichTooltip.builder()
+                        .setTitle(resourceBundle.getString("Seasons.tooltip.title"))
+                        .build())
+                .build()
+        fontComboBoxModel.addListDataListener(object : ListDataListener {
+            var selected = fontComboBoxModel.getSelectedItem()
+
+            override fun intervalAdded(e: ListDataEvent) {}
+
+            override fun intervalRemoved(e: ListDataEvent) {}
+
+            override fun contentsChanged(e: ListDataEvent) {
+                val newSelection = fontComboBoxModel.getSelectedItem()
+                if (this.selected !== newSelection) {
+                    println("New font selection -> $newSelection")
+                    this.selected = newSelection
+                }
+            }
+        })
+
+        rulerCheckBoxModel = RibbonCheckBoxContentModel.builder()
+                .setText(resourceBundle.getString("Ruler.text"))
+                .setSelected(true)
+                .build()
+
+        indentLeftSpinnerModel = RibbonSpinnerNumberContentModel.builder()
+                .setValues(0, 0, 100, 5)
+                .setIconFactory(Format_justify_left.factory())
+                .setCaption(resourceBundle.getString("IndentLeft.text"))
+                .setRichTooltip(RichTooltip.builder()
+                        .setTitle(resourceBundle.getString("IndentLeft.tooltip.title"))
+                        .addDescriptionSection(resourceBundle.getString(
+                                "IndentLeft.tooltip.actionParagraph1"))
+                        .addDescriptionSection(resourceBundle.getString(
+                                "IndentLeft.tooltip.actionParagraph2"))
+                        .build())
+                .build()
     }
 
     fun getControlPanel(ribbonFrame: JRibbonFrame): JPanel {
@@ -616,11 +678,11 @@ private class RibbonDemoBuilder {
                         +"Simple description that can go over multiple lines of text even exceeding the bigger"
                         +"Second paragraph that can be multiline as well to test this feature"
                     }
-                    mainIcon = Address_book_new.of(32, 32)
+                    mainIconFactory = Address_book_new.factory()
                     footer {
                         +"Multiline footer description to provide a little bit more information on this subject"
                     }
-                    footerIcon = Help_browser.of(16, 16)
+                    footerIconFactory = Help_browser.factory()
                 }
             }
 
@@ -771,17 +833,13 @@ private class RibbonDemoBuilder {
                 action = ExpandCommandListener()
             }
 
-            ribbonComponent {
-                component = JComboBox(arrayOf("+ Minor (Calibri)   ", "+ Minor (Columbus)   ", "+ Minor (Consolas)   ",
-                        "+ Minor (Cornelius)   ", "+ Minor (Cleopatra)   ", "+ Minor (Cornucopia)   ",
-                        "+ Minor (Candella)   ", "+ Minor (Cambria)   "))
-                keyTip = "SF"
-            }
+            flowComponent(RibbonComboBoxProjection(fontComboBoxModel,
+                    ComponentPresentation.builder().setKeyTip("SF").build()))
 
-            ribbonComponent {
-                component = JComboBox(arrayOf("11  "))
-                keyTip = "SS"
-            }
+            flowComponent(RibbonComboBoxProjection(
+                    RibbonDefaultComboBoxContentModel.builder<String>()
+                            .setItems(arrayOf("11  ")).build(),
+                    ComponentPresentation.builder().setKeyTip("SS").build()))
 
             flowCommandButtonStrip {
                 command(actionKeyTip = "AO") {
@@ -1133,33 +1191,43 @@ private class RibbonDemoBuilder {
                 action = ExpandCommandListener()
             }
 
-            wrapper {
-                caption = resourceBundle.getString("Games.text")
-                icon = Applications_games.of(16, 16)
-                component = JComboBox(arrayOf<Any>("Tetris", "Minesweeper", "Doom"))
-                keyTip = "AG"
-                isResizingAware = true
-                horizontalAlignment = HorizontalAlignment.FILL
-            }
+            component(RibbonComboBoxProjection(
+                    RibbonDefaultComboBoxContentModel.builder<String>()
+                            .setItems(arrayOf("Tetris", "Minesweeper", "Doom"))
+                            .setIconFactory(Applications_games.factory())
+                            .setCaption(resourceBundle.getString("Games.text"))
+                            .build(),
+                    ComponentPresentation.builder()
+                            .setKeyTip("AG")
+                            .setResizingAware(true)
+                            .setHorizontalAlignment(HorizontalAlignment.FILL)
+                            .build()))
 
-            wrapper {
-                caption = resourceBundle.getString("Internet.text")
-                icon = Applications_internet.of(16, 16)
-                component = JComboBox(arrayOf<Any>("Firefox", "Opera", "Konqueror"))
-                keyTip = "AI"
-                isEnabled = false
-                isResizingAware = true
-                horizontalAlignment = HorizontalAlignment.FILL
-            }
+            component(RibbonComboBoxProjection(
+                    RibbonDefaultComboBoxContentModel.builder<String>()
+                            .setItems(arrayOf("Firefox", "Opera", "Konqueror"))
+                            .setEnabled(false)
+                            .setIconFactory(Applications_internet.factory())
+                            .setCaption(resourceBundle.getString("Internet.text"))
+                            .build(),
+                    ComponentPresentation.builder()
+                            .setKeyTip("AI")
+                            .setResizingAware(true)
+                            .setHorizontalAlignment(HorizontalAlignment.FILL)
+                            .build()))
 
-            wrapper {
-                caption = resourceBundle.getString("Multimedia.text")
-                component = JComboBox(arrayOf<Any>(resourceBundle.getString("Pictures.text"),
-                        resourceBundle.getString("Video.text"), resourceBundle.getString("Audio.text")))
-                keyTip = "AM"
-                isResizingAware = true
-                horizontalAlignment = HorizontalAlignment.FILL
-            }
+            component(RibbonComboBoxProjection(
+                    RibbonDefaultComboBoxContentModel.builder<String>()
+                            .setItems(arrayOf(resourceBundle.getString("Pictures.text"),
+                                    resourceBundle.getString("Video.text"),
+                                    resourceBundle.getString("Audio.text")))
+                            .setCaption(resourceBundle.getString("Multimedia.text"))
+                            .build(),
+                    ComponentPresentation.builder()
+                            .setKeyTip("AM")
+                            .setResizingAware(true)
+                            .setHorizontalAlignment(HorizontalAlignment.FILL)
+                            .build()))
         }
     }
 
@@ -1171,47 +1239,37 @@ private class RibbonDemoBuilder {
             group {
                 title = resourceBundle.getString("Indent.text")
 
-                wrapper {
-                    caption = resourceBundle.getString("IndentLeft.text")
-                    icon = Format_justify_left.of(16, 16)
-                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
-                    keyTip = "PL"
-                    richTooltip {
-                        title = resourceBundle.getString("IndentLeft.tooltip.title")
-                        description {
-                            +resourceBundle.getString("IndentLeft.tooltip.actionParagraph1")
-                            +resourceBundle.getString("IndentLeft.tooltip.actionParagraph2")
-                        }
-                    }
-                }
+                component(RibbonSpinnerProjection(indentLeftSpinnerModel,
+                        ComponentPresentation.builder().setKeyTip("PL").build()))
 
-                wrapper {
-                    caption = resourceBundle.getString("IndentRight.text")
-                    icon = Format_justify_right.of(16, 16)
-                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
-                    keyTip = "PR"
-                    richTooltip {
-                        title = resourceBundle.getString("IndentRight.tooltip.title")
-                        description {
-                            +resourceBundle.getString("IndentRight.tooltip.actionParagraph1")
-                            +resourceBundle.getString("IndentRight.tooltip.actionParagraph2")
-                        }
-                    }
-                }
+                component(RibbonSpinnerProjection(
+                        RibbonSpinnerNumberContentModel.builder()
+                                .setValues(0, 0, 100, 5)
+                                .setIconFactory(Format_justify_right.factory())
+                                .setCaption(resourceBundle.getString("IndentRight.text"))
+                                .setRichTooltip(RichTooltip.builder()
+                                        .setTitle(resourceBundle.getString("IndentRight.tooltip.title"))
+                                        .addDescriptionSection(resourceBundle.getString(
+                                                "IndentRight.tooltip.actionParagraph1"))
+                                        .addDescriptionSection(resourceBundle.getString(
+                                                "IndentRight.tooltip.actionParagraph2"))
+                                        .build())
+                                .build(),
+                        ComponentPresentation.builder()
+                                .setKeyTip("PR")
+                                .build()))
             }
 
             group {
                 title = resourceBundle.getString("Spacing.text")
 
-                wrapper {
-                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
-                    keyTip = "PB"
-                }
+                component(RibbonSpinnerProjection(
+                        RibbonSpinnerNumberContentModel.builder().setValues(0, 0, 100, 5).build(),
+                        ComponentPresentation.builder().setKeyTip("PB").build()))
 
-                wrapper {
-                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
-                    keyTip = "PA"
-                }
+                component(RibbonSpinnerProjection(
+                        RibbonSpinnerNumberContentModel.builder().setValues(0, 0, 100, 5).build(),
+                        ComponentPresentation.builder().setKeyTip("PA").build()))
             }
         }
     }
@@ -1221,34 +1279,34 @@ private class RibbonDemoBuilder {
             title = resourceBundle.getString("ShowHide.textBandTitle")
             icon = Format_justify_left.of(16, 16)
 
-            wrapper {
-                val ruler = JCheckBox(resourceBundle.getString("Ruler.text"))
-                ruler.isSelected = true
+            component(RibbonCheckBoxProjection(
+                    rulerCheckBoxModel,
+                    ComponentPresentation.builder().setKeyTip("SR").build()))
 
-                component = ruler
-                keyTip = "SR"
-            }
+            component(RibbonCheckBoxProjection(
+                    RibbonCheckBoxContentModel.builder()
+                            .setText(resourceBundle.getString("Gridlines.text"))
+                            .build(),
+                    ComponentPresentation.builder().setKeyTip("SG").build()))
 
-            wrapper {
-                component = JCheckBox(resourceBundle.getString("Gridlines.text"))
-                keyTip = "SG"
-            }
+            component(RibbonCheckBoxProjection(
+                    RibbonCheckBoxContentModel.builder()
+                            .setText(resourceBundle.getString("MessageBar.text"))
+                            .setEnabled(false)
+                            .build(),
+                    ComponentPresentation.builder().setKeyTip("SM").build()))
 
-            wrapper {
-                component = JCheckBox(resourceBundle.getString("MessageBar.text"))
-                isEnabled = false
-                keyTip = "SM"
-            }
+            component(RibbonCheckBoxProjection(
+                    RibbonCheckBoxContentModel.builder()
+                            .setText(resourceBundle.getString("DocumentMap.text"))
+                            .build(),
+                    ComponentPresentation.builder().setKeyTip("SD").build()))
 
-            wrapper {
-                component = JCheckBox(resourceBundle.getString("DocumentMap.text"))
-                keyTip = "SD"
-            }
-
-            wrapper {
-                component = JCheckBox(resourceBundle.getString("Thumbnails.text"))
-                keyTip = "ST"
-            }
+            component(RibbonCheckBoxProjection(
+                    RibbonCheckBoxContentModel.builder()
+                            .setText(resourceBundle.getString("Thumbnails.text"))
+                            .build(),
+                    ComponentPresentation.builder().setKeyTip("ST").build()))
         }
     }
 
@@ -1392,33 +1450,25 @@ private class RibbonDemoBuilder {
             }
 
             group {
-                wrapper {
-                    caption = resourceBundle.getString("Sound.text")
-                    icon = SimpleResizableIcon(PresentationPriority.TOP, 16, 16)
-                    component = JComboBox(arrayOf<Any>("[" + resourceBundle.getString("NoSound.text") + "]     "))
-                }
+                component(RibbonComboBoxProjection(
+                        RibbonDefaultComboBoxContentModel.builder<String>()
+                                .setItems(arrayOf("[" + resourceBundle.getString("NoSound.text") + "]     "))
+                                .setIconFactory(SimpleResizableIcon.FactoryTop())
+                                .build(),
+                        ComponentPresentation.withDefaults()))
 
-                wrapper {
-                    caption = resourceBundle.getString("Speed.text")
-                    component = JComboBox(arrayOf<Any>(resourceBundle.getString("Medium.text") + "           "))
-                }
+                component(RibbonComboBoxProjection(
+                        RibbonDefaultComboBoxContentModel.builder<String>()
+                                .setItems(arrayOf("[" + resourceBundle.getString("Speed.text") + "]     "))
+                                .setCaption(resourceBundle.getString("Speed.text"))
+                                .build(),
+                        ComponentPresentation.withDefaults()))
 
-                wrapper {
-                    commandButton {
-                        presentation {
-                            presentationState = CommandButtonPresentationState.MEDIUM
-                            verticalGapScaleFactor = 0.5
-                        }
-                        command {
-                            title = resourceBundle.getString("ApplyToAll.text")
-                            icon = SimpleResizableIcon(
-                                    PresentationPriority.TOP, 16, 16)
-                            action = CommandAction {
-                                println("Apply To All activated")
-                            }
-                        }
-                    }
-                }
+                component(RibbonCheckBoxProjection(
+                        RibbonCheckBoxContentModel.builder()
+                                .setText(resourceBundle.getString("ApplyToAll.text"))
+                                .build(),
+                        ComponentPresentation.withDefaults()))
             }
         }
     }
@@ -1428,21 +1478,24 @@ private class RibbonDemoBuilder {
             title = resourceBundle.getString("TransitionToNext.textBandTitle")
             icon = SimpleResizableIcon(PresentationPriority.TOP, 32, 32)
 
-            wrapper {
-                val mouseClick = JCheckBox(resourceBundle.getString("OnMouseClick.text"))
-                mouseClick.isSelected = true
+            component(RibbonCheckBoxProjection(
+                    RibbonCheckBoxContentModel.builder()
+                            .setText(resourceBundle.getString("OnMouseClick.text"))
+                            .setSelected(true)
+                            .build(),
+                    ComponentPresentation.withDefaults()))
 
-                component = mouseClick
-            }
+            component(RibbonCheckBoxProjection(
+                    RibbonCheckBoxContentModel.builder()
+                            .setText(resourceBundle.getString("AutoAfter.text"))
+                            .build(),
+                    ComponentPresentation.withDefaults()))
 
-            wrapper {
-                component = JCheckBox(resourceBundle.getString("AutoAfter.text"))
-            }
-
-            wrapper {
-                icon = SimpleResizableIcon(PresentationPriority.TOP, 16, 16)
-                component = JSpinner(SpinnerDateModel())
-            }
+            component(RibbonSpinnerProjection(
+                    RibbonSpinnerDateContentModel.builder()
+                            .setIconFactory(SimpleResizableIcon.FactoryTop())
+                            .build(),
+                    ComponentPresentation.withDefaults()))
         }
     }
 
@@ -1466,71 +1519,107 @@ private class RibbonDemoBuilder {
             icon = Format_justify_left.of(16, 16)
 
             group {
-                wrapper {
-                    component = JLabel(resourceBundle.getString("VeryLong.text"))
-                }
+                component(RibbonComboBoxProjection(
+                        RibbonDefaultComboBoxContentModel.builder<String>()
+                                .setItems(arrayOf(resourceBundle.getString("VeryLong.text")))
+                                .build(),
+                        ComponentPresentation.builder()
+                                .setHorizontalAlignment(HorizontalAlignment.FILL)
+                                .build()))
 
-                wrapper {
-                    caption = resourceBundle.getString("Leading.text")
-                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
-                    horizontalAlignment = HorizontalAlignment.LEADING
-                }
+                component(RibbonSpinnerProjection(
+                        RibbonSpinnerNumberContentModel.builder()
+                                .setValues(0, 0, 100, 5)
+                                .setCaption(resourceBundle.getString("Leading.text"))
+                                .build(),
+                        ComponentPresentation.builder()
+                                .setHorizontalAlignment(HorizontalAlignment.LEADING)
+                                .build()))
 
-                wrapper {
-                    caption = resourceBundle.getString("Trailing.text")
-                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
-                    horizontalAlignment = HorizontalAlignment.TRAILING
-                }
+                component(RibbonSpinnerProjection(
+                        RibbonSpinnerNumberContentModel.builder()
+                                .setValues(0, 0, 100, 5)
+                                .setCaption(resourceBundle.getString("Trailing.text"))
+                                .build(),
+                        ComponentPresentation.builder()
+                                .setHorizontalAlignment(HorizontalAlignment.TRAILING)
+                                .build()))
 
-                wrapper {
-                    component = JLabel(resourceBundle.getString("VeryLong.text"))
-                }
+                component(RibbonComboBoxProjection(
+                        RibbonDefaultComboBoxContentModel.builder<String>()
+                                .setItems(arrayOf(resourceBundle.getString("VeryLong.text")))
+                                .build(),
+                        ComponentPresentation.builder()
+                                .setHorizontalAlignment(HorizontalAlignment.FILL)
+                                .build()))
 
-                wrapper {
-                    caption = resourceBundle.getString("Center.text")
-                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
-                    horizontalAlignment = HorizontalAlignment.CENTER
-                }
+                component(RibbonSpinnerProjection(
+                        RibbonSpinnerNumberContentModel.builder()
+                                .setValues(0, 0, 100, 5)
+                                .setCaption(resourceBundle.getString("Center.text"))
+                                .build(),
+                        ComponentPresentation.builder()
+                                .setHorizontalAlignment(HorizontalAlignment.CENTER)
+                                .build()))
 
-                wrapper {
-                    caption = resourceBundle.getString("Fill.text")
-                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
-                    horizontalAlignment = HorizontalAlignment.FILL
-                }
+                component(RibbonSpinnerProjection(
+                        RibbonSpinnerNumberContentModel.builder()
+                                .setValues(0, 0, 100, 5)
+                                .setCaption(resourceBundle.getString("Fill.text"))
+                                .build(),
+                        ComponentPresentation.builder()
+                                .setHorizontalAlignment(HorizontalAlignment.FILL)
+                                .build()))
             }
 
             group {
-                wrapper {
-                    component = JLabel(resourceBundle.getString("Long.text"))
-                }
+                component(RibbonComboBoxProjection(
+                        RibbonDefaultComboBoxContentModel.builder<String>()
+                                .setItems(arrayOf(resourceBundle.getString("Long.text")))
+                                .build(),
+                        ComponentPresentation.builder()
+                                .setHorizontalAlignment(HorizontalAlignment.FILL)
+                                .build()))
 
-                wrapper {
-                    caption = resourceBundle.getString("Leading.text")
-                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
-                    horizontalAlignment = HorizontalAlignment.LEADING
-                }
+                component(RibbonSpinnerProjection(
+                        RibbonSpinnerNumberContentModel.builder()
+                                .setValues(0, 0, 100, 5)
+                                .build(),
+                        ComponentPresentation.builder()
+                                .setHorizontalAlignment(HorizontalAlignment.LEADING)
+                                .build()))
 
-                wrapper {
-                    caption = resourceBundle.getString("Trailing.text")
-                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
-                    horizontalAlignment = HorizontalAlignment.TRAILING
-                }
+                component(RibbonSpinnerProjection(
+                        RibbonSpinnerNumberContentModel.builder()
+                                .setValues(0, 0, 100, 5)
+                                .build(),
+                        ComponentPresentation.builder()
+                                .setHorizontalAlignment(HorizontalAlignment.TRAILING)
+                                .build()))
 
-                wrapper {
-                    component = JLabel(resourceBundle.getString("Long.text"))
-                }
+                component(RibbonComboBoxProjection(
+                        RibbonDefaultComboBoxContentModel.builder<String>()
+                                .setItems(arrayOf(resourceBundle.getString("Long.text")))
+                                .build(),
+                        ComponentPresentation.builder()
+                                .setHorizontalAlignment(HorizontalAlignment.FILL)
+                                .build()))
 
-                wrapper {
-                    caption = resourceBundle.getString("Center.text")
-                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
-                    horizontalAlignment = HorizontalAlignment.CENTER
-                }
+                component(RibbonSpinnerProjection(
+                        RibbonSpinnerNumberContentModel.builder()
+                                .setValues(0, 0, 100, 5)
+                                .build(),
+                        ComponentPresentation.builder()
+                                .setHorizontalAlignment(HorizontalAlignment.CENTER)
+                                .build()))
 
-                wrapper {
-                    caption = resourceBundle.getString("Fill.text")
-                    component = JSpinner(SpinnerNumberModel(0, 0, 100, 5))
-                    horizontalAlignment = HorizontalAlignment.FILL
-                }
+                component(RibbonSpinnerProjection(
+                        RibbonSpinnerNumberContentModel.builder()
+                                .setValues(0, 0, 100, 5)
+                                .build(),
+                        ComponentPresentation.builder()
+                                .setHorizontalAlignment(HorizontalAlignment.FILL)
+                                .build()))
             }
         }
     }
@@ -1562,7 +1651,7 @@ private class RibbonDemoBuilder {
     }
 }
 
-fun getApplicationMenuRichTooltipIcon(): ResizableIcon {
+fun getApplicationMenuRichTooltipIcon(): ResizableIconFactory {
     val appMenuButtonTooltipImage = ImageIO
             .read(RibbonDemoBuilder::class.java.classLoader.getResource(
                     "org.pushingpixels.demo.kormorant.ribbon/appmenubutton-tooltip-main.png"))
@@ -1597,7 +1686,7 @@ fun getApplicationMenuRichTooltipIcon(): ResizableIcon {
     }
     appMenuRichTooltipMainIcon.setDimension(Dimension(
             appMenuButtonTooltipImageInitialWidth, appMenuButtonTooltipImageInitialHeight))
-    return appMenuRichTooltipMainIcon
+    return (ResizableIconFactory { appMenuRichTooltipMainIcon })
 }
 
 fun main(args: Array<String>) {
@@ -1698,13 +1787,8 @@ fun main(args: Array<String>) {
                     action = CommandAction { println("Taskbar Find activated") }
                 }
 
-                ribbonComponent {
-                    component = JComboBox(arrayOf("Winter", "Spring", "Summer", "Autumn"))
-                    richTooltip {
-                        title = builder.resourceBundle.getString("Seasons.tooltip.title")
-                    }
-                    keyTip = "5"
-                }
+                component(RibbonComboBoxProjection(builder.fontComboBoxModel,
+                        ComponentPresentation.builder().setKeyTip("5").build()))
 
                 // Add the same gallery we have in the first ribbon task to the taskbar, configuring
                 // its popup presentation with a 4x2 grid of slightly smaller buttons (instead of a 3x3
@@ -1729,11 +1813,11 @@ fun main(args: Array<String>) {
                     description {
                         +builder.resourceBundle.getString("AppMenu.tooltip.paragraph1")
                     }
-                    mainIcon = getApplicationMenuRichTooltipIcon()
+                    mainIconFactory = getApplicationMenuRichTooltipIcon()
                     footer {
                         +builder.resourceBundle.getString("AppMenu.tooltip.footer1")
                     }
-                    footerIcon = Help_browser.of(16, 16)
+                    footerIconFactory = Help_browser.factory()
                 }
                 keyTip = "F"
 

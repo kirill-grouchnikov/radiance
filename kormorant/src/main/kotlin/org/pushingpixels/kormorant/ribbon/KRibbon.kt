@@ -35,9 +35,12 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandProjection
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.neon.icon.ResizableIcon
 import java.awt.Color
+import javax.swing.JComponent
 
 @FlamingoElementMarker
 class KRibbonTaskContainer {
@@ -69,11 +72,8 @@ class KRibbonTaskbar {
         return command
     }
 
-    fun ribbonComponent(init: KRibbonComponent.() -> Unit): KRibbonComponent {
-        val ribbonComponent = KRibbonComponent()
-        ribbonComponent.init()
-        components.add(ribbonComponent)
-        return ribbonComponent
+    fun component(projection: ComponentProjection<out JComponent, out ComponentContentModel>) {
+        components.add(projection)
     }
 
     fun gallery(init: KRibbonGallery.() -> Unit): KRibbonGallery {
@@ -167,7 +167,7 @@ class KRibbonFrame {
             when (taskbarComponent) {
                 is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(
                         taskbarComponent.toJavaProjection())
-                is KRibbonComponent -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent.asJavaRibbonComponent())
+                is ComponentProjection<*, *> -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent)
                 is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(RibbonGalleryProjection(
                         taskbarComponent.content.asJavaRibbonGalleryContentModel(),
                         taskbarComponent.presentation.toRibbonGalleryPresentationModel()))

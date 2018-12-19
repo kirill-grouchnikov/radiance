@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.api.ribbon.JRibbonComponent;
+import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.flamingo.internal.substance.utils.SubstanceDisabledResizableIcon;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonComponentUI;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -60,6 +60,9 @@ public class SubstanceRibbonComponentUI extends BasicRibbonComponentUI {
 				&& SubstanceCoreUtilities.useThemedDefaultIcon(ribbonComp)) {
 			icon = SubstanceCoreUtilities.getThemedIcon(ribbonComp, icon);
 		}
-		icon.paintIcon(ribbonComp, g, x, y);
+		Graphics2D g2d = (Graphics2D) g.create();
+		g2d.translate(x, y);
+		icon.paintIcon(ribbonComp, g2d, 0, 0);
+		g2d.dispose();
 	}
 }

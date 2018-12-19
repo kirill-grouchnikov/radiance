@@ -179,10 +179,12 @@ public class KeyTipManager {
         // application menu button
         final JRibbonApplicationMenuButton appMenuButton =
                 ribbon.getUI().getApplicationMenuButton();
-        if ((appMenuButton != null) && (ribbon.getApplicationMenuKeyTip() != null)) {
+        if ((appMenuButton != null) && (ribbon.getApplicationMenuCommandProjection()
+                .getPresentationModel().getPopupKeyTip() != null)) {
             final KeyTipLink appMenuButtonLink = new KeyTipLink();
             appMenuButtonLink.comp = appMenuButton;
-            appMenuButtonLink.keyTipString = ribbon.getApplicationMenuKeyTip();
+            appMenuButtonLink.keyTipString = ribbon.getApplicationMenuCommandProjection()
+                    .getPresentationModel().getPopupKeyTip();
             appMenuButtonLink.prefAnchorPoint = appMenuButton.getUI().getKeyTipAnchorCenterPoint();
             appMenuButtonLink.onActivated = (ActionEvent e) -> appMenuButton.doPopupClick();
             appMenuButtonLink.enabled = true;

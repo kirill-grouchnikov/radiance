@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -44,14 +44,14 @@ public class TestCommandButtonsRichTooltips extends TestCommandButtons {
                 .setTitle(resourceBundle.getString("Tooltip.textActionTitle"))
                 .addDescriptionSection(resourceBundle.getString("Tooltip.textParagraph1"))
                 .addDescriptionSection(resourceBundle.getString("Tooltip.textParagraph2"))
-                .setMainIcon(Address_book_new.of(32, 32))
-                .setFooterIcon(Help_browser.of(32, 32))
+                .setMainIconFactory(Address_book_new.factory())
+                .setFooterIconFactory(Help_browser.factory())
                 .addFooterSection(resourceBundle.getString("Tooltip.textFooterParagraph1"))
                 .build();
         RichTooltip popupRichTooltip = RichTooltip.builder()
                 .setTitle(resourceBundle.getString("Tooltip.textPopupTitle"))
                 .addDescriptionSection(resourceBundle.getString("Tooltip.textParagraph1"))
-                .setFooterIcon(Help_browser.of(32, 32))
+                .setFooterIconFactory(Help_browser.factory())
                 .addFooterSection(resourceBundle.getString("Tooltip.textFooterParagraph1"))
                 .build();
 

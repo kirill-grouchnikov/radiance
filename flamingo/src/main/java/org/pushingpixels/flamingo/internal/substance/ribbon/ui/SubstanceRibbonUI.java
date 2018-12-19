@@ -194,8 +194,12 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
         JRibbonFrame ribbonFrame = (JRibbonFrame) ribbonRootPane.getParent();
         JRibbon ribbon = ribbonFrame.getRibbon();
         if (ribbon != null) {
-            this.applicationMenuButton.setPopupRichTooltip(ribbon.getApplicationMenuRichTooltip());
-            this.applicationMenuButton.setPopupKeyTip(ribbon.getApplicationMenuKeyTip());
+            this.applicationMenuButton.setPopupRichTooltip(ribbon
+                    .getApplicationMenuCommandProjection().getContentModel()
+                    .getPopupRichTooltip());
+            this.applicationMenuButton.setPopupKeyTip(ribbon
+                    .getApplicationMenuCommandProjection().getPresentationModel()
+                    .getPopupKeyTip());
         }
     }
 

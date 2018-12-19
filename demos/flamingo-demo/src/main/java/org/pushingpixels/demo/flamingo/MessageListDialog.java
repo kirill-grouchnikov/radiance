@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.demo.flamingo;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -60,7 +62,8 @@ public final class MessageListDialog extends JDialog {
         JLabel messageLabel = new JLabel(mainMessage);
         JList messageList = new JList(messages.toArray());
         messageList.setForeground(Color.red);
-        messageList.setFont(UIManager.getFont("Panel.font").deriveFont(Font.BOLD));
+        messageList.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+                .getControlFont().deriveFont(Font.BOLD));
         JScrollPane mesScrollPane = new JScrollPane(messageList);
         JButton closeButton = new JButton("Close");
         closeButton.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {

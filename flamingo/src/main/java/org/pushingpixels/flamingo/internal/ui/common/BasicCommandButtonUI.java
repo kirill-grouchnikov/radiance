@@ -31,10 +31,10 @@ package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager.CommandButtonLayoutInfo;
-import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.neon.*;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
@@ -59,6 +59,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      * Property change listener.
      */
     private PropertyChangeListener propertyChangeListener;
+    
+    private PropertyChangeListener projectionPropertyChangeListener;
 
     /**
      * Tracks user interaction with the command button (including keyboard and mouse).
@@ -272,6 +274,79 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         };
         this.commandButton.addPropertyChangeListener(this.propertyChangeListener);
 
+        Command command = this.commandButton.getProjection().getContentModel();
+        this.projectionPropertyChangeListener = (PropertyChangeEvent evt) -> {
+            if ("enabled".equals(evt.getPropertyName())) {
+                commandButton.setEnabled((Boolean) evt.getNewValue());
+            }
+            if ("text".equals(evt.getPropertyName())) {
+                commandButton.setText((String) evt.getNewValue());
+            }
+            if ("extraText".equals(evt.getPropertyName())) {
+                commandButton.setExtraText((String) evt.getNewValue());
+            }
+            if ("icon".equals(evt.getPropertyName()) && (command.getIconFactory() == null)) {
+                commandButton.setIcon((ResizableIcon) evt.getNewValue());
+            }
+            if ("iconFactory".equals(evt.getPropertyName())) {
+                ResizableIconFactory factory = (ResizableIconFactory) evt.getNewValue();
+                commandButton.setIcon((factory != null) ? factory.createNewIcon() : command.getIcon());
+            }
+            if ("disabledIcon".equals(evt.getPropertyName()) &&
+                    (command.getDisabledIconFactory() == null)) {
+                commandButton.setDisabledIcon((ResizableIcon) evt.getNewValue());
+            }
+            if ("disabledIconFactory".equals(evt.getPropertyName())) {
+                ResizableIconFactory factory = (ResizableIconFactory) evt.getNewValue();
+                commandButton.setDisabledIcon((factory != null) ? factory.createNewIcon()
+                        : command.getDisabledIcon());
+            }
+            if ("isToggleSelected".equals(evt.getPropertyName())) {
+                commandButton.getActionModel().setSelected((Boolean) evt.getNewValue());
+                if (command.getToggleGroupModel() != null) {
+                    command.getToggleGroupModel().setSelected(command, (Boolean) evt.getNewValue());
+                }
+            }
+            if ("action".equals(evt.getPropertyName())) {
+                commandButton.removeCommandListener((CommandAction) evt.getOldValue());
+                commandButton.addCommandListener((CommandAction) evt.getNewValue());
+            }
+            if ("actionRichTooltip".equals(evt.getPropertyName())) {
+                commandButton.setActionRichTooltip((RichTooltip) evt.getNewValue());
+            }
+            if ("popupRichTooltip".equals(evt.getPropertyName())) {
+                if (commandButton instanceof JCommandButton) {
+                    ((JCommandButton) commandButton).setPopupRichTooltip(
+                            (RichTooltip) evt.getNewValue());
+                }
+            }
+            if ("isAutoRepeatAction".equals(evt.getPropertyName())) {
+                if (commandButton instanceof JCommandButton) {
+                    ((JCommandButton) commandButton).setAutoRepeatAction((Boolean) evt.getNewValue());
+                }
+            }
+            if ("isFireActionOnRollover".equals(evt.getPropertyName())) {
+                if (commandButton instanceof JCommandButton) {
+                    ((JCommandButton) commandButton).setFireActionOnRollover(
+                            (Boolean) evt.getNewValue());
+                }
+            }
+            if ("isFireActionOnPress".equals(evt.getPropertyName())) {
+                commandButton.getActionModel().setFireActionOnPress((Boolean) evt.getNewValue());
+            }
+            if ("actionEnabled".equals(evt.getPropertyName())) {
+                commandButton.getActionModel().setEnabled((Boolean) evt.getNewValue());
+            }
+            if ("popupEnabled".equals(evt.getPropertyName())) {
+                if (commandButton instanceof JCommandButton) {
+                    ((JCommandButton) commandButton).getPopupModel().setEnabled(
+                            (Boolean) evt.getNewValue());
+                }
+            }
+        };
+        this.commandButton.getProjection().getContentModel().addPropertyChangeListener(
+                this.projectionPropertyChangeListener);
+
         this.disposePopupsActionListener = (CommandActionEvent e) -> {
             boolean toDismiss = !Boolean.TRUE
                     .equals(commandButton.getClientProperty(DONT_DISPOSE_POPUPS));
@@ -364,6 +439,10 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
         this.commandButton.removePropertyChangeListener(this.propertyChangeListener);
         this.propertyChangeListener = null;
+
+        this.commandButton.getProjection().getContentModel().removePropertyChangeListener(
+                this.projectionPropertyChangeListener);
+        this.projectionPropertyChangeListener = null;
 
         this.commandButton.removeCommandListener(this.disposePopupsActionListener);
         this.disposePopupsActionListener = null;

@@ -62,7 +62,7 @@ fun main(args: Array<String>) {
                 extraText = resourceBundle.getString("Paste.textExtra")
                 popupRichTooltip {
                     title = resourceBundle.getString("Tooltip.textActionTitle")
-                    mainIcon = Image_x_generic.of(32, 32)
+                    mainIconFactory = Image_x_generic.factory()
                     description {
                         +resourceBundle.getString("Tooltip.textParagraph1")
                         +resourceBundle.getString("Tooltip.textParagraph2")

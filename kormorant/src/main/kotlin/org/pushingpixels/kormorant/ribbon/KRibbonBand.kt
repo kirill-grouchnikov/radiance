@@ -37,6 +37,8 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.kormorant.*
 import org.pushingpixels.neon.icon.ResizableIcon
 import javax.swing.JComponent
@@ -103,11 +105,8 @@ class KRibbonBandGroup {
         return gallery
     }
 
-    fun wrapper(init: KRibbonComponent.() -> Unit): KRibbonComponent {
-        val component = KRibbonComponent()
-        component.init()
-        content.add(Pair(null, component))
-        return component
+    fun component(projection: ComponentProjection<out JComponent, out ComponentContentModel>) {
+        content.add(Pair(null, projection))
     }
 }
 
@@ -149,14 +148,11 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         return gallery
     }
 
-    fun wrapper(init: KRibbonComponent.() -> Unit): KRibbonComponent {
+    fun component(projection: ComponentProjection<out JComponent, out ComponentContentModel>) {
         if (groups.size > 1) {
-            throw IllegalStateException("Can't add a component to default group after starting another group")
+            throw IllegalStateException("Can't add a projection to default group after starting another group")
         }
-        val component = KRibbonComponent()
-        component.init()
-        defaultGroup.content.add(Pair(null, component))
-        return component
+        defaultGroup.content.add(Pair(null, projection))
     }
 
     fun group(init: KRibbonBandGroup.() -> Unit): KRibbonBandGroup {
@@ -197,8 +193,8 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                                                 .setPopupKeyTip(content.popupKeyTip)
                                                 .build()), priority)
                     }
-                    is KRibbonComponent -> {
-                        ribbonBand.addRibbonComponent(content.asJavaRibbonComponent())
+                    is ComponentProjection<*, *> -> {
+                        ribbonBand.addRibbonComponent(content)
                     }
                     is KRibbonGallery -> {
                         // Get the presentation model
@@ -231,10 +227,6 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
 class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
     private val components = arrayListOf<Any>()
 
-    fun flowComponent(component: JComponent) {
-        components.add(component)
-    }
-
     fun flowCommandButtonStrip(init: KCommandStrip.() -> Unit) {
         val commandButtonStrip = KCommandStrip(false)
         commandButtonStrip.init()
@@ -247,10 +239,8 @@ class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
         components.add(commandButtonStrip)
     }
 
-    fun ribbonComponent(init: KRibbonComponent.() -> Unit) {
-        val ribbonComponent = KRibbonComponent()
-        ribbonComponent.init()
-        components.add(ribbonComponent)
+    fun flowComponent(projection: ComponentProjection<out JComponent, out ComponentContentModel>) {
+        components.add(projection)
     }
 
     override fun asJavaRibbonBand(): AbstractRibbonBand {
@@ -269,9 +259,8 @@ class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
 
         for (component in components) {
             when (component) {
-                is JComponent -> ribbonBand.addFlowComponent(component)
-                is KCommandStrip -> ribbonBand.addFlowComponent(component.toJavaButtonStrip())
-                is KRibbonComponent -> ribbonBand.addFlowComponent(component.asJavaRibbonComponent())
+                is KCommandStrip -> ribbonBand.addFlowComponent(component.toJavaProjection())
+                is ComponentProjection<*, *> -> ribbonBand.addFlowComponent(component)
                 else -> throw IllegalStateException("Unknown ${component.javaClass}")
             }
         }

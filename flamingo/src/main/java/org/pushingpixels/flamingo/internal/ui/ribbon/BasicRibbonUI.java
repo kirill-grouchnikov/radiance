@@ -131,12 +131,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
             if ("selectedTask".equals(evt.getPropertyName())) {
                 syncSelectedTask();
             }
-            if ("applicationMenuRichTooltip".equals(evt.getPropertyName())) {
-                syncApplicationMenuTips();
-            }
-            if ("applicationMenuKeyTip".equals(evt.getPropertyName())) {
-                syncApplicationMenuTips();
-            }
             if ("applicationMenu".equals(evt.getPropertyName())) {
                 if (this.applicationMenuButton != null) {
                     this.ribbon.remove(this.applicationMenuButton);
@@ -158,6 +152,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     applicationMenuButton.setText(ribbon.getApplicationMenuCommandProjection()
                             .getContentModel().getText());
                 }
+
+                syncApplicationMenuTips();
             }
             if ("minimized".equals(evt.getPropertyName())) {
                 PopupPanelManager.defaultManager().hidePopups(null);
@@ -237,7 +233,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         this.syncRibbonState();
 
-        boolean isShowingAppMenuButton = (ribbon.getApplicationMenu() != null);
+        boolean isShowingAppMenuButton = (ribbon.getApplicationMenuProjection() != null);
         if (isShowingAppMenuButton) {
             this.applicationMenuButton = new JRibbonApplicationMenuButton(
                     this.ribbon.getApplicationMenuCommandProjection());
@@ -478,7 +474,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int x = ltr ? ins.left : width - ins.right;
 
             // the application menu button width
-            boolean isShowingAppMenuButton = (ribbon.getApplicationMenu() != null);
+            boolean isShowingAppMenuButton = (ribbon.getApplicationMenuProjection() != null);
             FontMetrics fm = applicationMenuButton.getFontMetrics(applicationMenuButton.getFont());
             int appMenuButtonWidth = isShowingAppMenuButton
                     ? fm.stringWidth(ribbon.getApplicationMenuCommandProjection()
@@ -554,7 +550,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 taskToggleButtonsScrollablePanel.setBounds(x - taskButtonsWidth, y,
                         taskButtonsWidth, taskToggleButtonHeight);
             }
-            if (ribbon.getApplicationMenu() != null) {
+            if (ribbon.getApplicationMenuProjection() != null) {
                 applicationMenuButton.setVisible(true);
                 if (ltr) {
                     applicationMenuButton.setBounds(x - appMenuButtonWidth - 2, y + 1,

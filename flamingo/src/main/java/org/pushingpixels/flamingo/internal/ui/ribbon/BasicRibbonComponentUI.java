@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2018 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
@@ -47,6 +47,8 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
     private JLabel captionLabel;
 
     private PropertyChangeListener propertyChangeListener;
+
+    private PropertyChangeListener projectionPropertyChangeListener;
 
     private ResizableIcon disabledIcon;
 
@@ -93,6 +95,8 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
 
         JComponent mainComponent = this.ribbonComponent.getMainComponent();
         this.ribbonComponent.add(mainComponent);
+
+        this.propagateEnabled(this.ribbonComponent.isEnabled());
     }
 
     /**
@@ -101,12 +105,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
     protected void installListeners() {
         this.propertyChangeListener = (PropertyChangeEvent evt) -> {
             if ("enabled".equals(evt.getPropertyName())) {
-                boolean isEnabled = (Boolean) evt.getNewValue();
-                ribbonComponent.getMainComponent().setEnabled(isEnabled);
-                if (!ribbonComponent.isSimpleWrapper()) {
-                    captionLabel.setEnabled(isEnabled);
-                }
-                ribbonComponent.repaint();
+                propagateEnabled((Boolean) evt.getNewValue());
             }
             if ("caption".equals(evt.getPropertyName())) {
                 captionLabel.setText((String) evt.getNewValue());
@@ -130,6 +129,13 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
         };
         this.ribbonComponent.addPropertyChangeListener(this.propertyChangeListener);
 
+        this.projectionPropertyChangeListener = (PropertyChangeEvent evt) -> {
+            if ("enabled".equals(evt.getPropertyName())) {
+                propagateEnabled((Boolean) evt.getNewValue());
+            }
+        };
+        this.ribbonComponent.getProjection().getContentModel().addPropertyChangeListener(
+                this.projectionPropertyChangeListener);
     }
 
     /**
@@ -155,6 +161,18 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
     protected void uninstallListeners() {
         this.ribbonComponent.removePropertyChangeListener(this.propertyChangeListener);
         this.propertyChangeListener = null;
+
+        this.ribbonComponent.getProjection().getContentModel().removePropertyChangeListener(
+                this.projectionPropertyChangeListener);
+        this.projectionPropertyChangeListener = null;
+    }
+
+    private void propagateEnabled(boolean enabled) {
+        this.ribbonComponent.getMainComponent().setEnabled(enabled);
+        if (!this.ribbonComponent.isSimpleWrapper()) {
+            this.captionLabel.setEnabled(enabled);
+        }
+        this.ribbonComponent.repaint();
     }
 
     @Override
@@ -238,38 +256,40 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
                 int topMain = ins.top + (availableHeight - finalHeight) / 2;
                 int x = ltr ? ins.left : ribbonComp.getWidth() - ins.right;
                 switch (horizAlignment) {
-                case LEADING:
-                    if (ltr) {
-                        mainComp.setBounds(x, topMain, finalMainWidth, finalHeight);
-                    } else {
-                        mainComp.setBounds(x - finalMainWidth, topMain, finalMainWidth,
-                                finalHeight);
-                    }
-                    break;
-                case TRAILING:
-                    if (ltr) {
-                        mainComp.setBounds(x + offset, topMain, finalMainWidth, finalHeight);
-                    } else {
-                        mainComp.setBounds(x - finalMainWidth - offset, topMain, finalMainWidth,
-                                finalHeight);
-                    }
-                    break;
-                case CENTER:
-                    if (ltr) {
-                        mainComp.setBounds(x + offset / 2, topMain, finalMainWidth, finalHeight);
-                    } else {
-                        mainComp.setBounds(x - finalMainWidth - offset / 2, topMain, finalMainWidth,
-                                finalHeight);
-                    }
-                    break;
-                case FILL:
-                    if (ltr) {
-                        mainComp.setBounds(x, topMain, availableWidth, finalHeight);
-                    } else {
-                        mainComp.setBounds(x - availableWidth, topMain, availableWidth,
-                                finalHeight);
-                    }
-                    break;
+                    case LEADING:
+                        if (ltr) {
+                            mainComp.setBounds(x, topMain, finalMainWidth, finalHeight);
+                        } else {
+                            mainComp.setBounds(x - finalMainWidth, topMain, finalMainWidth,
+                                    finalHeight);
+                        }
+                        break;
+                    case TRAILING:
+                        if (ltr) {
+                            mainComp.setBounds(x + offset, topMain, finalMainWidth, finalHeight);
+                        } else {
+                            mainComp.setBounds(x - finalMainWidth - offset, topMain, finalMainWidth,
+                                    finalHeight);
+                        }
+                        break;
+                    case CENTER:
+                        if (ltr) {
+                            mainComp.setBounds(x + offset / 2, topMain, finalMainWidth,
+                                    finalHeight);
+                        } else {
+                            mainComp.setBounds(x - finalMainWidth - offset / 2, topMain,
+                                    finalMainWidth,
+                                    finalHeight);
+                        }
+                        break;
+                    case FILL:
+                        if (ltr) {
+                            mainComp.setBounds(x, topMain, availableWidth, finalHeight);
+                        } else {
+                            mainComp.setBounds(x - availableWidth, topMain, availableWidth,
+                                    finalHeight);
+                        }
+                        break;
                 }
                 mainComp.doLayout();
             } else {
@@ -308,38 +328,40 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
                         : x - prefMainWidth - ins.left;
 
                 switch (horizAlignment) {
-                case LEADING:
-                    if (ltr) {
-                        mainComp.setBounds(x, topMain, finalMainWidth, finalHeight);
-                    } else {
-                        mainComp.setBounds(x - finalMainWidth, topMain, finalMainWidth,
-                                finalHeight);
-                    }
-                    break;
-                case TRAILING:
-                    if (ltr) {
-                        mainComp.setBounds(x + offset, topMain, finalMainWidth, finalHeight);
-                    } else {
-                        mainComp.setBounds(x - finalMainWidth - offset, topMain, finalMainWidth,
-                                finalHeight);
-                    }
-                    break;
-                case CENTER:
-                    if (ltr) {
-                        mainComp.setBounds(x + offset / 2, topMain, finalMainWidth, finalHeight);
-                    } else {
-                        mainComp.setBounds(x - finalMainWidth - offset / 2, topMain, finalMainWidth,
-                                finalHeight);
-                    }
-                    break;
-                case FILL:
-                    if (ltr) {
-                        mainComp.setBounds(x, topMain, ribbonComp.getWidth() - ins.right - x,
-                                finalHeight);
-                    } else {
-                        mainComp.setBounds(ins.left, topMain, x - ins.left, finalHeight);
-                    }
-                    break;
+                    case LEADING:
+                        if (ltr) {
+                            mainComp.setBounds(x, topMain, finalMainWidth, finalHeight);
+                        } else {
+                            mainComp.setBounds(x - finalMainWidth, topMain, finalMainWidth,
+                                    finalHeight);
+                        }
+                        break;
+                    case TRAILING:
+                        if (ltr) {
+                            mainComp.setBounds(x + offset, topMain, finalMainWidth, finalHeight);
+                        } else {
+                            mainComp.setBounds(x - finalMainWidth - offset, topMain, finalMainWidth,
+                                    finalHeight);
+                        }
+                        break;
+                    case CENTER:
+                        if (ltr) {
+                            mainComp.setBounds(x + offset / 2, topMain, finalMainWidth,
+                                    finalHeight);
+                        } else {
+                            mainComp.setBounds(x - finalMainWidth - offset / 2, topMain,
+                                    finalMainWidth,
+                                    finalHeight);
+                        }
+                        break;
+                    case FILL:
+                        if (ltr) {
+                            mainComp.setBounds(x, topMain, ribbonComp.getWidth() - ins.right - x,
+                                    finalHeight);
+                        } else {
+                            mainComp.setBounds(ins.left, topMain, x - ins.left, finalHeight);
+                        }
+                        break;
                 }
                 mainComp.doLayout();
             }
@@ -368,7 +390,8 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
         graphics.dispose();
     }
 
-    protected abstract void paintIcon(Graphics g, JRibbonComponent ribbonComp, Icon icon, int x, int y);
+    protected abstract void paintIcon(Graphics g, JRibbonComponent ribbonComp, Icon icon, int x,
+            int y);
 
     private int getLayoutGap() {
         return 4;
