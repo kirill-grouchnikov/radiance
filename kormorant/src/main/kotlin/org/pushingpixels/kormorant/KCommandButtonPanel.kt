@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.model.CommandGroup
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
-import org.pushingpixels.flamingo.api.common.model.CommandPresentation
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection
 import javax.swing.JComponent
 
@@ -48,8 +48,8 @@ class KCommandButtonPanelPresentation {
     var layoutKind: CommandPanelPresentationModel.LayoutKind = CommandPanelPresentationModel.LayoutKind.ROW_FILL
     var commandHorizontalAlignment: Int = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
     var isMenu: Boolean = false
-    var popupOrientationKind: CommandPresentation.CommandButtonPopupOrientationKind =
-            CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD
+    var popupOrientationKind: CommandButtonPresentationModel.PopupOrientationKind =
+            CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
 
     internal fun toCommandPanelPresentationModel() : CommandPanelPresentationModel {
         val presentationModelBuilder = CommandPanelPresentationModel.builder()

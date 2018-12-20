@@ -30,7 +30,8 @@
 package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.common.CommandAction
-import org.pushingpixels.flamingo.api.common.model.CommandPresentation
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
@@ -40,7 +41,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.kormorant.*
-import org.pushingpixels.neon.icon.ResizableIcon
+import org.pushingpixels.neon.icon.ResizableIconFactory
 import javax.swing.JComponent
 
 @FlamingoElementMarker
@@ -62,7 +63,7 @@ sealed class KBaseRibbonBand<T : AbstractRibbonBand> {
     protected var hasBeenConverted: Boolean = false
 
     var title: String? by NullableDelegate { hasBeenConverted }
-    var icon: ResizableIcon? by NullableDelegate { hasBeenConverted }
+    var iconFactory: ResizableIconFactory? by NullableDelegate { hasBeenConverted }
     protected var expandCommand: KRibbonBandExpandCommand? by NullableDelegate { hasBeenConverted }
     var collapsedStateKeyTip: String? by NullableDelegate { hasBeenConverted }
 
@@ -130,6 +131,17 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         return command
     }
 
+    fun colorSelectorCommand(priority: PresentationPriority, actionKeyTip: String? = null,
+            popupKeyTip: String? = null, init: KColorSelectorCommand.() -> Unit): KColorSelectorCommand {
+        if (groups.size > 1) {
+            throw IllegalStateException("Can't add a command to default group after starting another group")
+        }
+        val command = KColorSelectorCommand()
+        command.init()
+        defaultGroup.content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
+        return command
+    }
+
     fun command(priority: PresentationPriority, actionKeyTip: String? = null,
             popupKeyTip: String? = null, command: KCommand) {
         if (groups.size > 1) {
@@ -166,7 +178,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
-        ribbonBand = JRibbonBand(title, icon)
+        ribbonBand = JRibbonBand(title, iconFactory)
         if (expandCommand != null) {
             ribbonBand.expandCommandListener = expandCommand!!.action
             ribbonBand.expandButtonKeyTip = expandCommand!!.keyTip
@@ -186,12 +198,25 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
             for ((priority, content) in group.content) {
                 when (content) {
                     is KCommandGroup.CommandConfig -> {
-                        ribbonBand.addRibbonCommand(
-                                content.command.asJavaCommand().project(
-                                        CommandPresentation.builder()
-                                                .setActionKeyTip(content.actionKeyTip)
-                                                .setPopupKeyTip(content.popupKeyTip)
-                                                .build()), priority)
+                        val buttonPresentationModel = CommandButtonPresentationModel.builder()
+                                .setActionKeyTip(content.actionKeyTip)
+                                .setPopupKeyTip(content.secondaryKeyTip)
+                        if (content.command is KColorSelectorCommand) {
+                            if (content.command.colorSelectorPopupMenu != null) {
+                                buttonPresentationModel.setPopupMenuPresentationModel(
+                                        content.command.colorSelectorPopupMenu!!.toJavaPopupMenuPresentationModel())
+                            }
+                            ribbonBand.addRibbonCommand(ColorSelectorCommandButtonProjection(
+                                    content.command.asJavaColorSelectorCommand(),
+                                    buttonPresentationModel.build()), priority)
+                        } else {
+                            if (content.command.menu != null) {
+                                buttonPresentationModel.setPopupMenuPresentationModel(
+                                        content.command.menu!!.toJavaPopupMenuPresentationModel())
+                            }
+                            ribbonBand.addRibbonCommand(content.command.asJavaCommand()
+                                    .project(buttonPresentationModel.build()), priority)
+                        }
                     }
                     is ComponentProjection<*, *> -> {
                         ribbonBand.addRibbonComponent(content)
@@ -207,7 +232,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                         val galleryProjection = RibbonGalleryProjection(galleryContentModel, galleryPresentationModel)
 
                         // Configure with command overlays
-                        galleryProjection.setCommandOverlays(content.content.toCommandOverlayMap())
+                        galleryProjection.commandOverlays = content.content.toCommandOverlayMap()
 
                         ribbonBand.addRibbonGallery(galleryProjection, priority)
                     }
@@ -247,7 +272,7 @@ class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
-        ribbonBand = JFlowRibbonBand(title, icon)
+        ribbonBand = JFlowRibbonBand(title, iconFactory)
         if (expandCommand != null) {
             ribbonBand.expandCommandListener = expandCommand!!.action
             ribbonBand.expandButtonKeyTip = expandCommand!!.keyTip

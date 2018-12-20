@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
@@ -1107,8 +1107,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     .build();
 
             // And create a specific projection
-            CommandProjection<Command> taskToggleCommandProjection = taskToggleCommand.project(
-                    CommandPresentation.builder()
+            CommandButtonProjection<Command> taskToggleCommandProjection = taskToggleCommand.project(
+                    CommandButtonPresentationModel.builder()
                             .setActionKeyTip(task.getKeyTip())
                             .setToDismissPopupsOnActivation(false)
                             .build());
@@ -1184,11 +1184,11 @@ public abstract class BasicRibbonUI extends RibbonUI {
             }
         }
 
-        List<CommandProjection> anchoredCommands = this.ribbon.getAnchoredCommands();
+        List<CommandButtonProjection> anchoredCommands = this.ribbon.getAnchoredCommands();
         if (anchoredCommands != null) {
             this.anchoredButtons = new Container();
             this.anchoredButtons.setLayout(new AnchoredButtonsPanelLayout());
-            for (CommandProjection anchoredCommandProjection : anchoredCommands) {
+            for (CommandButtonProjection anchoredCommandProjection : anchoredCommands) {
                 this.anchoredButtons.add(anchoredCommandProjection.buildComponent());
             }
             this.ribbon.add(this.anchoredButtons);

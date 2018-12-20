@@ -101,11 +101,10 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
 
             Command svgCommand = Command.builder()
                     .setText(name.replace('-', ' '))
-                    .setIcon(new EmptyResizableIcon(getProjection().getPresentationModel()
-                            .getCommandIconDimension()))
+                    .setIconFactory(EmptyResizableIcon.factory())
                     .setAction((CommandActionEvent e) -> {
                         try {
-                            ResizableIcon icon = e.getCommand().getIcon();
+                            ResizableIcon icon = e.getCommand().getIconFactory().createNewIcon();
                             if (!(icon instanceof SvgBatikResizableIcon)) {
                                 return;
                             }
@@ -179,7 +178,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
                             ? SvgBatikResizableIcon.getSvgIcon(svgStream, svgDim)
                             : SvgBatikResizableIcon.getSvgzIcon(svgStream, svgDim);
 
-                    newCommands.get(name).setIcon(svgIcon);
+                    newCommands.get(name).setIconFactory(() -> svgIcon);
                 }
             }
         };

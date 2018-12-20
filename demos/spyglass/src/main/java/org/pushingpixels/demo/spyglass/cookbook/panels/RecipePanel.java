@@ -34,7 +34,7 @@ import org.pushingpixels.demo.spyglass.cookbook.*;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.ResizableIconFactory;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
@@ -53,20 +53,20 @@ public class RecipePanel extends SingleContentPanel {
                 padding(new EmptyBorder(10, 16, 0, 16));
 
         titlePaneBuilder.add(getCommandButton(
-                new EchoResizableIcon(
-                        new ScaledResizableIcon(ic_bookmark_border_white_24px.of(20, 20), 0.8f)),
+                EchoResizableIcon.factory(ScaledResizableIcon.factory(
+                        ic_bookmark_border_white_24px.factory(), 0.8f)),
                 "Bookmark")).xy(1, 1);
         titlePaneBuilder.add(getCommandButton(
-                new EchoResizableIcon(
-                        new ScaledResizableIcon(ic_star_border_white_24px.of(20, 20), 0.8f)),
+                EchoResizableIcon.factory(ScaledResizableIcon.factory(
+                        ic_star_border_white_24px.factory(), 0.8f)),
                 "Star")).xy(3, 1);
-        titlePaneBuilder
-                .add(getCommandButton(
-                        new EchoResizableIcon(
-                                new ScaledResizableIcon(ic_print_white_24px.of(20, 20), 0.8f)),
-                        "Print")).xy(5, 1);
         titlePaneBuilder.add(getCommandButton(
-                new EchoResizableIcon(new ScaledResizableIcon(ic_send_white_24px.of(20, 20), 0.8f)),
+                EchoResizableIcon.factory(ScaledResizableIcon.factory(
+                        ic_view_stream_white_24px.factory(), 0.8f)),
+                "Print")).xy(5, 1);
+        titlePaneBuilder.add(getCommandButton(
+                EchoResizableIcon.factory(ScaledResizableIcon.factory(
+                        ic_send_white_24px.factory(), 0.8f)),
                 "Send")).xy(7, 1);
 
         JLabel title = new JLabel("Cookbook");
@@ -76,23 +76,24 @@ public class RecipePanel extends SingleContentPanel {
         titlePaneBuilder.add(title).xy(9, 1);
 
         titlePaneBuilder.add(getCommandButton(
-                new EchoResizableIcon(
-                        new ScaledResizableIcon(ic_help_outline_white_24px.of(20, 20), 0.8f)),
+                EchoResizableIcon.factory(ScaledResizableIcon.factory(
+                        ic_help_outline_white_24px.factory(), 0.8f)),
                 "Help")).xy(11, 1);
 
         this.titlePanel.setLayout(new BorderLayout());
         this.titlePanel.add(titlePaneBuilder.build(), BorderLayout.CENTER);
     }
 
-    private AbstractCommandButton getCommandButton(ResizableIcon icon, String tooltip) {
+    private AbstractCommandButton getCommandButton(ResizableIconFactory iconFactory,
+            String tooltip) {
         return Command.builder()
-                .setIcon(icon)
+                .setIconFactory(iconFactory)
                 .setAction((CommandActionEvent e) -> System.out.println(tooltip + " activated"))
                 .setActionRichTooltip(RichTooltip.builder()
                         .setTitle(tooltip)
                         .addDescriptionSection("Description for " + tooltip).build())
                 .build()
-                .project(CommandPresentation.builder()
+                .project(CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL).build())
                 .buildComponent();
     }

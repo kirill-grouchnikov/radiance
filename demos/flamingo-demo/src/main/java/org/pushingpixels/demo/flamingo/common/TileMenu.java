@@ -58,35 +58,35 @@ public class TileMenu extends JFrame {
         menuCommands.add(Command.builder()
                 .setText("Copy")
                 .setExtraText("Extra for copy")
-                .setIcon(new Edit_copy())
+                .setIconFactory(Edit_copy.factory())
                 .build());
         menuCommands.add(Command.builder()
                 .setText("Cut")
                 .setExtraText("Extra for cut")
-                .setIcon(new Edit_cut())
+                .setIconFactory(Edit_cut.factory())
                 .build());
         menuCommands.add(Command.builder()
                 .setText("Paste")
                 .setExtraText("Extra for paste")
-                .setIcon(new Edit_paste())
+                .setIconFactory(Edit_paste.factory())
                 .build());
 
-        CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
+        CommandMenuContentModel menuContentModel = new CommandMenuContentModel(
                 new CommandGroup(menuCommands));
 
         Command mainCommand = Command.builder()
                 .setText("click me")
-                .setPopupMenuContentModel(menuContentModel)
+                .setSecondaryContentModel(menuContentModel)
                 .build();
 
-        CommandProjection mainCommandProjection = mainCommand.project(
-                CommandPresentation.builder()
+        CommandButtonProjection mainCommandProjection = mainCommand.project(
+                CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.MEDIUM)
                         .setFlat(false)
                         .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
                                 .setMenuPresentationState(CommandButtonPresentationState.TILE)
                                 .setPopupOrientationKind(
-                                        CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD)
+                                        CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD)
                                 .build())
                         .build());
 

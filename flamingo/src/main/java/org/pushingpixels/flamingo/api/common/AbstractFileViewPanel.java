@@ -211,13 +211,8 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                 continue;
             }
 
-            int initialSize = this.getProjection().getPresentationModel().getCommandIconDimension();
-            if (initialSize < 0) {
-                initialSize = this.getProjection().getPresentationModel()
-                        .getCommandPresentationState().getPreferredIconSize();
-            }
             Command command = Command.builder()
-                    .setText(name).setIcon(new EmptyResizableIcon(initialSize)).build();
+                    .setText(name).setIconFactory(EmptyResizableIcon.factory()).build();
 
             int buttonIndex = this.addCommandToLastGroup(command);
             JCommandButton button = (JCommandButton) this.getGroupButtons(this.getGroupCount() - 1).
@@ -272,7 +267,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                         continue;
                     }
                     final Command command = newCommands.get(name);
-                    command.setIcon(icon);
+                    command.setIconFactory(() -> icon);
 
                     if (icon instanceof AsynchronousLoading) {
                         ((AsynchronousLoading) icon)

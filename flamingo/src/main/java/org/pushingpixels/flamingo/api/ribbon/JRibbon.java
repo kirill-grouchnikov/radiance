@@ -56,11 +56,11 @@ import java.util.*;
  * <li>Contextual ribbon task groups added with
  * {@link #addContextualTaskGroup(RibbonContextualTaskGroup)}</li>
  * <li>Application menu content set by
- * {@link #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)} </li>
- * <li>Taskbar panel populated by {@link #addTaskbarCommand(CommandProjection)},
+ * {@link #setApplicationMenuCommand(RibbonApplicationMenuCommandButtonProjection)} </li>
+ * <li>Taskbar panel populated by {@link #addTaskbarCommand(CommandButtonProjection)},
  * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)}
  * and {@link #addTaskbarComponent(ComponentProjection)}</li>
- * <li>Anchored content set by {@link #addAnchoredCommand(CommandProjection)}</li>
+ * <li>Anchored content set by {@link #addAnchoredCommand(CommandButtonProjection)}</li>
  * </ul>
  *
  * <p>
@@ -81,14 +81,14 @@ import java.util.*;
  *
  * <p>
  * The application menu button is a rectangular button shown in the top left corner of the ribbon.
- * If the {@link #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)} is not called,
+ * If the {@link #setApplicationMenuCommand(RibbonApplicationMenuCommandButtonProjection)} is not called,
  * or called with the <code>null</code> value, the application menu button is not shown, and ribbon
  * task buttons are shifted to the left.
  * </p>
  *
  * <p>
  * The taskbar panel allows showing controls that are visible no matter what ribbon task is
- * selected. To add a taskbar component use the {@link #addTaskbarCommand(CommandProjection)},
+ * selected. To add a taskbar component use the {@link #addTaskbarCommand(CommandButtonProjection)},
  * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)} and
  * {@link #addTaskbarComponent(ComponentProjection)} APIs. The taskbar panel lives in the top-left
  * corner of the application frame.
@@ -156,10 +156,10 @@ public class JRibbon extends JComponent {
      * Commands anchored to the far edge of the task toggle strip (right under LTR and left under
      * RTL).
      *
-     * @see #addAnchoredCommand(CommandProjection)
+     * @see #addAnchoredCommand(CommandButtonProjection)
      * @see #getAnchoredCommands()
      */
-    private ArrayList<CommandProjection> anchoredCommands;
+    private ArrayList<CommandButtonProjection> anchoredCommands;
 
     /**
      * Visibility status of the contextual task group. Must contain a value for each group in
@@ -170,12 +170,12 @@ public class JRibbon extends JComponent {
      */
     private Map<RibbonContextualTaskGroup, Boolean> groupVisibilityMap;
 
-    private RibbonApplicationMenuCommandProjection applicationMenuCommandProjection;
+    private RibbonApplicationMenuCommandButtonProjection applicationMenuCommandProjection;
 
     /**
      * The application menu.
      *
-     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
+     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandButtonProjection)
      * @see #getApplicationMenuProjection()
      */
     private RibbonApplicationMenuProjection applicationMenuProjection;
@@ -235,15 +235,15 @@ public class JRibbon extends JComponent {
      * @see #addTaskbarSeparator()
      * @see #clearTaskbar()
      */
-    public synchronized void addTaskbarCommand(CommandProjection<Command> projection) {
-        CommandPresentation withOverlay = projection.getPresentationModel().overlayWith(
-                CommandPresentation.overlay()
+    public synchronized void addTaskbarCommand(CommandButtonProjection<Command> projection) {
+        CommandButtonPresentationModel withOverlay = projection.getPresentationModel().overlayWith(
+                CommandButtonPresentationModel.overlay()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setFocusable(false)
                         .setHorizontalGapScaleFactor(0.5)
                         .setVerticalGapScaleFactor(0.5));
 
-        CommandProjection<Command> projectionWithOverlay = projection.reproject(withOverlay);
+        CommandButtonProjection<Command> projectionWithOverlay = projection.reproject(withOverlay);
         AbstractCommandButton commandButton = projectionWithOverlay.buildComponent();
 
         this.taskbarComponents.add(commandButton);
@@ -267,7 +267,7 @@ public class JRibbon extends JComponent {
      * Adds a separator to the taskbar area of this ribbon.
      *
      * @return the added separator
-     * @see #addTaskbarCommand(CommandProjection)
+     * @see #addTaskbarCommand(CommandButtonProjection)
      * @see #getTaskbarCommands()
      * @see #clearTaskbar()
      */
@@ -287,11 +287,11 @@ public class JRibbon extends JComponent {
         // The popup callback displays the expanded popup menu for the gallery
         Command galleryDropdownCommand = Command.builder()
                 .setIconFactory(galleryProjection.getContentModel().getIconFactory())
-                .setPopupMenuContentModel(popupMenuProjection.getContentModel())
+                .setSecondaryContentModel(popupMenuProjection.getContentModel())
                 .build();
 
-        CommandProjection galleryDropdownProjection = galleryDropdownCommand.project(
-                CommandPresentation.builder()
+        CommandButtonProjection galleryDropdownProjection = galleryDropdownCommand.project(
+                CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setPopupMenuPresentationModel(popupMenuProjection.getPresentationModel())
                         .build());
@@ -307,7 +307,7 @@ public class JRibbon extends JComponent {
     /**
      * Removes all taskbar content from this ribbon.
      *
-     * @see #addTaskbarCommand(CommandProjection)
+     * @see #addTaskbarCommand(CommandButtonProjection)
      * @see #addTaskbarSeparator()
      * @see #getTaskbarCommands()
      */
@@ -344,9 +344,9 @@ public class JRibbon extends JComponent {
      *
      * @param projection Command projection to add.
      * @see #getAnchoredCommands()
-     * @see #removeAnchoredCommand(CommandProjection)
+     * @see #removeAnchoredCommand(CommandButtonProjection)
      */
-    public synchronized void addAnchoredCommand(CommandProjection projection) {
+    public synchronized void addAnchoredCommand(CommandButtonProjection projection) {
         this.anchoredCommands.add(projection);
         this.fireStateChanged();
     }
@@ -357,9 +357,9 @@ public class JRibbon extends JComponent {
      *
      * @param projection Command projection to remove.
      * @see #getAnchoredCommands()
-     * @see #addAnchoredCommand(CommandProjection)
+     * @see #addAnchoredCommand(CommandButtonProjection)
      */
-    public synchronized void removeAnchoredCommand(CommandProjection projection) {
+    public synchronized void removeAnchoredCommand(CommandButtonProjection projection) {
         this.anchoredCommands.remove(projection);
         this.fireStateChanged();
     }
@@ -368,10 +368,10 @@ public class JRibbon extends JComponent {
      * Returns the anchored commands for this ribbon.
      *
      * @return This ribbon's anchored commands.
-     * @see #addAnchoredCommand(CommandProjection)
-     * @see #removeAnchoredCommand(CommandProjection)
+     * @see #addAnchoredCommand(CommandButtonProjection)
+     * @see #removeAnchoredCommand(CommandButtonProjection)
      */
-    public synchronized List<CommandProjection> getAnchoredCommands() {
+    public synchronized List<CommandButtonProjection> getAnchoredCommands() {
         return Collections.unmodifiableList(this.anchoredCommands);
     }
 
@@ -625,7 +625,7 @@ public class JRibbon extends JComponent {
      * @see #getApplicationMenuProjection()
      */
     public synchronized void setApplicationMenuCommand(
-            RibbonApplicationMenuCommandProjection applicationMenuCommandProjection) {
+            RibbonApplicationMenuCommandButtonProjection applicationMenuCommandProjection) {
         if (this.applicationMenuCommandProjection == applicationMenuCommandProjection) {
             return;
         }
@@ -638,16 +638,16 @@ public class JRibbon extends JComponent {
             this.applicationMenuProjection = null;
         } else {
             RibbonApplicationMenu ribbonApplicationMenu = (RibbonApplicationMenu)
-                    applicationMenuCommandProjection.getContentModel().getPopupMenuContentModel();
+                    applicationMenuCommandProjection.getContentModel().getSecondaryContentModel();
             RibbonApplicationMenuProjection ribbonApplicationMenuProjection =
                     new RibbonApplicationMenuProjection(
-                            ribbonApplicationMenu, CommandPresentation.withDefaults());
+                            ribbonApplicationMenu, CommandButtonPresentationModel.withDefaults());
             this.applicationMenuProjection = ribbonApplicationMenuProjection;
         }
         this.firePropertyChange("applicationMenu", old, this.applicationMenuProjection);
     }
 
-    public RibbonApplicationMenuCommandProjection getApplicationMenuCommandProjection() {
+    public RibbonApplicationMenuCommandButtonProjection getApplicationMenuCommandProjection() {
         return this.applicationMenuCommandProjection;
     }
 
@@ -655,7 +655,7 @@ public class JRibbon extends JComponent {
      * Returns the application menu of this ribbon.
      *
      * @return The application menu of this ribbon.
-     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)
+     * @see #setApplicationMenuCommand(RibbonApplicationMenuCommandButtonProjection)
      */
     public synchronized RibbonApplicationMenuProjection getApplicationMenuProjection() {
         return this.applicationMenuProjection;

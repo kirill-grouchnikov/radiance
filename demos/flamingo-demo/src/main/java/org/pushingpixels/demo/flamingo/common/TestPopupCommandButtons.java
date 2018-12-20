@@ -82,25 +82,25 @@ public class TestPopupCommandButtons extends JFrame {
                 .setText(resourceBundle.getString("SelectAll.text"))
                 .setIconFactory(Edit_paste.factory())
                 .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
-                .setPopupMenuContentModel(getPopupMenuContentModel(PopupKind.SIMPLE))
+                .setSecondaryContentModel(getPopupMenuContentModel(PopupKind.SIMPLE))
                 .build();
         this.popupScrollableCommand = Command.builder()
                 .setText(resourceBundle.getString("SelectAll.text"))
                 .setIconFactory(Edit_paste.factory())
                 .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
-                .setPopupMenuContentModel(getPopupMenuContentModel(PopupKind.SCROLLABLE))
+                .setSecondaryContentModel(getPopupMenuContentModel(PopupKind.SCROLLABLE))
                 .build();
         this.popupComplexCommand = Command.builder()
                 .setText(resourceBundle.getString("SelectAll.text"))
                 .setIconFactory(Edit_paste.factory())
                 .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
-                .setPopupMenuContentModel(getPopupMenuContentModel(PopupKind.COMPLEX))
+                .setSecondaryContentModel(getPopupMenuContentModel(PopupKind.COMPLEX))
                 .build();
 
         this.add(getButtonPanel(), BorderLayout.CENTER);
     }
 
-    private CommandPopupMenuContentModel getPopupMenuContentModel(PopupKind popupKind) {
+    private CommandMenuContentModel getPopupMenuContentModel(PopupKind popupKind) {
         MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
         mf.setLocale(currLocale);
 
@@ -111,22 +111,22 @@ public class TestPopupCommandButtons extends JFrame {
 
                 simpleEntries1.add(Command.builder()
                         .setText(mf.format(new Object[] { "1" }))
-                        .setIcon(new Address_book_new()).build());
+                        .setIconFactory(Address_book_new.factory()).build());
                 simpleEntries1.add(Command.builder()
                         .setText(mf.format(new Object[] { "2" }))
-                        .setIcon(new EmptyResizableIcon(16)).build());
+                        .setIconFactory(EmptyResizableIcon.factory()).build());
                 simpleEntries1.add(Command.builder()
                         .setText(mf.format(new Object[] { "3" }))
-                        .setIcon(new EmptyResizableIcon(16)).build());
+                        .setIconFactory(EmptyResizableIcon.factory()).build());
 
                 simpleEntries2.add(Command.builder()
                         .setText(mf.format(new Object[] { "4" }))
-                        .setIcon(new EmptyResizableIcon(16)).build());
+                        .setIconFactory(EmptyResizableIcon.factory()).build());
                 simpleEntries2.add(Command.builder()
                         .setText(mf.format(new Object[] { "5" }))
-                        .setIcon(new Text_x_generic()).build());
+                        .setIconFactory(Text_x_generic.factory()).build());
 
-                return new CommandPopupMenuContentModel(
+                return new CommandMenuContentModel(
                         Arrays.asList(new CommandGroup(simpleEntries1),
                                 new CommandGroup(simpleEntries2)));
 
@@ -138,34 +138,34 @@ public class TestPopupCommandButtons extends JFrame {
                     scrollableEntries.add(
                             Command.builder()
                                     .setText(mf.format(new Object[] { i }))
-                                    .setIcon(new Text_x_generic())
+                                    .setIconFactory(Text_x_generic.factory())
                                     .setAction((CommandActionEvent e) -> System.out
                                             .println("Invoked action on '" + index + "'"))
                                     .build());
                 }
 
-                return new CommandPopupMenuContentModel(new CommandGroup(scrollableEntries));
+                return new CommandMenuContentModel(new CommandGroup(scrollableEntries));
 
             default:
                 List<CommandGroup> extraEntries = new ArrayList<>();
                 extraEntries.add(new CommandGroup(
                         Command.builder()
                                 .setText(resourceBundle.getString("SaveSelection.text"))
-                                .setIcon(new X_office_document())
+                                .setIconFactory(X_office_document.factory())
                                 .build(),
                         Command.builder()
                                 .setText(resourceBundle.getString("ClearSelection.text"))
-                                .setIcon(new EmptyResizableIcon(16))
+                                .setIconFactory(EmptyResizableIcon.factory())
                                 .build()
                 ));
                 extraEntries.add(new CommandGroup(
                         Command.builder()
                                 .setText(resourceBundle.getString("ApplyStyles.text"))
-                                .setIcon(new EmptyResizableIcon(16))
+                                .setIconFactory(EmptyResizableIcon.factory())
                                 .build()
                 ));
 
-                return new CommandPopupMenuContentModel(
+                return new CommandMenuContentModel(
                         QuickStylesPanel.getQuickStylesContentModel(resourceBundle, currLocale),
                         extraEntries);
         }
@@ -217,7 +217,7 @@ public class TestPopupCommandButtons extends JFrame {
 
     private AbstractCommandButton createSimplePopupButton(CommandButtonPresentationState state) {
         return this.popupSimpleCommand.project(
-                CommandPresentation.builder()
+                CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
                         .setFlat(false)
                         .setPopupMenuPresentationModel(
@@ -228,7 +228,7 @@ public class TestPopupCommandButtons extends JFrame {
 
     private AbstractCommandButton createScrollablePopupButton(CommandButtonPresentationState state) {
         return this.popupScrollableCommand.project(
-                CommandPresentation.builder()
+                CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
                         .setFlat(false)
                         .setPopupMenuPresentationModel(
@@ -239,7 +239,7 @@ public class TestPopupCommandButtons extends JFrame {
 
     private AbstractCommandButton createComplexPopupButton(CommandButtonPresentationState state) {
         return this.popupComplexCommand.project(
-                CommandPresentation.builder()
+                CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
                         .setFlat(false)
                         .setPopupMenuPresentationModel(

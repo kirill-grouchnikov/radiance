@@ -128,9 +128,11 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             worker.execute();
         }
 
-        this.dummy = Command.builder().setText("Dummy").setIcon(new EmptyResizableIcon(16))
+        this.dummy = Command.builder()
+                .setText("Dummy")
+                .setIconFactory(EmptyResizableIcon.factory())
                 .setAction((CommandActionEvent e) -> {})
-                .build().project(CommandPresentation.builder()
+                .build().project(CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL).build())
                 .buildComponent();
         int preferredHeight = dummy.getPreferredSize().height;
@@ -394,10 +396,11 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         this.buttonStack.clear();
         this.commandStack.clear();
 
-        CommandPresentation commandPresentation = CommandPresentation.builder()
+        CommandButtonPresentationModel commandPresentation =
+                CommandButtonPresentationModel.builder()
                 .setPresentationState(CommandButtonPresentationState.MEDIUM)
                 .setPopupOrientationKind(
-                        CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD)
+                        CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD)
                 .setHorizontalGapScaleFactor(0.75)
                 .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
                         .setMaxVisibleMenuCommands(10).build())
@@ -410,7 +413,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                 BreadcrumbItemChoices bic = (BreadcrumbItemChoices) element;
                 if (buttonStack.isEmpty()) {
                     Command command = Command.builder()
-                            .setPopupMenuContentModel(new CommandPopupMenuContentModel(
+                            .setSecondaryContentModel(new CommandMenuContentModel(
                                     new CommandGroup()))
                             .build();
                     JCommandButton button = (JCommandButton) command.project(commandPresentation)
@@ -433,7 +436,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
                 Command command = Command.builder()
                         .setText(bi.getKey())
-                        .setPopupMenuContentModel(new CommandPopupMenuContentModel(
+                        .setSecondaryContentModel(new CommandMenuContentModel(
                                 new CommandGroup()))
                         .build();
                 JCommandButton button = (JCommandButton) command.project(commandPresentation)
@@ -535,7 +538,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
             final Icon icon = bi.getIcon();
             if (icon != null) {
-                commandBuilder.setIcon(new ResizableIcon() {
+                commandBuilder.setIconFactory(() -> new ResizableIcon() {
                     int iw = icon.getIconWidth();
                     int ih = icon.getIconHeight();
 
@@ -590,14 +593,14 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
         menuPresentationModel.setMaxVisibleMenuCommands(10);
 
-        CommandPopupMenuContentModel popupMenuContentModel =
-                new CommandPopupMenuContentModel(new CommandGroup(menuCommands));
+        CommandMenuContentModel popupMenuContentModel =
+                new CommandMenuContentModel(new CommandGroup(menuCommands));
         if (bic.getSelectedIndex() >= 0) {
             popupMenuContentModel.setHighlightedCommand(menuCommands.get(bic.getSelectedIndex()));
         }
 
-        CommandPopupMenuContentModel commandPopupMenuContentModel =
-                (CommandPopupMenuContentModel) command.getPopupMenuContentModel();
+        CommandMenuContentModel commandPopupMenuContentModel =
+                (CommandMenuContentModel) command.getSecondaryContentModel();
         commandPopupMenuContentModel.removeAllCommandGroups();
         commandPopupMenuContentModel.addCommandGroup(new CommandGroup(menuCommands));
     }
@@ -640,10 +643,10 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         button.getPopupModel().addChangeListener((ChangeEvent e) -> {
             PopupButtonModel model = button.getPopupModel();
             boolean displayDownwards = model.isRollover() || model.isPopupShowing();
-            CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind =
+            CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind =
                     displayDownwards
-                            ? CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD
-                            : CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD;
+                            ? CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
+                            : CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD;
             button.setPopupOrientationKind(popupOrientationKind);
         });
     }

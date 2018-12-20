@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.spyglass.cookbook;
 
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 
 import java.awt.*;
 
@@ -73,5 +73,9 @@ public class ScaledResizableIcon implements ResizableIcon {
 
 	public void setDimension(Dimension newDimension) {
 		delegate.setDimension(newDimension);
+	}
+
+	public static ResizableIconFactory factory(ResizableIconFactory delegate, double scaleFactor) {
+		return () -> new ScaledResizableIcon(delegate.createNewIcon(), scaleFactor);
 	}
 }

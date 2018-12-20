@@ -171,9 +171,9 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 .build();
 
         // Configure the overlay for the expand command to show the gallery's expand key tip
-        Map<Command, CommandPresentation.Overlay> galleryScrollerOverlays = new HashMap<>();
+        Map<Command, CommandButtonPresentationModel.Overlay> galleryScrollerOverlays = new HashMap<>();
         galleryScrollerOverlays.put(this.expandCommand,
-                CommandPresentation.overlay().setActionKeyTip(this.ribbonGallery.getProjection()
+                CommandButtonPresentationModel.overlay().setActionKeyTip(this.ribbonGallery.getProjection()
                         .getPresentationModel().getExpandKeyTip()));
 
         // Configure customizers for all the scroller buttons (setting icons and additional
@@ -188,9 +188,9 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
         // Configure the component supplier for the expand command to return our own subclass
         Map<Command, Projection.ComponentSupplier<AbstractCommandButton, Command,
-                CommandPresentation>> galleryScrollerSuppliers = new HashMap<>();
+                CommandButtonPresentationModel>> galleryScrollerSuppliers = new HashMap<>();
         galleryScrollerSuppliers.put(this.expandCommand,
-                (Projection<AbstractCommandButton, Command, CommandPresentation> commandProjection)
+                (Projection<AbstractCommandButton, Command, CommandButtonPresentationModel> commandProjection)
                         -> ExpandCommandButton::new);
 
         // Create a button strip that hosts all three scroller commands with all the additional
@@ -568,7 +568,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     @KeyTipManager.HasNextKeyTipChain
     private static class ExpandCommandButton extends JCommandButton {
         public ExpandCommandButton(Projection<AbstractCommandButton, Command,
-                CommandPresentation> projection) {
+                CommandButtonPresentationModel> projection) {
             super(projection);
         }
     }

@@ -33,8 +33,8 @@ import org.pushingpixels.demo.kormorant.svg.Format_text_bold
 import org.pushingpixels.demo.kormorant.svg.Format_text_italic
 import org.pushingpixels.demo.kormorant.svg.Format_text_strikethrough
 import org.pushingpixels.demo.kormorant.svg.Format_text_underline
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.CommandAction
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -64,10 +64,10 @@ fun main(args: Array<String>) {
         val singleChoice = commandButton {
             command {
                 title = "multi"
-                popupMenu = commandPopupMenu {
+                menu = commandPopupMenu {
                     command {
                         title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
-                        icon = Format_text_bold.of(16, 16)
+                        iconFactory = Format_text_bold.factory()
                         action = CommandAction {
                             println("Toggle bold")
                             isBold = !isBold
@@ -77,7 +77,7 @@ fun main(args: Array<String>) {
                     }
                     command {
                         title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
-                        icon = Format_text_italic.of(16, 16)
+                        iconFactory = Format_text_italic.factory()
                         action = CommandAction {
                             println("Toggle italic")
                             isItalic = !isItalic
@@ -87,7 +87,7 @@ fun main(args: Array<String>) {
                     }
                     command {
                         title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
-                        icon = Format_text_underline.of(16, 16)
+                        iconFactory = Format_text_underline.factory()
                         action = CommandAction {
                             println("Toggle underline")
                             isUnderline = !isUnderline
@@ -97,7 +97,7 @@ fun main(args: Array<String>) {
                     }
                     command {
                         title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
-                        icon = Format_text_strikethrough.of(16, 16)
+                        iconFactory = Format_text_strikethrough.factory()
                         action = CommandAction {
                             println("Toggle strikethrough")
                             isStrikeThrough = !isStrikeThrough

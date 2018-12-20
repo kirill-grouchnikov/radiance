@@ -36,7 +36,7 @@ import javax.swing.*;
 
 public class JRibbonSpinner extends JSpinner {
     public JRibbonSpinner(Projection<JRibbonSpinner,
-            RibbonSpinnerContentModel, ComponentPresentation> projection) {
+            RibbonSpinnerContentModel, ComponentPresentationModel> projection) {
         super(projection.getContentModel());
     }
 }

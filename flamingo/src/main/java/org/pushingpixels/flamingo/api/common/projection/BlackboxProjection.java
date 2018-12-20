@@ -36,7 +36,7 @@ import java.util.*;
 public abstract class BlackboxProjection<C extends ContentModel, P extends PresentationModel> {
     private C contentModel;
     private P presentationModel;
-    private Map<Command, CommandPresentation.Overlay> commandOverlays;
+    private Map<Command, CommandButtonPresentationModel.Overlay> commandOverlays;
 
     public BlackboxProjection(C contentModel, P presentationModel) {
         this.contentModel = contentModel;
@@ -52,11 +52,11 @@ public abstract class BlackboxProjection<C extends ContentModel, P extends Prese
         return this.presentationModel;
     }
 
-    public void setCommandOverlays(Map<Command, CommandPresentation.Overlay> commandOverlays) {
+    public void setCommandOverlays(Map<Command, CommandButtonPresentationModel.Overlay> commandOverlays) {
         this.commandOverlays = commandOverlays;
     }
 
-    public Map<Command, CommandPresentation.Overlay> getCommandOverlays() {
+    public Map<Command, CommandButtonPresentationModel.Overlay> getCommandOverlays() {
         return this.commandOverlays;
     }
 }

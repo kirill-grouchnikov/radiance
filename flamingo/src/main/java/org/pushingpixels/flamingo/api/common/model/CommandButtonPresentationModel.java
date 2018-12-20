@@ -30,25 +30,24 @@
 package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 
 /**
- * Encapsulates presentation metadata for displaying commands. Use a new instance of
- * {@link Builder} to configure a new presentation, and
- * {@link Builder#build()} to build a presentation.
+ * Encapsulates presentation metadata for displaying commands as buttons. Use a new instance of
+ * {@link Builder} to configure a new presentation, and {@link Builder#build()} to build a
+ * presentation.
  *
- * <p>Note that you can use the same
- * {@link CommandPresentation} instance on multiple calls to
- * {@link Command#project(CommandPresentation)}. Use {@link #overlayWith(Overlay)} to create
- * a new presentation instance that overlays the presentation configuration with values
- * set on the passed {@link Overlay} object.</p>
+ * <p>Note that you can use the same {@link CommandButtonPresentationModel} instance on multiple
+ * calls to {@link Command#project(CommandButtonPresentationModel)}. Use
+ * {@link #overlayWith(Overlay)} to create a new presentation instance that overlays the
+ * presentation configuration with values set on the passed {@link Overlay} object.</p>
  *
  * @author Kirill Grouchnikov
  * @see Command
- * @see CommandProjection
+ * @see CommandButtonProjection
  */
-public class CommandPresentation implements ImmutablePresentationModel {
+public class CommandButtonPresentationModel implements ImmutablePresentationModel {
     private CommandButtonPresentationState presentationState;
     private Integer iconDimension;
     private boolean isFlat;
@@ -57,17 +56,17 @@ public class CommandPresentation implements ImmutablePresentationModel {
     private double horizontalGapScaleFactor;
     private double verticalGapScaleFactor;
     private boolean isMenu;
-    private CommandButtonPopupOrientationKind popupOrientationKind;
+    private PopupOrientationKind popupOrientationKind;
     private String actionKeyTip;
     private String popupKeyTip;
     private boolean toDismissPopupsOnActivation;
     private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
 
-    private CommandPresentation() {
+    private CommandButtonPresentationModel() {
     }
 
-    public CommandPresentation overlayWith(Overlay overlay) {
-        CommandPresentation result = new CommandPresentation();
+    public CommandButtonPresentationModel overlayWith(Overlay overlay) {
+        CommandButtonPresentationModel result = new CommandButtonPresentationModel();
 
         result.presentationState = (overlay.presentationState != null)
                 ? overlay.presentationState : this.presentationState;
@@ -96,8 +95,8 @@ public class CommandPresentation implements ImmutablePresentationModel {
         return result;
     }
 
-    public static CommandPresentation withDefaults() {
-        return CommandPresentation.builder().build();
+    public static CommandButtonPresentationModel withDefaults() {
+        return CommandButtonPresentationModel.builder().build();
     }
 
     public static Builder builder() {
@@ -136,7 +135,7 @@ public class CommandPresentation implements ImmutablePresentationModel {
         return this.iconDimension;
     }
 
-    public CommandButtonPopupOrientationKind getPopupOrientationKind() {
+    public PopupOrientationKind getPopupOrientationKind() {
         return this.popupOrientationKind;
     }
 
@@ -165,7 +164,7 @@ public class CommandPresentation implements ImmutablePresentationModel {
      *
      * @author Kirill Grouchnikov
      */
-    public enum CommandButtonPopupOrientationKind {
+    public enum PopupOrientationKind {
         /**
          * Indicates that the popup should be displayed below the button.
          */
@@ -187,7 +186,7 @@ public class CommandPresentation implements ImmutablePresentationModel {
         private Double verticalGapScaleFactor;
         private Integer iconDimension;
         private Boolean isMenu;
-        private CommandButtonPopupOrientationKind popupOrientationKind;
+        private PopupOrientationKind popupOrientationKind;
         private Boolean toDismissPopupsOnActivation;
         private String actionKeyTip;
         private String popupKeyTip;
@@ -229,7 +228,7 @@ public class CommandPresentation implements ImmutablePresentationModel {
         }
 
         public Overlay setPopupOrientationKind(
-                CommandButtonPopupOrientationKind popupOrientationKind) {
+                PopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
             return this;
         }
@@ -271,8 +270,8 @@ public class CommandPresentation implements ImmutablePresentationModel {
         private double verticalGapScaleFactor = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR;
         private Integer iconDimension;
         private boolean isMenu = false;
-        private CommandButtonPopupOrientationKind popupOrientationKind =
-                CommandButtonPopupOrientationKind.DOWNWARD;
+        private PopupOrientationKind popupOrientationKind =
+                PopupOrientationKind.DOWNWARD;
         private String actionKeyTip;
         private String popupKeyTip;
         private boolean toDismissPopupsOnActivation = true;
@@ -316,7 +315,7 @@ public class CommandPresentation implements ImmutablePresentationModel {
         }
 
         public Builder setPopupOrientationKind(
-                CommandButtonPopupOrientationKind popupOrientationKind) {
+                PopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
             return this;
         }
@@ -347,8 +346,9 @@ public class CommandPresentation implements ImmutablePresentationModel {
             return this;
         }
 
-        public CommandPresentation build() {
-            CommandPresentation commandPresentation = new CommandPresentation();
+        public CommandButtonPresentationModel build() {
+            CommandButtonPresentationModel commandPresentation =
+                    new CommandButtonPresentationModel();
             commandPresentation.presentationState = this.presentationState;
             commandPresentation.horizontalAlignment = this.horizontalAlignment;
             commandPresentation.horizontalGapScaleFactor = this.horizontalGapScaleFactor;

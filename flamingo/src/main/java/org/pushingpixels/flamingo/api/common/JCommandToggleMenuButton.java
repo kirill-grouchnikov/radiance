@@ -46,7 +46,7 @@ public class JCommandToggleMenuButton extends JCommandToggleButton {
     public static final String uiClassID = "CommandToggleMenuButtonUI";
 
     public JCommandToggleMenuButton(Projection<AbstractCommandButton, Command,
-            CommandPresentation> projection) {
+            CommandButtonPresentationModel> projection) {
         super(projection);
     }
 

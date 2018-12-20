@@ -97,7 +97,7 @@ fun main(args: Array<String>) {
         // Create a button strip to change the text styling in our text pane.
         val commandStyleStrip = commandButtonStrip {
             command {
-                icon = Format_text_bold.of(16, 16)
+                iconFactory = Format_text_bold.factory()
                 action = CommandAction {
                     textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Bold)
                 }
@@ -110,7 +110,7 @@ fun main(args: Array<String>) {
                 }
             }
             command {
-                icon = Format_text_italic.of(16, 16)
+                iconFactory = Format_text_italic.factory()
                 action = CommandAction {
                     textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Italic)
                 }
@@ -123,7 +123,7 @@ fun main(args: Array<String>) {
                 }
             }
             command {
-                icon = Format_text_underline.of(16, 16)
+                iconFactory = Format_text_underline.factory()
                 action = CommandAction {
                     textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Underline)
                 }
@@ -136,7 +136,7 @@ fun main(args: Array<String>) {
                 }
             }
             command {
-                icon = Format_text_strikethrough.of(16, 16)
+                iconFactory = Format_text_strikethrough.factory()
                 action = CommandAction {
                     textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.StrikeThrough)
                 }

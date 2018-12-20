@@ -30,8 +30,8 @@
 package org.pushingpixels.demo.kormorant.popup
 
 import org.pushingpixels.demo.kormorant.svg.*
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.CommandAction
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
@@ -61,9 +61,9 @@ fun main(args: Array<String>) {
         val commandButton = commandButton {
             command {
                 title = resourceBundle.getString("Paste.text")
-                icon = Help_browser.of(16, 16)
+                iconFactory = Help_browser.factory()
                 extraText = resourceBundle.getString("Paste.textExtra")
-                popupMenu = commandPopupMenu {
+                menu = commandPopupMenu {
                     commandPanel {
                         presentation {
                             commandIconDimension = 48
@@ -79,7 +79,8 @@ fun main(args: Array<String>) {
                                 for (i in 0 until 15) {
                                     command {
                                         val decoration = "$groupIndex/$i"
-                                        icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
+                                        iconFactory = DecoratedResizableIcon.factory(
+                                                Font_x_generic.factory(),
                                                 DecoratedResizableIcon.IconDecorator { component, graphics, x, y, width, height ->
                                                     graphics.render {
                                                         it.color = Color.black
@@ -92,8 +93,7 @@ fun main(args: Array<String>) {
                                                                     y + height - 2)
                                                         }
                                                     }
-                                                }
-                                        )
+                                                })
 
                                         isToggle = true
                                         action = CommandAction {
@@ -110,21 +110,21 @@ fun main(args: Array<String>) {
                     group {
                         command {
                             title = mf.format(arrayOf("1"))
-                            icon = Applications_games.of(16, 16)
+                            iconFactory = Applications_games.factory()
                             action = CommandAction {
                                 println("First!")
                             }
                         }
                         command {
                             title = mf.format(arrayOf("2"))
-                            icon = Applications_graphics.of(16, 16)
+                            iconFactory = Applications_graphics.factory()
                             action = CommandAction {
                                 println("Second!")
                             }
                         }
                         command {
                             title = mf.format(arrayOf("3"))
-                            icon = Applications_internet.of(16, 16)
+                            iconFactory = Applications_internet.factory()
                             action = CommandAction {
                                 println("Third!")
                             }
@@ -133,14 +133,14 @@ fun main(args: Array<String>) {
                     group {
                         command {
                             title = mf.format(arrayOf("4"))
-                            icon = Applications_multimedia.of(16, 16)
+                            iconFactory = Applications_multimedia.factory()
                             action = CommandAction {
                                 println("Fourth!")
                             }
                         }
                         command {
                             title = mf.format(arrayOf("5"))
-                            icon = Applications_office.of(16, 16)
+                            iconFactory = Applications_office.factory()
                             action = CommandAction {
                                 println("Fifth!")
                             }

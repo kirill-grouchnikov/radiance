@@ -30,8 +30,8 @@
 package org.pushingpixels.demo.kormorant.popup
 
 import org.pushingpixels.demo.kormorant.svg.*
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.CommandAction
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -57,28 +57,28 @@ fun main(args: Array<String>) {
         val commandButton = commandButton {
             command {
                 title = resourceBundle.getString("Paste.text")
-                icon = Help_browser.of(16, 16)
+                iconFactory = Help_browser.factory()
                 extraText = resourceBundle.getString("Paste.textExtra")
-                popupMenu = commandPopupMenu {
+                menu = commandPopupMenu {
                     val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
                     group {
                         command {
                             title = mf.format(arrayOf("1"))
-                            icon = Applications_games.of(16, 16)
+                            iconFactory = Applications_games.factory()
                             action = CommandAction {
                                 println("First!")
                             }
                         }
                         command {
                             title = mf.format(arrayOf("2"))
-                            icon = Applications_graphics.of(16, 16)
+                            iconFactory = Applications_graphics.factory()
                             action = CommandAction {
                                 println("Second!")
                             }
                         }
                         command {
                             title = mf.format(arrayOf("3"))
-                            icon = Applications_internet.of(16, 16)
+                            iconFactory = Applications_internet.factory()
                             action = CommandAction {
                                 println("Third!")
                             }
@@ -88,14 +88,14 @@ fun main(args: Array<String>) {
                     group {
                         command {
                             title = mf.format(arrayOf("4"))
-                            icon = Applications_multimedia.of(16, 16)
+                            iconFactory = Applications_multimedia.factory()
                             action = CommandAction {
                                 println("Fourth!")
                             }
                         }
                         command {
                             title = mf.format(arrayOf("5"))
-                            icon = Applications_office.of(16, 16)
+                            iconFactory = Applications_office.factory()
                             action = CommandAction {
                                 println("Fifth!")
                             }

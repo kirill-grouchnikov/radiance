@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.internal.ui.common;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel.ScrollType;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -175,7 +175,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                 .build();
 
         // Common scroller command presentation
-        CommandPresentation scrollerActionsPresentation = CommandPresentation.builder()
+        CommandButtonPresentationModel scrollerActionsPresentation = CommandButtonPresentationModel.builder()
                 .setFocusable(false)
                 .setToDismissPopupsOnActivation(false)
                 .setHorizontalAlignment(SwingConstants.CENTER)
@@ -184,12 +184,12 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
 
         // Create command projections for scroller commands and set button customizers for
         // icons and additional straight sides
-        CommandProjection<Command> leadingScrollerProjection =
+        CommandButtonProjection<Command> leadingScrollerProjection =
                 this.leadingScrollCommand.project(scrollerActionsPresentation);
         leadingScrollerProjection.setComponentCustomizer((AbstractCommandButton button) ->
                 configureLeadingScrollerButton(button));
 
-        CommandProjection<Command> trailingScrollerProjection =
+        CommandButtonProjection<Command> trailingScrollerProjection =
                 this.trailingScrollCommand.project(scrollerActionsPresentation);
         trailingScrollerProjection.setComponentCustomizer((AbstractCommandButton button) ->
                 configureTrailingScrollerButton(button));

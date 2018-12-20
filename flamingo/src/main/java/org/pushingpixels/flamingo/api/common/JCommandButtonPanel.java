@@ -164,8 +164,8 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         return this.projection;
     }
 
-    private CommandPresentation createBaseCommandPresentation() {
-        return CommandPresentation.builder()
+    private CommandButtonPresentationModel createBaseCommandPresentation() {
+        return CommandButtonPresentationModel.builder()
                 .setPresentationState(this.panelPresentationModel.getCommandPresentationState())
                 .setIconDimension(this.panelPresentationModel.getCommandIconDimension())
                 .setMenu(this.panelPresentationModel.isMenu())
@@ -186,7 +186,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         }
 
         int groupIndex = 0;
-        CommandPresentation baseCommandPresentation = createBaseCommandPresentation();
+        CommandButtonPresentationModel baseCommandPresentation = createBaseCommandPresentation();
         Command.CommandActionPreview commandPreviewListener =
                 panelContentModel.getCommandPreviewListener();
         for (CommandGroup groupModel : panelContentModel.getCommandGroups()) {
@@ -196,13 +196,13 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
 
             for (Command command : groupModel.getCommands()) {
                 // Apply overlay if we have it in the top-level projection
-                CommandPresentation commandPresentation =
+                CommandButtonPresentationModel commandPresentation =
                         this.projection.getCommandOverlays().containsKey(command)
                                 ? baseCommandPresentation.overlayWith(
                                 this.projection.getCommandOverlays().get(command))
                                 : baseCommandPresentation;
 
-                CommandProjection<Command> commandProjection = command.project(commandPresentation);
+                CommandButtonProjection<Command> commandProjection = command.project(commandPresentation);
                 // Propagate command overlays so that key tips are properly displayed
                 // on secondary content of this command's projection
                 commandProjection.setCommandOverlays(this.projection.getCommandOverlays());

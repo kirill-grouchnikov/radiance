@@ -31,7 +31,6 @@ package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.RichTooltip
 import org.pushingpixels.flamingo.api.common.model.CommandToggleGroupModel
-import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.neon.icon.ResizableIconFactory
 import java.awt.Color
 import kotlin.properties.ReadWriteProperty

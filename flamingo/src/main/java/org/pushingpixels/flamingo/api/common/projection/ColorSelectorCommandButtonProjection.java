@@ -33,15 +33,16 @@ import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.internal.ui.common.JColorSelectorCommandButton;
 
-public class ColorSelectorCommandProjection extends CommandProjection<ColorSelectorCommand> {
+public class ColorSelectorCommandButtonProjection extends
+        CommandButtonProjection<ColorSelectorCommand> {
     private static ComponentSupplier<AbstractCommandButton, ColorSelectorCommand,
-            CommandPresentation> getDefaultColorSelectorSupplier() {
-        return (Projection<AbstractCommandButton, ColorSelectorCommand, CommandPresentation> projection) ->
+            CommandButtonPresentationModel> getDefaultColorSelectorSupplier() {
+        return (Projection<AbstractCommandButton, ColorSelectorCommand, CommandButtonPresentationModel> projection) ->
                 JColorSelectorCommandButton::new;
     }
 
-    public ColorSelectorCommandProjection(ColorSelectorCommand command,
-            CommandPresentation commandPresentation) {
+    public ColorSelectorCommandButtonProjection(ColorSelectorCommand command,
+            CommandButtonPresentationModel commandPresentation) {
         super(command, commandPresentation, getDefaultColorSelectorSupplier());
     }
 }

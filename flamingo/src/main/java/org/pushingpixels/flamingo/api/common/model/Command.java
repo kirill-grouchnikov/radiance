@@ -30,9 +30,8 @@
 package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.neon.icon.ResizableIconFactory;
 
 import javax.swing.event.*;
 import java.beans.*;
@@ -43,39 +42,38 @@ import java.util.EventListener;
  * {@link Builder} to configure a new command, and {@link Builder#build()} to build a command.
  *
  * <p>A command can be projected to screen (creating a visual representation of that command)
- * using {@link CommandPresentation} and {@link CommandProjection}. Use {@link #project()} for
- * default presentation settings or {@link #project(CommandPresentation)} to customize
- * presentation settings. Then use {@link CommandProjection#buildComponent()} to get an instance
- * of {@link AbstractCommandButton} that can be added to the component hierarchy. Note that you
+ * using {@link CommandButtonPresentationModel} and {@link CommandButtonProjection}. Use
+ * {@link #project()} for default presentation settings or
+ * {@link #project(CommandButtonPresentationModel)} to customize presentation settings. Then use
+ * {@link CommandButtonProjection#buildComponent()} to get an instance of
+ * {@link AbstractCommandButton} that can be added to the component hierarchy. Note that you
  * can - and should - use the same {@link Command} instance and one or more
- * {@link CommandPresentation}s if you need to have multiple instances (or projections) of the
- * same command in your app UI. That way changes in thecommand are propagated and synced across
- * all those projections.</p>
+ * {@link CommandButtonPresentationModel}s if you need to have multiple instances (or
+ * projections) of the same command in your app UI. That way changes in thecommand are propagated
+ * and synced across all those projections.</p>
  *
  * @author Kirill Grouchnikov
- * @see CommandPresentation
- * @see CommandProjection
+ * @see CommandButtonPresentationModel
+ * @see CommandButtonProjection
  */
 public class Command implements ContentModel {
     public static final int DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS = 500;
     public static final int DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS = 100;
 
     private String text;
-    private ResizableIcon icon;
     private ResizableIconFactory iconFactory;
-    private ResizableIcon disabledIcon;
     private ResizableIconFactory disabledIconFactory;
     private String extraText;
     private CommandAction action;
     private CommandActionPreview actionPreview;
     private RichTooltip actionRichTooltip;
-    private CommandPopupMenuContentModel popupMenuContentModel;
-    private RichTooltip popupRichTooltip;
+    private CommandMenuContentModel secondaryContentModel;
+    private RichTooltip secondaryRichTooltip;
     private boolean isTitleClickAction;
-    private boolean isTitleClickPopup;
+    private boolean isTitleClickSecondary;
     private boolean isEnabled;
     private boolean isActionEnabled;
-    private boolean isPopupEnabled;
+    private boolean isSecondaryEnabled;
     private boolean isToggle;
     private boolean isToggleSelected;
     private CommandToggleGroupModel toggleGroupModel;
@@ -87,6 +85,12 @@ public class Command implements ContentModel {
     private boolean isFireActionOnPress;
 
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+    public interface CommandActionPreview extends EventListener {
+        void onCommandPreviewActivated(Command command);
+
+        void onCommandPreviewCanceled(Command command);
+    }
 
     /**
      * Stores the listeners on this model.
@@ -106,37 +110,38 @@ public class Command implements ContentModel {
                 throw new IllegalStateException("Configured action rich tooltip with no action");
             }
         }
-        if (popupMenuContentModel == null) {
-            if (popupRichTooltip != null) {
-                throw new IllegalStateException("Configured popup rich tooltip with no callback");
+        if (secondaryContentModel == null) {
+            if (secondaryRichTooltip != null) {
+                throw new IllegalStateException(
+                        "Configured secondary rich tooltip with no callback");
             }
         }
 
-        if ((action != null) && (popupMenuContentModel == null) && isTitleClickPopup) {
+        if ((action != null) && (secondaryContentModel == null) && isTitleClickSecondary) {
             throw new IllegalStateException(
-                    "Action-only command configured to activate popup on title click");
+                    "Action-only command configured to activate secondary on title click");
         }
 
-        if ((popupMenuContentModel != null) && (action == null) && isTitleClickAction) {
+        if ((secondaryContentModel != null) && (action == null) && isTitleClickAction) {
             throw new IllegalStateException(
-                    "Popup-only command configured to activate action on title click");
+                    "Secondary-only command configured to activate action on title click");
         }
 
-        if ((action != null) && (popupMenuContentModel != null)) {
-            if (isTitleClickAction && isTitleClickPopup) {
+        if ((action != null) && (secondaryContentModel != null)) {
+            if (isTitleClickAction && isTitleClickSecondary) {
                 throw new IllegalStateException(
-                        "Command configured to have both action and popup can't have both " +
+                        "Command configured to have both action and secondary can't have both " +
                                 "activated on title click");
             }
-            if (!isTitleClickAction && !isTitleClickPopup) {
+            if (!isTitleClickAction && !isTitleClickSecondary) {
                 throw new IllegalStateException(
-                        "Command configured to have both action and popup must have one activated" +
-                                " on title click");
+                        "Command configured to have both action and secondary must have one " +
+                                "activated on title click");
             }
         }
 
-        if (isToggle && (popupMenuContentModel != null)) {
-            throw new IllegalStateException("Command configured to be toggle can't have popups");
+        if (isToggle && (secondaryContentModel != null)) {
+            throw new IllegalStateException("Command configured to be toggle can't have secondary");
         }
 
         if (isToggle && isFireActionOnRollover) {
@@ -162,18 +167,6 @@ public class Command implements ContentModel {
         }
     }
 
-    public ResizableIcon getIcon() {
-        return this.icon;
-    }
-
-    public void setIcon(ResizableIcon icon) {
-        if (this.icon != icon) {
-            ResizableIcon old = this.icon;
-            this.icon = icon;
-            this.pcs.firePropertyChange("icon", old, this.icon);
-        }
-    }
-
     public ResizableIconFactory getIconFactory() {
         return this.iconFactory;
     }
@@ -183,18 +176,6 @@ public class Command implements ContentModel {
             ResizableIconFactory old = this.iconFactory;
             this.iconFactory = iconFactory;
             this.pcs.firePropertyChange("iconFactory", old, this.iconFactory);
-        }
-    }
-
-    public ResizableIcon getDisabledIcon() {
-        return this.disabledIcon;
-    }
-
-    public void setDisabledIcon(ResizableIcon disabledIcon) {
-        if (this.disabledIcon != disabledIcon) {
-            ResizableIcon old = this.disabledIcon;
-            this.disabledIcon = disabledIcon;
-            this.pcs.firePropertyChange("disabledIcon", old, this.disabledIcon);
         }
     }
 
@@ -242,19 +223,19 @@ public class Command implements ContentModel {
         }
     }
 
-    public CommandPopupMenuContentModel getPopupMenuContentModel() {
-        return this.popupMenuContentModel;
+    public CommandMenuContentModel getSecondaryContentModel() {
+        return this.secondaryContentModel;
     }
 
-    public RichTooltip getPopupRichTooltip() {
-        return this.popupRichTooltip;
+    public RichTooltip getSecondaryRichTooltip() {
+        return this.secondaryRichTooltip;
     }
 
-    public void setPopupRichTooltip(RichTooltip popupRichTooltip) {
-        if (this.popupRichTooltip != popupRichTooltip) {
-            RichTooltip old = this.popupRichTooltip;
-            this.popupRichTooltip = popupRichTooltip;
-            this.pcs.firePropertyChange("popupRichTooltip", old, this.popupRichTooltip);
+    public void setSecondaryRichTooltip(RichTooltip secondaryRichTooltip) {
+        if (this.secondaryRichTooltip != secondaryRichTooltip) {
+            RichTooltip old = this.secondaryRichTooltip;
+            this.secondaryRichTooltip = secondaryRichTooltip;
+            this.pcs.firePropertyChange("secondaryRichTooltip", old, this.secondaryRichTooltip);
         }
     }
 
@@ -262,8 +243,8 @@ public class Command implements ContentModel {
         return this.isTitleClickAction;
     }
 
-    public boolean isTitleClickPopup() {
-        return this.isTitleClickPopup;
+    public boolean isTitleClickSecondary() {
+        return this.isTitleClickSecondary;
     }
 
     public boolean isEnabled() {
@@ -289,14 +270,15 @@ public class Command implements ContentModel {
         }
     }
 
-    public boolean isPopupEnabled() {
-        return this.isPopupEnabled;
+    public boolean isSecondaryEnabled() {
+        return this.isSecondaryEnabled;
     }
 
-    public void setPopupEnabled(boolean popupEnabled) {
-        if (this.isPopupEnabled != popupEnabled) {
-            this.isPopupEnabled = popupEnabled;
-            this.pcs.firePropertyChange("popupEnabled", !this.isPopupEnabled, this.isPopupEnabled);
+    public void setSecondaryEnabled(boolean secondaryEnabled) {
+        if (this.isSecondaryEnabled != secondaryEnabled) {
+            this.isSecondaryEnabled = secondaryEnabled;
+            this.pcs.firePropertyChange("secondaryEnabled", !this.isSecondaryEnabled,
+                    this.isSecondaryEnabled);
         }
     }
 
@@ -376,14 +358,6 @@ public class Command implements ContentModel {
         return this.actionPreview;
     }
 
-    protected boolean hasAction() {
-        return (this.getAction() != null);
-    }
-
-    protected boolean hasPopup() {
-        return (this.getPopupMenuContentModel() != null);
-    }
-
     /**
      * Adds the specified change listener to track changes to this model.
      *
@@ -428,38 +402,30 @@ public class Command implements ContentModel {
         this.pcs.removePropertyChangeListener(l);
     }
 
-    public CommandProjection<Command> project() {
-        return new CommandProjection<>(this, CommandPresentation.withDefaults());
+    public CommandButtonProjection<Command> project() {
+        return new CommandButtonProjection<>(this, CommandButtonPresentationModel.withDefaults());
     }
 
-    public CommandProjection<Command> project(
-            CommandPresentation commandPresentation) {
-        return new CommandProjection<>(this, commandPresentation);
-    }
-
-    public interface CommandActionPreview extends EventListener {
-        void onCommandPreviewActivated(Command command);
-
-        void onCommandPreviewCanceled(Command command);
+    public CommandButtonProjection<Command> project(
+            CommandButtonPresentationModel commandPresentation) {
+        return new CommandButtonProjection<>(this, commandPresentation);
     }
 
     public abstract static class BaseBuilder<T extends Command, B extends BaseBuilder> {
         protected String text;
-        protected ResizableIcon icon;
-        protected ResizableIconFactory iconFactory;
-        protected ResizableIcon disabledIcon;
-        protected ResizableIconFactory disabledIconFactory;
         protected String extraText;
+        protected ResizableIconFactory iconFactory;
+        protected ResizableIconFactory disabledIconFactory;
         protected CommandAction action;
         protected CommandActionPreview actionPreview;
         protected RichTooltip actionRichTooltip;
-        protected CommandPopupMenuContentModel popupMenuContentModel;
-        protected RichTooltip popupRichTooltip;
+        protected CommandMenuContentModel secondaryContentModel;
+        protected RichTooltip secondaryRichTooltip;
         protected boolean isTitleClickAction;
-        protected boolean isTitleClickPopup;
+        protected boolean isTitleClickSecondary;
         protected boolean isEnabled = true;
         protected boolean isActionEnabled = true;
-        protected boolean isPopupEnabled = true;
+        protected boolean isSecondaryEnabled = true;
         protected boolean isToggle;
         protected boolean isToggleSelected;
         protected CommandToggleGroupModel toggleGroupModel;
@@ -472,20 +438,18 @@ public class Command implements ContentModel {
 
         protected void configureBaseCommand(Command command) {
             command.text = this.text;
-            command.icon = this.icon;
             command.iconFactory = this.iconFactory;
-            command.disabledIcon = this.disabledIcon;
             command.disabledIconFactory = this.disabledIconFactory;
             command.extraText = this.extraText;
             command.action = this.action;
             command.actionRichTooltip = this.actionRichTooltip;
-            command.popupMenuContentModel = this.popupMenuContentModel;
-            command.popupRichTooltip = this.popupRichTooltip;
+            command.secondaryContentModel = this.secondaryContentModel;
+            command.secondaryRichTooltip = this.secondaryRichTooltip;
             command.isTitleClickAction = this.isTitleClickAction;
-            command.isTitleClickPopup = this.isTitleClickPopup;
+            command.isTitleClickSecondary = this.isTitleClickSecondary;
             command.isEnabled = this.isEnabled;
             command.isActionEnabled = this.isActionEnabled;
-            command.isPopupEnabled = this.isPopupEnabled;
+            command.isSecondaryEnabled = this.isSecondaryEnabled;
             command.isToggle = this.isToggle;
             command.isToggleSelected = this.isToggleSelected;
             command.toggleGroupModel = this.toggleGroupModel;
@@ -508,18 +472,8 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
-        public B setIcon(ResizableIcon icon) {
-            this.icon = icon;
-            return (B) this;
-        }
-
         public B setIconFactory(ResizableIconFactory iconFactory) {
             this.iconFactory = iconFactory;
-            return (B) this;
-        }
-
-        public B setDisabledIcon(ResizableIcon disabledIcon) {
-            this.disabledIcon = disabledIcon;
             return (B) this;
         }
 
@@ -543,13 +497,13 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
-        public B setPopupMenuContentModel(CommandPopupMenuContentModel popupMenuContentModel) {
-            this.popupMenuContentModel = popupMenuContentModel;
+        public B setSecondaryContentModel(CommandMenuContentModel secondaryContentModel) {
+            this.secondaryContentModel = secondaryContentModel;
             return (B) this;
         }
 
-        public B setPopupRichTooltip(RichTooltip popupRichTooltip) {
-            this.popupRichTooltip = popupRichTooltip;
+        public B setSecondaryRichTooltip(RichTooltip secondaryRichTooltip) {
+            this.secondaryRichTooltip = secondaryRichTooltip;
             return (B) this;
         }
 
@@ -558,8 +512,8 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
-        public B setTitleClickPopup() {
-            this.isTitleClickPopup = true;
+        public B setTitleClickSecondary() {
+            this.isTitleClickSecondary = true;
             return (B) this;
         }
 
@@ -573,8 +527,8 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
-        public B setPopupEnabled(boolean isPopupEnabled) {
-            this.isPopupEnabled = isPopupEnabled;
+        public B setSecondaryEnabled(boolean isSecondaryEnabled) {
+            this.isSecondaryEnabled = isSecondaryEnabled;
             return (B) this;
         }
 

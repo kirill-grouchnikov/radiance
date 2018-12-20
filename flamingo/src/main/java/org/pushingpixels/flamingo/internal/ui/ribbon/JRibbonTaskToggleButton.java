@@ -59,7 +59,7 @@ public class JRibbonTaskToggleButton extends JCommandToggleButton {
 
     private RibbonTask ribbonTask;
 
-    public JRibbonTaskToggleButton(Projection<AbstractCommandButton, Command, CommandPresentation> projection) {
+    public JRibbonTaskToggleButton(Projection<AbstractCommandButton, Command, CommandButtonPresentationModel> projection) {
         super(projection);
     }
 

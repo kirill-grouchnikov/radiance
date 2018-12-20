@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
-import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandProjection;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelProjection;
@@ -74,10 +74,10 @@ public class JCommandButton extends AbstractCommandButton {
     /**
      * The popup orientation kind of this button.
      *
-     * @see #setPopupOrientationKind(CommandPresentation.CommandButtonPopupOrientationKind)
+     * @see #setPopupOrientationKind(CommandButtonPresentationModel.PopupOrientationKind)
      * @see #getPopupOrientationKind()
      */
-    private CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind;
+    private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind;
 
     /**
      * Indicates the auto-repeat action mode. When the button is not in the
@@ -331,7 +331,7 @@ public class JCommandButton extends AbstractCommandButton {
     }
 
     public JCommandButton(Projection<AbstractCommandButton, ? extends Command,
-            CommandPresentation> projection) {
+            CommandButtonPresentationModel> projection) {
         super(projection);
 
         this.setActionModel(new ActionRepeatableButtonModel(this));
@@ -343,17 +343,17 @@ public class JCommandButton extends AbstractCommandButton {
         this.setPopupModel(new DefaultPopupButtonModel());
 
         boolean hasAction = (command.getAction() != null);
-        boolean hasPopup = (command.getPopupMenuContentModel() != null);
+        boolean hasPopup = (command.getSecondaryContentModel() != null);
 
         if (hasPopup) {
-            if (command.getPopupMenuContentModel() != null) {
-                CommandPopupMenuContentModel popupMenuContentModel =
-                        command.getPopupMenuContentModel();
+            if (command.getSecondaryContentModel() != null) {
+                CommandMenuContentModel popupMenuContentModel =
+                        command.getSecondaryContentModel();
                 AbstractPopupMenuPresentationModel popupMenuPresentationModel =
                         commandPresentation.getPopupMenuPresentationModel();
                 if (popupMenuContentModel instanceof RibbonApplicationMenu) {
-                    RibbonApplicationMenuCommandProjection ribbonApplicationMenuProjection =
-                            (RibbonApplicationMenuCommandProjection) this.projection;
+                    RibbonApplicationMenuCommandButtonProjection ribbonApplicationMenuProjection =
+                            (RibbonApplicationMenuCommandButtonProjection) this.projection;
                     if (popupMenuPresentationModel == null) {
                         popupMenuPresentationModel =
                                 CommandPopupMenuPresentationModel.builder().build();
@@ -368,8 +368,8 @@ public class JCommandButton extends AbstractCommandButton {
                             ribbonApplicationMenuProjection.getSecondaryLevelCommandPresentationState());
                     this.setPopupCallback((JCommandButton commandButton)
                             -> menuPanelProjection.buildComponent());
-                } else if (popupMenuContentModel instanceof CommandPopupMenuContentModel) {
-                    CommandProjection commandProjection = (CommandProjection) this.projection;
+                } else if (popupMenuContentModel instanceof CommandMenuContentModel) {
+                    CommandButtonProjection commandProjection = (CommandButtonProjection) this.projection;
                     if (popupMenuPresentationModel == null) {
                         popupMenuPresentationModel =
                                 CommandPopupMenuPresentationModel.builder().build();
@@ -382,7 +382,7 @@ public class JCommandButton extends AbstractCommandButton {
                     if (commandProjection.getPopupMenuSupplier() != null) {
                         commandPopupMenuProjection.setComponentSupplier(
                                 (Projection.ComponentSupplier<JCommandPopupMenu,
-                                        CommandPopupMenuContentModel,
+                                        CommandMenuContentModel,
                                         CommandPopupMenuPresentationModel>) commandProjection.getPopupMenuSupplier());
                     }
                     if (commandProjection.getPopupMenuCustomizer() != null) {
@@ -393,7 +393,7 @@ public class JCommandButton extends AbstractCommandButton {
                             -> commandPopupMenuProjection.buildComponent());
                 }
             }
-            this.setPopupRichTooltip(command.getPopupRichTooltip());
+            this.setPopupRichTooltip(command.getSecondaryRichTooltip());
             this.setPopupKeyTip(commandPresentation.getPopupKeyTip());
         }
 
@@ -470,9 +470,9 @@ public class JCommandButton extends AbstractCommandButton {
      * Returns the popup orientation kind of this button.
      *
      * @return Popup orientation kind of this button.
-     * @see #setPopupOrientationKind(CommandPresentation.CommandButtonPopupOrientationKind)
+     * @see #setPopupOrientationKind(CommandButtonPresentationModel.PopupOrientationKind)
      */
-    public CommandPresentation.CommandButtonPopupOrientationKind getPopupOrientationKind() {
+    public CommandButtonPresentationModel.PopupOrientationKind getPopupOrientationKind() {
         return this.popupOrientationKind;
     }
 
@@ -484,8 +484,8 @@ public class JCommandButton extends AbstractCommandButton {
      * @see #getPopupOrientationKind()
      */
     public void setPopupOrientationKind(
-            CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind) {
-        CommandPresentation.CommandButtonPopupOrientationKind old = this.popupOrientationKind;
+            CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind) {
+        CommandButtonPresentationModel.PopupOrientationKind old = this.popupOrientationKind;
         this.popupOrientationKind = popupOrientationKind;
         if (old != this.popupOrientationKind) {
             firePropertyChange("popupOrientationKind", old,
@@ -527,7 +527,7 @@ public class JCommandButton extends AbstractCommandButton {
             boolean hasPopup = (this.popupCallback != null);
 
             if (hasPopup) {
-                this.setPopupRichTooltip(command.getPopupRichTooltip());
+                this.setPopupRichTooltip(command.getSecondaryRichTooltip());
                 this.setPopupKeyTip(commandPresentation.getPopupKeyTip());
             }
 

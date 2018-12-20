@@ -46,7 +46,7 @@ public class JCommandToggleButton extends AbstractCommandButton {
 	 */
 	public static final String uiClassID = "CommandToggleButtonUI";
 
-	public JCommandToggleButton(Projection<AbstractCommandButton, Command, CommandPresentation> projection) {
+	public JCommandToggleButton(Projection<AbstractCommandButton, Command, CommandButtonPresentationModel> projection) {
 		super(projection);
 		this.setActionModel(new ActionToggleButtonModel(this, false));
 

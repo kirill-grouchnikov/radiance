@@ -56,7 +56,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
      * Maximum number of menu items visible in this model. If more commands are
      * added with the
      * {@link CommandGroup#addCommand(Command)}
-     * on one or more of the command groups in {@link CommandPopupMenuContentModel}, the menu
+     * on one or more of the command groups in {@link CommandMenuContentModel}, the menu
      * part will show scroller buttons above the first and below the last menu command. If
      * the value is negative, there is no limitation on how many menu commands
      * are shown, and the entire
@@ -65,7 +65,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
      */
     private int maxVisibleMenuCommands;
     private boolean toDismissOnCommandActivation;
-    private CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind;
+    private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind;
 
     private CommandPopupMenuPresentationModel() {
     }
@@ -90,7 +90,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
         return this.toDismissOnCommandActivation;
     }
 
-    public CommandPresentation.CommandButtonPopupOrientationKind getPopupOrientationKind() {
+    public CommandButtonPresentationModel.PopupOrientationKind getPopupOrientationKind() {
         return this.popupOrientationKind;
     }
 
@@ -100,8 +100,8 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
                 DEFAULT_POPUP_MENU_PRESENTATION_STATE;
         private int maxVisibleMenuCommands = -1;
         private boolean toDismissOnCommandActivation = true;
-        private CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind =
-                CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD;
+        private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind =
+                CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD;
 
         public Builder setPanelPresentationModel(
                 CommandPanelPresentationModel panelPresentationModel) {
@@ -126,7 +126,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
         }
 
         public Builder setPopupOrientationKind(
-                CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind) {
+                CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
             return this;
         }

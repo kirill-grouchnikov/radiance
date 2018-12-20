@@ -31,7 +31,7 @@ package org.pushingpixels.demo.spyglass.cookbook;
 
 import com.jhlabs.image.*;
 import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 
 import java.awt.*;
 import java.awt.image.*;
@@ -79,6 +79,10 @@ public class EchoResizableIcon implements ResizableIcon {
     public void paintIcon(Component c, Graphics g, int x, int y) {
         this.echo.paintIcon(c, g, x, y);
         this.original.paintIcon(c, g, x, y);
+    }
+
+    public static ResizableIconFactory factory(ResizableIconFactory delegate) {
+        return () -> new EchoResizableIcon(delegate.createNewIcon());
     }
 
 }

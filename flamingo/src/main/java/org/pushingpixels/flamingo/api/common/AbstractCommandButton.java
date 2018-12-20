@@ -49,9 +49,9 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
     public static final int DEFAULT_HORIZONTAL_ALIGNMENT = SwingConstants.CENTER;
     public static final double DEFAULT_GAP_SCALE_FACTOR = 1.0;
 
-    protected Projection<AbstractCommandButton, ? extends Command, CommandPresentation> projection;
+    protected Projection<AbstractCommandButton, ? extends Command, CommandButtonPresentationModel> projection;
     protected Command command;
-    protected CommandPresentation commandPresentation;
+    protected CommandButtonPresentationModel commandPresentation;
 
     /**
      * Associated icon.
@@ -202,7 +202,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         LAST
     }
 
-    public AbstractCommandButton(Projection<AbstractCommandButton, ? extends Command, CommandPresentation> projection) {
+    public AbstractCommandButton(Projection<AbstractCommandButton, ? extends Command, CommandButtonPresentationModel> projection) {
         this.projection = projection;
         this.command = projection.getContentModel();
         this.commandPresentation = projection.getPresentationModel();
@@ -212,10 +212,10 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
 
         this.setIcon((command.getIconFactory() != null)
                 ? command.getIconFactory().createNewIcon()
-                : command.getIcon());
+                : null);
         this.setDisabledIcon((command.getDisabledIconFactory() != null)
                 ? command.getDisabledIconFactory().createNewIcon()
-                : command.getDisabledIcon());
+                : null);
 
         boolean hasAction = (command.getAction() != null);
 
@@ -245,7 +245,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         this.setOpaque(false);
     }
 
-    public AbstractCommandButton(Command command, CommandPresentation commandPresentation) {
+    public AbstractCommandButton(Command command, CommandButtonPresentationModel commandPresentation) {
         this.command = command;
         this.commandPresentation = commandPresentation;
 
@@ -254,10 +254,10 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
 
         this.setIcon((command.getIconFactory() != null)
                 ? command.getIconFactory().createNewIcon()
-                : command.getIcon());
+                : null);
         this.setDisabledIcon((command.getDisabledIconFactory() != null)
                 ? command.getDisabledIconFactory().createNewIcon()
-                : command.getDisabledIcon());
+                : null);
 
         boolean hasAction = (command.getAction() != null);
 
@@ -305,7 +305,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         return (CommandButtonUI) ui;
     }
 
-    public Projection<AbstractCommandButton, ? extends Command, CommandPresentation> getProjection() {
+    public Projection<AbstractCommandButton, ? extends Command, CommandButtonPresentationModel> getProjection() {
         return this.projection;
     }
 

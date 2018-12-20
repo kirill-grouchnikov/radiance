@@ -29,19 +29,20 @@
  */
 package org.pushingpixels.flamingo.api.common.projection;
 
+import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 
 public class CommandPopupMenuProjection extends AbstractPopupMenuProjection<
-        JCommandPopupMenu, CommandPopupMenuContentModel, CommandPopupMenuPresentationModel> {
+        JCommandPopupMenu, CommandMenuContentModel, CommandPopupMenuPresentationModel> {
 
-    private static ComponentSupplier<JCommandPopupMenu, CommandPopupMenuContentModel,
+    private static ComponentSupplier<JCommandPopupMenu, CommandMenuContentModel,
                 CommandPopupMenuPresentationModel> DEFAULT_SUPPLIER =
-            (Projection<JCommandPopupMenu, CommandPopupMenuContentModel,
+            (Projection<JCommandPopupMenu, CommandMenuContentModel,
                     CommandPopupMenuPresentationModel> projection) ->
                     JCommandPopupMenu::new;
 
-    public CommandPopupMenuProjection(CommandPopupMenuContentModel contentModel,
+    public CommandPopupMenuProjection(CommandMenuContentModel contentModel,
             CommandPopupMenuPresentationModel presentationModel) {
         super(contentModel, presentationModel, DEFAULT_SUPPLIER);
     }

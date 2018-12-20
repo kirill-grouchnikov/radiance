@@ -162,11 +162,11 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
     protected void installComponents() {
         this.collapseCommand = Command.builder()
                 .setText(this.ribbonBand.getTitle())
-                .setIcon(this.ribbonBand.getIcon())
+                .setIconFactory(this.ribbonBand.getIconFactory())
                 .build();
 
         this.collapsedButton = (JCommandButton) this.collapseCommand.project(
-                CommandPresentation.builder()
+                CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.BIG)
                         .setPopupKeyTip(this.ribbonBand.getCollapsedStateKeyTip())
                         .build())
@@ -231,6 +231,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 }
                 if ((oldListener == null) && (newListener != null)) {
                     // need to add
+                    expandCommand = createExpandCommand();
                     expandButton = createExpandButton();
                     ribbonBand.add(expandButton);
                     ribbonBand.revalidate();

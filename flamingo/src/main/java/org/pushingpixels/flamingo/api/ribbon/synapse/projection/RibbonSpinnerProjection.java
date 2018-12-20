@@ -37,12 +37,12 @@ public class RibbonSpinnerProjection extends ComponentProjection<JRibbonSpinner,
         RibbonSpinnerContentModel> {
 
     private static ComponentSupplier<JRibbonSpinner,
-            RibbonSpinnerContentModel, ComponentPresentation> DEFAULT_SUPPLIER =
+            RibbonSpinnerContentModel, ComponentPresentationModel> DEFAULT_SUPPLIER =
             (Projection<JRibbonSpinner, RibbonSpinnerContentModel,
-                    ComponentPresentation> projection) -> JRibbonSpinner::new;
+                    ComponentPresentationModel> projection) -> JRibbonSpinner::new;
 
     public RibbonSpinnerProjection(RibbonSpinnerContentModel contentModel,
-            ComponentPresentation presentationModel) {
+            ComponentPresentationModel presentationModel) {
         super(contentModel, presentationModel, DEFAULT_SUPPLIER);
     }
 

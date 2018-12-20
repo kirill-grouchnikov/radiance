@@ -38,7 +38,7 @@ import java.beans.PropertyChangeEvent;
 
 public class JRibbonCheckBox extends JCheckBox {
     public JRibbonCheckBox(Projection<JRibbonCheckBox,
-            RibbonCheckBoxContentModel, ComponentPresentation> projection) {
+            RibbonCheckBoxContentModel, ComponentPresentationModel> projection) {
         super(projection.getContentModel().getText());
         this.setSelected(projection.getContentModel().isSelected());
         this.setEnabled(projection.getContentModel().isEnabled());

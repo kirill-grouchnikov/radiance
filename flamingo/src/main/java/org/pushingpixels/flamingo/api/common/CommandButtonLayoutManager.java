@@ -29,11 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.model.Command;
-import org.pushingpixels.flamingo.api.common.model.CommandPresentation;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.AbstractPopupMenuProjection;
 
 import java.awt.*;
 import java.beans.PropertyChangeListener;
@@ -97,8 +95,8 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
          * associated with the command button.
          *
          * @see {@link JCommandButton#setPopupCallback(PopupPanelCallback)}
-         * @see {@link Command.Builder#setPopupMenuContentModel(CommandPopupMenuContentModel)}
-         * @see {@link CommandPresentation.Builder#setPopupMenuPresentationModel(AbstractPopupMenuPresentationModel)}
+         * @see {@link Command.Builder#setSecondaryContentModel(CommandMenuContentModel)}
+         * @see {@link CommandButtonPresentationModel.Builder#setPopupMenuPresentationModel(AbstractPopupMenuPresentationModel)}
          */
         public Rectangle popupClickArea;
 

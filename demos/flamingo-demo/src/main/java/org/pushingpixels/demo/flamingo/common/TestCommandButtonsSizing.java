@@ -7,7 +7,7 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
@@ -124,24 +124,24 @@ public class TestCommandButtonsSizing extends JPanel {
             case ACTION_AND_POPUP_MAIN_ACTION:
                 commandBuilder
                         .setAction((CommandActionEvent e) -> System.out.println("Action invoked"))
-                        .setPopupMenuContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
+                        .setSecondaryContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
                         .setTitleClickAction();
                 break;
             case ACTION_AND_POPUP_MAIN_POPUP:
                 commandBuilder
                         .setAction((CommandActionEvent e) -> System.out.println("Action invoked"))
-                        .setPopupMenuContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
-                        .setTitleClickPopup();
+                        .setSecondaryContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
+                        .setTitleClickSecondary();
                 break;
             case POPUP_ONLY:
-                commandBuilder.setPopupMenuContentModel(
+                commandBuilder.setSecondaryContentModel(
                         SamplePopupMenu.getSamplePopupMenuContentModel());
                 break;
         }
 
-        CommandProjection<Command> commandProjection =
+        CommandButtonProjection<Command> commandProjection =
                 commandBuilder.build().project(
-                        CommandPresentation.builder()
+                        CommandButtonPresentationModel.builder()
                                 .setPresentationState(state)
                                 .setFlat(false)
                                 .build());

@@ -67,7 +67,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
 
     private int commandHorizontalAlignment;
     private boolean isMenu;
-    private CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind;
+    private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind;
 
     /**
      * Enumerates the available layout kinds.
@@ -186,7 +186,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
         return this.isMenu;
     }
 
-    public CommandPresentation.CommandButtonPopupOrientationKind getPopupOrientationKind() {
+    public CommandButtonPresentationModel.PopupOrientationKind getPopupOrientationKind() {
         return this.popupOrientationKind;
     }
 
@@ -235,8 +235,8 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
         private Integer commandIconDimension = -1;
         private int commandHorizontalAlignment = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
         private boolean isMenu = false;
-        private CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind =
-                CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD;
+        private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind =
+                CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD;
 
         public Builder setMaxColumns(int maxColumns) {
             this.maxColumns = maxColumns;
@@ -276,7 +276,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
         }
 
         public Builder setPopupOrientationKind(
-                CommandPresentation.CommandButtonPopupOrientationKind popupOrientationKind) {
+                CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
             return this;
         }

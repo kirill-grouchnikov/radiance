@@ -30,10 +30,11 @@
 package org.pushingpixels.kormorant
 
 import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.common.model.CommandPresentation
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuPresentationModel
-import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel
+import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel
 import java.awt.Color
 
 @FlamingoElementMarker
@@ -119,8 +120,7 @@ class KColorSelectorPopupMenuGroup {
 }
 
 @FlamingoElementMarker
-class KColorSelectorPopupMenu: KAbstractPopupMenu<
-        ColorSelectorPopupMenuPresentationModel>() {
+class KColorSelectorPopupMenu {
     private var hasBeenConverted: Boolean = false
 
     var onColorActivated: ((Color) -> Unit)? by NullableDelegate { hasBeenConverted }
@@ -176,39 +176,37 @@ class KColorSelectorPopupMenu: KAbstractPopupMenu<
         return group
     }
 
-    override fun toJavaCommandOverlays(): Map<Command, CommandPresentation.Overlay> {
+    fun toJavaCommandOverlays(): Map<Command, CommandButtonPresentationModel.Overlay> {
         return hashMapOf()
     }
 
-    override fun toJavaPopupMenuContentModel(): CommandPopupMenuContentModel {
-        // TODO: implement
-        return CommandPopupMenuContentModel(arrayListOf())
-//        if (defaultGroup.content.isEmpty()) {
-//            groups.remove(defaultGroup)
-//        }
-//
-//        val menuGroups = groups.map { it.toJavaColorSelectorPopupMenuGroupModel() }
-//
-//        val menuContentModel = ColorSelectorPopupMenuContentModel(menuGroups)
-//        menuContentModel.colorActivationListener =
-//                ColorSelectorPopupMenuContentModel.ColorActivationListener {
-//                    onColorActivated?.invoke(it)
-//                }
-//        menuContentModel.colorPreviewListener = object :
-//                ColorSelectorPopupMenuContentModel.ColorPreviewListener {
-//            override fun onColorPreviewActivated(color: Color) {
-//                onColorPreviewActivated?.invoke(color)
-//            }
-//
-//            override fun onColorPreviewCanceled() {
-//                onColorPreviewCanceled?.invoke()
-//            }
-//        }
-//
-//        return menuContentModel
+    fun toJavaPopupMenuContentModel(): ColorSelectorPopupMenuContentModel {
+        if (defaultGroup.content.isEmpty()) {
+            groups.remove(defaultGroup)
+        }
+
+        val menuGroups = groups.map { it.toJavaColorSelectorPopupMenuGroupModel() }
+
+        val menuContentModel = ColorSelectorPopupMenuContentModel(menuGroups)
+        menuContentModel.colorActivationListener =
+                ColorSelectorPopupMenuContentModel.ColorActivationListener {
+                    onColorActivated?.invoke(it)
+                }
+        menuContentModel.colorPreviewListener = object :
+                ColorSelectorPopupMenuContentModel.ColorPreviewListener {
+            override fun onColorPreviewActivated(color: Color) {
+                onColorPreviewActivated?.invoke(color)
+            }
+
+            override fun onColorPreviewCanceled() {
+                onColorPreviewCanceled?.invoke()
+            }
+        }
+
+        return menuContentModel
     }
 
-    override fun toJavaPopupMenuPresentationModel(): ColorSelectorPopupMenuPresentationModel {
+    fun toJavaPopupMenuPresentationModel(): ColorSelectorPopupMenuPresentationModel {
         return ColorSelectorPopupMenuPresentationModel.builder().build()
     }
 }

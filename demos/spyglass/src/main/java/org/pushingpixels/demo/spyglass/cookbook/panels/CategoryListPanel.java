@@ -33,7 +33,7 @@ import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.cookbook.*;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel;
+import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
 
 import javax.swing.*;
@@ -52,17 +52,17 @@ public class CategoryListPanel extends SingleContentPanel {
         JComponent controlButtons = new CommandStripProjection(
                 new CommandGroup(
                         Command.builder()
-                                .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
-                                        ic_add_white_24px.of(16, 16), 0.75f)))
+                                .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
+                                        .factory(ic_add_white_24px.factory(), 0.75f)))
                                 .build(),
                         Command.builder()
-                                .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
-                                        ic_remove_white_24px.of(12, 12), 0.75f)))
+                                .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
+                                        .factory(ic_remove_white_24px.factory(), 0.75f)))
                                 .build(),
                         Command.builder()
-                                .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
-                                        ic_settings_white_24px.of(12, 12), 0.75f)))
-                                .setPopupMenuContentModel(new CommandPopupMenuContentModel(
+                                .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
+                                        .factory(ic_settings_white_24px.factory(), 0.75f)))
+                                .setSecondaryContentModel(new CommandMenuContentModel(
                                         new CommandGroup(Command.builder()
                                                 .setText("menu item")
                                                 .build())))

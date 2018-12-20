@@ -39,17 +39,17 @@ import org.pushingpixels.flamingo.api.common.model.ImmutablePresentationModel;
  *
  * @author Kirill Grouchnikov
  */
-public class ComponentPresentation implements ImmutablePresentationModel {
+public class ComponentPresentationModel implements ImmutablePresentationModel {
     private boolean isFlat;
     private HorizontalAlignment horizontalAlignment;
     private String keyTip;
     private boolean isResizingAware;
 
-    private ComponentPresentation() {
+    private ComponentPresentationModel() {
     }
 
-    public static ComponentPresentation withDefaults() {
-        return ComponentPresentation.builder().build();
+    public static ComponentPresentationModel withDefaults() {
+        return ComponentPresentationModel.builder().build();
     }
 
     public static Builder builder() {
@@ -98,8 +98,8 @@ public class ComponentPresentation implements ImmutablePresentationModel {
             return this;
         }
 
-        public ComponentPresentation build() {
-            ComponentPresentation commandPresentation = new ComponentPresentation();
+        public ComponentPresentationModel build() {
+            ComponentPresentationModel commandPresentation = new ComponentPresentationModel();
             commandPresentation.horizontalAlignment = this.horizontalAlignment;
             commandPresentation.isFlat = this.isFlat;
             commandPresentation.keyTip = this.keyTip;

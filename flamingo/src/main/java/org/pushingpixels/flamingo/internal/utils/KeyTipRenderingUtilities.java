@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.internal.utils;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.*;
-import org.pushingpixels.flamingo.api.common.model.CommandPresentation;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -139,7 +139,7 @@ public class KeyTipRenderingUtilities {
 		if ((layoutInfo.popupClickArea.width > 0) && (popupKeyTip != null)) {
 			Dimension pref = KeyTipRenderingUtilities.getPrefSize(g.getFontMetrics(), popupKeyTip);
 			if (menuButton
-					.getPopupOrientationKind() == CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD) {
+					.getPopupOrientationKind() == CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD) {
 				if (menuButton.getCommandButtonKind() != CommandButtonKind.POPUP_ONLY) {
 					// vertically aligned with the action keytip along
 					// the right edge

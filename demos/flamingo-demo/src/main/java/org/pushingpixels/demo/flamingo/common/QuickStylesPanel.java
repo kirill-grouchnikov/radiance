@@ -3,11 +3,11 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Font_x_generic;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 
 import java.awt.*;
 import java.text.MessageFormat;
@@ -27,8 +27,8 @@ public class QuickStylesPanel {
             List<Command> commands = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
                 final String deco = groupIndex + "/" + i;
-                ResizableIcon fontIcon = new Font_x_generic();
-                ResizableIcon finalIcon = new DecoratedResizableIcon(fontIcon,
+                ResizableIconFactory iconFactory = DecoratedResizableIcon.factory(
+                        Font_x_generic.factory(),
                         (Component c, Graphics g, int x, int y,
                                 int width, int height) -> {
                             Graphics2D g2d = (Graphics2D) g.create();
@@ -43,9 +43,11 @@ public class QuickStylesPanel {
                             g2d.dispose();
                         });
                 Command command = Command.builder()
-                        .setIcon(finalIcon).setToggle().setAction(
-                                (CommandActionEvent e) -> System.out.println(
-                                        "Invoked action on " + deco)).build();
+                        .setIconFactory(iconFactory)
+                        .setToggle()
+                        .setAction((CommandActionEvent e) ->
+                                System.out.println("Invoked action on " + deco))
+                        .build();
                 commands.add(command);
             }
 

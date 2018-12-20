@@ -37,19 +37,21 @@ import org.pushingpixels.flamingo.api.common.AbstractCommandButton
 import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.CommandActionEvent
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
+import org.pushingpixels.flamingo.api.common.model.ColorSelectorCommand
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.model.CommandGroup
-import org.pushingpixels.flamingo.api.common.model.CommandPresentation
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection
-import org.pushingpixels.neon.icon.ResizableIcon
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
+import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection
 import org.pushingpixels.neon.icon.ResizableIconFactory
 
 @FlamingoElementMarker
 open class KCommand {
     private val builder = Command.builder()
-    private lateinit var javaCommand: Command
-    private var hasBeenConverted: Boolean = false
+    internal lateinit var javaCommand: Command
+    internal var hasBeenConverted: Boolean = false
 
     // The "title" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
@@ -81,21 +83,6 @@ open class KCommand {
             }
         }
 
-    // The "icon" property can be modified even after [KCommandButton.toButton] has been called
-    // multiple times. Internally, the setter propagates the new value to the underlying
-    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
-    // command buttons created from this command.
-    private var _icon: ResizableIcon? = null
-    var icon: ResizableIcon?
-        get() = _icon
-        set(value) {
-            _icon = value
-            builder.setIcon(value)
-            if (hasBeenConverted) {
-                javaCommand.icon = value
-            }
-        }
-
     // The "iconFactory" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
@@ -111,8 +98,20 @@ open class KCommand {
             }
         }
 
-    var disabledIcon: ResizableIcon? by NullableDelegate { hasBeenConverted }
-    var disabledIconFactory: ResizableIconFactory? by NullableDelegate { hasBeenConverted }
+    // The "disabledIconFactory" property can be modified even after [KCommandButton.toButton] has been called
+    // multiple times. Internally, the setter propagates the new value to the underlying
+    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
+    // command buttons created from this command.
+    private var _disabledIconFactory: ResizableIconFactory? = null
+    var disabledIconFactory: ResizableIconFactory?
+        get() = _disabledIconFactory
+        set(value) {
+            _disabledIconFactory = value
+            builder.setDisabledIconFactory(value)
+            if (hasBeenConverted) {
+                javaCommand.iconFactory = value
+            }
+        }
 
     var onActionPreviewActivated: (() -> Unit)? by NullableDelegate { hasBeenConverted }
     var onActionPreviewCanceled: (() -> Unit)? by NullableDelegate { hasBeenConverted }
@@ -147,25 +146,25 @@ open class KCommand {
             }
         }
 
-    var popupMenu: KAbstractPopupMenu<*>? by NullableDelegate { hasBeenConverted }
+    var menu: KCommandMenu? by NullableDelegate { hasBeenConverted }
 
-    // The "popupRichTooltip" property can be modified even after [KCommandButton.toButton] has been called
+    // The "secondaryRichTooltip" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
-    private var _popupRichTooltip: KRichTooltip? = null
-    var popupRichTooltip: KRichTooltip?
-        get() = _popupRichTooltip
+    private var _secondaryRichTooltip: KRichTooltip? = null
+    var secondaryRichTooltip: KRichTooltip?
+        get() = _secondaryRichTooltip
         set(value) {
-            _popupRichTooltip = value
-            builder.setPopupRichTooltip(value?.toJavaRichTooltip())
+            _secondaryRichTooltip = value
+            builder.setSecondaryRichTooltip(value?.toJavaRichTooltip())
             if (hasBeenConverted) {
-                javaCommand.popupRichTooltip = value?.toJavaRichTooltip()
+                javaCommand.secondaryRichTooltip = value?.toJavaRichTooltip()
             }
         }
 
     var isTitleClickAction: Boolean by NonNullDelegate { hasBeenConverted }
-    var isTitleClickPopup: Boolean by NonNullDelegate { hasBeenConverted }
+    var isTitleClickSecondary: Boolean by NonNullDelegate { hasBeenConverted }
 
     // The "isEnabled" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
@@ -197,18 +196,18 @@ open class KCommand {
             }
         }
 
-    // The "isPopupEnabled" property can be modified even after [KCommandButton.toButton] has been called
+    // The "isSecondaryEnabled" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
-    private var _isPopupEnabled: Boolean = true
-    var isPopupEnabled: Boolean
-        get() = _isPopupEnabled
+    private var _isSecondaryEnabled: Boolean = true
+    var isSecondaryEnabled: Boolean
+        get() = _isSecondaryEnabled
         set(value) {
-            _isPopupEnabled = value
-            builder.setPopupEnabled(value)
+            _isSecondaryEnabled = value
+            builder.setSecondaryEnabled(value)
             if (hasBeenConverted) {
-                javaCommand.isPopupEnabled = value
+                javaCommand.isSecondaryEnabled = value
             }
         }
 
@@ -281,7 +280,7 @@ open class KCommand {
 
     init {
         isTitleClickAction = false
-        isTitleClickPopup = false
+        isTitleClickSecondary = false
         isToggle = false
         isAutoRepeatAction = false
         autoRepeatInitialInterval = Command.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
@@ -292,41 +291,45 @@ open class KCommand {
 
     fun actionRichTooltip(init: KRichTooltip.() -> Unit) {
         if (actionRichTooltip == null) {
-            actionRichTooltip = KRichTooltip()
+            val temp = KRichTooltip()
+            temp.init()
+            actionRichTooltip = temp
+        } else {
+            actionRichTooltip!!.init()
         }
-        (actionRichTooltip as KRichTooltip).init()
     }
 
-    fun popupRichTooltip(init: KRichTooltip.() -> Unit) {
-        if (popupRichTooltip == null) {
-            popupRichTooltip = KRichTooltip()
+    fun secondaryRichTooltip(init: KRichTooltip.() -> Unit) {
+        if (secondaryRichTooltip == null) {
+            val temp = KRichTooltip()
+            temp.init()
+            secondaryRichTooltip = temp
+        } else {
+            secondaryRichTooltip!!.init()
         }
-        (popupRichTooltip as KRichTooltip).init()
     }
 
     companion object {
         fun populateBuilder(builder: Command.BaseBuilder<*, *>, command: KCommand) {
             builder.setText(command.title)
-            builder.setIcon(command.icon)
             builder.setIconFactory(command.iconFactory)
-            builder.setDisabledIcon(command.disabledIcon)
             builder.setDisabledIconFactory(command.disabledIconFactory)
             builder.setExtraText(command.extraText)
             builder.setAction(command.action)
             builder.setAutoRepeatAction(command.isAutoRepeatAction)
 
             builder.setActionRichTooltip(command.actionRichTooltip?.toJavaRichTooltip())
-            builder.setPopupRichTooltip(command.popupRichTooltip?.toJavaRichTooltip())
+            builder.setSecondaryRichTooltip(command.secondaryRichTooltip?.toJavaRichTooltip())
 
-            if (command.popupMenu != null) {
-                builder.setPopupMenuContentModel(command.popupMenu!!.toJavaPopupMenuContentModel())
+            if (command.menu != null) {
+                builder.setSecondaryContentModel(command.menu!!.toJavaMenuContentModel())
             }
 
             if (command.isTitleClickAction) {
                 builder.setTitleClickAction()
             }
-            if (command.isTitleClickPopup) {
-                builder.setTitleClickPopup()
+            if (command.isTitleClickSecondary) {
+                builder.setTitleClickSecondary()
             }
 
             if (command.isToggleSelected) {
@@ -367,7 +370,7 @@ open class KCommand {
         return javaCommand
     }
 
-    internal fun toCommandButton(presentation: KCommandPresentation): AbstractCommandButton {
+    internal fun toCommandButton(presentation: KCommandButtonPresentation): AbstractCommandButton {
         return asJavaCommand().project(presentation.toCommandPresentation(this)).buildComponent()
     }
 }
@@ -379,21 +382,50 @@ fun command(init: KCommand.() -> Unit): KCommand {
 }
 
 @FlamingoElementMarker
-class KCommandPresentation {
+class KColorSelectorCommand: KCommand() {
+    var colorSelectorPopupMenu: KColorSelectorPopupMenu? by NullableDelegate { hasBeenConverted }
+    private val colorSelectorBuilder = ColorSelectorCommand.colorSelectorBuilder()
+
+    fun asJavaColorSelectorCommand() : ColorSelectorCommand {
+        if (hasBeenConverted) {
+            return javaCommand as ColorSelectorCommand
+        }
+        populateBuilder(colorSelectorBuilder, this)
+        colorSelectorBuilder.setColorSelectorPopupMenuContentModel(
+                colorSelectorPopupMenu?.toJavaPopupMenuContentModel())
+        javaCommand = colorSelectorBuilder.build()
+        hasBeenConverted = true
+        return javaCommand as ColorSelectorCommand
+    }
+
+    internal fun toColorSelectorCommandButton(presentation: KColorSelectorCommandPresentation): AbstractCommandButton {
+        return ColorSelectorCommandButtonProjection(asJavaColorSelectorCommand(),
+                presentation.toColorSelectorCommandPresentation(this)).buildComponent()
+    }
+}
+
+fun colorSelectorCommand(init: KColorSelectorCommand.() -> Unit): KColorSelectorCommand {
+    val colorSelectorCommand = KColorSelectorCommand()
+    colorSelectorCommand.init()
+    return colorSelectorCommand
+}
+
+@FlamingoElementMarker
+open class KCommandButtonPresentation {
     var presentationState: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
     var isFlat: Boolean = true
     var horizontalAlignment: Int = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
     var horizontalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
     var verticalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
-    var popupOrientationKind: CommandPresentation.CommandButtonPopupOrientationKind =
-            CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD
+    var popupOrientationKind: CommandButtonPresentationModel.PopupOrientationKind =
+            CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
     var iconDimension: Int? = null
     var isMenu: Boolean = false
     var actionKeyTip: String? = null
     var popupKeyTip: String? = null
 
-    fun toCommandPresentation(command: KCommand): CommandPresentation {
-        return CommandPresentation.builder()
+    fun toCommandPresentation(command: KCommand): CommandButtonPresentationModel {
+        return CommandButtonPresentationModel.builder()
                 .setPresentationState(presentationState)
                 .setFlat(isFlat)
                 .setHorizontalAlignment(horizontalAlignment)
@@ -404,8 +436,31 @@ class KCommandPresentation {
                 .setActionKeyTip(actionKeyTip)
                 .setPopupKeyTip(popupKeyTip)
                 .setMenu(isMenu)
-                .setPopupMenuPresentationModel(command.popupMenu!!.toJavaPopupMenuPresentationModel()
-                        as AbstractPopupMenuPresentationModel)
+                .setPopupMenuPresentationModel(command.menu!!.toJavaPopupMenuPresentationModel())
+                .build()
+    }
+}
+
+@FlamingoElementMarker
+class KColorSelectorCommandPresentation: KCommandButtonPresentation() {
+    var colorColumns: Int = 10
+    var menuPresentationState: CommandButtonPresentationState =
+            CommandPopupMenuPresentationModel.DEFAULT_POPUP_MENU_PRESENTATION_STATE
+
+    fun toColorSelectorCommandPresentation(command: KColorSelectorCommand): CommandButtonPresentationModel {
+        return CommandButtonPresentationModel.builder()
+                .setPresentationState(presentationState)
+                .setFlat(isFlat)
+                .setHorizontalAlignment(horizontalAlignment)
+                .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
+                .setVerticalGapScaleFactor(verticalGapScaleFactor)
+                .setPopupOrientationKind(popupOrientationKind)
+                .setIconDimension(iconDimension)
+                .setActionKeyTip(actionKeyTip)
+                .setPopupKeyTip(popupKeyTip)
+                .setMenu(isMenu)
+                .setPopupMenuPresentationModel(command.colorSelectorPopupMenu!!.
+                        toJavaPopupMenuPresentationModel())
                 .build()
     }
 }
@@ -415,22 +470,23 @@ class KCommandGroup {
     var title: String? by NullableDelegate { false }
     internal val commands = arrayListOf<CommandConfig>()
 
-    internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?, val popupKeyTip: String?) {
+    internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?, val secondaryKeyTip: String?) {
         fun toJavaCommand(): Command {
             return command.asJavaCommand()
         }
 
-        fun toJavaProjection(): CommandProjection<Command> {
+        fun toJavaProjection(): CommandButtonProjection<Command> {
             return command.asJavaCommand().project(
-                    CommandPresentation.builder()
+                    CommandButtonPresentationModel.builder()
                             .setActionKeyTip(actionKeyTip)
-                            .setPopupKeyTip(popupKeyTip)
+                            .setPopupKeyTip(secondaryKeyTip)
                             .build())
         }
 
-        fun toJavaPresentationOverlay(): CommandPresentation.Overlay {
-            return CommandPresentation.overlay().setActionKeyTip(actionKeyTip)
-                    .setPopupKeyTip(popupKeyTip)
+        fun toJavaPresentationOverlay(): CommandButtonPresentationModel.Overlay {
+            return CommandButtonPresentationModel.overlay()
+                    .setActionKeyTip(actionKeyTip)
+                    .setPopupKeyTip(secondaryKeyTip)
         }
     }
 
@@ -455,7 +511,7 @@ class KCommandGroup {
                 commands.map { it -> it.toJavaCommand() })
     }
 
-    fun toPresentationOverlays(): Map<Command, CommandPresentation.Overlay> {
+    fun toPresentationOverlays(): Map<Command, CommandButtonPresentationModel.Overlay> {
         return commands.map { it.command.asJavaCommand() to it.toJavaPresentationOverlay() }.toMap()
     }
 }

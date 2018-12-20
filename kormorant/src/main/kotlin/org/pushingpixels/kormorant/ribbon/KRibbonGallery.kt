@@ -31,7 +31,7 @@ package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.common.model.CommandPresentation
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel
@@ -122,8 +122,8 @@ class KRibbonGalleryContent {
         return group
     }
 
-    internal fun toCommandOverlayMap(): Map<Command, CommandPresentation.Overlay> {
-        val commandOverlays = HashMap<Command, CommandPresentation.Overlay>()
+    internal fun toCommandOverlayMap(): Map<Command, CommandButtonPresentationModel.Overlay> {
+        val commandOverlays = HashMap<Command, CommandButtonPresentationModel.Overlay>()
         for (groupOverlays in extraPopupGroups.map { it.toPresentationOverlays() }) {
             commandOverlays.putAll(groupOverlays)
         }

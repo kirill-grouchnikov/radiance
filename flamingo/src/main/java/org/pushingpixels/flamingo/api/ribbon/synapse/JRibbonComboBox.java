@@ -36,7 +36,7 @@ import javax.swing.*;
 
 public class JRibbonComboBox<E> extends JComboBox<E> {
     public JRibbonComboBox(Projection<JRibbonComboBox,
-            RibbonComboBoxContentModel, ComponentPresentation> projection) {
+            RibbonComboBoxContentModel, ComponentPresentationModel> projection) {
         super(projection.getContentModel());
     }
 }

@@ -166,8 +166,8 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
     private void addButton(Command command) {
         CommandStripPresentationModel stripPresentationModel =
                 this.buttonStrip.getProjection().getPresentationModel();
-        CommandPresentation presentation = CommandPresentation.withDefaults()
-                .overlayWith(CommandPresentation.overlay()
+        CommandButtonPresentationModel presentation = CommandButtonPresentationModel.withDefaults()
+                .overlayWith(CommandButtonPresentationModel.overlay()
                         .setPresentationState(stripPresentationModel.getCommandPresentationState())
                         .setHorizontalGapScaleFactor(
                                 stripPresentationModel.getHorizontalGapScaleFactor())
@@ -177,14 +177,14 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
                         .setFocusable(stripPresentationModel.isFocusable())
                         .setToDismissPopupsOnActivation(
                                 stripPresentationModel.isToDismissPopupsOnActivation()));
-        CommandPresentation.Overlay extraOverlay =
+        CommandButtonPresentationModel.Overlay extraOverlay =
                 this.buttonStrip.getProjection().getCommandOverlays().get(command);
         if (extraOverlay != null) {
             presentation = presentation.overlayWith(extraOverlay);
         }
 
-        CommandProjection<Command> commandProjection = command.project(presentation);
-        CommandProjection.ComponentCustomizer componentCustomizer =
+        CommandButtonProjection<Command> commandProjection = command.project(presentation);
+        CommandButtonProjection.ComponentCustomizer componentCustomizer =
                 this.buttonStrip.getProjection().getCommandComponentCustomizers().get(command);
         if (componentCustomizer != null) {
             commandProjection.setComponentCustomizer(componentCustomizer);

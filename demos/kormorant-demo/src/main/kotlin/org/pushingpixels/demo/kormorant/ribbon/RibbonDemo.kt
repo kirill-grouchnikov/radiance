@@ -324,8 +324,8 @@ private class RibbonDemoBuilder {
                     +resourceBundle.getString("Paste.tooltip.actionParagraph1")
                 }
             }
-            popupMenu = getSimplePopupMenu()
-            popupRichTooltip {
+            menu = getSimplePopupMenu()
+            secondaryRichTooltip {
                 title = resourceBundle.getString("Paste.text")
                 description {
                     +resourceBundle.getString("Paste.tooltip.popupParagraph1")
@@ -336,7 +336,7 @@ private class RibbonDemoBuilder {
 
         menuSaveSelection = command {
             title = resourceBundle.getString("Format.menuSaveSelection.text")
-            icon = ColorResizableIcon(16, Color(0xFB, 0xC0, 0x2D))
+            iconFactory = ColorResizableIcon.factory(Color(0xFB, 0xC0, 0x2D))
             action = CommandAction {
                 println("Save Selection activated")
             }
@@ -344,7 +344,7 @@ private class RibbonDemoBuilder {
 
         menuClearSelection = command {
             title = resourceBundle.getString("Format.menuClearSelection.text")
-            icon = ColorResizableIcon(16, Color(0xFF, 0xA0, 0x00))
+            iconFactory = ColorResizableIcon.factory(Color(0xFF, 0xA0, 0x00))
             action = CommandAction {
                 println("Clear Selection activated")
             }
@@ -352,7 +352,7 @@ private class RibbonDemoBuilder {
 
         applyStyles = command {
             title = resourceBundle.getString("Format.applyStyles.text")
-            icon = ColorResizableIcon(16, Color(0xF5, 0x7C, 0x00))
+            iconFactory = ColorResizableIcon.factory(Color(0xF5, 0x7C, 0x00))
             action = CommandAction {
                 println("Apply Styles activated")
             }
@@ -370,7 +370,8 @@ private class RibbonDemoBuilder {
                 for (i in 0 until 10) {
                     command {
                         title = mfButtonText.format(arrayOf<Any>(i))
-                        icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
+                        iconFactory = DecoratedResizableIcon.factory(
+                                Font_x_generic.factory(),
                                 DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
                                     graphics.render {
                                         it.color = Color.black
@@ -379,8 +380,7 @@ private class RibbonDemoBuilder {
                                                 .getFontSet(null).controlFont
                                         it.drawString("$i", x + 2, y + height - 2)
                                     }
-                                }
-                        )
+                                })
                         isToggle = (i != 1)
                         isToggleSelected = (i == 1)
                     }
@@ -391,7 +391,8 @@ private class RibbonDemoBuilder {
                 for (i in 10 until 30) {
                     command {
                         title = mfButtonText.format(arrayOf<Any>(i))
-                        icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
+                        iconFactory = DecoratedResizableIcon.factory(
+                                Font_x_generic.factory(),
                                 DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
                                     graphics.render {
                                         it.color = Color.black
@@ -400,8 +401,7 @@ private class RibbonDemoBuilder {
                                                 .getFontSet(null).controlFont
                                         it.drawString("$i", x + 2, y + height - 2)
                                     }
-                                }
-                        )
+                                })
                         isToggle = true
                     }
                 }
@@ -520,27 +520,27 @@ private class RibbonDemoBuilder {
         return formBuilder.build()
     }
 
-    fun getSimplePopupMenu(): KCommandPopupMenu {
+    fun getSimplePopupMenu(): KCommandMenu {
         return commandPopupMenu {
             val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
             group {
                 command(actionKeyTip = "1") {
                     title = mf.format(arrayOf("1"))
-                    icon = ColorResizableIcon(16, Color(0x80, 0xDE, 0xEA))
+                    iconFactory = ColorResizableIcon.factory(Color(0x80, 0xDE, 0xEA))
                     action = CommandAction {
                         println("Test menu item 1 activated")
                     }
                 }
                 command(actionKeyTip = "2") {
                     title = mf.format(arrayOf("2"))
-                    icon = ColorResizableIcon(16, Color(0x80, 0xCB, 0xC4))
+                    iconFactory = ColorResizableIcon.factory(Color(0x80, 0xCB, 0xC4))
                     action = CommandAction {
                         println("Test menu item 2 activated")
                     }
                 }
                 command(actionKeyTip = "3") {
                     title = mf.format(arrayOf("3"))
-                    icon = ColorResizableIcon(16, Color(0xA5, 0xD6, 0xA7))
+                    iconFactory = ColorResizableIcon.factory(Color(0xA5, 0xD6, 0xA7))
                     action = CommandAction {
                         println("Test menu item 3 activated")
                     }
@@ -550,14 +550,14 @@ private class RibbonDemoBuilder {
             group {
                 command(actionKeyTip = "4") {
                     title = mf.format(arrayOf("4"))
-                    icon = ColorResizableIcon(16, Color(0xC5, 0xE1, 0xA5))
+                    iconFactory = ColorResizableIcon.factory(Color(0xC5, 0xE1, 0xA5))
                     action = CommandAction {
                         println("Test menu item 4 activated")
                     }
                 }
                 command(actionKeyTip = "5") {
                     title = mf.format(arrayOf("5"))
-                    icon = ColorResizableIcon(16, Color(0xE6, 0xEE, 0x9C))
+                    iconFactory = ColorResizableIcon.factory(Color(0xE6, 0xEE, 0x9C))
                     action = CommandAction {
                         println("Test menu item 5 activated")
                     }
@@ -569,7 +569,7 @@ private class RibbonDemoBuilder {
     fun getClipboardBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("Clipboard.textBandTitle")
-            icon = Edit_paste.of(16, 16)
+            iconFactory = Edit_paste.factory()
             expandCommand {
                 keyTip = "Q"
                 richTooltip {
@@ -586,7 +586,7 @@ private class RibbonDemoBuilder {
 
             command(PresentationPriority.MEDIUM, popupKeyTip = "X") {
                 title = resourceBundle.getString("Cut.text")
-                icon = Edit_cut.of(16, 16)
+                iconFactory = Edit_cut.factory()
                 action = CommandAction { println("Cut!") }
                 actionRichTooltip {
                     title = resourceBundle.getString("Cut.text")
@@ -594,22 +594,22 @@ private class RibbonDemoBuilder {
                         +resourceBundle.getString("Cut.tooltip.actionParagraph1")
                     }
                 }
-                popupMenu = getSimplePopupMenu()
+                menu = getSimplePopupMenu()
                 isTitleClickAction = true
             }
 
             command(PresentationPriority.MEDIUM, popupKeyTip = "C") {
                 title = resourceBundle.getString("Copy.text")
-                icon = Edit_copy.of(16, 16)
+                iconFactory = Edit_copy.factory()
                 action = CommandAction { println("Copy!") }
-                popupMenu = getSimplePopupMenu()
-                isTitleClickPopup = true
+                menu = getSimplePopupMenu()
+                isTitleClickSecondary = true
             }
 
             command(PresentationPriority.MEDIUM, popupKeyTip = "FP") {
                 title = resourceBundle.getString("Format.text")
-                icon = Edit_paste.of(16, 16)
-                popupMenu = commandPopupMenu {
+                iconFactory = Edit_paste.factory()
+                menu = commandPopupMenu {
                     val mfGroupTitle = MessageFormat(resourceBundle.getString("PanelStyles.text"))
                     mfGroupTitle.locale = currLocale
                     val mfTooltipTitle = MessageFormat(
@@ -621,10 +621,10 @@ private class RibbonDemoBuilder {
 
                     commandPanel {
                         presentation {
-                            commandIconDimension = 32
+                            commandIconDimension = 48
                             maxColumns = 5
                             maxRows = 3
-                            toShowGroupLabels = true
+                            toShowGroupLabels = false
                         }
 
                         for (groupIndex in 0 until 4) {
@@ -633,7 +633,8 @@ private class RibbonDemoBuilder {
 
                                 for (i in 0 until 15) {
                                     command {
-                                        icon = DecoratedResizableIcon(Font_x_generic.of(16, 16),
+                                        iconFactory = DecoratedResizableIcon.factory(
+                                                Font_x_generic.factory(),
                                                 DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
                                                     graphics.render {
                                                         it.color = Color.black
@@ -642,8 +643,7 @@ private class RibbonDemoBuilder {
                                                         NeonCortex.installDesktopHints(it, component)
                                                         it.drawString("" + i, x + 2, y + height - 2)
                                                     }
-                                                }
-                                        )
+                                                })
 
                                         isToggle = true
                                         action = CommandAction {
@@ -672,7 +672,7 @@ private class RibbonDemoBuilder {
                         command(command = applyStyles, actionKeyTip = "SA")
                     }
                 }
-                popupRichTooltip {
+                secondaryRichTooltip {
                     title = "Main title that can go over multiple lines of text even exceeding the bigger"
                     description {
                         +"Simple description that can go over multiple lines of text even exceeding the bigger"
@@ -711,7 +711,7 @@ private class RibbonDemoBuilder {
 
         return ribbonBand {
             title = resourceBundle.getString("QuickStyles.textBandTitle")
-            icon = Preferences_desktop_theme.of(16, 16)
+            iconFactory = Preferences_desktop_theme.factory()
             collapsedStateKeyTip = "ZS"
 
             gallery(priority = PresentationPriority.TOP) {
@@ -732,27 +732,27 @@ private class RibbonDemoBuilder {
 
             command(priority = PresentationPriority.MEDIUM, actionKeyTip = "SA") {
                 title = resourceBundle.getString("Styles1.text")
-                icon = Font_x_generic.of(16, 16)
+                iconFactory = Font_x_generic.factory()
                 action = CommandAction { println("Generic activated") }
             }
 
             command(priority = PresentationPriority.MEDIUM, actionKeyTip = "SB") {
                 title = resourceBundle.getString("Styles2.text")
-                icon = Image_x_generic.of(16, 16)
+                iconFactory = Image_x_generic.factory()
                 action = CommandAction { println("Image activated") }
             }
 
-            command(priority = PresentationPriority.MEDIUM, popupKeyTip = "SC") {
+            colorSelectorCommand(priority = PresentationPriority.MEDIUM, popupKeyTip = "SC") {
                 title = resourceBundle.getString("Styles3.text")
-                icon = Text_html.of(16, 16)
-                popupMenu = colorSelectorPopupMenu {
+                iconFactory = Text_html.factory()
+                colorSelectorPopupMenu = colorSelectorPopupMenu {
                     onColorActivated = onColorActivatedListener
                     onColorPreviewActivated = onColorPreviewActivatedListener
                     onColorPreviewCanceled = onColorPreviewCanceledListener
 
                     command {
                         title = resourceBundle.getString("ColorSelector.textAutomatic")
-                        icon = ColorIcon(defaultColor)
+                        iconFactory = ColorIcon.factory(defaultColor)
                         action = CommandAction {
                             onColorActivatedListener.invoke(defaultColor)
                             JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultColor)
@@ -826,7 +826,7 @@ private class RibbonDemoBuilder {
     fun getFontBand(): KFlowRibbonBand {
         return flowRibbonBand {
             title = resourceBundle.getString("Font.textBandTitle")
-            icon = Preferences_desktop_font.of(16, 16)
+            iconFactory = Preferences_desktop_font.factory()
             collapsedStateKeyTip = "ZF"
             expandCommand {
                 keyTip = "FN"
@@ -834,28 +834,28 @@ private class RibbonDemoBuilder {
             }
 
             flowComponent(RibbonComboBoxProjection(fontComboBoxModel,
-                    ComponentPresentation.builder().setKeyTip("SF").build()))
+                    ComponentPresentationModel.builder().setKeyTip("SF").build()))
 
             flowComponent(RibbonComboBoxProjection(
                     RibbonDefaultComboBoxContentModel.builder<String>()
                             .setItems(arrayOf("11  ")).build(),
-                    ComponentPresentation.builder().setKeyTip("SS").build()))
+                    ComponentPresentationModel.builder().setKeyTip("SS").build()))
 
             flowCommandButtonStrip {
                 command(actionKeyTip = "AO") {
-                    icon = Format_indent_less.of(16, 16)
+                    iconFactory = Format_indent_less.factory()
                     action = CommandAction { println("Indent less") }
                 }
 
                 command(actionKeyTip = "AI") {
-                    icon = Format_indent_more.of(16, 16)
+                    iconFactory = Format_indent_more.factory()
                     action = CommandAction { println("Indent more") }
                 }
             }
 
             flowCommandButtonStrip {
                 command(actionKeyTip = "1") {
-                    icon = Format_text_bold.of(16, 16)
+                    iconFactory = Format_text_bold.factory()
                     isToggleSelected = true
                     action = CommandAction { println("Bold toggled") }
                     actionRichTooltip {
@@ -867,7 +867,7 @@ private class RibbonDemoBuilder {
                 }
 
                 command(actionKeyTip = "2") {
-                    icon = Format_text_italic.of(16, 16)
+                    iconFactory = Format_text_italic.factory()
                     isToggle = true
                     action = CommandAction { println("Italic toggled") }
                     actionRichTooltip {
@@ -879,7 +879,7 @@ private class RibbonDemoBuilder {
                 }
 
                 command(actionKeyTip = "3") {
-                    icon = Format_text_underline.of(16, 16)
+                    iconFactory = Format_text_underline.factory()
                     isToggle = true
                     action = CommandAction { println("Underline toggled") }
                     actionRichTooltip {
@@ -891,7 +891,7 @@ private class RibbonDemoBuilder {
                 }
 
                 command(actionKeyTip = "4") {
-                    icon = Format_text_strikethrough.of(16, 16)
+                    iconFactory = Format_text_strikethrough.factory()
                     isToggle = true
                     action = CommandAction { println("Strikethrough toggled") }
                     actionRichTooltip {
@@ -905,23 +905,23 @@ private class RibbonDemoBuilder {
 
             flowCommandToggleButtonStrip {
                 command(actionKeyTip = "AL") {
-                    icon = Format_justify_left.of(16, 16)
+                    iconFactory = Format_justify_left.factory()
                     action = CommandAction { println("Align left!") }
                 }
 
                 command(actionKeyTip = "AC") {
-                    icon = Format_justify_center.of(16, 16)
+                    iconFactory = Format_justify_center.factory()
                     isToggleSelected = true
                     action = CommandAction { println("Align center!") }
                 }
 
                 command(actionKeyTip = "AR") {
-                    icon = Format_justify_right.of(16, 16)
+                    iconFactory = Format_justify_right.factory()
                     action = CommandAction { println("Align right!") }
                 }
 
                 command(actionKeyTip = "AF") {
-                    icon = Format_justify_fill.of(16, 16)
+                    iconFactory = Format_justify_fill.factory()
                     action = CommandAction { println("Align justified!") }
                 }
             }
@@ -931,7 +931,7 @@ private class RibbonDemoBuilder {
     fun getDocumentBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("Document.textBandTitle")
-            icon = Applications_office.of(16, 16)
+            iconFactory = Applications_office.factory()
             expandCommand {
                 action = ExpandCommandListener()
                 keyTip = "FY"
@@ -943,30 +943,24 @@ private class RibbonDemoBuilder {
 
                 command(priority = PresentationPriority.TOP) {
                     title = resourceBundle.getString("DocumentLocal.text")
-                    icon = Folder.of(16, 16)
-                    action = CommandAction {
-                        println("Document Local activated")
-                    }
+                    iconFactory = Folder.factory()
+                    action = CommandAction { println("Document Local activated") }
                     isToggle = true
                     toggleGroup = documentLocationToggleGroup
                 }
 
                 command(priority = PresentationPriority.TOP) {
                     title = resourceBundle.getString("DocumentRemote.text")
-                    icon = Folder_remote.of(16, 16)
-                    action = CommandAction {
-                        println("Document Remote activated")
-                    }
+                    iconFactory = Folder_remote.factory()
+                    action = CommandAction { println("Document Remote activated") }
                     isToggle = true
                     toggleGroup = documentLocationToggleGroup
                 }
 
                 command(priority = PresentationPriority.TOP) {
                     title = resourceBundle.getString("DocumentSaved.text")
-                    icon = Folder_saved_search.of(16, 16)
-                    action = CommandAction {
-                        println("Document Saved activated")
-                    }
+                    iconFactory = Folder_saved_search.factory()
+                    action = CommandAction { println("Document Saved activated") }
                     isToggle = true
                     toggleGroup = documentLocationToggleGroup
                 }
@@ -978,40 +972,32 @@ private class RibbonDemoBuilder {
 
                 command(priority = PresentationPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentOpen.text")
-                    icon = Document_open.of(16, 16)
-                    action =
-                            CommandAction { println("Document Open activated") }
+                    iconFactory = Document_open.factory()
+                    action = CommandAction { println("Document Open activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentSave.text")
-                    icon = Document_save.of(16, 16)
-                    action =
-                            CommandAction { println("Document Save activated") }
+                    iconFactory = Document_save.factory()
+                    action = CommandAction { println("Document Save activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentPrint.text")
-                    icon = Document_print.of(16, 16)
-                    action = CommandAction {
-                        println("Document Print activated")
-                    }
+                    iconFactory = Document_print.factory()
+                    action = CommandAction { println("Document Print activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentPrintPreview.text")
-                    icon = Document_print_preview.of(16, 16)
-                    action = CommandAction {
-                        println("Document Print Preview activated")
-                    }
+                    iconFactory = Document_print_preview.factory()
+                    action = CommandAction { println("Document Print Preview activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentProperties.text")
-                    icon = Document_properties.of(16, 16)
-                    action = CommandAction {
-                        println("Document Properties activated")
-                    }
+                    iconFactory = Document_properties.factory()
+                    action = CommandAction { println("Document Properties activated") }
                 }
             }
 
@@ -1022,31 +1008,31 @@ private class RibbonDemoBuilder {
     fun getFindBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("Find.textBandTitle")
-            icon = Edit_find.of(16, 16)
+            iconFactory = Edit_find.factory()
             collapsedStateKeyTip = "ZY"
 
             command(priority = PresentationPriority.TOP, actionKeyTip = "FD") {
                 title = resourceBundle.getString("Search.text")
-                icon = System_search.of(16, 16)
+                iconFactory = System_search.factory()
                 action = CommandAction { println("Search activated") }
             }
 
             command(priority = PresentationPriority.MEDIUM) {
                 title = resourceBundle.getString("Find.text")
-                icon = Edit_find.of(16, 16)
+                iconFactory = Edit_find.factory()
                 action = CommandAction { println("Find activated") }
             }
 
             command(priority = PresentationPriority.MEDIUM) {
                 title = resourceBundle.getString("FindReplace.text")
-                icon = Edit_find_replace.of(16, 16)
+                iconFactory = Edit_find_replace.factory()
                 action = CommandAction { println("Find Replace activated") }
                 isEnabled = false
             }
 
             command(priority = PresentationPriority.MEDIUM) {
                 title = resourceBundle.getString("SelectAll.text")
-                icon = Edit_select_all.of(16, 16)
+                iconFactory = Edit_select_all.factory()
                 action = CommandAction { println("Select All activated") }
             }
 
@@ -1075,7 +1061,7 @@ private class RibbonDemoBuilder {
     fun getActionBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("Action.textBandTitle")
-            icon = Document_new.of(16, 16)
+            iconFactory = Document_new.factory()
             expandCommand {
                 action = ExpandCommandListener()
             }
@@ -1083,7 +1069,7 @@ private class RibbonDemoBuilder {
             group {
                 command(priority = PresentationPriority.TOP, actionKeyTip = "NA") {
                     title = resourceBundle.getString("AddressBook.text")
-                    icon = Address_book_new.of(16, 16)
+                    iconFactory = Address_book_new.factory()
                     action = CommandAction { println("Address Book activated") }
                 }
             }
@@ -1091,25 +1077,25 @@ private class RibbonDemoBuilder {
             group {
                 command(priority = PresentationPriority.TOP, actionKeyTip = "ND") {
                     title = resourceBundle.getString("Document.text")
-                    icon = Document_new.of(16, 16)
+                    iconFactory = Document_new.factory()
                     action = CommandAction { println("Document activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "NP") {
                     title = resourceBundle.getString("Appointment.text")
-                    icon = Appointment_new.of(16, 16)
+                    iconFactory = Appointment_new.factory()
                     action = CommandAction { println("Appointment activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "NB") {
                     title = resourceBundle.getString("Bookmark.text")
-                    icon = Bookmark_new.of(16, 16)
+                    iconFactory = Bookmark_new.factory()
                     action = CommandAction { println("Bookmark activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "NC") {
                     title = resourceBundle.getString("Contact.text")
-                    icon = Contact_new.of(16, 16)
+                    iconFactory = Contact_new.factory()
                     action = CommandAction { println("Contact activated") }
                 }
             }
@@ -1125,7 +1111,7 @@ private class RibbonDemoBuilder {
     fun getPreferencesBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("Preferences.textBandTitle")
-            icon = Preferences_desktop_font.of(16, 16)
+            iconFactory = Preferences_desktop_font.factory()
             expandCommand {
                 action = ExpandCommandListener()
             }
@@ -1133,34 +1119,33 @@ private class RibbonDemoBuilder {
             group {
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "Y") {
                     title = resourceBundle.getString("Accessibility.text")
-                    icon = Preferences_desktop_accessibility.of(16, 16)
-                    action =
-                            CommandAction { println("Accessibility activated") }
+                    iconFactory = Preferences_desktop_accessibility.factory()
+                    action = CommandAction { println("Accessibility activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "E") {
                     title = resourceBundle.getString("Assistive.text")
-                    icon = Preferences_desktop_assistive_technology.of(16, 16)
+                    iconFactory = Preferences_desktop_assistive_technology.factory()
                     action = CommandAction { println("Assistive activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM, popupKeyTip = "H") {
                     title = resourceBundle.getString("KeyboardShortcuts.text")
-                    icon = Preferences_desktop_keyboard_shortcuts.of(16, 16)
-                    popupMenu = getSimplePopupMenu()
+                    iconFactory = Preferences_desktop_keyboard_shortcuts.factory()
+                    menu = getSimplePopupMenu()
                 }
             }
 
             group {
                 command(priority = PresentationPriority.TOP, actionKeyTip = "Z") {
                     title = resourceBundle.getString("Font.text")
-                    icon = Preferences_desktop_font.of(16, 16)
+                    iconFactory = Preferences_desktop_font.factory()
                     action = CommandAction { println("Font activated") }
                 }
 
                 command(priority = PresentationPriority.TOP, actionKeyTip = "L") {
                     title = resourceBundle.getString("Locale.text")
-                    icon = Preferences_desktop_locale.of(16, 16)
+                    iconFactory = Preferences_desktop_locale.factory()
                     action = CommandAction { println("Locale activated") }
                 }
             }
@@ -1168,13 +1153,13 @@ private class RibbonDemoBuilder {
             group {
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "V") {
                     title = resourceBundle.getString("Screensaver.text")
-                    icon = Preferences_desktop_screensaver.of(16, 16)
+                    iconFactory = Preferences_desktop_screensaver.factory()
                     action = CommandAction { println("Screensaver activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "T") {
                     title = resourceBundle.getString("Themes.text")
-                    icon = Preferences_desktop_theme.of(16, 16)
+                    iconFactory = Preferences_desktop_theme.factory()
                     action = CommandAction { println("Themes activated") }
                 }
             }
@@ -1186,7 +1171,7 @@ private class RibbonDemoBuilder {
     fun getApplicationsBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("Applications.textBandTitle")
-            icon = Applications_other.of(16, 16)
+            iconFactory = Applications_other.factory()
             expandCommand {
                 action = ExpandCommandListener()
             }
@@ -1197,7 +1182,7 @@ private class RibbonDemoBuilder {
                             .setIconFactory(Applications_games.factory())
                             .setCaption(resourceBundle.getString("Games.text"))
                             .build(),
-                    ComponentPresentation.builder()
+                    ComponentPresentationModel.builder()
                             .setKeyTip("AG")
                             .setResizingAware(true)
                             .setHorizontalAlignment(HorizontalAlignment.FILL)
@@ -1210,7 +1195,7 @@ private class RibbonDemoBuilder {
                             .setIconFactory(Applications_internet.factory())
                             .setCaption(resourceBundle.getString("Internet.text"))
                             .build(),
-                    ComponentPresentation.builder()
+                    ComponentPresentationModel.builder()
                             .setKeyTip("AI")
                             .setResizingAware(true)
                             .setHorizontalAlignment(HorizontalAlignment.FILL)
@@ -1223,7 +1208,7 @@ private class RibbonDemoBuilder {
                                     resourceBundle.getString("Audio.text")))
                             .setCaption(resourceBundle.getString("Multimedia.text"))
                             .build(),
-                    ComponentPresentation.builder()
+                    ComponentPresentationModel.builder()
                             .setKeyTip("AM")
                             .setResizingAware(true)
                             .setHorizontalAlignment(HorizontalAlignment.FILL)
@@ -1234,13 +1219,13 @@ private class RibbonDemoBuilder {
     fun getParagraphBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("Paragraph.textBandTitle")
-            icon = Format_justify_left.of(16, 16)
+            iconFactory = Format_justify_left.factory()
 
             group {
                 title = resourceBundle.getString("Indent.text")
 
                 component(RibbonSpinnerProjection(indentLeftSpinnerModel,
-                        ComponentPresentation.builder().setKeyTip("PL").build()))
+                        ComponentPresentationModel.builder().setKeyTip("PL").build()))
 
                 component(RibbonSpinnerProjection(
                         RibbonSpinnerNumberContentModel.builder()
@@ -1255,7 +1240,7 @@ private class RibbonDemoBuilder {
                                                 "IndentRight.tooltip.actionParagraph2"))
                                         .build())
                                 .build(),
-                        ComponentPresentation.builder()
+                        ComponentPresentationModel.builder()
                                 .setKeyTip("PR")
                                 .build()))
             }
@@ -1265,11 +1250,11 @@ private class RibbonDemoBuilder {
 
                 component(RibbonSpinnerProjection(
                         RibbonSpinnerNumberContentModel.builder().setValues(0, 0, 100, 5).build(),
-                        ComponentPresentation.builder().setKeyTip("PB").build()))
+                        ComponentPresentationModel.builder().setKeyTip("PB").build()))
 
                 component(RibbonSpinnerProjection(
                         RibbonSpinnerNumberContentModel.builder().setValues(0, 0, 100, 5).build(),
-                        ComponentPresentation.builder().setKeyTip("PA").build()))
+                        ComponentPresentationModel.builder().setKeyTip("PA").build()))
             }
         }
     }
@@ -1277,36 +1262,36 @@ private class RibbonDemoBuilder {
     fun getShowHideBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("ShowHide.textBandTitle")
-            icon = Format_justify_left.of(16, 16)
+            iconFactory = Format_justify_left.factory()
 
             component(RibbonCheckBoxProjection(
                     rulerCheckBoxModel,
-                    ComponentPresentation.builder().setKeyTip("SR").build()))
+                    ComponentPresentationModel.builder().setKeyTip("SR").build()))
 
             component(RibbonCheckBoxProjection(
                     RibbonCheckBoxContentModel.builder()
                             .setText(resourceBundle.getString("Gridlines.text"))
                             .build(),
-                    ComponentPresentation.builder().setKeyTip("SG").build()))
+                    ComponentPresentationModel.builder().setKeyTip("SG").build()))
 
             component(RibbonCheckBoxProjection(
                     RibbonCheckBoxContentModel.builder()
                             .setText(resourceBundle.getString("MessageBar.text"))
                             .setEnabled(false)
                             .build(),
-                    ComponentPresentation.builder().setKeyTip("SM").build()))
+                    ComponentPresentationModel.builder().setKeyTip("SM").build()))
 
             component(RibbonCheckBoxProjection(
                     RibbonCheckBoxContentModel.builder()
                             .setText(resourceBundle.getString("DocumentMap.text"))
                             .build(),
-                    ComponentPresentation.builder().setKeyTip("SD").build()))
+                    ComponentPresentationModel.builder().setKeyTip("SD").build()))
 
             component(RibbonCheckBoxProjection(
                     RibbonCheckBoxContentModel.builder()
                             .setText(resourceBundle.getString("Thumbnails.text"))
                             .build(),
-                    ComponentPresentation.builder().setKeyTip("ST").build()))
+                    ComponentPresentationModel.builder().setKeyTip("ST").build()))
         }
     }
 
@@ -1330,17 +1315,17 @@ private class RibbonDemoBuilder {
     fun getPreviewBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("Preview.textBandTitle")
-            icon = SimpleResizableIcon(PresentationPriority.TOP, 32, 32)
+            iconFactory = SimpleResizableIcon.FactoryTop()
 
             command(PresentationPriority.TOP) {
                 title = resourceBundle.getString("Preview.text")
-                icon = SimpleResizableIcon(PresentationPriority.TOP, 32, 32)
+                iconFactory = SimpleResizableIcon.FactoryTop()
                 action = CommandAction { println("Preview activated") }
             }
 
             command(PresentationPriority.TOP) {
                 title = resourceBundle.getString("SlideShow.text")
-                icon = SimpleResizableIcon(PresentationPriority.TOP, 32, 32)
+                iconFactory = SimpleResizableIcon.FactoryTop()
                 action = CommandAction { println("Slide Show activated") }
             }
 
@@ -1351,23 +1336,23 @@ private class RibbonDemoBuilder {
     fun getAnimationBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("Animation.textBandTitle")
-            icon = SimpleResizableIcon(PresentationPriority.TOP, 32, 32)
+            iconFactory = SimpleResizableIcon.FactoryTop()
 
             command(PresentationPriority.TOP) {
                 title = resourceBundle.getString("CustomAnimation.text")
-                icon = SimpleResizableIcon(PresentationPriority.TOP, 32, 32)
+                iconFactory = SimpleResizableIcon.FactoryTop()
                 action = CommandAction { println("Animation 1 activated") }
             }
 
             command(PresentationPriority.TOP) {
                 title = resourceBundle.getString("CustomAnimation.text")
-                icon = SimpleResizableIcon(PresentationPriority.TOP, 32, 32)
+                iconFactory = SimpleResizableIcon.FactoryTop()
                 action = CommandAction { println("Animation 2 activated") }
             }
 
             command(PresentationPriority.TOP) {
                 title = resourceBundle.getString("CustomAnimation.text")
-                icon = SimpleResizableIcon(PresentationPriority.TOP, 32, 32)
+                iconFactory = SimpleResizableIcon.FactoryTop()
                 action = CommandAction { println("Animation 3 activated") }
             }
 
@@ -1378,7 +1363,7 @@ private class RibbonDemoBuilder {
     fun getTransitionBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("TransitionToThis.textBandTitle")
-            icon = SimpleResizableIcon(PresentationPriority.TOP, 32, 32)
+            iconFactory = SimpleResizableIcon.FactoryTop()
 
             gallery(PresentationPriority.TOP) {
                 presentation {
@@ -1397,7 +1382,8 @@ private class RibbonDemoBuilder {
                         title = resourceBundle.getString("TransitionGallery.textGroupTitle1")
                         for (i in 1..40) {
                             command {
-                                icon = DecoratedResizableIcon(Appointment_new.of(16, 16),
+                                iconFactory = DecoratedResizableIcon.factory(
+                                        Appointment_new.factory(),
                                         DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
                                             g.render {
                                                 NeonCortex.installDesktopHints(it, c)
@@ -1424,7 +1410,8 @@ private class RibbonDemoBuilder {
                         title = resourceBundle.getString("TransitionGallery.textGroupTitle2")
                         for (i in 41..70) {
                             command {
-                                icon = DecoratedResizableIcon(Appointment_new.of(16, 16),
+                                iconFactory = DecoratedResizableIcon.factory(
+                                        Appointment_new.factory(),
                                         DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
                                             g.render {
                                                 NeonCortex.installDesktopHints(it, c)
@@ -1455,20 +1442,20 @@ private class RibbonDemoBuilder {
                                 .setItems(arrayOf("[" + resourceBundle.getString("NoSound.text") + "]     "))
                                 .setIconFactory(SimpleResizableIcon.FactoryTop())
                                 .build(),
-                        ComponentPresentation.withDefaults()))
+                        ComponentPresentationModel.withDefaults()))
 
                 component(RibbonComboBoxProjection(
                         RibbonDefaultComboBoxContentModel.builder<String>()
                                 .setItems(arrayOf("[" + resourceBundle.getString("Speed.text") + "]     "))
                                 .setCaption(resourceBundle.getString("Speed.text"))
                                 .build(),
-                        ComponentPresentation.withDefaults()))
+                        ComponentPresentationModel.withDefaults()))
 
                 component(RibbonCheckBoxProjection(
                         RibbonCheckBoxContentModel.builder()
                                 .setText(resourceBundle.getString("ApplyToAll.text"))
                                 .build(),
-                        ComponentPresentation.withDefaults()))
+                        ComponentPresentationModel.withDefaults()))
             }
         }
     }
@@ -1476,26 +1463,26 @@ private class RibbonDemoBuilder {
     fun getTransitionNextBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("TransitionToNext.textBandTitle")
-            icon = SimpleResizableIcon(PresentationPriority.TOP, 32, 32)
+            iconFactory = SimpleResizableIcon.FactoryTop()
 
             component(RibbonCheckBoxProjection(
                     RibbonCheckBoxContentModel.builder()
                             .setText(resourceBundle.getString("OnMouseClick.text"))
                             .setSelected(true)
                             .build(),
-                    ComponentPresentation.withDefaults()))
+                    ComponentPresentationModel.withDefaults()))
 
             component(RibbonCheckBoxProjection(
                     RibbonCheckBoxContentModel.builder()
                             .setText(resourceBundle.getString("AutoAfter.text"))
                             .build(),
-                    ComponentPresentation.withDefaults()))
+                    ComponentPresentationModel.withDefaults()))
 
             component(RibbonSpinnerProjection(
                     RibbonSpinnerDateContentModel.builder()
                             .setIconFactory(SimpleResizableIcon.FactoryTop())
                             .build(),
-                    ComponentPresentation.withDefaults()))
+                    ComponentPresentationModel.withDefaults()))
         }
     }
 
@@ -1516,14 +1503,14 @@ private class RibbonDemoBuilder {
     fun getAlignmentBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("Alignment.textTaskTitle")
-            icon = Format_justify_left.of(16, 16)
+            iconFactory = Format_justify_left.factory()
 
             group {
                 component(RibbonComboBoxProjection(
                         RibbonDefaultComboBoxContentModel.builder<String>()
                                 .setItems(arrayOf(resourceBundle.getString("VeryLong.text")))
                                 .build(),
-                        ComponentPresentation.builder()
+                        ComponentPresentationModel.builder()
                                 .setHorizontalAlignment(HorizontalAlignment.FILL)
                                 .build()))
 
@@ -1532,7 +1519,7 @@ private class RibbonDemoBuilder {
                                 .setValues(0, 0, 100, 5)
                                 .setCaption(resourceBundle.getString("Leading.text"))
                                 .build(),
-                        ComponentPresentation.builder()
+                        ComponentPresentationModel.builder()
                                 .setHorizontalAlignment(HorizontalAlignment.LEADING)
                                 .build()))
 
@@ -1541,7 +1528,7 @@ private class RibbonDemoBuilder {
                                 .setValues(0, 0, 100, 5)
                                 .setCaption(resourceBundle.getString("Trailing.text"))
                                 .build(),
-                        ComponentPresentation.builder()
+                        ComponentPresentationModel.builder()
                                 .setHorizontalAlignment(HorizontalAlignment.TRAILING)
                                 .build()))
 
@@ -1549,7 +1536,7 @@ private class RibbonDemoBuilder {
                         RibbonDefaultComboBoxContentModel.builder<String>()
                                 .setItems(arrayOf(resourceBundle.getString("VeryLong.text")))
                                 .build(),
-                        ComponentPresentation.builder()
+                        ComponentPresentationModel.builder()
                                 .setHorizontalAlignment(HorizontalAlignment.FILL)
                                 .build()))
 
@@ -1558,7 +1545,7 @@ private class RibbonDemoBuilder {
                                 .setValues(0, 0, 100, 5)
                                 .setCaption(resourceBundle.getString("Center.text"))
                                 .build(),
-                        ComponentPresentation.builder()
+                        ComponentPresentationModel.builder()
                                 .setHorizontalAlignment(HorizontalAlignment.CENTER)
                                 .build()))
 
@@ -1567,7 +1554,7 @@ private class RibbonDemoBuilder {
                                 .setValues(0, 0, 100, 5)
                                 .setCaption(resourceBundle.getString("Fill.text"))
                                 .build(),
-                        ComponentPresentation.builder()
+                        ComponentPresentationModel.builder()
                                 .setHorizontalAlignment(HorizontalAlignment.FILL)
                                 .build()))
             }
@@ -1577,7 +1564,7 @@ private class RibbonDemoBuilder {
                         RibbonDefaultComboBoxContentModel.builder<String>()
                                 .setItems(arrayOf(resourceBundle.getString("Long.text")))
                                 .build(),
-                        ComponentPresentation.builder()
+                        ComponentPresentationModel.builder()
                                 .setHorizontalAlignment(HorizontalAlignment.FILL)
                                 .build()))
 
@@ -1585,7 +1572,7 @@ private class RibbonDemoBuilder {
                         RibbonSpinnerNumberContentModel.builder()
                                 .setValues(0, 0, 100, 5)
                                 .build(),
-                        ComponentPresentation.builder()
+                        ComponentPresentationModel.builder()
                                 .setHorizontalAlignment(HorizontalAlignment.LEADING)
                                 .build()))
 
@@ -1593,7 +1580,7 @@ private class RibbonDemoBuilder {
                         RibbonSpinnerNumberContentModel.builder()
                                 .setValues(0, 0, 100, 5)
                                 .build(),
-                        ComponentPresentation.builder()
+                        ComponentPresentationModel.builder()
                                 .setHorizontalAlignment(HorizontalAlignment.TRAILING)
                                 .build()))
 
@@ -1601,7 +1588,7 @@ private class RibbonDemoBuilder {
                         RibbonDefaultComboBoxContentModel.builder<String>()
                                 .setItems(arrayOf(resourceBundle.getString("Long.text")))
                                 .build(),
-                        ComponentPresentation.builder()
+                        ComponentPresentationModel.builder()
                                 .setHorizontalAlignment(HorizontalAlignment.FILL)
                                 .build()))
 
@@ -1609,7 +1596,7 @@ private class RibbonDemoBuilder {
                         RibbonSpinnerNumberContentModel.builder()
                                 .setValues(0, 0, 100, 5)
                                 .build(),
-                        ComponentPresentation.builder()
+                        ComponentPresentationModel.builder()
                                 .setHorizontalAlignment(HorizontalAlignment.CENTER)
                                 .build()))
 
@@ -1617,7 +1604,7 @@ private class RibbonDemoBuilder {
                         RibbonSpinnerNumberContentModel.builder()
                                 .setValues(0, 0, 100, 5)
                                 .build(),
-                        ComponentPresentation.builder()
+                        ComponentPresentationModel.builder()
                                 .setHorizontalAlignment(HorizontalAlignment.FILL)
                                 .build()))
             }
@@ -1700,7 +1687,7 @@ fun main(args: Array<String>) {
 
         val ribbonFrame = ribbonFrame {
             title = builder.resourceBundle.getString("Frame.title")
-            applicationIcon = Applications_internet.of(16, 16)
+            applicationIconFactory = Applications_internet.factory()
 
             tasks {
                 +builder.getPageLayoutTask()
@@ -1736,21 +1723,21 @@ fun main(args: Array<String>) {
             anchored {
                 command(actionKeyTip = "GS") {
                     title = builder.resourceBundle.getString("Share.title")
-                    icon = Internet_mail.of(16, 16)
+                    iconFactory = Internet_mail.factory()
                     action = CommandAction {
                         JOptionPane.showMessageDialog(null, "Share button clicked")
                     }
                 }
 
                 command(actionKeyTip = "GC") {
-                    icon = Internet_group_chat.of(16, 16)
+                    iconFactory = Internet_group_chat.factory()
                     action = CommandAction {
                         JOptionPane.showMessageDialog(null, "Chat button clicked")
                     }
                 }
 
                 command(actionKeyTip = "GH") {
-                    icon = Help_browser.of(16, 16)
+                    iconFactory = Help_browser.factory()
                     action = CommandAction {
                         JOptionPane.showMessageDialog(null, "Help button clicked")
                     }
@@ -1767,14 +1754,13 @@ fun main(args: Array<String>) {
                 command(actionKeyTip = "1", command = builder.pasteCommand)
 
                 command(actionKeyTip = "2") {
-                    icon = Edit_clear.of(16, 16)
-                    action =
-                            CommandAction { println("Taskbar Clear activated") }
+                    iconFactory = Edit_clear.factory()
+                    action = CommandAction { println("Taskbar Clear activated") }
                     isEnabled = false
                 }
 
                 command(actionKeyTip = "3") {
-                    icon = Edit_copy.of(16, 16)
+                    iconFactory = Edit_copy.factory()
                     action = CommandAction { println("Taskbar Copy activated") }
                 }
 
@@ -1783,12 +1769,15 @@ fun main(args: Array<String>) {
                 separator()
 
                 command(actionKeyTip = "4") {
-                    icon = Edit_find.of(16, 16)
+                    iconFactory = Edit_find.factory()
                     action = CommandAction { println("Taskbar Find activated") }
                 }
 
                 component(RibbonComboBoxProjection(builder.fontComboBoxModel,
-                        ComponentPresentation.builder().setKeyTip("5").build()))
+                        ComponentPresentationModel.builder().setKeyTip("5").build()))
+
+                component(RibbonCheckBoxProjection(builder.rulerCheckBoxModel,
+                        ComponentPresentationModel.builder().setKeyTip("6").build()))
 
                 // Add the same gallery we have in the first ribbon task to the taskbar, configuring
                 // its popup presentation with a 4x2 grid of slightly smaller buttons (instead of a 3x3
@@ -1825,7 +1814,7 @@ fun main(args: Array<String>) {
                     // "Create new" primary
                     command(actionKeyTip = "N") {
                         title = builder.resourceBundle.getString("AppMenuNew.text")
-                        icon = Document_new.of(16, 16)
+                        iconFactory = Document_new.factory()
                         action = CommandAction {
                             println("Invoked creating new document")
                         }
@@ -1840,7 +1829,7 @@ fun main(args: Array<String>) {
                                 for (i in 0..4) {
                                     command {
                                         title = mf.format(arrayOf<Any>(i))
-                                        icon = Text_html.of(16, 16)
+                                        iconFactory = Text_html.factory()
                                         action = CommandAction {
                                             println("Action $i activated")
                                         }
@@ -1853,7 +1842,7 @@ fun main(args: Array<String>) {
                     // "Open" primary
                     command(actionKeyTip = "O") {
                         title = builder.resourceBundle.getString("AppMenuOpen.text")
-                        icon = Document_open.of(16, 16)
+                        iconFactory = Document_open.factory()
                         action = CommandAction {
                             println("Invoked opening document")
                         }
@@ -1868,7 +1857,7 @@ fun main(args: Array<String>) {
                                 for (i in 0..4) {
                                     command {
                                         title = mf.format(arrayOf<Any>(i))
-                                        icon = Text_html.of(16, 16)
+                                        iconFactory = Text_html.factory()
                                         action = CommandAction {
                                             println("Action $i activated")
                                         }
@@ -1881,7 +1870,7 @@ fun main(args: Array<String>) {
                     // "Save" primary
                     command(actionKeyTip = "S") {
                         title = builder.resourceBundle.getString("AppMenuSave.text")
-                        icon = Document_save.of(16, 16)
+                        iconFactory = Document_save.factory()
                         action = CommandAction { println("Invoked saving document") }
                         isEnabled = false
                     }
@@ -1889,7 +1878,7 @@ fun main(args: Array<String>) {
                     // "Save as" primary + secondaries
                     command(actionKeyTip = "A", popupKeyTip = "F") {
                         title = builder.resourceBundle.getString("AppMenuSaveAs.text")
-                        icon = Document_save_as.of(16, 16)
+                        iconFactory = Document_save_as.factory()
                         action = CommandAction {
                             println("Invoked saving document as")
                         }
@@ -1901,7 +1890,7 @@ fun main(args: Array<String>) {
 
                                 command(actionKeyTip = "W") {
                                     title = builder.resourceBundle.getString("AppMenuSaveAs.word.text")
-                                    icon = X_office_document.of(16, 16)
+                                    iconFactory = X_office_document.factory()
                                     extraText = builder.resourceBundle.getString("AppMenuSaveAs.word.description")
                                     action = CommandAction {
                                         println("Invoked saved as Word")
@@ -1910,7 +1899,7 @@ fun main(args: Array<String>) {
 
                                 command(actionKeyTip = "H") {
                                     title = builder.resourceBundle.getString("AppMenuSaveAs.html.text")
-                                    icon = Text_html.of(16, 16)
+                                    iconFactory = Text_html.factory()
                                     extraText = builder.resourceBundle.getString("AppMenuSaveAs.html.description")
                                     action = CommandAction {
                                         println("Invoked saved as HTML")
@@ -1920,7 +1909,7 @@ fun main(args: Array<String>) {
 
                                 command(actionKeyTip = "O") {
                                     title = builder.resourceBundle.getString("AppMenuSaveAs.other.text")
-                                    icon = Document_save_as.of(16, 16)
+                                    iconFactory = Document_save_as.factory()
                                     extraText = builder.resourceBundle.getString("AppMenuSaveAs.other.description")
                                     action = CommandAction {
                                         println("Invoked saved as other")
@@ -1935,7 +1924,7 @@ fun main(args: Array<String>) {
                     // "Print" primary + secondaries
                     command(actionKeyTip = "P", popupKeyTip = "W") {
                         title = builder.resourceBundle.getString("AppMenuPrint.text")
-                        icon = Document_print.of(16, 16)
+                        iconFactory = Document_print.factory()
                         action = CommandAction { println("Invoked printing as") }
                         isTitleClickAction = true
 
@@ -1945,24 +1934,23 @@ fun main(args: Array<String>) {
 
                                 command(actionKeyTip = "P") {
                                     title = builder.resourceBundle.getString("AppMenuPrint.print.text")
-                                    icon = Printer.of(16, 16)
+                                    iconFactory = Printer.factory()
                                     extraText = builder.resourceBundle.getString("AppMenuPrint.print.description")
                                     action = CommandAction { println("Invoked print") }
                                 }
 
                                 command(actionKeyTip = "Q") {
                                     title = builder.resourceBundle.getString("AppMenuPrint.quick.text")
-                                    icon = Printer.of(16, 16)
+                                    iconFactory = Printer.factory()
                                     extraText = builder.resourceBundle.getString("AppMenuPrint.quick.description")
                                     action = CommandAction { println("Invoked quick") }
                                 }
 
                                 command(actionKeyTip = "V") {
                                     title = builder.resourceBundle.getString("AppMenuPrint.preview.text")
-                                    icon = Document_print_preview.of(16, 16)
+                                    iconFactory = Document_print_preview.factory()
                                     extraText = builder.resourceBundle.getString("AppMenuPrint.preview.description")
-                                    action =
-                                            CommandAction { println("Invoked preview") }
+                                    action = CommandAction { println("Invoked preview") }
                                 }
                             }
 
@@ -1971,13 +1959,13 @@ fun main(args: Array<String>) {
 
                                 command(actionKeyTip = "M") {
                                     title = builder.resourceBundle.getString("AppMenuPrint.memo.text")
-                                    icon = Text_x_generic.of(16, 16)
+                                    iconFactory = Text_x_generic.factory()
                                     action = CommandAction { println("Invoked memo") }
                                 }
 
                                 command(actionKeyTip = "C") {
                                     title = builder.resourceBundle.getString("AppMenuPrint.custom.text")
-                                    icon = Text_x_generic.of(16, 16)
+                                    iconFactory = Text_x_generic.factory()
                                     action = CommandAction { println("Invoked custom") }
                                 }
                             }
@@ -1987,7 +1975,7 @@ fun main(args: Array<String>) {
                     // "Send" primary + secondaries
                     command(popupKeyTip = "D") {
                         title = builder.resourceBundle.getString("AppMenuSend.text")
-                        icon = Mail_forward.of(16, 16)
+                        iconFactory = Mail_forward.factory()
 
                         commandPopupMenu {
                             group {
@@ -1995,42 +1983,41 @@ fun main(args: Array<String>) {
 
                                 command(actionKeyTip = "E") {
                                     title = builder.resourceBundle.getString("AppMenuSend.email.text")
-                                    icon = Mail_message_new.of(16, 16)
+                                    iconFactory = Mail_message_new.factory()
                                     extraText = builder.resourceBundle.getString("AppMenuSend.email.description")
                                     action = CommandAction { println("Invoked email") }
                                 }
 
                                 command(actionKeyTip = "H") {
                                     title = builder.resourceBundle.getString("AppMenuSend.html.text")
-                                    icon = Text_html.of(16, 16)
+                                    iconFactory = Text_html.factory()
                                     extraText = builder.resourceBundle.getString("AppMenuSend.html.description")
                                     action = CommandAction { println("Invoked HTML") }
                                 }
 
                                 command(actionKeyTip = "W") {
                                     title = builder.resourceBundle.getString("AppMenuSend.word.text")
-                                    icon = X_office_document.of(16, 16)
+                                    iconFactory = X_office_document.factory()
                                     extraText = builder.resourceBundle.getString("AppMenuSend.word.description")
                                     action = CommandAction { println("Invoked Word") }
                                 }
 
                                 command(popupKeyTip = "X") {
                                     title = builder.resourceBundle.getString("AppMenuSend.wireless.text")
-                                    icon = Mail_message_new.of(16, 16)
+                                    iconFactory = Mail_message_new.factory()
                                     extraText = builder.resourceBundle.getString("AppMenuSend.wireless.description")
-                                    popupMenu = commandPopupMenu {
+                                    menu = commandPopupMenu {
                                         command(actionKeyTip = "W") {
                                             title = builder.resourceBundle.getString("AppMenuSend.wireless.wifi.text")
-                                            icon = EmptyResizableIcon(16)
+                                            iconFactory = EmptyResizableIcon.factory()
                                             action = CommandAction {
                                                 println("WiFi activated")
                                             }
                                         }
 
                                         command(actionKeyTip = "B") {
-                                            title = builder.resourceBundle.getString(
-                                                    "AppMenuSend.wireless.bluetooth.text")
-                                            icon = EmptyResizableIcon(16)
+                                            title = builder.resourceBundle.getString("AppMenuSend.wireless.bluetooth.text")
+                                            iconFactory = EmptyResizableIcon.factory()
                                             action = CommandAction {
                                                 println("Bluetooth activated")
                                             }
@@ -2046,22 +2033,22 @@ fun main(args: Array<String>) {
                     // "Exit" primary
                     command(actionKeyTip = "X") {
                         title = builder.resourceBundle.getString("AppMenuExit.text")
-                        icon = System_log_out.of(16, 16)
+                        iconFactory = System_log_out.factory()
                         action = CommandAction { System.exit(0) }
-                        popupMenu = null
+                        menu = null
                     }
                 }
 
                 footer {
                     command {
                         title = builder.resourceBundle.getString("AppMenuOptions.text")
-                        icon = Document_properties.of(16, 16)
+                        iconFactory = Document_properties.factory()
                         action = CommandAction { println("Invoked Options") }
                     }
 
                     command {
                         title = builder.resourceBundle.getString("AppMenuExit.text")
-                        icon = System_log_out.of(16, 16)
+                        iconFactory = System_log_out.factory()
                         action = CommandAction { System.exit(0) }
                     }
                 }

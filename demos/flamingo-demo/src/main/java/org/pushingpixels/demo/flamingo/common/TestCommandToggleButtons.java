@@ -132,7 +132,7 @@ public class TestCommandToggleButtons extends JFrame {
 
         AbstractCommandButton buttonWithShortText =
                 this.toggleCommandShort.project(
-                        CommandPresentation.builder()
+                        CommandButtonPresentationModel.builder()
                                 .setPresentationState(state)
                                 .setFlat(false)
                                 .build())
@@ -141,7 +141,7 @@ public class TestCommandToggleButtons extends JFrame {
 
         AbstractCommandButton buttonWithLongText =
                 this.toggleCommandLong.project(
-                        CommandPresentation.builder()
+                        CommandButtonPresentationModel.builder()
                                 .setPresentationState(state)
                                 .setFlat(false)
                                 .build())

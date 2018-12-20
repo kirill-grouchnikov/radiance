@@ -31,14 +31,14 @@ package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.ResizableIconFactory;
 
 import javax.swing.*;
 import java.util.Collections;
@@ -48,7 +48,7 @@ import java.util.Collections;
  *
  * <ul>
  * <li>Ribbon commands added with
- * {@link #addRibbonCommand(CommandProjection, PresentationPriority)}.</li>
+ * {@link #addRibbonCommand(CommandButtonProjection, PresentationPriority)}.</li>
  * <li>Wrapped core / 3rd party components added with
  * {@link #addRibbonComponent(ComponentProjection)}.</li>
  * <li>Ribbon galleries added with
@@ -132,22 +132,23 @@ public class JRibbonBand extends AbstractRibbonBand {
     /**
      * Creates a new ribbon band.
      *
-     * @param title Band title.
-     * @param icon  Associated icon (for collapsed state).
+     * @param title       Band title.
+     * @param iconFactory Associated icon factory (for collapsed state).
      */
-    public JRibbonBand(String title, ResizableIcon icon) {
-        this(title, icon, null);
+    public JRibbonBand(String title, ResizableIconFactory iconFactory) {
+        this(title, iconFactory, null);
     }
 
     /**
      * Creates a new ribbon band.
      *
      * @param title                 Band title.
-     * @param icon                  Associated icon (for collapsed state).
+     * @param iconFactory           Associated icon factory (for collapsed state).
      * @param expandCommandListener Expand command listener (can be <code>null</code>).
      */
-    public JRibbonBand(String title, ResizableIcon icon, CommandAction expandCommandListener) {
-        super(title, icon, expandCommandListener, new JBandControlPanel());
+    public JRibbonBand(String title, ResizableIconFactory iconFactory,
+            CommandAction expandCommandListener) {
+        super(title, iconFactory, expandCommandListener, new JBandControlPanel());
         this.resizePolicies = Collections
                 .unmodifiableList(CoreRibbonResizePolicies.getCorePoliciesPermissive(this));
         updateUI();
@@ -160,7 +161,7 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @param priority   Priority of the command.
      * @return The command button that represents the command.
      */
-    public AbstractCommandButton addRibbonCommand(CommandProjection<? extends Command> projection,
+    public AbstractCommandButton addRibbonCommand(CommandButtonProjection<? extends Command> projection,
             PresentationPriority priority) {
         AbstractCommandButton commandButton = projection.buildComponent();
         ((JBandControlPanel) this.getControlPanel()).addCommandButton(commandButton, priority);
@@ -210,7 +211,7 @@ public class JRibbonBand extends AbstractRibbonBand {
 
     @Override
     public AbstractRibbonBand cloneBand() {
-        AbstractRibbonBand result = new JRibbonBand(this.getTitle(), this.getIcon(),
+        AbstractRibbonBand result = new JRibbonBand(this.getTitle(), this.getIconFactory(),
                 this.getExpandCommandListener());
         result.applyComponentOrientation(this.getComponentOrientation());
         return result;

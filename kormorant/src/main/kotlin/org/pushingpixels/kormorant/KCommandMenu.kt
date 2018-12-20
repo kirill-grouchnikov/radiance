@@ -32,8 +32,8 @@ package org.pushingpixels.kormorant
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
-import org.pushingpixels.flamingo.api.common.model.CommandPresentation
-import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
 
 @FlamingoElementMarker
@@ -67,14 +67,8 @@ class KCommandPopupMenuButtonPanel {
     }
 }
 
-abstract class KAbstractPopupMenu<out PM> {
-    abstract fun toJavaPopupMenuContentModel(): CommandPopupMenuContentModel
-    abstract fun toJavaPopupMenuPresentationModel(): PM
-    abstract fun toJavaCommandOverlays(): Map<Command, CommandPresentation.Overlay>
-}
-
 @FlamingoElementMarker
-class KCommandPopupMenu : KAbstractPopupMenu<CommandPopupMenuPresentationModel>() {
+class KCommandMenu {
     private var hasBeenConverted: Boolean = false
 
     private val groups = arrayListOf<KCommandGroup>()
@@ -116,25 +110,26 @@ class KCommandPopupMenu : KAbstractPopupMenu<CommandPopupMenuPresentationModel>(
         return group
     }
 
-    override fun toJavaCommandOverlays(): Map<Command, CommandPresentation.Overlay> {
-        val commandOverlays = HashMap<Command, CommandPresentation.Overlay>()
+    fun toJavaCommandOverlays(): Map<Command, CommandButtonPresentationModel.Overlay> {
+        val commandOverlays = HashMap<Command, CommandButtonPresentationModel.Overlay>()
         for (groupOverlays in groups.map { it.toPresentationOverlays() }) {
             commandOverlays.putAll(groupOverlays)
         }
         return commandOverlays
     }
 
-    override fun toJavaPopupMenuContentModel(): CommandPopupMenuContentModel {
+    fun toJavaMenuContentModel(): CommandMenuContentModel {
         if (defaultGroup.commands.isEmpty()) {
             groups.remove(defaultGroup)
         }
 
         val commandGroupModels = groups.map { it.toCommandGroupModel() }
 
-        return CommandPopupMenuContentModel(commandPanel?.getContentModel(), commandGroupModels)
+        return CommandMenuContentModel(
+                commandPanel?.getContentModel(), commandGroupModels)
     }
 
-    override fun toJavaPopupMenuPresentationModel(): CommandPopupMenuPresentationModel {
+    fun toJavaPopupMenuPresentationModel(): CommandPopupMenuPresentationModel {
         val presentationModelBuilder = CommandPopupMenuPresentationModel.builder()
         if (maxVisibleMenuCommands > 0) {
             presentationModelBuilder.setMaxVisibleMenuCommands(maxVisibleMenuCommands)
@@ -148,8 +143,8 @@ class KCommandPopupMenu : KAbstractPopupMenu<CommandPopupMenuPresentationModel>(
     }
 }
 
-fun commandPopupMenu(init: KCommandPopupMenu.() -> Unit): KCommandPopupMenu {
-    val commandPopupMenu = KCommandPopupMenu()
+fun commandPopupMenu(init: KCommandMenu.() -> Unit): KCommandMenu {
+    val commandPopupMenu = KCommandMenu()
     commandPopupMenu.init()
     return commandPopupMenu
 }

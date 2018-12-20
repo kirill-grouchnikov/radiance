@@ -79,26 +79,26 @@ fun main(args: Array<String>) {
         // Create a toggle button strip to change the text alignment in our text pane.
         val commandAlignStrip = commandToggleButtonStrip {
             command {
-                icon = Format_justify_left.of(16, 16)
+                iconFactory = Format_justify_left.factory()
                 isToggleSelected = true
                 action = CommandAction {
                     textPane.setAlignment(StyleConstants.ALIGN_LEFT)
                 }
             }
             command {
-                icon = Format_justify_center.of(16, 16)
+                iconFactory = Format_justify_center.factory()
                 action = CommandAction {
                     textPane.setAlignment(StyleConstants.ALIGN_CENTER)
                 }
             }
             command {
-                icon = Format_justify_right.of(16, 16)
+                iconFactory = Format_justify_right.factory()
                 action = CommandAction {
                     textPane.setAlignment(StyleConstants.ALIGN_RIGHT)
                 }
             }
             command {
-                icon = Format_justify_fill.of(16, 16)
+                iconFactory = Format_justify_fill.factory()
                 action = CommandAction {
                     textPane.setAlignment(StyleConstants.ALIGN_JUSTIFIED)
                 }

@@ -31,12 +31,12 @@ package org.pushingpixels.flamingo.api.ribbon.projection;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.CommandButtonLayoutManagerMenuTileLevel2;
 
 import java.util.Map;
 
-public class RibbonApplicationMenuCommandProjection extends CommandProjection<Command> {
+public class RibbonApplicationMenuCommandButtonProjection extends CommandButtonProjection<Command> {
     public static final CommandButtonPresentationState RIBBON_APP_MENU_SECONDARY_LEVEL =
             new CommandButtonPresentationState("Ribbon application menu tile level 2", 32) {
                 @Override
@@ -48,8 +48,8 @@ public class RibbonApplicationMenuCommandProjection extends CommandProjection<Co
 
     private Map<Command, CommandButtonPresentationState> secondaryLevelCommandPresentationState;
 
-    public RibbonApplicationMenuCommandProjection(Command command,
-            CommandPresentation commandPresentation) {
+    public RibbonApplicationMenuCommandButtonProjection(Command command,
+            CommandButtonPresentationModel commandPresentation) {
         super(command, commandPresentation);
     }
 
@@ -63,8 +63,8 @@ public class RibbonApplicationMenuCommandProjection extends CommandProjection<Co
     }
 
     @Override
-    public RibbonApplicationMenuCommandProjection reproject(CommandPresentation newCommandPresentation) {
-        RibbonApplicationMenuCommandProjection result = new RibbonApplicationMenuCommandProjection(
+    public RibbonApplicationMenuCommandButtonProjection reproject(CommandButtonPresentationModel newCommandPresentation) {
+        RibbonApplicationMenuCommandButtonProjection result = new RibbonApplicationMenuCommandButtonProjection(
                 this.getContentModel(), newCommandPresentation);
         result.setComponentSupplier(this.getComponentSupplier());
         result.setComponentCustomizer(this.getComponentCustomizer());

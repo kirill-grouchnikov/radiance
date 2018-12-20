@@ -34,13 +34,14 @@ import org.pushingpixels.flamingo.api.common.AbstractCommandButton
 @FlamingoElementMarker
 class KCommandButton {
     internal val command: KCommand = KCommand()
-    internal val presentation: KCommandPresentation = KCommandPresentation()
+    internal val presentation: KCommandButtonPresentation = KCommandButtonPresentation()
 
-    fun command(init: KCommand.() -> Unit) {
+    fun command(init: KCommand.() -> Unit) : KCommand {
         command.init()
+        return command
     }
 
-    fun presentation(init: KCommandPresentation.() -> Unit) {
+    fun presentation(init: KCommandButtonPresentation.() -> Unit) {
         presentation.init()
     }
 
@@ -51,6 +52,31 @@ class KCommandButton {
 
 fun commandButton(init: KCommandButton.() -> Unit): KCommandButton {
     val commandButton = KCommandButton()
+    commandButton.init()
+    return commandButton
+}
+
+@FlamingoElementMarker
+class KColorSelectorCommandButton {
+    internal val command: KColorSelectorCommand = KColorSelectorCommand()
+    internal val presentation: KColorSelectorCommandPresentation = KColorSelectorCommandPresentation()
+
+    fun command(init: KColorSelectorCommand.() -> Unit) : KColorSelectorCommand {
+        command.init()
+        return command
+    }
+
+    fun presentation(init: KColorSelectorCommandPresentation.() -> Unit) {
+        presentation.init()
+    }
+
+    fun toButton(): AbstractCommandButton {
+        return command.toColorSelectorCommandButton(presentation)
+    }
+}
+
+fun colorSelectorCommandButton(init: KColorSelectorCommandButton.() -> Unit): KColorSelectorCommandButton {
+    val commandButton = KColorSelectorCommandButton()
     commandButton.init()
     return commandButton
 }

@@ -72,15 +72,15 @@ public class TestToggleMenuButtons extends JFrame {
                 .inToggleGroup(justifyGroup)
                 .build();
 
-        CommandPopupMenuContentModel justifyMenuContentModel = new CommandPopupMenuContentModel(
+        CommandMenuContentModel justifyMenuContentModel = new CommandMenuContentModel(
                 new CommandGroup(justifyLeft, justifyCenter, justifyRight, justifyFill));
 
         AbstractCommandButton singleChoice =
                 Command.builder()
                         .setText("single")
-                        .setPopupMenuContentModel(justifyMenuContentModel)
+                        .setSecondaryContentModel(justifyMenuContentModel)
                         .build()
-                        .project(CommandPresentation.builder()
+                        .project(CommandButtonPresentationModel.builder()
                                 .setPresentationState(CommandButtonPresentationState.MEDIUM)
                                 .setFlat(false).build())
                         .buildComponent();
@@ -106,16 +106,16 @@ public class TestToggleMenuButtons extends JFrame {
                 .setToggle()
                 .build();
 
-        CommandPopupMenuContentModel formatMenuContentModel = new CommandPopupMenuContentModel(
+        CommandMenuContentModel formatMenuContentModel = new CommandMenuContentModel(
                 new CommandGroup(formatBold, formatItalic, formatUnderline,
                         formatStrikethrough));
 
         AbstractCommandButton multiChoice =
                 Command.builder()
                         .setText("multi")
-                        .setPopupMenuContentModel(formatMenuContentModel)
+                        .setSecondaryContentModel(formatMenuContentModel)
                         .build()
-                        .project(CommandPresentation.builder()
+                        .project(CommandButtonPresentationModel.builder()
                                 .setPresentationState(CommandButtonPresentationState.MEDIUM)
                                 .setFlat(false)
                                 .setPopupMenuPresentationModel(

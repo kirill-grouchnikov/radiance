@@ -38,12 +38,12 @@ public class RibbonComboBoxProjection extends ComponentProjection<JRibbonComboBo
         RibbonComboBoxContentModel> {
 
     private static ComponentSupplier<JRibbonComboBox,
-            RibbonComboBoxContentModel, ComponentPresentation> DEFAULT_SUPPLIER =
+            RibbonComboBoxContentModel, ComponentPresentationModel> DEFAULT_SUPPLIER =
             (Projection<JRibbonComboBox, RibbonComboBoxContentModel,
-                    ComponentPresentation> projection) -> JRibbonComboBox::new;
+                    ComponentPresentationModel> projection) -> JRibbonComboBox::new;
 
     public RibbonComboBoxProjection(RibbonComboBoxContentModel contentModel,
-            ComponentPresentation presentationModel) {
+            ComponentPresentationModel presentationModel) {
         super(contentModel, presentationModel, DEFAULT_SUPPLIER);
     }
 

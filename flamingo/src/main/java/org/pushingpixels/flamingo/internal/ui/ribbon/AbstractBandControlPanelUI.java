@@ -64,9 +64,11 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
     public void installUI(JComponent c) {
         this.controlPanel = (AbstractBandControlPanel) c;
 
-        this.dummy = Command.builder().setText("Dummy").setIcon(new EmptyResizableIcon(16))
+        this.dummy = Command.builder()
+                .setText("Dummy")
+                .setIconFactory(EmptyResizableIcon.factory())
                 .setAction((CommandActionEvent e) -> {})
-                .build().project(CommandPresentation.builder()
+                .build().project(CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.BIG).build())
                 .buildComponent();
 

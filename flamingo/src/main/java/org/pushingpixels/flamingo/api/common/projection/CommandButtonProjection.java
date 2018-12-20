@@ -31,44 +31,46 @@ package org.pushingpixels.flamingo.api.common.projection;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
 
-public class CommandProjection<M extends Command>
-        extends Projection<AbstractCommandButton, M, CommandPresentation> {
+public class CommandButtonProjection<M extends Command>
+        extends Projection<AbstractCommandButton, M, CommandButtonPresentationModel> {
 
     private static <M extends Command>
-            ComponentSupplier<AbstractCommandButton, M, CommandPresentation> getDefaultSupplier() {
-        return (Projection<AbstractCommandButton, M, CommandPresentation> projection) -> {
+            ComponentSupplier<AbstractCommandButton, M, CommandButtonPresentationModel> getDefaultSupplier() {
+        return (Projection<AbstractCommandButton, M, CommandButtonPresentationModel> projection) -> {
             if (projection.getPresentationModel().isMenu()) {
-                return projection.getContentModel().isToggle() ? JCommandToggleMenuButton::new
+                return projection.getContentModel().isToggle()
+                        ? JCommandToggleMenuButton::new
                         : JCommandMenuButton::new;
             } else {
-                return projection.getContentModel().isToggle() ? JCommandToggleButton::new
+                return projection.getContentModel().isToggle()
+                        ? JCommandToggleButton::new
                         : JCommandButton::new;
             }
         };
     }
 
-    private ComponentSupplier<? extends AbstractPopupMenu, ? extends CommandPopupMenuContentModel,
+    private ComponentSupplier<? extends AbstractPopupMenu, ? extends CommandMenuContentModel,
             ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier;
     private ComponentCustomizer<? extends AbstractPopupMenu> popupMenuCustomizer;
 
-    public CommandProjection(M command, CommandPresentation commandPresentation) {
+    public CommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation) {
         this(command, commandPresentation, getDefaultSupplier());
     }
 
-    public CommandProjection(M command, CommandPresentation commandPresentation,
-            ComponentSupplier<AbstractCommandButton, M, CommandPresentation> componentSupplier) {
+    public CommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation,
+            ComponentSupplier<AbstractCommandButton, M, CommandButtonPresentationModel> componentSupplier) {
         super(command, commandPresentation, componentSupplier);
     }
 
-    public CommandProjection<M> reproject(CommandPresentation newCommandPresentation) {
-        CommandProjection result = this.getContentModel().project(newCommandPresentation);
+    public CommandButtonProjection<M> reproject(CommandButtonPresentationModel newCommandPresentation) {
+        CommandButtonProjection result = this.getContentModel().project(newCommandPresentation);
         result.setComponentSupplier(this.getComponentSupplier());
         result.setComponentCustomizer(this.getComponentCustomizer());
         result.setCommandOverlays(this.getCommandOverlays());
-        return (CommandProjection<M>) result;
+        return (CommandButtonProjection<M>) result;
     }
 
     public void setPopupMenuCustomizer(
@@ -81,12 +83,12 @@ public class CommandProjection<M extends Command>
     }
 
     public void setPopupMenuSupplier(ComponentSupplier<? extends AbstractPopupMenu,
-            ? extends CommandPopupMenuContentModel,
+            ? extends CommandMenuContentModel,
             ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier) {
         this.popupMenuSupplier = popupMenuSupplier;
     }
 
-    public ComponentSupplier<? extends AbstractPopupMenu, ? extends CommandPopupMenuContentModel,
+    public ComponentSupplier<? extends AbstractPopupMenu, ? extends CommandMenuContentModel,
             ? extends AbstractPopupMenuPresentationModel> getPopupMenuSupplier() {
         return this.popupMenuSupplier;
     }

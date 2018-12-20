@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.common.icon;
 
 import org.pushingpixels.neon.*;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -173,5 +173,10 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
             }
         }
         return false;
+    }
+
+    public static ResizableIconFactory factory(ResizableIconFactory original,
+            IconDecorator... decorators) {
+        return () -> new DecoratedResizableIcon(original.createNewIcon(), decorators);
     }
 }

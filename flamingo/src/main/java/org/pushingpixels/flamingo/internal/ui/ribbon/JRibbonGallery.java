@@ -58,7 +58,7 @@ public class JRibbonGallery extends JComponent {
     private RibbonGalleryProjection galleryProjection;
     private RibbonGalleryContentModel galleryContentModel;
     private RibbonGalleryPresentationModel galleryPresentationModel;
-    private Map<Command, CommandPresentation.Overlay> galleryCommandOverlays;
+    private Map<Command, CommandButtonPresentationModel.Overlay> galleryCommandOverlays;
 
     /**
      * The buttons of <code>this</code> gallery.
@@ -168,8 +168,8 @@ public class JRibbonGallery extends JComponent {
      * @param command Command to add.
      */
     private void addGalleryCommand(Command command) {
-        CommandPresentation presentation = CommandPresentation.withDefaults();
-        CommandPresentation.Overlay overlay = this.galleryCommandOverlays.get(command);
+        CommandButtonPresentationModel presentation = CommandButtonPresentationModel.withDefaults();
+        CommandButtonPresentationModel.Overlay overlay = this.galleryCommandOverlays.get(command);
         if (overlay != null) {
             presentation = presentation.overlayWith(overlay);
         }
@@ -348,8 +348,8 @@ public class JRibbonGallery extends JComponent {
 
         // Create the content model for the entire popup based on the gallery commands,
         // as well as on the extra popup commands set on the gallery content model
-        CommandPopupMenuContentModel galleryPopupMenuContentModel =
-                new CommandPopupMenuContentModel(
+        CommandMenuContentModel galleryPopupMenuContentModel =
+                new CommandMenuContentModel(
                         galleryPopupMenuPanelContentModel,
                         galleryProjection.getContentModel().getExtraPopupCommandGroups());
 

@@ -42,7 +42,7 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
     private ComponentCustomizer<T> componentCustomizer;
 
     private Map<Command, ComponentCustomizer<AbstractCommandButton>> commandComponentCustomizers;
-    private Map<Command, ComponentSupplier<AbstractCommandButton, Command, CommandPresentation>>
+    private Map<Command, ComponentSupplier<AbstractCommandButton, Command, CommandButtonPresentationModel>>
             commandComponentSuppliers;
 
     /**
@@ -100,7 +100,7 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
     }
 
     public void setCommandComponentSuppliers(Map<Command,
-            ComponentSupplier<AbstractCommandButton, Command, CommandPresentation>> commandComponentSuppliers) {
+            ComponentSupplier<AbstractCommandButton, Command, CommandButtonPresentationModel>> commandComponentSuppliers) {
         this.commandComponentSuppliers = commandComponentSuppliers;
     }
 
@@ -112,7 +112,7 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
         return this.componentCustomizer;
     }
 
-    public Map<Command, ComponentSupplier<AbstractCommandButton, Command, CommandPresentation>> getCommandComponentSuppliers() {
+    public Map<Command, ComponentSupplier<AbstractCommandButton, Command, CommandButtonPresentationModel>> getCommandComponentSuppliers() {
         return this.commandComponentSuppliers;
     }
 

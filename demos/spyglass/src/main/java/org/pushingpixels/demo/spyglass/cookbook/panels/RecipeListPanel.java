@@ -66,18 +66,18 @@ public class RecipeListPanel extends SingleContentPanel {
         JComponent titlePaneControlButtons = new CommandStripProjection(
                 new CommandGroup(
                         Command.builder()
-                                .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
-                                        ic_view_headline_white_24px.of(16, 16), 0.75f)))
+                                .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
+                                        .factory(ic_view_headline_white_24px.factory(), 0.75f)))
                                 .inToggleGroupAsSelected(viewGroup)
                                 .build(),
                         Command.builder()
-                                .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
-                                        ic_view_list_white_24px.of(16, 16), 0.75f)))
+                                .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
+                                        .factory(ic_view_list_white_24px.factory(), 0.75f)))
                                 .inToggleGroup(viewGroup)
                                 .build(),
                         Command.builder()
-                                .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
-                                        ic_view_stream_white_24px.of(16, 16), 0.75f)))
+                                .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
+                                        .factory(ic_view_stream_white_24px.factory(), 0.75f)))
                                 .inToggleGroup(viewGroup)
                                 .build()),
                 CommandStripPresentationModel.builder().build())
@@ -112,12 +112,12 @@ public class RecipeListPanel extends SingleContentPanel {
         final JComponent controlButtons = new CommandStripProjection(
                 new CommandGroup(
                         Command.builder()
-                                .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
-                                        ic_add_white_24px.of(16, 16), 0.75f)))
+                                .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
+                                        .factory(ic_add_white_24px.factory(), 0.75f)))
                                 .build(),
                         Command.builder()
-                                .setIcon(new EchoResizableIcon(new ScaledResizableIcon(
-                                        ic_remove_white_24px.of(12, 12), 0.75f)))
+                                .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
+                                        .factory(ic_remove_white_24px.factory(), 0.75f)))
                                 .build()),
                 CommandStripPresentationModel.builder().build())
                 .buildComponent();

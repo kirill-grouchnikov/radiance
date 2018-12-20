@@ -105,9 +105,9 @@ public class TestButtonStripHorizontal extends JFrame {
     private JComponent getStrip1(double hgapScaleFactor, double vgapScaleFactor) {
         return new CommandStripProjection(
                 new CommandGroup(
-                        Command.builder().setIcon(new Format_justify_left()).build(),
-                        Command.builder().setIcon(new Format_justify_center()).build(),
-                        Command.builder().setIcon(new Format_justify_right()).build()),
+                        Command.builder().setIconFactory(Format_justify_left.factory()).build(),
+                        Command.builder().setIconFactory(Format_justify_center.factory()).build(),
+                        Command.builder().setIconFactory(Format_justify_right.factory()).build()),
                 CommandStripPresentationModel.builder()
                         .setCommandPresentationState(CommandButtonPresentationState.SMALL)
                         .setOrientation(CommandStripPresentationModel.StripOrientation.HORIZONTAL)
@@ -120,12 +120,12 @@ public class TestButtonStripHorizontal extends JFrame {
     private JComponent getStrip2(double hgapScaleFactor, double vgapScaleFactor) {
         return new CommandStripProjection(
                 new CommandGroup(
-                        Command.builder().setIcon(new Format_text_bold()).build(),
-                        Command.builder().setIcon(new Format_text_italic()).build(),
-                        Command.builder().setIcon(new Format_text_underline()).build(),
+                        Command.builder().setIconFactory(Format_text_bold.factory()).build(),
+                        Command.builder().setIconFactory(Format_text_italic.factory()).build(),
+                        Command.builder().setIconFactory(Format_text_underline.factory()).build(),
                         Command.builder()
-                                .setIcon(new Format_text_strikethrough())
-                                .setPopupMenuContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
+                                .setIconFactory(Format_text_strikethrough.factory())
+                                .setSecondaryContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
                                 .build()),
                 CommandStripPresentationModel.builder()
                         .setCommandPresentationState(CommandButtonPresentationState.SMALL)

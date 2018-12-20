@@ -31,8 +31,8 @@ package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel;
-import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandProjection;
+import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 
 import java.util.*;
 
@@ -57,7 +57,7 @@ import java.util.*;
  * The entries in the primary area are always visible. The secondary area entries are shown based on
  * the currently active element in the primary area. The secondary entries are {@link Command}s
  * configured with the
- * {@link Command.Builder#setPopupMenuContentModel(CommandPopupMenuContentModel)}
+ * {@link Command.Builder#setSecondaryContentModel(CommandMenuContentModel)}
  * API. When this entry is armed (with mouse rollover or via keyboard navigation), the secondary
  * area shows menu buttons for the registered secondary menu entries. The <code>Save As</code> menu
  * item is an example of such a primary menu item, showing a list of default save formats.</li>
@@ -72,13 +72,13 @@ import java.util.*;
  *
  * <p>
  * Note that once a {@link RibbonApplicationMenu} is set on the {@link JRibbon} with the
- * {@link JRibbon#setApplicationMenuCommand(RibbonApplicationMenuCommandProjection)},
+ * {@link JRibbon#setApplicationMenuCommand(RibbonApplicationMenuCommandButtonProjection)},
  * its contents cannot be changed.
  * </p>
  *
  * @author Kirill Grouchnikov
  */
-public class RibbonApplicationMenu extends CommandPopupMenuContentModel {
+public class RibbonApplicationMenu extends CommandMenuContentModel {
     /**
      * Footer commands.
      */

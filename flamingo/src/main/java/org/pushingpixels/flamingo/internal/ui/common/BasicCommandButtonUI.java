@@ -285,21 +285,13 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             if ("extraText".equals(evt.getPropertyName())) {
                 commandButton.setExtraText((String) evt.getNewValue());
             }
-            if ("icon".equals(evt.getPropertyName()) && (command.getIconFactory() == null)) {
-                commandButton.setIcon((ResizableIcon) evt.getNewValue());
-            }
             if ("iconFactory".equals(evt.getPropertyName())) {
                 ResizableIconFactory factory = (ResizableIconFactory) evt.getNewValue();
-                commandButton.setIcon((factory != null) ? factory.createNewIcon() : command.getIcon());
-            }
-            if ("disabledIcon".equals(evt.getPropertyName()) &&
-                    (command.getDisabledIconFactory() == null)) {
-                commandButton.setDisabledIcon((ResizableIcon) evt.getNewValue());
+                commandButton.setIcon((factory != null) ? factory.createNewIcon() : null);
             }
             if ("disabledIconFactory".equals(evt.getPropertyName())) {
                 ResizableIconFactory factory = (ResizableIconFactory) evt.getNewValue();
-                commandButton.setDisabledIcon((factory != null) ? factory.createNewIcon()
-                        : command.getDisabledIcon());
+                commandButton.setDisabledIcon((factory != null) ? factory.createNewIcon() : null);
             }
             if ("isToggleSelected".equals(evt.getPropertyName())) {
                 commandButton.getActionModel().setSelected((Boolean) evt.getNewValue());
@@ -314,7 +306,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             if ("actionRichTooltip".equals(evt.getPropertyName())) {
                 commandButton.setActionRichTooltip((RichTooltip) evt.getNewValue());
             }
-            if ("popupRichTooltip".equals(evt.getPropertyName())) {
+            if ("secondaryRichTooltip".equals(evt.getPropertyName())) {
                 if (commandButton instanceof JCommandButton) {
                     ((JCommandButton) commandButton).setPopupRichTooltip(
                             (RichTooltip) evt.getNewValue());
@@ -337,7 +329,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             if ("actionEnabled".equals(evt.getPropertyName())) {
                 commandButton.getActionModel().setEnabled((Boolean) evt.getNewValue());
             }
-            if ("popupEnabled".equals(evt.getPropertyName())) {
+            if ("secondaryEnabled".equals(evt.getPropertyName())) {
                 if (commandButton instanceof JCommandButton) {
                     ((JCommandButton) commandButton).getPopupModel().setEnabled(
                             (Boolean) evt.getNewValue());

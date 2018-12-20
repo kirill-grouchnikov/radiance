@@ -42,7 +42,7 @@ import java.util.List;
 
 /**
  * Popup menu with groups of command buttons. Use the
- * {@link CommandPopupMenuContentModel#CommandPopupMenuContentModel(CommandPanelContentModel, List)}
+ * {@link CommandMenuContentModel#CommandMenuContentModel(CommandPanelContentModel, List)}
  * constructor to place a scrollable command button panel in the top part of the popup menu.
  *
  * @author Kirill Grouchnikov
@@ -53,10 +53,10 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
      */
     public static final String uiClassID = "CommandPopupMenuUI";
 
-    private Projection<JCommandPopupMenu, CommandPopupMenuContentModel,
+    private Projection<JCommandPopupMenu, CommandMenuContentModel,
             CommandPopupMenuPresentationModel> projection;
 
-    private CommandPopupMenuContentModel popupMenuContentModel;
+    private CommandMenuContentModel popupMenuContentModel;
     private CommandPopupMenuPresentationModel popupMenuPresentationModel;
 
     private CommandPanelContentModel popupMenuPanelContentModel;
@@ -65,13 +65,13 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
     /**
      * The main button panel.
      *
-     * @see CommandPopupMenuContentModel#CommandPopupMenuContentModel(CommandPanelContentModel, List)
+     * @see CommandMenuContentModel#CommandMenuContentModel(CommandPanelContentModel, List)
      * @see #hasCommandButtonPanel()
      * @see #getMainButtonPanel()
      */
     private JCommandButtonPanel mainButtonPanel;
 
-    public JCommandPopupMenu(Projection<JCommandPopupMenu, CommandPopupMenuContentModel,
+    public JCommandPopupMenu(Projection<JCommandPopupMenu, CommandMenuContentModel,
             CommandPopupMenuPresentationModel> projection) {
         this.projection = projection;
         this.popupMenuContentModel = projection.getContentModel();
@@ -96,8 +96,8 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
         }
 
         // Command presentation for menu content
-        CommandPresentation presentation =
-                CommandPresentation.builder()
+        CommandButtonPresentationModel presentation =
+                CommandButtonPresentationModel.builder()
                         .setPresentationState(
                                 this.popupMenuPresentationModel.getMenuPresentationState())
                         .setMenu(true)
@@ -107,9 +107,9 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
                 this.popupMenuContentModel.getCommandGroups();
         for (int i = 0; i < commandGroups.size(); i++) {
             for (Command command : commandGroups.get(i).getCommands()) {
-                CommandProjection<Command> commandProjection;
+                CommandButtonProjection<Command> commandProjection;
                 // Do we need to apply a command-specific overlay?
-                CommandPresentation.Overlay overlay =
+                CommandButtonPresentationModel.Overlay overlay =
                         this.projection.getCommandOverlays().get(command);
                 if (overlay != null) {
                     commandProjection = command.project(presentation.overlayWith(overlay));
@@ -143,7 +143,7 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
         }
     }
 
-    public Projection<JCommandPopupMenu, CommandPopupMenuContentModel,
+    public Projection<JCommandPopupMenu, CommandMenuContentModel,
             CommandPopupMenuPresentationModel> getProjection() {
         return this.projection;
     }

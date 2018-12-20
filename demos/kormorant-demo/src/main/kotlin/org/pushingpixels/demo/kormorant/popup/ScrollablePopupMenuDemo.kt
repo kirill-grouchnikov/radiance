@@ -31,8 +31,8 @@ package org.pushingpixels.demo.kormorant.popup
 
 import org.pushingpixels.demo.kormorant.svg.Help_browser
 import org.pushingpixels.demo.kormorant.svg.Text_x_generic
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.CommandAction
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.kormorant.commandPopupMenu
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -58,14 +58,14 @@ fun main(args: Array<String>) {
         val commandButton = commandButton {
             command {
                 title = resourceBundle.getString("Paste.text")
-                icon = Help_browser.of(16, 16)
+                iconFactory = Help_browser.factory()
                 extraText = resourceBundle.getString("Paste.textExtra")
-                popupMenu = commandPopupMenu {
+                menu = commandPopupMenu {
                     val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
                     for (i in 0 until 20) {
                         command {
                             title = mf.format(arrayOf<Any>(i))
-                            icon = Text_x_generic.of(16, 16)
+                            iconFactory = Text_x_generic.factory()
                             action = CommandAction {
                                 println("Invoked action on '$i'")
                             }

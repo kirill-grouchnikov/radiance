@@ -35,7 +35,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.ResizableIconFactory;
 
 import javax.swing.*;
 
@@ -51,23 +51,23 @@ public class JFlowRibbonBand extends AbstractRibbonBand {
     /**
      * Creates a new flow ribbon band.
      *
-     * @param title Band title.
-     * @param icon  Associated icon (for collapsed state).
+     * @param title       Band title.
+     * @param iconFactory Associated icon factory (for collapsed state).
      */
-    public JFlowRibbonBand(String title, ResizableIcon icon) {
-        this(title, icon, null);
+    public JFlowRibbonBand(String title, ResizableIconFactory iconFactory) {
+        this(title, iconFactory, null);
     }
 
     /**
      * Creates a new flow ribbon band.
      *
      * @param title                 Band title.
-     * @param icon                  Associated icon (for collapsed state).
+     * @param iconFactory           Associated icon factory (for collapsed state).
      * @param expandCommandListener Expand command listener (can be <code>null</code>).
      */
-    public JFlowRibbonBand(String title, ResizableIcon icon,
+    public JFlowRibbonBand(String title, ResizableIconFactory iconFactory,
             CommandAction expandCommandListener) {
-        super(title, icon, expandCommandListener, new JFlowBandControlPanel());
+        super(title, iconFactory, expandCommandListener, new JFlowBandControlPanel());
         this.resizePolicies = CoreRibbonResizePolicies.getCoreFlowPoliciesRestrictive(this, 3);
         updateUI();
     }
@@ -86,7 +86,7 @@ public class JFlowRibbonBand extends AbstractRibbonBand {
     @Override
     public AbstractRibbonBand cloneBand() {
         AbstractRibbonBand result = new JFlowRibbonBand(
-                this.getTitle(), this.getIcon(), this.getExpandCommandListener());
+                this.getTitle(), this.getIconFactory(), this.getExpandCommandListener());
         result.applyComponentOrientation(this.getComponentOrientation());
         return result;
     }

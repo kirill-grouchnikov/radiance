@@ -152,16 +152,16 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 ? ribbonAppMenuProjection.getContentModel() : null;
 
         if (ribbonAppMenu != null) {
-            final Map<Command, CommandPresentation.Overlay> commandOverlays =
+            final Map<Command, CommandButtonPresentationModel.Overlay> commandOverlays =
                     ribbonAppMenuProjection.getCommandOverlays();
-            CommandPresentation baseCommandPresentation = CommandPresentation.builder()
+            CommandButtonPresentationModel baseCommandPresentation = CommandButtonPresentationModel.builder()
                     .setMenu(true).build();
             List<CommandGroup> primaryEntries = ribbonAppMenu.getCommandGroups();
             int primaryGroupCount = primaryEntries.size();
             for (int i = 0; i < primaryGroupCount; i++) {
                 for (final Command menuEntry : primaryEntries.get(i).getCommands()) {
                     // Check to see if we have an overlay for the current command
-                    CommandPresentation commandPresentation = baseCommandPresentation;
+                    CommandButtonPresentationModel commandPresentation = baseCommandPresentation;
                     if (commandOverlays.containsKey(menuEntry)) {
                         commandPresentation = commandPresentation.overlayWith(
                                 commandOverlays.get(menuEntry));
@@ -170,7 +170,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                             (JCommandMenuButton) menuEntry.project(commandPresentation)
                                     .buildComponent();
 
-                    if (menuEntry.getPopupMenuContentModel() == null) {
+                    if (menuEntry.getSecondaryContentModel() == null) {
                         // if there are no secondary menu items, remove all entries from the
                         // secondary panel
                         commandButton.addRolloverActionListener((ActionEvent e) -> {
@@ -210,7 +210,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     commandButton.setPresentationState(MENU_TILE_LEVEL_1);
                     commandButton.setHorizontalAlignment(SwingUtilities.LEADING);
                     commandButton.setPopupOrientationKind(
-                            CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD);
+                            CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD);
                     commandButton.setEnabled(menuEntry.isEnabled());
                     this.panelLevel1.add(commandButton);
                 }

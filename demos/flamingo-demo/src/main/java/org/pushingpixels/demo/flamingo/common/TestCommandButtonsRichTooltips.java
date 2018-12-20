@@ -56,13 +56,13 @@ public class TestCommandButtonsRichTooltips extends TestCommandButtons {
                 .build();
 
         this.copyCommand.setActionRichTooltip(actionRichTooltip);
-        this.copyCommand.setPopupRichTooltip(popupRichTooltip);
+        this.copyCommand.setSecondaryRichTooltip(popupRichTooltip);
         this.cutCommand.setActionRichTooltip(actionRichTooltip);
-        this.cutCommand.setPopupRichTooltip(popupRichTooltip);
+        this.cutCommand.setSecondaryRichTooltip(popupRichTooltip);
         this.pasteActionCommand.setActionRichTooltip(actionRichTooltip);
-        this.pasteActionCommand.setPopupRichTooltip(popupRichTooltip);
+        this.pasteActionCommand.setSecondaryRichTooltip(popupRichTooltip);
         this.pastePopupCommand.setActionRichTooltip(actionRichTooltip);
-        this.pastePopupCommand.setPopupRichTooltip(popupRichTooltip);
+        this.pastePopupCommand.setSecondaryRichTooltip(popupRichTooltip);
     }
 
     /**

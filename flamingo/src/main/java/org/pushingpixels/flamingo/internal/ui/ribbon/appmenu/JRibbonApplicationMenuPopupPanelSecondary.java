@@ -40,18 +40,18 @@ import java.util.Map;
 public class JRibbonApplicationMenuPopupPanelSecondary extends JCommandButtonPanel {
     public static JRibbonApplicationMenuPopupPanelSecondary getPanel(
             Command primaryMenuEntry,
-            Map<Command, CommandPresentation.Overlay> commandOverlays,
+            Map<Command, CommandButtonPresentationModel.Overlay> commandOverlays,
             CommandButtonPresentationState secondaryMenuPresentationState,
             JCommandButton commandButton) {
         CommandPanelProjection projection = new CommandPanelProjection(
-                new CommandPanelContentModel(primaryMenuEntry.getPopupMenuContentModel()
+                new CommandPanelContentModel(primaryMenuEntry.getSecondaryContentModel()
                         .getCommandGroups()),
                 CommandPanelPresentationModel.builder()
                         .setMaxColumns(1)
                         .setCommandPresentationState(secondaryMenuPresentationState)
                         .setCommandHorizontalAlignment(SwingUtilities.LEADING)
                         .setPopupOrientationKind(
-                                CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD)
+                                CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD)
                         .setMenu(true)
                         .build());
         projection.setCommandOverlays(commandOverlays);

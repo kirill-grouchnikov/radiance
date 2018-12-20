@@ -83,8 +83,8 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
 
     private void populateContent() {
         // Command presentation for menu content
-        CommandPresentation presentation =
-                CommandPresentation.builder()
+        CommandButtonPresentationModel presentation =
+                CommandButtonPresentationModel.builder()
                         .setPresentationState(
                                 this.presentationModel.getMenuPresentationState())
                         .setMenu(true)

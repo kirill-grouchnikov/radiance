@@ -30,15 +30,17 @@
 package org.pushingpixels.demo.kormorant.popup
 
 import org.pushingpixels.ember.setColorizationFactor
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.CommandAction
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.kormorant.DelayedCommandListener
+import org.pushingpixels.kormorant.KColorSelectorCommand
+import org.pushingpixels.kormorant.colorSelectorCommandButton
 import org.pushingpixels.kormorant.colorSelectorPopupMenu
-import org.pushingpixels.kormorant.commandButton
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
+import org.pushingpixels.neon.icon.ResizableIconFactory
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.*
@@ -83,6 +85,12 @@ class ColorIcon(private var color: Color) : ResizableIcon {
         w = newDimension.width
         h = newDimension.height
     }
+
+    companion object {
+        fun factory(color: Color): ResizableIconFactory {
+            return ResizableIconFactory { ColorIcon(color) }
+        }
+    }
 }
 
 fun main(args: Array<String>) {
@@ -106,32 +114,32 @@ fun main(args: Array<String>) {
         val controlPanel = JPanel(FlowLayout())
         frame.add(controlPanel, BorderLayout.NORTH)
 
-        // Icon for our button
-        val colorIcon = ColorIcon(backgroundColor)
+        lateinit var colorSelectorCommand: KColorSelectorCommand
+
         // Color selector listeners to update the background fill of the main panel
         // and keep the button icon in sync
         val onColorActivatedListener = { color: Color ->
             backgroundColor = color
             centerPanel.background = backgroundColor
-            colorIcon.setColor(backgroundColor)
+            colorSelectorCommand.iconFactory = ColorIcon.factory(backgroundColor)
         }
         val onColorPreviewActivatedListener = { color: Color -> centerPanel.background = color }
         val onColorPreviewCanceledListener = {
             centerPanel.background = backgroundColor
-            colorIcon.setColor(backgroundColor)
+            colorSelectorCommand.iconFactory = ColorIcon.factory(backgroundColor)
         }
 
-        val commandButton = commandButton {
-            command {
-                icon = colorIcon
-                popupMenu = colorSelectorPopupMenu {
+        val commandButton = colorSelectorCommandButton {
+            colorSelectorCommand = command {
+                iconFactory = ColorIcon.factory(backgroundColor)
+                colorSelectorPopupMenu = colorSelectorPopupMenu {
                     onColorActivated = onColorActivatedListener
                     onColorPreviewActivated = onColorPreviewActivatedListener
                     onColorPreviewCanceled = onColorPreviewCanceledListener
 
                     command {
                         title = resourceBundle.getString("ColorSelector.textAutomatic")
-                        icon = ColorIcon(defaultPanelColor)
+                        iconFactory = ColorIcon.factory(defaultPanelColor)
                         action = CommandAction {
                             onColorActivatedListener.invoke(defaultPanelColor)
                             JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor)

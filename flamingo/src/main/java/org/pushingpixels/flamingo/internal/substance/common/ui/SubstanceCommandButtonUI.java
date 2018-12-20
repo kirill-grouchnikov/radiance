@@ -389,11 +389,11 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         ResizableIcon icon = new TransitionAwareResizableIcon(this.commandButton,
                 () -> getPopupTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> {
-                    CommandPresentation.CommandButtonPopupOrientationKind orientation =
+                    CommandButtonPresentationModel.PopupOrientationKind orientation =
                             ((JCommandButton) commandButton)
                             .getPopupOrientationKind();
                     int direction =
-                            (orientation == CommandPresentation.CommandButtonPopupOrientationKind.DOWNWARD)
+                            (orientation == CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD)
                                     ? SwingConstants.SOUTH
                                     : (commandButton.getComponentOrientation().isLeftToRight()
                                     ? SwingConstants.EAST

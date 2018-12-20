@@ -196,7 +196,7 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
         if (ribbon != null) {
             this.applicationMenuButton.setPopupRichTooltip(ribbon
                     .getApplicationMenuCommandProjection().getContentModel()
-                    .getPopupRichTooltip());
+                    .getSecondaryRichTooltip());
             this.applicationMenuButton.setPopupKeyTip(ribbon
                     .getApplicationMenuCommandProjection().getPresentationModel()
                     .getPopupKeyTip());

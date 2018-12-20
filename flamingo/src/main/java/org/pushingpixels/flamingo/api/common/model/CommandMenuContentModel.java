@@ -27,14 +27,12 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.flamingo.api.common.popup.model;
-
-import org.pushingpixels.flamingo.api.common.model.*;
+package org.pushingpixels.flamingo.api.common.model;
 
 import javax.swing.event.*;
 import java.util.*;
 
-public class CommandPopupMenuContentModel implements ContentModel {
+public class CommandMenuContentModel implements ContentModel {
     private CommandPanelContentModel panelContentModel;
     private List<CommandGroup> commandGroups;
     private Command highlightedCommand;
@@ -46,19 +44,19 @@ public class CommandPopupMenuContentModel implements ContentModel {
 
     private CommandGroup.CommandGroupListener commandGroupListener;
 
-    public CommandPopupMenuContentModel(CommandGroup commands) {
+    public CommandMenuContentModel(CommandGroup commands) {
         this(null, Arrays.asList(commands));
     }
 
-    public CommandPopupMenuContentModel(CommandGroup... commandGroups) {
+    public CommandMenuContentModel(CommandGroup... commandGroups) {
         this(null, Arrays.asList(commandGroups));
     }
 
-    public CommandPopupMenuContentModel(List<CommandGroup> commands) {
+    public CommandMenuContentModel(List<CommandGroup> commands) {
         this(null, commands);
     }
 
-    public CommandPopupMenuContentModel(CommandPanelContentModel panelContentModel,
+    public CommandMenuContentModel(CommandPanelContentModel panelContentModel,
             List<CommandGroup> commands) {
         this.commandGroups = new ArrayList<>(commands);
         this.commandGroupListener = new CommandGroup.CommandGroupListener() {

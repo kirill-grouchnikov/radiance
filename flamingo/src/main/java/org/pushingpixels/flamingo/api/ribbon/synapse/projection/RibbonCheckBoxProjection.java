@@ -37,12 +37,12 @@ public class RibbonCheckBoxProjection extends ComponentProjection<JRibbonCheckBo
         RibbonCheckBoxContentModel> {
 
     private static ComponentSupplier<JRibbonCheckBox,
-            RibbonCheckBoxContentModel, ComponentPresentation> DEFAULT_SUPPLIER =
+            RibbonCheckBoxContentModel, ComponentPresentationModel> DEFAULT_SUPPLIER =
             (Projection<JRibbonCheckBox, RibbonCheckBoxContentModel,
-                    ComponentPresentation> projection) -> JRibbonCheckBox::new;
+                    ComponentPresentationModel> projection) -> JRibbonCheckBox::new;
 
     public RibbonCheckBoxProjection(RibbonCheckBoxContentModel contentModel,
-            ComponentPresentation presentationModel) {
+            ComponentPresentationModel presentationModel) {
         super(contentModel, presentationModel, DEFAULT_SUPPLIER);
     }
 

@@ -55,28 +55,29 @@ public class TestButtonStripMultiple extends JFrame {
 
         JComponent buttonStrip = new CommandStripProjection(
                 new CommandGroup(
-                        Command.builder().setIcon(new Format_justify_left()).build(),
-                        Command.builder().setIcon(new Format_justify_center()).build(),
-                        Command.builder().setIcon(new Format_justify_right()).build()),
+                        Command.builder().setIconFactory(Format_justify_left.factory()).build(),
+                        Command.builder().setIconFactory(Format_justify_center.factory()).build(),
+                        Command.builder().setIconFactory(Format_justify_right.factory()).build()),
                 CommandStripPresentationModel.builder().build())
                 .buildComponent();
         this.add(buttonStrip);
 
         JComponent buttonStrip2 = new CommandStripProjection(
                 new CommandGroup(
-                        Command.builder().setIcon(new Format_text_bold()).build(),
-                        Command.builder().setIcon(new Format_text_italic()).build(),
-                        Command.builder().setIcon(new Format_text_underline()).build(),
+                        Command.builder().setIconFactory(Format_text_bold.factory()).build(),
+                        Command.builder().setIconFactory(Format_text_italic.factory()).build(),
+                        Command.builder().setIconFactory(Format_text_underline.factory()).build(),
                         Command.builder()
-                                .setIcon(new Format_text_strikethrough())
-                                .setPopupMenuContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
+                                .setIconFactory(Format_text_strikethrough.factory())
+                                .setSecondaryContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
                                 .build()),
                 CommandStripPresentationModel.builder().build())
                 .buildComponent();
         this.add(buttonStrip2);
 
-        AbstractCommandButton standalone = Command.builder().setIcon(new Format_justify_left())
-                .build().project(CommandPresentation.builder()
+        AbstractCommandButton standalone = Command.builder()
+                .setIconFactory(Format_justify_left.factory())
+                .build().project(CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setFlat(false).build())
                 .buildComponent();

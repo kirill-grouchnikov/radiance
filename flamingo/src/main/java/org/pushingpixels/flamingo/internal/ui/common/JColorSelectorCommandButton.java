@@ -7,7 +7,7 @@ import org.pushingpixels.flamingo.api.common.projection.*;
 
 public class JColorSelectorCommandButton extends JCommandButton {
     public JColorSelectorCommandButton(
-            Projection<AbstractCommandButton, ColorSelectorCommand, CommandPresentation> projection) {
+            Projection<AbstractCommandButton, ColorSelectorCommand, CommandButtonPresentationModel> projection) {
         super(projection);
 
         ColorSelectorCommand command = projection.getContentModel();
@@ -27,7 +27,7 @@ public class JColorSelectorCommandButton extends JCommandButton {
         this.setPopupCallback((JCommandButton commandButton)
                 -> colorSelectorPopupMenuProjection.buildComponent());
 
-        this.setPopupRichTooltip(command.getPopupRichTooltip());
+        this.setPopupRichTooltip(command.getSecondaryRichTooltip());
         this.setPopupKeyTip(commandPresentation.getPopupKeyTip());
 
         boolean hasAction = (command.getAction() != null);

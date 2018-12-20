@@ -35,9 +35,9 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandProjection;
+import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection;
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -54,6 +54,8 @@ public class TestColorSelector extends JFrame {
     private Locale currLocale;
 
     private JPanel centerPanel;
+
+    private ColorSelectorCommand colorSelectorCommand;
 
     private TestColorSelector() {
         this.setIconImage(RadianceLogo.getLogoImage(
@@ -82,13 +84,11 @@ public class TestColorSelector extends JFrame {
         final JCheckBox hasRecent = new JCheckBox("recent");
         hasRecent.setSelected(true);
 
-        final ColorIcon colorIcon = new ColorIcon(bColor);
-
         final ColorSelectorPopupMenuContentModel.ColorActivationListener colorActivationListener =
                 (Color color) -> {
                     bColor = color;
                     centerPanel.setBackground(bColor);
-                    colorIcon.setColor(bColor);
+                    colorSelectorCommand.setIconFactory(ColorIcon.factory(bColor));
                 };
         final ColorSelectorPopupMenuContentModel.ColorPreviewListener colorPreviewListener =
                 new ColorSelectorPopupMenuContentModel.ColorPreviewListener() {
@@ -100,7 +100,7 @@ public class TestColorSelector extends JFrame {
                     @Override
                     public void onColorPreviewCanceled() {
                         centerPanel.setBackground(bColor);
-                        colorIcon.setColor(bColor);
+                        colorSelectorCommand.setIconFactory(ColorIcon.factory(bColor));
                     }
                 };
 
@@ -110,7 +110,7 @@ public class TestColorSelector extends JFrame {
 
         selectorBuilder.addCommand(Command.builder()
                 .setText(resourceBundle.getString("ColorSelector.textAutomatic"))
-                .setIcon(new ColorIcon(defaultPanelColor))
+                .setIconFactory(ColorIcon.factory(defaultPanelColor))
                 .setAction((CommandActionEvent e) -> {
                     colorActivationListener.onColorActivated(defaultPanelColor);
                     JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor);
@@ -172,12 +172,13 @@ public class TestColorSelector extends JFrame {
         selectorModel.setColorActivationListener(colorActivationListener);
         selectorModel.setColorPreviewListener(colorPreviewListener);
 
-        AbstractCommandButton colorButton = new ColorSelectorCommandProjection(
-                ColorSelectorCommand.colorSelectorBuilder()
-                        .setIcon(colorIcon)
-                        .setColorSelectorPopupMenuContentModel(selectorModel)
-                        .build(),
-                CommandPresentation.builder()
+        this.colorSelectorCommand = ColorSelectorCommand.colorSelectorBuilder()
+                .setIconFactory(ColorIcon.factory(bColor))
+                .setColorSelectorPopupMenuContentModel(selectorModel)
+                .build();
+        AbstractCommandButton colorButton = new ColorSelectorCommandButtonProjection(
+                this.colorSelectorCommand,
+                CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setFlat(false)
                         .build())
@@ -204,7 +205,7 @@ public class TestColorSelector extends JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
-    private class ColorIcon implements ResizableIcon {
+    private static class ColorIcon implements ResizableIcon {
         private int w;
         private int h;
         private Color color;
@@ -244,6 +245,10 @@ public class TestColorSelector extends JFrame {
         public void setDimension(Dimension newDimension) {
             w = newDimension.width;
             h = newDimension.height;
+        }
+
+        public static ResizableIconFactory factory(Color color) {
+            return () -> new ColorIcon(color);
         }
     }
 

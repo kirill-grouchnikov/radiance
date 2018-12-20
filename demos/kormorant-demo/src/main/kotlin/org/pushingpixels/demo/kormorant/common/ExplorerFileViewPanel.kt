@@ -33,10 +33,10 @@ package org.pushingpixels.demo.kormorant.common
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.StringValuePair
 import org.pushingpixels.flamingo.api.common.icon.IcoWrapperResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon
+import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.photon.icon.SvgBatikResizableIcon
 import java.awt.Dimension

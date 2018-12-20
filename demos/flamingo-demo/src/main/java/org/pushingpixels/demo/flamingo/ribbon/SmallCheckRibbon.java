@@ -82,7 +82,7 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
         this.getRibbon().addTask(wrappedTask);
 
         this.getRibbon().addAnchoredCommand(Command.builder()
-                .setIcon(Help_browser.of(16, 16))
+                .setIconFactory(Help_browser.factory())
                 .setActionRichTooltip(RichTooltip.builder()
                         .setTitle(resourceBundle.getString("Help.tooltip.title"))
                         .addDescriptionSection(

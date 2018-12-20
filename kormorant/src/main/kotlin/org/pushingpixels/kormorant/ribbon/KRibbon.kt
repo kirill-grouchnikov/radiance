@@ -30,15 +30,15 @@
 package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.common.model.CommandPresentation
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup
-import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandProjection
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.kormorant.*
-import org.pushingpixels.neon.icon.ResizableIcon
+import org.pushingpixels.neon.icon.ResizableIconFactory
 import java.awt.Color
 import javax.swing.JComponent
 
@@ -84,7 +84,7 @@ class KRibbonTaskbar {
     }
 
     fun separator() {
-        components.add(KCommandPopupMenu.KCommandPopupMenuSeparator())
+        components.add(KCommandMenu.KCommandPopupMenuSeparator())
     }
 }
 
@@ -118,7 +118,7 @@ class KRibbonContextualTaskGroupContainer {
 @FlamingoElementMarker
 class KRibbonFrame {
     var title: String? by NullableDelegate { hasBeenConverted }
-    var applicationIcon: ResizableIcon? by NullableDelegate { hasBeenConverted }
+    var applicationIconFactory: ResizableIconFactory? by NullableDelegate { hasBeenConverted }
     private val tasks = KRibbonTaskContainer()
     private val contextualTaskGroups = KRibbonContextualTaskGroupContainer()
     private val anchoredCommands = KCommandGroup()
@@ -154,7 +154,7 @@ class KRibbonFrame {
         }
 
         ribbonFrame = JRibbonFrame(title)
-        ribbonFrame.setApplicationIcon(applicationIcon)
+        ribbonFrame.setApplicationIcon(applicationIconFactory?.createNewIcon())
         for (task in tasks.tasks) {
             ribbonFrame.ribbon.addTask(task.asJavaRibbonTask())
         }
@@ -171,7 +171,7 @@ class KRibbonFrame {
                 is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(RibbonGalleryProjection(
                         taskbarComponent.content.asJavaRibbonGalleryContentModel(),
                         taskbarComponent.presentation.toRibbonGalleryPresentationModel()))
-                is KCommandPopupMenu.KCommandPopupMenuSeparator -> ribbonFrame.ribbon.addTaskbarSeparator()
+                is KCommandMenu.KCommandPopupMenuSeparator -> ribbonFrame.ribbon.addTaskbarSeparator()
             }
         }
 
@@ -183,15 +183,16 @@ class KRibbonFrame {
             )
         }
 
-        val ribbonMenuCommandProjection = RibbonApplicationMenuCommandProjection(
-                Command.builder()
-                        .setText(applicationMenu.title)
-                        .setPopupRichTooltip(applicationMenu.getRichTooltip())
-                        .setPopupMenuContentModel(applicationMenu.asJavaRibbonApplicationMenu())
-                        .build(),
-                CommandPresentation.builder()
-                        .setPopupKeyTip(applicationMenu.keyTip)
-                        .build())
+        val ribbonMenuCommandProjection =
+                RibbonApplicationMenuCommandButtonProjection(
+                        Command.builder()
+                                .setText(applicationMenu.title)
+                                .setSecondaryRichTooltip(applicationMenu.getRichTooltip())
+                                .setSecondaryContentModel(applicationMenu.asJavaRibbonApplicationMenu())
+                                .build(),
+                        CommandButtonPresentationModel.builder()
+                                .setPopupKeyTip(applicationMenu.keyTip)
+                                .build())
 
         // TODO - collect command overlays (action + popup key tips)
         //ribbonMenuCommandProjection.commandOverlays =

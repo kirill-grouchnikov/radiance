@@ -35,9 +35,9 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.*;
 import javax.swing.*;
 
 public abstract class ComponentProjection<C extends JComponent,
-        M extends ComponentContentModel> extends Projection<C, M, ComponentPresentation> {
-    public ComponentProjection(M contentModel, ComponentPresentation presentationModel,
-            ComponentSupplier<C, M, ComponentPresentation> componentSupplier) {
+        M extends ComponentContentModel> extends Projection<C, M, ComponentPresentationModel> {
+    public ComponentProjection(M contentModel, ComponentPresentationModel presentationModel,
+            ComponentSupplier<C, M, ComponentPresentationModel> componentSupplier) {
         super(contentModel, presentationModel, componentSupplier);
     }
 }

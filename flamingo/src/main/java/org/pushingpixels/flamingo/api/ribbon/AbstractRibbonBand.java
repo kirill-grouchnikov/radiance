@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonBandUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 
 import javax.swing.*;
 import java.util.*;
@@ -86,7 +86,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * <code>this</code> listener.
      *
      * @see #getExpandCommandListener()
-     * @see #AbstractRibbonBand(String, ResizableIcon, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIconFactory, CommandAction, AbstractBandControlPanel)
      */
     private CommandAction expandCommandListener;
 
@@ -99,7 +99,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * {@link BasicRibbonBandUI}.
      *
      * @see #popupRibbonBand
-     * @see #icon
+     * @see #iconFactory
      */
     private AbstractBandControlPanel controlPanel;
 
@@ -114,13 +114,13 @@ public abstract class AbstractRibbonBand extends JComponent {
     private AbstractRibbonBand popupRibbonBand;
 
     /**
-     * Icon for the collapsed state. Is set on the button that represents the
+     * Icon factory for the collapsed state. Is set on the button that represents the
      * collapsed state of this band. The collapsed button itself is implemented
      * as a part of the UI delegate in {@link BasicRibbonBandUI}.
      *
-     * @see #getIcon()
+     * @see #getIconFactory()
      */
-    private ResizableIcon icon;
+    private ResizableIconFactory iconFactory;
 
     /**
      * The current resize policy for this band. Must be one of the policies in
@@ -175,15 +175,15 @@ public abstract class AbstractRibbonBand extends JComponent {
      * Creates a new ribbon band.
      *
      * @param title                 Band title.
-     * @param icon                  Associated icon (for collapsed state).
+     * @param iconFactory           Associated icon factory (for collapsed state).
      * @param expandCommandListener Expand command listener (can be <code>null</code>).
      * @param controlPanel          The control panel of this ribbon band.
      */
-    public AbstractRibbonBand(String title, ResizableIcon icon,
+    public AbstractRibbonBand(String title, ResizableIconFactory iconFactory,
             CommandAction expandCommandListener, AbstractBandControlPanel controlPanel) {
         super();
         this.title = title;
-        this.icon = icon;
+        this.iconFactory = iconFactory;
         this.expandCommandListener = expandCommandListener;
 
         this.controlPanel = controlPanel;
@@ -240,13 +240,13 @@ public abstract class AbstractRibbonBand extends JComponent {
     }
 
     /**
-     * Returns the icon for the collapsed state.
+     * Returns the icon factory for the collapsed state.
      *
-     * @return The icon for the collapsed state.
-     * @see #AbstractRibbonBand(String, ResizableIcon, CommandAction, AbstractBandControlPanel)
+     * @return The icon factory for the collapsed state.
+     * @see #AbstractRibbonBand(String, ResizableIconFactory, CommandAction, AbstractBandControlPanel)
      */
-    public ResizableIcon getIcon() {
-        return this.icon;
+    public ResizableIconFactory getIconFactory() {
+        return this.iconFactory;
     }
 
     /**
@@ -254,7 +254,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * property change event.
      *
      * @param title The new title for this ribbon band.
-     * @see #AbstractRibbonBand(String, ResizableIcon, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIconFactory, CommandAction, AbstractBandControlPanel)
      * @see #getTitle()
      */
     public void setTitle(String title) {
@@ -268,7 +268,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * result may be <code>null</code>.
      *
      * @return Expand action listener of <code>this</code> ribbon band.
-     * @see #AbstractRibbonBand(String, ResizableIcon, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIconFactory, CommandAction, AbstractBandControlPanel)
      * @see #setExpandCommandListener(CommandAction)
      */
     public CommandAction getExpandCommandListener() {
@@ -294,7 +294,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * may be <code>null</code>.
      *
      * @return Control panel of <code>this</code> ribbon band.
-     * @see #AbstractRibbonBand(String, ResizableIcon, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIconFactory, CommandAction, AbstractBandControlPanel)
      * @see #setControlPanel(AbstractBandControlPanel)
      */
     public AbstractBandControlPanel getControlPanel() {
@@ -307,7 +307,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      *
      * @param controlPanel The new control panel for <code>this</code> ribbon band. May
      *                     be <code>null</code>.
-     * @see #AbstractRibbonBand(String, ResizableIcon, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIconFactory, CommandAction, AbstractBandControlPanel)
      * @see #getControlPanel()
      */
     public void setControlPanel(AbstractBandControlPanel controlPanel) {

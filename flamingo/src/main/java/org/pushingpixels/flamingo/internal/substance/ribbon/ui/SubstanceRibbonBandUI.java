@@ -163,9 +163,9 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
 
     @Override
     protected AbstractCommandButton createExpandButton() {
-        CommandProjection<Command> expandCommandProjection =
-                new CommandProjection<>(this.expandCommand,
-                        CommandPresentation.builder()
+        CommandButtonProjection<Command> expandCommandProjection =
+                new CommandButtonProjection<>(this.expandCommand,
+                        CommandButtonPresentationModel.builder()
                                 .setFocusable(false)
                                 .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
                                 .build());
@@ -217,8 +217,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     @Override
     protected void syncExpandButtonIcon() {
         SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.ribbonBand);
-        ResizableIcon icon = getExpandButtonIcon(skin, this.expandButton);
-        this.expandCommand.setIcon(icon);
+        this.expandCommand.setIconFactory(() -> getExpandButtonIcon(skin, this.expandButton));
     }
 
     @Override
@@ -233,7 +232,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     @SubstanceInternalButton
     private class RibbonBandExpandButton extends JCommandButton {
         private RibbonBandExpandButton(Projection<AbstractCommandButton, Command,
-                CommandPresentation> projection) {
+                CommandButtonPresentationModel> projection) {
             super(projection);
 
             this.setBorder(new EmptyBorder(3, 2, 3, 2));

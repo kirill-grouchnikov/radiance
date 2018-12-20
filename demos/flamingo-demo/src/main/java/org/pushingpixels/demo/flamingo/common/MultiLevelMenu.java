@@ -57,42 +57,41 @@ public class MultiLevelMenu extends JFrame {
         List<Command> menuCommands2 = new ArrayList<>();
 
         menuCommands1.add(Command.builder()
-                .setText("Copy").setIcon(new Edit_copy()).build());
+                .setText("Copy").setIconFactory(Edit_copy.factory()).build());
         menuCommands1.add(Command.builder()
-                .setText("Cut").setIcon(new Edit_cut()).build());
+                .setText("Cut").setIconFactory(Edit_cut.factory()).build());
         menuCommands1.add(Command.builder()
-                .setText("Paste").setIcon(new Edit_paste()).build());
+                .setText("Paste").setIconFactory(Edit_paste.factory()).build());
 
         List<Command> menuCommandsSecondary = new ArrayList<>();
 
         menuCommandsSecondary.add(Command.builder()
-                .setText("Find").setIcon(new Edit_find()).build());
+                .setText("Find").setIconFactory(Edit_find.factory()).build());
         menuCommandsSecondary.add(Command.builder()
-                .setText("Find replace").setIcon(
-                        new Edit_find_replace()).build());
+                .setText("Find replace").setIconFactory(Edit_find_replace.factory()).build());
 
         menuCommands2.add(Command.builder()
                 .setText("Find")
-                .setPopupMenuContentModel(new CommandPopupMenuContentModel(
+                .setSecondaryContentModel(new CommandMenuContentModel(
                         new CommandGroup(menuCommandsSecondary)))
                 .build());
 
-        CommandPopupMenuContentModel menuContentModel = new CommandPopupMenuContentModel(
+        CommandMenuContentModel menuContentModel = new CommandMenuContentModel(
                 Arrays.asList(new CommandGroup(menuCommands1),
                         new CommandGroup(menuCommands2)));
 
         Command mainCommand = Command.builder()
                 .setText("click me")
-                .setPopupMenuContentModel(menuContentModel)
+                .setSecondaryContentModel(menuContentModel)
                 .build();
 
-        CommandProjection mainCommandProjection = mainCommand.project(
-                CommandPresentation.builder()
+        CommandButtonProjection mainCommandProjection = mainCommand.project(
+                CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.MEDIUM)
                         .setFlat(false)
                         .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
                                 .setPopupOrientationKind(
-                                        CommandPresentation.CommandButtonPopupOrientationKind.SIDEWARD)
+                                        CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD)
                                 .build())
                         .build());
 

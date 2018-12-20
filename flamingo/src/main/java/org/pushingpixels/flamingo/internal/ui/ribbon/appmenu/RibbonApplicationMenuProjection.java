@@ -29,14 +29,14 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
-import org.pushingpixels.flamingo.api.common.model.CommandPresentation;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.BlackboxProjection;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 
 public class RibbonApplicationMenuProjection extends BlackboxProjection<RibbonApplicationMenu,
-        CommandPresentation> {
+        CommandButtonPresentationModel> {
     public RibbonApplicationMenuProjection(RibbonApplicationMenu contentModel,
-            CommandPresentation presentationModel) {
+            CommandButtonPresentationModel presentationModel) {
         super(contentModel, presentationModel);
     }
 }

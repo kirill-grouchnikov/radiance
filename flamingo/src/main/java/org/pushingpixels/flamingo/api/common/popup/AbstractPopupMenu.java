@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.api.common.popup;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
-import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuContentModel;
+import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
 
 import javax.swing.*;
@@ -43,7 +43,7 @@ import java.util.*;
 
 /**
  * Popup menu with groups of command buttons. Use the
- * {@link CommandPopupMenuContentModel#CommandPopupMenuContentModel(CommandPanelContentModel, List)}
+ * {@link CommandMenuContentModel#CommandMenuContentModel(CommandPanelContentModel, List)}
  * constructor to place a scrollable command button panel in the top part of the popup menu.
  *
  * @author Kirill Grouchnikov
