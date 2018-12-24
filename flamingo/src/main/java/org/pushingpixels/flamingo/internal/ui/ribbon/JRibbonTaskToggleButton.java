@@ -65,7 +65,7 @@ public class JRibbonTaskToggleButton extends JCommandToggleButton {
 
     @Override
     public void updateUI() {
-        setUI(new SubstanceRibbonTaskToggleButtonUI());
+        setUI(SubstanceRibbonTaskToggleButtonUI.createUI(this));
     }
 
     @Override

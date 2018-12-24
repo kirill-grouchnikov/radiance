@@ -61,6 +61,9 @@ public class SubstanceLabelUI extends BasicLabelUI {
         return new SubstanceLabelUI();
     }
 
+    private SubstanceLabelUI() {
+    }
+
     @Override
     protected void installListeners(final JLabel c) {
         super.installListeners(c);

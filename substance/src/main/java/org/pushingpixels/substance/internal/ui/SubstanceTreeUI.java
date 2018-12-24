@@ -128,7 +128,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 	/**
 	 * Creates a UI delegate for tree.
 	 */
-	public SubstanceTreeUI() {
+	private SubstanceTreeUI() {
 		super();
 		this.selectedPaths = new HashMap<>();
 		this.stateTransitionMultiTracker = new StateTransitionMultiTracker<>();

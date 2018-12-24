@@ -387,6 +387,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
                 }
             }
         }
+
         graphics.dispose();
     }
 

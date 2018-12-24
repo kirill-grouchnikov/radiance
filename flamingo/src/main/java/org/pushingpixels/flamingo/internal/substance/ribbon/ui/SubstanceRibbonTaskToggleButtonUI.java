@@ -61,7 +61,7 @@ public class SubstanceRibbonTaskToggleButtonUI extends
 	/**
 	 * Tracker for visual state transitions.
 	 */
-	protected CommandButtonVisualStateTracker substanceVisualStateTracker;
+	private CommandButtonVisualStateTracker substanceVisualStateTracker;
 
 	/**
 	 * Property change listener on the button.
@@ -81,7 +81,7 @@ public class SubstanceRibbonTaskToggleButtonUI extends
 	/**
 	 * Simple constructor.
 	 */
-	public SubstanceRibbonTaskToggleButtonUI() {
+	private SubstanceRibbonTaskToggleButtonUI() {
 		this.delegate = new RibbonTaskToggleButtonBackgroundDelegate();
 	}
 

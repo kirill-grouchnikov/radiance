@@ -221,7 +221,7 @@ public abstract class AbstractRibbonBand extends JComponent {
 
     @Override
     public void updateUI() {
-        setUI(new SubstanceRibbonBandUI());
+        setUI(SubstanceRibbonBandUI.createUI(this));
     }
 
     @Override

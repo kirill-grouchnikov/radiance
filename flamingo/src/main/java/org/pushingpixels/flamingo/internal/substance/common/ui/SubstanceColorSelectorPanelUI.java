@@ -53,6 +53,9 @@ public class SubstanceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
 		return new SubstanceColorSelectorPanelUI();
 	}
 
+	private SubstanceColorSelectorPanelUI() {
+	}
+
 	@Override
 	protected void paintCaptionBackground(Graphics g, int x, int y, int width, int height) {
 		SubstanceColorScheme bgFillScheme = SubstanceColorSchemeUtilities.getColorScheme(

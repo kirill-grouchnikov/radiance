@@ -115,7 +115,7 @@ public class JBreadcrumbBar<T> extends JComponent {
 
     @Override
     public void updateUI() {
-        setUI(new SubstanceBreadcrumbBarUI());
+        setUI(SubstanceBreadcrumbBarUI.createUI(this));
     }
 
     /**

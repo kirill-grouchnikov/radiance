@@ -49,6 +49,9 @@ public class SubstanceBandControlPanelUI extends BasicBandControlPanelUI {
         return new SubstanceBandControlPanelUI();
     }
 
+    private SubstanceBandControlPanelUI() {
+    }
+
     @Override
     public void update(Graphics g, JComponent c) {
         this.paint(g, c);

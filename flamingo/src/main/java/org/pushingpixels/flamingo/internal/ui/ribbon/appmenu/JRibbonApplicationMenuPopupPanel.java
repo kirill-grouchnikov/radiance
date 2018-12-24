@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
+import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.Projection;
@@ -62,6 +63,10 @@ public class JRibbonApplicationMenuPopupPanel extends AbstractPopupMenu implemen
 
     public JPanel getPanelLevel2() {
         return ((BasicRibbonApplicationMenuPopupPanelUI) getUI()).getPanelLevel2();
+    }
+
+    public Runnable getPathToSequence(Command command) {
+        return ((BasicRibbonApplicationMenuPopupPanelUI) getUI()).getPathToSequence(command);
     }
 
     @Override

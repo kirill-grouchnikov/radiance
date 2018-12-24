@@ -49,6 +49,9 @@ public class SubstancePopupPanelUI extends BasicPopupPanelUI {
 		return new SubstancePopupPanelUI();
 	}
 
+	private SubstancePopupPanelUI() {
+	}
+
 	@Override
 	public void update(Graphics g, JComponent c) {
 		if (!c.isShowing()) {

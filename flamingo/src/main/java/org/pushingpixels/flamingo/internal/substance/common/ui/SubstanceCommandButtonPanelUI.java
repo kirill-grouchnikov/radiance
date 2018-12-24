@@ -54,6 +54,9 @@ public class SubstanceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
         return new SubstanceCommandButtonPanelUI();
     }
 
+    private SubstanceCommandButtonPanelUI() {
+    }
+
     @Override
     protected Insets getGroupInsets() {
         int extraPadding = SubstanceSizeUtils.getExtraPadding(SubstanceSizeUtils

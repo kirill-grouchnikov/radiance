@@ -62,6 +62,9 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         return new SubstanceRibbonBandUI();
     }
 
+    private SubstanceRibbonBandUI() {
+    }
+
     @Override
     protected void installDefaults() {
         super.installDefaults();

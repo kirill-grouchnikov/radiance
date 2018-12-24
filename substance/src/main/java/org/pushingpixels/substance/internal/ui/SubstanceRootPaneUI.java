@@ -159,6 +159,9 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
         return new SubstanceRootPaneUI();
     }
 
+    protected SubstanceRootPaneUI() {
+    }
+
     /**
      * Invokes supers implementation of <code>installUI</code> to install the necessary state onto
      * the passed in <code>JRootPane</code> to render the metal look and feel implementation of

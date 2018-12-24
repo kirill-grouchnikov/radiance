@@ -60,6 +60,9 @@ public class SubstancePopupMenuUI extends BasicPopupMenuUI {
 		return new SubstancePopupMenuUI();
 	}
 
+	private SubstancePopupMenuUI() {
+	}
+
 	@Override
 	protected void installListeners() {
 		super.installListeners();

@@ -118,6 +118,9 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
         return new SubstanceRibbonUI();
     }
 
+    private SubstanceRibbonUI() {
+    }
+
     @Override
     protected void installDefaults() {
         super.installDefaults();

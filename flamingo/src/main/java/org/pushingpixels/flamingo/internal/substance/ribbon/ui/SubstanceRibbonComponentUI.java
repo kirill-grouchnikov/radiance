@@ -49,6 +49,9 @@ public class SubstanceRibbonComponentUI extends BasicRibbonComponentUI {
 		return new SubstanceRibbonComponentUI();
 	}
 
+	private SubstanceRibbonComponentUI() {
+	}
+
 	@Override
 	protected ResizableIcon createDisabledIcon() {
 		return new SubstanceDisabledResizableIcon(this.ribbonComponent.getIcon());

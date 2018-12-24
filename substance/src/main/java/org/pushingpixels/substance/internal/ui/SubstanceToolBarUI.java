@@ -52,6 +52,9 @@ public class SubstanceToolBarUI extends BasicToolBarUI {
         return new SubstanceToolBarUI();
     }
 
+    private SubstanceToolBarUI() {
+    }
+
     @Override
     protected void installDefaults() {
         super.installDefaults();

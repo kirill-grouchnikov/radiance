@@ -56,6 +56,9 @@ public class SubstanceSplitPaneUI extends BasicSplitPaneUI {
         return new SubstanceSplitPaneUI();
     }
 
+    private SubstanceSplitPaneUI() {
+    }
+
     @Override
     protected void installListeners() {
         super.installListeners();

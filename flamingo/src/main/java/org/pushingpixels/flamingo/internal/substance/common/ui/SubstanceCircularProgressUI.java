@@ -49,6 +49,9 @@ public class SubstanceCircularProgressUI extends BasicCircularProgressUI {
         return new SubstanceCircularProgressUI();
     }
 
+    private SubstanceCircularProgressUI() {
+    }
+
     @Override
     protected Color getColor() {
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities

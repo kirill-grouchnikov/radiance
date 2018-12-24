@@ -50,6 +50,9 @@ public class SubstanceBreadcrumbBarUI extends BasicBreadcrumbBarUI {
 		return new SubstanceBreadcrumbBarUI();
 	}
 
+	private SubstanceBreadcrumbBarUI() {
+	}
+
 	@Override
 	protected void installDefaults(JBreadcrumbBar bar) {
 		super.installDefaults(bar);

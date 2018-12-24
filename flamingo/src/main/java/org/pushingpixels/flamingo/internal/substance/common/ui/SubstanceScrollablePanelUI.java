@@ -55,6 +55,9 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
         return new SubstanceScrollablePanelUI();
     }
 
+    private SubstanceScrollablePanelUI() {
+    }
+
     @Override
     public void update(Graphics g, JComponent c) {
         if (!c.isShowing()) {

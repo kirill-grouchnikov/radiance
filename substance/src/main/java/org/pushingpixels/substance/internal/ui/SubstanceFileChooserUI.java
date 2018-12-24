@@ -147,7 +147,7 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
      * @param filechooser
      *            File chooser.
      */
-    public SubstanceFileChooserUI(JFileChooser filechooser) {
+    private SubstanceFileChooserUI(JFileChooser filechooser) {
         super(filechooser);
     }
 

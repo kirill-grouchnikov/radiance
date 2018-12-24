@@ -51,6 +51,9 @@ public class SubstanceRichTooltipPanelUI extends BasicRichTooltipPanelUI {
 		return new SubstanceRichTooltipPanelUI();
 	}
 
+	private SubstanceRichTooltipPanelUI() {
+	}
+
 	@Override
 	protected void installDefaults() {
 		super.installDefaults();

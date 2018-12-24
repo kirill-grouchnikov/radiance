@@ -113,7 +113,7 @@ public class KeyTipManager {
 
         public KeyTipChain(JComponent chainParentComponent) {
             this.chainParentComponent = chainParentComponent;
-            this.links = new ArrayList<KeyTipLink>();
+            this.links = new ArrayList<>();
             this.keyTipLookupIndex = 0;
         }
 
@@ -364,8 +364,7 @@ public class KeyTipManager {
             link.enabled = cb.getActionModel().isEnabled();
             if (cb.getClass().isAnnotationPresent(KeyTipManager.HasNextKeyTipChain.class)) {
                 link.traversal = () -> {
-                    // collect key tips of all controls in the relevant
-                    // popup panel
+                    // collect key tips of all controls in the relevant popup panel
                     List<PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();
                     if (popups.size() > 0) {
                         PopupInfo last = popups.get(popups.size() - 1);
@@ -528,8 +527,9 @@ public class KeyTipManager {
                                 if (prev != null) {
                                     // force repaint of all menu buttons
                                     for (KeyTipLink link2 : prev.links) {
-                                        if (link2.comp instanceof JCommandMenuButton)
+                                        if (link2.comp instanceof JCommandMenuButton) {
                                             link2.comp.repaint();
+                                        }
                                     }
                                 }
                             }

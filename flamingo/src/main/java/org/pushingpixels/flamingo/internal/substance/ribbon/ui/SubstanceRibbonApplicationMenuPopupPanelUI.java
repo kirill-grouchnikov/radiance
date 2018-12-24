@@ -55,6 +55,9 @@ public class SubstanceRibbonApplicationMenuPopupPanelUI
 		return new SubstanceRibbonApplicationMenuPopupPanelUI();
 	}
 
+	private SubstanceRibbonApplicationMenuPopupPanelUI() {
+	}
+
 	@Override
 	protected void installComponents() {
 		super.installComponents();

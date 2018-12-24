@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
-import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicPopupPanelUI;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -154,7 +154,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         if (ribbonAppMenu != null) {
             final Map<Command, CommandButtonPresentationModel.Overlay> commandOverlays =
                     ribbonAppMenuProjection.getCommandOverlays();
-            CommandButtonPresentationModel baseCommandPresentation = CommandButtonPresentationModel.builder()
+            CommandButtonPresentationModel baseCommandPresentation =
+                    CommandButtonPresentationModel.builder()
                     .setMenu(true).build();
             List<CommandGroup> primaryEntries = ribbonAppMenu.getCommandGroups();
             int primaryGroupCount = primaryEntries.size();
@@ -288,4 +289,123 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
     public JPanel getPanelLevel2() {
         return panelLevel2;
     }
+
+    public static class CommandPathLink {
+        public AbstractCommandButton button;
+        public Runnable pathHighlightRunnable;
+
+        public CommandPathLink(AbstractCommandButton button, Runnable pathHighlightRunnable) {
+            this.button = button;
+            this.pathHighlightRunnable = pathHighlightRunnable;
+        }
+    }
+
+    private boolean getCommandPath(CommandMenuContentModel commandMenuContentModel,
+            Command command, List<Command> pathTo) {
+        // Is the command in this menu?
+        for (CommandGroup group : commandMenuContentModel.getCommandGroups()) {
+            if (group.getCommands().contains(command)) {
+                return true;
+            }
+        }
+
+        // Go one level deeper
+        for (CommandGroup group : commandMenuContentModel.getCommandGroups()) {
+            for (Command secondary : group.getCommands()) {
+                CommandMenuContentModel secondaryMenuContentModel =
+                        secondary.getSecondaryContentModel();
+                if (secondaryMenuContentModel != null) {
+                    pathTo.add(secondary);
+                    if (getCommandPath(secondaryMenuContentModel, command, pathTo)) {
+                        // Found it!
+                        return true;
+                    }
+                    // Not there
+                    pathTo.remove(pathTo.size() - 1);
+                }
+            }
+        }
+
+        // Didn't find it anywhere in the passed menu (recursively)
+        return false;
+    }
+
+    public List<CommandPathLink> getPathTo(Command command) {
+        final RibbonApplicationMenuPanelProjection ribbonAppMenuProjection =
+                (RibbonApplicationMenuPanelProjection) this.applicationMenuPopupPanel.getRibbonAppMenuProjection();
+        final RibbonApplicationMenu ribbonAppMenu = (ribbonAppMenuProjection != null)
+                ? ribbonAppMenuProjection.getContentModel() : null;
+        if (ribbonAppMenu == null) {
+            return null;
+        }
+
+        // Is a footer command?
+        int footerIndex = ribbonAppMenu.getFooterCommands().getCommands().indexOf(command);
+        if (footerIndex >= 0) {
+            AbstractCommandButton footerButton =
+                    (AbstractCommandButton) this.footerPanel.getComponent(footerIndex);
+            return Arrays.asList(new CommandPathLink(footerButton,
+                    () -> footerButton.getActionModel().setRollover(true)));
+        }
+
+        List<Command> pathToCommand = new ArrayList<>();
+        boolean found = getCommandPath(ribbonAppMenu, command, pathToCommand);
+        if (!found) {
+            // Not in the app menu at all
+            return null;
+        }
+
+        // Trace the path to the command
+        return null;
+    }
+
+    public Runnable getPathToSequence(Command command) {
+        final RibbonApplicationMenuPanelProjection ribbonAppMenuProjection =
+                (RibbonApplicationMenuPanelProjection) this.applicationMenuPopupPanel.getRibbonAppMenuProjection();
+        final RibbonApplicationMenu ribbonAppMenu = (ribbonAppMenuProjection != null)
+                ? ribbonAppMenuProjection.getContentModel() : null;
+        if (ribbonAppMenu == null) {
+            return null;
+        }
+
+        // Is a footer command?
+        int footerIndex = ribbonAppMenu.getFooterCommands().getCommands().indexOf(command);
+        if (footerIndex >= 0) {
+            AbstractCommandButton footerButton =
+                    (AbstractCommandButton) this.footerPanel.getComponent(footerIndex);
+            return () -> {
+                footerButton.getActionModel().setRollover(true);
+                footerButton.getActionModel().setArmed(true);
+            };
+        }
+
+        List<Command> pathToCommand = new ArrayList<>();
+        boolean found = getCommandPath(ribbonAppMenu, command, pathToCommand);
+        if (!found) {
+            // Not in the app menu at all
+            return null;
+        }
+
+        // Trace the path to the command
+        int pathLength = pathToCommand.size();
+        if (pathLength == 0) {
+            // top-level command in the app menu
+            for (int topLevelIndex = 0; topLevelIndex < this.panelLevel1.getComponentCount();
+                 topLevelIndex++) {
+                Component topLevel = this.panelLevel1.getComponent(topLevelIndex);
+                if (topLevel instanceof AbstractCommandButton) {
+                    AbstractCommandButton button = (AbstractCommandButton) topLevel;
+                    if (button.getProjection().getContentModel() == command) {
+                        return () -> {
+                            button.getActionModel().setRollover(true);
+                            button.getActionModel().setArmed(true);
+                        };
+                    }
+                }
+            }
+            throw new IllegalStateException("Should have found the command at top level");
+        }
+        return null;
+    }
+
 }

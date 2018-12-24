@@ -56,6 +56,9 @@ public class SubstanceCommandPopupMenuUI extends BasicCommandPopupMenuUI {
         return new SubstanceCommandPopupMenuUI();
     }
 
+    private SubstanceCommandPopupMenuUI() {
+    }
+
     private DecorationPainterUtils.PopupInvokerLink popupInvokerLink;
 
     @Override

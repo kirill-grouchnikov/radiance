@@ -41,11 +41,13 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 /**
- * Wrapper around core and 3rd party Swing controls to allow placing them in the
- * {@link JRibbonBand}. This class is for internal use only and should not be directly used by
- * the applications.
+ * Wrapper around core and 3rd party Swing controls to allow placing them in the ribbon.
+ * This class is for internal use only and should not be directly used by the applications.
  *
  * @author Kirill Grouchnikov
+ * @see org.pushingpixels.flamingo.api.ribbon.JRibbon#addTaskbarComponent(ComponentProjection)
+ * @see JRibbonBand#addRibbonComponent(ComponentProjection)
+ * @see org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand#addFlowComponent(ComponentProjection)
  */
 public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
     private ComponentProjection<? extends JComponent, ? extends ComponentContentModel> projection;

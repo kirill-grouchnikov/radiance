@@ -114,7 +114,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 	 * @param slider
 	 *            Slider.
 	 */
-	public SubstanceSliderUI(JSlider slider) {
+	protected SubstanceSliderUI(JSlider slider) {
 		super(null);
 		this.thumbModel = new DefaultButtonModel();
 		this.thumbModel.setArmed(false);

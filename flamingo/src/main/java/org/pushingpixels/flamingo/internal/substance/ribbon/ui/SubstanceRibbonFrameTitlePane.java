@@ -69,7 +69,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
          *
          * @param taskGroup The associated contextual task group.
          */
-        public SubstanceContextualGroupComponent(RibbonContextualTaskGroup taskGroup) {
+        private SubstanceContextualGroupComponent(RibbonContextualTaskGroup taskGroup) {
             this.taskGroup = taskGroup;
             this.setOpaque(false);
         }
@@ -142,7 +142,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         /**
          * Creates the new taskbar panel.
          */
-        public TaskbarPanel() {
+        private TaskbarPanel() {
             super(new TaskbarLayout());
             this.setOpaque(false);
             int insets = SubstanceSizeUtils
@@ -165,17 +165,17 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
      * Maps the currently visible contextual task groups to the respective child components of this
      * title pane.
      */
-    protected Map<RibbonContextualTaskGroup, SubstanceContextualGroupComponent> taskComponentMap;
+    private Map<RibbonContextualTaskGroup, SubstanceContextualGroupComponent> taskComponentMap;
 
     /**
      * Listener to sync {@link #taskComponentMap}.
      */
-    protected ChangeListener ribbonFrameChangeListener;
+    private ChangeListener ribbonFrameChangeListener;
 
     /**
      * Panel for the taskbar components.
      */
-    protected TaskbarPanel taskbarPanel;
+    private TaskbarPanel taskbarPanel;
 
     /**
      * Creates a new title pane for {@link JRibbonFrame}.
@@ -231,7 +231,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
      * Synchronizes the child components for ribbon state (visible contextual task groups and
      * taskbar components).
      */
-    protected void syncRibbonState() {
+    private void syncRibbonState() {
         // Contextual task groups
         for (SubstanceContextualGroupComponent groupComp : this.taskComponentMap.values()) {
             this.remove(groupComp);
@@ -240,13 +240,13 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         JRibbon ribbon = this.getRibbon();
         for (int i = 0; i < ribbon.getContextualTaskGroupCount(); i++) {
             RibbonContextualTaskGroup group = ribbon.getContextualTaskGroup(i);
-            if (!ribbon.isVisible(group))
+            if (!ribbon.isVisible(group)) {
                 continue;
-            SubstanceContextualGroupComponent taskGroupComponent = new
-                    SubstanceContextualGroupComponent(
-                    group);
-            taskGroupComponent
-                    .applyComponentOrientation(this.getRibbon().getComponentOrientation());
+            }
+            SubstanceContextualGroupComponent taskGroupComponent =
+                    new SubstanceContextualGroupComponent(group);
+            taskGroupComponent.applyComponentOrientation(
+                    this.getRibbon().getComponentOrientation());
             this.add(taskGroupComponent);
             this.taskComponentMap.put(group, taskGroupComponent);
             SubstanceTitlePaneUtilities.markTitlePaneExtraComponent(taskGroupComponent,
@@ -277,8 +277,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             if (ltr) {
                 // headers of contextual task groups
                 for (Map.Entry<RibbonContextualTaskGroup, SubstanceContextualGroupComponent>
-                        entry : taskComponentMap
-                        .entrySet()) {
+                        entry : taskComponentMap.entrySet()) {
                     Rectangle taskGroupBounds = ribbonUI
                             .getContextualTaskGroupBounds(entry.getKey());
                     // make sure that the header bounds do not overlap with the
@@ -287,18 +286,21 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
                     for (int i = 0; i < c.getComponentCount(); i++) {
                         Component child = c.getComponent(i);
-                        if (!child.isVisible())
+                        if (!child.isVisible()) {
                             continue;
+                        }
                         if (child instanceof JComponent) {
                             SubstanceTitlePaneUtilities.ExtraComponentKind kind =
                                     (SubstanceTitlePaneUtilities.ExtraComponentKind) (
                                             (JComponent) child).getClientProperty(
                                             SubstanceTitlePaneUtilities
                                                     .EXTRA_COMPONENT_KIND);
-                            if (kind == SubstanceTitlePaneUtilities.ExtraComponentKind.LEADING)
+                            if (kind == SubstanceTitlePaneUtilities.ExtraComponentKind.LEADING) {
                                 continue;
-                            if (child instanceof SubstanceContextualGroupComponent)
+                            }
+                            if (child instanceof SubstanceContextualGroupComponent) {
                                 continue;
+                            }
 
                             minTrailingX = Math.min(child.getX(), minTrailingX);
                         }
@@ -457,8 +459,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
      */
     private JRibbon getRibbon() {
         JRibbonFrame ribbonFrame = (JRibbonFrame) SwingUtilities.getWindowAncestor(this);
-        JRibbon ribbon = ribbonFrame.getRibbon();
-        return ribbon;
+        return ribbonFrame.getRibbon();
     }
 
     /**

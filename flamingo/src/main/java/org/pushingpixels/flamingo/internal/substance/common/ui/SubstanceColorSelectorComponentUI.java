@@ -46,6 +46,9 @@ public class SubstanceColorSelectorComponentUI extends BasicColorSelectorCompone
 		return new SubstanceColorSelectorComponentUI();
 	}
 
+	private SubstanceColorSelectorComponentUI() {
+	}
+
 	@Override
 	protected void paintRolloverIndication(Graphics g) {
 		int w = this.colorSelectorComponent.getWidth();

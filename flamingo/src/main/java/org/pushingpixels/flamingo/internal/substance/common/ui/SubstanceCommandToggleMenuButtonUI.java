@@ -58,6 +58,9 @@ public class SubstanceCommandToggleMenuButtonUI extends SubstanceCommandToggleBu
         return new SubstanceCommandToggleMenuButtonUI();
     }
 
+    private SubstanceCommandToggleMenuButtonUI() {
+    }
+
     @Override
     protected void paintButtonIcon(Graphics g, Rectangle iconRect) {
         boolean isSelected = this.commandButton.getActionModel().isSelected();

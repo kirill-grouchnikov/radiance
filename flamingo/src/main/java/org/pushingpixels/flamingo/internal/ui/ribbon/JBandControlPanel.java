@@ -321,7 +321,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
 
     @Override
     public void updateUI() {
-        setUI(new SubstanceBandControlPanelUI());
+        setUI(SubstanceBandControlPanelUI.createUI(this));
     }
 
     @Override

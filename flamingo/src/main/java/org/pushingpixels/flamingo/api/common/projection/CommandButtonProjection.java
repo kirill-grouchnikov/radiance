@@ -31,14 +31,14 @@ package org.pushingpixels.flamingo.api.common.projection;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.*;
-import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
 
 public class CommandButtonProjection<M extends Command>
         extends Projection<AbstractCommandButton, M, CommandButtonPresentationModel> {
 
     private static <M extends Command>
-            ComponentSupplier<AbstractCommandButton, M, CommandButtonPresentationModel> getDefaultSupplier() {
+    ComponentSupplier<AbstractCommandButton, M, CommandButtonPresentationModel> getDefaultSupplier() {
         return (Projection<AbstractCommandButton, M, CommandButtonPresentationModel> projection) -> {
             if (projection.getPresentationModel().isMenu()) {
                 return projection.getContentModel().isToggle()

@@ -49,8 +49,7 @@ public abstract class RibbonUI extends ComponentUI {
 	 *            Contextual task group.
 	 * @return The bounds of the specified contextual task group.
 	 */
-	public abstract Rectangle getContextualTaskGroupBounds(
-			RibbonContextualTaskGroup group);
+	public abstract Rectangle getContextualTaskGroupBounds(RibbonContextualTaskGroup group);
 
 	public abstract boolean isShowingScrollsForTaskToggleButtons();
 

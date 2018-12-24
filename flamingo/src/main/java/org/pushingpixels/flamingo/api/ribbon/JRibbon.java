@@ -31,13 +31,15 @@ package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
-import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuProjection;
+import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.*;
+import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -81,7 +83,8 @@ import java.util.*;
  *
  * <p>
  * The application menu button is a rectangular button shown in the top left corner of the ribbon.
- * If the {@link #setApplicationMenuCommand(RibbonApplicationMenuCommandButtonProjection)} is not called,
+ * If the {@link #setApplicationMenuCommand(RibbonApplicationMenuCommandButtonProjection)} is not
+ * called,
  * or called with the <code>null</code> value, the application menu button is not shown, and ribbon
  * task buttons are shifted to the left.
  * </p>
@@ -255,13 +258,66 @@ public class JRibbon extends JComponent {
         this.fireStateChanged();
     }
 
+    public synchronized void addTaskbarAppMenuLink(Command appMenuCommand) {
+        if (this.applicationMenuProjection == null) {
+            throw new IllegalArgumentException("Can't add app menu link when app menu is not set");
+        }
+        RibbonApplicationMenu ribbonApplicationMenu =
+                this.applicationMenuProjection.getContentModel();
+        if (ribbonApplicationMenu == null) {
+            throw new IllegalArgumentException("Can't add app menu link when app menu is not set");
+        }
+        if (!ribbonApplicationMenu.getFooterCommands().getCommands().contains(appMenuCommand)
+                && !FlamingoUtilities.existsInMenu(appMenuCommand, ribbonApplicationMenu)) {
+            throw new IllegalArgumentException("Command not found in app menu");
+        }
+
+        Command clone = Command.builder()
+                .setText(appMenuCommand.getText())
+                .setIconFactory(appMenuCommand.getIconFactory())
+                .setAction((CommandActionEvent event) -> {
+                    getUI().getApplicationMenuButton().doPopupClick();
+                    SwingUtilities.invokeLater(() -> {
+                        List<PopupPanelManager.PopupInfo> popups =
+                                PopupPanelManager.defaultManager().getShownPath();
+                        if (popups.size() > 0) {
+                            PopupPanelManager.PopupInfo last = popups.get(popups.size() - 1);
+                            JPopupPanel popupPanel = last.getPopupPanel();
+                            // Should be application menu
+                            if (!(popupPanel instanceof JRibbonApplicationMenuPopupPanel)) {
+                                return;
+                            }
+
+                            JRibbonApplicationMenuPopupPanel appMenuPopupPanel =
+                                    (JRibbonApplicationMenuPopupPanel) popupPanel;
+                            appMenuPopupPanel.getPathToSequence(appMenuCommand).run();
+                        }
+                    });
+                })
+                .setActionRichTooltip(appMenuCommand.getActionRichTooltip())
+                .build();
+        CommandButtonPresentationModel presentationModel = CommandButtonPresentationModel.builder()
+                .setPresentationState(CommandButtonPresentationState.SMALL)
+                .setFocusable(false)
+                .setHorizontalGapScaleFactor(0.5)
+                .setVerticalGapScaleFactor(0.5)
+                .build();
+
+        AbstractCommandButton commandButton = clone.project(presentationModel).buildComponent();
+
+        this.taskbarComponents.add(commandButton);
+        this.taskbarCommandMap.put(clone, commandButton);
+        this.taskbarCommands.add(clone);
+
+        this.fireStateChanged();
+    }
+
     public synchronized void addTaskbarComponent(
             ComponentProjection<? extends JComponent, ? extends ComponentContentModel> projection) {
         JRibbonComponent ribbonComponent = new JRibbonComponent(projection);
         this.taskbarComponents.add(ribbonComponent);
         this.fireStateChanged();
     }
-
 
     /**
      * Adds a separator to the taskbar area of this ribbon.
@@ -502,7 +558,7 @@ public class JRibbon extends JComponent {
 
     @Override
     public void updateUI() {
-        setUI(new SubstanceRibbonUI());
+        setUI(SubstanceRibbonUI.createUI(this));
         for (Component comp : this.taskbarComponents) {
             SwingUtilities.updateComponentTreeUI(comp);
         }

@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.internal.utils;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
@@ -143,5 +144,23 @@ public class FlamingoUtilities {
 
     public static int getCommandButtonSmallIconSize(int fontSize) {
         return FlamingoUtilities.getScaledSize(16, fontSize, 1.0, 4);
+    }
+
+    public static boolean existsInMenu(Command command, CommandMenuContentModel menuContentModel) {
+        for (CommandGroup group : menuContentModel.getCommandGroups()) {
+            for (Command secondary : group.getCommands()) {
+                if (secondary == command) {
+                    return true;
+                }
+                CommandMenuContentModel secondaryMenuContentModel =
+                        secondary.getSecondaryContentModel();
+                if (secondaryMenuContentModel != null) {
+                    if (existsInMenu(command, secondaryMenuContentModel)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

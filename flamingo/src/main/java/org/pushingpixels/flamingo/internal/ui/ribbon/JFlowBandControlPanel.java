@@ -72,7 +72,7 @@ public class JFlowBandControlPanel extends AbstractBandControlPanel implements U
 
     @Override
     public void updateUI() {
-        setUI(new SubstanceFlowBandControlPanelUI());
+        setUI(SubstanceFlowBandControlPanelUI.createUI(this));
     }
 
     @Override

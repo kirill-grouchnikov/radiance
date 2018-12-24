@@ -54,6 +54,9 @@ public class SubstanceColorSelectorPopupMenuUI extends BasicColorSelectorPopupMe
         return new SubstanceColorSelectorPopupMenuUI();
     }
 
+    private SubstanceColorSelectorPopupMenuUI() {
+    }
+
     private DecorationPainterUtils.PopupInvokerLink popupInvokerLink;
 
     @Override

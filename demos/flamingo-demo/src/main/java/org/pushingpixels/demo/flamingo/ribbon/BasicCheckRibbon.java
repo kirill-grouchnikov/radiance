@@ -89,6 +89,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private Command amEntrySaveAsHtml;
     private Command amEntrySaveAsOtherFormats;
     private Command amEntrySaveAs;
+    private Command amEntryExit;
+    private Command amFooterProps;
 
     private RibbonComboBoxContentModel<String> fontComboBoxModel;
     private RibbonCheckBoxContentModel rulerCheckBoxModel;
@@ -1332,6 +1334,18 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setSecondaryContentModel(saveAsMenu)
                 .build();
 
+        this.amEntryExit = Command.builder()
+                .setText(resourceBundle.getString("AppMenuExit.text"))
+                .setIconFactory(System_log_out.factory())
+                .setAction((CommandActionEvent ae) -> System.exit(0))
+                .build();
+
+        this.amFooterProps = Command.builder()
+                .setText(resourceBundle.getString("AppMenuOptions.text"))
+                .setIconFactory(Document_properties.factory())
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked Options"))
+                .build();
+
         this.fontComboBoxModel = RibbonDefaultComboBoxContentModel.<String>builder()
                 .setItems(new String[] {
                         "+ Minor (Calibri)   ", "+ Minor (Columbus)   ",
@@ -1550,10 +1564,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
         this.getRibbon().addContextualTaskGroup(group1);
         this.getRibbon().addContextualTaskGroup(group2);
 
-        configureTaskBar();
-
         // application menu
         configureApplicationMenu();
+
+        configureTaskBar();
 
         this.add(getControlPanel(), BorderLayout.EAST);
         this.add(rulerPanel = new RulerPanel(), BorderLayout.CENTER);
@@ -1576,19 +1590,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .project(CommandButtonPresentationModel.builder()
                         .setActionKeyTip("2").build()));
 
-        ribbon.addTaskbarCommand(Command.builder()
-                .setIconFactory(Edit_copy.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Taskbar Copy activated"))
-                .build()
-                .project(CommandButtonPresentationModel.builder().setActionKeyTip("3").build()));
+        ribbon.addTaskbarAppMenuLink(this.amFooterProps);
 
         ribbon.addTaskbarSeparator();
 
-        ribbon.addTaskbarCommand(Command.builder()
-                .setIconFactory(Edit_find.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Taskbar Find activated"))
-                .build()
-                .project(CommandButtonPresentationModel.builder().setActionKeyTip("4").build()));
+        ribbon.addTaskbarAppMenuLink(this.amEntryExit);
 
         ribbon.addTaskbarComponent(new RibbonComboBoxProjection(this.fontComboBoxModel,
                 ComponentPresentationModel.builder().setKeyTip("5").build()));
@@ -1841,35 +1847,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
         applicationMenuOverlays.put(amEntrySend,
                 CommandButtonPresentationModel.overlay().setPopupKeyTip("D"));
 
-        // "Exit" primary
-        Command amEntryExit = Command.builder()
-                .setText(resourceBundle.getString("AppMenuExit.text"))
-                .setIconFactory(System_log_out.factory())
-                .setAction((CommandActionEvent ae) -> System.exit(0))
-                .build();
-
-        applicationMenuOverlays.put(amEntryExit,
+        applicationMenuOverlays.put(this.amEntryExit,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("X"));
 
         RibbonApplicationMenu applicationMenu = new RibbonApplicationMenu(
                 new CommandGroup(amEntryNew, amEntryOpen, amEntrySave, this.amEntrySaveAs),
                 new CommandGroup(amEntryPrint, amEntrySend),
-                new CommandGroup(amEntryExit));
+                new CommandGroup(this.amEntryExit));
 
-        Command amFooterProps = Command.builder()
-                .setText(resourceBundle.getString("AppMenuOptions.text"))
-                .setIconFactory(Document_properties.factory())
-                .setAction((CommandActionEvent ae) -> System.out.println("Invoked Options"))
-                .build();
-        Command amFooterExit = Command.builder()
-                .setText(resourceBundle.getString("AppMenuExit.text"))
-                .setIconFactory(System_log_out.factory())
-                .setAction((CommandActionEvent ae) -> System.exit(0))
-                .setEnabled(false)
-                .build();
-
-        applicationMenu.addFooterCommand(amFooterProps);
-        applicationMenu.addFooterCommand(amFooterExit);
+        applicationMenu.addFooterCommand(this.amFooterProps);
 
         try {
             final BufferedImage appMenuButtonTooltipImage = ImageIO

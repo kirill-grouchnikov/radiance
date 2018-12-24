@@ -47,6 +47,9 @@ public class SubstanceRibbonRootPaneUI extends SubstanceRootPaneUI {
 		return new SubstanceRibbonRootPaneUI();
 	}
 
+	private SubstanceRibbonRootPaneUI() {
+	}
+
 	@Override
 	protected SubstanceTitlePane createTitlePane(JRootPane root) {
 		return new SubstanceRibbonFrameTitlePane(root, this);

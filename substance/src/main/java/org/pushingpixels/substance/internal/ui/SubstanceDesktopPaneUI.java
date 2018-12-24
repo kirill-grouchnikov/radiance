@@ -54,6 +54,9 @@ public class SubstanceDesktopPaneUI extends BasicDesktopPaneUI {
 		return new SubstanceDesktopPaneUI();
 	}
 
+	private SubstanceDesktopPaneUI() {
+	}
+
 	@Override
 	protected void installDefaults() {
 		super.installDefaults();
