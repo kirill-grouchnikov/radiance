@@ -31,8 +31,9 @@ package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
+import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
+import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandMenuButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicPopupPanelUI;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -156,7 +157,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     ribbonAppMenuProjection.getCommandOverlays();
             CommandButtonPresentationModel baseCommandPresentation =
                     CommandButtonPresentationModel.builder()
-                    .setMenu(true).build();
+                            .setMenu(true).build();
             List<CommandGroup> primaryEntries = ribbonAppMenu.getCommandGroups();
             int primaryGroupCount = primaryEntries.size();
             for (int i = 0; i < primaryGroupCount; i++) {
@@ -290,16 +291,6 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         return panelLevel2;
     }
 
-    public static class CommandPathLink {
-        public AbstractCommandButton button;
-        public Runnable pathHighlightRunnable;
-
-        public CommandPathLink(AbstractCommandButton button, Runnable pathHighlightRunnable) {
-            this.button = button;
-            this.pathHighlightRunnable = pathHighlightRunnable;
-        }
-    }
-
     private boolean getCommandPath(CommandMenuContentModel commandMenuContentModel,
             Command command, List<Command> pathTo) {
         // Is the command in this menu?
@@ -330,32 +321,60 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         return false;
     }
 
-    public List<CommandPathLink> getPathTo(Command command) {
-        final RibbonApplicationMenuPanelProjection ribbonAppMenuProjection =
-                (RibbonApplicationMenuPanelProjection) this.applicationMenuPopupPanel.getRibbonAppMenuProjection();
-        final RibbonApplicationMenu ribbonAppMenu = (ribbonAppMenuProjection != null)
-                ? ribbonAppMenuProjection.getContentModel() : null;
-        if (ribbonAppMenu == null) {
-            return null;
+    private <T extends AbstractCommandButton> T getPrimaryForCommand(Command command) {
+        for (int topLevelIndex = 0; topLevelIndex < this.panelLevel1.getComponentCount();
+             topLevelIndex++) {
+            Component topLevel = this.panelLevel1.getComponent(topLevelIndex);
+            if (topLevel instanceof AbstractCommandButton) {
+                AbstractCommandButton button = (AbstractCommandButton) topLevel;
+                if (button.getProjection().getContentModel() == command) {
+                    return (T) button;
+                }
+            }
         }
+        return null;
+    }
 
-        // Is a footer command?
-        int footerIndex = ribbonAppMenu.getFooterCommands().getCommands().indexOf(command);
-        if (footerIndex >= 0) {
-            AbstractCommandButton footerButton =
-                    (AbstractCommandButton) this.footerPanel.getComponent(footerIndex);
-            return Arrays.asList(new CommandPathLink(footerButton,
-                    () -> footerButton.getActionModel().setRollover(true)));
+    private <T extends AbstractCommandButton> T getSecondaryForCommand(Command command) {
+        JRibbonApplicationMenuPopupPanelSecondary secondaryPanel =
+                (JRibbonApplicationMenuPopupPanelSecondary) this.panelLevel2.getComponent(0);
+        for (int secondLevelIndex = 0;
+             secondLevelIndex < secondaryPanel.getComponentCount();
+             secondLevelIndex++) {
+            Component secondLevel = secondaryPanel.getComponent(
+                    secondLevelIndex);
+            if (secondLevel instanceof AbstractCommandButton) {
+                AbstractCommandButton secondLevelButton =
+                        (AbstractCommandButton) secondLevel;
+                if (secondLevelButton.getProjection().getContentModel() == command) {
+                    return (T) secondLevelButton;
+                }
+            }
         }
+        return null;
+    }
 
-        List<Command> pathToCommand = new ArrayList<>();
-        boolean found = getCommandPath(ribbonAppMenu, command, pathToCommand);
-        if (!found) {
-            // Not in the app menu at all
-            return null;
+    private <T extends AbstractCommandButton> T getMenuButtonForCommand(Command command) {
+        List<PopupPanelManager.PopupInfo> popups =
+                PopupPanelManager.defaultManager().getShownPath();
+        if (popups.size() > 0) {
+            PopupPanelManager.PopupInfo last = popups.get(popups.size() - 1);
+            JPopupPanel popupPanel = last.getPopupPanel();
+            // Should be command popup menu
+            if (!(popupPanel instanceof JCommandPopupMenu)) {
+                return null;
+            }
+
+            JCommandPopupMenu popupMenu = (JCommandPopupMenu) popupPanel;
+            for (Component child : popupMenu.getMenuComponents()) {
+                if (child instanceof AbstractCommandButton) {
+                    AbstractCommandButton button = (AbstractCommandButton) child;
+                    if (button.getProjection().getContentModel() == command) {
+                        return (T) button;
+                    }
+                }
+            }
         }
-
-        // Trace the path to the command
         return null;
     }
 
@@ -389,23 +408,106 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         // Trace the path to the command
         int pathLength = pathToCommand.size();
         if (pathLength == 0) {
-            // top-level command in the app menu
-            for (int topLevelIndex = 0; topLevelIndex < this.panelLevel1.getComponentCount();
-                 topLevelIndex++) {
-                Component topLevel = this.panelLevel1.getComponent(topLevelIndex);
-                if (topLevel instanceof AbstractCommandButton) {
-                    AbstractCommandButton button = (AbstractCommandButton) topLevel;
-                    if (button.getProjection().getContentModel() == command) {
-                        return () -> {
-                            button.getActionModel().setRollover(true);
-                            button.getActionModel().setArmed(true);
-                        };
-                    }
-                }
+            // It is a primary (top-level) command in the app menu
+            AbstractCommandButton primary = getPrimaryForCommand(command);
+            if (primary == null) {
+                throw new IllegalStateException("Should have found the command at top level");
             }
+
+            return () -> {
+                // Highlight the primary button for this command
+                primary.getActionModel().setRollover(true);
+                primary.getActionModel().setArmed(true);
+            };
+        }
+
+        // Find the primary command for the path
+        JCommandButton primary = getPrimaryForCommand(pathToCommand.get(0));
+        if (primary == null) {
             throw new IllegalStateException("Should have found the command at top level");
         }
-        return null;
+
+        if (pathLength == 1) {
+            // It is a secondary-level command in the app menu.
+            return () -> {
+                // Highlight the primary button for the first "leg" of the path
+                primary.getPopupModel().setRollover(true);
+                primary.getPopupModel().setArmed(true);
+                // Fire the rollover action so that the secondary menu content is
+                // populated
+                SubstanceCommandMenuButtonUI buttonUI =
+                        (SubstanceCommandMenuButtonUI) primary.getUI();
+                buttonUI.fireRolloverActionPerformed(new ActionEvent(this,
+                        ActionEvent.ACTION_PERFORMED,
+                        primary.getActionModel().getActionCommand(),
+                        EventQueue.getMostRecentEventTime(), 0));
+                SwingUtilities.invokeLater(() -> {
+                    // Find our command at secondary level, scroll to it if necessary
+                    // and highlight it
+                    AbstractCommandButton secondLevelButton = getSecondaryForCommand(command);
+                    Rectangle selectionButtonBounds = secondLevelButton.getBounds();
+                    this.panelScrollerLevel2.scrollToIfNecessary(selectionButtonBounds.y,
+                            selectionButtonBounds.height);
+                    secondLevelButton.getActionModel().setRollover(true);
+                    secondLevelButton.getActionModel().setArmed(true);
+                });
+            };
+        }
+
+        // The command is in a popup chain shown off of a secondary-level command in the app menu.
+        return () -> {
+            // Highlight the primary button for the first "leg" of the path
+            primary.getPopupModel().setRollover(true);
+            primary.getPopupModel().setArmed(true);
+            // Fire the rollover action so that the secondary menu content is
+            // populated
+            SubstanceCommandMenuButtonUI buttonUI =
+                    (SubstanceCommandMenuButtonUI) primary.getUI();
+            buttonUI.fireRolloverActionPerformed(new ActionEvent(this,
+                    ActionEvent.ACTION_PERFORMED,
+                    primary.getActionModel().getActionCommand(),
+                    EventQueue.getMostRecentEventTime(), 0));
+
+            SwingUtilities.invokeLater(() -> {
+                // Find our command at secondary level, scroll to it if necessary
+                // and highlight it
+                JCommandButton secondLevelButton =
+                        getSecondaryForCommand(pathToCommand.get(1));
+                Rectangle selectionButtonBounds = secondLevelButton.getBounds();
+                this.panelScrollerLevel2.scrollToIfNecessary(selectionButtonBounds.y,
+                        selectionButtonBounds.height);
+                secondLevelButton.getPopupModel().setRollover(true);
+                secondLevelButton.getPopupModel().setArmed(true);
+
+                SubstanceCommandMenuButtonUI secondLevelButtonUI =
+                        (SubstanceCommandMenuButtonUI) secondLevelButton.getUI();
+                secondLevelButtonUI.processPopupAction();
+
+                int levelsToGo = pathLength - 2;
+                for (int i = 0; i <= levelsToGo; i++) {
+                    final int currLevel = 2 + i;
+                    SwingUtilities.invokeLater(() -> {
+                        if (currLevel == pathLength) {
+                            AbstractCommandButton lastLevelButton =
+                                    getMenuButtonForCommand(command);
+                            // Last level!
+                            lastLevelButton.getActionModel().setRollover(true);
+                            lastLevelButton.getActionModel().setArmed(true);
+                        } else {
+                            JCommandMenuButton currLevelButton =
+                                    getMenuButtonForCommand(pathToCommand.get(currLevel));
+                            // we need to go deeper
+                            currLevelButton.getPopupModel().setRollover(true);
+                            currLevelButton.getPopupModel().setArmed(true);
+
+                            SubstanceCommandMenuButtonUI currLevelButtonUI =
+                                    (SubstanceCommandMenuButtonUI) currLevelButton.getUI();
+                            currLevelButtonUI.processPopupAction();
+                        }
+                    });
+                }
+            });
+        };
     }
 
 }

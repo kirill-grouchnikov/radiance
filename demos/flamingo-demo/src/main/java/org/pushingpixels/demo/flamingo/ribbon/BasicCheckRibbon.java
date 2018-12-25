@@ -85,6 +85,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private Command popupCommand5;
     private CommandMenuContentModel popupMenuContentModel;
 
+    private Command amEntryPrintMemo;
+    private Command amEntryPrintCustom;
+
+    private Command amWirelessBluetooth;
+
     private Command amEntrySaveAsWord;
     private Command amEntrySaveAsHtml;
     private Command amEntrySaveAsOtherFormats;
@@ -1298,6 +1303,24 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         "Apply Styles activated"))
                 .build();
 
+        this.amEntryPrintMemo = Command.builder()
+                .setText(resourceBundle.getString("AppMenuPrint.memo.text"))
+                .setIconFactory(Text_x_generic.factory())
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked memo"))
+                .build();
+
+        this.amEntryPrintCustom = Command.builder()
+                .setText(resourceBundle.getString("AppMenuPrint.custom.text"))
+                .setIconFactory(Text_x_generic.factory())
+                .setAction((CommandActionEvent ae) -> System.out.println("Invoked custom"))
+                .build();
+
+        this.amWirelessBluetooth = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.wireless.bluetooth.text"))
+                .setIconFactory(Network_wireless.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Bluetooth activated"))
+                .build();
+
         this.amEntrySaveAsWord = Command.builder()
                 .setText(resourceBundle.getString("AppMenuSaveAs.word.text"))
                 .setIconFactory(X_office_document.factory())
@@ -1594,6 +1617,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         ribbon.addTaskbarSeparator();
 
+        ribbon.addTaskbarAppMenuLink(this.amEntryPrintCustom);
+        ribbon.addTaskbarAppMenuLink(this.amWirelessBluetooth);
         ribbon.addTaskbarAppMenuLink(this.amEntryExit);
 
         ribbon.addTaskbarComponent(new RibbonComboBoxProjection(this.fontComboBoxModel,
@@ -1730,34 +1755,22 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setAction((CommandActionEvent ae) -> System.out.println("Invoked preview"))
                 .build();
 
-        Command amEntryPrintMemo = Command.builder()
-                .setText(resourceBundle.getString("AppMenuPrint.memo.text"))
-                .setIconFactory(Text_x_generic.factory())
-                .setAction((CommandActionEvent ae) -> System.out.println("Invoked memo"))
-                .build();
-
-        Command amEntryPrintCustom = Command.builder()
-                .setText(resourceBundle.getString("AppMenuPrint.custom.text"))
-                .setIconFactory(Text_x_generic.factory())
-                .setAction((CommandActionEvent ae) -> System.out.println("Invoked custom"))
-                .build();
-
         applicationMenuOverlays.put(amEntryPrintSelect,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("P"));
         applicationMenuOverlays.put(amEntryPrintDefault,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("Q"));
         applicationMenuOverlays.put(amEntryPrintPreview,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("V"));
-        applicationMenuOverlays.put(amEntryPrintMemo,
+        applicationMenuOverlays.put(this.amEntryPrintMemo,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("M"));
-        applicationMenuOverlays.put(amEntryPrintCustom,
+        applicationMenuOverlays.put(this.amEntryPrintCustom,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("C"));
 
         CommandMenuContentModel printMenu = new CommandMenuContentModel(
                 new CommandGroup(resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle1"),
                         amEntryPrintSelect, amEntryPrintDefault, amEntryPrintPreview),
                 new CommandGroup(resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle2"),
-                        amEntryPrintMemo, amEntryPrintCustom));
+                        this.amEntryPrintMemo, this.amEntryPrintCustom));
 
         Command amEntryPrint = Command.builder()
                 .setText(resourceBundle.getString("AppMenuPrint.text"))
@@ -1806,20 +1819,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIconFactory(EmptyResizableIcon.factory())
                 .setAction((CommandActionEvent e) -> System.out.println("WiFi activated"))
                 .build();
-        Command wirelessBluetooth = Command.builder()
-                .setText(resourceBundle.getString("AppMenuSend.wireless.bluetooth.text"))
-                .setIconFactory(EmptyResizableIcon.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Bluetooth activated"))
-                .build();
 
         applicationMenuOverlays.put(wirelessWiFi,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("W"));
-        applicationMenuOverlays.put(wirelessBluetooth,
+        applicationMenuOverlays.put(this.amWirelessBluetooth,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("B"));
 
         CommandMenuContentModel wirelessPopupMenuContentModel =
                 new CommandMenuContentModel(Collections.singletonList(
-                        new CommandGroup(wirelessWiFi, wirelessBluetooth)));
+                        new CommandGroup(wirelessWiFi, this.amWirelessBluetooth)));
 
         Command amEntrySendWireless = Command.builder()
                 .setText(resourceBundle.getString("AppMenuSend.wireless.text"))

@@ -603,7 +603,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         return (ActionEvent e) -> processPopupAction();
     }
 
-    protected void processPopupAction() {
+    public void processPopupAction() {
         boolean wasPopupShowing = false;
         if (this.commandButton instanceof JCommandButton) {
             wasPopupShowing = ((JCommandButton) this.commandButton).getPopupModel()

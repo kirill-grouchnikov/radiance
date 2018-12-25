@@ -102,7 +102,7 @@ public class SubstanceCommandMenuButtonUI extends SubstanceCommandButtonUI {
      * @param e
      *            Event object.
      */
-    private void fireRolloverActionPerformed(ActionEvent e) {
+    public void fireRolloverActionPerformed(ActionEvent e) {
         // Guaranteed to return a non-null array
         RolloverActionListener[] listeners = commandButton
                 .getListeners(RolloverActionListener.class);
