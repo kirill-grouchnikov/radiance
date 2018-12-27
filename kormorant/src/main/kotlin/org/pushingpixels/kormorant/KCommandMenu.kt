@@ -110,12 +110,18 @@ class KCommandMenu {
         return group
     }
 
-    fun toJavaCommandOverlays(): Map<Command, CommandButtonPresentationModel.Overlay> {
-        val commandOverlays = HashMap<Command, CommandButtonPresentationModel.Overlay>()
-        for (groupOverlays in groups.map { it.toPresentationOverlays() }) {
-            commandOverlays.putAll(groupOverlays)
+    internal fun populateCommandOverlays(overlays: MutableMap<Command, CommandButtonPresentationModel.Overlay>) {
+        for (group in groups) {
+            for (commandConfig in group.commands) {
+                if ((commandConfig.actionKeyTip != null) || (commandConfig.secondaryKeyTip != null)) {
+                    overlays[commandConfig.toJavaCommand()] =
+                            CommandButtonPresentationModel.overlay()
+                                    .setActionKeyTip(commandConfig.actionKeyTip)
+                                    .setPopupKeyTip(commandConfig.secondaryKeyTip)
+                    commandConfig.command.populateCommandOverlays(overlays)
+                }
+            }
         }
-        return commandOverlays
     }
 
     fun toJavaMenuContentModel(): CommandMenuContentModel {

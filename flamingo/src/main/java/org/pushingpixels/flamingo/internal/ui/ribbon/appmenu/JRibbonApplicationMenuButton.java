@@ -30,9 +30,10 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
+import org.pushingpixels.flamingo.internal.ui.common.FlamingoInternalButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +46,8 @@ import java.util.ArrayList;
  *
  * @author Kirill Grouchnikov
  */
-public class JRibbonApplicationMenuButton extends JCommandButton {
+public class JRibbonApplicationMenuButton extends JCommandButton
+        implements FlamingoInternalButton {
     private final static CommandButtonPresentationState APP_MENU_BUTTON_STATE =
             new CommandButtonPresentationState("Ribbon Application Menu Button", 16) {
                 @Override
@@ -115,9 +117,10 @@ public class JRibbonApplicationMenuButton extends JCommandButton {
     public JRibbonApplicationMenuButton(
             RibbonApplicationMenuCommandButtonProjection ribbonApplicationMenuCommandProjection) {
         // Reproject the command so that the button uses our custom state and centered text
-        super(ribbonApplicationMenuCommandProjection.reproject(CommandButtonPresentationModel.builder()
-                .setPresentationState(APP_MENU_BUTTON_STATE)
-                .setHorizontalAlignment(SwingConstants.CENTER)
-                .build()));
+        super(ribbonApplicationMenuCommandProjection.reproject(
+                CommandButtonPresentationModel.builder()
+                        .setPresentationState(APP_MENU_BUTTON_STATE)
+                        .setHorizontalAlignment(SwingConstants.CENTER)
+                        .build()));
     }
 }

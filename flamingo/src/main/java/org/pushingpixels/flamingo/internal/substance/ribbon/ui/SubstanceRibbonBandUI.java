@@ -34,6 +34,7 @@ import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
+import org.pushingpixels.flamingo.internal.ui.common.FlamingoInternalButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -233,7 +234,8 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     }
 
     @SubstanceInternalButton
-    private class RibbonBandExpandButton extends JCommandButton {
+    private class RibbonBandExpandButton extends JCommandButton
+            implements FlamingoInternalButton {
         private RibbonBandExpandButton(Projection<AbstractCommandButton, Command,
                 CommandButtonPresentationModel> projection) {
             super(projection);

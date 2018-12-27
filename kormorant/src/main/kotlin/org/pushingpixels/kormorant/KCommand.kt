@@ -373,6 +373,10 @@ open class KCommand {
     internal fun toCommandButton(presentation: KCommandButtonPresentation): AbstractCommandButton {
         return asJavaCommand().project(presentation.toCommandPresentation(this)).buildComponent()
     }
+
+    internal fun populateCommandOverlays(overlays: MutableMap<Command, CommandButtonPresentationModel.Overlay>) {
+        menu?.populateCommandOverlays(overlays)
+    }
 }
 
 fun command(init: KCommand.() -> Unit): KCommand {

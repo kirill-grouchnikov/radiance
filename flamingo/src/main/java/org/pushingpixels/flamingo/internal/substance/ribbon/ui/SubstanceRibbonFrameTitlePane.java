@@ -134,7 +134,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
     }
 
     /**
-     * The taskbar panel that holds the {@link JRibbon#getTaskbarComponents()}.
+     * The taskbar panel that holds the taskbar components.
      *
      * @author Kirill Grouchnikov
      */

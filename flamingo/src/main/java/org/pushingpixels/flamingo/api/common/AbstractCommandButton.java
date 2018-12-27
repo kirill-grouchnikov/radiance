@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.Projection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.internal.ui.common.*;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
@@ -305,8 +305,8 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         return (CommandButtonUI) ui;
     }
 
-    public Projection<AbstractCommandButton, ? extends Command, CommandButtonPresentationModel> getProjection() {
-        return this.projection;
+    public CommandButtonProjection<? extends Command> getProjection() {
+        return (CommandButtonProjection<? extends Command>) this.projection;
     }
 
     /**

@@ -29,8 +29,16 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.RichTooltipManager;
+import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
+import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
+import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonFrameTitlePane;
+import org.pushingpixels.flamingo.internal.ui.common.FlamingoInternalButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.utils.*;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager.KeyTipEvent;
@@ -327,7 +335,6 @@ public class JRibbonFrame extends JFrame {
         this.ribbon = new JRibbon(this);
         this.add(this.ribbon, BorderLayout.NORTH);
 
-        // this.keyTipManager = new KeyTipManager(this);
         Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
             private boolean prevAltModif = false;
 
@@ -383,10 +390,22 @@ public class JRibbonFrame extends JFrame {
                             MouseEvent mouseEvent = (MouseEvent) event;
                             switch (mouseEvent.getID()) {
                                 case MouseEvent.MOUSE_CLICKED:
-                                case MouseEvent.MOUSE_DRAGGED:
-                                case MouseEvent.MOUSE_PRESSED:
-                                case MouseEvent.MOUSE_RELEASED:
+                                case MouseEvent.MOUSE_DRAGGED: {
                                     KeyTipManager.defaultManager().hideAllKeyTips();
+                                    break;
+                                }
+                                case MouseEvent.MOUSE_PRESSED:
+                                case MouseEvent.MOUSE_RELEASED: {
+                                    KeyTipManager.defaultManager().hideAllKeyTips();
+                                    if (mouseEvent.isPopupTrigger()) {
+                                        // Note that we need to find the deepest component
+                                        // under the mouse event so that it is then routed
+                                        // properly to the ribbon contextual click listener
+                                        handlePopupTrigger(mouseEvent,
+                                                SwingUtilities.getDeepestComponentAt(c,
+                                                        mouseEvent.getX(), mouseEvent.getY()));
+                                    }
+                                }
                             }
                         }
                     }
@@ -461,6 +480,99 @@ public class JRibbonFrame extends JFrame {
 
         super.setIconImages(Collections.singletonList(
                 SubstanceCoreUtilities.getBlankImage(16, 16)));
+    }
+
+    private void handlePopupTrigger(MouseEvent event, Component c) {
+        if ((SwingUtilities.getAncestorOfClass(JRibbon.class, c) == null) &&
+                (SwingUtilities.getAncestorOfClass(SubstanceRibbonFrameTitlePane.class,
+                        c) == null)) {
+            // Component not in the ribbon. Do nothing.
+            return;
+        }
+
+        JRibbon.OnShowContextualMenuListener onShowContextualMenuListener =
+                this.ribbon.getOnShowContextualMenuListener();
+        if (onShowContextualMenuListener == null) {
+            return;
+        }
+
+        CommandMenuContentModel menuContentModel = null;
+        // Special case - the component is in the taskbar.
+        if (SwingUtilities.getAncestorOfClass(SubstanceRibbonFrameTitlePane.class, c) != null) {
+            Object projection = null;
+            // Is it a wrapped component
+            JRibbonComponent taskbarWrapped = (JRibbonComponent) SwingUtilities.getAncestorOfClass(
+                    JRibbonComponent.class, c);
+            if (taskbarWrapped != null) {
+                projection = taskbarWrapped.getClientProperty(FlamingoUtilities.TASKBAR_PROJECTION);
+            } else {
+                projection = ((JComponent) c).getClientProperty(
+                        FlamingoUtilities.TASKBAR_PROJECTION);
+            }
+            if (projection instanceof RibbonGalleryProjection) {
+                menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
+                        (RibbonGalleryProjection) projection);
+            } else if (projection instanceof ComponentProjection) {
+                menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
+                        (ComponentProjection<? extends JComponent, ?
+                                extends ComponentContentModel>) projection);
+            } else if (projection instanceof CommandButtonProjection) {
+                menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
+                        (CommandButtonProjection<? extends Command>) projection);
+            } else {
+                menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel();
+            }
+        } else {
+            // Special case - popup trigger in a ribbon gallery
+            JRibbonGallery gallery = (JRibbonGallery) SwingUtilities.getAncestorOfClass(
+                    JRibbonGallery.class, c);
+            if (gallery != null) {
+                menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
+                        gallery.getProjection());
+            } else {
+                // Another special case - wrapped component
+                JRibbonComponent component = (JRibbonComponent) SwingUtilities.getAncestorOfClass(
+                        JRibbonComponent.class, c);
+                if (component != null) {
+                    menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
+                            component.getProjection());
+                } else {
+                    if ((c instanceof AbstractCommandButton) &&
+                            (!(c instanceof FlamingoInternalButton))) {
+                        menuContentModel =
+                                onShowContextualMenuListener.getContextualMenuContentModel(
+                                        ((AbstractCommandButton) c).getProjection());
+                    }
+                }
+            }
+        }
+
+        if (menuContentModel == null) {
+            // If the popup trigger is not on any of the "supported" ribbon content, ask the
+            // application to provide the general contextual menu items
+            menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel();
+        }
+
+        final JCommandPopupMenu menu = new CommandPopupMenuProjection(menuContentModel,
+                CommandPopupMenuPresentationModel.builder()
+                        .setMenuPresentationState(CommandButtonPresentationState.MEDIUM)
+                        .build())
+                .buildComponent();
+
+        int x = event.getXOnScreen();
+        int y = event.getYOnScreen();
+        Rectangle scrBounds = this.ribbon.getGraphicsConfiguration().getBounds();
+        int pw = menu.getPreferredSize().width;
+        if ((x + pw) > (scrBounds.x + scrBounds.width)) {
+            x = scrBounds.x + scrBounds.width - pw;
+        }
+        int ph = menu.getPreferredSize().height;
+        if ((y + ph) > (scrBounds.y + scrBounds.height)) {
+            y = scrBounds.y + scrBounds.height - ph;
+        }
+
+        Popup popup = PopupFactory.getSharedInstance().getPopup(this.ribbon, menu, x, y);
+        PopupPanelManager.defaultManager().addPopup(this.ribbon, popup, menu);
     }
 
     /**

@@ -30,6 +30,8 @@
 package org.pushingpixels.kormorant.ribbon
 
 import org.pushingpixels.flamingo.api.common.RichTooltip
+import org.pushingpixels.flamingo.api.common.model.Command
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu
 import org.pushingpixels.kormorant.*
 
@@ -108,6 +110,20 @@ class KRibbonApplicationMenu {
         }
         hasBeenConverted = true
         return ribbonApplicationMenu
+    }
+
+    internal fun populateCommandOverlays(overlays: MutableMap<Command, CommandButtonPresentationModel.Overlay>) {
+        for (group in groups) {
+            for (commandConfig in group.commands) {
+                if ((commandConfig.actionKeyTip != null) || (commandConfig.secondaryKeyTip != null)) {
+                    overlays[commandConfig.toJavaCommand()] =
+                            CommandButtonPresentationModel.overlay()
+                                    .setActionKeyTip(commandConfig.actionKeyTip)
+                                    .setPopupKeyTip(commandConfig.secondaryKeyTip)
+                    commandConfig.command.populateCommandOverlays(overlays)
+                }
+            }
+        }
     }
 
     fun getRichTooltip(): RichTooltip? {

@@ -34,6 +34,7 @@ import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonTaskToggleButtonUI;
+import org.pushingpixels.flamingo.internal.ui.common.FlamingoInternalButton;
 
 import java.awt.*;
 
@@ -43,7 +44,8 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
-public class JRibbonTaskToggleButton extends JCommandToggleButton {
+public class JRibbonTaskToggleButton extends JCommandToggleButton
+        implements FlamingoInternalButton {
     /**
      * The UI class ID string.
      */

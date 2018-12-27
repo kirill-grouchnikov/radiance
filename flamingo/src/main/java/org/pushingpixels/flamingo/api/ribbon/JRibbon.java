@@ -33,6 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.flamingo.api.ribbon.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
@@ -141,7 +142,7 @@ public class JRibbon extends JComponent {
      */
     private ArrayList<Component> taskbarComponents;
 
-    private ArrayList<Command> taskbarCommands;
+    private Map<RibbonGalleryContentModel, AbstractCommandButton> taskbarGalleryMap;
 
     private Map<Command, AbstractCommandButton> taskbarCommandMap;
 
@@ -197,10 +198,25 @@ public class JRibbon extends JComponent {
      */
     private JRibbonFrame ribbonFrame;
 
+    private OnShowContextualMenuListener onShowContextualMenuListener;
+
     /**
      * The UI class ID string.
      */
     public static final String uiClassID = "RibbonUI";
+
+    public interface OnShowContextualMenuListener {
+        CommandMenuContentModel getContextualMenuContentModel(
+                RibbonGalleryProjection galleryProjection);
+
+        CommandMenuContentModel getContextualMenuContentModel(
+                ComponentProjection<? extends JComponent, ? extends ComponentContentModel> componentProjection);
+
+        CommandMenuContentModel getContextualMenuContentModel(
+                CommandButtonProjection<? extends Command> commandButtonProjection);
+
+        CommandMenuContentModel getContextualMenuContentModel();
+    }
 
     /**
      * Creates a new empty ribbon. Applications are highly encouraged to use {@link JRibbonFrame}
@@ -211,7 +227,7 @@ public class JRibbon extends JComponent {
         this.contextualTaskGroups = new ArrayList<>();
         this.taskbarComponents = new ArrayList<>();
         this.taskbarCommandMap = new HashMap<>();
-        this.taskbarCommands = new ArrayList<>();
+        this.taskbarGalleryMap = new HashMap<>();
         this.bands = new ArrayList<>();
         this.currentlySelectedTask = null;
         this.groupVisibilityMap = new HashMap<>();
@@ -234,7 +250,6 @@ public class JRibbon extends JComponent {
      * Adds the specified command to the taskbar area of this ribbon.
      *
      * @param projection The taskbar command projection to add.
-     * @see #getTaskbarCommands()
      * @see #addTaskbarSeparator()
      * @see #clearTaskbar()
      */
@@ -249,13 +264,27 @@ public class JRibbon extends JComponent {
         CommandButtonProjection<Command> projectionWithOverlay = projection.reproject(withOverlay);
         AbstractCommandButton commandButton = projectionWithOverlay.buildComponent();
 
+        commandButton.putClientProperty(FlamingoUtilities.TASKBAR_PROJECTION,
+                projection);
         this.taskbarComponents.add(commandButton);
 
         Command command = projection.getContentModel();
         this.taskbarCommandMap.put(command, commandButton);
-        this.taskbarCommands.add(command);
 
         this.fireStateChanged();
+    }
+
+    public synchronized boolean isShowingInTaskbar(Command command) {
+        return this.taskbarCommandMap.containsKey(command);
+    }
+
+    public synchronized void removeTaskbarCommand(Command command) {
+        AbstractCommandButton existing = this.taskbarCommandMap.get(command);
+        if (existing != null) {
+            this.taskbarComponents.remove(existing);
+            this.taskbarCommandMap.remove(command);
+            this.fireStateChanged();
+        }
     }
 
     public synchronized void addTaskbarAppMenuLink(Command appMenuCommand) {
@@ -307,7 +336,6 @@ public class JRibbon extends JComponent {
 
         this.taskbarComponents.add(commandButton);
         this.taskbarCommandMap.put(clone, commandButton);
-        this.taskbarCommands.add(clone);
 
         this.fireStateChanged();
     }
@@ -315,8 +343,33 @@ public class JRibbon extends JComponent {
     public synchronized void addTaskbarComponent(
             ComponentProjection<? extends JComponent, ? extends ComponentContentModel> projection) {
         JRibbonComponent ribbonComponent = new JRibbonComponent(projection);
+        ribbonComponent.putClientProperty(FlamingoUtilities.TASKBAR_PROJECTION,
+                projection);
         this.taskbarComponents.add(ribbonComponent);
         this.fireStateChanged();
+    }
+
+    public synchronized boolean isShowingInTaskbar(ComponentContentModel componentContentModel) {
+        for (Component taskbarComponent : this.taskbarComponents) {
+            if (taskbarComponent instanceof JRibbonComponent) {
+                if (((JRibbonComponent) taskbarComponent).getProjection().getContentModel() == componentContentModel) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public synchronized void removeTaskbarComponent(ComponentContentModel componentContentModel) {
+        for (Component taskbarComponent : this.taskbarComponents) {
+            if (taskbarComponent instanceof JRibbonComponent) {
+                if (((JRibbonComponent) taskbarComponent).getProjection().getContentModel() == componentContentModel) {
+                    this.taskbarComponents.remove(taskbarComponent);
+                    this.fireStateChanged();
+                    return;
+                }
+            }
+        }
     }
 
     /**
@@ -324,7 +377,6 @@ public class JRibbon extends JComponent {
      *
      * @return the added separator
      * @see #addTaskbarCommand(CommandButtonProjection)
-     * @see #getTaskbarCommands()
      * @see #clearTaskbar()
      */
     public synchronized JSeparator addTaskbarSeparator() {
@@ -346,7 +398,7 @@ public class JRibbon extends JComponent {
                 .setSecondaryContentModel(popupMenuProjection.getContentModel())
                 .build();
 
-        CommandButtonProjection galleryDropdownProjection = galleryDropdownCommand.project(
+        CommandButtonProjection<Command> galleryDropdownProjection = galleryDropdownCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setPopupMenuPresentationModel(popupMenuProjection.getPresentationModel())
@@ -355,9 +407,27 @@ public class JRibbon extends JComponent {
                 popupMenuProjection.getComponentCustomizer());
         galleryDropdownProjection.setCommandOverlays(popupMenuProjection.getCommandOverlays());
 
-        this.taskbarComponents.add(galleryDropdownProjection.buildComponent());
+        AbstractCommandButton galleryDropdown = galleryDropdownProjection.buildComponent();
+        galleryDropdown.putClientProperty(FlamingoUtilities.TASKBAR_PROJECTION,
+                galleryProjection);
+        this.taskbarComponents.add(galleryDropdown);
+        this.taskbarGalleryMap.put(galleryProjection.getContentModel(), galleryDropdown);
 
         this.fireStateChanged();
+    }
+
+
+    public synchronized boolean isShowingInTaskbar(RibbonGalleryContentModel galleryContentModel) {
+        return this.taskbarGalleryMap.containsKey(galleryContentModel);
+    }
+
+    public synchronized void removeTaskbarGallery(RibbonGalleryContentModel galleryContentModel) {
+        AbstractCommandButton existing = this.taskbarGalleryMap.get(galleryContentModel);
+        if (existing != null) {
+            this.taskbarComponents.remove(existing);
+            this.taskbarGalleryMap.remove(galleryContentModel);
+            this.fireStateChanged();
+        }
     }
 
     /**
@@ -365,11 +435,9 @@ public class JRibbon extends JComponent {
      *
      * @see #addTaskbarCommand(CommandButtonProjection)
      * @see #addTaskbarSeparator()
-     * @see #getTaskbarCommands()
      */
     public synchronized void clearTaskbar() {
         this.taskbarCommandMap.clear();
-        this.taskbarCommands.clear();
         this.taskbarComponents.clear();
         this.fireStateChanged();
     }
@@ -579,15 +647,6 @@ public class JRibbon extends JComponent {
         return uiClassID;
     }
 
-    /**
-     * Gets an unmodifiable list of all taskbar commands of <code>this</code> ribbon.
-     *
-     * @return All taskbar commands of <code>this</code> ribbon.
-     */
-    public synchronized List<Command> getTaskbarCommands() {
-        return Collections.unmodifiableList(this.taskbarCommands);
-    }
-
     public synchronized List<Component> getTaskbarComponents() {
         return Collections.unmodifiableList(this.taskbarComponents);
     }
@@ -758,5 +817,14 @@ public class JRibbon extends JComponent {
             throw new IllegalArgumentException("Can't hide ribbon on JRibbonFrame");
         }
         super.setVisible(flag);
+    }
+
+    public void setOnShowContextualMenuListener(
+            OnShowContextualMenuListener onShowContextualMenuListener) {
+        this.onShowContextualMenuListener = onShowContextualMenuListener;
+    }
+
+    public OnShowContextualMenuListener getOnShowContextualMenuListener() {
+        return this.onShowContextualMenuListener;
     }
 }

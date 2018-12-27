@@ -490,15 +490,6 @@ private class RibbonDemoBuilder {
 
         formBuilder.addLabel("Skin").xy(1, 5).add(SkinSwitcher.getSkinSwitcher()).xy(3, 5)
 
-        val taskbarEnabled = JCheckBox("enabled")
-        taskbarEnabled.isSelected = true
-        taskbarEnabled.addDelayedActionListener {
-            for (command in ribbon.taskbarCommands) {
-                command.isEnabled = taskbarEnabled.isSelected
-            }
-        }
-        formBuilder.add("Taskbar").xy(1, 7).add(taskbarEnabled).xy(3, 7)
-
         val toggleMinimize = JCheckBox("minimized")
         toggleMinimize.isSelected = false
         toggleMinimize.addDelayedActionListener {

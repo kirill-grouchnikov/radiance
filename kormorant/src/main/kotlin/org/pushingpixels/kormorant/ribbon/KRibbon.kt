@@ -194,8 +194,9 @@ class KRibbonFrame {
                                 .setPopupKeyTip(applicationMenu.keyTip)
                                 .build())
 
-        // TODO - collect command overlays (action + popup key tips)
-        //ribbonMenuCommandProjection.commandOverlays =
+        val overlays: MutableMap<Command, CommandButtonPresentationModel.Overlay> = hashMapOf()
+        applicationMenu.populateCommandOverlays(overlays)
+        ribbonMenuCommandProjection.commandOverlays = overlays
 
         ribbonFrame.ribbon.setApplicationMenuCommand(ribbonMenuCommandProjection)
 

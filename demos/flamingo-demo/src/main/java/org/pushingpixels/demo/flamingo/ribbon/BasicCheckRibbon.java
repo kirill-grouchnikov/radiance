@@ -547,11 +547,16 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setHorizontalAlignment(SwingConstants.LEADING)
                         .setPopupKeyTip("V").build());
         Map<Command, CommandButtonPresentationModel.Overlay> pasteOverlays = new HashMap<>();
-        pasteOverlays.put(this.popupCommand1, CommandButtonPresentationModel.overlay().setActionKeyTip("1"));
-        pasteOverlays.put(this.popupCommand2, CommandButtonPresentationModel.overlay().setActionKeyTip("2"));
-        pasteOverlays.put(this.popupCommand3, CommandButtonPresentationModel.overlay().setActionKeyTip("3"));
-        pasteOverlays.put(this.popupCommand4, CommandButtonPresentationModel.overlay().setActionKeyTip("4"));
-        pasteOverlays.put(this.popupCommand5, CommandButtonPresentationModel.overlay().setActionKeyTip("5"));
+        pasteOverlays.put(this.popupCommand1,
+                CommandButtonPresentationModel.overlay().setActionKeyTip("1"));
+        pasteOverlays.put(this.popupCommand2,
+                CommandButtonPresentationModel.overlay().setActionKeyTip("2"));
+        pasteOverlays.put(this.popupCommand3,
+                CommandButtonPresentationModel.overlay().setActionKeyTip("3"));
+        pasteOverlays.put(this.popupCommand4,
+                CommandButtonPresentationModel.overlay().setActionKeyTip("4"));
+        pasteOverlays.put(this.popupCommand5,
+                CommandButtonPresentationModel.overlay().setActionKeyTip("5"));
         pasteCommandProjection.setCommandOverlays(pasteOverlays);
 
         clipboardBand.addRibbonCommand(pasteCommandProjection,
@@ -1076,9 +1081,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     });
 
             Command ribbonCommand = Command.builder()
+                    .setText("Transition " + index)
                     .setIconFactory(iconFactory)
                     .setAction((CommandActionEvent e) ->
-                            System.out.println("Activated action " + index))
+                            System.out.println("Activated transition " + index))
                     .setToggle().build();
 
             transitionGalleryCommandsList.add(ribbonCommand);
@@ -1108,9 +1114,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     });
 
             Command ribbonCommand = Command.builder()
+                    .setText("Transition " + index)
                     .setIconFactory(iconFactory)
                     .setAction((CommandActionEvent e) ->
-                            System.out.println("Activated action " + index))
+                            System.out.println("Activated transition " + index))
                     .setToggle().build();
 
             transitionGalleryButtonsList2.add(ribbonCommand);
@@ -1555,7 +1562,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setAction((CommandActionEvent e) -> JOptionPane
                                 .showMessageDialog(BasicCheckRibbon.this, "Share button clicked"))
                         .build()
-                        .project(CommandButtonPresentationModel.builder().setActionKeyTip("GS").build()));
+                        .project(CommandButtonPresentationModel.builder().setActionKeyTip(
+                                "GS").build()));
 
         this.getRibbon()
                 .addAnchoredCommand(Command.builder()
@@ -1563,7 +1571,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setAction((CommandActionEvent e) -> JOptionPane
                                 .showMessageDialog(BasicCheckRibbon.this, "Chat button clicked"))
                         .build()
-                        .project(CommandButtonPresentationModel.builder().setActionKeyTip("GC").build()));
+                        .project(CommandButtonPresentationModel.builder().setActionKeyTip(
+                                "GC").build()));
 
         this.getRibbon().addAnchoredCommand(Command.builder()
                 .setIconFactory(Help_browser.factory())
@@ -1591,6 +1600,120 @@ public class BasicCheckRibbon extends JRibbonFrame {
         configureApplicationMenu();
 
         configureTaskBar();
+
+        this.getRibbon().setOnShowContextualMenuListener(
+                new JRibbon.OnShowContextualMenuListener() {
+                    private CommandMenuContentModel build(Command... commands) {
+                        CommandGroup commandGroup = new CommandGroup(commands);
+
+                        if (getRibbon().isMinimized()) {
+                            commandGroup.addCommand(Command.builder()
+                                    .setText(resourceBundle.getString("ContextMenu.showRibbon"))
+                                    .setAction((CommandActionEvent event) ->
+                                            getRibbon().setMinimized(false))
+                                    .build());
+                        } else {
+                            commandGroup.addCommand(Command.builder()
+                                    .setText(resourceBundle.getString("ContextMenu.hideRibbon"))
+                                    .setAction((CommandActionEvent event) ->
+                                            getRibbon().setMinimized(true))
+                                    .build());
+                        }
+                        commandGroup.addCommand(Command.builder()
+                                .setText(resourceBundle.getString("ContextMenu.configureRibbon"))
+                                .setAction((CommandActionEvent event) ->
+                                        JOptionPane.showMessageDialog(BasicCheckRibbon.this,
+                                                "Configure ribbon option selected"))
+                                .build());
+                        return new CommandMenuContentModel(commandGroup);
+                    }
+
+                    @Override
+                    public CommandMenuContentModel getContextualMenuContentModel(
+                            RibbonGalleryProjection galleryProjection) {
+                        Command galleryCommand;
+                        if (getRibbon().isShowingInTaskbar(galleryProjection.getContentModel())) {
+                            galleryCommand = Command.builder()
+                                    .setText(resourceBundle.getString(
+                                            "ContextMenu.removeFromTaskbar"))
+                                    .setAction((CommandActionEvent event) ->
+                                            getRibbon().removeTaskbarGallery(
+                                                    galleryProjection.getContentModel()))
+                                    .build();
+                        } else {
+                            RibbonGalleryPresentationModel presentationModel =
+                                    RibbonGalleryPresentationModel.builder()
+                                            .setPreferredPopupMaxCommandColumns(4)
+                                            .setPreferredPopupMaxVisibleCommandRows(2)
+                                            .setCommandPresentationState(JRibbonBand.BIG_FIXED)
+                                            .build();
+                            galleryCommand = Command.builder()
+                                    .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
+                                    .setAction((CommandActionEvent event) ->
+                                            getRibbon().addTaskbarGalleryDropdown(
+                                                    new RibbonGalleryProjection(
+                                                            galleryProjection.getContentModel(),
+                                                            presentationModel)))
+                                    .build();
+                        }
+
+                        return build(galleryCommand);
+                    }
+
+                    @Override
+                    public CommandMenuContentModel getContextualMenuContentModel(
+                            ComponentProjection<? extends JComponent, ?
+                                    extends ComponentContentModel> componentProjection) {
+                        Command componentCommand;
+                        if (getRibbon().isShowingInTaskbar(componentProjection.getContentModel())) {
+                            componentCommand = Command.builder()
+                                    .setText(resourceBundle.getString(
+                                            "ContextMenu.removeFromTaskbar"))
+                                    .setAction((CommandActionEvent event) ->
+                                            getRibbon().removeTaskbarComponent(
+                                                    componentProjection.getContentModel()))
+                                    .build();
+                        } else {
+                            componentCommand = Command.builder()
+                                    .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
+                                    .setAction((CommandActionEvent event) ->
+                                            getRibbon().addTaskbarComponent(componentProjection))
+                                    .build();
+                        }
+
+                        return build(componentCommand);
+                    }
+
+                    @Override
+                    public CommandMenuContentModel getContextualMenuContentModel(
+                            CommandButtonProjection<? extends Command> commandButtonProjection) {
+                        Command commandCommand;
+                        if (getRibbon().isShowingInTaskbar(
+                                commandButtonProjection.getContentModel())) {
+                            commandCommand = Command.builder()
+                                    .setText(resourceBundle.getString(
+                                            "ContextMenu.removeFromTaskbar"))
+                                    .setAction((CommandActionEvent event) ->
+                                            getRibbon().removeTaskbarCommand(
+                                                    commandButtonProjection.getContentModel()))
+                                    .build();
+                        } else {
+                            commandCommand = Command.builder()
+                                    .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
+                                    .setAction((CommandActionEvent event) ->
+                                            getRibbon().addTaskbarCommand(
+                                                    commandButtonProjection.getContentModel().project()))
+                                    .build();
+                        }
+
+                        return build(commandCommand);
+                    }
+
+                    @Override
+                    public CommandMenuContentModel getContextualMenuContentModel() {
+                        return build();
+                    }
+                });
 
         this.add(getControlPanel(), BorderLayout.EAST);
         this.add(rulerPanel = new RulerPanel(), BorderLayout.CENTER);
@@ -1644,7 +1767,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
     }
 
     protected void configureApplicationMenu() {
-        Map<Command, CommandButtonPresentationModel.Overlay> applicationMenuOverlays = new HashMap<>();
+        Map<Command, CommandButtonPresentationModel.Overlay> applicationMenuOverlays =
+                new HashMap<>();
         Map<Command, CommandButtonPresentationState> applicationMenuSecondaryStates =
                 new HashMap<>();
 
@@ -1677,7 +1801,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .build();
         applicationMenuSecondaryStates.put(amEntryNew,
                 CommandButtonPresentationState.MEDIUM);
-        applicationMenuOverlays.put(amEntryNew, CommandButtonPresentationModel.overlay().setActionKeyTip("N"));
+        applicationMenuOverlays.put(amEntryNew,
+                CommandButtonPresentationModel.overlay().setActionKeyTip("N"));
 
         // "Open" primary
         List<Command> historyCommands = new ArrayList<>();
@@ -1982,17 +2107,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 configureTaskBar();
             }
         }));
-        final JCheckBox taskbarEnabled = new JCheckBox("enabled");
-        taskbarEnabled.setSelected(true);
-        taskbarEnabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-            for (Command command : getRibbon().getTaskbarCommands()) {
-                command.setEnabled(taskbarEnabled.isSelected());
-            }
-        }));
         JPanel taskbarPanel = new JPanel();
         taskbarPanel.setLayout(new BorderLayout());
         taskbarPanel.add(taskbarFull, BorderLayout.LINE_START);
-        taskbarPanel.add(taskbarEnabled, BorderLayout.LINE_END);
         builder.add("Taskbar").xy(1, 9).add(taskbarPanel).xy(3, 9);
 
         JButton changeParagraph = new JButton("change");
@@ -2054,8 +2171,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setAction((CommandActionEvent e) -> System.out.println("-> Right"))
                 .build();
         Map<Command, CommandButtonPresentationModel.Overlay> indentOverlays = new HashMap<>();
-        indentOverlays.put(indentLeft, CommandButtonPresentationModel.overlay().setActionKeyTip("AO"));
-        indentOverlays.put(indentRight, CommandButtonPresentationModel.overlay().setActionKeyTip("AI"));
+        indentOverlays.put(indentLeft,
+                CommandButtonPresentationModel.overlay().setActionKeyTip("AO"));
+        indentOverlays.put(indentRight,
+                CommandButtonPresentationModel.overlay().setActionKeyTip("AI"));
 
         CommandStripProjection indentStripProjection = new CommandStripProjection(
                 new CommandGroup(indentLeft, indentRight),
@@ -2119,9 +2238,12 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         Map<Command, CommandButtonPresentationModel.Overlay> styleOverlays = new HashMap<>();
         styleOverlays.put(styleBold, CommandButtonPresentationModel.overlay().setActionKeyTip("1"));
-        styleOverlays.put(styleItalic, CommandButtonPresentationModel.overlay().setActionKeyTip("2"));
-        styleOverlays.put(styleUnderline, CommandButtonPresentationModel.overlay().setActionKeyTip("3"));
-        styleOverlays.put(styleStrikethrough, CommandButtonPresentationModel.overlay().setActionKeyTip("4"));
+        styleOverlays.put(styleItalic,
+                CommandButtonPresentationModel.overlay().setActionKeyTip("2"));
+        styleOverlays.put(styleUnderline,
+                CommandButtonPresentationModel.overlay().setActionKeyTip("3"));
+        styleOverlays.put(styleStrikethrough,
+                CommandButtonPresentationModel.overlay().setActionKeyTip("4"));
 
         CommandStripProjection styleStripProjection = new CommandStripProjection(
                 new CommandGroup(styleBold, styleItalic, styleUnderline,
