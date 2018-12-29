@@ -59,7 +59,7 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
                 OptionPaneLabel.class);
     }
 
-    private static final int ICON_SIZE = 20;
+    private static final int ICON_SIZE = 36;
 
     /**
      * Label extension class. Due to defect 250, the option pane icon animation (glowing icon)
@@ -107,6 +107,7 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
 
         if (sideIcon != null) {
             this.substanceIconLabel = new OptionPaneLabel();
+            this.substanceIconLabel.setOpaque(false);
             this.iconGlowTracker = new IconGlowTracker(substanceIconLabel);
             GlowingIcon glowingIcon = new GlowingIcon(sideIcon, this.iconGlowTracker);
             glowingIcon.setDampeningFactor(10.0f);
@@ -122,7 +123,7 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
     @Override
     protected Icon getIconForType(int messageType) {
         SubstanceIconPack iconPack = SubstanceCortex.GlobalScope.getIconPack();
-        int size = (int) (ICON_SIZE * NeonCortex.getScaleFactor());
+        int size = ICON_SIZE;
         switch (messageType) {
         case JOptionPane.ERROR_MESSAGE:
             return iconPack.getOptionPaneErrorIcon(size, new SunsetColorScheme());
