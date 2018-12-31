@@ -63,11 +63,15 @@ public class ThreadListPanel extends PanelWithRightLine {
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
         Color mainSelectorIconColor = fillScheme.getForegroundColor();
 
-        this.add(getTitlePanel(
-                ic_mode_edit_black_24px.of(14, 14).colorize(mainSelectorIconColor, 0.8f)));
-        this.add(getInboxLabel("Inbox",
-                ic_mail_outline_black_24px.of(12, 12).colorize(mainSelectorIconColor),
-                fillScheme.getLightColor()));
+        NeonIcon editIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_mode_edit_black_24px.factory(), mainSelectorIconColor, 0.8f);
+        editIcon.setDimension(new Dimension(14, 14));
+        this.add(getTitlePanel(editIcon));
+
+        NeonIcon mailIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_mail_outline_black_24px.factory(), mainSelectorIconColor);
+        mailIcon.setDimension(new Dimension(12, 12));
+        this.add(getInboxLabel("Inbox", mailIcon, fillScheme.getLightColor()));
 
         JList<ThreadInfo> threadList = new JList<>(new ThreadListModel(
                 new ThreadInfo("Bob Macpearson", "5:50pm", "Welcome Natalie",

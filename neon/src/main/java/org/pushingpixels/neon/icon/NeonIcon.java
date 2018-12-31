@@ -30,8 +30,6 @@
 package org.pushingpixels.neon.icon;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.internal.ColorFilter;
-import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,19 +46,10 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
     private final double factor;
     private final boolean isHiDpiAwareSource;
 
-    private BufferedImage imageSource;
     private ResizableIcon iconSource;
 
     private int width;
     private int height;
-
-    public NeonIcon(BufferedImage image) {
-        this.imageSource = image;
-        this.factor = NeonCortex.getScaleFactor();
-        this.isHiDpiAwareSource = image instanceof JBHiDPIScaledImage;
-        this.width = getInternalWidth();
-        this.height = getInternalHeight();
-    }
 
     public NeonIcon(ResizableIcon icon) {
         if (icon instanceof NeonIcon) {
@@ -99,24 +88,13 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
         g2d.translate(x + dx, y + dy);
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        if (this.imageSource != null) {
-            g2d.drawImage(this.imageSource, 0, 0, (int) (this.imageSource.getWidth() / this.factor),
-                    (int) (this.imageSource.getHeight() / this.factor), null);
-        } else if (this.iconSource != null) {
-            this.iconSource.paintIcon(c, g2d, 0, 0);
-        }
+        this.iconSource.paintIcon(c, g2d, 0, 0);
         g2d.dispose();
     }
 
     private int getInternalWidth() {
-        if (this.imageSource != null) {
-            return (int) (this.imageSource.getWidth() / this.factor);
-        }
-        if (this.iconSource != null) {
-            return (int) (this.iconSource.getIconWidth()
-                    / (this.isHiDpiAwareSource ? 1 : this.factor));
-        }
-        return 0;
+        return (int) (this.iconSource.getIconWidth()
+                / (this.isHiDpiAwareSource ? 1 : this.factor));
     }
 
     @Override
@@ -125,14 +103,8 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
     }
 
     private int getInternalHeight() {
-        if (this.imageSource != null) {
-            return (int) (this.imageSource.getHeight() / this.factor);
-        }
-        if (this.iconSource != null) {
-            return (int) (this.iconSource.getIconHeight()
-                    / (this.isHiDpiAwareSource ? 1 : this.factor));
-        }
-        return 0;
+        return (int) (this.iconSource.getIconHeight()
+                / (this.isHiDpiAwareSource ? 1 : this.factor));
     }
 
     @Override
@@ -145,13 +117,5 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
                 this.getIconHeight());
         this.paintIcon(null, result.getGraphics(), 0, 0);
         return result;
-    }
-
-    public NeonIcon colorize(Color color) {
-        return new NeonIcon(new ColorFilter(color).filter(this.toImage(), null));
-    }
-
-    public NeonIcon colorize(Color color, float alpha) {
-        return colorize(new Color(color.getRed(), color.getGreen(), color.getBlue(), (int) (alpha * 255)));
     }
 }

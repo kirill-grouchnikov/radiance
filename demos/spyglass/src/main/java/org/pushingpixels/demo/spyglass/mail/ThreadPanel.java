@@ -31,6 +31,7 @@ package org.pushingpixels.demo.spyglass.mail;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.*;
+import org.pushingpixels.neon.icon.NeonIcon;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -81,11 +82,30 @@ public class ThreadPanel extends JPanel {
         JPanel result = new JPanel(new FlowLayout(FlowLayout.LEADING, 24, 0));
         result.setBorder(new EmptyBorder(14, 4, 14, 4));
 
-        result.add(new JLabel(ic_close_black_24px.of(16, 16).colorize(iconColor, 0.8f)));
-        result.add(new JLabel(ic_view_list_black_24px.of(16, 16).colorize(iconColor, 0.8f)));
-        result.add(new JLabel(ic_access_alarm_black_24px.of(16, 16).colorize(iconColor, 0.8f)));
-        result.add(new JLabel(ic_archive_black_24px.of(16, 16).colorize(iconColor, 0.8f)));
-        result.add(new JLabel(ic_delete_black_24px.of(16, 16).colorize(iconColor, 0.8f)));
+        NeonIcon closeIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_close_black_24px.factory(), iconColor, 0.8f);
+        closeIcon.setDimension(new Dimension(16, 16));
+        result.add(new JLabel(closeIcon));
+
+        NeonIcon listIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_view_list_black_24px.factory(), iconColor, 0.8f);
+        listIcon.setDimension(new Dimension(16, 16));
+        result.add(new JLabel(listIcon));
+
+        NeonIcon alarmIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_access_alarm_black_24px.factory(), iconColor, 0.8f);
+        alarmIcon.setDimension(new Dimension(16, 16));
+        result.add(new JLabel(alarmIcon));
+
+        NeonIcon archiveIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_archive_black_24px.factory(), iconColor, 0.8f);
+        archiveIcon.setDimension(new Dimension(16, 16));
+        result.add(new JLabel(archiveIcon));
+
+        NeonIcon deleteIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_delete_black_24px.factory(), iconColor, 0.8f);
+        deleteIcon.setDimension(new Dimension(16, 16));
+        result.add(new JLabel(deleteIcon));
 
         result.setBackground(backgroundColor);
 
@@ -154,9 +174,15 @@ public class ThreadPanel extends JPanel {
         dateLabel.setFont(baseFont.deriveFont(baseFont.getSize() - 2.0f));
         firstRow.add(dateLabel).xy(3, 1);
 
-        firstRow.add(new JLabel(ic_reply_black_24px.of(14, 14).colorize(iconColor, 0.8f))).xy(5, 1);
-        firstRow.add(new JLabel(ic_more_horiz_black_24px.of(14, 14).colorize(iconColor, 0.8f))).
-                xy(7, 1);
+        NeonIcon replyIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_reply_black_24px.factory(), iconColor, 0.8f);
+        replyIcon.setDimension(new Dimension(14, 14));
+        firstRow.add(new JLabel(replyIcon)).xy(5, 1);
+
+        NeonIcon moreIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_more_horiz_black_24px.factory(), iconColor, 0.8f);
+        moreIcon.setDimension(new Dimension(14, 14));
+        firstRow.add(new JLabel(moreIcon)).xy(7, 1);
 
         JLabel toLabel = new JLabel("To: " + to);
         toLabel.setBorder(new EmptyBorder(0, 16, 24, 16));
@@ -168,8 +194,10 @@ public class ThreadPanel extends JPanel {
         messagePane.setText(message);
 
         Color historyColor = new Color(32, 96, 148);
-        JLabel historyLabel = new JLabel("Show History",
-                ic_history_black_24px.of(12, 12).colorize(historyColor), JLabel.LEADING);
+        NeonIcon historyIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_history_black_24px.factory(), historyColor);
+        historyIcon.setDimension(new Dimension(12, 12));
+        JLabel historyLabel = new JLabel("Show History", historyIcon, JLabel.LEADING);
         historyLabel.setBorder(new EmptyBorder(24, 16, 16, 16));
         historyLabel.setForeground(historyColor);
         SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(historyLabel, 1.0);
@@ -195,10 +223,16 @@ public class ThreadPanel extends JPanel {
         JPanel result = new JPanel(new FlowLayout(FlowLayout.TRAILING, 8, 0));
         result.setBorder(new EmptyBorder(16, 24, 16, 0));
 
-        JButton reply = new JButton("Reply",
-                ic_reply_black_24px.of(14, 14).colorize(iconColor, 0.8f));
-        JButton forward = new JButton("Forward",
-                ic_forward_black_24px.of(14, 14).colorize(iconColor, 0.8f));
+        NeonIcon replyIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_reply_black_24px.factory(), iconColor, 0.8f);
+        replyIcon.setDimension(new Dimension(14, 14));
+        JButton reply = new JButton("Reply", replyIcon);
+
+        NeonIcon forwardIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_forward_black_24px.factory(), iconColor, 0.8f);
+        forwardIcon.setDimension(new Dimension(14, 14));
+        JButton forward = new JButton("Forward", forwardIcon);
+
         // Mark the button panel to be flat - effectively marking both action buttons as flat
         SubstanceCortex.ComponentOrParentScope.setFlatBackground(result, true);
 

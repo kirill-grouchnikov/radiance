@@ -67,30 +67,46 @@ public class DestinationsPanel extends PanelWithRightLine {
                         ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)
                 .getForegroundColor();
 
-        this.add(getRefreshAction(window,
-                ic_refresh_black_24px.of(12, 12).colorize(mainSelectorIconTitleColor)));
+        NeonIcon refreshIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_refresh_black_24px.factory(), mainSelectorIconTitleColor);
+        refreshIcon.setDimension(new Dimension(12, 12));
+        this.add(getRefreshAction(window, refreshIcon));
         this.add(getMainLabel("MAIL"));
 
-        HighlightablePanel inboxSelector = getSelectorDestinationRow(
-                ic_inbox_black_24px.of(16, 16).colorize(mainSelectorIconColor), "Inbox", 6);
+        NeonIcon inboxIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_inbox_black_24px.factory(), mainSelectorIconTitleColor);
+        inboxIcon.setDimension(new Dimension(16, 16));
+        HighlightablePanel inboxSelector = getSelectorDestinationRow(inboxIcon, "Inbox", 6);
         // Emulate selected state for this row. In the real app this will probably be a
         // combination of highlights built into the JList renderers + highlight color schemes
         // configured on the application skin.
         inboxSelector.setSelected();
         this.add(inboxSelector);
 
-        this.add(getSelectorDestinationRow(
-                ic_send_black_24px.of(16, 16).colorize(mainSelectorIconColor), "Sent", 3));
-        this.add(getSelectorDestinationRow(
-                ic_watch_later_black_24px.of(16, 16).colorize(mainSelectorIconColor), "Send later",
-                5));
-        this.add(getSelectorDestinationRow(
-                ic_drafts_black_24px.of(16, 16).colorize(mainSelectorIconColor), "Drafts", -1));
-        this.add(getSelectorDestinationRow(
-                ic_star_border_black_24px.of(16, 16).colorize(mainSelectorIconColor), "Starred",
-                -1));
-        this.add(getSelectorDestinationRow(
-                ic_delete_black_24px.of(16, 16).colorize(mainSelectorIconColor), "Trash", -1));
+        NeonIcon sendIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_send_black_24px.factory(), mainSelectorIconTitleColor);
+        sendIcon.setDimension(new Dimension(16, 16));
+        this.add(getSelectorDestinationRow(sendIcon, "Sent", 3));
+
+        NeonIcon laterIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_watch_later_black_24px.factory(), mainSelectorIconTitleColor);
+        laterIcon.setDimension(new Dimension(16, 16));
+        this.add(getSelectorDestinationRow(laterIcon, "Send later", 5));
+
+        NeonIcon draftsIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_drafts_black_24px.factory(), mainSelectorIconTitleColor);
+        draftsIcon.setDimension(new Dimension(16, 16));
+        this.add(getSelectorDestinationRow(draftsIcon, "Drafts", -1));
+
+        NeonIcon starIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_star_border_black_24px.factory(), mainSelectorIconTitleColor);
+        starIcon.setDimension(new Dimension(16, 16));
+        this.add(getSelectorDestinationRow(starIcon, "Starred", -1));
+
+        NeonIcon deleteIcon = SubstanceCortex.GlobalScope.colorize(
+                ic_delete_black_24px.factory(), mainSelectorIconTitleColor);
+        deleteIcon.setDimension(new Dimension(16, 16));
+        this.add(getSelectorDestinationRow(deleteIcon, "Trash", -1));
 
         this.setPreferredSize(new Dimension(200, 0));
     }

@@ -29,18 +29,22 @@
  */
 package org.pushingpixels.demo.flamingo.svg.logo;
 
-import org.pushingpixels.neon.icon.NeonIcon;
+import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class RadianceLogo {
     public static NeonIcon getLogoIcon(SubstanceColorScheme scheme) {
-        // Step 1 - create a new instance of the transcoded Radiance logo with
-        // base size of 16x16
-        NeonIcon neonIcon = radiance_menu.of(16, 16);
-        // Step 2 - return the colorized version of the icon
-        return neonIcon.colorize(scheme.getForegroundColor());
+        // Step 1 - create a colorized version of the transcoded Radiance logo
+        ResizableIcon base = SubstanceCortex.GlobalScope.colorize(radiance_menu.factory(),
+                scheme.getForegroundColor());
+        // Step 2 - configure the colorized version to be 16x16
+        base.setDimension(new Dimension(16, 16));
+        // Step 3 - wrap in NeonIcon and return
+        return new NeonIcon(base);
     }
 
     public static BufferedImage getLogoImage(SubstanceColorScheme scheme) {

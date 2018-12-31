@@ -37,7 +37,6 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -108,7 +107,7 @@ public class TestCommandButtons extends JFrame {
                 .setText(resourceBundle.getString("Paste.text"))
                 .setIconFactory(Edit_paste.factory())
                 .setDisabledIconFactory(
-                        () -> SubstanceCortex.GlobalScope.colorize(Edit_paste.of(16, 16),
+                        () -> SubstanceCortex.GlobalScope.colorizeAsUiResource(Edit_paste.factory(),
                                 SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(null,
                                         ComponentState.DISABLED_UNSELECTED)))
                 .setExtraText(resourceBundle.getString("Paste.textExtra"))

@@ -30,7 +30,7 @@
 package org.pushingpixels.neon.icon;
 
 /**
- * Interface for icons that have resizability behaviour.
+ * Interface for creating icons that have resizability behaviour.
  * 
  * @author Kirill Grouchnikov
  */

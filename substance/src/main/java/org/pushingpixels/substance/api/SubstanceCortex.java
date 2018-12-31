@@ -29,9 +29,10 @@
  */
 package org.pushingpixels.substance.api;
 
-import org.pushingpixels.neon.*;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.font.*;
 import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.internal.ColorFilter;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
@@ -1352,19 +1353,131 @@ public class SubstanceCortex {
             return SubstanceCoreUtilities.getBlankImage(width, height);
         }
 
-        public static NeonIconUIResource colorize(Icon source, SubstanceColorScheme colorScheme) {
-            float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
-            return new NeonIconUIResource(
-                    SubstanceImageCreator.getColorSchemeImage(null, source, colorScheme,
-                            brightnessFactor));
+        private interface ResizableHiDpiAwareIcon extends ResizableIcon,
+                IsHiDpiAware {
         }
 
-        public static NeonIconUIResource colorize(Icon source, SubstanceColorScheme colorScheme,
-                float brightnessFactor) {
-            return new NeonIconUIResource(
-                    SubstanceImageCreator.getColorSchemeImage(null, source, colorScheme,
-                            brightnessFactor));
+        public static ResizableIcon colorizeIcon(ResizableIconFactory sourceFactory,
+                SubstanceColorScheme colorScheme, float brightnessFactor) {
+            return new ResizableHiDpiAwareIcon() {
+                private int width;
+                private int height;
+                private BufferedImage colorized;
+
+                @Override
+                public boolean isHiDpiAware() {
+                    return true;
+                }
+
+                @Override
+                public void setDimension(Dimension newDimension) {
+                    ResizableIcon original = sourceFactory.createNewIcon();
+                    original.setDimension(newDimension);
+                    this.colorized = SubstanceImageCreator.getColorSchemeImage(null,
+                            original, colorScheme, brightnessFactor);
+                    this.width = newDimension.width;
+                    this.height = newDimension.height;
+                }
+
+                @Override
+                public void paintIcon(Component c, Graphics g, int x, int y) {
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.translate(x, y);
+                    NeonCortex.drawImage(g2d, this.colorized, x, y);
+                    g2d.dispose();
+                }
+
+                @Override
+                public int getIconWidth() {
+                    return this.width;
+                }
+
+                @Override
+                public int getIconHeight() {
+                    return this.height;
+                }
+            };
         }
+
+        public static NeonIconUIResource colorizeAsUiResource(ResizableIconFactory sourceFactory,
+                SubstanceColorScheme colorScheme, float brightnessFactor) {
+            return new NeonIconUIResource(colorizeIcon(sourceFactory, colorScheme,
+                    brightnessFactor));
+        }
+
+        public static NeonIconUIResource colorizeAsUiResource(ResizableIconFactory sourceFactory,
+                SubstanceColorScheme colorScheme) {
+            float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
+            return colorizeAsUiResource(sourceFactory, colorScheme, brightnessFactor);
+        }
+
+        public static ResizableIcon colorizeIcon(ResizableIconFactory sourceFactory,
+                Color color) {
+            return new ResizableHiDpiAwareIcon() {
+                private int width;
+                private int height;
+                private BufferedImage colorized;
+
+                @Override
+                public boolean isHiDpiAware() {
+                    return true;
+                }
+
+                @Override
+                public void setDimension(Dimension newDimension) {
+                    ResizableIcon original = sourceFactory.createNewIcon();
+                    original.setDimension(newDimension);
+                    BufferedImage flat = NeonCortex.getBlankImage(newDimension.width,
+                            newDimension.height);
+                    original.paintIcon(null, flat.getGraphics(), 0, 0);
+                    this.colorized = new ColorFilter(color).filter(flat, null);
+
+                    this.width = newDimension.width;
+                    this.height = newDimension.height;
+                }
+
+                @Override
+                public void paintIcon(Component c, Graphics g, int x, int y) {
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.translate(x, y);
+                    NeonCortex.drawImage(g2d, this.colorized, x, y);
+                    g2d.dispose();
+                }
+
+                @Override
+                public int getIconWidth() {
+                    return this.width;
+                }
+
+                @Override
+                public int getIconHeight() {
+                    return this.height;
+                }
+            };
+        }
+
+        public static NeonIcon colorize(ResizableIconFactory sourceFactory,
+                Color color) {
+            return new NeonIcon(colorizeIcon(sourceFactory, color));
+        }
+
+        public static NeonIcon colorize(ResizableIconFactory sourceFactory,
+                Color color, float alpha) {
+            return colorize(sourceFactory, new Color(color.getRed(), color.getGreen(),
+                    color.getBlue(), (int) (alpha * 255)));
+        }
+
+        public static NeonIconUIResource colorizeAsUiResource(ResizableIconFactory sourceFactory,
+                Color color) {
+            return new NeonIconUIResource(colorizeIcon(sourceFactory, color));
+        }
+
+        public static NeonIconUIResource colorizeAsUiResource(ResizableIconFactory sourceFactory,
+                Color color, float alpha) {
+            return colorizeAsUiResource(sourceFactory, new Color(color.getRed(), color.getGreen(),
+                    color.getBlue(), (int) (alpha * 255)));
+        }
+
         public static void setUseDefaultColorChooser() {
             UIManager.put(SubstanceSynapse.USE_DEFAULT_COLOR_CHOOSER, Boolean.TRUE);
         }

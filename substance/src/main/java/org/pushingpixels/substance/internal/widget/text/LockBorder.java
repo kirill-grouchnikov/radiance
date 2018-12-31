@@ -30,13 +30,11 @@
 package org.pushingpixels.substance.internal.widget.text;
 
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
+import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.border.BorderWrapper;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 

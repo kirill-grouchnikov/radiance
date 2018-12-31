@@ -30,7 +30,6 @@
 package org.pushingpixels.neon.icon;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.internal.ColorFilter;
 import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
 
 import javax.swing.*;
@@ -148,13 +147,4 @@ public class NeonIconUIResource implements ResizableIcon, IsHiDpiAware, UIResour
         this.paintIcon(null, result.getGraphics(), 0, 0);
         return result;
     }
-
-    public NeonIconUIResource colorize(Color color) {
-        return new NeonIconUIResource(new ColorFilter(color).filter(this.toImage(), null));
-    }
-
-    public NeonIconUIResource colorize(Color color, float alpha) {
-        return colorize(new Color(color.getRed(), color.getGreen(), color.getBlue(), (int) (alpha * 255)));
-    }
-
 }
