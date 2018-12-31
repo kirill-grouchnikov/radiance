@@ -36,24 +36,6 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu
 import org.pushingpixels.kormorant.*
 
 @FlamingoElementMarker
-class KRibbonApplicationMenuCommandContainer {
-    var title: String? by NullableDelegate { false }
-    internal val commands = arrayListOf<KCommand>()
-
-    operator fun KCommand.unaryPlus() {
-        this@KRibbonApplicationMenuCommandContainer.commands.add(this)
-    }
-
-    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
-            init: KCommand.() -> Unit): KCommand {
-        val command = KCommand()
-        command.init()
-        commands.add(command)
-        return command
-    }
-}
-
-@FlamingoElementMarker
 class KRibbonApplicationMenu {
     private lateinit var ribbonApplicationMenu: RibbonApplicationMenu
     private var hasBeenConverted: Boolean = false
@@ -61,7 +43,7 @@ class KRibbonApplicationMenu {
     var title: String by NonNullDelegate { hasBeenConverted }
     private var richTooltip: KRichTooltip? by NullableDelegate { hasBeenConverted }
     var keyTip: String? by NullableDelegate { hasBeenConverted }
-    private val footerCommands = KRibbonApplicationMenuCommandContainer()
+    private val footerCommands = KCommandGroup()
     private val groups = arrayListOf<KCommandGroup>()
     private val defaultGroup = KCommandGroup()
 
@@ -87,7 +69,7 @@ class KRibbonApplicationMenu {
         return group
     }
 
-    fun footer(init: KRibbonApplicationMenuCommandContainer.() -> Unit) {
+    fun footer(init: KCommandGroup.() -> Unit) {
         footerCommands.init()
     }
 
@@ -106,7 +88,7 @@ class KRibbonApplicationMenu {
         }
 
         for (footerCommand in footerCommands.commands) {
-            ribbonApplicationMenu.addFooterCommand(footerCommand.asJavaCommand())
+            ribbonApplicationMenu.addFooterCommand(footerCommand.command.asJavaCommand())
         }
         hasBeenConverted = true
         return ribbonApplicationMenu
@@ -122,6 +104,14 @@ class KRibbonApplicationMenu {
                                     .setPopupKeyTip(commandConfig.secondaryKeyTip)
                     commandConfig.command.populateCommandOverlays(overlays)
                 }
+            }
+        }
+        for (footerCommand in footerCommands.commands) {
+            if ((footerCommand.actionKeyTip != null) || (footerCommand.secondaryKeyTip != null)) {
+                overlays[footerCommand.command.asJavaCommand()] =
+                        CommandButtonPresentationModel.overlay()
+                                .setActionKeyTip(footerCommand.actionKeyTip)
+                                .setPopupKeyTip(footerCommand.secondaryKeyTip)
             }
         }
     }

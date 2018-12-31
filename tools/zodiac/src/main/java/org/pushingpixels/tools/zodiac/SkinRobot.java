@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.tools.zodiac;
 
-import org.fest.swing.core.*;
 import org.fest.swing.core.Robot;
+import org.fest.swing.core.*;
 import org.fest.swing.edt.*;
 import org.fest.swing.timing.Pause;
 import org.pushingpixels.demo.substance.main.check.SampleFrame;
@@ -101,11 +101,12 @@ public abstract class SkinRobot {
             protected void executeInEDT() throws Throwable {
                 sf = new SampleFrame();
                 sf.setIconImage(
-                        RadianceLogo.INSTANCE.getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(
-                                sf.getRootPane()).getColorScheme(
-                                DecorationAreaType.PRIMARY_TITLE_PANE,
-                                SubstanceSlices.ColorSchemeAssociationKind.FILL,
-                                ComponentState.ENABLED)));
+                        RadianceLogo.INSTANCE.getLogoImage(
+                                SubstanceCortex.ComponentScope.getCurrentSkin(
+                                        sf.getRootPane()).getColorScheme(
+                                        DecorationAreaType.PRIMARY_TITLE_PANE,
+                                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                                        ComponentState.ENABLED)));
                 sf.setSize(340, 254);
                 sf.setLocationRelativeTo(null);
                 sf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

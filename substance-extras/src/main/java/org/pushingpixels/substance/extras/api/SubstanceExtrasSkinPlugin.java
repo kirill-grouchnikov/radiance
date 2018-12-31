@@ -33,13 +33,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.pushingpixels.substance.api.SubstanceSkinPlugin;
-import org.pushingpixels.substance.api.skin.SkinInfo;
-import org.pushingpixels.substance.extras.api.skinpack.FieldOfWheatSkin;
-import org.pushingpixels.substance.extras.api.skinpack.FindingNemoSkin;
-import org.pushingpixels.substance.extras.api.skinpack.GreenMagicSkin;
-import org.pushingpixels.substance.extras.api.skinpack.MagmaSkin;
-import org.pushingpixels.substance.extras.api.skinpack.MangoSkin;
-import org.pushingpixels.substance.extras.api.skinpack.StreetlightsSkin;
+import org.pushingpixels.substance.api.skin.*;
+import org.pushingpixels.substance.extras.api.skinpack.*;
 
 /**
  * Core plugin for skins. See
@@ -75,6 +70,9 @@ public class SubstanceExtrasSkinPlugin implements SubstanceSkinPlugin {
         result.add(create(MangoSkin.NAME, MangoSkin.class, false));
         result.add(create(MagmaSkin.NAME, MagmaSkin.class, false));
         result.add(create(StreetlightsSkin.NAME, StreetlightsSkin.class, false));
+        result.add(create(OfficeBlack2007Skin.NAME, OfficeBlack2007Skin.class, false));
+        result.add(create(OfficeBlue2007Skin.NAME, OfficeBlue2007Skin.class, false));
+        result.add(create(OfficeSilver2007Skin.NAME, OfficeSilver2007Skin.class, false));
         return result;
     }
 }

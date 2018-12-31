@@ -222,42 +222,45 @@ Available in the `org.pushingpixels.substance.api.skin.CeruleanSkin`. In additio
 <img alt="Cerulean" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/cerulean1.png" width="340" height="254">
 <img alt="Cerulean" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/cerulean2.png" width="340" height="254">
 
-## Skins for use with [Flamingo ribbon component](../../flamingo/flamingo.md)
+## Skins originally designed for the [Flamingo ribbon component](../../flamingo/flamingo.md)
 
-Note that while these three skins can be used in regular Swing applications as any other Substance skin, the primary use case is to be used with the Flamingo ribbon component.
+Note that while these skins can be used in regular Swing applications as any other Substance skin. Since version 2.0 of Radiance, these skins are part of the extras pack.
 
 ### Office Silver 2007
 
-Available in the `org.pushingpixels.substance.api.skin.OfficeSilver2007Skin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceOfficeSilver2007LookAndFeel` can be used with one of the following options:
+Available in the `org.pushingpixels.substance.extras.api.skinpack.OfficeSilver2007Skin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeSilver2007LookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new OfficeSilver2007Skin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.OfficeSilver2007Skin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceOfficeSilver2007LookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.extras.api.skinpack.OfficeSilver2007Skin")`
+* `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeSilver2007LookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceOfficeSilver2007LookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceOfficeSilver2007LookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeSilver2007LookAndFeel");`
 
-<img alt="OfficeSilver2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/ribbon/officesilver2007.png" width="680" height="210">
+<img alt="Office Silver 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance-extras/skins/officesilver20071.png" width="340" height="254">
+<img alt="Office Silver 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance-extras/skins/officesilver20072.png" width="340" height="254">
 
 ### Office Blue 2007
 
-Available in the `org.pushingpixels.substance.api.skin.OfficeBlue2007Skin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceOfficeBlue2007LookAndFeel` can be used with one of the following options:
+Available in the `org.pushingpixels.substance.extras.api.skinpack.OfficeBlue2007Skin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlue2007LookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.OfficeBlue2007Skin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceOfficeBlue2007LookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.extras.api.skinpack.OfficeBlue2007Skin")`
+* `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlue2007LookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceOfficeBlue2007LookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceOfficeBlue2007LookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlue2007LookAndFeel");`
 
-<img alt="OfficeBlue2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/ribbon/officeblue2007.png" width="680" height="210">
+<img alt="Office Blue 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance-extras/skins/officeblue20071.png" width="340" height="254">
+<img alt="Office Blue 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance-extras/skins/officeblue20072.png" width="340" height="254">
 
 ### Office Black 2007
 
-Available in the `org.pushingpixels.substance.api.skin.OfficeBlack2007Skin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceOfficeBlack2007LookAndFeel` can be used with one of the following options:
+Available in the `org.pushingpixels.substance.extras.api.skinpack.OfficeBlack2007Skin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlack2007LookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new OfficeBlack2007Skin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.OfficeBlack2007Skin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceOfficeBlack2007LookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.extras.api.skinpack.OfficeBlack2007Skin")`
+* `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlack2007LookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceOfficeBlack2007LookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceOfficeBlack2007LookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlack2007LookAndFeel");`
 
-<img alt="OfficeBlue2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/ribbon/officeblack2007.png" width="680" height="210">
+<img alt="Office Black 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance-extras/skins/officeblack20071.png" width="340" height="254">
+<img alt="Office Black 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance-extras/skins/officeblack20072.png" width="340" height="254">

@@ -27,29 +27,28 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.substance.api.skin;
+package org.pushingpixels.substance.extras.api.skinpack;
 
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
 /**
- * Standalone look-and-feel that uses the <code>Office Black 2007</code> skin
- * from {@link OfficeBlack2007Skin}. You can set this look-and-feel by:
+ * Standalone look-and-feel that uses the <code>Office Blue 2007</code> skin
+ * from {@link OfficeBlue2007Skin}. You can set this look-and-feel by:
  * <ul>
  * <li>-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.
- * SubstanceOfficeBlack2007LookAndFeel</li>
+ * SubstanceOfficeBlue2007LookAndFeel</li>
  * <li>UIManager.setLookAndFeel(
- * "org.pushingpixels.substance.api.skin.SubstanceOfficeBlack2007LookAndFeel" );
- * </li>
- * <li>UIManager.setLookAndFeel(new SubstanceOfficeBlack2007LookAndFeel());</li>
+ * "org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlue2007LookAndFeel" );</li>
+ * <li>UIManager.setLookAndFeel(new SubstanceOfficeBlue2007LookAndFeel());</li>
  * </ul>
  * 
  * @author Kirill Grouchnikov
  */
-public class SubstanceOfficeBlack2007LookAndFeel extends SubstanceLookAndFeel {
+public class SubstanceOfficeBlue2007LookAndFeel extends SubstanceLookAndFeel {
 	/**
-	 * Creates a new <code>Office Black 2007</code> look-and-feel.
+	 * Creates a new <code>Office Blue 2007</code> look-and-feel.
 	 */
-	public SubstanceOfficeBlack2007LookAndFeel() {
-		super(new OfficeBlack2007Skin());
+	public SubstanceOfficeBlue2007LookAndFeel() {
+		super(new OfficeBlue2007Skin());
 	}
 }

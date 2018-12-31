@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.substance.api.skin;
+package org.pushingpixels.substance.extras.api.skinpack;
 
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
@@ -38,7 +38,7 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
  * <li>-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.
  * SubstanceOfficeSilver2007LookAndFeel</li>
  * <li>UIManager.setLookAndFeel(
- * "org.pushingpixels.substance.api.skin.SubstanceOfficeSilver2007LookAndFeel" );</li>
+ * "org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeSilver2007LookAndFeel" );</li>
  * <li>UIManager.setLookAndFeel(new SubstanceOfficeSilver2007LookAndFeel());</li>
  * </ul>
  * 

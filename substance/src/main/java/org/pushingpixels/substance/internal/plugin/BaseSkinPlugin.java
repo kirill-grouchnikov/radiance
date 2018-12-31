@@ -67,9 +67,6 @@ public class BaseSkinPlugin implements SubstanceSkinPlugin {
         result.add(create(CremeSkin.NAME, CremeSkin.class, false));
         result.add(create(ModerateSkin.NAME, ModerateSkin.class, false));
         result.add(create(SaharaSkin.NAME, SaharaSkin.class, false));
-        result.add(create(OfficeBlack2007Skin.NAME, OfficeBlack2007Skin.class, false));
-        result.add(create(OfficeBlue2007Skin.NAME, OfficeBlue2007Skin.class, false));
-        result.add(create(OfficeSilver2007Skin.NAME, OfficeSilver2007Skin.class, false));
         result.add(create(RavenSkin.NAME, RavenSkin.class, false));
         result.add(create(GraphiteSkin.NAME, GraphiteSkin.class, false));
         result.add(create(GraphiteGlassSkin.NAME, GraphiteGlassSkin.class, false));

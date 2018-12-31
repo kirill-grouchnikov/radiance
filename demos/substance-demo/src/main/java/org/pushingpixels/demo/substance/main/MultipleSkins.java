@@ -55,7 +55,7 @@ import org.pushingpixels.substance.api.skin.MistAquaSkin;
 import org.pushingpixels.substance.api.skin.ModerateSkin;
 import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
 import org.pushingpixels.substance.api.skin.NebulaSkin;
-import org.pushingpixels.substance.api.skin.OfficeSilver2007Skin;
+import org.pushingpixels.substance.extras.api.skinpack.OfficeSilver2007Skin;
 import org.pushingpixels.substance.api.skin.RavenSkin;
 import org.pushingpixels.substance.api.skin.SaharaSkin;
 

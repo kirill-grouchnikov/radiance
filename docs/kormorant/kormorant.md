@@ -9,7 +9,7 @@ JCommandToggleButton styleBoldButton = new JCommandToggleButton("", new Format_t
 styleBoldButton.addActionListener((ActionEvent e) -> System.out.println("Bold toggled"));
 styleBoldButton.getActionModel().setSelected(true);
 styleBoldButton
-        .setActionRichTooltip(new RichTooltip.RichTooltipBuilder()
+        .setActionRichTooltip(RichTooltip.builder()
                 .setTitle(resourceBundle.getString("FontBold.tooltip.textActionTitle"))
                 .addDescriptionSection(
                         resourceBundle.getString("FontBold.tooltip.textActionParagraph1"))

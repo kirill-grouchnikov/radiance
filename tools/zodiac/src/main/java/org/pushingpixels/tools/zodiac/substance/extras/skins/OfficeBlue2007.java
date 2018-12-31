@@ -27,21 +27,21 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.tools.zodiac.flamingo.skins;
+package org.pushingpixels.tools.zodiac.substance.extras.skins;
 
-import org.pushingpixels.substance.api.skin.OfficeSilver2007Skin;
-import org.pushingpixels.tools.zodiac.flamingo.SkinRobot;
+import org.pushingpixels.substance.extras.api.skinpack.OfficeBlue2007Skin;
+import org.pushingpixels.tools.zodiac.SkinRobot;
 
 /**
- * Screenshot robot for {@link OfficeSilver2007Skin}.
+ * Screenshot robot for {@link OfficeBlue2007Skin}.
  *
  * @author Kirill Grouchnikov
  */
-public class OfficeSilver2007 extends SkinRobot {
+public class OfficeBlue2007 extends SkinRobot {
     /**
      * Creates the screenshot robot.
      */
-    public OfficeSilver2007() {
-        super(new OfficeSilver2007Skin(), "flamingo/ribbon/officesilver2007");
+    public OfficeBlue2007() {
+        super(new OfficeBlue2007Skin(), "substance-extras/skins/officeblue2007");
     }
 }

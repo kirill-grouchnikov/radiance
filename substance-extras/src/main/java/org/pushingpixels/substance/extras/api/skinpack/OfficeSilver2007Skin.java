@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.substance.api.skin;
+package org.pushingpixels.substance.extras.api.skinpack;
 
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
@@ -35,9 +35,11 @@ import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.substance.api.colorscheme.LightGrayColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.substance.api.painter.border.CompositeBorderPainter;
+import org.pushingpixels.substance.api.painter.border.DelegateFractionBasedBorderPainter;
+import org.pushingpixels.substance.api.painter.border.FractionBasedBorderPainter;
+import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.FractionBasedDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
@@ -46,35 +48,36 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 /**
- * <code>Office Black 2007</code> skin. This class is part of officially
+ * <code>Office Silver 2007</code> skin. This class is part of officially
  * supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public class OfficeBlack2007Skin extends SubstanceSkin {
+public class OfficeSilver2007Skin extends SubstanceSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
-	public static final String NAME = "Office Black 2007";
+	public static final String NAME = "Office Silver 2007";
 
 	/**
-	 * Creates a new <code>Office Black 2007</code> skin.
+	 * Creates a new <code>Office Silver 2007</code> skin.
 	 */
-	public OfficeBlack2007Skin() {
+	public OfficeSilver2007Skin() {
 		SubstanceSkin.ColorSchemes colorSchemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/office2007.colorschemes");
+				.getColorSchemes(
+                        "org/pushingpixels/substance/extras/api/skinpack/office2007.colorschemes");
 
 		SubstanceColorScheme activeScheme = colorSchemes
 				.get("Office Silver Active");
 		SubstanceColorScheme enabledScheme = colorSchemes
-				.get("Office Black Enabled");
-		SubstanceColorScheme disabledScheme = new LightGrayColorScheme().tint(
-				0.05).named("Office Black Disabled");
+				.get("Office Silver Enabled");
 
 		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
 				activeScheme, enabledScheme, enabledScheme);
 		defaultSchemeBundle.registerColorScheme(enabledScheme, 0.5f,
 				ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerColorScheme(activeScheme, 0.5f,
+				ComponentState.DISABLED_SELECTED);
 
 		SubstanceColorScheme rolloverScheme = colorSchemes
 				.get("Office Silver Rollover");
@@ -149,20 +152,13 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
 				ComponentState.PRESSED_UNSELECTED);
 
 		SubstanceColorScheme markEnabledScheme = colorSchemes
-				.get("Office Black Mark Enabled");
+				.get("Office Silver Mark Enabled");
 		defaultSchemeBundle.registerColorScheme(markEnabledScheme,
 				ColorSchemeAssociationKind.MARK, ComponentState.ENABLED);
 		defaultSchemeBundle.registerColorScheme(markEnabledScheme,
 				ColorSchemeAssociationKind.MARK,
 				ComponentState.DISABLED_SELECTED,
 				ComponentState.DISABLED_UNSELECTED);
-		
-		defaultSchemeBundle.registerColorScheme(selectedScheme,
-				ColorSchemeAssociationKind.MARK, ComponentState.SELECTED);
-		defaultSchemeBundle.registerColorScheme(pressedScheme,
-				ColorSchemeAssociationKind.MARK, ComponentState.PRESSED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(pressedSelectedScheme,
-				ColorSchemeAssociationKind.MARK, ComponentState.PRESSED_SELECTED);
 
 		registerDecorationAreaSchemeBundle(defaultSchemeBundle,
 				DecorationAreaType.NONE);
@@ -193,113 +189,77 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
 		defaultSchemeBundle.registerColorScheme(separatorScheme,
 				ColorSchemeAssociationKind.SEPARATOR);
 
+		defaultSchemeBundle.registerColorScheme(selectedScheme,
+				ColorSchemeAssociationKind.MARK, 
+				ComponentState.SELECTED, ComponentState.ROLLOVER_UNSELECTED);
+		defaultSchemeBundle.registerColorScheme(pressedScheme,
+				ColorSchemeAssociationKind.MARK, ComponentState.PRESSED_UNSELECTED);
+		defaultSchemeBundle.registerColorScheme(pressedSelectedScheme,
+				ColorSchemeAssociationKind.MARK, ComponentState.PRESSED_SELECTED);
+
 		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
 				DecorationAreaType.NONE);
 
-		// color scheme bundle for title panes
-		SubstanceColorScheme activeHeaderScheme = colorSchemes
-				.get("Office Black Header Active");
-		SubstanceColorScheme enabledHeaderScheme = colorSchemes
-				.get("Office Black Header Enabled");
-		SubstanceColorScheme disabledHeaderScheme = colorSchemes
-				.get("Office Black Header Disabled");
-		SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(
-				activeHeaderScheme, enabledHeaderScheme, disabledHeaderScheme);
+		this.watermarkScheme = colorSchemes.get("Office Silver Watermark");
 
-		SubstanceColorScheme headerMarkEnabledScheme = colorSchemes
-				.get("Office Black Header Mark Enabled");
-		headerSchemeBundle.registerColorScheme(headerMarkEnabledScheme,
-				ColorSchemeAssociationKind.MARK, ComponentState.ENABLED);
-		headerSchemeBundle.registerColorScheme(markEnabledScheme,
-				ColorSchemeAssociationKind.MARK,
-				ComponentState.DISABLED_SELECTED,
-				ComponentState.DISABLED_UNSELECTED);
+		SubstanceColorScheme generalWatermarkScheme = colorSchemes
+				.get("Office Silver Header Watermark");
 
-		headerSchemeBundle.registerColorScheme(disabledHeaderScheme, 0.5f,
-				ComponentState.DISABLED_UNSELECTED,
-				ComponentState.DISABLED_SELECTED);
-		headerSchemeBundle.registerHighlightColorScheme(activeScheme, 0.6f,
-				ComponentState.ROLLOVER_UNSELECTED);
-		headerSchemeBundle.registerHighlightColorScheme(activeScheme, 0.8f,
-				ComponentState.SELECTED);
-		headerSchemeBundle.registerHighlightColorScheme(activeScheme, 0.95f,
-				ComponentState.ROLLOVER_SELECTED);
-		headerSchemeBundle.registerHighlightColorScheme(activeScheme, 0.8f,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+		this.registerAsDecorationArea(generalWatermarkScheme,
+				DecorationAreaType.FOOTER, DecorationAreaType.HEADER,
+				DecorationAreaType.TOOLBAR);
 
-		this.registerDecorationAreaSchemeBundle(headerSchemeBundle,
-				activeHeaderScheme, DecorationAreaType.PRIMARY_TITLE_PANE,
-				DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR);
+		SubstanceColorScheme titleWatermarkScheme = colorSchemes
+				.get("Office Silver Title Watermark");
 
-		// color scheme bundle for footer
-		SubstanceColorScheme enabledFooterScheme = colorSchemes
-				.get("Office Black Footer Enabled");
-		SubstanceColorSchemeBundle footerSchemeBundle = new SubstanceColorSchemeBundle(
-				activeHeaderScheme, enabledFooterScheme, disabledScheme);
-		SubstanceColorScheme borderFooterEnabledScheme = colorSchemes
-				.get("Office Black Footer Border Enabled");
-		footerSchemeBundle.registerColorScheme(borderFooterEnabledScheme,
-				ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED,
-				ComponentState.DISABLED_SELECTED,
-				ComponentState.DISABLED_UNSELECTED);
-		footerSchemeBundle.registerColorScheme(borderFooterEnabledScheme,
-				ColorSchemeAssociationKind.BORDER, ComponentState
-						.getActiveStates());
-
-		// register state-specific color schemes on rollovers and selections
-		footerSchemeBundle.registerColorScheme(rolloverScheme,
-				ComponentState.ROLLOVER_UNSELECTED);
-		footerSchemeBundle.registerColorScheme(rolloverSelectedScheme,
-				ComponentState.ROLLOVER_SELECTED);
-		footerSchemeBundle.registerColorScheme(selectedScheme,
-				ComponentState.SELECTED);
-		footerSchemeBundle.registerColorScheme(pressedScheme,
-				ComponentState.PRESSED_UNSELECTED);
-		footerSchemeBundle.registerColorScheme(pressedSelectedScheme,
-				ComponentState.PRESSED_SELECTED);
-
-		SubstanceColorScheme footerSeparatorScheme = colorSchemes
-				.get("Office Black Footer Separator");
-		footerSchemeBundle.registerColorScheme(footerSeparatorScheme,
-				ColorSchemeAssociationKind.SEPARATOR);
-
-		this.registerDecorationAreaSchemeBundle(footerSchemeBundle,
-				activeHeaderScheme, DecorationAreaType.FOOTER);
-
-		this.watermarkScheme = colorSchemes.get("Office Black Watermark");
-		this.registerAsDecorationArea(this.watermarkScheme,
-				DecorationAreaType.GENERAL);
+		this.registerAsDecorationArea(titleWatermarkScheme,
+				DecorationAreaType.GENERAL,
+				DecorationAreaType.PRIMARY_TITLE_PANE,
+				DecorationAreaType.SECONDARY_TITLE_PANE);
 
 		setTabFadeStart(0.6);
 		setTabFadeEnd(0.9);
 
 		this.addOverlayPainter(new BottomLineOverlayPainter(
 				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.getAlphaColor(
-						scheme.getUltraDarkColor(), 192)), DecorationAreaType.PRIMARY_TITLE_PANE);
+						scheme.getForegroundColor(), 72)), 
+				DecorationAreaType.PRIMARY_TITLE_PANE,
+				DecorationAreaType.SECONDARY_TITLE_PANE);
 
 		this.buttonShaper = new ClassicButtonShaper();
 		this.watermark = null;
 
-		this.fillPainter = new FractionBasedFillPainter("Office Black 2007",
+		this.fillPainter = new FractionBasedFillPainter("Office Silver 2007",
 				new float[] { 0.0f, 0.49999f, 0.5f, 1.0f },
 				new ColorSchemeSingleColorQuery[] {
+						ColorSchemeSingleColorQuery.ULTRALIGHT,
 						ColorSchemeSingleColorQuery.LIGHT,
-						ColorSchemeSingleColorQuery.LIGHT,
-						ColorSchemeSingleColorQuery.MID,
-						ColorSchemeSingleColorQuery.LIGHT });
+						ColorSchemeSingleColorQuery.ULTRADARK,
+						ColorSchemeSingleColorQuery.EXTRALIGHT });
 
-		this.borderPainter = new ClassicBorderPainter();
+		FractionBasedBorderPainter outerBorderPainter = new FractionBasedBorderPainter(
+				"Office Silver 2007 Outer", new float[] { 0.0f, 0.5f, 1.0f },
+				new ColorSchemeSingleColorQuery[] {
+						ColorSchemeSingleColorQuery.LIGHT,
+						ColorSchemeSingleColorQuery.ULTRADARK,
+						ColorSchemeSingleColorQuery.MID });
+		SubstanceBorderPainter innerBorderPainter = new DelegateFractionBasedBorderPainter(
+				"Office Silver 2007 Inner", outerBorderPainter, 
+				new int[] { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF },
+				(SubstanceColorScheme scheme) -> scheme.tint(0.8f));
+		this.borderPainter = new CompositeBorderPainter("Office Silver 2007",
+				outerBorderPainter, innerBorderPainter);
 
 		this.decorationPainter = new FractionBasedDecorationPainter(
-				"Office Black 2007", new float[] { 0.0f, 0.2499999f, 0.25f,
-						0.6f, 1.0f }, new ColorSchemeSingleColorQuery[] {
-						ColorSchemeSingleColorQuery.LIGHT,
+				"Office Silver 2007", new float[] { 0.0f, 0.2499999f, 0.25f,
+						0.3f, 0.7f, 1.0f }, new ColorSchemeSingleColorQuery[] {
+						ColorSchemeSingleColorQuery.ULTRALIGHT,
+						ColorSchemeSingleColorQuery.EXTRALIGHT,
+						ColorSchemeSingleColorQuery.DARK,
 						ColorSchemeSingleColorQuery.MID,
-						ColorSchemeSingleColorQuery.DARK,
-						ColorSchemeSingleColorQuery.DARK,
-						ColorSchemeSingleColorQuery.MID },
-				DecorationAreaType.PRIMARY_TITLE_PANE,
-				DecorationAreaType.FOOTER);
+						ColorSchemeSingleColorQuery.LIGHT,
+						ColorSchemeSingleColorQuery.ULTRALIGHT });
+
 		this.highlightPainter = new ClassicHighlightPainter();
 	}
 

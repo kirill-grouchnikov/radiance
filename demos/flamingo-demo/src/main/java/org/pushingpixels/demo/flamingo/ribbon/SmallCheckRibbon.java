@@ -31,10 +31,10 @@ package org.pushingpixels.demo.flamingo.ribbon;
 
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Help_browser;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
+import org.pushingpixels.substance.api.skin.MarinerSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -114,7 +114,7 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
         JDialog.setDefaultLookAndFeelDecorated(true);
 
         SwingUtilities.invokeLater(() -> {
-            SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
+            SubstanceCortex.GlobalScope.setSkin(new MarinerSkin());
 
             SmallCheckRibbon c = new SmallCheckRibbon();
             c.configureRibbon();

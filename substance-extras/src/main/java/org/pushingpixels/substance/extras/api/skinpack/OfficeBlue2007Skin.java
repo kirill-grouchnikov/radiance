@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.substance.api.skin;
+package org.pushingpixels.substance.extras.api.skinpack;
 
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
@@ -64,7 +64,8 @@ public class OfficeBlue2007Skin extends SubstanceSkin {
 	 */
 	public OfficeBlue2007Skin() {
 		SubstanceSkin.ColorSchemes colorSchemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/office2007.colorschemes");
+				.getColorSchemes(
+						"org/pushingpixels/substance/extras/api/skinpack/office2007.colorschemes");
 
 		SubstanceColorScheme activeScheme = colorSchemes
 				.get("Office Blue Active");

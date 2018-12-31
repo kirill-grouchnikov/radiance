@@ -197,7 +197,8 @@ public class NeonCortex {
             if (desktopHints == null) {
                 desktopHints = new HashMap();
             }
-            if (getPlatform() == Platform.MACOS && LookUtils.IS_OS_MAC_MOJAVE_OR_LATER) {
+            if (getPlatform() == Platform.MACOS && LookUtils.IS_OS_MAC_MOJAVE_OR_LATER
+                && (device.getType() == GraphicsDevice.TYPE_RASTER_SCREEN)) {
                 desktopHints.put(RenderingHints.KEY_TEXT_ANTIALIASING,
                         RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
             }
