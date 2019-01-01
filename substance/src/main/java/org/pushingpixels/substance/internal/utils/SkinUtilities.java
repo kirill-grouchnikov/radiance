@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -1062,13 +1062,11 @@ public class SkinUtilities {
 
                 "Tree.collapsedIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new NeonIconUIResource(
-                                SubstanceIconFactory.getTreeIcon(null, true))),
+                        new ResizableIconUIResource(SubstanceIconFactory.getTreeIcon(null, true))),
 
                 "Tree.expandedIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new NeonIconUIResource(
-                                SubstanceIconFactory.getTreeIcon(null, false))),
+                        new ResizableIconUIResource(SubstanceIconFactory.getTreeIcon(null, false))),
 
                 "Tree.leafIcon",
                 emptyIcon,

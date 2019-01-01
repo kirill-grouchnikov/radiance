@@ -31,7 +31,7 @@ package org.pushingpixels.demo.spyglass.mail;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.*;
-import org.pushingpixels.neon.icon.NeonIcon;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
@@ -67,13 +67,13 @@ public class DestinationsPanel extends PanelWithRightLine {
                         ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)
                 .getForegroundColor();
 
-        NeonIcon refreshIcon = SubstanceCortex.GlobalScope.colorize(
+        ResizableIcon refreshIcon = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_refresh_black_24px.factory(), mainSelectorIconTitleColor);
         refreshIcon.setDimension(new Dimension(12, 12));
         this.add(getRefreshAction(window, refreshIcon));
         this.add(getMainLabel("MAIL"));
 
-        NeonIcon inboxIcon = SubstanceCortex.GlobalScope.colorize(
+        ResizableIcon inboxIcon = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_inbox_black_24px.factory(), mainSelectorIconTitleColor);
         inboxIcon.setDimension(new Dimension(16, 16));
         HighlightablePanel inboxSelector = getSelectorDestinationRow(inboxIcon, "Inbox", 6);
@@ -83,27 +83,27 @@ public class DestinationsPanel extends PanelWithRightLine {
         inboxSelector.setSelected();
         this.add(inboxSelector);
 
-        NeonIcon sendIcon = SubstanceCortex.GlobalScope.colorize(
+        ResizableIcon sendIcon = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_send_black_24px.factory(), mainSelectorIconTitleColor);
         sendIcon.setDimension(new Dimension(16, 16));
         this.add(getSelectorDestinationRow(sendIcon, "Sent", 3));
 
-        NeonIcon laterIcon = SubstanceCortex.GlobalScope.colorize(
+        ResizableIcon laterIcon = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_watch_later_black_24px.factory(), mainSelectorIconTitleColor);
         laterIcon.setDimension(new Dimension(16, 16));
         this.add(getSelectorDestinationRow(laterIcon, "Send later", 5));
 
-        NeonIcon draftsIcon = SubstanceCortex.GlobalScope.colorize(
+        ResizableIcon draftsIcon = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_drafts_black_24px.factory(), mainSelectorIconTitleColor);
         draftsIcon.setDimension(new Dimension(16, 16));
         this.add(getSelectorDestinationRow(draftsIcon, "Drafts", -1));
 
-        NeonIcon starIcon = SubstanceCortex.GlobalScope.colorize(
+        ResizableIcon starIcon = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_star_border_black_24px.factory(), mainSelectorIconTitleColor);
         starIcon.setDimension(new Dimension(16, 16));
         this.add(getSelectorDestinationRow(starIcon, "Starred", -1));
 
-        NeonIcon deleteIcon = SubstanceCortex.GlobalScope.colorize(
+        ResizableIcon deleteIcon = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_delete_black_24px.factory(), mainSelectorIconTitleColor);
         deleteIcon.setDimension(new Dimension(16, 16));
         this.add(getSelectorDestinationRow(deleteIcon, "Trash", -1));
@@ -154,7 +154,7 @@ public class DestinationsPanel extends PanelWithRightLine {
         }
     }
 
-    private HighlightablePanel getSelectorDestinationRow(NeonIcon icon, String title,
+    private HighlightablePanel getSelectorDestinationRow(ResizableIcon icon, String title,
             int count) {
         FormBuilder builder = FormBuilder.create().
                 columns("center:pref, 4dlu, fill:pref:grow, 4dlu, center:pref").
@@ -184,7 +184,7 @@ public class DestinationsPanel extends PanelWithRightLine {
         return result;
     }
 
-    private JPanel getRefreshAction(Window window, NeonIcon icon) {
+    private JPanel getRefreshAction(Window window, ResizableIcon icon) {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref:grow").
                 rows("p").

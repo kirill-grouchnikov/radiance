@@ -81,7 +81,7 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
         ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> {
-                    NeonIconUIResource doubleArrowIcon = SubstanceImageCreator
+                    ImageWrapperIcon doubleArrowIcon = SubstanceImageCreator
                             .getDoubleArrowIcon(
                                     width, height,
                                     SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
@@ -111,7 +111,7 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
         ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> {
-                    NeonIconUIResource doubleArrowIcon = SubstanceImageCreator
+                    ImageWrapperIcon doubleArrowIcon = SubstanceImageCreator
                             .getDoubleArrowIcon(
                                     width, height,
                                     SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),

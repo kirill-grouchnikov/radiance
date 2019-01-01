@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.icon;
 
-import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.svg.*;
@@ -44,9 +44,9 @@ import java.awt.*;
  */
 public class SubstanceDefaultIconPack implements SubstanceIconPack {
     @Override
-    public NeonIconUIResource getOptionPaneInformationIcon(int preferredSize,
+    public ResizableIcon getOptionPaneInformationIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_info_black_24px.factory(),
                 preferredIconColorScheme.getMidColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -54,9 +54,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getOptionPaneWarningIcon(int preferredSize,
+    public ResizableIcon getOptionPaneWarningIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_warning_black_24px.factory(),
                 preferredIconColorScheme.getMidColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -64,9 +64,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getOptionPaneErrorIcon(int preferredSize,
+    public ResizableIcon getOptionPaneErrorIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_error_black_24px.factory(),
                 preferredIconColorScheme.getMidColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -74,9 +74,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getOptionPaneQuestionIcon(int preferredSize,
+    public ResizableIcon getOptionPaneQuestionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_help_black_24px.factory(),
                 preferredIconColorScheme.getMidColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -84,9 +84,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getFileChooserNewFolderIcon(int preferredSize,
+    public ResizableIcon getFileChooserNewFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_create_new_folder_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -94,9 +94,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getFileChooserUpFolderIcon(int preferredSize,
+    public ResizableIcon getFileChooserUpFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_arrow_upward_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -104,9 +104,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getFileChooserHomeFolderIcon(int preferredSize,
+    public ResizableIcon getFileChooserHomeFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_home_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -114,9 +114,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getFileChooserListViewIcon(int preferredSize,
+    public ResizableIcon getFileChooserListViewIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_view_list_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -124,9 +124,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getFileChooserDetailsViewIcon(int preferredSize,
+    public ResizableIcon getFileChooserDetailsViewIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_insert_drive_file_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -134,9 +134,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getFileChooserViewMenuIcon(int preferredSize,
+    public ResizableIcon getFileChooserViewMenuIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_menu_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -144,9 +144,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getFileChooserComputerIcon(int preferredSize,
+    public ResizableIcon getFileChooserComputerIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_computer_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -154,9 +154,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getFileChooserDirectoryIcon(int preferredSize,
+    public ResizableIcon getFileChooserDirectoryIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_folder_open_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -164,9 +164,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getFileChooserFileIcon(int preferredSize,
+    public ResizableIcon getFileChooserFileIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_insert_drive_file_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -174,9 +174,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getFileChooserFloppyDriveIcon(int preferredSize,
+    public ResizableIcon getFileChooserFloppyDriveIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_save_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -184,9 +184,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getFileChooserHardDriveIcon(int preferredSize,
+    public ResizableIcon getFileChooserHardDriveIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_storage_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -194,9 +194,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getLockIcon(int preferredSize,
+    public ResizableIcon getLockIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_lock_outline_black_24px.factory(), preferredIconColorScheme,
                 preferredIconColorScheme.isDark() ? 0.6f : -0.1f);
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -204,9 +204,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getInspectIcon(int preferredSize,
+    public ResizableIcon getInspectIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_adjust_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor(), 0.625f);
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -214,9 +214,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getRefreshIcon(int preferredSize,
+    public ResizableIcon getRefreshIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_refresh_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -224,9 +224,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getAllowedIcon(int preferredSize,
+    public ResizableIcon getAllowedIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_add_circle_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -234,9 +234,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getNotAllowedIcon(int preferredSize,
+    public ResizableIcon getNotAllowedIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_remove_circle_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -244,9 +244,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getTextCopyActionIcon(int preferredSize,
+    public ResizableIcon getTextCopyActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_content_copy_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -254,9 +254,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getTextCutActionIcon(int preferredSize,
+    public ResizableIcon getTextCutActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_content_cut_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -264,9 +264,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getTextPasteActionIcon(int preferredSize,
+    public ResizableIcon getTextPasteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_content_paste_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -274,9 +274,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getTextDeleteActionIcon(int preferredSize,
+    public ResizableIcon getTextDeleteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_delete_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -284,9 +284,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getTextSelectAllActionIcon(int preferredSize,
+    public ResizableIcon getTextSelectAllActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 ic_select_all_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -294,9 +294,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getColorChooserColorPalettesIcon(int preferredSize,
+    public ResizableIcon getColorChooserColorPalettesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_palette_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -304,9 +304,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getColorChooserColorSlidersIcon(int preferredSize,
+    public ResizableIcon getColorChooserColorSlidersIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_menu_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -314,9 +314,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getColorChooserColorSwatchesIcon(int preferredSize,
+    public ResizableIcon getColorChooserColorSwatchesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_grid_on_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -324,9 +324,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getColorChooserColorWheelIcon(int preferredSize,
+    public ResizableIcon getColorChooserColorWheelIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_album_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -334,9 +334,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getColorChooserCrayonsIcon(int preferredSize,
+    public ResizableIcon getColorChooserCrayonsIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_mode_edit_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -344,9 +344,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getColorChooserImagePalettesIcon(int preferredSize,
+    public ResizableIcon getColorChooserImagePalettesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_brightness_high_black_24px.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -354,9 +354,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getScrollVerticalIcon(int preferredSize,
+    public ResizableIcon getScrollVerticalIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 autoscroll_v.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -364,9 +364,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getScrollHorizontalIcon(int preferredSize,
+    public ResizableIcon getScrollHorizontalIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 autoscroll_h.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));
@@ -374,9 +374,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
-    public NeonIconUIResource getScrollAllIcon(int preferredSize,
+    public ResizableIcon getScrollAllIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource result = SubstanceCortex.GlobalScope.colorizeAsUiResource(
+        ResizableIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
                 autoscroll_all.factory(),
                 preferredIconColorScheme.getForegroundColor());
         result.setDimension(new Dimension(preferredSize, preferredSize));

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
@@ -53,7 +53,7 @@ public class HighlightableTransitionAwareIcon implements Icon {
      * Icon cache to speed up the subsequent icon painting. The basic assumption is that the
      * {@link #delegate} returns an icon that paints the same for the same parameters.
      */
-    private static LazyResettableHashMap<NeonIconUIResource> iconMap = new LazyResettableHashMap<>(
+    private static LazyResettableHashMap<ResizableIcon> iconMap = new LazyResettableHashMap<>(
             "HighlightableTransitionAwareIcon");
 
     /**
@@ -100,7 +100,7 @@ public class HighlightableTransitionAwareIcon implements Icon {
         this.getIconToPaint().paintIcon(c, g, x, y);
     }
 
-    private NeonIconUIResource getIconToPaint() {
+    private ResizableIcon getIconToPaint() {
         StateTransitionTracker stateTransitionTracker = this.transitionAwareUIDelegate
                 .getTransitionAwareUI().getTransitionTracker();
         StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
@@ -120,9 +120,9 @@ public class HighlightableTransitionAwareIcon implements Icon {
         HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(this.component.getClass().getName(),
                 this.uniqueIconTypeId, SubstanceSizeUtils.getComponentFontSize(this.component),
                 baseScheme.getDisplayName(), baseAlpha);
-        NeonIconUIResource layerBase = iconMap.get(keyBase);
+        ResizableIcon layerBase = iconMap.get(keyBase);
         if (layerBase == null) {
-            NeonIconUIResource baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
+            ResizableIcon baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
             if (baseAlpha == 1.0f) {
                 layerBase = baseFullOpacity;
                 iconMap.put(keyBase, layerBase);
@@ -133,7 +133,7 @@ public class HighlightableTransitionAwareIcon implements Icon {
                 g2base.setComposite(AlphaComposite.SrcOver.derive(baseAlpha));
                 baseFullOpacity.paintIcon(this.component, g2base, 0, 0);
                 g2base.dispose();
-                layerBase = new NeonIconUIResource(baseImage);
+                layerBase = new ImageWrapperIcon(baseImage);
                 iconMap.put(keyBase, layerBase);
             }
         }
@@ -171,9 +171,9 @@ public class HighlightableTransitionAwareIcon implements Icon {
                         this.component.getClass().getName(), this.uniqueIconTypeId,
                         SubstanceSizeUtils.getComponentFontSize(this.component),
                         scheme.getDisplayName(), alpha);
-                NeonIconUIResource layer = iconMap.get(key);
+                ResizableIcon layer = iconMap.get(key);
                 if (layer == null) {
-                    NeonIconUIResource fullOpacity = this.delegate.getColorSchemeIcon(scheme);
+                    ResizableIcon fullOpacity = this.delegate.getColorSchemeIcon(scheme);
                     if (alpha == 1.0f) {
                         layer = fullOpacity;
                         iconMap.put(key, layer);
@@ -184,7 +184,7 @@ public class HighlightableTransitionAwareIcon implements Icon {
                         g2layer.setComposite(AlphaComposite.SrcOver.derive(alpha));
                         fullOpacity.paintIcon(this.component, g2layer, 0, 0);
                         g2layer.dispose();
-                        layer = new NeonIconUIResource(image);
+                        layer = new ImageWrapperIcon(image);
                         iconMap.put(key, layer);
                     }
                 }
@@ -192,7 +192,7 @@ public class HighlightableTransitionAwareIcon implements Icon {
             }
         }
         g2d.dispose();
-        return new NeonIconUIResource(result);
+        return new ImageWrapperIcon(result);
     }
 
     @Override

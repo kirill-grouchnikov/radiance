@@ -1210,11 +1210,8 @@ public class SubstanceTitlePane extends JComponent {
     public class SubstanceMenuBar extends JMenuBar {
         @Override
         public void paint(Graphics g) {
-            // g.setColor(Color.yellow);
-            // g.fillRect(0, 0, getWidth(), getHeight());
             if (appIcon != null) {
-                float scaleFactor = SubstanceCoreUtilities.isHiDpiAwareImage(appIcon)
-                        ? (float) NeonCortex.getScaleFactor() : 1;
+                float scaleFactor = (float) NeonCortex.getScaleFactor();
                 g.drawImage(appIcon, 0, 0, (int) (appIcon.getWidth(null) / scaleFactor),
                         (int) (appIcon.getHeight(null) / scaleFactor), null);
             } else {

@@ -30,8 +30,6 @@
 package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.icon.IsHiDpiAware;
-import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -45,28 +43,20 @@ import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
-import org.pushingpixels.substance.internal.ui.SubstanceButtonUI;
-import org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI;
+import org.pushingpixels.substance.internal.ui.*;
 import org.pushingpixels.substance.internal.utils.combo.SubstanceComboPopup;
-import org.pushingpixels.substance.internal.utils.icon.ArrowButtonTransitionAwareIcon;
-import org.pushingpixels.substance.internal.utils.icon.TransitionAware;
-import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
+import org.pushingpixels.substance.internal.utils.icon.*;
 import org.pushingpixels.substance.internal.utils.menu.SubstanceMenu;
 import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollButton;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
-import javax.swing.plaf.ButtonUI;
-import javax.swing.plaf.UIResource;
+import javax.swing.plaf.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.util.EnumSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Various utility functions. This class is <b>for internal use only</b>.
@@ -625,10 +615,6 @@ public class SubstanceCoreUtilities {
         }
 
         return NeonCortex.getBlankUnscaledImage(imageWidth, imageHeight);
-    }
-
-    public static boolean isHiDpiAwareImage(Image image) {
-        return image instanceof IsHiDpiAware;
     }
 
     /**
@@ -1207,22 +1193,22 @@ public class SubstanceCoreUtilities {
         return Boolean.TRUE.equals(UIManager.get(SubstanceSynapse.SHOW_EXTRA_WIDGETS));
     }
 
-    public static NeonIconUIResource getThemedIcon(Component comp, Icon orig) {
+    public static ImageWrapperIcon getThemedIcon(Component comp, Icon orig) {
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(comp,
                 ComponentState.ENABLED);
         return getThemedIcon(comp, orig, colorScheme);
     }
 
-    public static NeonIconUIResource getThemedIcon(JTabbedPane tab, int tabIndex, Icon orig) {
+    public static ImageWrapperIcon getThemedIcon(JTabbedPane tab, int tabIndex, Icon orig) {
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(tab,
                 tabIndex, ColorSchemeAssociationKind.TAB, ComponentState.ENABLED);
         return getThemedIcon(tab, orig, colorScheme);
     }
 
-    public static NeonIconUIResource getThemedIcon(Component comp, Icon orig,
+    public static ImageWrapperIcon getThemedIcon(Component comp, Icon orig,
             SubstanceColorScheme colorScheme) {
         float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
-        return new NeonIconUIResource(SubstanceImageCreator.getColorSchemeImage(comp, orig,
+        return new ImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(comp, orig,
                 colorScheme, brightnessFactor));
     }
 
@@ -1802,10 +1788,6 @@ public class SubstanceCoreUtilities {
                 ih = im.getHeight(null);
             } catch (Exception e) {
                 continue;
-            }
-            if (isHiDpiAwareImage(im)) {
-                iw /= 2;
-                ih /= 2;
             }
             if (iw > 0 && ih > 0) {
                 // Calc scale factor

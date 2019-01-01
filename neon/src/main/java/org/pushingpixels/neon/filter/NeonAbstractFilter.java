@@ -34,7 +34,6 @@
 
 package org.pushingpixels.neon.filter;
 
-import org.pushingpixels.neon.icon.IsHiDpiAware;
 import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
 
 import java.awt.*;
@@ -65,7 +64,7 @@ public abstract class NeonAbstractFilter implements BufferedImageOp {
 
         WritableRaster raster = destCM.createCompatibleWritableRaster(
                 src.getWidth(), src.getHeight());
-        if (src instanceof IsHiDpiAware) {
+        if (src instanceof JBHiDPIScaledImage) {
             return JBHiDPIScaledImage.create(destCM, raster, destCM.isAlphaPremultiplied());
         } else {
             return new BufferedImage(destCM, raster, destCM.isAlphaPremultiplied(), null);

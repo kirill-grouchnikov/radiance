@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import org.pushingpixels.demo.substance.main.check.svg.tango.*;
-import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.icon.SubstanceIconPack;
@@ -45,220 +45,220 @@ import java.awt.*;
 public class TangoIconPack implements SubstanceIconPack {
 
     @Override
-    public NeonIconUIResource getOptionPaneInformationIcon(int preferredSize,
+    public ResizableIcon getOptionPaneInformationIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return dialog_information.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getOptionPaneWarningIcon(int preferredSize,
+    public ResizableIcon getOptionPaneWarningIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return dialog_warning.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getOptionPaneErrorIcon(int preferredSize,
+    public ResizableIcon getOptionPaneErrorIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return dialog_error.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getOptionPaneQuestionIcon(int preferredSize,
+    public ResizableIcon getOptionPaneQuestionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return help_browser.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getFileChooserNewFolderIcon(int preferredSize,
+    public ResizableIcon getFileChooserNewFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return folder_new.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getFileChooserUpFolderIcon(int preferredSize,
+    public ResizableIcon getFileChooserUpFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return go_up.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getFileChooserHomeFolderIcon(int preferredSize,
+    public ResizableIcon getFileChooserHomeFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return user_home.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getFileChooserListViewIcon(int preferredSize,
+    public ResizableIcon getFileChooserListViewIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return format_justify_fill.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getFileChooserDetailsViewIcon(int preferredSize,
+    public ResizableIcon getFileChooserDetailsViewIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return accessories_text_editor.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getFileChooserViewMenuIcon(int preferredSize,
+    public ResizableIcon getFileChooserViewMenuIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return emblem_system.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getFileChooserComputerIcon(int preferredSize,
+    public ResizableIcon getFileChooserComputerIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return computer.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getFileChooserDirectoryIcon(int preferredSize,
+    public ResizableIcon getFileChooserDirectoryIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return folder.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getFileChooserFileIcon(int preferredSize,
+    public ResizableIcon getFileChooserFileIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return text_x_generic.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getFileChooserFloppyDriveIcon(int preferredSize,
+    public ResizableIcon getFileChooserFloppyDriveIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return media_floppy.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getFileChooserHardDriveIcon(int preferredSize,
+    public ResizableIcon getFileChooserHardDriveIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return drive_harddisk.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getLockIcon(int preferredSize,
+    public ResizableIcon getLockIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return locked.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getInspectIcon(int preferredSize,
+    public ResizableIcon getInspectIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return system_search.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getRefreshIcon(int preferredSize,
+    public ResizableIcon getRefreshIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return view_refresh.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getAllowedIcon(int preferredSize,
+    public ResizableIcon getAllowedIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return list_add.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getNotAllowedIcon(int preferredSize,
+    public ResizableIcon getNotAllowedIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return dialog_error.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getTextCopyActionIcon(int preferredSize,
+    public ResizableIcon getTextCopyActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource base = SubstanceCortex.GlobalScope.colorizeAsUiResource(edit_copy.factory(),
-                preferredIconColorScheme);
+        ResizableIcon base = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
+                edit_copy.factory(), preferredIconColorScheme);
         base.setDimension(new Dimension(preferredSize, preferredSize));
         return base;
     }
 
     @Override
-    public NeonIconUIResource getTextCutActionIcon(int preferredSize,
+    public ResizableIcon getTextCutActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource base = SubstanceCortex.GlobalScope.colorizeAsUiResource(edit_cut.factory(),
-                preferredIconColorScheme);
+        ResizableIcon base = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
+                edit_cut.factory(), preferredIconColorScheme);
         base.setDimension(new Dimension(preferredSize, preferredSize));
         return base;
     }
 
     @Override
-    public NeonIconUIResource getTextPasteActionIcon(int preferredSize,
+    public ResizableIcon getTextPasteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource base = SubstanceCortex.GlobalScope.colorizeAsUiResource(edit_paste.factory(),
-                preferredIconColorScheme);
+        ResizableIcon base = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
+                edit_paste.factory(), preferredIconColorScheme);
         base.setDimension(new Dimension(preferredSize, preferredSize));
         return base;
     }
 
     @Override
-    public NeonIconUIResource getTextDeleteActionIcon(int preferredSize,
+    public ResizableIcon getTextDeleteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource base = SubstanceCortex.GlobalScope.colorizeAsUiResource(edit_delete.factory(),
-                preferredIconColorScheme);
+        ResizableIcon base = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
+                edit_delete.factory(), preferredIconColorScheme);
         base.setDimension(new Dimension(preferredSize, preferredSize));
         return base;
     }
 
     @Override
-    public NeonIconUIResource getTextSelectAllActionIcon(int preferredSize,
+    public ResizableIcon getTextSelectAllActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIconUIResource base = SubstanceCortex.GlobalScope.colorizeAsUiResource(edit_select_all.factory(),
-                preferredIconColorScheme);
+        ResizableIcon base = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
+                edit_select_all.factory(), preferredIconColorScheme);
         base.setDimension(new Dimension(preferredSize, preferredSize));
         return base;
     }
 
     @Override
-    public NeonIconUIResource getColorChooserColorPalettesIcon(int preferredSize,
+    public ResizableIcon getColorChooserColorPalettesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return face_angel.uiResourceOf(preferredSize, preferredSize);
+        return face_angel.of(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getColorChooserColorSlidersIcon(int preferredSize,
+    public ResizableIcon getColorChooserColorSlidersIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return face_glasses.uiResourceOf(preferredSize, preferredSize);
+        return face_glasses.of(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getColorChooserColorSwatchesIcon(int preferredSize,
+    public ResizableIcon getColorChooserColorSwatchesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return face_grin.uiResourceOf(preferredSize, preferredSize);
+        return face_grin.of(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getColorChooserColorWheelIcon(int preferredSize,
+    public ResizableIcon getColorChooserColorWheelIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return face_plain.uiResourceOf(preferredSize, preferredSize);
+        return face_plain.of(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getColorChooserCrayonsIcon(int preferredSize,
+    public ResizableIcon getColorChooserCrayonsIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return face_sad.uiResourceOf(preferredSize, preferredSize);
+        return face_sad.of(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getColorChooserImagePalettesIcon(int preferredSize,
+    public ResizableIcon getColorChooserImagePalettesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return face_smile.uiResourceOf(preferredSize, preferredSize);
+        return face_smile.of(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getScrollHorizontalIcon(int preferredSize,
+    public ResizableIcon getScrollHorizontalIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return go_next.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getScrollVerticalIcon(int preferredSize,
+    public ResizableIcon getScrollVerticalIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return go_down.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIconUIResource getScrollAllIcon(int preferredSize,
+    public ResizableIcon getScrollAllIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return view_fullscreen.uiResourceOf(preferredSize, preferredSize);
     }

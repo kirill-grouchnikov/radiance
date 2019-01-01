@@ -30,10 +30,9 @@
 package org.pushingpixels.substance.internal.widget.desktop;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.internal.ui.SubstanceDesktopIconUI;
-import org.pushingpixels.substance.internal.utils.WidgetUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.JInternalFrame.JDesktopIcon;
@@ -43,10 +42,8 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.HashMap;
-import java.util.Map;
+import java.beans.*;
+import java.util.*;
 
 /**
  * Adds internal frame thumbnail preview on desktop icon mouse hover.
@@ -99,7 +96,7 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
             if (previewImage != null) {
                 double scaleFactor = NeonCortex.getScaleFactor();
                 DesktopIconHoverPreviewWidget.this.previewWindow.getContentPane().removeAll();
-                JLabel previewLabel = new JLabel(new NeonIconUIResource(previewImage));
+                JLabel previewLabel = new JLabel(new ImageWrapperIcon(previewImage));
                 DesktopIconHoverPreviewWidget.this.previewWindow.getContentPane().add(previewLabel,
                         BorderLayout.CENTER);
                 DesktopIconHoverPreviewWidget.this.previewWindow.setSize(

@@ -29,24 +29,23 @@
  */
 package org.pushingpixels.rainbow
 
-import org.pushingpixels.neon.icon.NeonIcon
+import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.rainbow.svg.radiance_menu
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
 import java.awt.Dimension
-
 import java.awt.image.BufferedImage
 
 object RadianceLogo {
-    fun getLogoIcon(scheme: SubstanceColorScheme): NeonIcon {
+    fun getLogoIcon(scheme: SubstanceColorScheme): ResizableIcon {
         // Step 1 - create a colorized version of the transcoded Radiance logo
-        val base = SubstanceCortex.GlobalScope.colorize(radiance_menu.factory(),
+        val base = SubstanceCortex.GlobalScope.colorizeIcon(radiance_menu.factory(),
                 scheme.foregroundColor)
         // Step 2 - configure the colorized version to be 16x16
         base.setDimension(Dimension(16, 16))
-        // Step 3 - wrap in NeonIcon and return
-        return NeonIcon(base)
+        // Step 3 - good to go
+        return base
     }
 
     fun getLogoImage(scheme: SubstanceColorScheme): BufferedImage {

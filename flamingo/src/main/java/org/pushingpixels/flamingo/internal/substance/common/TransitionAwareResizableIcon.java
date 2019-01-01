@@ -77,7 +77,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
          * @param height Icon height.
          * @return Icon that matches the specified theme.
          */
-        NeonIconUIResource getColorSchemeIcon(SubstanceColorScheme scheme, int width, int height);
+        ResizableIcon getColorSchemeIcon(SubstanceColorScheme scheme, int width, int height);
     }
 
     /**
@@ -97,7 +97,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
      * is that the {@link #delegate} returns an icon that paints the same for
      * the same parameters.
      */
-    private LazyResettableHashMap<NeonIconUIResource> iconMap;
+    private LazyResettableHashMap<ResizableIcon> iconMap;
 
     public interface StateTransitionTrackerDelegate {
         StateTransitionTracker getStateTransitionTracker();
@@ -127,7 +127,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
      *
      * @return Icon to paint.
      */
-    private NeonIconUIResource getIconToPaint() {
+    private ResizableIcon getIconToPaint() {
         StateTransitionTracker stateTransitionTracker = this.stateTransitionTrackerDelegate
                 .getStateTransitionTracker();
 
@@ -148,9 +148,9 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
         HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(baseScheme.getDisplayName(),
                 baseAlpha, this.width, this.height);
         // System.out.println(key);
-        NeonIconUIResource layerBase = this.iconMap.get(keyBase);
+        ResizableIcon layerBase = this.iconMap.get(keyBase);
         if (layerBase == null) {
-            NeonIconUIResource baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme,
+            ResizableIcon baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme,
                     width, height);
             if (baseAlpha == 1.0f) {
                 layerBase = baseFullOpacity;
@@ -163,7 +163,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
                 g2base.setComposite(AlphaComposite.SrcOver.derive(baseAlpha));
                 baseFullOpacity.paintIcon(this.comp, g2base, 0, 0);
                 g2base.dispose();
-                layerBase = new NeonIconUIResource(baseImage);
+                layerBase = new ImageWrapperIcon(baseImage);
                 iconMap.put(keyBase, layerBase);
             }
         }
@@ -203,9 +203,9 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
 
                 HashMapKey key = SubstanceCoreUtilities.getHashKey(scheme.getDisplayName(), alpha,
                         this.width, this.height);
-                NeonIconUIResource layer = iconMap.get(key);
+                ResizableIcon layer = iconMap.get(key);
                 if (layer == null) {
-                    NeonIconUIResource fullOpacity = this.delegate.getColorSchemeIcon(scheme,
+                    ResizableIcon fullOpacity = this.delegate.getColorSchemeIcon(scheme,
                             width, height);
                     if (alpha == 1.0f) {
                         layer = fullOpacity;
@@ -219,7 +219,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
                                 .derive(alpha));
                         fullOpacity.paintIcon(this.comp, g2layer, 0, 0);
                         g2layer.dispose();
-                        layer = new NeonIconUIResource(image);
+                        layer = new ImageWrapperIcon(image);
                         iconMap.put(key, layer);
                     }
                 }
@@ -227,7 +227,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
             }
         }
         g2d.dispose();
-        return new NeonIconUIResource(result);
+        return new ImageWrapperIcon(result);
     }
 
     @Override

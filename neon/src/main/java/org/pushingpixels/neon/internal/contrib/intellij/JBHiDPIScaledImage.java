@@ -15,15 +15,13 @@
  */
 package org.pushingpixels.neon.internal.contrib.intellij;
 
-import org.pushingpixels.neon.icon.IsHiDpiAware;
-
 import java.awt.*;
 import java.awt.image.*;
 
 /**
  * @author Konstantin Bulenkov
  */
-public class JBHiDPIScaledImage extends BufferedImage implements IsHiDpiAware {
+public class JBHiDPIScaledImage extends BufferedImage {
     private boolean ignoreScaling;
 
     private JBHiDPIScaledImage(int width, int height, int type) {
@@ -50,11 +48,6 @@ public class JBHiDPIScaledImage extends BufferedImage implements IsHiDpiAware {
     public static JBHiDPIScaledImage create(ColorModel cm, WritableRaster raster,
             boolean isRasterPremultiplied) {
         return new JBHiDPIScaledImage(cm, raster, isRasterPremultiplied);
-    }
-
-    @Override
-    public boolean isHiDpiAware() {
-        return true;
     }
 
     @Override

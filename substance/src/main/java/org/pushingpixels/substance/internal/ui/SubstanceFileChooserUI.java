@@ -29,13 +29,12 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.ResizableIconUIResource;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.icon.SubstanceIconPack;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -45,8 +44,7 @@ import javax.swing.plaf.basic.BasicFileChooserUI;
 import javax.swing.plaf.metal.MetalFileChooserUI;
 import java.awt.*;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * UI for file chooser in <b>Substance</b> look and feel. The {@link BasicFileChooserUI} can't be
@@ -120,7 +118,7 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
         public Icon getDefaultIcon(File f) {
             JFileChooser fileChooser = getFileChooser();
             Icon icon = fileChooser.getFileSystemView().getSystemIcon(f);
-            if (icon instanceof NeonIconUIResource) {
+            if (icon instanceof ResizableIconUIResource) {
                 SubstanceIconPack iconPack = SubstanceCortex.GlobalScope.getIconPack();
                 SubstanceColorScheme colorScheme = SubstanceCoreUtilities.getSkin(fileChooser)
                         .getEnabledColorScheme(DecorationAreaType.NONE);

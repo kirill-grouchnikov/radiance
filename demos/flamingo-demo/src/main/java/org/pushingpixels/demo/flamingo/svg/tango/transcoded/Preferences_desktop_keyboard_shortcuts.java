@@ -4,17 +4,15 @@ import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.plaf.UIResource;
 
-import org.pushingpixels.neon.icon.IsHiDpiAware;
-import org.pushingpixels.neon.icon.NeonIcon;
-import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.neon.icon.ResizableIconFactory;
+import org.pushingpixels.neon.icon.ResizableIconUIResource;
 
 /**
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
-public class Preferences_desktop_keyboard_shortcuts implements ResizableIcon, IsHiDpiAware {
+public class Preferences_desktop_keyboard_shortcuts implements ResizableIcon {
     @SuppressWarnings("unused")
 	private void innerPaint(Graphics2D g) {
         Shape shape = null;
@@ -635,15 +633,12 @@ g.setTransform(defaultTransform_);
 	}
 
     @Override
-    public boolean isHiDpiAware() {
-        return true;
-    }
-
-    @Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g2d.translate(x, y);
 
         double coef1 = (double) this.width / getOrigWidth();
@@ -674,11 +669,11 @@ g.setTransform(defaultTransform_);
      * @param height Required height of the icon
      * @return A new instance of this icon with specified dimensions.
      */
-    public static NeonIcon of(int width, int height) {
+    public static ResizableIcon of(int width, int height) {
        Preferences_desktop_keyboard_shortcuts base = new Preferences_desktop_keyboard_shortcuts();
        base.width = width;
        base.height = height;
-       return new NeonIcon(base);
+       return base;
     }
 
     /**
@@ -688,11 +683,11 @@ g.setTransform(defaultTransform_);
      * @param height Required height of the icon
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
-    public static NeonIconUIResource uiResourceOf(int width, int height) {
+    public static ResizableIconUIResource uiResourceOf(int width, int height) {
        Preferences_desktop_keyboard_shortcuts base = new Preferences_desktop_keyboard_shortcuts();
        base.width = width;
        base.height = height;
-       return new NeonIconUIResource(base);
+       return new ResizableIconUIResource(base);
     }
 
     /**
@@ -701,7 +696,7 @@ g.setTransform(defaultTransform_);
      * @return Factory that returns instances of this icon on demand.
      */
     public static ResizableIconFactory factory() {
-        return () -> new NeonIcon(new Preferences_desktop_keyboard_shortcuts());
+        return () -> new Preferences_desktop_keyboard_shortcuts();
     }
 }
 

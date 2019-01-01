@@ -14,7 +14,7 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
@@ -36,8 +36,7 @@ import java.awt.event.ItemEvent;
  * <br>1.1.1 2005-04-23 Localized form.
  * <br>1.0  30 March 2005  Created.
  */
-public class ColorSlidersChooser extends SubstanceColorChooserPanel
-implements UIResource {
+public class ColorSlidersChooser extends SubstanceColorChooserPanel implements UIResource {
     
     /**
      * We store here the name of the last selected color sliders panel.
@@ -123,7 +122,7 @@ implements UIResource {
     }
     
     @Override
-    public NeonIconUIResource getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
+    public ResizableIcon getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
         return SubstanceCortex.GlobalScope.getIconPack().getColorChooserColorSlidersIcon(size,
                 colorScheme);
     }

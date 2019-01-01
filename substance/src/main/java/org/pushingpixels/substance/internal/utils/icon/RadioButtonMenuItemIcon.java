@@ -29,15 +29,12 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+import org.pushingpixels.substance.internal.animation.*;
 import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
@@ -65,7 +62,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 	/**
 	 * Icon cache to speed up the painting.
 	 */
-	private static LazyResettableHashMap<NeonIconUIResource> iconMap =
+	private static LazyResettableHashMap<ImageWrapperIcon> iconMap =
 			new LazyResettableHashMap<>("RadioButtonMenuItemIcon");
 
 	/**
@@ -86,7 +83,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 	 * 
 	 * @return Icon to paint.
 	 */
-	private NeonIconUIResource getIconToPaint() {
+	private ImageWrapperIcon getIconToPaint() {
 		if (this.menuItem == null)
 			return null;
 		TransitionAwareUI transitionAwareUI = (TransitionAwareUI) this.menuItem
@@ -125,9 +122,9 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 				checkMarkSize, fillPainter.getDisplayName(), borderPainter.getDisplayName(),
 				baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
 				baseBorderColorScheme.getDisplayName(), visibility, alpha);
-		NeonIconUIResource iconBase = iconMap.get(keyBase);
+		ImageWrapperIcon iconBase = iconMap.get(keyBase);
 		if (iconBase == null) {
-			iconBase = new NeonIconUIResource(SubstanceImageCreator.getRadioButton(
+			iconBase = new ImageWrapperIcon(SubstanceImageCreator.getRadioButton(
 					this.menuItem, fillPainter, borderPainter, checkMarkSize,
 					currState, 0, baseFillColorScheme, baseMarkColorScheme,
 					baseBorderColorScheme, visibility, alpha));
@@ -170,9 +167,9 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 						fontSize, checkMarkSize, fillPainter.getDisplayName(), borderPainter.getDisplayName(),
 						fillColorScheme.getDisplayName(), markColorScheme.getDisplayName(),
 						borderColorScheme.getDisplayName(), visibility, alpha);
-				NeonIconUIResource iconLayer = iconMap.get(keyLayer);
+				ImageWrapperIcon iconLayer = iconMap.get(keyLayer);
 				if (iconLayer == null) {
-					iconLayer = new NeonIconUIResource(SubstanceImageCreator
+					iconLayer = new ImageWrapperIcon(SubstanceImageCreator
 							.getRadioButton(this.menuItem, fillPainter,
 									borderPainter, checkMarkSize, currState, 0,
 									fillColorScheme, markColorScheme,
@@ -185,7 +182,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 		}
 
 		g2d.dispose();
-		return new NeonIconUIResource(result);
+		return new ImageWrapperIcon(result);
 	}
 
 	@Override

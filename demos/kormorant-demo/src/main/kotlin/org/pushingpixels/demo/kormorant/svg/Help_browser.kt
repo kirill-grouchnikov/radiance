@@ -4,17 +4,15 @@ import java.awt.*
 import java.awt.geom.*
 import javax.swing.plaf.UIResource
 
-import org.pushingpixels.neon.icon.IsHiDpiAware
-import org.pushingpixels.neon.icon.NeonIcon
-import org.pushingpixels.neon.icon.NeonIconUIResource
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.neon.icon.ResizableIconFactory
+import org.pushingpixels.neon.icon.ResizableIconUIResource
 
 /**
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
-class Help_browser(private var width: Int, private var height: Int) : ResizableIcon, IsHiDpiAware {
+class Help_browser(private var width: Int, private var height: Int) : ResizableIcon {
 	private fun innerPaint(g : Graphics2D) {
         @Suppress("UNUSED_VARIABLE") var shape: Shape?
         @Suppress("UNUSED_VARIABLE") var paint: Paint?
@@ -328,8 +326,8 @@ g.transform = defaultTransform_
          * @param height Required height of the icon
          * @return A new instance of this icon with specified dimensions.
          */
-        fun of(width: Int, height: Int): NeonIcon {
-            return NeonIcon(Help_browser(width, height))
+        fun of(width: Int, height: Int): ResizableIcon {
+            return Help_browser(width, height)
         }
 
         /**
@@ -339,8 +337,8 @@ g.transform = defaultTransform_
          * @param height Required height of the icon
          * @return A new [UIResource] instance of this icon with specified dimensions.
          */
-        fun uiResourceOf(width: Int, height: Int): NeonIconUIResource {
-            return NeonIconUIResource(Help_browser(width, height))
+        fun uiResourceOf(width: Int, height: Int): ResizableIconUIResource {
+            return ResizableIconUIResource(Help_browser(width, height))
         }
 
         /**
@@ -349,7 +347,7 @@ g.transform = defaultTransform_
          * @return Factory that returns instances of this icon on demand.
          */
         fun factory(): ResizableIconFactory {
-            return ResizableIconFactory { NeonIcon(Help_browser(16, 16)) }
+            return ResizableIconFactory { Help_browser(16, 16) }
         }
     }
 
@@ -366,14 +364,12 @@ g.transform = defaultTransform_
         height = newDimension.height
     }
 
-    override fun isHiDpiAware(): Boolean {
-        return true
-    }
-
     override fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
         val g2d = g.create() as Graphics2D
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON)
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC)
         g2d.translate(x, y)
 
         val coef1 = this.width.toDouble() / getOrigWidth()

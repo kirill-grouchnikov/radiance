@@ -29,28 +29,22 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import org.pushingpixels.neon.icon.IsHiDpiAware;
-import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
-import org.pushingpixels.substance.internal.ui.SubstanceSliderUI;
-import org.pushingpixels.substance.internal.ui.SubstanceTreeUI;
+import org.pushingpixels.substance.internal.animation.*;
+import org.pushingpixels.substance.internal.ui.*;
 import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
+import java.awt.geom.*;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Icon factory for dynamically-changing icons. This class is <b>for internal use only</b>.
@@ -155,7 +149,7 @@ public class SubstanceIconFactory {
         /**
          * Icon hash.
          */
-        private static LazyResettableHashMap<NeonIconUIResource> icons = new LazyResettableHashMap<>(
+        private static LazyResettableHashMap<ImageWrapperIcon> icons = new LazyResettableHashMap<>(
                 "SubstanceIconFactory.SliderHorizontalIcon");
 
         /**
@@ -181,7 +175,7 @@ public class SubstanceIconFactory {
             this.isMirrorred = isMirrorred;
         }
 
-        private NeonIconUIResource getIcon(JSlider slider,
+        private ImageWrapperIcon getIcon(JSlider slider,
                 StateTransitionTracker stateTransitionTracker) {
             StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
                     .getModelStateInfo();
@@ -205,7 +199,7 @@ public class SubstanceIconFactory {
                     baseFillScheme.getDisplayName(), baseBorderScheme.getDisplayName(),
                     fillPainter.getDisplayName(), borderPainter.getDisplayName(), this.isMirrorred);
 
-            NeonIconUIResource baseLayer = SliderHorizontalIcon.icons.get(baseKey);
+            ImageWrapperIcon baseLayer = SliderHorizontalIcon.icons.get(baseKey);
             if (baseLayer == null) {
                 baseLayer = getSingleLayer(slider, width, fillPainter, borderPainter,
                         baseFillScheme, baseBorderScheme);
@@ -239,7 +233,7 @@ public class SubstanceIconFactory {
                         fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                         this.isMirrorred);
 
-                NeonIconUIResource layer = SliderHorizontalIcon.icons.get(key);
+                ImageWrapperIcon layer = SliderHorizontalIcon.icons.get(key);
                 if (layer == null) {
                     layer = getSingleLayer(slider, width, fillPainter, borderPainter, fillScheme,
                             borderScheme);
@@ -251,10 +245,10 @@ public class SubstanceIconFactory {
             }
 
             g2d.dispose();
-            return new NeonIconUIResource(result);
+            return new ImageWrapperIcon(result);
         }
 
-        private NeonIconUIResource getSingleLayer(JSlider slider, float width,
+        private ImageWrapperIcon getSingleLayer(JSlider slider, float width,
                 SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter,
                 SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme) {
             float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
@@ -279,7 +273,7 @@ public class SubstanceIconFactory {
             if (this.isMirrorred)
                 stateImage = SubstanceImageCreator.getRotated(stateImage, 2, false);
 
-            return new NeonIconUIResource(stateImage);
+            return new ImageWrapperIcon(stateImage);
         }
 
         @Override
@@ -319,7 +313,7 @@ public class SubstanceIconFactory {
         /**
          * Icon hash.
          */
-        private static LazyResettableHashMap<NeonIconUIResource> icons = new LazyResettableHashMap<>(
+        private static LazyResettableHashMap<ImageWrapperIcon> icons = new LazyResettableHashMap<>(
                 "SubstanceIconFactory.SliderRoundIcon");
 
         /**
@@ -344,7 +338,7 @@ public class SubstanceIconFactory {
          *            The slider itself.
          * @return Icon that matches the specified state of the slider thumb.
          */
-        private NeonIconUIResource getIcon(JSlider slider,
+        private ImageWrapperIcon getIcon(JSlider slider,
                 StateTransitionTracker stateTransitionTracker) {
             StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
                     .getModelStateInfo();
@@ -368,7 +362,7 @@ public class SubstanceIconFactory {
                     baseFillScheme.getDisplayName(), baseBorderScheme.getDisplayName(),
                     fillPainter.getDisplayName(), borderPainter.getDisplayName());
 
-            NeonIconUIResource baseLayer = SliderRoundIcon.icons.get(baseKey);
+            ImageWrapperIcon baseLayer = SliderRoundIcon.icons.get(baseKey);
             if (baseLayer == null) {
                 baseLayer = getSingleLayer(slider, width, fillPainter, borderPainter,
                         baseFillScheme, baseBorderScheme);
@@ -402,7 +396,7 @@ public class SubstanceIconFactory {
                         fillScheme.getDisplayName(), borderScheme.getDisplayName(),
                         fillPainter.getDisplayName(), borderPainter.getDisplayName());
 
-                NeonIconUIResource layer = SliderRoundIcon.icons.get(key);
+                ImageWrapperIcon layer = SliderRoundIcon.icons.get(key);
                 if (layer == null) {
                     layer = getSingleLayer(slider, width, fillPainter, borderPainter, fillScheme,
                             borderScheme);
@@ -414,10 +408,10 @@ public class SubstanceIconFactory {
             }
 
             g2d.dispose();
-            return new NeonIconUIResource(result);
+            return new ImageWrapperIcon(result);
         }
 
-        private NeonIconUIResource getSingleLayer(JSlider slider, float width,
+        private ImageWrapperIcon getSingleLayer(JSlider slider, float width,
                 SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter,
                 SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme) {
             float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
@@ -442,7 +436,7 @@ public class SubstanceIconFactory {
             borderPainter.paintBorder(g2d, slider, width, this.size, contour, contourInner,
                     borderScheme);
 
-            return new NeonIconUIResource(stateImage);
+            return new ImageWrapperIcon(stateImage);
         }
 
         @Override
@@ -482,7 +476,7 @@ public class SubstanceIconFactory {
         /**
          * Icon hash.
          */
-        private static LazyResettableHashMap<NeonIconUIResource> icons = new LazyResettableHashMap<>(
+        private static LazyResettableHashMap<ImageWrapperIcon> icons = new LazyResettableHashMap<>(
                 "SubstanceIconFactory.SliderVerticalIcon");
 
         /**
@@ -515,7 +509,7 @@ public class SubstanceIconFactory {
          *            The slider itself.
          * @return Icon that matches the specified state of the slider thumb.
          */
-        private NeonIconUIResource getIcon(JSlider slider,
+        private ImageWrapperIcon getIcon(JSlider slider,
                 StateTransitionTracker stateTransitionTracker) {
             StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
                     .getModelStateInfo();
@@ -542,7 +536,7 @@ public class SubstanceIconFactory {
                     baseBorderScheme.getDisplayName(), fillPainter.getDisplayName(),
                     borderPainter.getDisplayName(), this.isMirrorred);
 
-            NeonIconUIResource baseLayer = SliderVerticalIcon.icons.get(baseKey);
+            ImageWrapperIcon baseLayer = SliderVerticalIcon.icons.get(baseKey);
             if (baseLayer == null) {
                 baseLayer = getSingleLayer(slider, height, delta, fillPainter, borderPainter,
                         baseFillScheme, baseBorderScheme);
@@ -577,7 +571,7 @@ public class SubstanceIconFactory {
                         borderScheme.getDisplayName(), fillPainter.getDisplayName(),
                         borderPainter.getDisplayName(), this.isMirrorred);
 
-                NeonIconUIResource layer = SliderVerticalIcon.icons.get(key);
+                ImageWrapperIcon layer = SliderVerticalIcon.icons.get(key);
                 if (layer == null) {
                     layer = getSingleLayer(slider, height, delta, fillPainter, borderPainter,
                             fillScheme, borderScheme);
@@ -589,10 +583,10 @@ public class SubstanceIconFactory {
             }
 
             g2d.dispose();
-            return new NeonIconUIResource(result);
+            return new ImageWrapperIcon(result);
         }
 
-        private NeonIconUIResource getSingleLayer(JSlider slider, int height, int delta,
+        private ImageWrapperIcon getSingleLayer(JSlider slider, int height, int delta,
                 SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter,
                 SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme) {
             float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
@@ -623,7 +617,7 @@ public class SubstanceIconFactory {
                 stateImage = SubstanceImageCreator.getRotated(stateImage, 2, false);
             }
 
-            return new NeonIconUIResource(stateImage);
+            return new ImageWrapperIcon(stateImage);
         }
 
         @Override
@@ -659,11 +653,11 @@ public class SubstanceIconFactory {
      * 
      * @author Kirill Grouchnikov
      */
-    private static class TreeIcon implements ResizableIcon, UIResource, IsHiDpiAware {
+    private static class TreeIcon implements ResizableIcon, UIResource {
         /**
          * Icon hash.
          */
-        private static LazyResettableHashMap<NeonIconUIResource> icons = new LazyResettableHashMap<>(
+        private static LazyResettableHashMap<ImageWrapperIcon> icons = new LazyResettableHashMap<>(
                 "SubstanceIconFactory.TreeIcon");
 
         /**
@@ -689,15 +683,10 @@ public class SubstanceIconFactory {
             this.size = newDimension.width;
         }
 
-        @Override
-        public boolean isHiDpiAware() {
-            return true;
-        }
-
         /**
          * Retrieves icon that matches the specified state of the tree.
          */
-        private static NeonIconUIResource getIcon(JTree tree, boolean isCollapsed) {
+        private static ImageWrapperIcon getIcon(JTree tree, boolean isCollapsed) {
             ComponentState state = ((tree == null) || tree.isEnabled()) ? ComponentState.ENABLED
                     : ComponentState.DISABLED_UNSELECTED;
             SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(tree,
@@ -713,11 +702,11 @@ public class SubstanceIconFactory {
                     fillScheme.getDisplayName(), borderScheme.getDisplayName(),
                     markScheme.getDisplayName(), isCollapsed);
 
-            NeonIconUIResource result = TreeIcon.icons.get(key);
+            ImageWrapperIcon result = TreeIcon.icons.get(key);
             if (result != null)
                 return result;
 
-            result = new NeonIconUIResource(SubstanceImageCreator.getTreeIcon(tree, fillScheme,
+            result = new ImageWrapperIcon(SubstanceImageCreator.getTreeIcon(tree, fillScheme,
                     borderScheme, markScheme, isCollapsed));
             TreeIcon.icons.put(key, result);
 
@@ -735,7 +724,7 @@ public class SubstanceIconFactory {
             // "Tree.collapsedIcon" and "Tree.expandedIcon" UIManager
             // entries to paint on non-JTree components. Sigh.
             JTree tree = (c instanceof JTree) ? (JTree) c : null;
-            NeonIconUIResource iconToDraw = TreeIcon.getIcon(tree, this.isCollapsed);
+            ImageWrapperIcon iconToDraw = TreeIcon.getIcon(tree, this.isCollapsed);
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.translate(x, y);
             iconToDraw.paintIcon(c, g2d, 0, 0);
@@ -783,16 +772,16 @@ public class SubstanceIconFactory {
     /**
      * Cache of title pane icons.
      */
-    private static final Map<IconKind, LazyResettableHashMap<NeonIconUIResource>> titlePaneIcons = SubstanceIconFactory
-            .createTitlePaneIcons();
+    private static final Map<IconKind, LazyResettableHashMap<ImageWrapperIcon>> titlePaneIcons =
+            SubstanceIconFactory.createTitlePaneIcons();
 
     /**
      * Creates an empty map of title pane icons.
      * 
      * @return Empty map of title pane icons.
      */
-    private static Map<IconKind, LazyResettableHashMap<NeonIconUIResource>> createTitlePaneIcons() {
-        Map<IconKind, LazyResettableHashMap<NeonIconUIResource>> result = new HashMap<>();
+    private static Map<IconKind, LazyResettableHashMap<ImageWrapperIcon>> createTitlePaneIcons() {
+        Map<IconKind, LazyResettableHashMap<ImageWrapperIcon>> result = new HashMap<>();
 
         result.put(IconKind.CLOSE,
                 new LazyResettableHashMap<>("Close title pane icons"));
@@ -814,14 +803,14 @@ public class SubstanceIconFactory {
      *            Color scheme.
      * @return Title pane icon of the specified kind.
      */
-    public static NeonIconUIResource getTitlePaneIcon(IconKind iconKind,
+    public static ImageWrapperIcon getTitlePaneIcon(IconKind iconKind,
             SubstanceColorScheme scheme, SubstanceColorScheme backgroundScheme) {
 
-        LazyResettableHashMap<NeonIconUIResource> kindMap = SubstanceIconFactory.titlePaneIcons
+        LazyResettableHashMap<ImageWrapperIcon> kindMap = SubstanceIconFactory.titlePaneIcons
                 .get(iconKind);
         HashMapKey key = SubstanceCoreUtilities.getHashKey(scheme.getDisplayName(),
                 backgroundScheme.getDisplayName());
-        NeonIconUIResource result = kindMap.get(key);
+        ImageWrapperIcon result = kindMap.get(key);
         if (result != null)
             return result;
 

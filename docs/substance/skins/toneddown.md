@@ -222,9 +222,9 @@ Available in the `org.pushingpixels.substance.api.skin.CeruleanSkin`. In additio
 <img alt="Cerulean" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/cerulean1.png" width="340" height="254">
 <img alt="Cerulean" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/cerulean2.png" width="340" height="254">
 
-## Skins originally designed for the [Flamingo ribbon component](../../flamingo/flamingo.md)
+## Office 2007 skins
 
-Note that while these skins can be used in regular Swing applications as any other Substance skin. Since version 2.0 of Radiance, these skins are part of the extras pack.
+Note that while these skins were originally designed for the [Flamingo ribbon component](../../flamingo/flamingo.md), they can be used in regular Swing applications as any other Substance skin. Since version 2.0 of Radiance, these skins are part of the extras pack.
 
 ### Office Silver 2007
 

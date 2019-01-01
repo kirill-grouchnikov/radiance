@@ -209,9 +209,7 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
         graphics.setComposite(WidgetUtilities.getAlphaComposite(comp, this.textureAlpha, g));
 
         Image colorizedTile = this.getColorizedTile(tileScheme);
-        float scaleFactor = SubstanceCoreUtilities.isHiDpiAwareImage(this.originalTile)
-                ? (float) NeonCortex.getScaleFactor()
-                : 1;
+        float scaleFactor = (float) NeonCortex.getScaleFactor();
         int tileWidth = (int) (colorizedTile.getWidth(null) / scaleFactor);
         int tileHeight = (int) (colorizedTile.getHeight(null) / scaleFactor);
 
@@ -261,9 +259,7 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
     protected BufferedImage getColorizedTile(SubstanceColorScheme scheme) {
         BufferedImage result = this.colorizedTileMap.get(scheme.getDisplayName());
         if (result == null) {
-            float scaleFactor = SubstanceCoreUtilities.isHiDpiAwareImage(this.originalTile)
-                    ? (float) NeonCortex.getScaleFactor()
-                    : 1;
+            float scaleFactor = (float) NeonCortex.getScaleFactor();
             int tileWidth = this.originalTile.getWidth(null);
             int tileHeight = this.originalTile.getHeight(null);
             BufferedImage tileBi = SubstanceCoreUtilities.getBlankImage((int) (tileWidth / scaleFactor),

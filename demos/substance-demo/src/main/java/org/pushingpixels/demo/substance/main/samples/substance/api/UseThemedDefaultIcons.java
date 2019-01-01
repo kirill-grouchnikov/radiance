@@ -62,9 +62,9 @@ public class UseThemedDefaultIcons extends JFrame {
         this.setLayout(new BorderLayout());
 
         final JPanel panel = new JPanel(new FlowLayout());
-        panel.add(new JButton("cut", edit_cut.of(22, 22))); 
-        panel.add(new JButton("copy", edit_copy.of(22, 22))); 
-        panel.add(new JButton("paste", edit_paste.of(22, 22))); 
+        panel.add(new JButton("cut", edit_cut.of(22, 22)));
+        panel.add(new JButton("copy", edit_copy.of(22, 22)));
+        panel.add(new JButton("paste", edit_paste.of(22, 22)));
         this.add(panel, BorderLayout.CENTER);
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));

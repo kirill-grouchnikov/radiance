@@ -31,7 +31,7 @@ package org.pushingpixels.demo.spyglass.mail;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.*;
-import org.pushingpixels.neon.icon.NeonIcon;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.*;
@@ -63,12 +63,12 @@ public class ThreadListPanel extends PanelWithRightLine {
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
         Color mainSelectorIconColor = fillScheme.getForegroundColor();
 
-        NeonIcon editIcon = SubstanceCortex.GlobalScope.colorize(
+        ResizableIcon editIcon = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_mode_edit_black_24px.factory(), mainSelectorIconColor, 0.8f);
         editIcon.setDimension(new Dimension(14, 14));
         this.add(getTitlePanel(editIcon));
 
-        NeonIcon mailIcon = SubstanceCortex.GlobalScope.colorize(
+        ResizableIcon mailIcon = SubstanceCortex.GlobalScope.colorizeIcon(
                 ic_mail_outline_black_24px.factory(), mainSelectorIconColor);
         mailIcon.setDimension(new Dimension(12, 12));
         this.add(getInboxLabel("Inbox", mailIcon, fillScheme.getLightColor()));
@@ -220,7 +220,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         }
     }
 
-    private JPanel getInboxLabel(String title, NeonIcon icon, Color background) {
+    private JPanel getInboxLabel(String title, ResizableIcon icon, Color background) {
         FormBuilder builder = FormBuilder.create().
                 columns("center:pref, 4dlu, fill:pref:grow").
                 rows("p").
@@ -282,7 +282,7 @@ public class ThreadListPanel extends PanelWithRightLine {
 
     }
 
-    private JPanel getTitlePanel(NeonIcon icon) {
+    private JPanel getTitlePanel(ResizableIcon icon) {
         FormBuilder builder = FormBuilder.create().
                 columns("fill:pref:grow, 8dlu, center:pref").
                 rows("p").

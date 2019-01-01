@@ -29,19 +29,15 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import org.pushingpixels.neon.icon.IsHiDpiAware;
-import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.internal.animation.IconGlowTracker;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public class GlowingIcon implements Icon, IsHiDpiAware {
+public class GlowingIcon implements Icon {
 	protected Icon delegate;
 
 	protected IconGlowTracker iconGlowTracker;
@@ -60,12 +56,6 @@ public class GlowingIcon implements Icon, IsHiDpiAware {
 	    glowDampeningFactor = dampeningFactor;
 	}
 	
-	@Override
-	public boolean isHiDpiAware() {
-		return (this.delegate instanceof IsHiDpiAware) && 
-				((IsHiDpiAware) this.delegate).isHiDpiAware();
-	}
-
 	public Icon getDelegate() {
 		return this.delegate;
 	}
@@ -111,7 +101,7 @@ public class GlowingIcon implements Icon, IsHiDpiAware {
 							| (newColor.getGreen() << 8) | newColor.getBlue());
 				}
 			}
-			toPaint = isHiDpiAware() ? new NeonIconUIResource(image) : new ImageIcon(image);
+			toPaint = new ImageWrapperIcon(image);
 			this.iconMap.put(fadePos, toPaint);
 		}
 		Graphics2D g2d = (Graphics2D) g.create();

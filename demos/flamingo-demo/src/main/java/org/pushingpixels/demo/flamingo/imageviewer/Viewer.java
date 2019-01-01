@@ -32,35 +32,34 @@ public class Viewer extends JFrame {
 
         this.bar = new BreadcrumbFileSelector();
 
-        this.bar.getModel()
-                .addPathListener(
-                        (BreadcrumbPathEvent<File> event) -> SwingUtilities.invokeLater(() -> {
-                            final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
-                            System.out.println("New path is ");
-                            for (BreadcrumbItem<File> item : newPath) {
-                                // String[] values = item.getValue();
-                                System.out.println("\t" + item.getData().getAbsolutePath());
-                            }
+        this.bar.getModel().addPathListener(
+                (BreadcrumbPathEvent<File> event) -> SwingUtilities.invokeLater(() -> {
+                    final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
+                    System.out.println("New path is ");
+                    for (BreadcrumbItem<File> item : newPath) {
+                        // String[] values = item.getValue();
+                        System.out.println("\t" + item.getData().getAbsolutePath());
+                    }
 
-                            if (newPath.size() > 0) {
-                                SwingWorker<List<StringValuePair<File>>, Void> worker = new
-                                        SwingWorker<List<StringValuePair<File>>, Void>() {
-                                            @Override
-                                            protected List<StringValuePair<File>> doInBackground() {
-                                                return bar.getCallback().getLeafs(newPath);
-                                            }
+                    if (newPath.size() > 0) {
+                        SwingWorker<List<StringValuePair<File>>, Void> worker = new
+                                SwingWorker<List<StringValuePair<File>>, Void>() {
+                                    @Override
+                                    protected List<StringValuePair<File>> doInBackground() {
+                                        return bar.getCallback().getLeafs(newPath);
+                                    }
 
-                                            @Override
-                                            protected void done() {
-                                                try {
-                                                    fileViewPanel.setFolder(get());
-                                                } catch (Exception exc) {
-                                                }
-                                            }
-                                        };
-                                worker.execute();
-                            }
-                        }));
+                                    @Override
+                                    protected void done() {
+                                        try {
+                                            fileViewPanel.setFolder(get());
+                                        } catch (Exception exc) {
+                                        }
+                                    }
+                                };
+                        worker.execute();
+                    }
+                }));
 
         this.setLayout(new BorderLayout());
         this.add(bar, BorderLayout.NORTH);

@@ -30,7 +30,6 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -66,7 +65,7 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
     /**
      * Hash map for storing icons.
      */
-    private static LazyResettableHashMap<NeonIconUIResource> icons = new LazyResettableHashMap<>(
+    private static LazyResettableHashMap<ImageWrapperIcon> icons = new LazyResettableHashMap<>(
             "SubstanceCheckBoxUI");
 
     /**
@@ -132,9 +131,9 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
                 fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                 baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
                 baseBorderColorScheme.getDisplayName(), visibility, isCheckMarkFadingOut, alpha);
-        NeonIconUIResource iconBase = icons.get(keyBase);
+        ImageWrapperIcon iconBase = icons.get(keyBase);
         if (iconBase == null) {
-            iconBase = new NeonIconUIResource(
+            iconBase = new ImageWrapperIcon(
                     SubstanceImageCreator.getCheckBox(button, fillPainter, borderPainter,
                             checkMarkSize, currState, baseFillColorScheme, baseMarkColorScheme,
                             baseBorderColorScheme, visibility, isCheckMarkFadingOut, alpha));
@@ -174,9 +173,9 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
                         fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                         fillColorScheme.getDisplayName(), markColorScheme.getDisplayName(),
                         borderColorScheme.getDisplayName(), visibility);
-                NeonIconUIResource iconLayer = icons.get(keyLayer);
+                ImageWrapperIcon iconLayer = icons.get(keyLayer);
                 if (iconLayer == null) {
-                    iconLayer = new NeonIconUIResource(
+                    iconLayer = new ImageWrapperIcon(
                             SubstanceImageCreator.getCheckBox(button, fillPainter, borderPainter,
                                     checkMarkSize, currState, fillColorScheme, markColorScheme,
                                     borderColorScheme, visibility, isCheckMarkFadingOut, alpha));
@@ -188,7 +187,7 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
         }
 
         g2d.dispose();
-        return new NeonIconUIResource(result);
+        return new ImageWrapperIcon(result);
     }
 
     @Override

@@ -14,7 +14,7 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
@@ -91,7 +91,7 @@ public class SwatchesChooser extends SubstanceColorChooserPanel implements UIRes
     }
     
     @Override
-    public NeonIconUIResource getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
+    public ResizableIcon getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
         return SubstanceCortex.GlobalScope.getIconPack().getColorChooserColorSwatchesIcon(size,
                 colorScheme);
     }

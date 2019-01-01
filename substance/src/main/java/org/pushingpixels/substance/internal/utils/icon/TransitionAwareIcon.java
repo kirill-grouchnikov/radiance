@@ -29,14 +29,11 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import org.pushingpixels.neon.icon.IsHiDpiAware;
-import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+import org.pushingpixels.substance.internal.animation.*;
 import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
@@ -52,7 +49,7 @@ import java.util.Map;
  * @author Kirill Grouchnikov
  */
 @TransitionAware
-public class TransitionAwareIcon implements Icon, IsHiDpiAware {
+public class TransitionAwareIcon implements Icon {
     /**
      * The delegate needs to implement the method in this interface based on the provided color
      * scheme. The color scheme is computed based on the transitions that are happening on the
@@ -60,7 +57,7 @@ public class TransitionAwareIcon implements Icon, IsHiDpiAware {
      * 
      * @author Kirill Grouchnikov
      */
-    public static interface Delegate {
+    public interface Delegate {
         /**
          * Returns the icon that matches the specified scheme.
          * 
@@ -68,15 +65,15 @@ public class TransitionAwareIcon implements Icon, IsHiDpiAware {
          *            Color scheme.
          * @return Icon that matches the specified scheme.
          */
-        public NeonIconUIResource getColorSchemeIcon(SubstanceColorScheme scheme);
+        ResizableIcon getColorSchemeIcon(SubstanceColorScheme scheme);
     }
 
-    public static interface ColorSchemeAssociationKindDelegate {
-        public ColorSchemeAssociationKind getColorSchemeAssociationKind(ComponentState state);
+    public interface ColorSchemeAssociationKindDelegate {
+        ColorSchemeAssociationKind getColorSchemeAssociationKind(ComponentState state);
     }
 
-    public static interface TransitionAwareUIDelegate {
-        public TransitionAwareUI getTransitionAwareUI();
+    public interface TransitionAwareUIDelegate {
+        TransitionAwareUI getTransitionAwareUI();
     }
 
     /**
@@ -104,7 +101,7 @@ public class TransitionAwareIcon implements Icon, IsHiDpiAware {
      * Icon cache to speed up the subsequent icon painting. The basic assumption is that the
      * {@link #delegate} returns an icon that paints the same for the same parameters.
      */
-    private static LazyResettableHashMap<NeonIconUIResource> iconMap = new LazyResettableHashMap<>(
+    private static LazyResettableHashMap<ResizableIcon> iconMap = new LazyResettableHashMap<>(
             "TransitionAwareIcon");
 
     private int iconWidth;
@@ -119,13 +116,6 @@ public class TransitionAwareIcon implements Icon, IsHiDpiAware {
 
     /**
      * Creates a new transition-aware icon.
-     * 
-     * @param comp
-     *            Associated component.
-     * @param model
-     *            Associated model.
-     * @param delegate
-     *            Delegate to compute the actual icons.
      */
     public TransitionAwareIcon(JComponent comp, TransitionAwareUIDelegate transitionAwareUIDelegate,
             Delegate delegate,
@@ -137,16 +127,11 @@ public class TransitionAwareIcon implements Icon, IsHiDpiAware {
         this.colorSchemeAssociationKindDelegate = colorSchemeAssociationKindDelegate;
         this.uniqueIconTypeId = uniqueIconTypeId;
 
-        NeonIconUIResource markEnabledIcon = this.delegate
+        ResizableIcon markEnabledIcon = this.delegate
                 .getColorSchemeIcon(SubstanceColorSchemeUtilities.getColorScheme(comp,
                         ColorSchemeAssociationKind.MARK, ComponentState.ENABLED));
         this.iconWidth = markEnabledIcon.getIconWidth();
         this.iconHeight = markEnabledIcon.getIconHeight();
-    }
-
-    @Override
-    public boolean isHiDpiAware() {
-        return true;
     }
 
     /**
@@ -154,7 +139,7 @@ public class TransitionAwareIcon implements Icon, IsHiDpiAware {
      * 
      * @return Icon to paint.
      */
-    private synchronized NeonIconUIResource getIconToPaint() {
+    private synchronized ResizableIcon getIconToPaint() {
         StateTransitionTracker stateTransitionTracker = this.transitionAwareUIDelegate
                 .getTransitionAwareUI().getTransitionTracker();
         StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
@@ -179,9 +164,9 @@ public class TransitionAwareIcon implements Icon, IsHiDpiAware {
         HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(this.uniqueIconTypeId,
                 SubstanceSizeUtils.getComponentFontSize(this.comp), baseScheme.getDisplayName(),
                 baseAlpha);
-        NeonIconUIResource layerBase = iconMap.get(keyBase);
+        ResizableIcon layerBase = iconMap.get(keyBase);
         if (layerBase == null) {
-            NeonIconUIResource baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
+            ResizableIcon baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
             if (baseAlpha == 1.0f) {
                 layerBase = baseFullOpacity;
                 iconMap.put(keyBase, layerBase);
@@ -192,7 +177,7 @@ public class TransitionAwareIcon implements Icon, IsHiDpiAware {
                 g2base.setComposite(AlphaComposite.SrcOver.derive(baseAlpha));
                 baseFullOpacity.paintIcon(this.comp, g2base, 0, 0);
                 g2base.dispose();
-                layerBase = new NeonIconUIResource(baseImage);
+                layerBase = new ImageWrapperIcon(baseImage);
                 iconMap.put(keyBase, layerBase);
             }
         }
@@ -230,9 +215,9 @@ public class TransitionAwareIcon implements Icon, IsHiDpiAware {
                 HashMapKey key = SubstanceCoreUtilities.getHashKey(this.uniqueIconTypeId,
                         SubstanceSizeUtils.getComponentFontSize(this.comp), scheme.getDisplayName(),
                         alpha);
-                NeonIconUIResource layer = iconMap.get(key);
+                ResizableIcon layer = iconMap.get(key);
                 if (layer == null) {
-                    NeonIconUIResource fullOpacity = this.delegate.getColorSchemeIcon(scheme);
+                    ResizableIcon fullOpacity = this.delegate.getColorSchemeIcon(scheme);
                     if (alpha == 1.0f) {
                         layer = fullOpacity;
                         iconMap.put(key, layer);
@@ -243,7 +228,7 @@ public class TransitionAwareIcon implements Icon, IsHiDpiAware {
                         g2layer.setComposite(AlphaComposite.SrcOver.derive(alpha));
                         fullOpacity.paintIcon(this.comp, g2layer, 0, 0);
                         g2layer.dispose();
-                        layer = new NeonIconUIResource(image);
+                        layer = new ImageWrapperIcon(image);
                         iconMap.put(key, layer);
                     }
                 }
@@ -251,7 +236,7 @@ public class TransitionAwareIcon implements Icon, IsHiDpiAware {
             }
         }
         g2d.dispose();
-        return new NeonIconUIResource(result);
+        return new ImageWrapperIcon(result);
     }
 
     @Override

@@ -29,8 +29,11 @@
  */
 package org.pushingpixels.neon.icon;
 
+import org.pushingpixels.neon.NeonCortex;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Interface for icons that have resizability behaviour.
@@ -45,4 +48,11 @@ public interface ResizableIcon extends Icon {
 	 *            New dimension for <code>this</code> icon.
 	 */
 	void setDimension(Dimension newDimension);
+
+	default BufferedImage toImage() {
+		BufferedImage result = NeonCortex.getBlankImage(this.getIconWidth(),
+				this.getIconHeight());
+		this.paintIcon(null, result.getGraphics(), 0, 0);
+		return result;
+	}
 }

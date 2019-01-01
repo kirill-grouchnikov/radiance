@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import org.pushingpixels.neon.icon.NeonIconUIResource;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -38,8 +38,7 @@ import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 
 public abstract class SubstanceColorChooserPanel extends AbstractColorChooserPanel {
-    public abstract NeonIconUIResource getHiDpiAwareIcon(int size,
-            SubstanceColorScheme colorScheme);
+    public abstract ResizableIcon getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme);
 
     @Override
     public Icon getLargeDisplayIcon() {

@@ -27,41 +27,34 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.neon.icon;
+package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
+import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * Resizable high-DPI aware implementation of the core {@link Icon} interface that maintains crisp
- * pixel-perfect appearance of icons across the entire app.
+ * A {@link UIResource} variant of the resizable high-DPI aware implementation of the core
+ * {@link Icon} interface that maintains crisp pixel-perfect appearance of icons across the entire
+ * app.
  *
  * @author Kirill Grouchnikov
- * @see NeonIconUIResource
  */
-public class NeonIcon implements ResizableIcon, IsHiDpiAware {
+public class ImageWrapperIcon implements ResizableIcon, UIResource {
     private final double factor;
-    private final boolean isHiDpiAwareSource;
 
-    private ResizableIcon iconSource;
+    private BufferedImage imageSource;
 
     private int width;
     private int height;
 
-    public NeonIcon(ResizableIcon icon) {
-        if (icon instanceof NeonIcon) {
-            throw new IllegalArgumentException("Can't wrap another instance of NeonIcon");
-        }
-        if (icon instanceof NeonIconUIResource) {
-            throw new IllegalArgumentException("Can't wrap another instance of NeonIconUIResource");
-        }
-        this.iconSource = icon;
+    public ImageWrapperIcon(BufferedImage image) {
+        this.imageSource = image;
         this.factor = NeonCortex.getScaleFactor();
-        this.isHiDpiAwareSource = (icon instanceof IsHiDpiAware)
-                && ((IsHiDpiAware) icon).isHiDpiAware();
         this.width = getInternalWidth();
         this.height = getInternalHeight();
     }
@@ -70,14 +63,6 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
     public void setDimension(Dimension newDimension) {
         this.width = newDimension.width;
         this.height = newDimension.height;
-        if (this.iconSource != null) {
-            this.iconSource.setDimension(newDimension);
-        }
-    }
-
-    @Override
-    public boolean isHiDpiAware() {
-        return this.isHiDpiAwareSource;
     }
 
     @Override
@@ -88,13 +73,13 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
         g2d.translate(x + dx, y + dy);
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        this.iconSource.paintIcon(c, g2d, 0, 0);
+        g2d.drawImage(this.imageSource, 0, 0, (int) (this.imageSource.getWidth() / this.factor),
+                (int) (this.imageSource.getHeight() / this.factor), null);
         g2d.dispose();
     }
 
     private int getInternalWidth() {
-        return (int) (this.iconSource.getIconWidth()
-                / (this.isHiDpiAwareSource ? 1 : this.factor));
+        return (int) (this.imageSource.getWidth() / this.factor);
     }
 
     @Override
@@ -103,19 +88,11 @@ public class NeonIcon implements ResizableIcon, IsHiDpiAware {
     }
 
     private int getInternalHeight() {
-        return (int) (this.iconSource.getIconHeight()
-                / (this.isHiDpiAwareSource ? 1 : this.factor));
+        return (int) (this.imageSource.getHeight() / this.factor);
     }
 
     @Override
     public int getIconHeight() {
         return this.height;
-    }
-
-    public BufferedImage toImage() {
-        BufferedImage result = NeonCortex.getBlankImage(this.getIconWidth(),
-                this.getIconHeight());
-        this.paintIcon(null, result.getGraphics(), 0, 0);
-        return result;
     }
 }

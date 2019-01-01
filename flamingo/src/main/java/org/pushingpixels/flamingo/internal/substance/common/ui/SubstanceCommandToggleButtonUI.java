@@ -35,7 +35,7 @@ import org.pushingpixels.flamingo.internal.substance.common.GlowingResizableIcon
 import org.pushingpixels.flamingo.internal.substance.utils.*;
 import org.pushingpixels.flamingo.internal.ui.common.*;
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;

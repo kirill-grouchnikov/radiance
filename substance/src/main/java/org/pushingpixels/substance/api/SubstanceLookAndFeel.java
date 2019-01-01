@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.substance.api;
 
-import org.pushingpixels.neon.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.SubstancePluginRepository;
-import org.pushingpixels.substance.internal.SubstanceSynapse;
+import org.pushingpixels.substance.internal.*;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopupFactory;
 import org.pushingpixels.substance.internal.utils.*;
 
@@ -40,8 +38,7 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicLookAndFeel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 
 /**
  * <p>
@@ -342,6 +339,6 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
             result = intermediate;
         }
 
-        return new NeonIconUIResource(result);
+        return new ImageWrapperIcon(result);
     }
 }

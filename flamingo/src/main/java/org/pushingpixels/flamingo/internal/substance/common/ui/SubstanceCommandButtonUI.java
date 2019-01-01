@@ -400,7 +400,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                                     : SwingConstants.WEST);
                     // System.out.println(direction + ":" + width + ":"
                     // + height);
-                    NeonIconUIResource result = SubstanceImageCreator.getArrowIcon(width,
+                    ImageWrapperIcon result = SubstanceImageCreator.getArrowIcon(width,
                             height, SubstanceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f,
                             direction, scheme);
                     // System.out.println(" --> " + result.getIconWidth()
