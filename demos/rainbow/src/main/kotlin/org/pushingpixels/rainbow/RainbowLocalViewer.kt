@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2018 Rainbow Kirill Grouchnikov
+ * Copyright (c) 2005-2019 Rainbow Kirill Grouchnikov
  * and Alexander Potochkin. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
