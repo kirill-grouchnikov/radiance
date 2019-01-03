@@ -31,12 +31,16 @@ package org.pushingpixels.demo.spyglass.mail;
 
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
-import org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class VisorMail extends JFrame {
+    public static final SubstanceSlices.DecorationAreaType DESTINATIONS =
+            new SubstanceSlices.DecorationAreaType("Visor Destinations");
+    public static final SubstanceSlices.DecorationAreaType THREADS =
+            new SubstanceSlices.DecorationAreaType("Visor Threads");
+
     public VisorMail() {
         BorderLayout mainLayout = new BorderLayout();
         Container contentPane = this.getContentPane();
@@ -52,7 +56,7 @@ public class VisorMail extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // Configure the main skin
-            SubstanceCortex.GlobalScope.setSkin(new BusinessBlueSteelSkin());
+            SubstanceCortex.GlobalScope.setSkin(new VisorSkin());
             SubstanceCortex.GlobalScope.setFocusKind(FocusKind.NONE);
             JFrame.setDefaultLookAndFeelDecorated(true);
 

@@ -31,40 +31,28 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
+import org.pushingpixels.substance.api.renderer.*;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.animation.StateTransitionMultiTracker;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
+import org.pushingpixels.substance.internal.animation.*;
+import org.pushingpixels.substance.internal.painter.*;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.ComponentUI;
+import javax.swing.event.*;
+import javax.swing.plaf.*;
 import javax.swing.plaf.basic.BasicListUI;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.beans.*;
+import java.util.*;
 
 /**
  * UI for lists in <b>Substance</b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAware {
@@ -123,7 +111,11 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
                 return;
 
             // no selection animations on non-Substance renderers
-            if (!(list.getCellRenderer() instanceof SubstanceDefaultListCellRenderer)) {
+            ListCellRenderer cellRenderer = list.getCellRenderer();
+            boolean isSubstanceRenderer =
+                    (cellRenderer instanceof SubstanceDefaultListCellRenderer) ||
+                            (cellRenderer instanceof SubstancePanelListCellRenderer);
+            if (!isSubstanceRenderer) {
                 syncModelContents();
                 return;
             }
@@ -210,7 +202,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
 
     /**
      * Listener for fade animations on list rollovers.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class RolloverFadeListener implements MouseListener, MouseMotionListener {
@@ -249,13 +241,16 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
 
         /**
          * Handles various mouse move events and initiates the fade animation if necessary.
-         * 
-         * @param e
-         *            Mouse event.
+         *
+         * @param e Mouse event.
          */
         private void handleMove(MouseEvent e) {
             // no rollover effects on non-Substance renderers
-            if (!(list.getCellRenderer() instanceof SubstanceDefaultListCellRenderer)) {
+            ListCellRenderer cellRenderer = list.getCellRenderer();
+            boolean isSubstanceRenderer =
+                    (cellRenderer instanceof SubstanceDefaultListCellRenderer) ||
+                            (cellRenderer instanceof SubstancePanelListCellRenderer);
+            if (!isSubstanceRenderer) {
                 fadeOutRolloverIndication();
                 resetRolloverIndex();
                 return;
@@ -330,7 +325,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
 
     /**
      * Repaints a single cell during the fade animation cycle.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class CellRepaintCallback extends UIThreadTimelineCallbackAdapter {
@@ -346,11 +341,9 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
 
         /**
          * Creates a new animation repaint callback.
-         * 
-         * @param list
-         *            Associated list.
-         * @param cellIndex
-         *            Associated (animated) cell index.
+         *
+         * @param list      Associated list.
+         * @param cellIndex Associated (animated) cell index.
          */
         private CellRepaintCallback(JList list, int cellIndex) {
             this.list = list;
@@ -485,7 +478,11 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
         Component rendererComponent = cellRenderer.getListCellRendererComponent(list, value, row,
                 isSelected, cellHasFocus);
 
-        if (!(rendererComponent instanceof SubstanceDefaultListCellRenderer)) {
+        boolean isSubstanceRenderer =
+                (rendererComponent instanceof SubstanceDefaultListCellRenderer) ||
+                        (rendererComponent instanceof SubstancePanelListCellRenderer);
+
+        if (!isSubstanceRenderer) {
             // if it's not Substance renderer - ask the Basic delegate to paint
             // it.
             super.paintCell(g, row, rowBounds, cellRenderer, dataModel, selModel, leadIndex);
@@ -517,8 +514,9 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
             Color background = rendererComponent.getBackground();
             // optimization - only render background if it's different
             // from the list background
-            if ((background != null) && (!list.getBackground().equals(background)
-                    || this.updateInfo.isInDecorationArea)) {
+            if (!(background instanceof UIResource) &&
+                    ((background != null) && (!list.getBackground().equals(background)
+                            || this.updateInfo.isInDecorationArea))) {
                 g2d.setColor(background);
                 g2d.fillRect(cx, cy, cw, ch);
             }
@@ -536,7 +534,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
                 rendererComponent);
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
                 ((modelStateInfo == null) ? null
-                : modelStateInfo.getStateContributionMap());
+                        : modelStateInfo.getStateContributionMap());
         ComponentState currState = ((modelStateInfo == null) ? getCellState(row, rendererComponent)
                 : modelStateInfo.getCurrModelState());
 
@@ -609,11 +607,9 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
 
     /**
      * Returns the current state for the specified cell.
-     * 
-     * @param cellIndex
-     *            Cell index.
-     * @param rendererComponent
-     *            Renderer component for the specified cell index.
+     *
+     * @param cellIndex         Cell index.
+     * @param rendererComponent Renderer component for the specified cell index.
      * @return The current state for the specified cell.
      */
     public ComponentState getCellState(int cellIndex, Component rendererComponent) {

@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2019 Spyglass Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of Spyglass Kirill Grouchnikov nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.spyglass.mail;
 
@@ -35,35 +35,63 @@ import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
-import org.pushingpixels.substance.api.colorscheme.*;
-import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
-import org.pushingpixels.substance.api.painter.highlight.SubstanceHighlightPainter;
+import org.pushingpixels.substance.api.renderer.SubstancePanelListCellRenderer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
+import java.util.List;
+import java.util.*;
 
 /**
- * Main destinations panel (leftmost under LTR). In the real app this will probably be a JList
- * backed by an adapter and custom renderer(s).
+ * Main destinations panel (leftmost under LTR).
  */
 public class DestinationsPanel extends PanelWithRightLine {
+    private static class DestinationInfo {
+        public ResizableIconFactory iconFactory;
+        public String title;
+        public int unread;
+
+        public DestinationInfo(ResizableIconFactory iconFactory, String title, int unread) {
+            this.iconFactory = iconFactory;
+            this.title = title;
+            this.unread = unread;
+        }
+    }
+
+    private static class DestinationListModel extends AbstractListModel<DestinationInfo> {
+        protected List<DestinationInfo> model;
+
+        public DestinationListModel(DestinationInfo... infos) {
+            super();
+            model = new ArrayList<>();
+            for (int i = 0; i < infos.length; i++) {
+                model.add(infos[i]);
+            }
+        }
+
+        @Override
+        public DestinationInfo getElementAt(int index) {
+            return model.get(index);
+        }
+
+        @Override
+        public int getSize() {
+            return model.size();
+        }
+    }
+
     public DestinationsPanel(Window window) {
         SubstanceSkin currentSkin = SubstanceCortex.GlobalScope.getCurrentSkin();
 
-        ComponentOrParentChainScope.setDecorationType(this, DecorationAreaType.GENERAL);
-        this.setRightLineColor(currentSkin.getColorScheme(DecorationAreaType.GENERAL,
+        ComponentOrParentChainScope.setDecorationType(this, VisorMail.DESTINATIONS);
+        this.setRightLineColor(currentSkin.getColorScheme(VisorMail.DESTINATIONS,
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED).getDarkColor());
         this.setLayout(new VerticalStackLayout());
 
         // Get the color schemes for colorizing the icons.
-        Color mainSelectorIconColor = currentSkin
-                .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                        ColorSchemeAssociationKind.FILL, ComponentState.ROLLOVER_UNSELECTED)
-                .getDarkColor();
         Color mainSelectorIconTitleColor = currentSkin
-                .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
+                .getColorScheme(VisorMail.DESTINATIONS,
                         ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)
                 .getForegroundColor();
 
@@ -73,100 +101,64 @@ public class DestinationsPanel extends PanelWithRightLine {
         this.add(getRefreshAction(window, refreshIcon));
         this.add(getMainLabel("MAIL"));
 
-        ResizableIcon inboxIcon = SubstanceCortex.GlobalScope.colorizeIcon(
-                ic_inbox_black_24px.factory(), mainSelectorIconTitleColor);
-        inboxIcon.setDimension(new Dimension(16, 16));
-        HighlightablePanel inboxSelector = getSelectorDestinationRow(inboxIcon, "Inbox", 6);
-        // Emulate selected state for this row. In the real app this will probably be a
-        // combination of highlights built into the JList renderers + highlight color schemes
-        // configured on the application skin.
-        inboxSelector.setSelected();
-        this.add(inboxSelector);
+        JList<DestinationInfo> destinationList = new JList<>(
+                new DestinationListModel(
+                        new DestinationInfo(ic_inbox_black_24px.factory(), "Inbox", 6),
+                        new DestinationInfo(ic_send_black_24px.factory(), "Sent", 3),
+                        new DestinationInfo(ic_watch_later_black_24px.factory(), "Send later", 5),
+                        new DestinationInfo(ic_drafts_black_24px.factory(), "Drafts", -1),
+                        new DestinationInfo(ic_star_border_black_24px.factory(), "Starred", -1),
+                        new DestinationInfo(ic_delete_black_24px.factory(), "Trash", -1)));
+        destinationList.setCellRenderer(new DestinationRenderer());
 
-        ResizableIcon sendIcon = SubstanceCortex.GlobalScope.colorizeIcon(
-                ic_send_black_24px.factory(), mainSelectorIconTitleColor);
-        sendIcon.setDimension(new Dimension(16, 16));
-        this.add(getSelectorDestinationRow(sendIcon, "Sent", 3));
+        destinationList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        destinationList.setSelectedIndex(0);
 
-        ResizableIcon laterIcon = SubstanceCortex.GlobalScope.colorizeIcon(
-                ic_watch_later_black_24px.factory(), mainSelectorIconTitleColor);
-        laterIcon.setDimension(new Dimension(16, 16));
-        this.add(getSelectorDestinationRow(laterIcon, "Send later", 5));
-
-        ResizableIcon draftsIcon = SubstanceCortex.GlobalScope.colorizeIcon(
-                ic_drafts_black_24px.factory(), mainSelectorIconTitleColor);
-        draftsIcon.setDimension(new Dimension(16, 16));
-        this.add(getSelectorDestinationRow(draftsIcon, "Drafts", -1));
-
-        ResizableIcon starIcon = SubstanceCortex.GlobalScope.colorizeIcon(
-                ic_star_border_black_24px.factory(), mainSelectorIconTitleColor);
-        starIcon.setDimension(new Dimension(16, 16));
-        this.add(getSelectorDestinationRow(starIcon, "Starred", -1));
-
-        ResizableIcon deleteIcon = SubstanceCortex.GlobalScope.colorizeIcon(
-                ic_delete_black_24px.factory(), mainSelectorIconTitleColor);
-        deleteIcon.setDimension(new Dimension(16, 16));
-        this.add(getSelectorDestinationRow(deleteIcon, "Trash", -1));
+        JScrollPane destinationScrollPane = new JScrollPane(destinationList);
+        this.add(destinationScrollPane);
 
         this.setPreferredSize(new Dimension(200, 0));
     }
 
-    // This class emulates the highlights on rows. In the real app this will probably
-    // be an extension of SubstanceDefaultListCellRenderer.
-    private static class HighlightablePanel extends JPanel {
-        private boolean isSelected;
+    private static class DestinationRenderer extends SubstancePanelListCellRenderer<DestinationInfo> {
+        private JLabel iconLabel;
+        private JLabel titleLabel;
+        private JLabel unreadLabel;
 
-        public HighlightablePanel(JPanel content) {
-            content.setOpaque(false);
-            setLayout(new BorderLayout());
-            add(content, BorderLayout.CENTER);
-        }
+        public DestinationRenderer() {
+            FormBuilder builder = FormBuilder.create().
+                    columns("center:pref, 4dlu, fill:pref:grow, 4dlu, center:pref").
+                    rows("p").
+                    padding(new EmptyBorder(8, 8, 8, 8));
 
-        public void setSelected() {
-            isSelected = true;
-            setOpaque(!isSelected);
-            repaint();
+            this.iconLabel = new JLabel();
+            this.titleLabel = new JLabel();
+            this.unreadLabel = new JLabel();
+            builder.add(this.iconLabel).xy(1, 1);
+            builder.add(this.titleLabel).xy(3, 1);
+            builder.add(this.unreadLabel).xy(5, 1);
+
+            // Register the text labels so that they get the right colors on rollover,
+            // selection and other highight effects
+            this.registerThemeAwareLabels(this.iconLabel, this.titleLabel, this.unreadLabel);
+
+            this.setLayout(new BorderLayout());
+            this.add(builder.build(), BorderLayout.CENTER);
+
+            this.setOpaque(false);
         }
 
         @Override
-        protected void paintComponent(Graphics g) {
-            if (isSelected) {
-                SubstanceSkin skin = SubstanceCortex.ComponentScope.getCurrentSkin(this);
-                SubstanceHighlightPainter highlightPainter = skin.getHighlightPainter();
-                SubstanceBorderPainter highlightBorderPainter = skin.getHighlightBorderPainter();
-                if (highlightBorderPainter == null) {
-                    highlightBorderPainter = skin.getBorderPainter();
-                }
-                SubstanceColorScheme fillScheme = new SunGlareColorScheme();
-                SubstanceColorScheme borderScheme = new TerracottaColorScheme();
-
-                int width = this.getWidth();
-                int height = this.getHeight();
-
-                Graphics2D g2d = (Graphics2D) g.create();
-                highlightPainter.paintHighlight(g2d, this, width, height, fillScheme);
-                highlightBorderPainter.paintBorder(g2d, this, width, height,
-                        new Rectangle2D.Float(0, 0, width, height), null, borderScheme);
-                g2d.dispose();
-            }
-
-            super.paintComponent(g);
+        protected void bindData(JList<? extends DestinationInfo> list, DestinationInfo value,
+                int index) {
+            // Register the matching icon factory here without setting the actual icon. The
+            // icon will be created and colorized by Substance runtime based on the highlight
+            // state of the specific row at render time
+            this.registerThemeAwareLabelWithIcon(this.iconLabel, value.iconFactory,
+                    new Dimension(16, 16));
+            this.titleLabel.setText(value.title);
+            this.unreadLabel.setText(value.unread > 0 ? Integer.toString(value.unread) : "");
         }
-    }
-
-    private HighlightablePanel getSelectorDestinationRow(ResizableIcon icon, String title,
-            int count) {
-        FormBuilder builder = FormBuilder.create().
-                columns("center:pref, 4dlu, fill:pref:grow, 4dlu, center:pref").
-                rows("p").
-                padding(new EmptyBorder(8, 8, 8, 8));
-
-        builder.add(new JLabel(icon)).xy(1, 1);
-        builder.add(new JLabel(title)).xy(3, 1);
-        builder.add(new JLabel(count > 0 ? Integer.toString(count) : "")).xy(5, 1);
-
-        HighlightablePanel result = new HighlightablePanel(builder.build());
-        return result;
     }
 
     private JPanel getMainLabel(String title) {
@@ -192,7 +184,8 @@ public class DestinationsPanel extends PanelWithRightLine {
 
         // Use Substance API to create a button that has consistent look with the
         // title pane control buttons
-        JButton refreshButton = SubstanceCortex.WindowScope.createTitlePaneControlButton(window);
+        JButton refreshButton = SubstanceCortex.WindowScope.createTitlePaneControlButton(
+                window);
 
         refreshButton.setIcon(icon);
         refreshButton.setToolTipText("Refresh mail");

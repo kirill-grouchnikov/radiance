@@ -41,8 +41,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
- * Main destinations panel (leftmost under LTR). In the real app this will probably be a JList
- * backed by an adapter and custom renderer(s).
+ * Thread content panel (rightmost under LTR). In the real app this will probably be a collapsible
+ * list backed by an adapter and custom renderer(s).
  */
 public class ThreadPanel extends JPanel {
     public ThreadPanel() {

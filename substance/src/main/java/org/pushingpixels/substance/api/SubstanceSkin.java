@@ -409,8 +409,9 @@ public abstract class SubstanceSkin implements SubstanceTrait {
             SubstanceColorSchemeBundle bundle,
             SubstanceColorScheme backgroundColorScheme,
             DecorationAreaType... areaTypes) {
-        if (bundle == null)
+        if (bundle == null) {
             return;
+        }
 
         if (backgroundColorScheme == null) {
             throw new IllegalArgumentException(
@@ -1060,7 +1061,6 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      */
     public static ColorSchemes getColorSchemes(String resourceName) {
         ClassLoader cl = SubstanceCoreUtilities.getClassLoaderForResources();
-        return SubstanceColorSchemeUtilities.getColorSchemes(cl
-                .getResource(resourceName));
+        return SubstanceColorSchemeUtilities.getColorSchemes(cl.getResource(resourceName));
     }
 }

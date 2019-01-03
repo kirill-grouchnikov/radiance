@@ -54,7 +54,7 @@ public class BusinessBlueSteelSkin extends SubstanceSkin {
 	public static final String NAME = "Business Blue Steel";
 
 	/**
-	 * Creates a new <code>Business</code> skin.
+	 * Creates a new <code>Business Blue Steel</code> skin.
 	 */
 	public BusinessBlueSteelSkin() {
 		SubstanceSkin.ColorSchemes businessSchemes = SubstanceSkin
