@@ -30,8 +30,8 @@
 package org.pushingpixels.demo.kormorant
 
 import org.pushingpixels.demo.kormorant.svg.radiance_menu
+import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
-import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
 import java.awt.Dimension
 import java.awt.image.BufferedImage
@@ -39,8 +39,7 @@ import java.awt.image.BufferedImage
 object RadianceLogo {
     fun getLogoIcon(scheme: SubstanceColorScheme): ResizableIcon {
         // Step 1 - create a colorized version of the transcoded Radiance logo
-        val base = SubstanceCortex.GlobalScope.colorizeIcon(radiance_menu.factory(),
-                scheme.foregroundColor)
+        val base = NeonCortex.colorizeIcon(radiance_menu.factory(), scheme.foregroundColor)
         // Step 2 - configure the colorized version to be 16x16
         base.setDimension(Dimension(16, 16))
         // Step 3 - good to go

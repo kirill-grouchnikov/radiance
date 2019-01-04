@@ -31,10 +31,11 @@ package org.pushingpixels.demo.spyglass.mail;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.*;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.renderer.SubstancePanelListCellRenderer;
 
 import javax.swing.*;
@@ -60,12 +61,12 @@ public class ThreadListPanel extends PanelWithRightLine {
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
         Color mainSelectorIconColor = fillScheme.getForegroundColor();
 
-        ResizableIcon editIcon = SubstanceCortex.GlobalScope.colorizeIcon(
+        ResizableIcon editIcon = NeonCortex.colorizeIcon(
                 ic_mode_edit_black_24px.factory(), mainSelectorIconColor, 0.8f);
         editIcon.setDimension(new Dimension(14, 14));
         this.add(getTitlePanel(editIcon));
 
-        ResizableIcon mailIcon = SubstanceCortex.GlobalScope.colorizeIcon(
+        ResizableIcon mailIcon = NeonCortex.colorizeIcon(
                 ic_mail_outline_black_24px.factory(), mainSelectorIconColor);
         mailIcon.setDimension(new Dimension(12, 12));
         this.add(getInboxLabel("Inbox", mailIcon, fillScheme.getLightColor()));
@@ -193,7 +194,7 @@ public class ThreadListPanel extends PanelWithRightLine {
 
             // Register the text labels so that they get the right colors on rollover,
             // selection and other highight effects
-            this.registerThemeAwareLabels(this.fromLabel, this.timeLabel, this.titleLabel,
+            this.registerThemeAwareLabelsWithText(this.fromLabel, this.timeLabel, this.titleLabel,
                     this.summaryLabel, this.unreadLabel);
             // Register the icon factory for the person label here since the icon visuals
             // are the same for all the thread rows in this app
@@ -217,7 +218,6 @@ public class ThreadListPanel extends PanelWithRightLine {
                 this.unreadLabel.setVisible(false);
             }
         }
-
     }
 
     private static class HeaderPanel extends JPanel {

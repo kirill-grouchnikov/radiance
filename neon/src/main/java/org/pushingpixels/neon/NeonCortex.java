@@ -30,6 +30,8 @@
 package org.pushingpixels.neon;
 
 import org.pushingpixels.neon.font.*;
+import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.internal.ColorFilter;
 import org.pushingpixels.neon.internal.contrib.intellij.*;
 import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.neon.internal.font.*;
@@ -287,5 +289,63 @@ public class NeonCortex {
                     x + offsetX, y + offsetY,
                     x + offsetX + width, y + offsetY + height, null);
         }
+    }
+
+    public static ResizableIcon colorizeIcon(ResizableIconFactory sourceFactory,
+            Color color) {
+        return new ResizableIcon() {
+            private int width;
+            private int height;
+            private BufferedImage colorized;
+
+            @Override
+            public void setDimension(Dimension newDimension) {
+                ResizableIcon original = sourceFactory.createNewIcon();
+                original.setDimension(newDimension);
+                BufferedImage flat = NeonCortex.getBlankImage(newDimension.width,
+                        newDimension.height);
+                original.paintIcon(null, flat.getGraphics(), 0, 0);
+                this.colorized = new ColorFilter(color).filter(flat, null);
+
+                this.width = newDimension.width;
+                this.height = newDimension.height;
+            }
+
+            @Override
+            public void paintIcon(Component c, Graphics g, int x, int y) {
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.translate(x, y);
+                NeonCortex.drawImage(g2d, this.colorized, x, y);
+                g2d.dispose();
+            }
+
+            @Override
+            public int getIconWidth() {
+                return this.width;
+            }
+
+            @Override
+            public int getIconHeight() {
+                return this.height;
+            }
+        };
+    }
+
+    public static ResizableIcon colorizeIcon(ResizableIconFactory sourceFactory,
+            Color color, float alpha) {
+        return colorizeIcon(sourceFactory, new Color(color.getRed(), color.getGreen(),
+                color.getBlue(), (int) (alpha * 255)));
+    }
+
+    public static ResizableIconUIResource colorizeIconAsUiResource(
+            ResizableIconFactory sourceFactory, Color color) {
+        return new ResizableIconUIResource(colorizeIcon(sourceFactory, color));
+    }
+
+    public static ResizableIconUIResource colorizeIconAsUiResource(
+            ResizableIconFactory sourceFactory, Color color, float alpha) {
+        return colorizeIconAsUiResource(sourceFactory,
+                new Color(color.getRed(), color.getGreen(),
+                        color.getBlue(), (int) (alpha * 255)));
     }
 }

@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.demo.flamingo.svg.logo;
 
-import org.pushingpixels.neon.icon.*;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import java.awt.*;
@@ -39,7 +39,7 @@ import java.awt.image.BufferedImage;
 public class RadianceLogo {
     public static ResizableIcon getLogoIcon(SubstanceColorScheme scheme) {
         // Step 1 - create a colorized version of the transcoded Radiance logo
-        ResizableIcon base = SubstanceCortex.GlobalScope.colorizeIcon(radiance_menu.factory(),
+        ResizableIcon base = NeonCortex.colorizeIcon(radiance_menu.factory(),
                 scheme.getForegroundColor());
         // Step 2 - configure the colorized version to be 16x16
         base.setDimension(new Dimension(16, 16));

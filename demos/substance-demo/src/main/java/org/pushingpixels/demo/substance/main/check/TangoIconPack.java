@@ -38,9 +38,9 @@ import org.pushingpixels.substance.api.icon.SubstanceIconPack;
 import java.awt.*;
 
 /**
- * Custom Substance icon pack based on Tango icons (license in check/icons/TangoIcons.license).
+ * Custom Substance icon pack based on Tango icons (license in resources/TangoIcons.license).
  * Original SVG content from https://commons.wikimedia.org/wiki/Tango_icons transcoded offline
- * into Java2D Neon icons with Ibis.
+ * into Java2D resizable icons with Photon.
  */
 public class TangoIconPack implements SubstanceIconPack {
 

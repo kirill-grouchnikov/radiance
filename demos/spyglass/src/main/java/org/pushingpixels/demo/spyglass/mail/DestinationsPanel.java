@@ -31,10 +31,11 @@ package org.pushingpixels.demo.spyglass.mail;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.*;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.renderer.SubstancePanelListCellRenderer;
 
 import javax.swing.*;
@@ -95,7 +96,7 @@ public class DestinationsPanel extends PanelWithRightLine {
                         ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)
                 .getForegroundColor();
 
-        ResizableIcon refreshIcon = SubstanceCortex.GlobalScope.colorizeIcon(
+        ResizableIcon refreshIcon = NeonCortex.colorizeIcon(
                 ic_refresh_black_24px.factory(), mainSelectorIconTitleColor);
         refreshIcon.setDimension(new Dimension(12, 12));
         this.add(getRefreshAction(window, refreshIcon));
@@ -140,7 +141,7 @@ public class DestinationsPanel extends PanelWithRightLine {
 
             // Register the text labels so that they get the right colors on rollover,
             // selection and other highight effects
-            this.registerThemeAwareLabels(this.iconLabel, this.titleLabel, this.unreadLabel);
+            this.registerThemeAwareLabelsWithText(this.iconLabel, this.titleLabel, this.unreadLabel);
 
             this.setLayout(new BorderLayout());
             this.add(builder.build(), BorderLayout.CENTER);
@@ -151,13 +152,18 @@ public class DestinationsPanel extends PanelWithRightLine {
         @Override
         protected void bindData(JList<? extends DestinationInfo> list, DestinationInfo value,
                 int index) {
+            this.titleLabel.setText(value.title);
+            this.unreadLabel.setText(value.unread > 0 ? Integer.toString(value.unread) : "");
+        }
+
+        @Override
+        protected void onPreRender(JList<? extends DestinationInfo> list, DestinationInfo value,
+                int index) {
             // Register the matching icon factory here without setting the actual icon. The
             // icon will be created and colorized by Substance runtime based on the highlight
             // state of the specific row at render time
             this.registerThemeAwareLabelWithIcon(this.iconLabel, value.iconFactory,
                     new Dimension(16, 16));
-            this.titleLabel.setText(value.title);
-            this.unreadLabel.setText(value.unread > 0 ? Integer.toString(value.unread) : "");
         }
     }
 

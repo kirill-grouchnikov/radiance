@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.substance.api.renderer;
 
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -41,13 +42,46 @@ import javax.swing.plaf.*;
 import java.awt.*;
 import java.util.*;
 
+/**
+ * Base class for list renderers that are more complex than what is provided by
+ * {@link SubstanceDefaultListCellRenderer}. Extend this class to have consistent
+ * highlight visuals and animations under all Substance skins. The flow of layout and
+ * data is:
+ *
+ * <ul>
+ * <li>In the constructor, add all sub-components to your renderer and define the
+ * layout logic.</li>
+ * <li>In {@link #bindData(JList, Object, int)} bind the relevant data fields to those
+ * sub-components.</li>
+ * <li>Use {@link #registerThemeAwareLabelsWithText(JLabel...)} in the constructor
+ * to "mark" those sub-component labels that should participate in highlight animations
+ * on their text based on the current state (rollover, selection, etc). In case a specific
+ * label is using a fixed foreground / text color for some of the rows in your list, use
+ * {@link #registerThemeAwareLabelsWithText(JLabel...)} and
+ * {@link #unregisterThemeAwareLabelsWithText(JLabel...)} in
+ * {@link #onPreRender(JList, Object, int)} instead of in the constructor.</li>
+ * <li>Use {@link #registerThemeAwareLabelWithIcon(JLabel, ResizableIconFactory, Dimension)}
+ * in the constructor to "mark" those sub-component labels that should participate in highlight
+ * animations on their icons based on the current state (rollover, selection, etc). In case a
+ * specific label is using a fixed icon for some of the rows in your list or different icon
+ * sources for different rows, use
+ * {@link #registerThemeAwareLabelWithIcon(JLabel, ResizableIconFactory, Dimension)} and
+ * {@link #unregisterThemeAwareLabelWithIcon(JLabel)} in
+ * {@link #onPreRender(JList, Object, int)} instead of in the constructor.</li>
+ * </ul>
+ *
+ * Note that {@link #getListCellRendererComponent(JList, Object, int, boolean, boolean)} in this
+ * class is marked as final and can not be overriden in the application code.
+ *
+ * @param <T> Data model class.
+ */
 public abstract class SubstancePanelListCellRenderer<T> extends JPanel
         implements ListCellRenderer<T> {
     private static class IconData {
         private ResizableIconFactory iconFactory;
         private Dimension iconSize;
 
-        public IconData(ResizableIconFactory iconFactory, Dimension iconSize) {
+        private IconData(ResizableIconFactory iconFactory, Dimension iconSize) {
             this.iconFactory = iconFactory;
             this.iconSize = iconSize;
         }
@@ -62,9 +96,15 @@ public abstract class SubstancePanelListCellRenderer<T> extends JPanel
         this.themeAwareLabelsWithIcons = new HashMap<>();
     }
 
-    protected void registerThemeAwareLabels(JLabel... labels) {
-        for (JLabel label: labels) {
+    protected void registerThemeAwareLabelsWithText(JLabel... labels) {
+        for (JLabel label : labels) {
             this.themeAwareLabels.add(label);
+        }
+    }
+
+    protected void unregisterThemeAwareLabelsWithText(JLabel... labels) {
+        for (JLabel label : labels) {
+            this.themeAwareLabels.remove(label);
         }
     }
 
@@ -74,11 +114,14 @@ public abstract class SubstancePanelListCellRenderer<T> extends JPanel
                 new IconData(resizableIconFactory, iconDimension));
     }
 
+    protected void unregisterThemeAwareLabelWithIcon(JLabel label) {
+        this.themeAwareLabelsWithIcons.remove(label);
+    }
+
     @Override
-    public Component getListCellRendererComponent(JList<? extends T> list, T value, int index,
+    public final Component getListCellRendererComponent(JList<? extends T> list, T value, int index,
             boolean isSelected, boolean cellHasFocus) {
         this.setComponentOrientation(list.getComponentOrientation());
-        float rolloverArmAmount = 0.0f;
 
         Color labelForeground;
         ListUI listUI = list.getUI();
@@ -95,13 +138,12 @@ public abstract class SubstancePanelListCellRenderer<T> extends JPanel
                     && dropLocation.getIndex() == index);
 
             if (!isDropLocation && (modelStateInfo != null)) {
-                Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                        .getStateContributionMap();
+                Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                        modelStateInfo.getStateContributionMap();
                 SubstanceColorScheme colorScheme = getColorSchemeForState(list, ui, currState);
                 if (currState.isDisabled() || (activeStates == null)
                         || (activeStates.size() == 1)) {
                     labelForeground = new ColorUIResource(colorScheme.getForegroundColor());
-                    rolloverArmAmount = 0.0f;
                 } else {
                     float aggrRed = 0;
                     float aggrGreen = 0;
@@ -111,13 +153,6 @@ public abstract class SubstancePanelListCellRenderer<T> extends JPanel
                             .getStateContributionMap().entrySet()) {
                         ComponentState activeState = activeEntry.getKey();
                         float contribution = activeEntry.getValue().getContribution();
-                        if (activeState.isFacetActive(
-                                SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
-                                activeState.isFacetActive(
-                                        SubstanceSlices.ComponentStateFacet.ARM)) {
-                            rolloverArmAmount = Math.max(rolloverArmAmount, contribution);
-                        }
-
                         SubstanceColorScheme scheme = getColorSchemeForState(list, ui, activeState);
                         Color schemeFg = scheme.getForegroundColor();
                         aggrRed += schemeFg.getRed() * contribution;
@@ -133,12 +168,6 @@ public abstract class SubstancePanelListCellRenderer<T> extends JPanel
                     scheme = SubstanceColorSchemeUtilities.getColorScheme(list,
                             SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT_TEXT, currState);
                 }
-                rolloverArmAmount = currState.isFacetActive(
-                        SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
-                        currState.isFacetActive(
-                                SubstanceSlices.ComponentStateFacet.SELECTION) ||
-                        currState.isFacetActive(
-                                SubstanceSlices.ComponentStateFacet.ARM) ? 1.0f : 0.0f;
                 labelForeground = new ColorUIResource(scheme.getForegroundColor());
             }
         } else {
@@ -154,17 +183,18 @@ public abstract class SubstancePanelListCellRenderer<T> extends JPanel
 
         this.bindData(list, value, index);
 
-        for (JLabel themeAwareLabel: this.themeAwareLabels) {
+        this.onPreRender(list, value, index);
+
+        for (JLabel themeAwareLabel : this.themeAwareLabels) {
             themeAwareLabel.setForeground(labelForeground);
         }
 
-        for (Map.Entry<JLabel, IconData> themeAwareLabelsWithIcons:
+        for (Map.Entry<JLabel, IconData> themeAwareLabelsWithIcons :
                 this.themeAwareLabelsWithIcons.entrySet()) {
             JLabel label = themeAwareLabelsWithIcons.getKey();
             IconData iconData = themeAwareLabelsWithIcons.getValue();
 
-            ResizableIcon icon = SubstanceCortex.GlobalScope.colorizeIcon(
-                    iconData.iconFactory, labelForeground);
+            ResizableIcon icon = NeonCortex.colorizeIcon(iconData.iconFactory, labelForeground);
             icon.setDimension(iconData.iconSize);
 
             label.setIcon(icon);
@@ -174,6 +204,9 @@ public abstract class SubstancePanelListCellRenderer<T> extends JPanel
     }
 
     protected abstract void bindData(JList<? extends T> list, T value, int index);
+
+    protected void onPreRender(JList<? extends T> list, T value, int index) {
+    }
 
     private SubstanceColorScheme getColorSchemeForState(JList list, SubstanceListUI ui,
             ComponentState state) {
