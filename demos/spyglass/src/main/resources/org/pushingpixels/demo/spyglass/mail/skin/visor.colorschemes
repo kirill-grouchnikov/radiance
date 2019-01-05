@@ -53,7 +53,7 @@ Visor Enabled Destinations {
     colorForeground=#4D4D4D
 }
 
-Visor Highlight {
+Visor Threads Highlight {
     kind=Dark
     colorUltraLight=#5CA5FF
     colorExtraLight=#3077FF

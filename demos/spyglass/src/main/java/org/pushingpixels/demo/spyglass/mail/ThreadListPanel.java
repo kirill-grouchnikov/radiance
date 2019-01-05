@@ -53,11 +53,12 @@ public class ThreadListPanel extends PanelWithRightLine {
 
         SubstanceSkin currentSkin = SubstanceCortex.GlobalScope.getCurrentSkin();
 
-        this.setRightLineColor(currentSkin.getColorScheme(DecorationAreaType.NONE,
+        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(this, VisorMail.THREADS);
+        this.setRightLineColor(currentSkin.getColorScheme(VisorMail.THREADS,
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED).getDarkColor());
 
         // Get the color schemes for colorizing the icons.
-        SubstanceColorScheme fillScheme = currentSkin.getColorScheme(DecorationAreaType.NONE,
+        SubstanceColorScheme fillScheme = currentSkin.getColorScheme(VisorMail.THREADS,
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
         Color mainSelectorIconColor = fillScheme.getForegroundColor();
 

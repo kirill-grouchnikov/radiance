@@ -59,6 +59,8 @@ import javax.swing.*
 class JElectrifiedImageComponent(private val originalImageComponent: JImageComponent) : JComponent() {
     private var originalImage: BufferedImage? = null
     private var electrifiedImage: BufferedImage? = null
+    private var electrifiedWidth: Int = 0
+    private var electrifiedHeight: Int = 0
     private var scaleFactor: Float = 0.toFloat()
     private var imageOffsetX: Int = 0
     private var imageOffsetY: Int = 0
@@ -135,9 +137,9 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
                 for (zoomBubble in zoomBubbles) {
                     if (zoomBubble.isSelected && zoomBubble.caption == null) {
                         if (zoomBubble.centerX < originalImage!!.width / 2) {
-                            zoomBubble.captionOffsetX = zoomBubble.radius + 30
+                            zoomBubble.captionOffsetX = (zoomBubble.radius + 30) / NeonCortex.getScaleFactor()
                         } else {
-                            zoomBubble.captionOffsetX = -zoomBubble.radius - 30
+                            zoomBubble.captionOffsetX = (-zoomBubble.radius - 30) / NeonCortex.getScaleFactor()
                         }
                         zoomBubble.captionOffsetY = 0.0
                         startCaptionEdit(zoomBubble)
@@ -177,7 +179,8 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
                 }
 
                 cursor = when (underMouse.dragType) {
-                    JElectrifiedImageComponent.DragType.BUBBLE_DRAG, JElectrifiedImageComponent.DragType.CAPTION_DRAG ->
+                    JElectrifiedImageComponent.DragType.BUBBLE_DRAG,
+                    JElectrifiedImageComponent.DragType.CAPTION_DRAG ->
                         Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)
                     JElectrifiedImageComponent.DragType.BUBBLE_RESIZE ->
                         Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR)
@@ -234,14 +237,13 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
             // scale down
             this.scaleFactor = WIDTH.toFloat() / originalImage!!.width.toFloat()
             if (this.scaleFactor < 1.0f) {
-                electrifiedImage = getScaledInstance(originalImage!!, WIDTH,
-                        (this.scaleFactor * originalImage!!.height).toInt())
+                electrifiedImage = NeonCortex.createThumbnail(originalImage, WIDTH)
             } else {
                 this.scaleFactor = 1.0f
                 electrifiedImage = originalImage
             }
             // and blur
-            val kernelSide = 3
+            val kernelSide = (3 * NeonCortex.getScaleFactor()).toInt()
             val kernelData = FloatArray(kernelSide * kernelSide)
             for (i in kernelData.indices) {
                 kernelData[i] = 1.0f / kernelData.size
@@ -249,7 +251,9 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
             val kernel = Kernel(kernelSide, kernelSide, kernelData)
             electrifiedImage = ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null)
                     .filter(electrifiedImage!!, null)
-            preferredSize = Dimension(size.width, electrifiedImage!!.height + 50)
+            electrifiedWidth = (electrifiedImage!!.width / NeonCortex.getScaleFactor()).toInt()
+            electrifiedHeight = (electrifiedImage!!.height / NeonCortex.getScaleFactor()).toInt()
+            preferredSize = Dimension(size.width, electrifiedHeight + 50)
             SwingUtilities.getAncestorOfClass(JScrollPane::class.java, this).revalidate()
         }
         zoomBubbles.clear()
@@ -261,8 +265,8 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
             g.render {
                 val width = width
                 val height = height
-                this.imageOffsetX = (width - electrifiedImage!!.width) / 2
-                this.imageOffsetY = (height - electrifiedImage!!.height) / 2
+                this.imageOffsetX = (width - electrifiedWidth) / 2
+                this.imageOffsetY = (height - electrifiedHeight) / 2
                 paintElectrified(it, true, this.imageOffsetX, this.imageOffsetY)
             }
         }
@@ -270,11 +274,12 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
 
     private fun paintElectrified(g2d: Graphics2D, isOnScreen: Boolean, offsetX: Int, offsetY: Int) {
         if (electrifiedImage != null) {
-            g2d.drawImage(this.electrifiedImage, offsetX, offsetY, null)
+            g2d.drawImage(this.electrifiedImage, offsetX, offsetY, this.electrifiedWidth,
+                    this.electrifiedHeight, null)
 
             g2d.color = Color(0, 0, 0, 32)
-            g2d.fillRect(offsetX, offsetY, this.electrifiedImage!!.width,
-                    this.electrifiedImage!!.height)
+            g2d.fillRect(offsetX, offsetY, this.electrifiedWidth,
+                    this.electrifiedHeight)
 
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON)
@@ -282,87 +287,81 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
             for (zoomBubble in zoomBubbles) {
                 val bubbleCenterViewX = offsetX + zoomBubble.centerX * this.scaleFactor
                 val bubbleCenterViewY = offsetY + zoomBubble.centerY * this.scaleFactor
+                val bubbleVisibleRadius = zoomBubble.radius / NeonCortex.getScaleFactor()
 
                 val currClip = g2d.clip
 
                 val centerViewX = bubbleCenterViewX.toInt()
                 val centerViewY = bubbleCenterViewY.toInt()
-                g2d.clip(Ellipse2D.Double(centerViewX - zoomBubble.radius,
-                        centerViewY - zoomBubble.radius, 2 * zoomBubble.radius,
-                        2 * zoomBubble.radius))
+                g2d.clip(Ellipse2D.Double(centerViewX - bubbleVisibleRadius,
+                        centerViewY - bubbleVisibleRadius, 2 * bubbleVisibleRadius,
+                        2 * bubbleVisibleRadius))
 
                 var sx1 = (zoomBubble.centerX - zoomBubble.radius).toInt()
-                var dx1 = (centerViewX - zoomBubble.radius).toInt()
+                var dx1 = (centerViewX - bubbleVisibleRadius).toInt()
                 var sx2 = (zoomBubble.centerX + zoomBubble.radius).toInt()
-                var dx2 = dx1 + (sx2 - sx1)
+                var dx2 = (centerViewX + bubbleVisibleRadius).toInt()
 
                 if (sx1 < 0) {
-                    dx1 = dx1 - sx1
+                    dx1 -= (sx1 / NeonCortex.getScaleFactor()).toInt()
                     sx1 = 0
                 }
                 if (sx2 > originalImage!!.width) {
-                    dx2 = dx2 - (sx2 - originalImage!!.width)
+                    dx2 -= ((sx2 - originalImage!!.width) / NeonCortex.getScaleFactor()).toInt()
                     sx2 = originalImage!!.width
                 }
 
                 var sy1 = (zoomBubble.centerY - zoomBubble.radius).toInt()
-                var dy1 = (centerViewY - zoomBubble.radius).toInt()
+                var dy1 = (centerViewY - bubbleVisibleRadius).toInt()
                 var sy2 = (zoomBubble.centerY + zoomBubble.radius).toInt()
-                var dy2 = dy1 + (sy2 - sy1)
+                var dy2 = (centerViewY + bubbleVisibleRadius).toInt()
 
                 if (sy1 < 0) {
-                    dy1 = dy1 - sy1
+                    dy1 -= (sy1 / NeonCortex.getScaleFactor()).toInt()
                     sy1 = 0
                 }
                 if (sy2 > originalImage!!.height) {
-                    dy2 = dy2 - (sy2 - originalImage!!.height)
+                    dy2 -= ((sy2 - originalImage!!.height) / NeonCortex.getScaleFactor()).toInt()
                     sy2 = originalImage!!.height
-                }
-
-                if (sx2 - sx1 != dx2 - dx1) {
-                    throw IllegalStateException()
-                }
-                if (sy2 - sy1 != dy2 - dy1) {
-                    throw IllegalStateException()
                 }
 
                 g2d.drawImage(this.originalImage, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null)
                 g2d.clip = currClip
 
-                val totalRadius = (zoomBubble.radius + (RIM_THICKNESS / 2).toDouble()
+                val totalRadius = (bubbleVisibleRadius + (RIM_THICKNESS / 2).toDouble()
                         + OUTER_SHADOW_THICKNESS.toDouble()).toFloat()
                 val rimPaint = RadialGradientPaint(centerViewX.toFloat(), centerViewY.toFloat(),
                         totalRadius,
-                        floatArrayOf(0.0f, ((zoomBubble.radius - (RIM_THICKNESS / 2).toDouble()
+                        floatArrayOf(0.0f, ((bubbleVisibleRadius - (RIM_THICKNESS / 2).toDouble()
                                 - INNER_SHADOW_THICKNESS.toDouble()) / totalRadius).toFloat(),
-                                ((zoomBubble.radius - RIM_THICKNESS / 2) / totalRadius).toFloat(),
-                                ((zoomBubble.radius + RIM_THICKNESS / 2) / totalRadius).toFloat(),
-                                ((zoomBubble.radius + (RIM_THICKNESS / 2).toDouble()
+                                ((bubbleVisibleRadius - RIM_THICKNESS / 2) / totalRadius).toFloat(),
+                                ((bubbleVisibleRadius + RIM_THICKNESS / 2) / totalRadius).toFloat(),
+                                ((bubbleVisibleRadius + (RIM_THICKNESS / 2).toDouble()
                                         + (OUTER_SHADOW_THICKNESS / 3).toDouble()) / totalRadius).toFloat(), 1.0f),
                         arrayOf(Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 128), Color(0, 0, 0, 128),
                                 Color(0, 0, 0, 32), Color(0, 0, 0, 0)))
                 g2d.paint = rimPaint
-                g2d.fill(
-                        Ellipse2D.Double((centerViewX - totalRadius).toDouble(), (centerViewY - totalRadius).toDouble(),
-                                (2 * totalRadius).toDouble(), (2 * totalRadius).toDouble()))
+                g2d.fill(Ellipse2D.Double((centerViewX - totalRadius).toDouble(),
+                        (centerViewY - totalRadius).toDouble(),
+                        (2 * totalRadius).toDouble(), (2 * totalRadius).toDouble()))
                 g2d.color = Color.white
                 g2d.stroke = BasicStroke(RIM_THICKNESS)
-                g2d.draw(Ellipse2D.Double(centerViewX - zoomBubble.radius,
-                        centerViewY - zoomBubble.radius, 2 * zoomBubble.radius,
-                        2 * zoomBubble.radius))
+                g2d.draw(Ellipse2D.Double(centerViewX - bubbleVisibleRadius,
+                        centerViewY - bubbleVisibleRadius, 2 * bubbleVisibleRadius,
+                        2 * bubbleVisibleRadius))
 
                 if (zoomBubble.isSelected && isOnScreen) {
                     g2d.color = Color(0, 0, 0, 196)
 
                     val selectionCornerSide = 6
 
-                    val selectionLeftX = (centerViewX.toDouble() - zoomBubble.radius
+                    val selectionLeftX = (centerViewX.toDouble() - bubbleVisibleRadius
                             - (RIM_THICKNESS / 2).toDouble()).toInt()
-                    val selectionRightX = (centerViewX.toDouble() + zoomBubble.radius
+                    val selectionRightX = (centerViewX.toDouble() + bubbleVisibleRadius
                             + (RIM_THICKNESS / 2).toDouble()).toInt()
                     val selectionTopY =
-                            (centerViewY.toDouble() - zoomBubble.radius - (RIM_THICKNESS / 2).toDouble()).toInt()
-                    val selectionBottomY = (centerViewY.toDouble() + zoomBubble.radius
+                            (centerViewY.toDouble() - bubbleVisibleRadius - (RIM_THICKNESS / 2).toDouble()).toInt()
+                    val selectionBottomY = (centerViewY.toDouble() + bubbleVisibleRadius
                             + (RIM_THICKNESS / 2).toDouble()).toInt()
 
                     g2d.stroke = BasicStroke(1.2f)
@@ -407,17 +406,13 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
                     val y = (centerViewY + zoomBubble.captionOffsetY).toInt()
 
                     val outerContour = if (zoomBubble.captionOffsetX < 0)
-                        getCaptionOutlinePointingToRight(captionHeight, captionWidth, radius,
-                                0)
+                        getCaptionOutlinePointingToRight(captionHeight, captionWidth, radius, 0)
                     else
-                        getCaptionOutlinePointingToLeft(captionHeight, captionWidth, radius,
-                                0)
+                        getCaptionOutlinePointingToLeft(captionHeight, captionWidth, radius, 0)
                     val innerContour = if (zoomBubble.captionOffsetX < 0)
-                        getCaptionOutlinePointingToRight(captionHeight, captionWidth, radius,
-                                1)
+                        getCaptionOutlinePointingToRight(captionHeight, captionWidth, radius, 1)
                     else
-                        getCaptionOutlinePointingToLeft(captionHeight, captionWidth, radius,
-                                1)
+                        getCaptionOutlinePointingToLeft(captionHeight, captionWidth, radius, 1)
 
                     val isInverted = zoomBubble.isInverted
 
@@ -439,16 +434,10 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
 
                     g2d.paint = LinearGradientPaint(0f, 0f, 0f, captionHeight.toFloat(),
                             floatArrayOf(0.0f, 0.8f, 1.0f),
-                            arrayOf(if (isInverted)
-                                Color(64, 64, 64, 64)
-                            else
-                                Color(192, 192, 192, 64), if (isInverted)
-                                Color(64, 64, 64, 48)
-                            else
-                                Color(192, 192, 192, 48), if (isInverted)
-                                Color(64, 64, 64, 16)
-                            else
-                                Color(192, 192, 192, 16)))
+                            arrayOf(
+                                    if (isInverted) Color(64, 64, 64, 64) else Color(192, 192, 192, 64),
+                                    if (isInverted) Color(64, 64, 64, 48) else Color(192, 192, 192, 48),
+                                    if (isInverted) Color(64, 64, 64, 16) else Color(192, 192, 192, 16)))
                     g2d.stroke = BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER)
                     g2d.draw(innerContour)
 
@@ -489,14 +478,13 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
         contour.lineTo((captionWidth + captionHeight / 2 - insets).toFloat(), (captionHeight / 2).toFloat())
         contour.lineTo(captionWidth.toFloat(), (captionHeight - insets).toFloat())
         // bottom left corner
-        contour.append(
-                Arc2D.Double(insets.toDouble(), (captionHeight - 2 * radius + insets).toDouble(),
-                        (2 * radius - 2 * insets).toDouble(), (2 * radius - 2 * insets).toDouble(), 270.0, -90.0,
-                        Arc2D.OPEN),
-                true)
+        contour.append(Arc2D.Double(insets.toDouble(), (captionHeight - 2 * radius + insets).toDouble(),
+                (2 * radius - 2 * insets).toDouble(), (2 * radius - 2 * insets).toDouble(),
+                270.0, -90.0, Arc2D.OPEN), true)
         contour.lineTo(insets.toFloat(), radius.toFloat())
         // top left corner
-        contour.append(Arc2D.Double(insets.toDouble(), insets.toDouble(), (2 * radius - 2 * insets).toDouble(),
+        contour.append(Arc2D.Double(insets.toDouble(), insets.toDouble(),
+                (2 * radius - 2 * insets).toDouble(),
                 (2 * radius - 2 * insets).toDouble(), 180.0, -90.0, Arc2D.OPEN), true)
         contour.closePath()
         return contour
@@ -510,10 +498,10 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
         contour.lineTo((captionWidth + captionHeight / 2 - radius).toFloat(), insets.toFloat())
         // top right corner
         contour.append(
-                Arc2D.Double((captionWidth + captionHeight / 2 - 2 * radius + insets).toDouble(), insets.toDouble(),
-                        (2 * radius - 2 * insets).toDouble(), (2 * radius - 2 * insets).toDouble(), 90.0, -90.0,
-                        Arc2D.OPEN),
-                true)
+                Arc2D.Double((captionWidth + captionHeight / 2 - 2 * radius + insets).toDouble(),
+                        insets.toDouble(), (2 * radius - 2 * insets).toDouble(),
+                        (2 * radius - 2 * insets).toDouble(), 90.0, -90.0,
+                        Arc2D.OPEN), true)
         contour.lineTo((captionWidth + captionHeight / 2 - insets).toFloat(),
                 (captionHeight - radius - insets).toFloat())
         // bottom right corner
@@ -623,20 +611,16 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
             if (t < 0) {
                 extraTop = Math.max(extraTop, Math.ceil(-t).toInt())
             }
-            if (b > electrifiedImage!!.height) {
+            if (b > electrifiedHeight) {
                 extraBottom = Math.max(extraBottom,
-                        Math.ceil(b - electrifiedImage!!.height).toInt())
+                        Math.ceil(b - electrifiedHeight).toInt())
             }
         }
 
         val finalWidth = WIDTH + extraLeft + extraRight
-        val finalHeight = electrifiedImage!!.height + extraTop + extraBottom
+        val finalHeight = electrifiedHeight + extraTop + extraBottom
 
-        val e = GraphicsEnvironment.getLocalGraphicsEnvironment()
-        val d = e.defaultScreenDevice
-        val c = d.defaultConfiguration
-        val compatibleImage = c.createCompatibleImage(finalWidth, finalHeight,
-                Transparency.TRANSLUCENT)
+        val compatibleImage = NeonCortex.getBlankImage(finalWidth, finalHeight)
 
         compatibleImage.render {
             it.translate(extraLeft, extraTop)
@@ -824,11 +808,11 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
     internal data class BubbleDragPair(val zoomBubble: ZoomBubble, val dragType: DragType)
 
     companion object {
-        private val WIDTH = 720
-        private val RIM_THICKNESS = 3.0f
-        private val OUTER_SHADOW_THICKNESS = 8.0f
-        private val INNER_SHADOW_THICKNESS = 3.0f
-        private val TEXT_OUTER_SHADOW_THICKNESS = 6
+        private const val WIDTH = 720
+        private const val RIM_THICKNESS = 3.0f
+        private const val OUTER_SHADOW_THICKNESS = 8.0f
+        private const val INNER_SHADOW_THICKNESS = 3.0f
+        private const val TEXT_OUTER_SHADOW_THICKNESS = 6
 
         /**
          * Convenience method that returns a scaled instance of the provided `BufferedImage`. Adopted from

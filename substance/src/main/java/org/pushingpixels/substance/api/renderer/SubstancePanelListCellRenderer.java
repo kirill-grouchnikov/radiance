@@ -75,6 +75,7 @@ import java.util.*;
  *
  * @param <T> Data model class.
  */
+@SubstanceRenderer
 public abstract class SubstancePanelListCellRenderer<T> extends JPanel
         implements ListCellRenderer<T> {
     private static class IconData {

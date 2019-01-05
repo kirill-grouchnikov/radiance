@@ -60,16 +60,6 @@ public class VisorSkin extends SubstanceSkin {
 
         defaultSchemeBundle.registerColorScheme(activeScheme, 0.5f,
                 ComponentState.DISABLED_SELECTED);
-        SubstanceColorScheme defaultHighlight = visorSchemes.get("Visor Highlight");
-        defaultSchemeBundle.registerHighlightColorScheme(defaultHighlight, 0.75f,
-                ComponentState.ROLLOVER_UNSELECTED);
-        defaultSchemeBundle.registerHighlightColorScheme(defaultHighlight, 0.9f,
-                ComponentState.SELECTED);
-        defaultSchemeBundle.registerHighlightColorScheme(defaultHighlight, 1.0f,
-                ComponentState.ROLLOVER_SELECTED);
-        defaultSchemeBundle.registerHighlightColorScheme(defaultHighlight, 0.8f,
-                ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE);
 
         SubstanceColorScheme activeDestinationsScheme =
@@ -98,6 +88,24 @@ public class VisorSkin extends SubstanceSkin {
 
         this.registerDecorationAreaSchemeBundle(destinationsSchemeBundle,
                 VisorMail.DESTINATIONS);
+
+        SubstanceColorSchemeBundle threadsSchemeBundle = new SubstanceColorSchemeBundle(
+                activeScheme, enabledScheme, disabledScheme);
+
+        threadsSchemeBundle.registerColorScheme(activeScheme, 0.5f,
+                ComponentState.DISABLED_SELECTED);
+        // Configure white-on-dark-blue highlights for the threads view
+        SubstanceColorScheme threadsHighlight = visorSchemes.get("Visor Threads Highlight");
+        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight, 0.75f,
+                ComponentState.ROLLOVER_UNSELECTED);
+        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight, 0.9f,
+                ComponentState.SELECTED);
+        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight, 1.0f,
+                ComponentState.ROLLOVER_SELECTED);
+        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight, 0.8f,
+                ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+
+        this.registerDecorationAreaSchemeBundle(threadsSchemeBundle, VisorMail.THREADS);
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new ClassicFillPainter();

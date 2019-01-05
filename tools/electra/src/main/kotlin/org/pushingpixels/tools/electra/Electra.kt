@@ -32,6 +32,7 @@ package org.pushingpixels.tools.electra
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.awt.render
+import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind
@@ -39,6 +40,7 @@ import org.pushingpixels.substance.api.skin.GeminiSkin
 import org.pushingpixels.tools.common.JImageComponent
 import org.pushingpixels.tools.common.RadianceLogo
 import java.awt.*
+import java.awt.geom.Line2D
 import javax.swing.*
 import javax.swing.border.Border
 import javax.swing.border.EmptyBorder
@@ -61,11 +63,17 @@ fun main(args: Array<String>) {
                 g.render {
                     val borderColorScheme = SubstanceCortex.ComponentScope.getCurrentSkin(c).getColorScheme(c,
                             ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED)
+                    val strokeWidth = 1.0f / NeonCortex.getScaleFactor().toFloat()
+                    it.stroke = BasicStroke(strokeWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND)
+
                     it.color = borderColorScheme.midColor
-                    it.drawLine(x + width - 2, y, x + width - 2, y + height - 1)
+                    val leftX = x + width - 1 - strokeWidth
+                    it.draw(Line2D.Float(leftX, y.toFloat(), leftX, (y + height).toFloat()))
+
                     it.composite = AlphaComposite.SrcOver.derive(0.8f)
+                    val rightX = leftX + strokeWidth
                     it.color = borderColorScheme.extraLightColor.brighter()
-                    it.drawLine(x + width - 1, y, x + width - 1, y + height - 1)
+                    it.draw(Line2D.Float(rightX, y.toFloat(), rightX, (y + height).toFloat()))
                 }
             }
 
@@ -81,7 +89,8 @@ fun main(args: Array<String>) {
 
         val electrifiedImageComponent = JElectrifiedImageComponent(jic)
         val electrifiedContainer = JPanel(BorderLayout())
-        val scroller = JScrollPane(electrifiedImageComponent, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        val scroller = JScrollPane(electrifiedImageComponent,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER)
         scroller.border = EmptyBorder(0, 0, 0, 0)
         electrifiedContainer.add(scroller, BorderLayout.CENTER)

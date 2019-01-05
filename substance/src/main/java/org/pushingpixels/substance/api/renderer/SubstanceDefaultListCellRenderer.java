@@ -44,7 +44,8 @@ import java.awt.*;
 import java.util.Map;
 
 /**
- * Default renderer for list cells.
+ * Default renderer for list cells. Use {@link SubstancePanelListCellRenderer} for more
+ * complex renderers that need more than one label for their content.
  *
  * @author Kirill Grouchnikov
  */
