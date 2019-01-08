@@ -32,16 +32,6 @@ apply plugin: 'java'
 
 ext.designation = "core"
 
-jar {
-    baseName = "${rootProject.name}-trident"
-    manifest {
-        attributes("Radiance-Version": "${version} [${project.ext.codename}]",    \
-                 "Built-JDK": System.getProperty('java.version'),    \
-                 "Built-JDK-Vendor": System.getProperty('java.vendor'),    \
-                 "Build-Time": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"))
-    }
-}
-
 apply plugin: 'com.bmuschko.nexus'
 
 archivesBaseName = 'radiance'
@@ -78,11 +68,11 @@ modifyPom {
 extraArchive {
     sources = true
     tests = false
-    javadoc = project.ext.isRelease
+    javadoc = rootProject.ext.isRelease
 }
 
 nexus {
-    sign = project.ext.isRelease
+    sign = rootProject.ext.isRelease
     repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
     snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
 }

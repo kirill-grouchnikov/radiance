@@ -29,6 +29,8 @@
  */
 
 version = '2.0-SNAPSHOT'
+ext.codename = 'Beryl'
+ext.isRelease = false
 
 buildscript {
     ext {
@@ -52,9 +54,6 @@ buildscript {
 
 allprojects {
     version = rootProject.version
-    ext.codename = 'Beryl'
-
-    ext.isRelease = false
 
     repositories {
         mavenCentral()
@@ -63,7 +62,9 @@ allprojects {
 
     defaultTasks 'build'
 
+    // Configure Java compilation for all the projects
     tasks.withType(JavaCompile) {
+        // enforce Java 8 as the source + target + compile time level
         def javaVersion = JavaVersion.VERSION_1_8
         sourceCompatibility = javaVersion
         targetCompatibility = javaVersion
@@ -74,11 +75,36 @@ allprojects {
                         + javaVersion + ", but using " + JavaVersion.current());
         }
 
+        // flag all usage of deprecated APIs as errors
         options.deprecation = true
         options.compilerArgs += ['-Werror']
 
         clean {
             delete 'out'     // interpreted relative to the project directory
+        }
+    }
+
+    // Configure the jar task for all the projects
+    tasks.withType(Jar) {
+        // the jar name has Radiance + project name
+        jar.archiveBaseName = "${rootProject.name}-${project.name}"
+        // create reproducible builds by removing timestamps and doing cross-platform file order
+        preserveFileTimestamps = false
+        reproducibleFileOrder = true
+
+        manifest {
+            // add radiance version, build JDK and build JDK vendor into the manifest file
+            if (rootProject.ext.isRelease) {
+                // only add build time info into the release versions
+                attributes("Radiance-Version": "${rootProject.version} [${rootProject.ext.codename}]",    \
+                     "Build-JDK": System.getProperty('java.version'),    \
+                     "Build-JDK-Vendor": System.getProperty('java.vendor'),    \
+                     "Build-Time": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"))
+            } else {
+                attributes("Radiance-Version": "${rootProject.version} [${rootProject.ext.codename}]",    \
+                     "Build-JDK": System.getProperty('java.version'),    \
+                     "Build-JDK-Vendor": System.getProperty('java.vendor'))
+            }
         }
     }
 }
@@ -148,7 +174,7 @@ task getToolsDependencies(type: Copy) {
 task getAllDependencies(type: Copy, dependsOn: [getCoreDependencies, getDemoDependencies, getToolsDependencies])
 
 wrapper {
-    gradleVersion = "4.10.2"
+    gradleVersion = "5.1"
 }
 
 task printRuntimeDependencies {
