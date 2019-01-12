@@ -36,7 +36,7 @@ import org.pushingpixels.substance.api.colorscheme.BaseDarkColorScheme;
 
 import java.awt.*;
 
-class GoldenBrownColorScheme extends BaseDarkColorScheme {
+public class GoldenBrownColorScheme extends BaseDarkColorScheme {
 	/**
 	 * The main ultra-light color.
 	 */

@@ -200,7 +200,7 @@ public class NeonCortex {
                 desktopHints = new HashMap();
             }
             if (getPlatform() == Platform.MACOS && LookUtils.IS_OS_MAC_MOJAVE_OR_LATER
-                && (device.getType() == GraphicsDevice.TYPE_RASTER_SCREEN)) {
+                    && (device.getType() == GraphicsDevice.TYPE_RASTER_SCREEN)) {
                 desktopHints.put(RenderingHints.KEY_TEXT_ANTIALIASING,
                         RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
             }
@@ -291,6 +291,13 @@ public class NeonCortex {
         }
     }
 
+    /**
+     * Returns the colorized version of icon based off of the passed icon factory.
+     *
+     * @param sourceFactory Source factory to be used to create the icon.
+     * @param color         Color for colorization.
+     * @return The colorized version of the icon.
+     */
     public static ResizableIcon colorizeIcon(ResizableIconFactory sourceFactory,
             Color color) {
         return new ResizableIcon() {
@@ -331,17 +338,42 @@ public class NeonCortex {
         };
     }
 
+    /**
+     * Returns the colorized version of icon based off of the passed icon factory.
+     *
+     * @param sourceFactory Source factory to be used to create the icon.
+     * @param color         Color for colorization.
+     * @param alpha         Alpha value for colorization.
+     * @return The colorized version of the icon.
+     */
     public static ResizableIcon colorizeIcon(ResizableIconFactory sourceFactory,
             Color color, float alpha) {
         return colorizeIcon(sourceFactory, new Color(color.getRed(), color.getGreen(),
                 color.getBlue(), (int) (alpha * 255)));
     }
 
+    /**
+     * Returns the colorized version of icon based off of the passed icon factory. The returned
+     * icon also implements the marker {@link javax.swing.plaf.UIResource} interface.
+     *
+     * @param sourceFactory Source factory to be used to create the icon.
+     * @param color         Color for colorization.
+     * @return The colorized version of the icon.
+     */
     public static ResizableIconUIResource colorizeIconAsUiResource(
             ResizableIconFactory sourceFactory, Color color) {
         return new ResizableIconUIResource(colorizeIcon(sourceFactory, color));
     }
 
+    /**
+     * Returns the colorized version of icon based off of the passed icon factory. The returned
+     * icon also implements the marker {@link javax.swing.plaf.UIResource} interface.
+     *
+     * @param sourceFactory Source factory to be used to create the icon.
+     * @param color         Color for colorization.
+     * @param alpha         Alpha value for colorization.
+     * @return The colorized version of the icon.
+     */
     public static ResizableIconUIResource colorizeIconAsUiResource(
             ResizableIconFactory sourceFactory, Color color, float alpha) {
         return colorizeIconAsUiResource(sourceFactory,

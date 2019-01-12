@@ -52,7 +52,6 @@ import java.util.Map;
 @SubstanceRenderer
 public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
         implements ThemedIconAwareRenderer {
-
     protected float rolloverArmAmount;
 
     /**
@@ -83,8 +82,8 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
                     && dropLocation.getIndex() == index);
 
             if (!isDropLocation && (modelStateInfo != null)) {
-                Map<ComponentState, StateContributionInfo> activeStates = modelStateInfo
-                        .getStateContributionMap();
+                Map<ComponentState, StateContributionInfo> activeStates =
+                        modelStateInfo.getStateContributionMap();
                 SubstanceColorScheme colorScheme = getColorSchemeForState(list, ui, currState);
                 if (currState.isDisabled() || (activeStates == null)
                         || (activeStates.size() == 1)) {
@@ -95,14 +94,13 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
                     float aggrGreen = 0;
                     float aggrBlue = 0;
 
-                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : modelStateInfo
-                            .getStateContributionMap().entrySet()) {
+                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                            modelStateInfo.getStateContributionMap().entrySet()) {
                         ComponentState activeState = activeEntry.getKey();
                         float contribution = activeEntry.getValue().getContribution();
-                        if (activeState.isFacetActive(
-                                SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
-                                activeState.isFacetActive(
-                                        SubstanceSlices.ComponentStateFacet.ARM)) {
+                        if (activeState.isFacetActive(SubstanceSlices.ComponentStateFacet.ROLLOVER)
+                                || activeState.isFacetActive(
+                                SubstanceSlices.ComponentStateFacet.ARM)) {
                             this.rolloverArmAmount = Math.max(this.rolloverArmAmount, contribution);
                         }
 
@@ -121,12 +119,11 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
                     scheme = SubstanceColorSchemeUtilities.getColorScheme(list,
                             ColorSchemeAssociationKind.HIGHLIGHT_TEXT, currState);
                 }
-                this.rolloverArmAmount = currState.isFacetActive(
+                boolean isActive = currState.isFacetActive(
                         SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
-                        currState.isFacetActive(
-                                SubstanceSlices.ComponentStateFacet.SELECTION) ||
-                        currState.isFacetActive(
-                                SubstanceSlices.ComponentStateFacet.ARM) ? 1.0f : 0.0f;
+                        currState.isFacetActive(SubstanceSlices.ComponentStateFacet.SELECTION) ||
+                        currState.isFacetActive(SubstanceSlices.ComponentStateFacet.ARM);
+                this.rolloverArmAmount = isActive ? 1.0f : 0.0f;
                 super.setForeground(new ColorUIResource(scheme.getForegroundColor()));
             }
         } else {

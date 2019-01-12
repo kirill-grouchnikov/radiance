@@ -70,14 +70,14 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
      */
     protected boolean hasFocus;
 
-    protected float rolloverArmAmount;
+    private float rolloverArmAmount;
 
     /**
-     * Returns a new instance of SubstanceDefaultTreeCellRenderer. Alignment is set to left aligned.
-     * Icons and text color are determined from the UIManager.
+     * Returns a new instance of SubstanceDefaultTreeCellRenderer. Alignment is set to start
+     * aligned. Icons and text color are determined from the UIManager.
      */
     public SubstanceDefaultTreeCellRenderer() {
-        this.setHorizontalAlignment(SwingConstants.LEFT);
+        this.setHorizontalAlignment(SwingConstants.LEADING);
         SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(this, 1.0);
     }
 
@@ -86,7 +86,7 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
      *
      * @return The default icon for non-leaf expanded nodes.
      */
-    public Icon getDefaultOpenIcon() {
+    private Icon getDefaultOpenIcon() {
         return UIManager.getIcon("Tree.openIcon");
     }
 
@@ -95,7 +95,7 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
      *
      * @return The default icon for non-leaf non-expanded nodes.
      */
-    public Icon getDefaultClosedIcon() {
+    private Icon getDefaultClosedIcon() {
         return UIManager.getIcon("Tree.closedIcon");
     }
 
@@ -104,7 +104,7 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
      *
      * @return The default icon for leaf nodes.
      */
-    public Icon getDefaultLeafIcon() {
+    private Icon getDefaultLeafIcon() {
         return UIManager.getIcon("Tree.leafIcon");
     }
 
@@ -167,8 +167,9 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
 
             // special case for drop location
             JTree.DropLocation dropLocation = tree.getDropLocation();
-            boolean isDropLocation = (dropLocation != null && dropLocation.getChildIndex() == -1
-                    && tree.getRowForPath(dropLocation.getPath()) == row);
+            boolean isDropLocation = (dropLocation != null)
+                    && (dropLocation.getChildIndex() == -1)
+                    && (tree.getRowForPath(dropLocation.getPath()) == row);
 
             if (!isDropLocation && (modelStateInfo != null)) {
                 Map<ComponentState, StateContributionInfo> activeStates = modelStateInfo
@@ -183,8 +184,8 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
                     float aggrGreen = 0;
                     float aggrBlue = 0;
 
-                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : modelStateInfo
-                            .getStateContributionMap().entrySet()) {
+                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                            modelStateInfo.getStateContributionMap().entrySet()) {
                         ComponentState activeState = activeEntry.getKey();
                         SubstanceColorScheme scheme = getColorSchemeForState(tree, ui, activeState);
                         Color schemeFg = scheme.getForegroundColor();
@@ -211,12 +212,11 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
                 if (scheme != null) {
                     super.setForeground(new ColorUIResource(scheme.getForegroundColor()));
                 }
-                this.rolloverArmAmount = currState.isFacetActive(
-                        SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
-                        currState.isFacetActive(
-                                SubstanceSlices.ComponentStateFacet.SELECTION) ||
-                        currState.isFacetActive(
-                                SubstanceSlices.ComponentStateFacet.ARM) ? 1.0f : 0.0f;
+                boolean isActive = currState.isFacetActive(
+                        SubstanceSlices.ComponentStateFacet.ROLLOVER)
+                        || currState.isFacetActive(SubstanceSlices.ComponentStateFacet.SELECTION)
+                        || currState.isFacetActive(SubstanceSlices.ComponentStateFacet.ARM);
+                this.rolloverArmAmount = isActive ? 1.0f : 0.0f;
             }
         } else {
             if (sel) {

@@ -39,3 +39,7 @@ dependencies {
 
 ext.designation = "demo"
 
+jar {
+    archiveBaseName = "${rootProject.name}-${project.name}"
+}
+

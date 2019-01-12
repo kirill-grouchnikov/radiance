@@ -420,7 +420,8 @@ public class SubstanceColorUtilities {
 		int oldG = (rgb >>> 8) & 0xFF;
 		int oldB = (rgb >>> 0) & 0xFF;
 
-		return (222 * oldR + 707 * oldG + 71 * oldB) / 1000;
+		// See https://en.wikipedia.org/wiki/Relative_luminance
+		return (2126 * oldR + 7152 * oldG + 722 * oldB) / 10000;
 	}
 
 	/**

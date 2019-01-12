@@ -4,7 +4,7 @@
 
 To bring richer user experience to Swing applications, Substance look and feel uses the [Trident animation library](../trident/trident.md). This library provides support for animating core and custom Swing components.
 
-While the default animation settings (which transitions to animate, the animation speed, the set of components to animate) were selected to provide a consistent and pleasant out-of-the-box visual experience with zero application configuration, some applications might need to configure the animation settings.
+While the default animation settings (which transitions to animate, the animation speed, the set of components to animate) were selected to provide a consistent and pleasant out-of-the-box visual experience, some applications might require tweaking the animation settings.
 
 ### Using the animation APIs
 

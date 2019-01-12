@@ -30,8 +30,10 @@
 package org.pushingpixels.demo.spyglass.cookbook;
 
 import com.jhlabs.image.*;
+import org.pushingpixels.demo.spyglass.cookbook.skin.GoldenBrownColorScheme;
 import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
 import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import java.awt.*;
 import java.awt.image.*;
@@ -42,6 +44,7 @@ public class EchoResizableIcon implements ResizableIcon {
     private ResizableIcon original;
 
     static BufferedImageOp iconShadowFilter;
+
     {
         BlurFilter blurFilter = new BlurFilter();
         blurFilter.setUseAlpha(true);
@@ -51,7 +54,29 @@ public class EchoResizableIcon implements ResizableIcon {
             kernelData[i] = 1.0f;
         }
         blurFilter.setKernel(new Kernel(kernelSide, kernelSide, kernelData));
-        iconShadowFilter = new CompoundFilter(blurFilter, new InvertFilter());
+
+        SubstanceColorScheme colorScheme = new GoldenBrownColorScheme();
+        Gradient inverseGradient = new Gradient(
+                new int[] { 0, 128, 255 },
+                new int[] { colorScheme.getUltraLightColor().getRGB(),
+                        colorScheme.getMidColor().getRGB(),
+                        colorScheme.getUltraDarkColor().getRGB() });
+        // Can't use LookupFilter since it disregards the original alpha
+        PointFilter inverseFilter = new PointFilter() {
+            @Override
+            public int filterRGB(int x, int y, int rgb) {
+                int a = rgb & 0xff000000;
+                int r = (rgb >> 16) & 0xff;
+                int g = (rgb >> 8) & 0xff;
+                int b = rgb & 0xff;
+                // Compute perceived color brightness based on the individual RGB components
+                // See https://en.wikipedia.org/wiki/Relative_luminance
+                int brightness = (2126 * r + 7152 * g + 722 * b) / 10000;
+                return a | (inverseGradient.getColor(brightness/255.0f) & 0x00ffffff);
+            }
+        };
+
+        iconShadowFilter = new CompoundFilter(blurFilter, inverseFilter);
     }
 
     public EchoResizableIcon(ResizableIcon original) {

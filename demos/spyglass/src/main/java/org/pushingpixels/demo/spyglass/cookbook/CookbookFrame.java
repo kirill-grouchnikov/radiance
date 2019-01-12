@@ -88,8 +88,6 @@ public class CookbookFrame extends JFrame {
 
         contentPane.setComponentZOrder(lightsHolderPanel, 0);
 
-        // this.add(new CookbookToolBar(), BorderLayout.NORTH);
-
         contentPane.setLayout(new LayoutManager2() {
             @Override
             public void addLayoutComponent(String name, Component comp) {

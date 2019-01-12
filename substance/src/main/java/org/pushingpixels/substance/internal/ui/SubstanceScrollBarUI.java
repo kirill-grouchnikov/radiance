@@ -420,8 +420,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         }
         graphics.setColor(SubstanceColorUtilities.getBackgroundFillColorScrollBar(this.scrollbar));
         graphics.fillRect(0, 0, this.scrollbar.getWidth(), this.scrollbar.getHeight());
-        SubstanceWatermark watermark = SubstanceCoreUtilities
-                .getSkin(c).getWatermark();
+        SubstanceWatermark watermark = SubstanceCoreUtilities.getSkin(c).getWatermark();
         if ((watermark != null)
                 && !Boolean.TRUE.equals(c.getClientProperty(WidgetUtilities.PREVIEW_MODE))
                 && SubstanceCoreUtilities.toDrawWatermark(c)) {

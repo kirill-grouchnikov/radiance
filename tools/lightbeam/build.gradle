@@ -36,3 +36,7 @@ dependencies {
 }
 
 ext.designation = "tools"
+
+jar {
+    archiveBaseName = "${rootProject.name}-${project.name}"
+}

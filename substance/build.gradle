@@ -39,6 +39,10 @@ sourceCompatibility = 1.8
 
 ext.designation = "core"
 
+jar {
+    archiveBaseName = "${rootProject.name}-${project.name}"
+}
+
 javadoc {
     exclude 'org/pushingpixels/substance/internal/**'
 }

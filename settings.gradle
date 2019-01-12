@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019 Kormorant Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2018-2019 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- *  o Neither the name of Kormorant Kirill Grouchnikov nor the names of
+ *  o Neither the name of Radiance Kirill Grouchnikov nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
@@ -30,13 +30,14 @@
 
 rootProject.name = "radiance"
 
-include 'neon', 'trident', 'photon',
-        'substance', 'flamingo', 'spoonbill',
-        'substance-extras', 'kormorant', 'ember', 'meteor',
-        'demos:trident-demo', 'demos:flamingo-demo', 'demos:kormorant-demo',
-        'demos:spoonbill-demo', 'demos:beacon-demo',
-        'demos:substance-demo', 'demos:spyglass',
-        'demos:rainbow', 'demos:lumen',
-        'tools:tools-common', 'tools:electra', 'tools:jitterbug',
-        'tools:lightbeam', 'tools:ignite', 'tools:beacon',
-        'tools:hyperion', 'tools:zodiac'
+include 'flamingo', 'neon', 'photon', 'spoonbill',
+		'substance', 'substance-extras', 'trident',
+		'kotlin-ext:ember', 'kotlin-ext:meteor',
+		'kotlin-ext:plasma',
+		'demos:beacon-demo', 'demos:flamingo-demo',
+		'demos:plasma-demo', 'demos:spoonbill-demo',
+        'demos:substance-demo', 'demos:trident-demo',
+		'demos:lumen', 'demos:rainbow', 'demos:spyglass',
+        'tools:apollo', 'tools:beacon', 'tools:electra',
+		'tools:hyperion', 'tools:ignite', 'tools:lightbeam',
+		'tools:tools-common', 'tools:zodiac'

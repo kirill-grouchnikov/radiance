@@ -69,10 +69,6 @@ public class SubstanceDefaultComboBoxRenderer extends SubstanceDefaultListCellRe
         this.setBorder(new EmptyBorder(ins.top, ins.left, ins.bottom, ins.right));
     }
 
-    public SubstanceDefaultComboBoxRenderer() {
-
-    }
-
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
             int index, boolean isSelected, boolean cellHasFocus) {

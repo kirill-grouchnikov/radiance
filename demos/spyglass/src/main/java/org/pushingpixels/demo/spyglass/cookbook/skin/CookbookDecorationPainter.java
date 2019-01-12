@@ -71,8 +71,8 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         LookupFilter brushedMetalLookupFilter = new LookupFilter(
                 new Gradient(new int[] { 0, 96, 255 },
                         new int[] { goldenBrownScheme.getUltraDarkColor().getRGB(),
-                                        goldenBrownScheme.getLightColor().getRGB(),
-                                        goldenBrownScheme.getUltraLightColor().getRGB() }));
+                                goldenBrownScheme.getLightColor().getRGB(),
+                                goldenBrownScheme.getUltraLightColor().getRGB() }));
 
         this.brushedMetalImage = new CompoundFilter(brushedMetalFilter, brushedMetalLookupFilter)
                 .filter(new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB),
@@ -88,11 +88,13 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         woodFilter.setFibres(0.3f);
         woodFilter.setgain(0.7f);
 
-        LookupFilter woodLookupFilter = new LookupFilter(new Gradient(new int[] { 0, 64, 196, 255 },
+        LookupFilter woodLookupFilter = new LookupFilter(new Gradient(
+                new int[] { 0, 64, 128, 192, 255 },
                 new int[] { darkBrownScheme.getUltraDarkColor().getRGB(),
-                                darkBrownScheme.getUltraDarkColor().getRGB(),
-                                darkBrownScheme.getDarkColor().getRGB(),
-                                darkBrownScheme.getLightColor().getRGB() }));
+                        darkBrownScheme.getUltraDarkColor().getRGB(),
+                        darkBrownScheme.getDarkColor().getRGB(),
+                        darkBrownScheme.getLightColor().getRGB(),
+                        darkBrownScheme.getUltraLightColor().getRGB() }));
 
         this.woodImage = new CompoundFilter(woodFilter, woodLookupFilter).filter(
                 new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB), null);
@@ -121,8 +123,8 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
             graphics.setPaint(new LinearGradientPaint(0, -dy, 0, 70 - dy,
                     new float[] { 0.0f, 0.05f, 0.6f, 0.8f, 1.0f },
                     new Color[] { fillScheme.getUltraLightColor(), fillScheme.getExtraLightColor(),
-                                    fillScheme.getMidColor(), fillScheme.getDarkColor(),
-                                    fillScheme.getUltraDarkColor() }));
+                            fillScheme.getMidColor(), fillScheme.getDarkColor(),
+                            fillScheme.getUltraDarkColor() }));
             graphics.fillRect(0, 0, width, height);
         } else if (decorationAreaType == DecorationAreaType.FOOTER) {
             // main background gradient
@@ -132,7 +134,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
             graphics.setPaint(new LinearGradientPaint(0, -dy, 0, -dy + footerHeight,
                     new float[] { 0.0f, 0.5f, 0.75f, 1.0f },
                     new Color[] { fillScheme.getLightColor(), fillScheme.getMidColor(),
-                                    fillScheme.getDarkColor(), fillScheme.getUltraDarkColor() }));
+                            fillScheme.getDarkColor(), fillScheme.getUltraDarkColor() }));
             graphics.fillRect(0, 0, width, height);
         } else if (decorationAreaType == DecorationAreaType.GENERAL) {
             // general background gradient
@@ -210,7 +212,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         LinearGradientPaint lightConeGradient = new LinearGradientPaint(0, 0, 0, 43,
                 new float[] { 0.0f, 0.5f, 0.7f, 1.0f },
                 new Color[] { new Color(200, 200, 255), new Color(200, 200, 255, 128),
-                                new Color(200, 200, 255, 48), new Color(200, 200, 255, 0) },
+                        new Color(200, 200, 255, 48), new Color(200, 200, 255, 0) },
                 CycleMethod.NO_CYCLE);
         lightConeGraphics.setPaint(lightConeGradient);
         lightConeGraphics.fill(path);

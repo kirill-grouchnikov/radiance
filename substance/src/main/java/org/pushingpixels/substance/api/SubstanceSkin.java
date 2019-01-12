@@ -873,7 +873,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      * {@link SubstanceSkin#getColorSchemes(URL)} and
      * {@link SubstanceSkin#getColorSchemes(String)} APIs. Note that the custom
      * skins should only use the {@link #get(String)} API. The rest of the API
-     * is currently internal and is used in the <strong>Jitterbug</strong>
+     * is currently internal and is used in the <strong>Apollo</strong>
      * visual editor.
      *
      * @author Kirill Grouchnikov

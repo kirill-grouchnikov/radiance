@@ -41,7 +41,7 @@ SkinChangeListener skinChangeListener)`
 
 Unregisters a listener on skin change.
 
-### Working with plugins and widgets
+#### Working with plugins and widgets
 
 `public static void registerComponentPlugin(SubstanceComponentPlugin componentPlugin)`
 
@@ -67,7 +67,7 @@ Specifies that extra UI elements (such as menu items in system menu or lock bord
 
 Specifies global visibility of the lock icon on non-editable text components.
 
-### Working with fonts
+#### Working with fonts
 
 `public static FontPolicy getFontPolicy()`
 
@@ -77,7 +77,7 @@ Looks up and retrieves the font policy used by the Substance family.
 
 Sets the font policy to be used with Substance family.
 
-### Working with tab closing
+#### Working with tab closing
 
 `public static void setTabCloseButtonsVisible(Boolean tabCloseButtonsVisible)`
 
@@ -193,6 +193,16 @@ Sets the global icon pack to be used by Substance.
 `public static SubstanceIconPack getIconPack()`
 
 Retrieves the currently used global icon pack.
+
+`public static ResizableIcon colorizeIcon(ResizableIconFactory sourceFactory, SubstanceColorScheme colorScheme, float brightnessFactor)`
+
+Creates a colorized version of a resizable icon.
+
+`public static ResizableIconUIResource colorizeIconAsUiResource(ResizableIconFactory sourceFactory, SubstanceColorScheme colorScheme, float brightnessFactor)`
+
+`public static ResizableIconUIResource colorizeIconAsUiResource(ResizableIconFactory sourceFactory, SubstanceColorScheme colorScheme)`
+
+Create a colorized version of a resizable icon that implements the marker `UIResource` interface.
 
 `public static void setUseConstantThemesOnOptionPanes(Boolean useConstantThemesOnOptionPanes)`
 

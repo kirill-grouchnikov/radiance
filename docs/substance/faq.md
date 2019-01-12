@@ -92,7 +92,7 @@ The best advice is to not use animated GIFs as icons. Thanks to **Martin Cliffor
 
 **What's going on with my cell renderers?**
 
-By design, Substance provides default renderers for trees, tables and lists that provide the following functionality:
+By design, Substance provides [default renderers](renderers.md) for trees, tables and lists that provide the following functionality:
 
 1. Respect the background color of the component.
 2. Provide alternating striped painting of background (table / list only).

@@ -33,18 +33,19 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 ### Meteor
 
-[Meteor](docs/meteor/meteor.md) is a set of Kotlin extensions that expose selected core Swing APIs for idiomatic Kotlin usage.
+[Meteor](docs/kotlin-ext/meteor/meteor.md) is a set of Kotlin extensions that expose selected core Swing APIs for idiomatic Kotlin usage.
 
 ### Ember
 
-[Ember](docs/ember/ember.md) is a set of Kotlin extensions that provide a more elegant way of working with scoped Substance APIs.
+[Ember](docs/kotlin-ext/ember/ember.md) is a set of Kotlin extensions that provide a more elegant way of working with scoped Substance APIs.
 
-### Kormorant
+### Plasma
 
-[Kormorant](docs/kormorant/kormorant.md) exposes the entire API surface of Flamingo as a concise, focused and approachable Kotlin domain-specific language (DSL). It also provides a number of Kotlin extensions for Flamingo APIs.
-
+[Plasma](docs/kotlin-ext/plasma/plasma.md) exposes the entire API surface of Flamingo as a concise, focused and approachable Kotlin domain-specific language (DSL). It also provides a number of Kotlin extensions for Flamingo APIs.
 
 ## Tools
+
+* [Apollo](docs/tools/apollo/apollo.md) is a tool for creating and editing color scheme lists.
 
 * [Beacon](docs/tools/beacon/beacon.md) is a visual runtime debugger for Substance.
 
@@ -53,8 +54,6 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 * [Hyperion](docs/tools/hyperion/hyperion.md) can be used creating and editing files that define custom button shapers.
 
 * [Ignite](docs/tools/ignite/ignite.md) is a Gradle plugin that wraps the Photon library to allow build-time transcoding of SVG content into Java / Kotlin classes.
-
-* [Jitterbug](docs/tools/jitterbug/jitterbug.md) is a tool for creating and editing color scheme lists.
 
 * [Lightbeam](docs/tools/lightbeam/lightbeam.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
 

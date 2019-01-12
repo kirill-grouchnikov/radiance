@@ -35,7 +35,7 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JTabbedPane;
 
-import org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter;
+import org.pushingpixels.substance.extras.api.tabbed.*;
 
 /**
  * Mouse wheel listener for the {@link TabPagerWidget}.

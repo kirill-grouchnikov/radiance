@@ -32,7 +32,6 @@ package org.pushingpixels.substance.api;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.font.*;
 import org.pushingpixels.neon.icon.*;
-import org.pushingpixels.neon.internal.ColorFilter;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
@@ -1353,6 +1352,14 @@ public class SubstanceCortex {
             return SubstanceCoreUtilities.getBlankImage(width, height);
         }
 
+        /**
+         * Returns the colorized version of icon based off of the passed icon factory.
+         *
+         * @param sourceFactory    Source factory to be used to create the icon.
+         * @param colorScheme      Color scheme for colorization.
+         * @param brightnessFactor Brightness factor for colorization.
+         * @return The colorized version of the icon.
+         */
         public static ResizableIcon colorizeIcon(ResizableIconFactory sourceFactory,
                 SubstanceColorScheme colorScheme, float brightnessFactor) {
             return new ResizableIcon() {
@@ -1390,13 +1397,32 @@ public class SubstanceCortex {
             };
         }
 
-        public static ResizableIconUIResource colorizeIconAsUiResource(ResizableIconFactory sourceFactory,
+        /**
+         * Returns the colorized version of icon based off of the passed icon factory. The returned
+         * icon also implements the marker {@link javax.swing.plaf.UIResource} interface.
+         *
+         * @param sourceFactory    Source factory to be used to create the icon.
+         * @param colorScheme      Color scheme for colorization.
+         * @param brightnessFactor Brightness factor for colorization.
+         * @return The colorized version of the icon.
+         */
+        public static ResizableIconUIResource colorizeIconAsUiResource(
+                ResizableIconFactory sourceFactory,
                 SubstanceColorScheme colorScheme, float brightnessFactor) {
             return new ResizableIconUIResource(colorizeIcon(sourceFactory, colorScheme,
                     brightnessFactor));
         }
 
-        public static ResizableIconUIResource colorizeIconAsUiResource(ResizableIconFactory sourceFactory,
+        /**
+         * Returns the colorized version of icon based off of the passed icon factory. The returned
+         * icon also implements the marker {@link javax.swing.plaf.UIResource} interface.
+         *
+         * @param sourceFactory    Source factory to be used to create the icon.
+         * @param colorScheme      Color scheme for colorization.
+         * @return The colorized version of the icon.
+         */
+        public static ResizableIconUIResource colorizeIconAsUiResource(
+                ResizableIconFactory sourceFactory,
                 SubstanceColorScheme colorScheme) {
             float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
             return colorizeIconAsUiResource(sourceFactory, colorScheme, brightnessFactor);

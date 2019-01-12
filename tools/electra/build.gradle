@@ -35,9 +35,13 @@ dependencies {
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$kotlinx_coroutines_version"
     compile project(':substance')
-    compile project(':meteor')
-    compile project(':ember')
+    compile project(':kotlin-ext:meteor')
+    compile project(':kotlin-ext:ember')
     compile project(':tools:tools-common')
 }
 
 ext.designation = "tools"
+
+jar {
+    archiveBaseName = "${rootProject.name}-${project.name}"
+}

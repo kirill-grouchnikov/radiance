@@ -36,16 +36,16 @@ import org.pushingpixels.substance.api.colorscheme.BaseDarkColorScheme;
 
 import java.awt.*;
 
-class DarkBrownColorScheme extends BaseDarkColorScheme {
+public class DarkBrownColorScheme extends BaseDarkColorScheme {
 	/**
 	 * The main ultra-light color.
 	 */
-	private static final Color mainUltraLightColor = new Color(105, 36, 6);
+	private static final Color mainUltraLightColor = new Color(125, 50, 10);
 
 	/**
 	 * The main extra-light color.
 	 */
-	private static final Color mainExtraLightColor = new Color(92, 26, 4);
+	private static final Color mainExtraLightColor = new Color(102, 30, 7);
 
 	/**
 	 * The main light color.

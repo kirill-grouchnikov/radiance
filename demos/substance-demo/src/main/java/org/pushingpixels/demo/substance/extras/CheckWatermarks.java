@@ -83,7 +83,8 @@ public class CheckWatermarks extends JFrame {
         watermarks.add(new SubstanceSingularityWatermark());
         watermarks.add(new SubstanceVortexWatermark());
 
-        final JComboBox result = new JComboBox(watermarks.toArray());
+        final JComboBox<SubstanceWatermark> result = new JComboBox<>(
+                watermarks.toArray(new SubstanceWatermark[0]));
         result.setRenderer(new SubstanceDefaultComboBoxRenderer(result) {
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,

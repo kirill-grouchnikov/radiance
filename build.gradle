@@ -60,7 +60,7 @@ allprojects {
         jcenter()
     }
 
-    defaultTasks 'build'
+    defaultTasks 'build', 'jar'
 
     // Configure Java compilation for all the projects
     tasks.withType(JavaCompile) {
@@ -86,8 +86,6 @@ allprojects {
 
     // Configure the jar task for all the projects
     tasks.withType(Jar) {
-        // the jar name has Radiance + project name
-        jar.archiveBaseName = "${rootProject.name}-${project.name}"
         // create reproducible builds by removing timestamps and doing cross-platform file order
         preserveFileTimestamps = false
         reproducibleFileOrder = true
@@ -117,10 +115,10 @@ mkdir {
 // ./gradlew dependencyUpdates  -Drevision=release
 apply plugin: "com.github.ben-manes.versions"
 
-// Copies the compiled jars from all the sub-projects into the drop folder. The compiled
-// jars are grouped into three folders: 'core' for app-facing sub-projects (such as Trident,
-// Neon, Substance, Flamingo), 'demo' for sub-projects that have demos and 'tools' for
-// sub-projects with various tools.
+// Copies the compiled jars from all the modules into the drop folder. The compiled
+// jars are grouped into three folders: 'core' for app-facing modules (such as Trident,
+// Neon, Substance, Flamingo), 'demo' for modules that have demos and 'tools' for
+// modules with various tools.
 task copyJars(type: Copy) {
     delete "drop/${project.version}"
     subprojects {
@@ -138,18 +136,18 @@ task copyJars(type: Copy) {
     }
 }
 
-// Collects all the dependencies of the core sub-projects in build/libs-core
+// Collects all the dependencies of the core modules in build/libs-core
 task getCoreDependencies(type: Copy) {
     into 'build/libs-core'
     from {
-        subprojects.findAll { it.designation == "core" }.collect { it.configurations.runtime }
+        subprojects.findAll { it.designation == "core" && it.name != "kotlin-ext" }.collect { it.configurations.runtime }
     }
     doLast {
         println("Copied all core dependencies to build/libs-core")
     }
 }
 
-// Collects all the dependencies of the demo sub-projects in build/libs-demo
+// Collects all the dependencies of the demo modules in build/libs-demo
 task getDemoDependencies(type: Copy) {
     into 'build/libs-demo'
     from {
@@ -160,7 +158,7 @@ task getDemoDependencies(type: Copy) {
     }
 }
 
-// Collects all the dependencies of the demo sub-projects in build/libs-demo
+// Collects all the dependencies of the demo modules in build/libs-demo
 task getToolsDependencies(type: Copy) {
     into 'build/libs-tools'
     from {

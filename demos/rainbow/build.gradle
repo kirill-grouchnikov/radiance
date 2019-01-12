@@ -40,10 +40,14 @@ dependencies {
     compile ('org.swinglabs:jxlayer:3.0.4')
     compile project(':photon')
     compile project(':substance')
-    compile project(':ember')
-    compile project(':meteor')
+    compile project(':kotlin-ext:ember')
+    compile project(':kotlin-ext:meteor')
     compile project(':flamingo')
     compile project(':spoonbill')
 }
 
 ext.designation = "demo"
+
+jar {
+    archiveBaseName = "${rootProject.name}-${project.name}"
+}

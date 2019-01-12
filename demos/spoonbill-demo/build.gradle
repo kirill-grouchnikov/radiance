@@ -41,3 +41,7 @@ dependencies {
 sourceCompatibility = 1.8
 
 ext.designation = "demo"
+
+jar {
+    archiveBaseName = "${rootProject.name}-${project.name}"
+}
