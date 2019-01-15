@@ -1201,7 +1201,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return transitionBand;
     }
 
-    private void createCommands() {
+    protected void createCommands() {
         MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
         mf.setLocale(currLocale);
 
@@ -1429,7 +1429,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .build();
     }
 
-    private void createStyleGalleryModel() {
+    protected void createStyleGalleryModel() {
         List<CommandGroup> stylesGalleryCommands = new ArrayList<>();
         List<Command> stylesGalleryCommandsList = new ArrayList<>();
         List<Command> stylesGalleryCommandsList2 = new ArrayList<>();

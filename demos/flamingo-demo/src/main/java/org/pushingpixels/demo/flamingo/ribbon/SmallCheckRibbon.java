@@ -47,6 +47,9 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
 
     @Override
     public void configureRibbon() {
+        this.createCommands();
+        this.createStyleGalleryModel();
+
         JRibbonBand clipboardBand = this.getClipboardBand();
         JRibbonBand quickStylesBand = this.getQuickStylesBand();
         JFlowRibbonBand fontBand = this.getFontBand();
@@ -100,10 +103,10 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
         this.getRibbon().addContextualTaskGroup(group1);
         this.getRibbon().addContextualTaskGroup(group2);
 
-        configureTaskBar();
-
         // application menu
         configureApplicationMenu();
+
+        configureTaskBar();
 
         this.add(getControlPanel(), BorderLayout.EAST);
         this.add(new RulerPanel(), BorderLayout.CENTER);
