@@ -213,7 +213,7 @@ class ShapeEditor : JFrame() {
             g.render {
                 it.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON)
-                NeonCortex.installDesktopHints(it, this)
+                NeonCortex.installDesktopHints(it)
 
                 val width = this.width
                 val height = this.height

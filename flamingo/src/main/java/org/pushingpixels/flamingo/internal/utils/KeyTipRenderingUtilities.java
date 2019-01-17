@@ -92,7 +92,7 @@ public class KeyTipRenderingUtilities {
 
 		LineMetrics lineMetrics = g2d.getFontMetrics().getLineMetrics(keyTip, g2d);
 		int strHeight = (int) lineMetrics.getHeight();
-		NeonCortex.installDesktopHints(g2d, c);
+		NeonCortex.installDesktopHints(g2d);
 		g2d.drawString(keyTip, (rect.width - strWidth) / 2,
 				(rect.height + strHeight) / 2 - g2d.getFontMetrics().getDescent());
 

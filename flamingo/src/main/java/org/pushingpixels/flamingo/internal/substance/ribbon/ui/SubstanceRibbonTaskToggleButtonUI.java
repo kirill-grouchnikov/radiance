@@ -154,7 +154,7 @@ public class SubstanceRibbonTaskToggleButtonUI extends
 	@Override
 	public void update(Graphics g, JComponent c) {
 		Graphics2D g2d = (Graphics2D) g.create();
-		NeonCortex.installDesktopHints(g2d, c);
+		NeonCortex.installDesktopHints(g2d);
 		this.paint(g2d, c);
 		g2d.dispose();
 	}

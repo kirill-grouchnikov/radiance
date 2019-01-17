@@ -60,9 +60,6 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
                 Rectangle groupBounds) {
             Graphics2D g2d = (Graphics2D) g.create();
 
-            // SubstanceColorScheme scheme = SubstanceColorSchemeUtilities
-            // .getBorderColorScheme(ribbon, ComponentState.DEFAULT);
-
             g2d.translate(groupBounds.x, 0);
             SeparatorPainterUtils.paintSeparator(ribbon, g2d, 2, groupBounds.height * 3 / 4,
                     SwingConstants.VERTICAL, false, 0, groupBounds.height / 3, true);
@@ -80,7 +77,7 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
             SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(ribbon,
                     ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
 
-            Set<RibbonTask> tasksWithTrailingSeparators = new HashSet<RibbonTask>();
+            Set<RibbonTask> tasksWithTrailingSeparators = new HashSet<>();
             // add all regular tasks except the last
             for (int i = 0; i < ribbon.getTaskCount() - 1; i++) {
                 RibbonTask task = ribbon.getTask(i);
@@ -126,7 +123,7 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
         super.installDefaults();
         ComponentOrParentChainScope.setDecorationType(this.ribbon, DecorationAreaType.HEADER);
         Color backgr = this.ribbon.getBackground();
-        if (backgr == null || backgr instanceof UIResource) {
+        if ((backgr == null) || (backgr instanceof UIResource)) {
             Color toSet = SubstanceColorSchemeUtilities
                     .getColorScheme(this.ribbon, ComponentState.ENABLED).getBackgroundFillColor();
             this.ribbon.setBackground(new ColorUIResource(toSet));
@@ -176,8 +173,7 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
             iconHeight = SubstanceSizeUtils.getTitlePaneIconSize();
         }
 
-        int finalHeight = Math.max(fontHeight, iconHeight);
-        return finalHeight;
+        return Math.max(fontHeight, iconHeight);
     }
 
     @Override
@@ -192,17 +188,18 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
         }
 
         JRibbonRootPane ribbonRootPane = (JRibbonRootPane) SwingUtilities.getRootPane(this.ribbon);
-        if (ribbonRootPane == null)
+        if (ribbonRootPane == null) {
             return;
+        }
         JRibbonFrame ribbonFrame = (JRibbonFrame) ribbonRootPane.getParent();
         JRibbon ribbon = ribbonFrame.getRibbon();
         if (ribbon != null) {
-            this.applicationMenuButton.setPopupRichTooltip(ribbon
-                    .getApplicationMenuCommandProjection().getContentModel()
-                    .getSecondaryRichTooltip());
-            this.applicationMenuButton.setPopupKeyTip(ribbon
-                    .getApplicationMenuCommandProjection().getPresentationModel()
-                    .getPopupKeyTip());
+            this.applicationMenuButton.setPopupRichTooltip(
+                    ribbon.getApplicationMenuCommandProjection()
+                            .getContentModel().getSecondaryRichTooltip());
+            this.applicationMenuButton.setPopupKeyTip(
+                    ribbon.getApplicationMenuCommandProjection()
+                            .getPresentationModel().getPopupKeyTip());
         }
     }
 

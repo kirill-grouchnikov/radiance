@@ -97,7 +97,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
     /**
      * Creates a new basic ribbon UI delegate.
      */
-    public BasicRibbonUI() {
+    protected BasicRibbonUI() {
         this.taskToggleButtons = new HashMap<>();
         this.taskToggleGroupModel = new CommandToggleGroupModel();
         this.taskToggleGroupModel.setAllowsClearingSelection(false);
@@ -136,19 +136,22 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     this.ribbon.remove(this.applicationMenuButton);
                 }
 
-                this.applicationMenuButton = new JRibbonApplicationMenuButton(
-                        this.ribbon.getApplicationMenuCommandProjection());
-                this.applicationMenuButton.applyComponentOrientation(
-                        this.ribbon.getComponentOrientation());
-                this.syncApplicationMenuTips();
-                this.ribbon.add(this.applicationMenuButton);
+                boolean isShowingAppMenuButton = (ribbon.getApplicationMenuProjection() != null);
+                if (isShowingAppMenuButton) {
+                    this.applicationMenuButton = new JRibbonApplicationMenuButton(
+                            this.ribbon.getApplicationMenuCommandProjection());
+                    this.applicationMenuButton.applyComponentOrientation(
+                            this.ribbon.getComponentOrientation());
+                    this.syncApplicationMenuTips();
+                    this.ribbon.add(this.applicationMenuButton);
+                }
 
                 ribbon.revalidate();
                 ribbon.doLayout();
                 ribbon.repaint();
 
                 Window windowAncestor = SwingUtilities.getWindowAncestor(ribbon);
-                if (windowAncestor instanceof JRibbonFrame) {
+                if ((windowAncestor instanceof JRibbonFrame) && isShowingAppMenuButton) {
                     applicationMenuButton.setText(ribbon.getApplicationMenuCommandProjection()
                             .getContentModel().getText());
                 }
@@ -290,7 +293,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d, c);
+        NeonCortex.installDesktopHints(g2d);
         super.update(g2d, c);
         g2d.dispose();
     }
@@ -506,7 +509,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     ? (anchoredButtonsExpandedWidth + tabButtonGap) : 0)
                     + taskToggleButtonsStrip.getPreferredSize().width;
 
-            int anchoredButtonPanelWidth = 0;
+            int anchoredButtonPanelWidth;
             if (fullPreferredContentWidth <= c.getWidth()) {
                 // can fit everything with no cuts
                 for (Component comp : anchoredButtons.getComponents()) {
@@ -674,7 +677,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int bandGap = getBandGap();
 
             // the top row - task bar components
-            int x = 0;
+            int x;
             int y = 0;
 
             RibbonTask selectedTask = ribbon.getSelectedTask();

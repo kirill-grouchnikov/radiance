@@ -443,7 +443,7 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
 
                     g2d.translate(-x, -y)
 
-                    NeonCortex.installDesktopHints(g2d, this)
+                    NeonCortex.installDesktopHints(g2d)
                     val textY = y + 4 + g2d.fontMetrics.ascent
                     val textX = if (zoomBubble.captionOffsetX < 0)
                         x + captionHeight / 6 + 4

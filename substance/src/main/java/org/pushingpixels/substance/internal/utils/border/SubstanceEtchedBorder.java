@@ -132,7 +132,7 @@ public class SubstanceEtchedBorder implements Border {
 		// this is a fix for defect 248 - in order to paint the TitledBorder
 		// text respecting the AA settings of the display, we have to
 		// set rendering hints on the passed Graphics object.
-        NeonCortex.installDesktopHints((Graphics2D) g, c);
+        NeonCortex.installDesktopHints((Graphics2D) g);
 	}
 
 	@Override

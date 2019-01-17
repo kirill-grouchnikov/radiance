@@ -100,7 +100,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             // task group title
             FontMetrics fm = this.getFontMetrics(ribbon.getFont());
             int yOffset = (height - fm.getHeight()) / 2;
-            NeonCortex.installDesktopHints(g2d, this);
+            NeonCortex.installDesktopHints(g2d);
 
             int offset = SubstanceSizeUtils
                     .getAdjustedSize(SubstanceSizeUtils.getComponentFontSize(this), 5, 2, 1, false);

@@ -167,7 +167,7 @@ public class NeonCortex {
         return thumb;
     }
 
-    public static void installDesktopHints(Graphics2D g2, Component c) {
+    public static void installDesktopHints(Graphics2D g2) {
         Map desktopHints = desktopHints(g2);
         if (desktopHints != null && !desktopHints.isEmpty()) {
             g2.addRenderingHints(desktopHints);

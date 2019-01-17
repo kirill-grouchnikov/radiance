@@ -136,7 +136,7 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
 
         override fun paintComponent(g: Graphics) {
             g.render {
-                NeonCortex.installDesktopHints(it, this)
+                NeonCortex.installDesktopHints(it)
                 it.font = NeonCortex.getDefaultFontPolicy().getFontSet(null).controlFont
 
                 if (color != null) {

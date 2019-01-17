@@ -53,7 +53,7 @@ class JHsvGraph : JComponent() {
         val h = height
 
         g.render {
-            NeonCortex.installDesktopHints(it, this)
+            NeonCortex.installDesktopHints(it)
 
             it.color = Color.black
 

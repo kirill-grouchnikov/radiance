@@ -1202,7 +1202,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 // BasicTabbedPaneUI.ScrollableTabPanel
                 // which does not have the right rendering hints
                 Graphics2D g2d = (Graphics2D) g.create();
-                NeonCortex.installDesktopHints(g2d, tabPane);
+                NeonCortex.installDesktopHints(g2d);
                 super.paintTab(g2d, tabPlacement, rects, tabIndex, iconRect, textRect);
                 g2d.dispose();
             }
@@ -2285,7 +2285,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d, c);
+        NeonCortex.installDesktopHints(g2d);
         super.update(g2d, c);
         g2d.dispose();
     }

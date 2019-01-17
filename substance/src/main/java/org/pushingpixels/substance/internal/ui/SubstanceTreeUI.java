@@ -931,7 +931,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		boolean isWatermarkBleed = SubstanceCoreUtilities.toDrawWatermark(tree) || !tree.isOpaque();
 
 		Graphics2D g2d = (Graphics2D) g.create();
-		NeonCortex.installDesktopHints(g2d, c);
+		NeonCortex.installDesktopHints(g2d);
 
 		SubstanceStripingUtils.setup(c);
 		if (initialPath != null && paintingEnumerator != null) {

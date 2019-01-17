@@ -165,13 +165,53 @@ public class SubstanceLabelUI extends BasicLabelUI {
     }
 
     @Override
+    public Dimension getPreferredSize(JComponent c) {
+        JLabel label = (JLabel) c;
+        String text = label.getText();
+        Icon icon = label.isEnabled() ? label.getIcon() : label.getDisabledIcon();
+        Insets insets = label.getInsets(null);
+        Font font = label.getFont();
+
+        int dx = insets.left + insets.right;
+        int dy = insets.top + insets.bottom;
+
+        if ((icon == null) && ((text == null) || (font == null))) {
+            return new Dimension(dx, dy);
+        }
+        else if ((text == null) || ((icon != null) && (font == null))) {
+            return new Dimension(icon.getIconWidth() + dx,
+                    icon.getIconHeight() + dy);
+        }
+        else {
+            FontMetrics fm = SubstanceCoreUtilities.getFontMetrics(font);
+            Rectangle iconR = new Rectangle(0, 0, 0, 0);
+            Rectangle textR = new Rectangle(0, 0, 0, 0);
+            Rectangle viewR = new Rectangle(dx, dy, Short.MAX_VALUE, Short.MAX_VALUE);
+
+            SwingUtilities.layoutCompoundLabel(label, fm, text, icon,
+                    label.getVerticalAlignment(), label.getHorizontalAlignment(),
+                    label.getVerticalTextPosition(), label.getHorizontalTextPosition(),
+                    viewR, iconR, textR, label.getIconTextGap());
+
+            int minLeft = Math.min(iconR.x, textR.x);
+            int maxRight = Math.max(iconR.x + iconR.width, textR.x + textR.width);
+            int minTop = Math.min(iconR.y, textR.y);
+            int maxBottom = Math.max(iconR.y + iconR.height, textR.y + textR.height);
+            Dimension result = new Dimension(maxRight - minLeft, maxBottom - minTop);
+
+            result.width += dx;
+            result.height += dy;
+            return result;
+        }
+    }
+    @Override
     public void update(Graphics g, JComponent c) {
         // failsafe for LAF change
         if (!SubstanceCoreUtilities.isCurrentLookAndFeel()) {
             return;
         }
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d, c);
+        NeonCortex.installDesktopHints(g2d);
         this.paint(g2d, c);
         g2d.dispose();
     }

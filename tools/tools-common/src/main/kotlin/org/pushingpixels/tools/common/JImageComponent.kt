@@ -310,7 +310,7 @@ class JImageComponent(hasKeyboardZoom: Boolean) : JPanel() {
                 it.translate(-this.leftX, -this.topY)
                 it.drawImage(this.image, 0, 0, null)
             } else {
-                NeonCortex.installDesktopHints(it, this)
+                NeonCortex.installDesktopHints(it)
                 it.font = NeonCortex.getDefaultFontPolicy().getFontSet(null).controlFont
                 it.color = Color.black
 

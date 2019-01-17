@@ -116,7 +116,7 @@ class RulerPanel : JPanel() {
         super.paintComponent(g)
 
         g.render {
-            NeonCortex.installDesktopHints(it, this)
+            NeonCortex.installDesktopHints(it)
             it.color = backgroundFill
             it.fillRect(0, 0, width, height)
 
@@ -375,7 +375,7 @@ private class RibbonDemoBuilder {
                                 DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
                                     graphics.render {
                                         it.color = Color.black
-                                        NeonCortex.installDesktopHints(it, component)
+                                        NeonCortex.installDesktopHints(it)
                                         it.font = SubstanceCortex.GlobalScope.getFontPolicy()
                                                 .getFontSet(null).controlFont
                                         it.drawString("$i", x + 2, y + height - 2)
@@ -396,7 +396,7 @@ private class RibbonDemoBuilder {
                                 DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
                                     graphics.render {
                                         it.color = Color.black
-                                        NeonCortex.installDesktopHints(it, component)
+                                        NeonCortex.installDesktopHints(it)
                                         it.font = SubstanceCortex.GlobalScope.getFontPolicy()
                                                 .getFontSet(null).controlFont
                                         it.drawString("$i", x + 2, y + height - 2)
@@ -631,7 +631,7 @@ private class RibbonDemoBuilder {
                                                         it.color = Color.black
                                                         it.font = SubstanceCortex.GlobalScope.getFontPolicy()
                                                                 .getFontSet(null).controlFont
-                                                        NeonCortex.installDesktopHints(it, component)
+                                                        NeonCortex.installDesktopHints(it)
                                                         it.drawString("" + i, x + 2, y + height - 2)
                                                     }
                                                 })
@@ -1377,7 +1377,7 @@ private class RibbonDemoBuilder {
                                         Appointment_new.factory(),
                                         DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
                                             g.render {
-                                                NeonCortex.installDesktopHints(it, c)
+                                                NeonCortex.installDesktopHints(it)
                                                 it.font = SubstanceCortex.GlobalScope.getFontPolicy()
                                                         .getFontSet(null).controlFont.deriveFont(9.0f)
                                                 it.color = Color.black
@@ -1405,7 +1405,7 @@ private class RibbonDemoBuilder {
                                         Appointment_new.factory(),
                                         DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
                                             g.render {
-                                                NeonCortex.installDesktopHints(it, c)
+                                                NeonCortex.installDesktopHints(it)
                                                 it.font = SubstanceCortex.GlobalScope.getFontPolicy()
                                                         .getFontSet(null).controlFont.deriveFont(9.0f)
                                                 it.color = Color.black

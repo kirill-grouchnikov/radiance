@@ -165,7 +165,7 @@ public class Crayons extends javax.swing.JPanel {
 
     public void paintComponent(Graphics gr) {
         Graphics2D g2d = (Graphics2D) gr.create();
-        NeonCortex.installDesktopHints(g2d, this);
+        NeonCortex.installDesktopHints(g2d);
         double scaleFactor = NeonCortex.getScaleFactor();
         NeonCortex.drawImage(g2d, crayonsImage, 0, 0);
 

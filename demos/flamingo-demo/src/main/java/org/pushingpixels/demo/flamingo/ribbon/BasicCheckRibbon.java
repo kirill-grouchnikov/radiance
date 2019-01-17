@@ -63,9 +63,9 @@ import java.util.List;
 import java.util.*;
 
 public class BasicCheckRibbon extends JRibbonFrame {
-    protected Locale currLocale;
+    private Locale currLocale;
 
-    protected ResourceBundle resourceBundle;
+    private ResourceBundle resourceBundle;
 
     private RibbonGalleryContentModel styleGalleryContentModel;
 
@@ -108,7 +108,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         }
     }
 
-    protected JRibbonBand getActionBand() {
+    private JRibbonBand getActionBand() {
         JRibbonBand actionBand = new JRibbonBand(resourceBundle.getString("Action.textBandTitle"),
                 Document_new.factory(), new ExpandActionListener());
 
@@ -183,7 +183,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return actionBand;
     }
 
-    protected JRibbonBand getPreferencesBand() {
+    private JRibbonBand getPreferencesBand() {
         JRibbonBand preferencesBand = new JRibbonBand(
                 resourceBundle.getString("Preferences.textBandTitle"),
                 Preferences_desktop_font.factory(), new ExpandActionListener());
@@ -279,7 +279,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return preferencesBand;
     }
 
-    protected JRibbonBand getParagraphBand() {
+    private JRibbonBand getParagraphBand() {
         JRibbonBand paragraphBand = new JRibbonBand(
                 resourceBundle.getString("Paragraph.textBandTitle"), Format_justify_left.factory(),
                 null);
@@ -330,7 +330,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return paragraphBand;
     }
 
-    protected JRibbonBand getShowHideBand() {
+    private JRibbonBand getShowHideBand() {
         JRibbonBand showHideBand = new JRibbonBand(
                 resourceBundle.getString("ShowHide.textBandTitle"), Format_justify_left.factory(),
                 null);
@@ -367,7 +367,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return showHideBand;
     }
 
-    protected JRibbonBand getApplicationsBand() {
+    private JRibbonBand getApplicationsBand() {
         JRibbonBand applicationsBand = new JRibbonBand(
                 resourceBundle.getString("Applications.textBandTitle"),
                 Applications_other.factory(), new ExpandActionListener());
@@ -414,7 +414,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return applicationsBand;
     }
 
-    protected JRibbonBand getDocumentBand() {
+    private JRibbonBand getDocumentBand() {
         JRibbonBand result = new JRibbonBand(resourceBundle.getString("Document.textBandTitle"),
                 Applications_office.factory(), new ExpandActionListener());
         result.setExpandButtonKeyTip("FY");
@@ -528,7 +528,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return result;
     }
 
-    protected JRibbonBand getClipboardBand() {
+    private JRibbonBand getClipboardBand() {
         JRibbonBand clipboardBand = new JRibbonBand(
                 resourceBundle.getString("Clipboard.textBandTitle"), Edit_paste.factory(),
                 new ExpandActionListener());
@@ -654,7 +654,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return clipboardBand;
     }
 
-    protected JRibbonBand getFindBand() {
+    private JRibbonBand getFindBand() {
         JRibbonBand findBand = new JRibbonBand(resourceBundle.getString("Find.textBandTitle"),
                 Edit_find.factory());
         findBand.setCollapsedStateKeyTip("ZY");
@@ -708,7 +708,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return findBand;
     }
 
-    protected JRibbonBand getQuickStylesBand() {
+    private JRibbonBand getQuickStylesBand() {
         JRibbonBand quickStylesBand = new JRibbonBand(
                 resourceBundle.getString("QuickStyles.textBandTitle"),
                 Preferences_desktop_theme.factory());
@@ -864,7 +864,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return quickStylesBand;
     }
 
-    protected JRibbonBand getPreviewBand() {
+    private JRibbonBand getPreviewBand() {
         JRibbonBand previewBand = new JRibbonBand(resourceBundle.getString("Preview.textBandTitle"),
                 new SimpleResizableIcon.FactoryTop());
 
@@ -896,7 +896,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return previewBand;
     }
 
-    protected JRibbonBand getAlignmentBand() {
+    private JRibbonBand getAlignmentBand() {
         JRibbonBand alignmentBand = new JRibbonBand(
                 resourceBundle.getString("Alignment.textTaskTitle"), Format_justify_left.factory(),
                 null);
@@ -1008,7 +1008,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return alignmentBand;
     }
 
-    protected JRibbonBand getAnimationBand() {
+    private JRibbonBand getAnimationBand() {
         JRibbonBand animationBand = new JRibbonBand(
                 resourceBundle.getString("Animation.textBandTitle"),
                 new SimpleResizableIcon.FactoryTop());
@@ -1053,7 +1053,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return animationBand;
     }
 
-    protected JRibbonBand getTransitionBand() {
+    private JRibbonBand getTransitionBand() {
         JRibbonBand transitionBand = new JRibbonBand(
                 resourceBundle.getString("TransitionToThis.textBandTitle"),
                 new SimpleResizableIcon.FactoryTop());
@@ -1067,7 +1067,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     Appointment_new.factory(),
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
-                        NeonCortex.installDesktopHints(g2d, c);
+                        NeonCortex.installDesktopHints(g2d);
                         g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                                 .getControlFont().deriveFont(9.0f));
                         g2d.setColor(Color.black);
@@ -1100,7 +1100,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     Appointment_new.factory(),
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
-                        NeonCortex.installDesktopHints(g2d, c);
+                        NeonCortex.installDesktopHints(g2d);
                         g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
                                 .getControlFont().deriveFont(9.0f));
                         g2d.setColor(Color.black);
@@ -1174,7 +1174,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return transitionBand;
     }
 
-    protected JRibbonBand getTransitionNextBand() {
+    private JRibbonBand getTransitionNextBand() {
         JRibbonBand transitionBand = new JRibbonBand(
                 resourceBundle.getString("TransitionToNext.textBandTitle"),
                 new SimpleResizableIcon.FactoryTop());
@@ -1201,7 +1201,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return transitionBand;
     }
 
-    protected void createCommands() {
+    private void createCommands() {
         MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
         mf.setLocale(currLocale);
 
@@ -1429,7 +1429,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .build();
     }
 
-    protected void createStyleGalleryModel() {
+    private void createStyleGalleryModel() {
         List<CommandGroup> stylesGalleryCommands = new ArrayList<>();
         List<Command> stylesGalleryCommandsList = new ArrayList<>();
         List<Command> stylesGalleryCommandsList2 = new ArrayList<>();
@@ -1443,7 +1443,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(Color.black);
-                        NeonCortex.installDesktopHints(g2d, c);
+                        NeonCortex.installDesktopHints(g2d);
                         g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
                                 getControlFont());
                         g2d.drawString("" + index, x + 2, y + height - 2);
@@ -1494,11 +1494,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 new CommandGroup(this.applyStyles));
     }
 
-    protected RibbonContextualTaskGroup group1;
-    protected RibbonContextualTaskGroup group2;
-    protected RulerPanel rulerPanel;
+    private RibbonContextualTaskGroup group1;
+    private RibbonContextualTaskGroup group2;
+    private RulerPanel rulerPanel;
 
-    protected JPanel statusBar;
+    private JPanel statusBar;
 
     private JRibbonBand paragraphBand;
 
@@ -1721,7 +1721,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         this.configureStatusBar();
     }
 
-    protected void configureTaskBar() {
+    private void configureTaskBar() {
         JRibbon ribbon = this.getRibbon();
 
         // taskbar components
@@ -1766,7 +1766,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 CommandButtonPresentationModel.builder().setPopupKeyTip("7").build()));
     }
 
-    protected void configureApplicationMenu() {
+    private void configureApplicationMenu() {
         Map<Command, CommandButtonPresentationModel.Overlay> applicationMenuOverlays =
                 new HashMap<>();
         Map<Command, CommandButtonPresentationState> applicationMenuSecondaryStates =
@@ -2060,7 +2060,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         }
     }
 
-    protected RibbonTask getContextualRibbonTask(String title, String keyTip) {
+    private RibbonTask getContextualRibbonTask(String title, String keyTip) {
         JRibbonBand actionBand = this.getActionBand();
         JRibbonBand arrangeBand = this.getApplicationsBand();
         JRibbonBand previewBand = this.getPreviewBand();
@@ -2071,7 +2071,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return task;
     }
 
-    protected JPanel getControlPanel() {
+    private JPanel getControlPanel() {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 8dlu, fill:pref:grow").
                 rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
@@ -2147,7 +2147,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return builder.build();
     }
 
-    protected JFlowRibbonBand getFontBand() {
+    private JFlowRibbonBand getFontBand() {
         JFlowRibbonBand fontBand = new JFlowRibbonBand(
                 resourceBundle.getString("Font.textBandTitle"), Preferences_desktop_font.factory(),
                 new ExpandActionListener());
@@ -2309,7 +2309,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         });
     }
 
-    protected void configureStatusBar() {
+    private void configureStatusBar() {
         statusBar = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         SubstanceCortex.ComponentOrParentChainScope.setDecorationType(statusBar,
                 SubstanceSlices.DecorationAreaType.FOOTER);
@@ -2454,7 +2454,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             super.paintComponent(g);
 
             Graphics2D g2d = (Graphics2D) g.create();
-            NeonCortex.installDesktopHints(g2d, this);
+            NeonCortex.installDesktopHints(g2d);
 
             g2d.setColor(backgroundFill);
             g2d.fillRect(0, 0, getWidth(), getHeight());
