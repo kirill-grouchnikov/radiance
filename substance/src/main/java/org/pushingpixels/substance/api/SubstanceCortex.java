@@ -1202,7 +1202,7 @@ public class SubstanceCortex {
          * @see ComponentScope#setTabCloseCallback(JTabbedPane, TabCloseCallback)
          */
         public static void setTabCloseCallback(TabCloseCallback tabCloseCallback) {
-            UIManager.put(SubstanceSynapse.TABBED_PANE_CLOSE_BUTTONS, tabCloseCallback);
+            UIManager.put(SubstanceSynapse.TABBED_PANE_CLOSE_CALLBACK, tabCloseCallback);
         }
 
         /**
@@ -1809,7 +1809,7 @@ public class SubstanceCortex {
          */
         public static void setTabCloseCallback(JTabbedPane tabbedPane,
                 TabCloseCallback tabCloseCallback) {
-            tabbedPane.putClientProperty(SubstanceSynapse.TABBED_PANE_CLOSE_BUTTONS,
+            tabbedPane.putClientProperty(SubstanceSynapse.TABBED_PANE_CLOSE_CALLBACK,
                     tabCloseCallback);
         }
 
@@ -1827,7 +1827,7 @@ public class SubstanceCortex {
          */
         public static void setTabCloseCallback(JComponent tabComponent,
                 TabCloseCallback tabCloseCallback) {
-            tabComponent.putClientProperty(SubstanceSynapse.TABBED_PANE_CLOSE_BUTTONS,
+            tabComponent.putClientProperty(SubstanceSynapse.TABBED_PANE_CLOSE_CALLBACK,
                     tabCloseCallback);
         }
 

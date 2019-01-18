@@ -361,7 +361,7 @@ public class SubstanceButtonUI extends BasicButtonUI implements
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(button);
 
         // fix for defect 263
-        Dimension superPref = super.getPreferredSize(button);
+        Dimension superPref = SubstanceMetricsUtilities.getPreferredButtonSize(button);
         if (superPref == null) {
             return null;
         }

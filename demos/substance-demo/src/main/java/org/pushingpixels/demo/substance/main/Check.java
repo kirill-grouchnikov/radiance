@@ -340,22 +340,22 @@ public class Check extends JFrame {
         SubstanceCortex.ComponentScope.setTabCloseCallback(jtp, closeCallbackMain);
         SubstanceCortex.GlobalScope.registerTabCloseChangeListener(new TabCloseListener() {
             public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
-                out("Closed tab");
+                System.out.println("Closed tab");
             }
 
             public void tabClosing(JTabbedPane tabbedPane, Component tabComponent) {
-                out("Closing tab");
+                System.out.println("Closing tab");
             }
         });
 
         SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
                 new VetoableTabCloseListener() {
                     public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
-                        out("Closed tab - specific");
+                        System.out.println("Closed tab - specific");
                     }
 
                     public void tabClosing(JTabbedPane tabbedPane, Component tabComponent) {
-                        out("Closing tab - specific");
+                        System.out.println("Closing tab - specific");
                     }
 
                     public boolean vetoTabClosing(JTabbedPane tabbedPane, Component tabComponent) {
@@ -372,11 +372,11 @@ public class Check extends JFrame {
         SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
                 new VetoableMultipleTabCloseListener() {
                     public void tabsClosed(JTabbedPane tabbedPane, Set<Component> tabComponents) {
-                        out("Closed " + tabComponents.size() + " tabs - specific");
+                        System.out.println("Closed " + tabComponents.size() + " tabs - specific");
                     }
 
                     public void tabsClosing(JTabbedPane tabbedPane, Set<Component> tabComponents) {
-                        out("Closing " + tabComponents.size() + " tabs - specific");
+                        System.out.println("Closing " + tabComponents.size() + " tabs - specific");
                     }
 
                     public boolean vetoTabsClosing(JTabbedPane tabbedPane,
@@ -457,16 +457,16 @@ public class Check extends JFrame {
                 false);
         SwingUtilities.invokeLater(() -> {
             try {
-                out(" CREATING LAF ");
+                System.out.println(" CREATING LAF ");
                 long time0 = System.currentTimeMillis();
                 LookAndFeel laf = new SubstanceGeminiLookAndFeel();
                 long time1 = System.currentTimeMillis();
-                out(" LAF CREATED " + (time1 - time0));
-                out(" SETTING LAF ");
+                System.out.println(" LAF CREATED " + (time1 - time0));
+                System.out.println(" SETTING LAF ");
                 long time2 = System.currentTimeMillis();
                 UIManager.setLookAndFeel(laf);
                 long time3 = System.currentTimeMillis();
-                out(" LAF SET " + (time3 - time2));
+                System.out.println(" LAF SET " + (time3 - time2));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -495,20 +495,10 @@ public class Check extends JFrame {
             c.setLocation((d.width - c.getWidth()) / 2, (d.height - c.getHeight()) / 2);
 
             c.setVisible(true);
-            c.setDefaultCloseOperation(
-                    System.getProperty("javawebstart.version") != null ? JFrame.EXIT_ON_CLOSE
-                            : JFrame.DISPOSE_ON_CLOSE);
+            c.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             long time3 = System.currentTimeMillis();
-            out("App " + (time3 - time2));
+            System.out.println("App " + (time3 - time2));
         });
-    }
-
-    public static void out(Object obj) {
-        try {
-            System.out.println(obj);
-        } catch (Exception exc) {
-            // ignore - is thrown on Mac in WebStart (security access)
-        }
     }
 
     public static Icon getIcon(String iconName) {

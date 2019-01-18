@@ -2028,23 +2028,4 @@ public class SubstanceCoreUtilities {
         }
         return topMostWithSameDecorationAreaType;
     }
-
-    private static BufferedImage offscreen = NeonCortex.getBlankImage(1, 1);
-    private static Font lastUsedOffscreen;
-
-    public static FontMetrics getFontMetrics(Font font) {
-        if (lastUsedOffscreen == font) {
-            return offscreen.getGraphics().getFontMetrics();
-        }
-
-        Graphics2D g2d = offscreen.createGraphics();
-        NeonCortex.installDesktopHints(g2d);
-        g2d.setFont(font);
-        FontMetrics result = g2d.getFontMetrics();
-        g2d.dispose();
-
-        lastUsedOffscreen = font;
-
-        return result;
-    }
 }

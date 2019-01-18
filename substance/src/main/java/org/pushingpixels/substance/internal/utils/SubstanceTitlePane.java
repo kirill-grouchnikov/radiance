@@ -1000,7 +1000,7 @@ public class SubstanceTitlePane extends JComponent {
 
         Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                 (this.window != null) ? this.window : this.getRootPane());
-        FontMetrics fm = rootPane.getFontMetrics(font);
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(font);
         int titleWidth = titleTextRect.width - 20;
         String clippedTitle = SubstanceCoreUtilities.clipString(fm, titleWidth, theTitle);
 
@@ -1048,7 +1048,7 @@ public class SubstanceTitlePane extends JComponent {
         if (displayTitle != null) {
             Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                     (this.window != null) ? this.window : this.getRootPane());
-            FontMetrics fm = rootPane.getFontMetrics(font);
+            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(font);
             int displayTitleWidth = fm.stringWidth(displayTitle);
 
             // show tooltip with full title only if necessary
@@ -1312,7 +1312,7 @@ public class SubstanceTitlePane extends JComponent {
 
                         Font font = SubstanceCortex.GlobalScope.getFontPolicy()
                                 .getFontSet(null).getWindowTitleFont();
-                        int displayTitleWidth = rootPane.getFontMetrics(font)
+                        int displayTitleWidth = SubstanceMetricsUtilities.getFontMetrics(font)
                                 .stringWidth(displayTitle);
                         switch (titleTextHorizontalGravity) {
                             case LEADING:
@@ -1533,7 +1533,7 @@ public class SubstanceTitlePane extends JComponent {
     }
 
     private int getPaneHeight() {
-        FontMetrics fm = this.rootPane.getFontMetrics(this.getFont());
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(this.getFont());
         int fontHeight = fm.getHeight();
         fontHeight += 7;
         int iconHeight = 0;

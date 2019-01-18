@@ -30,8 +30,7 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -109,7 +108,7 @@ public class SubstanceToolTipUI extends BasicToolTipUI {
 				prefSize.width += (int) (v.getPreferredSpan(View.X_AXIS) + 6);
 				prefSize.height += (int) (v.getPreferredSpan(View.Y_AXIS) + 2);
 			} else {
-				FontMetrics fm = c.getFontMetrics(font);
+				FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(font);
 				prefSize.width += fm.stringWidth(text) + 6;
 				prefSize.height += fm.getHeight() + 2;
 			}

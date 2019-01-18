@@ -141,21 +141,30 @@ public class SubstanceTextUtilities {
     private static void paintText(Graphics g, JComponent comp, Rectangle textRect, String text,
             int mnemonicIndex, java.awt.Font font, java.awt.Color color, java.awt.Rectangle clip,
             java.awt.geom.AffineTransform transform) {
-        if ((text == null) || (text.length() == 0))
+        if ((text == null) || (text.length() == 0)) {
             return;
+        }
 
         Graphics2D g2d = (Graphics2D) g.create();
 
         g2d.setFont(font);
         g2d.setColor(color);
-        // fix for issue 420 - call clip() instead of setClip() to
-        // respect the currently set clip shape
-        if (clip != null)
+
+        // Important - it appears that there's a bug in OpenJDK where the FontMetrics reports
+        // ascent=0 after applying an AffineTransform. This is why the computation of offsets is
+        // done before applying the transform ¯\_(ツ)_/¯
+        int dx = textRect.x;
+        int dy = textRect.y + g2d.getFontMetrics().getAscent();
+
+        if (clip != null) {
+            // Use clip() instead of setClip() to respect the currently set clip shape
             g2d.clip(clip);
-        if (transform != null)
+        }
+        if (transform != null) {
+            // Use transform() instead of setTransform() to chain transforms instead of wiping
             g2d.transform(transform);
-        BasicGraphicsUtils.drawStringUnderlineCharAt(g2d, text, mnemonicIndex, textRect.x,
-                textRect.y + g2d.getFontMetrics().getAscent());
+        }
+        BasicGraphicsUtils.drawStringUnderlineCharAt(g2d, text, mnemonicIndex, dx, dy);
         g2d.dispose();
     }
 
@@ -299,8 +308,6 @@ public class SubstanceTextUtilities {
      *            Mnemonic index.
      * @param state
      *            Component state.
-     * @param prevState
-     *            Component previous state.
      * @param textAlpha
      *            Alpha channel for painting the text.
      */

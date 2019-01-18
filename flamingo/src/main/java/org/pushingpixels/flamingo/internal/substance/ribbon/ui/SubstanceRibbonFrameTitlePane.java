@@ -98,7 +98,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                     .getEnabledColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE);
 
             // task group title
-            FontMetrics fm = this.getFontMetrics(ribbon.getFont());
+            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(ribbon.getFont());
             int yOffset = (height - fm.getHeight()) / 2;
             NeonCortex.installDesktopHints(g2d);
 

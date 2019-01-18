@@ -32,6 +32,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +52,7 @@ public class CommandButtonLayoutManagerBigFixedLandscape implements
 		Insets borderInsets = commandButton.getInsets();
 		int bx = borderInsets.left + borderInsets.right;
 		int by = borderInsets.top + borderInsets.bottom;
-		FontMetrics fm = commandButton.getFontMetrics(commandButton.getFont());
+		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
 		JSeparator jsep = new JSeparator(JSeparator.VERTICAL);
 		int layoutVGap = FlamingoUtilities.getVLayoutGap(commandButton);
 

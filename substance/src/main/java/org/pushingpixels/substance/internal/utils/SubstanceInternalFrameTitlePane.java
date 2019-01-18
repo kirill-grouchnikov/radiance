@@ -207,7 +207,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
 
         Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                 this.frame);
-        FontMetrics fm = this.frame.getFontMetrics(font);
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(font);
         int titleWidth = titleTextRect.width - 20;
         String clippedTitle = SubstanceCoreUtilities.clipString(fm, titleWidth, theTitle);
 
@@ -258,7 +258,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
         if (displayTitle != null) {
             Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                     this.frame);
-            FontMetrics fm = this.frame.getFontMetrics(font);
+            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(font);
             int displayTitleWidth = fm.stringWidth(displayTitle);
 
             // show tooltip with full title only if necessary
@@ -498,7 +498,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
             if (frame.isIconifiable()) {
                 width += 16 + (frame.isMaximizable() ? 2 : (frame.isClosable() ? 10 : 4));
             }
-            FontMetrics fm = frame.getFontMetrics(getFont());
+            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(getFont());
             String frameTitle = frame.getTitle();
             int title_w = frameTitle != null ? fm.stringWidth(frameTitle) : 0;
             int title_length = frameTitle != null ? frameTitle.length() : 0;
@@ -566,7 +566,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
 
                         Font font = SubstanceCortex.GlobalScope.getFontPolicy()
                                 .getFontSet(null).getWindowTitleFont();
-                        int displayTitleWidth = frame.getFontMetrics(font)
+                        int displayTitleWidth = SubstanceMetricsUtilities.getFontMetrics(font)
                                 .stringWidth(displayTitle);
                         switch (titleTextGravity) {
                             case LEADING:

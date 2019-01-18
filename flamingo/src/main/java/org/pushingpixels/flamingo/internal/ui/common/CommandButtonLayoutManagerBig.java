@@ -33,6 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,7 +71,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
 		Insets borderInsets = (commandButton == null) ? new Insets(0, 0, 0, 0)
 				: commandButton.getInsets();
 		int bx = borderInsets.left + borderInsets.right;
-		FontMetrics fm = commandButton.getFontMetrics(commandButton.getFont());
+		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
 		JSeparator jsep = new JSeparator(JSeparator.HORIZONTAL);
 		int layoutHGap = FlamingoUtilities.getHLayoutGap(commandButton);
 		int layoutVGap = FlamingoUtilities.getVLayoutGap(commandButton);

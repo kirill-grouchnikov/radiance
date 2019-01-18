@@ -33,6 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicCommandPopupMenuUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,7 +64,7 @@ public class CommandButtonLayoutManagerMedium implements
 	public Dimension getPreferredSize(AbstractCommandButton commandButton) {
 		Insets borderInsets = commandButton.getInsets();
 		int by = borderInsets.top + borderInsets.bottom;
-		FontMetrics fm = commandButton.getFontMetrics(commandButton.getFont());
+		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
 
 		String buttonText = commandButton.getText();
 		int layoutHGap = FlamingoUtilities.getHLayoutGap(commandButton);

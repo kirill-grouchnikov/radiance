@@ -332,7 +332,7 @@ public class ControlPanelFactory {
             Color color = JColorChooser.showDialog(mainFrame, "Color chooser",
                     new Color(23, 45, 200));
             if (color != null) {
-                Check.out("Chosen " + color.toString());
+                System.out.println("Chosen " + color.toString());
             }
         }));
         builder.append("Color chooser", bc);
@@ -546,7 +546,7 @@ public class ControlPanelFactory {
                 simpleDialog = null;
                 System.gc();
                 // Wait until the weak reference is on the queue and remove it
-                Check.out("Waiting to remove");
+                System.out.println("Waiting to remove");
                 try {
                     Reference<?> ref = weakQueue.remove();
                     ref.clear();
@@ -554,7 +554,7 @@ public class ControlPanelFactory {
                     ie.printStackTrace();
                     return;
                 }
-                Check.out("Removed");
+                System.out.println("Removed");
             }
         }));
         builder.append("Close the dialog", bcd);

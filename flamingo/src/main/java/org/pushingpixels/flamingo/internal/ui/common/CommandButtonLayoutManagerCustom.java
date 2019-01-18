@@ -32,6 +32,7 @@ package org.pushingpixels.flamingo.internal.ui.common;
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,7 +53,7 @@ public class CommandButtonLayoutManagerCustom extends
 	public Dimension getPreferredSize(AbstractCommandButton commandButton) {
 		Insets borderInsets = commandButton.getInsets();
 		int bx = borderInsets.left + borderInsets.right;
-		FontMetrics fm = commandButton.getFontMetrics(commandButton.getFont());
+		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
 		JSeparator jsep = new JSeparator(JSeparator.HORIZONTAL);
 		int layoutHGap = FlamingoUtilities.getHLayoutGap(commandButton);
 		int layoutVGap = FlamingoUtilities.getVLayoutGap(commandButton);

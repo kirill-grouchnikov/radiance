@@ -34,6 +34,7 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandToggleButtonUI;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -116,7 +117,7 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandToggleBu
         String text = "Www";
 
         Font font = b.getFont();
-        FontMetrics fm = b.getFontMetrics(font);
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(font);
 
         Rectangle iconR = new Rectangle();
         Rectangle textR = new Rectangle();

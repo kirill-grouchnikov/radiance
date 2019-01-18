@@ -93,7 +93,7 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
                 stateTransitionTracker.setModel((ButtonModel) evt.getNewValue());
             }
             if ("font".equals(evt.getPropertyName())) {
-                SwingUtilities.invokeLater(() -> b.updateUI());
+                SwingUtilities.invokeLater(b::updateUI);
             }
         };
         b.addPropertyChangeListener(substancePropertyListener);
@@ -347,7 +347,7 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
      * @param text
      *            Text to paint
      */
-    protected void paintButtonText(Graphics g, AbstractButton button, Rectangle textRect,
+    private void paintButtonText(Graphics g, AbstractButton button, Rectangle textRect,
             String text) {
         SubstanceTextUtilities.paintText(g, button, textRect, text,
                 button.getDisplayedMnemonicIndex());
@@ -361,6 +361,13 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
     @Override
     public StateTransitionTracker getTransitionTracker() {
         return this.stateTransitionTracker;
+    }
+
+    @Override
+    public Dimension getPreferredSize(JComponent c) {
+        JRadioButton radioButton = (JRadioButton) c;
+        return SubstanceMetricsUtilities.getPreferredCheckButtonSize(radioButton,
+                ((SubstanceRadioButtonUI) radioButton.getUI()).getDefaultIcon());
     }
 
     @Override

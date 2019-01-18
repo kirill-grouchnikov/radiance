@@ -40,6 +40,7 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationM
 import org.pushingpixels.flamingo.internal.utils.*;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -478,7 +479,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
             // the application menu button width
             boolean isShowingAppMenuButton = (ribbon.getApplicationMenuProjection() != null);
-            FontMetrics fm = applicationMenuButton.getFontMetrics(applicationMenuButton.getFont());
+            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                    applicationMenuButton.getFont());
             int appMenuButtonWidth = isShowingAppMenuButton
                     ? fm.stringWidth(ribbon.getApplicationMenuCommandProjection()
                     .getContentModel().getText()) + 40

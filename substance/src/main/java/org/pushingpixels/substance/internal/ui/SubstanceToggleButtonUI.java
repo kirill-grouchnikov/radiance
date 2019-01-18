@@ -263,12 +263,14 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 				.getButtonShaper(button);
 
 		// fix for defect 263
-		Dimension superPref = super.getPreferredSize(button);
-		if (superPref == null)
+		Dimension superPref = SubstanceMetricsUtilities.getPreferredButtonSize(button);
+		if (superPref == null) {
 			return null;
+		}
 
-		if (shaper == null)
+		if (shaper == null) {
 			return superPref;
+		}
 
 		return shaper.getPreferredSize(button, superPref);
 	}
@@ -332,7 +334,7 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 	 * @param text
 	 *            Text to paint
 	 */
-	protected void paintButtonText(Graphics g, AbstractButton button,
+	private void paintButtonText(Graphics g, AbstractButton button,
 			Rectangle textRect, String text) {
 		SubstanceTextUtilities.paintText(g, button, textRect, text, (button)
 				.getDisplayedMnemonicIndex());
@@ -340,11 +342,8 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 
 	/**
 	 * Tracks possible usage of glowing icon.
-	 * 
-	 * @param b
-	 *            Button.
 	 */
-	protected void trackGlowingIcon() {
+	private void trackGlowingIcon() {
 		Icon currIcon = this.toggleButton.getIcon();
 		if (currIcon instanceof GlowingIcon)
 			return;

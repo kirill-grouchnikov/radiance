@@ -123,6 +123,7 @@ public class SubstanceLabelUI extends BasicLabelUI {
         paintIconR.x = paintIconR.y = paintIconR.width = paintIconR.height = 0;
         paintTextR.x = paintTextR.y = paintTextR.width = paintTextR.height = 0;
 
+        g.setFont(label.getFont());
         String clippedText = SwingUtilities.layoutCompoundLabel(label, g.getFontMetrics(), text,
                 icon, label.getVerticalAlignment(), label.getHorizontalAlignment(),
                 label.getVerticalTextPosition(), label.getHorizontalTextPosition(), paintViewR,
@@ -157,7 +158,7 @@ public class SubstanceLabelUI extends BasicLabelUI {
             } else {
                 // fix for issue 406 - use the same FG computation
                 // color as for other controls
-                SubstanceTextUtilities.paintText(g, label, paintTextR, clippedText,
+                SubstanceTextUtilities.paintText(g2d, label, paintTextR, clippedText,
                         label.getDisplayedMnemonicIndex(), labelState, labelAlpha);
             }
         }
@@ -166,44 +167,9 @@ public class SubstanceLabelUI extends BasicLabelUI {
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
-        JLabel label = (JLabel) c;
-        String text = label.getText();
-        Icon icon = label.isEnabled() ? label.getIcon() : label.getDisabledIcon();
-        Insets insets = label.getInsets(null);
-        Font font = label.getFont();
-
-        int dx = insets.left + insets.right;
-        int dy = insets.top + insets.bottom;
-
-        if ((icon == null) && ((text == null) || (font == null))) {
-            return new Dimension(dx, dy);
-        }
-        else if ((text == null) || ((icon != null) && (font == null))) {
-            return new Dimension(icon.getIconWidth() + dx,
-                    icon.getIconHeight() + dy);
-        }
-        else {
-            FontMetrics fm = SubstanceCoreUtilities.getFontMetrics(font);
-            Rectangle iconR = new Rectangle(0, 0, 0, 0);
-            Rectangle textR = new Rectangle(0, 0, 0, 0);
-            Rectangle viewR = new Rectangle(dx, dy, Short.MAX_VALUE, Short.MAX_VALUE);
-
-            SwingUtilities.layoutCompoundLabel(label, fm, text, icon,
-                    label.getVerticalAlignment(), label.getHorizontalAlignment(),
-                    label.getVerticalTextPosition(), label.getHorizontalTextPosition(),
-                    viewR, iconR, textR, label.getIconTextGap());
-
-            int minLeft = Math.min(iconR.x, textR.x);
-            int maxRight = Math.max(iconR.x + iconR.width, textR.x + textR.width);
-            int minTop = Math.min(iconR.y, textR.y);
-            int maxBottom = Math.max(iconR.y + iconR.height, textR.y + textR.height);
-            Dimension result = new Dimension(maxRight - minLeft, maxBottom - minTop);
-
-            result.width += dx;
-            result.height += dy;
-            return result;
-        }
+        return SubstanceMetricsUtilities.getPreferredLabelSize((JLabel)c);
     }
+
     @Override
     public void update(Graphics g, JComponent c) {
         // failsafe for LAF change

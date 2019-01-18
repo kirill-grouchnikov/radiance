@@ -34,10 +34,7 @@ import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
-import org.pushingpixels.substance.internal.utils.WidgetUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.ButtonUI;
@@ -245,8 +242,8 @@ public class MenuUtilities {
             viewRect.height -= (i.bottom + viewRect.y);
         }
 
-        FontMetrics fm = menuItem.getFontMetrics(menuItem.getFont());
-        FontMetrics fmAccel = menuItem.getFontMetrics(acceleratorFont);
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(menuItem.getFont());
+        FontMetrics fmAccel = SubstanceMetricsUtilities.getFontMetrics(acceleratorFont);
 
         // get Accelerator text
         KeyStroke accelerator = menuItem.getAccelerator();
@@ -255,7 +252,6 @@ public class MenuUtilities {
             int modifiers = accelerator.getModifiers();
             if (modifiers > 0) {
                 acceleratorText = KeyEvent.getKeyModifiersText(modifiers);
-                // acceleratorText += "-";
                 acceleratorText += UIManager.getString("MenuItem.acceleratorDelimiter");
             }
 

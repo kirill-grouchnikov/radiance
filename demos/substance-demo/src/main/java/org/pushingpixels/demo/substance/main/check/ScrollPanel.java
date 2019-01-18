@@ -74,7 +74,7 @@ public class ScrollPanel extends ControllablePanel {
             boolean toEnable = isEnabled.isSelected();
             sp.setEnabled(toEnable);
             updateEnabledState(sp, toEnable);
-            Check.out("Scroll pane is " + toEnable);
+            System.out.println("Scroll pane is " + toEnable);
         });
         builder.append("Enabled", isEnabled);
 

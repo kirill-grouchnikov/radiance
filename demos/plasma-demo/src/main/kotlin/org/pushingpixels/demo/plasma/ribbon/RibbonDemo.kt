@@ -372,7 +372,7 @@ private class RibbonDemoBuilder {
                         title = mfButtonText.format(arrayOf<Any>(i))
                         iconFactory = DecoratedResizableIcon.factory(
                                 Font_x_generic.factory(),
-                                DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
+                                DecoratedResizableIcon.IconDecorator { _, graphics, x, y, _, height ->
                                     graphics.render {
                                         it.color = Color.black
                                         NeonCortex.installDesktopHints(it)
@@ -393,7 +393,7 @@ private class RibbonDemoBuilder {
                         title = mfButtonText.format(arrayOf<Any>(i))
                         iconFactory = DecoratedResizableIcon.factory(
                                 Font_x_generic.factory(),
-                                DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
+                                DecoratedResizableIcon.IconDecorator { _, graphics, x, y, _, height ->
                                     graphics.render {
                                         it.color = Color.black
                                         NeonCortex.installDesktopHints(it)
@@ -626,7 +626,7 @@ private class RibbonDemoBuilder {
                                     command {
                                         iconFactory = DecoratedResizableIcon.factory(
                                                 Font_x_generic.factory(),
-                                                DecoratedResizableIcon.IconDecorator { component, graphics, x, y, _, height ->
+                                                DecoratedResizableIcon.IconDecorator { _, graphics, x, y, _, height ->
                                                     graphics.render {
                                                         it.color = Color.black
                                                         it.font = SubstanceCortex.GlobalScope.getFontPolicy()
@@ -1375,7 +1375,7 @@ private class RibbonDemoBuilder {
                             command {
                                 iconFactory = DecoratedResizableIcon.factory(
                                         Appointment_new.factory(),
-                                        DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
+                                        DecoratedResizableIcon.IconDecorator { _, g, x, y, _, height ->
                                             g.render {
                                                 NeonCortex.installDesktopHints(it)
                                                 it.font = SubstanceCortex.GlobalScope.getFontPolicy()
@@ -1403,7 +1403,7 @@ private class RibbonDemoBuilder {
                             command {
                                 iconFactory = DecoratedResizableIcon.factory(
                                         Appointment_new.factory(),
-                                        DecoratedResizableIcon.IconDecorator { c, g, x, y, _, height ->
+                                        DecoratedResizableIcon.IconDecorator { _, g, x, y, _, height ->
                                             g.render {
                                                 NeonCortex.installDesktopHints(it)
                                                 it.font = SubstanceCortex.GlobalScope.getFontPolicy()

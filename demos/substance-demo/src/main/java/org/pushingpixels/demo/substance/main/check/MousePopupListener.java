@@ -115,17 +115,17 @@ public class MousePopupListener extends MouseAdapter {
 	protected static class PopupPrintListener implements PopupMenuListener {
 		@Override
 		public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-			Check.out("Popup menu will be visible!");
+			System.out.println("Popup menu will be visible!");
 		}
 
 		@Override
 		public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-			Check.out("Popup menu will be invisible!");
+			System.out.println("Popup menu will be invisible!");
 		}
 
 		@Override
 		public void popupMenuCanceled(PopupMenuEvent e) {
-			Check.out("Popup menu is hidden!");
+			System.out.println("Popup menu is hidden!");
 		}
 	}
 }

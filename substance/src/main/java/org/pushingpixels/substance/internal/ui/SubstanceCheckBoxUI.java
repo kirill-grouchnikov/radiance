@@ -204,6 +204,13 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
     }
 
     @Override
+    public Dimension getPreferredSize(JComponent c) {
+        JCheckBox checkBox = (JCheckBox) c;
+        return SubstanceMetricsUtilities.getPreferredCheckButtonSize(checkBox,
+                ((SubstanceCheckBoxUI) checkBox.getUI()).getDefaultIcon());
+    }
+
+    @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
         NeonCortex.installDesktopHints(g2d);
