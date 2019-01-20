@@ -45,7 +45,7 @@ public class DefaultMacFontPolicy implements FontPolicy {
 	@Override
 	public FontSet getFontSet(UIDefaults table) {
 	    String fontFamily = "Lucida Grande";
-	    if (LookUtils.IS_JAVA_9 || LookUtils.IS_JAVA_10 || LookUtils.IS_JAVA_11) {
+	    if (LookUtils.getJavaMajorVersion() >= 9) {
 	        if (LookUtils.IS_OS_MAC_EL_CAPITAN_OR_LATER) {
 	            fontFamily = ".SF NS Text";
 	        } else if (LookUtils.IS_OS_MAC_YOSEMITE) {

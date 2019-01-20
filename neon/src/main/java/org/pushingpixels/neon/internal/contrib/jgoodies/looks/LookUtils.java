@@ -193,6 +193,22 @@ public final class LookUtils {
 			return defaultValue;
 		}
 	}
+	
+    /**
+     * Get the Java current major version. The old prefix "1." is removed 
+     * (e.g. 1.8 => 8, 11 => 11)
+     * 
+     * @return the major version of the running JRE
+     */
+    public static int getJavaMajorVersion() {
+        // Handle new version from Java 9
+        String jvmVersionString = JAVA_SPEC_VERSION;
+        int verIndex = jvmVersionString.indexOf("1."); //$NON-NLS-1$
+        if (verIndex >= 0) {
+            jvmVersionString = jvmVersionString.substring(verIndex + 2);
+        }
+        return Integer.parseInt(jvmVersionString);
+    }
 
 	// Private Helper Methods ***********************************************
 
