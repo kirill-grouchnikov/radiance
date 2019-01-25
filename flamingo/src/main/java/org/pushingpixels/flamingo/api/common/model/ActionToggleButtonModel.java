@@ -122,7 +122,7 @@ public class ActionToggleButtonModel extends ToggleButtonModel implements Action
             }
             Command originalCommand = this.commandButton.getProjection().getContentModel();
             originalCommand.setToggleSelected(!originalCommand.isToggleSelected());
-            fireActionPerformed(new CommandActionEvent(this,
+            fireActionPerformed(new CommandActionEvent(this.commandButton,
                     ActionEvent.ACTION_PERFORMED,
                     originalCommand, getActionCommand(),
                     EventQueue.getMostRecentEventTime(), modifiers));

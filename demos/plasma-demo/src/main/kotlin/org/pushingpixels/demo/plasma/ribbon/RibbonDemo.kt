@@ -1757,8 +1757,6 @@ fun main(args: Array<String>) {
 
                 +builder.documentNewCommand
 
-                separator()
-
                 command(actionKeyTip = "4") {
                     iconFactory = Edit_find.factory()
                     action = CommandAction { println("Taskbar Find activated") }

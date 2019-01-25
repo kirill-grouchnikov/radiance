@@ -30,7 +30,7 @@ The list of available Substance decoration areas is defined in the `DecorationAr
 
 As the documentation of `setDecorationType()` specifies, the passed decoration area type is applied to the component itself and recursively on all its children, unless a child is marked with another decoration area type (with the same API). When is this behavior useful? We're going to see a more complicated example in a short while, but in the meantime here is a simple one:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/02-map/original-searchfield.png" width="150" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/02-map/original-searchfield.png" width="450" border=0/>
 
 This screenshot shows a footer bar of the recipe list panel. As you can see, while the add / remove buttons are using the same colors as the footer bar itself, the text field is skinned with a different color scheme. In Substance API, you would mark the footer bar with `FOOTER` and the search text field with `NONE`. All the buttons would get the `FOOTER` from their parent (footer bar), while the search text field will use the [color scheme bundle](../../substance/skins/colorschemebundles.md) of the `NONE` decoration area type.
 
@@ -38,7 +38,7 @@ While not necessarily required, it is useful to remember that most core (and sup
 
 What is another usage of using different decoration area types on a parent component and one of its children? The answer is quite simple – when the application functional and decoration areas are different (like is the case with Cookbook UI). The screenshot below shows the sidebar part of Cookbook:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/01-analysis/original-sidebar.png" width="225" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/01-analysis/original-sidebar.png" width="450" border=0/>
 
 There is a clear visual continuation between the category list and recipe list as far as the decoration areas go. The textures (dark mahogany and golden brush) flow seamlessly across the boundaries of the functional areas, and the top bar with evenly-spaced diffused lights further enforces this continuation. The final polish comes from the vertical separator that uses matching colors in the different decoration areas.
 

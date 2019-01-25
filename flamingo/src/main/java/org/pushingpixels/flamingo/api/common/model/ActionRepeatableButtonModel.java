@@ -112,7 +112,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
         }
 
         if (toFireFirstAction) {
-            fireActionPerformed(new CommandActionEvent(this,
+            fireActionPerformed(new CommandActionEvent(this.commandButton,
                     ActionEvent.ACTION_PERFORMED,
                     this.commandButton.getProjection().getContentModel(), getActionCommand(),
                     EventQueue.getMostRecentEventTime(), modifiers));
@@ -160,7 +160,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
                     modifiers = ((ActionEvent) currentEvent).getModifiers();
                 }
 
-                fireActionPerformed(new CommandActionEvent(this,
+                fireActionPerformed(new CommandActionEvent(this.commandButton,
                         ActionEvent.ACTION_PERFORMED,
                         this.commandButton.getProjection().getContentModel(), getActionCommand(),
                         EventQueue.getMostRecentEventTime(), modifiers));
@@ -214,7 +214,8 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements
                         autoRepeatTimer.stop();
                         return;
                     }
-                    fireActionPerformed(new CommandActionEvent(this, ActionEvent.ACTION_PERFORMED,
+                    fireActionPerformed(new CommandActionEvent(this.commandButton,
+                            ActionEvent.ACTION_PERFORMED,
                             this.commandButton.getProjection().getContentModel(),
                             getActionCommand(), EventQueue.getMostRecentEventTime(), modifiers));
                 });

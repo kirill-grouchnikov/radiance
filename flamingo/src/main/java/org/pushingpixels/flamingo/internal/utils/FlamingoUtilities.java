@@ -35,6 +35,8 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -147,6 +149,20 @@ public class FlamingoUtilities {
 
     public static int getCommandButtonSmallIconSize(int fontSize) {
         return FlamingoUtilities.getScaledSize(16, fontSize, 1.0, 4);
+    }
+
+    public static int getTaskToggleButtonHeight(JRibbon ribbon) {
+        Font titleFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+                .getWindowTitleFont();
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(titleFont);
+        int fontHeight = fm.getHeight();
+        fontHeight += 7;
+        int iconHeight = 0;
+        if (ribbon.getRootPane().getWindowDecorationStyle() == JRootPane.FRAME) {
+            iconHeight = SubstanceSizeUtils.getTitlePaneIconSize();
+        }
+
+        return Math.max(fontHeight, iconHeight) - 2;
     }
 
     public static boolean existsInMenu(Command command, CommandMenuContentModel menuContentModel) {

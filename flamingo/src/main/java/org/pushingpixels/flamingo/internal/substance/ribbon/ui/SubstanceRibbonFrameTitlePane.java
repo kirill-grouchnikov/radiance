@@ -29,9 +29,18 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
+import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
+import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
+import org.pushingpixels.flamingo.internal.ui.common.CommandButtonLayoutManagerSmall;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
+import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
@@ -45,6 +54,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.util.List;
 import java.util.*;
 
 /**
@@ -53,6 +63,8 @@ import java.util.*;
  * @author Kirill Grouchnikov
  */
 public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
+    private static final double TASKBAR_WIDTH_MAX_RATIO = 0.25;
+
     /**
      * Custom component to paint the header of a single contextual task group.
      *
@@ -111,10 +123,8 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                         SubstanceColorUtilities.getForegroundColor(scheme), null);
             } else {
                 SubstanceTextUtilities.paintText(g2d, this,
-                        new Rectangle(
-                                width - offset
-                                        - g2d.getFontMetrics()
-                                        .stringWidth(this.taskGroup.getTitle()),
+                        new Rectangle(width - offset
+                                - g2d.getFontMetrics().stringWidth(this.taskGroup.getTitle()),
                                 yOffset, width, height - yOffset),
                         this.taskGroup.getTitle(), -1, ribbon.getFont(),
                         SubstanceColorUtilities.getForegroundColor(scheme), null);
@@ -133,21 +143,103 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         }
     }
 
+    private class CommandButtonLayoutManagerTaskbarOverflow
+            extends CommandButtonLayoutManagerSmall {
+        @Override
+        public int getPreferredIconSize(AbstractCommandButton commandButton) {
+            int fontSize = commandButton.getFont().getSize();
+            int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
+            int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
+            return Math.max(arrowIconWidth, arrowIconHeight);
+        }
+    }
+
+    private class TaskbarOverflowPopupPanel extends JPopupPanel {
+        private TaskbarOverflowPopupPanel(List<Component> overflowComponents,
+                Dimension size, boolean hasScrolling) {
+            this.setLayout(new BorderLayout());
+
+            JPanel overflowPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,
+                    getTaskBarLayoutGap(this), 0));
+            for (Component overflow : overflowComponents) {
+                overflowPanel.add(overflow);
+            }
+
+            if (hasScrolling) {
+                this.add(new JScrollablePanel<>(overflowPanel,
+                        JScrollablePanel.ScrollType.HORIZONTALLY), BorderLayout.CENTER);
+            } else {
+                this.add(overflowPanel, BorderLayout.CENTER);
+            }
+
+            this.setPreferredSize(size);
+            this.setSize(size);
+            SubstanceCortex.ComponentOrParentChainScope.setDecorationType(this,
+                    DecorationAreaType.HEADER);
+        }
+    }
+
     /**
      * The taskbar panel that holds the taskbar components.
      *
      * @author Kirill Grouchnikov
      */
     private class TaskbarPanel extends JPanel {
+        private AbstractCommandButton overflowButton;
+        private List<Component> overflowComponents;
+
         /**
          * Creates the new taskbar panel.
          */
         private TaskbarPanel() {
             super(new TaskbarLayout());
+
+            this.overflowComponents = new ArrayList<>();
             this.setOpaque(false);
-            int insets = SubstanceSizeUtils
-                    .getAdjustedSize(SubstanceSizeUtils.getComponentFontSize(this), 2, 3, 1, false);
+            int insets = SubstanceSizeUtils.getAdjustedSize(
+                    SubstanceSizeUtils.getComponentFontSize(this), 2, 3, 1, false);
             this.setBorder(new EmptyBorder(2, insets, 2, insets));
+
+            int defaultIconSize = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(
+                    getFont().getSize());
+            CommandButtonProjection<Command> overflowProjection = Command.builder()
+                    .setAction((CommandActionEvent cae) -> SwingUtilities.invokeLater(() ->
+                            showOverflowTaskbarContent(cae.getButtonSource())))
+                    .build().project(CommandButtonPresentationModel.builder()
+                            .setPresentationState(new CommandButtonPresentationState(
+                                    "overflow", defaultIconSize) {
+                                @Override
+                                public CommandButtonLayoutManager createLayoutManager(
+                                        AbstractCommandButton commandButton) {
+                                    return new CommandButtonLayoutManagerTaskbarOverflow();
+                                }
+                            })
+                            .build());
+            overflowProjection.setComponentCustomizer((AbstractCommandButton button) -> {
+                final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
+                int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(
+                        fontSize);
+                int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
+                ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
+                        () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
+                        (SubstanceColorScheme scheme, int width, int height) -> SubstanceImageCreator
+                                .getDoubleArrowIcon(
+                                        arrowIconWidth, arrowIconHeight,
+                                        SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                                        SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                                        getComponentOrientation().isLeftToRight()
+                                                ? SwingUtilities.EAST
+                                                : SwingUtilities.WEST,
+                                        scheme),
+                        new Dimension(arrowIconWidth, arrowIconHeight));
+                button.setIcon(arrowIcon);
+
+                button.setBorder(BorderFactory.createEmptyBorder(2, 6, 2, 6));
+                button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                SubstanceCortex.ComponentScope.setButtonStraightSides(button,
+                        EnumSet.allOf(SubstanceSlices.Side.class));
+            });
+            this.overflowButton = overflowProjection.buildComponent();
         }
 
         @Override
@@ -156,8 +248,108 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
         @Override
         public Dimension getPreferredSize() {
-            Dimension result = super.getPreferredSize();
-            return new Dimension(result.width + result.height / 2, result.height);
+            Insets ins = this.getInsets();
+            int pw = 0;
+            int gap = getTaskBarLayoutGap(this);
+            for (Component component : getRibbon().getTaskbarComponents()) {
+                pw += component.getPreferredSize().width;
+                pw += gap;
+            }
+            return new Dimension(pw + ins.left + ins.right, this.getParent().getHeight());
+        }
+
+        private void showOverflowTaskbarContent(AbstractCommandButton overflowButton) {
+            // How wide is the full overflow content?
+            int gap = getTaskBarLayoutGap(this);
+            int overflowFullWidth = gap;
+            for (Component overflow : this.overflowComponents) {
+                overflowFullWidth += (overflow.getPreferredSize().width + gap);
+            }
+            overflowFullWidth += 2 * gap;
+
+            // How wide is the ribbon?
+            int ribbonWidth = SubstanceRibbonFrameTitlePane.this.getWidth();
+
+            // How wide the popup will be
+            int popupWidth = Math.min(overflowFullWidth, ribbonWidth);
+
+            // Overflow is restricted to the ribbon width. Horizontally, it is anchored as
+            // close to the overflow button as we can.
+            int overflowButtonX = overflowButton.getLocationOnScreen().x;
+            int titlePaneX = SubstanceRibbonFrameTitlePane.this.getLocationOnScreen().x;
+            int titlePaneY = SubstanceRibbonFrameTitlePane.this.getLocationOnScreen().y;
+            int titlePaneHeight = SubstanceRibbonFrameTitlePane.this.getHeight();
+
+            // Determine the X position of the popup in screen coordinates
+            int popupX;
+            if (this.getComponentOrientation().isLeftToRight()) {
+                if ((overflowButtonX + popupWidth) > (titlePaneX + ribbonWidth)) {
+                    // Don't let the overflow popup go beyond the right edge of the ribbon
+                    int delta = (overflowButtonX + popupWidth) - (titlePaneX + ribbonWidth);
+                    popupX = overflowButtonX - delta;
+                } else {
+                    // The overflow popup will be anchored to the overflow button's left edge
+                    popupX = overflowButtonX;
+                }
+            } else {
+                int overflowButtonWidth = overflowButton.getWidth();
+                if ((overflowButtonX + overflowButtonWidth - popupWidth) < titlePaneX) {
+                    // Don't let the overflow popup go beyond the left edge of the ribbon
+                    int delta = titlePaneX - (overflowButtonX + overflowButtonWidth - popupWidth);
+                    popupX = overflowButtonX + overflowButtonWidth - popupWidth + delta;
+                } else {
+                    // The overflow popup will be anchored to the overflow button's right edge
+                    popupX = overflowButtonX + overflowButtonWidth - popupWidth;
+                }
+            }
+
+            // Create the popup panel with the overflow content (with scrolling if necessary)
+            JPopupPanel overflowPopupPanel = new TaskbarOverflowPopupPanel(
+                    this.overflowComponents,
+                    new Dimension(popupWidth,
+                            FlamingoUtilities.getTaskToggleButtonHeight(getRibbon())),
+                    overflowFullWidth > ribbonWidth);
+            overflowPopupPanel.applyComponentOrientation(this.getComponentOrientation());
+
+            // Show the popup
+            Popup popup = PopupFactory.getSharedInstance().getPopup(
+                    overflowButton, overflowPopupPanel, popupX,
+                    titlePaneY + titlePaneHeight);
+            PopupPanelManager.defaultManager().addPopup(overflowButton, popup, overflowPopupPanel);
+        }
+
+        private void showMore(int availableWidth) {
+            this.removeAll();
+            this.overflowComponents.clear();
+
+            Insets ins = this.getInsets();
+            int gap = getTaskBarLayoutGap(this);
+
+            boolean isInOverflow = false;
+            int pw = ins.left + ins.right + this.overflowButton.getPreferredSize().width + gap;
+            for (Component component : getRibbon().getTaskbarComponents()) {
+                int componentWidth = component.getPreferredSize().width;
+                if (!isInOverflow && (pw + componentWidth) <= availableWidth) {
+                    // can still fit
+                    this.add(component);
+                    pw += componentWidth;
+                } else {
+                    isInOverflow = true;
+                    this.overflowComponents.add(component);
+                }
+            }
+            this.add(this.overflowButton);
+            revalidate();
+        }
+
+        private void showAll() {
+            this.removeAll();
+            this.overflowComponents.clear();
+
+            for (Component component : getRibbon().getTaskbarComponents()) {
+                this.add(component);
+            }
+            revalidate();
         }
     }
 
@@ -187,6 +379,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         super(root, ui);
         this.taskComponentMap = new HashMap<>();
         this.taskbarPanel = new TaskbarPanel();
+        this.taskbarPanel.setComponentOrientation(root.getComponentOrientation());
         SubstanceTitlePaneUtilities.markTitlePaneExtraComponent(this.taskbarPanel,
                 SubstanceTitlePaneUtilities.ExtraComponentKind.LEADING);
         // Mark the taskbar panel with HEADER decoration area type even though it is in the
@@ -255,9 +448,6 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         // Taskbar components
         this.taskbarPanel.removeAll();
         this.taskbarPanel.setPreferredSize(null);
-        for (Component taskbarComp : ribbon.getTaskbarComponents()) {
-            this.taskbarPanel.add(taskbarComp);
-        }
     }
 
     /**
@@ -310,8 +500,8 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                     if (taskGroupBounds.x + width > (minTrailingX - 5)) {
                         width = minTrailingX - 5 - taskGroupBounds.x;
                     }
-                    entry.getValue()
-                            .setBounds(new Rectangle(taskGroupBounds.x, 0, width, c.getHeight()));
+                    entry.getValue().setBounds(
+                            new Rectangle(taskGroupBounds.x, 0, width, c.getHeight()));
                     // hide headers when the task toggle buttons
                     // are wrapped with visible scroller buttons
                     entry.getValue().setVisible(!ribbonUI.isShowingScrollsForTaskToggleButtons());
@@ -320,6 +510,17 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                 // taskbar panel
                 taskbarPanel.setVisible(true);
                 Dimension pref = taskbarPanel.getPreferredSize();
+
+                int availableForTaskbarPanel =
+                        (int) (TASKBAR_WIDTH_MAX_RATIO * c.getBounds().width);
+
+                if (pref.width <= availableForTaskbarPanel) {
+                    taskbarPanel.showAll();
+                } else {
+                    taskbarPanel.showMore(availableForTaskbarPanel);
+                    pref.width = availableForTaskbarPanel;
+                }
+
                 if (taskbarPanel.getComponentCount() == 0) {
                     // fix for issue 38 on Flamingo - if there are no
                     // taskbar components, don't push the title to the right
@@ -349,17 +550,20 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
                     for (int i = 0; i < c.getComponentCount(); i++) {
                         Component child = c.getComponent(i);
-                        if (!child.isVisible())
+                        if (!child.isVisible()) {
                             continue;
+                        }
                         if (child instanceof JComponent) {
                             SubstanceTitlePaneUtilities.ExtraComponentKind kind =
                                     (SubstanceTitlePaneUtilities.ExtraComponentKind) (
                                             (JComponent) child).getClientProperty(
                                             SubstanceTitlePaneUtilities.EXTRA_COMPONENT_KIND);
-                            if (kind == SubstanceTitlePaneUtilities.ExtraComponentKind.LEADING)
+                            if (kind == SubstanceTitlePaneUtilities.ExtraComponentKind.LEADING) {
                                 continue;
-                            if (child instanceof SubstanceContextualGroupComponent)
+                            }
+                            if (child instanceof SubstanceContextualGroupComponent) {
                                 continue;
+                            }
 
                             maxTrailingX = Math.max(child.getX() + child.getWidth(), maxTrailingX);
                         }
@@ -381,6 +585,17 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                 // taskbar panel
                 taskbarPanel.setVisible(true);
                 Dimension pref = taskbarPanel.getPreferredSize();
+
+                int availableForTaskbarPanel =
+                        (int) (TASKBAR_WIDTH_MAX_RATIO * c.getBounds().width);
+
+                if (pref.width <= availableForTaskbarPanel) {
+                    taskbarPanel.showAll();
+                } else {
+                    taskbarPanel.showMore(availableForTaskbarPanel);
+                    pref.width = availableForTaskbarPanel;
+                }
+
                 if (taskbarPanel.getComponentCount() == 0) {
                     // fix for issue 38 on Flamingo - if there are no
                     // taskbar components, don't push the title to the left
@@ -421,9 +636,11 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             Insets ins = c.getInsets();
             int pw = 0;
             int gap = getTaskBarLayoutGap(c);
-            for (Component regComp : getRibbon().getTaskbarComponents()) {
-                pw += regComp.getPreferredSize().width;
-                pw += gap;
+            for (Component regComp : c.getComponents()) {
+                if (regComp.isVisible()) {
+                    pw += regComp.getPreferredSize().width;
+                    pw += gap;
+                }
             }
             return new Dimension(pw + ins.left + ins.right, c.getParent().getHeight());
         }
@@ -437,9 +654,12 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         public void layoutContainer(Container c) {
             Insets ins = c.getInsets();
             int gap = getTaskBarLayoutGap(c);
-            boolean ltr = getComponentOrientation().isLeftToRight();
+            boolean ltr = c.getComponentOrientation().isLeftToRight();
             int x = ltr ? ins.left : c.getWidth() - ins.right;
-            for (Component regComp : getRibbon().getTaskbarComponents()) {
+            for (Component regComp : c.getComponents()) {
+                if (!regComp.isVisible()) {
+                    continue;
+                }
                 int pw = regComp.getPreferredSize().width;
                 if (ltr) {
                     regComp.setBounds(x, ins.top, pw, c.getHeight() - ins.top - ins.bottom);
@@ -477,10 +697,9 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Graphics2D g2d = (Graphics2D) g.create();
-
         if (SubstanceCortex.ComponentScope.getCurrentSkin(this)
                 .getOverlayPainters(DecorationAreaType.PRIMARY_TITLE_PANE).isEmpty()) {
+            Graphics2D g2d = (Graphics2D) g.create();
             SubstanceColorScheme compScheme = SubstanceColorSchemeUtilities.getColorScheme(this,
                     ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
             Color sepColor = compScheme.isDark()
@@ -492,7 +711,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             g2d.setStroke(new BasicStroke(separatorThickness, BasicStroke.CAP_BUTT,
                     BasicStroke.JOIN_ROUND));
             g2d.draw(new Line2D.Double(0, separatorY, getWidth(), separatorY));
+            g2d.dispose();
         }
-        g2d.dispose();
     }
 }

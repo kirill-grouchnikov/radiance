@@ -162,26 +162,6 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
     }
 
     @Override
-    public int getTaskbarHeight() {
-        Font titleFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
-                .getWindowTitleFont();
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(titleFont);
-        int fontHeight = fm.getHeight();
-        fontHeight += 7;
-        int iconHeight = 0;
-        if (ribbon.getRootPane().getWindowDecorationStyle() == JRootPane.FRAME) {
-            iconHeight = SubstanceSizeUtils.getTitlePaneIconSize();
-        }
-
-        return Math.max(fontHeight, iconHeight);
-    }
-
-    @Override
-    public int getTaskToggleButtonHeight() {
-        return getTaskbarHeight() - 2;
-    }
-
-    @Override
     protected void syncApplicationMenuTips() {
         if ((this.applicationMenuButton == null) || !this.applicationMenuButton.isVisible()) {
             return;

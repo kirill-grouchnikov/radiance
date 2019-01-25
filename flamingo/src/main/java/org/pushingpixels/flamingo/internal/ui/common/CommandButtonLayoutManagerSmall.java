@@ -39,9 +39,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 
-public class CommandButtonLayoutManagerSmall implements
-		CommandButtonLayoutManager {
-
+public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManager {
 	@Override
 	public int getPreferredIconSize(AbstractCommandButton commandButton) {
         return FlamingoUtilities.getCommandButtonSmallIconSize(commandButton.getFont().getSize());

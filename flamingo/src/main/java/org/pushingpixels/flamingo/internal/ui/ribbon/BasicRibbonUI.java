@@ -364,20 +364,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
     }
 
     /**
-     * Returns the height of the taskbar area.
-     *
-     * @return The height of the taskbar area.
-     */
-    public abstract int getTaskbarHeight();
-
-    /**
-     * Returns the height of the task toggle button area.
-     *
-     * @return The height of the task toggle button area.
-     */
-    public abstract int getTaskToggleButtonHeight();
-
-    /**
      * Layout for the ribbon.
      *
      * @author Kirill Grouchnikov
@@ -408,7 +394,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 }
             }
 
-            int extraHeight = getTaskToggleButtonHeight();
+            int extraHeight = FlamingoUtilities.getTaskToggleButtonHeight(ribbon);
             int prefHeight = maxPrefBandHeight + extraHeight + ins.top + ins.bottom;
             // System.out.println("Ribbon pref = " + prefHeight);
             return new Dimension(c.getWidth(), prefHeight);
@@ -423,7 +409,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int maxMinBandHeight = 0;
             int gap = getBandGap();
 
-            int extraHeight = getTaskToggleButtonHeight();
+            int extraHeight = FlamingoUtilities.getTaskToggleButtonHeight(ribbon);
 
             if (ribbon.getTaskCount() > 0) {
                 boolean isRibbonMinimized = ribbon.isMinimized();
@@ -473,7 +459,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int width = c.getWidth();
             int y = ins.top;
 
-            int taskToggleButtonHeight = getTaskToggleButtonHeight();
+            int taskToggleButtonHeight = FlamingoUtilities.getTaskToggleButtonHeight(ribbon);
 
             int x = ltr ? ins.left : width - ins.right;
 
@@ -891,7 +877,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
         @Override
         public Dimension preferredLayoutSize(Container c) {
             int tabButtonGap = getTabButtonGap();
-            int taskToggleButtonHeight = getTaskToggleButtonHeight();
+            int taskToggleButtonHeight = FlamingoUtilities.getTaskToggleButtonHeight(ribbon);
 
             int totalTaskButtonsWidth = 0;
             List<RibbonTask> visibleTasks = getCurrentlyShownRibbonTasks();
@@ -907,7 +893,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
         @Override
         public Dimension minimumLayoutSize(Container c) {
             int tabButtonGap = getTabButtonGap();
-            int taskToggleButtonHeight = getTaskToggleButtonHeight();
+            int taskToggleButtonHeight = FlamingoUtilities.getTaskToggleButtonHeight(ribbon);
 
             int totalTaskButtonsWidth = 0;
             List<RibbonTask> visibleTasks = getCurrentlyShownRibbonTasks();
@@ -924,7 +910,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
         public void layoutContainer(Container c) {
             int y = 0;
             int tabButtonGap = getTabButtonGap();
-            int taskToggleButtonHeight = getTaskToggleButtonHeight();
+            int taskToggleButtonHeight = FlamingoUtilities.getTaskToggleButtonHeight(ribbon);
 
             int totalPrefWidth = 0;
             int totalMinWidth = 0;
@@ -1008,7 +994,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             for (Component comp : parent.getComponents()) {
                 minWidth += comp.getMinimumSize().width;
             }
-            return new Dimension(minWidth, getTaskToggleButtonHeight());
+            return new Dimension(minWidth, FlamingoUtilities.getTaskToggleButtonHeight(ribbon));
         }
 
         @Override
@@ -1017,7 +1003,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             for (Component comp : parent.getComponents()) {
                 prefWidth += comp.getPreferredSize().width;
             }
-            return new Dimension(prefWidth, getTaskToggleButtonHeight());
+            return new Dimension(prefWidth, FlamingoUtilities.getTaskToggleButtonHeight(ribbon));
         }
 
         @Override
@@ -1108,7 +1094,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     .setText(task.getTitle())
                     .inToggleGroup(this.taskToggleGroupModel)
                     .setAction((CommandActionEvent cae) -> SwingUtilities.invokeLater(() ->
-                            processTaskSelection(task, (JRibbonTaskToggleButton) cae.getSource())))
+                            processTaskSelection(task,
+                                    (JRibbonTaskToggleButton) cae.getButtonSource())))
                     .build();
 
             // And create a specific projection
@@ -1349,9 +1336,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
     }
 
     private static class BandHostPopupPanel extends JPopupPanel {
-        /**
-         * The main component of <code>this</code> popup panel. Can be <code>null</code>.
-         */
         private BandHostPopupPanel(Component component, Dimension originalSize) {
             this.setLayout(new BorderLayout());
             this.add(component, BorderLayout.CENTER);

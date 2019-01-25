@@ -82,10 +82,6 @@ class KRibbonTaskbar {
         components.add(gallery)
         return gallery
     }
-
-    fun separator() {
-        components.add(KCommandMenu.KCommandPopupMenuSeparator())
-    }
 }
 
 @FlamingoElementMarker
@@ -171,7 +167,6 @@ class KRibbonFrame {
                 is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(RibbonGalleryProjection(
                         taskbarComponent.content.asJavaRibbonGalleryContentModel(),
                         taskbarComponent.presentation.toRibbonGalleryPresentationModel()))
-                is KCommandMenu.KCommandPopupMenuSeparator -> ribbonFrame.ribbon.addTaskbarSeparator()
             }
         }
 

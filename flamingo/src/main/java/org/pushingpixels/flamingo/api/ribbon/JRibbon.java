@@ -250,7 +250,6 @@ public class JRibbon extends JComponent {
      * Adds the specified command to the taskbar area of this ribbon.
      *
      * @param projection The taskbar command projection to add.
-     * @see #addTaskbarSeparator()
      * @see #clearTaskbar()
      */
     public synchronized void addTaskbarCommand(CommandButtonProjection<Command> projection) {
@@ -372,22 +371,6 @@ public class JRibbon extends JComponent {
         }
     }
 
-    /**
-     * Adds a separator to the taskbar area of this ribbon.
-     *
-     * @return the added separator
-     * @see #addTaskbarCommand(CommandButtonProjection)
-     * @see #clearTaskbar()
-     */
-    public synchronized JSeparator addTaskbarSeparator() {
-        JSeparator result = new JSeparator(JSeparator.VERTICAL);
-
-        this.taskbarComponents.add(result);
-        this.fireStateChanged();
-
-        return result;
-    }
-
     public synchronized void addTaskbarGalleryDropdown(RibbonGalleryProjection galleryProjection) {
         CommandPopupMenuProjection popupMenuProjection =
                 JRibbonGallery.getExpandPopupMenu(galleryProjection,
@@ -434,7 +417,6 @@ public class JRibbon extends JComponent {
      * Removes all taskbar content from this ribbon.
      *
      * @see #addTaskbarCommand(CommandButtonProjection)
-     * @see #addTaskbarSeparator()
      */
     public synchronized void clearTaskbar() {
         this.taskbarCommandMap.clear();
