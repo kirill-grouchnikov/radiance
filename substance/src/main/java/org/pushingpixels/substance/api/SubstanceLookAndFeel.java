@@ -32,6 +32,7 @@ package org.pushingpixels.substance.api;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.*;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopupFactory;
+import org.pushingpixels.substance.internal.ui.*;
 import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
@@ -120,94 +121,92 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
     protected void initClassDefaults(UIDefaults table) {
         super.initClassDefaults(table);
 
-        String UI_CLASSNAME_PREFIX = "org.pushingpixels.substance.internal.ui.Substance";
         Object[] uiDefaults = {
+                        "ButtonUI", SubstanceButtonUI.class.getName(),
 
-                        "ButtonUI", UI_CLASSNAME_PREFIX + "ButtonUI",
+                        "CheckBoxUI", SubstanceCheckBoxUI.class.getName(),
 
-                        "CheckBoxUI", UI_CLASSNAME_PREFIX + "CheckBoxUI",
+                        "ComboBoxUI", SubstanceComboBoxUI.class.getName(),
 
-                        "ComboBoxUI", UI_CLASSNAME_PREFIX + "ComboBoxUI",
+                        "CheckBoxMenuItemUI", SubstanceCheckBoxMenuItemUI.class.getName(),
 
-                        "CheckBoxMenuItemUI", UI_CLASSNAME_PREFIX + "CheckBoxMenuItemUI",
+                        "DesktopIconUI", SubstanceDesktopIconUI.class.getName(),
 
-                        "DesktopIconUI", UI_CLASSNAME_PREFIX + "DesktopIconUI",
+                        "DesktopPaneUI", SubstanceDesktopPaneUI.class.getName(),
 
-                        "DesktopPaneUI", UI_CLASSNAME_PREFIX + "DesktopPaneUI",
+                        "EditorPaneUI", SubstanceEditorPaneUI.class.getName(),
 
-                        "EditorPaneUI", UI_CLASSNAME_PREFIX + "EditorPaneUI",
+                        "FileChooserUI", SubstanceFileChooserUI.class.getName(),
 
-                        "FileChooserUI", UI_CLASSNAME_PREFIX + "FileChooserUI",
+                        "FormattedTextFieldUI", SubstanceFormattedTextFieldUI.class.getName(),
 
-                        "FormattedTextFieldUI", UI_CLASSNAME_PREFIX + "FormattedTextFieldUI",
+                        "InternalFrameUI", SubstanceInternalFrameUI.class.getName(),
 
-                        "InternalFrameUI", UI_CLASSNAME_PREFIX + "InternalFrameUI",
+                        "LabelUI", SubstanceLabelUI.class.getName(),
 
-                        "LabelUI", UI_CLASSNAME_PREFIX + "LabelUI",
+                        "ListUI", SubstanceListUI.class.getName(),
 
-                        "ListUI", UI_CLASSNAME_PREFIX + "ListUI",
+                        "MenuUI", SubstanceMenuUI.class.getName(),
 
-                        "MenuUI", UI_CLASSNAME_PREFIX + "MenuUI",
+                        "MenuBarUI", SubstanceMenuBarUI.class.getName(),
 
-                        "MenuBarUI", UI_CLASSNAME_PREFIX + "MenuBarUI",
+                        "MenuItemUI", SubstanceMenuItemUI.class.getName(),
 
-                        "MenuItemUI", UI_CLASSNAME_PREFIX + "MenuItemUI",
+                        "OptionPaneUI", SubstanceOptionPaneUI.class.getName(),
 
-                        "OptionPaneUI", UI_CLASSNAME_PREFIX + "OptionPaneUI",
+                        "PanelUI", SubstancePanelUI.class.getName(),
 
-                        "PanelUI", UI_CLASSNAME_PREFIX + "PanelUI",
+                        "PasswordFieldUI", SubstancePasswordFieldUI.class.getName(),
 
-                        "PasswordFieldUI", UI_CLASSNAME_PREFIX + "PasswordFieldUI",
+                        "PopupMenuUI", SubstancePopupMenuUI.class.getName(),
 
-                        "PopupMenuUI", UI_CLASSNAME_PREFIX + "PopupMenuUI",
+                        "PopupMenuSeparatorUI", SubstancePopupMenuSeparatorUI.class.getName(),
 
-                        "PopupMenuSeparatorUI", UI_CLASSNAME_PREFIX + "PopupMenuSeparatorUI",
+                        "ProgressBarUI", SubstanceProgressBarUI.class.getName(),
 
-                        "ProgressBarUI", UI_CLASSNAME_PREFIX + "ProgressBarUI",
+                        "RadioButtonUI", SubstanceRadioButtonUI.class.getName(),
 
-                        "RadioButtonUI", UI_CLASSNAME_PREFIX + "RadioButtonUI",
+                        "RadioButtonMenuItemUI", SubstanceRadioButtonMenuItemUI.class.getName(),
 
-                        "RadioButtonMenuItemUI", UI_CLASSNAME_PREFIX + "RadioButtonMenuItemUI",
+                        "RootPaneUI", SubstanceRootPaneUI.class.getName(),
 
-                        "RootPaneUI", UI_CLASSNAME_PREFIX + "RootPaneUI",
+                        "ScrollBarUI", SubstanceScrollBarUI.class.getName(),
 
-                        "ScrollBarUI", UI_CLASSNAME_PREFIX + "ScrollBarUI",
+                        "ScrollPaneUI", SubstanceScrollPaneUI.class.getName(),
 
-                        "ScrollPaneUI", UI_CLASSNAME_PREFIX + "ScrollPaneUI",
+                        "SeparatorUI", SubstanceSeparatorUI.class.getName(),
 
-                        "SeparatorUI", UI_CLASSNAME_PREFIX + "SeparatorUI",
+                        "SliderUI", SubstanceSliderUI.class.getName(),
 
-                        "SliderUI", UI_CLASSNAME_PREFIX + "SliderUI",
+                        "SpinnerUI", SubstanceSpinnerUI.class.getName(),
 
-                        "SpinnerUI", UI_CLASSNAME_PREFIX + "SpinnerUI",
+                        "SplitPaneUI", SubstanceSplitPaneUI.class.getName(),
 
-                        "SplitPaneUI", UI_CLASSNAME_PREFIX + "SplitPaneUI",
+                        "TabbedPaneUI", SubstanceTabbedPaneUI.class.getName(),
 
-                        "TabbedPaneUI", UI_CLASSNAME_PREFIX + "TabbedPaneUI",
+                        "TableUI", SubstanceTableUI.class.getName(),
 
-                        "TableUI", UI_CLASSNAME_PREFIX + "TableUI",
+                        "TableHeaderUI", SubstanceTableHeaderUI.class.getName(),
 
-                        "TableHeaderUI", UI_CLASSNAME_PREFIX + "TableHeaderUI",
+                        "TextAreaUI", SubstanceTextAreaUI.class.getName(),
 
-                        "TextAreaUI", UI_CLASSNAME_PREFIX + "TextAreaUI",
+                        "TextFieldUI", SubstanceTextFieldUI.class.getName(),
 
-                        "TextFieldUI", UI_CLASSNAME_PREFIX + "TextFieldUI",
+                        "TextPaneUI", SubstanceTextPaneUI.class.getName(),
 
-                        "TextPaneUI", UI_CLASSNAME_PREFIX + "TextPaneUI",
+                        "ToggleButtonUI", SubstanceToggleButtonUI.class.getName(),
 
-                        "ToggleButtonUI", UI_CLASSNAME_PREFIX + "ToggleButtonUI",
+                        "ToolBarUI", SubstanceToolBarUI.class.getName(),
 
-                        "ToolBarUI", UI_CLASSNAME_PREFIX + "ToolBarUI",
+                        "ToolBarSeparatorUI", SubstanceToolBarSeparatorUI.class.getName(),
 
-                        "ToolBarSeparatorUI", UI_CLASSNAME_PREFIX + "ToolBarSeparatorUI",
+                        "ToolTipUI", SubstanceToolTipUI.class.getName(),
 
-                        "ToolTipUI", UI_CLASSNAME_PREFIX + "ToolTipUI",
+                        "TreeUI", SubstanceTreeUI.class.getName(),
 
-                        "TreeUI", UI_CLASSNAME_PREFIX + "TreeUI",
-
-                        "ViewportUI", UI_CLASSNAME_PREFIX + "ViewportUI",
-
+                        "ViewportUI", SubstanceViewportUI.class.getName(),
         };
+
         table.putDefaults(uiDefaults);
     }
 
