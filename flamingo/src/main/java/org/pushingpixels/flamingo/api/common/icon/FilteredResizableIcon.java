@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.common.icon;
 
 import org.pushingpixels.neon.*;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 
 import java.awt.*;
@@ -47,17 +47,17 @@ public class FilteredResizableIcon implements ResizableIcon {
     /**
      * Image cache to speed up rendering.
      */
-    protected Map<String, BufferedImage> cachedImages;
+    private Map<String, BufferedImage> cachedImages;
 
     /**
      * The main (pre-filtered) icon.
      */
-    protected ResizableIcon delegate;
+    private ResizableIcon delegate;
 
     /**
      * Filter operation.
      */
-    protected BufferedImageOp operation;
+    private BufferedImageOp operation;
 
     /**
      * Creates a new filtered icon.
@@ -65,7 +65,7 @@ public class FilteredResizableIcon implements ResizableIcon {
      * @param delegate  The main (pre-filtered) icon.
      * @param operation Filter operation.
      */
-    public FilteredResizableIcon(ResizableIcon delegate, BufferedImageOp operation) {
+    private FilteredResizableIcon(ResizableIcon delegate, BufferedImageOp operation) {
         super();
         this.delegate = delegate;
         this.operation = operation;
@@ -123,5 +123,10 @@ public class FilteredResizableIcon implements ResizableIcon {
         g2d.drawImage(toDraw, 0, 0, (int) (toDraw.getWidth(null) / scaleFactor),
                 (int) (toDraw.getHeight(null) / scaleFactor), null);
         g2d.dispose();
+    }
+
+    public static ResizableIconFactory factory(ResizableIconFactory delegateFactory,
+            BufferedImageOp operation) {
+        return () -> new FilteredResizableIcon(delegateFactory.createNewIcon(), operation);
     }
 }

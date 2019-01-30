@@ -219,9 +219,8 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setFont(this.commandButton.getFont());
 
-        this.layoutInfo = this.layoutManager.getLayoutInfo(this.commandButton, g);
+        this.layoutInfo = this.layoutManager.getLayoutInfo(this.commandButton);
         commandButton.putClientProperty("icon.bounds", layoutInfo.iconRect);
-        commandButton.putClientProperty("icon", commandButton.getIcon());
 
         if (this.isPaintingBackground()) {
             this.paintButtonBackground(g2d, new Rectangle(0, 0, c.getWidth(), c.getHeight()));

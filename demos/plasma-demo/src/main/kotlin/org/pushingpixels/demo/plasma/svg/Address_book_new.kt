@@ -12,7 +12,8 @@ import org.pushingpixels.neon.icon.ResizableIconUIResource
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
-class Address_book_new(private var width: Int, private var height: Int) : ResizableIcon {
+class Address_book_new private constructor(private var width: Int, private var height: Int)
+       : ResizableIcon {
 	private fun innerPaint(g : Graphics2D) {
         @Suppress("UNUSED_VARIABLE") var shape: Shape?
         @Suppress("UNUSED_VARIABLE") var paint: Paint?
@@ -421,7 +422,7 @@ g.transform = defaultTransform_
          * @return The width of the bounding box of the original SVG image.
          */
         fun getOrigWidth(): Double {
-            return 47.731502532958984
+            return 47.683502197265625
         }
 
         /**

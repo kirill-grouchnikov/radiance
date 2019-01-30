@@ -83,11 +83,6 @@ public class JCommandMenuButton extends JCommandButton {
         setUI(SubstanceCommandMenuButtonUI.createUI(this));
     }
 
-    @Override
-    boolean canHaveBothKeyTips() {
-        return true;
-    }
-
     /**
      * Programmatically perform a "rollover" on the action area. This does the
      * same thing as if the user had moved the mouse over the action area of the

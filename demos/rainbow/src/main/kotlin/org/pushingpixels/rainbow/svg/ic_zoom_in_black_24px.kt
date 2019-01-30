@@ -12,7 +12,8 @@ import org.pushingpixels.neon.icon.ResizableIconUIResource
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
-class ic_zoom_in_black_24px(private var width: Int, private var height: Int) : ResizableIcon {
+class ic_zoom_in_black_24px private constructor(private var width: Int, private var height: Int)
+       : ResizableIcon {
 	private fun innerPaint(g : Graphics2D) {
         @Suppress("UNUSED_VARIABLE") var shape: Shape?
         @Suppress("UNUSED_VARIABLE") var paint: Paint?

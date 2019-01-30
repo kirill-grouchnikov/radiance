@@ -264,8 +264,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 								JRibbonApplicationMenuPopupPanel appMenuPopupPanel = (JRibbonApplicationMenuPopupPanel) lastPopup
 										.getPopupPanel();
 								KeyTipManager.KeyTipChain currentlyShownKeyTipChain = KeyTipManager
-										.defaultManager()
-										.getCurrentlyShownKeyTipChain();
+										.defaultManager().getCurrentlyShownKeyTipChain();
 								if ((currentlyShownKeyTipChain != null)
 										&& (currentlyShownKeyTipChain.chainParentComponent == appMenuPopupPanel
 												.getPanelLevel2()))

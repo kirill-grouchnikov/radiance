@@ -60,7 +60,7 @@ import java.util.*;
  * {@link #addContextualTaskGroup(RibbonContextualTaskGroup)}</li>
  * <li>Application menu content set by
  * {@link #setApplicationMenuCommand(RibbonApplicationMenuCommandButtonProjection)} </li>
- * <li>Taskbar panel populated by {@link #addTaskbarCommand(CommandButtonProjection)},
+ * <li>Taskbar panel populated by {@link #addTaskbarCommand(Command)},
  * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)}
  * and {@link #addTaskbarComponent(ComponentProjection)}</li>
  * <li>Anchored content set by {@link #addAnchoredCommand(CommandButtonProjection)}</li>
@@ -92,7 +92,7 @@ import java.util.*;
  *
  * <p>
  * The taskbar panel allows showing controls that are visible no matter what ribbon task is
- * selected. To add a taskbar component use the {@link #addTaskbarCommand(CommandButtonProjection)},
+ * selected. To add a taskbar component use the {@link #addTaskbarCommand(Command)},
  * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)} and
  * {@link #addTaskbarComponent(ComponentProjection)} APIs. The taskbar panel lives in the top-left
  * corner of the application frame.
@@ -200,6 +200,8 @@ public class JRibbon extends JComponent {
 
     private OnShowContextualMenuListener onShowContextualMenuListener;
 
+    private RibbonTaskbarKeyTipPolicy taskbarKeyTipPolicy;
+
     /**
      * The UI class ID string.
      */
@@ -233,6 +235,8 @@ public class JRibbon extends JComponent {
         this.groupVisibilityMap = new HashMap<>();
         this.anchoredCommands = new ArrayList<>();
 
+        this.taskbarKeyTipPolicy = new DefaultRibbonTaskbarKeyTipPolicy();
+
         updateUI();
     }
 
@@ -246,28 +250,37 @@ public class JRibbon extends JComponent {
         this.ribbonFrame = ribbonFrame;
     }
 
+    public void setTaskbarKeyTipPolicy(RibbonTaskbarKeyTipPolicy taskbarKeyTipPolicy) {
+        if (taskbarKeyTipPolicy == null) {
+            throw new IllegalArgumentException("Cannot pass null policy");
+        }
+        this.taskbarKeyTipPolicy = taskbarKeyTipPolicy;
+    }
+
+    public RibbonTaskbarKeyTipPolicy getTaskbarKeyTipPolicy() {
+        return this.taskbarKeyTipPolicy;
+    }
+
     /**
      * Adds the specified command to the taskbar area of this ribbon.
      *
-     * @param projection The taskbar command projection to add.
+     * @param command The taskbar command to add.
      * @see #clearTaskbar()
      */
-    public synchronized void addTaskbarCommand(CommandButtonProjection<Command> projection) {
-        CommandButtonPresentationModel withOverlay = projection.getPresentationModel().overlayWith(
-                CommandButtonPresentationModel.overlay()
-                        .setPresentationState(CommandButtonPresentationState.SMALL)
-                        .setFocusable(false)
-                        .setHorizontalGapScaleFactor(0.5)
-                        .setVerticalGapScaleFactor(0.5));
+    public synchronized void addTaskbarCommand(Command command) {
+        CommandButtonPresentationModel presentationModel = CommandButtonPresentationModel.builder()
+                .setPresentationState(CommandButtonPresentationState.SMALL)
+                .setFocusable(false)
+                .setHorizontalGapScaleFactor(0.5)
+                .setVerticalGapScaleFactor(0.5)
+                .build();
 
-        CommandButtonProjection<Command> projectionWithOverlay = projection.reproject(withOverlay);
-        AbstractCommandButton commandButton = projectionWithOverlay.buildComponent();
+        CommandButtonProjection<Command> projection = command.project(presentationModel);
+        AbstractCommandButton commandButton = projection.buildComponent();
 
-        commandButton.putClientProperty(FlamingoUtilities.TASKBAR_PROJECTION,
-                projection);
+        commandButton.putClientProperty(FlamingoUtilities.TASKBAR_PROJECTION, projection);
         this.taskbarComponents.add(commandButton);
 
-        Command command = projection.getContentModel();
         this.taskbarCommandMap.put(command, commandButton);
 
         this.fireStateChanged();
@@ -416,7 +429,7 @@ public class JRibbon extends JComponent {
     /**
      * Removes all taskbar content from this ribbon.
      *
-     * @see #addTaskbarCommand(CommandButtonProjection)
+     * @see #addTaskbarCommand(Command)
      */
     public synchronized void clearTaskbar() {
         this.taskbarCommandMap.clear();

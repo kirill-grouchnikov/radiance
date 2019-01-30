@@ -49,5 +49,7 @@ public abstract class CommandButtonUI extends ButtonUI {
 
 	public abstract CommandButtonLayoutManager getLayoutManager();
 
-	public abstract Point getKeyTipAnchorCenterPoint();
+	public abstract Point getActionKeyTipAnchorCenterPoint();
+
+	public abstract Point getPopupKeyTipAnchorCenterPoint();
 }

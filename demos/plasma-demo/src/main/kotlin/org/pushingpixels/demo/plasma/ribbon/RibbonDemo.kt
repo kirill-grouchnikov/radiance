@@ -1742,31 +1742,31 @@ fun main(args: Array<String>) {
             }
 
             taskbar {
-                command(actionKeyTip = "1", command = builder.pasteCommand)
+                +builder.pasteCommand
 
-                command(actionKeyTip = "2") {
+                command {
                     iconFactory = Edit_clear.factory()
                     action = CommandAction { println("Taskbar Clear activated") }
                     isEnabled = false
                 }
 
-                command(actionKeyTip = "3") {
+                command {
                     iconFactory = Edit_copy.factory()
                     action = CommandAction { println("Taskbar Copy activated") }
                 }
 
                 +builder.documentNewCommand
 
-                command(actionKeyTip = "4") {
+                command {
                     iconFactory = Edit_find.factory()
                     action = CommandAction { println("Taskbar Find activated") }
                 }
 
                 component(RibbonComboBoxProjection(builder.fontComboBoxModel,
-                        ComponentPresentationModel.builder().setKeyTip("5").build()))
+                        ComponentPresentationModel.withDefaults()))
 
                 component(RibbonCheckBoxProjection(builder.rulerCheckBoxModel,
-                        ComponentPresentationModel.builder().setKeyTip("6").build()))
+                        ComponentPresentationModel.withDefaults()))
 
                 // Add the same gallery we have in the first ribbon task to the taskbar, configuring
                 // its popup presentation with a 4x2 grid of slightly smaller buttons (instead of a 3x3

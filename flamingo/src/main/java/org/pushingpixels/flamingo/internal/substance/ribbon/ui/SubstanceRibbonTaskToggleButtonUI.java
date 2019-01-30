@@ -144,7 +144,7 @@ public class SubstanceRibbonTaskToggleButtonUI extends
 
 	@Override
 	public void paint(Graphics g, JComponent c) {
-		this.layoutInfo = this.layoutManager.getLayoutInfo(this.commandButton, g);
+		this.layoutInfo = this.layoutManager.getLayoutInfo(this.commandButton);
 
 		this.delegate.updateTaskToggleButtonBackground(g,
 				(JRibbonTaskToggleButton) this.commandButton);

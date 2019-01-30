@@ -76,15 +76,23 @@ public class CommandButtonLayoutManagerBigFixedLandscape implements
 	}
 
 	@Override
-	public Point getKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
-		// center of the bottom edge
-		return new Point(commandButton.getWidth() / 2, commandButton
-				.getHeight());
+	public Point getActionKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
+		CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
+		// horizontally centered at the bottom edge of the action click area
+		return new Point(layoutInfo.actionClickArea.x + layoutInfo.actionClickArea.width / 2,
+				layoutInfo.actionClickArea.y + layoutInfo.actionClickArea.height);
 	}
 
 	@Override
-	public CommandButtonLayoutInfo getLayoutInfo(
-			AbstractCommandButton commandButton, Graphics g) {
+	public Point getPopupKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
+		CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
+		// horizontally centered at the bottom edge of the popup click area
+		return new Point(layoutInfo.popupClickArea.x + layoutInfo.popupClickArea.width / 2,
+				layoutInfo.popupClickArea.y + layoutInfo.popupClickArea.height);
+	}
+
+	@Override
+	public CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton commandButton) {
 		CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
 
 		result.actionClickArea = new Rectangle(0, 0, 0, 0);
@@ -100,7 +108,7 @@ public class CommandButtonLayoutManagerBigFixedLandscape implements
 
 		int y = ins.top;
 
-		FontMetrics fm = g.getFontMetrics();
+		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
 		int labelHeight = fm.getAscent() + fm.getDescent();
 
 		JCommandButton.CommandButtonKind buttonKind = (commandButton instanceof JCommandButton) ? ((JCommandButton) commandButton)
@@ -144,8 +152,7 @@ public class CommandButtonLayoutManagerBigFixedLandscape implements
 		lineLayoutInfo.text = commandButton.getText();
 		lineLayoutInfo.textRect = new Rectangle();
 
-		int labelWidth = (int) fm.getStringBounds(commandButton.getText(), g)
-				.getWidth();
+		int labelWidth = fm.stringWidth(commandButton.getText());
 
 		lineLayoutInfo.textRect.x = ins.left
 				+ (width - labelWidth - ins.left - ins.right) / 2;
@@ -153,7 +160,7 @@ public class CommandButtonLayoutManagerBigFixedLandscape implements
 		lineLayoutInfo.textRect.width = labelWidth;
 		lineLayoutInfo.textRect.height = labelHeight;
 
-		result.textLayoutInfoList = new ArrayList<TextLayoutInfo>();
+		result.textLayoutInfoList = new ArrayList<>();
 		result.textLayoutInfoList.add(lineLayoutInfo);
 
 		return result;

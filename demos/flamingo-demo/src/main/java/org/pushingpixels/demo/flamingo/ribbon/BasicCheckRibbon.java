@@ -58,6 +58,7 @@ import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Method;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.*;
@@ -545,6 +546,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         CommandButtonProjection pasteCommandProjection = this.pasteCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setHorizontalAlignment(SwingConstants.LEADING)
+                        .setActionKeyTip("Y")
                         .setPopupKeyTip("V").build());
         Map<Command, CommandButtonPresentationModel.Overlay> pasteOverlays = new HashMap<>();
         pasteOverlays.put(this.popupCommand1,
@@ -1504,7 +1506,26 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
     public BasicCheckRibbon() {
         super();
-        setApplicationIcon(new Applications_internet());
+        setApplicationIcon(Applications_internet.factory());
+        if (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS) {
+            // A nice to have on the Mac - try to set the dock icon
+            try {
+                Class appClass = Class.forName("com.apple.eawt.Application");
+                if (appClass != null) {
+                    Object appInstance = appClass.newInstance();
+                    Method setDockImageMethod = appClass
+                            .getDeclaredMethod("setDockIconImage", Image.class);
+                    if (setDockImageMethod != null) {
+                        setDockImageMethod.invoke(appInstance,
+                                Applications_internet.of(256, 256).toImage());
+                    }
+                }
+            } catch (Throwable t) {
+                t.printStackTrace();
+                // give up
+            }
+        }
+
         currLocale = Locale.getDefault();
         resourceBundle = ResourceBundle
                 .getBundle("org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
@@ -1702,7 +1723,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                     .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
                                     .setAction((CommandActionEvent event) ->
                                             getRibbon().addTaskbarCommand(
-                                                    commandButtonProjection.getContentModel().project()))
+                                                    commandButtonProjection.getContentModel()))
                                     .build();
                         }
 
@@ -1725,19 +1746,16 @@ public class BasicCheckRibbon extends JRibbonFrame {
         JRibbon ribbon = this.getRibbon();
 
         // taskbar components
-        ribbon.addTaskbarCommand(this.pasteCommand.project(
-                CommandButtonPresentationModel.builder().setActionKeyTip("1").build()));
+        ribbon.addTaskbarCommand(this.pasteCommand);
 
         ribbon.addTaskbarCommand(Command.builder()
                 .setIconFactory(Edit_clear.factory())
                 .setAction((CommandActionEvent e) -> System.out.println("Taskbar Clear activated"))
                 .setEnabled(false)
-                .build()
-                .project(CommandButtonPresentationModel.builder()
-                        .setActionKeyTip("2").build()));
+                .build());
 
         ribbon.addTaskbarComponent(new RibbonComboBoxProjection(this.fontComboBoxModel,
-                ComponentPresentationModel.builder().setKeyTip("5").build()));
+                ComponentPresentationModel.withDefaults()));
 
         ribbon.addTaskbarAppMenuLink(this.amFooterProps);
         ribbon.addTaskbarAppMenuLink(this.amEntryPrintCustom);
@@ -1745,7 +1763,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         ribbon.addTaskbarAppMenuLink(this.amEntryExit);
 
         ribbon.addTaskbarComponent(new RibbonCheckBoxProjection(this.rulerCheckBoxModel,
-                ComponentPresentationModel.builder().setKeyTip("6").build()));
+                ComponentPresentationModel.withDefaults()));
 
         // Add the same gallery we have in the first ribbon task to the taskbar, configuring
         // its popup presentation with a 4x2 grid of slightly smaller buttons (instead of a 3x3
@@ -1759,8 +1777,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setCommandPresentationState(JRibbonBand.BIG_FIXED).build()));
 
         // Add the same "Save as" command that we have in the application menu to the taskbar
-        ribbon.addTaskbarCommand(this.amEntrySaveAs.project(
-                CommandButtonPresentationModel.builder().setPopupKeyTip("7").build()));
+        ribbon.addTaskbarCommand(this.amEntrySaveAs);
     }
 
     private void configureApplicationMenu() {

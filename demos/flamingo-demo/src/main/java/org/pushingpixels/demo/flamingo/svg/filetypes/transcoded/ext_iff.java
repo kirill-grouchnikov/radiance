@@ -278,10 +278,10 @@ g.setTransform(defaultTransform_);
 	private int height;
 
 	/**
-	 * Creates a new transcoded SVG image. It is recommended to use the 
-	 * {@link #of(int, int)} method to obtain a pre-configured instance.
+	 * Creates a new transcoded SVG image. This is marked as private to indicate that app
+	 * code should be using the {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
-	public ext_iff() {
+	private ext_iff() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}

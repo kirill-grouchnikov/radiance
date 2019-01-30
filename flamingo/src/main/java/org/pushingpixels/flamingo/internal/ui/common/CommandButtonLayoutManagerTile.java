@@ -40,8 +40,7 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 
-public class CommandButtonLayoutManagerTile implements
-		CommandButtonLayoutManager {
+public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManager {
 
 	@Override
 	public int getPreferredIconSize(AbstractCommandButton commandButton) {
@@ -123,10 +122,8 @@ public class CommandButtonLayoutManagerTile implements
 		// and remove the padding before the first and after the last elements
 		width -= 2 * layoutHGap;
 
-		return new Dimension(width, by
-				+ Math
-						.max(prefIconSize, 2 * (fm.getAscent() + fm
-								.getDescent())));
+		return new Dimension(width,
+				by + Math.max(prefIconSize, 2 * (fm.getAscent() + fm.getDescent())));
 	}
 
 	@Override
@@ -134,23 +131,41 @@ public class CommandButtonLayoutManagerTile implements
 	}
 
 	@Override
-	public Point getKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
-		Insets ins = commandButton.getInsets();
+	public Point getActionKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
+		CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
+		boolean hasIcon = (commandButton.getIcon() != null);
 		int height = commandButton.getHeight();
-		ResizableIcon buttonIcon = commandButton.getIcon();
-		if (buttonIcon != null) {
-			// bottom-right corner of the icon area
-			return new Point(ins.left + buttonIcon.getIconWidth(),
-					(height + buttonIcon.getIconHeight()) / 2);
+
+		if (commandButton.getComponentOrientation().isLeftToRight()) {
+			// If the button shows icon, the key tip is at the right edge of the icon
+			// otherwise it is at the right edge of the full action click area
+			int x = hasIcon ? layoutInfo.iconRect.x + layoutInfo.iconRect.width
+					: layoutInfo.actionClickArea.x + layoutInfo.actionClickArea.width;
+			return new Point(x, (height + layoutInfo.actionClickArea.height) / 2);
 		} else {
-			// bottom-left corner of the button
-			return new Point(ins.left, 3 * height / 4);
+			// If the button shows icon, the key tip is at the left edge of the icon
+			// otherwise it is at the left edge of the full action click area
+			int x = hasIcon ? layoutInfo.iconRect.x : layoutInfo.actionClickArea.x;
+			return new Point(x, (height + layoutInfo.actionClickArea.height) / 2);
 		}
 	}
 
 	@Override
-	public CommandButtonLayoutInfo getLayoutInfo(
-			AbstractCommandButton commandButton, Graphics g) {
+	public Point getPopupKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
+		CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
+		int height = commandButton.getHeight();
+
+		if (commandButton.getComponentOrientation().isLeftToRight()) {
+			return new Point(layoutInfo.popupClickArea.x + layoutInfo.popupClickArea.width,
+					(height + layoutInfo.popupClickArea.height) / 2);
+		} else {
+			return new Point(layoutInfo.popupClickArea.x,
+					(height + layoutInfo.popupClickArea.height) / 2);
+		}
+	}
+
+	@Override
+	public CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton commandButton) {
 		CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
 
 		result.actionClickArea = new Rectangle(0, 0, 0, 0);
@@ -182,11 +197,11 @@ public class CommandButtonLayoutManagerTile implements
 
 		boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
 
-		FontMetrics fm = g.getFontMetrics();
+		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
 		int labelHeight = fm.getAscent() + fm.getDescent();
 
-		JCommandButton.CommandButtonKind buttonKind = (commandButton instanceof JCommandButton) ? ((JCommandButton) commandButton)
-				.getCommandButtonKind()
+		JCommandButton.CommandButtonKind buttonKind = (commandButton instanceof JCommandButton)
+				? ((JCommandButton) commandButton).getCommandButtonKind()
 				: JCommandButton.CommandButtonKind.ACTION_ONLY;
 		int layoutHGap = FlamingoUtilities.getHLayoutGap(commandButton);
 
@@ -219,10 +234,10 @@ public class CommandButtonLayoutManagerTile implements
 				lineLayoutInfo.textRect.x = x;
 				lineLayoutInfo.textRect.y = (height - 2 * labelHeight) / 2;
 				lineLayoutInfo.textRect.width = (buttonText == null) ? 0
-						: (int) fm.getStringBounds(buttonText, g).getWidth();
+						: fm.stringWidth(buttonText);
 				lineLayoutInfo.textRect.height = labelHeight;
 
-				result.textLayoutInfoList = new ArrayList<TextLayoutInfo>();
+				result.textLayoutInfoList = new ArrayList<>();
 				result.textLayoutInfoList.add(lineLayoutInfo);
 
 				String extraText = commandButton.getExtraText();
@@ -235,7 +250,7 @@ public class CommandButtonLayoutManagerTile implements
 				extraLineLayoutInfo.textRect.y = lineLayoutInfo.textRect.y
 						+ labelHeight;
 				extraLineLayoutInfo.textRect.width = (extraText == null) ? 0
-						: (int) fm.getStringBounds(extraText, g).getWidth();
+						: fm.stringWidth(buttonText);
 				extraLineLayoutInfo.textRect.height = labelHeight;
 
 				result.extraTextLayoutInfoList = new ArrayList<TextLayoutInfo>();
@@ -389,12 +404,12 @@ public class CommandButtonLayoutManagerTile implements
 				lineLayoutInfo.textRect = new Rectangle();
 
 				lineLayoutInfo.textRect.width = (buttonText == null) ? 0
-						: (int) fm.getStringBounds(buttonText, g).getWidth();
+						: fm.stringWidth(buttonText);
 				lineLayoutInfo.textRect.x = x - lineLayoutInfo.textRect.width;
 				lineLayoutInfo.textRect.y = (height - 2 * labelHeight) / 2;
 				lineLayoutInfo.textRect.height = labelHeight;
 
-				result.textLayoutInfoList = new ArrayList<TextLayoutInfo>();
+				result.textLayoutInfoList = new ArrayList<>();
 				result.textLayoutInfoList.add(lineLayoutInfo);
 
 				String extraText = commandButton.getExtraText();
@@ -404,7 +419,7 @@ public class CommandButtonLayoutManagerTile implements
 				extraLineLayoutInfo.textRect = new Rectangle();
 
 				extraLineLayoutInfo.textRect.width = (extraText == null) ? 0
-						: (int) fm.getStringBounds(extraText, g).getWidth();
+						: fm.stringWidth(buttonText);
 				extraLineLayoutInfo.textRect.x = x
 						- extraLineLayoutInfo.textRect.width;
 				extraLineLayoutInfo.textRect.y = lineLayoutInfo.textRect.y

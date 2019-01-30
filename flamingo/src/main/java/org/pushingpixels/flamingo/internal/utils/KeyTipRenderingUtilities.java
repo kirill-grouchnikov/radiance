@@ -1,36 +1,36 @@
 /*
  * Copyright (c) 2005-2019 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.utils;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.JCommandButton.*;
+import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.*;
@@ -44,22 +44,23 @@ import java.awt.font.LineMetrics;
 import java.util.Collection;
 
 public class KeyTipRenderingUtilities {
-	private static int INSETS = 3;
+    private static int INSETS = 3;
 
-	public static Dimension getPrefSize(FontMetrics fm, String keyTip) {
-		int prefWidth = fm.stringWidth(keyTip) + 2 * INSETS + 1;
-		int prefHeight = fm.getHeight() + INSETS - 1;
-		return new Dimension(prefWidth, prefHeight);
-	}
+    public static Dimension getPrefSize(FontMetrics fm, String keyTip) {
+        int prefWidth = fm.stringWidth(keyTip) + 2 * INSETS + 1;
+        int prefHeight = fm.getHeight() + INSETS - 1;
+        return new Dimension(prefWidth, prefHeight);
+    }
 
-	public static void renderKeyTip(Graphics g, Container c, Rectangle rect, String keyTip,
-			boolean toPaintEnabled) {
-		SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(c);
-		SubstanceBorderPainter borderPainter = SubstanceCoreUtilities
-				.getBorderPainter(c);
+    public static void renderKeyTip(Graphics g, Container c, Rectangle rect, String keyTip,
+            boolean toPaintEnabled) {
+        SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(c);
+        SubstanceBorderPainter borderPainter = SubstanceCoreUtilities
+                .getBorderPainter(c);
 
-		ComponentState state = toPaintEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
-		float alpha = SubstanceColorSchemeUtilities.getAlpha(c, state);
+        ComponentState state =
+                toPaintEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
+        float alpha = SubstanceColorSchemeUtilities.getAlpha(c, state);
         SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities
                 .getColorScheme(c, state);
         SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
@@ -83,93 +84,93 @@ public class KeyTipRenderingUtilities {
         borderPainter.paintBorder(g2d, c, rect.width, rect.height, contour,
                 contourInner, borderScheme);
 
-		g2d.setColor(SubstanceColorSchemeUtilities.getColorScheme(c, state).getForegroundColor());
-		Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
-               getControlFont();
-		font = font.deriveFont(font.getSize() + 1.0f);
-		g2d.setFont(font);
-		int strWidth = g2d.getFontMetrics().stringWidth(keyTip);
+        g2d.setColor(SubstanceColorSchemeUtilities.getColorScheme(c, state).getForegroundColor());
+        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
+                getControlFont();
+        font = font.deriveFont(font.getSize() + 1.0f);
+        g2d.setFont(font);
+        int strWidth = g2d.getFontMetrics().stringWidth(keyTip);
 
-		LineMetrics lineMetrics = g2d.getFontMetrics().getLineMetrics(keyTip, g2d);
-		int strHeight = (int) lineMetrics.getHeight();
-		NeonCortex.installDesktopHints(g2d);
-		g2d.drawString(keyTip, (rect.width - strWidth) / 2,
-				(rect.height + strHeight) / 2 - g2d.getFontMetrics().getDescent());
+        LineMetrics lineMetrics = g2d.getFontMetrics().getLineMetrics(keyTip, g2d);
+        int strHeight = (int) lineMetrics.getHeight();
+        NeonCortex.installDesktopHints(g2d);
+        g2d.drawString(keyTip, (rect.width - strWidth) / 2,
+                (rect.height + strHeight) / 2 - g2d.getFontMetrics().getDescent());
 
-		g2d.dispose();
-	}
+        g2d.dispose();
+    }
 
-	public static void renderMenuButtonKeyTips(Graphics g, JCommandMenuButton menuButton,
-			CommandButtonLayoutManager layoutManager) {
-		Collection<KeyTipManager.KeyTipLink> currLinks = KeyTipManager.defaultManager()
-				.getCurrentlyShownKeyTips();
-		if (currLinks == null) {
-			return;
-		}
-
-		boolean found = false;
-		for (KeyTipManager.KeyTipLink link : currLinks) {
-			found = (link.comp == menuButton);
-			if (found) {
-                break;
-            }
-		}
-
-		if (!found) {
+    public static void renderMenuButtonKeyTips(Graphics g, JCommandMenuButton menuButton,
+            CommandButtonLayoutManager layoutManager) {
+        Collection<KeyTipManager.KeyTipLink> currLinks = KeyTipManager.defaultManager()
+                .getCurrentlyShownKeyTips();
+        if (currLinks == null) {
             return;
         }
 
-		// System.out.println("Painting key tip for " + menuButton.getText());
+        boolean found = false;
+        for (KeyTipManager.KeyTipLink link : currLinks) {
+            found = (link.comp == menuButton);
+            if (found) {
+                break;
+            }
+        }
 
-		String actionKeyTip = menuButton.getActionKeyTip();
-		String popupKeyTip = menuButton.getPopupKeyTip();
-		CommandButtonLayoutManager.CommandButtonLayoutInfo layoutInfo = layoutManager
-				.getLayoutInfo(menuButton, g);
-		Point prefCenter = menuButton.getUI().getKeyTipAnchorCenterPoint();
-		if ((layoutInfo.iconRect.width > 0) && (actionKeyTip != null)) {
-			Dimension pref = KeyTipRenderingUtilities.getPrefSize(g.getFontMetrics(), actionKeyTip);
-			KeyTipRenderingUtilities.renderKeyTip(g, menuButton,
-					new Rectangle(prefCenter.x - pref.width / 2,
-							Math.min(prefCenter.y - pref.height / 2,
-									layoutInfo.actionClickArea.y + layoutInfo.actionClickArea.height
-											- pref.height),
-							pref.width, pref.height),
-					actionKeyTip, menuButton.getActionModel().isEnabled());
-		}
-		if ((layoutInfo.popupClickArea.width > 0) && (popupKeyTip != null)) {
-			Dimension pref = KeyTipRenderingUtilities.getPrefSize(g.getFontMetrics(), popupKeyTip);
-			if (menuButton
-					.getPopupOrientationKind() == CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD) {
-				if (menuButton.getCommandButtonKind() != CommandButtonKind.POPUP_ONLY) {
-					// vertically aligned with the action keytip along
-					// the right edge
-					KeyTipRenderingUtilities.renderKeyTip(g, menuButton, new Rectangle(
-							layoutInfo.popupClickArea.x + layoutInfo.popupClickArea.width
-									- pref.width - 4,
-							Math.min(prefCenter.y - pref.height / 2,
-									layoutInfo.actionClickArea.y + layoutInfo.actionClickArea.height
-											- pref.height),
-							pref.width, pref.height), popupKeyTip,
-							menuButton.getPopupModel().isEnabled());
-				} else {
-					KeyTipRenderingUtilities.renderKeyTip(g, menuButton, new Rectangle(
-							prefCenter.x - pref.width / 2,
-							Math.min(prefCenter.y - pref.height / 2,
-									layoutInfo.popupClickArea.y + layoutInfo.popupClickArea.height
-											- pref.height),
-							pref.width, pref.height), popupKeyTip,
-							menuButton.getPopupModel().isEnabled());
-				}
-			} else {
-				// horizontally centered along the bottom edge
-				KeyTipRenderingUtilities.renderKeyTip(g, menuButton, new Rectangle(
-						(layoutInfo.popupClickArea.x + layoutInfo.popupClickArea.width - pref.width)
-								/ 2,
-						layoutInfo.popupClickArea.y + layoutInfo.popupClickArea.height
-								- pref.height,
-						pref.width, pref.height), popupKeyTip,
-						menuButton.getPopupModel().isEnabled());
-			}
-		}
-	}
+        if (!found) {
+            return;
+        }
+
+        // System.out.println("Painting key tip for " + menuButton.getText());
+
+        CommandButtonLayoutManager.CommandButtonLayoutInfo layoutInfo =
+                layoutManager.getLayoutInfo(menuButton);
+        String actionKeyTip = menuButton.getActionKeyTip();
+        if ((layoutInfo.actionClickArea.width > 0) && (actionKeyTip != null)) {
+            Point actionPrefCenter = menuButton.getUI().getActionKeyTipAnchorCenterPoint();
+            Dimension pref = KeyTipRenderingUtilities.getPrefSize(g.getFontMetrics(), actionKeyTip);
+            KeyTipRenderingUtilities.renderKeyTip(g, menuButton,
+                    new Rectangle(actionPrefCenter.x - pref.width / 2,
+                            Math.min(actionPrefCenter.y - pref.height / 2,
+                                    layoutInfo.actionClickArea.y + layoutInfo.actionClickArea.height
+                                            - pref.height),
+                            pref.width, pref.height),
+                    actionKeyTip, menuButton.getActionModel().isEnabled());
+        }
+        String popupKeyTip = menuButton.getPopupKeyTip();
+        if ((layoutInfo.popupClickArea.width > 0) && (popupKeyTip != null)) {
+            Point popupPrefCenter = menuButton.getUI().getPopupKeyTipAnchorCenterPoint();
+            Dimension pref = KeyTipRenderingUtilities.getPrefSize(g.getFontMetrics(), popupKeyTip);
+            if (menuButton.getPopupOrientationKind() ==
+                    CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD) {
+                if (menuButton.getCommandButtonKind() != CommandButtonKind.POPUP_ONLY) {
+                    // vertically aligned with the action keytip along the right edge
+                    KeyTipRenderingUtilities.renderKeyTip(g, menuButton, new Rectangle(
+                                    layoutInfo.popupClickArea.x + layoutInfo.popupClickArea.width
+                                            - pref.width - 4,
+                                    Math.min(popupPrefCenter.y - pref.height / 2,
+                                            layoutInfo.actionClickArea.y +
+                                                    layoutInfo.actionClickArea.height - pref.height),
+                                    pref.width, pref.height), popupKeyTip,
+                            menuButton.getPopupModel().isEnabled());
+                } else {
+                    KeyTipRenderingUtilities.renderKeyTip(g, menuButton, new Rectangle(
+                                    popupPrefCenter.x - pref.width / 2,
+                                    Math.min(popupPrefCenter.y - pref.height / 2,
+                                            layoutInfo.popupClickArea.y +
+                                                    layoutInfo.popupClickArea.height - pref.height),
+                                    pref.width, pref.height), popupKeyTip,
+                            menuButton.getPopupModel().isEnabled());
+                }
+            } else {
+                // horizontally centered along the bottom edge
+                KeyTipRenderingUtilities.renderKeyTip(g, menuButton, new Rectangle(
+                                (layoutInfo.popupClickArea.x + layoutInfo.popupClickArea.width
+                                        - pref.width) / 2,
+                                layoutInfo.popupClickArea.y + layoutInfo.popupClickArea.height
+                                        - pref.height,
+                                pref.width, pref.height), popupKeyTip,
+                        menuButton.getPopupModel().isEnabled());
+            }
+        }
+    }
 }

@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
-import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
 
 import java.awt.*;
 import java.beans.PropertyChangeListener;
@@ -162,21 +162,30 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
     int getPreferredIconSize(AbstractCommandButton commandButton);
 
     /**
-     * Returns the anchor center point of the key tip of the specified command
+     * Returns the anchor center point of the action key tip of the specified command
      * button.
      *
      * @param commandButton Command button.
-     * @return The anchor center point of the key tip of the specified command
+     * @return The anchor center point of the action key tip of the specified command
      * button.
      */
-    Point getKeyTipAnchorCenterPoint(AbstractCommandButton commandButton);
+    Point getActionKeyTipAnchorCenterPoint(AbstractCommandButton commandButton);
+
+    /**
+     * Returns the anchor center point of the popup key tip of the specified command
+     * button.
+     *
+     * @param commandButton Command button.
+     * @return The anchor center point of the popup key tip of the specified command
+     * button.
+     */
+    Point getPopupKeyTipAnchorCenterPoint(AbstractCommandButton commandButton);
 
     /**
      * Returns the layout information for the specified command button.
      *
      * @param commandButton Command button.
-     * @param g             Graphics context.
      * @return The layout information for the specified command button.
      */
-    CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton commandButton, Graphics g);
+    CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton commandButton);
 }

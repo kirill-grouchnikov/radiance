@@ -79,7 +79,7 @@ public class TestCommandToggleButtons extends JFrame {
                 .setText(resourceBundle.getString("Short.text"))
                 .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
                 .setIconFactory(Edit_paste.factory())
-                .setDisabledIconFactory(() -> new FilteredResizableIcon(new Edit_paste(),
+                .setDisabledIconFactory(FilteredResizableIcon.factory(Edit_paste.factory(),
                         new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)))
                 .setToggle()
                 .setAction((CommandActionEvent e) -> System.out
@@ -91,7 +91,7 @@ public class TestCommandToggleButtons extends JFrame {
                 .setText(resourceBundle.getString("LongerLines.text"))
                 .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
                 .setIconFactory(Edit_paste.factory())
-                .setDisabledIconFactory(() -> new FilteredResizableIcon(new Edit_paste(),
+                .setDisabledIconFactory(FilteredResizableIcon.factory(Edit_paste.factory(),
                         new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)))
                 .setToggle()
                 .setAction((CommandActionEvent e) -> System.out

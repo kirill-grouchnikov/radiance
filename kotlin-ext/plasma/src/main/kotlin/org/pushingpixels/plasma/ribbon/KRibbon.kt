@@ -59,16 +59,15 @@ class KRibbonTaskbar {
         this@KRibbonTaskbar.components.add(this)
     }
 
-    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
-            init: KCommand.() -> Unit): KCommand {
+    fun command(init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        components.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip))
+        components.add(KCommandGroup.CommandConfig(command, null, null))
         return command
     }
 
-    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null, command: KCommand): KCommand {
-        components.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip))
+    fun command(command: KCommand): KCommand {
+        components.add(KCommandGroup.CommandConfig(command, null, null))
         return command
     }
 
@@ -150,7 +149,7 @@ class KRibbonFrame {
         }
 
         ribbonFrame = JRibbonFrame(title)
-        ribbonFrame.setApplicationIcon(applicationIconFactory?.createNewIcon())
+        ribbonFrame.setApplicationIcon(applicationIconFactory)
         for (task in tasks.tasks) {
             ribbonFrame.ribbon.addTask(task.asJavaRibbonTask())
         }
@@ -162,7 +161,7 @@ class KRibbonFrame {
         for (taskbarComponent in taskbar.components) {
             when (taskbarComponent) {
                 is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(
-                        taskbarComponent.toJavaProjection())
+                        taskbarComponent.toJavaCommand())
                 is ComponentProjection<*, *> -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent)
                 is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(RibbonGalleryProjection(
                         taskbarComponent.content.asJavaRibbonGalleryContentModel(),

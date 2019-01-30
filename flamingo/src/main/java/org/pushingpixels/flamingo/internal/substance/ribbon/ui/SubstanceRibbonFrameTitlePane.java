@@ -32,12 +32,12 @@ package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
-import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.flamingo.api.common.projection.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonLayoutManagerSmall;
-import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
+import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -154,7 +154,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         }
     }
 
-    private class TaskbarOverflowPopupPanel extends JPopupPanel {
+    public class TaskbarOverflowPopupPanel extends JPopupPanel {
         private TaskbarOverflowPopupPanel(List<Component> overflowComponents,
                 Dimension size, boolean hasScrolling) {
             this.setLayout(new BorderLayout());
@@ -179,13 +179,20 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         }
     }
 
+    public static class TaskbarOverflowButton extends JCommandButton {
+        public TaskbarOverflowButton(Projection<AbstractCommandButton, ? extends Command,
+                CommandButtonPresentationModel> projection) {
+            super(projection);
+        }
+    }
+
     /**
      * The taskbar panel that holds the taskbar components.
      *
      * @author Kirill Grouchnikov
      */
     private class TaskbarPanel extends JPanel {
-        private AbstractCommandButton overflowButton;
+        private TaskbarOverflowButton overflowButton;
         private List<Component> overflowComponents;
 
         /**
@@ -193,6 +200,9 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
          */
         private TaskbarPanel() {
             super(new TaskbarLayout());
+
+            this.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
+                    getControlFont());
 
             this.overflowComponents = new ArrayList<>();
             this.setOpaque(false);
@@ -239,7 +249,8 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                 SubstanceCortex.ComponentScope.setButtonStraightSides(button,
                         EnumSet.allOf(SubstanceSlices.Side.class));
             });
-            this.overflowButton = overflowProjection.buildComponent();
+            overflowProjection.setComponentSupplier(projection -> TaskbarOverflowButton::new);
+            this.overflowButton = (TaskbarOverflowButton) overflowProjection.buildComponent();
         }
 
         @Override
@@ -339,6 +350,10 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                 }
             }
             this.add(this.overflowButton);
+            this.overflowButton.setActionKeyTip(getRibbon().getTaskbarKeyTipPolicy()
+                    .getOverflowButtonKeyTip());
+
+            updateKeyTips();
             revalidate();
         }
 
@@ -349,7 +364,37 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             for (Component component : getRibbon().getTaskbarComponents()) {
                 this.add(component);
             }
+
+            updateKeyTips();
             revalidate();
+        }
+
+        private void updateKeyTips() {
+            RibbonTaskbarKeyTipPolicy policy = getRibbon().getTaskbarKeyTipPolicy();
+            List<Component> taskbarComponents = getRibbon().getTaskbarComponents();
+            int index = 1;
+            for (Component taskbarComp : taskbarComponents) {
+                if (taskbarComp instanceof JCommandToggleButton) {
+                    ((JCommandToggleButton) taskbarComp).setActionKeyTip(
+                            policy.getContentKeyTip(index++));
+                } else if (taskbarComp instanceof JCommandButton) {
+                    JCommandButton button = (JCommandButton) taskbarComp;
+                    switch (button.getCommandButtonKind()) {
+                        case ACTION_ONLY:
+                            button.setActionKeyTip(policy.getContentKeyTip(index++));
+                            break;
+                        case ACTION_AND_POPUP_MAIN_ACTION:
+                        case ACTION_AND_POPUP_MAIN_POPUP:
+                            button.setActionKeyTip(policy.getContentKeyTip(index++));
+                            button.setPopupKeyTip(policy.getContentKeyTip(index++));
+                            break;
+                        case POPUP_ONLY:
+                            button.setPopupKeyTip(policy.getContentKeyTip(index++));
+                    }
+                } else if (taskbarComp instanceof JRibbonComponent) {
+                    ((JRibbonComponent) taskbarComp).setKeyTip(policy.getContentKeyTip(index++));
+                }
+            }
         }
     }
 
@@ -670,6 +715,10 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                 }
             }
         }
+    }
+
+    public Container getTaskbarPanel() {
+        return this.taskbarPanel;
     }
 
     /**

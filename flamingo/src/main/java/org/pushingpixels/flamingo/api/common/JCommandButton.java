@@ -795,37 +795,9 @@ public class JCommandButton extends AbstractCommandButton {
      * @see #setActionKeyTip(String)
      */
     public void setPopupKeyTip(String popupKeyTip) {
-        if (!canHaveBothKeyTips() && (popupKeyTip != null)
-                && (this.actionKeyTip != null)) {
-            throw new IllegalArgumentException(
-                    "Action *and* popup keytips are not supported at the same time");
-        }
-
         String old = this.popupKeyTip;
         this.popupKeyTip = popupKeyTip;
         this.firePropertyChange("popupKeyTip", old, this.popupKeyTip);
-    }
-
-    @Override
-    public void setActionKeyTip(String actionKeyTip) {
-        if (!canHaveBothKeyTips() && (popupKeyTip != null)
-                && (this.actionKeyTip != null)) {
-            throw new IllegalArgumentException(
-                    "Action *and* popup keytips are not supported at the same time");
-        }
-
-        super.setActionKeyTip(actionKeyTip);
-    }
-
-    /**
-     * Returns indication whether key tips can be installed on both action and
-     * popup areas of this button. This method is for internal use only.
-     *
-     * @return <code>true</code> if key tips can be installed on both action and
-     * popup areas of this button, <code>false</code> otherwise.
-     */
-    boolean canHaveBothKeyTips() {
-        return false;
     }
 
     /**

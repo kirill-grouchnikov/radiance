@@ -33,6 +33,7 @@ import org.pushingpixels.neon.NeonCortex;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.font.FontRenderContext;
 import java.awt.image.BufferedImage;
 import java.util.*;
 
@@ -47,6 +48,7 @@ import java.util.*;
 public class SubstanceMetricsUtilities {
     private static BufferedImage offscreen = NeonCortex.getBlankImage(1, 1);
     private static Map<Font, FontMetrics> metricsMap = new SoftHashMap<>();
+    private static Map<Font, FontRenderContext> renderContextMap = new SoftHashMap<>();
 
     private static Rectangle iconR = new Rectangle();
     private static Rectangle textR = new Rectangle();
@@ -65,6 +67,22 @@ public class SubstanceMetricsUtilities {
         g2d.dispose();
 
         metricsMap.put(font, result);
+
+        return result;
+    }
+
+    public static FontRenderContext getFontRenderContext(Font font) {
+        if (renderContextMap.containsKey(font)) {
+            return renderContextMap.get(font);
+        }
+
+        Graphics2D g2d = offscreen.createGraphics();
+        NeonCortex.installDesktopHints(g2d);
+        g2d.setFont(font);
+        FontRenderContext result = g2d.getFontRenderContext();
+        g2d.dispose();
+
+        renderContextMap.put(font, result);
 
         return result;
     }

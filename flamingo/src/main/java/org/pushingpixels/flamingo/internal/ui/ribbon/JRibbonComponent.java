@@ -282,4 +282,9 @@ public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
     public void setResizingAware(boolean isResizingAware) {
         this.isResizingAware = isResizingAware;
     }
+
+    @Override
+    public void setFont(Font font) {
+        super.setFont(font);
+    }
 }

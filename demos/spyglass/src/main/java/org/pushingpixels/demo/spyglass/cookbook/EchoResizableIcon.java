@@ -72,16 +72,17 @@ public class EchoResizableIcon implements ResizableIcon {
                 // Compute perceived color brightness based on the individual RGB components
                 // See https://en.wikipedia.org/wiki/Relative_luminance
                 int brightness = (2126 * r + 7152 * g + 722 * b) / 10000;
-                return a | (inverseGradient.getColor(brightness/255.0f) & 0x00ffffff);
+                return a | (inverseGradient.getColor(brightness / 255.0f) & 0x00ffffff);
             }
         };
 
         iconShadowFilter = new CompoundFilter(blurFilter, inverseFilter);
     }
 
-    public EchoResizableIcon(ResizableIcon original) {
-        this.original = original;
-        this.echo = new FilteredResizableIcon(original, iconShadowFilter);
+    public EchoResizableIcon(ResizableIconFactory originalFactory) {
+        this.original = originalFactory.createNewIcon();
+        this.echo = FilteredResizableIcon.factory(originalFactory, iconShadowFilter)
+                .createNewIcon();
     }
 
     @Override
@@ -107,7 +108,6 @@ public class EchoResizableIcon implements ResizableIcon {
     }
 
     public static ResizableIconFactory factory(ResizableIconFactory delegate) {
-        return () -> new EchoResizableIcon(delegate.createNewIcon());
+        return () -> new EchoResizableIcon(delegate);
     }
-
 }

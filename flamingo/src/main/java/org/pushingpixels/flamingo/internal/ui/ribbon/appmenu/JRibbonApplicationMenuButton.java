@@ -34,6 +34,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationMode
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.flamingo.internal.ui.common.FlamingoInternalButton;
+import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,19 +61,19 @@ public class JRibbonApplicationMenuButton extends JCommandButton
                         }
 
                         @Override
-                        public CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton
-                                commandButton, Graphics g) {
+                        public CommandButtonLayoutInfo getLayoutInfo(
+                                AbstractCommandButton commandButton) {
                             CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
                             result.actionClickArea = new Rectangle(0, 0, 0, 0);
                             result.popupActionRect = new Rectangle(0, 0, 0, 0);
                             result.isTextInActionArea = false;
 
-                            FontMetrics fm = g.getFontMetrics();
+                            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                                    commandButton.getFont());
                             int labelHeight = fm.getAscent() + fm.getDescent();
 
                             int availableWidth = commandButton.getWidth();
-                            int textWidth = (int) fm.getStringBounds(
-                                    commandButton.getText(), g).getWidth();
+                            int textWidth = fm.stringWidth(commandButton.getText());
 
                             TextLayoutInfo lineLayoutInfo = new TextLayoutInfo();
                             lineLayoutInfo.text = commandButton.getText();
@@ -103,7 +104,13 @@ public class JRibbonApplicationMenuButton extends JCommandButton
                         }
 
                         @Override
-                        public Point getKeyTipAnchorCenterPoint(
+                        public Point getActionKeyTipAnchorCenterPoint(
+                                AbstractCommandButton commandButton) {
+                            return null;
+                        }
+
+                        @Override
+                        public Point getPopupKeyTipAnchorCenterPoint(
                                 AbstractCommandButton commandButton) {
                             // center at the middle of the bottom edge to be consistent with
                             // the location of key tips of the task toggle buttons

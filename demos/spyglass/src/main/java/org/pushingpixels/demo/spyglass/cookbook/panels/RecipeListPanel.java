@@ -51,15 +51,19 @@ public class RecipeListPanel extends SingleContentPanel {
                 rows("p").
                 padding(new EmptyBorder(8, 4, 0, 4));
 
-        JLabel smaller = new JLabel(new EchoResizableIcon(
-                new ScaledResizableIcon(ic_format_size_white_24px.of(16, 16), 0.6f)));
+        EchoResizableIcon smallerIcon = new EchoResizableIcon(
+                ScaledResizableIcon.factory(ic_format_size_white_24px.factory(), 0.6f));
+        smallerIcon.setDimension(new Dimension(16, 16));
+        JLabel smaller = new JLabel(smallerIcon);
         titlePaneBuilder.add(smaller).xy(1, 1);
 
         JSlider slider = new JSlider(0, 100, 80);
         titlePaneBuilder.add(slider).xy(3, 1);
 
-        JLabel bigger = new JLabel(new EchoResizableIcon(
-                new ScaledResizableIcon(ic_format_size_white_24px.of(16, 16), 0.8f)));
+        EchoResizableIcon biggerIcon = new EchoResizableIcon(
+                ScaledResizableIcon.factory(ic_format_size_white_24px.factory(), 0.8f));
+        smallerIcon.setDimension(new Dimension(16, 16));
+        JLabel bigger = new JLabel(biggerIcon);
         titlePaneBuilder.add(bigger).xy(5, 1);
 
         CommandToggleGroupModel viewGroup = new CommandToggleGroupModel();

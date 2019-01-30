@@ -149,6 +149,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             this.commandButton.setFont(SubstanceCortex.GlobalScope.getFontPolicy().
                     getFontSet(null).getControlFont());
         }
+        this.syncIconDimension();
     }
 
     protected void updateBorder() {
@@ -531,8 +532,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         if (this.layoutInfo != null) {
             return this.layoutInfo;
         }
-        this.layoutInfo = this.layoutManager.getLayoutInfo(commandButton,
-                this.commandButton.getGraphics());
+        this.layoutInfo = this.layoutManager.getLayoutInfo(commandButton);
         return this.layoutInfo;
     }
 
@@ -703,12 +703,14 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     protected void syncIconDimension() {
         ResizableIcon icon = this.commandButton.getIcon();
-        CommandButtonPresentationState commandButtonState = this.commandButton.getPresentationState();
+        CommandButtonPresentationState commandButtonState =
+                this.commandButton.getPresentationState();
 
         this.layoutManager = commandButtonState.createLayoutManager(this.commandButton);
 
-        if (icon == null)
+        if (icon == null) {
             return;
+        }
 
         int maxHeight = layoutManager.getPreferredIconSize(this.commandButton);
         if (maxHeight < 0) {
@@ -722,7 +724,12 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     }
 
     @Override
-    public Point getKeyTipAnchorCenterPoint() {
-        return this.layoutManager.getKeyTipAnchorCenterPoint(this.commandButton);
+    public Point getActionKeyTipAnchorCenterPoint() {
+        return this.layoutManager.getActionKeyTipAnchorCenterPoint(this.commandButton);
+    }
+
+    @Override
+    public Point getPopupKeyTipAnchorCenterPoint() {
+        return this.layoutManager.getPopupKeyTipAnchorCenterPoint(this.commandButton);
     }
 }

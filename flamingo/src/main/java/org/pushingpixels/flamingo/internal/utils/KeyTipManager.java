@@ -33,6 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupInfo;
 import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.internal.substance.ribbon.ui.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.*;
 
@@ -42,8 +43,8 @@ import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.annotation.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.concurrent.*;
 
 public class KeyTipManager {
@@ -185,7 +186,8 @@ public class KeyTipManager {
             appMenuButtonLink.comp = appMenuButton;
             appMenuButtonLink.keyTipString = ribbon.getApplicationMenuCommandProjection()
                     .getPresentationModel().getPopupKeyTip();
-            appMenuButtonLink.prefAnchorPoint = appMenuButton.getUI().getKeyTipAnchorCenterPoint();
+            appMenuButtonLink.prefAnchorPoint =
+                    appMenuButton.getUI().getPopupKeyTipAnchorCenterPoint();
             appMenuButtonLink.onActivated = (ActionEvent e) -> appMenuButton.doPopupClick();
             appMenuButtonLink.enabled = true;
             appMenuButtonLink.traversal = () -> {
@@ -209,11 +211,29 @@ public class KeyTipManager {
         }
 
         // taskbar panel components
-        for (Component taskbarComp : ribbon.getTaskbarComponents()) {
+        SubstanceRibbonFrameTitlePane titlePane = (SubstanceRibbonFrameTitlePane)
+                ((SubstanceRibbonRootPaneUI) ribbonFrame.getRootPane().getUI()).getTitlePane();
+        for (Component taskbarComp : titlePane.getTaskbarPanel().getComponents()) {
             if (taskbarComp instanceof AbstractCommandButton) {
                 AbstractCommandButton cb = (AbstractCommandButton) taskbarComp;
                 KeyTipLink actionLink = getCommandButtonActionLink(cb);
                 if (actionLink != null) {
+                    if (taskbarComp instanceof SubstanceRibbonFrameTitlePane.TaskbarOverflowButton) {
+                        actionLink.traversal = () -> {
+                            // collect key tips of all controls in the taskbar overflow popup
+                            List<PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();
+                            if (popups.size() > 0) {
+                                PopupInfo last = popups.get(popups.size() - 1);
+                                JPopupPanel popupPanel = last.getPopupPanel();
+                                KeyTipChain chain = new KeyTipChain(popupPanel);
+                                populateChain(last.getPopupPanel(), chain);
+                                chain.parent = actionLink.traversal;
+                                return chain;
+                            }
+                            return null;
+                        };
+                    }
+
                     root.addLink(actionLink);
                 }
                 if (taskbarComp instanceof JCommandButton) {
@@ -359,7 +379,7 @@ public class KeyTipManager {
             final KeyTipLink link = new KeyTipLink();
             link.comp = cb;
             link.keyTipString = cb.getActionKeyTip();
-            link.prefAnchorPoint = cb.getUI().getKeyTipAnchorCenterPoint();
+            link.prefAnchorPoint = cb.getUI().getActionKeyTipAnchorCenterPoint();
             link.onActivated = (ActionEvent e) -> cb.doActionClick();
             link.enabled = cb.getActionModel().isEnabled();
             if (cb.getClass().isAnnotationPresent(KeyTipManager.HasNextKeyTipChain.class)) {
@@ -427,7 +447,7 @@ public class KeyTipManager {
             final KeyTipLink link = new KeyTipLink();
             link.comp = cb;
             link.keyTipString = cb.getPopupKeyTip();
-            link.prefAnchorPoint = cb.getUI().getKeyTipAnchorCenterPoint();
+            link.prefAnchorPoint = cb.getUI().getPopupKeyTipAnchorCenterPoint();
             link.onActivated = (ActionEvent e) -> {
                 if (cb instanceof JCommandMenuButton) {
                     ((JCommandMenuButton) cb).doActionRollover();

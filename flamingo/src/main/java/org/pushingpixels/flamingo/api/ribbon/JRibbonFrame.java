@@ -43,7 +43,7 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.utils.*;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager.KeyTipEvent;
 import org.pushingpixels.neon.*;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
@@ -172,8 +172,15 @@ public class JRibbonFrame extends JFrame {
                 NeonCortex.installDesktopHints(g2d);
 
                 for (KeyTipManager.KeyTipLink keyTip : keyTips) {
-                    // don't display keytips on components in popup panels
-                    if (SwingUtilities.getAncestorOfClass(JPopupPanel.class, keyTip.comp) != null) {
+                    // Components in generic popup panels do not display keytips as that interferes
+                    // with the popup layer in the root pane. However, there is a special treatment
+                    // for the taskbar overflow popup where the height is limited and we push the
+                    // key tips to be displayed below the popup.
+                    boolean isInPopup = (SwingUtilities.getAncestorOfClass(
+                            JPopupPanel.class, keyTip.comp) != null);
+                    if (isInPopup && (SwingUtilities.getAncestorOfClass(
+                            SubstanceRibbonFrameTitlePane.TaskbarOverflowPopupPanel.class,
+                            keyTip.comp) == null)) {
                         continue;
                     }
 
@@ -192,8 +199,7 @@ public class JRibbonFrame extends JFrame {
                     Container bandControlPanel = SwingUtilities
                             .getAncestorOfClass(AbstractBandControlPanel.class, keyTip.comp);
                     if (bandControlPanel != null) {
-                        // special case for controls in threesome
-                        // ribbon band rows
+                        // special case for controls in threesome ribbon band rows
                         if (hasClientPropertySetToTrue(keyTip.comp,
                                 BasicBandControlPanelUI.TOP_ROW)) {
                             loc = SwingUtilities.convertPoint(keyTip.comp, prefCenter,
@@ -218,6 +224,29 @@ public class JRibbonFrame extends JFrame {
                             loc = SwingUtilities.convertPoint(bandControlPanel, loc, this);
                             // prefCenter.y = keyTip.comp.getHeight();
                         }
+                    }
+
+                    Container taskbarOverflowPanel = SwingUtilities
+                            .getAncestorOfClass(
+                                    SubstanceRibbonFrameTitlePane.TaskbarOverflowPopupPanel.class,
+                                    keyTip.comp);
+                    if (taskbarOverflowPanel != null) {
+                        // special case for controls in taskbar overflow - push them down
+                        loc = SwingUtilities.convertPoint(keyTip.comp, prefCenter,
+                                taskbarOverflowPanel);
+                        loc.y = pref.height / 2 + taskbarOverflowPanel.getHeight();
+                        loc = SwingUtilities.convertPoint(taskbarOverflowPanel, loc, this);
+                    }
+
+                    Container titlePane = SwingUtilities
+                            .getAncestorOfClass(SubstanceRibbonFrameTitlePane.class,
+                                    keyTip.comp);
+                    if (titlePane != null) {
+                        // special case for controls in title pane (taskbar)
+                        loc = SwingUtilities.convertPoint(keyTip.comp, prefCenter,
+                                titlePane);
+                        loc.y = pref.height / 2 + titlePane.getHeight() / 2;
+                        loc = SwingUtilities.convertPoint(titlePane, loc, this);
                     }
 
                     KeyTipRenderingUtilities.renderKeyTip(
@@ -597,72 +626,24 @@ public class JRibbonFrame extends JFrame {
         this.wasSetIconImagesCalled = true;
     }
 
-    public synchronized void setApplicationIcon(final ResizableIcon icon) {
-        new Thread(() -> {
-            // still loading?
-            if (icon instanceof AsynchronousLoading) {
-                AsynchronousLoading async = (AsynchronousLoading) icon;
-                if (async.isLoading()) {
-                    final CountDownLatch latch = new CountDownLatch(1);
-                    final boolean[] status = new boolean[1];
-                    AsynchronousLoadListener all = (boolean success) -> {
-                        status[0] = success;
-                        latch.countDown();
-                    };
-                    async.addAsynchronousLoadListener(all);
-                    try {
-                        latch.await();
-                    } catch (InterruptedException ie) {
-                    }
-                    async.removeAsynchronousLoadListener(all);
-                }
-            }
-            setApplicationAndMenuButtonIcon(icon);
-        }).start();
+    public synchronized void setApplicationIcon(final ResizableIconFactory iconFactory) {
+        if (iconFactory == null) {
+            return;
+        }
+        // Important - the work to convert the resizable icon content to images suited
+        // to be passed to the underlying Swing / platform APIs needs to happen off the
+        // UI thread.
+        new Thread(() -> setApplicationAndMenuButtonIcon(iconFactory)).start();
     }
 
-    private void setApplicationAndMenuButtonIcon(final ResizableIcon icon) {
+    private void setApplicationAndMenuButtonIcon(final ResizableIconFactory iconFactory) {
+        final Image icon16 = getImage(iconFactory, 16);
         if (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS) {
-            final Image image16 = getImage(icon, 16);
-            final Image image128 = getImage(icon, 128);
-            SwingUtilities.invokeLater(() -> {
-                if (image16 != null) {
-                    setLegacyIconImages(Arrays.asList(image16));
-                }
-                if (image128 != null) {
-                    try {
-                        Class appClass = Class.forName("com.apple.eawt.Application");
-                        if (appClass != null) {
-                            Object appInstance = appClass.newInstance();
-                            Method setDockImageMethod = appClass
-                                    .getDeclaredMethod("setDockIconImage", Image.class);
-                            if (setDockImageMethod != null) {
-                                setDockImageMethod.invoke(appInstance, image128);
-                            }
-                        }
-                    } catch (Throwable t) {
-                        t.printStackTrace();
-                        // give up
-                    }
-                }
-            });
+            SwingUtilities.invokeLater(() -> setLegacyIconImages(
+                    Collections.singletonList(icon16)));
         } else {
-            final List<Image> images = new ArrayList<>();
-            Image icon16 = getImage(icon, 16);
-            if (icon16 != null) {
-                images.add(icon16);
-            }
-            Image icon32 = getImage(icon, 32);
-            if (icon32 != null) {
-                images.add(icon32);
-            }
-            Image icon64 = getImage(icon, 64);
-            if (icon64 != null) {
-                images.add(icon64);
-            }
-            if (!images.isEmpty()) {
-                SwingUtilities.invokeLater(() -> setLegacyIconImages(images));
-            }
+            SwingUtilities.invokeLater(() -> setLegacyIconImages(Arrays.asList(icon16,
+                    getImage(iconFactory, 32), getImage(iconFactory, 64))));
         }
     }
 
@@ -673,7 +654,8 @@ public class JRibbonFrame extends JFrame {
         super.setIconImages(images);
     }
 
-    private static Image getImage(ResizableIcon icon, int size) {
+    private static Image getImage(ResizableIconFactory iconFactory, int size) {
+        ResizableIcon icon = iconFactory.createNewIcon();
         icon.setDimension(new Dimension(size, size));
         if (icon instanceof AsynchronousLoading) {
             AsynchronousLoading async = (AsynchronousLoading) icon;

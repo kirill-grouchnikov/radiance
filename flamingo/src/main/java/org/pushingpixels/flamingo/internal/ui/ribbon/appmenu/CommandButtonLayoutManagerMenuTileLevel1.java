@@ -39,8 +39,7 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 
-public class CommandButtonLayoutManagerMenuTileLevel1 implements
-		CommandButtonLayoutManager {
+public class CommandButtonLayoutManagerMenuTileLevel1 implements CommandButtonLayoutManager {
 
 	@Override
 	public int getPreferredIconSize(AbstractCommandButton commandButton) {
@@ -75,18 +74,35 @@ public class CommandButtonLayoutManagerMenuTileLevel1 implements
 	}
 
 	@Override
-	public Point getKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
-		Insets ins = commandButton.getInsets();
-		int height = commandButton.getHeight();
-		ResizableIcon buttonIcon = commandButton.getIcon();
-		// bottom-right corner of the icon area
-		return new Point(ins.left + buttonIcon.getIconWidth(), height - ins.top
-				- ins.bottom);
+	public Point getActionKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
+		CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
+		if (commandButton.getComponentOrientation().isLeftToRight()) {
+			// bottom-right corner of the icon area
+			return new Point(layoutInfo.iconRect.x + layoutInfo.iconRect.width,
+					layoutInfo.actionClickArea.y + layoutInfo.actionClickArea.height);
+		} else {
+			// bottom-left corner of the icon area
+			return new Point(layoutInfo.iconRect.x,
+					layoutInfo.actionClickArea.y + layoutInfo.actionClickArea.height);
+		}
 	}
 
 	@Override
-	public CommandButtonLayoutInfo getLayoutInfo(
-			AbstractCommandButton commandButton, Graphics g) {
+	public Point getPopupKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
+		CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
+		if (commandButton.getComponentOrientation().isLeftToRight()) {
+			// bottom-left corner of the popup action area
+			return new Point(layoutInfo.popupActionRect.x,
+					layoutInfo.popupClickArea.y + layoutInfo.popupClickArea.height);
+		} else {
+			// bottom-right corner of the popup action area
+			return new Point(layoutInfo.popupActionRect.x + layoutInfo.popupActionRect.width,
+					layoutInfo.popupClickArea.y + layoutInfo.popupClickArea.height);
+		}
+	}
+
+	@Override
+	public CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton commandButton) {
 		CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
 
 		result.actionClickArea = new Rectangle(0, 0, 0, 0);
@@ -100,7 +116,7 @@ public class CommandButtonLayoutManagerMenuTileLevel1 implements
 		int width = commandButton.getWidth();
 		int height = commandButton.getHeight();
 
-		FontMetrics fm = g.getFontMetrics();
+		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
 		int labelHeight = fm.getAscent() + fm.getDescent();
 
 		JCommandButton.CommandButtonKind buttonKind = (commandButton instanceof JCommandButton) ? ((JCommandButton) commandButton)
@@ -171,10 +187,10 @@ public class CommandButtonLayoutManagerMenuTileLevel1 implements
 					.getText());
 			lineLayoutInfo.textRect.height = labelHeight;
 
-			result.textLayoutInfoList = new ArrayList<TextLayoutInfo>();
+			result.textLayoutInfoList = new ArrayList<>();
 			result.textLayoutInfoList.add(lineLayoutInfo);
 
-			x += fm.getStringBounds(commandButton.getText(), g).getWidth();
+			x += fm.stringWidth(commandButton.getText());
 			if (buttonKind == JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION) {
 				// popup click areas are right aligned
 				result.actionClickArea.x = 0;
