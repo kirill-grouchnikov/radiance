@@ -1667,7 +1667,7 @@ fun getApplicationMenuRichTooltipIcon(): ResizableIconFactory {
     return (ResizableIconFactory { appMenuRichTooltipMainIcon })
 }
 
-fun main(args: Array<String>) {
+fun main() {
     SwingUtilities.invokeLater {
         JFrame.setDefaultLookAndFeelDecorated(true)
         JDialog.setDefaultLookAndFeelDecorated(true)

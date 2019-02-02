@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;

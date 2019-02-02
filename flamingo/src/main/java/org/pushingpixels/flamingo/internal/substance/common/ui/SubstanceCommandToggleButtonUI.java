@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.flamingo.internal.substance.common.GlowingResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.utils.*;
-import org.pushingpixels.flamingo.internal.ui.common.*;
+import org.pushingpixels.flamingo.internal.ui.common.BasicCommandToggleButtonUI;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.*;

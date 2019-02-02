@@ -47,7 +47,7 @@ import java.util.*
 import javax.swing.JFrame
 import javax.swing.SwingUtilities
 
-fun main(args: Array<String>) {
+fun main() {
     SwingUtilities.invokeLater {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 

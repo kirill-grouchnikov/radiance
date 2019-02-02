@@ -47,7 +47,7 @@ import javax.swing.JFrame
 import javax.swing.SwingUtilities
 import javax.swing.text.StyleConstants
 
-fun main(args: Array<String>) {
+fun main() {
     SwingUtilities.invokeLater {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 

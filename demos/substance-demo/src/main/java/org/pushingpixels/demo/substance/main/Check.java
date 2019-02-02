@@ -643,8 +643,9 @@ public class Check extends JFrame {
 
         @Override
         public TabOverviewKind getOverviewKind(JTabbedPane tabPane) {
-            if (tabOverviewKind == null)
+            if (tabOverviewKind == null) {
                 return super.getOverviewKind(tabPane);
+            }
             return tabOverviewKind;
         }
     }

@@ -36,7 +36,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 
 public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutManager {
@@ -68,10 +67,6 @@ public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutMa
 
 		widthFull = Math.max(widthFull, heightFull);
 		return new Dimension(bx + widthFull, heightFull);
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
 	}
 
 	@Override

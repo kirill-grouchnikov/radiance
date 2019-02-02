@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
 
 import java.awt.*;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 import java.util.List;
 
 /**
@@ -188,4 +188,8 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
      * @return The layout information for the specified command button.
      */
     CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton commandButton);
+
+    @Override
+    default void propertyChange(PropertyChangeEvent evt) {
+    }
 }

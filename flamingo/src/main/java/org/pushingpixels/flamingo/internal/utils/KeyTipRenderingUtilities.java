@@ -100,7 +100,7 @@ public class KeyTipRenderingUtilities {
         g2d.dispose();
     }
 
-    public static void renderMenuButtonKeyTips(Graphics g, JCommandMenuButton menuButton,
+    public static void renderButtonKeyTips(Graphics g, AbstractCommandButton button,
             CommandButtonLayoutManager layoutManager) {
         Collection<KeyTipManager.KeyTipLink> currLinks = KeyTipManager.defaultManager()
                 .getCurrentlyShownKeyTips();
@@ -110,7 +110,7 @@ public class KeyTipRenderingUtilities {
 
         boolean found = false;
         for (KeyTipManager.KeyTipLink link : currLinks) {
-            found = (link.comp == menuButton);
+            found = (link.comp == button);
             if (found) {
                 break;
             }
@@ -123,53 +123,58 @@ public class KeyTipRenderingUtilities {
         // System.out.println("Painting key tip for " + menuButton.getText());
 
         CommandButtonLayoutManager.CommandButtonLayoutInfo layoutInfo =
-                layoutManager.getLayoutInfo(menuButton);
-        String actionKeyTip = menuButton.getActionKeyTip();
+                layoutManager.getLayoutInfo(button);
+        String actionKeyTip = button.getActionKeyTip();
         if ((layoutInfo.actionClickArea.width > 0) && (actionKeyTip != null)) {
-            Point actionPrefCenter = menuButton.getUI().getActionKeyTipAnchorCenterPoint();
+            Point actionPrefCenter = button.getUI().getActionKeyTipAnchorCenterPoint();
             Dimension pref = KeyTipRenderingUtilities.getPrefSize(g.getFontMetrics(), actionKeyTip);
-            KeyTipRenderingUtilities.renderKeyTip(g, menuButton,
+            KeyTipRenderingUtilities.renderKeyTip(g, button,
                     new Rectangle(actionPrefCenter.x - pref.width / 2,
                             Math.min(actionPrefCenter.y - pref.height / 2,
                                     layoutInfo.actionClickArea.y + layoutInfo.actionClickArea.height
                                             - pref.height),
                             pref.width, pref.height),
-                    actionKeyTip, menuButton.getActionModel().isEnabled());
+                    actionKeyTip, button.getActionModel().isEnabled());
         }
-        String popupKeyTip = menuButton.getPopupKeyTip();
-        if ((layoutInfo.popupClickArea.width > 0) && (popupKeyTip != null)) {
-            Point popupPrefCenter = menuButton.getUI().getPopupKeyTipAnchorCenterPoint();
-            Dimension pref = KeyTipRenderingUtilities.getPrefSize(g.getFontMetrics(), popupKeyTip);
-            if (menuButton.getPopupOrientationKind() ==
-                    CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD) {
-                if (menuButton.getCommandButtonKind() != CommandButtonKind.POPUP_ONLY) {
-                    // vertically aligned with the action keytip along the right edge
-                    KeyTipRenderingUtilities.renderKeyTip(g, menuButton, new Rectangle(
-                                    layoutInfo.popupClickArea.x + layoutInfo.popupClickArea.width
-                                            - pref.width - 4,
-                                    Math.min(popupPrefCenter.y - pref.height / 2,
-                                            layoutInfo.actionClickArea.y +
-                                                    layoutInfo.actionClickArea.height - pref.height),
-                                    pref.width, pref.height), popupKeyTip,
-                            menuButton.getPopupModel().isEnabled());
+
+        if (button instanceof JCommandButton) {
+            JCommandButton commandButton = (JCommandButton) button;
+            String popupKeyTip = commandButton.getPopupKeyTip();
+            if ((layoutInfo.popupClickArea.width > 0) && (popupKeyTip != null)) {
+                Point popupPrefCenter = button.getUI().getPopupKeyTipAnchorCenterPoint();
+                Dimension pref = KeyTipRenderingUtilities.getPrefSize(g.getFontMetrics(),
+                        popupKeyTip);
+                if (commandButton.getPopupOrientationKind() ==
+                        CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD) {
+                    if (commandButton.getCommandButtonKind() != CommandButtonKind.POPUP_ONLY) {
+                        // vertically aligned with the action keytip along the right edge
+                        KeyTipRenderingUtilities.renderKeyTip(g, button, new Rectangle(
+                                        layoutInfo.popupClickArea.x + layoutInfo.popupClickArea.width
+                                                - pref.width - 4,
+                                        Math.min(popupPrefCenter.y - pref.height / 2,
+                                                layoutInfo.actionClickArea.y +
+                                                        layoutInfo.actionClickArea.height - pref.height),
+                                        pref.width, pref.height), popupKeyTip,
+                                commandButton.getPopupModel().isEnabled());
+                    } else {
+                        KeyTipRenderingUtilities.renderKeyTip(g, button, new Rectangle(
+                                        popupPrefCenter.x - pref.width / 2,
+                                        Math.min(popupPrefCenter.y - pref.height / 2,
+                                                layoutInfo.popupClickArea.y +
+                                                        layoutInfo.popupClickArea.height - pref.height),
+                                        pref.width, pref.height), popupKeyTip,
+                                commandButton.getPopupModel().isEnabled());
+                    }
                 } else {
-                    KeyTipRenderingUtilities.renderKeyTip(g, menuButton, new Rectangle(
-                                    popupPrefCenter.x - pref.width / 2,
-                                    Math.min(popupPrefCenter.y - pref.height / 2,
-                                            layoutInfo.popupClickArea.y +
-                                                    layoutInfo.popupClickArea.height - pref.height),
+                    // horizontally centered along the bottom edge
+                    KeyTipRenderingUtilities.renderKeyTip(g, button, new Rectangle(
+                                    (layoutInfo.popupClickArea.x + layoutInfo.popupClickArea.width
+                                            - pref.width) / 2,
+                                    layoutInfo.popupClickArea.y + layoutInfo.popupClickArea.height
+                                            - pref.height,
                                     pref.width, pref.height), popupKeyTip,
-                            menuButton.getPopupModel().isEnabled());
+                            commandButton.getPopupModel().isEnabled());
                 }
-            } else {
-                // horizontally centered along the bottom edge
-                KeyTipRenderingUtilities.renderKeyTip(g, menuButton, new Rectangle(
-                                (layoutInfo.popupClickArea.x + layoutInfo.popupClickArea.width
-                                        - pref.width) / 2,
-                                layoutInfo.popupClickArea.y + layoutInfo.popupClickArea.height
-                                        - pref.height,
-                                pref.width, pref.height), popupKeyTip,
-                        menuButton.getPopupModel().isEnabled());
             }
         }
     }

@@ -456,28 +456,28 @@ public class KeyTipManager {
             };
             link.enabled = cb.getPopupModel().isEnabled();
             link.traversal = () -> {
-                // System.out.println("Get next chain");
-                // collect key tips of all controls in the relevant popup
-                // panel
+                // collect key tips of all controls in the relevant popup panel
                 List<PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();
                 if (popups.size() > 0) {
                     PopupInfo last = popups.get(popups.size() - 1);
-                    // if (last.getPopupOriginator() == cb) {
                     JPopupPanel popupPanel = last.getPopupPanel();
                     // special case - application menu
                     if (popupPanel instanceof JRibbonApplicationMenuPopupPanel) {
                         JRibbonApplicationMenuPopupPanel appMenuPopupPanel =
                                 (JRibbonApplicationMenuPopupPanel) popupPanel;
+                        JPanel footerPanel = appMenuPopupPanel.getFooterPanel();
                         // check whether there are entries at level 2
                         JPanel level1 = appMenuPopupPanel.getPanelLevel1();
                         JPanel level2 = appMenuPopupPanel.getPanelLevel2();
                         if (level2.getComponentCount() > 0) {
                             KeyTipChain chain = new KeyTipChain(level2);
+                            populateChain(footerPanel, chain);
                             populateChain(level2, chain);
                             chain.parent = link.traversal;
                             return chain;
                         } else {
                             KeyTipChain chain = new KeyTipChain(level1);
+                            populateChain(footerPanel, chain);
                             populateChain(level1, chain);
                             chain.parent = link.traversal;
                             return chain;

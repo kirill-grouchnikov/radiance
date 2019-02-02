@@ -37,7 +37,7 @@ import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.plasma.commandButtonStrip
 import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.skin.BusinessSkin
+import org.pushingpixels.substance.api.skin.GeminiSkin
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.FlowLayout
@@ -48,8 +48,10 @@ import javax.swing.JPanel
 import javax.swing.JTextPane
 import javax.swing.SwingUtilities
 import javax.swing.border.EmptyBorder
+import javax.swing.text.DefaultCaret
 import javax.swing.text.SimpleAttributeSet
 import javax.swing.text.StyleConstants
+
 
 // Extension function on JTextPane to check presence of content style
 fun JTextPane.hasStyleInSelection(style: Any): Boolean {
@@ -72,9 +74,9 @@ fun JTextPane.toggleStyleInSelection(style: Any) {
             attrSet, false)
 }
 
-fun main(args: Array<String>) {
+fun main() {
     SwingUtilities.invokeLater {
-        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
+        SubstanceCortex.GlobalScope.setSkin(GeminiSkin())
 
         val frame = JFrame("Text styling demo")
         frame.layout = BorderLayout()
@@ -85,6 +87,12 @@ fun main(args: Array<String>) {
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         textPane.isEditable = false
         textPane.border = EmptyBorder(12, 12, 12, 12)
+        // force the display of text selection even when the focus has been lost
+        textPane.caret = object : DefaultCaret() {
+            override fun setSelectionVisible(visible: Boolean) {
+                super.setSelectionVisible(true)
+            }
+        }
 
         frame.add(textPane, BorderLayout.CENTER)
 

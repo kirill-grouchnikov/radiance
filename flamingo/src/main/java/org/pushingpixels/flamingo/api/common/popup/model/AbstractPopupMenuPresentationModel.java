@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.popup.model;
 
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.ImmutablePresentationModel;
 
 public abstract class AbstractPopupMenuPresentationModel implements ImmutablePresentationModel {
 }

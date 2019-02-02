@@ -56,7 +56,7 @@ import javax.swing.JScrollPane
 import javax.swing.JSlider
 import javax.swing.WindowConstants
 
-fun main(args: Array<String>) {
+fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())

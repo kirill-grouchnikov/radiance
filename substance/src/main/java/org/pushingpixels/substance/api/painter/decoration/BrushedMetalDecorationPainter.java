@@ -60,8 +60,7 @@ public class BrushedMetalDecorationPainter extends ImageWrapperDecorationPainter
 			// the lib is added to the system class path, the extension class
 			// path and regardless of the class loader architecture set up by
 			// some frameworks.
-			ClassLoader cl = SubstanceCoreUtilities
-					.getClassLoaderForResources();
+			ClassLoader cl = SubstanceCoreUtilities.getClassLoaderForResources();
 			URL metalUrl = cl.getResource("org/pushingpixels/substance/internal/image/brushed.gif");
 			this.originalTile = ImageIO.read(metalUrl);
 		} catch (Exception exc) {

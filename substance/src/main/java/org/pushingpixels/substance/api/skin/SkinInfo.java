@@ -42,18 +42,17 @@ public class SkinInfo extends TraitInfoImpl {
 	 * 
 	 * @param skinDisplayName
 	 *            Display name of <code>this</code> skin.
-	 * @param skinClassName
-	 *            Class name of <code>this</code> skin.
+	 * @param skinClassNameResolver
+	 *            Class name resolver of <code>this</code> skin.
 	 */
-	public SkinInfo(String skinDisplayName, String skinClassName) {
-		super(skinDisplayName, skinClassName);
+	public SkinInfo(String skinDisplayName, LazyClassNameResolver skinClassNameResolver) {
+		super(skinDisplayName, skinClassNameResolver);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof SkinInfo) {
-			return this.getDisplayName().equals(
-					((SkinInfo) obj).getDisplayName());
+			return this.getDisplayName().equals(((SkinInfo) obj).getDisplayName());
 		}
 		return false;
 	}

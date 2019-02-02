@@ -43,49 +43,35 @@ import java.util.Set;
  * @author Kirill Grouchnikov.
  */
 public class BaseSkinPlugin implements SubstanceSkinPlugin {
-    /**
-     * Creates info object on a single skin.
-     *
-     * @param displayName Skin display name.
-     * @param skinClass   Skin class.
-     * @param isDefault   Indication whether the specified skin is default.
-     * @return Info object on the specified skin.
-     */
-    private static SkinInfo create(String displayName, Class<?> skinClass,
-            boolean isDefault) {
-        SkinInfo result = new SkinInfo(displayName, skinClass.getName());
-        result.setDefault(isDefault);
-        return result;
-    }
-
     @Override
     public Set<SkinInfo> getSkins() {
         Set<SkinInfo> result = new HashSet<>();
-        result.add(create(BusinessSkin.NAME, BusinessSkin.class, false));
-        result.add(create(BusinessBlackSteelSkin.NAME, BusinessBlackSteelSkin.class, false));
-        result.add(create(BusinessBlueSteelSkin.NAME, BusinessBlueSteelSkin.class, false));
-        result.add(create(CremeSkin.NAME, CremeSkin.class, false));
-        result.add(create(ModerateSkin.NAME, ModerateSkin.class, false));
-        result.add(create(SaharaSkin.NAME, SaharaSkin.class, false));
-        result.add(create(RavenSkin.NAME, RavenSkin.class, false));
-        result.add(create(GraphiteSkin.NAME, GraphiteSkin.class, false));
-        result.add(create(GraphiteGlassSkin.NAME, GraphiteGlassSkin.class, false));
-        result.add(create(GraphiteAquaSkin.NAME, GraphiteAquaSkin.class, false));
-        result.add(create(GraphiteGoldSkin.NAME, GraphiteGoldSkin.class, false));
-        result.add(create(GraphiteChalkSkin.NAME, GraphiteChalkSkin.class, false));
-        result.add(create(NebulaSkin.NAME, NebulaSkin.class, false));
-        result.add(create(NebulaBrickWallSkin.NAME, NebulaBrickWallSkin.class, false));
-        result.add(create(MistSilverSkin.NAME, MistSilverSkin.class, false));
-        result.add(create(MistAquaSkin.NAME, MistAquaSkin.class, false));
-        result.add(create(AutumnSkin.NAME, AutumnSkin.class, false));
-        result.add(create(CremeCoffeeSkin.NAME, CremeCoffeeSkin.class, false));
-        result.add(create(DustSkin.NAME, DustSkin.class, false));
-        result.add(create(DustCoffeeSkin.NAME, DustCoffeeSkin.class, false));
-        result.add(create(TwilightSkin.NAME, TwilightSkin.class, false));
-        result.add(create(MagellanSkin.NAME, MagellanSkin.class, false));
-        result.add(create(GeminiSkin.NAME, GeminiSkin.class, false));
-        result.add(create(MarinerSkin.NAME, MarinerSkin.class, false));
-        result.add(create(CeruleanSkin.NAME, CeruleanSkin.class, false));
+        result.add(new SkinInfo(BusinessSkin.NAME, BusinessSkin.class::getName));
+        result.add(new SkinInfo(BusinessBlackSteelSkin.NAME,
+                BusinessBlackSteelSkin.class::getName));
+        result.add(new SkinInfo(BusinessBlueSteelSkin.NAME, BusinessBlueSteelSkin.class::getName));
+        result.add(new SkinInfo(CremeSkin.NAME, CremeSkin.class::getName));
+        result.add(new SkinInfo(ModerateSkin.NAME, ModerateSkin.class::getName));
+        result.add(new SkinInfo(SaharaSkin.NAME, SaharaSkin.class::getName));
+        result.add(new SkinInfo(RavenSkin.NAME, RavenSkin.class::getName));
+        result.add(new SkinInfo(GraphiteSkin.NAME, GraphiteSkin.class::getName));
+        result.add(new SkinInfo(GraphiteGlassSkin.NAME, GraphiteGlassSkin.class::getName));
+        result.add(new SkinInfo(GraphiteAquaSkin.NAME, GraphiteAquaSkin.class::getName));
+        result.add(new SkinInfo(GraphiteGoldSkin.NAME, GraphiteGoldSkin.class::getName));
+        result.add(new SkinInfo(GraphiteChalkSkin.NAME, GraphiteChalkSkin.class::getName));
+        result.add(new SkinInfo(NebulaSkin.NAME, NebulaSkin.class::getName));
+        result.add(new SkinInfo(NebulaBrickWallSkin.NAME, NebulaBrickWallSkin.class::getName));
+        result.add(new SkinInfo(MistSilverSkin.NAME, MistSilverSkin.class::getName));
+        result.add(new SkinInfo(MistAquaSkin.NAME, MistAquaSkin.class::getName));
+        result.add(new SkinInfo(AutumnSkin.NAME, AutumnSkin.class::getName));
+        result.add(new SkinInfo(CremeCoffeeSkin.NAME, CremeCoffeeSkin.class::getName));
+        result.add(new SkinInfo(DustSkin.NAME, DustSkin.class::getName));
+        result.add(new SkinInfo(DustCoffeeSkin.NAME, DustCoffeeSkin.class::getName));
+        result.add(new SkinInfo(TwilightSkin.NAME, TwilightSkin.class::getName));
+        result.add(new SkinInfo(MagellanSkin.NAME, MagellanSkin.class::getName));
+        result.add(new SkinInfo(GeminiSkin.NAME, GeminiSkin.class::getName));
+        result.add(new SkinInfo(MarinerSkin.NAME, MarinerSkin.class::getName));
+        result.add(new SkinInfo(CeruleanSkin.NAME, CeruleanSkin.class::getName));
 
         return result;
     }

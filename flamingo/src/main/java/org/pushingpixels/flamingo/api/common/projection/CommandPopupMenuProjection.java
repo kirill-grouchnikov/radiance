@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.api.common.projection;
 
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
-import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 
 public class CommandPopupMenuProjection extends AbstractPopupMenuProjection<
         JCommandPopupMenu, CommandMenuContentModel, CommandPopupMenuPresentationModel> {

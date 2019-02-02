@@ -37,8 +37,8 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI.Collapsed
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * Basic UI for control panel of ribbon band {@link JBandControlPanel}.

@@ -71,14 +71,13 @@ public class DefaultTabPreviewPainter extends TabPreviewPainter {
 			tabComponent.paint(tempCanvasGraphics);
 
 			// check if need to scale down
-			double coef = Math.min((double) w / (double) compWidth, (double) h
-					/ (double) compHeight);
+			double coef = Math.min((double) w / (double) compWidth,
+					(double) h / (double) compHeight);
 			// fix for issue 177 in Substance - disabled tabs painted in
 			// 50% opacity.
 			Graphics2D g2 = bufferedImage.createGraphics();
 			if (!tabPane.isEnabledAt(tabIndex)) {
-				g2.setComposite(AlphaComposite.getInstance(
-						AlphaComposite.SRC_OVER, 0.5f));
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
 			}
 			if (coef < 1.0) {
 				int sdWidth = (int) (coef * compWidth);

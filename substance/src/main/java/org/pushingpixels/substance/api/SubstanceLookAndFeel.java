@@ -32,6 +32,7 @@ package org.pushingpixels.substance.api;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.*;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopupFactory;
+import org.pushingpixels.substance.internal.ui.*;
 import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
@@ -45,7 +46,7 @@ import java.beans.*;
  * Base class for <b>Substance </b> look and feel. There are three options to use Substance in your
  * application:
  * </p>
- * 
+ *
  * <ul>
  * <li>Use {@link UIManager#setLookAndFeel(javax.swing.LookAndFeel)} or
  * {@link UIManager#setLookAndFeel(String)} passing one of the core skin-based look-and-feels in the
@@ -56,7 +57,7 @@ import java.beans.*;
  * {@link SubstanceCortex.GlobalScope#setSkin(SubstanceSkin)} static methods. These methods do not
  * require Substance to be the current look-and-feel.</li>
  * </ul>
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
@@ -82,9 +83,8 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
 
     /**
      * Creates a new skin-based Substance look-and-feel.
-     * 
-     * @param skin
-     *            Skin.
+     *
+     * @param skin Skin.
      */
     protected SubstanceLookAndFeel(SubstanceSkin skin) {
         this.skin = skin;
@@ -120,93 +120,49 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
     protected void initClassDefaults(UIDefaults table) {
         super.initClassDefaults(table);
 
-        String UI_CLASSNAME_PREFIX = "org.pushingpixels.substance.internal.ui.Substance";
         Object[] uiDefaults = {
-
-                        "ButtonUI", UI_CLASSNAME_PREFIX + "ButtonUI",
-
-                        "CheckBoxUI", UI_CLASSNAME_PREFIX + "CheckBoxUI",
-
-                        "ComboBoxUI", UI_CLASSNAME_PREFIX + "ComboBoxUI",
-
-                        "CheckBoxMenuItemUI", UI_CLASSNAME_PREFIX + "CheckBoxMenuItemUI",
-
-                        "DesktopIconUI", UI_CLASSNAME_PREFIX + "DesktopIconUI",
-
-                        "DesktopPaneUI", UI_CLASSNAME_PREFIX + "DesktopPaneUI",
-
-                        "EditorPaneUI", UI_CLASSNAME_PREFIX + "EditorPaneUI",
-
-                        "FileChooserUI", UI_CLASSNAME_PREFIX + "FileChooserUI",
-
-                        "FormattedTextFieldUI", UI_CLASSNAME_PREFIX + "FormattedTextFieldUI",
-
-                        "InternalFrameUI", UI_CLASSNAME_PREFIX + "InternalFrameUI",
-
-                        "LabelUI", UI_CLASSNAME_PREFIX + "LabelUI",
-
-                        "ListUI", UI_CLASSNAME_PREFIX + "ListUI",
-
-                        "MenuUI", UI_CLASSNAME_PREFIX + "MenuUI",
-
-                        "MenuBarUI", UI_CLASSNAME_PREFIX + "MenuBarUI",
-
-                        "MenuItemUI", UI_CLASSNAME_PREFIX + "MenuItemUI",
-
-                        "OptionPaneUI", UI_CLASSNAME_PREFIX + "OptionPaneUI",
-
-                        "PanelUI", UI_CLASSNAME_PREFIX + "PanelUI",
-
-                        "PasswordFieldUI", UI_CLASSNAME_PREFIX + "PasswordFieldUI",
-
-                        "PopupMenuUI", UI_CLASSNAME_PREFIX + "PopupMenuUI",
-
-                        "PopupMenuSeparatorUI", UI_CLASSNAME_PREFIX + "PopupMenuSeparatorUI",
-
-                        "ProgressBarUI", UI_CLASSNAME_PREFIX + "ProgressBarUI",
-
-                        "RadioButtonUI", UI_CLASSNAME_PREFIX + "RadioButtonUI",
-
-                        "RadioButtonMenuItemUI", UI_CLASSNAME_PREFIX + "RadioButtonMenuItemUI",
-
-                        "RootPaneUI", UI_CLASSNAME_PREFIX + "RootPaneUI",
-
-                        "ScrollBarUI", UI_CLASSNAME_PREFIX + "ScrollBarUI",
-
-                        "ScrollPaneUI", UI_CLASSNAME_PREFIX + "ScrollPaneUI",
-
-                        "SeparatorUI", UI_CLASSNAME_PREFIX + "SeparatorUI",
-
-                        "SliderUI", UI_CLASSNAME_PREFIX + "SliderUI",
-
-                        "SpinnerUI", UI_CLASSNAME_PREFIX + "SpinnerUI",
-
-                        "SplitPaneUI", UI_CLASSNAME_PREFIX + "SplitPaneUI",
-
-                        "TabbedPaneUI", UI_CLASSNAME_PREFIX + "TabbedPaneUI",
-
-                        "TableUI", UI_CLASSNAME_PREFIX + "TableUI",
-
-                        "TableHeaderUI", UI_CLASSNAME_PREFIX + "TableHeaderUI",
-
-                        "TextAreaUI", UI_CLASSNAME_PREFIX + "TextAreaUI",
-
-                        "TextFieldUI", UI_CLASSNAME_PREFIX + "TextFieldUI",
-
-                        "TextPaneUI", UI_CLASSNAME_PREFIX + "TextPaneUI",
-
-                        "ToggleButtonUI", UI_CLASSNAME_PREFIX + "ToggleButtonUI",
-
-                        "ToolBarUI", UI_CLASSNAME_PREFIX + "ToolBarUI",
-
-                        "ToolBarSeparatorUI", UI_CLASSNAME_PREFIX + "ToolBarSeparatorUI",
-
-                        "ToolTipUI", UI_CLASSNAME_PREFIX + "ToolTipUI",
-
-                        "TreeUI", UI_CLASSNAME_PREFIX + "TreeUI",
-
-                        "ViewportUI", UI_CLASSNAME_PREFIX + "ViewportUI",
-
+                "ButtonUI", SubstanceButtonUI.class.getName(),
+                "CheckBoxUI", SubstanceCheckBoxUI.class.getName(),
+                "ComboBoxUI", SubstanceComboBoxUI.class.getName(),
+                "CheckBoxMenuItemUI", SubstanceCheckBoxMenuItemUI.class.getName(),
+                "DesktopIconUI", SubstanceDesktopIconUI.class.getName(),
+                "DesktopPaneUI", SubstanceDesktopPaneUI.class.getName(),
+                "EditorPaneUI", SubstanceEditorPaneUI.class.getName(),
+                "FileChooserUI", SubstanceFileChooserUI.class.getName(),
+                "FormattedTextFieldUI", SubstanceFormattedTextFieldUI.class.getName(),
+                "InternalFrameUI", SubstanceInternalFrameUI.class.getName(),
+                "LabelUI", SubstanceLabelUI.class.getName(),
+                "ListUI", SubstanceListUI.class.getName(),
+                "MenuUI", SubstanceMenuUI.class.getName(),
+                "MenuBarUI", SubstanceMenuBarUI.class.getName(),
+                "MenuItemUI", SubstanceMenuItemUI.class.getName(),
+                "OptionPaneUI", SubstanceOptionPaneUI.class.getName(),
+                "PanelUI", SubstancePanelUI.class.getName(),
+                "PasswordFieldUI", SubstancePasswordFieldUI.class.getName(),
+                "PopupMenuUI", SubstancePopupMenuUI.class.getName(),
+                "PopupMenuSeparatorUI", SubstancePopupMenuSeparatorUI.class.getName(),
+                "ProgressBarUI", SubstanceProgressBarUI.class.getName(),
+                "RadioButtonUI", SubstanceRadioButtonUI.class.getName(),
+                "RadioButtonMenuItemUI", SubstanceRadioButtonMenuItemUI.class.getName(),
+                "RootPaneUI", SubstanceRootPaneUI.class.getName(),
+                "ScrollBarUI", SubstanceScrollBarUI.class.getName(),
+                "ScrollPaneUI", SubstanceScrollPaneUI.class.getName(),
+                "SeparatorUI", SubstanceSeparatorUI.class.getName(),
+                "SliderUI", SubstanceSliderUI.class.getName(),
+                "SpinnerUI", SubstanceSpinnerUI.class.getName(),
+                "SplitPaneUI", SubstanceSplitPaneUI.class.getName(),
+                "TabbedPaneUI", SubstanceTabbedPaneUI.class.getName(),
+                "TableUI", SubstanceTableUI.class.getName(),
+                "TableHeaderUI", SubstanceTableHeaderUI.class.getName(),
+                "TextAreaUI", SubstanceTextAreaUI.class.getName(),
+                "TextFieldUI", SubstanceTextFieldUI.class.getName(),
+                "TextPaneUI", SubstanceTextPaneUI.class.getName(),
+                "ToggleButtonUI", SubstanceToggleButtonUI.class.getName(),
+                "ToolBarUI", SubstanceToolBarUI.class.getName(),
+                "ToolBarSeparatorUI", SubstanceToolBarSeparatorUI.class.getName(),
+                "ToolTipUI", SubstanceToolTipUI.class.getName(),
+                "TreeUI", SubstanceTreeUI.class.getName(),
+                "ViewportUI", SubstanceViewportUI.class.getName()
         };
         table.putDefaults(uiDefaults);
     }

@@ -48,7 +48,7 @@ import java.awt.BorderLayout
 import java.awt.FlowLayout
 import javax.swing.*
 
-fun main(args: Array<String>) {
+fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())

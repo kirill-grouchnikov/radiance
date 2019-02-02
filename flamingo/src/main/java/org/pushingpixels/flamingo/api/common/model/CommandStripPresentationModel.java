@@ -91,6 +91,10 @@ public class CommandStripPresentationModel implements MutablePresentationModel {
         return new Builder();
     }
 
+    public static CommandStripPresentationModel withDefaults() {
+        return CommandStripPresentationModel.builder().build();
+    }
+
     public CommandButtonPresentationState getCommandPresentationState() {
         return this.commandPresentationState;
     }

@@ -50,20 +50,4 @@ public interface SubstanceTraitInfo {
 	 *         officially supported API.
 	 */
 	String getClassName();
-
-	/**
-	 * Returns indication whether the associated trait is default.
-	 * 
-	 * @return <code>true</code> if the associated trait is default,
-	 *         <code>false</code> otherwise.
-	 */
-	boolean isDefault();
-
-	/**
-	 * Sets indication whether the associated trait is default.
-	 * 
-	 * @param isDefault
-	 *            New indication whether the associated trait is default.
-	 */
-	void setDefault(boolean isDefault);
 }

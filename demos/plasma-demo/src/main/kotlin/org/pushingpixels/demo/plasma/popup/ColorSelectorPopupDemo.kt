@@ -93,7 +93,7 @@ class ColorIcon(private var color: Color) : ResizableIcon {
     }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     SwingUtilities.invokeLater {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 

@@ -65,6 +65,10 @@ public class JRibbonApplicationMenuPopupPanel extends AbstractPopupMenu implemen
         return ((BasicRibbonApplicationMenuPopupPanelUI) getUI()).getPanelLevel2();
     }
 
+    public JPanel getFooterPanel() {
+        return ((BasicRibbonApplicationMenuPopupPanelUI) getUI()).getFooterPanel();
+    }
+
     public Runnable getPathToSequence(Command command) {
         return ((BasicRibbonApplicationMenuPopupPanelUI) getUI()).getPathToSequence(command);
     }

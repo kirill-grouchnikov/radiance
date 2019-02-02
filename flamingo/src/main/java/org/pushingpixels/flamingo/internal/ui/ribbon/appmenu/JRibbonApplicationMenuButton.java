@@ -38,7 +38,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 
 /**
@@ -97,10 +96,6 @@ public class JRibbonApplicationMenuButton extends JCommandButton
                         public Dimension getPreferredSize(
                                 AbstractCommandButton commandButton) {
                             return new Dimension(40, 20);
-                        }
-
-                        @Override
-                        public void propertyChange(PropertyChangeEvent evt) {
                         }
 
                         @Override

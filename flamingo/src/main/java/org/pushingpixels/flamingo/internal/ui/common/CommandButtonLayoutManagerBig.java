@@ -37,12 +37,11 @@ import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.util.*;
 
 public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager {
-    protected AbstractCommandButton commandButton;
+    private AbstractCommandButton commandButton;
 
     /**
      * The first part of (possibly) two-lined split of {@link #commandButton}'s
@@ -149,16 +148,13 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
      * Updates the title strings for {@link CommandButtonPresentationState#BIG} and
      * other relevant states.
      */
-    protected void updateTitleStrings() {
+    private void updateTitleStrings() {
         // Break the title in two parts (the second part may be empty),
         // finding the "inflection" point. The inflection point is a space
         // character that breaks the title in two parts, such that the maximal
         // length of the first part and the second part + action label icon
         // is minimal between all possible space characters
-        BufferedImage tempImage = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = (Graphics2D) tempImage.getGraphics();
-        g.setFont(this.commandButton.getFont());
-        FontMetrics fm = g.getFontMetrics();
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(this.commandButton.getFont());
 
         String title = (this.commandButton == null) ? null : this.commandButton.getText();
         if (title != null) {
@@ -168,8 +164,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                 this.titlePart1 = title;
                 this.titlePart2 = null;
             } else {
-                int currMaxLength = (int) fm.getStringBounds(this.commandButton.getText(), g)
-                        .getWidth();
+                int currMaxLength = fm.stringWidth(this.commandButton.getText());
                 int actionIconWidth = FlamingoUtilities.hasPopupAction(this.commandButton) ? 0
                         : 2 * FlamingoUtilities.getHLayoutGap(commandButton)
                         + (fm.getAscent() + fm.getDescent()) / 2;
@@ -180,8 +175,8 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                     String part1 = currLeading;
                     String part2 = title.substring(currLeading.length());
 
-                    int len1 = (int) fm.getStringBounds(part1, g).getWidth();
-                    int len2 = (int) fm.getStringBounds(part2, g).getWidth() + actionIconWidth;
+                    int len1 = fm.stringWidth(part1);
+                    int len2 = fm.stringWidth(part2) + actionIconWidth;
                     int len = Math.max(len1, len2);
 
                     if (currMaxLength > len) {

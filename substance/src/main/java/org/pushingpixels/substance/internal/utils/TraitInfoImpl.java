@@ -47,41 +47,38 @@ public class TraitInfoImpl implements SubstanceTraitInfo {
 	 */
 	private String className;
 
-	/**
-	 * Indication whether the associated trait is default in the application.
-	 */
-	private boolean isDefault;
+	private boolean isClassNameResolved;
+	private LazyClassNameResolver classNameResolver;
+
+	public interface LazyClassNameResolver {
+		String createClassName();
+	}
 
 	/**
 	 * Simple constructor.
 	 * 
 	 * @param displayName
 	 *            Display name of the associated trait.
-	 * @param className
-	 *            Class name of the associated trait.
+	 * @param classNameResolver
+	 *            Class name resolver of the associated trait.
 	 */
-	public TraitInfoImpl(String displayName, String className) {
+	public TraitInfoImpl(String displayName, LazyClassNameResolver classNameResolver) {
 		this.displayName = displayName;
-		this.className = className;
+		this.classNameResolver = classNameResolver;
 	}
 
 	@Override
 	public String getClassName() {
+		if (!this.isClassNameResolved) {
+			this.className = this.classNameResolver.createClassName();
+			this.isClassNameResolved = true;
+		}
+
 		return this.className;
 	}
 
 	@Override
 	public String getDisplayName() {
 		return this.displayName;
-	}
-
-	@Override
-	public boolean isDefault() {
-		return this.isDefault;
-	}
-
-	@Override
-	public void setDefault(boolean isDefault) {
-		this.isDefault = isDefault;
 	}
 }

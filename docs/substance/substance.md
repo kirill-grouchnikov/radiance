@@ -12,7 +12,7 @@ To use Substance in your applications, use one of the following options:
 * Use the static `setSkin(SubstanceSkin)` or `setSkin(String)` APIs in `SubstanceCortex.GlobalScope` to set the specific skin.
 * Extend the `SubstanceLookAndFeel` class and pass a `SubstanceSkin` instance to the super constructor.
 
-The main demo application that showcases various Substance features is in the [substance-demo](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main) folder. In addition, [substance-samples](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/substance-samples/src/main/java/org/pushingpixels/samples/substance) has a collection of self-contained samples that show more advanced usage of Substance APIs for custom application skinning.
+The main demo application that showcases various Substance features is in the [substance-demo](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main) folder. In addition, [substance-samples](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/substance-samples/src/main/java/org/pushingpixels/samples/substance) has a collection of self-contained samples that show more [advanced usage](../spyglass/cookbook/cookbook.md) of Substance APIs for custom application skinning.
 
 Have a question? See the [FAQ](faq.md) and the list of [known issues](known-issues.md), and if you don't see an answer there, [file a bug](https://github.com/kirill-grouchnikov/radiance/issues) or [get in touch](http://www.pushing-pixels.org/about-kirill).
 
@@ -42,4 +42,4 @@ During the initialization of your application in the `main()` method - **before 
 * `registerComponentPlugin()` for registering component plugins
 * `registerSkinPlugin()` for registering skin plugins
 
-[Substance Extras pack](https://github.com/kirill-grouchnikov/radiance/tree/master/substance-extras) provides additional watermarks, color schemes and skins.
+[Substance Extras pack](extras.md) provides additional watermarks, painters, color schemes, skins and tab widgets.

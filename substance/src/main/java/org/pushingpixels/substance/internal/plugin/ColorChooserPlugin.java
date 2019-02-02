@@ -29,30 +29,20 @@
  */
 package org.pushingpixels.substance.internal.plugin;
 
-import org.pushingpixels.substance.api.SubstanceComponentPlugin;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.neon.font.FontSet;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.neon.font.FontSet;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.ui.SubstanceColorChooserUI;
+import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.icon.SubstanceIconFactory;
 
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.DimensionUIResource;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.plaf.InsetsUIResource;
+import javax.swing.plaf.*;
 import java.awt.*;
-import java.awt.geom.GeneralPath;
-import java.awt.image.BufferedImage;
-import java.util.Enumeration;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Core plugin for color chooser UI delegates. Contains information on Quaqua and
@@ -64,8 +54,8 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
     @Override
     public Object[] getDefaults(SubstanceSkin skin) {
         if (!Boolean.TRUE.equals(UIManager.getBoolean(SubstanceSynapse.USE_DEFAULT_COLOR_CHOOSER))) {
-            ResourceBundle bundle = ResourceBundle
-                    .getBundle("org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.Labels");
+            ResourceBundle bundle = ResourceBundle.getBundle(
+                    "org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.Labels");
             List labelsList = new LinkedList();
             for (Enumeration i = bundle.getKeys(); i.hasMoreElements(); ) {
                 String key = (String) i.nextElement();
@@ -125,71 +115,8 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
                     )),
                     "ColorChooser.textSliderGap",
                     new Integer(0),
-
-                    // Magnifying glass used as the cursor image
-                    "ColorChooser.colorPickerMagnifier",
-                    (UIDefaults.LazyValue) ((UIDefaults table) -> {
-                        BufferedImage result = SubstanceCoreUtilities
-                                .getBlankImage(48, 48);
-                        Graphics2D g = result.createGraphics();
-
-                        g.setColor(Color.black);
-                        g.translate(-4, -6);
-                        int xc = 20;
-                        int yc = 22;
-                        int r = 15;
-
-                        g.setStroke(new BasicStroke(2.5f));
-                        g.drawOval(xc - r, yc - r, 2 * r, 2 * r);
-                        g.setStroke(new BasicStroke(4.0f));
-                        GeneralPath handle = new GeneralPath();
-                        handle.moveTo((float) (xc + r / Math.sqrt(2.0)),
-                                (float) (yc + r / Math.sqrt(2.0)));
-                        handle.lineTo(45, 47);
-                        g.draw(handle);
-                        g.translate(4, 6);
-
-                        g.setStroke(new BasicStroke(1.0f));
-                        g.drawLine(16, 4, 16, 13);
-                        g.drawLine(4, 16, 13, 16);
-                        g.drawLine(16, 19, 16, 28);
-                        g.drawLine(19, 16, 28, 16);
-
-                        return result;
-                    }),
-                    // makeBufferedImage(commonDir + "zoomer.png"),
-                    // Hot spot of the magnifier cursor
-                    "ColorChooser.colorPickerHotSpot",
-                    new UIDefaults.ProxyLazyValue("java.awt.Point",
-                            new Object[]{new Integer(29), new Integer(29)}),
-                    // Pick point relative to hot spot
-                    "ColorChooser.colorPickerPickOffset",
-                    new UIDefaults.ProxyLazyValue("java.awt.Point",
-                            new Object[]{new Integer(-13), new Integer(-13)}),
-                    // Rectangle used for drawing the mask of the magnifying
-                    // glass
-                    "ColorChooser.colorPickerGlassRect",
-                    new UIDefaults.ProxyLazyValue("java.awt.Rectangle",
-                            new Object[]{new Integer(3), new Integer(3),
-                                    new Integer(26), new Integer(26)}),
-                    // Capture rectangle. Width and height must be equal sized
-                    // and must be odd.
-                    // The position of the capture rectangle is relative to the
-                    // hot spot.
-                    "ColorChooser.colorPickerCaptureRect",
-                    new UIDefaults.ProxyLazyValue("java.awt.Rectangle",
-                            new Object[]{new Integer(-15), new Integer(-15),
-                                    new Integer(5), new Integer(5)}),
-                    // Zoomed (magnified) capture image. Width and height must
-                    // be a multiple of the capture rectangles size.
-                    "ColorChooser.colorPickerZoomRect",
-                    new UIDefaults.ProxyLazyValue("java.awt.Rectangle",
-                            new Object[]{new Integer(4), new Integer(4),
-                                    new Integer(25), new Integer(25)}),
-
             };
 
-            Object[] colorDefaults = null;
             FontSet substanceFontSet = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null);
             Font controlFont = substanceFontSet.getControlFont();
 
@@ -199,9 +126,8 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
             Font fontPlainBaseM2 = new FontUIResource(controlFont
                     .deriveFont((float) (controlFont.getSize() - 2)));
 
-            colorDefaults = new Object[]{
-                    "ColorChooserUI",
-                    "org.pushingpixels.substance.internal.ui.SubstanceColorChooserUI",
+            Object[] colorDefaults = new Object[]{
+                    "ColorChooserUI", SubstanceColorChooserUI.class.getName(),
 
                     "ColorChooser.font", controlFont,
 
@@ -211,24 +137,25 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
 
             Object[] labelDefaults = new Object[mainDefaults.length
                     + labelsList.size()];
-            for (int i = 0; i < mainDefaults.length; i++)
+            for (int i = 0; i < mainDefaults.length; i++) {
                 labelDefaults[i] = mainDefaults[i];
+            }
             int start = mainDefaults.length;
-            for (int i = 0; i < labelsList.size(); i++)
+            for (int i = 0; i < labelsList.size(); i++) {
                 labelDefaults[start + i] = labelsList.get(i);
+            }
             mainDefaults = labelDefaults;
 
             Object[] defaults = new Object[mainDefaults.length + colorDefaults.length];
-            for (int i = 0; i < mainDefaults.length; i++)
+            for (int i = 0; i < mainDefaults.length; i++) {
                 defaults[i] = mainDefaults[i];
+            }
             start = mainDefaults.length;
-            for (int i = 0; i < colorDefaults.length; i++)
+            for (int i = 0; i < colorDefaults.length; i++) {
                 defaults[start + i] = colorDefaults[i];
+            }
             return defaults;
         } else {
-            // Object[] defaults = new Object[labelsList.size()];
-            // for (int i = 0; i < labelsList.size(); i++)
-            // defaults[i] = labelsList.get(i);
             return new Object[0];
         }
     }

@@ -79,15 +79,17 @@ public class SubstanceCommandToggleMenuButtonUI extends SubstanceCommandToggleBu
                     this.commandButton, ColorSchemeAssociationKind.HIGHLIGHT, currState);
             SubstanceFillPainter fillPainter = SubstanceCoreUtilities
                     .getFillPainter(this.commandButton);
-            fillPainter.paintContourBackground(g2d, this.commandButton, (float) extended.getWidth(),
-                    (float) extended.getHeight(), extended, false, fillScheme, false);
+            fillPainter.paintContourBackground(g2d, this.commandButton,
+                    extended.x + extended.width, extended.y + extended.height,
+                    extended, false, fillScheme, false);
 
             SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities.getColorScheme(
                     this.commandButton, ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
             SubstanceBorderPainter borderPainter = SubstanceCoreUtilities
                     .getBorderPainter(this.commandButton);
-            borderPainter.paintBorder(g2d, this.commandButton, (float) extended.getWidth(),
-                    (float) extended.getHeight(), extended, null, borderScheme);
+            borderPainter.paintBorder(g2d, this.commandButton,
+                    extended.x + extended.width, extended.y + extended.height,
+                    extended, null, borderScheme);
 
             g2d.dispose();
         }

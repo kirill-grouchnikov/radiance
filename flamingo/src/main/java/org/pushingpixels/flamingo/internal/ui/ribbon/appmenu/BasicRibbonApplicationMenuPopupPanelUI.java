@@ -35,6 +35,7 @@ import org.pushingpixels.flamingo.api.common.popup.*;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandMenuButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicPopupPanelUI;
+import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
@@ -245,13 +246,40 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                         new Rectangle(0, 0, footerPanel.getWidth(), footerPanel.getHeight()), false,
                         baseFillScheme, true);
             }
+
+            @Override
+            public void paint(Graphics g) {
+                super.paint(g);
+
+                // Show key tips after the children (buttons) are painted. This is to work
+                // around the inter-play between the key tip layer and the Swing's popup layer
+                for (int i = 0; i < this.getComponentCount(); i++) {
+                    Component child = this.getComponent(i);
+                    if (child instanceof AbstractCommandButton) {
+                        AbstractCommandButton button = (AbstractCommandButton) child;
+                        g.translate(button.getX(), button.getY() + 4);
+                        KeyTipRenderingUtilities.renderButtonKeyTips(g,
+                                button, button.getUI().getLayoutManager());
+                        g.translate(-button.getX(), -button.getY() - 4);
+                    }
+                }
+            }
         };
         if (ribbonAppMenu != null) {
+            final Map<Command, CommandButtonPresentationModel.Overlay> commandOverlays =
+                    ribbonAppMenuProjection.getCommandOverlays();
             for (Command footerCommand : ribbonAppMenu.getFooterCommands().getCommands()) {
-                JCommandButton commandFooterButton =
-                        (JCommandButton) footerCommand.project().buildComponent();
-                commandFooterButton.setPresentationState(CommandButtonPresentationState.MEDIUM);
-                commandFooterButton.setFlat(false);
+                CommandButtonPresentationModel commandPresentation =
+                        CommandButtonPresentationModel.builder()
+                                .setPresentationState(CommandButtonPresentationState.MEDIUM)
+                                .setFlat(false)
+                                .build();
+                if (commandOverlays.containsKey(footerCommand)) {
+                    commandPresentation = commandPresentation.overlayWith(
+                            commandOverlays.get(footerCommand));
+                }
+                AbstractCommandButton commandFooterButton =
+                        footerCommand.project(commandPresentation).buildComponent();
                 this.footerPanel.add(commandFooterButton);
             }
         }
@@ -289,6 +317,10 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
 
     public JPanel getPanelLevel2() {
         return panelLevel2;
+    }
+
+    public JPanel getFooterPanel() {
+        return footerPanel;
     }
 
     private boolean getCommandPath(CommandMenuContentModel commandMenuContentModel,
@@ -433,8 +465,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 // Highlight the primary button for the first "leg" of the path
                 primary.getPopupModel().setRollover(true);
                 primary.getPopupModel().setArmed(true);
-                // Fire the rollover action so that the secondary menu content is
-                // populated
+                // Fire the rollover action so that the secondary menu content is populated
                 SubstanceCommandMenuButtonUI buttonUI =
                         (SubstanceCommandMenuButtonUI) primary.getUI();
                 buttonUI.fireRolloverActionPerformed(new ActionEvent(this,
@@ -459,8 +490,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             // Highlight the primary button for the first "leg" of the path
             primary.getPopupModel().setRollover(true);
             primary.getPopupModel().setArmed(true);
-            // Fire the rollover action so that the secondary menu content is
-            // populated
+            // Fire the rollover action so that the secondary menu content is populated
             SubstanceCommandMenuButtonUI buttonUI =
                     (SubstanceCommandMenuButtonUI) primary.getUI();
             buttonUI.fireRolloverActionPerformed(new ActionEvent(this,

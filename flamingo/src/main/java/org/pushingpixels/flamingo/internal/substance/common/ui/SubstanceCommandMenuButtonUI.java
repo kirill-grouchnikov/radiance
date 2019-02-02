@@ -118,6 +118,6 @@ public class SubstanceCommandMenuButtonUI extends SubstanceCommandButtonUI {
         super.update(g, c);
 
         JCommandMenuButton menuButton = (JCommandMenuButton) c;
-        KeyTipRenderingUtilities.renderMenuButtonKeyTips(g, menuButton, layoutManager);
+        KeyTipRenderingUtilities.renderButtonKeyTips(g, menuButton, layoutManager);
     }
 }

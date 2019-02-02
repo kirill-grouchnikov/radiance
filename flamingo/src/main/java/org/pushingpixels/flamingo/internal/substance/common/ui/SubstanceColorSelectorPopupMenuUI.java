@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.internal.substance.common.ui;
 
 import org.pushingpixels.flamingo.api.common.popup.*;
-import org.pushingpixels.flamingo.internal.ui.common.popup.*;
+import org.pushingpixels.flamingo.internal.ui.common.popup.BasicColorSelectorPopupMenuUI;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;

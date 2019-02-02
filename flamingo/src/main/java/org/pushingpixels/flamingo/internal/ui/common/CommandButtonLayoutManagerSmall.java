@@ -37,7 +37,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 
 public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManager {
     @Override
@@ -97,10 +96,6 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
 
         return new Dimension(width, by
                 + Math.max(prefIconSize, fm.getAscent() + fm.getDescent()));
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
     }
 
     @Override

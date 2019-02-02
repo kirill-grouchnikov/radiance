@@ -2003,6 +2003,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 new CommandGroup(this.amEntryExit));
 
         applicationMenu.addFooterCommand(this.amFooterProps);
+        applicationMenuOverlays.put(this.amFooterProps,
+                CommandButtonPresentationModel.overlay().setActionKeyTip("T"));
 
         try {
             final BufferedImage appMenuButtonTooltipImage = ImageIO
@@ -2262,7 +2264,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         CommandStripProjection styleStripProjection = new CommandStripProjection(
                 new CommandGroup(styleBold, styleItalic, styleUnderline,
                         styleStrikethrough),
-                CommandStripPresentationModel.builder().build());
+                CommandStripPresentationModel.withDefaults());
         styleStripProjection.setCommandOverlays(styleOverlays);
         fontBand.addFlowComponent(styleStripProjection);
 

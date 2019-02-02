@@ -170,7 +170,7 @@ class FileListRenderer : SubstanceDefaultListCellRenderer() {
     }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())

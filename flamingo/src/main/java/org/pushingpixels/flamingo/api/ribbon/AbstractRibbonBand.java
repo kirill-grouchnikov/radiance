@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonBandUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.icon.ResizableIconFactory;
 
 import javax.swing.*;
 import java.util.*;

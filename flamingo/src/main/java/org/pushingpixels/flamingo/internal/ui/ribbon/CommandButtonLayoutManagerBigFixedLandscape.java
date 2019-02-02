@@ -36,7 +36,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 
 public class CommandButtonLayoutManagerBigFixedLandscape implements
@@ -69,10 +68,6 @@ public class CommandButtonLayoutManagerBigFixedLandscape implements
 
 		widthFull = Math.max(widthFull, heightFull * 5 / 4);
 		return new Dimension(bx + widthFull, heightFull);
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
 	}
 
 	@Override

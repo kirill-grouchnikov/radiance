@@ -37,7 +37,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.font.*;
-import java.beans.PropertyChangeEvent;
 import java.text.AttributedString;
 import java.util.ArrayList;
 
@@ -77,10 +76,6 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         }
         return new Dimension(bx + widthMed, by
                 + Math.max(this.getPreferredIconSize(commandButton), textHeight));
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
     }
 
     @Override

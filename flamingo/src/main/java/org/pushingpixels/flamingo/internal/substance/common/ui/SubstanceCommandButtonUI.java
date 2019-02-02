@@ -38,7 +38,7 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.internal.substance.common.*;
 import org.pushingpixels.flamingo.internal.substance.utils.*;
-import org.pushingpixels.flamingo.internal.ui.common.*;
+import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.*;

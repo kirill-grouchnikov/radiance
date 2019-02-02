@@ -1,21 +1,27 @@
 ## Plasma - Kotlin DSL for Flamingo components
 
-In your Java app, this is how you would create a toggle button and add it to a command button strip:
+In your Java app, this is how you would configure a toggle command, add it to a command group, and project the group to create a command button strip:
 
 ```java
-JCommandButtonStrip styleStrip = new JCommandButtonStrip();
+Command styleBold = Command.builder()
+      .setIconFactory(Format_text_bold.factory())
+      .setAction((CommandActionEvent e) -> System.out.println("Bold toggled"))
+      .setToggleSelected(true)
+      .setActionRichTooltip(RichTooltip.builder()
+              .setTitle(resourceBundle.getString("FontBold.tooltip.textActionTitle"))
+              .addDescriptionSection(resourceBundle.getString("FontBold.tooltip.textActionParagraph1"))
+              .build())
+      .build();
 
-JCommandToggleButton styleBoldButton = new JCommandToggleButton("", new Format_text_bold());
-styleBoldButton.addActionListener((ActionEvent e) -> System.out.println("Bold toggled"));
-styleBoldButton.getActionModel().setSelected(true);
-styleBoldButton
-        .setActionRichTooltip(RichTooltip.builder()
-                .setTitle(resourceBundle.getString("FontBold.tooltip.textActionTitle"))
-                .addDescriptionSection(
-                        resourceBundle.getString("FontBold.tooltip.textActionParagraph1"))
-                .build());
-styleBoldButton.setActionKeyTip("1");
-styleStrip.add(styleBoldButton);
+Map<Command, CommandButtonPresentationModel.Overlay> styleOverlays = new HashMap<>();
+styleOverlays.put(styleBold, CommandButtonPresentationModel.overlay().setActionKeyTip("1"));
+
+CommandStripProjection styleStripProjection = new CommandStripProjection(
+      new CommandGroup(styleBold),
+      CommandStripPresentationModel.withDefaults());
+styleStripProjection.setCommandOverlays(styleOverlays);
+
+JCommandButtonStrip buttonStrip = styleStripProjection.buildComponent();
 ```
 
 And here is how the same code would look like in Kotlin using the Plasma-provided DSL:
@@ -24,7 +30,7 @@ And here is how the same code would look like in Kotlin using the Plasma-provide
 commandButtonStrip {
     command {
         iconFactory = Format_text_bold.factory()
-        action = ActionListener { println("Bold toggled") }
+        action = CommandAction { println("Bold toggled") }
         isToggleSelected = true
         actionRichTooltip {
             title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
@@ -85,7 +91,7 @@ fun getFindBand(): KRibbonBand {
 
         resizePolicies = { ribbonBand ->
             listOf(CoreRibbonResizePolicies.Mirror(ribbonBand),
-                   CoreRibbonResizePolicies.IconRibbonBandResizePolicy(ribbonBand))
+         CoreRibbonResizePolicies.IconRibbonBandResizePolicy(ribbonBand))
         }
     }
 }
@@ -115,7 +121,7 @@ And a ribbon frame out of one or more ribbon tasks and other elements:
 ```kotlin
 val ribbonFrame = ribbonFrame {
     title = builder.resourceBundle.getString("Frame.title")
-    applicationIcon = Applications_internet.of(16, 16)
+    applicationIcon = Applications_internet.factory()
 
     tasks {
         +builder.getPageLayoutTask()

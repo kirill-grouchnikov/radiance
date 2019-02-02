@@ -37,7 +37,7 @@ import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.plasma.commandToggleButtonStrip
 import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.skin.BusinessSkin
+import org.pushingpixels.substance.api.skin.GeminiSkin
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.FlowLayout
@@ -57,9 +57,9 @@ fun JTextPane.setAlignment(alignment: Int) {
     this.styledDocument.setParagraphAttributes(0, this.styledDocument.length, attrSet, false)
 }
 
-fun main(args: Array<String>) {
+fun main() {
     SwingUtilities.invokeLater {
-        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
+        SubstanceCortex.GlobalScope.setSkin(GeminiSkin())
 
         val frame = JFrame("Text alignment demo")
         frame.layout = BorderLayout()

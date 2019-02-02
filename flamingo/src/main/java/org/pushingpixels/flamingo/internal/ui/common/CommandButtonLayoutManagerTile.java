@@ -37,7 +37,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 
 public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManager {
@@ -124,10 +123,6 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
 
 		return new Dimension(width,
 				by + Math.max(prefIconSize, 2 * (fm.getAscent() + fm.getDescent())));
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
 	}
 
 	@Override
