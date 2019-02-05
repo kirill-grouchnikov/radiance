@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.neon.internal.font;
 
-import org.pushingpixels.neon.font.FontPolicy;
-import org.pushingpixels.neon.font.FontSet;
+import org.pushingpixels.neon.font.*;
 import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
 
 import javax.swing.*;
@@ -38,29 +37,27 @@ import java.awt.*;
 
 /**
  * The default font policy for Mac OS.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class DefaultMacFontPolicy implements FontPolicy {
-	@Override
-	public FontSet getFontSet(UIDefaults table) {
-	    String fontFamily = "Lucida Grande";
-	    if (LookUtils.IS_JAVA_9 || LookUtils.IS_JAVA_10 || LookUtils.IS_JAVA_11) {
-	        if (LookUtils.IS_OS_MAC_EL_CAPITAN_OR_LATER) {
-	            fontFamily = ".SF NS Text";
-	        } else if (LookUtils.IS_OS_MAC_YOSEMITE) {
-	            fontFamily = ".Helvetica Neue DeskInterface";
-	        }
-	    }
-		Font controlFont = new Font(fontFamily, Font.PLAIN, 13);
-		Font menuFont = table == null ? new Font(fontFamily, Font.PLAIN, 14) 
-		        : table.getFont("Menu.font");
-		Font titleFont = menuFont;
-		Font messageFont = table == null ? controlFont : table.getFont("OptionPane.font");
-		Font smallFont = table == null ? controlFont.deriveFont(controlFont.getSize2D() - 2f) 
-		        : table.getFont("ToolTip.font");
-		Font windowTitleFont = table == null ? titleFont : table.getFont("InternalFrame.titleFont");
-		return FontSets.createDefaultFontSet(controlFont, menuFont, titleFont,
-				messageFont, smallFont, windowTitleFont);
-	}
+    @Override
+    public FontSet getFontSet(UIDefaults table) {
+        String fontFamily = "Lucida Grande";
+        if (LookUtils.IS_OS_MAC_EL_CAPITAN_OR_LATER) {
+            fontFamily = ".SF NS Text";
+        } else if (LookUtils.IS_OS_MAC_YOSEMITE) {
+            fontFamily = ".Helvetica Neue DeskInterface";
+        }
+        Font controlFont = new Font(fontFamily, Font.PLAIN, 13);
+        Font menuFont = table == null ? new Font(fontFamily, Font.PLAIN, 14)
+                : table.getFont("Menu.font");
+        Font titleFont = menuFont;
+        Font messageFont = table == null ? controlFont : table.getFont("OptionPane.font");
+        Font smallFont = table == null ? controlFont.deriveFont(controlFont.getSize2D() - 2f)
+                : table.getFont("ToolTip.font");
+        Font windowTitleFont = table == null ? titleFont : table.getFont("InternalFrame.titleFont");
+        return FontSets.createDefaultFontSet(controlFont, menuFont, titleFont,
+                messageFont, smallFont, windowTitleFont);
+    }
 }

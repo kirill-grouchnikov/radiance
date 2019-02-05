@@ -70,6 +70,7 @@ public class ReflectedImageLabel extends JLabel implements RichComponent{
      * @param height The prefered heightof the image when rendered by a rich container
      * @deprecated This function will be removed, use setNeutralWidth() on JCarousel instead.
      */
+    @Deprecated
     public ReflectedImageLabel(Image image, int width, int height) {
         setRichImage(image);
     }
@@ -83,6 +84,7 @@ public class ReflectedImageLabel extends JLabel implements RichComponent{
      * @param height The prefered height of the image when rendered by a rich container
      * @deprecated This function will be removed, use setNeutralWidth() on JCarousel instead.
      */
+    @Deprecated
     public ReflectedImageLabel(Image image, String text, int width, int height) {
         setRichImage(image);
         setRichText(text);
@@ -117,6 +119,7 @@ public class ReflectedImageLabel extends JLabel implements RichComponent{
      * @param height The prefered height of the image when rendered by a rich container
      * @deprecated This function will be removed, use setNeutralWidth() on JCarousel instead.
      */
+    @Deprecated
     public ReflectedImageLabel(String imageURL, int width, int height){
         try {
             setRichImage(new URL(imageURL));
@@ -133,6 +136,7 @@ public class ReflectedImageLabel extends JLabel implements RichComponent{
      * @param height The prefered height of the image when rendered by a rich container
      * @deprecated This function will be removed, use setNeutralWidth() on JCarousel instead.
      */
+    @Deprecated
     public ReflectedImageLabel(String imageURL, String text, int width, int height){
         this(imageURL,width,height);
         this.text=text;
@@ -143,6 +147,7 @@ public class ReflectedImageLabel extends JLabel implements RichComponent{
      * @deprecated Use setRichText() instead
      * @param text The rich text
      */
+    @Deprecated
     public void setLabel(String text){
         this.text = text;
     }
@@ -213,6 +218,7 @@ public class ReflectedImageLabel extends JLabel implements RichComponent{
      * @see RichComponent
      * @deprecated Please use setRichImage() instead from the RichComponent interface
      */
+    @Deprecated
     public void setImage(Image image) {
         this.setupImage(image);
     }    

@@ -2,7 +2,7 @@
 
 ### Sub-project (Neon, Trident, Substance, Flamingo, ...)
 
-### Version of Java (current minimum is 8)
+### Version of Java (current minimum is 9)
 
 ### Version of OS
 

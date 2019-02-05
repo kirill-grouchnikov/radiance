@@ -34,6 +34,7 @@ import org.pushingpixels.lightbeam.*;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
 /**
@@ -96,10 +97,9 @@ public class BigTextAreaPanel extends JPanel {
 			public void runSingleIteration(int iterationNumber) {
 				try {
 					int lineToScrollTo = this.perms[iterationNumber];
-					int charToScrollTo = textArea
-							.getLineStartOffset(lineToScrollTo);
-					textArea.scrollRectToVisible(textArea
-							.modelToView(charToScrollTo));
+					int charToScrollTo = textArea.getLineStartOffset(lineToScrollTo);
+					Rectangle2D view = textArea.modelToView2D(charToScrollTo);
+					textArea.scrollRectToVisible(view.getBounds());
 					paintImmediately(0, 0, getWidth(), getHeight());
 				} catch (BadLocationException ble) {
 					ble.printStackTrace();
@@ -146,10 +146,9 @@ public class BigTextAreaPanel extends JPanel {
 					}
 
 					int lastLine = textArea.getLineCount();
-					int charToScrollTo = textArea
-							.getLineStartOffset(lastLine - 1);
-					textArea.scrollRectToVisible(textArea
-							.modelToView(charToScrollTo));
+					int charToScrollTo = textArea.getLineStartOffset(lastLine - 1);
+					Rectangle2D view = textArea.modelToView2D(charToScrollTo);
+					textArea.scrollRectToVisible(view.getBounds());
 					paintImmediately(0, 0, getWidth(), getHeight());
 				} catch (BadLocationException ble) {
 					ble.printStackTrace();

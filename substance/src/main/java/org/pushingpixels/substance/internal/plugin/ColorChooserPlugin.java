@@ -108,13 +108,13 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
                     "ColorChooser.swatchesSwatchSize",
                     new DimensionUIResource(5, 5),
                     "ColorChooser.resetMnemonic",
-                    new Integer(-1),
+                    Integer.valueOf(-1),
                     "ColorChooser.crayonsImage",
                     (UIDefaults.LazyValue) ((UIDefaults table) -> SubstanceImageCreator.getCrayonsImage(
                             skin.getBackgroundColorScheme(DecorationAreaType.NONE).getBackgroundFillColor()
                     )),
                     "ColorChooser.textSliderGap",
-                    new Integer(0),
+                    Integer.valueOf(0),
             };
 
             FontSet substanceFontSet = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null);

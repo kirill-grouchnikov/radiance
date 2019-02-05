@@ -128,10 +128,10 @@ public class TablePanel extends JPanel {
 				this.data.add(row);
 				row[0] = "cell " + i + ":" + 0;
 				row[1] = "predef";
-				row[2] = new Boolean(i % 2 == 0);
-				row[3] = new Byte((byte) i);
-				row[4] = new Float(i);
-				row[5] = new Double(i);
+				row[2] = Boolean.valueOf(i % 2 == 0);
+				row[3] = Byte.valueOf((byte) i);
+				row[4] = Float.valueOf(i);
+				row[5] = Double.valueOf(i);
 				row[6] = "cell " + i + ":" + 6;
 				Calendar cal = Calendar.getInstance();
 				cal.set(2000 + i, 1 + i, 1 + i);

@@ -133,7 +133,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
             this.searchButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    if ((e.getModifiers() & InputEvent.CTRL_MASK) != 0) {
+                    if ((e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) != 0) {
                         SwingUtilities.invokeLater(() -> {
                             SearchPanel.this.removeAll();
                             SearchPanel.this.repaint();
@@ -193,7 +193,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
                     // only enabled items.
                     resultButton.setEnabled(searchResult.isEnabled());
                     SearchPanel.this.add(resultButton);
-                    SearchPanel.this.resultButtons.put(new Integer(count + 1), resultButton);
+                    SearchPanel.this.resultButtons.put(Integer.valueOf(count + 1), resultButton);
                     resultButton.setToolTipText("<html><body><b>"
                             + searchResult.toString() + "</b><br>" + SubstanceCortex.GlobalScope
                                     .getLabelBundle().getString("Tooltip.menuSearchTooltip")

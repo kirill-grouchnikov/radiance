@@ -42,16 +42,6 @@ public final class LookUtils {
 	// Basics System Properties **********************************************
 
 	/**
-	 * The <code>java.vendor</code> System Property.
-	 * <p>
-	 * 
-	 * Defaults to <code>null</code> if the runtime does not have security
-	 * access to read this property or the property does not exist.
-	 */
-
-	private static final String JAVA_SPEC_VERSION = getSystemProperty("java.specification.version");
-
-	/**
 	 * The <code>os.name</code> System Property. Operating system name.
 	 * <p>
 	 * 
@@ -134,10 +124,6 @@ public final class LookUtils {
 	 */
 	public static final boolean IS_OS_MAC_MOJAVE_OR_LATER = IS_OS_MAC
             || startsWith(OS_VERSION, "10.14");
-
-    public static final boolean IS_JAVA_9 = startsWith(JAVA_SPEC_VERSION, "9");
-	public static final boolean IS_JAVA_10 = startsWith(JAVA_SPEC_VERSION, "10");
-	public static final boolean IS_JAVA_11 = startsWith(JAVA_SPEC_VERSION, "11");
 
 	// Other Properties *******************************************************
 

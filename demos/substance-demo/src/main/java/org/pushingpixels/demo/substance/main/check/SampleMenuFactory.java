@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2019 Substance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Substance Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.substance.main.check;
 
@@ -41,19 +41,18 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
 /**
  * Factory that creates menus for the test applications.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SampleMenuFactory {
     /**
      * Returns a sample test menu.
-     * 
+     *
      * @return Sample test menu.
      */
     public static JMenu getTestMenu() {
@@ -78,36 +77,36 @@ public class SampleMenuFactory {
 
     /**
      * Returns menu items for a sample test menu.
-     * 
+     *
      * @return Menu items for a sample test menu.
      */
     public static LinkedList<LinkedList<JMenuItem>> getTestMenuItems() {
         LinkedList<LinkedList<JMenuItem>> result = new LinkedList<LinkedList<JMenuItem>>();
         LinkedList<JMenuItem> list1 = new LinkedList<JMenuItem>();
         final JMenuItem jmi1 = new JMenuItem("Menu item enabled", se.of(16, 16));
-        jmi1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Event.CTRL_MASK));
+        jmi1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK));
         JMenuItem jmi2 = new JMenuItem("Menu item disabled");
-        jmi2.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_B, Event.CTRL_MASK | Event.ALT_MASK));
+        jmi2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,
+                InputEvent.CTRL_DOWN_MASK | InputEvent.ALT_DOWN_MASK));
         jmi2.setEnabled(false);
 
         list1.add(jmi1);
         list1.add(jmi2);
         result.add(list1);
 
-        LinkedList<JMenuItem> list2 = new LinkedList<JMenuItem>();
+        LinkedList<JMenuItem> list2 = new LinkedList<>();
         final JCheckBoxMenuItem jcbmi1 = new JCheckBoxMenuItem("Check enabled selected");
-        jcbmi1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, Event.CTRL_MASK));
+        jcbmi1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK));
         jcbmi1.setSelected(true);
         JCheckBoxMenuItem jcbmi2 = new JCheckBoxMenuItem("Check enabled unselected", br.of(16, 16));
-        jcbmi2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, Event.CTRL_MASK));
+        jcbmi2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK));
         jcbmi2.setSelected(false);
         JCheckBoxMenuItem jcbmi3 = new JCheckBoxMenuItem("Check disabled selected");
-        jcbmi3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, Event.CTRL_MASK));
+        jcbmi3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK));
         jcbmi3.setSelected(true);
         jcbmi3.setEnabled(false);
         final JCheckBoxMenuItem jcbmi4 = new JCheckBoxMenuItem("Check disabled unselected");
-        jcbmi4.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, Event.CTRL_MASK));
+        jcbmi4.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK));
         jcbmi4.setSelected(false);
         jcbmi4.setEnabled(false);
 
@@ -120,20 +119,20 @@ public class SampleMenuFactory {
         LinkedList<JMenuItem> list3 = new LinkedList<JMenuItem>();
         final JRadioButtonMenuItem jrbmi1 = new JRadioButtonMenuItem("Radio enabled selected",
                 il.of(16, 16));
-        jrbmi1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, Event.CTRL_MASK));
+        jrbmi1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_DOWN_MASK));
         jrbmi1.setSelected(true);
         JRadioButtonMenuItem jrbmi2 = new JRadioButtonMenuItem("Radio enabled unselected");
-        jrbmi2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, Event.CTRL_MASK));
+        jrbmi2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_DOWN_MASK));
         jrbmi2.setSelected(false);
         ButtonGroup bgRadioMenu1 = new ButtonGroup();
         bgRadioMenu1.add(jrbmi1);
         bgRadioMenu1.add(jrbmi2);
         JRadioButtonMenuItem jrbmi3 = new JRadioButtonMenuItem("Radio disabled selected");
-        jrbmi3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, Event.CTRL_MASK));
+        jrbmi3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
         jrbmi3.setSelected(true);
         jrbmi3.setEnabled(false);
         JRadioButtonMenuItem jrbmi4 = new JRadioButtonMenuItem("Radio disabled unselected");
-        jrbmi4.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J, Event.CTRL_MASK));
+        jrbmi4.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J, InputEvent.CTRL_DOWN_MASK));
         jrbmi4.setSelected(false);
         jrbmi4.setEnabled(false);
         ButtonGroup bgRadioMenu2 = new ButtonGroup();
@@ -208,7 +207,7 @@ public class SampleMenuFactory {
 
     /**
      * Returns menu for setting skins.
-     * 
+     *
      * @return Menu for setting skins.
      */
     public static JMenu getSkinMenu() {

@@ -64,8 +64,8 @@ allprojects {
 
     // Configure Java compilation for all the projects
     tasks.withType(JavaCompile) {
-        // enforce Java 8 as the source + target + compile time level
-        def javaVersion = JavaVersion.VERSION_1_8
+        // enforce Java 9 as the source + target + compile time level
+        def javaVersion = JavaVersion.VERSION_1_9
         sourceCompatibility = javaVersion
         targetCompatibility = javaVersion
 

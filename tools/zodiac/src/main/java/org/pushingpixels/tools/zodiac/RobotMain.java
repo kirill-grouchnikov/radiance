@@ -54,7 +54,7 @@ public class RobotMain {
         String mainClassName = args[0];
         String screenshotDirectory = args[1];
         Class<?> robotClass = Class.forName(mainClassName);
-        Object robotInstance = robotClass.newInstance();
+        Object robotInstance = robotClass.getDeclaredConstructor().newInstance();
         Method runMethod = robotClass.getMethod("run", new Class[] { String.class });
         runMethod.invoke(robotInstance, new Object[] { screenshotDirectory });
     }

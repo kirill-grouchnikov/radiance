@@ -381,8 +381,8 @@ public class JRibbonFrame extends JFrame {
                             switch (keyEvent.getID()) {
                                 case KeyEvent.KEY_RELEASED:
                                     boolean wasAltModif = prevAltModif;
-                                    prevAltModif = keyEvent
-                                            .getModifiersEx() == InputEvent.ALT_DOWN_MASK;
+                                    prevAltModif =
+                                            keyEvent.getModifiersEx() == InputEvent.ALT_DOWN_MASK;
                                     if (wasAltModif && keyEvent.getKeyCode() == KeyEvent.VK_ALT)
                                         break;
                                     char keyChar = keyEvent.getKeyChar();
@@ -393,9 +393,9 @@ public class JRibbonFrame extends JFrame {
                                     }
                                     if ((keyEvent.getKeyCode() == KeyEvent.VK_ALT)
                                             || (keyEvent.getKeyCode() == KeyEvent.VK_F10)) {
-                                        if (keyEvent.getModifiers() != 0
-                                                || keyEvent.getModifiersEx() != 0)
+                                        if (keyEvent.getModifiersEx() != 0) {
                                             break;
+                                        }
                                         boolean hadPopups = !PopupPanelManager.defaultManager()
                                                 .getShownPath().isEmpty();
                                         PopupPanelManager.defaultManager().hidePopups(null);

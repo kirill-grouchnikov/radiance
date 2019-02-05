@@ -64,6 +64,7 @@ public class SubstanceMetricsUtilities {
         NeonCortex.installDesktopHints(g2d);
         g2d.setFont(font);
         FontMetrics result = g2d.getFontMetrics();
+        NeonCortex.clearDesktopHints(g2d);
         g2d.dispose();
 
         metricsMap.put(font, result);
@@ -80,6 +81,7 @@ public class SubstanceMetricsUtilities {
         NeonCortex.installDesktopHints(g2d);
         g2d.setFont(font);
         FontRenderContext result = g2d.getFontRenderContext();
+        NeonCortex.clearDesktopHints(g2d);
         g2d.dispose();
 
         renderContextMap.put(font, result);

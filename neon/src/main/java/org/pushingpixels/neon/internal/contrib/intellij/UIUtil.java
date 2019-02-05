@@ -15,13 +15,9 @@
  */
 package org.pushingpixels.neon.internal.contrib.intellij;
 
-import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
-
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.lang.reflect.Method;
-import java.util.Locale;
-import java.util.WeakHashMap;
+import java.util.*;
 
 /**
  * @author max
@@ -75,29 +71,6 @@ public class UIUtil {
             return Math.max(scaleX, scaleY);
         }
 
-        /**
-         * The best way to understand whether we are on a retina device is [NSScreen
-         * backingScaleFactor] But we should not invoke it from any thread. We do not have access to
-         * the AppKit thread on the other hand. So let's use a dedicated method. It is rather safe
-         * because it caches a value that has been got on AppKit previously.
-         */
-        private static double getScaleFactorLegacy(GraphicsDevice device) {
-            try {
-                Method getScaleFactorMethod = Class.forName("sun.awt.CGraphicsDevice")
-                        .getMethod("getScaleFactor");
-                if (getScaleFactorMethod == null) {
-                    return 1.0;
-                }
-                int result = (Integer) getScaleFactorMethod.invoke(device);
-                if (result <= 0) {
-                    return 1.0;
-                }
-                return result;
-            } catch (Throwable t) {
-                return 1.0;
-            }
-        }
-
         private static double getScaleFactor(GraphicsDevice device) {
             if (IS_VENDOR_APPLE) {
                 return 1.0;
@@ -107,8 +80,7 @@ public class UIUtil {
                 return devicesScaleFactorCacheMap.get(device);
             }
 
-            double result = LookUtils.IS_JAVA_9 || LookUtils.IS_JAVA_10 || LookUtils.IS_JAVA_11 ?
-                    getScaleFactorModern(device) : getScaleFactorLegacy(device);
+            double result = getScaleFactorModern(device);
 
             devicesScaleFactorCacheMap.put(device, result);
 

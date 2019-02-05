@@ -146,10 +146,10 @@ public class TablePanel extends ControllablePanel implements Deferrable {
             for (int i = 0; i < rows; i++) {
                 this.data[i][0] = "cell " + i + ":" + 0;
                 this.data[i][1] = "predef";
-                this.data[i][2] = new Boolean(i % 2 == 0);
-                this.data[i][3] = new Byte((byte) i);
-                this.data[i][4] = new Float(i);
-                this.data[i][5] = new Double(i);
+                this.data[i][2] = Boolean.valueOf(i % 2 == 0);
+                this.data[i][3] = Byte.valueOf((byte) i);
+                this.data[i][4] = Float.valueOf(i);
+                this.data[i][5] = Double.valueOf(i);
                 this.data[i][6] = "cell " + i + ":" + 6;
 
                 Calendar cal = Calendar.getInstance();

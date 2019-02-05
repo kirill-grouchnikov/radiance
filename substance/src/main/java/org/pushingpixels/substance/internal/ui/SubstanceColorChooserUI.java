@@ -78,7 +78,7 @@ public class SubstanceColorChooserUI extends Quaqua14ColorChooserUI {
 			}
 			try {
 				AbstractColorChooserPanel panel = (AbstractColorChooserPanel) Class
-						.forName(defaultChoosers[i]).newInstance();
+						.forName(defaultChoosers[i]).getDeclaredConstructor().newInstance();
 				panelList.add(panel);
 			} catch (AccessControlException e) {
 				// ignore - happens on unsigned apps in WebStart environment

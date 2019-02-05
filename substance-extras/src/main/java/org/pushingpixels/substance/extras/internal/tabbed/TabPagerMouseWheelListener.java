@@ -72,7 +72,7 @@ public class TabPagerMouseWheelListener implements MouseWheelListener {
 		if (tpp == null)
 			return;
 
-		if (((e.getModifiers() & InputEvent.CTRL_MASK) != 0)
+		if (((e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) != 0)
 				&& e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
 			int amount = e.getWheelRotation();
 			TabPagerManager te = TabPagerManager.getPager();

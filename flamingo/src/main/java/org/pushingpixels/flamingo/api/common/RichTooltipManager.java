@@ -174,9 +174,9 @@ public class RichTooltipManager {
     private MouseEvent retarget(MouseEvent original, Component source, Component target) {
         Point inTarget = SwingUtilities.convertPoint(
                 source, original.getX(), original.getY(), target);
-        return new MouseEvent(target, original.getID(), original.getWhen(), original.getModifiers(),
-                inTarget.x, inTarget.y, original.getClickCount(), original.isPopupTrigger(),
-                original.getButton());
+        return new MouseEvent(target, original.getID(), original.getWhen(),
+                original.getModifiersEx(), inTarget.x, inTarget.y, original.getClickCount(),
+                original.isPopupTrigger(), original.getButton());
     }
 
     private void showTipWindow(MouseEvent mouseEvent) {

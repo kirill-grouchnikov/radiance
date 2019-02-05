@@ -74,19 +74,22 @@ public class Quaqua13ColorChooserUI extends ColorChooserUI {
         for (int i=0; i < defaultChoosers.length; i++) {
             try {
                 
-            panels.add(Class.forName(defaultChoosers[i]).newInstance());
+            panels.add(Class.forName(defaultChoosers[i]).getDeclaredConstructor().newInstance());
             } catch (AccessControlException e) {
                 // suppress
-                System.err.println("Quaqua13ColorChooserUI warning: unable to instantiate "+defaultChoosers[i]);
+                System.err.println("Quaqua13ColorChooserUI warning: unable to instantiate "
+                        + defaultChoosers[i]);
             } catch (Exception e) {
                 throw new InternalError("Unable to instantiate "+defaultChoosers[i]);
             } catch (UnsupportedClassVersionError e) {
                 // suppress
-                System.err.println("Quaqua13ColorChooserUI warning: unable to instantiate "+defaultChoosers[i]);
+                System.err.println("Quaqua13ColorChooserUI warning: unable to instantiate "
+                        + defaultChoosers[i]);
             }
         }
         //AbstractColorChooserPanel[] panels = new AbstractColorChooserPanel[defaultChoosers.length];
-        return (AbstractColorChooserPanel[]) panels.toArray(new AbstractColorChooserPanel[panels.size()]);
+        return (AbstractColorChooserPanel[]) panels.toArray(
+                new AbstractColorChooserPanel[panels.size()]);
     }
     
     

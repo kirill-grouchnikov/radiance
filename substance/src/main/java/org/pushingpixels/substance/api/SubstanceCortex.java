@@ -277,7 +277,7 @@ public class SubstanceCortex {
                 if (skinClass == null) {
                     return false;
                 }
-                Object obj = skinClass.newInstance();
+                Object obj = skinClass.getDeclaredConstructor().newInstance();
                 if (obj == null) {
                     return false;
                 }

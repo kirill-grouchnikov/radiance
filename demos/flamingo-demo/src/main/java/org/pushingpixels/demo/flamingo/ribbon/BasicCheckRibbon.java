@@ -1512,7 +1512,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             try {
                 Class appClass = Class.forName("com.apple.eawt.Application");
                 if (appClass != null) {
-                    Object appInstance = appClass.newInstance();
+                    Object appInstance = appClass.getDeclaredConstructor().newInstance();
                     Method setDockImageMethod = appClass
                             .getDeclaredMethod("setDockIconImage", Image.class);
                     if (setDockImageMethod != null) {

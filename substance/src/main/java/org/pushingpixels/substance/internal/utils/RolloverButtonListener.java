@@ -80,7 +80,7 @@ public class RolloverButtonListener extends BasicButtonListener {
 		try {
 			super.mouseEntered(e);
 			this.isMouseInside = true;
-			boolean isMouseDrag = ((e.getModifiersEx() & MouseEvent.BUTTON1_DOWN_MASK) != 0);
+			boolean isMouseDrag = (e.getButton() == MouseEvent.BUTTON1);
 			if (!isMouseDrag) {
 				this.button.getModel().setRollover(true);
 			}

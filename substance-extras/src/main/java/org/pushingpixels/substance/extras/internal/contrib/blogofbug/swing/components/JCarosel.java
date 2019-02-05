@@ -191,6 +191,7 @@ public class JCarosel extends GradientPanel implements MouseListener,
 	 *             instead.
 	 */
 	@SuppressWarnings("deprecation")
+	@Deprecated
     public Component add(String imageURL, int width, int height) {
 		ReflectedImageLabel component = new ReflectedImageLabel(imageURL,
 				width, height);
@@ -214,6 +215,7 @@ public class JCarosel extends GradientPanel implements MouseListener,
 	 *             JCarousel instead.
 	 */
 	@SuppressWarnings("deprecation")
+	@Deprecated
     public Component add(String imageURL, String text, int width, int height) {
 		ReflectedImageLabel component = new ReflectedImageLabel(imageURL, text,
 				width, height);

@@ -45,7 +45,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.*;
 import javax.swing.plaf.basic.ComboPopup;
-import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -584,26 +583,6 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 
 				break;
 			}
-		}
-
-		/**
-		 * Checks whether the specified component lies inside a
-		 * {@link JPopupPanel}.
-		 * 
-		 * @param src
-		 *            Component.
-		 * @return <code>true</code> if the specified component lies inside a
-		 *         {@link JPopupPanel}.
-		 */
-		boolean isInPopupPanel(Component src) {
-			for (Component c = src; c != null; c = c.getParent()) {
-				if (c instanceof Applet || c instanceof Window) {
-					break;
-				} else if (c instanceof JPopupPanel) {
-					return true;
-				}
-			}
-			return false;
 		}
 
 		public void componentResized(ComponentEvent e) {

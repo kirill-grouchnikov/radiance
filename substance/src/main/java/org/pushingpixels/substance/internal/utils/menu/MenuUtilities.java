@@ -41,7 +41,7 @@ import javax.swing.plaf.ButtonUI;
 import javax.swing.plaf.basic.BasicHTML;
 import javax.swing.text.View;
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.geom.Area;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -251,7 +251,7 @@ public class MenuUtilities {
         if (accelerator != null) {
             int modifiers = accelerator.getModifiers();
             if (modifiers > 0) {
-                acceleratorText = KeyEvent.getKeyModifiersText(modifiers);
+                acceleratorText = InputEvent.getModifiersExText(modifiers);
                 acceleratorText += UIManager.getString("MenuItem.acceleratorDelimiter");
             }
 
@@ -457,7 +457,7 @@ public class MenuUtilities {
         if (accelerator != null) {
             int modifiers = accelerator.getModifiers();
             if (modifiers > 0) {
-                acceleratorText = KeyEvent.getKeyModifiersText(modifiers);
+                acceleratorText = InputEvent.getModifiersExText(modifiers);
                 acceleratorText += UIManager.getString("MenuItem.acceleratorDelimiter");
             }
 

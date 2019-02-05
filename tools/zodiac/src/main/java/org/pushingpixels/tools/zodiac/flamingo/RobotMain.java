@@ -52,7 +52,7 @@ public class RobotMain {
 
         String mainClassName = args[0];
         Class<?> robotClass = Class.forName(mainClassName);
-        Object robotInstance = robotClass.newInstance();
+        Object robotInstance = robotClass.getDeclaredConstructor().newInstance();
         Method runMethod = robotClass.getMethod("run", new Class[0]);
         runMethod.invoke(robotInstance, new Object[0]);
     }

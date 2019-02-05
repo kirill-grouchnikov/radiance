@@ -241,6 +241,7 @@ public class JCarouselMenu extends GradientPanel implements ListSelectionListene
      * @param height Prefered height
      * @return The created component
      */
+    @Deprecated
     public Component add(Image image, String label, int width, int height) {
         Component comp = carousel.add(image, null);
         MenuItem item = new MenuItem(comp, label, null);
@@ -276,6 +277,7 @@ public class JCarouselMenu extends GradientPanel implements ListSelectionListene
      * @param height The height
      * @return The created component
      */
+    @Deprecated
     public Component add(Action action, int width, int height){
         URL url = (URL) action.getValue(AbstractCarouselMenuAction.ACTION_IMAGE_URL);
         if (url==null){
@@ -320,6 +322,7 @@ public class JCarouselMenu extends GradientPanel implements ListSelectionListene
      * @param height height
      * @return The created component
      */
+    @Deprecated
     public Component add(String imageURL, String label, int width, int height){
         Component comp = carousel.add(imageURL);
         MenuItem item = new MenuItem(comp,label,null);

@@ -2,9 +2,9 @@
 
 This document describes the steps to create a sample Swing application and run it under Substance look and feel.
 
-Since **Substance** requires JDK 8, if you don't have such an installation on your machine, you need to download it from [this site](http://www.oracle.com/technetwork/java/javase/downloads/index.html) and install it. The command-prompt examples below assume that **java** executable is in the path. This executable is part of JRE (under **bin** folder) as well as part of JDK (under **bin** folder). Consult your OS manual on how to add the relevant folder to the path. Alternatively, you can put the entire path to the **java** executable in the scripts below.
+Since **Substance** requires JDK 9, if you don't have such an installation on your machine, you need to download it from [this site](http://www.oracle.com/technetwork/java/javase/downloads/index.html) and install it. The command-prompt examples below assume that **java** executable is in the path. This executable is part of JRE (under **bin** folder) as well as part of JDK (under **bin** folder). Consult your OS manual on how to add the relevant folder to the path. Alternatively, you can put the entire path to the **java** executable in the scripts below.
 
-After you have JDK 8 installed on your machine, create the following `Walkthrough.java` class:
+After you have JDK 9 installed on your machine, create the following `Walkthrough.java` class:
 
 ```java
 import java.awt.*;

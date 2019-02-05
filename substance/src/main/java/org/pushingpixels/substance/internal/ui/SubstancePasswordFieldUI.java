@@ -50,7 +50,7 @@ import java.util.Set;
 
 /**
  * UI for password fields in <b>Substance</b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements TransitionAwareUI {
@@ -80,7 +80,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
 
     /**
      * Custom password view.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class SubstancePasswordView extends FieldView {
@@ -91,11 +91,9 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
 
         /**
          * Simple constructor.
-         * 
-         * @param field
-         *            The associated password field.
-         * @param element
-         *            The element
+         *
+         * @param field   The associated password field.
+         * @param element The element
          */
         private SubstancePasswordView(JPasswordField field, Element element) {
             super(element);
@@ -107,21 +105,16 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
          * characters is defined by
          * {@link org.pushingpixels.substance.internal.SubstanceSynapse#PASSWORD_ECHO_PER_CHAR}
          * client property.
-         * 
-         * @param g
-         *            Graphics context
-         * @param x
-         *            X coordinate of the first echo character to draw.
-         * @param y
-         *            Y coordinate of the first echo character to draw.
-         * @param c
-         *            Password field.
-         * @param isSelected
-         *            Indicates whether the password field character is selected.
+         *
+         * @param g          Graphics context
+         * @param x          X coordinate of the first echo character to draw.
+         * @param y          Y coordinate of the first echo character to draw.
+         * @param c          Password field.
+         * @param isSelected Indicates whether the password field character is selected.
          * @return The X location of the next echo character.
          * @see org.pushingpixels.substance.internal.SubstanceSynapse#PASSWORD_ECHO_PER_CHAR
          */
-        private int drawEchoCharacter(Graphics g, int x, int y, char c, boolean isSelected) {
+        private float drawEchoCharacter(Graphics g, float x, float y, char c, boolean isSelected) {
             Container container = this.getContainer();
 
             Graphics2D graphics = (Graphics2D) g;
@@ -142,7 +135,8 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
             graphics.setColor(color);
             int echoPerChar = SubstanceCoreUtilities.getEchoPerChar(field);
             for (int i = 0; i < echoPerChar; i++) {
-                graphics.fillOval(x + dotGap / 2, y - dotDiameter, dotDiameter, dotDiameter);
+                graphics.fillOval((int) (x + dotGap / 2), (int) (y - dotDiameter),
+                        dotDiameter, dotDiameter);
                 x += (dotDiameter + dotGap);
             }
             return x;
@@ -154,7 +148,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
          * {@link org.pushingpixels.substance.internal.SubstanceSynapse#PASSWORD_ECHO_PER_CHAR}
          * can be used to specify that more than
          * one echo character is used for each password field character.
-         * 
+         *
          * @return The advance of a single password field character
          */
         private int getEchoCharAdvance() {
@@ -166,7 +160,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
         }
 
         @Override
-        protected int drawSelectedText(Graphics g, final int x, final int y, int p0, int p1)
+        protected float drawSelectedText(Graphics2D g, float x, float y, int p0, int p1)
                 throws BadLocationException {
             Container c = getContainer();
             if (c instanceof JPasswordField) {
@@ -176,7 +170,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
                 }
                 int n = p1 - p0;
                 char echoChar = f.getEchoChar();
-                int currPos = x;
+                float currPos = x;
                 for (int i = 0; i < n; i++) {
                     currPos = drawEchoCharacter(g, currPos, y, echoChar, true);
                 }
@@ -186,7 +180,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
         }
 
         @Override
-        protected int drawUnselectedText(Graphics g, final int x, final int y, int p0, int p1)
+        protected float drawUnselectedText(Graphics2D g, float x, float y, int p0, int p1)
                 throws BadLocationException {
             Container c = getContainer();
             if (c instanceof JPasswordField) {
@@ -196,7 +190,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
                 }
                 int n = p1 - p0;
                 char echoChar = f.getEchoChar();
-                int currPos = x;
+                float currPos = x;
                 for (int i = 0; i < n; i++) {
                     currPos = drawEchoCharacter(g, currPos, y, echoChar, false);
                 }
@@ -259,18 +253,18 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
         @Override
         public float getPreferredSpan(int axis) {
             switch (axis) {
-            case View.X_AXIS:
-                Container c = this.getContainer();
-                if (c instanceof JPasswordField) {
-                    JPasswordField f = (JPasswordField) c;
-                    if (f.echoCharIsSet()) {
-                        int echoPerChar = SubstanceCoreUtilities.getEchoPerChar(f);
-                        int fontSize = SubstanceSizeUtils.getComponentFontSize(this.field);
-                        int dotWidth = SubstanceSizeUtils.getPasswordDotDiameter(fontSize)
-                                + SubstanceSizeUtils.getPasswordDotGap(fontSize);
-                        return echoPerChar * dotWidth * this.getDocument().getLength();
+                case View.X_AXIS:
+                    Container c = this.getContainer();
+                    if (c instanceof JPasswordField) {
+                        JPasswordField f = (JPasswordField) c;
+                        if (f.echoCharIsSet()) {
+                            int echoPerChar = SubstanceCoreUtilities.getEchoPerChar(f);
+                            int fontSize = SubstanceSizeUtils.getComponentFontSize(this.field);
+                            int dotWidth = SubstanceSizeUtils.getPasswordDotDiameter(fontSize)
+                                    + SubstanceSizeUtils.getPasswordDotGap(fontSize);
+                            return echoPerChar * dotWidth * this.getDocument().getLength();
+                        }
                     }
-                }
             }
             return super.getPreferredSpan(axis);
         }
@@ -284,9 +278,8 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
 
     /**
      * Creates the UI delegate for the specified component (password field).
-     * 
-     * @param c
-     *            Component.
+     *
+     * @param c Component.
      */
     private SubstancePasswordFieldUI(JComponent c) {
         super();

@@ -384,8 +384,7 @@ public class StateTransitionTracker {
             // 1. the new state goes from current value to 1.0
             // 2. the rest go from current value to 0.0
             for (Map.Entry<ComponentState, StateContributionInfo> existing : this.modelStateInfo
-                    .stateContributionMap
-                    .entrySet()) {
+                    .stateContributionMap.entrySet()) {
                 StateContributionInfo currRange = existing.getValue();
                 ComponentState state = existing.getKey();
                 float newEnd = (state == newState) ? 1.0f : 0.0f;
@@ -396,15 +395,13 @@ public class StateTransitionTracker {
             // 1. all existing states go from current value to 0.0
             // 2. the new state goes from 0.0 to 1.0
             for (Map.Entry<ComponentState, StateContributionInfo> existing : this.modelStateInfo
-                    .stateContributionMap
-                    .entrySet()) {
+                    .stateContributionMap.entrySet()) {
                 StateContributionInfo currRange = existing.getValue();
                 ComponentState state = existing.getKey();
                 newContributionMap.put(state, new StateContributionInfo(
                         currRange.curr, 0.0f));
             }
-            newContributionMap.put(newState, new StateContributionInfo(0.0f,
-                    1.0f));
+            newContributionMap.put(newState, new StateContributionInfo(0.0f, 1.0f));
         }
         this.modelStateInfo.stateContributionMap = newContributionMap;
 

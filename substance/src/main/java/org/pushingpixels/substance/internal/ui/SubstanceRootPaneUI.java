@@ -1354,9 +1354,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
 
             int state = f.getExtendedState();
             if (isMouseEventInExtendedTitlePane(ev)) {
-                // if ((windowTitlePane != null) && windowTitlePane.contains(convertedPoint)) {
-                if (((ev.getClickCount() % 2) == 0)
-                        && ((ev.getModifiers() & InputEvent.BUTTON1_MASK) != 0)) {
+                if (((ev.getClickCount() % 2) == 0) && (ev.getButton() == MouseEvent.BUTTON1)) {
                     if (f.isResizable()) {
                         if ((state & Frame.MAXIMIZED_BOTH) != 0) {
                             setMaximized();
@@ -1525,10 +1523,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
 
             int state = f.getExtendedState();
             if (isMouseEventInExtendedTitlePane(ev)) {
-                // if ((SubstanceRootPaneUI.this.getTitlePane() != null)
-                // && SubstanceRootPaneUI.this.getTitlePane().contains(convertedPoint)) {
-                if (((ev.getClickCount() % 2) == 0)
-                        && ((ev.getModifiers() & InputEvent.BUTTON1_MASK) != 0)) {
+                if (((ev.getClickCount() % 2) == 0) && (ev.getButton() == MouseEvent.BUTTON1)) {
                     if (f.isResizable()) {
                         if ((state & Frame.MAXIMIZED_BOTH) != 0) {
                             setMaximized();

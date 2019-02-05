@@ -92,9 +92,9 @@ public class TabPagerWidget extends SubstanceWidget<JTabbedPane> {
             }
         }
 
-        newMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, InputEvent.CTRL_MASK),
+        newMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, InputEvent.CTRL_DOWN_MASK),
                 "tabSwitcherForward");
-        newMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, InputEvent.CTRL_MASK),
+        newMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, InputEvent.CTRL_DOWN_MASK),
                 "tabSwitcherBackward");
         newMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_CONTROL, 0, true), "tabSwitcherClose");
         newMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "tabSwitcherHide");
@@ -192,11 +192,11 @@ public class TabPagerWidget extends SubstanceWidget<JTabbedPane> {
                 KeyStroke stroke = kss[i];
                 Object val = currMap.get(stroke);
                 if (stroke
-                        .equals(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, InputEvent.CTRL_MASK))) {
+                        .equals(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, InputEvent.CTRL_DOWN_MASK))) {
                     if ("tabSwitcherForward".equals(val))
                         continue;
                 }
-                if (stroke.equals(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, InputEvent.CTRL_MASK))) {
+                if (stroke.equals(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, InputEvent.CTRL_DOWN_MASK))) {
                     if ("tabSwitcherBackward".equals(val))
                         continue;
                 }
@@ -234,7 +234,7 @@ public class TabPagerWidget extends SubstanceWidget<JTabbedPane> {
         this.mouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if ((e.getModifiers() & InputEvent.CTRL_MASK) != 0) {
+                if ((e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) != 0) {
                     SwingUtilities.invokeLater(() -> {
                         TabPagerManager te = TabPagerManager.getPager();
                         int index = te.hide();

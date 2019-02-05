@@ -116,13 +116,12 @@ public abstract class SkinRobot {
         robot.waitForIdle();
 
         // get the default button
-        JButton defaultButton = GuiActionRunner
-                .execute(new GuiQuery<JButton>() {
-                    @Override
-                    protected JButton executeInEDT() throws Throwable {
-                        return sf.getRootPane().getDefaultButton();
-                    }
-                });
+        JButton defaultButton = GuiActionRunner.execute(new GuiQuery<JButton>() {
+            @Override
+            protected JButton executeInEDT() throws Throwable {
+                return sf.getRootPane().getDefaultButton();
+            }
+        });
         // and move the mouse to it
         robot.moveMouse(defaultButton);
         robot.waitForIdle();
@@ -174,8 +173,7 @@ public abstract class SkinRobot {
         robot.waitForIdle();
 
         long end = System.currentTimeMillis();
-        System.out.println(this.getClass().getSimpleName() + " : "
-                + (end - start) + "ms");
+        System.out.println(this.getClass().getSimpleName() + " : " + (end - start) + "ms");
     }
 
     /**

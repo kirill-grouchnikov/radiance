@@ -168,8 +168,8 @@ abstract class SvgBatikIcon extends UserAgentAdapter implements Icon {
          * @param h Height.
          */
         public void setDimensions(int w, int h) {
-            hints.put(KEY_WIDTH, new Float(w * this.scaleFactor));
-            hints.put(KEY_HEIGHT, new Float(h * this.scaleFactor));
+            hints.put(KEY_WIDTH, Float.valueOf((float) (w * this.scaleFactor)));
+            hints.put(KEY_HEIGHT, Float.valueOf((float) (h * this.scaleFactor)));
         }
     }
 

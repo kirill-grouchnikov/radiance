@@ -97,7 +97,9 @@ public class ColorPalettesChooser extends SubstanceColorChooserPanel implements 
         }
         palettes.add(new PaletteListModel(
         UIManager.getString("ColorChooser.appleColors"),
-        MessageFormat.format(UIManager.getString("ColorChooser.profileContainsNColors"), new Object[] {UIManager.getString("ColorChooser.appleColors"), new Integer(entries.length)}),
+        MessageFormat.format(UIManager.getString("ColorChooser.profileContainsNColors"),
+                new Object[] {UIManager.getString("ColorChooser.appleColors"),
+                        Integer.valueOf(entries.length)}),
         entries)
         );
         
@@ -111,7 +113,9 @@ public class ColorPalettesChooser extends SubstanceColorChooserPanel implements 
         }
         palettes.add(new PaletteListModel(
         UIManager.getString("ColorChooser.crayons"),
-        MessageFormat.format(UIManager.getString("ColorChooser.profileContainsNColors"), new Object[] {UIManager.getString("ColorChooser.crayons"), new Integer(entries.length)}),
+        MessageFormat.format(UIManager.getString("ColorChooser.profileContainsNColors"),
+                new Object[] {UIManager.getString("ColorChooser.crayons"),
+                        Integer.valueOf(entries.length)}),
         entries)
         );
         
@@ -125,7 +129,9 @@ public class ColorPalettesChooser extends SubstanceColorChooserPanel implements 
         }
         palettes.add(new PaletteListModel(
         UIManager.getString("ColorChooser.webSafeColors"),
-        MessageFormat.format(UIManager.getString("ColorChooser.profileContainsNColors"), new Object[] {UIManager.getString("ColorChooser.webSafeColors"), new Integer(entries.length)}),
+        MessageFormat.format(UIManager.getString("ColorChooser.profileContainsNColors"),
+                new Object[] {UIManager.getString("ColorChooser.webSafeColors"),
+                        Integer.valueOf(entries.length)}),
         entries)
         );
         

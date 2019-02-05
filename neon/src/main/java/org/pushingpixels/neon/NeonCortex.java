@@ -174,6 +174,12 @@ public class NeonCortex {
         }
     }
 
+    public static void clearDesktopHints(Graphics2D g2) {
+        GraphicsDevice device = g2.getDeviceConfiguration().getDevice();
+        String deviceId = device.getIDstring();
+        desktopHintsCache.remove(deviceId);
+    }
+
     private static Map desktopHints(Graphics2D g2) {
         if (isPrinting(g2)) {
             return null;

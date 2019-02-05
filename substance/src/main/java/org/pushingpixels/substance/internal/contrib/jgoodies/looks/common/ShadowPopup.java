@@ -395,11 +395,6 @@ public final class ShadowPopup extends Popup {
                     parent = p;
                 }
                 break;
-            } else if (p instanceof JApplet) {
-                // Painting code stops at Applets, we don't want
-                // to add to a Component above an Applet otherwise
-                // you'll never see it painted.
-                break;
             }
         }
         return parent;

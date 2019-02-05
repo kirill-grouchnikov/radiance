@@ -1033,7 +1033,7 @@ public class TabOverviewDialog extends JDialog {
                 ? MessageFormat.format(
                         TabPreviewUtilities.getLabelBundle()
                                 .getString("TabbedPane.overviewDialogTitleRefresh"),
-                        new Object[] { new Integer(previewPainter.getUpdateCycle(tabPane) / 1000) })
+                        new Object[] { Integer.valueOf(previewPainter.getUpdateCycle(tabPane) / 1000) })
                 : TabPreviewUtilities.getLabelBundle().getString("TabbedPane.overviewDialogTitle");
         JFrame frameForModality = previewPainter.getModalOwner(tabPane);
         boolean isModal = (frameForModality != null);
