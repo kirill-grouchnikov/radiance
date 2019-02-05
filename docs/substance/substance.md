@@ -28,6 +28,7 @@ For earlier versions of Substance, see [this page](../../drop/archive/older-rele
 ### Configure and customize
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulabrickwall1.png" width="340" height="254" border=0 align="left">
+
 Substance provides a flexible [API surface](api.md) to customize and extend the visual appearance of your app. The overall visuals are controlled by [skins](skins/overview.md), with each skin defined by [color scheme bundles](skins/colorschemebundles.md) and [painters](painters/overview.md).
 
 The [skinning primer](painters/custom-skinning.md) has a few tips on how to use the different Substance painters in applications that wish to paint custom components in a way that is consistent with other Substance visuals. The [substance-samples](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/substance-samples) sub-project provides additional self-contained mini-applications that show more advanced usage of Substance APIs for pixel-perfect skinning, including complex [renderers](renderers.md).
