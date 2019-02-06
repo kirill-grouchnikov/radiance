@@ -65,6 +65,10 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
             }
         }
 
+    operator fun KCommand.unaryPlus() {
+        this@KCommandStrip.commandConfigs.add(KCommandGroup.CommandConfig(this, null, null))
+    }
+
     fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()

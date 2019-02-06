@@ -28,11 +28,9 @@ public class Walkthrough extends JFrame {
   public static void main(String[] args) {
     JFrame.setDefaultLookAndFeelDecorated(true);
 
-    SwingUtilities.invokeLater(new Runnable() {
-      public void run() {
+    SwingUtilities.invokeLater(() -> {
         Walkthrough w = new Walkthrough();
         w.setVisible(true);
-      }
     });
   }
 }
@@ -91,10 +89,14 @@ Exception in thread "AWT-EventQueue-0" java.lang.Error:
     at java.awt.EventDispatchThread.run(EventDispatchThread.java:122)
 </pre>
 
-This means that the **org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel** class in not found in the classpath. How do you get that dependency into yout project?
+This means that the **org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel** class in not found in the classpath. How do you get that dependency into your project?
 
-Once Radiance artifacts [are published](https://github.com/kirill-grouchnikov/radiance/issues/6), you will be able to declare your dependencies in Maven or Gradle. Until then, follow these steps:
-* Download the local copy of the latest Radiance.
+The recommended way to add Substance to your project is to declare dependency on its Maven artifact:
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance) `radiance-substance`
+
+Alternatively, for a more manual process:
+* Download a local copy of the latest Radiance.
 * Build Radiance locally with *gradlew* command.
 * Copy the binaries with *gradlew copyJars* command. For version *X.Y.ZZ* of Radiance, add *radiance-substance-X.Y.ZZ.jar*, *radiance-trident-X.Y.ZZ.jar* and *radiance-neon-X.Y.ZZ.jar* to the place that has your local dependencies.
 
@@ -113,8 +115,7 @@ The other two options for setting Substance require changing the code. Go back t
 ```java
   public static void main(String[] args) {
     JFrame.setDefaultLookAndFeelDecorated(true);
-    SwingUtilities.invokeLater(new Runnable() {
-      public void run() {
+    SwingUtilities.invokeLater(() -> {
         try {
           UIManager.setLookAndFeel(new SubstanceGraphiteLookAndFeel());
         } catch (Exception e) {
@@ -122,7 +123,6 @@ The other two options for setting Substance require changing the code. Go back t
         }
         Walkthrough w = new Walkthrough();
         w.setVisible(true);
-      }
     });
   }
 ```
@@ -139,8 +139,7 @@ If you don't want to create an explicit dependency on the Substance classes in y
 ```java
   public static void main(String[] args) {
     JFrame.setDefaultLookAndFeelDecorated(true);
-    SwingUtilities.invokeLater(new Runnable() {
-      public void run() {
+    SwingUtilities.invokeLater(() -> {
         try {
           UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel");
         } catch (Exception e) {
@@ -148,7 +147,6 @@ If you don't want to create an explicit dependency on the Substance classes in y
         }
         Walkthrough w = new Walkthrough();
         w.setVisible(true);
-      }
     });
   }
 ```  
@@ -161,5 +159,5 @@ Where to go from here?
 * Read the [FAQ](faq.md)
 * Read about the [API](api.md)
 * Read about [using skins](skins/overview.md)
-* Download the sources and study the [main test application](https://github.com/kirill-grouchnikov/radiance/blob/master/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/Check.java)
+* Download the sources and study the [main test application](https://github.com/kirill-grouchnikov/radiance/blob/master/demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/Check.java)
 * Read the Javadocs of the [SubstanceCortex class](https://github.com/kirill-grouchnikov/radiance/blob/master/substance/src/main/java/org/pushingpixels/substance/api/SubstanceCortex.java)

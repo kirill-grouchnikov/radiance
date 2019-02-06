@@ -55,6 +55,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.*;
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -71,10 +72,17 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private RibbonGalleryContentModel styleGalleryContentModel;
 
     private Command pasteCommand;
+
     private Command alignLeftCommand;
     private Command alignCenterCommand;
     private Command alignRightCommand;
     private Command alignFillCommand;
+
+    private Command styleBoldCommand;
+    private Command styleItalicCommand;
+    private Command styleUnderlineCommand;
+    private Command styleStrikethroughCommand;
+
     private Command menuSaveSelection;
     private Command menuClearSelection;
     private Command applyStyles;
@@ -771,6 +779,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 (Color color) -> {
                     System.out.println("Activated color " + color);
                     rulerPanel.selectBackgroundFill(color);
+                    rulerTextPane.setBackground(color);
                 };
         final ColorSelectorPopupMenuContentModel.ColorPreviewListener colorPreviewListener =
                 new ColorSelectorPopupMenuContentModel.ColorPreviewListener() {
@@ -1203,6 +1212,35 @@ public class BasicCheckRibbon extends JRibbonFrame {
         return transitionBand;
     }
 
+    private static void setAlignment(JTextPane textPane, int alignment) {
+        MutableAttributeSet attrSet = new SimpleAttributeSet();
+        StyleConstants.setAlignment(attrSet, alignment);
+        textPane.getStyledDocument().setParagraphAttributes(0,
+                textPane.getStyledDocument().getLength(), attrSet, false);
+    }
+
+    private static boolean hasStyleInSelection(JTextPane textPane, Object style) {
+        for (int index = textPane.getSelectionStart(); index <= textPane.getSelectionEnd(); index++) {
+            Object attr = textPane.getStyledDocument().getCharacterElement(index)
+                    .getAttributes().getAttribute(style);
+            if (attr instanceof Boolean) {
+                if ((Boolean) attr) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static void toggleStyleInSelection(JTextPane textPane, Object style) {
+        MutableAttributeSet attrSet = new SimpleAttributeSet();
+        // Add or remove the style on the entire selection
+        attrSet.addAttribute(style, !hasStyleInSelection(textPane, style));
+        textPane.getStyledDocument().setCharacterAttributes(textPane.getSelectionStart(),
+                textPane.getSelectionEnd() - textPane.getSelectionStart(),
+                attrSet, false);
+    }
+
     private void createCommands() {
         MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
         mf.setLocale(currLocale);
@@ -1271,27 +1309,113 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         this.alignLeftCommand = Command.builder()
                 .setIconFactory(Format_justify_left.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Align to left"))
-                .inToggleGroup(alignToggleGroup)
+                .setAction((CommandActionEvent e) ->
+                        setAlignment(rulerTextPane, StyleConstants.ALIGN_LEFT))
+                .inToggleGroupAsSelected(alignToggleGroup)
                 .build();
 
         this.alignCenterCommand = Command.builder()
                 .setIconFactory(Format_justify_center.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Align to center"))
-                .inToggleGroupAsSelected(alignToggleGroup)
+                .setAction((CommandActionEvent e) ->
+                        setAlignment(rulerTextPane, StyleConstants.ALIGN_CENTER))
+                .inToggleGroup(alignToggleGroup)
                 .build();
 
         this.alignRightCommand = Command.builder()
                 .setIconFactory(Format_justify_right.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Align to right"))
+                .setAction((CommandActionEvent e) ->
+                        setAlignment(rulerTextPane, StyleConstants.ALIGN_RIGHT))
                 .inToggleGroup(alignToggleGroup)
                 .build();
 
         this.alignFillCommand = Command.builder()
                 .setIconFactory(Format_justify_fill.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Align fill"))
+                .setAction((CommandActionEvent e) ->
+                        setAlignment(rulerTextPane, StyleConstants.ALIGN_JUSTIFIED))
                 .inToggleGroup(alignToggleGroup)
                 .build();
+
+        this.styleBoldCommand =
+                Command.builder()
+                        .setIconFactory(Format_text_bold.factory())
+                        .setAction((CommandActionEvent e) -> {
+                            // toggle bold in current selection
+                            toggleStyleInSelection(rulerTextPane,
+                                    StyleConstants.CharacterConstants.Bold);
+                            // and update command selection state based on the presence of bold
+                            e.getCommand().setToggleSelected(hasStyleInSelection(rulerTextPane,
+                                    StyleConstants.CharacterConstants.Bold));
+                        })
+                        .setToggle()
+                        .setActionRichTooltip(RichTooltip.builder()
+                                .setTitle(resourceBundle.getString(
+                                        "FontBold.tooltip.textActionTitle"))
+                                .addDescriptionSection(resourceBundle.getString(
+                                        "FontBold.tooltip.textActionParagraph1"))
+                                .build())
+                        .build();
+
+        this.styleItalicCommand =
+                Command.builder()
+                        .setIconFactory(Format_text_italic.factory())
+                        .setAction((CommandActionEvent e) -> {
+                            // toggle italic in current selection
+                            toggleStyleInSelection(rulerTextPane,
+                                    StyleConstants.CharacterConstants.Italic);
+                            // and update command selection state based on the presence of italic
+                            e.getCommand().setToggleSelected(hasStyleInSelection(rulerTextPane,
+                                    StyleConstants.CharacterConstants.Italic));
+                        })
+                        .setToggle()
+                        .setActionRichTooltip(RichTooltip.builder()
+                                .setTitle(resourceBundle.getString(
+                                        "FontItalic.tooltip.textActionTitle"))
+                                .addDescriptionSection(resourceBundle.getString(
+                                        "FontItalic.tooltip.textActionParagraph1"))
+                                .build())
+                        .build();
+
+        this.styleUnderlineCommand =
+                Command.builder()
+                        .setIconFactory(Format_text_underline.factory())
+                        .setAction((CommandActionEvent e) -> {
+                            // toggle underline in current selection
+                            toggleStyleInSelection(rulerTextPane,
+                                    StyleConstants.CharacterConstants.Underline);
+                            // and update command selection state based on the presence of underline
+                            e.getCommand().setToggleSelected(hasStyleInSelection(rulerTextPane,
+                                    StyleConstants.CharacterConstants.Underline));
+                        })
+                        .setToggle()
+                        .setActionRichTooltip(RichTooltip.builder()
+                                .setTitle(resourceBundle.getString(
+                                        "FontUnderline.tooltip.textActionTitle"))
+                                .addDescriptionSection(resourceBundle.getString(
+                                        "FontUnderline.tooltip.textActionParagraph1"))
+                                .build())
+                        .build();
+
+        this.styleStrikethroughCommand =
+                Command.builder()
+                        .setIconFactory(Format_text_strikethrough.factory())
+                        .setAction((CommandActionEvent e) -> {
+                            // toggle strikethrough in current selection
+                            toggleStyleInSelection(rulerTextPane,
+                                    StyleConstants.CharacterConstants.StrikeThrough);
+                            // and update command selection state based on the presence of
+                            // strikethrough
+                            e.getCommand().setToggleSelected(hasStyleInSelection(rulerTextPane,
+                                    StyleConstants.CharacterConstants.StrikeThrough));
+                        })
+                        .setToggle()
+                        .setActionRichTooltip(RichTooltip.builder()
+                                .setTitle(resourceBundle.getString(
+                                        "FontStrikethrough.tooltip.textActionTitle"))
+                                .addDescriptionSection(resourceBundle.getString(
+                                        "FontStrikethrough.tooltip.textActionParagraph1"))
+                                .build())
+                        .build();
+
 
         this.menuSaveSelection = Command.builder()
                 .setText(resourceBundle.getString("Format.menuSaveSelection.text"))
@@ -1499,6 +1623,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private RibbonContextualTaskGroup group1;
     private RibbonContextualTaskGroup group2;
     private RulerPanel rulerPanel;
+    private JTextPane rulerTextPane;
 
     private JPanel statusBar;
 
@@ -1737,7 +1862,42 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 });
 
         this.add(getControlPanel(), BorderLayout.EAST);
-        this.add(rulerPanel = new RulerPanel(), BorderLayout.CENTER);
+
+        this.rulerPanel = new RulerPanel();
+        this.rulerPanel.setLayout(new BorderLayout());
+        this.rulerPanel.setBorder(new EmptyBorder(24, 48, 24, 48));
+
+        this.rulerTextPane = new JTextPane();
+        this.rulerTextPane.setEditable(false);
+        this.rulerTextPane.setOpaque(false);
+        this.rulerTextPane.setText(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
+                        "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim" +
+                        " veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip " +
+                        "ex ea commodo consequat. Duis aute irure dolor in reprehenderit in " +
+                        "voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
+                        "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui " +
+                        "officia deserunt mollit anim id est laborum.");
+        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+                .getControlFont();
+        this.rulerTextPane.setFont(baseFont.deriveFont(baseFont.getSize() + 3.0f));
+        this.rulerTextPane.addCaretListener((CaretEvent e) -> {
+            // For each command, determine whether its toggle selection is "on" based on
+            // the presence of the matching style in the text pane selection
+            styleBoldCommand.setToggleSelected(hasStyleInSelection(rulerTextPane,
+                    StyleConstants.CharacterConstants.Bold));
+            styleItalicCommand.setToggleSelected(hasStyleInSelection(rulerTextPane,
+                    StyleConstants.CharacterConstants.Italic));
+            styleUnderlineCommand.setToggleSelected(hasStyleInSelection(rulerTextPane,
+                    StyleConstants.CharacterConstants.Underline));
+            styleStrikethroughCommand.setToggleSelected(hasStyleInSelection(rulerTextPane,
+                    StyleConstants.CharacterConstants.StrikeThrough));
+        });
+
+        this.rulerPanel.add(this.rulerTextPane, BorderLayout.CENTER);
+        this.rulerPanel.content = this.rulerTextPane;
+
+        this.add(this.rulerPanel, BorderLayout.CENTER);
 
         this.configureStatusBar();
     }
@@ -2198,72 +2358,19 @@ public class BasicCheckRibbon extends JRibbonFrame {
         indentStripProjection.setCommandOverlays(indentOverlays);
         fontBand.addFlowComponent(indentStripProjection);
 
-        Command styleBold =
-                Command.builder()
-                        .setIconFactory(Format_text_bold.factory())
-                        .setAction((CommandActionEvent e) -> System.out.println("Bold toggled"))
-                        .setToggleSelected(true)
-                        .setActionRichTooltip(RichTooltip.builder()
-                                .setTitle(resourceBundle.getString(
-                                        "FontBold.tooltip.textActionTitle"))
-                                .addDescriptionSection(resourceBundle.getString(
-                                        "FontBold.tooltip.textActionParagraph1"))
-                                .build())
-                        .build();
-
-        Command styleItalic =
-                Command.builder()
-                        .setIconFactory(Format_text_italic.factory())
-                        .setAction((CommandActionEvent e) -> System.out.println("Italic toggled"))
-                        .setToggle()
-                        .setActionRichTooltip(RichTooltip.builder()
-                                .setTitle(resourceBundle.getString(
-                                        "FontItalic.tooltip.textActionTitle"))
-                                .addDescriptionSection(resourceBundle.getString(
-                                        "FontItalic.tooltip.textActionParagraph1"))
-                                .build())
-                        .build();
-
-        Command styleUnderline =
-                Command.builder()
-                        .setIconFactory(Format_text_underline.factory())
-                        .setAction((CommandActionEvent e) ->
-                                System.out.println("Underline toggled"))
-                        .setToggle()
-                        .setActionRichTooltip(RichTooltip.builder()
-                                .setTitle(resourceBundle.getString(
-                                        "FontUnderline.tooltip.textActionTitle"))
-                                .addDescriptionSection(resourceBundle.getString(
-                                        "FontUnderline.tooltip.textActionParagraph1"))
-                                .build())
-                        .build();
-
-        Command styleStrikethrough =
-                Command.builder()
-                        .setIconFactory(Format_text_strikethrough.factory())
-                        .setAction((CommandActionEvent e) ->
-                                System.out.println("Strikethrough toggled"))
-                        .setToggle()
-                        .setActionRichTooltip(RichTooltip.builder()
-                                .setTitle(resourceBundle.getString(
-                                        "FontStrikethrough.tooltip.textActionTitle"))
-                                .addDescriptionSection(resourceBundle.getString(
-                                        "FontStrikethrough.tooltip.textActionParagraph1"))
-                                .build())
-                        .build();
-
         Map<Command, CommandButtonPresentationModel.Overlay> styleOverlays = new HashMap<>();
-        styleOverlays.put(styleBold, CommandButtonPresentationModel.overlay().setActionKeyTip("1"));
-        styleOverlays.put(styleItalic,
+        styleOverlays.put(this.styleBoldCommand,
+                CommandButtonPresentationModel.overlay().setActionKeyTip("1"));
+        styleOverlays.put(this.styleItalicCommand,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("2"));
-        styleOverlays.put(styleUnderline,
+        styleOverlays.put(this.styleUnderlineCommand,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("3"));
-        styleOverlays.put(styleStrikethrough,
+        styleOverlays.put(this.styleStrikethroughCommand,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("4"));
 
         CommandStripProjection styleStripProjection = new CommandStripProjection(
-                new CommandGroup(styleBold, styleItalic, styleUnderline,
-                        styleStrikethrough),
+                new CommandGroup(this.styleBoldCommand, this.styleItalicCommand,
+                        this.styleUnderlineCommand, this.styleStrikethroughCommand),
                 CommandStripPresentationModel.withDefaults());
         styleStripProjection.setCommandOverlays(styleOverlays);
         fontBand.addFlowComponent(styleStripProjection);
@@ -2445,11 +2552,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
         private Color selectFill = new Color(200, 200, 200);
         private Color backgroundFill = selectFill;
 
+        private JTextPane content;
+
         private void setBackgroundFill(Color backgroundFill) {
             this.backgroundFill = backgroundFill;
             float brightness = Color.RGBtoHSB(this.backgroundFill.getRed(),
                     this.backgroundFill.getGreen(), this.backgroundFill.getBlue(), null)[2];
             this.line = (brightness > 0.7f) ? Color.darkGray : Color.white;
+            this.content.setForeground(this.line);
             this.invalidate();
             this.repaint();
         }

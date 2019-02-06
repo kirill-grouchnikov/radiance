@@ -35,6 +35,7 @@ import org.pushingpixels.demo.plasma.svg.Format_text_strikethrough
 import org.pushingpixels.demo.plasma.svg.Format_text_underline
 import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
+import org.pushingpixels.plasma.command
 import org.pushingpixels.plasma.commandButtonStrip
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.GeminiSkin
@@ -102,60 +103,77 @@ fun main() {
         val resourceBundle = ResourceBundle
                 .getBundle("org.pushingpixels.demo.plasma.resources.Resources", Locale.getDefault())
 
+        val commandBold = command {
+            iconFactory = Format_text_bold.factory()
+            action = CommandAction {
+                textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Bold)
+                isToggleSelected = textPane.hasStyleInSelection(
+                        StyleConstants.CharacterConstants.Bold)
+            }
+            isEnabled = false
+            actionRichTooltip {
+                title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
+                description {
+                    +resourceBundle.getString("FontBold.tooltip.textActionParagraph1")
+                }
+            }
+        }
+
+        val commandItalic = command {
+            iconFactory = Format_text_italic.factory()
+            action = CommandAction {
+                textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Italic)
+                isToggleSelected = textPane.hasStyleInSelection(
+                        StyleConstants.CharacterConstants.Italic)
+            }
+            isEnabled = false
+            actionRichTooltip {
+                title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
+                description {
+                    +resourceBundle.getString("FontItalic.tooltip.textActionParagraph1")
+                }
+            }
+        }
+
+        val commandUnderline = command {
+            iconFactory = Format_text_underline.factory()
+            action = CommandAction {
+                textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Underline)
+                isToggleSelected = textPane.hasStyleInSelection(
+                        StyleConstants.CharacterConstants.Underline)
+            }
+            isEnabled = false
+            actionRichTooltip {
+                title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
+                description {
+                    +resourceBundle.getString("FontUnderline.tooltip.textActionParagraph1")
+                }
+            }
+        }
+
+        val commandStrikethrough = command {
+            iconFactory = Format_text_strikethrough.factory()
+            action = CommandAction {
+                textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.StrikeThrough)
+                isToggleSelected = textPane.hasStyleInSelection(
+                        StyleConstants.CharacterConstants.StrikeThrough)
+            }
+            isEnabled = false
+            actionRichTooltip {
+                title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
+                description {
+                    +resourceBundle.getString("FontStrikethrough.tooltip.textActionParagraph1")
+                }
+            }
+        }
+
         // Create a button strip to change the text styling in our text pane.
         val commandStyleStrip = commandButtonStrip {
-            command {
-                iconFactory = Format_text_bold.factory()
-                action = CommandAction {
-                    textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Bold)
-                }
-                isEnabled = false
-                actionRichTooltip {
-                    title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
-                    description {
-                        +resourceBundle.getString("FontBold.tooltip.textActionParagraph1")
-                    }
-                }
-            }
-            command {
-                iconFactory = Format_text_italic.factory()
-                action = CommandAction {
-                    textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Italic)
-                }
-                isEnabled = false
-                actionRichTooltip {
-                    title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
-                    description {
-                        +resourceBundle.getString("FontItalic.tooltip.textActionParagraph1")
-                    }
-                }
-            }
-            command {
-                iconFactory = Format_text_underline.factory()
-                action = CommandAction {
-                    textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Underline)
-                }
-                isEnabled = false
-                actionRichTooltip {
-                    title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
-                    description {
-                        +resourceBundle.getString("FontUnderline.tooltip.textActionParagraph1")
-                    }
-                }
-            }
-            command {
-                iconFactory = Format_text_strikethrough.factory()
-                action = CommandAction {
-                    textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.StrikeThrough)
-                }
-                isEnabled = false
-                actionRichTooltip {
-                    title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
-                    description {
-                        +resourceBundle.getString("FontStrikethrough.tooltip.textActionParagraph1")
-                    }
-                }
-            }
+            +commandBold
+            +commandItalic
+            +commandUnderline
+            +commandStrikethrough
+
             presentation {
                 orientation = CommandStripPresentationModel.StripOrientation.VERTICAL
                 horizontalGapScaleFactor = 0.8
@@ -170,6 +188,17 @@ fun main() {
             val hasSelection = (textPane.selectionEnd - textPane.selectionStart) > 0
             // Enable or disable the style commands based on that
             commandStyleStrip.isEnabled = hasSelection
+
+            // For each command, determine if its toggle selection is on based on
+            // the presence of the matching style in the text pane selection
+            commandBold.isToggleSelected = textPane.hasStyleInSelection(
+                    StyleConstants.CharacterConstants.Bold)
+            commandItalic.isToggleSelected = textPane.hasStyleInSelection(
+                    StyleConstants.CharacterConstants.Italic)
+            commandUnderline.isToggleSelected = textPane.hasStyleInSelection(
+                    StyleConstants.CharacterConstants.Underline)
+            commandStrikethrough.isToggleSelected = textPane.hasStyleInSelection(
+                    StyleConstants.CharacterConstants.StrikeThrough)
         }
 
         // Show our frame in the center of the screen
