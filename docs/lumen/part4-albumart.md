@@ -135,7 +135,7 @@ public AlbumOverviewComponent(final SearchResultRelease albumItem) {
       }
   });
 
-  this.labelFont = NeonCortex.getDefaultFontPolicy().getFontSet(null).getControlFont();
+  this.labelFont = NeonCortex.getDefaultFontPolicy().getFontSet().getControlFont();
 
   SwingUtilities.invokeLater(() -> getLoadImageScenario(albumItem).play());
 }

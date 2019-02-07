@@ -152,7 +152,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         private JSeparator separator;
 
         public ThreadRenderer() {
-            Font bold = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+            Font bold = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                     .getControlFont().deriveFont(Font.BOLD);
 
             FormBuilder firstRow = FormBuilder.create().
@@ -251,7 +251,7 @@ public class ThreadListPanel extends PanelWithRightLine {
 
         builder.add(new JLabel(icon)).xy(1, 1);
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont().deriveFont(Font.BOLD));
         builder.add(titleLabel).xy(3, 1);
         JPanel inside = builder.build();

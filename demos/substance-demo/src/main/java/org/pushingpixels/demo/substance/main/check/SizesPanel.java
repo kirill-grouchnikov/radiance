@@ -66,7 +66,7 @@ public class SizesPanel extends JPanel {
         this.model = new LinkedList<Mapping>();
         Font base = new Font("Tahoma", Font.PLAIN, 11);
         if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-            base = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+            base = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                     .getControlFont();
         }
         final Font baseFinal = base;

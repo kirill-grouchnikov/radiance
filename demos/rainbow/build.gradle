@@ -43,7 +43,6 @@ dependencies {
     compile project(':kotlin-ext:ember')
     compile project(':kotlin-ext:meteor')
     compile project(':flamingo')
-    compile project(':spoonbill')
 }
 
 ext.designation = "demo"

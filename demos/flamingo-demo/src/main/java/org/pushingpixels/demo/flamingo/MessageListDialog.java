@@ -62,7 +62,7 @@ public final class MessageListDialog extends JDialog {
         JLabel messageLabel = new JLabel(mainMessage);
         JList messageList = new JList(messages.toArray());
         messageList.setForeground(Color.red);
-        messageList.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+        messageList.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont().deriveFont(Font.BOLD));
         JScrollPane mesScrollPane = new JScrollPane(messageList);
         JButton closeButton = new JButton("Close");

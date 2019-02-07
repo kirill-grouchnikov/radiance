@@ -146,8 +146,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.syncDisabledIcon();
         Font currFont = this.commandButton.getFont();
         if ((currFont == null) || (currFont instanceof UIResource)) {
-            this.commandButton.setFont(SubstanceCortex.GlobalScope.getFontPolicy().
-                    getFontSet(null).getControlFont());
+            this.commandButton.setFont(SubstanceCortex.GlobalScope.getFontPolicy()
+                    .getFontSet().getControlFont());
         }
         this.syncIconDimension();
     }
@@ -549,7 +549,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     protected int getLayoutGap() {
         Font font = this.commandButton.getFont();
         if (font == null) {
-            font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).getControlFont();
+            font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
         }
         return (font.getSize() - 4) / 4;
     }

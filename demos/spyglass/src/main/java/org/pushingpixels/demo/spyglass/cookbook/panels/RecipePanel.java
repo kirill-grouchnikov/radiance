@@ -70,7 +70,7 @@ public class RecipePanel extends SingleContentPanel {
                 "Send")).xy(7, 1);
 
         JLabel title = new JLabel("Cookbook");
-        title.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+        title.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getWindowTitleFont());
 
         titlePaneBuilder.add(title).xy(9, 1);

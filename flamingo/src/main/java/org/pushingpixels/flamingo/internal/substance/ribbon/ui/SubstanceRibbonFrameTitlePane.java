@@ -201,7 +201,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         private TaskbarPanel() {
             super(new TaskbarLayout());
 
-            this.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
+            this.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().
                     getControlFont());
 
             this.overflowComponents = new ArrayList<>();

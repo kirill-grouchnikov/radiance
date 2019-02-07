@@ -117,7 +117,7 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
                     Integer.valueOf(0),
             };
 
-            FontSet substanceFontSet = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null);
+            FontSet substanceFontSet = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet();
             Font controlFont = substanceFontSet.getControlFont();
 
             Font fontBoldBaseP1 = new FontUIResource(controlFont.deriveFont(

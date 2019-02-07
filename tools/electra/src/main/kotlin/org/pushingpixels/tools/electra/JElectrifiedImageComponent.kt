@@ -393,7 +393,7 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
                 // caption
                 if (zoomBubble.caption != null && !zoomBubble.isInTextEdit) {
                     val font = SubstanceCortex.GlobalScope.getFontPolicy()
-                            .getFontSet(null).controlFont
+                            .getFontSet().controlFont
                     g2d.font = font
                     val strWidth = g2d.fontMetrics.stringWidth(zoomBubble.caption!!)
                     val fontHeight = g2d.fontMetrics.height

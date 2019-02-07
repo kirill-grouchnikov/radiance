@@ -377,7 +377,7 @@ private class RibbonDemoBuilder {
                                         it.color = Color.black
                                         NeonCortex.installDesktopHints(it)
                                         it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                .getFontSet(null).controlFont
+                                                .getFontSet().controlFont
                                         it.drawString("$i", x + 2, y + height - 2)
                                     }
                                 })
@@ -398,7 +398,7 @@ private class RibbonDemoBuilder {
                                         it.color = Color.black
                                         NeonCortex.installDesktopHints(it)
                                         it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                .getFontSet(null).controlFont
+                                                .getFontSet().controlFont
                                         it.drawString("$i", x + 2, y + height - 2)
                                     }
                                 })
@@ -630,7 +630,7 @@ private class RibbonDemoBuilder {
                                                     graphics.render {
                                                         it.color = Color.black
                                                         it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                                .getFontSet(null).controlFont
+                                                                .getFontSet().controlFont
                                                         NeonCortex.installDesktopHints(it)
                                                         it.drawString("" + i, x + 2, y + height - 2)
                                                     }
@@ -1379,7 +1379,7 @@ private class RibbonDemoBuilder {
                                             g.render {
                                                 NeonCortex.installDesktopHints(it)
                                                 it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                        .getFontSet(null).controlFont.deriveFont(9.0f)
+                                                        .getFontSet().controlFont.deriveFont(9.0f)
                                                 it.color = Color.black
                                                 it.drawString("" + i, x + 1, y + height - 2)
                                                 it.drawString("" + i, x + 3, y + height - 2)
@@ -1407,7 +1407,7 @@ private class RibbonDemoBuilder {
                                             g.render {
                                                 NeonCortex.installDesktopHints(it)
                                                 it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                        .getFontSet(null).controlFont.deriveFont(9.0f)
+                                                        .getFontSet().controlFont.deriveFont(9.0f)
                                                 it.color = Color.black
                                                 it.drawString("" + i, x + 1, y + height - 2)
                                                 it.drawString("" + i, x + 3, y + height - 2)

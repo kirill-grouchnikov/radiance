@@ -116,7 +116,7 @@ public class NeonCortex {
                 defaultPolicy = FontPolicies.getDefaultPlasticPolicy();
         }
 
-        return (UIDefaults table) -> new NeonFontSet(defaultPolicy.getFontSet(table));
+        return () -> new NeonFontSet(defaultPolicy.getFontSet());
     }
 
     /**
@@ -126,11 +126,9 @@ public class NeonCortex {
      * @return Scaled platform-specific font policy.
      */
     public static FontPolicy getScaledFontPolicy(final float scaleFactor) {
-        final FontSet defaultFontSet = getDefaultFontPolicy().getFontSet(null);
+        final FontSet defaultFontSet = getDefaultFontPolicy().getFontSet();
         // Create the scaled font set
-        FontPolicy newFontPolicy = (UIDefaults table) ->
-                new ScaledFontSet(defaultFontSet, scaleFactor);
-        return newFontPolicy;
+        return () -> new ScaledFontSet(defaultFontSet, scaleFactor);
     }
 
     /**

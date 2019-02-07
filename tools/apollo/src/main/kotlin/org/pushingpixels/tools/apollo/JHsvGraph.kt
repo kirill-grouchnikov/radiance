@@ -34,6 +34,7 @@ import org.pushingpixels.meteor.awt.hue
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.meteor.awt.saturation
 import org.pushingpixels.neon.NeonCortex
+import org.pushingpixels.substance.api.SubstanceCortex
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
@@ -135,7 +136,8 @@ class JHsvGraph : JComponent() {
                     }
                 }
 
-                it.font = NeonCortex.getDefaultFontPolicy().getFontSet(null).controlFont.deriveFont(Font.BOLD)
+                it.font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
+                        .deriveFont(Font.BOLD)
                 val labelWidth = it.fontMetrics.stringWidth("WWW") + 20
                 var xLabel = xOffset + (w - xOffset - 3 * labelWidth) / 2
 

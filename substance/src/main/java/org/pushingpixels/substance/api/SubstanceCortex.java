@@ -186,7 +186,7 @@ public class SubstanceCortex {
                 // The table will be null when the skin is set using a custom
                 // LAF
                 if (defaults != null) {
-                    initFontDefaults(lafDefaults, getFontPolicy().getFontSet(null));
+                    initFontDefaults(lafDefaults, getFontPolicy().getFontSet());
                     newSkin.addCustomEntriesToTable(lafDefaults);
                     SubstancePluginRepository.getInstance()
                             .processAllDefaultsEntriesComponentPlugins(lafDefaults, newSkin);
@@ -311,7 +311,7 @@ public class SubstanceCortex {
          * @param table The UI defaults table.
          */
         static void initFontDefaults(UIDefaults table) {
-            FontSet substanceFontSet = getFontPolicy().getFontSet(null);
+            FontSet substanceFontSet = getFontPolicy().getFontSet();
             initFontDefaults(table, substanceFontSet);
         }
 

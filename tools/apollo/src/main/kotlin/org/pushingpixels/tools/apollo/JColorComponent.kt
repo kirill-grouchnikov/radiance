@@ -32,6 +32,7 @@ package org.pushingpixels.tools.apollo
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
+import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.trident.Timeline
 import org.pushingpixels.trident.TimelinePropertyBuilder
 import org.pushingpixels.trident.swing.SwingComponentTimeline
@@ -137,7 +138,7 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
         override fun paintComponent(g: Graphics) {
             g.render {
                 NeonCortex.installDesktopHints(it)
-                it.font = NeonCortex.getDefaultFontPolicy().getFontSet(null).controlFont
+                it.font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
 
                 if (color != null) {
                     it.color = color

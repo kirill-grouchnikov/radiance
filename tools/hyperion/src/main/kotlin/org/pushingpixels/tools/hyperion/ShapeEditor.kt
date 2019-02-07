@@ -217,7 +217,7 @@ class ShapeEditor : JFrame() {
 
                 val width = this.width
                 val height = this.height
-                val controlFont = NeonCortex.getDefaultFontPolicy().getFontSet(null).controlFont
+                val controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
                 it.font = controlFont.deriveFont(10f)
 
                 // image

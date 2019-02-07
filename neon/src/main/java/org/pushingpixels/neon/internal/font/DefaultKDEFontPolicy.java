@@ -81,14 +81,14 @@ public class DefaultKDEFontPolicy implements FontPolicy {
 	private static FontSet fontSet = null;
 
 	@Override
-	public synchronized FontSet getFontSet(UIDefaults table) {
+	public synchronized FontSet getFontSet() {
 		if (fontSet == null) {
-			fontSet = getInternalFontSet(table);
+			fontSet = getInternalFontSet();
 		}
 		return fontSet;
 	}
 
-	private FontSet getInternalFontSet(UIDefaults table) {
+	private FontSet getInternalFontSet() {
 
 		// size is the most important, then family and then style
 		int commonSize = 10;

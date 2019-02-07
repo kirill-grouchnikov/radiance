@@ -90,8 +90,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         this.buttonPanel.setLayout(this.createLayoutManager());
         Font currFont = this.buttonPanel.getFont();
         if ((currFont == null) || (currFont instanceof UIResource)) {
-            Font controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(
-                    null).getControlFont();
+            Font controlFont = SubstanceCortex.GlobalScope.getFontPolicy()
+                    .getFontSet().getControlFont();
             this.buttonPanel.setFont(controlFont.deriveFont(Font.BOLD, controlFont.getSize() + 1));
         }
     }

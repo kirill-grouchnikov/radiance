@@ -138,14 +138,14 @@ public class GetFontPolicy extends JFrame {
                     SubstanceCortex.GlobalScope.setFontPolicy(null);
                     // Get the default font set
                     final FontSet substanceCoreFontSet = SubstanceCortex.GlobalScope
-                            .getFontPolicy().getFontSet(null);
+                            .getFontPolicy().getFontSet();
                     // Create the wrapper font set
-                    FontPolicy newFontPolicy = (UIDefaults table) -> new WrapperFontSet(
-                            substanceCoreFontSet, newValue);
+                    FontPolicy newFontPolicy =
+                            () -> new WrapperFontSet(substanceCoreFontSet, newValue);
 
                     try {
-                        GetFontPolicy.this
-                                .setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        GetFontPolicy.this.setCursor(
+                                Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                         // set the new font policy
                         SubstanceCortex.GlobalScope.setFontPolicy(newFontPolicy);
                         GetFontPolicy.this.setCursor(Cursor.getDefaultCursor());
@@ -160,7 +160,7 @@ public class GetFontPolicy extends JFrame {
         JButton jb = new JButton("Show font info");
         jb.addActionListener((ActionEvent e) -> {
             FontPolicy fontPolicy = SubstanceCortex.GlobalScope.getFontPolicy();
-            FontSet fontSet = fontPolicy.getFontSet(null);
+            FontSet fontSet = fontPolicy.getFontSet();
             String[] infoArray = new String[] { "Control: " + fontSet.getControlFont(),
                     "Menu: " + fontSet.getMenuFont(),
                     "Message: " + fontSet.getMessageFont(),

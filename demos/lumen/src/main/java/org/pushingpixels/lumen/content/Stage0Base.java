@@ -176,7 +176,7 @@ public class Stage0Base extends JComponent {
 
         if (this.searchString != null) {
             NeonCortex.installDesktopHints(g2d);
-            g2d.setFont(NeonCortex.getDefaultFontPolicy().getFontSet(null).getControlFont()
+            g2d.setFont(NeonCortex.getDefaultFontPolicy().getFontSet().getControlFont()
                     .deriveFont(14.0f).deriveFont(Font.BOLD));
             int fa = g2d.getFontMetrics().getAscent();
             int x = (getWidth() - g2d.getFontMetrics().stringWidth(this.searchString)) / 2;

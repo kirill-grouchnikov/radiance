@@ -85,7 +85,7 @@ public class KeyTipRenderingUtilities {
                 contourInner, borderScheme);
 
         g2d.setColor(SubstanceColorSchemeUtilities.getColorScheme(c, state).getForegroundColor());
-        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
+        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().
                 getControlFont();
         font = font.deriveFont(font.getSize() + 1.0f);
         g2d.setFont(font);

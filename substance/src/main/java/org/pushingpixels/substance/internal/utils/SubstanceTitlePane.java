@@ -189,7 +189,7 @@ public class SubstanceTitlePane extends JComponent {
          */
         private HeapStatusPanel() {
             this.graphValues = new LinkedList<>();
-            this.font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
+            this.font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().
                     getControlFont();
             this.setOpaque(false);
             HeapStatusThread.getInstance();
@@ -995,7 +995,7 @@ public class SubstanceTitlePane extends JComponent {
             return null;
         }
 
-        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getWindowTitleFont();
 
         Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
@@ -1041,7 +1041,7 @@ public class SubstanceTitlePane extends JComponent {
         Graphics2D graphics = (Graphics2D) g.create();
         BackgroundPaintingUtils.update(graphics, SubstanceTitlePane.this, false);
 
-        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getWindowTitleFont();
         graphics.setFont(font);
 
@@ -1311,7 +1311,7 @@ public class SubstanceTitlePane extends JComponent {
                         String displayTitle = getDisplayTitle();
 
                         Font font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                .getFontSet(null).getWindowTitleFont();
+                                .getFontSet().getWindowTitleFont();
                         int displayTitleWidth = SubstanceMetricsUtilities.getFontMetrics(font)
                                 .stringWidth(displayTitle);
                         switch (titleTextHorizontalGravity) {

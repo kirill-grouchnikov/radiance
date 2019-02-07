@@ -146,7 +146,7 @@ public class AlbumOverviewComponent extends JComponent {
             }
         });
 
-        this.labelFont = NeonCortex.getDefaultFontPolicy().getFontSet(null).getControlFont();
+        this.labelFont = NeonCortex.getDefaultFontPolicy().getFontSet().getControlFont();
 
         SwingUtilities.invokeLater(() -> getLoadImageScenario(albumItem).play());
     }

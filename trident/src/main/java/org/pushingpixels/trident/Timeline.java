@@ -29,19 +29,13 @@
  */
 package org.pushingpixels.trident;
 
-import org.pushingpixels.trident.TimelineEngine.FullObjectID;
-import org.pushingpixels.trident.TimelineEngine.TimelineOperationKind;
+import org.pushingpixels.trident.TimelineEngine.*;
 import org.pushingpixels.trident.TimelinePropertyBuilder.AbstractFieldInfo;
-import org.pushingpixels.trident.callback.RunOnUIThread;
-import org.pushingpixels.trident.callback.TimelineCallback;
-import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
-import org.pushingpixels.trident.ease.Linear;
-import org.pushingpixels.trident.ease.TimelineEase;
+import org.pushingpixels.trident.callback.*;
+import org.pushingpixels.trident.ease.*;
 import org.pushingpixels.trident.interpolator.KeyFrames;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class Timeline implements TimelineScenario.TimelineScenarioActor {
     Object mainObject;
@@ -109,8 +103,13 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
     }
 
     public enum TimelineState {
-        IDLE(false), READY(false), PLAYING_FORWARD(true), PLAYING_REVERSE(true), SUSPENDED(
-                false), CANCELLED(false), DONE(false);
+        IDLE(false),
+        READY(false),
+        PLAYING_FORWARD(true),
+        PLAYING_REVERSE(true),
+        SUSPENDED(false),
+        CANCELLED(false),
+        DONE(false);
 
         private boolean isActive;
 
@@ -142,8 +141,9 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
                 for (AbstractFieldInfo fInfo : propertiesToInterpolate) {
                     // check whether the object is in the ready state
                     if ((uiToolkitHandler != null)
-                            && !uiToolkitHandler.isInReadyState(fInfo.object))
+                            && !uiToolkitHandler.isInReadyState(fInfo.object)) {
                         continue;
+                    }
                     fInfo.updateFieldValue(timelinePosition);
                 }
             }
@@ -153,8 +153,9 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         public void onTimelinePulse(float durationFraction, float timelinePosition) {
             for (AbstractFieldInfo fInfo : propertiesToInterpolate) {
                 // check whether the object is in the ready state
-                if ((uiToolkitHandler != null) && !uiToolkitHandler.isInReadyState(fInfo.object))
+                if ((uiToolkitHandler != null) && !uiToolkitHandler.isInReadyState(fInfo.object)) {
                     continue;
+                }
                 // System.err.println("Timeline @" + Timeline.this.hashCode()
                 // + " at position " + timelinePosition);
                 fInfo.updateFieldValue(timelinePosition);
@@ -239,8 +240,9 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             }
             if (shouldRunOnUIThread && (Timeline.this.uiToolkitHandler != null)) {
                 Timeline.this.uiToolkitHandler.runOnUIThread(mainObject, () -> {
-                    if (Timeline.this.getState() == TimelineState.CANCELLED)
+                    if (Timeline.this.getState() == TimelineState.CANCELLED) {
                         return;
+                    }
                     // System.err.println("Timeline @"
                     // + Timeline.this.hashCode());
                     callback.onTimelinePulse(durationFraction, timelinePosition);
@@ -257,7 +259,8 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             if ((uiToolkitHandler != null) && !shouldForceUiUpdate() &&
                     !uiToolkitHandler.isInReadyState(mainObject)) {
                 if (TimelineEngine.DEBUG_MODE) {
-                    System.out.println("Main object is not in ready state for pulse " + durationFraction);
+                    System.out.println(
+                            "Main object is not in ready state for pulse " + durationFraction);
                 }
                 return;
             }
@@ -355,6 +358,10 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
     }
 
     public final <T> void addPropertyToInterpolate(TimelinePropertyBuilder<T> propertyBuilder) {
+        if (this.getState() != TimelineState.IDLE) {
+            throw new IllegalArgumentException(
+                    "Cannot add properties to non-idle timeline [" + this.toString() + "]");
+        }
         this.propertiesToInterpolate.add(propertyBuilder.getFieldInfo(this));
     }
 
@@ -446,7 +453,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
      * interpolations are done on the {@link TimelineState#CANCELLED} state, the timeline
      * transitions to the {@link TimelineState#IDLE} state. Application callbacks and field
      * interpolations are done on this state as well.
-     * 
+     *
      * @see #end()
      * @see #abort()
      */
@@ -460,7 +467,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
      * application callbacks and field interpolations are done on the {@link TimelineState#DONE}
      * state, the timeline transitions to the {@link TimelineState#IDLE} state. Application
      * callbacks and field interpolations are done on this state as well.
-     * 
+     *
      * @see #cancel()
      * @see #abort()
      */
@@ -471,7 +478,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
     /**
      * Aborts this timeline. The timeline transitions to the {@link TimelineState#IDLE} state. No
      * application callbacks or field interpolations are done.
-     * 
+     *
      * @see #cancel()
      * @see #end()
      */
@@ -493,14 +500,15 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
      * be called only on looping timelines.
      */
     public void cancelAtCycleBreak() {
-        if (!this.isLooping)
+        if (!this.isLooping) {
             throw new IllegalArgumentException("Can only be called on looping timelines");
+        }
         this.toCancelAtCycleBreak = true;
     }
 
     /**
      * Returns a unique ID.
-     * 
+     *
      * @return Unique ID.
      */
     protected static synchronized long getId() {
@@ -573,8 +581,9 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
     }
 
     void pushState(TimelineState state) {
-        if (state == TimelineState.DONE)
+        if (state == TimelineState.DONE) {
             this.doneCount++;
+        }
         this.stateStack.add(state);
     }
 

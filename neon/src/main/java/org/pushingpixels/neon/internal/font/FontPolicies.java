@@ -148,19 +148,16 @@ public final class FontPolicies {
 			FontPolicy {
 
         @Override
-		public FontSet getFontSet(UIDefaults table) {
+		public FontSet getFontSet() {
 			Font windowsControlFont = Fonts.getWindowsControlFont();
 			Font controlFont;
 			if (windowsControlFont != null) {
 				controlFont = windowsControlFont;
-			} else if (table != null) {
-				controlFont = table.getFont("Button.font");
 			} else {
 				controlFont = new Font("Dialog", Font.PLAIN, 12);
 			}
 
-			Font menuFont = table == null ? controlFont : table
-					.getFont("Menu.font");
+			Font menuFont = controlFont;
 			Font titleFont = controlFont.deriveFont(Font.BOLD);
 
 			return FontSets.createDefaultFontSet(controlFont, menuFont,
@@ -174,25 +171,19 @@ public final class FontPolicies {
 	private static final class DefaultWindowsPolicy implements FontPolicy {
 
         @Override
-		public FontSet getFontSet(UIDefaults table) {
+		public FontSet getFontSet() {
 			Font windowsControlFont = Fonts.getWindowsControlFont();
 			Font controlFont;
 			if (windowsControlFont != null) {
 				controlFont = windowsControlFont;
-			} else if (table != null) {
-				controlFont = table.getFont("Button.font");
 			} else {
 				controlFont = new Font("Dialog", Font.PLAIN, 12);
 			}
-			Font menuFont = table == null ? controlFont : table
-					.getFont("Menu.font");
+			Font menuFont = controlFont;
 			Font titleFont = controlFont;
-			Font messageFont = table == null ? controlFont : table
-					.getFont("OptionPane.font");
-			Font smallFont = table == null ? controlFont.deriveFont(controlFont
-					.getSize2D() - 2f) : table.getFont("ToolTip.font");
-			Font windowTitleFont = table == null ? controlFont : table
-					.getFont("InternalFrame.titleFont");
+			Font messageFont = controlFont;
+			Font smallFont = controlFont.deriveFont(controlFont.getSize2D() - 2f);
+			Font windowTitleFont = controlFont;
 			return FontSets.createDefaultFontSet(controlFont, menuFont,
 					titleFont, messageFont, smallFont, windowTitleFont);
 		}
@@ -211,7 +202,7 @@ public final class FontPolicies {
 		}
 
 		@Override
-		public FontSet getFontSet(UIDefaults table) {
+		public FontSet getFontSet() {
 			return fontSet;
 		}
 	}

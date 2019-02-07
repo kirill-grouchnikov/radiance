@@ -49,7 +49,7 @@ import java.util.EventListener;
  * {@link AbstractCommandButton} that can be added to the component hierarchy. Note that you
  * can - and should - use the same {@link Command} instance and one or more
  * {@link CommandButtonPresentationModel}s if you need to have multiple instances (or
- * projections) of the same command in your app UI. That way changes in thecommand are propagated
+ * projections) of the same command in your app UI. That way changes in the command are propagated
  * and synced across all those projections.</p>
  *
  * @author Kirill Grouchnikov

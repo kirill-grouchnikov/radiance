@@ -1079,7 +1079,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
                         NeonCortex.installDesktopHints(g2d);
-                        g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+                        g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                                 .getControlFont().deriveFont(9.0f));
                         g2d.setColor(Color.black);
                         g2d.drawString("" + index, x + 1, y + height - 2);
@@ -1112,7 +1112,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
                         NeonCortex.installDesktopHints(g2d);
-                        g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+                        g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                                 .getControlFont().deriveFont(9.0f));
                         g2d.setColor(Color.black);
                         g2d.drawString("" + index, x + 1, y + height - 2);
@@ -1570,7 +1570,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(Color.black);
                         NeonCortex.installDesktopHints(g2d);
-                        g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
+                        g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().
                                 getControlFont());
                         g2d.drawString("" + index, x + 2, y + height - 2);
                         g2d.dispose();
@@ -1878,7 +1878,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         "voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
                         "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui " +
                         "officia deserunt mollit anim id est laborum.");
-        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont();
         this.rulerTextPane.setFont(baseFont.deriveFont(baseFont.getSize() + 3.0f));
         this.rulerTextPane.addCaretListener((CaretEvent e) -> {

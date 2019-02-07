@@ -73,7 +73,6 @@ Radiance artifacts are available in the central Maven repository under `groupId=
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance-extras/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance-extras) `radiance-substance-extras` for Substance extras
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-flamingo/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-flamingo) `radiance-flamingo` for [Flamingo](docs/flamingo/flamingo.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-kormorant/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-kormorant) `radiance-kormorant` for [Kormorant](docs/kormorant/kormorant.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-spoonbill/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-spoonbill) `radiance-spoonbill` for Spoonbill
 
 ### Tools artifacts
 

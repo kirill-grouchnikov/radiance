@@ -30,12 +30,12 @@
 
 rootProject.name = "radiance"
 
-include 'flamingo', 'neon', 'photon', 'spoonbill',
+include 'flamingo', 'neon', 'photon',
 		'substance', 'substance-extras', 'trident',
 		'kotlin-ext:ember', 'kotlin-ext:meteor',
 		'kotlin-ext:plasma',
 		'demos:beacon-demo', 'demos:flamingo-demo',
-		'demos:plasma-demo', 'demos:spoonbill-demo',
+		'demos:plasma-demo',
         'demos:substance-demo', 'demos:trident-demo',
 		'demos:lumen', 'demos:rainbow', 'demos:spyglass',
         'tools:apollo', 'tools:beacon', 'tools:electra',

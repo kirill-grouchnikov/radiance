@@ -118,7 +118,7 @@ public class ThreadPanel extends JPanel {
         result.setBorder(new EmptyBorder(6, 12, 16, 12));
 
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont().deriveFont(Font.BOLD, 19.0f));
         result.add(titleLabel);
 
@@ -133,7 +133,7 @@ public class ThreadPanel extends JPanel {
                 columns("center:pref, 8dlu, 0dlu:grow, 8dlu, right:pref").
                 rows("p").
                 padding(new EmptyBorder(8, 16, 8, 16));
-        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont();
 
         JLabel senderLabel = new JLabel(from);
@@ -164,7 +164,7 @@ public class ThreadPanel extends JPanel {
                 columns("0dlu:grow, 8dlu, right:pref, 8dlu, center:pref, 8dlu, center:pref").
                 rows("p").
                 padding(new EmptyBorder(8, 16, 2, 16));
-        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont();
 
         JLabel senderLabel = new JLabel(from);

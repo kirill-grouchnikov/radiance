@@ -40,7 +40,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class BallTracker extends JFrame {
-    Timeline timelineBallFalling;
+    private Timeline timelineBallFalling;
 
     private class Options {
         private String description;
@@ -52,7 +52,7 @@ public class BallTracker extends JFrame {
         }
     }
 
-    public BallTracker() {
+    private BallTracker() {
         super("Ball tracker");
 
         this.setLayout(new GridLayout(2, 1));
@@ -106,8 +106,9 @@ public class BallTracker extends JFrame {
 
         JButton runTimeline = new JButton("run");
         runTimeline.addActionListener((ActionEvent e) -> {
-            if (timelineBallFalling != null)
+            if (timelineBallFalling != null) {
                 timelineBallFalling.cancel();
+            }
             timelineBallFalling = new SwingComponentTimeline(ballPanel);
             timelineBallFalling.addPropertyToInterpolate("ballY", BallPanel.RADIUS,
                     ballPanel.getHeight() - BallPanel.RADIUS);
@@ -128,8 +129,8 @@ public class BallTracker extends JFrame {
                 @Override
                 public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
                         float durationFraction, float timelinePosition) {
-                    System.out
-                            .println("State change: " + oldState.name() + " -> " + newState.name());
+                    System.out.println("State change: " + oldState.name() + " -> "
+                            + newState.name());
                 }
             });
 
@@ -143,20 +144,23 @@ public class BallTracker extends JFrame {
 
         JButton cancelTimeline = new JButton("cancel");
         cancelTimeline.addActionListener((ActionEvent e) -> {
-            if (timelineBallFalling != null)
+            if (timelineBallFalling != null) {
                 timelineBallFalling.cancelAtCycleBreak();
+            }
         });
 
         JButton suspendTimeline = new JButton("suspend");
         suspendTimeline.addActionListener((ActionEvent e) -> {
-            if (timelineBallFalling != null)
+            if (timelineBallFalling != null) {
                 timelineBallFalling.suspend();
+            }
         });
 
         JButton resumeTimeline = new JButton("resume");
         resumeTimeline.addActionListener((ActionEvent e) -> {
-            if (timelineBallFalling != null)
+            if (timelineBallFalling != null) {
                 timelineBallFalling.resume();
+            }
         });
 
         controls.add(runTimeline);

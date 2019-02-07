@@ -137,14 +137,14 @@ public class SetFontPolicy extends JFrame {
                     SubstanceCortex.GlobalScope.setFontPolicy(null);
                     // Get the default font set
                     final FontSet substanceCoreFontSet = SubstanceCortex.GlobalScope.getFontPolicy()
-                            .getFontSet(null);
+                            .getFontSet();
                     // Create the wrapper font set
-                    FontPolicy newFontPolicy = (UIDefaults table) ->
-                            new WrapperFontSet(substanceCoreFontSet, newValue);
+                    FontPolicy newFontPolicy =
+                            () -> new WrapperFontSet(substanceCoreFontSet, newValue);
 
                     try {
-                        SetFontPolicy.this
-                                .setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        SetFontPolicy.this.setCursor(
+                                Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                         // set the new font policy
                         SubstanceCortex.GlobalScope.setFontPolicy(newFontPolicy);
                         SetFontPolicy.this.setCursor(Cursor.getDefaultCursor());

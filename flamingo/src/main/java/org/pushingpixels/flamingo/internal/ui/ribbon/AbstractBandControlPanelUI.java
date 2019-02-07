@@ -122,7 +122,7 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
 
         Font font = this.controlPanel.getFont();
         if (font == null || font instanceof UIResource) {
-            Font toSet = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null).
+            Font toSet = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().
                     getControlFont();
             this.controlPanel.setFont(toSet);
         }

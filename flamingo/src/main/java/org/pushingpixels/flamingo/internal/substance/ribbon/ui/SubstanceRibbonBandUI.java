@@ -118,7 +118,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
             return;
 
         Graphics2D g2d = (Graphics2D) graphics.create();
-        Font controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+        Font controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont();
         g2d.setFont(controlFont.deriveFont(controlFont.getSize2D() - 1.0f));
 

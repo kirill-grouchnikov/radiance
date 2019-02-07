@@ -147,9 +147,9 @@ public class MyLocaleChangeListener implements ActionListener {
             SubstanceCortex.GlobalScope.resetLabelBundle();
             if ("CN".equals(countryCode)) {
                 final FontSet currFontSet = SubstanceCortex.GlobalScope.getFontPolicy()
-                        .getFontSet(null);
+                        .getFontSet();
                 SubstanceCortex.GlobalScope.setFontPolicy(
-                        (UIDefaults table) -> new DialogFontSet(currFontSet));
+                        () -> new DialogFontSet(currFontSet));
             } else {
                 SubstanceCortex.GlobalScope.setFontPolicy(null);
             }

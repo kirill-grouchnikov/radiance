@@ -61,7 +61,7 @@ public class SubstanceSizeUtils {
 		if (controlFontSize > 0)
 			return controlFontSize;
 		FontPolicy fPolicy = SubstanceCortex.GlobalScope.getFontPolicy();
-		FontSet fSet = fPolicy.getFontSet(null);
+		FontSet fSet = fPolicy.getFontSet();
 		controlFontSize = fSet.getControlFont().getSize();
 		return controlFontSize;
 	}

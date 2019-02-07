@@ -515,7 +515,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		Font f = slider.getFont();
 		if (f == null || f instanceof UIResource) {
 			slider.setFont(new FontUIResource(SubstanceCortex.GlobalScope.getFontPolicy()
-					.getFontSet(null).getControlFont()));
+					.getFontSet().getControlFont()));
 		}
 		int size = SubstanceSizeUtils
 				.getSliderIconSize(SubstanceSizeUtils.getComponentFontSize(slider));

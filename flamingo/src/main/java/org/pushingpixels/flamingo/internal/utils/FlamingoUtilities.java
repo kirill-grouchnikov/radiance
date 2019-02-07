@@ -152,7 +152,7 @@ public class FlamingoUtilities {
     }
 
     public static int getTaskToggleButtonHeight(JRibbon ribbon) {
-        Font titleFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+        Font titleFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getWindowTitleFont();
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(titleFont);
         int fontHeight = fm.getHeight();

@@ -30,7 +30,6 @@
 package org.pushingpixels.demo.substance.main.check.selector;
 
 import org.pushingpixels.demo.substance.main.check.FlexiComboBox;
-import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.font.FontSet;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
@@ -120,7 +119,8 @@ public class SubstanceFontSelector extends FlexiComboBox<SubstanceFontSelector.F
 
     public SubstanceFontSelector() throws Throwable {
         // populate the combobox
-        super(new FontInfo("Platform", NeonCortex.getDefaultFontPolicy().getFontSet(null)),
+        super(new FontInfo("Platform", SubstanceCortex.GlobalScope.getFontPolicy()
+                        .getFontSet()),
                 new FontInfo("fonts/Inter-UI-Regular.ttf", "fonts/Inter-UI-Bold.ttf"),
                 new FontInfo("fonts/SourceCodePro-Regular.ttf", "fonts/SourceCodePro-Bold.ttf"),
                 new FontInfo("fonts/Roboto-Regular.ttf", "fonts/Roboto-Bold.ttf"),
@@ -129,8 +129,8 @@ public class SubstanceFontSelector extends FlexiComboBox<SubstanceFontSelector.F
 
         // add an action listener to change font based on user selection
         this.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() ->
-                SubstanceCortex.GlobalScope.setFontPolicy((UIDefaults table) ->
-                        ((FontInfo) SubstanceFontSelector.this.getSelectedItem()).fontSet)));
+                SubstanceCortex.GlobalScope.setFontPolicy(
+                        () -> ((FontInfo) SubstanceFontSelector.this.getSelectedItem()).fontSet)));
     }
 
     @Override

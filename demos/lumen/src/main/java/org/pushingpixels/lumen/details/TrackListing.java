@@ -108,7 +108,7 @@ public class TrackListing extends JPanel implements Scrollable {
             return super.getPreferredSize();
         }
 
-        Font controlFont = NeonCortex.getDefaultFontPolicy().getFontSet(null).getControlFont();
+        Font controlFont = NeonCortex.getDefaultFontPolicy().getFontSet().getControlFont();
         Font keyFont = controlFont.deriveFont(15.0f);
         Font detailsFont = controlFont.deriveFont(13.0f);
 
@@ -153,7 +153,7 @@ public class TrackListing extends JPanel implements Scrollable {
             return;
         }
 
-        Font controlFont = NeonCortex.getDefaultFontPolicy().getFontSet(null).getControlFont();
+        Font controlFont = NeonCortex.getDefaultFontPolicy().getFontSet().getControlFont();
         Font keyFont = controlFont.deriveFont(15.0f);
         Font detailsFont = controlFont.deriveFont(13.0f);
         g2d.setFont(keyFont);

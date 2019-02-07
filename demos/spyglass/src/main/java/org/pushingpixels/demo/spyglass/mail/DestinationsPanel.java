@@ -174,7 +174,7 @@ public class DestinationsPanel extends PanelWithRightLine {
                 padding(new EmptyBorder(8, 8, 8, 8));
 
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(null)
+        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont().deriveFont(Font.BOLD));
         builder.add(titleLabel).xy(1, 1);
 

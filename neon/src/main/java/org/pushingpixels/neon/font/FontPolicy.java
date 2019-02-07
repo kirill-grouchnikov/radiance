@@ -45,16 +45,9 @@ public interface FontPolicy {
 	 * to set the default fonts for its components.
 	 * <p>
 	 * 
-	 * This method is invoked during the L&amp;F component initialization. And
-	 * the invoker hands over the UIDefaults object used to define the component
-	 * settings. Hence, the UIDefaults object may be used to look up a font as
-	 * initialized by a super Look&amp;Feel.
-	 * 
-	 * @param table
-	 *            the UIDefaults table that can be used to look up fonts of a
-	 *            super L&amp;F
+	 * This method is invoked during the L&amp;F component initialization.
 	 * 
 	 * @return a set of fonts used as default for the component.
 	 */
-	FontSet getFontSet(UIDefaults table);
+	FontSet getFontSet();
 }

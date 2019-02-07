@@ -503,7 +503,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
     private int getScrollerButtonWidth() {
         return FlamingoUtilities.getScaledSize(15, SubstanceCortex.GlobalScope.getFontPolicy()
-                .getFontSet(null).getControlFont().getSize(), 1.0f, 1);
+                .getFontSet().getControlFont().getSize(), 1.0f, 1);
     }
 
     /**

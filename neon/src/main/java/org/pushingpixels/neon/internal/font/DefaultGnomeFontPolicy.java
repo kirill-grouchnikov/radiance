@@ -60,7 +60,7 @@ public class DefaultGnomeFontPolicy implements FontPolicy {
 	}
 
 	@Override
-	public FontSet getFontSet(UIDefaults table) {
+	public FontSet getFontSet() {
 		Object defaultGtkFontName = Toolkit.getDefaultToolkit()
 				.getDesktopProperty("gnome.Gtk/FontName");
 		String family = "";
