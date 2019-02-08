@@ -174,10 +174,12 @@ public class TabPreviewControl extends JPanel {
     public void setPreviewImage(BufferedImage previewImage, boolean toAnimate) {
         this.previewImage = previewImage;
         if (toAnimate) {
-            Timeline fadeTimeline = new SwingComponentTimeline(this);
-            AnimationConfigurationManager.getInstance().configureTimeline(fadeTimeline);
-            fadeTimeline.addPropertyToInterpolate("alpha", 0.0f, 1.0f);
-            fadeTimeline.play();
+            SwingComponentTimeline.Builder fadeTimelineBuilder =
+                    SwingComponentTimeline.componentBuilder(this);
+            AnimationConfigurationManager.getInstance().configureTimelineBuilder(
+                    fadeTimelineBuilder);
+            fadeTimelineBuilder.addPropertyToInterpolate("alpha", 0.0f, 1.0f);
+            fadeTimelineBuilder.play();
         }
     }
 

@@ -90,40 +90,40 @@ public class Stage1LoadingProgress extends Stage0Base {
         this.loadingBarAlpha = 0.0f;
 
         // create the looping timeline
-        this.loadingBarLoopTimeline = new Timeline(this);
-        this.loadingBarLoopTimeline.addPropertyToInterpolate(
-                "loadingBarLoopPosition", 0.0f, 1.0f);
-        this.loadingBarLoopTimeline.addCallback(new TimelineCallbackAdapter() {
-            @Override
-            public void onTimelinePulse(float durationFraction,
-                    float timelinePosition) {
-                // don't repaint the whole window
-                int x = (getWidth() - PROGRESS_WIDTH) / 2;
-                int y = (getHeight() - PROGRESS_HEIGHT) / 2;
-                Stage1LoadingProgress.this.repaint(x - 5, y - 5,
-                        PROGRESS_WIDTH + 10, PROGRESS_HEIGHT + 10);
-            }
-        });
-        this.loadingBarLoopTimeline.setDuration(750);
+        this.loadingBarLoopTimeline = Timeline.builder(this)
+                .addPropertyToInterpolate("loadingBarLoopPosition", 0.0f, 1.0f)
+                .addCallback(new TimelineCallbackAdapter() {
+                    @Override
+                    public void onTimelinePulse(float durationFraction,
+                            float timelinePosition) {
+                        // don't repaint the whole window
+                        int x = (getWidth() - PROGRESS_WIDTH) / 2;
+                        int y = (getHeight() - PROGRESS_HEIGHT) / 2;
+                        Stage1LoadingProgress.this.repaint(x - 5, y - 5,
+                                PROGRESS_WIDTH + 10, PROGRESS_HEIGHT + 10);
+                    }
+                })
+                .setDuration(750)
+                .build();
 
         // create the fade timeline
-        this.loadingBarFadeTimeline = new Timeline(this);
-        this.loadingBarFadeTimeline.addPropertyToInterpolate("loadingBarAlpha",
-                0.0f, 1.0f);
-        this.loadingBarFadeTimeline.addCallback(new TimelineCallbackAdapter() {
-            @Override
-            public void onTimelineStateChanged(TimelineState oldState,
-                    TimelineState newState, float durationFraction,
-                    float timelinePosition) {
-                if (oldState == TimelineState.PLAYING_REVERSE
-                        && newState == TimelineState.DONE) {
-                    // after the loading progress is faded out, stop the loading
-                    // animation
-                    loadingBarLoopTimeline.cancel();
-                }
-            }
-        });
-        this.loadingBarFadeTimeline.setDuration(500);
+        this.loadingBarFadeTimeline = Timeline.builder(this)
+                .addPropertyToInterpolate("loadingBarAlpha", 0.0f, 1.0f)
+                .addCallback(new TimelineCallbackAdapter() {
+                    @Override
+                    public void onTimelineStateChanged(TimelineState oldState,
+                            TimelineState newState, float durationFraction,
+                            float timelinePosition) {
+                        if (oldState == TimelineState.PLAYING_REVERSE
+                                && newState == TimelineState.DONE) {
+                            // after the loading progress is faded out, stop the loading
+                            // animation
+                            loadingBarLoopTimeline.cancel();
+                        }
+                    }
+                })
+                .setDuration(500)
+                .build();
     }
 
     @Override

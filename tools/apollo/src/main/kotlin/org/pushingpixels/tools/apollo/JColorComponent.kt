@@ -92,10 +92,11 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
         internal val rolloverTimeline: SwingComponentTimeline
 
         init {
-            rolloverTimeline = SwingComponentTimeline(this)
+            val rolloverTimelineBuilder = SwingComponentTimeline.componentBuilder(this)
+
             // TODO - switch to operate on the property directly (with accessor object)
             // when Torch is available
-            rolloverTimeline.addPropertyToInterpolate(
+            rolloverTimelineBuilder.addPropertyToInterpolate(
                     Timeline.property<Float>(this::borderThickness.name).from(1.0f).to(2.0f)
                             .accessWith(object: TimelinePropertyBuilder.PropertyAccessor<Float> {
                                 override fun get(obj: Any?, fieldName: String?): Float {
@@ -106,8 +107,9 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
                                     borderThickness = value!!
                                 }
                             }))
-            rolloverTimeline.duration = 80
-            rolloverTimeline.addCallback(SwingRepaintCallback(this))
+            rolloverTimelineBuilder.duration = 80
+            rolloverTimelineBuilder.addCallback(SwingRepaintCallback(this))
+            rolloverTimeline = rolloverTimelineBuilder.build()
 
             this.addDelayedMouseListener(
                     onMouseClicked = {

@@ -183,11 +183,12 @@ public class StateTransitionTracker {
         this.isAutoTrackingModelChanges = true;
         this.eventListenerList = new EventListenerList();
 
-        this.focusTimeline = new SwingComponentTimeline(this.component);
-        AnimationConfigurationManager.getInstance().configureTimeline(this.focusTimeline);
-        this.focusTimeline.addCallback(this.repaintCallback.getRepaintCallback());
+        SwingComponentTimeline.Builder focusTimelineBuilder =
+                SwingComponentTimeline.componentBuilder(this.component);
+        AnimationConfigurationManager.getInstance().configureTimelineBuilder(focusTimelineBuilder);
+        focusTimelineBuilder.addCallback(this.repaintCallback.getRepaintCallback());
         // notify listeners on focus state transition
-        this.focusTimeline.addCallback(new TimelineCallbackAdapter() {
+        focusTimelineBuilder.addCallback(new TimelineCallbackAdapter() {
             @Override
             public void onTimelineStateChanged(TimelineState oldState,
                     TimelineState newState, float durationFraction,
@@ -195,10 +196,14 @@ public class StateTransitionTracker {
                 SwingUtilities.invokeLater(() -> fireFocusStateTransitionEvent(oldState, newState));
             }
         });
+        this.focusTimeline = focusTimelineBuilder.build();
 
-        this.focusLoopTimeline = new SwingComponentTimeline(this.component);
-        AnimationConfigurationManager.getInstance().configureTimeline(this.focusLoopTimeline);
-        this.focusLoopTimeline.addCallback(this.repaintCallback.getRepaintCallback());
+        SwingComponentTimeline.Builder focusLoopTimelineBuilder =
+                SwingComponentTimeline.componentBuilder(this.component);
+        AnimationConfigurationManager.getInstance().configureTimelineBuilder(
+                focusLoopTimelineBuilder);
+        focusLoopTimelineBuilder.addCallback(this.repaintCallback.getRepaintCallback());
+        this.focusLoopTimeline = focusLoopTimelineBuilder.build();
 
         this.iconGlowTracker = new IconGlowTracker(this.component);
 
@@ -321,17 +326,22 @@ public class StateTransitionTracker {
         if (this.transitionTimeline != null) {
             this.transitionTimeline.abort();
         }
-        this.transitionTimeline = new SwingComponentTimeline(this.component, true);
-        this.transitionTimeline.setName("Model transitions");
-        this.transitionTimeline.addCallback(this.repaintCallback.getRepaintCallback());
-        AnimationConfigurationManager.getInstance().configureTimeline(this.transitionTimeline);
+
+        SwingComponentTimeline.Builder transitionTimelineBuilder =
+                SwingComponentTimeline.componentBuilder(this.component)
+                        .setForceUiUpdate(true);
+
+        transitionTimelineBuilder.setName("Model transitions");
+        transitionTimelineBuilder.addCallback(this.repaintCallback.getRepaintCallback());
+        AnimationConfigurationManager.getInstance().configureTimelineBuilder(
+                transitionTimelineBuilder);
         if (!this.modelStateInfo.currState.isFacetActive(ComponentStateFacet.SELECTION)
                 && newState.isFacetActive(ComponentStateFacet.SELECTION)) {
             // special handling for transition from non-selected to
             // selected state - make it twice faster
-            this.transitionTimeline.setDuration(this.transitionTimeline.getDuration() / 2);
+            transitionTimelineBuilder.setDuration(transitionTimelineBuilder.getDuration() / 2);
         }
-        long fullDuration = this.transitionTimeline.getDuration();
+        long fullDuration = transitionTimelineBuilder.getDuration();
         if (this.modelStateInfo.stateContributionMap.containsKey(newState)) {
             // Going to a state that is already partially active. The
             // new timeline is going to be shorter. The new state will go to
@@ -339,14 +349,14 @@ public class StateTransitionTracker {
             // contribution.
             this.transitionPosition = this.modelStateInfo.stateContributionMap
                     .get(newState).getContribution();
-            this.transitionTimeline.addPropertyToInterpolate(
+            transitionTimelineBuilder.addPropertyToInterpolate(
                     Timeline.<Float>property("transitionPosition")
                             .getWith((Object obj, String fieldName) -> transitionPosition)
                             .setWith((Object obj, String fieldName, Float value) ->
                                     transitionPosition = value)
                             .from(this.transitionPosition)
                             .to(1.0f));
-            this.transitionTimeline
+            transitionTimelineBuilder
                     .setDuration((long) (fullDuration * (1.0f - this.transitionPosition)));
             // if ((this.component instanceof JMenuItem)
             // && "Check enabled unselected"
@@ -366,7 +376,7 @@ public class StateTransitionTracker {
             // }
         } else {
             this.transitionPosition = 0.0f;
-            this.transitionTimeline.addPropertyToInterpolate(
+            transitionTimelineBuilder.addPropertyToInterpolate(
                     Timeline.<Float>property("transitionPosition")
                             .getWith((Object obj, String fieldName) -> transitionPosition)
                             .setWith((Object obj, String fieldName, Float value) ->
@@ -447,7 +457,7 @@ public class StateTransitionTracker {
         // }
         // }
 
-        this.transitionTimeline.addCallback(new TimelineCallbackAdapter() {
+        transitionTimelineBuilder.addCallback(new TimelineCallbackAdapter() {
             @Override
             public void onTimelineStateChanged(final TimelineState oldState,
                     final TimelineState newState, final float durationFraction,
@@ -465,7 +475,7 @@ public class StateTransitionTracker {
             }
         });
         // notify listeners on model state transition
-        this.transitionTimeline.addCallback(new TimelineCallbackAdapter() {
+        transitionTimelineBuilder.addCallback(new TimelineCallbackAdapter() {
             @Override
             public void onTimelineStateChanged(final TimelineState oldState,
                     final TimelineState newState, float durationFraction,
@@ -475,7 +485,7 @@ public class StateTransitionTracker {
         });
         // Add fix for issue 297 - menu items partially covered by lightweight
         // popups (such as tooltips).
-        this.transitionTimeline.addCallback(new TimelineCallbackAdapter() {
+        transitionTimelineBuilder.addCallback(new TimelineCallbackAdapter() {
             @Override
             public void onTimelineStateChanged(TimelineState oldState,
                     TimelineState newState, float durationFraction,
@@ -514,7 +524,7 @@ public class StateTransitionTracker {
             }
         });
 
-        this.transitionTimeline.addCallback(new TimelineCallbackAdapter() {
+        transitionTimelineBuilder.addCallback(new TimelineCallbackAdapter() {
             @Override
             public void onTimelineStateChanged(TimelineState oldState,
                     TimelineState newState, float durationFraction,
@@ -552,6 +562,7 @@ public class StateTransitionTracker {
         // + ((JMenuItem) this.component).getText() + " for "
         // + this.transitionTimeline.getDuration());
         // }
+        this.transitionTimeline = transitionTimelineBuilder.build();
         this.transitionTimeline.play();
 
         // track icon glowing
@@ -610,7 +621,7 @@ public class StateTransitionTracker {
         float result = 0.0f;
         for (Map.Entry<ComponentState, StateContributionInfo> activeEntry :
                 this.modelStateInfo.stateContributionMap
-                .entrySet()) {
+                        .entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             if (activeState.isFacetActive(stateFacet)) {
                 result += activeEntry.getValue().getContribution();

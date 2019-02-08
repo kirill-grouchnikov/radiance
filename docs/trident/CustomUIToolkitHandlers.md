@@ -45,9 +45,8 @@ The `UIToolkitHandler.isHandlerFor(Object)` is used to determine whether the mai
 In the [simple Swing example](SimpleSwingExample.md) that interpolates the foreground color of a button on mouse rollover, the timeline is configured as
 
 ```java
-	Timeline rolloverTimeline = new Timeline(button);
-	rolloverTimeline.addPropertyToInterpolate("foreground", Color.blue,
-			Color.red);
+	SwingComponentTimeline.componentBuilder(button)
+	    .addPropertyToInterpolate("foreground", Color.blue, Color.red)
 ```
 
 If you put a breakpoint in the `JComponent.setForeground(Color)` - which is called on every timeline pulse - you will see that it is called on the Swing Event Dispatch Thread. Internally, this is what happens:
@@ -71,7 +70,7 @@ And this is how `SwingToolkitHandler.runOnUIThread()` is implemented:
 
 ### Running custom application code on UI thread
 
-The flow described above works for the fields registered with the `Timeline.addPropertyToInterpolate` methods. What about the custom [application callbacks](TimelineLifecycle.md) registered with the `Timeline.addCallback()`? If the callback methods need to respect the UI threading rules of the matching toolkit, the `TimelineCallback` implementation class needs to be tagged with the `org.pushingpixels.trident.callback.RunOnUIThread` annotation.
+The flow described above works for the fields registered with the `Timeline.Builder.addPropertyToInterpolate` methods. What about the custom [application callbacks](TimelineLifecycle.md) registered with the `Timeline.Builder.addCallback()`? If the callback methods need to respect the UI threading rules of the matching toolkit, the `TimelineCallback` implementation class needs to be tagged with the `org.pushingpixels.trident.callback.RunOnUIThread` annotation.
 
 Callback implementations marked with this annotation will have both `onTimelineStateChanged` and `onTimelinePulse` invoked on the UI thread, making it safe to query and change the UI. The `UIThreadTimelineCallbackAdapter` is a core adapter class that is marked with this annotation.
 

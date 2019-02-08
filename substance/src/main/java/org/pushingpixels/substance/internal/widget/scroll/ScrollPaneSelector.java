@@ -352,9 +352,11 @@ public class ScrollPaneSelector extends JComponent {
 
         // Animate scrolling
         if (toAnimate) {
-            Timeline scrollTimeline = new SwingComponentTimeline(theComponent);
-            AnimationConfigurationManager.getInstance().configureTimeline(scrollTimeline);
-            scrollTimeline.addCallback(new UIThreadTimelineCallbackAdapter() {
+            SwingComponentTimeline.Builder scrollTimelineBuilder =
+                    SwingComponentTimeline.componentBuilder(theComponent);
+            AnimationConfigurationManager.getInstance().configureTimelineBuilder(
+                    scrollTimelineBuilder);
+            scrollTimelineBuilder.addCallback(new UIThreadTimelineCallbackAdapter() {
                 @Override
                 public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
                         float durationFraction, float timelinePosition) {
@@ -373,7 +375,7 @@ public class ScrollPaneSelector extends JComponent {
                     syncRectangle();
                 }
             });
-            scrollTimeline.play();
+            scrollTimelineBuilder.play();
         } else {
             theComponent.scrollRectToVisible(newRectangle);
             syncRectangle();

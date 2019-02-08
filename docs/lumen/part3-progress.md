@@ -27,13 +27,12 @@ As in the previous entry, we have a non-opaque component with an alpha attribute
 ```java
       // fade in the container once it's part of the window
       // hierarchy
-      this.addHierarchyListener((HierarchyEvent e) -> {
-          Timeline shownTimeline = new Timeline(Stage0Base.this);
-          shownTimeline.addPropertyToInterpolate("alpha", 0.0f, 0.75f);
-          shownTimeline.addCallback(new Repaint(Stage0Base.this));
-          shownTimeline.setDuration(500);
-          shownTimeline.play();
-      });
+      this.addHierarchyListener((HierarchyEvent e) ->
+            Timeline.builder(Stage0Base.this)
+                  .addPropertyToInterpolate("alpha", 0.0f, 0.9f)
+                  .addCallback(new SwingRepaintCallback(Stage0Base.this))
+                  .setDuration(500)
+                  .play());
    }
 ```
 As with most modern non-rectangular application, the main Lumen demo allows dragging the main window by simply grabbing it with the mouse. To do this we add the following mouse adapter:
@@ -170,48 +169,48 @@ Now it's time to initialize the attributes:
 public Stage1LoadingProgress() {
    super();
 
-   this.loadingBarLoopPosition = 0.0f;
+   this.loadingBarAlpha = 0.0f;
+
    // create the looping timeline
-   this.loadingBarLoopTimeline = new Timeline(this);
-   this.loadingBarLoopTimeline.addPropertyToInterpolate(
-         "loadingBarLoopPosition", 0.0f, 1.0f);
-   this.loadingBarLoopTimeline.addCallback(new TimelineCallbackAdapter() {
-      @Override
-      public void onTimelinePulse(float durationFraction,
-            float timelinePosition) {
-         // don't repaint the whole window
-         int x = (getWidth() - PROGRESS_WIDTH) / 2;
-         int y = (getHeight() - PROGRESS_HEIGHT) / 2;
-         Stage1LoadingProgress.this.repaint(x - 5, y - 5,
-            PROGRESS_WIDTH + 10, PROGRESS_HEIGHT + 10);
-      }
-   });
-   this.loadingBarLoopTimeline.setDuration(750);
+   this.loadingBarLoopTimeline = Timeline.builder(this)
+        .addPropertyToInterpolate("loadingBarLoopPosition", 0.0f, 1.0f)
+        .addCallback(new TimelineCallbackAdapter() {
+            @Override
+            public void onTimelinePulse(float durationFraction,
+                       float timelinePosition) {
+                // don't repaint the whole window
+                int x = (getWidth() - PROGRESS_WIDTH) / 2;
+                int y = (getHeight() - PROGRESS_HEIGHT) / 2;
+                Stage1LoadingProgress.this.repaint(x - 5, y - 5,
+                        PROGRESS_WIDTH + 10, PROGRESS_HEIGHT + 10);
+            }
+        })
+        .setDuration(750)
+        .build();
 ```
 This initializes the stripe location value to zero, and configures the looping timeline to interpolate it from zero to one. Later on this timeline will be played in an indefinite loop (cancelled once the load is done), and together with the matching painting code will result in a continuous visual appearance of indefinitely moving stripes. Note a custom repaint callback that only repaints the "dirty" area of the load progress, resulting in better CPU utilization during the load stage.
 
 Now, it's time to initialize the fading timeline:
 
 ```java
-this.loadingBarAlpha = 0.0f;
 // create the fade timeline
-this.loadingBarFadeTimeline = new Timeline(this);
-this.loadingBarFadeTimeline.addPropertyToInterpolate("loadingBarAlpha",
-      0.0f, 1.0f);
-this.loadingBarFadeTimeline.addCallback(new TimelineCallbackAdapter() {
-   @Override
-   public void onTimelineStateChanged(TimelineState oldState,
-         TimelineState newState, float durationFraction,
-         float timelinePosition) {
-      if (oldState == TimelineState.PLAYING_REVERSE
-         && newState == TimelineState.DONE) {
-         // after the loading progress is faded out, stop the loading
-         // animation
-         loadingBarLoopTimeline.cancel();
-      }
-   }
-});
-this.loadingBarFadeTimeline.setDuration(500);
+this.loadingBarFadeTimeline = Timeline.builder(this)
+    .addPropertyToInterpolate("loadingBarAlpha", 0.0f, 1.0f)
+    .addCallback(new TimelineCallbackAdapter() {
+        @Override
+        public void onTimelineStateChanged(TimelineState oldState,
+              TimelineState newState, float durationFraction,
+              float timelinePosition) {
+            if (oldState == TimelineState.PLAYING_REVERSE
+                    && newState == TimelineState.DONE) {
+                // after the loading progress is faded out, stop the loading
+                // animation
+                loadingBarLoopTimeline.cancel();
+            }
+        }
+    })
+    .setDuration(500)
+    .build();
 ```
 In addition to interpolating the alpha value, it also cancels the looping timeline when the state changes from PLAYING_REVERSE to DONE – this signifies the end of the fade out sequence.
 

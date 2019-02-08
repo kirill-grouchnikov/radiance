@@ -30,8 +30,7 @@
 
 package org.pushingpixels.neon.internal.font;
 
-import org.pushingpixels.neon.font.FontPolicy;
-import org.pushingpixels.neon.font.FontSet;
+import org.pushingpixels.neon.font.*;
 import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
 
 import java.awt.*;

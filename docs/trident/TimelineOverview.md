@@ -15,9 +15,9 @@ public class HelloWorld {
 
 	public static void main(String[] args) {
 		HelloWorld helloWorld = new HelloWorld();
-		Timeline timeline = new Timeline(helloWorld);
-		timeline.addPropertyToInterpolate("value", 0.0f, 1.0f);
-		timeline.play();
+		Timeline.builder(helloWorld)
+			.addPropertyToInterpolate("value", 0.0f, 1.0f)
+			.play();
 
 		try {
 			Thread.sleep(3000);
@@ -31,7 +31,7 @@ public class HelloWorld {
 * Line 3 starts the definition of the test class.
 * Line 4 defines a private float attribute of this class, and lines 6-9 specify a public setter for this attribute.
 * Line 12 in the main method creates a new instance of our test class.
-* Line 13 creates a new timeline associated with that instance.
+* Line 13 creates a new timeline builder associated with that instance.
 * Line 14 specifies that the `value` attribute of that instance should be interpolated from 0 to 1 when the timeline is played.
 * Line 15 plays the timeline.
 * Lines 17-20 make sure that the application waits long enough for the timeline to finish playing

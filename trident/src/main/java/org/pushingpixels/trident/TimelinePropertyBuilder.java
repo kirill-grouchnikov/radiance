@@ -40,21 +40,21 @@ public class TimelinePropertyBuilder<T> {
     /**
      * Defines how to set a property.
      */
-    public static interface PropertySetter<T> {
-        public void set(Object obj, String fieldName, T value);
+    public interface PropertySetter<T> {
+        void set(Object obj, String fieldName, T value);
     }
 
     /**
      * Defines how to get a property.
      */
-    public static interface PropertyGetter<T> {
-        public T get(Object obj, String fieldName);
+    public interface PropertyGetter<T> {
+        T get(Object obj, String fieldName);
     }
 
     /**
      * Defines how to access a property.
      */
-    public static interface PropertyAccessor<T> extends PropertyGetter<T>, PropertySetter<T> {
+    public interface PropertyAccessor<T> extends PropertyGetter<T>, PropertySetter<T> {
     }
 
     /**
@@ -208,9 +208,9 @@ public class TimelinePropertyBuilder<T> {
         return this;
     }
 
-    AbstractFieldInfo getFieldInfo(Timeline timeline) {
+    AbstractFieldInfo getFieldInfo(Object mainObject) {
         if (this.target == null) {
-            this.target = timeline.mainObject;
+            this.target = mainObject;
         }
 
         if (this.keyFrames != null) {

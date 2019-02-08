@@ -114,16 +114,13 @@ public class Stage0Base extends JComponent {
         this.addMouseListener(adapter);
         this.addMouseMotionListener(adapter);
 
-        // fade in the container once it's part of the window
-        // hierarchy
-        this.addHierarchyListener((HierarchyEvent e) -> {
-            Timeline shownTimeline = new Timeline(Stage0Base.this);
-            shownTimeline.addPropertyToInterpolate("alpha", 0.0f, 0.9f);
-            shownTimeline.addCallback(new SwingRepaintCallback(
-                    Stage0Base.this));
-            shownTimeline.setDuration(500);
-            shownTimeline.play();
-        });
+        // fade in the container once it's part of the window hierarchy
+        this.addHierarchyListener((HierarchyEvent e) ->
+                Timeline.builder(Stage0Base.this)
+                        .addPropertyToInterpolate("alpha", 0.0f, 0.9f)
+                        .addCallback(new SwingRepaintCallback(Stage0Base.this))
+                        .setDuration(500)
+                        .play());
     }
 
     /**

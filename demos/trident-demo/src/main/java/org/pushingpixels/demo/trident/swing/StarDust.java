@@ -1,57 +1,43 @@
 /*
  * Copyright (c) 2005-2019 Trident Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Trident Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Trident Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.trident.swing;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.geom.GeneralPath;
-import java.util.Deque;
-import java.util.LinkedList;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.TridentConfig;
-import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
-import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.*;
+import org.pushingpixels.trident.Timeline.*;
+import org.pushingpixels.trident.callback.*;
 import org.pushingpixels.trident.swing.SwingRepaintTimeline;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.util.*;
 
 public class StarDust extends JFrame {
     public class Star {
@@ -152,9 +138,10 @@ public class StarDust extends JFrame {
         // higher pulse rate to create 50 stars a second
         TridentConfig.getInstance().setPulseSource(new TridentConfig.FixedRatePulseSource(20));
 
-        this.stars = new LinkedList<Star>();
-        Timeline spawner = new Timeline();
-        spawner.addCallback(new UIThreadTimelineCallbackAdapter() {
+        this.stars = new LinkedList<>();
+
+        // Timeline to spawn the stars
+        Timeline.builder().addCallback(new UIThreadTimelineCallbackAdapter() {
             private float currHue = 0.0f;
 
             @Override
@@ -173,42 +160,43 @@ public class StarDust extends JFrame {
                 synchronized (stars) {
                     stars.addFirst(star);
                 }
-                Timeline starTimeline = new Timeline(star);
                 double angle = Math.random() * 2.0 * Math.PI;
                 double distance = 20.0 + 30.0 * Math.random();
-                starTimeline.addPropertyToInterpolate("x", currX,
-                        currX + distance * Math.cos(angle));
-                starTimeline.addPropertyToInterpolate("y", currY,
-                        currY + distance * Math.sin(angle));
-                starTimeline.addPropertyToInterpolate("alpha", 1.0f, 0.0f);
-                starTimeline.addPropertyToInterpolate("rotation", 0.0f,
-                        (float) (2 * Math.PI * Math.random()));
-                starTimeline.addPropertyToInterpolate("outerSpan", outerStartSpan, outerFinalSpan);
-                starTimeline.addPropertyToInterpolate("color", Color.white,
-                        new Color(Color.HSBtoRGB(currHue, 0.8f, 0.7f)));
-                currHue += 0.01f;
 
-                starTimeline.addCallback(new TimelineCallbackAdapter() {
-                    @Override
-                    public void onTimelineStateChanged(TimelineState oldState,
-                            TimelineState newState, float durationFraction,
-                            float timelinePosition) {
-                        if (newState == TimelineState.DONE) {
-                            // should be the last one in the list
-                            synchronized (stars) {
-                                stars.removeLast();
+                Timeline.builder(star)
+                        .addPropertyToInterpolate("x", currX, currX + distance * Math.cos(angle))
+                        .addPropertyToInterpolate("y", currY, currY + distance * Math.sin(angle))
+                        .addPropertyToInterpolate("alpha", 1.0f, 0.0f)
+                        .addPropertyToInterpolate("rotation", 0.0f,
+                                (float) (2 * Math.PI * Math.random()))
+                        .addPropertyToInterpolate("outerSpan", outerStartSpan, outerFinalSpan)
+                        .addPropertyToInterpolate("color", Color.white,
+                                new Color(Color.HSBtoRGB(currHue, 0.8f, 0.7f)))
+                        .addCallback(new TimelineCallbackAdapter() {
+                            @Override
+                            public void onTimelineStateChanged(TimelineState oldState,
+                                    TimelineState newState, float durationFraction,
+                                    float timelinePosition) {
+                                if (newState == TimelineState.DONE) {
+                                    // should be the last one in the list
+                                    synchronized (stars) {
+                                        stars.removeLast();
+                                    }
+                                }
                             }
-                        }
-                    }
-                });
+                        })
+                        .setDuration(3000)
+                        .play();
 
-                starTimeline.setDuration(3000);
-                starTimeline.play();
+                // Increment hue
+                currHue += 0.01f;
+                if (currHue > 1.0f) {
+                    currHue = 0.0f;
+                }
             }
-        });
-        spawner.playLoop(RepeatBehavior.LOOP);
+        }).playLoop(RepeatBehavior.LOOP);
 
-        new SwingRepaintTimeline(mainPanel).playLoop(RepeatBehavior.LOOP);
+        SwingRepaintTimeline.repaintBuilder(mainPanel).playLoop(RepeatBehavior.LOOP);
 
         this.setSize(400, 300);
         this.setLocationRelativeTo(null);

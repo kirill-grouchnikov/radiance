@@ -55,25 +55,25 @@ The `start()` method creates a timeline that interpolates the X position and alp
 
 ```java
 public void start() {
-	progressTimeline = new Timeline(this);
-
 	int startX = (getWidth() - INNER_WIDTH) / 2 + 18 + HIGHLIGHTER_WIDTH / 2;
 	int endX = (getWidth() + INNER_WIDTH) / 2 - 18 - HIGHLIGHTER_WIDTH / 2;
-	progressTimeline.addPropertyToInterpolate("xPosition", startX, endX);
 
 	KeyValues<Float> alphaValues = KeyValues.create(0.0f, 1.0f, 1.0f, 0.0f);
 	KeyTimes alphaTimes = new KeyTimes(0.0f, 0.3f, 0.7f, 1.0f);
-	progressTimeline.addPropertyToInterpolate("alpha",
-					new KeyFrames<Float>(alphaValues, alphaTimes));
 
-	progressTimeline.setDuration(1500);
+	progressTimeline = SwingComponentTimeline.componentBuilder(this)
+			.addPropertyToInterpolate("xPosition", startX, endX)
+			.addPropertyToInterpolate("alpha", new KeyFrames<>(alphaValues, alphaTimes))
+			.setDuration(1500)
+			.build();
+
 	progressTimeline.playLoop(RepeatBehavior.LOOP);
 }
 ```
 
 The panel constructor also creates a repaint timeline so that the progress animation is properly reflected on the screen:
 ```java
-new SwingRepaintTimeline(this).playLoop(RepeatBehavior.LOOP);
+SwingRepaintTimeline.repaintBuilder(this).playLoop(RepeatBehavior.LOOP);
 ```
 
-The actual painting is done in the custom `paintComponent` method of this `JPanel` extension. The full code can be found in the `test.swing.ProgressIndication` class. It uses the matching Java2D graphics operations to paint the overall background, the inner gradient background and contour, the track and the track highlight. The track highlight painting uses the current values of both `xPosition` and `alpha` fields to display the correct visuals.
+The actual painting is done in the custom `paintComponent` method of this `JPanel` extension. The full code can be found in the `org.pushingpixels.demo.trident.swing.ProgressIndication` class. It uses the matching Java2D graphics operations to paint the overall background, the inner gradient background and contour, the track and the track highlight. The track highlight painting uses the current values of both `xPosition` and `alpha` fields to display the correct visuals.

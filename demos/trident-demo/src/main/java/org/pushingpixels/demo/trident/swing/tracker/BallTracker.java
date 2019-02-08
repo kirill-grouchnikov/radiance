@@ -109,30 +109,32 @@ public class BallTracker extends JFrame {
             if (timelineBallFalling != null) {
                 timelineBallFalling.cancel();
             }
-            timelineBallFalling = new SwingComponentTimeline(ballPanel);
-            timelineBallFalling.addPropertyToInterpolate("ballY", BallPanel.RADIUS,
-                    ballPanel.getHeight() - BallPanel.RADIUS);
-            timelineBallFalling.setDuration(2000);
-            timelineBallFalling.setInitialDelay(Integer.parseInt(msInitialDelay.getText()));
-            timelineBallFalling.setCycleDelay(Integer.parseInt(msCycleDelay.getText()));
-            timelineBallFalling.setEase(
-                    ((Options) easeCombo.getSelectedItem()).ease);
 
-            timelineBallFalling.addCallback(new TimelineCallbackAdapter() {
-                @Override
-                public void onTimelinePulse(float durationFraction, float timelinePosition) {
-                    // add a fading dot to visualize the timeline
-                    // interpolation behavior
-                    visualizer.addDot(durationFraction, timelinePosition);
-                }
+            timelineBallFalling = SwingComponentTimeline.componentBuilder(ballPanel)
+                    .addPropertyToInterpolate("ballY", BallPanel.RADIUS,
+                            ballPanel.getHeight() - BallPanel.RADIUS)
+                    .setDuration(2000)
+                    .setInitialDelay(Integer.parseInt(msInitialDelay.getText()))
+                    .setCycleDelay(Integer.parseInt(msCycleDelay.getText()))
+                    .setEase(((Options) easeCombo.getSelectedItem()).ease)
+                    .addCallback(new TimelineCallbackAdapter() {
+                        @Override
+                        public void onTimelinePulse(float durationFraction,
+                                float timelinePosition) {
+                            // add a fading dot to visualize the timeline
+                            // interpolation behavior
+                            visualizer.addDot(durationFraction, timelinePosition);
+                        }
 
-                @Override
-                public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
-                        float durationFraction, float timelinePosition) {
-                    System.out.println("State change: " + oldState.name() + " -> "
-                            + newState.name());
-                }
-            });
+                        @Override
+                        public void onTimelineStateChanged(TimelineState oldState,
+                                TimelineState newState,
+                                float durationFraction, float timelinePosition) {
+                            System.out.println("State change: " + oldState.name() + " -> "
+                                    + newState.name());
+                        }
+                    })
+                    .build();
 
             long toSkip = Long.parseLong(msToSkip.getText());
             if (toSkip > 0) {
@@ -168,8 +170,7 @@ public class BallTracker extends JFrame {
         controls.add(suspendTimeline);
         controls.add(resumeTimeline);
 
-        Timeline paintTimeline = new SwingRepaintTimeline(this);
-        paintTimeline.playLoop(RepeatBehavior.LOOP);
+        SwingRepaintTimeline.repaintBuilder(this).playLoop(RepeatBehavior.LOOP);
 
         this.setSize(500, 600);
         this.setLocationRelativeTo(null);

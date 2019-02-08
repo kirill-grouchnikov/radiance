@@ -437,21 +437,23 @@ public class TabPagerManager {
         final Point prevWindowLocation = this.prevTabWindow.getLocation();
         final Dimension prevWindowSize = this.prevTabWindow.getSize();
 
-        Timeline hideTabPagerTimeline = new SwingComponentTimeline(this.currTabbedPane);
-        AnimationConfigurationManager.getInstance().configureTimeline(hideTabPagerTimeline);
-        hideTabPagerTimeline.addPropertyToInterpolate(Timeline.<Rectangle>property("bounds")
+        SwingComponentTimeline.Builder hideTabPagerTimelineBuilder =
+                SwingComponentTimeline.componentBuilder(this.currTabbedPane);
+        AnimationConfigurationManager.getInstance().configureTimelineBuilder(
+                hideTabPagerTimelineBuilder);
+        hideTabPagerTimelineBuilder.addPropertyToInterpolate(Timeline.<Rectangle>property("bounds")
                 .on(this.currTabWindow).from(new Rectangle(currWindowLocation, currWindowSize))
                 .to(new Rectangle(currWindowLocation.x + currWindowSize.width / 2,
                         currWindowLocation.y + currWindowSize.height / 2, 0, 0)));
-        hideTabPagerTimeline.addPropertyToInterpolate(Timeline.<Rectangle>property("bounds")
+        hideTabPagerTimelineBuilder.addPropertyToInterpolate(Timeline.<Rectangle>property("bounds")
                 .on(this.prevTabWindow).from(new Rectangle(prevWindowLocation, prevWindowSize))
                 .to(new Rectangle(prevWindowLocation.x + prevWindowSize.width / 2,
                         prevWindowLocation.y + prevWindowSize.height / 2, 0, 0)));
-        hideTabPagerTimeline.addPropertyToInterpolate(Timeline.<Rectangle>property("bounds")
+        hideTabPagerTimelineBuilder.addPropertyToInterpolate(Timeline.<Rectangle>property("bounds")
                 .on(this.nextTabWindow).from(new Rectangle(nextWindowLocation, nextWindowSize))
                 .to(new Rectangle(nextWindowLocation.x + nextWindowSize.width / 2,
                         nextWindowLocation.y + nextWindowSize.height / 2, 0, 0)));
-        hideTabPagerTimeline.addCallback(new UIThreadTimelineCallbackAdapter() {
+        hideTabPagerTimelineBuilder.addCallback(new UIThreadTimelineCallbackAdapter() {
             @Override
             public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
                     float durationFraction, float timelinePosition) {
@@ -499,7 +501,7 @@ public class TabPagerManager {
             // prevTabWindow.repaint();
             // }
         });
-        hideTabPagerTimeline.play();
+        hideTabPagerTimelineBuilder.play();
 
         this.isVisible = false;
         return result;

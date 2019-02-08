@@ -31,7 +31,7 @@ package org.pushingpixels.lumen;
 
 import org.pushingpixels.lumen.details.DetailsWindowManager;
 import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.swing.*;
+import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,12 +69,12 @@ public class CloseButton extends JButton {
             });
         });
 
-        // timeline for the rollover effect (interpolating the
-        // button's foreground color)
-        final Timeline rolloverTimeline = new Timeline(this);
-        rolloverTimeline.addPropertyToInterpolate("foreground", new Color(158, 205, 255),
-                new Color(64, 140, 255));
-        rolloverTimeline.setDuration(200);
+        // timeline for the rollover effect (interpolating the button's foreground color)
+        final Timeline rolloverTimeline = Timeline.builder(this)
+                .addPropertyToInterpolate("foreground", new Color(158, 205, 255),
+                        new Color(64, 140, 255))
+                .setDuration(200)
+                .build();
 
         // and register a mouse listener to play the rollover
         // timeline
@@ -91,13 +91,11 @@ public class CloseButton extends JButton {
         });
 
         // fade in the component once it's part of the window hierarchy
-        this.addHierarchyListener((HierarchyEvent e) -> {
-            Timeline shownTimeline = new SwingComponentTimeline(CloseButton.this);
-            shownTimeline.addPropertyToInterpolate("alpha", 0.0f, 1.0f);
-            shownTimeline.addCallback(new SwingRepaintCallback(CloseButton.this));
-            shownTimeline.setDuration(500);
-            shownTimeline.play();
-        });
+        this.addHierarchyListener((HierarchyEvent e) -> Timeline.builder(CloseButton.this)
+                .addPropertyToInterpolate("alpha", 0.0f, 1.0f)
+                .addCallback(new SwingRepaintCallback(CloseButton.this))
+                .setDuration(500)
+                .play());
     }
 
     /**

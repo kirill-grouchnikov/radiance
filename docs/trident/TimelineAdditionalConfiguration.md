@@ -18,7 +18,7 @@ Each timeline pulse has two associated fractional values - **duration fraction**
 
 However, some application scenarios require non-linear rate of change for recreating realistic animations of the real physical world. For example, if your application timeline is interpolating the `Y` location of a falling ball, strict linear interpolation will result in overly artificial movement. When objects in the real world move, they don't move at constant speed. For example, a car starts from zero velocity, accelerates to a constant speed, maintains it throughout the main part of the movement and then decelerates to zero velocity as it reaches its final location.
 
-The **timeline position** is a fractional number between `0.0` and `1.0` that indicates how far the timeline has progressed based on the current **ease function**. The ease function takes the linearly increasing duration fraction and translates it to the matching timeline position. The `Timeline.setEase(TimelineEase)` method allows setting a custom ease function on the timeline, where `TimelineEase` interface has the following method:
+The **timeline position** is a fractional number between `0.0` and `1.0` that indicates how far the timeline has progressed based on the current **ease function**. The ease function takes the linearly increasing duration fraction and translates it to the matching timeline position. The `Timeline.Builder.setEase(TimelineEase)` method allows setting a custom ease function on the timeline, where `TimelineEase` interface has the following method:
 
 ```java
 	public float map(float durationFraction);
@@ -36,4 +36,4 @@ Here, the acceleration phase is longer, and the rate of change between the accel
 
 ### Putting it all together
 
-Interpolation of field values for fields registered for the specific timeline is done based on the **timeline position** and not duration fraction. Application callbacks registered with the `Timeline.addCallback` method get both values in the `TimelineCallback.onTimelinePulse` method. This provides the application logic with the information how much time has passed since the timeline has started, as well as how far along the timeline is based on its ease method.
+Interpolation of field values for fields registered for the specific timeline is done based on the **timeline position** and not duration fraction. Application callbacks registered with the `Timeline.Builder.addCallback` method get both values in the `TimelineCallback.onTimelinePulse` method. This provides the application logic with the information how much time has passed since the timeline has started, as well as how far along the timeline is based on its ease method.

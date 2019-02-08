@@ -102,19 +102,19 @@ public AlbumOverviewComponent(final SearchResultRelease albumItem) {
   this.setOpaque(false);
   this.alpha = 0.0f;
 
-  this.addHierarchyListener((HierarchyEvent e) -> {
-      Timeline shownTimeline = new SwingComponentTimeline(AlbumOverviewComponent.this);
-      shownTimeline.addPropertyToInterpolate("alpha", 0.0f, 1.0f);
-      shownTimeline.addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this));
-      shownTimeline.setDuration(1000);
-      shownTimeline.play();
-  });
+  this.addHierarchyListener((HierarchyEvent e) ->
+      SwingComponentTimeline.componentBuilder(AlbumOverviewComponent.this)
+          .addPropertyToInterpolate("alpha", 0.0f, 1.0f)
+          .addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this))
+          .setDuration(1000)
+          .play());
 
-  final Timeline rolloverTimeline = new SwingComponentTimeline(this);
-  rolloverTimeline.addPropertyToInterpolate("borderAlpha", 0.0f, 0.6f);
-  rolloverTimeline.addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this));
-  rolloverTimeline.setEase(new Spline(0.7f));
-  rolloverTimeline.setDuration(800);
+  final Timeline rolloverTimeline = SwingComponentTimeline.componentBuilder(this)
+      .addPropertyToInterpolate("borderAlpha", 0.0f, 0.6f)
+        .addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this))
+      .setEase(new Spline(0.7f))
+      .setDuration(800)
+      .build();
   this.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseEntered(MouseEvent e) {
@@ -212,11 +212,11 @@ Finally, we add a timeline to fade in the scaled image:
 
 ```java
 // and fade it in
-Timeline imageFadeInTimeline = new Timeline(AlbumOverviewComponent.this);
-imageFadeInTimeline.addPropertyToInterpolate("imageAlpha", 0.0f, 1.0f);
-imageFadeInTimeline.addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this));
-imageFadeInTimeline.setDuration(500);
-loadScenario.addScenarioActor(imageFadeInTimeline);
+loadScenario.addScenarioActor(Timeline.builder(AlbumOverviewComponent.this)
+		.addPropertyToInterpolate("imageAlpha", 0.0f, 1.0f)
+		.addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this))
+		.setDuration(500)
+		.build());
 
 return loadScenario;
 ```

@@ -43,8 +43,8 @@ public Set<PropertyInterpolator> getPropertyInterpolators()
 ```
 which returns a set of custom property interpolators. Custom property interpolators can be used in two ways:
 
-* The `Timeline.addPropertyToInterpolate(String, Object, Object)` API that will choose the property interpolator that matches the types of the ''from'' and ''to'' values
-* Use a [timeline property builder](TimelineInterpolatingFields.md) and the `TimelinePropertyBuilder.interpolatedWith()` API. The `Timeline.addPropertyToInterpolate(TimelinePropertyBuilder)` API will use the specified property interpolator
+* The `Timeline.Builder.addPropertyToInterpolate(String, Object, Object)` API that will choose the property interpolator that matches the types of the ''from'' and ''to'' values
+* Use a [timeline property builder](TimelineInterpolatingFields.md) and the `TimelinePropertyBuilder.interpolatedWith()` API. The `Timeline.Builder.addPropertyToInterpolate(TimelinePropertyBuilder)` API will use the specified property interpolator
 
 ### Bringing it together
 
@@ -76,14 +76,12 @@ public class MovingRectangle extends JFrame {
          }
       };
 
-      Timeline move = new Timeline(rectangle);
-      move.addPropertyToInterpolate("corner", new Point(0, 0), new Point(100,
-            80));
-      move.setDuration(2000);
-      move.playLoop(RepeatBehavior.REVERSE);
+      Timeline.builder(rectangle)
+          .addPropertyToInterpolate("corner", new Point(0, 0), new Point(100, 80))
+          .setDuration(2000)
+          .playLoop(RepeatBehavior.REVERSE);
 
-      Timeline repaint = new SwingRepaintTimeline(panel);
-      repaint.playLoop(RepeatBehavior.LOOP);
+      SwingRepaintTimeline.repaintTimeline(panel).playLoop(RepeatBehavior.LOOP);
 
       this.add(panel);
       this.setSize(200, 200);
@@ -154,13 +152,13 @@ public class CustomPropertyInterpolatorSource extends JFrame {
       };
       ellipsePanel.setBackground(Color.black);
 
-      Timeline ellipseTimeline = new Timeline(this);
-      ellipseTimeline.addPropertyToInterpolate("ellipse", from, to);
-      ellipseTimeline.setEase(new Sine());
-      ellipseTimeline.setDuration(2000);
-      ellipseTimeline.playLoop(RepeatBehavior.REVERSE);
+      SwingComponentTimeline.componentBuilder(this)
+          .addPropertyToInterpolate("ellipse", from, to)
+          .setEase(new Sine())
+          .setDuration(2000)
+          .playLoop(RepeatBehavior.REVERSE);
 
-      new SwingRepaintTimeline(ellipsePanel).playLoop(RepeatBehavior.LOOP);
+      SwingRepaintTimeline.repaintBuilder(ellipsePanel).playLoop(RepeatBehavior.LOOP);
 
       this.add(ellipsePanel);
 
@@ -174,12 +172,7 @@ public class CustomPropertyInterpolatorSource extends JFrame {
    }
 
    public static void main(String[] args) {
-      SwingUtilities.invokeLater(new Runnable() {
-         @Override
-         public void run() {
-            new CustomPropertyInterpolatorSource().setVisible(true);
-         }
-      });
+      SwingUtilities.invokeLater(() -> new CustomPropertyInterpolatorSource().setVisible(true));
    }
 }
 ```

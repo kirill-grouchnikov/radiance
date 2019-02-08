@@ -2275,9 +2275,13 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     }
 
     private void trackTabModification(int tabIndex, Component tabComponent) {
-        Timeline modifiedTimeline = new SwingComponentTimeline(tabPane);
-        AnimationConfigurationManager.getInstance().configureModifiedTimeline(modifiedTimeline);
-        modifiedTimeline.addCallback(new TabRepaintCallback(tabPane, tabIndex));
+        SwingComponentTimeline.Builder modifiedTimelineBuilder =
+                SwingComponentTimeline.componentBuilder(this.tabPane);
+        AnimationConfigurationManager.getInstance().configureModifiedTimelineBuilder(
+                modifiedTimelineBuilder);
+        modifiedTimelineBuilder.addCallback(new TabRepaintCallback(tabPane, tabIndex));
+
+        Timeline modifiedTimeline = modifiedTimelineBuilder.build();
         modifiedTimeline.playLoop(RepeatBehavior.REVERSE);
         modifiedTimelines.put(tabComponent, modifiedTimeline);
     }

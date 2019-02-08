@@ -104,13 +104,13 @@ The volley explosion is implemented by the following class:
 
 					SingleExplosion circle = new SingleExplosion(this.color,
 							initX, initY, circleRadius);
-					Timeline timeline = new Timeline(circle);
-					timeline.addPropertyToInterpolate("x", initX, finalX);
-					timeline.addPropertyToInterpolate("y", initY, finalY);
-					timeline.addPropertyToInterpolate("opacity", 1.0f, 0.0f);
-					timeline.setDuration(duration - 200
-							+ (int) (400 * Math.random()));
-					timeline.setEase(new Spline(0.4f));
+					Timeline timeline = Timeline.builder(circle)
+							.addPropertyToInterpolate("x", initX, finalX)
+							.addPropertyToInterpolate("y", initY, finalY)
+							.addPropertyToInterpolate("opacity", 1.0f, 0.0f)
+							.setDuration(duration - 200 + randomizer.nextInt(400))
+							.setEase(new Spline(0.4f))
+							.build();
 
 					synchronized (this.circles) {
 						circles.add(circle);
@@ -181,8 +181,7 @@ public Fireworks() {
    this.mainPanel.setBackground(Color.black);
    this.mainPanel.setPreferredSize(new Dimension(480, 320));
 
-   Timeline repaint = new SwingRepaintTimeline(this);
-   repaint.playLoop(RepeatBehavior.LOOP);
+   SwingRepaintTimeline.repaintBuilder(this).playLoop(RepeatBehavior.LOOP);
 
    this.volleys = new HashSet<VolleyExplosion>();
    this.volleyScenarios = new HashMap<VolleyExplosion, TimelineScenario>();
@@ -208,16 +207,13 @@ public Fireworks() {
    mainPanel.addComponentListener(new ComponentAdapter() {
       @Override
       public void componentResized(ComponentEvent e) {
-         if ((mainPanel.getWidth() == 0) || (mainPanel.getHeight() == 0))
+        if ((mainPanel.getWidth() == 0) || (mainPanel.getHeight() == 0))
             return;
-         new Thread() {
-            @Override
-            public void run() {
-               while (true) {
-                  addExplosions(5);
-               }
-            }
-         }.start();
+        new Thread(() -> {
+ 	        while (true) {
+		       	addExplosions(5);
+	        }
+        }).start();
       }
    });
 
@@ -287,13 +283,7 @@ Here is the method that makes sure that the volley explosions are run in batches
 And finally, the main method to launch the fireworks:
 
 ```java
-
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new Fireworks().setVisible(true);
-			}
-		});
-	}
+public static void main(String[] args) {
+	SwingUtilities.invokeLater(() -> new Fireworks().setVisible(true));
+}
 ```

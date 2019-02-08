@@ -115,10 +115,11 @@ Now it’s time to create a rollover timeline that will interpolate the foregrou
 ```java
 // timeline for the rollover effect (interpolating the
 // button's foreground color)
-final Timeline rolloverTimeline = new Timeline(this);
-rolloverTimeline.addPropertyToInterpolate("foreground", new Color(158, 205, 255),
-   new Color(64, 140, 255));
-rolloverTimeline.setDuration(200);
+final Timeline rolloverTimeline = Timeline.builder(this)
+        .addPropertyToInterpolate("foreground", new Color(158, 205, 255),
+                new Color(64, 140, 255))
+        .setDuration(200)
+        .build();
 ```
 And wire it to the mouse events on the button:
 
@@ -144,13 +145,11 @@ Finally, we are going to add an hierarchy listener to fade in the button when it
 ```java
 // fade in the component once it's part of the window
 // hierarchy
-this.addHierarchyListener((HierarchyEvent e) -> {
-    Timeline shownTimeline = new Timeline(CloseButton.this);
-    shownTimeline.addPropertyToInterpolate("alpha", 0.0f, 1.0f);
-    shownTimeline.addCallback(new Repaint(CloseButton.this));
-    shownTimeline.setDuration(500);
-    shownTimeline.play();
-});
+this.addHierarchyListener((HierarchyEvent e) -> Timeline.builder(CloseButton.this)
+        .addPropertyToInterpolate("alpha", 0.0f, 1.0f)
+        .addCallback(new SwingRepaintCallback(CloseButton.this))
+        .setDuration(500)
+        .play());
 ```
 Here, we also need a public setter for the alpha property since it is used in this timeline:
 
@@ -243,21 +242,20 @@ The helper `LumenUtils.fadeOutAndDispose` looks like this:
 ```java
 public static void fadeOutAndDispose(final Window window,
         int fadeOutDuration) {
-    Timeline dispose = new Timeline(window);
-
-    dispose.addPropertyToInterpolate(Timeline.<Float>property("opacity").from(1.0f).to(0.0f));
-    dispose.addCallback(new UIThreadTimelineCallbackAdapter() {
-        @Override
-        public void onTimelineStateChanged(TimelineState oldState,
-                TimelineState newState, float durationFraction,
-                float timelinePosition) {
-            if (newState == TimelineState.DONE) {
-                window.dispose();
-            }
-        }
-    });
-    dispose.setDuration(fadeOutDuration);
-    dispose.play();
+    Timeline.builder(window)
+            .addPropertyToInterpolate(Timeline.<Float>property("opacity").from(1.0f).to(0.0f))
+            .addCallback(new UIThreadTimelineCallbackAdapter() {
+                @Override
+                public void onTimelineStateChanged(TimelineState oldState,
+                      TimelineState newState, float durationFraction,
+                      float timelinePosition) {
+                  if (newState == TimelineState.DONE) {
+                      window.dispose();
+                  }
+                }
+            })
+            .setDuration(fadeOutDuration)
+            .play();
 }
 ```
 

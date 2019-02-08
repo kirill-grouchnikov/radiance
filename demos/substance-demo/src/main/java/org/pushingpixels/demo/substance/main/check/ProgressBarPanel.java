@@ -41,7 +41,7 @@ import java.awt.event.ActionEvent;
 
 /**
  * Test application panel for testing {@link JProgressBar} component.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class ProgressBarPanel extends JPanel {
@@ -151,7 +151,6 @@ public class ProgressBarPanel extends JPanel {
         JPanel buttons = new JPanel();
         buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        final Timeline progressTimeline = new SwingComponentTimeline(this);
         @RunOnUIThread
         class ProgressCallback extends TimelineCallbackAdapter {
             @Override
@@ -159,8 +158,10 @@ public class ProgressBarPanel extends JPanel {
                 delta(ProgressBarPanel.this, 1);
             }
         }
-        progressTimeline.addCallback(new ProgressCallback());
-        progressTimeline.setDuration(2000);
+        final Timeline progressTimeline = SwingComponentTimeline.componentBuilder(this)
+                .addCallback(new ProgressCallback())
+                .setDuration(2000)
+                .build();
 
         this.startButton = new JButton("start");
         this.startButton.addActionListener((ActionEvent e) -> {

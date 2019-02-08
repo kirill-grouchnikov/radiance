@@ -18,10 +18,10 @@ We start with a class that implements a specific grid cell:
 			this.backgroundColor = Color.black;
 			this.isRollover = false;
 
-			this.rolloverTimeline = new Timeline(this);
-			this.rolloverTimeline.addPropertyToInterpolate("backgroundColor",
-					Color.yellow, Color.black);
-			this.rolloverTimeline.setDuration(2500);
+			this.rolloverTimeline = Timeline.builder(this)
+					.addPropertyToInterpolate("backgroundColor", Color.yellow, Color.black)
+					.setDuration(2500)
+					.build();
 
 			this.repaintTimeline = repaintTimeline;
 		}
@@ -66,9 +66,8 @@ The next class implements a cell grid, tracing the mouse events and dispatching 
 		private int DIM = 20;
 
 		public SnakePanel() {
-			SwingRepaintTimeline repaintTimeline = new SwingRepaintTimeline(
-					this);
-			repaintTimeline.setAutoRepaintMode(false);
+			SwingRepaintTimeline repaintTimeline = SwingRepaintTimeline.repaintBuilder(this)
+					.setAutoRepaintMode(false).build();
 
 			this.grid = new SnakePanelRectangle[COLUMNS][ROWS];
 			for (int i = 0; i < COLUMNS; i++) {
@@ -136,17 +135,14 @@ A few major points in this class:
 Finally, the main method that creates a host frame and adds the cell grid panel to it:
 
 ```java
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				JFrame frame = new JFrame("Snake");
-				frame.add(new SnakePanel());
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				frame.setVisible(true);
-			}
-		});
-	}
+public static void main(String[] args) {
+	SwingUtilities.invokeLater(() -> {
+		JFrame frame = new JFrame("Snake");
+		frame.add(new SnakePanel());
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setVisible(true);
+	});
+}
 ```

@@ -98,19 +98,21 @@ public class GhostingListener {
         this.comp = comp;
         this.buttonModel = buttonModel;
 
-        this.prevStateMap = new HashMap<AnimationFacet, Boolean>();
+        this.prevStateMap = new HashMap<>();
         this.prevStateMap.put(AnimationFacet.GHOSTING_ICON_ROLLOVER, buttonModel.isRollover());
         this.prevStateMap.put(AnimationFacet.GHOSTING_BUTTON_PRESS, buttonModel.isPressed());
 
-        this.ghostIconRolloverTimeline = new SwingComponentTimeline(comp);
-        AnimationConfigurationManager.getInstance()
-                .configureTimeline(this.ghostIconRolloverTimeline);
-        this.ghostIconRolloverTimeline.addCallback(new SwingRepaintCallback(comp));
+        SwingComponentTimeline.Builder ghostIconRolloverTimelineBuilder =
+                SwingComponentTimeline.componentBuilder(comp);
+        AnimationConfigurationManager.getInstance().configureTimelineBuilder(
+                ghostIconRolloverTimelineBuilder);
+        ghostIconRolloverTimelineBuilder.addCallback(new SwingRepaintCallback(comp));
 
-        this.ghostComponentPressedTimeline = new SwingComponentTimeline(comp);
-        AnimationConfigurationManager.getInstance()
-                .configureTimeline(this.ghostComponentPressedTimeline);
-        this.ghostComponentPressedTimeline.addCallback(new SwingRepaintCallback(comp));
+        SwingComponentTimeline.Builder ghostComponentPressedTimelineBuilder =
+                SwingComponentTimeline.componentBuilder(comp);
+        AnimationConfigurationManager.getInstance().configureTimelineBuilder(
+                ghostComponentPressedTimelineBuilder);
+        ghostComponentPressedTimelineBuilder.addCallback(new SwingRepaintCallback(comp));
 
         TimelineCallback ghostCallback = new UIThreadTimelineCallbackAdapter() {
             private boolean wasShowing = true;
@@ -186,10 +188,10 @@ public class GhostingListener {
             }
         };
 
-        this.ghostIconRolloverTimeline.addCallback(ghostCallback);
-        this.ghostComponentPressedTimeline.addCallback(ghostCallback);
+        ghostIconRolloverTimelineBuilder.addCallback(ghostCallback);
+        ghostComponentPressedTimelineBuilder.addCallback(ghostCallback);
 
-        this.ghostIconRolloverTimeline.addCallback(new TimelineCallbackAdapter() {
+        ghostIconRolloverTimelineBuilder.addCallback(new TimelineCallbackAdapter() {
             @Override
             public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
                     float durationFraction, float timelinePosition) {
@@ -201,7 +203,7 @@ public class GhostingListener {
             }
         });
 
-        this.ghostComponentPressedTimeline.addCallback(new TimelineCallbackAdapter() {
+        ghostComponentPressedTimelineBuilder.addCallback(new TimelineCallbackAdapter() {
             @Override
             public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
                     float durationFraction, float timelinePosition) {
@@ -212,6 +214,9 @@ public class GhostingListener {
                 }
             }
         });
+
+        this.ghostIconRolloverTimeline = ghostIconRolloverTimelineBuilder.build();
+        this.ghostComponentPressedTimeline = ghostComponentPressedTimelineBuilder.build();
     }
 
     /**

@@ -40,16 +40,20 @@ public class CustomSetter {
 
     public static void main(String[] args) {
         final CustomSetter helloWorld = new CustomSetter();
-        Timeline timeline = new Timeline(helloWorld);
         PropertySetter<Float> propertySetter = (Object obj, String fieldName, Float value) -> {
             SimpleDateFormat sdf = new SimpleDateFormat("ss.SSS");
             float oldValue = helloWorld.value;
             System.out.println(sdf.format(new Date()) + " : " + oldValue + " -> " + value);
             helloWorld.value = value;
         };
-        timeline.addPropertyToInterpolate(
-                Timeline.<Float>property("value").from(0.0f).to(1.0f).setWith(propertySetter));
-        timeline.setDuration(300);
+
+        Timeline timeline = Timeline.builder(helloWorld)
+                .addPropertyToInterpolate(Timeline.<Float>property("value")
+                        .from(0.0f)
+                        .to(1.0f)
+                        .setWith(propertySetter))
+                .setDuration(300)
+                .build();
         timeline.play();
 
         try {

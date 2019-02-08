@@ -788,13 +788,15 @@ public class TabOverviewDialog extends JDialog {
                     final TabGridOverviewPanel overviewPanel) {
                 this.index = index;
                 this.overviewPanel = overviewPanel;
-                this.rolloverTimeline = new SwingComponentTimeline(overviewPanel.previewControls[index]);
+                SwingComponentTimeline.Builder rolloverTimelineBuilder =
+                        SwingComponentTimeline.componentBuilder(
+                                overviewPanel.previewControls[index]);
                 AnimationConfigurationManager.getInstance()
-                        .configureTimeline(this.rolloverTimeline);
-                this.rolloverTimeline.addPropertyToInterpolate("zoom", 1.0f, 1.2f);
-                this.rolloverTimeline.addCallback(
+                        .configureTimelineBuilder(rolloverTimelineBuilder);
+                rolloverTimelineBuilder.addPropertyToInterpolate("zoom", 1.0f, 1.2f);
+                rolloverTimelineBuilder.addCallback(
                         new SwingRepaintCallback(SwingUtilities.getRootPane(overviewPanel)));
-                this.rolloverTimeline.addCallback(new UIThreadTimelineCallbackAdapter() {
+                rolloverTimelineBuilder.addCallback(new UIThreadTimelineCallbackAdapter() {
                     @Override
                     public void onTimelineStateChanged(TimelineState oldState,
                             TimelineState newState, float durationFraction,
@@ -806,6 +808,7 @@ public class TabOverviewDialog extends JDialog {
                         }
                     }
                 });
+                this.rolloverTimeline = rolloverTimelineBuilder.build();
             }
 
             @Override
@@ -817,8 +820,9 @@ public class TabOverviewDialog extends JDialog {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if (currHoverIndex == index)
+                if (currHoverIndex == index) {
                     currHoverIndex = -1;
+                }
                 overviewPanel.previewControls[index].setToolTipText(null);
                 this.rolloverTimeline.playReverse();
             }

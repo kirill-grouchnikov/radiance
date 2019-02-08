@@ -86,9 +86,10 @@ public class ButtonFgLoop extends JFrame {
     }
 
     private Timeline createTimeline(JButton button) {
-        Timeline timeline = new SwingComponentTimeline(button);
-        timeline.setDuration(1500);
-        timeline.addPropertyToInterpolate("foreground", button.getForeground(), Color.red);
+        Timeline timeline = SwingComponentTimeline.componentBuilder(button)
+                .addPropertyToInterpolate("foreground", button.getForeground(), Color.red)
+                .setDuration(1500)
+                .build();
         return timeline;
     }
 

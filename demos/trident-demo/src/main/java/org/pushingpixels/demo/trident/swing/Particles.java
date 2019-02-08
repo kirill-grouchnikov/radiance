@@ -1,68 +1,46 @@
 /*
  * Copyright (c) 2005-2019 Trident Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Trident Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Trident Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.trident.swing;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Composite;
-import java.awt.CompositeContext;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
-import java.awt.LinearGradientPaint;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.RadialGradientPaint;
-import java.awt.RenderingHints;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
-import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.DataBuffer;
-import java.awt.image.Raster;
-import java.awt.image.WritableRaster;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.Timeline.TimelineState;
+import org.pushingpixels.trident.Timeline.*;
 import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
 import org.pushingpixels.trident.ease.Spline;
 import org.pushingpixels.trident.swing.SwingRepaintTimeline;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.*;
+import java.awt.image.*;
+import java.util.List;
+import java.util.*;
 
 public class Particles {
     /**
@@ -115,14 +93,14 @@ public class Particles {
                     dstPixel[3] = (pixel) & 0xFF;
 
                     int[] result = new int[] { Math.min(255, srcPixel[0] + dstPixel[0]),
-                                    Math.min(255,
-                                            srcPixel[1] * srcPixel[0] / 255
-                                                    + dstPixel[1] * dstPixel[0] / 255),
-                                    Math.min(255,
-                                            srcPixel[2] * srcPixel[0] / 255
-                                                    + dstPixel[2] * dstPixel[0] / 255),
-                                    Math.min(255, srcPixel[3] * srcPixel[0] / 255
-                                            + dstPixel[3] * dstPixel[0] / 255) };
+                            Math.min(255,
+                                    srcPixel[1] * srcPixel[0] / 255
+                                            + dstPixel[1] * dstPixel[0] / 255),
+                            Math.min(255,
+                                    srcPixel[2] * srcPixel[0] / 255
+                                            + dstPixel[2] * dstPixel[0] / 255),
+                            Math.min(255, srcPixel[3] * srcPixel[0] / 255
+                                    + dstPixel[3] * dstPixel[0] / 255) };
 
                     dstPixels[x] = ((int) (dstPixel[0] + (result[0] - dstPixel[0]) * alpha)
                             & 0xFF) << 24
@@ -238,8 +216,8 @@ public class Particles {
         public ParticlesPanel() {
             this.particles = new ArrayList<Particle>();
 
-            Timeline mouseTracker = new Timeline();
-            mouseTracker.addCallback(new TimelineCallbackAdapter() {
+            // Infinitely looping timeline to track the mouse
+            Timeline.builder().addCallback(new TimelineCallbackAdapter() {
                 @Override
                 public void onTimelinePulse(float durationFraction, float timelinePosition) {
                     Point mouseLoc = MouseInfo.getPointerInfo().getLocation();
@@ -262,18 +240,16 @@ public class Particles {
                     }
 
                 }
-            });
-            mouseTracker.playLoop(RepeatBehavior.LOOP);
+            }).playLoop(RepeatBehavior.LOOP);
 
-            Timeline repaint = new SwingRepaintTimeline(this);
-            repaint.playLoop(RepeatBehavior.LOOP);
+            SwingRepaintTimeline.repaintBuilder(this).playLoop(RepeatBehavior.LOOP);
         }
 
         private synchronized void makeParticles(int x1, int y1, int x2, int y2, int numParticles) {
 
             Random randomizer = new Random();
             Color[] cs = new Color[] { Color.red, Color.blue, Color.green, Color.magenta,
-                            Color.cyan, Color.yellow };
+                    Color.cyan, Color.yellow };
             for (int i = 0; i < numParticles; i++) {
                 int size = 4 + randomizer.nextInt(44);
                 int duration = (200 - size) * 3;
@@ -291,26 +267,26 @@ public class Particles {
                         cs[randomizer.nextInt(cs.length)], startAngle);
                 this.particles.add(particle);
 
-                Timeline timeline = new Timeline(particle);
-                timeline.addPropertyToInterpolate("x", startX, goalX);
-                timeline.addPropertyToInterpolate("y", startY, goalY);
-                timeline.addPropertyToInterpolate("opacity", 1.0f, 0.0f);
-                timeline.addPropertyToInterpolate("angle", startAngle, endAngle);
-                timeline.addCallback(new TimelineCallbackAdapter() {
-                    @Override
-                    public void onTimelineStateChanged(TimelineState oldState,
-                            TimelineState newState, float durationFraction,
-                            float timelinePosition) {
-                        if (newState == TimelineState.DONE) {
-                            synchronized (ParticlesPanel.this) {
-                                particles.remove(particle);
+                Timeline.builder(particle)
+                        .addPropertyToInterpolate("x", startX, goalX)
+                        .addPropertyToInterpolate("y", startY, goalY)
+                        .addPropertyToInterpolate("opacity", 1.0f, 0.0f)
+                        .addPropertyToInterpolate("angle", startAngle, endAngle)
+                        .addCallback(new TimelineCallbackAdapter() {
+                            @Override
+                            public void onTimelineStateChanged(TimelineState oldState,
+                                    TimelineState newState, float durationFraction,
+                                    float timelinePosition) {
+                                if (newState == TimelineState.DONE) {
+                                    synchronized (ParticlesPanel.this) {
+                                        particles.remove(particle);
+                                    }
+                                }
                             }
-                        }
-                    }
-                });
-                timeline.setDuration(duration);
-                timeline.setEase(new Spline(1.0f));
-                timeline.play();
+                        })
+                        .setDuration(duration)
+                        .setEase(new Spline(1.0f))
+                        .play();
             }
         }
 

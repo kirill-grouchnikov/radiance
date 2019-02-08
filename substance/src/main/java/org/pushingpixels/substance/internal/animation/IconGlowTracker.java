@@ -46,13 +46,14 @@ public class IconGlowTracker {
 	public IconGlowTracker(Component component) {
 		this.component = component;
 
-		this.iconGlowTimeline = new SwingComponentTimeline(this.component);
-		AnimationConfigurationManager.getInstance().configureTimeline(
-				this.iconGlowTimeline);
-		this.iconGlowTimeline.setDuration(10 * this.iconGlowTimeline
-				.getDuration());
-		this.iconGlowTimeline.addCallback(new SwingRepaintCallback(component));
-		this.iconGlowTimeline.setName("Icon glow");
+		SwingComponentTimeline.Builder iconGlowTimelineBuilder =
+				SwingComponentTimeline.componentBuilder(this.component);
+		AnimationConfigurationManager.getInstance().configureTimelineBuilder(
+				iconGlowTimelineBuilder);
+		iconGlowTimelineBuilder.setDuration(10 * iconGlowTimelineBuilder.getDuration());
+		iconGlowTimelineBuilder.addCallback(new SwingRepaintCallback(component));
+		iconGlowTimelineBuilder.setName("Icon glow");
+		this.iconGlowTimeline = iconGlowTimelineBuilder.build();
 	}
 
 	public void play() {

@@ -85,10 +85,9 @@ public class DetailsWindowManager {
         currentlyShownWindow.setVisible(true);
         currentlyShownWindow.setAlbum(album);
 
-        Timeline showWindow = new Timeline(currentlyShownWindow);
-        showWindow.addPropertyToInterpolate(Timeline.<Float>property(
-                "opacity").from(0.0f).to(1.0f));
-        showWindow.setDuration(500);
-        showWindow.play();
+        Timeline.builder(currentlyShownWindow)
+                .addPropertyToInterpolate(Timeline.<Float>property("opacity").from(0.0f).to(1.0f))
+                .setDuration(500)
+                .play();
     }
 }

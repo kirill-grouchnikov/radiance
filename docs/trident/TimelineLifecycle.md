@@ -16,9 +16,9 @@ To start playing a timeline use the `Timeline.play()` method. At every pulse the
 Some scenarios required playing the timeline **in reverse**. In the example below we want to animate the button foreground from blue to red when the mouse moves over the button - this is done in the `mouseEntered` method. To provide consistent UI behavior, we also want to animate the foreground color from red back to blue when the mouse is moved away from the button - this is done by calling the `Timeline.playReverse()` in the `mouseExisted` method.
 
 ```java
-final Timeline rolloverTimeline = new Timeline(button);
-rolloverTimeline.addPropertyToInterpolate("foreground", Color.blue,
-		Color.red);
+final Timeline rolloverTimeline = Timeline.builder(button)
+    .addPropertyToInterpolate("foreground", Color.blue, Color.red)
+    .build();
 button.addMouseListener(new MouseAdapter() {
 	@Override
 	public void mouseEntered(MouseEvent e) {
@@ -43,10 +43,10 @@ public SnakePanelRectangle() {
 	this.backgroundColor = Color.black;
 	this.isRollover = false;
 
-	this.rolloverTimeline = new Timeline(this);
-	this.rolloverTimeline.addPropertyToInterpolate("backgroundColor",
-			Color.yellow, Color.black);
-	this.rolloverTimeline.setDuration(2500);
+	this.rolloverTimeline = Timeline.builder(this)
+        .addPropertyToInterpolate("backgroundColor", Color.yellow, Color.black)
+        .setDuration(2500)
+        .build();
 }
 
 public void setRollover(boolean isRollover) {

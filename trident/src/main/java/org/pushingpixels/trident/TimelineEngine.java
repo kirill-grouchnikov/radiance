@@ -291,7 +291,7 @@ class TimelineEngine {
                 boolean hasEnded = false;
                 if (DEBUG_MODE) {
                     System.out.println("Processing " + timeline.id + "["
-                            + timeline.mainObject.getClass().getSimpleName() + "] from "
+                            + timeline.getMainObject().getClass().getSimpleName() + "] from "
                             + timeline.durationFraction + ". Callback - "
                             + (timeline.callbackChain == null ? "no" : "yes"));
                 }
@@ -302,13 +302,13 @@ class TimelineEngine {
                 case PLAYING_FORWARD:
                     if (!timelineWasInReadyState) {
                         timeline.durationFraction = timeline.durationFraction
-                                + (float) passedSinceLastIteration / (float) timeline.duration;
+                                + (float) passedSinceLastIteration / (float) timeline.getDuration();
                     }
-                    timeline.timelinePosition = timeline.ease.map(timeline.durationFraction);
+                    timeline.timelinePosition = timeline.getEase().map(timeline.durationFraction);
                     if (DEBUG_MODE) {
                         System.out.println("Timeline " + timeline.id + " position: "
-                                + ((long) (timeline.durationFraction * timeline.duration)) + "/"
-                                + timeline.duration + " = " + timeline.durationFraction);
+                                + ((long) (timeline.durationFraction * timeline.getDuration()))
+                                + "/" + timeline.getDuration() + " = " + timeline.durationFraction);
                     }
                     if (timeline.durationFraction > 1.0f) {
                         timeline.durationFraction = 1.0f;
@@ -326,20 +326,21 @@ class TimelineEngine {
                                 hasEnded = true;
                                 itTimeline.remove();
                             } else {
-                                if (timeline.repeatBehavior == Timeline.RepeatBehavior.REVERSE) {
+                                if (timeline.getRepeatBehavior() ==
+                                        Timeline.RepeatBehavior.REVERSE) {
                                     timeline.replaceState(TimelineState.PLAYING_REVERSE);
-                                    if (timeline.cycleDelay > 0) {
+                                    if (timeline.getCycleDelay() > 0) {
                                         timeline.pushState(TimelineState.READY);
-                                        timeline.timeUntilPlay = timeline.cycleDelay;
+                                        timeline.timeUntilPlay = timeline.getCycleDelay();
                                     }
                                     this.callbackCallTimelineStateChanged(timeline,
                                             TimelineState.PLAYING_FORWARD);
                                 } else {
                                     timeline.durationFraction = 0.0f;
                                     timeline.timelinePosition = 0.0f;
-                                    if (timeline.cycleDelay > 0) {
+                                    if (timeline.getCycleDelay() > 0) {
                                         timeline.pushState(TimelineState.READY);
-                                        timeline.timeUntilPlay = timeline.cycleDelay;
+                                        timeline.timeUntilPlay = timeline.getCycleDelay();
                                         this.callbackCallTimelineStateChanged(timeline,
                                                 TimelineState.PLAYING_FORWARD);
                                     } else {
@@ -360,9 +361,9 @@ class TimelineEngine {
                 case PLAYING_REVERSE:
                     if (!timelineWasInReadyState) {
                         timeline.durationFraction = timeline.durationFraction
-                                - (float) passedSinceLastIteration / (float) timeline.duration;
+                                - (float) passedSinceLastIteration / (float) timeline.getDuration();
                     }
-                    timeline.timelinePosition = timeline.ease.map(timeline.durationFraction);
+                    timeline.timelinePosition = timeline.getEase().map(timeline.durationFraction);
                     // state.timelinePosition = state.timelinePosition
                     // - stepFactor
                     // * state.fadeStep.getNextStep(state.timelineKind,
@@ -370,8 +371,8 @@ class TimelineEngine {
                     // state.isPlayingForward, state.isLooping);
                     if (DEBUG_MODE) {
                         System.out.println("Timeline position: "
-                                + ((long) (timeline.durationFraction * timeline.duration)) + "/"
-                                + timeline.duration + " = " + timeline.durationFraction);
+                                + ((long) (timeline.durationFraction * timeline.getDuration()))
+                                + "/" + timeline.getDuration() + " = " + timeline.durationFraction);
                     }
                     if (timeline.durationFraction < 0) {
                         timeline.durationFraction = 0.0f;
@@ -390,9 +391,9 @@ class TimelineEngine {
                                 itTimeline.remove();
                             } else {
                                 timeline.replaceState(TimelineState.PLAYING_FORWARD);
-                                if (timeline.cycleDelay > 0) {
+                                if (timeline.getCycleDelay() > 0) {
                                     timeline.pushState(TimelineState.READY);
-                                    timeline.timeUntilPlay = timeline.cycleDelay;
+                                    timeline.timeUntilPlay = timeline.getCycleDelay();
                                 }
                                 this.callbackCallTimelineStateChanged(timeline,
                                         TimelineState.PLAYING_REVERSE);
@@ -481,7 +482,7 @@ class TimelineEngine {
                             + " to " + newState.name() + " on timeline " + timeline.id);
                 }
                 // System.out.println("Will update from " + oldState + " to " + newState);
-                timeline.uiToolkitHandler.runOnUIThread(timeline.mainObject,
+                timeline.uiToolkitHandler.runOnUIThread(timeline.getMainObject(),
                         () -> timeline.callbackChain.onTimelineStateChanged(oldState, newState,
                                 durationFraction, timelinePosition));
             } else {
@@ -512,7 +513,7 @@ class TimelineEngine {
                 clazz = clazz.getSuperclass();
             }
             if (shouldRunOnUIThread && (timeline.uiToolkitHandler != null)) {
-                timeline.uiToolkitHandler.runOnUIThread(timeline.mainObject,
+                timeline.uiToolkitHandler.runOnUIThread(timeline.getMainObject(),
                         () -> timeline.callbackChain.onTimelinePulse(durationFraction,
                                 timelinePosition));
             } else {
@@ -550,7 +551,8 @@ class TimelineEngine {
      */
     private void addTimeline(Timeline timeline) {
         synchronized (LOCK) {
-            FullObjectID cid = new FullObjectID(timeline.mainObject, timeline.secondaryId);
+            FullObjectID cid = new FullObjectID(timeline.getMainObject(),
+                    timeline.getSecondaryId());
             timeline.fullObjectID = cid;
             this.runningTimelines.add(timeline);
             // this.nothingTracked = false;
@@ -572,11 +574,11 @@ class TimelineEngine {
             Timeline existing = this.getRunningTimeline(timeline);
             if (existing == null) {
                 TimelineState oldState = timeline.getState();
-                timeline.timeUntilPlay = timeline.initialDelay - msToSkip;
+                timeline.timeUntilPlay = timeline.getInitialDelay() - msToSkip;
                 if (timeline.timeUntilPlay < 0) {
                     timeline.durationFraction = (float) -timeline.timeUntilPlay
-                            / (float) timeline.duration;
-                    timeline.timelinePosition = timeline.ease.map(timeline.durationFraction);
+                            / (float) timeline.getDuration();
+                    timeline.timelinePosition = timeline.getEase().map(timeline.durationFraction);
                     timeline.timeUntilPlay = 0;
                 } else {
                     timeline.durationFraction = 0.0f;
@@ -636,11 +638,11 @@ class TimelineEngine {
             Timeline existing = this.getRunningTimeline(timeline);
             if (existing == null) {
                 TimelineState oldState = timeline.getState();
-                timeline.timeUntilPlay = timeline.initialDelay - msToSkip;
+                timeline.timeUntilPlay = timeline.getInitialDelay() - msToSkip;
                 if (timeline.timeUntilPlay < 0) {
                     timeline.durationFraction = 1.0f
-                            - (float) -timeline.timeUntilPlay / (float) timeline.duration;
-                    timeline.timelinePosition = timeline.ease.map(timeline.durationFraction);
+                            - (float) -timeline.timeUntilPlay / (float) timeline.getDuration();
+                    timeline.timelinePosition = timeline.getEase().map(timeline.durationFraction);
                     timeline.timeUntilPlay = 0;
                 } else {
                     timeline.durationFraction = 1.0f;
@@ -686,11 +688,11 @@ class TimelineEngine {
             Timeline existing = this.getRunningTimeline(timeline);
             if (existing == null) {
                 TimelineState oldState = timeline.getState();
-                timeline.timeUntilPlay = timeline.initialDelay - msToSkip;
+                timeline.timeUntilPlay = timeline.getInitialDelay() - msToSkip;
                 if (timeline.timeUntilPlay < 0) {
                     timeline.durationFraction = (float) -timeline.timeUntilPlay
-                            / (float) timeline.duration;
-                    timeline.timelinePosition = timeline.ease.map(timeline.durationFraction);
+                            / (float) timeline.getDuration();
+                    timeline.timelinePosition = timeline.getEase().map(timeline.durationFraction);
                     timeline.timeUntilPlay = 0;
                 } else {
                     timeline.durationFraction = 0.0f;

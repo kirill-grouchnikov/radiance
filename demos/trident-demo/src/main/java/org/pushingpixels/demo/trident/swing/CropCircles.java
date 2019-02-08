@@ -1,54 +1,43 @@
 /*
  * Copyright (c) 2005-2019 Trident Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Trident Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Trident Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.trident.swing;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
-import java.util.Collections;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-import org.pushingpixels.trident.Timeline;
+import org.pushingpixels.trident.*;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.TimelineScenario;
 import org.pushingpixels.trident.ease.Spline;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
-import org.pushingpixels.trident.swing.SwingRepaintTimeline;
+import org.pushingpixels.trident.swing.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.util.*;
 
 public class CropCircles {
     public static class CropCircle {
@@ -215,30 +204,34 @@ public class CropCircles {
             this.center3 = new CropCircle(this.arc3.getCenterX(), this.arc3.getCenterY(),
                     smallRadius);
             this.center3.setRadius(smallRadius);
-            Timeline pulseCenters = new Timeline();
-            pulseCenters.addPropertyToInterpolate(
-                    Timeline.<Float>property("opacity").on(this.center1).from(0.0f).to(1.0f));
-            pulseCenters.addPropertyToInterpolate(
-                    Timeline.<Float>property("opacity").on(this.center2).from(0.0f).to(1.0f));
-            pulseCenters.addPropertyToInterpolate(
-                    Timeline.<Float>property("opacity").on(this.center3).from(0.0f).to(1.0f));
-            pulseCenters.setDuration(750);
-            pulseCenters.setEase(new Spline(0.9f));
-            pulseCenters.playLoop(RepeatBehavior.REVERSE);
 
-            Timeline rotationTimeline = new SwingComponentTimeline(this);
-            rotationTimeline.addPropertyToInterpolate("rotation", 0.0f, (float) (2 * Math.PI));
-            rotationTimeline.setDuration(10000);
-            rotationTimeline.playLoop(RepeatBehavior.LOOP);
+            // Pulsating centers
+            Timeline.builder()
+                    .addPropertyToInterpolate(Timeline.<Float>property("opacity")
+                            .on(this.center1).from(0.0f).to(1.0f))
+                    .addPropertyToInterpolate(Timeline.<Float>property("opacity")
+                            .on(this.center2).from(0.0f).to(1.0f))
+                    .addPropertyToInterpolate(Timeline.<Float>property("opacity")
+                            .on(this.center3).from(0.0f).to(1.0f))
+                    .setDuration(750)
+                    .setEase(new Spline(0.9f))
+                    .playLoop(RepeatBehavior.REVERSE);
 
-            Timeline repaintTimeline = new SwingRepaintTimeline(this);
-            repaintTimeline.playLoop(RepeatBehavior.LOOP);
+            // Looping rotation timeline
+            SwingComponentTimeline.componentBuilder(this)
+                    .addPropertyToInterpolate("rotation", 0.0f, (float) (2 * Math.PI))
+                    .setDuration(10000)
+                    .playLoop(RepeatBehavior.LOOP);
+
+            // Looping repaint timeline
+            SwingRepaintTimeline.repaintBuilder(this).playLoop(RepeatBehavior.LOOP);
 
             getScenario().playLoop();
         }
 
         private TimelineScenario getScenario() {
-            final TimelineScenario.RendezvousSequence showScenario = new TimelineScenario.RendezvousSequence();
+            final TimelineScenario.RendezvousSequence showScenario =
+                    new TimelineScenario.RendezvousSequence();
             java.util.List<CropCircle> circles1 = this.arc1.getCircles();
             java.util.List<CropCircle> circles2 = this.arc2.getCircles();
             java.util.List<CropCircle> circles3 = this.arc3.getCircles();
@@ -248,25 +241,28 @@ public class CropCircles {
                 int duration = 200 + (count - i) * 70;
 
                 CropCircle c1 = circles1.get(i);
-                Timeline t1 = new Timeline(c1);
-                t1.addPropertyToInterpolate("opacity", 0.0f, 1.0f);
-                t1.addPropertyToInterpolate("radius", 0.0f, c1.getInitialRadius());
-                t1.setDuration(duration);
-                t1.setEase(new Spline(0.9f));
+                Timeline t1 = Timeline.builder(c1)
+                        .addPropertyToInterpolate("opacity", 0.0f, 1.0f)
+                        .addPropertyToInterpolate("radius", 0.0f, c1.getInitialRadius())
+                        .setDuration(duration)
+                        .setEase(new Spline(0.9f))
+                        .build();
 
                 CropCircle c2 = circles2.get(i);
-                Timeline t2 = new Timeline(c2);
-                t2.addPropertyToInterpolate("opacity", 0.0f, 1.0f);
-                t2.addPropertyToInterpolate("radius", 0.0f, c2.getInitialRadius());
-                t2.setDuration(duration);
-                t2.setEase(new Spline(0.9f));
+                Timeline t2 = Timeline.builder(c2)
+                        .addPropertyToInterpolate("opacity", 0.0f, 1.0f)
+                        .addPropertyToInterpolate("radius", 0.0f, c2.getInitialRadius())
+                        .setDuration(duration)
+                        .setEase(new Spline(0.9f))
+                        .build();
 
                 CropCircle c3 = circles3.get(i);
-                Timeline t3 = new Timeline(c3);
-                t3.addPropertyToInterpolate("opacity", 0.0f, 1.0f);
-                t3.addPropertyToInterpolate("radius", 0.0f, c3.getInitialRadius());
-                t3.setDuration(duration);
-                t3.setEase(new Spline(0.9f));
+                Timeline t3 = Timeline.builder(c3)
+                        .addPropertyToInterpolate("opacity", 0.0f, 1.0f)
+                        .addPropertyToInterpolate("radius", 0.0f, c3.getInitialRadius())
+                        .setDuration(duration)
+                        .setEase(new Spline(0.9f))
+                        .build();
 
                 showScenario.addScenarioActor(t1);
                 showScenario.addScenarioActor(t2);
@@ -275,17 +271,19 @@ public class CropCircles {
                 showScenario.rendezvous();
             }
 
-            Timeline tCenter = new Timeline(this.center);
-            tCenter.addPropertyToInterpolate("opacity", 0.0f, 1.0f);
-            tCenter.addPropertyToInterpolate("radius", 0.0f, this.center.getInitialRadius());
-            tCenter.setDuration(800);
+            Timeline tCenter = Timeline.builder(this.center)
+                    .addPropertyToInterpolate("opacity", 0.0f, 1.0f)
+                    .addPropertyToInterpolate("radius", 0.0f, this.center.getInitialRadius())
+                    .setDuration(800)
+                    .build();
             showScenario.addScenarioActor(tCenter);
             showScenario.rendezvous();
 
             // fade out all circles after a small delay
-            Timeline fadeOut = new Timeline(this);
-            fadeOut.addPropertyToInterpolate("opacity", 1.0f, 0.0f);
-            fadeOut.setInitialDelay(500);
+            Timeline fadeOut = Timeline.builder(this)
+                    .addPropertyToInterpolate("opacity", 1.0f, 0.0f)
+                    .setInitialDelay(500)
+                    .build();
             showScenario.addScenarioActor(fadeOut);
 
             // showScenario.addCallback(new TimelineScenarioCallback() {

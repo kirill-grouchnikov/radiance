@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.lumen;
 
-import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.lumen.data.SearchResultRelease;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.trident.*;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.ease.Spline;
@@ -113,19 +113,20 @@ public class AlbumOverviewComponent extends JComponent {
         this.setOpaque(false);
         this.alpha = 0.0f;
 
-        this.addHierarchyListener((HierarchyEvent e) -> {
-            Timeline shownTimeline = new SwingComponentTimeline(AlbumOverviewComponent.this);
-            shownTimeline.addPropertyToInterpolate("alpha", 0.0f, 1.0f);
-            shownTimeline.addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this));
-            shownTimeline.setDuration(1000);
-            shownTimeline.play();
-        });
+        // When the component is shown fade it in
+        this.addHierarchyListener((HierarchyEvent e) ->
+                SwingComponentTimeline.componentBuilder(AlbumOverviewComponent.this)
+                        .addPropertyToInterpolate("alpha", 0.0f, 1.0f)
+                        .addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this))
+                        .setDuration(1000)
+                        .play());
 
-        final Timeline rolloverTimeline = new SwingComponentTimeline(this);
-        rolloverTimeline.addPropertyToInterpolate("borderAlpha", 0.0f, 0.6f);
-        rolloverTimeline.addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this));
-        rolloverTimeline.setEase(new Spline(0.7f));
-        rolloverTimeline.setDuration(800);
+        final Timeline rolloverTimeline = SwingComponentTimeline.componentBuilder(this)
+                .addPropertyToInterpolate("borderAlpha", 0.0f, 0.6f)
+                .addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this))
+                .setEase(new Spline(0.7f))
+                .setDuration(800)
+                .build();
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -193,11 +194,11 @@ public class AlbumOverviewComponent extends JComponent {
         loadScenario.addScenarioActor(scaler);
 
         // and fade it in
-        Timeline imageFadeInTimeline = new Timeline(AlbumOverviewComponent.this);
-        imageFadeInTimeline.addPropertyToInterpolate("imageAlpha", 0.0f, 1.0f);
-        imageFadeInTimeline.addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this));
-        imageFadeInTimeline.setDuration(500);
-        loadScenario.addScenarioActor(imageFadeInTimeline);
+        loadScenario.addScenarioActor(Timeline.builder(AlbumOverviewComponent.this)
+                .addPropertyToInterpolate("imageAlpha", 0.0f, 1.0f)
+                .addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this))
+                .setDuration(500)
+                .build());
 
         return loadScenario;
     }

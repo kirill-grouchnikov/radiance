@@ -136,47 +136,47 @@ public class TransitionLayout implements LayoutManager {
                     if (boundsTimeline != null) {
                         boundsTimeline.abort();
                     }
-                    boundsTimeline = new SwingComponentTimeline(jc);
+                    boundsTimeline = SwingComponentTimeline.componentBuilder(jc)
+                            .addCallback(new UIThreadTimelineCallbackAdapter() {
+                                @Override
+                                public void onTimelineStateChanged(
+                                        TimelineState oldState,
+                                        TimelineState newState,
+                                        float durationFraction,
+                                        float timelinePosition) {
+                                    onPulse(timelinePosition);
+                                    if (oldState == TimelineState.PLAYING_FORWARD
+                                            && newState == TimelineState.DONE) {
+                                        animationEnded();
+                                        boundsMap.remove(jc);
+                                    }
+                                }
+
+                                @Override
+                                public void onTimelinePulse(float durationFraction,
+                                        float timelinePosition) {
+                                    onPulse(timelinePosition);
+                                }
+
+                                void onPulse(float timelinePosition) {
+                                    Rectangle currBounds = new Rectangle(
+                                            (int) (oldBounds.x + timelinePosition
+                                                    * (newBounds.x - oldBounds.x)),
+                                            (int) (oldBounds.y + timelinePosition
+                                                    * (newBounds.y - oldBounds.y)),
+                                            (int) (oldBounds.width + timelinePosition
+                                                    * (newBounds.width - oldBounds.width)),
+                                            (int) (oldBounds.height + timelinePosition
+                                                    * (newBounds.height - oldBounds.height)));
+                                    jc.setBounds(currBounds);
+                                    fireEvent(jc,
+                                            TransitionLayoutEvent.CHILD_MOVING);
+                                    jc.doLayout();
+                                    repaint(jc);
+                                }
+                            })
+                            .build();
                     boundsMap.put(jc, boundsTimeline);
-
-                    boundsTimeline.addCallback(new UIThreadTimelineCallbackAdapter() {
-                        @Override
-                        public void onTimelineStateChanged(
-                                TimelineState oldState,
-                                TimelineState newState,
-                                float durationFraction,
-                                float timelinePosition) {
-                            onPulse(timelinePosition);
-                            if (oldState == TimelineState.PLAYING_FORWARD
-                                    && newState == TimelineState.DONE) {
-                                animationEnded();
-                                boundsMap.remove(jc);
-                            }
-                        }
-
-                        @Override
-                        public void onTimelinePulse(float durationFraction,
-                                float timelinePosition) {
-                            onPulse(timelinePosition);
-                        }
-
-                        void onPulse(float timelinePosition) {
-                            Rectangle currBounds = new Rectangle(
-                                    (int) (oldBounds.x + timelinePosition
-                                            * (newBounds.x - oldBounds.x)),
-                                    (int) (oldBounds.y + timelinePosition
-                                            * (newBounds.y - oldBounds.y)),
-                                    (int) (oldBounds.width + timelinePosition
-                                            * (newBounds.width - oldBounds.width)),
-                                    (int) (oldBounds.height + timelinePosition
-                                            * (newBounds.height - oldBounds.height)));
-                            jc.setBounds(currBounds);
-                            fireEvent(jc,
-                                    TransitionLayoutEvent.CHILD_MOVING);
-                            jc.doLayout();
-                            repaint(jc);
-                        }
-                    });
                     boundsTimeline.play();
                 }
             }

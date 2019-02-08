@@ -14,9 +14,9 @@ public class HelloWorld {
 
    public static void main(String[] args) {
       HelloWorld helloWorld = new HelloWorld();
-      Timeline timeline = new Timeline(helloWorld);
-      timeline.addPropertyToInterpolate("value", 0.0f, 1.0f);
-      timeline.play();
+      Timeline.builder(helloWorld)
+	  	.addPropertyToInterpolate("value", 0.0f, 1.0f)
+  		.play();
 
       try {
          Thread.sleep(3000);
@@ -28,15 +28,16 @@ public class HelloWorld {
 
 Here, the timeline created in line 11 has the associated `HelloWorld` instance. Line 12 instructs the timeline to interpolate the `value` field of that instance from `0.0` to `1.0` over the duration of the timeline.
 
-There is an important assumption that the application code must honor. Each field added with the `addPropertyToInterpolate` **must** have the matching ##public## setter - see lines 4-7 in the example above.
+There is an important assumption that the application code must honor. Each field added with the `addPropertyToInterpolate` **must** have the matching **public** setter - see lines 4-7 in the example above.
 
 A timeline can interpolate multiple fields. In the following example the timeline will change values of three fields at each timeline pulse:
 
 ```java
-Timeline timeline = new Timeline(circle);
-timeline.addPropertyToInterpolate("x", initX, finalX);
-timeline.addPropertyToInterpolate("y", initY, finalY);
-timeline.addPropertyToInterpolate("opacity", 1.0f, 0.0f);
+Timeline.builder(circle)
+   .addPropertyToInterpolate("x", initX, finalX)
+   .addPropertyToInterpolate("y", initY, finalY);
+   .addPropertyToInterpolate("opacity", 1.0f, 0.0f)
+   .play();
 ```
 
 ### Configuring interpolation properties
@@ -44,21 +45,21 @@ timeline.addPropertyToInterpolate("opacity", 1.0f, 0.0f);
 The examples shown above interpolate the specified field from given start value to given end value. Application code that requires finer control over the field interpolation will use the following `Timeline` APIs:
 
 * The static `Timeline.property(String)` method. This returns a `TimelinePropertyBuilder` object that is used to configure the different aspects of field interpolation - see below.
-* Once the `TimelinePropertyBuilder` has been fully configured, pass it to the `Timeline.addPropertyToInterpolateTo(TimelinePropertyBuilder)` API.
+* Once the `TimelinePropertyBuilder` has been fully configured, pass it to the `Timeline.Builder.addPropertyToInterpolateTo(TimelinePropertyBuilder)` API.
 
 Here is a code snippet that illustrates property builders in action:
 
 ```java
-Timeline pulseCenters = new Timeline();
-pulseCenters.addPropertyToInterpolate(
-   Timeline.<Float> property("opacity").on(this.center1).from(0.0f).to(1.0f));
-pulseCenters.addPropertyToInterpolate(
-   Timeline.<Float> property("opacity").on(this.center2).from(0.0f).to(1.0f));
-pulseCenters.addPropertyToInterpolate(
-   Timeline.<Float> property("opacity").on(this.center3).from(0.0f).to(1.0f));
-pulseCenters.setDuration(750);
-pulseCenters.setEase(new Spline(0.9f));
-pulseCenters.playLoop(RepeatBehavior.REVERSE);
+Timeline.builder()
+    .addPropertyToInterpolate(Timeline.<Float> property("opacity")
+        .on(this.center1).from(0.0f).to(1.0f))
+    .addPropertyToInterpolate(Timeline.<Float> property("opacity")
+        .on(this.center2).from(0.0f).to(1.0f))
+    .addPropertyToInterpolate(Timeline.<Float> property("opacity")
+        .on(this.center3).from(0.0f).to(1.0f))
+    .setDuration(750)
+    .setEase(new Spline(0.9f))
+    .playLoop(RepeatBehavior.REVERSE);
 ```
 
 Line 1 creates a new timeline not associated with any object. Lines 2-7 use three property builders to interpolate the `opacity` field on three separate objects (`center1`, `center2`, `center3`) from `0.0` to `1.0`. Lines 8-10 configure the [timeline duration and ease](TimelineAdditionalConfiguration.md), and play it in a reverse loop.
@@ -73,14 +74,14 @@ The following APIs are available on the `TimelinePropertyBuilder` class:
 * `setWith(property setter)` specifies the method to use to set the field value.
 * `accessWith(property accessor)` specifies the method to use to access (get and set) the field value.
 
-Here is another example of using the `TimelinePropertyBuilder` to interpolate the specific field from its ##current value## to the set end value:
+Here is another example of using the `TimelinePropertyBuilder` to interpolate the specific field from its **current value** to the set end value:
 
 ```java
-this.scrollTimeline = new Timeline(this);
-this.scrollTimeline.addPropertyToInterpolate(
-   Timeline.<Float> property("leadingPosition").
-      fromCurrent().to(this.targetLeadingPosition));
-this.scrollTimeline.setDuration(250);
+this.scrollTimeline = Timeline.builder(this)
+    .addPropertyToInterpolate(Timeline.<Float> property("leadingPosition")
+        .fromCurrent().to(this.targetLeadingPosition))
+    .setDuration(250)
+    .build();
 ```
 
 ### Custom property interpolators
@@ -132,7 +133,6 @@ public class CustomSetter {
 
    public static void main(String[] args) {
       final CustomSetter helloWorld = new CustomSetter();
-      Timeline timeline = new Timeline(helloWorld);
       PropertySetter<Float> propertySetter = new PropertySetter<Float>() {
          @Override
          public void set(Object obj, String fieldName, Float value) {
@@ -143,8 +143,13 @@ public class CustomSetter {
             helloWorld.value = value;
          }
       };
-      timeline.addPropertyToInterpolate(Timeline.<Float> property("value")
-            .from(0.0f).to(1.0f).setWith(propertySetter));
+      Timeline timeline = Timeline.builder(helloWorld)
+              .addPropertyToInterpolate(Timeline.<Float>property("value")
+                  .from(0.0f)
+                  .to(1.0f)
+                  .setWith(propertySetter))
+              .setDuration(300)
+              .build();
       timeline.play();
 
       try {
@@ -165,7 +170,6 @@ public class CustomAccessor {
 
    public static void main(String[] args) {
       final CustomAccessor helloWorld = new CustomAccessor();
-      Timeline timeline = new Timeline(helloWorld);
 
       PropertyAccessor<Float> propertyAccessor = new PropertyAccessor<Float>() {
          @Override
@@ -184,9 +188,13 @@ public class CustomAccessor {
       };
       helloWorld.values.put("value", 50f);
 
-      timeline.addPropertyToInterpolate(Timeline.<Float> property("value")
-            .fromCurrent().to(100.0f).accessWith(propertyAccessor));
-      timeline.setDuration(300);
+      Timeline timeline = Timeline.builder(helloWorld)
+              .addPropertyToInterpolate(Timeline.<Float>property("value")
+                      .fromCurrent()
+                      .to(100.0f)
+                      .accessWith(propertyAccessor))
+              .setDuration(300)
+              .build();
       timeline.play();
 
       try {

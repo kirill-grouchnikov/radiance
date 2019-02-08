@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.neon.internal.font;
 
-import org.pushingpixels.neon.font.FontPolicy;
-import org.pushingpixels.neon.font.FontSet;
+import org.pushingpixels.neon.font.*;
 
-import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.geom.AffineTransform;

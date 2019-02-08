@@ -37,7 +37,6 @@ import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
 import java.awt.*;
 import java.awt.font.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.text.AttributedString;
 
 public class LumenUtils {
@@ -110,22 +109,20 @@ public class LumenUtils {
         return textY;
     }
 
-    public static void fadeOutAndDispose(final Window window,
-            int fadeOutDuration) {
-        Timeline dispose = new Timeline(window);
-
-        dispose.addPropertyToInterpolate(Timeline.<Float>property("opacity").from(1.0f).to(0.0f));
-        dispose.addCallback(new UIThreadTimelineCallbackAdapter() {
-            @Override
-            public void onTimelineStateChanged(TimelineState oldState,
-                    TimelineState newState, float durationFraction,
-                    float timelinePosition) {
-                if (newState == TimelineState.DONE) {
-                    window.dispose();
-                }
-            }
-        });
-        dispose.setDuration(fadeOutDuration);
-        dispose.play();
+    public static void fadeOutAndDispose(final Window window, int fadeOutDuration) {
+        Timeline.builder(window)
+                .addPropertyToInterpolate(Timeline.<Float>property("opacity").from(1.0f).to(0.0f))
+                .addCallback(new UIThreadTimelineCallbackAdapter() {
+                    @Override
+                    public void onTimelineStateChanged(TimelineState oldState,
+                            TimelineState newState, float durationFraction,
+                            float timelinePosition) {
+                        if (newState == TimelineState.DONE) {
+                            window.dispose();
+                        }
+                    }
+                })
+                .setDuration(fadeOutDuration)
+                .play();
     }
 }

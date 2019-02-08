@@ -305,14 +305,14 @@ public class AnimationConfigurationManager {
         return timelineDuration;
     }
 
-    public void configureTimeline(Timeline timeline) {
-        timeline.setDuration(this.timelineDuration);
-        timeline.setEase(DEFAULT_EASE);
+    public void configureTimelineBuilder(Timeline.BaseBuilder builder) {
+        builder.setDuration(this.timelineDuration);
+        builder.setEase(DEFAULT_EASE);
     }
 
-    public void configureModifiedTimeline(Timeline timeline) {
-        timeline.setDuration(5 * this.timelineDuration);
-        timeline.setEase((float durationFraction) -> {
+    public void configureModifiedTimelineBuilder(Timeline.BaseBuilder builder) {
+        builder.setDuration(5 * this.timelineDuration);
+        builder.setEase((float durationFraction) -> {
             if (durationFraction < 0.8f) {
                 return 0.0f;
             }

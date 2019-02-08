@@ -94,10 +94,11 @@ public class Stage3AnimatedScrolling extends Stage2Components {
 
         // and dynamically create a new one to change the
         // leading position
-        this.scrollTimeline = new Timeline(this);
-        this.scrollTimeline.addPropertyToInterpolate(Timeline.<Float>property("leadingPosition")
-                .fromCurrent().to(this.targetLeadingPosition));
-        this.scrollTimeline.setDuration(250);
+        this.scrollTimeline = Timeline.builder(this)
+                .addPropertyToInterpolate(Timeline.<Float>property("leadingPosition")
+                        .fromCurrent().to(this.targetLeadingPosition))
+                .setDuration(250)
+                .build();
 
         scrollTimeline.play();
     }

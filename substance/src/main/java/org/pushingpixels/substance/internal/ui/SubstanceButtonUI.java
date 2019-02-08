@@ -471,10 +471,13 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     }
 
     private void trackModificationFlag() {
-        this.modifiedTimeline = new SwingComponentTimeline(this.button);
-        AnimationConfigurationManager.getInstance().configureModifiedTimeline(
-                this.modifiedTimeline);
-        this.modifiedTimeline.addCallback(new SwingRepaintCallback(this.button));
+        SwingComponentTimeline.Builder modifiedTimelineBuilder =
+                SwingComponentTimeline.componentBuilder(this.button);
+        AnimationConfigurationManager.getInstance().configureModifiedTimelineBuilder(
+                modifiedTimelineBuilder);
+        modifiedTimelineBuilder.addCallback(new SwingRepaintCallback(this.button));
+
+        this.modifiedTimeline = modifiedTimelineBuilder.build();
         this.modifiedTimeline.playLoop(RepeatBehavior.REVERSE);
     }
 

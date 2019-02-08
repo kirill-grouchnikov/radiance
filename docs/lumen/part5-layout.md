@@ -231,11 +231,11 @@ private synchronized void scrollContents() {
 
 	// and dynamically create a new one to change the
 	// leading position
-	this.scrollTimeline = new Timeline(this);
-	this.scrollTimeline.addPropertyToInterpolate("leadingPosition",
-			this.leadingPosition, this.targetLeadingPosition);
-	this.scrollTimeline.setDuration(250);
-	this.scrollTimeline.setEase(new Spline(0.7f));
+	this.scrollTimeline = Timeline.builder(this)
+		.addPropertyToInterpolate(Timeline.<Float>property("leadingPosition")
+			.fromCurrent().to(this.targetLeadingPosition))
+		.setDuration(250)
+		.build();
 
 	scrollTimeline.play();
 }

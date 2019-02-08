@@ -102,17 +102,23 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             if (displayTimeline != null) {
                 displayTimeline.abort();
             }
-            displayTimeline = new SwingComponentTimeline(progressBar);
-            displayTimeline.addPropertyToInterpolate(Timeline.<Integer>property("displayedValue")
-                    .from(displayedValue).to(currValue).setWith(
-                            (Object obj, String fieldName, Integer value) -> {
+
+            SwingComponentTimeline.Builder displayTimelineBuilder =
+                    SwingComponentTimeline.componentBuilder(progressBar);
+            AnimationConfigurationManager.getInstance().configureTimelineBuilder(
+                    displayTimelineBuilder);
+            displayTimelineBuilder.addPropertyToInterpolate(
+                    Timeline.<Integer>property("displayedValue")
+                            .from(displayedValue)
+                            .to(currValue)
+                            .setWith((Object obj, String fieldName, Integer value) -> {
                                 displayedValue = value;
                                 if (progressBar != null) {
                                     progressBar.repaint();
                                 }
                             }));
-            displayTimeline.setEase(new Spline(0.4f));
-            AnimationConfigurationManager.getInstance().configureTimeline(displayTimeline);
+            displayTimelineBuilder.setEase(new Spline(0.4f));
+            displayTimeline = displayTimelineBuilder.build();
 
             // Do not animate progress bars used in cell renderers
             // since in this case it will most probably be the
@@ -505,31 +511,37 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
 
     @Override
     protected void startAnimationTimer() {
-        this.indeterminateLoopTimeline = new SwingComponentTimeline(this.progressBar);
         int cycleDuration = UIManager.getInt("ProgressBar.cycleTime");
-        if (cycleDuration == 0)
+        if (cycleDuration == 0) {
             cycleDuration = 1000;
-        this.indeterminateLoopTimeline.setDuration(cycleDuration);
-        this.indeterminateLoopTimeline.addCallback(new TimelineCallback() {
-            @Override
-            public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
-                    float durationFraction, float timelinePosition) {
-                if ((progressBar != null) && progressBar.isVisible())
-                    progressBar.repaint();
-            }
+        }
+        this.indeterminateLoopTimeline =
+                SwingComponentTimeline.componentBuilder(this.progressBar)
+                        .setDuration(cycleDuration)
+                        .addCallback(new TimelineCallback() {
+                            @Override
+                            public void onTimelineStateChanged(TimelineState oldState,
+                                    TimelineState newState,
+                                    float durationFraction, float timelinePosition) {
+                                if ((progressBar != null) && progressBar.isVisible())
+                                    progressBar.repaint();
+                            }
 
-            @Override
-            public void onTimelinePulse(float durationFraction, float timelinePosition) {
-                if ((progressBar != null) && progressBar.isVisible())
-                    progressBar.repaint();
-            }
-        });
-        this.indeterminateLoopTimeline
-                .addPropertyToInterpolate(Timeline.<Float>property("animationPosition").from(0.0f)
-                        .to(1.0f).setWith(
-                                (Object obj, String fieldName, Float value) -> {
-                                    animationPosition = value;
-                                }));
+                            @Override
+                            public void onTimelinePulse(float durationFraction,
+                                    float timelinePosition) {
+                                if ((progressBar != null) && progressBar.isVisible())
+                                    progressBar.repaint();
+                            }
+                        })
+                        .addPropertyToInterpolate(
+                                Timeline.<Float>property("animationPosition")
+                                        .from(0.0f)
+                                        .to(1.0f)
+                                        .setWith((Object obj, String fieldName, Float value) ->
+                                                animationPosition = value))
+                        .build();
+
         this.indeterminateLoopTimeline.playLoop(RepeatBehavior.LOOP);
     }
 

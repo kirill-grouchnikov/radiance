@@ -3,9 +3,9 @@
 The sample application in [multiple timelines example](ParallelSwingTimelines.md) has the following basic timeline:
 
 ```java
-this.rolloverTimeline = new Timeline(this);
-this.rolloverTimeline.addPropertyToInterpolate("backgroundColor",
-		Color.yellow, Color.black);
+this.rolloverTimeline = Timeline.builder(this)
+    .addPropertyToInterpolate("backgroundColor", Color.yellow, Color.black)
+    .build();
 ```
 
 This creates a timeline that animates the `backgroundColor` field from yellow to black when the timeline is `play`ed. What if you want to animate this field from yellow to green, and then to black? One option is to create two timelines, one to animate from yellow to green, and another to animate from green to black. Since the second timeline needs to wait until the first one ends, you will have to either use the [timeline callbacks](TimelineLifecycle.md), or create a parallel [timeline scenario](TimelineScenarioIntroduction.md).
@@ -27,13 +27,13 @@ Each key frame has two mandatory associated properties: **key time** and **key v
 To put it all together, here is the definition of a key frame-driven timeline for the example above:
 
 ```java
-this.rolloverTimeline = new Timeline(this);
-
 KeyValues alphaValues = KeyValues.create(Color.yellow,
 		Color.green, Color.black);
 KeyTimes alphaTimes = new KeyTimes(0.0f, 0.5f, 1.0f);
-this.rolloverTimeline.addPropertyToInterpolate("backgroundColor",
-		new KeyFrames(alphaValues, alphaTimes));
+
+this.rolloverTimeline = Timeline.builder(this)
+    .addPropertyToInterpolate("backgroundColor", new KeyFrames(alphaValues, alphaTimes))
+    .build();
 ```
 
 Here, we specify that the `backgroundColor` starts at yellow, goes to green at half the **duration** of the timeline, and then goes to black at the end.

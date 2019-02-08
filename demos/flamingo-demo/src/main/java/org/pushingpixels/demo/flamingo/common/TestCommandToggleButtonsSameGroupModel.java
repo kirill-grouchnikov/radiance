@@ -83,10 +83,10 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
         JLabel instructional = new JLabel("Selection state is synced across the strips below");
         // create a looping animation to change the label foreground
         // from black to blue and back to draw some attention.
-        Timeline instructionalTimeline = new SwingComponentTimeline(instructional);
-        instructionalTimeline.addPropertyToInterpolate("foreground", Color.black, Color.blue);
-        instructionalTimeline.setDuration(1000);
-        instructionalTimeline.playLoop(Timeline.RepeatBehavior.REVERSE);
+        SwingComponentTimeline.componentBuilder(instructional)
+                .addPropertyToInterpolate("foreground", Color.black, Color.blue)
+                .setDuration(1000)
+                .playLoop(Timeline.RepeatBehavior.REVERSE);
 
         instructional.setFont(instructional.getFont().deriveFont(Font.BOLD));
         instructional.setBorder(new EmptyBorder(0, 0, 12, 0));

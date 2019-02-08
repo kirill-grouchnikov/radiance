@@ -149,10 +149,11 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
      * Installs defaults on the associated color selector component.
      */
     protected void installDefaults() {
-        this.rolloverTimeline = new Timeline(this);
-        this.rolloverTimeline.addPropertyToInterpolate("rollover", 0.0f, 1.0f);
-        this.rolloverTimeline.addCallback(new SwingRepaintCallback(this.colorSelectorComponent));
-        this.rolloverTimeline.setDuration(150);
+        this.rolloverTimeline = Timeline.builder(this)
+                .addPropertyToInterpolate("rollover", 0.0f, 1.0f)
+                .addCallback(new SwingRepaintCallback(this.colorSelectorComponent))
+                .setDuration(150)
+                .build();
     }
 
     /**

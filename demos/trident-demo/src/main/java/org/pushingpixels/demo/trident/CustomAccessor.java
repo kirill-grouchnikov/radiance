@@ -42,7 +42,6 @@ public class CustomAccessor {
 
     public static void main(String[] args) {
         final CustomAccessor helloWorld = new CustomAccessor();
-        Timeline timeline = new Timeline(helloWorld);
 
         PropertyAccessor<Float> propertyAccessor = new PropertyAccessor<Float>() {
             @Override
@@ -60,9 +59,13 @@ public class CustomAccessor {
         };
         helloWorld.values.put("value", 50f);
 
-        timeline.addPropertyToInterpolate(Timeline.<Float>property("value").fromCurrent().to(100.0f)
-                .accessWith(propertyAccessor));
-        timeline.setDuration(300);
+        Timeline timeline = Timeline.builder(helloWorld)
+                .addPropertyToInterpolate(Timeline.<Float>property("value")
+                        .fromCurrent()
+                        .to(100.0f)
+                        .accessWith(propertyAccessor))
+                .setDuration(300)
+                .build();
         timeline.play();
 
         try {

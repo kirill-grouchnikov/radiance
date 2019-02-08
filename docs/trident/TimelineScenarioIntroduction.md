@@ -15,6 +15,6 @@ To create a custom timeline scenario, use the following APIs of the `TimelineSce
 ### Timeline scenario kinds
 
 There are three built-in timeline scenario kinds that address the most common dependencies between the actors:
-* `Timeline.Parallel` runs all the actors in a parallel fashion
-* `Timeline.Sequence` runs the actors one after another in the order they have been added
-* `Timeline.RendezvousSequence` allows simple branch-and-wait ordering. The rendezvous scenario has a stage-like approach. All actors belonging to the same stage run in parallel, while actors in stage N+1 wait for **all** actors in stage N to be finished. The `RendezvousSequence.rendezvous()` marks the end of one stage and the beginning of another.
+* `TimelineScenario.Parallel` runs all the actors in a parallel fashion
+* `TimelineScenario.Sequence` runs the actors one after another in the order they have been added
+* `TimelineScenario.RendezvousSequence` allows simple branch-and-wait ordering. The rendezvous scenario has a stage-like approach. All actors belonging to the same stage run in parallel, while actors in stage N+1 wait for **all** actors in stage N to be finished. The `RendezvousSequence.rendezvous()` marks the end of one stage and the beginning of another.

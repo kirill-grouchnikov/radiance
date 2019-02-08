@@ -206,26 +206,28 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
                             // abort previous horizontal scroll
                             horizontalScrollTimeline.abort();
                         }
-                        horizontalScrollTimeline = new SwingComponentTimeline(tree);
-                        horizontalScrollTimeline.addCallback(new UIThreadTimelineCallbackAdapter() {
-                            @Override
-                            public void onTimelinePulse(float durationFraction,
-                                    float timelinePosition) {
-                                if (timelinePosition >= 0.5) {
-                                    int nudge = (int) (finalDelta * (timelinePosition - 0.5));
-                                    c.getViewport().setViewPosition(
-                                            new Point(viewportRect.x + nudge, viewportRect.y));
-                                }
-                            }
-                        });
-                        horizontalScrollTimeline.setEase((float durationFraction) -> {
-                            if (durationFraction < 0.5) {
-                                return 0.5f * durationFraction;
-                            }
-                            return 0.25f + (durationFraction - 0.5f) * 0.75f / 0.5f;
-                        });
-                        horizontalScrollTimeline.setDuration(
-                                2 * AnimationConfigurationManager.getInstance().getTimelineDuration());
+                        horizontalScrollTimeline = SwingComponentTimeline.componentBuilder(tree)
+                                .addCallback(new UIThreadTimelineCallbackAdapter() {
+                                    @Override
+                                    public void onTimelinePulse(float durationFraction,
+                                            float timelinePosition) {
+                                        if (timelinePosition >= 0.5) {
+                                            int nudge =
+                                                    (int) (finalDelta * (timelinePosition - 0.5));
+                                            c.getViewport().setViewPosition(
+                                                    new Point(viewportRect.x + nudge,
+                                                            viewportRect.y));
+                                        }
+                                    }
+                                })
+                                .setEase((float durationFraction) -> {
+                                    if (durationFraction < 0.5) {
+                                        return 0.5f * durationFraction;
+                                    }
+                                    return 0.25f + (durationFraction - 0.5f) * 0.75f / 0.5f;
+                                }).setDuration(2 * AnimationConfigurationManager.getInstance()
+                                        .getTimelineDuration())
+                                .build();
                         horizontalScrollTimeline.play();
                     }
                 }

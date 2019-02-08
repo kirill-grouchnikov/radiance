@@ -33,7 +33,6 @@ import org.pushingpixels.demo.substance.main.check.svg.flags.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTableCellRenderer;
-import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
@@ -263,22 +262,19 @@ public class TablePanel extends ControllablePanel implements Deferrable {
 
         // create a looping animation to change the label foreground
         // from black to blue and back to draw some attention.
-        Timeline instructionalTimeline = new SwingComponentTimeline(instructional);
-        instructionalTimeline.addPropertyToInterpolate("foreground", Color.black, Color.blue);
-        instructionalTimeline.setDuration(1000);
-        instructionalTimeline.playLoop(RepeatBehavior.REVERSE);
+        SwingComponentTimeline.componentBuilder(instructional)
+                .addPropertyToInterpolate("foreground", Color.black, Color.blue)
+                .setDuration(1000)
+                .playLoop(RepeatBehavior.REVERSE);
 
-        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, fill:pref:grow",
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
+                "right:pref, 4dlu, fill:pref:grow",
                 2, 18);
 
         builder.appendSeparator("Table settings");
         final JCheckBox isEnabled = new JCheckBox("is enabled");
         isEnabled.setSelected(table.isEnabled());
-        isEnabled.addActionListener((ActionEvent e) -> {
-            table.setEnabled(isEnabled.isSelected());
-            // the table header is not repainted on disabling / enabling :(
-            table.getTableHeader().repaint();
-        });
+        isEnabled.addActionListener((ActionEvent e) -> table.setEnabled(isEnabled.isSelected()));
         builder.append("Enabled", isEnabled);
 
         JButton changeFirstColumn = new JButton("change 1st column");

@@ -1,58 +1,45 @@
 /*
  * Copyright (c) 2005-2019 Trident Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Trident Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Trident Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.trident.swing;
 
-import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.RenderingHints;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.Timeline.TimelineState;
+import org.pushingpixels.trident.Timeline.*;
 import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
 import org.pushingpixels.trident.swing.SwingRepaintTimeline;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.*;
+import java.util.List;
+import java.util.*;
 
 public class ShapesFrame extends JFrame {
     public static final Color COLOR_BLUE = new Color(128, 128, 255);
@@ -79,11 +66,11 @@ public class ShapesFrame extends JFrame {
             });
 
             // animate the gradient endpoint colors in an infinite timeline
-            Timeline colorTimeline = new SwingRepaintTimeline(this);
-            colorTimeline.addPropertyToInterpolate("topColor", COLOR_BLUE, COLOR_GREEN);
-            colorTimeline.addPropertyToInterpolate("bottomColor", COLOR_GREEN, COLOR_BLUE);
-            colorTimeline.setDuration(1000);
-            colorTimeline.playLoop(RepeatBehavior.REVERSE);
+            SwingRepaintTimeline.repaintBuilder(this)
+                    .addPropertyToInterpolate("topColor", COLOR_BLUE, COLOR_GREEN)
+                    .addPropertyToInterpolate("bottomColor", COLOR_GREEN, COLOR_BLUE)
+                    .setDuration(1000)
+                    .playLoop(RepeatBehavior.REVERSE);
         }
 
         public void setTopColor(Color topColor) {
@@ -127,41 +114,41 @@ public class ShapesFrame extends JFrame {
             if (toAddRectangle) {
                 final MyShape shape = new MyRectangle(x, y, 0, 0);
                 addShape(shape);
-                Timeline timelineRectangleFade = new Timeline(shape);
-                timelineRectangleFade.addPropertyToInterpolate("x", x, x - 100);
-                timelineRectangleFade.addPropertyToInterpolate("y", y, y - 100);
-                timelineRectangleFade.addPropertyToInterpolate("width", 0, 200);
-                timelineRectangleFade.addPropertyToInterpolate("height", 0, 200);
-                timelineRectangleFade.addPropertyToInterpolate("rotation", 0, 180);
-                timelineRectangleFade.addPropertyToInterpolate("opacity", 1.0f, 0.0f);
-                timelineRectangleFade.addCallback(new TimelineCallbackAdapter() {
-                    @Override
-                    public void onTimelineStateChanged(TimelineState oldState,
-                            TimelineState newState, float durationFraction,
-                            float timelinePosition) {
-                        if (newState == TimelineState.DONE)
-                            removeShape(shape);
-                    }
-                });
-                timelineRectangleFade.setDuration(1000);
-                timelineRectangleFade.play();
+                Timeline.builder(shape)
+                        .addPropertyToInterpolate("x", x, x - 100)
+                        .addPropertyToInterpolate("y", y, y - 100)
+                        .addPropertyToInterpolate("width", 0, 200)
+                        .addPropertyToInterpolate("height", 0, 200)
+                        .addPropertyToInterpolate("rotation", 0, 180)
+                        .addPropertyToInterpolate("opacity", 1.0f, 0.0f)
+                        .addCallback(new TimelineCallbackAdapter() {
+                            @Override
+                            public void onTimelineStateChanged(TimelineState oldState,
+                                    TimelineState newState, float durationFraction,
+                                    float timelinePosition) {
+                                if (newState == TimelineState.DONE)
+                                    removeShape(shape);
+                            }
+                        })
+                        .setDuration(1000)
+                        .play();
             } else {
                 final MyShape shape = new MyCircle(x, y, 0);
                 addShape(shape);
-                Timeline timelineCircleFade = new Timeline(shape);
-                timelineCircleFade.addPropertyToInterpolate("radius", 0, 100);
-                timelineCircleFade.addPropertyToInterpolate("opacity", 1.0f, 0.0f);
-                timelineCircleFade.addCallback(new TimelineCallbackAdapter() {
-                    @Override
-                    public void onTimelineStateChanged(TimelineState oldState,
-                            TimelineState newState, float durationFraction,
-                            float timelinePosition) {
-                        if (newState == TimelineState.DONE)
-                            removeShape(shape);
-                    }
-                });
-                timelineCircleFade.setDuration(1000);
-                timelineCircleFade.play();
+                Timeline.builder(shape)
+                        .addPropertyToInterpolate("radius", 0, 100)
+                        .addPropertyToInterpolate("opacity", 1.0f, 0.0f)
+                        .addCallback(new TimelineCallbackAdapter() {
+                            @Override
+                            public void onTimelineStateChanged(TimelineState oldState,
+                                    TimelineState newState, float durationFraction,
+                                    float timelinePosition) {
+                                if (newState == TimelineState.DONE)
+                                    removeShape(shape);
+                            }
+                        })
+                        .setDuration(1000)
+                        .play();
             }
             toAddRectangle = !toAddRectangle;
         }

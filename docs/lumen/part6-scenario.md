@@ -35,10 +35,10 @@ private TimelineScenario getShowAlbumDetailsScenario(final SearchResultRelease a
 	TimelineScenario.RendezvousSequence scenario = new TimelineScenario.RendezvousSequence();
 
 	// step 1 - move album art and track listing to the same location
-	Timeline collapseArtAndTracks = new Timeline(this);
-	collapseArtAndTracks.addPropertyToInterpolate("overlayPosition",
-			this.overlayPosition, 0.0f);
-	collapseArtAndTracks.setDuration((int) (500 * this.overlayPosition));
+	Timeline collapseArtAndTracks = Timeline.builder(this)
+		.addPropertyToInterpolate("overlayPosition", this.overlayPosition, 0.0f)
+		.setDuration((int) (500 * this.overlayPosition))
+		.build();
 	scenario.addScenarioActor(collapseArtAndTracks);
 
 	// step 2 (in parallel) - load the new album art
@@ -86,20 +86,22 @@ private TimelineScenario getShowAlbumDetailsScenario(final SearchResultRelease a
 	scenario.rendezvous();
 
 	// step 6 (wait for steps 4 and 5) - cross fade album art from old to new
-	Timeline albumArtCrossfadeTimeline = new Timeline(this.albumArt);
-	albumArtCrossfadeTimeline.addPropertyToInterpolate("oldImageAlpha", 1.0f, 0.0f);
-	albumArtCrossfadeTimeline.addPropertyToInterpolate("imageAlpha", 0.0f, 1.0f);
-	albumArtCrossfadeTimeline.addCallback(new SwingRepaintCallback(this.albumArt));
-	albumArtCrossfadeTimeline.setDuration(400);
+	Timeline albumArtCrossfadeTimeline = Timeline.builder(this.albumArt)
+		.addPropertyToInterpolate("oldImageAlpha", 1.0f, 0.0f)
+		.addPropertyToInterpolate("imageAlpha", 0.0f, 1.0f)
+		.addCallback(new SwingRepaintCallback(this.albumArt))
+		.setDuration(400)
+		.build();
 
 	scenario.addScenarioActor(albumArtCrossfadeTimeline);
 	scenario.rendezvous();
 
 	// step 7 (wait for step 6) - move new album art and track listing to
 	// be side by side.
-	Timeline separateArtAndTracks = new Timeline(this);
-	separateArtAndTracks.addPropertyToInterpolate("overlayPosition", 0.0f, 1.0f);
-	separateArtAndTracks.setDuration(500);
+	Timeline separateArtAndTracks = Timeline.builder(this)
+		.addPropertyToInterpolate("overlayPosition", 0.0f, 1.0f)
+		.setDuration(500)
+		.build();
 	scenario.addScenarioActor(separateArtAndTracks);
 
 	return scenario;
@@ -222,11 +224,12 @@ One last thing to note in the transition scenario:
 
 ```java
 // step 6 (wait for steps 4 and 5) - cross fade album art from old to new
-Timeline albumArtCrossfadeTimeline = new Timeline(this.albumArt);
-albumArtCrossfadeTimeline.addPropertyToInterpolate("oldImageAlpha", 1.0f, 0.0f);
-albumArtCrossfadeTimeline.addPropertyToInterpolate("imageAlpha", 0.0f, 1.0f);
-albumArtCrossfadeTimeline.addCallback(new SwingRepaintCallback(this.albumArt));
-albumArtCrossfadeTimeline.setDuration(400);
+Timeline albumArtCrossfadeTimeline = Timeline.builder(this.albumArt)
+	.addPropertyToInterpolate("oldImageAlpha", 1.0f, 0.0f)
+	.addPropertyToInterpolate("imageAlpha", 0.0f, 1.0f)
+	.addCallback(new SwingRepaintCallback(this.albumArt))
+	.setDuration(400)
+	.build();
 ```
 Note that this timeline is created on the child album art component. After the new album art has been loaded and scaled (in step 4), we initiate the cross-fading timeline on another object – which is fully supported by Trident timelines.
 
@@ -253,11 +256,10 @@ currentlyShownWindow.setBackground(new Color(0, 0, 0, 0));
 currentlyShownWindow.setVisible(true);
 currentlyShownWindow.setAlbum(album);
 
-Timeline showWindow = new Timeline(currentlyShownWindow);
-showWindow.addPropertyToInterpolate(Timeline.<Float>property(
-        "opacity").from(0.0f).to(1.0f));
-showWindow.setDuration(500);
-showWindow.play();
+Timeline.builder(currentlyShownWindow)
+	.addPropertyToInterpolate(Timeline.<Float>property("opacity").from(0.0f).to(1.0f))
+	.setDuration(500)
+	.play();
 ```
 What happens here?
 

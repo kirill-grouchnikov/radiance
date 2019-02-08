@@ -36,14 +36,8 @@ import java.awt.*;
 public class SwingComponentTimeline extends Timeline {
     private boolean forceUiUpdate;
 
-    /**
-     * Constructs a new timeline associated with a Swing component.
-     *
-     * @param mainTimelineComp Main component for this timeline. Must not be <code>null</code>,
-     *                         otherwise an exception will be thrown.
-     */
-    public SwingComponentTimeline(Component mainTimelineComp) {
-        this(mainTimelineComp, false);
+    public static SwingComponentTimeline.Builder componentBuilder(Component component) {
+        return new SwingComponentTimeline.Builder(component);
     }
 
     /**
@@ -56,7 +50,7 @@ public class SwingComponentTimeline extends Timeline {
      *                         {@link SwingToolkitHandler}
      *                         considers the associated component to not be in the ready state.
      */
-    public SwingComponentTimeline(Component mainTimelineComp, boolean forceUiUpdate) {
+    private SwingComponentTimeline(Component mainTimelineComp, boolean forceUiUpdate) {
         super(mainTimelineComp);
         if (mainTimelineComp == null) {
             throw new IllegalArgumentException("Must have non-null component");
@@ -68,4 +62,29 @@ public class SwingComponentTimeline extends Timeline {
     protected boolean shouldForceUiUpdate() {
         return this.forceUiUpdate;
     }
+
+    public static class Builder extends BaseBuilder<SwingComponentTimeline,
+            SwingComponentTimeline.Builder, Component> {
+        private boolean forceUiUpdate;
+
+        public Builder(Component mainObject) {
+            super(mainObject);
+        }
+
+        public Builder setForceUiUpdate(boolean forceUiUpdate) {
+            this.forceUiUpdate = forceUiUpdate;
+            return this;
+        }
+
+        @Override
+        public SwingComponentTimeline build() {
+            SwingComponentTimeline timeline = new SwingComponentTimeline(this.mainObject, false);
+
+            this.configureBaseTimeline(timeline);
+            timeline.forceUiUpdate = this.forceUiUpdate;
+
+            return timeline;
+        }
+    }
+
 }

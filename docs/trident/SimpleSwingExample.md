@@ -19,10 +19,10 @@ public class ButtonFg extends JFrame {
 		this.setLayout(new FlowLayout());
 		this.add(button);
 
-		final Timeline rolloverTimeline = new Timeline(button);
-		rolloverTimeline.addPropertyToInterpolate("foreground", Color.blue,
-				Color.red);
-		rolloverTimeline.setDuration(2500);
+		Timeline rolloverTimeline = SwingComponentTimeline.componentBuilder(button)
+				.addPropertyToInterpolate("foreground", Color.blue, Color.red)
+				.setDuration(2500)
+				.build();
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -41,12 +41,7 @@ public class ButtonFg extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new ButtonFg().setVisible(true);
-			}
-		});
+		SwingUtilities.invokeLater(() -> new ButtonFg().setVisible(true));
 	}
 }
 ```

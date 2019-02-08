@@ -36,11 +36,11 @@ import java.awt.*;
 public class SwingRepaintTimeline extends Timeline {
     private SwingRepaintCallback repaintCallback;
 
-    public SwingRepaintTimeline(Component mainTimelineComp) {
-        this(mainTimelineComp, null);
+    public static SwingRepaintTimeline.Builder repaintBuilder(Component component) {
+        return new SwingRepaintTimeline.Builder(component);
     }
 
-    public SwingRepaintTimeline(Component mainTimelineComp, Rectangle toRepaint) {
+    private SwingRepaintTimeline(Component mainTimelineComp, Rectangle toRepaint) {
         super(mainTimelineComp);
         this.repaintCallback = new SwingRepaintCallback(mainTimelineComp, toRepaint);
         this.addCallback(this.repaintCallback);
@@ -48,14 +48,6 @@ public class SwingRepaintTimeline extends Timeline {
 
     public void forceRepaintOnNextPulse() {
         this.repaintCallback.forceRepaintOnNextPulse();
-    }
-
-    public void setAutoRepaintMode(boolean autoRepaintMode) {
-        this.repaintCallback.setAutoRepaintMode(autoRepaintMode);
-    }
-
-    public void setRepaintRectangle(Rectangle rect) {
-        this.repaintCallback.setRepaintRectangle(rect);
     }
 
     @Override
@@ -84,5 +76,36 @@ public class SwingRepaintTimeline extends Timeline {
             throw new UnsupportedOperationException("Only infinite looping is supported");
         }
         super.playLoop(loopCount, repeatBehavior);
+    }
+
+    public static class Builder extends BaseBuilder<SwingRepaintTimeline,
+            SwingRepaintTimeline.Builder, Component> {
+        private Rectangle toRepaint;
+        private boolean autoRepaintMode = true;
+
+        public Builder(Component mainObject) {
+            super(mainObject);
+        }
+
+        public SwingRepaintTimeline.Builder setRepaintRectangle(Rectangle toRepaint) {
+            this.toRepaint = toRepaint;
+            return this;
+        }
+
+        public SwingRepaintTimeline.Builder setAutoRepaintMode(boolean autoRepaintMode) {
+            this.autoRepaintMode = autoRepaintMode;
+            return this;
+        }
+
+        public SwingRepaintTimeline build() {
+            SwingRepaintTimeline timeline = new SwingRepaintTimeline(this.mainObject,
+                    this.toRepaint);
+
+            this.configureBaseTimeline(timeline);
+
+            timeline.repaintCallback.setAutoRepaintMode(this.autoRepaintMode);
+
+            return timeline;
+        }
     }
 }

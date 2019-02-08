@@ -177,10 +177,12 @@ public class TabPreviewWindow extends JWindow implements ActionListener {
                     public void componentShown(ComponentEvent e) {
                         previewLabel.setVisible(true);
                         // Start fading-in of the image.
-                        Timeline timeline = new SwingComponentTimeline(previewLabel);
-                        AnimationConfigurationManager.getInstance().configureTimeline(timeline);
-                        timeline.addPropertyToInterpolate("alpha", 0.0f, 1.0f);
-                        timeline.play();
+                        SwingComponentTimeline.Builder fadeTimelineBuilder =
+                                SwingComponentTimeline.componentBuilder(previewLabel);
+                        AnimationConfigurationManager.getInstance().configureTimelineBuilder(
+                                fadeTimelineBuilder);
+                        fadeTimelineBuilder.addPropertyToInterpolate("alpha", 0.0f, 1.0f);
+                        fadeTimelineBuilder.play();
                     }
                 });
                 // previewLabel.setBorder(new SubstanceBorder());

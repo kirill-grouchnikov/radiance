@@ -39,9 +39,10 @@ public class CustomPulseSource {
                }
             });
       CustomPulseSource helloWorld = new CustomPulseSource();
-      Timeline timeline = new Timeline(helloWorld);
-      timeline.addPropertyToInterpolate("value", 0.0f, 1.0f);
-      timeline.play();
+
+      Timeline.builder(helloWorld)
+          .addPropertyToInterpolate("value", 0.0f, 1.0f)
+          .play();
 
       try {
          Thread.sleep(3000);

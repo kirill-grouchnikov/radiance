@@ -495,6 +495,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                 JTableHeader header = table.getTableHeader();
                 if (header != null) {
                     header.setEnabled(table.isEnabled());
+                    header.repaint();
                 }
             }
 

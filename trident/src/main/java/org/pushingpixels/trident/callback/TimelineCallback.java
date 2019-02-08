@@ -50,12 +50,12 @@ public interface TimelineCallback {
      *            The current timeline duration fraction.Is guaranteed to be in
      *            0.0-1.0 range. The rate of change of this value is linear, and
      *            the value is proportional to
-     *            {@link Timeline#setDuration(long)}.
+     *            {@link Timeline.BaseBuilder#setDuration(long)}.
      * @param timelinePosition
      *            The current timeline position. Is guaranteed to be in 0.0-1.0
      *            range. The rate of change of this value is not necessarily
      *            linear and is affected by the
-     *            {@link Timeline#setEase(org.pushingpixels.trident.ease.TimelineEase)}
+     *            {@link Timeline.BaseBuilder#setEase(org.pushingpixels.trident.ease.TimelineEase)}
      *            .
      */
     void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
@@ -68,12 +68,12 @@ public interface TimelineCallback {
      *            The current timeline duration fraction.Is guaranteed to be in
      *            0.0-1.0 range. The rate of change of this value is linear, and
      *            the value is proportional to
-     *            {@link Timeline#setDuration(long)}.
+     *            {@link Timeline.BaseBuilder#setDuration(long)}.
      * @param timelinePosition
      *            The current timeline position. Is guaranteed to be in 0.0-1.0
      *            range. The rate of change of this value is not necessarily
      *            linear and is affected by the
-     *            {@link Timeline#setEase(org.pushingpixels.trident.ease.TimelineEase)}
+     *            {@link Timeline.BaseBuilder#setEase(org.pushingpixels.trident.ease.TimelineEase)}
      *            .
      */
     void onTimelinePulse(float durationFraction, float timelinePosition);

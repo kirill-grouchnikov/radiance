@@ -30,8 +30,6 @@
 
 package org.pushingpixels.neon.font;
 
-import javax.swing.*;
-
 /**
  * Looks up and returns a FontSet.
  * 

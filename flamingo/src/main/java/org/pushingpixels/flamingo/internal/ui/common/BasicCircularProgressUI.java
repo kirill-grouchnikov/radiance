@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2017 Flamingo Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Flamingo Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
@@ -41,7 +41,7 @@ import java.beans.*;
 
 /**
  * Basic UI for circular progress {@link JCircularProgress}.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public abstract class BasicCircularProgressUI extends CircularProgressUI {
@@ -101,47 +101,49 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
         // degrees. The constant pace of advancing one of the ends creates a continuous
         // motion around the circle. The expanding / shrinking arc span creates the second
         // dimension of the overall indeterminate progress.
-        this.arcTimeline = new SwingComponentTimeline(this.circularProgress);
-        this.arcTimeline.addPropertyToInterpolate(Timeline.<Double>property("arcSpan")
-                .getWith((Object obj, String fieldName) -> arcSpan)
-                .setWith((Object obj, String fieldName, Double value) -> arcSpan = value).from(30.0)
-                .to(300.0));
-        this.arcTimeline.setEase(new Spline(0.5f));
-        this.arcTimeline.setDuration(600);
-        this.arcTimeline.addCallback(new UIThreadTimelineCallbackAdapter() {
-            private void update() {
-                if (goFromStart) {
-                    arcStart -= 8;
-                    arcEnd = arcStart - arcSpan;
-                } else {
-                    arcEnd -= 8;
-                    arcStart = arcEnd + arcSpan;
-                }
+        this.arcTimeline = SwingComponentTimeline.componentBuilder(this.circularProgress)
+                .addPropertyToInterpolate(Timeline.<Double>property("arcSpan")
+                        .getWith((Object obj, String fieldName) -> arcSpan)
+                        .setWith((Object obj, String fieldName, Double value) -> arcSpan = value)
+                        .from(30.0)
+                        .to(300.0))
+                .setEase(new Spline(0.5f))
+                .setDuration(600)
+                .addCallback(new UIThreadTimelineCallbackAdapter() {
+                    private void update() {
+                        if (goFromStart) {
+                            arcStart -= 8;
+                            arcEnd = arcStart - arcSpan;
+                        } else {
+                            arcEnd -= 8;
+                            arcStart = arcEnd + arcSpan;
+                        }
 
-                arcStart = arcStart % 360;
-                arcEnd = arcEnd % 360;
-                circularProgress.repaint();
-            }
+                        arcStart = arcStart % 360;
+                        arcEnd = arcEnd % 360;
+                        circularProgress.repaint();
+                    }
 
-            @Override
-            public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
-                    float durationFraction, float timelinePosition) {
-                if (oldState == TimelineState.PLAYING_FORWARD
-                        && newState == TimelineState.PLAYING_REVERSE) {
-                    goFromStart = false;
-                }
-                if (oldState == TimelineState.PLAYING_REVERSE
-                        && newState == TimelineState.PLAYING_FORWARD) {
-                    goFromStart = true;
-                }
-                update();
-            }
+                    @Override
+                    public void onTimelineStateChanged(TimelineState oldState,
+                            TimelineState newState,
+                            float durationFraction, float timelinePosition) {
+                        if (oldState == TimelineState.PLAYING_FORWARD
+                                && newState == TimelineState.PLAYING_REVERSE) {
+                            goFromStart = false;
+                        }
+                        if (oldState == TimelineState.PLAYING_REVERSE
+                                && newState == TimelineState.PLAYING_FORWARD) {
+                            goFromStart = true;
+                        }
+                        update();
+                    }
 
-            @Override
-            public void onTimelinePulse(float durationFraction, float timelinePosition) {
-                update();
-            }
-        });
+                    @Override
+                    public void onTimelinePulse(float durationFraction, float timelinePosition) {
+                        update();
+                    }
+                }).build();
 
         this.propertyChangeListener = (PropertyChangeEvent evt) -> {
             if (evt.getPropertyName().equals("visible")) {
@@ -150,17 +152,18 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
                         // is already fading in
                         return;
                     }
-                    
+
                     // The fade-in timeline
-                    alphaTimeline = new SwingComponentTimeline(this.circularProgress);
-                    alphaTimeline.addPropertyToInterpolate(Timeline.<Float>property("alpha")
-                            .getWith((Object obj, String fieldName) -> alpha)
-                            .setWith((Object obj, String fieldName, Float value) -> alpha = value)
-                            .fromCurrent().to(1.0f));
-                    alphaTimeline.setEase(new Spline(0.5f));
-                    alphaTimeline.setDuration(100);
-                    alphaTimeline
-                            .addCallback(new SwingRepaintCallback(this.circularProgress, null));
+                    alphaTimeline = SwingComponentTimeline.componentBuilder(this.circularProgress)
+                            .addPropertyToInterpolate(Timeline.<Float>property("alpha")
+                                    .getWith((Object obj, String fieldName) -> alpha)
+                                    .setWith((Object obj, String fieldName, Float value)
+                                            -> alpha = value)
+                                    .fromCurrent().to(1.0f))
+                            .setEase(new Spline(0.5f))
+                            .setDuration(100)
+                            .addCallback(new SwingRepaintCallback(this.circularProgress, null))
+                            .build();
 
                     // Start playing the timelines in a separate event to make sure that our
                     // progress indicator has passed the layout pass

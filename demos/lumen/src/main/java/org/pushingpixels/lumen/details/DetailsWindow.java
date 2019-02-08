@@ -163,15 +163,15 @@ public class DetailsWindow extends JWindow {
         TimelineScenario.RendezvousSequence scenario = new TimelineScenario.RendezvousSequence();
 
         // step 1 - move album art and track listing to the same location
-        Timeline collapseArtAndTracks = new Timeline(this);
-        collapseArtAndTracks.addPropertyToInterpolate("overlayPosition",
-                this.overlayPosition, 0.0f);
-        collapseArtAndTracks.setDuration((int) (500 * this.overlayPosition));
+        Timeline collapseArtAndTracks = Timeline.builder(this)
+                .addPropertyToInterpolate("overlayPosition", this.overlayPosition, 0.0f)
+                .setDuration((int) (500 * this.overlayPosition))
+                .build();
         scenario.addScenarioActor(collapseArtAndTracks);
 
         // step 2 (in parallel) - load the new album art
         final BufferedImage[] albumArtHolder = new BufferedImage[1];
-        TimelineSwingWorker<Void, Void> loadNewAlbumArt = new TimelineSwingWorker<Void, Void>() {
+        TimelineSwingWorker<Void, Void> loadNewAlbumArt = new TimelineSwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
                 albumArtHolder[0] = BackendConnector.getLargeAlbumArt(album.asin);
@@ -183,7 +183,7 @@ public class DetailsWindow extends JWindow {
         // step 3 (in parallel) - load the track listing
         final java.util.List<Track> tracks = new ArrayList<>();
         TimelineSwingWorker<Void, Void> loadNewAlbumTrackList =
-                new TimelineSwingWorker<Void, Void>() {
+                new TimelineSwingWorker<>() {
                     @Override
                     protected Void doInBackground() throws Exception {
                         tracks.addAll(BackendConnector.doTrackSearch(album.id));
@@ -213,20 +213,22 @@ public class DetailsWindow extends JWindow {
         scenario.rendezvous();
 
         // step 6 (wait for steps 4 and 5) - cross fade album art from old to new
-        Timeline albumArtCrossfadeTimeline = new Timeline(this.albumArt);
-        albumArtCrossfadeTimeline.addPropertyToInterpolate("oldImageAlpha", 1.0f, 0.0f);
-        albumArtCrossfadeTimeline.addPropertyToInterpolate("imageAlpha", 0.0f, 1.0f);
-        albumArtCrossfadeTimeline.addCallback(new SwingRepaintCallback(this.albumArt));
-        albumArtCrossfadeTimeline.setDuration(400);
+        Timeline albumArtCrossfadeTimeline = Timeline.builder(this.albumArt)
+                .addPropertyToInterpolate("oldImageAlpha", 1.0f, 0.0f)
+                .addPropertyToInterpolate("imageAlpha", 0.0f, 1.0f)
+                .addCallback(new SwingRepaintCallback(this.albumArt))
+                .setDuration(400)
+                .build();
 
         scenario.addScenarioActor(albumArtCrossfadeTimeline);
         scenario.rendezvous();
 
         // step 7 (wait for step 6) - move new album art and track listing to
         // be side by side.
-        Timeline separateArtAndTracks = new Timeline(this);
-        separateArtAndTracks.addPropertyToInterpolate("overlayPosition", 0.0f, 1.0f);
-        separateArtAndTracks.setDuration(500);
+        Timeline separateArtAndTracks = Timeline.builder(this)
+                .addPropertyToInterpolate("overlayPosition", 0.0f, 1.0f)
+                .setDuration(500)
+                .build();
         scenario.addScenarioActor(separateArtAndTracks);
 
         return scenario;

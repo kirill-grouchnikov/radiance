@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.substance.main.*;
 import org.pushingpixels.demo.substance.main.Check.MyMainTabPreviewPainter;
-import org.pushingpixels.demo.substance.main.check.selector.SubstanceFontSelector;
 import org.pushingpixels.demo.substance.main.check.svg.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
@@ -40,7 +38,6 @@ import org.pushingpixels.substance.api.icon.SubstanceDefaultIconPack;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
-import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
@@ -70,14 +67,10 @@ public class ControlPanelFactory {
     /**
      * Returns the main control panel.
      *
-     * @param mainFrame
-     *            The main test frame.
-     * @param mainTabbedPane
-     *            The main tabbed pane.
-     * @param mainTabPreviewPainter
-     *            The preview painter of the main tabbed pane.
-     * @param toolbar
-     *            The toolbar of the main test frame.
+     * @param mainFrame             The main test frame.
+     * @param mainTabbedPane        The main tabbed pane.
+     * @param mainTabPreviewPainter The preview painter of the main tabbed pane.
+     * @param toolbar               The toolbar of the main test frame.
      * @return The main control panel.
      */
     public static JPanel getMainControlPanel(final JFrame mainFrame,
@@ -304,8 +297,7 @@ public class ControlPanelFactory {
     /**
      * Returns the control panel for testing dialogs.
      *
-     * @param mainFrame
-     *            The main test frame.
+     * @param mainFrame The main test frame.
      * @return Control panel for testing dialogs.
      */
     public static JPanel getDialogControlPanel(final JFrame mainFrame) {
@@ -366,7 +358,8 @@ public class ControlPanelFactory {
         });
         builder.append("Button bar order", buttonBarOrderCombo);
 
-        final JComboBox buttonBarGravityCombo = new FlexiComboBox<HorizontalGravity>(HorizontalGravity.values()) {
+        final JComboBox buttonBarGravityCombo = new FlexiComboBox<HorizontalGravity>(
+                HorizontalGravity.values()) {
             @Override
             public String getCaption(HorizontalGravity item) {
                 return item.name();
@@ -584,15 +577,16 @@ public class ControlPanelFactory {
                     dialog.add(tabs, BorderLayout.CENTER);
 
                     JLabel instructional = new JLabel("Press Esc to close dialog");
-                    SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(instructional, 1.0);
+                    SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(instructional,
+                            1.0);
                     dialog.add(instructional, BorderLayout.NORTH);
 
                     // create a looping animation to change the label foreground
                     // from black to blue and back to draw some attention.
-                    Timeline instructionalTimeline = new SwingComponentTimeline(instructional);
-                    instructionalTimeline.addPropertyToInterpolate("foreground", Color.black, Color.blue);
-                    instructionalTimeline.setDuration(1000);
-                    instructionalTimeline.playLoop(RepeatBehavior.REVERSE);
+                    SwingComponentTimeline.componentBuilder(instructional)
+                            .addPropertyToInterpolate("foreground", Color.black, Color.blue)
+                            .setDuration(1000)
+                            .playLoop(RepeatBehavior.REVERSE);
 
                     // connect "Esc" key with disposing the dialog
                     String actionName = "VK_ESCAPE";
@@ -624,15 +618,16 @@ public class ControlPanelFactory {
                     dialog.setContentPane(myContentPane);
 
                     JLabel instructional = new JLabel("Press Esc to close dialog");
-                    SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(instructional, 1.0);
+                    SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(instructional,
+                            1.0);
                     dialog.add(instructional, BorderLayout.NORTH);
 
                     // create a looping animation to change the label foreground
                     // from black to blue and back to draw some attention.
-                    Timeline instructionalTimeline = new SwingComponentTimeline(instructional);
-                    instructionalTimeline.addPropertyToInterpolate("foreground", Color.black, Color.blue);
-                    instructionalTimeline.setDuration(1000);
-                    instructionalTimeline.playLoop(RepeatBehavior.REVERSE);
+                    SwingComponentTimeline.componentBuilder(instructional)
+                            .addPropertyToInterpolate("foreground", Color.black, Color.blue)
+                            .setDuration(1000)
+                            .playLoop(RepeatBehavior.REVERSE);
 
                     // connect "Esc" key with "System.exit(0)"
                     String actionName = "VK_ESCAPE";
