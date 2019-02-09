@@ -32,8 +32,11 @@ package org.pushingpixels.neon.internal.font;
 
 import org.pushingpixels.neon.font.*;
 
-import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.text.AttributedCharacterIterator;
+import java.util.Map;
 
 /**
  * Provides predefined FontSet implementations.
@@ -89,8 +92,7 @@ public final class FontSets {
 	 *             if the control font is <code>null</code>
 	 */
 	public static FontSet createDefaultFontSet(Font controlFont, Font menuFont) {
-		return createDefaultFontSet(controlFont, menuFont, null, null, null,
-				null);
+		return createDefaultFontSet(controlFont, menuFont, null, null, null, null);
 	}
 
 	/**
@@ -112,8 +114,7 @@ public final class FontSets {
 	 */
 	public static FontSet createDefaultFontSet(Font controlFont, Font menuFont,
 			Font titleFont) {
-		return createDefaultFontSet(controlFont, menuFont, titleFont, null,
-				null, null);
+		return createDefaultFontSet(controlFont, menuFont, titleFont, null, null, null);
 	}
 
 	/**
@@ -162,6 +163,46 @@ public final class FontSets {
 		return logicalFontSet;
 	}
 
+	public static final class DefaultUIResourceFont extends FontUIResource implements UIResource {
+		public DefaultUIResourceFont(final Font font) {
+			super(font);
+		}
+
+		public DefaultUIResourceFont(final String name, final int style, final int size) {
+			super(name, style, size);
+		}
+
+		@Override
+		public Font deriveFont(final AffineTransform trans) {
+			return new DefaultUIResourceFont(super.deriveFont(trans));
+		}
+
+		@Override
+		public Font deriveFont(final float size) {
+			return new DefaultUIResourceFont(super.deriveFont(size));
+		}
+
+		@Override
+		public Font deriveFont(final int style) {
+			return new DefaultUIResourceFont(super.deriveFont(style));
+		}
+
+		@Override
+		public Font deriveFont(final int style, final AffineTransform trans) {
+			return new DefaultUIResourceFont(super.deriveFont(style, trans));
+		}
+
+		@Override
+		public Font deriveFont(final int style, final float size) {
+			return new DefaultUIResourceFont(super.deriveFont(style, size));
+		}
+
+		@Override
+		public Font deriveFont(final Map<? extends AttributedCharacterIterator.Attribute, ?> attributes) {
+			return new DefaultUIResourceFont(super.deriveFont(attributes));
+		}
+	}
+
 	// Helper Code ************************************************************
 
 	private static final class DefaultFontSet implements FontSet {
@@ -198,17 +239,22 @@ public final class FontSets {
 		 */
 		public DefaultFontSet(Font controlFont, Font menuFont, Font titleFont,
 				Font messageFont, Font smallFont, Font windowTitleFont) {
-			this.controlFont = new FontUIResource(controlFont);
-			this.menuFont = menuFont != null ? new FontUIResource(menuFont)
+			this.controlFont = wrapIfNecessary(controlFont);
+			this.menuFont = (menuFont != null) ? wrapIfNecessary(menuFont) : this.controlFont;
+			this.titleFont = (titleFont != null) ? wrapIfNecessary(titleFont) : this.controlFont;
+			this.messageFont = (messageFont != null) ? wrapIfNecessary(messageFont)
 					: this.controlFont;
-			this.titleFont = titleFont != null ? new FontUIResource(titleFont)
-					: this.controlFont;
-			this.messageFont = messageFont != null ? new FontUIResource(messageFont)
-					: this.controlFont;
-			this.smallFont = new FontUIResource(smallFont != null ? smallFont
+			this.smallFont = wrapIfNecessary(smallFont != null ? smallFont
 					: controlFont.deriveFont(controlFont.getSize2D() - 2f));
-			this.windowTitleFont = windowTitleFont != null ? new FontUIResource(windowTitleFont)
+			this.windowTitleFont = (windowTitleFont != null) ? wrapIfNecessary(windowTitleFont)
 					: this.titleFont;
+		}
+
+		private FontUIResource wrapIfNecessary(Font font) {
+			if (font instanceof DefaultUIResourceFont) {
+				return (DefaultUIResourceFont) font;
+			}
+			return new FontUIResource(font);
 		}
 
 		// FontSet API --------------------------------------------------------

@@ -177,7 +177,7 @@ public class SubstanceLabelUI extends BasicLabelUI {
             return;
         }
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d);
+        NeonCortex.installDesktopHints(g2d, c.getFont());
         this.paint(g2d, c);
         g2d.dispose();
     }

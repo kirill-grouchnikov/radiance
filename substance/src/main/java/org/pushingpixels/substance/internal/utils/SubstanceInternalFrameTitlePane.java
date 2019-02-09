@@ -251,8 +251,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
         String theTitle = this.frame.getTitle();
         String displayTitle = getDisplayTitle();
 
-        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
-                .getWindowTitleFont();
+        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().getWindowTitleFont();
         graphics.setFont(font);
 
         if (displayTitle != null) {

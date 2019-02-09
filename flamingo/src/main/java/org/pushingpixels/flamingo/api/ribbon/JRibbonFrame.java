@@ -169,7 +169,7 @@ public class JRibbonFrame extends JFrame {
                     .getCurrentlyShownKeyTips();
             if (keyTips != null) {
                 Graphics2D g2d = (Graphics2D) g.create();
-                NeonCortex.installDesktopHints(g2d);
+                NeonCortex.installDesktopHints(g2d, getFont());
 
                 for (KeyTipManager.KeyTipLink keyTip : keyTips) {
                     // Components in generic popup panels do not display keytips as that interferes

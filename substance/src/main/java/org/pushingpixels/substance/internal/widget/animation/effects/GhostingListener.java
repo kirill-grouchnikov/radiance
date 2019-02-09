@@ -103,15 +103,11 @@ public class GhostingListener {
         this.prevStateMap.put(AnimationFacet.GHOSTING_BUTTON_PRESS, buttonModel.isPressed());
 
         SwingComponentTimeline.Builder ghostIconRolloverTimelineBuilder =
-                SwingComponentTimeline.componentBuilder(comp);
-        AnimationConfigurationManager.getInstance().configureTimelineBuilder(
-                ghostIconRolloverTimelineBuilder);
+                AnimationConfigurationManager.getInstance().timelineBuilder(comp);
         ghostIconRolloverTimelineBuilder.addCallback(new SwingRepaintCallback(comp));
 
         SwingComponentTimeline.Builder ghostComponentPressedTimelineBuilder =
-                SwingComponentTimeline.componentBuilder(comp);
-        AnimationConfigurationManager.getInstance().configureTimelineBuilder(
-                ghostComponentPressedTimelineBuilder);
+                AnimationConfigurationManager.getInstance().timelineBuilder(comp);
         ghostComponentPressedTimelineBuilder.addCallback(new SwingRepaintCallback(comp));
 
         TimelineCallback ghostCallback = new UIThreadTimelineCallbackAdapter() {

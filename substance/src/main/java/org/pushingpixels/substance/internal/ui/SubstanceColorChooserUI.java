@@ -38,9 +38,7 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.plaf.ComponentUI;
 import java.lang.reflect.Method;
 import java.security.AccessControlException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 /**

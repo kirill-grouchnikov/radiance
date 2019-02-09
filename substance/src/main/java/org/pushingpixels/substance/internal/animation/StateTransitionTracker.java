@@ -183,27 +183,25 @@ public class StateTransitionTracker {
         this.isAutoTrackingModelChanges = true;
         this.eventListenerList = new EventListenerList();
 
-        SwingComponentTimeline.Builder focusTimelineBuilder =
-                SwingComponentTimeline.componentBuilder(this.component);
-        AnimationConfigurationManager.getInstance().configureTimelineBuilder(focusTimelineBuilder);
-        focusTimelineBuilder.addCallback(this.repaintCallback.getRepaintCallback());
-        // notify listeners on focus state transition
-        focusTimelineBuilder.addCallback(new TimelineCallbackAdapter() {
-            @Override
-            public void onTimelineStateChanged(TimelineState oldState,
-                    TimelineState newState, float durationFraction,
-                    float timelinePosition) {
-                SwingUtilities.invokeLater(() -> fireFocusStateTransitionEvent(oldState, newState));
-            }
-        });
-        this.focusTimeline = focusTimelineBuilder.build();
+        this.focusTimeline =
+                AnimationConfigurationManager.getInstance().timelineBuilder(this.component)
+                        .addCallback(this.repaintCallback.getRepaintCallback())
+                        .addCallback(new TimelineCallbackAdapter() {
+                            @Override
+                            public void onTimelineStateChanged(TimelineState oldState,
+                                    TimelineState newState, float durationFraction,
+                                    float timelinePosition) {
+                                // notify listeners on focus state transition
+                                SwingUtilities.invokeLater(
+                                        () -> fireFocusStateTransitionEvent(oldState, newState));
+                            }
+                        })
+                        .build();
 
-        SwingComponentTimeline.Builder focusLoopTimelineBuilder =
-                SwingComponentTimeline.componentBuilder(this.component);
-        AnimationConfigurationManager.getInstance().configureTimelineBuilder(
-                focusLoopTimelineBuilder);
-        focusLoopTimelineBuilder.addCallback(this.repaintCallback.getRepaintCallback());
-        this.focusLoopTimeline = focusLoopTimelineBuilder.build();
+        this.focusLoopTimeline =
+                AnimationConfigurationManager.getInstance().timelineBuilder(this.component)
+                        .addCallback(this.repaintCallback.getRepaintCallback())
+                        .build();
 
         this.iconGlowTracker = new IconGlowTracker(this.component);
 
@@ -328,13 +326,10 @@ public class StateTransitionTracker {
         }
 
         SwingComponentTimeline.Builder transitionTimelineBuilder =
-                SwingComponentTimeline.componentBuilder(this.component)
-                        .setForceUiUpdate(true);
-
-        transitionTimelineBuilder.setName("Model transitions");
-        transitionTimelineBuilder.addCallback(this.repaintCallback.getRepaintCallback());
-        AnimationConfigurationManager.getInstance().configureTimelineBuilder(
-                transitionTimelineBuilder);
+                AnimationConfigurationManager.getInstance().timelineBuilder(this.component)
+                        .setForceUiUpdate(true)
+                        .setName("Model transitions")
+                        .addCallback(this.repaintCallback.getRepaintCallback());
         if (!this.modelStateInfo.currState.isFacetActive(ComponentStateFacet.SELECTION)
                 && newState.isFacetActive(ComponentStateFacet.SELECTION)) {
             // special handling for transition from non-selected to

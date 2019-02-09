@@ -1078,9 +1078,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     Appointment_new.factory(),
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
-                        NeonCortex.installDesktopHints(g2d);
                         g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                                 .getControlFont().deriveFont(9.0f));
+                        NeonCortex.installDesktopHints(g2d, g2d.getFont());
                         g2d.setColor(Color.black);
                         g2d.drawString("" + index, x + 1, y + height - 2);
                         g2d.drawString("" + index, x + 3, y + height - 2);
@@ -1111,9 +1111,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     Appointment_new.factory(),
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
-                        NeonCortex.installDesktopHints(g2d);
                         g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                                 .getControlFont().deriveFont(9.0f));
+                        NeonCortex.installDesktopHints(g2d, g2d.getFont());
                         g2d.setColor(Color.black);
                         g2d.drawString("" + index, x + 1, y + height - 2);
                         g2d.drawString("" + index, x + 3, y + height - 2);
@@ -1569,9 +1569,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(Color.black);
-                        NeonCortex.installDesktopHints(g2d);
                         g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().
                                 getControlFont());
+                        NeonCortex.installDesktopHints(g2d, g2d.getFont());
                         g2d.drawString("" + index, x + 2, y + height - 2);
                         g2d.dispose();
                     });
@@ -2580,7 +2580,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             super.paintComponent(g);
 
             Graphics2D g2d = (Graphics2D) g.create();
-            NeonCortex.installDesktopHints(g2d);
+            NeonCortex.installDesktopHints(g2d, getFont());
 
             g2d.setColor(backgroundFill);
             g2d.fillRect(0, 0, getWidth(), getHeight());

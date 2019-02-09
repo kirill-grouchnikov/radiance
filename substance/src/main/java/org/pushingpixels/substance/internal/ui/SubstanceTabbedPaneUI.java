@@ -35,42 +35,31 @@ import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
+import org.pushingpixels.substance.api.shaper.*;
 import org.pushingpixels.substance.api.tabbed.*;
-import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
-import org.pushingpixels.substance.internal.animation.StateTransitionMultiTracker;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
+import org.pushingpixels.substance.internal.*;
+import org.pushingpixels.substance.internal.animation.*;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker.StateContributionInfo;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
 import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollButton;
 import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.Timeline.TimelineState;
+import org.pushingpixels.trident.Timeline.*;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
+import javax.swing.event.*;
+import javax.swing.plaf.*;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Point2D;
+import java.awt.geom.*;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.*;
+import java.beans.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * UI for tabbed panes in <b>Substance</b> look and feel.
@@ -174,8 +163,9 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
          *            Tab component.
          */
         private void trackTab(final Component tabComponent) {
-            if (tabComponent == null)
+            if (tabComponent == null) {
                 return;
+            }
 
             PropertyChangeListener tabModifiedListener = (PropertyChangeEvent evt) -> {
                 if (SubstanceSynapse.CONTENTS_MODIFIED.equals(evt.getPropertyName())) {
@@ -204,8 +194,9 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             tabComponent.addPropertyChangeListener(tabModifiedListener);
             // fix for defect 135 - memory leaks on tabbed panes
             List<PropertyChangeListener> currList = this.listeners.get(tabComponent);
-            if (currList == null)
-                currList = new LinkedList<PropertyChangeListener>();
+            if (currList == null) {
+                currList = new LinkedList<>();
+            }
             currList.add(tabModifiedListener);
             // System.err.println(this.hashCode() + " adding for " +
             // tabComponent.hashCode());
@@ -232,13 +223,15 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
          *            Tab component.
          */
         private void stopTrackTab(final Component tabComponent) {
-            if (tabComponent == null)
+            if (tabComponent == null) {
                 return;
+            }
 
             List<PropertyChangeListener> pclList = this.listeners.get(tabComponent);
             if (pclList != null) {
-                for (PropertyChangeListener pcl : pclList)
+                for (PropertyChangeListener pcl : pclList) {
                     tabComponent.removePropertyChangeListener(pcl);
+                }
             }
 
             this.listeners.put(tabComponent, null);
@@ -257,8 +250,9 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         @Override
         public void componentAdded(final ContainerEvent e) {
             final Component tabComponent = e.getChild();
-            if (tabComponent instanceof UIResource)
+            if (tabComponent instanceof UIResource) {
                 return;
+            }
             this.trackTab(tabComponent);
         }
 
@@ -266,14 +260,17 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         public void componentRemoved(ContainerEvent e) {
             // fix for defect 135 - memory leaks on tabbed panes
             final Component tabComponent = e.getChild();
-            if (tabComponent == null)
+            if (tabComponent == null) {
                 return;
+            }
             // System.err.println(this.hashCode() + " removing for " +
             // tabComponent.hashCode());
-            if (tabComponent instanceof UIResource)
+            if (tabComponent instanceof UIResource) {
                 return;
-            for (PropertyChangeListener pcl : this.listeners.get(tabComponent))
+            }
+            for (PropertyChangeListener pcl : this.listeners.get(tabComponent)) {
                 tabComponent.removePropertyChangeListener(pcl);
+            }
             this.listeners.get(tabComponent).clear();
             this.listeners.remove(tabComponent);
 
@@ -283,8 +280,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 timeline.cancel();
                 modifiedTimelines.remove(tabComponent);
             }
-
-            // this.cleanListeners(tabComponent);
         }
 
     }
@@ -1202,7 +1197,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 // BasicTabbedPaneUI.ScrollableTabPanel
                 // which does not have the right rendering hints
                 Graphics2D g2d = (Graphics2D) g.create();
-                NeonCortex.installDesktopHints(g2d);
+                NeonCortex.installDesktopHints(g2d, tabPane.getFont());
                 super.paintTab(g2d, tabPlacement, rects, tabIndex, iconRect, textRect);
                 g2d.dispose();
             }
@@ -2275,13 +2270,10 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     }
 
     private void trackTabModification(int tabIndex, Component tabComponent) {
-        SwingComponentTimeline.Builder modifiedTimelineBuilder =
-                SwingComponentTimeline.componentBuilder(this.tabPane);
-        AnimationConfigurationManager.getInstance().configureModifiedTimelineBuilder(
-                modifiedTimelineBuilder);
-        modifiedTimelineBuilder.addCallback(new TabRepaintCallback(tabPane, tabIndex));
-
-        Timeline modifiedTimeline = modifiedTimelineBuilder.build();
+        Timeline modifiedTimeline =
+                AnimationConfigurationManager.getInstance().modifiedTimelineBuilder(this.tabPane)
+                        .addCallback(new TabRepaintCallback(tabPane, tabIndex))
+                        .build();
         modifiedTimeline.playLoop(RepeatBehavior.REVERSE);
         modifiedTimelines.put(tabComponent, modifiedTimeline);
     }
@@ -2289,7 +2281,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d);
+        NeonCortex.installDesktopHints(g2d, c.getFont());
         super.update(g2d, c);
         g2d.dispose();
     }

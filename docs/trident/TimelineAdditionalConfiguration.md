@@ -5,12 +5,12 @@ By default, a Trident timeline runs for 500 milliseconds. To change the default 
 The `Timeline.setInitialDelay(long)` method specifies the number of milliseconds the timeline should wait after the application code to `play()` before starting firing the timeline pulses. For a timeline with no initial delay, the following events [are fired](TimelineLifecycle.md):
 
 * **idle** -> **ready** immediately after call to `Timeline.play()`
-* **ready** -> ** playing forward** immediately afterwards
+* **ready** -> **playing forward** immediately afterwards
 
 For a timeline with non-zero delay, the following events are fired:
 
 * **idle** -> **ready** immediately after call to `Timeline.play()`
-* **ready** -> ** playing forward** after the specified initial delay has passed
+* **ready** -> **playing forward** after the specified initial delay has passed
 
 ### Timeline position
 

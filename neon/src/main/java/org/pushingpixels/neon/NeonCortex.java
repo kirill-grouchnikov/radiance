@@ -36,7 +36,6 @@ import org.pushingpixels.neon.internal.contrib.intellij.*;
 import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.neon.internal.font.*;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.print.PrinterGraphics;
@@ -165,14 +164,27 @@ public class NeonCortex {
         return thumb;
     }
 
-    public static void installDesktopHints(Graphics2D g2) {
+    public static void installDesktopHints(Graphics2D g2, Font font) {
+        // Special case for macOS on Mojave. The default system fonts, if rendered
+        // with the hints returned from the "awt.font.desktophints" property of the
+        // Toolkit, look too thick. Just for this configuration skip setting hints
+        // altogether.
+        boolean isDefaultMojaveFont = (getPlatform() == Platform.MACOS)
+                && LookUtils.IS_OS_MAC_MOJAVE_OR_LATER
+                && (g2.getDeviceConfiguration().getDevice().getType()
+                == GraphicsDevice.TYPE_RASTER_SCREEN)
+                && (font instanceof FontSets.DefaultUIResourceFont);
+        if (isDefaultMojaveFont) {
+            return;
+        }
+
         Map desktopHints = desktopHints(g2);
         if (desktopHints != null && !desktopHints.isEmpty()) {
             g2.addRenderingHints(desktopHints);
         }
     }
 
-    public static void clearDesktopHints(Graphics2D g2) {
+    public static void clearDesktopHints(Graphics2D g2, Font font) {
         GraphicsDevice device = g2.getDeviceConfiguration().getDevice();
         String deviceId = device.getIDstring();
         desktopHintsCache.remove(deviceId);
@@ -185,14 +197,15 @@ public class NeonCortex {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         GraphicsDevice device = g2.getDeviceConfiguration().getDevice();
         String deviceId = device.getIDstring();
-        if (!desktopHintsCache.containsKey(deviceId)) {
-            Map desktopHints = (Map) toolkit.getDesktopProperty(PROP_DESKTOPHINTS + '.'
-                    + device.getIDstring());
+        String key = deviceId;
+        if (!desktopHintsCache.containsKey(key)) {
+            Map desktopHints = (Map) toolkit.getDesktopProperty(PROP_DESKTOPHINTS + '.' + deviceId);
             if (desktopHints == null) {
                 desktopHints = (Map) toolkit.getDesktopProperty(PROP_DESKTOPHINTS);
             }
+
             // It is possible to get a non-empty map but with disabled AA.
-            if (desktopHints != null) {
+            if ((desktopHints != null)) {
                 Object aaHint = desktopHints.get(RenderingHints.KEY_TEXT_ANTIALIASING);
                 if ((aaHint == RenderingHints.VALUE_TEXT_ANTIALIAS_OFF)
                         || (aaHint == RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT)) {
@@ -203,16 +216,10 @@ public class NeonCortex {
             if (desktopHints == null) {
                 desktopHints = new HashMap();
             }
-            if (getPlatform() == Platform.MACOS && LookUtils.IS_OS_MAC_MOJAVE_OR_LATER
-                    && (device.getType() == GraphicsDevice.TYPE_RASTER_SCREEN)) {
-                desktopHints.put(RenderingHints.KEY_TEXT_ANTIALIASING,
-                        RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-            }
-
-            desktopHintsCache.put(deviceId, desktopHints);
+            desktopHintsCache.put(key, desktopHints);
         }
 
-        return desktopHintsCache.get(deviceId);
+        return desktopHintsCache.get(key);
     }
 
     private static boolean isPrinting(Graphics g) {

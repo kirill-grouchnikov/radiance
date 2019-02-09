@@ -120,11 +120,15 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
             FontSet substanceFontSet = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet();
             Font controlFont = substanceFontSet.getControlFont();
 
-            Font fontBoldBaseP1 = new FontUIResource(controlFont.deriveFont(
-                    Font.BOLD, controlFont.getSize() + 1));
+            Font fontBoldBaseP1 = controlFont.deriveFont(Font.BOLD, controlFont.getSize() + 1);
+            if (!(fontBoldBaseP1 instanceof FontUIResource)) {
+                fontBoldBaseP1 = new FontUIResource(fontBoldBaseP1);
+            }
 
-            Font fontPlainBaseM2 = new FontUIResource(controlFont
-                    .deriveFont((float) (controlFont.getSize() - 2)));
+            Font fontPlainBaseM2 = controlFont.deriveFont((float) (controlFont.getSize() - 2));
+            if (!(fontPlainBaseM2 instanceof FontUIResource)) {
+                fontPlainBaseM2 = new FontUIResource(fontPlainBaseM2);
+            }
 
             Object[] colorDefaults = new Object[]{
                     "ColorChooserUI", SubstanceColorChooserUI.class.getName(),

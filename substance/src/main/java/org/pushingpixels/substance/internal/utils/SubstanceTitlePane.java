@@ -264,7 +264,7 @@ public class SubstanceTitlePane extends JComponent {
             int strH = fm.getAscent() + fm.getDescent();
 
             graphics.setColor(scheme.getForegroundColor());
-            NeonCortex.installDesktopHints(graphics);
+            NeonCortex.installDesktopHints(graphics, this.font);
             if (strW < (w - 5)) {
                 graphics.drawString(longFormat.toString(), (w - strW) / 2, (h + strH) / 2 - 2);
             } else {
@@ -285,7 +285,7 @@ public class SubstanceTitlePane extends JComponent {
         public int getPreferredWidth() {
             BufferedImage dummy = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2d = dummy.createGraphics();
-            NeonCortex.installDesktopHints(g2d);
+            NeonCortex.installDesktopHints(g2d, this.font);
             g2d.setFont(this.font);
             FontMetrics fm = g2d.getFontMetrics();
             int result = fm.stringWidth("100.9MB / 200.9MB");
@@ -651,7 +651,8 @@ public class SubstanceTitlePane extends JComponent {
      * Installs the fonts and necessary properties.
      */
     private void installDefaults() {
-        this.setFont(UIManager.getFont("InternalFrame.titleFont", this.getLocale()));
+        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().getWindowTitleFont();
+        this.setFont(font);
     }
 
     /**

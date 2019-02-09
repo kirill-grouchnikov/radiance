@@ -393,7 +393,7 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
                 // caption
                 if (zoomBubble.caption != null && !zoomBubble.isInTextEdit) {
                     val font = SubstanceCortex.GlobalScope.getFontPolicy()
-                            .getFontSet().controlFont
+                            .fontSet.controlFont
                     g2d.font = font
                     val strWidth = g2d.fontMetrics.stringWidth(zoomBubble.caption!!)
                     val fontHeight = g2d.fontMetrics.height
@@ -443,7 +443,7 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
 
                     g2d.translate(-x, -y)
 
-                    NeonCortex.installDesktopHints(g2d)
+                    NeonCortex.installDesktopHints(g2d, g2d.font)
                     val textY = y + 4 + g2d.fontMetrics.ascent
                     val textX = if (zoomBubble.captionOffsetX < 0)
                         x + captionHeight / 6 + 4

@@ -37,6 +37,24 @@ import org.pushingpixels.trident.interpolator.KeyFrames;
 
 import java.util.*;
 
+/**
+ * The main entry point into Trident. Use {@link #builder()} or {@link #builder(Object)}
+ * and methods on the {@link Timeline.BaseBuilder} to configure one or more properties to
+ * be interpolated over a period of time. In the simplest case, a timeline operates on
+ * a single object passed to {@link #builder(Object)}, and one or more properties that have
+ * matching public setters. In that case, use the
+ * {@link Timeline.BaseBuilder#addPropertyToInterpolate(String, Object, Object)} API to configure
+ * which properties should be interpolated.
+ *
+ * In a more complex case, use
+ * {@link Timeline.BaseBuilder#addPropertyToInterpolate(TimelinePropertyBuilder)} together with
+ * {@link Timeline#property(String)} and {@link TimelinePropertyBuilder#on(Object)} to interpolate
+ * properties of multiple objects.
+ * {@link TimelinePropertyBuilder#setWith(TimelinePropertyBuilder.PropertySetter)},
+ * {@link TimelinePropertyBuilder#getWith(TimelinePropertyBuilder.PropertyGetter)} and
+ * {@link TimelinePropertyBuilder#accessWith(TimelinePropertyBuilder.PropertyAccessor)}
+ * can be used to work with properties that are not exposed via public setters or getters.
+ */
 public class Timeline implements TimelineScenario.TimelineScenarioActor {
     private Object mainObject;
 

@@ -48,8 +48,8 @@ public class DefaultMacFontPolicy implements FontPolicy {
         } else if (LookUtils.IS_OS_MAC_YOSEMITE) {
             fontFamily = ".Helvetica Neue DeskInterface";
         }
-        Font controlFont = new Font(fontFamily, Font.PLAIN, 13);
-        Font menuFont = new Font(fontFamily, Font.PLAIN, 14);
+        Font controlFont = new FontSets.DefaultUIResourceFont(fontFamily, Font.PLAIN, 13);
+        Font menuFont = new FontSets.DefaultUIResourceFont(fontFamily, Font.PLAIN, 14);
         Font titleFont = menuFont;
         Font messageFont = controlFont;
         Font smallFont = controlFont.deriveFont(controlFont.getSize2D() - 2f);

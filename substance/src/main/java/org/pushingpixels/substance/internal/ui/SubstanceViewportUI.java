@@ -30,13 +30,10 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
+import javax.swing.plaf.*;
 import javax.swing.plaf.basic.BasicViewportUI;
 import java.awt.*;
 

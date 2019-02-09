@@ -61,10 +61,10 @@ public class SubstanceMetricsUtilities {
         }
 
         Graphics2D g2d = offscreen.createGraphics();
-        NeonCortex.installDesktopHints(g2d);
         g2d.setFont(font);
+        NeonCortex.installDesktopHints(g2d, font);
         FontMetrics result = g2d.getFontMetrics();
-        NeonCortex.clearDesktopHints(g2d);
+        NeonCortex.clearDesktopHints(g2d, font);
         g2d.dispose();
 
         metricsMap.put(font, result);
@@ -78,10 +78,10 @@ public class SubstanceMetricsUtilities {
         }
 
         Graphics2D g2d = offscreen.createGraphics();
-        NeonCortex.installDesktopHints(g2d);
         g2d.setFont(font);
+        NeonCortex.installDesktopHints(g2d, font);
         FontRenderContext result = g2d.getFontRenderContext();
-        NeonCortex.clearDesktopHints(g2d);
+        NeonCortex.clearDesktopHints(g2d, font);
         g2d.dispose();
 
         renderContextMap.put(font, result);

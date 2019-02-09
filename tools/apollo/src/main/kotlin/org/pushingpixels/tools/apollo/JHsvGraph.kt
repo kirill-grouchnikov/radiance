@@ -54,7 +54,9 @@ class JHsvGraph : JComponent() {
         val h = height
 
         g.render {
-            NeonCortex.installDesktopHints(it)
+            it.font = SubstanceCortex.GlobalScope.getFontPolicy().fontSet.controlFont
+                    .deriveFont(Font.BOLD)
+            NeonCortex.installDesktopHints(it, it.font)
 
             it.color = Color.black
 
@@ -136,8 +138,6 @@ class JHsvGraph : JComponent() {
                     }
                 }
 
-                it.font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
-                        .deriveFont(Font.BOLD)
                 val labelWidth = it.fontMetrics.stringWidth("WWW") + 20
                 var xLabel = xOffset + (w - xOffset - 3 * labelWidth) / 2
 

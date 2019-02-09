@@ -227,7 +227,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d);
+        NeonCortex.installDesktopHints(g2d, this.ribbonBand.getFont());
         GhostPaintingUtils.paintGhostImages(c, g2d);
         super.update(g2d, c);
         g2d.dispose();

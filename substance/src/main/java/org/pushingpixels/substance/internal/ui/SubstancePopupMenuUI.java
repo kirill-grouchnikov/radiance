@@ -34,13 +34,11 @@ import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.menu.MenuUtilities;
 
 import javax.swing.*;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
+import javax.swing.event.*;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicPopupMenuUI;
 import java.awt.*;
-import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
+import java.awt.event.*;
 
 /**
  * UI for popup menus in <b>Substance</b> look and feel.

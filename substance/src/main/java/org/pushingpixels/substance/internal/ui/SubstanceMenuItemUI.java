@@ -30,22 +30,17 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
-import org.pushingpixels.substance.internal.utils.RolloverMenuItemListener;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
-import org.pushingpixels.substance.internal.utils.menu.MenuUtilities;
+import org.pushingpixels.substance.internal.animation.*;
+import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.menu.*;
 import org.pushingpixels.substance.internal.utils.menu.MenuUtilities.MenuPropertyListener;
-import org.pushingpixels.substance.internal.utils.menu.SubstanceMenu;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicMenuItemUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 
 /**
  * UI for menu items in <b>Substance</b> look and feel.
@@ -194,7 +189,7 @@ public class SubstanceMenuItemUI extends BasicMenuItemUI implements
 	@Override
 	public void update(Graphics g, JComponent c) {
 		Graphics2D g2d = (Graphics2D) g.create();
-		NeonCortex.installDesktopHints(g2d);
+		NeonCortex.installDesktopHints(g2d, c.getFont());
 		super.update(g2d, c);
 		g2d.dispose();
 	}

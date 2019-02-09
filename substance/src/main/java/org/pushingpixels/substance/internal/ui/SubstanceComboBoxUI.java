@@ -31,7 +31,6 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
-import org.pushingpixels.substance.api.shaper.*;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.animation.*;
 import org.pushingpixels.substance.internal.utils.*;
@@ -580,7 +579,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d);
+        NeonCortex.installDesktopHints(g2d, c.getFont());
         this.paint(g2d, c);
         g2d.dispose();
     }

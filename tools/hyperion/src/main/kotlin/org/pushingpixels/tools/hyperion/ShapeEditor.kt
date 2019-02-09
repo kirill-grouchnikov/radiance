@@ -213,12 +213,12 @@ class ShapeEditor : JFrame() {
             g.render {
                 it.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON)
-                NeonCortex.installDesktopHints(it)
+                val controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
+                it.font = controlFont.deriveFont(10f)
+                NeonCortex.installDesktopHints(it, it.font)
 
                 val width = this.width
                 val height = this.height
-                val controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
-                it.font = controlFont.deriveFont(10f)
 
                 // image
                 if (this.image != null && this.editorFrame.isShowImage) {

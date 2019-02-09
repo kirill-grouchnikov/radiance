@@ -30,30 +30,22 @@
 package org.pushingpixels.substance.internal.widget.scroll;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.preview.PreviewPainter;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.WidgetUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
-import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
-import javax.swing.event.MouseInputListener;
+import javax.swing.event.*;
 import java.awt.*;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.ContainerEvent;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 import java.util.EnumSet;
 
 /**
@@ -66,7 +58,7 @@ import java.util.EnumSet;
  * <p>
  * Contributed by the original author under BSD license. Also appears in the
  * <a href="https://jdnc-incubator.dev.java.net">JDNC Incubator</a>.
- * 
+ *
  * @author weebib (Pierre LE LANNIC)
  * @author Kirill Grouchnikov (animations).
  */
@@ -235,8 +227,9 @@ public class ScrollPaneSelector extends JComponent {
 
     // -- Private methods ------
     void installOnScrollPane(JScrollPane aScrollPane) {
-        if (theScrollPane != null)
+        if (theScrollPane != null) {
             uninstallFromScrollPane();
+        }
         theScrollPane = aScrollPane;
         theFormerLayoutManager = theScrollPane.getLayout();
         theScrollPane.setLayout(new TweakedScrollPaneLayout());
@@ -248,19 +241,21 @@ public class ScrollPaneSelector extends JComponent {
         theComponent = (comp instanceof JComponent) ? (JComponent) comp : null;
 
         int dimension = UIManager.getInt("ScrollBar.width") - 4;
-        this.theButton.setIcon(new TransitionAwareIcon(
-                this.theButton, (SubstanceColorScheme scheme) -> SubstanceCortex.GlobalScope
-                        .getIconPack().getInspectIcon(dimension, scheme),
+        this.theButton.setIcon(new TransitionAwareIcon(this.theButton,
+                (SubstanceColorScheme scheme) ->
+                        SubstanceCortex.GlobalScope.getIconPack().getInspectIcon(dimension, scheme),
                 "substance.widget.scroll.selector"));
 
         theScrollPane.doLayout();
     }
 
     void uninstallFromScrollPane() {
-        if (theScrollPane == null)
+        if (theScrollPane == null) {
             return;
-        if (thePopupMenu.isVisible())
+        }
+        if (thePopupMenu.isVisible()) {
             thePopupMenu.setVisible(false);
+        }
         theScrollPane.setCorner(JScrollPane.LOWER_TRAILING_CORNER, null);
         theScrollPane.removePropertyChangeListener(COMPONENT_ORIENTATION, propertyChangeListener);
         theScrollPane.getViewport().removeContainerListener(theViewPortViewListener);
@@ -270,12 +265,14 @@ public class ScrollPaneSelector extends JComponent {
     }
 
     private void display(Point aPointOnScreen) {
-        if (theComponent == null)
+        if (theComponent == null) {
             return;
+        }
 
         PreviewPainter previewPainter = WidgetUtilities.getComponentPreviewPainter(theScrollPane);
-        if (!previewPainter.hasPreview(theComponent.getParent(), theComponent, 0))
+        if (!previewPainter.hasPreview(theComponent.getParent(), theComponent, 0)) {
             return;
+        }
 
         Dimension pDimension = previewPainter.getPreviewWindowDimension(theComponent.getParent(),
                 theComponent, 0);
@@ -344,38 +341,39 @@ public class ScrollPaneSelector extends JComponent {
     }
 
     private void scroll(final int aDeltaX, final int aDeltaY, boolean toAnimate) {
-        if (theComponent == null)
+        if (theComponent == null) {
             return;
+        }
         final Rectangle oldRectangle = theComponent.getVisibleRect();
         final Rectangle newRectangle = new Rectangle(oldRectangle.x + aDeltaX,
                 oldRectangle.y + aDeltaY, oldRectangle.width, oldRectangle.height);
 
         // Animate scrolling
         if (toAnimate) {
-            SwingComponentTimeline.Builder scrollTimelineBuilder =
-                    SwingComponentTimeline.componentBuilder(theComponent);
-            AnimationConfigurationManager.getInstance().configureTimelineBuilder(
-                    scrollTimelineBuilder);
-            scrollTimelineBuilder.addCallback(new UIThreadTimelineCallbackAdapter() {
-                @Override
-                public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
-                        float durationFraction, float timelinePosition) {
-                    if ((oldState == TimelineState.DONE) && (newState == TimelineState.IDLE)) {
-                        theComponent.scrollRectToVisible(newRectangle);
-                        syncRectangle();
-                    }
-                }
+            AnimationConfigurationManager.getInstance().timelineBuilder(theComponent)
+                    .addCallback(new UIThreadTimelineCallbackAdapter() {
+                        @Override
+                        public void onTimelineStateChanged(TimelineState oldState,
+                                TimelineState newState,
+                                float durationFraction, float timelinePosition) {
+                            if ((oldState == TimelineState.DONE) &&
+                                    (newState == TimelineState.IDLE)) {
+                                theComponent.scrollRectToVisible(newRectangle);
+                                syncRectangle();
+                            }
+                        }
 
-                @Override
-                public void onTimelinePulse(float durationFraction, float timelinePosition) {
-                    int x = (int) (oldRectangle.x + timelinePosition * aDeltaX);
-                    int y = (int) (oldRectangle.y + timelinePosition * aDeltaY);
-                    theComponent.scrollRectToVisible(
-                            new Rectangle(x, y, oldRectangle.width, oldRectangle.height));
-                    syncRectangle();
-                }
-            });
-            scrollTimelineBuilder.play();
+                        @Override
+                        public void onTimelinePulse(float durationFraction,
+                                float timelinePosition) {
+                            int x = (int) (oldRectangle.x + timelinePosition * aDeltaX);
+                            int y = (int) (oldRectangle.y + timelinePosition * aDeltaY);
+                            theComponent.scrollRectToVisible(
+                                    new Rectangle(x, y, oldRectangle.width, oldRectangle.height));
+                            syncRectangle();
+                        }
+                    })
+                    .play();
         } else {
             theComponent.scrollRectToVisible(newRectangle);
             syncRectangle();

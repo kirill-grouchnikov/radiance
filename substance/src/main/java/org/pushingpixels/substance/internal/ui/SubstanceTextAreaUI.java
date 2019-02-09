@@ -30,25 +30,18 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
-import org.pushingpixels.substance.internal.utils.RolloverTextControlListener;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
+import org.pushingpixels.substance.internal.animation.*;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
+import javax.swing.plaf.*;
 import javax.swing.plaf.basic.BasicTextAreaUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 import java.util.Set;
 
 /**
@@ -231,7 +224,7 @@ public class SubstanceTextAreaUI extends BasicTextAreaUI implements TransitionAw
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d);
+        NeonCortex.installDesktopHints(g2d, c.getFont());
         super.update(g2d, c);
         g2d.dispose();
     }

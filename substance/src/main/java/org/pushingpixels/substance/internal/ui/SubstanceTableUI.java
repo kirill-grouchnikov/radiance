@@ -30,21 +30,13 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
-import org.pushingpixels.substance.api.SubstanceSlices.Side;
+import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.renderer.SubstanceDefaultTableCellRenderer;
-import org.pushingpixels.substance.api.renderer.SubstanceDefaultTableHeaderCellRenderer;
-import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.animation.StateTransitionMultiTracker;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
+import org.pushingpixels.substance.api.renderer.*;
+import org.pushingpixels.substance.internal.*;
+import org.pushingpixels.substance.internal.animation.*;
+import org.pushingpixels.substance.internal.painter.*;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
@@ -53,17 +45,14 @@ import javax.swing.*;
 import javax.swing.RowSorter.SortKey;
 import javax.swing.border.Border;
 import javax.swing.event.*;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.TableHeaderUI;
-import javax.swing.plaf.UIResource;
+import javax.swing.plaf.*;
 import javax.swing.plaf.basic.BasicTableUI;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.*;
+import java.beans.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * UI for tables in <b>Substance</b> look and feel. Unfortunately, the entire painting stack has
@@ -2220,7 +2209,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
     public void update(Graphics g, JComponent c) {
         BackgroundPaintingUtils.updateIfOpaque(g, c);
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d);
+        NeonCortex.installDesktopHints(g2d, c.getFont());
         SubstanceStripingUtils.setup(c);
         this.updateInfo = new TableUpdateOptimizationInfo();
         this.paint(g2d, c);

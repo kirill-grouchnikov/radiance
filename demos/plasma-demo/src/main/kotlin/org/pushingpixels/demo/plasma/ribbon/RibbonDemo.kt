@@ -116,7 +116,7 @@ class RulerPanel : JPanel() {
         super.paintComponent(g)
 
         g.render {
-            NeonCortex.installDesktopHints(it)
+            NeonCortex.installDesktopHints(it, font)
             it.color = backgroundFill
             it.fillRect(0, 0, width, height)
 
@@ -375,9 +375,9 @@ private class RibbonDemoBuilder {
                                 DecoratedResizableIcon.IconDecorator { _, graphics, x, y, _, height ->
                                     graphics.render {
                                         it.color = Color.black
-                                        NeonCortex.installDesktopHints(it)
                                         it.font = SubstanceCortex.GlobalScope.getFontPolicy()
                                                 .getFontSet().controlFont
+                                        NeonCortex.installDesktopHints(it, it.font)
                                         it.drawString("$i", x + 2, y + height - 2)
                                     }
                                 })
@@ -396,9 +396,9 @@ private class RibbonDemoBuilder {
                                 DecoratedResizableIcon.IconDecorator { _, graphics, x, y, _, height ->
                                     graphics.render {
                                         it.color = Color.black
-                                        NeonCortex.installDesktopHints(it)
                                         it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                .getFontSet().controlFont
+                                                .fontSet.controlFont
+                                        NeonCortex.installDesktopHints(it, it.font)
                                         it.drawString("$i", x + 2, y + height - 2)
                                     }
                                 })
@@ -630,8 +630,8 @@ private class RibbonDemoBuilder {
                                                     graphics.render {
                                                         it.color = Color.black
                                                         it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                                .getFontSet().controlFont
-                                                        NeonCortex.installDesktopHints(it)
+                                                                .fontSet.controlFont
+                                                        NeonCortex.installDesktopHints(it, it.font)
                                                         it.drawString("" + i, x + 2, y + height - 2)
                                                     }
                                                 })
@@ -1377,9 +1377,9 @@ private class RibbonDemoBuilder {
                                         Appointment_new.factory(),
                                         DecoratedResizableIcon.IconDecorator { _, g, x, y, _, height ->
                                             g.render {
-                                                NeonCortex.installDesktopHints(it)
                                                 it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                        .getFontSet().controlFont.deriveFont(9.0f)
+                                                        .fontSet.controlFont.deriveFont(9.0f)
+                                                NeonCortex.installDesktopHints(it, it.font)
                                                 it.color = Color.black
                                                 it.drawString("" + i, x + 1, y + height - 2)
                                                 it.drawString("" + i, x + 3, y + height - 2)
@@ -1405,9 +1405,9 @@ private class RibbonDemoBuilder {
                                         Appointment_new.factory(),
                                         DecoratedResizableIcon.IconDecorator { _, g, x, y, _, height ->
                                             g.render {
-                                                NeonCortex.installDesktopHints(it)
                                                 it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                        .getFontSet().controlFont.deriveFont(9.0f)
+                                                        .fontSet.controlFont.deriveFont(9.0f)
+                                                NeonCortex.installDesktopHints(it, it.font)
                                                 it.color = Color.black
                                                 it.drawString("" + i, x + 1, y + height - 2)
                                                 it.drawString("" + i, x + 3, y + height - 2)

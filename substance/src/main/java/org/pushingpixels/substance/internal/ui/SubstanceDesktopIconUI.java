@@ -31,16 +31,13 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceWidget;
-import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceInternalFrameTitlePane;
+import org.pushingpixels.substance.internal.*;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.JInternalFrame.JDesktopIcon;
 import javax.swing.event.MouseInputListener;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
+import javax.swing.plaf.*;
 import javax.swing.plaf.basic.BasicDesktopIconUI;
 import java.awt.*;
 import java.util.Set;

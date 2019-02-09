@@ -72,7 +72,7 @@ public class LumenUtils {
 
     public static int paintMultilineText(Graphics2D g2d, String text,
             int textX, int textWidth, int textY, int maxTextLineCount) {
-        NeonCortex.installDesktopHints(g2d);
+        NeonCortex.installDesktopHints(g2d, g2d.getFont());
         FontRenderContext frc = new FontRenderContext(new AffineTransform(),
                 true, false);
         int fa = g2d.getFontMetrics().getAscent();

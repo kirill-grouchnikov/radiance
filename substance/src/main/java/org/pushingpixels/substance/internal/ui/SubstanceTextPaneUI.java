@@ -217,7 +217,7 @@ public class SubstanceTextPaneUI extends BasicTextPaneUI implements TransitionAw
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d);
+        NeonCortex.installDesktopHints(g2d, c.getFont());
         super.update(g2d, c);
         g2d.dispose();
     }

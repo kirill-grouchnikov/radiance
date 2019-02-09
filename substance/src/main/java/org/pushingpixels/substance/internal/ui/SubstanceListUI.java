@@ -666,7 +666,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
         BackgroundPaintingUtils.updateIfOpaque(g, c);
 
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d);
+        NeonCortex.installDesktopHints(g2d, c.getFont());
         SubstanceStripingUtils.setup(c);
         this.updateInfo = new UpdateOptimizationInfo(c);
         this.paint(g2d, c);

@@ -31,8 +31,7 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
+import org.pushingpixels.substance.internal.painter.*;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 

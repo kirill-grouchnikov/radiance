@@ -85,7 +85,7 @@ public class SubstanceTextUtilities {
     public static void paintTextWithDropShadow(JComponent c, Graphics g, Color foregroundColor,
             Color echoColor, String text, int width, int height, int xOffset, int yOffset) {
         Graphics2D graphics = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(graphics);
+        NeonCortex.installDesktopHints(graphics, c.getFont());
 
         // blur the text shadow
         BufferedImage blurred = SubstanceCoreUtilities.getBlankImage(width, height);

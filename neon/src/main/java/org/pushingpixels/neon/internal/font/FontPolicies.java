@@ -175,7 +175,7 @@ public final class FontPolicies {
 			if (windowsControlFont != null) {
 				controlFont = windowsControlFont;
 			} else {
-				controlFont = new Font("Dialog", Font.PLAIN, 12);
+				controlFont = new FontSets.DefaultUIResourceFont("Dialog", Font.PLAIN, 12);
 			}
 			Font menuFont = controlFont;
 			Font titleFont = controlFont;

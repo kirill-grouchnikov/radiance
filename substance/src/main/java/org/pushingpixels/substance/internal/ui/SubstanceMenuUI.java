@@ -31,14 +31,11 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
-import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.animation.*;
+import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.icon.MenuArrowIcon;
-import org.pushingpixels.substance.internal.utils.menu.MenuUtilities;
+import org.pushingpixels.substance.internal.utils.menu.*;
 import org.pushingpixels.substance.internal.utils.menu.MenuUtilities.MenuPropertyListener;
-import org.pushingpixels.substance.internal.utils.menu.SubstanceMenu;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 
 import javax.swing.*;
@@ -46,8 +43,7 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicMenuUI;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.beans.*;
 
 /**
  * UI for menus in <b>Substance</b> look and feel.
@@ -288,7 +284,7 @@ public class SubstanceMenuUI extends BasicMenuUI implements SubstanceMenu,
 	@Override
 	public void update(Graphics g, JComponent c) {
 		Graphics2D g2d = (Graphics2D) g.create();
-		NeonCortex.installDesktopHints(g2d);
+		NeonCortex.installDesktopHints(g2d, c.getFont());
 		super.update(g2d, c);
 		GhostPaintingUtils.paintGhostImages(c, g2d);
 		g2d.dispose();

@@ -103,22 +103,19 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
                 displayTimeline.abort();
             }
 
-            SwingComponentTimeline.Builder displayTimelineBuilder =
-                    SwingComponentTimeline.componentBuilder(progressBar);
-            AnimationConfigurationManager.getInstance().configureTimelineBuilder(
-                    displayTimelineBuilder);
-            displayTimelineBuilder.addPropertyToInterpolate(
-                    Timeline.<Integer>property("displayedValue")
-                            .from(displayedValue)
-                            .to(currValue)
-                            .setWith((Object obj, String fieldName, Integer value) -> {
-                                displayedValue = value;
-                                if (progressBar != null) {
-                                    progressBar.repaint();
-                                }
-                            }));
-            displayTimelineBuilder.setEase(new Spline(0.4f));
-            displayTimeline = displayTimelineBuilder.build();
+            displayTimeline =
+                    AnimationConfigurationManager.getInstance().timelineBuilder(progressBar)
+                            .addPropertyToInterpolate(Timeline.<Integer>property("displayedValue")
+                                    .from(displayedValue)
+                                    .to(currValue)
+                                    .setWith((Object obj, String fieldName, Integer value) -> {
+                                        displayedValue = value;
+                                        if (progressBar != null) {
+                                            progressBar.repaint();
+                                        }
+                                    }))
+                            .setEase(new Spline(0.4f))
+                            .build();
 
             // Do not animate progress bars used in cell renderers
             // since in this case it will most probably be the
@@ -686,7 +683,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d);
+        NeonCortex.installDesktopHints(g2d, c.getFont());
         super.update(g2d, c);
         g2d.dispose();
     }

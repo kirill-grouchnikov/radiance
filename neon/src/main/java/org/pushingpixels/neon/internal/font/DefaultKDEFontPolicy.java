@@ -245,9 +245,9 @@ public class DefaultKDEFontPolicy implements FontPolicy {
 
 		// </editor-fold>
 
-		Font commonFont = new Font(commonFamily, commonStyle, commonSize);
-		Font menuFont = new Font(menuFamily, menuStyle, menuSize);
-		Font titleFont = new Font(titleFamily, titleStyle, titleSize);
+		Font commonFont = new FontSets.DefaultUIResourceFont(commonFamily, commonStyle, commonSize);
+		Font menuFont = new FontSets.DefaultUIResourceFont(menuFamily, menuStyle, menuSize);
+		Font titleFont = new FontSets.DefaultUIResourceFont(titleFamily, titleStyle, titleSize);
 
 		return FontSets.createDefaultFontSet(commonFont, menuFont, commonFont,
 				commonFont, commonFont, titleFont);

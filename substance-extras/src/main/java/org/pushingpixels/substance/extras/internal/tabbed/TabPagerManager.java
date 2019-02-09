@@ -1,61 +1,49 @@
 /*
  * Copyright (c) 2005-2019 Substance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of Substance Kirill Grouchnikov nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of Substance Kirill Grouchnikov nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.substance.extras.internal.tabbed;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-
-import javax.swing.JTabbedPane;
-import javax.swing.JWindow;
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter;
-import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.TabPreviewCallback;
-import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.TabPreviewInfo;
+import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.*;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Tab pager manager.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class TabPagerManager {
@@ -110,7 +98,7 @@ public class TabPagerManager {
 
     /**
      * Implementation of the tab preview callback for the tab pager.
-     * 
+     *
      * @author Kirill Grouchnikov.
      */
     public class TabPagerPreviewCallback implements TabPreviewCallback {
@@ -126,13 +114,10 @@ public class TabPagerManager {
 
         /**
          * Creates a new tab preview callback for the tab pager.
-         * 
-         * @param previewWindow
-         *            The associated preview window.
-         * @param tabPane
-         *            The associated tab preview control.
-         * @param tabIndex
-         *            Tab index.
+         *
+         * @param previewWindow The associated preview window.
+         * @param tabPane       The associated tab preview control.
+         * @param tabIndex      Tab index.
          */
         public TabPagerPreviewCallback(JWindow previewWindow, JTabbedPane tabPane, int tabIndex) {
             this.previewWindow = previewWindow;
@@ -167,7 +152,7 @@ public class TabPagerManager {
 
     /**
      * Returns the tab pager instance.
-     * 
+     *
      * @return Tab pager instance.
      */
     public static synchronized TabPagerManager getPager() {
@@ -311,9 +296,8 @@ public class TabPagerManager {
 
     /**
      * Sets the tabbed pane on <code>this</code> tab pager manager.
-     * 
-     * @param jtp
-     *            Tabbed pane to page.
+     *
+     * @param jtp Tabbed pane to page.
      */
     private void setTabbedPane(JTabbedPane jtp) {
         if (this.currTabbedPane == jtp)
@@ -325,12 +309,10 @@ public class TabPagerManager {
 
     /**
      * Flips the pages.
-     * 
-     * @param tabbedPane
-     *            Tabbed pane.
-     * @param isForward
-     *            if <code>true</code>, the tabs are flipped one page (tab) forward, if
-     *            <code>false</code>, the tabs are flipped one page (tab) backward.
+     *
+     * @param tabbedPane Tabbed pane.
+     * @param isForward  if <code>true</code>, the tabs are flipped one page (tab) forward, if
+     *                   <code>false</code>, the tabs are flipped one page (tab) backward.
      */
     public synchronized void page(JTabbedPane tabbedPane, boolean isForward) {
         this.setTabbedPane(tabbedPane);
@@ -402,10 +384,9 @@ public class TabPagerManager {
 
     /**
      * Flips the pages in the currently shown tabbed pane.
-     * 
-     * @param isForward
-     *            if <code>true</code>, the tabs are flipped one page (tab) forward, if
-     *            <code>false</code>, the tabs are flipped one page (tab) backward.
+     *
+     * @param isForward if <code>true</code>, the tabs are flipped one page (tab) forward, if
+     *                  <code>false</code>, the tabs are flipped one page (tab) backward.
      */
     public void page(boolean isForward) {
         if (this.currTabbedPane == null)
@@ -415,7 +396,7 @@ public class TabPagerManager {
 
     /**
      * Returns indication whether the tab pager windows are showing.
-     * 
+     *
      * @return <code>true</code> if the tab pager windows are visible, <code>false</code> otherwise.
      */
     public boolean isVisible() {
@@ -424,7 +405,7 @@ public class TabPagerManager {
 
     /**
      * Hides the tab pager windows.
-     * 
+     *
      * @return The index of the center (current) tab.
      */
     public synchronized int hide() {
@@ -437,71 +418,38 @@ public class TabPagerManager {
         final Point prevWindowLocation = this.prevTabWindow.getLocation();
         final Dimension prevWindowSize = this.prevTabWindow.getSize();
 
-        SwingComponentTimeline.Builder hideTabPagerTimelineBuilder =
-                SwingComponentTimeline.componentBuilder(this.currTabbedPane);
-        AnimationConfigurationManager.getInstance().configureTimelineBuilder(
-                hideTabPagerTimelineBuilder);
-        hideTabPagerTimelineBuilder.addPropertyToInterpolate(Timeline.<Rectangle>property("bounds")
-                .on(this.currTabWindow).from(new Rectangle(currWindowLocation, currWindowSize))
-                .to(new Rectangle(currWindowLocation.x + currWindowSize.width / 2,
-                        currWindowLocation.y + currWindowSize.height / 2, 0, 0)));
-        hideTabPagerTimelineBuilder.addPropertyToInterpolate(Timeline.<Rectangle>property("bounds")
-                .on(this.prevTabWindow).from(new Rectangle(prevWindowLocation, prevWindowSize))
-                .to(new Rectangle(prevWindowLocation.x + prevWindowSize.width / 2,
-                        prevWindowLocation.y + prevWindowSize.height / 2, 0, 0)));
-        hideTabPagerTimelineBuilder.addPropertyToInterpolate(Timeline.<Rectangle>property("bounds")
-                .on(this.nextTabWindow).from(new Rectangle(nextWindowLocation, nextWindowSize))
-                .to(new Rectangle(nextWindowLocation.x + nextWindowSize.width / 2,
-                        nextWindowLocation.y + nextWindowSize.height / 2, 0, 0)));
-        hideTabPagerTimelineBuilder.addCallback(new UIThreadTimelineCallbackAdapter() {
-            @Override
-            public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
-                    float durationFraction, float timelinePosition) {
-                if ((oldState == TimelineState.DONE) && (newState == TimelineState.IDLE)) {
-                    currTabWindow.setVisible(false);
-                    currTabWindow.dispose();
-                    prevTabWindow.setVisible(false);
-                    prevTabWindow.dispose();
-                    nextTabWindow.setVisible(false);
-                    nextTabWindow.dispose();
-                }
-            }
-            //
-            // @Override
-            // public void onTimelinePulse(float durationFraction,
-            // float timelinePosition) {
-            // int cx = currWindowLocation.x + currWindowSize.width / 2;
-            // int cy = currWindowLocation.y + currWindowSize.height / 2;
-            // int nWidth = (int) (currWindowSize.width * timelinePosition);
-            // int nHeight = (int) (currWindowSize.height * timelinePosition);
-            // currTabWindow.setBounds(cx - nWidth / 2, cy - nHeight / 2,
-            // nWidth, nHeight);
-            //
-            // cx = prevWindowLocation.x + prevWindowSize.width / 2;
-            // cy = prevWindowLocation.y + prevWindowSize.height / 2;
-            // nWidth = (int) (prevWindowSize.width * timelinePosition);
-            // nHeight = (int) (prevWindowSize.height * timelinePosition);
-            // prevTabWindow.setBounds(cx - nWidth / 2, cy - nHeight / 2,
-            // nWidth, nHeight);
-            //
-            // cx = nextWindowLocation.x + nextWindowSize.width / 2;
-            // cy = nextWindowLocation.y + nextWindowSize.height / 2;
-            // nWidth = (int) (nextWindowSize.width * timelinePosition);
-            // nHeight = (int) (nextWindowSize.height * timelinePosition);
-            // nextTabWindow.setBounds(cx - nWidth / 2, cy - nHeight / 2,
-            // nWidth, nHeight);
-            //
-            // currTabWindow.getRootPane().doLayout();
-            // currTabWindow.repaint();
-            //
-            // nextTabWindow.getRootPane().doLayout();
-            // nextTabWindow.repaint();
-            //
-            // prevTabWindow.getRootPane().doLayout();
-            // prevTabWindow.repaint();
-            // }
-        });
-        hideTabPagerTimelineBuilder.play();
+        AnimationConfigurationManager.getInstance().timelineBuilder(this.currTabbedPane)
+                .addPropertyToInterpolate(Timeline.<Rectangle>property("bounds")
+                        .on(this.currTabWindow)
+                        .from(new Rectangle(currWindowLocation, currWindowSize))
+                        .to(new Rectangle(currWindowLocation.x + currWindowSize.width / 2,
+                                currWindowLocation.y + currWindowSize.height / 2, 0, 0)))
+                .addPropertyToInterpolate(Timeline.<Rectangle>property("bounds")
+                        .on(this.prevTabWindow)
+                        .from(new Rectangle(prevWindowLocation, prevWindowSize))
+                        .to(new Rectangle(prevWindowLocation.x + prevWindowSize.width / 2,
+                                prevWindowLocation.y + prevWindowSize.height / 2, 0, 0)))
+                .addPropertyToInterpolate(Timeline.<Rectangle>property("bounds")
+                        .on(this.nextTabWindow)
+                        .from(new Rectangle(nextWindowLocation, nextWindowSize))
+                        .to(new Rectangle(nextWindowLocation.x + nextWindowSize.width / 2,
+                                nextWindowLocation.y + nextWindowSize.height / 2, 0, 0)))
+                .addCallback(new UIThreadTimelineCallbackAdapter() {
+                    @Override
+                    public void onTimelineStateChanged(TimelineState oldState,
+                            TimelineState newState, float durationFraction,
+                            float timelinePosition) {
+                        if ((oldState == TimelineState.DONE) && (newState == TimelineState.IDLE)) {
+                            currTabWindow.setVisible(false);
+                            currTabWindow.dispose();
+                            prevTabWindow.setVisible(false);
+                            prevTabWindow.dispose();
+                            nextTabWindow.setVisible(false);
+                            nextTabWindow.dispose();
+                        }
+                    }
+                })
+                .play();
 
         this.isVisible = false;
         return result;

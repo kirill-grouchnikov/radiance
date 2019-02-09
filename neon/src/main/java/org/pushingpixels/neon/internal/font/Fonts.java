@@ -287,7 +287,7 @@ public final class Fonts {
 		Font font = getDesktopFont(WINDOWS_DEFAULT_GUI_FONT_KEY);
 		if (font != null)
 			return font;
-		return new Font("Dialog", Font.PLAIN, 12);
+		return new FontSets.DefaultUIResourceFont("Dialog", Font.PLAIN, 12);
 	}
 
 	/**
@@ -392,7 +392,7 @@ public final class Fonts {
 	 */
 	private static Font getDesktopFont(String fontName) {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		return (Font) toolkit.getDesktopProperty(fontName);
+		return new FontSets.DefaultUIResourceFont((Font) toolkit.getDesktopProperty(fontName));
 	}
 
 }

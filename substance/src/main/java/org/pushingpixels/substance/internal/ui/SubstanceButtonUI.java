@@ -30,8 +30,8 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
+import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.internal.*;
 import org.pushingpixels.substance.internal.animation.*;
@@ -41,7 +41,7 @@ import org.pushingpixels.substance.internal.utils.icon.GlowingIcon;
 import org.pushingpixels.substance.internal.widget.animation.effects.*;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.swing.*;
+import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -455,7 +455,7 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d);
+        NeonCortex.installDesktopHints(g2d, c.getFont());
         this.paint(g2d, c);
         g2d.dispose();
     }
@@ -471,13 +471,11 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     }
 
     private void trackModificationFlag() {
-        SwingComponentTimeline.Builder modifiedTimelineBuilder =
-                SwingComponentTimeline.componentBuilder(this.button);
-        AnimationConfigurationManager.getInstance().configureModifiedTimelineBuilder(
-                modifiedTimelineBuilder);
-        modifiedTimelineBuilder.addCallback(new SwingRepaintCallback(this.button));
+        this.modifiedTimeline =
+                AnimationConfigurationManager.getInstance().modifiedTimelineBuilder(this.button)
+                        .addCallback(new SwingRepaintCallback(this.button))
+                        .build();
 
-        this.modifiedTimeline = modifiedTimelineBuilder.build();
         this.modifiedTimeline.playLoop(RepeatBehavior.REVERSE);
     }
 

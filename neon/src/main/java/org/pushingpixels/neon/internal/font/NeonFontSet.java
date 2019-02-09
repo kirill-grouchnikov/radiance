@@ -78,14 +78,18 @@ public class NeonFontSet implements FontSet {
         boolean isOrigItalic = systemFont.isItalic();
         int newStyle = systemFont.getStyle();
         if (toBoldify) {
-            if (isOrigItalic)
+            if (isOrigItalic) {
                 newStyle = Font.ITALIC + Font.BOLD;
-            else
+            } else {
                 newStyle = Font.BOLD;
+            }
         }
-        return new FontUIResource(
-                systemFont.deriveFont((float) (systemFont.getSize() + extraFontSize))
-                        .deriveFont(newStyle));
+        Font derived = systemFont.deriveFont((float) (systemFont.getSize() + extraFontSize))
+                .deriveFont(newStyle);
+        if (derived instanceof FontUIResource) {
+            return (FontUIResource) derived;
+        }
+        return new FontUIResource(derived);
     }
 
     public FontUIResource getControlFont() {

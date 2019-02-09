@@ -29,72 +29,31 @@
  */
 package org.pushingpixels.substance.extras.internal.tabbed;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.HeadlessException;
-import java.awt.KeyboardFocusManager;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-import java.awt.Window;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.text.MessageFormat;
-
-import javax.swing.Icon;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.JTabbedPane;
-import javax.swing.ListCellRenderer;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
 import org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter;
-import org.pushingpixels.substance.extras.internal.contrib.blogofbug.swing.components.JCarosel;
-import org.pushingpixels.substance.extras.internal.contrib.blogofbug.swing.components.JCarouselMenu;
-import org.pushingpixels.substance.extras.internal.contrib.blogofbug.swing.components.ReflectedImageLabel;
+import org.pushingpixels.substance.extras.internal.contrib.blogofbug.swing.components.*;
 import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.TabPreviewInfo;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.ShadowPopupBorder;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
+
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.beans.*;
+import java.text.MessageFormat;
 
 /**
  * Tab overview dialog.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class TabOverviewDialog extends JDialog {
@@ -116,7 +75,7 @@ public class TabOverviewDialog extends JDialog {
     /**
      * Handles mouse events on the tab overview dialog (such as highlighting the currently
      * rolled-over tab preview, closing the overview when a tab preview is clicked, tooltips etc.)
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     protected class TabPreviewMouseHandler extends MouseAdapter {
@@ -143,17 +102,15 @@ public class TabOverviewDialog extends JDialog {
 
         /**
          * Creates the mouse handler for a single tab preview control.
-         * 
-         * @param index
-         *            Tab index.
-         * @param previewControl
-         *            Tab preview control.
-         * @param hasRolloverBorderEffect
-         *            If <code>true</code>, the preview uses double click to select the tab and
-         *            dismiss the tab overview dialog.
-         * @param useDoubleClick
-         *            If <code>true</code>, the tab preview controls have rollover effects on
-         *            borders.
+         *
+         * @param index                   Tab index.
+         * @param previewControl          Tab preview control.
+         * @param hasRolloverBorderEffect If <code>true</code>, the preview uses double click to
+         *                                select the tab and
+         *                                dismiss the tab overview dialog.
+         * @param useDoubleClick          If <code>true</code>, the tab preview controls have
+         *                                rollover effects on
+         *                                borders.
          */
         public TabPreviewMouseHandler(int index, JComponent previewControl,
                 boolean hasRolloverBorderEffect, boolean useDoubleClick) {
@@ -215,7 +172,7 @@ public class TabOverviewDialog extends JDialog {
      * overview dialog via the registered implementation of
      * {@link TabPreviewThread.TabPreviewCallback}. This way the application stays interactive while
      * the tab overview dialog is being populated.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     protected class TabRoundCarouselOverviewPanel extends JPanel {
@@ -241,110 +198,112 @@ public class TabOverviewDialog extends JDialog {
 
         /**
          * Creates a tab overview panel.
-         * 
-         * @param dialogWidth
-         *            The width of the parent dialog.
-         * @param dialogHeight
-         *            The height of the parent dialog.
+         *
+         * @param dialogWidth  The width of the parent dialog.
+         * @param dialogHeight The height of the parent dialog.
          */
         public TabRoundCarouselOverviewPanel(final int dialogWidth, final int dialogHeight) {
             // int tabCount = TabOverviewDialog.this.tabPane.getTabCount();
 
             // this.previewControls = new HashSet<Component>();
-            TabPreviewThread.TabPreviewCallback previewCallback = new TabPreviewThread.TabPreviewCallback() {
-                @Override
-                public void start(JTabbedPane tabPane, int tabCount,
-                        TabPreviewInfo tabPreviewInfo) {
-                    // Check if need to reallocate the preview controls.
-                    boolean isSame = (previewControls != null)
-                            && (previewControls.length == tabCount);
-                    if (isSame)
-                        return;
+            TabPreviewThread.TabPreviewCallback previewCallback =
+                    new TabPreviewThread.TabPreviewCallback() {
+                        @Override
+                        public void start(JTabbedPane tabPane, int tabCount,
+                                TabPreviewInfo tabPreviewInfo) {
+                            // Check if need to reallocate the preview controls.
+                            boolean isSame = (previewControls != null)
+                                    && (previewControls.length == tabCount);
+                            if (isSame)
+                                return;
 
-                    if (previewControls != null) {
-                        for (int i = 0; i < previewControls.length; i++) {
-                            carosel.remove(previewControls[i]);
+                            if (previewControls != null) {
+                                for (int i = 0; i < previewControls.length; i++) {
+                                    carosel.remove(previewControls[i]);
+                                }
+                            }
+
+                            double coef = Math.min(3.5, tabCount / 1.5);
+                            coef = Math.max(coef, 4.5);
+                            pWidth = (int) (dialogWidth / coef);
+                            pHeight = (int) (dialogHeight / coef);
+
+                            tabPreviewInfo.setPreviewWidth(pWidth - 4);
+                            tabPreviewInfo.setPreviewHeight(pHeight - 4);
+
+                            previewControls = new ReflectedImageLabel[tabCount];
+                            TabPreviewPainter tpp = TabPreviewUtilities
+                                    .getTabPreviewPainter(TabOverviewDialog.this.tabPane);
+                            for (int i = 0; i < tabCount; i++) {
+                                BufferedImage placeHolder = new BufferedImage(pWidth, pHeight,
+                                        BufferedImage.TYPE_INT_ARGB);
+                                Graphics2D g2d = (Graphics2D) placeHolder.getGraphics();
+                                g2d.setColor(UIManager.getColor("Label.background"));
+                                g2d.fillRect(0, 0, pWidth, pHeight);
+                                ReflectedImageLabel ril = (ReflectedImageLabel) carosel.add(
+                                        placeHolder,
+                                        tabPane.getTitleAt(i));
+                                ril.setForeground(UIManager.getColor("Label.foreground"));
+                                ril.setBackground(UIManager.getColor("Label.background"));
+                                // TabPreviewControl previewControl = new
+                                // TabPreviewControl(
+                                // TabOverviewDialog.this.tabPane, i);
+                                ril.setPreferredSize(new Dimension(pWidth, pHeight));
+                                // fix for issue 177 in Substance (disallowing
+                                // selection
+                                // of disabled tabs).
+                                if (tpp.isSensitiveToEvents(TabOverviewDialog.this.tabPane, i)) {
+                                    ril.addMouseListener(
+                                            new TabPreviewMouseHandler(i, ril, false, true));
+                                    ril.setToolTipText(TabPreviewUtilities.getLabelBundle()
+                                            .getString("TabbedPane.overviewWidgetTooltip"));
+                                }
+                                previewControls[i] = ril;
+                                // carosel.add(previewControl);
+                            }
+                            carosel.bringToFront(previewControls[tabPane.getSelectedIndex()]);
+                            // System.err.println("Added " + previewControls.length
+                            // + " labels");
+                            // doLayout();
+                            // for (int i = 0; i < tabCount; i++) {
+                            // previewControls[i].revalidate();
+                            // }
+                            // repaint();
                         }
-                    }
 
-                    double coef = Math.min(3.5, tabCount / 1.5);
-                    coef = Math.max(coef, 4.5);
-                    pWidth = (int) (dialogWidth / coef);
-                    pHeight = (int) (dialogHeight / coef);
+                        @Override
+                        public void offer(JTabbedPane tabPane, int tabIndex,
+                                BufferedImage componentSnap) {
+                            int width = componentSnap.getWidth() + 4;
+                            int height = componentSnap.getHeight() + 4;
+                            BufferedImage result = new BufferedImage(width, height,
+                                    BufferedImage.TYPE_INT_ARGB);
+                            Graphics2D g2d = (Graphics2D) result.getGraphics();
+                            g2d.setColor(UIManager.getColor("Label.background"));
+                            g2d.fillRect(0, 0, width, height);
+                            g2d.setColor(UIManager.getColor("Label.foreground"));
+                            g2d.drawRect(0, 0, width - 1, height - 1);
+                            g2d.drawImage(componentSnap, 2, 2, null);
 
-                    tabPreviewInfo.setPreviewWidth(pWidth - 4);
-                    tabPreviewInfo.setPreviewHeight(pHeight - 4);
+                            Icon tabIcon = tabPane.getIconAt(tabIndex);
+                            if (tabIcon != null) {
+                                tabIcon.paintIcon(tabPane, g2d, 2, 2);
+                            }
 
-                    previewControls = new ReflectedImageLabel[tabCount];
-                    TabPreviewPainter tpp = TabPreviewUtilities
-                            .getTabPreviewPainter(TabOverviewDialog.this.tabPane);
-                    for (int i = 0; i < tabCount; i++) {
-                        BufferedImage placeHolder = new BufferedImage(pWidth, pHeight,
-                                BufferedImage.TYPE_INT_ARGB);
-                        Graphics2D g2d = (Graphics2D) placeHolder.getGraphics();
-                        g2d.setColor(UIManager.getColor("Label.background"));
-                        g2d.fillRect(0, 0, pWidth, pHeight);
-                        ReflectedImageLabel ril = (ReflectedImageLabel) carosel.add(placeHolder,
-                                tabPane.getTitleAt(i));
-                        ril.setForeground(UIManager.getColor("Label.foreground"));
-                        ril.setBackground(UIManager.getColor("Label.background"));
-                        // TabPreviewControl previewControl = new
-                        // TabPreviewControl(
-                        // TabOverviewDialog.this.tabPane, i);
-                        ril.setPreferredSize(new Dimension(pWidth, pHeight));
-                        // fix for issue 177 in Substance (disallowing
-                        // selection
-                        // of disabled tabs).
-                        if (tpp.isSensitiveToEvents(TabOverviewDialog.this.tabPane, i)) {
-                            ril.addMouseListener(new TabPreviewMouseHandler(i, ril, false, true));
-                            ril.setToolTipText(TabPreviewUtilities.getLabelBundle()
-                                    .getString("TabbedPane.overviewWidgetTooltip"));
+                            // Component caroselComponent = carosel.add(result, tabPane
+                            // .getTitleAt(tabIndex));
+                            // caroselComponent.setForeground(UIManager
+                            // .getColor("Label.foreground"));
+
+                            // System.err.println("Setting image on " + tabIndex);
+                            previewControls[tabIndex].setRichImage(result);
+                            // System.err.println("Set image on " + tabIndex);
+                            previewControls[tabIndex].repaint();
+                            // previewControls.add(caroselComponent);
+                            // TabRoundCarouselOverviewPanel.this.previewControls[tabIndex]
+                            // .setPreviewImage(componentSnap);
                         }
-                        previewControls[i] = ril;
-                        // carosel.add(previewControl);
-                    }
-                    carosel.bringToFront(previewControls[tabPane.getSelectedIndex()]);
-                    // System.err.println("Added " + previewControls.length
-                    // + " labels");
-                    // doLayout();
-                    // for (int i = 0; i < tabCount; i++) {
-                    // previewControls[i].revalidate();
-                    // }
-                    // repaint();
-                }
-
-                @Override
-                public void offer(JTabbedPane tabPane, int tabIndex, BufferedImage componentSnap) {
-                    int width = componentSnap.getWidth() + 4;
-                    int height = componentSnap.getHeight() + 4;
-                    BufferedImage result = new BufferedImage(width, height,
-                            BufferedImage.TYPE_INT_ARGB);
-                    Graphics2D g2d = (Graphics2D) result.getGraphics();
-                    g2d.setColor(UIManager.getColor("Label.background"));
-                    g2d.fillRect(0, 0, width, height);
-                    g2d.setColor(UIManager.getColor("Label.foreground"));
-                    g2d.drawRect(0, 0, width - 1, height - 1);
-                    g2d.drawImage(componentSnap, 2, 2, null);
-
-                    Icon tabIcon = tabPane.getIconAt(tabIndex);
-                    if (tabIcon != null) {
-                        tabIcon.paintIcon(tabPane, g2d, 2, 2);
-                    }
-
-                    // Component caroselComponent = carosel.add(result, tabPane
-                    // .getTitleAt(tabIndex));
-                    // caroselComponent.setForeground(UIManager
-                    // .getColor("Label.foreground"));
-
-                    // System.err.println("Setting image on " + tabIndex);
-                    previewControls[tabIndex].setRichImage(result);
-                    // System.err.println("Set image on " + tabIndex);
-                    previewControls[tabIndex].repaint();
-                    // previewControls.add(caroselComponent);
-                    // TabRoundCarouselOverviewPanel.this.previewControls[tabIndex]
-                    // .setPreviewImage(componentSnap);
-                }
-            };
+                    };
 
             this.carosel = new JCarosel();
             this.carosel.setDepthBasedAlpha(true);
@@ -385,7 +344,7 @@ public class TabOverviewDialog extends JDialog {
      * overview dialog via the registered implementation of
      * {@link TabPreviewThread.TabPreviewCallback}. This way the application stays interactive while
      * the tab overview dialog is being populated.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     protected class TabMenuCarouselOverviewPanel extends JPanel {
@@ -412,7 +371,7 @@ public class TabOverviewDialog extends JDialog {
         /**
          * Cell renderer for the carosel menu. Employs a little trick to provide LAF-consistent
          * painting of the cells.
-         * 
+         *
          * @author Kirill Grouchnikov
          */
         protected class MenuCarouselListCellRenderer extends JLabel implements ListCellRenderer {
@@ -423,9 +382,8 @@ public class TabOverviewDialog extends JDialog {
 
             /**
              * Creates the cell renderer for the carosel menu.
-             * 
-             * @param lafDefaultCellRenderer
-             *            The cell renderer from the currently installed LAF.
+             *
+             * @param lafDefaultCellRenderer The cell renderer from the currently installed LAF.
              */
             public MenuCarouselListCellRenderer(ListCellRenderer lafDefaultCellRenderer) {
                 this.lafDefaultCellRenderer = lafDefaultCellRenderer;
@@ -457,100 +415,102 @@ public class TabOverviewDialog extends JDialog {
 
         /**
          * Creates a tab overview panel.
-         * 
-         * @param dialogWidth
-         *            The width of the parent dialog.
-         * @param dialogHeight
-         *            The height of the parent dialog.
+         *
+         * @param dialogWidth  The width of the parent dialog.
+         * @param dialogHeight The height of the parent dialog.
          */
         public TabMenuCarouselOverviewPanel(final int dialogWidth, final int dialogHeight) {
             // int tabCount = TabOverviewDialog.this.tabPane.getTabCount();
 
             // this.previewControls = new HashSet<Component>();
-            TabPreviewThread.TabPreviewCallback previewCallback = new TabPreviewThread.TabPreviewCallback() {
-                @Override
-                public void start(JTabbedPane tabPane, int tabCount,
-                        TabPreviewInfo tabPreviewInfo) {
-                    // Check if need to reallocate the preview controls.
-                    boolean isSame = (previewControls != null)
-                            && (previewControls.length == tabCount);
-                    if (isSame)
-                        return;
+            TabPreviewThread.TabPreviewCallback previewCallback =
+                    new TabPreviewThread.TabPreviewCallback() {
+                        @Override
+                        public void start(JTabbedPane tabPane, int tabCount,
+                                TabPreviewInfo tabPreviewInfo) {
+                            // Check if need to reallocate the preview controls.
+                            boolean isSame = (previewControls != null)
+                                    && (previewControls.length == tabCount);
+                            if (isSame)
+                                return;
 
-                    if (previewControls != null) {
-                        for (int i = 0; i < previewControls.length; i++) {
-                            caroselMenu.remove(previewControls[i]);
+                            if (previewControls != null) {
+                                for (int i = 0; i < previewControls.length; i++) {
+                                    caroselMenu.remove(previewControls[i]);
+                                }
+                            }
+
+                            double coef = Math.min(2.8, tabCount / 1.8);
+                            coef = Math.max(2.5, coef);
+                            pWidth = (int) (dialogWidth / coef);
+                            pHeight = (int) (dialogHeight / coef);
+
+                            tabPreviewInfo.setPreviewWidth(pWidth - 4);
+                            tabPreviewInfo.setPreviewHeight(pHeight - 4);
+
+                            previewControls = new ReflectedImageLabel[tabCount];
+                            TabPreviewPainter tpp = TabPreviewUtilities
+                                    .getTabPreviewPainter(TabOverviewDialog.this.tabPane);
+                            for (int i = 0; i < tabCount; i++) {
+                                BufferedImage placeHolder = new BufferedImage(pWidth, pHeight,
+                                        BufferedImage.TYPE_INT_ARGB);
+                                Graphics2D g2d = (Graphics2D) placeHolder.getGraphics();
+                                g2d.setColor(UIManager.getColor("Label.background"));
+                                g2d.fillRect(0, 0, pWidth, pHeight);
+                                ReflectedImageLabel ril = (ReflectedImageLabel) caroselMenu.add(
+                                        placeHolder,
+                                        tabPane.getTitleAt(i));
+                                ril.setForeground(UIManager.getColor("Label.foreground"));
+                                ril.setBackground(UIManager.getColor("Label.background"));
+                                // TabPreviewControl previewControl = new
+                                // TabPreviewControl(
+                                // TabOverviewDialog.this.tabPane, i);
+                                ril.setPreferredSize(new Dimension(pWidth, pHeight));
+                                // fix for issue 177 in Substance (disallowing
+                                // selection
+                                // of disabled tabs).
+                                if (tpp.isSensitiveToEvents(TabOverviewDialog.this.tabPane, i)) {
+                                    ril.addMouseListener(
+                                            new TabPreviewMouseHandler(i, ril, false, true));
+                                    ril.setToolTipText(TabPreviewUtilities.getLabelBundle()
+                                            .getString("TabbedPane.overviewWidgetTooltip"));
+                                }
+                                previewControls[i] = ril;
+                                // carosel.add(previewControl);
+                            }
+                            caroselMenu.setSelectedIndex(tabPane.getSelectedIndex());
+                            // System.err.println("Added " + previewControls.length
+                            // + " labels");
+                            // doLayout();
+                            // for (int i = 0; i < tabCount; i++) {
+                            // previewControls[i].revalidate();
+                            // }
+                            // repaint();
                         }
-                    }
 
-                    double coef = Math.min(2.8, tabCount / 1.8);
-                    coef = Math.max(2.5, coef);
-                    pWidth = (int) (dialogWidth / coef);
-                    pHeight = (int) (dialogHeight / coef);
+                        @Override
+                        public void offer(JTabbedPane tabPane, int tabIndex,
+                                BufferedImage componentSnap) {
+                            int width = componentSnap.getWidth() + 4;
+                            int height = componentSnap.getHeight() + 4;
+                            BufferedImage result = new BufferedImage(width, height,
+                                    BufferedImage.TYPE_INT_ARGB);
+                            Graphics2D g2d = (Graphics2D) result.getGraphics();
+                            g2d.setColor(UIManager.getColor("Label.background"));
+                            g2d.fillRect(0, 0, width, height);
+                            g2d.setColor(UIManager.getColor("Label.foreground"));
+                            g2d.drawRect(0, 0, width - 1, height - 1);
+                            g2d.drawImage(componentSnap, 2, 2, null);
 
-                    tabPreviewInfo.setPreviewWidth(pWidth - 4);
-                    tabPreviewInfo.setPreviewHeight(pHeight - 4);
+                            Icon tabIcon = tabPane.getIconAt(tabIndex);
+                            if (tabIcon != null) {
+                                tabIcon.paintIcon(tabPane, g2d, 2, 2);
+                            }
 
-                    previewControls = new ReflectedImageLabel[tabCount];
-                    TabPreviewPainter tpp = TabPreviewUtilities
-                            .getTabPreviewPainter(TabOverviewDialog.this.tabPane);
-                    for (int i = 0; i < tabCount; i++) {
-                        BufferedImage placeHolder = new BufferedImage(pWidth, pHeight,
-                                BufferedImage.TYPE_INT_ARGB);
-                        Graphics2D g2d = (Graphics2D) placeHolder.getGraphics();
-                        g2d.setColor(UIManager.getColor("Label.background"));
-                        g2d.fillRect(0, 0, pWidth, pHeight);
-                        ReflectedImageLabel ril = (ReflectedImageLabel) caroselMenu.add(placeHolder,
-                                tabPane.getTitleAt(i));
-                        ril.setForeground(UIManager.getColor("Label.foreground"));
-                        ril.setBackground(UIManager.getColor("Label.background"));
-                        // TabPreviewControl previewControl = new
-                        // TabPreviewControl(
-                        // TabOverviewDialog.this.tabPane, i);
-                        ril.setPreferredSize(new Dimension(pWidth, pHeight));
-                        // fix for issue 177 in Substance (disallowing
-                        // selection
-                        // of disabled tabs).
-                        if (tpp.isSensitiveToEvents(TabOverviewDialog.this.tabPane, i)) {
-                            ril.addMouseListener(new TabPreviewMouseHandler(i, ril, false, true));
-                            ril.setToolTipText(TabPreviewUtilities.getLabelBundle()
-                                    .getString("TabbedPane.overviewWidgetTooltip"));
+                            previewControls[tabIndex].setRichImage(result);
+                            previewControls[tabIndex].repaint();
                         }
-                        previewControls[i] = ril;
-                        // carosel.add(previewControl);
-                    }
-                    caroselMenu.setSelectedIndex(tabPane.getSelectedIndex());
-                    // System.err.println("Added " + previewControls.length
-                    // + " labels");
-                    // doLayout();
-                    // for (int i = 0; i < tabCount; i++) {
-                    // previewControls[i].revalidate();
-                    // }
-                    // repaint();
-                }
-
-                @Override
-                public void offer(JTabbedPane tabPane, int tabIndex, BufferedImage componentSnap) {
-                    int width = componentSnap.getWidth() + 4;
-                    int height = componentSnap.getHeight() + 4;
-                    BufferedImage result = new BufferedImage(width, height,
-                            BufferedImage.TYPE_INT_ARGB);
-                    Graphics2D g2d = (Graphics2D) result.getGraphics();
-                    g2d.setColor(UIManager.getColor("Label.background"));
-                    g2d.fillRect(0, 0, width, height);
-                    g2d.setColor(UIManager.getColor("Label.foreground"));
-                    g2d.drawRect(0, 0, width - 1, height - 1);
-                    g2d.drawImage(componentSnap, 2, 2, null);
-
-                    Icon tabIcon = tabPane.getIconAt(tabIndex);
-                    if (tabIcon != null) {
-                        tabIcon.paintIcon(tabPane, g2d, 2, 2);
-                    }
-
-                    previewControls[tabIndex].setRichImage(result);
-                    previewControls[tabIndex].repaint();
-                }
-            };
+                    };
 
             this.caroselMenu = new JCarouselMenu(null);
             JList dummyList = new JList();
@@ -610,7 +570,7 @@ public class TabOverviewDialog extends JDialog {
      * separate thread ({@link TabPreviewThread}) and offered to the tab overview dialog via the
      * registered implementation of {@link TabPreviewThread.TabPreviewCallback}. This way the
      * application stays interactive while the tab overview dialog is being populated.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     protected class TabGridOverviewPanel extends JPanel {
@@ -641,75 +601,76 @@ public class TabOverviewDialog extends JDialog {
 
         /**
          * Creates a tab overview panel.
-         * 
-         * @param dialogWidth
-         *            The width of the parent dialog.
-         * @param dialogHeight
-         *            The height of the parent dialog.
+         *
+         * @param dialogWidth  The width of the parent dialog.
+         * @param dialogHeight The height of the parent dialog.
          */
         public TabGridOverviewPanel(final int dialogWidth, final int dialogHeight) {
             // int tabCount = TabOverviewDialog.this.tabPane.getTabCount();
 
-            TabPreviewThread.TabPreviewCallback previewCallback = new TabPreviewThread.TabPreviewCallback() {
-                @Override
-                public void start(JTabbedPane tabPane, int tabCount,
-                        TabPreviewInfo tabPreviewInfo) {
-                    colCount = (int) Math.sqrt(tabCount);
-                    if (colCount * colCount < tabCount)
-                        colCount++;
+            TabPreviewThread.TabPreviewCallback previewCallback =
+                    new TabPreviewThread.TabPreviewCallback() {
+                        @Override
+                        public void start(JTabbedPane tabPane, int tabCount,
+                                TabPreviewInfo tabPreviewInfo) {
+                            colCount = (int) Math.sqrt(tabCount);
+                            if (colCount * colCount < tabCount)
+                                colCount++;
 
-                    pWidth = (dialogWidth - 8) / colCount;
-                    pHeight = (dialogHeight - 32) / colCount;
+                            pWidth = (dialogWidth - 8) / colCount;
+                            pHeight = (dialogHeight - 32) / colCount;
 
-                    tabPreviewInfo.setPreviewWidth(pWidth - 4);
-                    tabPreviewInfo.setPreviewHeight(pHeight - 20);
+                            tabPreviewInfo.setPreviewWidth(pWidth - 4);
+                            tabPreviewInfo.setPreviewHeight(pHeight - 20);
 
-                    // Check if need to reallocate the preview controls.
-                    boolean isSame = (previewControls != null)
-                            && (previewControls.length == tabCount);
-                    if (isSame)
-                        return;
+                            // Check if need to reallocate the preview controls.
+                            boolean isSame = (previewControls != null)
+                                    && (previewControls.length == tabCount);
+                            if (isSame)
+                                return;
 
-                    if (previewControls != null) {
-                        for (int i = 0; i < previewControls.length; i++) {
-                            remove(previewControls[i]);
+                            if (previewControls != null) {
+                                for (int i = 0; i < previewControls.length; i++) {
+                                    remove(previewControls[i]);
+                                }
+                            }
+
+                            previewControls = new TabPreviewControl[tabCount];
+                            TabPreviewPainter tpp = TabPreviewUtilities
+                                    .getTabPreviewPainter(TabOverviewDialog.this.tabPane);
+                            for (int i = 0; i < tabCount; i++) {
+                                TabPreviewControl previewControl = new TabPreviewControl(
+                                        TabOverviewDialog.this.tabPane, i);
+                                // fix for issue 177 in Substance (disallowing selection
+                                // of disabled tabs).
+                                if (tpp.isSensitiveToEvents(TabOverviewDialog.this.tabPane, i)) {
+                                    previewControl.addMouseListener(
+                                            new TabPreviewMouseHandler(i, previewControl, true,
+                                                    false));
+                                }
+                                previewControls[i] = previewControl;
+                                add(previewControl);
+                            }
+
+                            doLayout();
+                            for (int i = 0; i < tabCount; i++) {
+                                previewControls[i].revalidate();
+                            }
+                            repaint();
+
+                            JRootPane rp = SwingUtilities.getRootPane(TabGridOverviewPanel.this);
+                            glassPane = new TabGridOverviewGlassPane(TabGridOverviewPanel.this);
+                            rp.setGlassPane(glassPane);
+                            glassPane.setVisible(true);
                         }
-                    }
 
-                    previewControls = new TabPreviewControl[tabCount];
-                    TabPreviewPainter tpp = TabPreviewUtilities
-                            .getTabPreviewPainter(TabOverviewDialog.this.tabPane);
-                    for (int i = 0; i < tabCount; i++) {
-                        TabPreviewControl previewControl = new TabPreviewControl(
-                                TabOverviewDialog.this.tabPane, i);
-                        // fix for issue 177 in Substance (disallowing selection
-                        // of disabled tabs).
-                        if (tpp.isSensitiveToEvents(TabOverviewDialog.this.tabPane, i)) {
-                            previewControl.addMouseListener(
-                                    new TabPreviewMouseHandler(i, previewControl, true, false));
+                        @Override
+                        public void offer(JTabbedPane tabPane, int tabIndex,
+                                BufferedImage componentSnap) {
+                            TabGridOverviewPanel.this.previewControls[tabIndex]
+                                    .setPreviewImage(componentSnap, true);
                         }
-                        previewControls[i] = previewControl;
-                        add(previewControl);
-                    }
-
-                    doLayout();
-                    for (int i = 0; i < tabCount; i++) {
-                        previewControls[i].revalidate();
-                    }
-                    repaint();
-
-                    JRootPane rp = SwingUtilities.getRootPane(TabGridOverviewPanel.this);
-                    glassPane = new TabGridOverviewGlassPane(TabGridOverviewPanel.this);
-                    rp.setGlassPane(glassPane);
-                    glassPane.setVisible(true);
-                }
-
-                @Override
-                public void offer(JTabbedPane tabPane, int tabIndex, BufferedImage componentSnap) {
-                    TabGridOverviewPanel.this.previewControls[tabIndex]
-                            .setPreviewImage(componentSnap, true);
-                }
-            };
+                    };
 
             this.setLayout(new TabGridOverviewPanelLayout());
 
@@ -726,7 +687,7 @@ public class TabOverviewDialog extends JDialog {
 
         /**
          * Layout manager for the tab overview panel.
-         * 
+         *
          * @author Kirill Grouchnikov
          */
         private class TabGridOverviewPanelLayout implements LayoutManager {
@@ -774,7 +735,7 @@ public class TabOverviewDialog extends JDialog {
     /**
      * Glass pane for the tab grid overview panel. Provides rollover effects, showing zoomed version
      * of the tab thumbnails.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public class TabGridOverviewGlassPane extends JPanel {
@@ -788,27 +749,25 @@ public class TabOverviewDialog extends JDialog {
                     final TabGridOverviewPanel overviewPanel) {
                 this.index = index;
                 this.overviewPanel = overviewPanel;
-                SwingComponentTimeline.Builder rolloverTimelineBuilder =
-                        SwingComponentTimeline.componentBuilder(
-                                overviewPanel.previewControls[index]);
-                AnimationConfigurationManager.getInstance()
-                        .configureTimelineBuilder(rolloverTimelineBuilder);
-                rolloverTimelineBuilder.addPropertyToInterpolate("zoom", 1.0f, 1.2f);
-                rolloverTimelineBuilder.addCallback(
-                        new SwingRepaintCallback(SwingUtilities.getRootPane(overviewPanel)));
-                rolloverTimelineBuilder.addCallback(new UIThreadTimelineCallbackAdapter() {
-                    @Override
-                    public void onTimelineStateChanged(TimelineState oldState,
-                            TimelineState newState, float durationFraction,
-                            float timelinePosition) {
-                        if ((oldState == TimelineState.DONE) && (newState == TimelineState.IDLE)) {
-                            overviewPanel.previewControls[index]
-                                    .setToolTipText(TabPreviewUtilities.getLabelBundle()
-                                            .getString("TabbedPane.overviewWidgetTooltip"));
-                        }
-                    }
-                });
-                this.rolloverTimeline = rolloverTimelineBuilder.build();
+                this.rolloverTimeline = AnimationConfigurationManager.getInstance()
+                        .timelineBuilder(overviewPanel.previewControls[index])
+                        .addPropertyToInterpolate("zoom", 1.0f, 1.2f)
+                        .addCallback(new SwingRepaintCallback(
+                                SwingUtilities.getRootPane(overviewPanel)))
+                        .addCallback(new UIThreadTimelineCallbackAdapter() {
+                            @Override
+                            public void onTimelineStateChanged(TimelineState oldState,
+                                    TimelineState newState, float durationFraction,
+                                    float timelinePosition) {
+                                if ((oldState == TimelineState.DONE) &&
+                                        (newState == TimelineState.IDLE)) {
+                                    overviewPanel.previewControls[index].setToolTipText(
+                                            TabPreviewUtilities.getLabelBundle()
+                                                    .getString("TabbedPane.overviewWidgetTooltip"));
+                                }
+                            }
+                        })
+                        .build();
             }
 
             @Override
@@ -845,9 +804,8 @@ public class TabOverviewDialog extends JDialog {
 
         /**
          * Creates the glass pane.
-         * 
-         * @param overviewPanel
-         *            The associated overview panel.
+         *
+         * @param overviewPanel The associated overview panel.
          */
         public TabGridOverviewGlassPane(final TabGridOverviewPanel overviewPanel) {
             this.setOpaque(false);
@@ -881,11 +839,9 @@ public class TabOverviewDialog extends JDialog {
 
         /**
          * Paints a single tab component.
-         * 
-         * @param graphics
-         *            Graphics context.
-         * @param index
-         *            Tab component index.
+         *
+         * @param graphics Graphics context.
+         * @param index    Tab component index.
          */
         private void paintSingleTabComponent(Graphics2D graphics, int index) {
             TabPreviewControl child = overviewPanel.previewControls[index];
@@ -945,19 +901,13 @@ public class TabOverviewDialog extends JDialog {
     /**
      * Creates a new tab overview dialog. Declared private to enforce usage of
      * {@link #getOverviewDialog(JTabbedPane)}.
-     * 
-     * @param tabPane
-     *            Tabbed pane.
-     * @param overviewKind
-     *            Overview kind.
-     * @param owner
-     *            Optional owner for the tab overview dialog.
-     * @param modal
-     *            Modality indication.
-     * @param dialogWidth
-     *            Tab overview dialog width.
-     * @param dialogHeight
-     *            Tab overview dialog height.
+     *
+     * @param tabPane      Tabbed pane.
+     * @param overviewKind Overview kind.
+     * @param owner        Optional owner for the tab overview dialog.
+     * @param modal        Modality indication.
+     * @param dialogWidth  Tab overview dialog width.
+     * @param dialogHeight Tab overview dialog height.
      * @throws HeadlessException
      * @see #getOverviewDialog(JTabbedPane)
      */
@@ -1026,18 +976,17 @@ public class TabOverviewDialog extends JDialog {
 
     /**
      * Returns a new instance of a tab overview dialog.
-     * 
-     * @param tabPane
-     *            Tabbed pane.
+     *
+     * @param tabPane Tabbed pane.
      * @return Tab overview dialog for the specified tabbed pane.
      */
     public static TabOverviewDialog getOverviewDialog(JTabbedPane tabPane) {
         final TabPreviewPainter previewPainter = TabPreviewUtilities.getTabPreviewPainter(tabPane);
         String title = previewPainter.toUpdatePeriodically(tabPane)
                 ? MessageFormat.format(
-                        TabPreviewUtilities.getLabelBundle()
-                                .getString("TabbedPane.overviewDialogTitleRefresh"),
-                        new Object[] { Integer.valueOf(previewPainter.getUpdateCycle(tabPane) / 1000) })
+                TabPreviewUtilities.getLabelBundle()
+                        .getString("TabbedPane.overviewDialogTitleRefresh"),
+                new Object[] { Integer.valueOf(previewPainter.getUpdateCycle(tabPane) / 1000) })
                 : TabPreviewUtilities.getLabelBundle().getString("TabbedPane.overviewDialogTitle");
         JFrame frameForModality = previewPainter.getModalOwner(tabPane);
         boolean isModal = (frameForModality != null);

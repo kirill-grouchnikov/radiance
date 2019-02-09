@@ -30,11 +30,8 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
-import org.pushingpixels.substance.internal.utils.WidgetUtilities;
-import org.pushingpixels.substance.internal.utils.menu.MenuUtilities;
-import org.pushingpixels.substance.internal.utils.menu.SubstanceMenuBackgroundDelegate;
+import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.menu.*;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
