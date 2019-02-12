@@ -44,8 +44,7 @@ import java.awt.event.*;
  *
  * @author Kirill Grouchnikov
  */
-public class ActionRepeatableButtonModel extends DefaultButtonModel implements
-        ActionButtonModel {
+public class ActionRepeatableButtonModel extends DefaultButtonModel implements ActionButtonModel {
     /**
      * The button behind the model.
      */

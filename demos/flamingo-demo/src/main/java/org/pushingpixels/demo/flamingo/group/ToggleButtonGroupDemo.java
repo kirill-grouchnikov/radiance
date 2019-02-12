@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.skin.GeminiSkin;
+import org.pushingpixels.substance.api.skin.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -52,7 +52,7 @@ public class ToggleButtonGroupDemo {
 
     public static void main(String... args) {
         SwingUtilities.invokeLater(() -> {
-            SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
+            SubstanceCortex.GlobalScope.setSkin(new MarinerSkin());
 
             JFrame frame = new JFrame("Text alignment demo");
             frame.setLayout(new BorderLayout());
@@ -123,7 +123,8 @@ public class ToggleButtonGroupDemo {
                     CommandStripPresentationModel.builder()
                             .setOrientation(CommandStripPresentationModel.StripOrientation.VERTICAL)
                             .setHorizontalGapScaleFactor(0.8)
-                            .setVerticalGapScaleFactor(1.4).build());
+                            .setVerticalGapScaleFactor(1.4)
+                            .build());
             JCommandButtonStrip commandButtonStrip = commandStripProjection.buildComponent();
             styleButtonPanel.add(commandButtonStrip);
 

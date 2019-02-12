@@ -214,7 +214,6 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     commandButton.setHorizontalAlignment(SwingUtilities.LEADING);
                     commandButton.setPopupOrientationKind(
                             CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD);
-                    commandButton.setEnabled(menuEntry.isEnabled());
                     this.panelLevel1.add(commandButton);
                 }
                 if (i < (primaryGroupCount - 1)) {

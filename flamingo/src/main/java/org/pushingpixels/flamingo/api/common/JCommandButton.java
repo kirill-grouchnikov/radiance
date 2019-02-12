@@ -334,13 +334,17 @@ public class JCommandButton extends AbstractCommandButton {
             CommandButtonPresentationModel> projection) {
         super(projection);
 
-        this.setActionModel(new ActionRepeatableButtonModel(this));
+        ActionButtonModel actionButtonModel = new ActionRepeatableButtonModel(this);
+        actionButtonModel.setEnabled(projection.getContentModel().isActionEnabled());
+        this.setActionModel(actionButtonModel);
 
         // important - handler creation must be done before setting
         // the popup model so that it can be registered to track the
         // changes
         this.popupHandler = new PopupHandler();
-        this.setPopupModel(new DefaultPopupButtonModel());
+        PopupButtonModel popupButtonModel = new DefaultPopupButtonModel();
+        popupButtonModel.setEnabled(projection.getContentModel().isSecondaryEnabled());
+        this.setPopupModel(popupButtonModel);
 
         boolean hasAction = (command.getAction() != null);
         boolean hasPopup = (command.getSecondaryContentModel() != null);

@@ -37,7 +37,7 @@ public static class MyPanel extends JPanel {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d, this);
+        NeonCortex.installDesktopHints(g2d, this.getFont());
         g2d.drawString("Sample text", 50, 50);
         g2d.dispose();
     }
@@ -83,13 +83,11 @@ In the screenshot above, the first two icons in the middle panel (the one next t
 
 ```java
 ResizableIcon editIcon = NeonCortex.colorizeIcon(
-    ic_mode_edit_black_24px.factory(),
-    mainSelectorIconColor, 0.8f);
+    ic_mode_edit_black_24px.factory(), mainSelectorIconColor, 0.8f);
 editIcon.setDimension(new Dimension(14, 14));
 
 ResizableIcon mailIcon = NeonCortex.colorizeIcon(
-    ic_mail_outline_black_24px.factory(),
-    mainSelectorIconColor);
+    ic_mail_outline_black_24px.factory(), mainSelectorIconColor);
 mailIcon.setDimension(new Dimension(12, 12));
 ```
 The first block uses an alpha-based colorization call and configures the result to be a 14x14 icon. The second block does not use alpha (so that the icon's perceived darkness is consistent since it is displayed next to a visually heavier, bold label) and configures the result to be a 12x12 icon. Both icons were transcoded by [Photon](../photon/photon.md) from the [Material icon set](https://material.io/tools/icons/).

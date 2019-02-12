@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.skin.GeminiSkin;
+import org.pushingpixels.substance.api.skin.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -69,7 +69,7 @@ public class ButtonGroupDemo {
 
     public static void main(String... args) {
         SwingUtilities.invokeLater(() -> {
-            SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
+            SubstanceCortex.GlobalScope.setSkin(new MarinerSkin());
 
             JFrame frame = new JFrame("Text styling demo");
             frame.setLayout(new BorderLayout());
@@ -114,7 +114,8 @@ public class ButtonGroupDemo {
                                 hasStyleInSelection(textPane,
                                         StyleConstants.CharacterConstants.Bold));
                     })
-                    .setEnabled(false)
+                    .setToggle()
+                    .setActionEnabled(false)
                     .setActionRichTooltip(RichTooltip.builder()
                             .setTitle(resourceBundle.getString("FontBold.tooltip.textActionTitle"))
                             .addDescriptionSection(resourceBundle.getString(
@@ -133,7 +134,8 @@ public class ButtonGroupDemo {
                                 hasStyleInSelection(textPane,
                                         StyleConstants.CharacterConstants.Italic));
                     })
-                    .setEnabled(false)
+                    .setToggle()
+                    .setActionEnabled(false)
                     .setActionRichTooltip(RichTooltip.builder()
                             .setTitle(
                                     resourceBundle.getString("FontItalic.tooltip.textActionTitle"))
@@ -154,7 +156,8 @@ public class ButtonGroupDemo {
                                 hasStyleInSelection(textPane,
                                         StyleConstants.CharacterConstants.Underline));
                     })
-                    .setEnabled(false)
+                    .setToggle()
+                    .setActionEnabled(false)
                     .setActionRichTooltip(RichTooltip.builder()
                             .setTitle(resourceBundle.getString(
                                     "FontUnderline.tooltip.textActionTitle"))
@@ -175,7 +178,8 @@ public class ButtonGroupDemo {
                                 hasStyleInSelection(textPane,
                                         StyleConstants.CharacterConstants.StrikeThrough));
                     })
-                    .setEnabled(false)
+                    .setToggle()
+                    .setActionEnabled(false)
                     .setActionRichTooltip(RichTooltip.builder()
                             .setTitle(resourceBundle.getString(
                                     "FontStrikethrough.tooltip.textActionTitle"))
@@ -184,26 +188,15 @@ public class ButtonGroupDemo {
                             .build())
                     .build();
 
-            // Create a button strip to change the text styling in our text pane.
-            CommandStripProjection commandStripProjection = new CommandStripProjection(
-                    new CommandGroup(commandBold, commandItalic, commandUnderline,
-                            commandStrikethrough),
-                    CommandStripPresentationModel.builder()
-                            .setOrientation(CommandStripPresentationModel.StripOrientation.VERTICAL)
-                            .setHorizontalGapScaleFactor(0.8)
-                            .setVerticalGapScaleFactor(1.4).build());
-            JCommandButtonStrip commandButtonStrip = commandStripProjection.buildComponent();
-            styleButtonPanel.add(commandButtonStrip);
-
             textPane.addCaretListener((CaretEvent e) -> {
                 // Compute selection presence
                 boolean hasSelection =
                         (textPane.getSelectionEnd() - textPane.getSelectionStart()) > 0;
                 // Enable or disable the style commands based on that
-                commandBold.setEnabled(hasSelection);
-                commandItalic.setEnabled(hasSelection);
-                commandUnderline.setEnabled(hasSelection);
-                commandStrikethrough.setEnabled(hasSelection);
+                commandBold.setActionEnabled(hasSelection);
+                commandItalic.setActionEnabled(hasSelection);
+                commandUnderline.setActionEnabled(hasSelection);
+                commandStrikethrough.setActionEnabled(hasSelection);
 
                 // For each command, determine whether its toggle selection is "on" based on
                 // the presence of the matching style in the text pane selection
@@ -216,6 +209,18 @@ public class ButtonGroupDemo {
                 commandStrikethrough.setToggleSelected(hasStyleInSelection(textPane,
                         StyleConstants.CharacterConstants.StrikeThrough));
             });
+
+            // Create a button strip to change the text styling in our text pane.
+            CommandStripProjection commandStripProjection = new CommandStripProjection(
+                    new CommandGroup(commandBold, commandItalic, commandUnderline,
+                            commandStrikethrough),
+                    CommandStripPresentationModel.builder()
+                            .setOrientation(CommandStripPresentationModel.StripOrientation.VERTICAL)
+                            .setHorizontalGapScaleFactor(0.8)
+                            .setVerticalGapScaleFactor(1.4)
+                            .build());
+            JCommandButtonStrip commandButtonStrip = commandStripProjection.buildComponent();
+            styleButtonPanel.add(commandButtonStrip);
 
             // Show our frame in the center of the screen
             frame.setIconImage(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));

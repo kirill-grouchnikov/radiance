@@ -35,6 +35,9 @@ import org.pushingpixels.demo.plasma.svg.Format_text_strikethrough
 import org.pushingpixels.demo.plasma.svg.Format_text_underline
 import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
+import org.pushingpixels.meteor.swing.CharacterStyleType
+import org.pushingpixels.meteor.swing.hasStyleInSelection
+import org.pushingpixels.meteor.swing.toggleStyleInSelection
 import org.pushingpixels.plasma.command
 import org.pushingpixels.plasma.commandButtonStrip
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -44,36 +47,9 @@ import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.image.BufferedImage
 import java.util.*
-import javax.swing.JFrame
-import javax.swing.JPanel
-import javax.swing.JTextPane
-import javax.swing.SwingUtilities
+import javax.swing.*
 import javax.swing.border.EmptyBorder
 import javax.swing.text.DefaultCaret
-import javax.swing.text.SimpleAttributeSet
-import javax.swing.text.StyleConstants
-
-
-// Extension function on JTextPane to check presence of content style
-fun JTextPane.hasStyleInSelection(style: Any): Boolean {
-    for (index in this.selectionStart until this.selectionEnd) {
-        val attr = this.styledDocument.getCharacterElement(index).attributes?.getAttribute(style)
-        if ((attr is Boolean) && attr) {
-            return true
-        }
-    }
-    return false
-}
-
-// Extension function on JTextPane to toggle content style
-fun JTextPane.toggleStyleInSelection(style: Any) {
-    val attrSet = SimpleAttributeSet()
-    // Add or remove the style on the entire selection
-    attrSet.addAttribute(style, !hasStyleInSelection(style))
-    this.styledDocument.setCharacterAttributes(this.selectionStart,
-            this.selectionEnd - this.selectionStart,
-            attrSet, false)
-}
 
 fun main() {
     SwingUtilities.invokeLater {
@@ -106,11 +82,11 @@ fun main() {
         val commandBold = command {
             iconFactory = Format_text_bold.factory()
             action = CommandAction {
-                textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Bold)
-                isToggleSelected = textPane.hasStyleInSelection(
-                        StyleConstants.CharacterConstants.Bold)
+                textPane.toggleStyleInSelection(CharacterStyleType.STYLE_BOLD)
+                isToggleSelected = textPane.hasStyleInSelection(CharacterStyleType.STYLE_BOLD)
             }
-            isEnabled = false
+            isToggle = true
+            isActionEnabled = false
             actionRichTooltip {
                 title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
                 description {
@@ -122,11 +98,11 @@ fun main() {
         val commandItalic = command {
             iconFactory = Format_text_italic.factory()
             action = CommandAction {
-                textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Italic)
-                isToggleSelected = textPane.hasStyleInSelection(
-                        StyleConstants.CharacterConstants.Italic)
+                textPane.toggleStyleInSelection(CharacterStyleType.STYLE_ITALIC)
+                isToggleSelected = textPane.hasStyleInSelection(CharacterStyleType.STYLE_ITALIC)
             }
-            isEnabled = false
+            isToggle = true
+            isActionEnabled = false
             actionRichTooltip {
                 title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
                 description {
@@ -138,11 +114,11 @@ fun main() {
         val commandUnderline = command {
             iconFactory = Format_text_underline.factory()
             action = CommandAction {
-                textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.Underline)
-                isToggleSelected = textPane.hasStyleInSelection(
-                        StyleConstants.CharacterConstants.Underline)
+                textPane.toggleStyleInSelection(CharacterStyleType.STYLE_UNDERLINE)
+                isToggleSelected = textPane.hasStyleInSelection(CharacterStyleType.STYLE_UNDERLINE)
             }
-            isEnabled = false
+            isToggle = true
+            isActionEnabled = false
             actionRichTooltip {
                 title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
                 description {
@@ -154,11 +130,11 @@ fun main() {
         val commandStrikethrough = command {
             iconFactory = Format_text_strikethrough.factory()
             action = CommandAction {
-                textPane.toggleStyleInSelection(StyleConstants.CharacterConstants.StrikeThrough)
-                isToggleSelected = textPane.hasStyleInSelection(
-                        StyleConstants.CharacterConstants.StrikeThrough)
+                textPane.toggleStyleInSelection(CharacterStyleType.STYLE_STRIKETHROUGH)
+                isToggleSelected = textPane.hasStyleInSelection(CharacterStyleType.STYLE_STRIKETHROUGH)
             }
-            isEnabled = false
+            isToggle = true
+            isActionEnabled = false
             actionRichTooltip {
                 title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
                 description {
@@ -187,25 +163,28 @@ fun main() {
             // Compute selection presence
             val hasSelection = (textPane.selectionEnd - textPane.selectionStart) > 0
             // Enable or disable the style commands based on that
-            commandStyleStrip.isEnabled = hasSelection
+            commandBold.isActionEnabled = hasSelection
+            commandItalic.isActionEnabled = hasSelection
+            commandUnderline.isActionEnabled = hasSelection
+            commandStrikethrough.isActionEnabled = hasSelection
 
             // For each command, determine if its toggle selection is on based on
             // the presence of the matching style in the text pane selection
             commandBold.isToggleSelected = textPane.hasStyleInSelection(
-                    StyleConstants.CharacterConstants.Bold)
+                    CharacterStyleType.STYLE_BOLD)
             commandItalic.isToggleSelected = textPane.hasStyleInSelection(
-                    StyleConstants.CharacterConstants.Italic)
+                    CharacterStyleType.STYLE_ITALIC)
             commandUnderline.isToggleSelected = textPane.hasStyleInSelection(
-                    StyleConstants.CharacterConstants.Underline)
+                    CharacterStyleType.STYLE_UNDERLINE)
             commandStrikethrough.isToggleSelected = textPane.hasStyleInSelection(
-                    StyleConstants.CharacterConstants.StrikeThrough)
+                    CharacterStyleType.STYLE_STRIKETHROUGH)
         }
 
         // Show our frame in the center of the screen
         frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
         frame.size = Dimension(600, 300)
         frame.setLocationRelativeTo(null)
-        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
         frame.isVisible = true
     }
 }

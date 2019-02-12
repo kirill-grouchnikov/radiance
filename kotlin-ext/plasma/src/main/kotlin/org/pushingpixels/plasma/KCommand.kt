@@ -39,12 +39,13 @@ import org.pushingpixels.flamingo.api.common.CommandActionEvent
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.model.ColorSelectorCommand
 import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.common.model.CommandGroup
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.flamingo.api.common.model.CommandGroup
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
 import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection
 import org.pushingpixels.neon.icon.ResizableIconFactory
+import java.lang.IllegalArgumentException
 
 @FlamingoElementMarker
 open class KCommand {
@@ -165,21 +166,6 @@ open class KCommand {
     var isTitleClickAction: Boolean by NonNullDelegate { hasBeenConverted }
     var isTitleClickSecondary: Boolean by NonNullDelegate { hasBeenConverted }
 
-    // The "isEnabled" property can be modified even after [KCommandButton.toButton] has been called
-    // multiple times. Internally, the setter propagates the new value to the underlying
-    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
-    // command buttons created from this command.
-    private var _isEnabled: Boolean = true
-    var isEnabled: Boolean
-        get() = _isEnabled
-        set(value) {
-            _isEnabled = value
-            builder.setEnabled(value)
-            if (hasBeenConverted) {
-                javaCommand.isEnabled = value
-            }
-        }
-
     // The "isActionEnabled" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
@@ -210,7 +196,18 @@ open class KCommand {
             }
         }
 
-    var isToggle: Boolean by NonNullDelegate { hasBeenConverted }
+    private var _isToggle: Boolean = false
+    var isToggle: Boolean
+        get() = _isToggle
+        set(value) {
+            if (hasBeenConverted) {
+                throw IllegalArgumentException("Cannot change toggle after command has been converted")
+            }
+            _isToggle = value
+            if (_isToggle) {
+                builder.setToggle()
+            }
+        }
 
     // The "isToggleSelected" property can be modified even after [KCommandButton.toButton] has
     // been called multiple times. Internally, the setter propagates the new value to the underlying
@@ -332,6 +329,7 @@ open class KCommand {
             }
 
             if (command.isToggleSelected) {
+                builder.setToggle()
                 builder.setToggleSelected(command.isToggleSelected)
             } else {
                 if (command.isToggle) {
@@ -339,13 +337,14 @@ open class KCommand {
                 }
             }
             if (command.toggleGroup != null) {
+                builder.setToggle()
                 builder.inToggleGroup(command.toggleGroup!!.javaCommandToggleModel)
             }
 
             builder.setFireActionOnRollover(command.isFireActionOnRollover)
             builder.setFireActionOnPress(command.isFireActionOnPress)
 
-            builder.setActionPreview(object: Command.CommandActionPreview {
+            builder.setActionPreview(object : Command.CommandActionPreview {
                 override fun onCommandPreviewActivated(cmd: Command?) {
                     command.onActionPreviewActivated?.invoke()
                 }
@@ -355,7 +354,8 @@ open class KCommand {
                 }
             })
 
-            builder.setEnabled(command.isEnabled)
+            builder.setActionEnabled(command.isActionEnabled)
+            builder.setSecondaryEnabled(command.isSecondaryEnabled)
         }
     }
 
@@ -385,11 +385,11 @@ fun command(init: KCommand.() -> Unit): KCommand {
 }
 
 @FlamingoElementMarker
-class KColorSelectorCommand: KCommand() {
+class KColorSelectorCommand : KCommand() {
     var colorSelectorPopupMenu: KColorSelectorPopupMenu? by NullableDelegate { hasBeenConverted }
     private val colorSelectorBuilder = ColorSelectorCommand.colorSelectorBuilder()
 
-    fun asJavaColorSelectorCommand() : ColorSelectorCommand {
+    fun asJavaColorSelectorCommand(): ColorSelectorCommand {
         if (hasBeenConverted) {
             return javaCommand as ColorSelectorCommand
         }
@@ -445,7 +445,7 @@ open class KCommandButtonPresentation {
 }
 
 @FlamingoElementMarker
-class KColorSelectorCommandPresentation: KCommandButtonPresentation() {
+class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
     var colorColumns: Int = 10
     var menuPresentationState: CommandButtonPresentationState =
             CommandPopupMenuPresentationModel.DEFAULT_POPUP_MENU_PRESENTATION_STATE
@@ -462,8 +462,7 @@ class KColorSelectorCommandPresentation: KCommandButtonPresentation() {
                 .setActionKeyTip(actionKeyTip)
                 .setPopupKeyTip(popupKeyTip)
                 .setMenu(isMenu)
-                .setPopupMenuPresentationModel(command.colorSelectorPopupMenu!!.
-                        toJavaPopupMenuPresentationModel())
+                .setPopupMenuPresentationModel(command.colorSelectorPopupMenu!!.toJavaPopupMenuPresentationModel())
                 .build()
     }
 }

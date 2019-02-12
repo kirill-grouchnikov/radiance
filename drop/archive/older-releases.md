@@ -1,8 +1,8 @@
 ## Older releases
 
-In pre-Radiance world, different libraries in the `org.pushingpixels` namespace were released under different versioning schemes.
+In pre-Radiance world, libraries in the `org.pushingpixels` namespace were released under different versioning schemes.
 
-This `drop/archives` folder provides pre-Radiance binaries for those libraries. These are historical artifacts that can be used to pin your dependencies to a particular historical release.
+The [`drop/archives`](https://github.com/kirill-grouchnikov/radiance/tree/master/drop/archive) folder contains pre-Radiance binaries for those libraries. These are historical artifacts that can be used to pin your dependencies to a particular older release.
 
 ### 2017.H1 releases
 

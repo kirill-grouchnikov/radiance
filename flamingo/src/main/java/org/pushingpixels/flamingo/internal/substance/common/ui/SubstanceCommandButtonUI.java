@@ -166,16 +166,6 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                         commandButton.getActionModel());
                 substanceModelChangeListener.registerListeners();
             }
-            if ("enabled".equals(evt.getPropertyName())) {
-                if (!commandButton.isEnabled() &&
-                        !commandButton.getProjection().getContentModel().isToggle()) {
-                    overallRolloverModel.setSelected(false);
-                    overallRolloverModel.setRollover(false);
-                    overallRolloverModel.setArmed(false);
-                    overallRolloverModel.setPressed(false);
-                }
-                overallRolloverModel.setEnabled(commandButton.isEnabled());
-            }
             if ("icon".equals(evt.getPropertyName())) {
                 trackGlowingIcon();
             }

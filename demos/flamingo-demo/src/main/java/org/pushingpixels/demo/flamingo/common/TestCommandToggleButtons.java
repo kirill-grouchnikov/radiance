@@ -152,14 +152,6 @@ public class TestCommandToggleButtons extends JFrame {
     protected void configureControlPanel(JPanel controlPanel) {
         controlPanel.add(SkinSwitcher.getSkinSwitcher(this));
 
-        final JCheckBox enabled = new JCheckBox("enabled");
-        enabled.setSelected(true);
-        enabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-            toggleCommandShort.setEnabled(enabled.isSelected());
-            toggleCommandLong.setEnabled(enabled.isSelected());
-        }));
-        controlPanel.add(enabled);
-
         final JCheckBox actionEnabled = new JCheckBox("action enabled");
         actionEnabled.setSelected(true);
         actionEnabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {

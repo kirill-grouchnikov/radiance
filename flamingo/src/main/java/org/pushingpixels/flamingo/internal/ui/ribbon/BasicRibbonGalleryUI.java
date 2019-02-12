@@ -421,16 +421,16 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 }
             }
             if (ribbonGallery.getCommandCount() == 0) {
-                scrollDownCommand.setEnabled(false);
-                scrollUpCommand.setEnabled(false);
-                expandCommand.setEnabled(false);
+                scrollDownCommand.setActionEnabled(false);
+                scrollUpCommand.setActionEnabled(false);
+                expandCommand.setActionEnabled(false);
             } else {
                 // Scroll down command is enabled when the last button is not showing
-                scrollDownCommand.setEnabled(!ribbonGallery
+                scrollDownCommand.setActionEnabled(!ribbonGallery
                         .getButtonAt(ribbonGallery.getCommandCount() - 1).isVisible());
                 // Scroll up command is enabled when the first button is not showing
-                scrollUpCommand.setEnabled(!ribbonGallery.getButtonAt(0).isVisible());
-                expandCommand.setEnabled(true);
+                scrollUpCommand.setActionEnabled(!ribbonGallery.getButtonAt(0).isVisible());
+                expandCommand.setActionEnabled(true);
             }
         }
     }

@@ -33,9 +33,9 @@ import org.pushingpixels.demo.plasma.svg.*
 import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
+import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.plasma.commandButton
 import org.pushingpixels.plasma.commandPopupMenu
-import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.Color
@@ -46,6 +46,7 @@ import java.text.MessageFormat
 import java.util.*
 import javax.swing.JFrame
 import javax.swing.SwingUtilities
+import javax.swing.WindowConstants
 
 fun main() {
     SwingUtilities.invokeLater {
@@ -159,7 +160,7 @@ fun main() {
         frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
         frame.size = Dimension(250, 200)
         frame.setLocationRelativeTo(null)
-        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
 
         frame.isVisible = true
     }

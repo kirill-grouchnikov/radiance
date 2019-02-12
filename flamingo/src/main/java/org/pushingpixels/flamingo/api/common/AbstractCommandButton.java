@@ -225,8 +225,6 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
             this.setActionKeyTip(commandPresentation.getActionKeyTip());
         }
 
-        this.setEnabled(command.isEnabled());
-
         if (!commandPresentation.isToDismissPopupsOnActivation()) {
             this.putClientProperty(BasicCommandButtonUI.DONT_DISPOSE_POPUPS, Boolean.TRUE);
         }
@@ -266,8 +264,6 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
             this.setActionRichTooltip(command.getActionRichTooltip());
             this.setActionKeyTip(commandPresentation.getActionKeyTip());
         }
-
-        this.setEnabled(command.isEnabled());
 
         if (!commandPresentation.isToDismissPopupsOnActivation()) {
             this.putClientProperty(BasicCommandButtonUI.DONT_DISPOSE_POPUPS, Boolean.TRUE);

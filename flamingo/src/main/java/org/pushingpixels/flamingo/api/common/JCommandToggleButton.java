@@ -49,11 +49,12 @@ public class JCommandToggleButton extends AbstractCommandButton {
 	public JCommandToggleButton(Projection<AbstractCommandButton, ? extends Command,
 			CommandButtonPresentationModel> projection) {
 		super(projection);
-		this.setActionModel(new ActionToggleButtonModel(this, false));
 
-		if (command.isToggleSelected()) {
-			this.getActionModel().setSelected(true);
-		}
+		ActionButtonModel actionButtonModel = new ActionToggleButtonModel(this, false);
+		actionButtonModel.setEnabled(projection.getContentModel().isActionEnabled());
+		actionButtonModel.setSelected(command.isToggleSelected());
+
+		this.setActionModel(actionButtonModel);
 
 		this.updateUI();
 	}

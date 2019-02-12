@@ -219,10 +219,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                     commandButton.repaint();
                 }
             }
-            if ("enabled".equals(evt.getPropertyName())) {
-                syncDisabledIcon();
-                commandButton.repaint();
-            }
             if ("commandButtonKind".equals(evt.getPropertyName())) {
                 updatePopupActionIcon();
             }
@@ -277,9 +273,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
         Command command = this.commandButton.getProjection().getContentModel();
         this.projectionPropertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("enabled".equals(evt.getPropertyName())) {
-                commandButton.setEnabled((Boolean) evt.getNewValue());
-            }
             if ("text".equals(evt.getPropertyName())) {
                 commandButton.setText((String) evt.getNewValue());
             }
@@ -329,6 +322,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             }
             if ("actionEnabled".equals(evt.getPropertyName())) {
                 commandButton.getActionModel().setEnabled((Boolean) evt.getNewValue());
+                syncDisabledIcon();
+                commandButton.repaint();
             }
             if ("secondaryEnabled".equals(evt.getPropertyName())) {
                 if (commandButton instanceof JCommandButton) {

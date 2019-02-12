@@ -693,7 +693,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setIconFactory(Edit_find_replace.factory())
                         .setAction((CommandActionEvent e) -> System.out.println(
                                 "Find Replace activated"))
-                        .setEnabled(false).build()
+                        .setActionEnabled(false)
+                        .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
                                 .build()),
@@ -1335,86 +1336,82 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .inToggleGroup(alignToggleGroup)
                 .build();
 
-        this.styleBoldCommand =
-                Command.builder()
-                        .setIconFactory(Format_text_bold.factory())
-                        .setAction((CommandActionEvent e) -> {
-                            // toggle bold in current selection
-                            toggleStyleInSelection(rulerTextPane,
-                                    StyleConstants.CharacterConstants.Bold);
-                            // and update command selection state based on the presence of bold
-                            e.getCommand().setToggleSelected(hasStyleInSelection(rulerTextPane,
-                                    StyleConstants.CharacterConstants.Bold));
-                        })
-                        .setToggle()
-                        .setActionRichTooltip(RichTooltip.builder()
-                                .setTitle(resourceBundle.getString(
-                                        "FontBold.tooltip.textActionTitle"))
-                                .addDescriptionSection(resourceBundle.getString(
-                                        "FontBold.tooltip.textActionParagraph1"))
-                                .build())
-                        .build();
+        this.styleBoldCommand = Command.builder()
+                .setIconFactory(Format_text_bold.factory())
+                .setAction((CommandActionEvent e) -> {
+                    // toggle bold in current selection
+                    toggleStyleInSelection(rulerTextPane,
+                            StyleConstants.CharacterConstants.Bold);
+                    // and update command selection state based on the presence of bold
+                    e.getCommand().setToggleSelected(hasStyleInSelection(rulerTextPane,
+                            StyleConstants.CharacterConstants.Bold));
+                })
+                .setToggle()
+                .setActionRichTooltip(RichTooltip.builder()
+                        .setTitle(resourceBundle.getString(
+                                "FontBold.tooltip.textActionTitle"))
+                        .addDescriptionSection(resourceBundle.getString(
+                                "FontBold.tooltip.textActionParagraph1"))
+                        .build())
+                .build();
 
-        this.styleItalicCommand =
-                Command.builder()
-                        .setIconFactory(Format_text_italic.factory())
-                        .setAction((CommandActionEvent e) -> {
-                            // toggle italic in current selection
-                            toggleStyleInSelection(rulerTextPane,
-                                    StyleConstants.CharacterConstants.Italic);
-                            // and update command selection state based on the presence of italic
-                            e.getCommand().setToggleSelected(hasStyleInSelection(rulerTextPane,
-                                    StyleConstants.CharacterConstants.Italic));
-                        })
-                        .setToggle()
-                        .setActionRichTooltip(RichTooltip.builder()
-                                .setTitle(resourceBundle.getString(
-                                        "FontItalic.tooltip.textActionTitle"))
-                                .addDescriptionSection(resourceBundle.getString(
-                                        "FontItalic.tooltip.textActionParagraph1"))
-                                .build())
-                        .build();
+        this.styleItalicCommand = Command.builder()
+                .setIconFactory(Format_text_italic.factory())
+                .setAction((CommandActionEvent e) -> {
+                    // toggle italic in current selection
+                    toggleStyleInSelection(rulerTextPane,
+                            StyleConstants.CharacterConstants.Italic);
+                    // and update command selection state based on the presence of italic
+                    e.getCommand().setToggleSelected(hasStyleInSelection(rulerTextPane,
+                            StyleConstants.CharacterConstants.Italic));
+                })
+                .setToggle()
+                .setActionRichTooltip(RichTooltip.builder()
+                        .setTitle(resourceBundle.getString(
+                                "FontItalic.tooltip.textActionTitle"))
+                        .addDescriptionSection(resourceBundle.getString(
+                                "FontItalic.tooltip.textActionParagraph1"))
+                        .build())
+                .build();
 
-        this.styleUnderlineCommand =
-                Command.builder()
-                        .setIconFactory(Format_text_underline.factory())
-                        .setAction((CommandActionEvent e) -> {
-                            // toggle underline in current selection
-                            toggleStyleInSelection(rulerTextPane,
-                                    StyleConstants.CharacterConstants.Underline);
-                            // and update command selection state based on the presence of underline
-                            e.getCommand().setToggleSelected(hasStyleInSelection(rulerTextPane,
-                                    StyleConstants.CharacterConstants.Underline));
-                        })
-                        .setToggle()
-                        .setActionRichTooltip(RichTooltip.builder()
-                                .setTitle(resourceBundle.getString(
-                                        "FontUnderline.tooltip.textActionTitle"))
-                                .addDescriptionSection(resourceBundle.getString(
-                                        "FontUnderline.tooltip.textActionParagraph1"))
-                                .build())
-                        .build();
+        this.styleUnderlineCommand = Command.builder()
+                .setIconFactory(Format_text_underline.factory())
+                .setAction((CommandActionEvent e) -> {
+                    // toggle underline in current selection
+                    toggleStyleInSelection(rulerTextPane,
+                            StyleConstants.CharacterConstants.Underline);
+                    // and update command selection state based on the presence of underline
+                    e.getCommand().setToggleSelected(hasStyleInSelection(rulerTextPane,
+                            StyleConstants.CharacterConstants.Underline));
+                })
+                .setToggle()
+                .setActionRichTooltip(RichTooltip.builder()
+                        .setTitle(resourceBundle.getString(
+                                "FontUnderline.tooltip.textActionTitle"))
+                        .addDescriptionSection(resourceBundle.getString(
+                                "FontUnderline.tooltip.textActionParagraph1"))
+                        .build())
+                .build();
 
-        this.styleStrikethroughCommand =
-                Command.builder()
-                        .setIconFactory(Format_text_strikethrough.factory())
-                        .setAction((CommandActionEvent e) -> {
-                            // toggle strikethrough in current selection
-                            toggleStyleInSelection(rulerTextPane,
-                                    StyleConstants.CharacterConstants.StrikeThrough);
-                            // and update command selection state based on the presence of
-                            // strikethrough
-                            e.getCommand().setToggleSelected(hasStyleInSelection(rulerTextPane,
-                                    StyleConstants.CharacterConstants.StrikeThrough));
-                        })
-                        .setToggle()
-                        .setActionRichTooltip(RichTooltip.builder()
-                                .setTitle(resourceBundle.getString(
-                                        "FontStrikethrough.tooltip.textActionTitle"))
-                                .addDescriptionSection(resourceBundle.getString(
-                                        "FontStrikethrough.tooltip.textActionParagraph1"))
-                                .build())
-                        .build();
+        this.styleStrikethroughCommand = Command.builder()
+                .setIconFactory(Format_text_strikethrough.factory())
+                .setAction((CommandActionEvent e) -> {
+                    // toggle strikethrough in current selection
+                    toggleStyleInSelection(rulerTextPane,
+                            StyleConstants.CharacterConstants.StrikeThrough);
+                    // and update command selection state based on the presence of
+                    // strikethrough
+                    e.getCommand().setToggleSelected(hasStyleInSelection(rulerTextPane,
+                            StyleConstants.CharacterConstants.StrikeThrough));
+                })
+                .setToggle()
+                .setActionRichTooltip(RichTooltip.builder()
+                        .setTitle(resourceBundle.getString(
+                                "FontStrikethrough.tooltip.textActionTitle"))
+                        .addDescriptionSection(resourceBundle.getString(
+                                "FontStrikethrough.tooltip.textActionParagraph1"))
+                        .build())
+                .build();
 
 
         this.menuSaveSelection = Command.builder()
@@ -1466,7 +1463,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIconFactory(Text_html.factory())
                 .setExtraText(resourceBundle.getString("AppMenuSaveAs.html.description"))
                 .setAction((CommandActionEvent ae) -> System.out.println("Invoked saved as HTML"))
-                .setEnabled(false).build();
+                .setActionEnabled(false)
+                .build();
 
         this.amEntrySaveAsOtherFormats = Command.builder()
                 .setText(resourceBundle.getString("AppMenuSaveAs.other.text"))
@@ -1911,7 +1909,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         ribbon.addTaskbarCommand(Command.builder()
                 .setIconFactory(Edit_clear.factory())
                 .setAction((CommandActionEvent e) -> System.out.println("Taskbar Clear activated"))
-                .setEnabled(false)
+                .setActionEnabled(false)
                 .build());
 
         ribbon.addTaskbarComponent(new RibbonComboBoxProjection(this.fontComboBoxModel,
@@ -2016,7 +2014,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIconFactory(Document_save.factory())
                 .setAction((CommandActionEvent ae) ->
                         System.out.println("Invoked saving document"))
-                .setEnabled(false).build();
+                .setActionEnabled(false)
+                .build();
         applicationMenuOverlays.put(amEntrySave,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("S"));
 

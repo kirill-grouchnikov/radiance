@@ -33,24 +33,21 @@ import org.pushingpixels.ember.setColorizationFactor
 import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
-import org.pushingpixels.plasma.DelayedCommandListener
-import org.pushingpixels.plasma.KColorSelectorCommand
-import org.pushingpixels.plasma.colorSelectorCommandButton
-import org.pushingpixels.plasma.colorSelectorPopupMenu
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
 import org.pushingpixels.neon.icon.ResizableIconFactory
+import org.pushingpixels.plasma.DelayedCommandListener
+import org.pushingpixels.plasma.KColorSelectorCommand
+import org.pushingpixels.plasma.colorSelectorCommandButton
+import org.pushingpixels.plasma.colorSelectorPopupMenu
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.*
 import java.awt.geom.Rectangle2D
 import java.awt.image.BufferedImage
 import java.util.*
-import javax.swing.JColorChooser
-import javax.swing.JFrame
-import javax.swing.JPanel
-import javax.swing.SwingUtilities
+import javax.swing.*
 
 class ColorIcon(private var color: Color) : ResizableIcon {
     private var w: Int = 0
@@ -216,7 +213,7 @@ fun main() {
         frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
         frame.size = Dimension(250, 200)
         frame.setLocationRelativeTo(null)
-        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
 
         frame.isVisible = true
     }

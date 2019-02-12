@@ -18,7 +18,9 @@ Have a question? See the [FAQ](faq.md) and the list of [known issues](known-issu
 
 ### Adding Substance to your application
 
-Snapshot artifacts [are available](https://oss.sonatype.org/content/repositories/snapshots/org/pushing-pixels/) on Sonatype for Maven and Gradle builds. Another option is to:
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance) `radiance-substance` for [Substance](docs/substance/substance.md)
+
+In addition, snapshot artifacts of tip-of-tree [are available](https://oss.sonatype.org/content/repositories/snapshots/org/pushing-pixels/) on Sonatype for Maven and Gradle builds. Another option is to:
 * Download the local copy of the latest Radiance.
 * Build Radiance locally with *gradlew* command.
 * Copy the binaries with *gradlew copyJars* command. For version *X.Y.ZZ* of Radiance, add *radiance-substance-X.Y.ZZ.jar*, *radiance-trident-X.Y.ZZ.jar* and *radiance-neon-X.Y.ZZ.jar* to the place that has your local dependencies.

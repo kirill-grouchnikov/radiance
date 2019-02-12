@@ -226,16 +226,6 @@ public class TestCommandButtons extends JFrame {
     protected void configureControlPanel(JPanel controlPanel) {
         controlPanel.add(SkinSwitcher.getSkinSwitcher(this));
 
-        final JCheckBox enabled = new JCheckBox("enabled");
-        enabled.setSelected(true);
-        enabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-            copyCommand.setEnabled(enabled.isSelected());
-            cutCommand.setEnabled(enabled.isSelected());
-            pasteActionCommand.setEnabled(enabled.isSelected());
-            pastePopupCommand.setEnabled(enabled.isSelected());
-        }));
-        controlPanel.add(enabled);
-
         final JCheckBox actionEnabled = new JCheckBox("action enabled");
         actionEnabled.setSelected(true);
         actionEnabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {

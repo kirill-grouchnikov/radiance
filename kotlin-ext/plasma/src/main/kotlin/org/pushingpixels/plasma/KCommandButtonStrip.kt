@@ -57,13 +57,6 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
     private val commandConfigs = arrayListOf<KCommandGroup.CommandConfig>()
     internal val presentation: KCommandButtonStripPresentation = KCommandButtonStripPresentation()
     private val commandToggleGroup = KCommandToggleGroupModel()
-    var isEnabled: Boolean
-        get() = throw UnsupportedOperationException()
-        set(value) {
-            for (commandConfig in commandConfigs) {
-                commandConfig.command.isEnabled = value
-            }
-        }
 
     operator fun KCommand.unaryPlus() {
         this@KCommandStrip.commandConfigs.add(KCommandGroup.CommandConfig(this, null, null))

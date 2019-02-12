@@ -35,6 +35,8 @@ import org.pushingpixels.demo.plasma.svg.Format_justify_left
 import org.pushingpixels.demo.plasma.svg.Format_justify_right
 import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
+import org.pushingpixels.meteor.swing.AlignType
+import org.pushingpixels.meteor.swing.setAlignment
 import org.pushingpixels.plasma.commandToggleButtonStrip
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.GeminiSkin
@@ -42,20 +44,8 @@ import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.image.BufferedImage
-import javax.swing.JFrame
-import javax.swing.JPanel
-import javax.swing.JTextPane
-import javax.swing.SwingUtilities
+import javax.swing.*
 import javax.swing.border.EmptyBorder
-import javax.swing.text.SimpleAttributeSet
-import javax.swing.text.StyleConstants
-
-// Extension function on JTextPane to change content alignment
-fun JTextPane.setAlignment(alignment: Int) {
-    val attrSet = SimpleAttributeSet()
-    StyleConstants.setAlignment(attrSet, alignment)
-    this.styledDocument.setParagraphAttributes(0, this.styledDocument.length, attrSet, false)
-}
 
 fun main() {
     SwingUtilities.invokeLater {
@@ -82,25 +72,25 @@ fun main() {
                 iconFactory = Format_justify_left.factory()
                 isToggleSelected = true
                 action = CommandAction {
-                    textPane.setAlignment(StyleConstants.ALIGN_LEFT)
+                    textPane.setAlignment(AlignType.ALIGN_LEFT)
                 }
             }
             command {
                 iconFactory = Format_justify_center.factory()
                 action = CommandAction {
-                    textPane.setAlignment(StyleConstants.ALIGN_CENTER)
+                    textPane.setAlignment(AlignType.ALIGN_CENTER)
                 }
             }
             command {
                 iconFactory = Format_justify_right.factory()
                 action = CommandAction {
-                    textPane.setAlignment(StyleConstants.ALIGN_RIGHT)
+                    textPane.setAlignment(AlignType.ALIGN_RIGHT)
                 }
             }
             command {
                 iconFactory = Format_justify_fill.factory()
                 action = CommandAction {
-                    textPane.setAlignment(StyleConstants.ALIGN_JUSTIFIED)
+                    textPane.setAlignment(AlignType.ALIGN_JUSTIFIED)
                 }
             }
             presentation {
@@ -116,7 +106,7 @@ fun main() {
         frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
         frame.size = Dimension(600, 300)
         frame.setLocationRelativeTo(null)
-        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
         frame.isVisible = true
     }
 }

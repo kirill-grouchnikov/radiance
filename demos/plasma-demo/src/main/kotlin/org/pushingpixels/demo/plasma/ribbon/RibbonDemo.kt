@@ -1018,7 +1018,7 @@ private class RibbonDemoBuilder {
                 title = resourceBundle.getString("FindReplace.text")
                 iconFactory = Edit_find_replace.factory()
                 action = CommandAction { println("Find Replace activated") }
-                isEnabled = false
+                isActionEnabled = false
             }
 
             command(priority = PresentationPriority.MEDIUM) {
@@ -1747,7 +1747,7 @@ fun main() {
                 command {
                     iconFactory = Edit_clear.factory()
                     action = CommandAction { println("Taskbar Clear activated") }
-                    isEnabled = false
+                    isActionEnabled = false
                 }
 
                 command {
@@ -1861,7 +1861,7 @@ fun main() {
                         title = builder.resourceBundle.getString("AppMenuSave.text")
                         iconFactory = Document_save.factory()
                         action = CommandAction { println("Invoked saving document") }
-                        isEnabled = false
+                        isActionEnabled = false
                     }
 
                     // "Save as" primary + secondaries
@@ -1893,7 +1893,7 @@ fun main() {
                                     action = CommandAction {
                                         println("Invoked saved as HTML")
                                     }
-                                    isEnabled = false
+                                    isActionEnabled = false
                                 }
 
                                 command(actionKeyTip = "O") {

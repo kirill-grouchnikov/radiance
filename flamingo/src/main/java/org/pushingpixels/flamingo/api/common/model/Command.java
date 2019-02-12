@@ -71,7 +71,6 @@ public class Command implements ContentModel {
     private RichTooltip secondaryRichTooltip;
     private boolean isTitleClickAction;
     private boolean isTitleClickSecondary;
-    private boolean isEnabled;
     private boolean isActionEnabled;
     private boolean isSecondaryEnabled;
     private boolean isToggle;
@@ -160,7 +159,7 @@ public class Command implements ContentModel {
     }
 
     public void setText(String text) {
-        if (this.text != text) {
+        if (!this.text.equals(text)) {
             String old = this.text;
             this.text = text;
             this.pcs.firePropertyChange("text", old, this.text);
@@ -247,17 +246,6 @@ public class Command implements ContentModel {
         return this.isTitleClickSecondary;
     }
 
-    public boolean isEnabled() {
-        return this.isEnabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        if (this.isEnabled != enabled) {
-            this.isEnabled = enabled;
-            this.pcs.firePropertyChange("enabled", !this.isEnabled, this.isEnabled);
-        }
-    }
-
     public boolean isActionEnabled() {
         return this.isActionEnabled;
     }
@@ -291,6 +279,9 @@ public class Command implements ContentModel {
     }
 
     public void setToggleSelected(boolean isToggleSelected) {
+        if (!this.isToggle) {
+            throw new IllegalArgumentException("This command is not toggle");
+        }
         if (this.isToggleSelected != isToggleSelected) {
             this.isToggleSelected = isToggleSelected;
             this.pcs.firePropertyChange("isToggleSelected", !this.isToggleSelected,
@@ -423,7 +414,6 @@ public class Command implements ContentModel {
         protected RichTooltip secondaryRichTooltip;
         protected boolean isTitleClickAction;
         protected boolean isTitleClickSecondary;
-        protected boolean isEnabled = true;
         protected boolean isActionEnabled = true;
         protected boolean isSecondaryEnabled = true;
         protected boolean isToggle;
@@ -447,7 +437,6 @@ public class Command implements ContentModel {
             command.secondaryRichTooltip = this.secondaryRichTooltip;
             command.isTitleClickAction = this.isTitleClickAction;
             command.isTitleClickSecondary = this.isTitleClickSecondary;
-            command.isEnabled = this.isEnabled;
             command.isActionEnabled = this.isActionEnabled;
             command.isSecondaryEnabled = this.isSecondaryEnabled;
             command.isToggle = this.isToggle;
@@ -514,11 +503,6 @@ public class Command implements ContentModel {
 
         public B setTitleClickSecondary() {
             this.isTitleClickSecondary = true;
-            return (B) this;
-        }
-
-        public B setEnabled(boolean isEnabled) {
-            this.isEnabled = isEnabled;
             return (B) this;
         }
 
