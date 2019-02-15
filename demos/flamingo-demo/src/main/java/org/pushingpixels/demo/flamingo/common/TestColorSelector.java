@@ -118,7 +118,7 @@ public class TestColorSelector extends JFrame {
                 .setActionPreview(new Command.CommandActionPreview() {
                     @Override
                     public void onCommandPreviewActivated(Command command) {
-                        colorPreviewListener.onColorPreviewActivated(Color.black);
+                        colorPreviewListener.onColorPreviewActivated(defaultPanelColor);
                     }
 
                     @Override

@@ -245,10 +245,10 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
 				extraLineLayoutInfo.textRect.y = lineLayoutInfo.textRect.y
 						+ labelHeight;
 				extraLineLayoutInfo.textRect.width = (extraText == null) ? 0
-						: fm.stringWidth(buttonText);
+						: fm.stringWidth(extraText);
 				extraLineLayoutInfo.textRect.height = labelHeight;
 
-				result.extraTextLayoutInfoList = new ArrayList<TextLayoutInfo>();
+				result.extraTextLayoutInfoList = new ArrayList<>();
 				result.extraTextLayoutInfoList.add(extraLineLayoutInfo);
 
 				x += Math.max(lineLayoutInfo.textRect.width,

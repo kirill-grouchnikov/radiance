@@ -125,13 +125,13 @@ public class TestCommandButtonsSizing extends JPanel {
                 commandBuilder
                         .setAction((CommandActionEvent e) -> System.out.println("Action invoked"))
                         .setSecondaryContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
-                        .setTitleClickAction();
+                        .setTextClickAction();
                 break;
             case ACTION_AND_POPUP_MAIN_POPUP:
                 commandBuilder
                         .setAction((CommandActionEvent e) -> System.out.println("Action invoked"))
                         .setSecondaryContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
-                        .setTitleClickSecondary();
+                        .setTextClickSecondary();
                 break;
             case POPUP_ONLY:
                 commandBuilder.setSecondaryContentModel(

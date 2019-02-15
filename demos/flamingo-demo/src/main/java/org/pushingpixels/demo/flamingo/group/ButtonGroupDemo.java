@@ -46,7 +46,7 @@ import java.util.*;
 
 public class ButtonGroupDemo {
     private static boolean hasStyleInSelection(JTextPane textPane, Object style) {
-        for (int index = textPane.getSelectionStart(); index <= textPane.getSelectionEnd(); index++) {
+        for (int index = textPane.getSelectionStart(); index < textPane.getSelectionEnd(); index++) {
             Object attr = textPane.getStyledDocument().getCharacterElement(index)
                     .getAttributes().getAttribute(style);
             if (attr instanceof Boolean) {

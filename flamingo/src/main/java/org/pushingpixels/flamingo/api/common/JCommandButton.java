@@ -402,7 +402,7 @@ public class JCommandButton extends AbstractCommandButton {
         }
 
         if (hasAction && hasPopup) {
-            this.setCommandButtonKind(command.isTitleClickAction()
+            this.setCommandButtonKind(command.isTextClickAction()
                     ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                     : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
         } else if (hasPopup) {
@@ -536,7 +536,7 @@ public class JCommandButton extends AbstractCommandButton {
             }
 
             if (hasAction && hasPopup) {
-                this.setCommandButtonKind(command.isTitleClickAction()
+                this.setCommandButtonKind(command.isTextClickAction()
                         ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                         : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
             } else if (hasPopup) {

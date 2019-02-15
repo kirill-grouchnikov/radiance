@@ -32,8 +32,6 @@ package org.pushingpixels.flamingo.api.common;
 import java.util.EventListener;
 
 public interface CommandAction extends EventListener {
-    /**
-     * Invoked when a command is activated.
-     */
+    /** Invoked when a command is activated. */
     void commandActivated(CommandActionEvent e);
 }

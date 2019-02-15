@@ -331,7 +331,7 @@ private class RibbonDemoBuilder {
                     +resourceBundle.getString("Paste.tooltip.popupParagraph1")
                 }
             }
-            isTitleClickAction = true
+            isTextClickAction = true
         }
 
         menuSaveSelection = command {
@@ -586,7 +586,7 @@ private class RibbonDemoBuilder {
                     }
                 }
                 menu = getSimplePopupMenu()
-                isTitleClickAction = true
+                isTextClickAction = true
             }
 
             command(PresentationPriority.MEDIUM, popupKeyTip = "C") {
@@ -594,7 +594,7 @@ private class RibbonDemoBuilder {
                 iconFactory = Edit_copy.factory()
                 action = CommandAction { println("Copy!") }
                 menu = getSimplePopupMenu()
-                isTitleClickSecondary = true
+                isTextClickSecondary = true
             }
 
             command(PresentationPriority.MEDIUM, popupKeyTip = "FP") {
@@ -1871,7 +1871,7 @@ fun main() {
                         action = CommandAction {
                             println("Invoked saving document as")
                         }
-                        isTitleClickAction = true
+                        isTextClickAction = true
 
                         commandPopupMenu {
                             group {
@@ -1915,7 +1915,7 @@ fun main() {
                         title = builder.resourceBundle.getString("AppMenuPrint.text")
                         iconFactory = Document_print.factory()
                         action = CommandAction { println("Invoked printing as") }
-                        isTitleClickAction = true
+                        isTextClickAction = true
 
                         commandPopupMenu {
                             group {

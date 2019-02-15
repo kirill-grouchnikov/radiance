@@ -572,34 +572,32 @@ public class BasicCheckRibbon extends JRibbonFrame {
         clipboardBand.addRibbonCommand(pasteCommandProjection,
                 JRibbonBand.PresentationPriority.TOP);
 
-        clipboardBand
-                .addRibbonCommand(
-                        Command.builder().setText(resourceBundle.getString("Cut.text"))
-                                .setIconFactory(Edit_cut.factory())
-                                .setAction((CommandActionEvent e) -> System.out.println("Cut!"))
-                                .setActionRichTooltip(RichTooltip.builder()
-                                        .setTitle(resourceBundle.getString("Cut.text"))
-                                        .addDescriptionSection(resourceBundle
-                                                .getString("Cut.tooltip.actionParagraph1"))
-                                        .build())
-                                .setSecondaryContentModel(this.popupMenuContentModel)
-                                .setTitleClickAction().build()
-                                .project(CommandButtonPresentationModel.builder()
-                                        .setHorizontalAlignment(SwingConstants.LEADING)
-                                        .setPopupKeyTip("X").build()),
-                        JRibbonBand.PresentationPriority.MEDIUM);
+        clipboardBand.addRibbonCommand(
+                Command.builder().setText(resourceBundle.getString("Cut.text"))
+                        .setIconFactory(Edit_cut.factory())
+                        .setAction((CommandActionEvent e) -> System.out.println("Cut!"))
+                        .setActionRichTooltip(RichTooltip.builder()
+                                .setTitle(resourceBundle.getString("Cut.text"))
+                                .addDescriptionSection(resourceBundle
+                                        .getString("Cut.tooltip.actionParagraph1"))
+                                .build())
+                        .setSecondaryContentModel(this.popupMenuContentModel)
+                        .setTextClickAction().build()
+                        .project(CommandButtonPresentationModel.builder()
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .setPopupKeyTip("X").build()),
+                JRibbonBand.PresentationPriority.MEDIUM);
 
-        clipboardBand
-                .addRibbonCommand(
-                        Command.builder().setText(resourceBundle.getString("Copy.text"))
-                                .setIconFactory(Edit_copy.factory())
-                                .setAction((CommandActionEvent e) -> System.out.println("Copy!"))
-                                .setSecondaryContentModel(this.popupMenuContentModel)
-                                .setTitleClickSecondary().build()
-                                .project(CommandButtonPresentationModel.builder()
-                                        .setHorizontalAlignment(SwingConstants.LEADING)
-                                        .setPopupKeyTip("C").build()),
-                        JRibbonBand.PresentationPriority.MEDIUM);
+        clipboardBand.addRibbonCommand(
+                Command.builder().setText(resourceBundle.getString("Copy.text"))
+                        .setIconFactory(Edit_copy.factory())
+                        .setAction((CommandActionEvent e) -> System.out.println("Copy!"))
+                        .setSecondaryContentModel(this.popupMenuContentModel)
+                        .setTextClickSecondary().build()
+                        .project(CommandButtonPresentationModel.builder()
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .setPopupKeyTip("C").build()),
+                JRibbonBand.PresentationPriority.MEDIUM);
 
         List<CommandGroup> formatMenuEntries = new ArrayList<>();
 
@@ -608,14 +606,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
         formatMenuEntries.add(new CommandGroup(this.applyStyles));
 
         CommandButtonProjection formatCommandProjection = Command.builder()
-                .setText(resourceBundle.getString("Format.text")).setIconFactory(
-                        Edit_paste.factory())
+                .setText(resourceBundle.getString("Format.text"))
+                .setIconFactory(Edit_paste.factory())
                 .setSecondaryContentModel(new CommandMenuContentModel(
                         QuickStylesPanel.getQuickStylesContentModel(resourceBundle, currLocale),
                         formatMenuEntries))
-                .setSecondaryRichTooltip(RichTooltip.builder().setTitle(
-                        "Main title that can go over multiple lines of text even exceeding the " +
-                                "bigger")
+                .setSecondaryRichTooltip(RichTooltip.builder()
+                        .setTitle(
+                                "Main title that can go over multiple lines of text even " +
+                                        "exceeding the bigger")
                         .addDescriptionSection(
                                 "Simple description that can go over multiple lines of text even " +
                                         "exceeding the bigger")
@@ -812,7 +811,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setActionPreview(new Command.CommandActionPreview() {
                     @Override
                     public void onCommandPreviewActivated(Command command) {
-                        colorPreviewListener.onColorPreviewActivated(Color.black);
+                        colorPreviewListener.onColorPreviewActivated(defaultColor);
                     }
 
                     @Override
@@ -1221,7 +1220,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     }
 
     private static boolean hasStyleInSelection(JTextPane textPane, Object style) {
-        for (int index = textPane.getSelectionStart(); index <= textPane.getSelectionEnd(); index++) {
+        for (int index = textPane.getSelectionStart(); index < textPane.getSelectionEnd(); index++) {
             Object attr = textPane.getStyledDocument().getCharacterElement(index)
                     .getAttributes().getAttribute(style);
             if (attr instanceof Boolean) {
@@ -1302,7 +1301,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .addDescriptionSection(resourceBundle
                                 .getString("Paste.tooltip.popupParagraph1"))
                         .build())
-                .setTitleClickAction()
+                .setTextClickAction()
                 .build();
 
         // Toggle group for the align left/center/right/fill commands
@@ -1484,7 +1483,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIconFactory(Document_save_as.factory())
                 .setAction((CommandActionEvent ae) ->
                         System.out.println("Invoked saving document as"))
-                .setTitleClickAction()
+                .setTextClickAction()
                 .setSecondaryContentModel(saveAsMenu)
                 .build();
 
@@ -1969,7 +1968,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setAction((CommandActionEvent ae) ->
                         System.out.println("Invoked creating new document"))
                 .setSecondaryContentModel(newMenu)
-                .setTitleClickAction()
+                .setTextClickAction()
                 .build();
         applicationMenuSecondaryStates.put(amEntryNew,
                 CommandButtonPresentationState.MEDIUM);
@@ -2001,7 +2000,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setAction((CommandActionEvent ae) ->
                         System.out.println("Invoked opening document"))
                 .setSecondaryContentModel(historyOpenMenu)
-                .setTitleClickAction()
+                .setTextClickAction()
                 .build();
         applicationMenuSecondaryStates.put(amEntryOpen,
                 CommandButtonPresentationState.MEDIUM);
@@ -2075,7 +2074,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIconFactory(Document_print.factory())
                 .setAction((CommandActionEvent ae) ->
                         System.out.println("Invoked printing as"))
-                .setTitleClickAction()
+                .setTextClickAction()
                 .setSecondaryContentModel(printMenu)
                 .build();
         applicationMenuSecondaryStates.put(amEntryPrint,

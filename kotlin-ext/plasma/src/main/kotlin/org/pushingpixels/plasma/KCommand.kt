@@ -163,8 +163,8 @@ open class KCommand {
             }
         }
 
-    var isTitleClickAction: Boolean by NonNullDelegate { hasBeenConverted }
-    var isTitleClickSecondary: Boolean by NonNullDelegate { hasBeenConverted }
+    var isTextClickAction: Boolean by NonNullDelegate { hasBeenConverted }
+    var isTextClickSecondary: Boolean by NonNullDelegate { hasBeenConverted }
 
     // The "isActionEnabled" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
@@ -275,8 +275,8 @@ open class KCommand {
         }
 
     init {
-        isTitleClickAction = false
-        isTitleClickSecondary = false
+        isTextClickAction = false
+        isTextClickSecondary = false
         isToggle = false
         isAutoRepeatAction = false
         autoRepeatInitialInterval = Command.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
@@ -321,11 +321,11 @@ open class KCommand {
                 builder.setSecondaryContentModel(command.menu!!.toJavaMenuContentModel())
             }
 
-            if (command.isTitleClickAction) {
-                builder.setTitleClickAction()
+            if (command.isTextClickAction) {
+                builder.setTextClickAction()
             }
-            if (command.isTitleClickSecondary) {
-                builder.setTitleClickSecondary()
+            if (command.isTextClickSecondary) {
+                builder.setTextClickSecondary()
             }
 
             if (command.isToggleSelected) {

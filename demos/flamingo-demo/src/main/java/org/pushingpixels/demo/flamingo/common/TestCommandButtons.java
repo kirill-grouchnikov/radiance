@@ -91,7 +91,7 @@ public class TestCommandButtons extends JFrame {
                 .setExtraText(resourceBundle.getString("Copy.textExtra"))
                 .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Copy"))
                 .setSecondaryContentModel(getPopupMenuContentModel())
-                .setTitleClickSecondary()
+                .setTextClickSecondary()
                 .build();
 
         this.cutCommand = Command.builder()
@@ -100,7 +100,7 @@ public class TestCommandButtons extends JFrame {
                 .setExtraText(resourceBundle.getString("Cut.textExtra"))
                 .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Cut"))
                 .setSecondaryContentModel(getPopupMenuContentModel())
-                .setTitleClickAction()
+                .setTextClickAction()
                 .build();
 
         this.pasteActionCommand = Command.builder()

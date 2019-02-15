@@ -2,6 +2,18 @@
 
 Let's take a look at another similar example of using Flamingo commands.
 
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/intro-text-styling.png" width="696" border=0/>
+
+The setup has the same `JTextPane` and a vertical button strip with four buttons. When there's nothing selected in the text pane, the buttons are disabled. When there is selection, the buttons are enabled. In addition, each button corresponds to bold, italic, underline and strikethrough content style. Each button shows presence of the matching style in the selected content. When clicked, the presence of the matching style is toggled.
+
+For example, selecting some content and clicking the bold button shows this:
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/intro-text-styling-bold.png" width="696" border=0/>
+
+And then selecting another, overlapping, part of content, and clicking the italic button shows this:
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/intro-text-styling-bold-italic.png" width="696" border=0/>
+
+Note how both bold and italic buttons show up as selected, since the currently selected content has both bold and italic presence (not necessarily on the entire selection).
+
 ### Content setup
 
 As before, we set up the `JTextPane` with its content:
@@ -51,7 +63,7 @@ Finally, two helper methods to query and toggle content style in the current `JT
 
 ```java
 private static boolean hasStyleInSelection(JTextPane textPane, Object style) {
-    for (int index = textPane.getSelectionStart(); index <= textPane.getSelectionEnd(); index++) {
+    for (int index = textPane.getSelectionStart(); index < textPane.getSelectionEnd(); index++) {
         Object attr = textPane.getStyledDocument().getCharacterElement(index)
                 .getAttributes().getAttribute(style);
         if (attr instanceof Boolean) {
@@ -144,7 +156,7 @@ Command commandStrikethrough = Command.builder()
 There are some differences in how commands in this application are configured:
 
 1. Even though each command is still marked as toggle, there is no mutual exclusion of the selected state. We can have no selected command (if there is no active selection in our text pane, or no styling in the current selection). And we can certainly have more than one selected command - where the current selection has more than one style associated with the characters in it.
-2. We start by marking each command as disabled with `setEnabled(false)`.
+2. We start by marking each command as disabled with `setActionEnabled(false)`.
 3. We have two steps in the action associated with each command. The first one updates our main text pane. And the second one updates the toggle selection state of the corresponding action to reflect that change.
 
 The final piece is wiring enabled / disabled state of the commands to changes in the text pane selection:
@@ -177,6 +189,8 @@ Whenever the selection changes we update two things:
 
 * If there is no selection at all, we disable all four commands.
 * We update the toggle selection state of each command based on the presence of the matching style anywhere in the current selection of our text pane.
+
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/intro-text-styling-removed-bold.png" width="696" border=0/>
 
 ### Command strip
 

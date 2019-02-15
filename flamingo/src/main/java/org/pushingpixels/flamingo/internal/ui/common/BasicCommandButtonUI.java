@@ -39,6 +39,7 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.*;
 import javax.swing.plaf.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -72,18 +73,22 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      */
     protected CommandButtonLayoutManager.CommandButtonLayoutInfo layoutInfo;
 
+    private ChangeListener actionPreviewChangeListener;
+
     /**
      * Client property to mark the command button to have square corners. This client property is
      * for internal use only.
      */
-    public static final String EMULATE_SQUARE_BUTTON = "flamingo.internal.commandButton.ui.emulateSquare";
+    public static final String EMULATE_SQUARE_BUTTON =
+            "flamingo.internal.commandButton.ui.emulateSquare";
 
     /**
      * Client property to mark the command button to not dispose the popups on activation.
      * 
      * @see #disposePopupsActionListener
      */
-    public static final String DONT_DISPOSE_POPUPS = "flamingo.internal.commandButton.ui.dontDisposePopups";
+    public static final String DONT_DISPOSE_POPUPS =
+            "flamingo.internal.commandButton.ui.dontDisposePopups";
 
     /**
      * This listener disposes all popup panels when button's action is activated. An example of
@@ -297,6 +302,9 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 commandButton.removeCommandListener((CommandAction) evt.getOldValue());
                 commandButton.addCommandListener((CommandAction) evt.getNewValue());
             }
+            if ("actionPreview".equals(evt.getPropertyName())) {
+                syncActionPreview(command, ((Command.CommandActionPreview) evt.getNewValue()));
+            }
             if ("actionRichTooltip".equals(evt.getPropertyName())) {
                 commandButton.setActionRichTooltip((RichTooltip) evt.getNewValue());
             }
@@ -308,7 +316,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             }
             if ("isAutoRepeatAction".equals(evt.getPropertyName())) {
                 if (commandButton instanceof JCommandButton) {
-                    ((JCommandButton) commandButton).setAutoRepeatAction((Boolean) evt.getNewValue());
+                    ((JCommandButton) commandButton).setAutoRepeatAction(
+                            (Boolean) evt.getNewValue());
                 }
             }
             if ("isFireActionOnRollover".equals(evt.getPropertyName())) {
@@ -329,11 +338,15 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 if (commandButton instanceof JCommandButton) {
                     ((JCommandButton) commandButton).getPopupModel().setEnabled(
                             (Boolean) evt.getNewValue());
+                    syncDisabledIcon();
+                    commandButton.repaint();
                 }
             }
         };
         this.commandButton.getProjection().getContentModel().addPropertyChangeListener(
                 this.projectionPropertyChangeListener);
+
+        syncActionPreview(command, command.getActionPreview());
 
         this.disposePopupsActionListener = (CommandActionEvent e) -> {
             boolean toDismiss = !Boolean.TRUE
@@ -369,7 +382,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             ((JCommandButton) this.commandButton).getPopupModel()
                     .addPopupActionListener(this.popupActionListener);
         }
-
     }
 
     /**
@@ -439,6 +451,11 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             ((JCommandButton) this.commandButton).getPopupModel()
                     .removePopupActionListener(this.popupActionListener);
             this.popupActionListener = null;
+        }
+
+        if (this.actionPreviewChangeListener != null) {
+            this.commandButton.getActionModel().removeChangeListener(
+                    this.actionPreviewChangeListener);
         }
     }
 
@@ -617,19 +634,20 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
         JCommandButton jcb = (JCommandButton) this.commandButton;
 
-        // check if the command button has an associated popup
-        // panel
+        // check if the command button has an associated popup panel
         PopupPanelCallback popupCallback = jcb.getPopupCallback();
-        final JPopupPanel popupPanel = (popupCallback != null) ? popupCallback.getPopupPanel(jcb)
-                : null;
+        final JPopupPanel popupPanel =
+                (popupCallback != null) ? popupCallback.getPopupPanel(jcb) : null;
         if (popupPanel != null) {
             popupPanel.applyComponentOrientation(jcb.getComponentOrientation());
             SwingUtilities.invokeLater(() -> {
-                if ((commandButton == null) || (popupPanel == null))
+                if ((commandButton == null) || (popupPanel == null)) {
                     return;
+                }
 
-                if (!commandButton.isShowing())
+                if (!commandButton.isShowing()) {
                     return;
+                }
 
                 popupPanel.doLayout();
 
@@ -689,14 +707,13 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 // System.out.println("Showing the popup panel");
                 PopupPanelManager.defaultManager().addPopup(commandButton, popup, popupPanel);
             });
-            return;
         }
     }
 
     protected void syncDisabledIcon() {
     }
 
-    protected void syncIconDimension() {
+    private void syncIconDimension() {
         ResizableIcon icon = this.commandButton.getIcon();
         CommandButtonPresentationState commandButtonState =
                 this.commandButton.getPresentationState();
@@ -715,6 +732,33 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         if (commandButtonState != CommandButtonPresentationState.FIT_TO_ICON) {
             Dimension newDim = new Dimension(maxHeight, maxHeight);
             icon.setDimension(newDim);
+        }
+    }
+
+    private void syncActionPreview(Command command, Command.CommandActionPreview actionPreview) {
+        if (this.actionPreviewChangeListener != null) {
+            this.commandButton.getActionModel().removeChangeListener(
+                    this.actionPreviewChangeListener);
+        }
+
+        if (actionPreview != null) {
+            this.actionPreviewChangeListener = new ChangeListener() {
+                boolean wasRollover = false;
+
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    boolean isRollover = commandButton.getActionModel().isRollover();
+                    if (wasRollover && !isRollover) {
+                        actionPreview.onCommandPreviewCanceled(command);
+                    }
+                    if (!wasRollover && isRollover) {
+                        actionPreview.onCommandPreviewActivated(command);
+                    }
+                    wasRollover = isRollover;
+                }
+            };
+
+            commandButton.getActionModel().addChangeListener(this.actionPreviewChangeListener);
         }
     }
 

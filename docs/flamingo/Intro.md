@@ -1,10 +1,10 @@
 ## Flamingo - introduction
 
-One way to introduce Flamingo would be to show a two-line "Hello World" kind of a code sample. Something that fits nicely on one slide in a presentation. Something that doesn't do anything useful. Something that is quite far away from addressing a real-world situation where an application could cut out a lot of boilerplate code while still showing the power and flexibility of Flamingo APIs.
-
-Let's not do that. Let's take a look at something a bit more substantial. Something that might not fit on a single slide. Something that is doing a useful thing or two.
+Let's get right down to business of showing what Flamingo brings to the table.
 
 In the screenshot below we have a multiline `JTextPane` and a vertical strip of buttons on the right. Clicking one of the buttons should change the text alignment of the content. The current alignment should be represented by the visual indication on the matching button.
+
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/intro-text-alignment.png" width="696" border=0/>
 
 ### Content setup
 
@@ -114,7 +114,12 @@ Each command in this example is configured with the following three attributes:
 
 Let's take another look at how the visual representation of these four commands looks like:
 
-Each command is represented by a single button. When a button is clicked, the corresponding command action is activated and our helper `setAlignment` method is called. In addition, the overall button strip is updated to reflect the currently "selected" command (the one whose visual representation was just clicked).
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/intro-text-alignment.png" width="696" border=0/>
+
+Each command is represented by a single button. When a button is clicked, the corresponding command action is activated and our helper `setAlignment` method is called. In addition, the overall button strip is updated to reflect the currently "selected" command (the one whose visual representation was just clicked):
+
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/intro-text-alignment-changed.png" width="696" border=0/>
+
 
 ### Command strip
 

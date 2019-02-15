@@ -69,8 +69,8 @@ public class Command implements ContentModel {
     private RichTooltip actionRichTooltip;
     private CommandMenuContentModel secondaryContentModel;
     private RichTooltip secondaryRichTooltip;
-    private boolean isTitleClickAction;
-    private boolean isTitleClickSecondary;
+    private boolean isTextClickAction;
+    private boolean isTextClickSecondary;
     private boolean isActionEnabled;
     private boolean isSecondaryEnabled;
     private boolean isToggle;
@@ -86,8 +86,10 @@ public class Command implements ContentModel {
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public interface CommandActionPreview extends EventListener {
+        /** Invoked when a command preview has been activated. */
         void onCommandPreviewActivated(Command command);
 
+        /** Invoked when a command preview has been canceled. */
         void onCommandPreviewCanceled(Command command);
     }
 
@@ -116,26 +118,26 @@ public class Command implements ContentModel {
             }
         }
 
-        if ((action != null) && (secondaryContentModel == null) && isTitleClickSecondary) {
+        if ((action != null) && (secondaryContentModel == null) && isTextClickSecondary) {
             throw new IllegalStateException(
-                    "Action-only command configured to activate secondary on title click");
+                    "Action-only command configured to activate secondary on text click");
         }
 
-        if ((secondaryContentModel != null) && (action == null) && isTitleClickAction) {
+        if ((secondaryContentModel != null) && (action == null) && isTextClickAction) {
             throw new IllegalStateException(
-                    "Secondary-only command configured to activate action on title click");
+                    "Secondary-only command configured to activate action on text click");
         }
 
         if ((action != null) && (secondaryContentModel != null)) {
-            if (isTitleClickAction && isTitleClickSecondary) {
+            if (isTextClickAction && isTextClickSecondary) {
                 throw new IllegalStateException(
                         "Command configured to have both action and secondary can't have both " +
-                                "activated on title click");
+                                "activated on text click");
             }
-            if (!isTitleClickAction && !isTitleClickSecondary) {
+            if (!isTextClickAction && !isTextClickSecondary) {
                 throw new IllegalStateException(
                         "Command configured to have both action and secondary must have one " +
-                                "activated on title click");
+                                "activated on text click");
             }
         }
 
@@ -238,12 +240,12 @@ public class Command implements ContentModel {
         }
     }
 
-    public boolean isTitleClickAction() {
-        return this.isTitleClickAction;
+    public boolean isTextClickAction() {
+        return this.isTextClickAction;
     }
 
-    public boolean isTitleClickSecondary() {
-        return this.isTitleClickSecondary;
+    public boolean isTextClickSecondary() {
+        return this.isTextClickSecondary;
     }
 
     public boolean isActionEnabled() {
@@ -349,6 +351,12 @@ public class Command implements ContentModel {
         return this.actionPreview;
     }
 
+    public void setActionPreview(CommandActionPreview actionPreview) {
+        CommandActionPreview old = this.actionPreview;
+        this.actionPreview = actionPreview;
+        this.pcs.firePropertyChange("actionPreview", old, this.actionPreview);
+    }
+
     /**
      * Adds the specified change listener to track changes to this model.
      *
@@ -412,8 +420,8 @@ public class Command implements ContentModel {
         protected RichTooltip actionRichTooltip;
         protected CommandMenuContentModel secondaryContentModel;
         protected RichTooltip secondaryRichTooltip;
-        protected boolean isTitleClickAction;
-        protected boolean isTitleClickSecondary;
+        protected boolean isTextClickAction;
+        protected boolean isTextClickSecondary;
         protected boolean isActionEnabled = true;
         protected boolean isSecondaryEnabled = true;
         protected boolean isToggle;
@@ -435,8 +443,8 @@ public class Command implements ContentModel {
             command.actionRichTooltip = this.actionRichTooltip;
             command.secondaryContentModel = this.secondaryContentModel;
             command.secondaryRichTooltip = this.secondaryRichTooltip;
-            command.isTitleClickAction = this.isTitleClickAction;
-            command.isTitleClickSecondary = this.isTitleClickSecondary;
+            command.isTextClickAction = this.isTextClickAction;
+            command.isTextClickSecondary = this.isTextClickSecondary;
             command.isActionEnabled = this.isActionEnabled;
             command.isSecondaryEnabled = this.isSecondaryEnabled;
             command.isToggle = this.isToggle;
@@ -496,13 +504,13 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
-        public B setTitleClickAction() {
-            this.isTitleClickAction = true;
+        public B setTextClickAction() {
+            this.isTextClickAction = true;
             return (B) this;
         }
 
-        public B setTitleClickSecondary() {
-            this.isTitleClickSecondary = true;
+        public B setTextClickSecondary() {
+            this.isTextClickSecondary = true;
             return (B) this;
         }
 
