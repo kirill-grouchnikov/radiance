@@ -11,7 +11,7 @@ Apart from the two comboboxes in the main content area on the right, and another
 Commands are created with the builder pattern which is pervasive throughout Flamingo. Call `Command.builder()` to get a new builder instance. Then, configure one or more of the following attributes on the builder:
 
 |  | Attribute | Type | Dynamic? |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | **Base** | text | String | yes |
 |  | extraText | String | yes |
 |  | iconFactory | ResizableIconFactory | yes |
