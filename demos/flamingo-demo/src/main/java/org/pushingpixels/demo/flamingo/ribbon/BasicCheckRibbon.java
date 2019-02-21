@@ -131,7 +131,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setActionKeyTip("NA")
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.TOP);
 
         actionBand.startGroup();
@@ -144,7 +145,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setActionKeyTip("ND")
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.TOP);
 
         actionBand.addRibbonCommand(
@@ -156,7 +158,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setActionKeyTip("NP")
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         actionBand.addRibbonCommand(
@@ -168,7 +171,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setActionKeyTip("NB")
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         actionBand.addRibbonCommand(
@@ -180,7 +184,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setActionKeyTip("NC")
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         List<RibbonBandResizePolicy> resizePolicies = new ArrayList<>();
@@ -210,7 +215,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setActionKeyTip("Y")
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         preferencesBand.addRibbonCommand(
@@ -222,7 +228,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setActionKeyTip("E")
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         preferencesBand.addRibbonCommand(
@@ -233,7 +240,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setPopupKeyTip("H")
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         preferencesBand.startGroup();
@@ -246,7 +254,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setActionKeyTip("Z")
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.TOP);
 
         preferencesBand.addRibbonCommand(
@@ -257,7 +266,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setActionKeyTip("L")
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.TOP);
 
         preferencesBand.startGroup();
@@ -271,7 +281,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setActionKeyTip("V")
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         preferencesBand.addRibbonCommand(
@@ -282,7 +293,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setActionKeyTip("T")
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         return preferencesBand;
@@ -441,7 +453,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .inToggleGroup(locationGroup)
                         .build()
                         .project(CommandButtonPresentationModel.builder()
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.TOP);
 
         result.addRibbonCommand(
@@ -453,7 +466,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .inToggleGroup(locationGroup)
                         .build()
                         .project(CommandButtonPresentationModel.builder()
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.TOP);
 
         result.addRibbonCommand(
@@ -465,7 +479,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .inToggleGroup(locationGroup)
                         .build()
                         .project(CommandButtonPresentationModel.builder()
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.TOP);
 
         result.startGroup();
@@ -477,7 +492,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 "Document New activated"))
                         .build()
                         .project(CommandButtonPresentationModel.builder()
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         result.addRibbonCommand(
@@ -487,7 +503,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 "Document Open activated"))
                         .build()
                         .project(CommandButtonPresentationModel.builder()
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         result.addRibbonCommand(
@@ -497,7 +514,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 "Document Save activated"))
                         .build()
                         .project(CommandButtonPresentationModel.builder()
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         result.addRibbonCommand(
@@ -507,7 +525,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 System.out.println("Document Print activated"))
                         .build()
                         .project(CommandButtonPresentationModel.builder()
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         result.addRibbonCommand(
@@ -518,7 +537,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 "Document Print Preview activated"))
                         .build()
                         .project(CommandButtonPresentationModel.builder()
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         result.addRibbonCommand(
@@ -529,7 +549,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 "Document Properties activated"))
                         .build()
                         .project(CommandButtonPresentationModel.builder()
-                                .setHorizontalAlignment(SwingConstants.LEADING).build()),
+                                .setHorizontalAlignment(SwingConstants.LEADING)
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         result.setResizePolicies(CoreRibbonResizePolicies.getCorePoliciesRestrictive(result));
@@ -554,8 +575,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
         CommandButtonProjection pasteCommandProjection = this.pasteCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setHorizontalAlignment(SwingConstants.LEADING)
+                        .setTextClickAction()
                         .setActionKeyTip("Y")
-                        .setPopupKeyTip("V").build());
+                        .setPopupKeyTip("V")
+                        .build());
         Map<Command, CommandButtonPresentationModel.Overlay> pasteOverlays = new HashMap<>();
         pasteOverlays.put(this.popupCommand1,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("1"));
@@ -582,10 +605,12 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                         .getString("Cut.tooltip.actionParagraph1"))
                                 .build())
                         .setSecondaryContentModel(this.popupMenuContentModel)
-                        .setTextClickAction().build()
+                        .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
-                                .setPopupKeyTip("X").build()),
+                                .setPopupKeyTip("X")
+                                .setTextClickAction()
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         clipboardBand.addRibbonCommand(
@@ -593,10 +618,12 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setIconFactory(Edit_copy.factory())
                         .setAction((CommandActionEvent e) -> System.out.println("Copy!"))
                         .setSecondaryContentModel(this.popupMenuContentModel)
-                        .setTextClickSecondary().build()
+                        .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
-                                .setPopupKeyTip("C").build()),
+                                .setPopupKeyTip("C")
+                                .setTextClickPopup()
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         List<CommandGroup> formatMenuEntries = new ArrayList<>();
@@ -639,7 +666,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                                         CommandButtonPresentationState.FIT_TO_ICON)
                                                 .setCommandIconDimension(48)
                                                 .setMaxColumns(5)
-                                                .setMaxRows(3).build())
+                                                .setMaxRows(3)
+                                                .build())
                                 .build())
                         .build());
 
@@ -675,13 +703,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .build()
                 .project(CommandButtonPresentationModel.builder()
                         .setHorizontalAlignment(SwingConstants.LEADING)
-                        .setActionKeyTip("FD").build()), JRibbonBand.PresentationPriority.TOP);
+                        .setActionKeyTip("FD")
+                        .build()), JRibbonBand.PresentationPriority.TOP);
 
         findBand.addRibbonCommand(
                 Command.builder().setText(resourceBundle.getString("Find.text"))
                         .setIconFactory(Edit_find.factory())
                         .setAction((CommandActionEvent e) -> System.out.println(
-                                "Find activated")).build()
+                                "Find activated"))
+                        .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
                                 .build()),
@@ -762,7 +792,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
-                                .setActionKeyTip("SA").build()),
+                                .setActionKeyTip("SA")
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         quickStylesBand.addRibbonCommand(
@@ -772,7 +803,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
-                                .setActionKeyTip("SB").build()),
+                                .setActionKeyTip("SB")
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         final ColorSelectorPopupMenuContentModel.ColorActivationListener colorActivationListener =
@@ -869,7 +901,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 .build(),
                         CommandButtonPresentationModel.builder()
                                 .setHorizontalAlignment(SwingConstants.LEADING)
-                                .setPopupKeyTip("SC").build()),
+                                .setPopupKeyTip("SC")
+                                .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         return quickStylesBand;
@@ -1096,7 +1129,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     .setIconFactory(iconFactory)
                     .setAction((CommandActionEvent e) ->
                             System.out.println("Activated transition " + index))
-                    .setToggle().build();
+                    .setToggle()
+                    .build();
 
             transitionGalleryCommandsList.add(ribbonCommand);
         }
@@ -1129,7 +1163,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     .setIconFactory(iconFactory)
                     .setAction((CommandActionEvent e) ->
                             System.out.println("Activated transition " + index))
-                    .setToggle().build();
+                    .setToggle()
+                    .build();
 
             transitionGalleryButtonsList2.add(ribbonCommand);
         }
@@ -1151,7 +1186,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setPreferredVisibleCommandCounts(transitionGalleryVisibleCommandCounts)
                         .setPreferredPopupMaxVisibleCommandRows(6)
                         .setPreferredPopupMaxCommandColumns(6)
-                        .setCommandPresentationState(CommandButtonPresentationState.SMALL).build();
+                        .setCommandPresentationState(CommandButtonPresentationState.SMALL)
+                        .build();
 
         transitionBand.addRibbonGallery(
                 new RibbonGalleryProjection(
@@ -1301,7 +1337,6 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .addDescriptionSection(resourceBundle
                                 .getString("Paste.tooltip.popupParagraph1"))
                         .build())
-                .setTextClickAction()
                 .build();
 
         // Toggle group for the align left/center/right/fill commands
@@ -1483,7 +1518,6 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIconFactory(Document_save_as.factory())
                 .setAction((CommandActionEvent ae) ->
                         System.out.println("Invoked saving document as"))
-                .setTextClickAction()
                 .setSecondaryContentModel(saveAsMenu)
                 .build();
 
@@ -1576,7 +1610,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
             Command ribbonCommand = Command.builder()
                     .setText(mfButtonText.format(new Object[] { i }))
                     .setIconFactory(iconFactory)
-                    .setToggle().build();
+                    .setToggle()
+                    .build();
 
             if (i < 10) {
                 stylesGalleryCommandsList.add(ribbonCommand);
@@ -1698,24 +1733,20 @@ public class BasicCheckRibbon extends JRibbonFrame {
         this.getRibbon().addTask(animationsTask);
         this.getRibbon().addTask(wrappedTask);
 
-        this.getRibbon()
-                .addAnchoredCommand(Command.builder()
-                        .setText(resourceBundle.getString("Share.title"))
-                        .setIconFactory(Internet_mail.factory())
-                        .setAction((CommandActionEvent e) -> JOptionPane
-                                .showMessageDialog(BasicCheckRibbon.this, "Share button clicked"))
-                        .build()
-                        .project(CommandButtonPresentationModel.builder().setActionKeyTip(
-                                "GS").build()));
+        this.getRibbon().addAnchoredCommand(Command.builder()
+                .setText(resourceBundle.getString("Share.title"))
+                .setIconFactory(Internet_mail.factory())
+                .setAction((CommandActionEvent e) -> JOptionPane
+                        .showMessageDialog(BasicCheckRibbon.this, "Share button clicked"))
+                .build()
+                .project(CommandButtonPresentationModel.builder().setActionKeyTip("GS").build()));
 
-        this.getRibbon()
-                .addAnchoredCommand(Command.builder()
-                        .setIconFactory(Internet_group_chat.factory())
-                        .setAction((CommandActionEvent e) -> JOptionPane
-                                .showMessageDialog(BasicCheckRibbon.this, "Chat button clicked"))
-                        .build()
-                        .project(CommandButtonPresentationModel.builder().setActionKeyTip(
-                                "GC").build()));
+        this.getRibbon().addAnchoredCommand(Command.builder()
+                .setIconFactory(Internet_group_chat.factory())
+                .setAction((CommandActionEvent e) -> JOptionPane
+                        .showMessageDialog(BasicCheckRibbon.this, "Chat button clicked"))
+                .build()
+                .project(CommandButtonPresentationModel.builder().setActionKeyTip("GC").build()));
 
         this.getRibbon().addAnchoredCommand(Command.builder()
                 .setIconFactory(Help_browser.factory())
@@ -1931,7 +1962,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 RibbonGalleryPresentationModel.builder()
                         .setPreferredPopupMaxCommandColumns(4)
                         .setPreferredPopupMaxVisibleCommandRows(2)
-                        .setCommandPresentationState(JRibbonBand.BIG_FIXED).build()));
+                        .setCommandPresentationState(JRibbonBand.BIG_FIXED)
+                        .build()));
 
         // Add the same "Save as" command that we have in the application menu to the taskbar
         ribbon.addTaskbarCommand(this.amEntrySaveAs);
@@ -1968,12 +2000,13 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setAction((CommandActionEvent ae) ->
                         System.out.println("Invoked creating new document"))
                 .setSecondaryContentModel(newMenu)
-                .setTextClickAction()
                 .build();
         applicationMenuSecondaryStates.put(amEntryNew,
                 CommandButtonPresentationState.MEDIUM);
         applicationMenuOverlays.put(amEntryNew,
-                CommandButtonPresentationModel.overlay().setActionKeyTip("N"));
+                CommandButtonPresentationModel.overlay()
+                        .setTextClickAction()
+                        .setActionKeyTip("N"));
 
         // "Open" primary
         List<Command> historyCommands = new ArrayList<>();
@@ -2000,12 +2033,13 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setAction((CommandActionEvent ae) ->
                         System.out.println("Invoked opening document"))
                 .setSecondaryContentModel(historyOpenMenu)
-                .setTextClickAction()
                 .build();
         applicationMenuSecondaryStates.put(amEntryOpen,
                 CommandButtonPresentationState.MEDIUM);
         applicationMenuOverlays.put(amEntryOpen,
-                CommandButtonPresentationModel.overlay().setActionKeyTip("O"));
+                CommandButtonPresentationModel.overlay()
+                        .setTextClickAction()
+                        .setActionKeyTip("O"));
 
         // "Save" primary
         Command amEntrySave = Command.builder()
@@ -2026,7 +2060,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
         applicationMenuOverlays.put(this.amEntrySaveAsOtherFormats,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("O"));
         applicationMenuOverlays.put(this.amEntrySaveAs,
-                CommandButtonPresentationModel.overlay().setActionKeyTip("A").setPopupKeyTip("F"));
+                CommandButtonPresentationModel.overlay()
+                        .setTextClickAction()
+                        .setActionKeyTip("A")
+                        .setPopupKeyTip("F"));
         applicationMenuSecondaryStates.put(this.amEntrySaveAs,
                 RibbonApplicationMenuCommandButtonProjection.RIBBON_APP_MENU_SECONDARY_LEVEL);
 
@@ -2074,13 +2111,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIconFactory(Document_print.factory())
                 .setAction((CommandActionEvent ae) ->
                         System.out.println("Invoked printing as"))
-                .setTextClickAction()
                 .setSecondaryContentModel(printMenu)
                 .build();
         applicationMenuSecondaryStates.put(amEntryPrint,
                 RibbonApplicationMenuCommandButtonProjection.RIBBON_APP_MENU_SECONDARY_LEVEL);
         applicationMenuOverlays.put(amEntryPrint,
-                CommandButtonPresentationModel.overlay().setActionKeyTip("P").setPopupKeyTip("W"));
+                CommandButtonPresentationModel.overlay()
+                        .setTextClickAction()
+                        .setActionKeyTip("P")
+                        .setPopupKeyTip("W"));
 
         // "Send" primary + secondaries
         Command amEntrySendMail = Command.builder()
@@ -2333,7 +2372,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         fontBand.addFlowComponent(new RibbonComboBoxProjection(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] { "11  " }).build(),
+                        .setItems(new String[] { "11  " })
+                        .build(),
                 ComponentPresentationModel.builder().setKeyTip("SS").build()));
 
         Command indentLeft = Command.builder()
@@ -2352,7 +2392,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         CommandStripProjection indentStripProjection = new CommandStripProjection(
                 new CommandGroup(indentLeft, indentRight),
-                CommandStripPresentationModel.builder().build());
+                CommandStripPresentationModel.withDefaults());
         indentStripProjection.setCommandOverlays(indentOverlays);
         fontBand.addFlowComponent(indentStripProjection);
 
@@ -2386,7 +2426,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         CommandStripProjection alignStripProjection = new CommandStripProjection(
                 new CommandGroup(this.alignLeftCommand, this.alignCenterCommand,
                         this.alignRightCommand, this.alignFillCommand),
-                CommandStripPresentationModel.builder().build());
+                CommandStripPresentationModel.withDefaults());
         alignStripProjection.setCommandOverlays(alignOverlays);
         fontBand.addFlowComponent(alignStripProjection);
 
@@ -2444,7 +2484,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 CommandStripPresentationModel.builder()
                         .setCommandPresentationState(CommandButtonPresentationState.SMALL)
                         .setOrientation(
-                                CommandStripPresentationModel.StripOrientation.HORIZONTAL).build())
+                                CommandStripPresentationModel.StripOrientation.HORIZONTAL)
+                        .build())
                 .buildComponent();
 
         statusBar.add(alignStrip);
@@ -2473,7 +2514,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                             selection.remove(source.getText());
                         }
                     })
-                    .setToggle().build();
+                    .setToggle()
+                    .build();
 
             if (i <= 3) {
                 commands1.add(command);
@@ -2511,7 +2553,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
                 CommandPopupMenuPresentationModel popupMenuPresentationModel =
                         CommandPopupMenuPresentationModel.builder()
-                                .setToDismissOnCommandActivation(false).build();
+                                .setToDismissOnCommandActivation(false)
+                                .build();
 
                 final JCommandPopupMenu menu = new CommandPopupMenuProjection(popupMenuContentModel,
                         popupMenuPresentationModel).buildComponent();

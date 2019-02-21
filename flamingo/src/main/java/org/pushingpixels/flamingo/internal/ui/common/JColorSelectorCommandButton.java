@@ -32,7 +32,7 @@ public class JColorSelectorCommandButton extends JCommandButton {
 
         boolean hasAction = (command.getAction() != null);
         if (hasAction) {
-            this.setCommandButtonKind(command.isTextClickAction()
+            this.setCommandButtonKind(commandPresentation.isTextClickAction()
                     ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                     : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
         } else {

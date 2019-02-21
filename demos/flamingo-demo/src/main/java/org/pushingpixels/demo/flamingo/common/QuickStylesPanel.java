@@ -78,6 +78,7 @@ public class QuickStylesPanel {
         return CommandPanelPresentationModel.builder()
                 .setToShowGroupLabels(false)
                 .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
-                .setCommandIconDimension(48).build();
+                .setCommandIconDimension(48)
+                .build();
     }
 }

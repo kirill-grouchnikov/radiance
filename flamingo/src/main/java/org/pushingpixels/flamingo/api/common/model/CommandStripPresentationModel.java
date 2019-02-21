@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 
 import javax.swing.event.*;
 
-public class CommandStripPresentationModel implements MutablePresentationModel {
+public class CommandStripPresentationModel implements ImmutablePresentationModel {
     public static final double DEFAULT_GAP_SCALE_FACTOR_PRIMARY_AXIS = 0.75;
     public static final double DEFAULT_GAP_SCALE_FACTOR_SECONDARY_AXIS = 1.0;
 
@@ -99,13 +99,6 @@ public class CommandStripPresentationModel implements MutablePresentationModel {
         return this.commandPresentationState;
     }
 
-    public void setCommandPresentationState(CommandButtonPresentationState commandPresentationState) {
-        if (this.commandPresentationState != commandPresentationState) {
-            this.commandPresentationState = commandPresentationState;
-            this.fireStateChanged();
-        }
-    }
-
     public double getHorizontalGapScaleFactor() {
         return this.hgapScaleFactor;
     }
@@ -128,42 +121,6 @@ public class CommandStripPresentationModel implements MutablePresentationModel {
 
     public boolean isToDismissPopupsOnActivation() {
         return this.toDismissPopupsOnActivation;
-    }
-
-    /**
-     * Adds the specified change listener to track changes to the model.
-     *
-     * @param l Change listener to add.
-     * @see #removeChangeListener(ChangeListener)
-     */
-    public void addChangeListener(ChangeListener l) {
-        this.listenerList.add(ChangeListener.class, l);
-    }
-
-    /**
-     * Removes the specified change listener from tracking changes to the model.
-     *
-     * @param l Change listener to remove.
-     * @see #addChangeListener(ChangeListener)
-     */
-    public void removeChangeListener(ChangeListener l) {
-        this.listenerList.remove(ChangeListener.class, l);
-    }
-
-    /**
-     * Notifies all registered listeners that the state of this model has changed.
-     */
-    private void fireStateChanged() {
-        // Guaranteed to return a non-null array
-        Object[] listeners = this.listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        ChangeEvent event = new ChangeEvent(this);
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ChangeListener.class) {
-                ((ChangeListener) listeners[i + 1]).stateChanged(event);
-            }
-        }
     }
 
     public static class Builder {

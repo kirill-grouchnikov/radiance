@@ -45,7 +45,6 @@ import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresent
 import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection
 import org.pushingpixels.neon.icon.ResizableIconFactory
-import java.lang.IllegalArgumentException
 
 @FlamingoElementMarker
 open class KCommand {
@@ -163,9 +162,6 @@ open class KCommand {
             }
         }
 
-    var isTextClickAction: Boolean by NonNullDelegate { hasBeenConverted }
-    var isTextClickSecondary: Boolean by NonNullDelegate { hasBeenConverted }
-
     // The "isActionEnabled" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
@@ -226,63 +222,8 @@ open class KCommand {
 
     var toggleGroup: KCommandToggleGroupModel? by NullableDelegate { hasBeenConverted }
 
-    // The "isAutoRepeatAction" property can be modified even after [KCommandButton.toButton] has
-    // been called multiple times. Internally, the setter propagates the new value to the underlying
-    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
-    // command buttons created from this command.
-    private var _isAutoRepeatAction: Boolean = false
-    var isAutoRepeatAction: Boolean
-        get() = _isAutoRepeatAction
-        set(value) {
-            _isAutoRepeatAction = value
-            builder.setAutoRepeatAction(value)
-            if (hasBeenConverted) {
-                javaCommand.isAutoRepeatAction = value
-            }
-        }
-
-    var autoRepeatInitialInterval: Int by NonNullDelegate { hasBeenConverted }
-    var autoRepeatSubsequentInterval: Int by NonNullDelegate { hasBeenConverted }
-
-    // The "isFireActionOnRollover" property can be modified even after [KCommandButton.toButton] has
-    // been called multiple times. Internally, the setter propagates the new value to the underlying
-    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
-    // command buttons created from this command.
-    private var _isFireActionOnRollover: Boolean = false
-    var isFireActionOnRollover: Boolean
-        get() = _isFireActionOnRollover
-        set(value) {
-            _isFireActionOnRollover = value
-            builder.setFireActionOnRollover(value)
-            if (hasBeenConverted) {
-                javaCommand.isFireActionOnRollover = value
-            }
-        }
-
-    // The "isFireActionOnPress" property can be modified even after [KCommandButton.toButton] has
-    // been called multiple times. Internally, the setter propagates the new value to the underlying
-    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
-    // command buttons created from this command.
-    private var _isFireActionOnPress: Boolean = false
-    var isFireActionOnPress: Boolean
-        get() = _isFireActionOnPress
-        set(value) {
-            _isFireActionOnPress = value
-            builder.setFireActionOnPress(value)
-            if (hasBeenConverted) {
-                javaCommand.isFireActionOnPress = value
-            }
-        }
-
     init {
-        isTextClickAction = false
-        isTextClickSecondary = false
         isToggle = false
-        isAutoRepeatAction = false
-        autoRepeatInitialInterval = Command.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
-        autoRepeatSubsequentInterval = Command.DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS
-        isFireActionOnRollover = false
-        isFireActionOnPress = false
     }
 
     fun actionRichTooltip(init: KRichTooltip.() -> Unit) {
@@ -312,20 +253,12 @@ open class KCommand {
             builder.setDisabledIconFactory(command.disabledIconFactory)
             builder.setExtraText(command.extraText)
             builder.setAction(command.action)
-            builder.setAutoRepeatAction(command.isAutoRepeatAction)
 
             builder.setActionRichTooltip(command.actionRichTooltip?.toJavaRichTooltip())
             builder.setSecondaryRichTooltip(command.secondaryRichTooltip?.toJavaRichTooltip())
 
             if (command.menu != null) {
                 builder.setSecondaryContentModel(command.menu!!.toJavaMenuContentModel())
-            }
-
-            if (command.isTextClickAction) {
-                builder.setTextClickAction()
-            }
-            if (command.isTextClickSecondary) {
-                builder.setTextClickSecondary()
             }
 
             if (command.isToggleSelected) {
@@ -340,9 +273,6 @@ open class KCommand {
                 builder.setToggle()
                 builder.inToggleGroup(command.toggleGroup!!.javaCommandToggleModel)
             }
-
-            builder.setFireActionOnRollover(command.isFireActionOnRollover)
-            builder.setFireActionOnPress(command.isFireActionOnPress)
 
             builder.setActionPreview(object : Command.CommandActionPreview {
                 override fun onCommandPreviewActivated(cmd: Command?) {
@@ -426,9 +356,16 @@ open class KCommandButtonPresentation {
     var isMenu: Boolean = false
     var actionKeyTip: String? = null
     var popupKeyTip: String? = null
+    var isTextClickAction: Boolean = true
+    var isTextClickPopup: Boolean = false
+    var isFireActionOnRollover: Boolean = false
+    var isFireActionOnPress: Boolean = false
+    var isAutoRepeatAction: Boolean = false
+    var autoRepeatInitialInterval: Int = CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
+    var autoRepeatSubsequentInterval: Int = CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS
 
     fun toCommandPresentation(command: KCommand): CommandButtonPresentationModel {
-        return CommandButtonPresentationModel.builder()
+        val result = CommandButtonPresentationModel.builder()
                 .setPresentationState(presentationState)
                 .setFlat(isFlat)
                 .setHorizontalAlignment(horizontalAlignment)
@@ -439,8 +376,20 @@ open class KCommandButtonPresentation {
                 .setActionKeyTip(actionKeyTip)
                 .setPopupKeyTip(popupKeyTip)
                 .setMenu(isMenu)
-                .setPopupMenuPresentationModel(command.menu!!.toJavaPopupMenuPresentationModel())
-                .build()
+                .setPopupMenuPresentationModel(command.menu?.toJavaPopupMenuPresentationModel())
+                .setFireActionOnRollover(isFireActionOnRollover)
+                .setFireActionOnPress(isFireActionOnPress)
+                .setAutoRepeatAction(isAutoRepeatAction)
+                .setAutoRepeatActionIntervals(autoRepeatInitialInterval, autoRepeatSubsequentInterval)
+
+        if (isTextClickAction) {
+            result.setTextClickAction()
+        }
+        if (isTextClickPopup) {
+            result.setTextClickPopup()
+        }
+
+        return result.build()
     }
 }
 
@@ -472,40 +421,56 @@ class KCommandGroup {
     var title: String? by NullableDelegate { false }
     internal val commands = arrayListOf<CommandConfig>()
 
-    internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?, val secondaryKeyTip: String?) {
+    internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?, val secondaryKeyTip: String?,
+            val isTextClickAction: Boolean?, val isTextClickSecondary: Boolean?) {
         fun toJavaCommand(): Command {
             return command.asJavaCommand()
         }
 
         fun toJavaProjection(): CommandButtonProjection<Command> {
-            return command.asJavaCommand().project(
-                    CommandButtonPresentationModel.builder()
-                            .setActionKeyTip(actionKeyTip)
-                            .setPopupKeyTip(secondaryKeyTip)
-                            .build())
+            val presentationBuilder = CommandButtonPresentationModel.builder()
+                    .setActionKeyTip(actionKeyTip)
+                    .setPopupKeyTip(secondaryKeyTip)
+            if ((isTextClickAction != null) && isTextClickAction) {
+                presentationBuilder.setTextClickAction()
+            }
+            if ((isTextClickSecondary != null) && isTextClickSecondary) {
+                presentationBuilder.setTextClickPopup()
+            }
+            return command.asJavaCommand().project(presentationBuilder.build())
         }
 
         fun toJavaPresentationOverlay(): CommandButtonPresentationModel.Overlay {
-            return CommandButtonPresentationModel.overlay()
+            val overlay = CommandButtonPresentationModel.overlay()
                     .setActionKeyTip(actionKeyTip)
                     .setPopupKeyTip(secondaryKeyTip)
+            if ((isTextClickAction != null) && isTextClickAction) {
+                overlay.setTextClickAction()
+            }
+            if ((isTextClickSecondary != null) && isTextClickSecondary) {
+                overlay.setTextClickPopup()
+            }
+            return overlay
         }
     }
 
     operator fun KCommand.unaryPlus() {
-        this@KCommandGroup.commands.add(CommandConfig(this, null, null))
+        this@KCommandGroup.commands.add(CommandConfig(this, null, null, false, false))
     }
 
     fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+            isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        commands.add(CommandConfig(command, actionKeyTip, popupKeyTip))
+        commands.add(CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction, isTextClickSecondary))
         return command
     }
 
-    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null, command: KCommand) {
-        commands.add(CommandConfig(command, actionKeyTip, popupKeyTip))
+    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+            isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+            command: KCommand) {
+        commands.add(CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction, isTextClickSecondary))
     }
 
     fun toCommandGroupModel(): CommandGroup {

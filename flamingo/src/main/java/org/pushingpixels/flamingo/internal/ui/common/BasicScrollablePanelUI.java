@@ -91,8 +91,8 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         this.propertyChangeListener = (PropertyChangeEvent evt) -> {
             if ("scrollOnRollover".equals(evt.getPropertyName())) {
                 boolean isScrollOnRollover = (Boolean) evt.getNewValue();
-                leadingScrollCommand.setFireActionOnRollover(isScrollOnRollover);
-                trailingScrollCommand.setFireActionOnRollover(isScrollOnRollover);
+                ((JCommandButton) leadingScroller).setFireActionOnRollover(isScrollOnRollover);
+                ((JCommandButton) trailingScroller).setFireActionOnRollover(isScrollOnRollover);
             }
         };
         this.scrollablePanel.addPropertyChangeListener(this.propertyChangeListener);
@@ -105,7 +105,6 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                 }
             };
             this.scrollablePanel.getView().addComponentListener(this.componentListener);
-
         }
     }
 
@@ -155,9 +154,6 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         this.scrollablePanel.add(this.viewport);
 
         this.leadingScrollCommand = Command.builder()
-                .setAutoRepeatAction(true)
-                .setAutoRepeatActionIntervals(200, 50)
-                .setFireActionOnRollover(this.scrollablePanel.isScrollOnRollover())
                 .setAction((CommandActionEvent e) -> {
                     viewOffset -= 12;
                     syncScrolling();
@@ -165,9 +161,6 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                 .build();
 
         this.trailingScrollCommand = Command.builder()
-                .setAutoRepeatAction(true)
-                .setAutoRepeatActionIntervals(200, 50)
-                .setFireActionOnRollover(this.scrollablePanel.isScrollOnRollover())
                 .setAction((CommandActionEvent e) -> {
                     viewOffset += 12;
                     syncScrolling();
@@ -180,6 +173,9 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                 .setToDismissPopupsOnActivation(false)
                 .setHorizontalAlignment(SwingConstants.CENTER)
                 .setFlat(true)
+                .setFireActionOnRollover(this.scrollablePanel.isScrollOnRollover())
+                .setAutoRepeatAction(true)
+                .setAutoRepeatActionIntervals(200, 50)
                 .build();
 
         // Create command projections for scroller commands and set button customizers for

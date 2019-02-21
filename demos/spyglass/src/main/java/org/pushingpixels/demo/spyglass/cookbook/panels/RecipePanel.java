@@ -91,10 +91,12 @@ public class RecipePanel extends SingleContentPanel {
                 .setAction((CommandActionEvent e) -> System.out.println(tooltip + " activated"))
                 .setActionRichTooltip(RichTooltip.builder()
                         .setTitle(tooltip)
-                        .addDescriptionSection("Description for " + tooltip).build())
+                        .addDescriptionSection("Description for " + tooltip)
+                        .build())
                 .build()
                 .project(CommandButtonPresentationModel.builder()
-                        .setPresentationState(CommandButtonPresentationState.SMALL).build())
+                        .setPresentationState(CommandButtonPresentationState.SMALL)
+                        .build())
                 .buildComponent();
     }
 }

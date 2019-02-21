@@ -59,7 +59,6 @@ fun main() {
                 title = resourceBundle.getString("Paste.text")
                 iconFactory = Help_browser.factory()
                 extraText = resourceBundle.getString("Paste.textExtra")
-                isAutoRepeatAction = true
                 action = CommandAction {
                     println("Activated at " + System.currentTimeMillis() + "!")
                 }
@@ -76,6 +75,9 @@ fun main() {
                 }
             }
             presentation {
+                isAutoRepeatAction = true
+                autoRepeatInitialInterval = 500
+                autoRepeatSubsequentInterval = 1000
                 presentationState = CommandButtonPresentationState.TILE
                 isFlat = false
             }

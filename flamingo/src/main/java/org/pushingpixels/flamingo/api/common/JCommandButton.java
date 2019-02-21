@@ -402,7 +402,7 @@ public class JCommandButton extends AbstractCommandButton {
         }
 
         if (hasAction && hasPopup) {
-            this.setCommandButtonKind(command.isTextClickAction()
+            this.setCommandButtonKind(commandPresentation.isTextClickAction()
                     ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                     : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
         } else if (hasPopup) {
@@ -411,16 +411,17 @@ public class JCommandButton extends AbstractCommandButton {
             this.setCommandButtonKind(JCommandButton.CommandButtonKind.ACTION_ONLY);
         }
 
-        if (command.isAutoRepeatAction()) {
+        if (commandPresentation.isAutoRepeatAction()) {
             this.setAutoRepeatAction(true);
-            if (command.hasAutoRepeatIntervalsSet()) {
-                this.setAutoRepeatActionIntervals(command.getAutoRepeatInitialInterval(),
-                        command.getAutoRepeatSubsequentInterval());
+            if (commandPresentation.hasAutoRepeatIntervalsSet()) {
+                this.setAutoRepeatActionIntervals(
+                        commandPresentation.getAutoRepeatInitialInterval(),
+                        commandPresentation.getAutoRepeatSubsequentInterval());
             }
         }
 
-        this.setFireActionOnRollover(command.isFireActionOnRollover());
-        this.getActionModel().setFireActionOnPress(command.isFireActionOnPress());
+        this.setFireActionOnRollover(commandPresentation.isFireActionOnRollover());
+        this.getActionModel().setFireActionOnPress(commandPresentation.isFireActionOnPress());
 
         this.setPopupOrientationKind(commandPresentation.getPopupOrientationKind());
 
@@ -536,7 +537,7 @@ public class JCommandButton extends AbstractCommandButton {
             }
 
             if (hasAction && hasPopup) {
-                this.setCommandButtonKind(command.isTextClickAction()
+                this.setCommandButtonKind(commandPresentation.isTextClickAction()
                         ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                         : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
             } else if (hasPopup) {

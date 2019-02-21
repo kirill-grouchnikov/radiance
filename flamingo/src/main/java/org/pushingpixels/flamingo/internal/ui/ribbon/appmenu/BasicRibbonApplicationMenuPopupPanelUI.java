@@ -157,8 +157,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             final Map<Command, CommandButtonPresentationModel.Overlay> commandOverlays =
                     ribbonAppMenuProjection.getCommandOverlays();
             CommandButtonPresentationModel baseCommandPresentation =
-                    CommandButtonPresentationModel.builder()
-                            .setMenu(true).build();
+                    CommandButtonPresentationModel.builder().setMenu(true).build();
             List<CommandGroup> primaryEntries = ribbonAppMenu.getCommandGroups();
             int primaryGroupCount = primaryEntries.size();
             for (int i = 0; i < primaryGroupCount; i++) {

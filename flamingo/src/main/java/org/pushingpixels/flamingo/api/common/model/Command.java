@@ -57,9 +57,6 @@ import java.util.EventListener;
  * @see CommandButtonProjection
  */
 public class Command implements ContentModel {
-    public static final int DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS = 500;
-    public static final int DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS = 100;
-
     private String text;
     private ResizableIconFactory iconFactory;
     private ResizableIconFactory disabledIconFactory;
@@ -69,19 +66,11 @@ public class Command implements ContentModel {
     private RichTooltip actionRichTooltip;
     private CommandMenuContentModel secondaryContentModel;
     private RichTooltip secondaryRichTooltip;
-    private boolean isTextClickAction;
-    private boolean isTextClickSecondary;
     private boolean isActionEnabled;
     private boolean isSecondaryEnabled;
     private boolean isToggle;
     private boolean isToggleSelected;
     private CommandToggleGroupModel toggleGroupModel;
-    private boolean isAutoRepeatAction;
-    private boolean hasAutoRepeatIntervalsSet;
-    private int autoRepeatInitialInterval;
-    private int autoRepeatSubsequentInterval;
-    private boolean isFireActionOnRollover;
-    private boolean isFireActionOnPress;
 
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
@@ -118,36 +107,8 @@ public class Command implements ContentModel {
             }
         }
 
-        if ((action != null) && (secondaryContentModel == null) && isTextClickSecondary) {
-            throw new IllegalStateException(
-                    "Action-only command configured to activate secondary on text click");
-        }
-
-        if ((secondaryContentModel != null) && (action == null) && isTextClickAction) {
-            throw new IllegalStateException(
-                    "Secondary-only command configured to activate action on text click");
-        }
-
-        if ((action != null) && (secondaryContentModel != null)) {
-            if (isTextClickAction && isTextClickSecondary) {
-                throw new IllegalStateException(
-                        "Command configured to have both action and secondary can't have both " +
-                                "activated on text click");
-            }
-            if (!isTextClickAction && !isTextClickSecondary) {
-                throw new IllegalStateException(
-                        "Command configured to have both action and secondary must have one " +
-                                "activated on text click");
-            }
-        }
-
         if (isToggle && (secondaryContentModel != null)) {
             throw new IllegalStateException("Command configured to be toggle can't have secondary");
-        }
-
-        if (isToggle && isFireActionOnRollover) {
-            throw new IllegalStateException(
-                    "Command configured to be toggle can't fire action on rollover");
         }
 
         if (isToggleSelected && !isToggle) {
@@ -240,14 +201,6 @@ public class Command implements ContentModel {
         }
     }
 
-    public boolean isTextClickAction() {
-        return this.isTextClickAction;
-    }
-
-    public boolean isTextClickSecondary() {
-        return this.isTextClickSecondary;
-    }
-
     public boolean isActionEnabled() {
         return this.isActionEnabled;
     }
@@ -294,57 +247,6 @@ public class Command implements ContentModel {
 
     public CommandToggleGroupModel getToggleGroupModel() {
         return this.toggleGroupModel;
-    }
-
-    public boolean isAutoRepeatAction() {
-        return this.isAutoRepeatAction;
-    }
-
-    public void setAutoRepeatAction(boolean isAutoRepeatAction) {
-        if (this.isAutoRepeatAction != isAutoRepeatAction) {
-            this.isAutoRepeatAction = isAutoRepeatAction;
-            this.pcs.firePropertyChange("isAutoRepeatAction", !this.isAutoRepeatAction,
-                    this.isAutoRepeatAction);
-            this.fireStateChanged();
-        }
-    }
-
-    public boolean hasAutoRepeatIntervalsSet() {
-        return this.hasAutoRepeatIntervalsSet;
-    }
-
-    public int getAutoRepeatInitialInterval() {
-        return this.hasAutoRepeatIntervalsSet ? this.autoRepeatInitialInterval : -1;
-    }
-
-    public int getAutoRepeatSubsequentInterval() {
-        return this.hasAutoRepeatIntervalsSet ? this.autoRepeatSubsequentInterval : -1;
-    }
-
-    public boolean isFireActionOnRollover() {
-        return this.isFireActionOnRollover;
-    }
-
-    public void setFireActionOnRollover(boolean isFireActionOnRollover) {
-        if (this.isFireActionOnRollover != isFireActionOnRollover) {
-            this.isFireActionOnRollover = isFireActionOnRollover;
-            this.pcs.firePropertyChange("isFireActionOnRollover", !this.isFireActionOnRollover,
-                    this.isFireActionOnRollover);
-            this.fireStateChanged();
-        }
-    }
-
-    public boolean isFireActionOnPress() {
-        return this.isFireActionOnPress;
-    }
-
-    public void setFireActionOnPress(boolean isFireActionOnPress) {
-        if (this.isFireActionOnPress != isFireActionOnPress) {
-            this.isFireActionOnPress = isFireActionOnPress;
-            this.pcs.firePropertyChange("isFireActionOnPress", !this.isFireActionOnPress,
-                    this.isFireActionOnPress);
-            this.fireStateChanged();
-        }
     }
 
     public CommandActionPreview getActionPreview() {
@@ -420,19 +322,11 @@ public class Command implements ContentModel {
         protected RichTooltip actionRichTooltip;
         protected CommandMenuContentModel secondaryContentModel;
         protected RichTooltip secondaryRichTooltip;
-        protected boolean isTextClickAction;
-        protected boolean isTextClickSecondary;
         protected boolean isActionEnabled = true;
         protected boolean isSecondaryEnabled = true;
         protected boolean isToggle;
         protected boolean isToggleSelected;
         protected CommandToggleGroupModel toggleGroupModel;
-        protected boolean isAutoRepeatAction;
-        protected boolean hasAutoRepeatIntervalsSet;
-        protected int autoRepeatInitialInterval;
-        protected int autoRepeatSubsequentInterval;
-        protected boolean isFireActionOnRollover;
-        protected boolean isFireActionOnPress;
 
         protected void configureBaseCommand(Command command) {
             command.text = this.text;
@@ -443,19 +337,11 @@ public class Command implements ContentModel {
             command.actionRichTooltip = this.actionRichTooltip;
             command.secondaryContentModel = this.secondaryContentModel;
             command.secondaryRichTooltip = this.secondaryRichTooltip;
-            command.isTextClickAction = this.isTextClickAction;
-            command.isTextClickSecondary = this.isTextClickSecondary;
             command.isActionEnabled = this.isActionEnabled;
             command.isSecondaryEnabled = this.isSecondaryEnabled;
             command.isToggle = this.isToggle;
             command.isToggleSelected = this.isToggleSelected;
             command.toggleGroupModel = this.toggleGroupModel;
-            command.isAutoRepeatAction = this.isAutoRepeatAction;
-            command.hasAutoRepeatIntervalsSet = this.hasAutoRepeatIntervalsSet;
-            command.autoRepeatInitialInterval = this.autoRepeatInitialInterval;
-            command.autoRepeatSubsequentInterval = this.autoRepeatSubsequentInterval;
-            command.isFireActionOnRollover = this.isFireActionOnRollover;
-            command.isFireActionOnPress = this.isFireActionOnPress;
             command.actionPreview = this.actionPreview;
 
             // special handling for toggle group model
@@ -504,16 +390,6 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
-        public B setTextClickAction() {
-            this.isTextClickAction = true;
-            return (B) this;
-        }
-
-        public B setTextClickSecondary() {
-            this.isTextClickSecondary = true;
-            return (B) this;
-        }
-
         public B setActionEnabled(boolean isActionEnabled) {
             this.isActionEnabled = isActionEnabled;
             return (B) this;
@@ -545,28 +421,6 @@ public class Command implements ContentModel {
             this.isToggle = true;
             this.isToggleSelected = true;
             this.toggleGroupModel = toggleGroup;
-            return (B) this;
-        }
-
-        public B setAutoRepeatAction(boolean isAutoRepeatAction) {
-            this.isAutoRepeatAction = isAutoRepeatAction;
-            return (B) this;
-        }
-
-        public B setAutoRepeatActionIntervals(int initial, int subsequent) {
-            this.hasAutoRepeatIntervalsSet = true;
-            this.autoRepeatInitialInterval = initial;
-            this.autoRepeatSubsequentInterval = subsequent;
-            return (B) this;
-        }
-
-        public B setFireActionOnRollover(boolean isFireActionOnRollover) {
-            this.isFireActionOnRollover = isFireActionOnRollover;
-            return (B) this;
-        }
-
-        public B setFireActionOnPress(boolean isFireActionOnPress) {
-            this.isFireActionOnPress = isFireActionOnPress;
             return (B) this;
         }
 

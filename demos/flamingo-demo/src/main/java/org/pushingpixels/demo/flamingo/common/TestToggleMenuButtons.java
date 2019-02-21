@@ -82,7 +82,8 @@ public class TestToggleMenuButtons extends JFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setPresentationState(CommandButtonPresentationState.MEDIUM)
-                                .setFlat(false).build())
+                                .setFlat(false)
+                                .build())
                         .buildComponent();
 
         Command formatBold = Command.builder()

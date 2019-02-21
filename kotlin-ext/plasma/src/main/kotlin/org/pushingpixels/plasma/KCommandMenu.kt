@@ -99,7 +99,7 @@ class KCommandMenu {
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        defaultGroup.commands.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip))
+        defaultGroup.commands.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, null, null))
         return command
     }
 

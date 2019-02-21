@@ -29,11 +29,9 @@
  */
 package org.pushingpixels.plasma
 
-import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuPresentationModel
-import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel
 import java.awt.Color
 
 @FlamingoElementMarker
@@ -55,14 +53,14 @@ class KColorSelectorPopupMenuGroup {
     internal val content = arrayListOf<Any>()
 
     operator fun KCommand.unaryPlus() {
-        this@KColorSelectorPopupMenuGroup.content.add(KCommandGroup.CommandConfig(this, null, null))
+        this@KColorSelectorPopupMenuGroup.content.add(KCommandGroup.CommandConfig(this, null, null, false, false))
     }
 
     fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        content.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip))
+        content.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, false, false))
         return command
     }
 
@@ -133,14 +131,14 @@ class KColorSelectorPopupMenu {
 
     operator fun KCommand.unaryPlus() {
         this@KColorSelectorPopupMenu.defaultGroup.content.add(
-                KCommandGroup.CommandConfig(this, null, null))
+                KCommandGroup.CommandConfig(this, null, null, null, null))
     }
 
     fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        defaultGroup.content.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip))
+        defaultGroup.content.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, false, false))
         return command
     }
 

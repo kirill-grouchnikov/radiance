@@ -87,16 +87,20 @@ class KRibbonBandGroup {
     internal val content = arrayListOf<Pair<PresentationPriority?, Any>>()
 
     fun command(priority: PresentationPriority, actionKeyTip: String? = null,
-            popupKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
+            popupKeyTip: String? = null, isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+            init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
+        content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction,
+                isTextClickSecondary)))
         return command
     }
 
-    fun command(priority: PresentationPriority, actionKeyTip: String? = null,
-            popupKeyTip: String? = null, command: KCommand) {
-        content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
+    fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
+            isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+            command: KCommand) {
+        content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction,
+                isTextClickSecondary)))
     }
 
     fun gallery(priority: PresentationPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {
@@ -120,34 +124,39 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         groups.add(defaultGroup)
     }
 
-    fun command(priority: PresentationPriority, actionKeyTip: String? = null,
-            popupKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
+    fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
+            isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+            init: KCommand.() -> Unit): KCommand {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a command to default group after starting another group")
         }
         val command = KCommand()
         command.init()
-        defaultGroup.content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
+        defaultGroup.content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip,
+                isTextClickAction, isTextClickSecondary)))
         return command
     }
 
     fun colorSelectorCommand(priority: PresentationPriority, actionKeyTip: String? = null,
-            popupKeyTip: String? = null, init: KColorSelectorCommand.() -> Unit): KColorSelectorCommand {
+            popupKeyTip: String? = null, isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+            init: KColorSelectorCommand.() -> Unit): KColorSelectorCommand {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a command to default group after starting another group")
         }
         val command = KColorSelectorCommand()
         command.init()
-        defaultGroup.content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
+        defaultGroup.content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip,
+                isTextClickAction, isTextClickSecondary)))
         return command
     }
 
-    fun command(priority: PresentationPriority, actionKeyTip: String? = null,
-            popupKeyTip: String? = null, command: KCommand) {
+    fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
+            isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false, command: KCommand) {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a command to default group after starting another group")
         }
-        defaultGroup.content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip)))
+        defaultGroup.content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip,
+                isTextClickAction, isTextClickSecondary)))
     }
 
     fun gallery(priority: PresentationPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {

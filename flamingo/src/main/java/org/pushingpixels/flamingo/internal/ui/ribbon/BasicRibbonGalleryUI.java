@@ -111,16 +111,12 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                     scrollOneRowUp();
                     ribbonGallery.revalidate();
                 })
-                .setAutoRepeatAction(true)
-                .setAutoRepeatActionIntervals(200, 50)
                 .build();
         this.scrollDownCommand = Command.builder()
                 .setAction((CommandActionEvent e) -> {
                     scrollOneRowDown();
                     ribbonGallery.revalidate();
                 })
-                .setAutoRepeatAction(true)
-                .setAutoRepeatActionIntervals(200, 50)
                 .build();
         this.expandCommand = Command.builder()
                 .setAction((CommandActionEvent e) -> {
@@ -167,14 +163,24 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                                 popupMenu);
                     });
                 })
-                .setFireActionOnPress(true)
                 .build();
 
         // Configure the overlay for the expand command to show the gallery's expand key tip
-        Map<Command, CommandButtonPresentationModel.Overlay> galleryScrollerOverlays = new HashMap<>();
+        Map<Command, CommandButtonPresentationModel.Overlay> galleryScrollerOverlays =
+                new HashMap<>();
+        galleryScrollerOverlays.put(this.scrollUpCommand,
+                CommandButtonPresentationModel.overlay()
+                        .setAutoRepeatAction(true)
+                        .setAutoRepeatActionIntervals(200, 50));
+        galleryScrollerOverlays.put(this.scrollDownCommand,
+                CommandButtonPresentationModel.overlay()
+                        .setAutoRepeatAction(true)
+                        .setAutoRepeatActionIntervals(200, 50));
         galleryScrollerOverlays.put(this.expandCommand,
-                CommandButtonPresentationModel.overlay().setActionKeyTip(this.ribbonGallery.getProjection()
-                        .getPresentationModel().getExpandKeyTip()));
+                CommandButtonPresentationModel.overlay()
+                        .setActionKeyTip(this.ribbonGallery.getProjection()
+                                .getPresentationModel().getExpandKeyTip())
+                        .setFireActionOnPress(true));
 
         // Configure customizers for all the scroller buttons (setting icons and additional
         // straight sides)

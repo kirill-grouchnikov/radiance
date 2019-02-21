@@ -38,7 +38,7 @@ buildscript {
         kotlinx_coroutines_version = '1.1.1'
         gradle_nexus_plugin_version = '2.3.1'
         dokka_plugin_version = '0.9.17'
-        batik_version = '1.10'
+        batik_version = '1.11'
         svnkit_version = '1.9.3'
     }
     repositories {

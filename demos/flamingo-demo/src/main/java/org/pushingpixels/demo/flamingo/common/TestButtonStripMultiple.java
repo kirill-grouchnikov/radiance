@@ -58,7 +58,7 @@ public class TestButtonStripMultiple extends JFrame {
                         Command.builder().setIconFactory(Format_justify_left.factory()).build(),
                         Command.builder().setIconFactory(Format_justify_center.factory()).build(),
                         Command.builder().setIconFactory(Format_justify_right.factory()).build()),
-                CommandStripPresentationModel.builder().build())
+                CommandStripPresentationModel.withDefaults())
                 .buildComponent();
         this.add(buttonStrip);
 
@@ -71,7 +71,7 @@ public class TestButtonStripMultiple extends JFrame {
                                 .setIconFactory(Format_text_strikethrough.factory())
                                 .setSecondaryContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
                                 .build()),
-                CommandStripPresentationModel.builder().build())
+                CommandStripPresentationModel.withDefaults())
                 .buildComponent();
         this.add(buttonStrip2);
 
@@ -79,7 +79,8 @@ public class TestButtonStripMultiple extends JFrame {
                 .setIconFactory(Format_justify_left.factory())
                 .build().project(CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
-                        .setFlat(false).build())
+                        .setFlat(false)
+                        .build())
                 .buildComponent();
         this.add(standalone);
 

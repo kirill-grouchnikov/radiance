@@ -10,29 +10,22 @@ Apart from the two comboboxes in the main content area on the right, and another
 
 Commands are created with the builder pattern which is pervasive throughout Flamingo. Call `Command.builder()` to get a new builder instance. Then, configure one or more of the following attributes on the builder:
 
-|  | Attribute | Dynamic? |
+|  | Attribute | Type | Dynamic? |
 | --- | --- | --- |
-| **Base** | text | yes |
-|  | extraText | yes |
-|  | iconFactory | yes |
-|  | disabledIconFactory | yes |
-| **Action** | action | yes |
-|  | actionPreview | yes |
-|  | actionRichTooltip | yes |
-|  | isActionEnabled | yes |
-|  | isTextClickAction | - |
-|  | isAutoRepeatAction | yes |
-|  | autoRepeatInitialInterval | - |
-|  | autoRepeatSubsequentInterval | - |
-|  | isFireActionOnRollover | yes |
-|  | isFireActionOnPress | yes |
-| **Secondary**  | secondaryContentModel | - |
-|  | secondaryRichTooltip | yes |
-|  | isSecondaryEnabled | yes |
-|  | isTextClickSecondary | - |
-| **Toggle**  | isToggle | - |
-|  | isToggleSelected | yes |
-|  | toggleGroupModel | - |
+| **Base** | text | String | yes |
+|  | extraText | String | yes |
+|  | iconFactory | ResizableIconFactory | yes |
+|  | disabledIconFactory | ResizableIconFactory | yes |
+| **Action** | action | CommandAction | yes |
+|  | actionPreview | CommandActionPreview | yes |
+|  | actionRichTooltip | RichTooltip | yes |
+|  | actionEnabled | boolean | yes |
+| **Secondary**  | secondaryContentModel | CommandMenuContentModel | - |
+|  | secondaryRichTooltip | RichTooltip | yes |
+|  | secondaryEnabled | boolean | yes |
+| **Toggle**  | toggle | boolean | - |
+|  | toggleSelected | boolean | yes |
+|  | toggleGroupModel | CommandToggleGroupModel | - |
 
 ### Base attributes
 
@@ -151,27 +144,6 @@ textPane.addCaretListener((CaretEvent e) -> {
 });
 ```
 
-#### Mark text area for invoking action
-
-Let's take a look at two screenshots. In the first one, the mouse cursor is over the text area of the "Cut" button in tile state. Note that different strength of yellow rollover highlight indication. The area of the button that contains the icon and the two texts has a stronger yellow highlight, while the area with the down arrow has a weaker highlight. This button is configured with `setTextClickAction()` API to indicate that clicking anywhere in the area that shows the command text (and extra text, if relevant) will activate the main command action:
-
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-title-action.png" width="764" border=0/>
-
-In the second one, the mouse cursor is over the same text area, this time of the "Copy" button in tile state. Here, the area of the button with the icon has a weaker highlight, while the area with the two texts and the down arrow has a stronger highlight.  This button is configured with `setTextClickSecondary()` API to indicate that clicking anywhere in the area that shows the command text (and extra text, if relevant) will activate the secondary command content - in this case, showing a popup menu:
-
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-title-popup.png" width="764" border=0/>
-
-#### Repeated action
-
-In some cases, the design calls for facilitating repeated activation of the command action. For example, it would be quite tedious to scroll down a large list of items by repeatedly clicking the down button (or area below the scrollbar thumb). The usability of such actions can be improved if, pressed once, the action is repeated continuously until the mouse button is released.
-
-Flamingo commands come with five attributes that aim to address such scenarios.
-
-* `setAutoRepeatAction(true)` will result in a repeated, continuous activation of the command action as long as the projected button is activated.
-* `setFireActionOnRollover(true)` will result in command action activation when the mouse is moved over the projected button - without the need to press the mouse button itself.
-* Alternatively, `setFireActionOnPress(true)` will result in command action activation when the mouse button is pressed - as opposed to the usual click which is a combination of pressing the button and then releasing it.
-* Finally, `setAutoRepeatActionIntervals()` can be used to configure the command-specific initial and subsequent intervals between action activation. The static `Command.DEFAULT_AUTO_REPEAT_*` constants can be used to check for the default values of these two intervals.
-
 ### Secondary content attributes
 
 #### Secondary content model
@@ -192,11 +164,11 @@ Or have a more complex structure, with an embedded, separately scrollable panel 
 
 All these three examples would be called "popup buttons" in similar component suites. The power of secondary content in Flamingo commands can be seen in how easily it is to configure a projected button to be a "regular" action button - with just one action.
 
-Or, by calling `setSecondaryContentModel()` and `setTextClickAction(true)` make it a split button with a popup menu shown when the down arrow is clicked:
+Or, by calling `setSecondaryContentModel()` and `CommandButtonPresentationModel.Builder.setTextClickAction(true)` make it a split button with a popup menu shown when the down arrow is clicked:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-title-action.png" width="764" border=0/>
 
-Or instead, calling `setTextClickSecondary(true)` to make it a split button with a popup menu shown when either texts or down arrow are clicked:
+Or instead, calling `CommandButtonPresentationModel.Builder.setTextClickPopup(true)` to make it a split button with a popup menu shown when either texts or down arrow are clicked:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-title-popup.png" width="764" border=0/>
 
@@ -213,12 +185,6 @@ Same as with action rich tooltips, you can configure a rich tooltip to be shown 
 #### Enabling and disabling
 
 Secondary content of a command can be enabled and disabled separately from the command's action enabled state. Call `setSecondaryEnabled(false)` to disable secondary content during the builder initialization, or pass `false` / `true` later on to dynamically toggle the enabled state of the secondary content area of the projected button based on application-specific logic.
-
-#### Mark text area for invoking secondary content
-
-This has been mentioned a couple of times earlier in this page. Use `setTextClickSecondary()` API to indicate that clicking anywhere in the area that shows the command text (and extra text, if relevant) will activate the secondary command content - in this case, showing a popup menu:
-
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-title-popup.png" width="764" border=0/>
 
 ### Toggle attributes
 
@@ -331,3 +297,5 @@ Command commandBold = Command.builder()
         ...
         .build();
 ```
+
+Note that unlike most other attributes on the `Command` class, the `toggle` attribute is read-only, which means that you can not change a command from toggleable to not-toggleable (or the other way around). In addition, while the `toggleGroupModel` attribute is read-only, you can use APIs on the `CommandToggleGroupModel` to change the association between a command and a command toggle group model - as long as you make sure that this is indeed what your application logic requires.

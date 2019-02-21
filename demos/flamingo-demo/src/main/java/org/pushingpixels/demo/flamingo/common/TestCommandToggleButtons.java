@@ -160,14 +160,6 @@ public class TestCommandToggleButtons extends JFrame {
         }));
         controlPanel.add(actionEnabled);
 
-        final JCheckBox actionOnPress = new JCheckBox("action on press");
-        actionOnPress.setSelected(false);
-        actionOnPress.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-            toggleCommandShort.setFireActionOnPress(actionEnabled.isSelected());
-            toggleCommandLong.setFireActionOnPress(actionEnabled.isSelected());
-        }));
-        controlPanel.add(actionOnPress);
-
         JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle(

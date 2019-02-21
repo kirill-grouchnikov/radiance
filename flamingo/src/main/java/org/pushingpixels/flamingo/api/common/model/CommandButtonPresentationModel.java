@@ -48,6 +48,9 @@ import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
  * @see CommandButtonProjection
  */
 public class CommandButtonPresentationModel implements ImmutablePresentationModel {
+    public static final int DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS = 500;
+    public static final int DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS = 100;
+
     private CommandButtonPresentationState presentationState;
     private Integer iconDimension;
     private boolean isFlat;
@@ -61,6 +64,14 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     private String popupKeyTip;
     private boolean toDismissPopupsOnActivation;
     private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
+    private boolean isTextClickAction;
+    private boolean isTextClickPopup;
+    private boolean isAutoRepeatAction;
+    private boolean hasAutoRepeatIntervalsSet;
+    private int autoRepeatInitialInterval;
+    private int autoRepeatSubsequentInterval;
+    private boolean isFireActionOnRollover;
+    private boolean isFireActionOnPress;
 
     private CommandButtonPresentationModel() {
     }
@@ -91,6 +102,22 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
                 ? overlay.actionKeyTip : this.actionKeyTip;
         result.popupKeyTip = (overlay.popupKeyTip != null)
                 ? overlay.popupKeyTip : this.popupKeyTip;
+        result.isTextClickAction = (overlay.isTextClickAction != null)
+                ? overlay.isTextClickAction : this.isTextClickAction;
+        result.isTextClickPopup = (overlay.isTextClickPopup != null)
+                ? overlay.isTextClickPopup : this.isTextClickPopup;
+        result.isAutoRepeatAction = (overlay.isAutoRepeatAction != null)
+                ? overlay.isAutoRepeatAction : this.isAutoRepeatAction;
+        result.hasAutoRepeatIntervalsSet = (overlay.hasAutoRepeatIntervalsSet != null)
+                ? overlay.hasAutoRepeatIntervalsSet : this.hasAutoRepeatIntervalsSet;
+        result.autoRepeatInitialInterval = (overlay.autoRepeatInitialInterval != null)
+                ? overlay.autoRepeatInitialInterval : this.autoRepeatInitialInterval;
+        result.autoRepeatSubsequentInterval = (overlay.autoRepeatSubsequentInterval != null)
+                ? overlay.autoRepeatSubsequentInterval : this.autoRepeatSubsequentInterval;
+        result.isFireActionOnRollover = (overlay.isFireActionOnRollover != null)
+                ? overlay.isFireActionOnRollover : this.isFireActionOnRollover;
+        result.isFireActionOnPress = (overlay.isFireActionOnPress != null)
+                ? overlay.isFireActionOnPress : this.isFireActionOnPress;
 
         return result;
     }
@@ -159,6 +186,38 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.popupKeyTip;
     }
 
+    public boolean isTextClickAction() {
+        return this.isTextClickAction;
+    }
+
+    public boolean isTextClickPopup() {
+        return this.isTextClickPopup;
+    }
+
+    public boolean isFireActionOnRollover() {
+        return this.isFireActionOnRollover;
+    }
+
+    public boolean isFireActionOnPress() {
+        return this.isFireActionOnPress;
+    }
+
+    public boolean isAutoRepeatAction() {
+        return this.isAutoRepeatAction;
+    }
+
+    public boolean hasAutoRepeatIntervalsSet() {
+        return this.hasAutoRepeatIntervalsSet;
+    }
+
+    public int getAutoRepeatInitialInterval() {
+        return this.hasAutoRepeatIntervalsSet ? this.autoRepeatInitialInterval : -1;
+    }
+
+    public int getAutoRepeatSubsequentInterval() {
+        return this.hasAutoRepeatIntervalsSet ? this.autoRepeatSubsequentInterval : -1;
+    }
+
     /**
      * Orientation kind for the popup.
      *
@@ -191,6 +250,14 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private String actionKeyTip;
         private String popupKeyTip;
         private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
+        private Boolean isTextClickAction;
+        private Boolean isTextClickPopup;
+        private Boolean isAutoRepeatAction;
+        private Boolean hasAutoRepeatIntervalsSet;
+        private Integer autoRepeatInitialInterval;
+        private Integer autoRepeatSubsequentInterval;
+        private Boolean isFireActionOnRollover;
+        private Boolean isFireActionOnPress;
 
         public Overlay setFlat(boolean flat) {
             this.isFlat = flat;
@@ -258,6 +325,38 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             this.popupKeyTip = popupKeyTip;
             return this;
         }
+
+        public Overlay setTextClickAction() {
+            this.isTextClickAction = true;
+            return this;
+        }
+
+        public Overlay setTextClickPopup() {
+            this.isTextClickPopup = true;
+            return this;
+        }
+
+        public Overlay setAutoRepeatAction(boolean isAutoRepeatAction) {
+            this.isAutoRepeatAction = isAutoRepeatAction;
+            return this;
+        }
+
+        public Overlay setAutoRepeatActionIntervals(int initial, int subsequent) {
+            this.hasAutoRepeatIntervalsSet = true;
+            this.autoRepeatInitialInterval = initial;
+            this.autoRepeatSubsequentInterval = subsequent;
+            return this;
+        }
+
+        public Overlay setFireActionOnRollover(boolean isFireActionOnRollover) {
+            this.isFireActionOnRollover = isFireActionOnRollover;
+            return this;
+        }
+
+        public Overlay setFireActionOnPress(boolean isFireActionOnPress) {
+            this.isFireActionOnPress = isFireActionOnPress;
+            return this;
+        }
     }
 
     public static class Builder {
@@ -276,6 +375,14 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private String popupKeyTip;
         private boolean toDismissPopupsOnActivation = true;
         private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
+        private boolean isTextClickAction;
+        private boolean isTextClickPopup;
+        private boolean isAutoRepeatAction;
+        private boolean hasAutoRepeatIntervalsSet;
+        private int autoRepeatInitialInterval = DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS;
+        private int autoRepeatSubsequentInterval = DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS;
+        private boolean isFireActionOnRollover;
+        private boolean isFireActionOnPress;
 
         public Builder setFlat(boolean flat) {
             this.isFlat = flat;
@@ -303,8 +410,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Builder setPresentationState(
-                CommandButtonPresentationState presentationState) {
+        public Builder setPresentationState(CommandButtonPresentationState presentationState) {
             this.presentationState = presentationState;
             return this;
         }
@@ -314,8 +420,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Builder setPopupOrientationKind(
-                PopupOrientationKind popupOrientationKind) {
+        public Builder setPopupOrientationKind(PopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
             return this;
         }
@@ -346,9 +451,42 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
+        public Builder setTextClickAction() {
+            this.isTextClickAction = true;
+            return this;
+        }
+
+        public Builder setTextClickPopup() {
+            this.isTextClickPopup = true;
+            return this;
+        }
+
+        public Builder setAutoRepeatAction(boolean isAutoRepeatAction) {
+            this.isAutoRepeatAction = isAutoRepeatAction;
+            return this;
+        }
+
+        public Builder setAutoRepeatActionIntervals(int initial, int subsequent) {
+            this.hasAutoRepeatIntervalsSet = true;
+            this.autoRepeatInitialInterval = initial;
+            this.autoRepeatSubsequentInterval = subsequent;
+            return this;
+        }
+
+        public Builder setFireActionOnRollover(boolean isFireActionOnRollover) {
+            this.isFireActionOnRollover = isFireActionOnRollover;
+            return this;
+        }
+
+        public Builder setFireActionOnPress(boolean isFireActionOnPress) {
+            this.isFireActionOnPress = isFireActionOnPress;
+            return this;
+        }
+
         public CommandButtonPresentationModel build() {
             CommandButtonPresentationModel commandPresentation =
                     new CommandButtonPresentationModel();
+
             commandPresentation.presentationState = this.presentationState;
             commandPresentation.horizontalAlignment = this.horizontalAlignment;
             commandPresentation.horizontalGapScaleFactor = this.horizontalGapScaleFactor;
@@ -362,6 +500,15 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             commandPresentation.popupKeyTip = this.popupKeyTip;
             commandPresentation.toDismissPopupsOnActivation = this.toDismissPopupsOnActivation;
             commandPresentation.popupMenuPresentationModel = this.popupMenuPresentationModel;
+            commandPresentation.isTextClickAction = this.isTextClickAction;
+            commandPresentation.isTextClickPopup = this.isTextClickPopup;
+            commandPresentation.isAutoRepeatAction = this.isAutoRepeatAction;
+            commandPresentation.hasAutoRepeatIntervalsSet = this.hasAutoRepeatIntervalsSet;
+            commandPresentation.autoRepeatInitialInterval = this.autoRepeatInitialInterval;
+            commandPresentation.autoRepeatSubsequentInterval = this.autoRepeatSubsequentInterval;
+            commandPresentation.isFireActionOnRollover = this.isFireActionOnRollover;
+            commandPresentation.isFireActionOnPress = this.isFireActionOnPress;
+
             return commandPresentation;
         }
     }

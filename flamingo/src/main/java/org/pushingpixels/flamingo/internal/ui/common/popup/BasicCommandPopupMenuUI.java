@@ -343,8 +343,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
                         || (maxMenuButtonCount >= menuPanel.getComponentCount())) {
                     return result;
                 }
-                // the assumption is that all menu buttons have the
-                // same height.
+                // the assumption is that all menu buttons have the same height.
                 int singleHeight = menuPanel.getComponent(0).getPreferredSize().height;
                 int width = 0;
                 for (int i = 0; i < menuPanel.getComponentCount(); i++) {

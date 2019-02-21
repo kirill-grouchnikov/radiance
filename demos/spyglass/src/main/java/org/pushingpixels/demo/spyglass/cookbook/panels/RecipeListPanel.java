@@ -84,7 +84,7 @@ public class RecipeListPanel extends SingleContentPanel {
                                         .factory(ic_view_stream_white_24px.factory(), 0.75f)))
                                 .inToggleGroup(viewGroup)
                                 .build()),
-                CommandStripPresentationModel.builder().build())
+                CommandStripPresentationModel.withDefaults())
                 .buildComponent();
 
         titlePaneBuilder.add(titlePaneControlButtons).xy(7, 1);
@@ -123,7 +123,7 @@ public class RecipeListPanel extends SingleContentPanel {
                                 .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
                                         .factory(ic_remove_white_24px.factory(), 0.75f)))
                                 .build()),
-                CommandStripPresentationModel.builder().build())
+                CommandStripPresentationModel.withDefaults())
                 .buildComponent();
 
         final JTextField searchTextField = new JTextField(15);

@@ -124,14 +124,12 @@ public class TestCommandButtonsSizing extends JPanel {
             case ACTION_AND_POPUP_MAIN_ACTION:
                 commandBuilder
                         .setAction((CommandActionEvent e) -> System.out.println("Action invoked"))
-                        .setSecondaryContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
-                        .setTextClickAction();
+                        .setSecondaryContentModel(SamplePopupMenu.getSamplePopupMenuContentModel());
                 break;
             case ACTION_AND_POPUP_MAIN_POPUP:
                 commandBuilder
                         .setAction((CommandActionEvent e) -> System.out.println("Action invoked"))
-                        .setSecondaryContentModel(SamplePopupMenu.getSamplePopupMenuContentModel())
-                        .setTextClickSecondary();
+                        .setSecondaryContentModel(SamplePopupMenu.getSamplePopupMenuContentModel());
                 break;
             case POPUP_ONLY:
                 commandBuilder.setSecondaryContentModel(
@@ -139,12 +137,21 @@ public class TestCommandButtonsSizing extends JPanel {
                 break;
         }
 
-        CommandButtonProjection<Command> commandProjection =
-                commandBuilder.build().project(
-                        CommandButtonPresentationModel.builder()
-                                .setPresentationState(state)
-                                .setFlat(false)
-                                .build());
+        CommandButtonPresentationModel.Builder commandButtonPresentationBuilder =
+                CommandButtonPresentationModel.builder()
+                        .setPresentationState(state)
+                        .setFlat(false);
+        switch (commandButtonKind) {
+            case ACTION_AND_POPUP_MAIN_ACTION:
+                commandButtonPresentationBuilder.setTextClickAction();
+                break;
+            case ACTION_AND_POPUP_MAIN_POPUP:
+                commandButtonPresentationBuilder.setTextClickPopup();
+                break;
+        }
+
+        CommandButtonProjection<Command> commandProjection = commandBuilder.build().project(
+                commandButtonPresentationBuilder.build());
         commandProjection.setComponentCustomizer((AbstractCommandButton button) ->
                 button.setFont(button.getFont().deriveFont((float) fontSize)));
 

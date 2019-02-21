@@ -54,8 +54,10 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
     }
 
     override fun configureCommand(leaf: Leaf, command: Command, icon: ResizableIcon?) {
-        command.actionRichTooltip = RichTooltip.builder().setTitle("Transcode")
-                .addDescriptionSection("Click to generate Java2D class").build()
+        command.actionRichTooltip = RichTooltip.builder()
+                .setTitle("Transcode")
+                .addDescriptionSection("Click to generate Java2D class")
+                .build()
         command.action = CommandAction {
             SwingUtilities.invokeLater {
                 // can't pass the stream contents since the

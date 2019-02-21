@@ -111,20 +111,25 @@ public class TestPopupCommandButtons extends JFrame {
 
                 simpleEntries1.add(Command.builder()
                         .setText(mf.format(new Object[] { "1" }))
-                        .setIconFactory(Address_book_new.factory()).build());
+                        .setIconFactory(Address_book_new.factory())
+                        .build());
                 simpleEntries1.add(Command.builder()
                         .setText(mf.format(new Object[] { "2" }))
-                        .setIconFactory(EmptyResizableIcon.factory()).build());
+                        .setIconFactory(EmptyResizableIcon.factory())
+                        .build());
                 simpleEntries1.add(Command.builder()
                         .setText(mf.format(new Object[] { "3" }))
-                        .setIconFactory(EmptyResizableIcon.factory()).build());
+                        .setIconFactory(EmptyResizableIcon.factory())
+                        .build());
 
                 simpleEntries2.add(Command.builder()
                         .setText(mf.format(new Object[] { "4" }))
-                        .setIconFactory(EmptyResizableIcon.factory()).build());
+                        .setIconFactory(EmptyResizableIcon.factory())
+                        .build());
                 simpleEntries2.add(Command.builder()
                         .setText(mf.format(new Object[] { "5" }))
-                        .setIconFactory(Text_x_generic.factory()).build());
+                        .setIconFactory(Text_x_generic.factory())
+                        .build());
 
                 return new CommandMenuContentModel(
                         Arrays.asList(new CommandGroup(simpleEntries1),
@@ -179,7 +184,8 @@ public class TestPopupCommandButtons extends JFrame {
 
             case SCROLLABLE:
                 return CommandPopupMenuPresentationModel.builder()
-                        .setMaxVisibleMenuCommands(8).build();
+                        .setMaxVisibleMenuCommands(8)
+                        .build();
 
             default:
                 return CommandPopupMenuPresentationModel.builder()
@@ -190,7 +196,8 @@ public class TestPopupCommandButtons extends JFrame {
                                                 CommandButtonPresentationState.FIT_TO_ICON)
                                         .setCommandIconDimension(48)
                                         .setMaxColumns(4)
-                                        .setMaxRows(3).build())
+                                        .setMaxRows(3)
+                                        .build())
                         .build();
         }
     }

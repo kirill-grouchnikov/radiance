@@ -331,7 +331,6 @@ private class RibbonDemoBuilder {
                     +resourceBundle.getString("Paste.tooltip.popupParagraph1")
                 }
             }
-            isTextClickAction = true
         }
 
         menuSaveSelection = command {
@@ -573,9 +572,10 @@ private class RibbonDemoBuilder {
             }
             collapsedStateKeyTip = "ZC"
 
-            command(priority = PresentationPriority.TOP, popupKeyTip = "V", command = pasteCommand)
+            command(priority = PresentationPriority.TOP, popupKeyTip = "V", isTextClickAction = true,
+                    command = pasteCommand)
 
-            command(PresentationPriority.MEDIUM, popupKeyTip = "X") {
+            command(PresentationPriority.MEDIUM, popupKeyTip = "X", isTextClickAction = true) {
                 title = resourceBundle.getString("Cut.text")
                 iconFactory = Edit_cut.factory()
                 action = CommandAction { println("Cut!") }
@@ -586,15 +586,13 @@ private class RibbonDemoBuilder {
                     }
                 }
                 menu = getSimplePopupMenu()
-                isTextClickAction = true
             }
 
-            command(PresentationPriority.MEDIUM, popupKeyTip = "C") {
+            command(PresentationPriority.MEDIUM, popupKeyTip = "C", isTextClickSecondary = true) {
                 title = resourceBundle.getString("Copy.text")
                 iconFactory = Edit_copy.factory()
                 action = CommandAction { println("Copy!") }
                 menu = getSimplePopupMenu()
-                isTextClickSecondary = true
             }
 
             command(PresentationPriority.MEDIUM, popupKeyTip = "FP") {
@@ -1865,13 +1863,12 @@ fun main() {
                     }
 
                     // "Save as" primary + secondaries
-                    command(actionKeyTip = "A", popupKeyTip = "F") {
+                    command(actionKeyTip = "A", popupKeyTip = "F", isTextClickAction = true) {
                         title = builder.resourceBundle.getString("AppMenuSaveAs.text")
                         iconFactory = Document_save_as.factory()
                         action = CommandAction {
                             println("Invoked saving document as")
                         }
-                        isTextClickAction = true
 
                         commandPopupMenu {
                             group {
@@ -1911,11 +1908,10 @@ fun main() {
 
                 group {
                     // "Print" primary + secondaries
-                    command(actionKeyTip = "P", popupKeyTip = "W") {
+                    command(actionKeyTip = "P", popupKeyTip = "W", isTextClickAction = true) {
                         title = builder.resourceBundle.getString("AppMenuPrint.text")
                         iconFactory = Document_print.factory()
                         action = CommandAction { println("Invoked printing as") }
-                        isTextClickAction = true
 
                         commandPopupMenu {
                             group {

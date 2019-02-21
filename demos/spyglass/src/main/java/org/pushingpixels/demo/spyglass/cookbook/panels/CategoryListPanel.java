@@ -67,7 +67,7 @@ public class CategoryListPanel extends SingleContentPanel {
                                                 .setText("menu item")
                                                 .build())))
                                 .build()),
-                CommandStripPresentationModel.builder().build())
+                CommandStripPresentationModel.withDefaults())
                 .buildComponent();
 
         footerPaneBuilder.add(controlButtons).xy(1, 1);

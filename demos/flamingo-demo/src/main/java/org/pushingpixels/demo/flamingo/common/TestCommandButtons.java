@@ -91,7 +91,6 @@ public class TestCommandButtons extends JFrame {
                 .setExtraText(resourceBundle.getString("Copy.textExtra"))
                 .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Copy"))
                 .setSecondaryContentModel(getPopupMenuContentModel())
-                .setTextClickSecondary()
                 .build();
 
         this.cutCommand = Command.builder()
@@ -100,7 +99,6 @@ public class TestCommandButtons extends JFrame {
                 .setExtraText(resourceBundle.getString("Cut.textExtra"))
                 .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Cut"))
                 .setSecondaryContentModel(getPopupMenuContentModel())
-                .setTextClickAction()
                 .build();
 
         this.pasteActionCommand = Command.builder()
@@ -128,20 +126,25 @@ public class TestCommandButtons extends JFrame {
 
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "1" }))
-                .setIconFactory(Address_book_new.factory()).build());
+                .setIconFactory(Address_book_new.factory())
+                .build());
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "2" }))
-                .setIconFactory(EmptyResizableIcon.factory()).build());
+                .setIconFactory(EmptyResizableIcon.factory())
+                .build());
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "3" }))
-                .setIconFactory(EmptyResizableIcon.factory()).build());
+                .setIconFactory(EmptyResizableIcon.factory())
+                .build());
 
         simpleEntries2.add(Command.builder()
                 .setText(mf.format(new Object[] { "4" }))
-                .setIconFactory(EmptyResizableIcon.factory()).build());
+                .setIconFactory(EmptyResizableIcon.factory())
+                .build());
         simpleEntries2.add(Command.builder()
                 .setText(mf.format(new Object[] { "5" }))
-                .setIconFactory(Text_x_generic.factory()).build());
+                .setIconFactory(Text_x_generic.factory())
+                .build());
 
         return new CommandMenuContentModel(
                 Arrays.asList(new CommandGroup(simpleEntries1),
@@ -191,36 +194,53 @@ public class TestCommandButtons extends JFrame {
         builder.add(popupButton).xy(9, row);
     }
 
+    protected void configurePresentationBuilder(CommandButtonPresentationModel.Builder builder) {
+    }
+
     private AbstractCommandButton createPopupButton(CommandButtonPresentationState state) {
-        return this.pastePopupCommand.project(
+        CommandButtonPresentationModel.Builder presentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
-                        .setFlat(false)
-                        .build()).buildComponent();
+                        .setFlat(false);
+        configurePresentationBuilder(presentationBuilder);
+
+        return this.pastePopupCommand.project(presentationBuilder.build())
+                .buildComponent();
     }
 
     private AbstractCommandButton createActionAndPopupMainPopupButton(CommandButtonPresentationState state) {
-        return this.copyCommand.project(
+        CommandButtonPresentationModel.Builder presentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
-                        .setFlat(false)
-                        .build()).buildComponent();
+                        .setTextClickPopup()
+                        .setFlat(false);
+        configurePresentationBuilder(presentationBuilder);
+
+        return this.copyCommand.project(presentationBuilder.build())
+                .buildComponent();
     }
 
     private AbstractCommandButton createActionAndPopupMainActionButton(CommandButtonPresentationState state) {
-        return this.cutCommand.project(
+        CommandButtonPresentationModel.Builder presentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
-                        .setFlat(false)
-                        .build()).buildComponent();
+                        .setTextClickAction()
+                        .setFlat(false);
+        configurePresentationBuilder(presentationBuilder);
+
+        return this.cutCommand.project(presentationBuilder.build())
+                .buildComponent();
     }
 
     private AbstractCommandButton createActionButton(CommandButtonPresentationState state) {
-        return this.pasteActionCommand.project(
+        CommandButtonPresentationModel.Builder presentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
-                        .setFlat(false)
-                        .build()).buildComponent();
+                        .setFlat(false);
+        configurePresentationBuilder(presentationBuilder);
+
+        return this.pasteActionCommand.project(presentationBuilder.build())
+                .buildComponent();
     }
 
     protected void configureControlPanel(JPanel controlPanel) {

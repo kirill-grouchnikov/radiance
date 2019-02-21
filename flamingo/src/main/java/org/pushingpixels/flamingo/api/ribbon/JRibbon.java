@@ -364,7 +364,8 @@ public class JRibbon extends JComponent {
     public synchronized boolean isShowingInTaskbar(ComponentContentModel componentContentModel) {
         for (Component taskbarComponent : this.taskbarComponents) {
             if (taskbarComponent instanceof JRibbonComponent) {
-                if (((JRibbonComponent) taskbarComponent).getProjection().getContentModel() == componentContentModel) {
+                if (((JRibbonComponent) taskbarComponent).getProjection().getContentModel()
+                        == componentContentModel) {
                     return true;
                 }
             }
@@ -375,7 +376,8 @@ public class JRibbon extends JComponent {
     public synchronized void removeTaskbarComponent(ComponentContentModel componentContentModel) {
         for (Component taskbarComponent : this.taskbarComponents) {
             if (taskbarComponent instanceof JRibbonComponent) {
-                if (((JRibbonComponent) taskbarComponent).getProjection().getContentModel() == componentContentModel) {
+                if (((JRibbonComponent) taskbarComponent).getProjection().getContentModel()
+                        == componentContentModel) {
                     this.taskbarComponents.remove(taskbarComponent);
                     this.fireStateChanged();
                     return;
