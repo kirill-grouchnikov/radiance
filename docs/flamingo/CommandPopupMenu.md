@@ -95,7 +95,7 @@ CommandMenuContentModel commandMenuContentModel =
 
 Then we create a presentation model in the default `ROW_FILL` mode, with all projected buttons using `FIT_TO_ICON` layout and icons sized at 48 pixels:
 
-````java
+```java
 CommandPopupMenuPresentationModel commandPopupMenuPresentationModel = CommandPopupMenuPresentationModel.builder()
       .setPanelPresentationModel(CommandPanelPresentationModel.builder()
             .setToShowGroupLabels(false)
