@@ -66,7 +66,7 @@ commandPanelContentModel.setSingleSelectionMode(true);
 
 Then we create a presentation model in the default `ROW_FILL` mode, with all projected buttons using `FIT_TO_ICON` layout and icons sized at 48 pixels:
 
-````java
+```java
 CommandPanelPresentationModel commandPanelPresentationModel = CommandPanelPresentationModel.builder()
       .setToShowGroupLabels(false)
       .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
