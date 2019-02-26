@@ -5,7 +5,7 @@ import java.awt.geom.*
 import javax.swing.plaf.UIResource
 
 import org.pushingpixels.neon.icon.ResizableIcon
-import org.pushingpixels.neon.icon.ResizableIconFactory
+import org.pushingpixels.neon.icon.ResizableIcon.Factory
 import org.pushingpixels.neon.icon.ResizableIconUIResource
 
 /**
@@ -651,7 +651,7 @@ g.transform = defaultTransform_
          * @return The X of the bounding box of the original SVG image.
          */
         fun getOrigX(): Double {
-            return 3.98351788520813
+            return 4.0
         }
 
         /**
@@ -669,7 +669,7 @@ g.transform = defaultTransform_
          * @return The width of the bounding box of the original SVG image.
          */
         fun getOrigWidth(): Double {
-            return 41.02260971069336
+            return 41.04103469848633
         }
 
         /**
@@ -708,8 +708,8 @@ g.transform = defaultTransform_
          *
          * @return Factory that returns instances of this icon on demand.
          */
-        fun factory(): ResizableIconFactory {
-            return ResizableIconFactory { Folder_remote(16, 16) }
+        fun factory(): Factory {
+            return Factory { Folder_remote(16, 16) }
         }
     }
 

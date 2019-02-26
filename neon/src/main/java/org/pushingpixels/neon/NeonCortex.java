@@ -309,7 +309,7 @@ public class NeonCortex {
      * @param color         Color for colorization.
      * @return The colorized version of the icon.
      */
-    public static ResizableIcon colorizeIcon(ResizableIconFactory sourceFactory,
+    public static ResizableIcon colorizeIcon(ResizableIcon.Factory sourceFactory,
             Color color) {
         return new ResizableIcon() {
             private int width;
@@ -357,7 +357,7 @@ public class NeonCortex {
      * @param alpha         Alpha value for colorization.
      * @return The colorized version of the icon.
      */
-    public static ResizableIcon colorizeIcon(ResizableIconFactory sourceFactory,
+    public static ResizableIcon colorizeIcon(ResizableIcon.Factory sourceFactory,
             Color color, float alpha) {
         return colorizeIcon(sourceFactory, new Color(color.getRed(), color.getGreen(),
                 color.getBlue(), (int) (alpha * 255)));
@@ -372,7 +372,7 @@ public class NeonCortex {
      * @return The colorized version of the icon.
      */
     public static ResizableIconUIResource colorizeIconAsUiResource(
-            ResizableIconFactory sourceFactory, Color color) {
+            ResizableIcon.Factory sourceFactory, Color color) {
         return new ResizableIconUIResource(colorizeIcon(sourceFactory, color));
     }
 
@@ -386,7 +386,7 @@ public class NeonCortex {
      * @return The colorized version of the icon.
      */
     public static ResizableIconUIResource colorizeIconAsUiResource(
-            ResizableIconFactory sourceFactory, Color color, float alpha) {
+            ResizableIcon.Factory sourceFactory, Color color, float alpha) {
         return colorizeIconAsUiResource(sourceFactory,
                 new Color(color.getRed(), color.getGreen(),
                         color.getBlue(), (int) (alpha * 255)));

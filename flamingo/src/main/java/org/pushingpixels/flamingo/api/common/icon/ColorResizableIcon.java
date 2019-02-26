@@ -99,7 +99,7 @@ public class ColorResizableIcon implements ResizableIcon {
         g.fillRect(x, y, this.getIconWidth(), this.getIconHeight());
     }
 
-    public static ResizableIconFactory factory(Color color) {
+    public static Factory factory(Color color) {
         return () -> new ColorResizableIcon(16, color);
     }
 }

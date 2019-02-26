@@ -96,7 +96,7 @@ public class SimpleResizableIcon implements ResizableIcon {
         graphics.dispose();
     }
 
-    public static class FactoryTop implements ResizableIconFactory {
+    public static class FactoryTop implements Factory {
         @Override
         public ResizableIcon createNewIcon() {
             return new SimpleResizableIcon(JRibbonBand.PresentationPriority.TOP, 16, 16);

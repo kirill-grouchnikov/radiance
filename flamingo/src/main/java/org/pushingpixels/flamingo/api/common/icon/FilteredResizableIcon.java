@@ -125,7 +125,7 @@ public class FilteredResizableIcon implements ResizableIcon {
         g2d.dispose();
     }
 
-    public static ResizableIconFactory factory(ResizableIconFactory delegateFactory,
+    public static Factory factory(Factory delegateFactory,
             BufferedImageOp operation) {
         return () -> new FilteredResizableIcon(delegateFactory.createNewIcon(), operation);
     }

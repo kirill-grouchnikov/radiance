@@ -38,7 +38,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
-import org.pushingpixels.neon.icon.ResizableIconFactory;
+import org.pushingpixels.neon.icon.*;
 
 import javax.swing.*;
 import java.util.Collections;
@@ -135,7 +135,7 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @param title       Band title.
      * @param iconFactory Associated icon factory (for collapsed state).
      */
-    public JRibbonBand(String title, ResizableIconFactory iconFactory) {
+    public JRibbonBand(String title, ResizableIcon.Factory iconFactory) {
         this(title, iconFactory, null);
     }
 
@@ -146,7 +146,7 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @param iconFactory           Associated icon factory (for collapsed state).
      * @param expandCommandListener Expand command listener (can be <code>null</code>).
      */
-    public JRibbonBand(String title, ResizableIconFactory iconFactory,
+    public JRibbonBand(String title, ResizableIcon.Factory iconFactory,
             CommandAction expandCommandListener) {
         super(title, iconFactory, expandCommandListener, new JBandControlPanel());
         this.resizePolicies = Collections

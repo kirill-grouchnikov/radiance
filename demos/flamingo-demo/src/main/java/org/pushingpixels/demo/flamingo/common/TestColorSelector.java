@@ -247,7 +247,7 @@ public class TestColorSelector extends JFrame {
             h = newDimension.height;
         }
 
-        public static ResizableIconFactory factory(Color color) {
+        public static Factory factory(Color color) {
             return () -> new ColorIcon(color);
         }
     }

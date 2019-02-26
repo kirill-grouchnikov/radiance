@@ -34,7 +34,7 @@ import org.pushingpixels.demo.spyglass.cookbook.*;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.neon.icon.ResizableIconFactory;
+import org.pushingpixels.neon.icon.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
@@ -84,7 +84,7 @@ public class RecipePanel extends SingleContentPanel {
         this.titlePanel.add(titlePaneBuilder.build(), BorderLayout.CENTER);
     }
 
-    private AbstractCommandButton getCommandButton(ResizableIconFactory iconFactory,
+    private AbstractCommandButton getCommandButton(ResizableIcon.Factory iconFactory,
             String tooltip) {
         return Command.builder()
                 .setIconFactory(iconFactory)

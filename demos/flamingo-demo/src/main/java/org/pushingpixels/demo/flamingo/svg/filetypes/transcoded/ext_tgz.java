@@ -5,7 +5,6 @@ import java.awt.geom.*;
 import javax.swing.plaf.UIResource;
 
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.neon.icon.ResizableIconFactory;
 import org.pushingpixels.neon.icon.ResizableIconUIResource;
 
 /**
@@ -271,7 +270,7 @@ g.setTransform(defaultTransform_);
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 0.13199999928474426;
+        return 0.13199996948242188;
     }
 
     /**
@@ -395,7 +394,7 @@ g.setTransform(defaultTransform_);
      *
      * @return Factory that returns instances of this icon on demand.
      */
-    public static ResizableIconFactory factory() {
+    public static Factory factory() {
         return () -> new ext_tgz();
     }
 }

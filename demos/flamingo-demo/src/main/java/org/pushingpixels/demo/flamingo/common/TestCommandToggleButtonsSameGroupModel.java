@@ -46,33 +46,35 @@ import java.util.Arrays;
 
 public class TestCommandToggleButtonsSameGroupModel extends JFrame {
     private TestCommandToggleButtonsSameGroupModel() {
+        super("Selection state sync");
+
         this.setIconImage(RadianceLogo.getLogoImage(
                 SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
                         SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
-        CommandToggleGroupModel justifyGroup = new CommandToggleGroupModel();
+        CommandToggleGroupModel justifyToggleGroup = new CommandToggleGroupModel();
 
         Command justifyLeft = Command.builder()
                 .setText("left")
                 .setIconFactory(Format_justify_left.factory())
-                .inToggleGroupAsSelected(justifyGroup)
+                .inToggleGroupAsSelected(justifyToggleGroup)
                 .build();
         Command justifyCenter = Command.builder()
                 .setText("center")
                 .setIconFactory(Format_justify_center.factory())
-                .inToggleGroup(justifyGroup)
+                .inToggleGroup(justifyToggleGroup)
                 .build();
         Command justifyRight = Command.builder()
                 .setText("right")
                 .setIconFactory(Format_justify_right.factory())
-                .inToggleGroup(justifyGroup)
+                .inToggleGroup(justifyToggleGroup)
                 .build();
         Command justifyFill = Command.builder()
                 .setText("fill")
                 .setIconFactory(Format_justify_fill.factory())
-                .inToggleGroup(justifyGroup)
+                .inToggleGroup(justifyToggleGroup)
                 .build();
 
         this.setLayout(new BorderLayout());
@@ -93,29 +95,28 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
         contentPanel.add(instructional);
 
         // Three rows of toggle buttons with selection sync
-        contentPanel.add(getToggleStrip(CommandButtonPresentationModel.builder()
-                        .setPresentationState(CommandButtonPresentationState.SMALL).build(),
-                justifyLeft, justifyCenter, justifyRight, justifyFill));
-        contentPanel.add(getToggleStrip(CommandButtonPresentationModel.builder()
-                        .setPresentationState(CommandButtonPresentationState.MEDIUM).build(),
-                justifyLeft, justifyCenter, justifyRight, justifyFill));
-        contentPanel.add(getToggleStrip(CommandButtonPresentationModel.builder()
-                        .setPresentationState(CommandButtonPresentationState.BIG).build(),
-                justifyLeft, justifyCenter, justifyRight, justifyFill));
+        CommandGroup justifyCommandGroup =
+                new CommandGroup(justifyLeft, justifyCenter, justifyRight, justifyFill);
+        contentPanel.add(new CommandStripProjection(justifyCommandGroup,
+                CommandStripPresentationModel.builder()
+                        .setCommandPresentationState(CommandButtonPresentationState.SMALL)
+                        .build())
+                .buildComponent());
+        contentPanel.add(new CommandStripProjection(justifyCommandGroup,
+                CommandStripPresentationModel.builder()
+                        .setCommandPresentationState(CommandButtonPresentationState.MEDIUM)
+                        .build())
+                .buildComponent());
+        contentPanel.add(new CommandStripProjection(justifyCommandGroup,
+                CommandStripPresentationModel.builder()
+                        .setCommandPresentationState(CommandButtonPresentationState.BIG)
+                        .build())
+                .buildComponent());
         this.add(contentPanel, BorderLayout.CENTER);
 
         this.setSize(400, 250);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
-
-    private JComponent getToggleStrip(CommandButtonPresentationModel display, Command... commands) {
-        return new CommandStripProjection(
-                new CommandGroup(Arrays.asList(commands)),
-                CommandStripPresentationModel.builder()
-                        .setCommandPresentationState(display.getPresentationState())
-                        .build())
-                .buildComponent();
     }
 
     public static void main(String[] args) {

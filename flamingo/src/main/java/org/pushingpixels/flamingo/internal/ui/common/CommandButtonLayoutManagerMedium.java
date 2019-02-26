@@ -199,9 +199,26 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
 
         int prefWidth = this.getPreferredSize(commandButton).width;
         int shiftX = 0;
-        if (commandButton.getHorizontalAlignment() == SwingConstants.CENTER) {
-            if (width > prefWidth) {
-                shiftX = (width - prefWidth) / 2;
+        if (width > prefWidth) {
+            // We have more horizontal space than needed to display the content.
+            // Consult the horizontal alignment attribute of the command button to see
+            // how we should shift the content horizontally.
+            switch (commandButton.getHorizontalAlignment()) {
+                case SwingConstants.LEADING:
+                    if (!ltr) {
+                        // shift everything to the right
+                        shiftX = width - prefWidth;
+                    }
+                    break;
+                case SwingConstants.CENTER:
+                    // shift everything to be centered horizontally
+                    shiftX = (width - prefWidth) / 2;
+                    break;
+                case SwingConstants.TRAILING:
+                    if (ltr) {
+                        // shift everything to the right
+                        shiftX = width - prefWidth;
+                    }
             }
         }
 

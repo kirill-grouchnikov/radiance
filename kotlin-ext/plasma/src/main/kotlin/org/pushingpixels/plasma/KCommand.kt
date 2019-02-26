@@ -44,7 +44,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandGroup
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
 import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection
-import org.pushingpixels.neon.icon.ResizableIconFactory
+import org.pushingpixels.neon.icon.ResizableIcon.Factory
 
 @FlamingoElementMarker
 open class KCommand {
@@ -86,8 +86,8 @@ open class KCommand {
     // multiple times. Internally, the setter propagates the new value to the underlying
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
-    private var _iconFactory: ResizableIconFactory? = null
-    var iconFactory: ResizableIconFactory?
+    private var _iconFactory: Factory? = null
+    var iconFactory: Factory?
         get() = _iconFactory
         set(value) {
             _iconFactory = value
@@ -101,8 +101,8 @@ open class KCommand {
     // multiple times. Internally, the setter propagates the new value to the underlying
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
-    private var _disabledIconFactory: ResizableIconFactory? = null
-    var disabledIconFactory: ResizableIconFactory?
+    private var _disabledIconFactory: Factory? = null
+    var disabledIconFactory: Factory?
         get() = _disabledIconFactory
         set(value) {
             _disabledIconFactory = value

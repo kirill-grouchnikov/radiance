@@ -60,12 +60,12 @@ import java.util.*;
  * {@link #registerThemeAwareLabelsWithText(JLabel...)} and
  * {@link #unregisterThemeAwareLabelsWithText(JLabel...)} in
  * {@link #onPreRender(JList, Object, int)} instead of in the constructor.</li>
- * <li>Use {@link #registerThemeAwareLabelWithIcon(JLabel, ResizableIconFactory, Dimension)}
+ * <li>Use {@link #registerThemeAwareLabelWithIcon(JLabel, ResizableIcon.Factory, Dimension)}
  * in the constructor to "mark" those sub-component labels that should participate in highlight
  * animations on their icons based on the current state (rollover, selection, etc). In case a
  * specific label is using a fixed icon for some of the rows in your list or different icon
  * sources for different rows, use
- * {@link #registerThemeAwareLabelWithIcon(JLabel, ResizableIconFactory, Dimension)} and
+ * {@link #registerThemeAwareLabelWithIcon(JLabel, ResizableIcon.Factory, Dimension)} and
  * {@link #unregisterThemeAwareLabelWithIcon(JLabel)} in
  * {@link #onPreRender(JList, Object, int)} instead of in the constructor.</li>
  * </ul>
@@ -79,10 +79,10 @@ import java.util.*;
 public abstract class SubstancePanelListCellRenderer<T> extends JPanel
         implements ListCellRenderer<T> {
     private static class IconData {
-        private ResizableIconFactory iconFactory;
+        private ResizableIcon.Factory iconFactory;
         private Dimension iconSize;
 
-        private IconData(ResizableIconFactory iconFactory, Dimension iconSize) {
+        private IconData(ResizableIcon.Factory iconFactory, Dimension iconSize) {
             this.iconFactory = iconFactory;
             this.iconSize = iconSize;
         }
@@ -110,7 +110,7 @@ public abstract class SubstancePanelListCellRenderer<T> extends JPanel
     }
 
     protected void registerThemeAwareLabelWithIcon(JLabel label,
-            ResizableIconFactory resizableIconFactory, Dimension iconDimension) {
+            ResizableIcon.Factory resizableIconFactory, Dimension iconDimension) {
         this.themeAwareLabelsWithIcons.put(label,
                 new IconData(resizableIconFactory, iconDimension));
     }

@@ -5,7 +5,6 @@ import java.awt.geom.*;
 import javax.swing.plaf.UIResource;
 
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.neon.icon.ResizableIconFactory;
 import org.pushingpixels.neon.icon.ResizableIconUIResource;
 
 /**
@@ -705,7 +704,7 @@ g.setTransform(defaultTransform_);
      *
      * @return Factory that returns instances of this icon on demand.
      */
-    public static ResizableIconFactory factory() {
+    public static Factory factory() {
         return () -> new Folder_saved_search();
     }
 }

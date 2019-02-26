@@ -38,7 +38,7 @@ import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.plasma.*
-import org.pushingpixels.neon.icon.ResizableIconFactory
+import org.pushingpixels.neon.icon.ResizableIcon.Factory
 import java.awt.Color
 import javax.swing.JComponent
 
@@ -113,7 +113,7 @@ class KRibbonContextualTaskGroupContainer {
 @FlamingoElementMarker
 class KRibbonFrame {
     var title: String? by NullableDelegate { hasBeenConverted }
-    var applicationIconFactory: ResizableIconFactory? by NullableDelegate { hasBeenConverted }
+    var applicationIconFactory: Factory? by NullableDelegate { hasBeenConverted }
     private val tasks = KRibbonTaskContainer()
     private val contextualTaskGroups = KRibbonContextualTaskGroupContainer()
     private val anchoredCommands = KCommandGroup()

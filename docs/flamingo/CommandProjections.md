@@ -135,3 +135,7 @@ Content model encapsulates the "business logic", if you will, of one piece of th
 Flamingo then takes care of updating all the projections based on the changes in the content model - be it a single projection of each styling command in our last example, or more than one projection of the same content model as can be seen in the ribbon.
 
 It's worth noting that a particular command may not be projected in the current screen at all. In this case you would still want to continue updating the content model (which is that command) based on the specific application logic - as you would do with any other piece of your model realm that you keep in sync with the latest local or remote data changes.
+
+### Next
+
+Continue to the [command button presentation models](CommandButtonPresentation.md).

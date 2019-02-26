@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon.model;
 
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.neon.icon.ResizableIconFactory;
+import org.pushingpixels.neon.icon.*;
 
 import javax.swing.event.*;
 import java.util.*;
@@ -39,7 +39,7 @@ public class RibbonGalleryContentModel implements ContentModel {
     private List<CommandGroup> commandGroups;
     private List<CommandGroup> extraPopupCommandGroups;
     private Command selectedCommand;
-    private ResizableIconFactory iconFactory;
+    private ResizableIcon.Factory iconFactory;
 
     /**
      * Stores the listeners on this model.
@@ -58,7 +58,7 @@ public class RibbonGalleryContentModel implements ContentModel {
 
     private CommandGroup.CommandGroupListener commandGroupListener;
 
-    public RibbonGalleryContentModel(ResizableIconFactory iconFactory,
+    public RibbonGalleryContentModel(ResizableIcon.Factory iconFactory,
             List<CommandGroup> commands) {
         this.iconFactory = iconFactory;
         this.commandGroups = new ArrayList<>(commands);
@@ -86,7 +86,7 @@ public class RibbonGalleryContentModel implements ContentModel {
         this.extraPopupCommandGroups = new ArrayList<>();
     }
 
-    public ResizableIconFactory getIconFactory() {
+    public ResizableIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 

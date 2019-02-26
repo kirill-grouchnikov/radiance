@@ -1360,7 +1360,7 @@ public class SubstanceCortex {
          * @param brightnessFactor Brightness factor for colorization.
          * @return The colorized version of the icon.
          */
-        public static ResizableIcon colorizeIcon(ResizableIconFactory sourceFactory,
+        public static ResizableIcon colorizeIcon(ResizableIcon.Factory sourceFactory,
                 SubstanceColorScheme colorScheme, float brightnessFactor) {
             return new ResizableIcon() {
                 private int width;
@@ -1407,7 +1407,7 @@ public class SubstanceCortex {
          * @return The colorized version of the icon.
          */
         public static ResizableIconUIResource colorizeIconAsUiResource(
-                ResizableIconFactory sourceFactory,
+                ResizableIcon.Factory sourceFactory,
                 SubstanceColorScheme colorScheme, float brightnessFactor) {
             return new ResizableIconUIResource(colorizeIcon(sourceFactory, colorScheme,
                     brightnessFactor));
@@ -1422,7 +1422,7 @@ public class SubstanceCortex {
          * @return The colorized version of the icon.
          */
         public static ResizableIconUIResource colorizeIconAsUiResource(
-                ResizableIconFactory sourceFactory,
+                ResizableIcon.Factory sourceFactory,
                 SubstanceColorScheme colorScheme) {
             float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
             return colorizeIconAsUiResource(sourceFactory, colorScheme, brightnessFactor);

@@ -42,7 +42,8 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
     private ComponentCustomizer<T> componentCustomizer;
 
     private Map<Command, ComponentCustomizer<AbstractCommandButton>> commandComponentCustomizers;
-    private Map<Command, ComponentSupplier<AbstractCommandButton, Command, CommandButtonPresentationModel>>
+    private Map<Command, ComponentSupplier<AbstractCommandButton, Command,
+            CommandButtonPresentationModel>>
             commandComponentSuppliers;
 
     /**
@@ -72,6 +73,14 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
      * {@link #getContentModel()} or {@link #getPresentationModel()}.
      */
     public interface ComponentCustomizer<TC extends JComponent> {
+        /**
+         * Customizes the result of {@link #buildComponent()} just before it is returned
+         * to the application code.
+         *
+         * @param component Projected component (from
+         *                  {@link #setComponentSupplier(ComponentSupplier)}
+         *                  if configured, or the default supplier otherwise.
+         */
         void customizeComponent(TC component);
     }
 
@@ -104,19 +113,20 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
         this.commandComponentSuppliers = commandComponentSuppliers;
     }
 
-    public ComponentSupplier<T, C, P> getComponentSupplier() {
+    public final ComponentSupplier<T, C, P> getComponentSupplier() {
         return this.componentSupplier;
     }
 
-    public ComponentCustomizer<T> getComponentCustomizer() {
+    public final ComponentCustomizer<T> getComponentCustomizer() {
         return this.componentCustomizer;
     }
 
-    public Map<Command, ComponentSupplier<AbstractCommandButton, Command, CommandButtonPresentationModel>> getCommandComponentSuppliers() {
+    public final Map<Command, ComponentSupplier<AbstractCommandButton, Command,
+            CommandButtonPresentationModel>> getCommandComponentSuppliers() {
         return this.commandComponentSuppliers;
     }
 
-    public Map<Command, ComponentCustomizer<AbstractCommandButton>> getCommandComponentCustomizers() {
+    public final Map<Command, ComponentCustomizer<AbstractCommandButton>> getCommandComponentCustomizers() {
         return this.commandComponentCustomizers;
     }
 

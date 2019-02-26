@@ -39,7 +39,7 @@ import org.pushingpixels.plasma.FlamingoElementMarker
 import org.pushingpixels.plasma.KCommand
 import org.pushingpixels.plasma.KCommandGroup
 import org.pushingpixels.plasma.NullableDelegate
-import org.pushingpixels.neon.icon.ResizableIconFactory
+import org.pushingpixels.neon.icon.ResizableIcon.Factory
 
 @FlamingoElementMarker
 class GalleryCommandVisibilityContainer {
@@ -81,7 +81,7 @@ class KRibbonGalleryContent {
     private var hasBeenConverted: Boolean = false
     private lateinit var javaRibbonGalleryContentModel: RibbonGalleryContentModel
 
-    var iconFactory: ResizableIconFactory? by NullableDelegate { hasBeenConverted }
+    var iconFactory: Factory? by NullableDelegate { hasBeenConverted }
     private val commandGroups = arrayListOf<KCommandGroup>()
     private val extraPopupGroups = arrayListOf<KCommandGroup>()
     private val extraPopupDefaultGroup = KCommandGroup()

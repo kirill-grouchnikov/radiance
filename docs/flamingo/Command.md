@@ -11,11 +11,11 @@ Apart from the two comboboxes in the main content area on the right, and another
 Commands are created with the builder pattern which is pervasive throughout Flamingo. Call `Command.builder()` to get a new builder instance. Then, configure one or more of the following attributes on the builder:
 
 |  | Attribute | Type | Dynamic? |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | **Base** | text | String | yes |
 |  | extraText | String | yes |
-|  | iconFactory | ResizableIconFactory | yes |
-|  | disabledIconFactory | ResizableIconFactory | yes |
+|  | iconFactory | ResizableIcon.Factory | yes |
+|  | disabledIconFactory | ResizableIcon.Factory | yes |
 | **Action** | action | CommandAction | yes |
 |  | actionPreview | CommandActionPreview | yes |
 |  | actionRichTooltip | RichTooltip | yes |
@@ -299,3 +299,7 @@ Command commandBold = Command.builder()
 ```
 
 Note that unlike most other attributes on the `Command` class, the `toggle` attribute is read-only, which means that you can not change a command from toggleable to not-toggleable (or the other way around). In addition, while the `toggleGroupModel` attribute is read-only, you can use APIs on the `CommandToggleGroupModel` to change the association between a command and a command toggle group model - as long as you make sure that this is indeed what your application logic requires.
+
+### Next
+
+Continue to the [command projections](CommandProjections.md).

@@ -1,4 +1,4 @@
-## Flamingo - even more introduction
+## Flamingo - sample walkthrough, part 2
 
 Let's take a look at another similar example of using Flamingo commands.
 
@@ -211,3 +211,7 @@ styleButtonPanel.add(commandButtonStrip);
 ```
 
 Note how, as before, there is no logic here around what happens when each specific button is clicked. Or when there is nothing selected in the text pane. Or when there is something selected in the text pane. All of that is configured at the level of each command, and in our caret listener.
+
+### Next
+
+Continue to the [command overview](Command.md).

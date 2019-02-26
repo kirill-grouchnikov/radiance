@@ -19,7 +19,7 @@ The following Substance APIs are most suited for painting custom components:
 * [Decoration painters](decoration.md)
 * [Overlay painters](overlay.md)
 
-Most of the Substance UI delegates use a combination of the above APIs. And even as the exact combinations in the existing UI delegates is subject to change in between releases, the main combination patters in Substance code base can be reduced down to a few recurring patterns.
+Most of the Substance UI delegates use a combination of the above APIs. And even as the exact combinations in the existing UI delegates is subject to change in between releases, the main combination patterns in Substance codebase can be reduced down to a few recurring patterns.
 
 ### Decorating
 

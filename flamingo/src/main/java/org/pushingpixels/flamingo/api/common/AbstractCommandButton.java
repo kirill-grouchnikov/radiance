@@ -689,12 +689,12 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      * @see #getHorizontalAlignment()
      */
     public void setHorizontalAlignment(int alignment) {
-        if (alignment == this.horizontalAlignment)
+        if (alignment == this.horizontalAlignment) {
             return;
+        }
         int oldValue = this.horizontalAlignment;
         this.horizontalAlignment = alignment;
-        firePropertyChange("horizontalAlignment", oldValue,
-                this.horizontalAlignment);
+        firePropertyChange("horizontalAlignment", oldValue, this.horizontalAlignment);
         repaint();
     }
 

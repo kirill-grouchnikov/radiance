@@ -55,4 +55,18 @@ public interface ResizableIcon extends Icon {
 		this.paintIcon(null, result.getGraphics(), 0, 0);
 		return result;
 	}
+
+    /**
+     * Interface for creating icons that have resizability behaviour.
+     *
+     * @author Kirill Grouchnikov
+     */
+    interface Factory {
+        /**
+         * Returns a new instance of the icon managed by this factory.
+         *
+         * @return A new instance of the icon managed by this factory.
+         */
+        ResizableIcon createNewIcon();
+    }
 }

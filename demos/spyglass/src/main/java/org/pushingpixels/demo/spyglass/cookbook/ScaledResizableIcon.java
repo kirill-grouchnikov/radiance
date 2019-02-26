@@ -75,7 +75,7 @@ public class ScaledResizableIcon implements ResizableIcon {
 		delegate.setDimension(newDimension);
 	}
 
-	public static ResizableIconFactory factory(ResizableIconFactory delegate, double scaleFactor) {
+	public static Factory factory(Factory delegate, double scaleFactor) {
 		return () -> new ScaledResizableIcon(delegate.createNewIcon(), scaleFactor);
 	}
 }

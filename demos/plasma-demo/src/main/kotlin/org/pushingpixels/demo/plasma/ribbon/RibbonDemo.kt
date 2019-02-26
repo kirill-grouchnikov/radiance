@@ -56,7 +56,7 @@ import org.pushingpixels.meteor.awt.brightness
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
-import org.pushingpixels.neon.icon.ResizableIconFactory
+import org.pushingpixels.neon.icon.ResizableIcon.Factory
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.*
@@ -283,7 +283,7 @@ private class SimpleResizableIcon(private val priority: PresentationPriority,
         graphics.dispose()
     }
 
-    class FactoryTop : ResizableIconFactory {
+    class FactoryTop : Factory {
         override fun createNewIcon(): ResizableIcon {
             return SimpleResizableIcon(PresentationPriority.TOP, 16, 16)
         }
@@ -1627,7 +1627,7 @@ private class RibbonDemoBuilder {
     }
 }
 
-fun getApplicationMenuRichTooltipIcon(): ResizableIconFactory {
+fun getApplicationMenuRichTooltipIcon(): Factory {
     val appMenuButtonTooltipImage = ImageIO
             .read(RibbonDemoBuilder::class.java.classLoader.getResource(
                     "org.pushingpixels.demo.plasma.ribbon/appmenubutton-tooltip-main.png"))
@@ -1662,7 +1662,7 @@ fun getApplicationMenuRichTooltipIcon(): ResizableIconFactory {
     }
     appMenuRichTooltipMainIcon.setDimension(Dimension(
             appMenuButtonTooltipImageInitialWidth, appMenuButtonTooltipImageInitialHeight))
-    return (ResizableIconFactory { appMenuRichTooltipMainIcon })
+    return (Factory { appMenuRichTooltipMainIcon })
 }
 
 fun main() {

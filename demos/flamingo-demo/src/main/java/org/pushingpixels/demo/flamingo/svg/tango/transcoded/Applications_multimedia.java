@@ -5,7 +5,6 @@ import java.awt.geom.*;
 import javax.swing.plaf.UIResource;
 
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.neon.icon.ResizableIconFactory;
 import org.pushingpixels.neon.icon.ResizableIconUIResource;
 
 /**
@@ -88,7 +87,7 @@ g.transform(new AffineTransform(-0.9727100133895874f, 0.23202000558376312f, 0.23
 // _0_0_3
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_3_0 = g.getTransform();
-g.transform(new AffineTransform(0.974405387304794f, -0.22479800086164992f, 0.22479800086164992f, 0.974405387304794f, 0.0f, 0.0f));
+g.transform(new AffineTransform(0.974405387304794f, -0.22479800086164994f, 0.22479800086164994f, 0.974405387304794f, 0.0f, 0.0f));
 // _0_0_3_0
 paint = new LinearGradientPaint(new Point2D.Double(2.761199951171875, 6.110300064086914), new Point2D.Double(18.773000717163086, 18.69300079345703), new float[] {0.0f,1.0f}, new Color[] {new Color(253, 253, 253, 255),new Color(212, 212, 212, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 shape = new RoundRectangle2D.Double(1.705199956893921, 10.352999687194824, 39.805999755859375, 6.508800029754639, 2.285799980163574, 2.285799980163574);
@@ -165,7 +164,7 @@ g.fill(shape);
 g.setTransform(defaultTransform__0_0_3_4);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_3_5 = g.getTransform();
-g.transform(new AffineTransform(0.974405387304794f, -0.22479800086164992f, 0.22479800086164992f, 0.974405387304794f, 0.0f, 0.0f));
+g.transform(new AffineTransform(0.974405387304794f, -0.22479800086164994f, 0.22479800086164994f, 0.974405387304794f, 0.0f, 0.0f));
 // _0_0_3_5
 paint = new Color(255, 255, 255, 147);
 stroke = new BasicStroke(1.0f,0,0,4.0f,null,0.0f);
@@ -177,7 +176,7 @@ g.setTransform(defaultTransform__0_0_3_5);
 g.setTransform(defaultTransform__0_0_3);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_4 = g.getTransform();
-g.transform(new AffineTransform(0.974405387304794f, -0.22479800086164992f, 0.22479800086164992f, 0.974405387304794f, 0.0f, 0.0f));
+g.transform(new AffineTransform(0.974405387304794f, -0.22479800086164994f, 0.22479800086164994f, 0.974405387304794f, 0.0f, 0.0f));
 // _0_0_4
 paint = new LinearGradientPaint(new Point2D.Double(2.761199951171875, 6.110300064086914), new Point2D.Double(18.773000717163086, 18.69300079345703), new float[] {0.0f,1.0f}, new Color[] {new Color(253, 253, 253, 255),new Color(212, 212, 212, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, -0.5996699929237366f, -0.5781700015068054f));
 shape = new RoundRectangle2D.Double(0.6704300045967102, 9.685199737548828, 40.07699966430664, 6.9415998458862305, 2.285799980163574, 2.285799980163574);
@@ -254,7 +253,7 @@ g.fill(shape);
 g.setTransform(defaultTransform__0_0_8);
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_9 = g.getTransform();
-g.transform(new AffineTransform(0.974405387304794f, -0.22479800086164992f, 0.22479800086164992f, 0.974405387304794f, 0.0f, 0.0f));
+g.transform(new AffineTransform(0.974405387304794f, -0.22479800086164994f, 0.22479800086164994f, 0.974405387304794f, 0.0f, 0.0f));
 // _0_0_9
 paint = new Color(255, 255, 255, 147);
 stroke = new BasicStroke(1.0f,0,0,4.0f,null,0.0f);
@@ -726,7 +725,7 @@ g.setTransform(defaultTransform_);
      *
      * @return Factory that returns instances of this icon on demand.
      */
-    public static ResizableIconFactory factory() {
+    public static Factory factory() {
         return () -> new Applications_multimedia();
     }
 }

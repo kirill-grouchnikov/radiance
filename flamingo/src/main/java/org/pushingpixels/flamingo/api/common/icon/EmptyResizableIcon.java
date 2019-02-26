@@ -88,7 +88,7 @@ public class EmptyResizableIcon implements ResizableIcon {
     public void paintIcon(Component c, Graphics g, int x, int y) {
     }
 
-    public static ResizableIconFactory factory() {
+    public static Factory factory() {
         return () -> new EmptyResizableIcon(16);
     }
 }

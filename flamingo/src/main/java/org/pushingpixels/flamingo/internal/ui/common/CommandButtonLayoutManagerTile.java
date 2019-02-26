@@ -171,14 +171,33 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
 		result.iconRect = new Rectangle();
 		result.popupActionRect = new Rectangle();
 
+		boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
+
 		int width = commandButton.getWidth();
 		int height = commandButton.getHeight();
 
 		int prefWidth = this.getPreferredSize(commandButton).width;
 		int shiftX = 0;
-		if (commandButton.getHorizontalAlignment() == SwingConstants.CENTER) {
-			if (width > prefWidth) {
-				shiftX = (width - prefWidth) / 2;
+		if (width > prefWidth) {
+			// We have more horizontal space than needed to display the content.
+			// Consult the horizontal alignment attribute of the command button to see
+			// how we should shift the content horizontally.
+			switch (commandButton.getHorizontalAlignment()) {
+				case SwingConstants.LEADING:
+					if (!ltr) {
+						// shift everything to the right
+						shiftX = width - prefWidth;
+					}
+					break;
+				case SwingConstants.CENTER:
+					// shift everything to be centered horizontally
+					shiftX = (width - prefWidth) / 2;
+					break;
+				case SwingConstants.TRAILING:
+					if (ltr) {
+						// shift everything to the right
+						shiftX = width - prefWidth;
+					}
 			}
 		}
 
@@ -189,8 +208,6 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
 		boolean hasIcon = (buttonIcon != null);
 		boolean hasText = (buttonText != null) || (buttonExtraText != null);
 		boolean hasPopupIcon = FlamingoUtilities.hasPopupAction(commandButton);
-
-		boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
 
 		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
 		int labelHeight = fm.getAscent() + fm.getDescent();

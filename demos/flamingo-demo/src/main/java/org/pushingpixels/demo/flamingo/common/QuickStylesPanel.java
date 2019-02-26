@@ -27,7 +27,7 @@ public class QuickStylesPanel {
             List<Command> commands = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
                 final String deco = groupIndex + "/" + i;
-                ResizableIconFactory iconFactory = DecoratedResizableIcon.factory(
+                ResizableIcon.Factory iconFactory = DecoratedResizableIcon.factory(
                         Font_x_generic.factory(),
                         (Component c, Graphics g, int x, int y,
                                 int width, int height) -> {

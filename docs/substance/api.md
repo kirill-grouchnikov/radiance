@@ -194,13 +194,13 @@ Sets the global icon pack to be used by Substance.
 
 Retrieves the currently used global icon pack.
 
-`public static ResizableIcon colorizeIcon(ResizableIconFactory sourceFactory, SubstanceColorScheme colorScheme, float brightnessFactor)`
+`public static ResizableIcon colorizeIcon(ResizableIcon.Factory sourceFactory, SubstanceColorScheme colorScheme, float brightnessFactor)`
 
 Creates a colorized version of a resizable icon.
 
-`public static ResizableIconUIResource colorizeIconAsUiResource(ResizableIconFactory sourceFactory, SubstanceColorScheme colorScheme, float brightnessFactor)`
+`public static ResizableIconUIResource colorizeIconAsUiResource(ResizableIcon.Factory sourceFactory, SubstanceColorScheme colorScheme, float brightnessFactor)`
 
-`public static ResizableIconUIResource colorizeIconAsUiResource(ResizableIconFactory sourceFactory, SubstanceColorScheme colorScheme)`
+`public static ResizableIconUIResource colorizeIconAsUiResource(ResizableIcon.Factory sourceFactory, SubstanceColorScheme colorScheme)`
 
 Create a colorized version of a resizable icon that implements the marker `UIResource` interface.
 

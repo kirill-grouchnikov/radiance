@@ -79,7 +79,7 @@ public class EchoResizableIcon implements ResizableIcon {
         iconShadowFilter = new CompoundFilter(blurFilter, inverseFilter);
     }
 
-    public EchoResizableIcon(ResizableIconFactory originalFactory) {
+    public EchoResizableIcon(Factory originalFactory) {
         this.original = originalFactory.createNewIcon();
         this.echo = FilteredResizableIcon.factory(originalFactory, iconShadowFilter)
                 .createNewIcon();
@@ -107,7 +107,7 @@ public class EchoResizableIcon implements ResizableIcon {
         this.original.paintIcon(c, g, x, y);
     }
 
-    public static ResizableIconFactory factory(ResizableIconFactory delegate) {
+    public static Factory factory(Factory delegate) {
         return () -> new EchoResizableIcon(delegate);
     }
 }

@@ -36,7 +36,7 @@ import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.neon.icon.ResizableIcon
-import org.pushingpixels.neon.icon.ResizableIconFactory
+import org.pushingpixels.neon.icon.ResizableIcon.Factory
 import org.pushingpixels.plasma.DelayedCommandListener
 import org.pushingpixels.plasma.KColorSelectorCommand
 import org.pushingpixels.plasma.colorSelectorCommandButton
@@ -84,8 +84,8 @@ class ColorIcon(private var color: Color) : ResizableIcon {
     }
 
     companion object {
-        fun factory(color: Color): ResizableIconFactory {
-            return ResizableIconFactory { ColorIcon(color) }
+        fun factory(color: Color): Factory {
+            return Factory { ColorIcon(color) }
         }
     }
 }

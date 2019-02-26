@@ -68,7 +68,7 @@ import java.util.*;
  * </pre>
  *
  * <p>
- * The {@link Builder#setMainIconFactory(ResizableIconFactory)} can be used to place an image below
+ * The {@link Builder#setMainIconFactory(ResizableIcon.Factory)} can be used to place an image below
  * the title and to the left of the description sections:
  * </p>
  *
@@ -103,7 +103,7 @@ import java.util.*;
  * </pre>
  *
  * <p>
- * The {@link Builder#setFooterIconFactory(ResizableIconFactory)}  can be used to place an image to
+ * The {@link Builder#setFooterIconFactory(ResizableIcon.Factory)}  can be used to place an image to
  * the left of the footer sections:
  * </p>
  *
@@ -242,9 +242,9 @@ public class RichTooltip {
 
     public static class Builder {
         private String title;
-        private ResizableIconFactory mainIconFactory;
+        private ResizableIcon.Factory mainIconFactory;
         private List<String> descriptionSections;
-        private ResizableIconFactory footerIconFactory;
+        private ResizableIcon.Factory footerIconFactory;
         private List<String> footerSections;
 
         @SuppressWarnings("unchecked")
@@ -271,7 +271,7 @@ public class RichTooltip {
             return this;
         }
 
-        public Builder setMainIconFactory(ResizableIconFactory mainIconFactory) {
+        public Builder setMainIconFactory(ResizableIcon.Factory mainIconFactory) {
             this.mainIconFactory = mainIconFactory;
             return this;
         }
@@ -284,7 +284,7 @@ public class RichTooltip {
             return this;
         }
 
-        public Builder setFooterIconFactory(ResizableIconFactory footerIconFactory) {
+        public Builder setFooterIconFactory(ResizableIcon.Factory footerIconFactory) {
             this.footerIconFactory = footerIconFactory;
             return this;
         }

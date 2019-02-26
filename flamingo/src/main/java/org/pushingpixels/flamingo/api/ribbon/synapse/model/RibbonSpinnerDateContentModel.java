@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.neon.icon.ResizableIconFactory;
+import org.pushingpixels.neon.icon.*;
 
 import javax.swing.*;
 import java.beans.*;
@@ -39,7 +39,7 @@ import java.util.Date;
 public class RibbonSpinnerDateContentModel extends SpinnerDateModel
         implements RibbonSpinnerContentModel {
     private boolean isEnabled;
-    private ResizableIconFactory iconFactory;
+    private ResizableIcon.Factory iconFactory;
     private String caption;
     private RichTooltip richTooltip;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
@@ -80,7 +80,7 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
     }
 
     @Override
-    public ResizableIconFactory getIconFactory() {
+    public ResizableIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 
@@ -100,7 +100,7 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
         private Comparable start;
         private Comparable end;
         private int calendarField;
-        private ResizableIconFactory iconFactory;
+        private ResizableIcon.Factory iconFactory;
         private String caption;
         private RichTooltip richTooltip;
 
@@ -117,7 +117,7 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
             return this;
         }
 
-        public Builder setIconFactory(ResizableIconFactory iconFactory) {
+        public Builder setIconFactory(ResizableIcon.Factory iconFactory) {
             this.iconFactory = iconFactory;
             return this;
         }

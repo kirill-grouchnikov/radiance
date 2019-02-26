@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.neon.icon.ResizableIconFactory;
+import org.pushingpixels.neon.icon.*;
 
 import javax.swing.event.*;
 import java.beans.*;
@@ -58,8 +58,8 @@ import java.util.EventListener;
  */
 public class Command implements ContentModel {
     private String text;
-    private ResizableIconFactory iconFactory;
-    private ResizableIconFactory disabledIconFactory;
+    private ResizableIcon.Factory iconFactory;
+    private ResizableIcon.Factory disabledIconFactory;
     private String extraText;
     private CommandAction action;
     private CommandActionPreview actionPreview;
@@ -129,25 +129,25 @@ public class Command implements ContentModel {
         }
     }
 
-    public ResizableIconFactory getIconFactory() {
+    public ResizableIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 
-    public void setIconFactory(ResizableIconFactory iconFactory) {
+    public void setIconFactory(ResizableIcon.Factory iconFactory) {
         if (this.iconFactory != iconFactory) {
-            ResizableIconFactory old = this.iconFactory;
+            ResizableIcon.Factory old = this.iconFactory;
             this.iconFactory = iconFactory;
             this.pcs.firePropertyChange("iconFactory", old, this.iconFactory);
         }
     }
 
-    public ResizableIconFactory getDisabledIconFactory() {
+    public ResizableIcon.Factory getDisabledIconFactory() {
         return this.disabledIconFactory;
     }
 
-    public void setDisabledIconFactory(ResizableIconFactory disabledIconFactory) {
+    public void setDisabledIconFactory(ResizableIcon.Factory disabledIconFactory) {
         if (this.disabledIconFactory != disabledIconFactory) {
-            ResizableIconFactory old = this.disabledIconFactory;
+            ResizableIcon.Factory old = this.disabledIconFactory;
             this.disabledIconFactory = disabledIconFactory;
             this.pcs.firePropertyChange("disabledIconFactory", old, this.disabledIconFactory);
         }
@@ -315,8 +315,8 @@ public class Command implements ContentModel {
     public abstract static class BaseBuilder<T extends Command, B extends BaseBuilder> {
         protected String text;
         protected String extraText;
-        protected ResizableIconFactory iconFactory;
-        protected ResizableIconFactory disabledIconFactory;
+        protected ResizableIcon.Factory iconFactory;
+        protected ResizableIcon.Factory disabledIconFactory;
         protected CommandAction action;
         protected CommandActionPreview actionPreview;
         protected RichTooltip actionRichTooltip;
@@ -355,12 +355,12 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
-        public B setIconFactory(ResizableIconFactory iconFactory) {
+        public B setIconFactory(ResizableIcon.Factory iconFactory) {
             this.iconFactory = iconFactory;
             return (B) this;
         }
 
-        public B setDisabledIconFactory(ResizableIconFactory iconFactory) {
+        public B setDisabledIconFactory(ResizableIcon.Factory iconFactory) {
             this.disabledIconFactory = iconFactory;
             return (B) this;
         }

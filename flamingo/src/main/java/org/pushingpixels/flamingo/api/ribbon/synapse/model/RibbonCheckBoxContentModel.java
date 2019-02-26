@@ -30,13 +30,13 @@
 package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.neon.icon.ResizableIconFactory;
+import org.pushingpixels.neon.icon.*;
 
 import java.beans.*;
 
 public class RibbonCheckBoxContentModel implements ComponentContentModel {
     private boolean isEnabled;
-    private ResizableIconFactory iconFactory;
+    private ResizableIcon.Factory iconFactory;
     private String caption;
     private RichTooltip richTooltip;
     
@@ -92,7 +92,7 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
     }
 
     @Override
-    public ResizableIconFactory getIconFactory() {
+    public ResizableIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 
@@ -108,7 +108,7 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
 
     public static class Builder {
         private boolean isEnabled = true;
-        private ResizableIconFactory iconFactory;
+        private ResizableIcon.Factory iconFactory;
         private String caption;
         private RichTooltip richTooltip;
         private String text;
@@ -129,7 +129,7 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
             return this;
         }
 
-        public Builder setIconFactory(ResizableIconFactory iconFactory) {
+        public Builder setIconFactory(ResizableIcon.Factory iconFactory) {
             this.iconFactory = iconFactory;
             return this;
         }

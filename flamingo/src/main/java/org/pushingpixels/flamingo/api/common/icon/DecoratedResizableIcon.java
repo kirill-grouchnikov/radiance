@@ -175,7 +175,7 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
         return false;
     }
 
-    public static ResizableIconFactory factory(ResizableIconFactory original,
+    public static Factory factory(Factory original,
             IconDecorator... decorators) {
         return () -> new DecoratedResizableIcon(original.createNewIcon(), decorators);
     }

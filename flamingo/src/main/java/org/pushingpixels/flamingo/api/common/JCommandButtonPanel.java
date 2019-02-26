@@ -260,8 +260,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
                 this.panelPresentationModel.getCommandPresentationState());
         this.add(commandButton);
         this.buttons.get(groupIndex).add(indexInGroup, commandButton);
-        if (this.panelContentModel.isSingleSelectionMode()
-                && command.isToggle()) {
+        if (this.panelContentModel.isSingleSelectionMode() && command.isToggle()) {
             this.buttonGroup.add(command);
         }
         return indexInGroup;

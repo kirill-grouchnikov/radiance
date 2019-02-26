@@ -253,8 +253,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
             return this;
         }
 
-        public Builder setLayoutKind(
-                LayoutKind layoutKind) {
+        public Builder setLayoutKind(LayoutKind layoutKind) {
             this.layoutKind = layoutKind;
             return this;
         }

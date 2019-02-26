@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonBandUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.icon.ResizableIconFactory;
+import org.pushingpixels.neon.icon.*;
 
 import javax.swing.*;
 import java.util.*;
@@ -86,7 +86,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * <code>this</code> listener.
      *
      * @see #getExpandCommandListener()
-     * @see #AbstractRibbonBand(String, ResizableIconFactory, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIcon.Factory, CommandAction, AbstractBandControlPanel)
      */
     private CommandAction expandCommandListener;
 
@@ -120,7 +120,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      *
      * @see #getIconFactory()
      */
-    private ResizableIconFactory iconFactory;
+    private ResizableIcon.Factory iconFactory;
 
     /**
      * The current resize policy for this band. Must be one of the policies in
@@ -179,7 +179,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * @param expandCommandListener Expand command listener (can be <code>null</code>).
      * @param controlPanel          The control panel of this ribbon band.
      */
-    public AbstractRibbonBand(String title, ResizableIconFactory iconFactory,
+    public AbstractRibbonBand(String title, ResizableIcon.Factory iconFactory,
             CommandAction expandCommandListener, AbstractBandControlPanel controlPanel) {
         super();
         this.title = title;
@@ -243,9 +243,9 @@ public abstract class AbstractRibbonBand extends JComponent {
      * Returns the icon factory for the collapsed state.
      *
      * @return The icon factory for the collapsed state.
-     * @see #AbstractRibbonBand(String, ResizableIconFactory, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIcon.Factory, CommandAction, AbstractBandControlPanel)
      */
-    public ResizableIconFactory getIconFactory() {
+    public ResizableIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 
@@ -254,7 +254,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * property change event.
      *
      * @param title The new title for this ribbon band.
-     * @see #AbstractRibbonBand(String, ResizableIconFactory, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIcon.Factory, CommandAction, AbstractBandControlPanel)
      * @see #getTitle()
      */
     public void setTitle(String title) {
@@ -268,7 +268,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * result may be <code>null</code>.
      *
      * @return Expand action listener of <code>this</code> ribbon band.
-     * @see #AbstractRibbonBand(String, ResizableIconFactory, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIcon.Factory, CommandAction, AbstractBandControlPanel)
      * @see #setExpandCommandListener(CommandAction)
      */
     public CommandAction getExpandCommandListener() {
@@ -294,7 +294,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * may be <code>null</code>.
      *
      * @return Control panel of <code>this</code> ribbon band.
-     * @see #AbstractRibbonBand(String, ResizableIconFactory, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIcon.Factory, CommandAction, AbstractBandControlPanel)
      * @see #setControlPanel(AbstractBandControlPanel)
      */
     public AbstractBandControlPanel getControlPanel() {
@@ -307,7 +307,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      *
      * @param controlPanel The new control panel for <code>this</code> ribbon band. May
      *                     be <code>null</code>.
-     * @see #AbstractRibbonBand(String, ResizableIconFactory, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, ResizableIcon.Factory, CommandAction, AbstractBandControlPanel)
      * @see #getControlPanel()
      */
     public void setControlPanel(AbstractBandControlPanel controlPanel) {

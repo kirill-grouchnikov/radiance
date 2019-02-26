@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.neon.icon.ResizableIconFactory;
+import org.pushingpixels.neon.icon.*;
 
 import javax.swing.*;
 import java.beans.*;
@@ -38,7 +38,7 @@ import java.beans.*;
 public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E>
         implements RibbonComboBoxContentModel<E> {
     private boolean isEnabled;
-    private ResizableIconFactory iconFactory;
+    private ResizableIcon.Factory iconFactory;
     private String caption;
     private RichTooltip richTooltip;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
@@ -75,7 +75,7 @@ public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E
     }
 
     @Override
-    public ResizableIconFactory getIconFactory() {
+    public ResizableIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 
@@ -92,7 +92,7 @@ public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E
     public static class Builder<E> {
         private boolean isEnabled = true;
         private E[] items;
-        private ResizableIconFactory iconFactory;
+        private ResizableIcon.Factory iconFactory;
         private String caption;
         private RichTooltip richTooltip;
 
@@ -106,7 +106,7 @@ public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E
             return this;
         }
 
-        public Builder<E> setIconFactory(ResizableIconFactory iconFactory) {
+        public Builder<E> setIconFactory(ResizableIcon.Factory iconFactory) {
             this.iconFactory = iconFactory;
             return this;
         }

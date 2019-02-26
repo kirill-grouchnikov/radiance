@@ -285,11 +285,11 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 commandButton.setExtraText((String) evt.getNewValue());
             }
             if ("iconFactory".equals(evt.getPropertyName())) {
-                ResizableIconFactory factory = (ResizableIconFactory) evt.getNewValue();
+                ResizableIcon.Factory factory = (ResizableIcon.Factory) evt.getNewValue();
                 commandButton.setIcon((factory != null) ? factory.createNewIcon() : null);
             }
             if ("disabledIconFactory".equals(evt.getPropertyName())) {
-                ResizableIconFactory factory = (ResizableIconFactory) evt.getNewValue();
+                ResizableIcon.Factory factory = (ResizableIcon.Factory) evt.getNewValue();
                 commandButton.setDisabledIcon((factory != null) ? factory.createNewIcon() : null);
             }
             if ("isToggleSelected".equals(evt.getPropertyName())) {
@@ -343,8 +343,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 }
             }
         };
-        this.commandButton.getProjection().getContentModel().addPropertyChangeListener(
-                this.projectionPropertyChangeListener);
+        command.addPropertyChangeListener(this.projectionPropertyChangeListener);
 
         syncActionPreview(command, command.getActionPreview());
 

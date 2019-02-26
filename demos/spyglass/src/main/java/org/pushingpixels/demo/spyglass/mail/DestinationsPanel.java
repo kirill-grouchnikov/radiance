@@ -49,11 +49,11 @@ import java.util.*;
  */
 public class DestinationsPanel extends PanelWithRightLine {
     private static class DestinationInfo {
-        public ResizableIconFactory iconFactory;
+        public ResizableIcon.Factory iconFactory;
         public String title;
         public int unread;
 
-        public DestinationInfo(ResizableIconFactory iconFactory, String title, int unread) {
+        public DestinationInfo(ResizableIcon.Factory iconFactory, String title, int unread) {
             this.iconFactory = iconFactory;
             this.title = title;
             this.unread = unread;
