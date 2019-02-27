@@ -47,15 +47,13 @@ import java.awt.geom.Rectangle2D;
 import java.util.*;
 
 public class TestColorSelector extends JFrame {
-    private Color bColor;
-
     private ResourceBundle resourceBundle;
 
     private Locale currLocale;
 
-    private JPanel centerPanel;
-
     private ColorSelectorCommand colorSelectorCommand;
+
+    private Color backgroundColor;
 
     private TestColorSelector() {
         this.setIconImage(RadianceLogo.getLogoImage(
@@ -70,9 +68,9 @@ public class TestColorSelector extends JFrame {
         resourceBundle = ResourceBundle.getBundle(
                 "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
 
-        centerPanel = new JPanel();
+        final JPanel centerPanel = new JPanel();
         SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(centerPanel, 1.0);
-        bColor = centerPanel.getBackground();
+        backgroundColor = centerPanel.getBackground();
 
         this.add(top, BorderLayout.NORTH);
         this.add(centerPanel, BorderLayout.CENTER);
@@ -86,9 +84,9 @@ public class TestColorSelector extends JFrame {
 
         final ColorSelectorPopupMenuContentModel.ColorActivationListener colorActivationListener =
                 (Color color) -> {
-                    bColor = color;
-                    centerPanel.setBackground(bColor);
-                    colorSelectorCommand.setIconFactory(ColorIcon.factory(bColor));
+                    backgroundColor = color;
+                    centerPanel.setBackground(backgroundColor);
+                    colorSelectorCommand.setIconFactory(ColorIcon.factory(backgroundColor));
                 };
         final ColorSelectorPopupMenuContentModel.ColorPreviewListener colorPreviewListener =
                 new ColorSelectorPopupMenuContentModel.ColorPreviewListener() {
@@ -99,8 +97,7 @@ public class TestColorSelector extends JFrame {
 
                     @Override
                     public void onColorPreviewCanceled() {
-                        centerPanel.setBackground(bColor);
-                        colorSelectorCommand.setIconFactory(ColorIcon.factory(bColor));
+                        centerPanel.setBackground(backgroundColor);
                     }
                 };
 
@@ -158,7 +155,7 @@ public class TestColorSelector extends JFrame {
                 .setText(resourceBundle.getString("ColorSelector.textMoreColor"))
                 .setAction((CommandActionEvent e) -> SwingUtilities.invokeLater(() -> {
                     Color color = JColorChooser.showDialog(TestColorSelector.this,
-                            "Color chooser", bColor);
+                            "Color chooser", backgroundColor);
                     if (color != null) {
                         colorActivationListener.onColorActivated(color);
                         JColorSelectorPopupMenu.addColorToRecentlyUsed(color);
@@ -173,7 +170,7 @@ public class TestColorSelector extends JFrame {
         selectorModel.setColorPreviewListener(colorPreviewListener);
 
         this.colorSelectorCommand = ColorSelectorCommand.colorSelectorBuilder()
-                .setIconFactory(ColorIcon.factory(bColor))
+                .setIconFactory(ColorIcon.factory(backgroundColor))
                 .setColorSelectorPopupMenuContentModel(selectorModel)
                 .build();
         AbstractCommandButton colorButton = new ColorSelectorCommandButtonProjection(
@@ -211,10 +208,6 @@ public class TestColorSelector extends JFrame {
         private Color color;
 
         private ColorIcon(Color color) {
-            this.color = color;
-        }
-
-        private void setColor(Color color) {
             this.color = color;
         }
 

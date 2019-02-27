@@ -62,12 +62,12 @@ public class ColorSelectorPopupMenuGroupModel {
             this.colors = colors;
         }
 
-        public String getTitle() {
+        public final String getTitle() {
             return this.title;
         }
 
-        public Color[] getColors() {
-            return this.colors;
+        public final Color[] getColors() {
+            return Arrays.copyOf(this.colors, this.colors.length);
         }
     }
 
@@ -76,7 +76,7 @@ public class ColorSelectorPopupMenuGroupModel {
     }
 
     public List<KeyValuePair<GroupEntryKind, Object>> getGroupContent() {
-        return this.groupContent;
+        return Collections.unmodifiableList(this.groupContent);
     }
 
     /**
@@ -123,29 +123,26 @@ public class ColorSelectorPopupMenuGroupModel {
             return this;
         }
 
-        public Builder addColorSection(
-                ColorSectionModel colorSectionModel) {
+        public Builder addColorSection(ColorSectionModel colorSectionModel) {
             this.groupContent.add(
                     new KeyValuePair<>(GroupEntryKind.COLOR_SECTION, colorSectionModel));
             return this;
         }
 
-        public Builder addColorSectionWithDerived(
-                ColorSectionModel colorSectionModel) {
-            this.groupContent.add(
-                    new KeyValuePair<>(GroupEntryKind.COLOR_SECTION_WITH_DERIVED, colorSectionModel));
+        public Builder addColorSectionWithDerived(ColorSectionModel colorSectionModel) {
+            this.groupContent.add(new KeyValuePair<>(GroupEntryKind.COLOR_SECTION_WITH_DERIVED,
+                    colorSectionModel));
             return this;
         }
 
-        public Builder addRecentsSection(
-                ColorSectionModel colorSectionModel) {
-            this.groupContent.add(
-                    new KeyValuePair<>(GroupEntryKind.RECENTS_SECTION, colorSectionModel));
+        public Builder addRecentsSection(ColorSectionModel colorSectionModel) {
+            this.groupContent.add(new KeyValuePair<>(GroupEntryKind.RECENTS_SECTION,
+                    colorSectionModel));
             return this;
         }
 
         public ColorSelectorPopupMenuGroupModel build() {
-            ColorSelectorPopupMenuGroupModel menuGroupModel = new ColorSelectorPopupMenuGroupModel();
+            ColorSelectorPopupMenuGroupModel menuGroupModel =new ColorSelectorPopupMenuGroupModel();
             menuGroupModel.groupContent = Collections.unmodifiableList(this.groupContent);
             return menuGroupModel;
         }

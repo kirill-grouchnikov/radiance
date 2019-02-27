@@ -29,7 +29,7 @@ Command pasteActionCommand = Command.builder()
     .build();
 
 CommandButtonProjection bigPasteProjection =
-      this.pasteActionCommand.project(
+      pasteActionCommand.project(
             CommandButtonPresentationModel.builder()
                     .setPresentationState(CommandButtonPresentationState.BIG)
                     .setFlat(false)

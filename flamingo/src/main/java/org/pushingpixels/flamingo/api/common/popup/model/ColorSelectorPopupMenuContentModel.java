@@ -49,13 +49,29 @@ public class ColorSelectorPopupMenuContentModel implements ContentModel {
 
     private ChangeListener menuGroupChangeListener;
 
+    /**
+     * Listener for tracking color preview events.
+     */
     public interface ColorPreviewListener extends EventListener {
+        /**
+         * Invoked when the preview of a color in any of the color sections of this model is
+         * activated.
+         */
         void onColorPreviewActivated(Color color);
 
+        /**
+         * Invoked when the color preview has been canceled.
+         */
         void onColorPreviewCanceled();
     }
 
+    /**
+     * Listener for tracking color activation events.
+     */
     public interface ColorActivationListener extends EventListener {
+        /**
+         * Invoked when a color in any of the color sections of this model is activated.
+         */
         void onColorActivated(Color color);
     }
 
@@ -68,7 +84,7 @@ public class ColorSelectorPopupMenuContentModel implements ContentModel {
     }
 
     public List<ColorSelectorPopupMenuGroupModel> getMenuGroups() {
-        return this.menuGroups;
+        return Collections.unmodifiableList(this.menuGroups);
     }
 
     public ColorPreviewListener getColorPreviewListener() {

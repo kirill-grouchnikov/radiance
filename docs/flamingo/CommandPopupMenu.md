@@ -28,6 +28,8 @@ The `menuPresentationState` attribute determines the visual presentation of the 
 
 `org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection` is the projection that combines `CommandMenuContentModel` content model and `CommandPopupMenuPresentationModel` presentation model. The result of `buildComponent` is a Swing component of the `JCommandPopupMenu` class.
 
+**Note:** this, however, is not the recommended way to configure popup menu content if you are working with command projections. Here is how you would go about that.
+
 ### Sample code
 
 Let's see the code behind this popup menu:
@@ -131,4 +133,4 @@ A Swing button component projected from this projection will display the popup c
 
 ### Next
 
-Continue to [command menus](CommandMenu.md).
+Continue to [color selector commands](ColorSelectorCommand.md).
