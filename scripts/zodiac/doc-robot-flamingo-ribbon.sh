@@ -47,6 +47,7 @@ JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.t
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.Graphite ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.GraphiteAqua ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.GraphiteChalk ../../docs/images/
+JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.GraphiteElectric ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.GraphiteGlass ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.GraphiteGold ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.Magellan ../../docs/images/

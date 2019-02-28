@@ -56,13 +56,13 @@ public class BreadcrumbBarModel<T> {
      *
      * @see #setCumulative(boolean)
      */
-    protected boolean isCumulative;
+    private boolean isCumulative;
 
     /**
      * Smallest index of path change since the last call to
      * {@link #setCumulative(boolean)} with <code>true</code>.
      */
-    protected int smallestCumulativeIndex;
+    private int smallestCumulativeIndex;
 
     /**
      * Creates a new empty model.
@@ -203,7 +203,7 @@ public class BreadcrumbBarModel<T> {
      *
      * @param indexOfFirstChange Index of the first item that has changed in the model.
      */
-    protected void firePathChanged(int indexOfFirstChange) {
+    private void firePathChanged(int indexOfFirstChange) {
         if (this.isCumulative) {
             if (this.smallestCumulativeIndex == -1) {
                 this.smallestCumulativeIndex = indexOfFirstChange;
@@ -213,7 +213,7 @@ public class BreadcrumbBarModel<T> {
             }
             return;
         }
-        BreadcrumbPathEvent<T> event = new BreadcrumbPathEvent(this, indexOfFirstChange);
+        BreadcrumbPathEvent<T> event = new BreadcrumbPathEvent<>(this, indexOfFirstChange);
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = this.listenerList.size() - 1; i >= 0; i--) {

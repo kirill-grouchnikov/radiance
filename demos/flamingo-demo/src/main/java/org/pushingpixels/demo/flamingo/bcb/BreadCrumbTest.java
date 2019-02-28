@@ -61,23 +61,23 @@ public class BreadCrumbTest extends JFrame {
                     }
 
                     if (newPath.size() > 0) {
-                        SwingWorker<List<StringValuePair<File>>, Void> worker = new
-                                SwingWorker<List<StringValuePair<File>>, Void>() {
-                                    @Override
-                                    protected List<StringValuePair<File>> doInBackground() throws
-                                            Exception {
-                                        return bar.getCallback().getLeafs(newPath);
-                                    }
+                        SwingWorker<List<StringValuePair<File>>, Void> worker =
+                                new SwingWorker<>() {
+                            @Override
+                            protected List<StringValuePair<File>> doInBackground() throws
+                                    Exception {
+                                return bar.getCallback().getLeafs(newPath);
+                            }
 
-                                    @Override
-                                    protected void done() {
-                                        try {
-                                            List<StringValuePair<File>> leafs = get();
-                                            filePanel.setFolder(leafs);
-                                        } catch (Exception exc) {
-                                        }
-                                    }
-                                };
+                            @Override
+                            protected void done() {
+                                try {
+                                    List<StringValuePair<File>> leafs = get();
+                                    filePanel.setFolder(leafs);
+                                } catch (Exception exc) {
+                                }
+                            }
+                        };
                         worker.execute();
                     }
                 }));

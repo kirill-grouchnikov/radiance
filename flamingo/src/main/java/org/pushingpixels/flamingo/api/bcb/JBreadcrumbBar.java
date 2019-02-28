@@ -60,7 +60,7 @@ public class JBreadcrumbBar<T> extends JComponent {
     /**
      * List of registered exception handlers.
      */
-    protected List<BreadcrumbBarExceptionHandler> exceptionHandlers;
+    private List<BreadcrumbBarExceptionHandler> exceptionHandlers;
 
     /**
      * The UI class ID string.

@@ -59,30 +59,29 @@ public class FileExplorerStates extends JFrame {
         this.filePanel = new ExplorerFileViewPanel<>(bar, CommandButtonPresentationState.BIG);
         JScrollPane fileListScrollPane = new JScrollPane(this.filePanel);
 
-        this.bar.getModel()
-                .addPathListener(
-                        (BreadcrumbPathEvent<File> event) -> SwingUtilities.invokeLater(() -> {
-                            final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
-                            if (newPath.size() > 0) {
-                                SwingWorker<List<StringValuePair<File>>, Void> worker = new
-                                        SwingWorker<List<StringValuePair<File>>, Void>() {
-                                            @Override
-                                            protected List<StringValuePair<File>> doInBackground()
-                                                    throws Exception {
-                                                return bar.getCallback().getLeafs(newPath);
-                                            }
+        this.bar.getModel().addPathListener(
+                (BreadcrumbPathEvent<File> event) -> SwingUtilities.invokeLater(() -> {
+                    final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
+                    if (newPath.size() > 0) {
+                        SwingWorker<List<StringValuePair<File>>, Void> worker =
+                                new SwingWorker<>() {
+                                    @Override
+                                    protected List<StringValuePair<File>> doInBackground()
+                                            throws Exception {
+                                        return bar.getCallback().getLeafs(newPath);
+                                    }
 
-                                            @Override
-                                            protected void done() {
-                                                try {
-                                                    filePanel.setFolder(get());
-                                                } catch (Exception exc) {
-                                                }
-                                            }
-                                        };
-                                worker.execute();
-                            }
-                        }));
+                                    @Override
+                                    protected void done() {
+                                        try {
+                                            filePanel.setFolder(get());
+                                        } catch (Exception exc) {
+                                        }
+                                    }
+                                };
+                        worker.execute();
+                    }
+                }));
 
         final JComboBox states = new JComboBox(new DefaultComboBoxModel(new Object[] {
                 CommandButtonPresentationState.BIG, CommandButtonPresentationState.TILE,

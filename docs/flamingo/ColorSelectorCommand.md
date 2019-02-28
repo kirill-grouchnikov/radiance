@@ -274,3 +274,7 @@ AbstractCommandButton colorButton = new ColorSelectorCommandButtonProjection(
 - The `colorSelectorPopupMenuContentModel` is set to our popup menu content model.
 - We use `ColorSelectorCommandButtonProjection` to combine our `ColorSelectorCommand` content model with a `CommandButtonPresentationModel` presentation model configured with `SMALL` presentation state and non-flat background fill.
 - Finally, we call `ColorSelectorCommandButtonProjection.buildComponent()` to get a Swing `AbstractCommandButton` component that we can add to our component hierarchy.
+
+### Next
+
+Continue to the [breadcrumb bar](BreadcrumbBar.md).

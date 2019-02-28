@@ -131,26 +131,21 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                     }
                     lResult.add(pair);
                 }
-                Collections.sort(lResult,
-                        new Comparator<StringValuePair<File>>() {
-                            @Override
-                            public int compare(StringValuePair<File> o1,
-                                    StringValuePair<File> o2) {
-                                String key1 = fsv.isFileSystemRoot(o1
-                                        .getValue()) ? o1.getValue()
-                                        .getAbsolutePath() : o1.getKey();
-                                String key2 = fsv.isFileSystemRoot(o2
-                                        .getValue()) ? o2.getValue()
-                                        .getAbsolutePath() : o2.getKey();
-                                return key1.toLowerCase().compareTo(
-                                        key2.toLowerCase());
-                            }
+                Collections.sort(lResult, new Comparator<>() {
+                    @Override
+                    public int compare(StringValuePair<File> o1, StringValuePair<File> o2) {
+                        String key1 = fsv.isFileSystemRoot(o1.getValue()) ?
+                                o1.getValue().getAbsolutePath() : o1.getKey();
+                        String key2 = fsv.isFileSystemRoot(o2.getValue()) ?
+                                o2.getValue().getAbsolutePath() : o2.getKey();
+                        return key1.toLowerCase().compareTo(key2.toLowerCase());
+                    }
 
-                            @Override
-                            public boolean equals(Object obj) {
-                                return super.equals(obj);
-                            }
-                        });
+                    @Override
+                    public boolean equals(Object obj) {
+                        return super.equals(obj);
+                    }
+                });
                 return lResult;
             }
         }

@@ -240,3 +240,13 @@ Chalk Separator {
     colorForeground=#B4B4B4
 }
 
+Graphite Electric {
+    kind=Dark
+    colorUltraLight=#40FFB0
+    colorExtraLight=#42FFA8
+    colorLight=#45FFA5
+    colorMid=#4FFAA9
+    colorDark=#58EFA6
+    colorUltraDark=#62DD96
+    colorForeground=#000000
+}

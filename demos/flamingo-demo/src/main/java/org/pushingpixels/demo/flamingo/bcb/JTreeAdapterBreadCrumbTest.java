@@ -43,8 +43,8 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.*;
 import java.awt.*;
 import java.io.File;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class JTreeAdapterBreadCrumbTest extends JFrame {
     /**
@@ -76,8 +76,8 @@ public class JTreeAdapterBreadCrumbTest extends JFrame {
                     }
 
                     if (newPath.size() > 0) {
-                        SwingWorker<List<StringValuePair<FileTreeNode>>, Void> worker = new
-                                SwingWorker<List<StringValuePair<FileTreeNode>>, Void>() {
+                        SwingWorker<List<StringValuePair<FileTreeNode>>, Void> worker =
+                                new SwingWorker<>() {
                                     @Override
                                     protected List<StringValuePair<FileTreeNode>> doInBackground() throws
                                             Exception {
