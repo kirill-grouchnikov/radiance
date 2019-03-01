@@ -92,7 +92,7 @@ class DerivedColorsResolverDark implements SchemeDerivedColors {
 
 	@Override
 	public Color getBackgroundFillColor() {
-		return this.scheme.getDarkColor().brighter();
+		return this.scheme.getMidColor();
 	}
 
 	@Override

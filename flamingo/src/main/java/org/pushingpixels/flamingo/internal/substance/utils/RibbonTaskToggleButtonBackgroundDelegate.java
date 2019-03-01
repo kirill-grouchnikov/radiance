@@ -147,8 +147,9 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             }
 
             float contribution = activeEntry.getValue().getContribution();
-            if (contribution == 0.0f)
+            if (contribution == 0.0f) {
                 continue;
+            }
 
             SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(button,
                     ColorSchemeAssociationKind.FILL, activeState);
