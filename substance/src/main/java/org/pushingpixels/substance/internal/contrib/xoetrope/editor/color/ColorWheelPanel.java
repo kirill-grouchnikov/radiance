@@ -820,17 +820,21 @@ public class ColorWheelPanel extends SubstanceColorChooserPanel implements
 						int ring = i / ModelColor.NUM_SEGMENTS;
 						ModelColor modelColor = baseColors[i
 								% ModelColor.NUM_SEGMENTS][ring];
-						if (adjustRollover)
+						if (adjustRollover) {
 							modelColor = new ModelColor(modelColor.H,
 									saturationMultipler * modelColor.S,
 									brightnessMultipler * modelColor.V);
+						}
 
 						rolloverColor = new Color(modelColor.getRed(),
 								modelColor.getGreen(), modelColor.getBlue());
-						if (ring < 4)
-							rolloverColor = rolloverColor.darker();
-						else
-							rolloverColor = rolloverColor.brighter().brighter();
+						if (ring < 4) {
+							rolloverColor = SubstanceColorUtilities.deriveByBrightness(
+									rolloverColor, -0.5f);
+						} else {
+							rolloverColor = SubstanceColorUtilities.deriveByBrightness(
+									rolloverColor, 0.8f);
+						}
 						break;
 					}
 				}

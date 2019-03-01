@@ -137,7 +137,8 @@ public class DustSkin extends SubstanceSkin {
 		// add two overlay painters to create a bezel line between
 		// menu bar and toolbars
 		this.menuOverlayPainter = new BottomLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> scheme.getUltraDarkColor().darker());
+				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
+						scheme.getUltraDarkColor(), -0.5f));
 		this.toolbarOverlayPainter = new TopLineOverlayPainter(
 				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.getAlphaColor(
 						scheme.getForegroundColor(), 32));

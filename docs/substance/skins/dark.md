@@ -65,6 +65,19 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteAquaSkin`. In add
 <img alt="GraphiteAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphiteaqua1.png" width="340" height="254">
 <img alt="GraphiteAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphiteaqua2.png" width="340" height="254">
 
+### Graphite Electric
+
+Available in the `org.pushingpixels.substance.api.skin.GraphiteElectricSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteElectricLookAndFeel` can be used with one of the following options:
+
+* `SubstanceCortex.GlobalScope.setSkin(new GraphiteElectricSkin())`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.GraphiteElectricSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceGraphiteElectricLookAndFeel`
+* `UIManager.setLookAndFeel(new SubstanceGraphiteElectricLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteElectricLookAndFeel");`
+
+<img alt="GraphiteElectric" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphiteelectric1.png" width="340" height="254">
+<img alt="GraphiteElectric" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphiteelectric2.png" width="340" height="254">
+
 ### Graphite Gold
 
 Available in the `org.pushingpixels.substance.api.skin.GraphiteGoldSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteGoldLookAndFeel` can be used with one of the following options:

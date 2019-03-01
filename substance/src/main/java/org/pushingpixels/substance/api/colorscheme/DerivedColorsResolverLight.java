@@ -83,7 +83,7 @@ public class DerivedColorsResolverLight implements SchemeDerivedColors {
 
 	@Override
 	public Color getSelectionForegroundColor() {
-		return this.scheme.getUltraDarkColor().darker().darker();
+		return SubstanceColorUtilities.deriveByBrightness(this.scheme.getUltraDarkColor(), -0.8f);
 	}
 
 	@Override

@@ -1,8 +1,8 @@
 ## Ignite - Gradle plugin for transcoding SVG content
 
-### Overview
-
 The goal of this project is to allow build-time transcoding of SVG content into Java / Kotlin classes.
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite) `radiance-ignite` for build instructions of the latest stable release.
 
 ### Using Ignite in your Gradle script
 
@@ -14,7 +14,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.pushing-pixels:radiance-ignite:1.0.2'
+        classpath 'org.pushing-pixels:radiance-ignite:X.Y.Z'
     }
 }
 

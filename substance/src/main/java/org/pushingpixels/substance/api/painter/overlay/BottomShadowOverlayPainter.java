@@ -73,8 +73,8 @@ public final class BottomShadowOverlayPainter implements
 	public void paintOverlay(Graphics2D graphics, Component comp,
 			DecorationAreaType decorationAreaType, int width, int height,
 			SubstanceSkin skin) {
-		Color shadowColor = SubstanceColorUtilities
-				.getBackgroundFillColor(comp).darker();
+		Color shadowColor = SubstanceColorUtilities.deriveByBrightness(
+				SubstanceColorUtilities.getBackgroundFillColor(comp), -0.4f);
 
 		Component topMostWithSameDecorationAreaType = SubstanceCoreUtilities
 				.getTopMostParentWithDecorationAreaType(comp,

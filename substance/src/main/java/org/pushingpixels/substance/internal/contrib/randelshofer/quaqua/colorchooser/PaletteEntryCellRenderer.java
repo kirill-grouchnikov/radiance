@@ -15,7 +15,7 @@
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
-import org.pushingpixels.substance.internal.utils.SubstanceStripingUtils;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,7 +49,7 @@ public class PaletteEntryCellRenderer extends SubstanceDefaultListCellRenderer {
 		public void paintIcon(Component c, Graphics g, int x, int y) {
 			g.setColor(getColor());
 			g.fillRect(x, y, getIconWidth() - 1, getIconHeight() - 1);
-			g.setColor(getColor().darker());
+			g.setColor(SubstanceColorUtilities.deriveByBrightness(getColor(), -0.5f));
 			g.drawRect(x, y, getIconWidth() - 1, getIconHeight() - 1);
 		}
 	}

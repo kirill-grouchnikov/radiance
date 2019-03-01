@@ -190,7 +190,8 @@ public class TwilightSkin extends SubstanceSkin {
 		// add an overlay painter to paint a dark line along the bottom
 		// edge of toolbars
 		this.toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> scheme.getUltraDarkColor().darker());
+				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
+						scheme.getUltraDarkColor(), -0.5f));
 		this.addOverlayPainter(this.toolbarBottomLineOverlayPainter, DecorationAreaType.TOOLBAR);
 
 		// add an overlay painter to paint a dark line along the bottom
@@ -203,7 +204,8 @@ public class TwilightSkin extends SubstanceSkin {
 		// add an overlay painter to paint a bezel line along the top
 		// edge of footer
 		this.footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-				(SubstanceColorScheme scheme) -> scheme.getUltraDarkColor().darker(),
+				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
+						scheme.getUltraDarkColor(), -0.5f),
 				(SubstanceColorScheme scheme) -> SubstanceColorUtilities
 						.getAlphaColor(scheme.getForegroundColor(), 32));
 		this.addOverlayPainter(this.footerTopBezelOverlayPainter, DecorationAreaType.FOOTER);

@@ -1551,7 +1551,7 @@ public final class SubstanceImageCreator {
         offColor = isDark
                 ? SubstanceColorUtilities.getInterpolatedColor(colorScheme.getUltraLightColor(),
                         Color.white, 0.7)
-                : colorScheme.getMidColor().darker();
+                : SubstanceColorUtilities.deriveByBrightness(colorScheme.getMidColor(), -0.6f);
         onColor = isDark
                 ? SubstanceColorUtilities.getInterpolatedColor(colorScheme.getUltraLightColor(),
                         Color.white, 0.2)

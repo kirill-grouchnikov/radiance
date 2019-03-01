@@ -2,6 +2,8 @@
 
 The goal of this project is to provide a powerful and extensible animation library for Java applications.
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-trident/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-trident) `radiance-trident` for [Trident](docs/trident/trident.md)
+
 ### Trident basic concepts
 
 * [Hello world](TimelineOverview.md)
@@ -31,3 +33,7 @@ The goal of this project is to provide a powerful and extensible animation libra
 * [Custom pulse source](CustomPulseSource.md)
 * [Custom property interpolators](CustomPropertyInterpolators.md)
 * [Supporting additional Java-based UI toolkits](CustomUIToolkitHandlers.md)
+
+### Advanced samples
+
+* [Lumen app](../lumen/lumen.md)

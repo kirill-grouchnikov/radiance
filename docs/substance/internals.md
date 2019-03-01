@@ -36,16 +36,16 @@ Why would you want to use a third-party look-and-feel when core Swing has a numb
 
 ### Substance implementation
 
-As a high-level view, the following Substance classes address the four main points above:
+As a high-level view, the following Substance classes (and dependencies) address the four main points above:
 
 * `SubstanceSizeUtils` has a bunch of methods to compute the different metrics based on the component font size. It makes sure that all the component visuals (paddings, gaps, margins, insets, ...) scale and result in consistent physical appearance on various hardware.
-* `SubstanceFontUtilities` has font policy implementations for Windows, Gnome, KDE and Mac desktops.
-* [Trident](https://github.com/kirill-grouchnikov/radiance/tree/master/trident) is the animation engine that powers all built-in animations.
+* [Neon](../neon.md) has font policy implementations for Windows, Gnome, KDE and Mac desktops.
+* [Trident](../trident.md) is the animation engine that powers all built-in animations.
 * `SubstanceSkin` and `SubstanceColorSchemeBundle` are the main classes in the skinning layer.
 
 Each Substance UI delegate uses these four classes at different contact points:
 
 * `SubstanceSizeUtils` is used during the initialization to set up gaps, margins and insets. It is also used in the layout managers to compute the preferred sizes and layout internal sub-components.
-* `SubstanceFontUtilities` is used to populate the all the `*.font` entries in the `UIManager` that are later used to set the fonts on the components during the initialization stage.
+* `Neon`-provided font configuration is used to populate the all the `*.font` entries in the `UIManager` that are later used to set the fonts on the components during the initialization stage.
 * `Trident` is used in various mouse / change listeners to initiate animation sequences (such as mouse rollover over a button, tab losing selection state) and during the painting to show cross-fades between the states.
 * `SubstanceSkin` is used during the painting to compute the colors for painting the different visual areas of the component.

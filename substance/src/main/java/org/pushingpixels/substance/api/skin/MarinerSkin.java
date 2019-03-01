@@ -46,6 +46,7 @@ import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 /**
  * <code>Mariner</code> skin. This class is part of officially supported API.
@@ -187,7 +188,8 @@ public class MarinerSkin extends SubstanceSkin {
 		// add two overlay painters to create a bezel line between
 		// menu bar and toolbars
 		this.menuOverlayPainter = new BottomLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> scheme.getUltraDarkColor().darker());
+				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
+						scheme.getUltraDarkColor(), -0.5f));
 		this.addOverlayPainter(this.menuOverlayPainter, DecorationAreaType.HEADER);
 
 		// add overlay painter to paint drop shadows along the bottom

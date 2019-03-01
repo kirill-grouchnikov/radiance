@@ -14,7 +14,7 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -120,7 +120,7 @@ public class SwatchPanel extends javax.swing.JPanel {
                 float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
                 g2d.setStroke(new BasicStroke(borderStrokeWidth));
 
-                g2d.setColor(cellColor.darker());
+                g2d.setColor(SubstanceColorUtilities.deriveByBrightness(cellColor, -0.5f));
                 g2d.draw(new Line2D.Float(x - borderStrokeWidth, y - borderStrokeWidth,
                         x + swatchSize.width, y - borderStrokeWidth));
                 //x - 1, y - 1, swatchSize.width+1, 1);
