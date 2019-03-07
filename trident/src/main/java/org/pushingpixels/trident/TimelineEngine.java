@@ -153,7 +153,7 @@ class TimelineEngine {
      */
     TridentAnimationThread animatorThread;
 
-    private BlockingQueue<Runnable> callbackQueue;
+    BlockingQueue<Runnable> callbackQueue;
 
     private TimelineCallbackThread callbackThread;
 
@@ -212,7 +212,6 @@ class TimelineEngine {
         this.runningScenarios = new HashSet<TimelineScenario>();
 
         this.callbackQueue = new LinkedBlockingQueue<Runnable>();
-        this.callbackThread = this.getCallbackThread();
     }
 
     /**
@@ -739,7 +738,7 @@ class TimelineEngine {
      * @return The animator thread.
      */
     private TridentAnimationThread getAnimatorThread() {
-        if (this.animatorThread == null) {
+        if (TridentConfig.getInstance().getPulseSource() != null && this.animatorThread == null) {
             this.animatorThread = new TridentAnimationThread();
             this.animatorThread.start();
         }
@@ -752,7 +751,7 @@ class TimelineEngine {
      * @return The animator thread.
      */
     private TimelineCallbackThread getCallbackThread() {
-        if (this.callbackThread == null) {
+        if (TridentConfig.getInstance().getPulseSource() != null && this.callbackThread == null) {
             this.callbackThread = new TimelineCallbackThread();
             this.callbackThread.start();
         }
