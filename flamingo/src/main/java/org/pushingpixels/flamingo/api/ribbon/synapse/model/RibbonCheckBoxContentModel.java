@@ -32,6 +32,7 @@ package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.neon.icon.*;
 
+import java.awt.event.ActionListener;
 import java.beans.*;
 
 public class RibbonCheckBoxContentModel implements ComponentContentModel {
@@ -39,7 +40,8 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
     private ResizableIcon.Factory iconFactory;
     private String caption;
     private RichTooltip richTooltip;
-    
+    private ActionListener actionListener;
+
     private String text;
     private boolean isSelected;
     
@@ -106,6 +108,10 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
         return this.richTooltip;
     }
 
+    public ActionListener getActionListener() {
+        return this.actionListener;
+    }
+
     public static class Builder {
         private boolean isEnabled = true;
         private ResizableIcon.Factory iconFactory;
@@ -113,6 +119,7 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
         private RichTooltip richTooltip;
         private String text;
         private boolean isSelected;
+        private ActionListener actionListener;
 
         public Builder setText(String text) {
             this.text = text;
@@ -144,10 +151,16 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
             return this;
         }
 
+        public Builder setActionListener(ActionListener actionListener) {
+            this.actionListener = actionListener;
+            return this;
+        }
+
         public RibbonCheckBoxContentModel build() {
             RibbonCheckBoxContentModel model = new RibbonCheckBoxContentModel();
             model.text = this.text;
             model.isSelected = this.isSelected;
+            model.actionListener = this.actionListener;
             model.isEnabled = this.isEnabled;
             model.iconFactory = this.iconFactory;
             model.caption = this.caption;

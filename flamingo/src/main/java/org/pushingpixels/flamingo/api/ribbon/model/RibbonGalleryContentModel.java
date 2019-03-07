@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon.model;
 
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.event.*;
 import java.util.*;
@@ -46,13 +46,28 @@ public class RibbonGalleryContentModel implements ContentModel {
      */
     private EventListenerList listenerList = new EventListenerList();
 
+    /**
+     * Listener for tracking command preview events.
+     */
     public interface GalleryCommandActionPreview extends EventListener {
+        /**
+         * Invoked when the preview of a command in this gallery model is activated.
+         */
         void onCommandPreviewActivated(Command command);
 
+        /**
+         * Invoked when the command preview has been canceled.
+         */
         void onCommandPreviewCanceled(Command command);
     }
 
-    public interface GalleryCommandActivationListener extends EventListener {
+    /**
+     * Listener for tracking command activation events.
+     */
+    public interface GalleryCommandAction extends EventListener {
+        /**
+         * Invoked when a command in this gallery model is activated.
+         */
         void onCommandActivated(Command command);
     }
 
@@ -128,7 +143,7 @@ public class RibbonGalleryContentModel implements ContentModel {
     }
 
     /**
-     * Adds an <code>GalleryCommandPreviewListener</code> to the model.
+     * Adds a {@link GalleryCommandActionPreview} to the model.
      *
      * @param l the listener to add
      */
@@ -137,7 +152,7 @@ public class RibbonGalleryContentModel implements ContentModel {
     }
 
     /**
-     * Removes an <code>GalleryCommandPreviewListener</code> from the model.
+     * Removes a {@link GalleryCommandActionPreview} from the model.
      *
      * @param l the listener to remove
      */
@@ -146,21 +161,21 @@ public class RibbonGalleryContentModel implements ContentModel {
     }
 
     /**
-     * Adds an <code>GalleryCommandSelectionListener</code> to the model.
+     * Adds a {@link GalleryCommandAction} to the model.
      *
      * @param l the listener to add
      */
-    public void addCommandActivationListener(GalleryCommandActivationListener l) {
-        this.listenerList.add(GalleryCommandActivationListener.class, l);
+    public void addCommandActivationListener(GalleryCommandAction l) {
+        this.listenerList.add(GalleryCommandAction.class, l);
     }
 
     /**
-     * Removes an <code>GalleryCommandSelectionListener</code> from the model.
+     * Removes a {@link GalleryCommandAction} from the model.
      *
      * @param l the listener to remove
      */
-    public void removeCommandSelectionListener(GalleryCommandActivationListener l) {
-        this.listenerList.remove(GalleryCommandActivationListener.class, l);
+    public void removeCommandActivationListener(GalleryCommandAction l) {
+        this.listenerList.remove(GalleryCommandAction.class, l);
     }
 
     /**
@@ -240,8 +255,8 @@ public class RibbonGalleryContentModel implements ContentModel {
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == GalleryCommandActivationListener.class) {
-                ((GalleryCommandActivationListener) listeners[i + 1]).onCommandActivated(command);
+            if (listeners[i] == GalleryCommandAction.class) {
+                ((GalleryCommandAction) listeners[i + 1]).onCommandActivated(command);
             }
         }
     }

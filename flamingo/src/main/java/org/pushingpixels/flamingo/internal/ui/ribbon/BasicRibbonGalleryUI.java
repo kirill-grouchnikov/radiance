@@ -80,7 +80,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      */
     private JComponent buttonStrip;
 
-    private RibbonGalleryContentModel.GalleryCommandActivationListener
+    private RibbonGalleryContentModel.GalleryCommandAction
             galleryCommandSelectionListener;
     private ChangeListener galleryModelChangeListener;
 
@@ -269,7 +269,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * Uninstalls listeners from the associated ribbon gallery.
      */
     protected void uninstallListeners() {
-        this.ribbonGallery.getProjection().getContentModel().removeCommandSelectionListener(
+        this.ribbonGallery.getProjection().getContentModel().removeCommandActivationListener(
                 this.galleryCommandSelectionListener);
         this.ribbonGallery.getProjection().getContentModel().removeChangeListener(
                 this.galleryModelChangeListener);

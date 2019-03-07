@@ -111,4 +111,4 @@ Every component displayed in the ribbon can have associated rich tooltips. For r
 
 ### Next
 
-Continue to the [command projections](CommandProjections.md).
+Continue to the [ribbon API skeleton](RibbonApiSkeleton.md).

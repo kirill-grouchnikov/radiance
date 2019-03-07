@@ -71,7 +71,7 @@ import java.util.concurrent.CountDownLatch;
  * {@link BorderLayout#NORTH} location, throwing {@link IllegalArgumentException} on attempts to set
  * a custom layout manager, add another component at {@link BorderLayout#NORTH}, remove the
  * {@link JRibbon} component, set a custom menu bar, content pane or any other operation that
- * inteferes with the intended hierarchy of this frame.
+ * interferes with the intended hierarchy of this frame.
  * </p>
  *
  * @author Kirill Grouchnikov

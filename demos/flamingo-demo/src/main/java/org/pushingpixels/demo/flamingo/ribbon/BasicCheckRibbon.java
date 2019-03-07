@@ -47,7 +47,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.*;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.*;
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 
@@ -533,12 +533,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 resourceBundle.getString("Clipboard.textBandTitle"), Edit_paste.factory(),
                 new ExpandActionListener());
         clipboardBand.setExpandButtonKeyTip("FO");
-        clipboardBand
-                .setExpandButtonRichTooltip(RichTooltip.builder()
-                        .setTitle(resourceBundle.getString("Clipboard.textBandTitle"))
-                        .addDescriptionSection(
-                                resourceBundle.getString("Clipboard.textBandTooltipParagraph1"))
-                        .build());
+        clipboardBand.setExpandButtonRichTooltip(RichTooltip.builder()
+                .setTitle(resourceBundle.getString("Clipboard.textBandTitle"))
+                .addDescriptionSection(
+                        resourceBundle.getString("Clipboard.textBandTooltipParagraph1"))
+                .build());
 
         clipboardBand.setCollapsedStateKeyTip("ZC");
 
@@ -1488,7 +1487,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         "+ Minor (Cajun)   ", "+ Minor (Congola)   ",
                         "+ Minor (Candella)   ", "+ Minor (Cambria)   " })
                 .setRichTooltip(RichTooltip.builder()
-                        .setTitle(resourceBundle.getString("Seasons.tooltip.title"))
+                        .setTitle(resourceBundle.getString("Fonts.tooltip.title"))
                         .build())
                 .build();
         this.fontComboBoxModel.addListDataListener(new ListDataListener() {
@@ -1515,6 +1514,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
         this.rulerCheckBoxModel = RibbonCheckBoxContentModel.builder()
                 .setText(resourceBundle.getString("Ruler.text"))
                 .setSelected(true)
+                .setActionListener((ActionEvent ae) ->
+                        System.out.println(
+                                "Ruler selection --> " + rulerCheckBoxModel.isSelected()))
                 .build();
 
         this.indentLeftSpinnerModel = RibbonSpinnerNumberContentModel.builder()

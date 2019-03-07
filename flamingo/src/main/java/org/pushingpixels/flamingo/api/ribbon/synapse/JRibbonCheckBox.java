@@ -40,16 +40,21 @@ public class JRibbonCheckBox extends JCheckBox {
     public JRibbonCheckBox(Projection<JRibbonCheckBox,
             RibbonCheckBoxContentModel, ComponentPresentationModel> projection) {
         super(projection.getContentModel().getText());
-        this.setSelected(projection.getContentModel().isSelected());
-        this.setEnabled(projection.getContentModel().isEnabled());
+
+        final RibbonCheckBoxContentModel contentModel = projection.getContentModel();
+        this.setSelected(contentModel.isSelected());
+        this.setEnabled(contentModel.isEnabled());
 
         this.addActionListener((ActionEvent ae) -> {
-            projection.getContentModel().setSelected(!projection.getContentModel().isSelected());
+            contentModel.setSelected(!contentModel.isSelected());
+            if (contentModel.getActionListener() != null) {
+                contentModel.getActionListener().actionPerformed(ae);
+            }
         });
 
-        projection.getContentModel().addPropertyChangeListener((PropertyChangeEvent event) -> {
+        contentModel.addPropertyChangeListener((PropertyChangeEvent event) -> {
             if ("selected".equals(event.getPropertyName())) {
-                setSelected(projection.getContentModel().isSelected());
+                setSelected(contentModel.isSelected());
             }
         });
     }
