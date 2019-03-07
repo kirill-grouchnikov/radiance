@@ -31,7 +31,7 @@ package org.pushingpixels.trident;
 
 public final class TimelineEngineAccessor {
 
-    private static TimelineEngineAccessor config;
+    private static TimelineEngineAccessor instance;
     private final TimelineEngine engine;
 
     private TimelineEngineAccessor() {
@@ -51,11 +51,11 @@ public final class TimelineEngineAccessor {
     }
 
     public static synchronized TimelineEngineAccessor getInstance() {
-        if (config == null) {
+        if (instance == null) {
             TridentConfig.getInstance().setPulseSource(null);
             TimelineEngine.getInstance().lastIterationTimeStamp  = System.currentTimeMillis();
-            config = new TimelineEngineAccessor();
+            instance = new TimelineEngineAccessor();
         }
-        return config;
+        return instance;
     }
 }
