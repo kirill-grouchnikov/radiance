@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.trident;
 
-
 public final class TimelineEngineAccessor {
 
     private static TimelineEngineAccessor config;
