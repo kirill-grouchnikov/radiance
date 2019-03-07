@@ -498,6 +498,7 @@ class TimelineEngine {
             System.out.println("Scheduling callback runnable for " + oldState.name() + " to "
                     + newState.name() + " on timeline " + timeline.id);
         }
+        getCallbackThread();
         this.callbackQueue.add(callbackRunnable);
     }
 
@@ -519,11 +520,13 @@ class TimelineEngine {
                 timeline.callbackChain.onTimelinePulse(durationFraction, timelinePosition);
             }
         };
+        getCallbackThread();
         this.callbackQueue.add(callbackRunnable);
     }
 
     private void callbackCallTimelineScenarioEnded(final TimelineScenario timelineScenario) {
         Runnable callbackRunnable = () -> timelineScenario.callback.onTimelineScenarioDone();
+        getCallbackThread();
         this.callbackQueue.offer(callbackRunnable);
     }
 
