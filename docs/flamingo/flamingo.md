@@ -42,3 +42,8 @@ The goal of this project is to provide a robust set of additional Swing componen
 * [Working with galleries](RibbonBandGalleries.md)
 * [Keytips](RibbonKeytips.md)
 * [What happens when you resize the ribbon](RibbonResizing.md)
+* [Application menu](RibbonApplicationMenu.md)
+* [Anchored commands](RibbonAnchoredCommands.md)
+* [Contextual task groups](RibbonContextualTaskGroups.md)
+* [Taskbar](RibbonTaskbar.md)
+* [Global contextual listener](RibbonContextualListener.md)

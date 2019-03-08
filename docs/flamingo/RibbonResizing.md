@@ -203,7 +203,7 @@ The ribbon resize policies set on the "Font" band keep it at the 3-row layout st
 
 Let's shrink the ribbon even more:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize11.png" width="1067" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize11.png" width="468" border=0/>
 
 Now all the ribbon bands except for the "Clipboard" are iconified. What is going to happen when we shrink the ribbon again? Let's take a look at the resize policies set on the "Clipboard" band:
 

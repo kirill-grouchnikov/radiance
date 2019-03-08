@@ -63,9 +63,11 @@ public class RibbonApplicationMenuCommandButtonProjection extends CommandButtonP
     }
 
     @Override
-    public RibbonApplicationMenuCommandButtonProjection reproject(CommandButtonPresentationModel newCommandPresentation) {
-        RibbonApplicationMenuCommandButtonProjection result = new RibbonApplicationMenuCommandButtonProjection(
-                this.getContentModel(), newCommandPresentation);
+    public RibbonApplicationMenuCommandButtonProjection reproject(
+            CommandButtonPresentationModel newCommandPresentation) {
+        RibbonApplicationMenuCommandButtonProjection result =
+                new RibbonApplicationMenuCommandButtonProjection(
+                        this.getContentModel(), newCommandPresentation);
         result.setComponentSupplier(this.getComponentSupplier());
         result.setComponentCustomizer(this.getComponentCustomizer());
         result.setCommandOverlays(this.getCommandOverlays());

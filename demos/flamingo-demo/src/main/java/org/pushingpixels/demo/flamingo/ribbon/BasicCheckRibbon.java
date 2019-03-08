@@ -1946,8 +1946,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         System.out.println("Invoked creating new document"))
                 .setSecondaryContentModel(newMenu)
                 .build();
-        applicationMenuSecondaryStates.put(amEntryNew,
-                CommandButtonPresentationState.MEDIUM);
+        applicationMenuSecondaryStates.put(amEntryNew, CommandButtonPresentationState.MEDIUM);
         applicationMenuOverlays.put(amEntryNew,
                 CommandButtonPresentationModel.overlay()
                         .setTextClickAction()
@@ -2237,10 +2236,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         final JCheckBox group1Visible = new JCheckBox("visible");
         final JCheckBox group2Visible = new JCheckBox("visible");
-        group1Visible.addActionListener((ActionEvent e) -> SwingUtilities
-                .invokeLater(() -> getRibbon().setVisible(group1, group1Visible.isSelected())));
-        group2Visible.addActionListener((ActionEvent e) -> SwingUtilities
-                .invokeLater(() -> getRibbon().setVisible(group2, group2Visible.isSelected())));
+        group1Visible.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
+                () -> getRibbon().setVisible(group1, group1Visible.isSelected())));
+        group2Visible.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
+                () -> getRibbon().setVisible(group2, group2Visible.isSelected())));
         builder.add("Group 1").xy(1, 1).add(group1Visible).xy(3, 1);
         builder.add("Group 2").xy(1, 3).add(group2Visible).xy(3, 3);
 

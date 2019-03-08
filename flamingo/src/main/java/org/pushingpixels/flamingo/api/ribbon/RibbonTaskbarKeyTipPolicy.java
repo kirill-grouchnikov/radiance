@@ -30,24 +30,24 @@
 package org.pushingpixels.flamingo.api.ribbon;
 
 /**
- * Defines the task bar key tip policy for {@link JRibbon}.
+ * Defines the task bar keytip policy for {@link JRibbon}.
  *
  * @author Kirill Grouchnikov
  */
 public interface RibbonTaskbarKeyTipPolicy {
     /**
-     * Returns the key tip for the task bar content (command, component, gallery, menu link)
+     * Returns the keytip for the task bar content (command, component, gallery, menu link)
      * at the specified index.
      *
      * @param contentIndex Index of the task bar content. Content index starts at 1.
-     * @return Key tip for the specified content.
+     * @return Keytip for the specified content.
      */
     String getContentKeyTip(int contentIndex);
 
     /**
-     * Returns the key tip for the overflow button of the task bar.
+     * Returns the keytip for the overflow button of the task bar.
      *
-     * @return Key tip for the overflow button of the task bar.
+     * @return Keytip for the overflow button of the task bar.
      */
     String getOverflowButtonKeyTip();
 }
