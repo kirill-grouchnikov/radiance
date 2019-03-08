@@ -43,7 +43,7 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.utils.*;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager.KeyTipEvent;
 import org.pushingpixels.neon.*;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
@@ -399,8 +399,7 @@ public class JRibbonFrame extends JFrame {
                                         boolean hadPopups = !PopupPanelManager.defaultManager()
                                                 .getShownPath().isEmpty();
                                         PopupPanelManager.defaultManager().hidePopups(null);
-                                        if (hadPopups
-                                                || KeyTipManager.defaultManager()
+                                        if (hadPopups || KeyTipManager.defaultManager()
                                                 .isShowingKeyTips()) {
                                             KeyTipManager.defaultManager().hideAllKeyTips();
                                         } else {
@@ -511,10 +510,87 @@ public class JRibbonFrame extends JFrame {
                 SubstanceCoreUtilities.getBlankImage(16, 16)));
     }
 
-    private void handlePopupTrigger(MouseEvent event, Component c) {
-        if ((SwingUtilities.getAncestorOfClass(JRibbon.class, c) == null) &&
+    private boolean isValidPopupTriggerSource(Component c) {
+        if (SwingUtilities.getAncestorOfClass(GlobalPopupMenu.class, c) != null) {
+            // Don't display context menu on context menu entries
+            return false;
+        }
+
+        if ((SwingUtilities.getAncestorOfClass(JRibbon.class, c) != null) ||
                 (SwingUtilities.getAncestorOfClass(SubstanceRibbonFrameTitlePane.class,
-                        c) == null)) {
+                        c) != null)) {
+            // If the component is in the ribbon or in the ribbon frame title pane, it's valid
+            return true;
+        }
+
+        // Is it in a popup panel?
+        JPopupPanel popupPanel = (JPopupPanel) SwingUtilities.getAncestorOfClass(
+                JPopupPanel.class, c);
+        if (popupPanel == null) {
+            return false;
+        }
+
+        while (true) {
+            JComponent popupInvoker = popupPanel.getInvoker();
+            if (popupInvoker == null) {
+                return false;
+            }
+            // Are we in a multi-cascade popup chain?
+            popupPanel = (JPopupPanel) SwingUtilities.getAncestorOfClass(
+                    JPopupPanel.class, popupInvoker);
+            if (popupPanel != null) {
+                continue;
+            }
+
+            // At the "top" level of the popup chain
+            // If the component is in the ribbon or in the ribbon frame title pane, it's valid
+            boolean isValidChainRoot =
+                    (SwingUtilities.getAncestorOfClass(JRibbon.class, popupInvoker) != null) ||
+                            (SwingUtilities.getAncestorOfClass(SubstanceRibbonFrameTitlePane.class,
+                                    popupInvoker) != null);
+            return isValidChainRoot;
+        }
+    }
+
+    private boolean isInTaskbar(Component c) {
+        if (SwingUtilities.getAncestorOfClass(SubstanceRibbonFrameTitlePane.class, c) != null) {
+            return true;
+        }
+
+        // Is it in a popup panel?
+        JPopupPanel popupPanel = (JPopupPanel) SwingUtilities.getAncestorOfClass(
+                JPopupPanel.class, c);
+        if (popupPanel == null) {
+            return false;
+        }
+
+        while (true) {
+            JComponent popupInvoker = popupPanel.getInvoker();
+            if (popupInvoker == null) {
+                return false;
+            }
+            // Are we in a multi-cascade popup chain?
+            popupPanel = (JPopupPanel) SwingUtilities.getAncestorOfClass(
+                    JPopupPanel.class, popupInvoker);
+            if (popupPanel != null) {
+                continue;
+            }
+
+            // At the "top" level of the popup chain
+            return (SwingUtilities.getAncestorOfClass(SubstanceRibbonFrameTitlePane.class,
+                    popupInvoker) != null);
+        }
+    }
+
+    public static class GlobalPopupMenu extends JCommandPopupMenu {
+        public GlobalPopupMenu(Projection<JCommandPopupMenu, CommandMenuContentModel,
+                CommandPopupMenuPresentationModel> projection) {
+            super(projection);
+        }
+    }
+
+    private void handlePopupTrigger(MouseEvent event, Component c) {
+        if (!isValidPopupTriggerSource(c)) {
             // Component not in the ribbon. Do nothing.
             return;
         }
@@ -527,7 +603,7 @@ public class JRibbonFrame extends JFrame {
 
         CommandMenuContentModel menuContentModel = null;
         // Special case - the component is in the taskbar.
-        if (SwingUtilities.getAncestorOfClass(SubstanceRibbonFrameTitlePane.class, c) != null) {
+        if (isInTaskbar(c)) {
             Object projection = null;
             // Is it a wrapped component
             JRibbonComponent taskbarWrapped = (JRibbonComponent) SwingUtilities.getAncestorOfClass(
@@ -546,10 +622,19 @@ public class JRibbonFrame extends JFrame {
                         (ComponentProjection<? extends JComponent, ?
                                 extends ComponentContentModel>) projection);
             } else if (projection instanceof CommandButtonProjection) {
+                CommandButtonProjection<? extends Command> commandButtonProjection =
+                        (CommandButtonProjection<? extends Command>) projection;
                 menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
-                        (CommandButtonProjection<? extends Command>) projection);
+                        commandButtonProjection.getContentModel());
             } else {
-                menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel();
+                Command command = (Command) ((JComponent) c).getClientProperty(
+                        FlamingoUtilities.TASKBAR_COMMAND);
+                if (command != null) {
+                    menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
+                            command);
+                } else {
+                    menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel();
+                }
             }
         } else {
             // Special case - popup trigger in a ribbon gallery
@@ -570,7 +655,8 @@ public class JRibbonFrame extends JFrame {
                             (!(c instanceof FlamingoInternalButton))) {
                         menuContentModel =
                                 onShowContextualMenuListener.getContextualMenuContentModel(
-                                        ((AbstractCommandButton) c).getProjection());
+                                        ((AbstractCommandButton) c).getProjection()
+                                                .getContentModel());
                     }
                 }
             }
@@ -582,11 +668,13 @@ public class JRibbonFrame extends JFrame {
             menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel();
         }
 
-        final JCommandPopupMenu menu = new CommandPopupMenuProjection(menuContentModel,
+        CommandPopupMenuProjection globalContextMenuProjection = new CommandPopupMenuProjection(
+                menuContentModel,
                 CommandPopupMenuPresentationModel.builder()
                         .setMenuPresentationState(CommandButtonPresentationState.MEDIUM)
-                        .build())
-                .buildComponent();
+                        .build());
+        globalContextMenuProjection.setComponentSupplier(projection -> GlobalPopupMenu::new);
+        final JCommandPopupMenu menu = globalContextMenuProjection.buildComponent();
 
         int x = event.getXOnScreen();
         int y = event.getYOnScreen();
@@ -600,8 +688,9 @@ public class JRibbonFrame extends JFrame {
             y = scrBounds.y + scrBounds.height - ph;
         }
 
-        Popup popup = PopupFactory.getSharedInstance().getPopup(this.ribbon, menu, x, y);
-        PopupPanelManager.defaultManager().addPopup(this.ribbon, popup, menu);
+        PopupPanelManager.defaultManager().hidePopups(c);
+        Popup popup = PopupFactory.getSharedInstance().getPopup(ribbon, menu, x, y);
+        PopupPanelManager.defaultManager().addPopup((JComponent) c, popup, menu);
     }
 
     /**

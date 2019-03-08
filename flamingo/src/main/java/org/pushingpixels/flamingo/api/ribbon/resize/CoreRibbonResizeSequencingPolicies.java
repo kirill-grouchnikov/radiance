@@ -41,7 +41,7 @@ import java.util.List;
  * cyclic fashion, distributing the collapsed pixels between the different
  * bands.</li>
  * <li>{@link CollapseFromLast} under which the ribbon bands are being collapsed
- * from right to left.</li>
+ * from last (right under LTR) to first (left under LTR).</li>
  * </ul>
  * 
  * @author Kirill Grouchnikov

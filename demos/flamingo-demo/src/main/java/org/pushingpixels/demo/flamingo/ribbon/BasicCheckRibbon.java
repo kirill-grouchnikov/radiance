@@ -564,7 +564,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 JRibbonBand.PresentationPriority.TOP);
 
         clipboardBand.addRibbonCommand(
-                Command.builder().setText(resourceBundle.getString("Cut.text"))
+                Command.builder()
+                        .setText(resourceBundle.getString("Cut.text"))
                         .setIconFactory(Edit_cut.factory())
                         .setAction((CommandActionEvent e) -> System.out.println("Cut!"))
                         .setActionRichTooltip(RichTooltip.builder()
@@ -581,7 +582,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         clipboardBand.addRibbonCommand(
-                Command.builder().setText(resourceBundle.getString("Copy.text"))
+                Command.builder()
+                        .setText(resourceBundle.getString("Copy.text"))
                         .setIconFactory(Edit_copy.factory())
                         .setAction((CommandActionEvent e) -> System.out.println("Copy!"))
                         .setSecondaryContentModel(this.popupMenuContentModel)
@@ -1806,24 +1808,20 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     }
 
                     @Override
-                    public CommandMenuContentModel getContextualMenuContentModel(
-                            CommandButtonProjection<? extends Command> commandButtonProjection) {
+                    public CommandMenuContentModel getContextualMenuContentModel(Command command) {
                         Command commandCommand;
-                        if (getRibbon().isShowingInTaskbar(
-                                commandButtonProjection.getContentModel())) {
+                        if (getRibbon().isShowingInTaskbar(command)) {
                             commandCommand = Command.builder()
                                     .setText(resourceBundle.getString(
                                             "ContextMenu.removeFromTaskbar"))
                                     .setAction((CommandActionEvent event) ->
-                                            getRibbon().removeTaskbarCommand(
-                                                    commandButtonProjection.getContentModel()))
+                                            getRibbon().removeTaskbarCommand(command))
                                     .build();
                         } else {
                             commandCommand = Command.builder()
                                     .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
                                     .setAction((CommandActionEvent event) ->
-                                            getRibbon().addTaskbarCommand(
-                                                    commandButtonProjection.getContentModel()))
+                                            getRibbon().addTaskbarCommand(command))
                                     .build();
                         }
 

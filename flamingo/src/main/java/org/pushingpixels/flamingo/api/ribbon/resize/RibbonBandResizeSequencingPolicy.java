@@ -37,7 +37,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPo
  * 
  * <p>
  * The resize sequencing policy defines which ribbon band will be chosen next
- * when the ribbon is shrinked / expanded. It is installed with the
+ * when the ribbon is shrunk / expanded. It is installed with the
  * {@link RibbonTask#setResizeSequencingPolicy(RibbonBandResizeSequencingPolicy)}
  * .
  * </p>
@@ -52,7 +52,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPo
  * cyclic fashion, distributing the collapsed pixels between the different
  * bands.</li>
  * <li>{@link CollapseFromLast} under which the ribbon bands are being collapsed
- * from right to left.</li>
+ * from last (right under LTR) to first (left under LTR).</li>
  * </ul>
  * 
  * @author Kirill Grouchnikov

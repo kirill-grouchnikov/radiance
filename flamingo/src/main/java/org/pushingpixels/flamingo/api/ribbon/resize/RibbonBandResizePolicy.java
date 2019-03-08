@@ -32,10 +32,8 @@ package org.pushingpixels.flamingo.api.ribbon.resize;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.api.ribbon.model.*;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.*;
-
-import java.util.Map;
 
 /**
  * Defines the resize policies for the {@link JRibbonBand}s and
@@ -51,10 +49,9 @@ import java.util.Map;
  * The resize policies are installed with
  * {@link AbstractRibbonBand#setResizePolicies(java.util.List)} API. The order
  * of the resize policies in this list is important. The first entry in the list
- * must be the most permissive policies that returns the largest value from its
+ * must be the most permissive policy that returns the largest value from its
  * {@link #getPreferredWidth(int, int)}. Each successive entry in the list must
- * return the value smaller than its predecessors. The last entry
- * <strong>must</strong> be {@link IconRibbonBandResizePolicy}.
+ * return the value smaller than its predecessors.
  * </p>
  * 
  * <p>
@@ -70,7 +67,7 @@ import java.util.Map;
  * policies that respect the application element priorities passed to
  * {@link JRibbonBand#addRibbonCommand(CommandButtonProjection, JRibbonBand.PresentationPriority)}
  * and
- * {@link JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, Map, JRibbonBand.PresentationPriority)}
+ * {@link JRibbonBand#addRibbonGallery(RibbonGalleryProjection, JRibbonBand.PresentationPriority)}
  * APIs. There are three types of built in resize policies:
  * </p>
  * 

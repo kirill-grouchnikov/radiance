@@ -214,8 +214,7 @@ public class JRibbon extends JComponent {
         CommandMenuContentModel getContextualMenuContentModel(
                 ComponentProjection<? extends JComponent, ? extends ComponentContentModel> componentProjection);
 
-        CommandMenuContentModel getContextualMenuContentModel(
-                CommandButtonProjection<? extends Command> commandButtonProjection);
+        CommandMenuContentModel getContextualMenuContentModel(Command command);
 
         CommandMenuContentModel getContextualMenuContentModel();
     }
@@ -344,10 +343,12 @@ public class JRibbon extends JComponent {
                 .setVerticalGapScaleFactor(0.5)
                 .build();
 
-        AbstractCommandButton commandButton = clone.project(presentationModel).buildComponent();
+        CommandButtonProjection<Command> projection = clone.project(presentationModel);
+        AbstractCommandButton commandButton = projection.buildComponent();
+        commandButton.putClientProperty(FlamingoUtilities.TASKBAR_COMMAND, appMenuCommand);
 
         this.taskbarComponents.add(commandButton);
-        this.taskbarCommandMap.put(clone, commandButton);
+        this.taskbarCommandMap.put(appMenuCommand, commandButton);
 
         this.fireStateChanged();
     }

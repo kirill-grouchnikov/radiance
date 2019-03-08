@@ -132,7 +132,8 @@ Now, why is the "Paste" command projection displayed as 'BIG' spanning the full 
 
 ```java
 clipboardBand.addRibbonCommand(
-        Command.builder().setText(resourceBundle.getString("Cut.text"))
+        Command.builder()
+                .setText(resourceBundle.getString("Cut.text"))
                 .setIconFactory(Edit_cut.factory())
                 .setAction((CommandActionEvent e) -> System.out.println("Cut!"))
                 .setActionRichTooltip(RichTooltip.builder()

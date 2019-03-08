@@ -41,3 +41,4 @@ The goal of this project is to provide a robust set of additional Swing componen
 * [Working with component projections](RibbonBandComponentProjections.md)
 * [Working with galleries](RibbonBandGalleries.md)
 * [Keytips](RibbonKeytips.md)
+* [What happens when you resize the ribbon](RibbonResizing.md)

@@ -224,7 +224,7 @@ Available in the `org.pushingpixels.substance.api.skin.CeruleanSkin`. In additio
 
 ## Office 2007 skins
 
-Note that while these skins were originally designed for the [Flamingo ribbon component](../../flamingo/flamingo.md), they can be used in regular Swing applications as any other Substance skin. Since version 2.0 of Radiance, these skins are part of the extras pack.
+Note that while these skins were originally designed for the [Flamingo ribbon component](../../flamingo/flamingo.md), they can be used in regular Swing applications as any other Substance skin. Since version 2.0 of Radiance, these skins are part of the [extras pack](../extras.md).
 
 ### Office Silver 2007
 

@@ -514,36 +514,38 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
 					.getAncestorOfClass(JPopupPanel.class, src);
 			switch (me.getID()) {
 			case MouseEvent.MOUSE_PRESSED:
-				boolean wasCommandButtonPopupShowing = false;
-				if (src instanceof JCommandButton) {
-					wasCommandButtonPopupShowing = ((JCommandButton) src)
-							.getPopupModel().isPopupShowing();
-				}
+				if (!me.isPopupTrigger()) {
+					boolean wasCommandButtonPopupShowing = false;
+					if (src instanceof JCommandButton) {
+						wasCommandButtonPopupShowing = ((JCommandButton) src)
+								.getPopupModel().isPopupShowing();
+					}
 
-				if (!wasCommandButtonPopupShowing && (popupPanelParent != null)) {
-					// close all popups until this parent and return
-					PopupPanelManager.defaultManager().hidePopups(popupPanelParent);
-					return;
-				}
-				if (src instanceof JRibbonTaskToggleButton) {
-					JRibbon ribbon = (JRibbon) SwingUtilities.getAncestorOfClass(
-					        JRibbon.class, src);
-					if ((ribbon != null)
-							&& FlamingoUtilities.isShowingMinimizedRibbonInPopup(ribbon)) {
-						// This will be handled in the action listener installed
-						// on ribbon task toggle buttons in BasicRibbonUI.
-						// There the ribbon popup will be hidden.
+					if (!wasCommandButtonPopupShowing && (popupPanelParent != null)) {
+						// close all popups until this parent and return
+						PopupPanelManager.defaultManager().hidePopups(popupPanelParent);
 						return;
 					}
-				}
+					if (src instanceof JRibbonTaskToggleButton) {
+						JRibbon ribbon = (JRibbon) SwingUtilities.getAncestorOfClass(
+								JRibbon.class, src);
+						if ((ribbon != null)
+								&& FlamingoUtilities.isShowingMinimizedRibbonInPopup(ribbon)) {
+							// This will be handled in the action listener installed
+							// on ribbon task toggle buttons in BasicRibbonUI.
+							// There the ribbon popup will be hidden.
+							return;
+						}
+					}
 
-				// if the popup of command button was showing, it will be hidden
-				// in BasicCommandButtonUI.processPopupAction() - via
-				// BasicCommandButtonUI.createPopupActionListener().
-				if (!wasCommandButtonPopupShowing) {
-					// special case - ignore mouse press on an item in a combo popup
-					if (SwingUtilities.getAncestorOfClass(ComboPopup.class, src) == null) {
-						PopupPanelManager.defaultManager().hidePopups(src);
+					// if the popup of command button was showing, it will be hidden
+					// in BasicCommandButtonUI.processPopupAction() - via
+					// BasicCommandButtonUI.createPopupActionListener().
+					if (!wasCommandButtonPopupShowing) {
+						// special case - ignore mouse press on an item in a combo popup
+						if (SwingUtilities.getAncestorOfClass(ComboPopup.class, src) == null) {
+							PopupPanelManager.defaultManager().hidePopups(src);
+						}
 					}
 				}
 

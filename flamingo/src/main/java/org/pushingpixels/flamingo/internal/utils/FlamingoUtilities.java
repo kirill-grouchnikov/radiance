@@ -51,6 +51,9 @@ public class FlamingoUtilities {
     public static final String TASKBAR_PROJECTION =
             "radiance.flamingo.internal.ribbon.taskbarProjection";
 
+    public static final String TASKBAR_COMMAND =
+            "radiance.flamingo.internal.ribbon.taskbarCommand";
+
     public static int getHLayoutGap(AbstractCommandButton commandButton) {
         Font font = commandButton.getFont();
         return (int) Math.ceil(commandButton.getHGapScaleFactor() * (font.getSize() - 4) / 4);

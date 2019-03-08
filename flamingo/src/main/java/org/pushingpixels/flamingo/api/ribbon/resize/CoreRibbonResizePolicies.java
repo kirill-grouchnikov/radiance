@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.api.ribbon.resize;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.api.ribbon.model.*;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 
 import javax.swing.*;
@@ -45,7 +45,7 @@ import java.util.*;
  * respect the application element priorities passed to
  * {@link JRibbonBand#addRibbonCommand(CommandButtonProjection, JRibbonBand.PresentationPriority)}
  * and
- * {@link JRibbonBand#addRibbonGallery(RibbonGalleryContentModel, RibbonGalleryPresentationModel, Map, JRibbonBand.PresentationPriority)}
+ * {@link JRibbonBand#addRibbonGallery(RibbonGalleryProjection, JRibbonBand.PresentationPriority)}
  * APIs. There are three types of built in resize policies:
  *
  * <ul>
@@ -54,7 +54,7 @@ import java.util.*;
  * and three rows respectively.</li>
  * <li>Resize policies for the {@link JRibbonBand}s. The
  * {@link BaseCoreRibbonBandResizePolicy} is the base class for these policies.
- * These policies respect the {@link JRibbonBand.PresentationPriority} associated on
+ * These policies respect the {@link JRibbonBand.PresentationPriority} associated with
  * command buttons and ribbon galleries in
  * {@link RibbonBandResizePolicy#getPreferredWidth(int, int)} and
  * {@link RibbonBandResizePolicy#install(int, int)}. While

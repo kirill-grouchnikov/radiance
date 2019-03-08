@@ -625,11 +625,13 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         // up until <this> button.
         PopupPanelManager.defaultManager().hidePopups(commandButton);
 
-        if (!(commandButton instanceof JCommandButton))
+        if (!(commandButton instanceof JCommandButton)) {
             return;
+        }
 
-        if (wasPopupShowing)
+        if (wasPopupShowing) {
             return;
+        }
 
         JCommandButton jcb = (JCommandButton) this.commandButton;
 

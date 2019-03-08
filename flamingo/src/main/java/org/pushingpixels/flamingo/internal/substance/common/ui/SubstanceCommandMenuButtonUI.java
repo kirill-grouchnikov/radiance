@@ -30,6 +30,8 @@
 package org.pushingpixels.flamingo.internal.substance.common.ui;
 
 import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -42,7 +44,7 @@ import java.util.EnumSet;
 
 /**
  * UI for {@link JCommandMenuButton} components in <b>Substance</b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceCommandMenuButtonUI extends SubstanceCommandButtonUI {
@@ -81,6 +83,20 @@ public class SubstanceCommandMenuButtonUI extends SubstanceCommandButtonUI {
                             commandButton.getActionModel().getActionCommand(),
                             EventQueue.getMostRecentEventTime(), modifiers));
 
+                    // Ignore mouse entered event to initiate displaying the popup content
+                    // if the currently displayed popup chain shows global ribbon context menu
+                    // that originates from this button.
+                    java.util.List<PopupPanelManager.PopupInfo> popupInfoList =
+                            PopupPanelManager.defaultManager().getShownPath();
+                    int popupInfoListSize = popupInfoList.size();
+                    if ((popupInfoListSize >= 1) &&
+                            (popupInfoList.get(popupInfoListSize - 1).getPopupPanel()
+                                    instanceof JRibbonFrame.GlobalPopupMenu) &&
+                            (popupInfoList.get(popupInfoListSize - 1).getPopupOriginator()
+                                    == commandButton)) {
+                        return;
+                    }
+
                     processPopupAction();
                 }
             }
@@ -99,8 +115,7 @@ public class SubstanceCommandMenuButtonUI extends SubstanceCommandButtonUI {
     /**
      * Fires the rollover action on all registered handlers.
      *
-     * @param e
-     *            Event object.
+     * @param e Event object.
      */
     public void fireRolloverActionPerformed(ActionEvent e) {
         // Guaranteed to return a non-null array
