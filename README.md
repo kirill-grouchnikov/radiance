@@ -59,6 +59,10 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 * [Zodiac](docs/tools/zodiac/zodiac.md) has utilities for taking screenshots for Substance and Flamingo documentation.
 
+## Demos
+
+[This document](docs/demos.md) lists all major demos and samples that showcase how to use various Radiance APIs.
+
 ## Radiance artifacts
 
 Radiance artifacts are available in the central Maven repository under `groupId=org.pushing-pixels`
