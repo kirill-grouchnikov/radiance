@@ -56,6 +56,8 @@ public class ColorSelectorPopupMenuContentModel implements ContentModel {
         /**
          * Invoked when the preview of a color in any of the color sections of this model is
          * activated.
+         *
+         * @param color Color for which the preview has been activated.
          */
         void onColorPreviewActivated(Color color);
 
@@ -71,6 +73,8 @@ public class ColorSelectorPopupMenuContentModel implements ContentModel {
     public interface ColorActivationListener extends EventListener {
         /**
          * Invoked when a color in any of the color sections of this model is activated.
+         *
+         * @param color Activated color.
          */
         void onColorActivated(Color color);
     }

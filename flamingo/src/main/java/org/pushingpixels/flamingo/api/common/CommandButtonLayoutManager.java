@@ -94,9 +94,9 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
          * The popup area. A mouse click in this area will show the popup content
          * associated with the command button.
          *
-         * @see {@link JCommandButton#setPopupCallback(PopupPanelCallback)}
-         * @see {@link Command.Builder#setSecondaryContentModel(CommandMenuContentModel)}
-         * @see {@link CommandButtonPresentationModel.Builder#setPopupMenuPresentationModel(AbstractPopupMenuPresentationModel)}
+         * @see JCommandButton#setPopupCallback(PopupPanelCallback)
+         * @see Command.Builder#setSecondaryContentModel(CommandMenuContentModel)
+         * @see CommandButtonPresentationModel.Builder#setPopupMenuPresentationModel(AbstractPopupMenuPresentationModel)
          */
         public Rectangle popupClickArea;
 

@@ -32,6 +32,12 @@ package org.pushingpixels.flamingo.api.common;
 import java.util.EventListener;
 
 public interface CommandAction extends EventListener {
-    /** Invoked when a command is activated. */
+    /**
+     * Invoked when a command is activated.
+     *
+     * @param e Command action event. Use {@link CommandActionEvent#getCommand()} to
+     *          work with the original command, and {@link CommandActionEvent#getButtonSource()}
+     *          to get the specific projected button.
+     */
     void commandActivated(CommandActionEvent e);
 }

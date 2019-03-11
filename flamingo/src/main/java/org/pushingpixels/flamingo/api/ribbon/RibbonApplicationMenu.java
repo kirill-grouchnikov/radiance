@@ -59,8 +59,8 @@ import java.util.List;
  * {@link Command.Builder#setSecondaryContentModel(CommandMenuContentModel)}
  * API. When this entry is armed (with mouse rollover or via keyboard navigation), the secondary
  * area shows menu buttons for the registered secondary menu entries. The <code>Save As</code> menu
- * item is an example of such a primary menu item, showing a list of default save formats.</li>
- * </ul>
+ * item is an example of such a primary menu item, showing a list of default save formats.
+ * </p>
  *
  * <p>
  * At runtime, the application menu entries are implemented as {@link JCommandMenuButton}, but the

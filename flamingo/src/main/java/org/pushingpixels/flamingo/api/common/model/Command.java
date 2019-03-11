@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.event.*;
 import java.beans.*;
@@ -75,10 +75,18 @@ public class Command implements ContentModel {
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public interface CommandActionPreview extends EventListener {
-        /** Invoked when a command preview has been activated. */
+        /**
+         * Invoked when a command preview has been activated.
+         *
+         * @param command Command for which the preview has been activated.
+         */
         void onCommandPreviewActivated(Command command);
 
-        /** Invoked when a command preview has been canceled. */
+        /**
+         * Invoked when a command preview has been canceled.
+         *
+         * @param command Command for which the preview has been canceled.
+         */
         void onCommandPreviewCanceled(Command command);
     }
 

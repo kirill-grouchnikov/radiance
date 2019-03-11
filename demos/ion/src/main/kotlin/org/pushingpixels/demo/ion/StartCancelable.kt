@@ -27,6 +27,8 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.demo.ion
+
 import java.awt.Dimension
 import java.awt.FlowLayout
 import javax.swing.*

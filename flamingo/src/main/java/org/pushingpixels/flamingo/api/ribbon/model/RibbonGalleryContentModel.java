@@ -52,11 +52,15 @@ public class RibbonGalleryContentModel implements ContentModel {
     public interface GalleryCommandActionPreview extends EventListener {
         /**
          * Invoked when the preview of a command in this gallery model is activated.
+         *
+         * @param command Command for which the preview has been activated.
          */
         void onCommandPreviewActivated(Command command);
 
         /**
          * Invoked when the command preview has been canceled.
+         *
+         * @param command Command for which the preview has been canceled.
          */
         void onCommandPreviewCanceled(Command command);
     }
@@ -67,6 +71,8 @@ public class RibbonGalleryContentModel implements ContentModel {
     public interface GalleryCommandAction extends EventListener {
         /**
          * Invoked when a command in this gallery model is activated.
+         *
+         * @param command Command that has been activated.
          */
         void onCommandActivated(Command command);
     }

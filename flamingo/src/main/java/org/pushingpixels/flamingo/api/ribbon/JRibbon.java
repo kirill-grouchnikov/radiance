@@ -105,7 +105,7 @@ import java.util.*;
  * <li>Calling {@link #setMinimized(boolean)} with <code>true</code>.</li>
  * <li>User double-clicking on a task button.</li>
  * <li>User pressing <code>Meta+Alt+R</code> key combination on a Mac machine or
- * </code><code>Ctrl+F1</code> key combination on a non-Mac machine.</li>
+ * <code>Ctrl+F1</code> key combination on a non-Mac machine.</li>
  * </ul>
  *
  * <p>
