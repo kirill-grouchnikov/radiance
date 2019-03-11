@@ -1,5 +1,7 @@
 ## Plasma - Kotlin DSL for Flamingo components
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma) `radiance-plasma` for build instructions of the latest stable release.
+
 In your Java app, this is how you would configure a toggle command, add it to a command group, and project the group to create a command button strip:
 
 ```java
@@ -63,11 +65,10 @@ fun getFindBand(): KRibbonBand {
         iconFactory = Edit_find.factory()
         collapsedStateKeyTip = "ZY"
 
-        command(RibbonElementPriority.TOP) {
+        command(RibbonElementPriority.TOP, actionKeyTip = "FD") {
             title = resourceBundle.getString("Search.text")
             iconFactory = System_search.factory()
             action = CommandAction { println("Search activated") }
-            actionKeyTip = "FD"
         }
 
         command(RibbonElementPriority.MEDIUM) {
@@ -80,7 +81,7 @@ fun getFindBand(): KRibbonBand {
             title = resourceBundle.getString("FindReplace.text")
             iconFactory = Edit_find_replace.factory()
             action = CommandAction { println("Find Replace activated") }
-            isEnabled = false
+            isActionEnabled = false
         }
 
         command(RibbonElementPriority.MEDIUM) {

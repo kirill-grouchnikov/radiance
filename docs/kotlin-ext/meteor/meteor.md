@@ -1,5 +1,7 @@
 ## Meteor - Kotlin extensions for core Swing APIs
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor) `radiance-meteor` for build instructions of the latest stable release.
+
 ### Working with listeners
 
 In your Java app, this is how you would intercept the action to close the application window and prompt the user to save modified data:

@@ -383,8 +383,9 @@ public class JRibbonFrame extends JFrame {
                                     boolean wasAltModif = prevAltModif;
                                     prevAltModif =
                                             keyEvent.getModifiersEx() == InputEvent.ALT_DOWN_MASK;
-                                    if (wasAltModif && keyEvent.getKeyCode() == KeyEvent.VK_ALT)
+                                    if (wasAltModif && keyEvent.getKeyCode() == KeyEvent.VK_ALT) {
                                         break;
+                                    }
                                     char keyChar = keyEvent.getKeyChar();
                                     if (Character.isLetter(keyChar) || Character.isDigit(keyChar)) {
                                         // System.out.println("Will handle key press "
@@ -408,8 +409,12 @@ public class JRibbonFrame extends JFrame {
                                         }
                                     }
                                     if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                                        // System.out.println("In KTM");
-                                        KeyTipManager.defaultManager().showPreviousChain();
+                                        // Dismiss keytips if showing, and popups otherwise
+                                        if (KeyTipManager.defaultManager().isShowingKeyTips()) {
+                                            KeyTipManager.defaultManager().showPreviousChain();
+                                        } else {
+                                            PopupPanelManager.defaultManager().hidePopups(null);
+                                        }
                                     }
                                     break;
                             }
@@ -432,6 +437,11 @@ public class JRibbonFrame extends JFrame {
                                         handlePopupTrigger(mouseEvent,
                                                 SwingUtilities.getDeepestComponentAt(c,
                                                         mouseEvent.getX(), mouseEvent.getY()));
+                                    } else if (mouseEvent.getID() == MouseEvent.MOUSE_PRESSED) {
+                                        if (SwingUtilities.getAncestorOfClass(JPopupPanel.class, c)
+                                                == null) {
+                                            PopupPanelManager.defaultManager().hidePopups(null);
+                                        }
                                     }
                                 }
                             }

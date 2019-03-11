@@ -1,3 +1,3 @@
 1.0 - Antimony (Oct 4, 2018), Java 8+
-2.0 - Beryl (2019 H1, tentative), Java 9+
+2.0 - Beryl (March 10, 2019), Java 9+
 3.0 - Chalcedony (2019 H2, tentative), Java 9+

@@ -172,7 +172,9 @@ public abstract class BasicRibbonUI extends RibbonUI {
         this.ribbonComponentListener = new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
+                // Hide all keytips and popups
                 KeyTipManager.defaultManager().hideAllKeyTips();
+                PopupPanelManager.defaultManager().hidePopups(null);
             }
         };
         this.ribbon.addComponentListener(this.ribbonComponentListener);
