@@ -741,7 +741,7 @@ class TimelineEngine {
      * @return The animator thread.
      */
     private TridentAnimationThread getAnimatorThread() {
-        if (TridentConfig.getInstance().getPulseSource() != null && this.animatorThread == null) {
+        if (this.animatorThread == null && TridentConfig.getInstance().getPulseSource() != null) {
             this.animatorThread = new TridentAnimationThread();
             this.animatorThread.start();
         }
@@ -754,7 +754,7 @@ class TimelineEngine {
      * @return The animator thread.
      */
     private TimelineCallbackThread getCallbackThread() {
-        if (TridentConfig.getInstance().getPulseSource() != null && this.callbackThread == null) {
+        if (this.callbackThread == null && TridentConfig.getInstance().getPulseSource() != null) {
             this.callbackThread = new TimelineCallbackThread();
             this.callbackThread.start();
         }
