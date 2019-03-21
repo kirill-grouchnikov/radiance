@@ -105,7 +105,7 @@ public class TimelinePropertyBuilder<T> {
     private PropertyInterpolator<T> interpolator; // optional
     private PropertyGetter<T> getter; // optional
     private PropertySetter<T> setter; // optional
-    private KeyFrames<T> keyFrames; // optional
+    private KeyFrames<? extends T> keyFrames; // optional
 
     TimelinePropertyBuilder(String propertyName) {
         this.propertyName = propertyName;
@@ -190,7 +190,7 @@ public class TimelinePropertyBuilder<T> {
         return this;
     }
 
-    public TimelinePropertyBuilder<T> goingThrough(KeyFrames<T> keyFrames) {
+    public TimelinePropertyBuilder<T> goingThrough(KeyFrames<? extends T> keyFrames) {
         if (this.keyFrames != null) {
             throw new IllegalArgumentException("goingThrough() can only be called once");
         }

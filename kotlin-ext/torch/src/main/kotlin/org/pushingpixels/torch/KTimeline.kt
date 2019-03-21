@@ -33,6 +33,7 @@ import org.pushingpixels.trident.Timeline
 import org.pushingpixels.trident.callback.TimelineCallback
 import org.pushingpixels.trident.callback.TimelineCallbackAdapter
 import org.pushingpixels.trident.ease.TimelineEase
+import org.pushingpixels.trident.interpolator.KeyFrames
 import org.pushingpixels.trident.swing.SwingComponentTimeline
 import org.pushingpixels.trident.swing.SwingRepaintTimeline
 import java.awt.Color
@@ -42,9 +43,16 @@ import kotlin.reflect.*
 
 @TridentElementMarker
 open class KTimeline {
-    val properties: MutableList<PropertyFromTo<*>> = ArrayList()
-    val callbacks: MutableList<TimelineCallback> = ArrayList()
+    var secondaryId: Comparable<*>? = null
     var duration: Long = Timeline.DEFAULT_DURATION
+    var initialDelay: Long = 0
+    var cycleDelay: Long = 0
+    var repeatCount: Int = 0
+    var repeatBehavior: Timeline.RepeatBehavior? = null
+    val callbacks: MutableList<TimelineCallback> = ArrayList()
+    var name: String? = null
+    val properties: MutableList<PropertyFromTo<*>> = ArrayList()
+    val propertiesGoingThrough : MutableList<PropertyGoingThrough<*>> = ArrayList()
     var ease: TimelineEase = Timeline.DEFAULT_EASE
 
     var onTimelineStateChangedList: MutableList<(Timeline.TimelineState, Timeline.TimelineState,
@@ -53,6 +61,10 @@ open class KTimeline {
 
     fun property(fromTo: PropertyFromTo<*>) {
         properties.add(fromTo)
+    }
+
+    fun property(goingThrough: PropertyGoingThrough<*>) {
+        propertiesGoingThrough.add(goingThrough)
     }
 
     fun callback(callback: TimelineCallback) {
@@ -69,14 +81,33 @@ open class KTimeline {
     }
 
     internal fun populateBuilder(builder: Timeline.BaseBuilder<*, *, *>) {
+        if (this.secondaryId != null) {
+            builder.setSecondaryId(this.secondaryId)
+        }
         builder.duration = this.duration
+        builder.setInitialDelay(this.initialDelay)
+        builder.setCycleDelay(this.cycleDelay)
+        builder.setRepeatCount(this.repeatCount)
+        if (this.repeatBehavior != null) {
+            builder.setRepeatBehavior(this.repeatBehavior)
+        }
+        if (this.name != null) {
+            builder.setName(this.name)
+        }
         builder.setEase(this.ease)
+
         for (prop in this.properties) {
             builder.addPropertyToInterpolate(Timeline.property<Any>(prop.property.name)
                     .from(prop.from)
                     .to(prop.to)
                     .setWith { _, _, value -> (prop.property as? KMutableProperty)?.setter?.call(value) })
         }
+        for (prop in this.propertiesGoingThrough) {
+            builder.addPropertyToInterpolate(Timeline.property<Any>(prop.property.name)
+                    .goingThrough(prop.keyFrames)
+                    .setWith { _, _, value -> (prop.property as? KMutableProperty)?.setter?.call(value) })
+        }
+
         for (callback in this.callbacks) {
             builder.addCallback(callback)
         }
@@ -130,16 +161,6 @@ fun timeline(init: KTimeline.() -> Unit): Timeline {
     return builder.build()
 }
 
-//fun componentTimeline(component: Component, init: KSwingComponentTimeline.() -> Unit):
-//        SwingComponentTimeline {
-//    val timeline = KSwingComponentTimeline(component)
-//    timeline.init()
-//
-//    val builder = SwingComponentTimeline.componentBuilder(component)
-//    timeline.populateBuilder(builder)
-//    return builder.build()
-//}
-
 fun Any.timeline(init: KTimeline.() -> Unit): Timeline {
     val timeline = KTimeline()
     timeline.init()
@@ -182,8 +203,14 @@ data class PropertyFrom<R>(val property: KProperty<R>, val from: R) {
 
 data class PropertyFromTo<R>(val property: KProperty<R>, val from: R, val to: R)
 
+data class PropertyGoingThrough<R>(val property: KProperty<R>, val keyFrames: KeyFrames<R>)
+
 infix fun <R> KProperty<R>.from(from: R): PropertyFrom<R> {
     return PropertyFrom(this, from)
+}
+
+infix fun <R> KProperty<R>.goingThrough(keyFrames: KeyFrames<R>): PropertyGoingThrough<R> {
+    return PropertyGoingThrough(this, keyFrames)
 }
 
 class Getter<R>(override val property: SettableProperty<R>) : KProperty.Getter<R> {
@@ -255,6 +282,7 @@ class Setter<R>(override val property: SettableProperty<R>) : KMutableProperty.S
     override val visibility: KVisibility?
         get() = KVisibility.PRIVATE
 
+    @Suppress("UNCHECKED_CAST")
     override fun call(vararg args: Any?) {
         property.set(args[0] as R)
     }
@@ -264,7 +292,7 @@ class Setter<R>(override val property: SettableProperty<R>) : KMutableProperty.S
     }
 }
 
-public interface SettableProperty<R> : KMutableProperty<R> {
+interface SettableProperty<R> : KMutableProperty<R> {
     fun set(value: R)
     fun get(): R
 }

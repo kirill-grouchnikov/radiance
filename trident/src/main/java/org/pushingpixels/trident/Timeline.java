@@ -589,7 +589,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             M extends Object> {
         protected M mainObject;
         protected Comparable<?> secondaryId;
-        protected long duration = 500;
+        protected long duration = Timeline.DEFAULT_DURATION;
         protected long initialDelay;
         protected long cycleDelay;
         protected int repeatCount;
@@ -597,7 +597,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         protected List<TimelineCallback> callbacks = new ArrayList<>();
         protected String name;
         protected List<AbstractFieldInfo> propertiesToInterpolate = new ArrayList<>();
-        protected TimelineEase ease = new Linear();
+        protected TimelineEase ease = Timeline.DEFAULT_EASE;
 
         public BaseBuilder() {
             this(null);
@@ -668,18 +668,18 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             return (B) this;
         }
 
-        public <T> B addPropertyToInterpolate(TimelinePropertyBuilder<T> propertyBuilder) {
+        public <P> B addPropertyToInterpolate(TimelinePropertyBuilder<P> propertyBuilder) {
             this.propertiesToInterpolate.add(propertyBuilder.getFieldInfo(this.mainObject));
             return (B) this;
         }
 
-        public <T> B addPropertyToInterpolate(String propName, KeyFrames<T> keyFrames) {
+        public <P> B addPropertyToInterpolate(String propName, KeyFrames<P> keyFrames) {
             return this.addPropertyToInterpolate(
-                    Timeline.<T>property(propName).goingThrough(keyFrames));
+                    Timeline.<P>property(propName).goingThrough(keyFrames));
         }
 
-        public <T> B addPropertyToInterpolate(String propName, T from, T to) {
-            return this.addPropertyToInterpolate(Timeline.<T>property(propName).from(from).to(to));
+        public <P> B addPropertyToInterpolate(String propName, P from, P to) {
+            return this.addPropertyToInterpolate(Timeline.<P>property(propName).from(from).to(to));
         }
 
         public B addCallback(TimelineCallback callback) {
@@ -690,35 +690,35 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         public abstract T build();
 
         /**
-         * A shortcut for {@link #build()} chained with Timeline{@link #play()}
+         * A shortcut for {@link #build()} chained with {@link Timeline#play()}
          */
         public void play() {
             build().play();
         }
 
         /**
-         * A shortcut for {@link #build()} chained with Timeline{@link #playSkipping(long)}
+         * A shortcut for {@link #build()} chained with {@link Timeline#playSkipping(long)}
          */
         public void playSkipping(final long msToSkip) {
             build().playSkipping(msToSkip);
         }
 
         /**
-         * A shortcut for {@link #build()} chained with Timeline{@link #playReverse()}
+         * A shortcut for {@link #build()} chained with {@link Timeline#playReverse()}
          */
         public void playReverse() {
             build().playReverse();
         }
 
         /**
-         * A shortcut for {@link #build()} chained with Timeline{@link #playReverseSkipping(long)}
+         * A shortcut for {@link #build()} chained with {@link Timeline#playReverseSkipping(long)}
          */
         public void playReverseSkipping(final long msToSkip) {
             build().playReverseSkipping(msToSkip);
         }
 
         /**
-         * A shortcut for {@link #build()} chained with Timeline{@link #playLoop(RepeatBehavior)}
+         * A shortcut for {@link #build()} chained with {@link Timeline#playLoop(RepeatBehavior)}
          */
         public void playLoop(RepeatBehavior repeatBehavior) {
             build().playLoop(repeatBehavior);
@@ -726,7 +726,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
         /**
          * A shortcut for {@link #build()} chained with
-         * Timeline{@link #playLoopSkipping(RepeatBehavior, long)}
+         * {@link Timeline#playLoopSkipping(RepeatBehavior, long)}
          */
         public void playLoopSkipping(RepeatBehavior repeatBehavior, final long msToSkip) {
             build().playLoopSkipping(repeatBehavior, msToSkip);
@@ -734,7 +734,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
         /**
          * A shortcut for {@link #build()} chained with
-         * Timeline{@link #playLoop(int, RepeatBehavior)}
+         * {@link Timeline#playLoop(int, RepeatBehavior)}
          */
         public void playLoop(int loopCount, RepeatBehavior repeatBehavior) {
             build().playLoop(loopCount, repeatBehavior);
@@ -742,7 +742,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
         /**
          * A shortcut for {@link #build()} chained with
-         * Timeline{@link #playLoopSkipping(int, RepeatBehavior, long)}
+         * {@link Timeline#playLoopSkipping(int, RepeatBehavior, long)}
          */
         public void playLoopSkipping(final int loopCount, final RepeatBehavior repeatBehavior,
                 final long msToSkip) {
