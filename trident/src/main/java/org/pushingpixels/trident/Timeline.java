@@ -56,6 +56,9 @@ import java.util.*;
  * can be used to work with properties that are not exposed via public setters or getters.
  */
 public class Timeline implements TimelineScenario.TimelineScenarioActor {
+    public static final long DEFAULT_DURATION = 500;
+    public static final TimelineEase DEFAULT_EASE = new Linear();
+
     private Object mainObject;
 
     private Comparable<?> secondaryId;
@@ -315,7 +318,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         Setter setterCallback = (this.uiToolkitHandler != null) ? new UISetter() : new Setter();
         this.callbackChain = new Chain(setterCallback);
 
-        this.duration = 500;
+        this.duration = DEFAULT_DURATION;
         this.propertiesToInterpolate = new ArrayList<>();
         this.id = Timeline.getId();
         // this.loopsToLive = -1;
@@ -324,7 +327,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         this.stateStack.push(TimelineState.IDLE);
         this.doneCount = 0;
 
-        this.ease = new Linear();
+        this.ease = DEFAULT_EASE;
     }
 
     protected final void addCallback(TimelineCallback callback) {
@@ -336,7 +339,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
     }
 
     public static <T> TimelinePropertyBuilder<T> property(String propertyName) {
-        return new TimelinePropertyBuilder<T>(propertyName);
+        return new TimelinePropertyBuilder<>(propertyName);
     }
 
     protected boolean shouldForceUiUpdate() {

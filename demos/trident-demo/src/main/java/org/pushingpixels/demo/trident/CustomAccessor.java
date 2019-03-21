@@ -43,7 +43,7 @@ public class CustomAccessor {
     public static void main(String[] args) {
         final CustomAccessor helloWorld = new CustomAccessor();
 
-        PropertyAccessor<Float> propertyAccessor = new PropertyAccessor<Float>() {
+        PropertyAccessor<Float> propertyAccessor = new PropertyAccessor<>() {
             @Override
             public Float get(Object obj, String fieldName) {
                 return helloWorld.values.get("value");

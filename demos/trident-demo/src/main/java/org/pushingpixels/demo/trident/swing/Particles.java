@@ -214,7 +214,7 @@ public class Particles {
         int lastX, lastY;
 
         public ParticlesPanel() {
-            this.particles = new ArrayList<Particle>();
+            this.particles = new ArrayList<>();
 
             // Infinitely looping timeline to track the mouse
             Timeline.builder().addCallback(new TimelineCallbackAdapter() {

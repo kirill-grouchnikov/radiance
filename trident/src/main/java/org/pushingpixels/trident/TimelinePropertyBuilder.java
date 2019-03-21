@@ -318,7 +318,8 @@ public class TimelinePropertyBuilder<T> {
                 this.setter.set(this.object, this.fieldName, value);
             } catch (Throwable exc) {
                 System.err.println("Exception occurred in updating field '" + this.fieldName
-                        + "' of object " + this.object.getClass().getCanonicalName()
+                        + "' of object " + ((this.object == null) ? "[NONE]"
+                        : this.object.getClass().getCanonicalName())
                         + " at timeline position " + timelinePosition);
                 exc.printStackTrace();
             }
@@ -346,7 +347,8 @@ public class TimelinePropertyBuilder<T> {
                 this.setter.set(this.object, this.fieldName, value);
             } catch (Throwable exc) {
                 System.err.println("Exception occurred in updating field '" + this.fieldName
-                        + "' of object " + this.object.getClass().getCanonicalName()
+                        + "' of object " + ((this.object == null) ? "[NONE]"
+                            : this.object.getClass().getCanonicalName())
                         + " at timeline position " + timelinePosition);
                 exc.printStackTrace();
             }

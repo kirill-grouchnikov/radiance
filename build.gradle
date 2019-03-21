@@ -28,9 +28,9 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = '2.0.1'
-ext.codename = 'Beryl'
-ext.isRelease = true
+version = '3.0-SNAPSHOT'
+ext.codename = 'Chalcedony'
+ext.isRelease = false
 
 buildscript {
     ext {

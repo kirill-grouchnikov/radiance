@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019 Radiance Torch Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2018-2019 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- *  o Neither the name of Radiance Torch Kirill Grouchnikov nor the names of
+ *  o Neither the name of Radiance Kirill Grouchnikov nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
@@ -30,8 +30,21 @@
 
 apply plugin: 'kotlin'
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_plugin_version"
+    }
+}
+
+apply plugin: 'org.jetbrains.dokka'
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile project(':trident')
 }
 
@@ -40,3 +53,65 @@ ext.designation = "core"
 jar {
     archiveBaseName = "${rootProject.name}-${project.name}"
 }
+
+javadoc {
+    failOnError = false
+}
+
+apply plugin: 'com.bmuschko.nexus'
+
+archivesBaseName = 'radiance'
+group = 'org.pushing-pixels'
+
+modifyPom {
+    project {
+        name 'plasma'
+        description 'Plasma Kotlin extensions and DSL for Flamingo components'
+        url 'https://github.com/kirill-grouchnikov/radiance'
+        inceptionYear '2018'
+        scm {
+            url 'https://github.com/kirill-grouchnikov/radiance'
+            connection 'scm:https://github.com/kirill-grouchnikov/radiance.git'
+            developerConnection 'scm:git://github.com/kirill-grouchnikov/radiance.git'
+        }
+        licenses {
+            license {
+                name 'BSD 3-Clause License'
+                url 'https://opensource.org/licenses/BSD-3-Clause'
+                distribution 'repo'
+            }
+        }
+        developers {
+            developer {
+                id 'kirill-grouchnikov'
+                name 'Kirill Grouchnikov'
+                email 'kirill.grouchnikov@gmail.com'
+            }
+        }
+        dependencies {
+            dependency {
+                groupId = 'org.jetbrains.kotlin'
+                artifactId = 'kotlin-stdlib'
+                version = kotlin_version
+            }
+            dependency {
+                groupId = project.group
+                artifactId = project.archivesBaseName + '-flamingo'
+                version = project.version
+            }
+        }
+    }
+}
+
+extraArchive {
+    sources = true
+    tests = false
+    javadoc = rootProject.ext.isRelease
+}
+
+nexus {
+    sign = rootProject.ext.isRelease
+    repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+    snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+}
+

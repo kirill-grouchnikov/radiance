@@ -14,7 +14,7 @@ Now configure the specific version of Java runtime that you want to test under a
 
 ``` export JAVA_HOME=`/usr/libexec/java_home -v 9` ```
 
-`RADIANCE_VERSION=2.0.1`
+`RADIANCE_VERSION=3.0-SNAPSHOT`
 `CLASSPATH=./drop/$RADIANCE_VERSION/tools/radiance-lightbeam-$RADIANCE_VERSION.jar:./build/libs-tools/jgoodies-forms-1.9.0.jar:./build/libs-tools/jgoodies-common-1.8.1.jar`
 
 To measure the performance of a specific core look-and-feel - in this case Nimbus - run the following command:
@@ -48,7 +48,7 @@ Here is the script used for tracking performance numbers for [Substance](../subs
 
 ``` export JAVA_HOME=`/usr/libexec/java_home -v 9` ```
 
-`RADIANCE_VERSION=2.0.1`
+`RADIANCE_VERSION=3.0-SNAPSHOT`
 
 `CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-lightbeam-$RADIANCE_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar`
 

@@ -33,8 +33,8 @@ import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.trident.Timeline
-import org.pushingpixels.trident.TimelinePropertyBuilder
+import org.pushingpixels.torch.componentTimeline
+import org.pushingpixels.torch.from
 import org.pushingpixels.trident.swing.SwingComponentTimeline
 import org.pushingpixels.trident.swing.SwingRepaintCallback
 import java.awt.*
@@ -87,29 +87,16 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
         }
     }
 
-    private inner class ColorVisualizer : JComponent() {
-        internal var borderThickness = 1.0f
-        internal val rolloverTimeline: SwingComponentTimeline
+    inner class ColorVisualizer : JComponent() {
+        var borderThickness = 1.0f
+        private val rolloverTimeline: SwingComponentTimeline
 
         init {
-            val rolloverTimelineBuilder = SwingComponentTimeline.componentBuilder(this)
-
-            // TODO - switch to operate on the property directly (with accessor object)
-            // when Torch is available
-            rolloverTimelineBuilder.addPropertyToInterpolate(
-                    Timeline.property<Float>(this::borderThickness.name).from(1.0f).to(2.0f)
-                            .accessWith(object: TimelinePropertyBuilder.PropertyAccessor<Float> {
-                                override fun get(obj: Any?, fieldName: String?): Float {
-                                    return borderThickness
-                                }
-
-                                override fun set(obj: Any?, fieldName: String?, value: Float?) {
-                                    borderThickness = value!!
-                                }
-                            }))
-            rolloverTimelineBuilder.duration = 80
-            rolloverTimelineBuilder.addCallback(SwingRepaintCallback(this))
-            rolloverTimeline = rolloverTimelineBuilder.build()
+            rolloverTimeline = this.componentTimeline {
+                duration = 80
+                property(::borderThickness from 1.0f to 2.0f)
+                callback(SwingRepaintCallback(this@ColorVisualizer))
+            }
 
             this.addDelayedMouseListener(
                     onMouseClicked = {

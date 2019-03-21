@@ -141,7 +141,7 @@ public class StarDust extends JFrame {
         this.stars = new LinkedList<>();
 
         // Timeline to spawn the stars
-        Timeline.builder().addCallback(new UIThreadTimelineCallbackAdapter() {
+        Timeline.builder().addCallback(new TimelineCallbackAdapter() {
             private float currHue = 0.0f;
 
             @Override
