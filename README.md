@@ -43,6 +43,10 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 [Plasma](docs/kotlin-ext/plasma/plasma.md) exposes the entire API surface of Flamingo as a concise, focused and approachable Kotlin domain-specific language (DSL). It also provides a number of Kotlin extensions for Flamingo APIs.
 
+### Torch
+
+[Torch](docs/kotlin-ext/torch/torch.md) exposes a subset of the API surface of Trident as a concise, focused and approachable Kotlin domain-specific language (DSL). It also provides a number of Kotlin extensions for Trident APIs.
+
 ## Tools
 
 * [Apollo](docs/tools/apollo/apollo.md) is a tool for creating and editing color scheme lists.

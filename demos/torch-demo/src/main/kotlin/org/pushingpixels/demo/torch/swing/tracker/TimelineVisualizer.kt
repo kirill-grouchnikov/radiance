@@ -27,42 +27,54 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.demo.torch
+package org.pushingpixels.demo.torch.swing.tracker
 
+import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.timeline
+import org.pushingpixels.trident.Timeline.TimelineState
+import java.awt.Color
+import java.awt.Graphics
+import java.awt.Point
+import java.awt.RenderingHints
+import javax.swing.JComponent
 
-var attr = 0.0f
-    set(value) {
-        println("ATTR1: $field -> $value")
-        field = value
-    }
+class TimelineVisualizer : JComponent() {
+    private val dots: MutableList<TimelineVisualizerDot> = ArrayList()
 
-var attr2 = 5.0f
-    set(value) {
-        println("ATTR2: $field -> $value")
-        field = value
-    }
+    fun addDot(absoluteTimelinePosition: Float, perceivedTimelinePosition: Float) {
+        synchronized(this.dots) {
+            val dot = TimelineVisualizerDot()
+            dot.location = Point((absoluteTimelinePosition * width).toInt(),
+                    (perceivedTimelinePosition * height).toInt())
+            this.dots.add(dot)
 
-class MyData {
-    var attrData = 0.0f
-        set(value) {
-            println("DATA: $field -> $value")
-            field = value
+            dot.timeline {
+                property(dot::opacity from 1.0f to 0.0f)
+                onTimelineStateChanged { _, newState, _, _ ->
+                    if (newState == TimelineState.DONE) {
+                        synchronized(dots) {
+                            dots.remove(dot)
+                        }
+                    }
+                }
+                duration = 10000
+            }.play()
         }
-}
+    }
 
-fun main() {
-    val myData = MyData()
+    override fun paintComponent(g: Graphics) {
+        g.render {
+            it.color = Color.black
+            it.fillRect(0, 0, width, height)
 
-    timeline {
-        property(::attr from 0.0f to 1.0f)
-        property(::attr2 from 0.0f to 10.0f)
-        property(myData::attrData from 3.0f to 2.0f)
-    }.play()
+            it.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
 
-    try {
-        Thread.sleep(3000)
-    } catch (exc: Exception) {
+            synchronized(this.dots) {
+                for (dot in this.dots) {
+                    dot.paint(it)
+                }
+            }
+        }
     }
 }

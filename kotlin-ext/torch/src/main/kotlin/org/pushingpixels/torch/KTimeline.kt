@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019 Radiance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2019 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,7 +39,12 @@ import org.pushingpixels.trident.swing.SwingRepaintTimeline
 import java.awt.Color
 import java.awt.Component
 import java.awt.Rectangle
+import java.awt.Window
 import kotlin.reflect.*
+
+// Annotation to control the receiver scoping in the DSL
+@DslMarker
+annotation class TridentElementMarker
 
 @TridentElementMarker
 open class KTimeline {
@@ -49,10 +54,10 @@ open class KTimeline {
     var cycleDelay: Long = 0
     var repeatCount: Int = 0
     var repeatBehavior: Timeline.RepeatBehavior? = null
-    val callbacks: MutableList<TimelineCallback> = ArrayList()
+    private val callbacks: MutableList<TimelineCallback> = ArrayList()
     var name: String? = null
-    val properties: MutableList<PropertyFromTo<*>> = ArrayList()
-    val propertiesGoingThrough : MutableList<PropertyGoingThrough<*>> = ArrayList()
+    internal val properties: MutableList<PropertyFromTo<*>> = ArrayList()
+    private val propertiesGoingThrough : MutableList<PropertyGoingThrough<*>> = ArrayList()
     var ease: TimelineEase = Timeline.DEFAULT_EASE
 
     var onTimelineStateChangedList: MutableList<(Timeline.TimelineState, Timeline.TimelineState,
@@ -131,7 +136,7 @@ open class KTimeline {
 }
 
 class KSwingComponentTimeline(val component: Component) : KTimeline() {
-    fun property(fromTo: PropertyFactoryFromTo<*>) {
+    fun property(fromTo: PropertyFactoryFromTo<*, in Component>) {
         properties.add(fromTo.property.property(component) from fromTo.from to fromTo.to)
     }
 }
@@ -194,7 +199,6 @@ fun Component.repaintTimeline(init: (KSwingRepaintTimeline.() -> Unit)? = null):
     return builder.build()
 }
 
-
 data class PropertyFrom<R>(val property: KProperty<R>, val from: R) {
     infix fun to(to: R): PropertyFromTo<R> {
         return PropertyFromTo(this.property, this.from, to)
@@ -213,168 +217,18 @@ infix fun <R> KProperty<R>.goingThrough(keyFrames: KeyFrames<R>): PropertyGoingT
     return PropertyGoingThrough(this, keyFrames)
 }
 
-class Getter<R>(override val property: SettableProperty<R>) : KProperty.Getter<R> {
-    override val annotations: List<Annotation>
-        get() = ArrayList()
-    override val isAbstract: Boolean
-        get() = false
-    override val isExternal: Boolean
-        get() = false
-    override val isFinal: Boolean
-        get() = false
-    override val isInfix: Boolean
-        get() = false
-    override val isInline: Boolean
-        get() = false
-    override val isOpen: Boolean
-        get() = true
-    override val isOperator: Boolean
-        get() = false
-    override val isSuspend: Boolean
-        get() = false
-    override val name: String
-        get() = "foreground"
-    override val parameters: List<KParameter>
-        get() = ArrayList()
-    override val returnType: KType
-        get() = Color::javaClass.returnType
-    override val typeParameters: List<KTypeParameter>
-        get() = ArrayList()
-    override val visibility: KVisibility?
-        get() = KVisibility.PRIVATE
+abstract class PropertyFactory<T, R> {
+    abstract fun property(mainObject: R): SettableProperty<T>
 
-    override fun call(vararg args: Any?): R {
-        return property.get()
-    }
-
-    override fun callBy(args: Map<KParameter, Any?>): R {
-        return property.get()
+    infix fun from(from: T): PropertyFactoryFrom<T, R> {
+        return PropertyFactoryFrom(this, from)
     }
 }
 
-class Setter<R>(override val property: SettableProperty<R>) : KMutableProperty.Setter<R> {
-    override val annotations: List<Annotation>
-        get() = ArrayList()
-    override val isAbstract: Boolean
-        get() = false
-    override val isExternal: Boolean
-        get() = false
-    override val isFinal: Boolean
-        get() = false
-    override val isInfix: Boolean
-        get() = false
-    override val isInline: Boolean
-        get() = false
-    override val isOpen: Boolean
-        get() = true
-    override val isOperator: Boolean
-        get() = false
-    override val isSuspend: Boolean
-        get() = false
-    override val name: String
-        get() = property.name
-    override val parameters: List<KParameter>
-        get() = ArrayList()
-    override val returnType: KType
-        get() = property.returnType
-    override val typeParameters: List<KTypeParameter>
-        get() = ArrayList()
-    override val visibility: KVisibility?
-        get() = KVisibility.PRIVATE
-
-    @Suppress("UNCHECKED_CAST")
-    override fun call(vararg args: Any?) {
-        property.set(args[0] as R)
-    }
-
-    override fun callBy(args: Map<KParameter, Any?>) {
-        throw UnsupportedOperationException()
-    }
-}
-
-interface SettableProperty<R> : KMutableProperty<R> {
-    fun set(value: R)
-    fun get(): R
-}
-
-infix fun <R> SettableProperty<R>.from(from: R): PropertyFrom<R> {
-    return PropertyFrom(this, from)
-}
-
-internal abstract class BaseSettableProperty<R>(private val propName: String, private val propType: KType) :
-        SettableProperty<R> {
-    override val annotations: List<Annotation>
-        get() = ArrayList()
-    override val isAbstract: Boolean
-        get() = false
-    override val isFinal: Boolean
-        get() = false
-    override val isOpen: Boolean
-        get() = false
-    override val isSuspend: Boolean
-        get() = false
-    override val isConst: Boolean
-        get() = false
-    override val isLateinit: Boolean
-        get() = false
-    override val parameters: List<KParameter>
-        get() = ArrayList()
-    override val typeParameters: List<KTypeParameter>
-        get() = ArrayList()
-    override val visibility: KVisibility?
-        get() = KVisibility.PRIVATE
-
-    override val name: String
-        get() = propName
-    override val returnType: KType
-        get() = propType
-
-    override fun call(vararg args: Any?): R {
-        throw UnsupportedOperationException()
-    }
-
-    override fun callBy(args: Map<KParameter, Any?>): R {
-        throw UnsupportedOperationException()
-    }
-
-    override val getter: KProperty.Getter<R> get() = Getter(this)
-    override val setter: KMutableProperty.Setter<R> get() = Setter(this)
-}
-
-abstract class PropertyFactory<T> {
-    abstract fun property(component: Component): SettableProperty<T>
-
-    infix fun from(from: T): PropertyFactoryFrom<T> {
-        return PropertyFactoryFrom<T>(this, from)
-    }
-}
-
-object TorchComponent {
-    val foreground = object : PropertyFactory<Color>() {
-        override fun property(component: Component): SettableProperty<Color> {
-            return object : BaseSettableProperty<Color>("foreground", Color::javaClass.returnType) {
-                override fun set(value: Color) {
-                    component.foreground = value
-                }
-
-                override fun get(): Color {
-                    return component.foreground
-                }
-            }
-        }
-    }
-}
-
-data class PropertyFactoryFrom<T>(val property: PropertyFactory<T>, val from: T) {
-    infix fun to(to: T): PropertyFactoryFromTo<T> {
+data class PropertyFactoryFrom<T, R>(val property: PropertyFactory<T, R>, val from: T) {
+    infix fun to(to: T): PropertyFactoryFromTo<T, R> {
         return PropertyFactoryFromTo(this.property, this.from, to)
     }
 }
 
-data class PropertyFactoryFromTo<T>(val property: PropertyFactory<T>, val from: T, val to: T)
-
-
-
-
-
-
+data class PropertyFactoryFromTo<T, R>(val property: PropertyFactory<T, R>, val from: T, val to: T)
