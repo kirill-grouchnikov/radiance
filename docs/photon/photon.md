@@ -58,3 +58,29 @@ If your app needs to track the loading of the SVG content, you can use the follo
 
 * `addAsynchronousLoadListener(AsynchronousLoadListener)` API to be notified on content load completion
 * `isLoading()` API to query whether the content loading has been completed
+
+### SVG format support
+
+The following table summarizes the level of support for different SVG elements.
+
+| SVG element | Status |
+| --- | --- |
+| `<animate>` | Under consideration using Trident |
+| `<circle>` | Radiance 1.0+ |
+| `<clipPath>` | Radiance 1.0+ |
+| `<ellipse>` | Radiance 1.0+ |
+| `<filter>` | Out of scope |
+| `<hatch>` | [Not supported](https://issues.apache.org/jira/browse/BATIK-1259) by Batik |
+| `<image>` | Radiance 3.0+ |
+| `<line>` | Radiance 1.0+ |
+| `<linearGradient>` | Radiance 1.0+ |
+| `<marker>` | Radiance 3.0+ |
+| `<mask>` | Out of scope |
+| `<path>` | Radiance 1.0+ |
+| `<pattern>` | Radiance 3.0+ |
+| `<polygon>` | Radiance 1.0+ |
+| `<polyline>` | Radiance 1.0+ |
+| `<radialGradient>` | Radiance 1.0+ |
+| `<rect>` | Radiance 1.0+ |
+| `<solidcolor>` | Radiance 1.0+ |
+| `<text>` | Radiance 3.0+ |

@@ -2,6 +2,7 @@ TOKEN_PACKAGE
 
 import java.awt.*
 import java.awt.geom.*
+import java.lang.ref.WeakReference
 
 /**
  * This class has been automatically generated using <a
@@ -9,6 +10,8 @@ import java.awt.geom.*
  */
 class TOKEN_CLASSNAME(private var width: Int, private var height: Int) {
     companion object {
+        TOKEN_RASTER_CODE
+
         /**
          * Paints the transcoded SVG image on the specified graphics context. You
          * can install a custom transformation on the graphics context to scale the
@@ -21,7 +24,8 @@ class TOKEN_CLASSNAME(private var width: Int, private var height: Int) {
             @Suppress("UNUSED_VARIABLE") var shape: Shape?
             @Suppress("UNUSED_VARIABLE") var paint: Paint?
             @Suppress("UNUSED_VARIABLE") var stroke: Stroke?
-            
+            @Suppress("UNUSED_VARIABLE") var clip: Shape?
+
             var origAlpha = 1.0f
             val origComposite = g.composite
             if (origComposite is AlphaComposite) {

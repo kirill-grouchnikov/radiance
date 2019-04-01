@@ -2,12 +2,15 @@ TOKEN_PACKAGE
 
 import java.awt.*;
 import java.awt.geom.*;
+import java.lang.ref.WeakReference;
 
 /**
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
 public class TOKEN_CLASSNAME {
+    TOKEN_RASTER_CODE
+
 	/**
 	 * Paints the transcoded SVG image on the specified graphics context. You
 	 * can install a custom transformation on the graphics context to scale the
@@ -21,6 +24,7 @@ public class TOKEN_CLASSNAME {
         Shape shape = null;
         Paint paint = null;
         Stroke stroke = null;
+        Shape clip = null;
         
         float origAlpha = 1.0f;
         Composite origComposite = g.getComposite();

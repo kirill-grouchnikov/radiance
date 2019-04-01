@@ -53,11 +53,11 @@ class Getter<R>(override val property: SettableProperty<R>) : KProperty.Getter<R
     override val isSuspend: Boolean
         get() = false
     override val name: String
-        get() = "foreground"
+        get() = property.name
     override val parameters: List<KParameter>
         get() = ArrayList()
     override val returnType: KType
-        get() = Color::javaClass.returnType
+        get() = property.returnType
     override val typeParameters: List<KTypeParameter>
         get() = ArrayList()
     override val visibility: KVisibility?

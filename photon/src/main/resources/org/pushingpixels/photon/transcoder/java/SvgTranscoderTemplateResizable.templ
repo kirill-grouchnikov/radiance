@@ -2,6 +2,11 @@ TOKEN_PACKAGE
 
 import java.awt.*;
 import java.awt.geom.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.lang.ref.WeakReference;
+import java.util.Base64;
+import javax.imageio.ImageIO;
 import javax.swing.plaf.UIResource;
 
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -12,12 +17,15 @@ import org.pushingpixels.neon.icon.ResizableIconUIResource;
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
 public class TOKEN_CLASSNAME implements ResizableIcon {
+    TOKEN_RASTER_CODE
+
     @SuppressWarnings("unused")
 	private void innerPaint(Graphics2D g) {
         Shape shape = null;
         Paint paint = null;
         Stroke stroke = null;
-         
+        Shape clip = null;
+
         float origAlpha = 1.0f;
         Composite origComposite = g.getComposite();
         if (origComposite instanceof AlphaComposite) {

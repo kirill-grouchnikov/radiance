@@ -36,6 +36,7 @@ import org.pushingpixels.trident.ease.*;
 import org.pushingpixels.trident.interpolator.KeyFrames;
 
 import java.util.*;
+import java.util.List;
 
 /**
  * The main entry point into Trident. Use {@link #builder()} or {@link #builder(Object)}
