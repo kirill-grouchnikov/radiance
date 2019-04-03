@@ -22,7 +22,7 @@ The traversal itself looks at two main types of nodes - `GraphicsNode` and `Pain
 
 The traversal is depth-first, visiting every supported node in the tree, querying the information to create Java2D instructions (next section) and traversing children nodes where appropriate.
 
-Important note - there is special handling of raster image and pattern content. See later sections in this document for more details.
+Important note - there is special handling of raster image, text and pattern content. See addendum sections in this document for more details.
 
 ### Parsing information for creating Java2D instructions
 
@@ -104,4 +104,31 @@ This custom implementation overrides methods such as `setStroke(Stroke)` or `fil
 
 ### Addendum B - handling `TextPaint`
 
+Unlike other `Paint` nodes that are handled by inspecting their base attributes and converting those attributes into matching Java2D commands, the handling of `TextPaint` is simplified by another usage of a custom implementation of `Graphics2D` class to capture the underlying visuals.
+
+Note that, depending on how many glyphs a particular SVG content uses, the resulting transcoded Java / Kotlin class may exceed the supported method length (at compile time). This is a known limitation of Photon. In general, Photon is best used for simpler vector content that targets smaller-size iconography, and not general-purpose SVG "illustration art".
+
 ### Addendum C - handling `RasterImageNode`
+
+To support raster / bitmap content that comes from the `<image>` SVG element, Photon employs the same approach that SVG does to "embed" such content using Base64-encoded URIs.
+
+Batik's [RasterImageNode](https://xmlgraphics.apache.org/batik/javadoc/org/apache/batik/gvt/RasterImageNode.html) exposes an API to get the underlying `RenderedImage` (using `.getImage().createDefaultRendering()`). In addition, we can also ask any node in the GVT tree to render itself into our own custom extension of `Graphics2D` class. Overriding the `drawImage()` method then gives access to the decoded content originally embedded as a Base64-encoded URI.
+
+Photon transcodes raster content in two passes.
+
+The first pass is in `RasterScanner`. It traverses the entire GVT tree in a depth-first fashion, "looking" for `RasterImageNode` nodes. For each such node it:
+
+* Gets the underlying `RenderedImage`.
+* Computes MD5 hash-sum of the raster data.
+* Checks whether it has already processed a `RasterImageNode` with the same MD5 hash-sum. If so, it skips this node.
+* Creates a static function that returns a `BufferedImage` instance that is built - *at runtime* with the Base64-encoded raster data.
+
+A few points to note:
+
+* More than one `RasterImageNode` in the GVT tree can use the same raster data. This can happen for `<pattern>` elements using the same bitmaps as their "content", for example.
+* Photon is relying on MD5 hash-sum to detect identical raster content.
+* Photon essentially takes the decoded `RenderedImage` raster data that originated in Base64-encoded URI, and encodes it back as a Base64-encoded string. These two are not going to necessarily match if the format of the original image content does not match what Photon is using (png).
+* The newly Base64-encoded representation of raster data may exceed Java limitations of how long a string in the source code can be. To work around this limitation, Photon breaks up the encoded String into smaller chunks of 1,000 characters each at most.
+* The static function that Photon generates for retrieving the `BufferedImage` that corresponds to the decoded/encoded/decoded-again image content uses an internal `WeakReference` based on the MD5 hash-sum of the original encoded string. This is done for performance optimizations. For example, doing Base64-decoding + image parsing on every single loop of a `PatternPaint` might result in prohibitively expensive runtime performance.
+
+The second pass for `RasterImageNode` is in `SvgBaseTranscoder`. Every supported node that may use raster data - such as `PatternNode` for example - computes the MD5 hash-sum of the underlying `RenderedImage`, and then calls the matching method to retrieve the corresponding `BufferedImage` (each such method has been generated in the first pass as detailed above).

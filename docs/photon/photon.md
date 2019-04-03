@@ -84,3 +84,7 @@ The following table summarizes the level of support for different SVG elements.
 | `<rect>` | Radiance 1.0+ |
 | `<solidcolor>` | Radiance 1.0+ |
 | `<text>` | Radiance 3.0+ |
+
+### Taking a deeper look at Photon internals
+
+If you want to know more about the internal implementation details of Photon, [click here](internals.md).
