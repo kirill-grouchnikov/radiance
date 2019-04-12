@@ -43,6 +43,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 /**
  * Command button.
@@ -242,11 +243,14 @@ public class JCommandButton extends AbstractCommandButton {
          */
         public final static int POPUP_SHOWING = 1 << 8;
 
+        private JCommandButton commandButton;
+
         /**
          * Creates a new default popup button model.
          */
-        public DefaultPopupButtonModel() {
+        public DefaultPopupButtonModel(JCommandButton commandButton) {
             super();
+            this.commandButton = commandButton;
         }
 
         @Override
@@ -300,6 +304,7 @@ public class JCommandButton extends AbstractCommandButton {
                 } else if (currentEvent instanceof ActionEvent) {
                     modifiers = ((ActionEvent) currentEvent).getModifiers();
                 }
+                this.commandButton.getUI().setInnerFocusOnAction(false);
                 firePopupActionPerformed(new ActionEvent(this,
                         ActionEvent.ACTION_PERFORMED, getActionCommand(),
                         EventQueue.getMostRecentEventTime(), modifiers));
@@ -342,7 +347,7 @@ public class JCommandButton extends AbstractCommandButton {
         // the popup model so that it can be registered to track the
         // changes
         this.popupHandler = new PopupHandler();
-        PopupButtonModel popupButtonModel = new DefaultPopupButtonModel();
+        PopupButtonModel popupButtonModel = new DefaultPopupButtonModel(this);
         popupButtonModel.setEnabled(projection.getContentModel().isSecondaryEnabled());
         this.setPopupModel(popupButtonModel);
 
@@ -442,6 +447,20 @@ public class JCommandButton extends AbstractCommandButton {
                 }
             });
         }
+
+//        this.setFocusCycleRoot(true);
+////        this.setFocusTraversalPolicy(new LayoutFocusTraversalPolicy());
+//        Set<KeyStroke> managingFocusForwardTraversalKeys = new HashSet<>(1);
+//        managingFocusForwardTraversalKeys.add(
+//                KeyStroke.getKeyStroke(KeyEvent.VK_TAB, InputEvent.CTRL_DOWN_MASK));
+//
+//        LookAndFeel.installProperty(this,
+//                "focusTraversalKeysForward",
+//                managingFocusForwardTraversalKeys);
+//        LookAndFeel.installProperty(this,
+//                "focusTraversalKeysBackward",
+//                JComponent.
+//                        getManagingFocusBackwardTraversalKeys());
 
         this.updateUI();
     }

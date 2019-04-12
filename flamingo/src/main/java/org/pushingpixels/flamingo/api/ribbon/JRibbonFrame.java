@@ -364,6 +364,7 @@ public class JRibbonFrame extends JFrame {
         this.ribbon = new JRibbon(this);
         this.add(this.ribbon, BorderLayout.NORTH);
 
+        final KeyTipManager keyTipManager = KeyTipManager.defaultManager();
         Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
             private boolean prevAltModif = false;
 
@@ -390,7 +391,7 @@ public class JRibbonFrame extends JFrame {
                                     if (Character.isLetter(keyChar) || Character.isDigit(keyChar)) {
                                         // System.out.println("Will handle key press "
                                         // + keyChar);
-                                        KeyTipManager.defaultManager().handleKeyPress(keyChar);
+                                        keyTipManager.handleKeyPress(keyChar);
                                     }
                                     if ((keyEvent.getKeyCode() == KeyEvent.VK_ALT)
                                             || (keyEvent.getKeyCode() == KeyEvent.VK_F10)) {
@@ -400,20 +401,38 @@ public class JRibbonFrame extends JFrame {
                                         boolean hadPopups = !PopupPanelManager.defaultManager()
                                                 .getShownPath().isEmpty();
                                         PopupPanelManager.defaultManager().hidePopups(null);
-                                        if (hadPopups || KeyTipManager.defaultManager()
-                                                .isShowingKeyTips()) {
-                                            KeyTipManager.defaultManager().hideAllKeyTips();
+                                        if (hadPopups || keyTipManager.isShowingKeyTips()) {
+                                            keyTipManager.hideAllKeyTips();
                                         } else {
-                                            KeyTipManager.defaultManager()
-                                                    .showRootKeyTipChain(JRibbonFrame.this);
+                                            keyTipManager.showRootKeyTipChain(JRibbonFrame.this);
                                         }
                                     }
                                     if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
                                         // Dismiss keytips if showing, and popups otherwise
-                                        if (KeyTipManager.defaultManager().isShowingKeyTips()) {
-                                            KeyTipManager.defaultManager().showPreviousChain();
+                                        if (keyTipManager.isShowingKeyTips()) {
+                                            keyTipManager.showPreviousChain();
                                         } else {
                                             PopupPanelManager.defaultManager().hidePopups(null);
+                                        }
+                                    }
+                                    if (keyTipManager.isShowingKeyTips()) {
+                                        // Traversal of ribbon content while keytips are showing
+                                        switch (keyEvent.getKeyCode()) {
+                                            case KeyEvent.VK_LEFT:
+                                                RibbonTask previous = getPreviousRibbonTask();
+                                                if (previous != null) {
+                                                    ribbon.setSelectedTask(previous);
+                                                }
+                                                break;
+                                            case KeyEvent.VK_RIGHT:
+                                                RibbonTask next = getNextRibbonTask();
+                                                if (next != null) {
+                                                    ribbon.setSelectedTask(next);
+                                                }
+                                                break;
+                                            case KeyEvent.VK_TAB:
+                                                System.out.println("TAB!" + keyEvent.isShiftDown());
+                                                break;
                                         }
                                     }
                                     break;
@@ -424,12 +443,12 @@ public class JRibbonFrame extends JFrame {
                             switch (mouseEvent.getID()) {
                                 case MouseEvent.MOUSE_CLICKED:
                                 case MouseEvent.MOUSE_DRAGGED: {
-                                    KeyTipManager.defaultManager().hideAllKeyTips();
+                                    keyTipManager.hideAllKeyTips();
                                     break;
                                 }
                                 case MouseEvent.MOUSE_PRESSED:
                                 case MouseEvent.MOUSE_RELEASED: {
-                                    KeyTipManager.defaultManager().hideAllKeyTips();
+                                    keyTipManager.hideAllKeyTips();
                                     if (mouseEvent.isPopupTrigger()) {
                                         // Note that we need to find the deepest component
                                         // under the mouse event so that it is then routed
@@ -794,5 +813,46 @@ public class JRibbonFrame extends JFrame {
      */
     public boolean isShowingKeyTips() {
         return KeyTipManager.defaultManager().isShowingKeyTips();
+    }
+
+    private List<RibbonTask> getAllShownRibbonTasks() {
+        List<RibbonTask> result = new ArrayList<>();
+        for (int i = 0; i < this.ribbon.getTaskCount(); i++) {
+            result.add(this.ribbon.getTask(i));
+        }
+        for (int i = 0; i < this.ribbon.getContextualTaskGroupCount(); i++) {
+            RibbonContextualTaskGroup curr = this.ribbon.getContextualTaskGroup(i);
+            if (this.ribbon.isVisible(curr)) {
+                for (int j = 0; j < curr.getTaskCount(); j++) {
+                    result.add(curr.getTask(j));
+                }
+            }
+        }
+
+        return Collections.unmodifiableList(result);
+    }
+
+    private RibbonTask getNextRibbonTask() {
+        List<RibbonTask> all = getAllShownRibbonTasks();
+        int indexOfCurrent = all.indexOf(this.ribbon.getSelectedTask());
+        if (indexOfCurrent < 0) {
+            return null;
+        }
+        if (indexOfCurrent == (all.size() - 1)) {
+            return null;
+        }
+        return all.get(indexOfCurrent + 1);
+    }
+
+    private RibbonTask getPreviousRibbonTask() {
+        List<RibbonTask> all = getAllShownRibbonTasks();
+        int indexOfCurrent = all.indexOf(this.ribbon.getSelectedTask());
+        if (indexOfCurrent < 0) {
+            return null;
+        }
+        if (indexOfCurrent == 0) {
+            return null;
+        }
+        return all.get(indexOfCurrent - 1);
     }
 }

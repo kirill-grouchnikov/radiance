@@ -42,8 +42,9 @@ import javax.swing.border.Border;
 import javax.swing.event.*;
 import javax.swing.plaf.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import java.beans.*;
+import java.util.*;
 
 /**
  * Basic UI for command button {@link JCommandButton}.
@@ -75,12 +76,9 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     private ChangeListener actionPreviewChangeListener;
 
-    /**
-     * Client property to mark the command button to have square corners. This client property is
-     * for internal use only.
-     */
-    public static final String EMULATE_SQUARE_BUTTON =
-            "flamingo.internal.commandButton.ui.emulateSquare";
+    private FocusListener focusListener;
+
+    protected boolean isInnerFocusOnAction;
 
     /**
      * Client property to mark the command button to not dispose the popups on activation.
@@ -114,8 +112,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     /**
      * Creates a new UI delegate.
      */
-    public BasicCommandButtonUI() {
-        // this.toTakeSavedDimension = false;
+    protected BasicCommandButtonUI() {
     }
 
     @Override
@@ -155,6 +152,42 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                     .getFontSet().getControlFont());
         }
         this.syncIconDimension();
+
+        // Support for focus traversal inside command buttons that have action area
+        // and popup area
+        this.commandButton.getActionMap().put("innerFocusChange", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toggleInnerFocus();
+            }
+        });
+
+        KeyStroke tab = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0);
+        KeyStroke shiftTab = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, KeyEvent.SHIFT_DOWN_MASK);
+        KeyStroke ctrlTab = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, KeyEvent.CTRL_DOWN_MASK);
+        KeyStroke ctrlShiftTab = KeyStroke.getKeyStroke(KeyEvent.VK_TAB,
+                KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK);
+
+        // Only register TAB for forward traversal
+        Set<AWTKeyStroke> forwardFocusKeys = new HashSet<>();
+        forwardFocusKeys.add(tab);
+        this.commandButton.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS,
+                forwardFocusKeys);
+
+        // Only register SHIFT+TAB for forward traversal
+        Set<AWTKeyStroke> backwardFocusKeys = new HashSet<>();
+        backwardFocusKeys.add(shiftTab);
+        this.commandButton.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS,
+                backwardFocusKeys);
+
+        // Add CTRL+keys to the command button's input map. Since we only have at most two
+        // active areas (action and popup), there's no need for now to do anything different for
+        // CTRL+TAB vs CTRL+SHIFT+TAB
+        InputMap inputMap = this.commandButton.getInputMap(JComponent.WHEN_FOCUSED);
+        inputMap.put(ctrlTab, "innerFocusChange");
+        inputMap.put(ctrlShiftTab, "innerFocusChange");
+
+        this.syncInitialInnerFocus();
     }
 
     protected void updateBorder() {
@@ -381,6 +414,19 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             ((JCommandButton) this.commandButton).getPopupModel()
                     .addPopupActionListener(this.popupActionListener);
         }
+
+        this.focusListener = new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                commandButton.repaint();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                commandButton.repaint();
+            }
+        };
+        this.commandButton.addFocusListener(this.focusListener);
     }
 
     /**
@@ -456,6 +502,9 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             this.commandButton.getActionModel().removeChangeListener(
                     this.actionPreviewChangeListener);
         }
+
+        this.commandButton.removeFocusListener(this.focusListener);
+        this.focusListener = null;
     }
 
     /**
@@ -576,12 +625,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 : null;
         boolean isActionRollover = this.commandButton.getActionModel().isRollover();
         boolean isPopupRollover = (popupModel != null) && popupModel.isRollover();
-        // Rectangle actionArea = this.getActionClickArea();
-        // Rectangle popupArea = this.getPopupClickArea();
-        // boolean hasNonEmptyAreas = (actionArea.width * actionArea.height
-        // * popupArea.width * popupArea.height > 0);
-        return // hasNonEmptyAreas &&
-        (isActionRollover || isPopupRollover);
+        return isActionRollover || isPopupRollover;
     }
 
     /**
@@ -771,5 +815,62 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     @Override
     public Point getPopupKeyTipAnchorCenterPoint() {
         return this.layoutManager.getPopupKeyTipAnchorCenterPoint(this.commandButton);
+    }
+
+    private void syncInitialInnerFocus() {
+        if (!(this.commandButton instanceof JCommandButton)) {
+            this.isInnerFocusOnAction = true;
+            // Only JCommandButton can have two areas
+            return;
+        }
+
+        JCommandButton jcb = (JCommandButton) this.commandButton;
+        switch (jcb.getCommandButtonKind()) {
+            case ACTION_ONLY:
+                this.isInnerFocusOnAction = true;
+                break;
+            case POPUP_ONLY:
+                this.isInnerFocusOnAction = false;
+                break;
+            default:
+                this.isInnerFocusOnAction = jcb.getActionModel().isEnabled();
+        }
+    }
+
+    private void toggleInnerFocus() {
+        if (!(this.commandButton instanceof JCommandButton)) {
+            // Only JCommandButton can have two areas
+            return;
+        }
+
+        JCommandButton jcb = (JCommandButton) this.commandButton;
+        JCommandButton.CommandButtonKind commandButtonKind = jcb.getCommandButtonKind();
+        if ((commandButtonKind == JCommandButton.CommandButtonKind.ACTION_ONLY) ||
+                (commandButtonKind == JCommandButton.CommandButtonKind.POPUP_ONLY)) {
+            // Only one area
+            return;
+        }
+
+        if (!jcb.getActionModel().isEnabled() || !jcb.getPopupModel().isEnabled()) {
+            // Can transfer inner focus only if both areas are enabled
+            return;
+        }
+
+        this.isInnerFocusOnAction = !this.isInnerFocusOnAction;
+
+        this.commandButton.repaint();
+    }
+
+    @Override
+    public boolean isInnerFocusOnAction() {
+        return this.isInnerFocusOnAction;
+    }
+
+    @Override
+    public void setInnerFocusOnAction(boolean innerFocusOnAction) {
+        if (this.isInnerFocusOnAction != innerFocusOnAction) {
+            this.isInnerFocusOnAction = innerFocusOnAction;
+            this.commandButton.repaint();
+        }
     }
 }

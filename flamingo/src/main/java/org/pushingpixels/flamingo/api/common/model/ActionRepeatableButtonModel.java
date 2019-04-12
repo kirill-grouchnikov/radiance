@@ -111,6 +111,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
         }
 
         if (toFireFirstAction) {
+            this.commandButton.getUI().setInnerFocusOnAction(true);
             fireActionPerformed(new CommandActionEvent(this.commandButton,
                     ActionEvent.ACTION_PERFORMED,
                     this.commandButton.getProjection().getContentModel(), getActionCommand(),
@@ -159,6 +160,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
                     modifiers = ((ActionEvent) currentEvent).getModifiers();
                 }
 
+                this.commandButton.getUI().setInnerFocusOnAction(true);
                 fireActionPerformed(new CommandActionEvent(this.commandButton,
                         ActionEvent.ACTION_PERFORMED,
                         this.commandButton.getProjection().getContentModel(), getActionCommand(),

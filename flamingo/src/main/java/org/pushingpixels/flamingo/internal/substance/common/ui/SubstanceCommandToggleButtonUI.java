@@ -52,13 +52,14 @@ import javax.swing.border.Border;
 import javax.swing.plaf.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.beans.*;
 import java.util.Map;
 
 /**
  * UI for command buttons {@link JCommandToggleButton} in <b>Substance </b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
@@ -203,9 +204,10 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
 
     @Override
     protected boolean isPaintingBackground() {
-        if (super.isPaintingBackground())
+        if (super.isPaintingBackground()) {
             return true;
-        return (this.getActionTransitionTracker()
+        }
+        return this.commandButton.hasFocus() || (this.getActionTransitionTracker()
                 .getFacetStrength(ComponentStateFacet.ROLLOVER) > 0.0f);
     }
 
@@ -233,7 +235,8 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
         Color fgColor = this.getForegroundColor(modelStateInfo);
 
         if (layoutInfo.textLayoutInfoList != null) {
-            for (CommandButtonLayoutManager.TextLayoutInfo mainTextLayoutInfo : layoutInfo.textLayoutInfoList) {
+            for (CommandButtonLayoutManager.TextLayoutInfo mainTextLayoutInfo :
+                    layoutInfo.textLayoutInfoList) {
                 if (mainTextLayoutInfo.text != null) {
                     SubstanceTextUtilities.paintText(g2d, c, mainTextLayoutInfo.textRect,
                             mainTextLayoutInfo.text, -1, g2d.getFont(), fgColor,
@@ -258,7 +261,8 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
                 disabledFgColor = SubstanceColorUtilities.getInterpolatedColor(disabledFgColor,
                         SubstanceColorUtilities.getBackgroundFillColor(c), 0.5);
             }
-            for (CommandButtonLayoutManager.TextLayoutInfo extraTextLayoutInfo : layoutInfo.extraTextLayoutInfoList) {
+            for (CommandButtonLayoutManager.TextLayoutInfo extraTextLayoutInfo :
+                    layoutInfo.extraTextLayoutInfoList) {
                 if (extraTextLayoutInfo.text != null) {
                     SubstanceTextUtilities.paintText(g2d, c, extraTextLayoutInfo.textRect,
                             extraTextLayoutInfo.text, -1, g2d.getFont(), disabledFgColor,
@@ -270,6 +274,17 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
         if (layoutInfo.iconRect != null) {
             this.paintButtonIcon(g2d, layoutInfo.iconRect);
         }
+
+        float focusRingPadding = SubstanceSizeUtils.getFocusRingPadding(SubstanceSizeUtils
+                .getComponentFontSize(this.commandButton));
+        Rectangle actionClickArea = layoutInfo.actionClickArea;
+        Shape focusArea = new Rectangle2D.Float(
+                actionClickArea.x + focusRingPadding,
+                actionClickArea.y + focusRingPadding,
+                actionClickArea.width - 2 * focusRingPadding,
+                actionClickArea.height - 2 * focusRingPadding);
+        SubstanceCoreUtilities.paintFocus(g2d, this.commandButton, this.commandButton, this,
+                focusArea, layoutInfo.actionClickArea, 1.0f, 0);
 
         g2d.dispose();
     }
@@ -339,15 +354,16 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
 
         StateTransitionTracker.ModelStateInfo modelStateInfo = getActionTransitionTracker()
                 .getModelStateInfo();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = ignoreSelections
-                ? modelStateInfo.getStateNoSelectionContributionMap()
-                : modelStateInfo.getStateContributionMap();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                ignoreSelections
+                        ? modelStateInfo.getStateNoSelectionContributionMap()
+                        : modelStateInfo.getStateContributionMap();
 
         // Two special cases here:
-        // 1. Button has flat appearance.
+        // 1. Button has flat appearance and does not have focus
         // 2. Button is disabled.
         // For both cases, we need to set custom translucency.
-        boolean isFlat = this.commandButton.isFlat();
+        boolean isFlat = this.commandButton.isFlat() && !this.commandButton.hasFocus();
         boolean isSpecial = isFlat || !this.commandButton.isEnabled();
         float extraAlpha = 1.0f;
         if (isSpecial) {

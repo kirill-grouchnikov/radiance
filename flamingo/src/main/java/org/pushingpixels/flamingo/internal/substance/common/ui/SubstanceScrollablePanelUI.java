@@ -100,7 +100,6 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
 
         button.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        button.putClientProperty(BasicCommandButtonUI.EMULATE_SQUARE_BUTTON, Boolean.TRUE);
     }
 
     @Override
@@ -130,6 +129,5 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
 
         button.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        button.putClientProperty(BasicCommandButtonUI.EMULATE_SQUARE_BUTTON, Boolean.TRUE);
     }
 }

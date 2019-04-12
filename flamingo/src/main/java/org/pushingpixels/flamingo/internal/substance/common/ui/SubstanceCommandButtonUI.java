@@ -59,6 +59,7 @@ import javax.swing.border.Border;
 import javax.swing.plaf.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.beans.*;
 import java.util.Map;
@@ -238,33 +239,38 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                         popupModel, popupArea);
 
         // Two special cases here:
-        // 1. Button has flat appearance and doesn't show the popup
+        // 1. Button has flat appearance, doesn't have focus and doesn't show the popup
         // 2. Button is disabled.
         // For both cases, we need to set custom translucency.
         boolean isFlat = this.commandButton.isFlat()
+                && !this.commandButton.hasFocus()
                 && !((JCommandButton) this.commandButton).getPopupModel().isPopupShowing();
         boolean isSpecial = isFlat || !this.commandButton.isEnabled();
         float extraAlpha = 1.0f;
         if (isSpecial) {
             if (isFlat) {
                 float extraActionAlpha = 0.0f;
-                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : getActionTransitionTracker()
-                        .getModelStateInfo().getStateContributionMap().entrySet()) {
+                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                        getActionTransitionTracker().getModelStateInfo().getStateContributionMap().entrySet()) {
                     ComponentState activeState = activeEntry.getKey();
-                    if (activeState.isDisabled())
+                    if (activeState.isDisabled()) {
                         continue;
-                    if (activeState == ComponentState.ENABLED)
+                    }
+                    if (activeState == ComponentState.ENABLED) {
                         continue;
+                    }
                     extraActionAlpha += activeEntry.getValue().getContribution();
                 }
                 float extraPopupAlpha = 0.0f;
-                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : getPopupTransitionTracker()
-                        .getModelStateInfo().getStateContributionMap().entrySet()) {
+                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                        getPopupTransitionTracker().getModelStateInfo().getStateContributionMap().entrySet()) {
                     ComponentState activeState = activeEntry.getKey();
-                    if (activeState.isDisabled())
+                    if (activeState.isDisabled()) {
                         continue;
-                    if (activeState == ComponentState.ENABLED)
+                    }
+                    if (activeState == ComponentState.ENABLED) {
                         continue;
+                    }
                     extraPopupAlpha += activeEntry.getValue().getContribution();
                 }
                 extraAlpha = Math.max(extraActionAlpha, extraPopupAlpha);
@@ -356,19 +362,21 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
 
     @Override
     protected boolean isPaintingBackground() {
-        if (super.isPaintingBackground())
+        if (super.isPaintingBackground()) {
             return true;
-        return (this.overallStateTransitionTracker
+        }
+        return this.commandButton.hasFocus() || (this.overallStateTransitionTracker
                 .getFacetStrength(ComponentStateFacet.ROLLOVER) > 0.0f);
     }
 
     @Override
     protected boolean isPaintingSeparators() {
-        if (super.isPaintingSeparators())
+        if (super.isPaintingSeparators()) {
             return true;
+        }
         boolean hasIcon = (this.commandButton.getIcon() != null);
-        return hasIcon && (this.overallStateTransitionTracker
-                .getFacetStrength(ComponentStateFacet.ROLLOVER) > 0.0f);
+        return this.commandButton.hasFocus() || (hasIcon && (this.overallStateTransitionTracker
+                .getFacetStrength(ComponentStateFacet.ROLLOVER) > 0.0f));
     }
 
     @Override
@@ -381,7 +389,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                 (SubstanceColorScheme scheme, int width, int height) -> {
                     CommandButtonPresentationModel.PopupOrientationKind orientation =
                             ((JCommandButton) commandButton)
-                            .getPopupOrientationKind();
+                                    .getPopupOrientationKind();
                     int direction =
                             (orientation == CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD)
                                     ? SwingConstants.SOUTH
@@ -481,6 +489,18 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                 this.paintButtonVerticalSeparator(g2d, layoutInfo.separatorArea);
             }
         }
+
+        float focusRingPadding = SubstanceSizeUtils.getFocusRingPadding(SubstanceSizeUtils
+                .getComponentFontSize(this.commandButton));
+        Rectangle innerFocusArea = this.isInnerFocusOnAction ? layoutInfo.actionClickArea
+                : layoutInfo.popupClickArea;
+        Shape insetFocusArea = new Rectangle2D.Float(
+                innerFocusArea.x + focusRingPadding,
+                innerFocusArea.y + focusRingPadding,
+                innerFocusArea.width - 2 * focusRingPadding,
+                innerFocusArea.height - 2 * focusRingPadding);
+        SubstanceCoreUtilities.paintFocus(g2d, this.commandButton, this.commandButton, this,
+                insetFocusArea, innerFocusArea, 1.0f, 0);
 
         // g2d.setColor(Color.red);
         // g2d.draw(layoutInfo.iconRect);

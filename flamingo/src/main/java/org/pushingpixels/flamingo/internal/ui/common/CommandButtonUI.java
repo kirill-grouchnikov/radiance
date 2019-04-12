@@ -52,4 +52,8 @@ public abstract class CommandButtonUI extends ButtonUI {
 	public abstract Point getActionKeyTipAnchorCenterPoint();
 
 	public abstract Point getPopupKeyTipAnchorCenterPoint();
+
+	public abstract boolean isInnerFocusOnAction();
+
+	public abstract void setInnerFocusOnAction(boolean isInnerFocusOnAction);
 }
