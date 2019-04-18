@@ -39,4 +39,10 @@ import javax.swing.plaf.PanelUI;
  * @author Kirill Grouchnikov
  */
 public abstract class PopupPanelUI extends PanelUI {
+    public abstract void focusFirst();
+    public abstract void focusLast();
+    public abstract void focusUp();
+    public abstract void focusDown();
+    public abstract void focusRight();
+    public abstract void focusLeft();
 }

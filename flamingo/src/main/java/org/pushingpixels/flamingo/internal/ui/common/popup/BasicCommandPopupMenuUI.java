@@ -54,7 +54,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
     private ScrollableCommandButtonPanel commandButtonPanel;
 
-    private JScrollablePanel<JPanel> menuItemsPanel;
+    protected JScrollablePanel<JPanel> menuItemsPanel;
 
     public static final String FORCE_ICON = "flamingo.internal.commandPopupMenu.forceIcon";
 
@@ -537,5 +537,144 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
         }
 
         protected abstract void paintIconGutterBackground(Graphics g);
+    }
+
+    private void focusAndScrollToMenuItem(Component popupMenuComponent) {
+        popupMenuComponent.requestFocus();
+        this.menuItemsPanel.scrollToIfNecessary(popupMenuComponent.getY(),
+                popupMenuComponent.getHeight());
+    }
+
+    @Override
+    public void focusFirst() {
+        if (this.commandButtonPanel != null) {
+            if (this.commandButtonPanel.buttonPanel.getUI().focusFirst()) {
+                return;
+            }
+        }
+
+        java.util.List<Component> popupMenuComponents = this.popupMenu.getMenuComponents();
+        if (!popupMenuComponents.isEmpty()) {
+            focusAndScrollToMenuItem(popupMenuComponents.get(0));
+        }
+    }
+
+    @Override
+    public void focusLast() {
+        java.util.List<Component> popupMenuComponents = this.popupMenu.getMenuComponents();
+        if (!popupMenuComponents.isEmpty()) {
+            focusAndScrollToMenuItem(popupMenuComponents.get(popupMenuComponents.size() - 1));
+        }
+    }
+
+    private int getFocusedIndex(java.util.List<Component> components) {
+        if (components != null) {
+            for (int i = 0; i < components.size(); i++) {
+                if (components.get(i).hasFocus()) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    private Component findFirstFocusableAfter(java.util.List<Component> components, int index) {
+        if (components == null) {
+            return null;
+        }
+        if (index == -1) {
+            return null;
+        }
+        for (int i = index + 1; i < components.size(); i++) {
+            if (components.get(i).isFocusable()) {
+                return components.get(i);
+            }
+        }
+        return null;
+    }
+
+    private Component findLastFocusableBefore(java.util.List<Component> components, int index) {
+        if (components == null) {
+            return null;
+        }
+        if (index == -1) {
+            return null;
+        }
+        for (int i = index - 1; i >= 0; i--) {
+            if (components.get(i).isFocusable()) {
+                return components.get(i);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void focusDown() {
+        if (this.commandButtonPanel != null) {
+            if (this.commandButtonPanel.buttonPanel.getUI().focusDown()) {
+                return;
+            }
+        }
+
+        java.util.List<Component> popupMenuComponents = this.popupMenu.getMenuComponents();
+        int focusedIndex = getFocusedIndex(popupMenuComponents);
+        if (focusedIndex < 0) {
+            if (this.commandButtonPanel != null) {
+                if (!this.commandButtonPanel.buttonPanel.getUI().hasFocus() &&
+                        this.commandButtonPanel.buttonPanel.getUI().focusFirst()) {
+                    return;
+                }
+            }
+
+            if (!popupMenuComponents.isEmpty()) {
+                focusAndScrollToMenuItem(popupMenuComponents.get(0));
+            }
+        } else {
+            Component nextFocus = findFirstFocusableAfter(popupMenuComponents, focusedIndex);
+            if (nextFocus != null) {
+                focusAndScrollToMenuItem(nextFocus);
+            } else {
+                if (this.commandButtonPanel != null) {
+                    this.commandButtonPanel.buttonPanel.getUI().focusFirst();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void focusUp() {
+        if (this.commandButtonPanel != null) {
+            if (this.commandButtonPanel.buttonPanel.getUI().focusUp()) {
+                return;
+            }
+        }
+        java.util.List<Component> popupMenuComponents = this.popupMenu.getMenuComponents();
+        int focusedIndex = getFocusedIndex(popupMenuComponents);
+        if (focusedIndex < 0) {
+            this.focusLast();
+        } else {
+            Component prevFocus = findLastFocusableBefore(popupMenuComponents, focusedIndex);
+            if (prevFocus != null) {
+                focusAndScrollToMenuItem(prevFocus);
+            } else {
+                if (this.commandButtonPanel != null) {
+                    this.commandButtonPanel.buttonPanel.getUI().focusLast();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void focusRight() {
+        if (this.commandButtonPanel != null) {
+            this.commandButtonPanel.buttonPanel.getUI().focusRight();
+        }
+    }
+
+    @Override
+    public void focusLeft() {
+        if (this.commandButtonPanel != null) {
+            this.commandButtonPanel.buttonPanel.getUI().focusLeft();
+        }
     }
 }

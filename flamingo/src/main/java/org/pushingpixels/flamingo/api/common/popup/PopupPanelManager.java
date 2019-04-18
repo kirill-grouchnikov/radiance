@@ -207,8 +207,7 @@ public class PopupPanelManager {
         shownPath.addLast(new PopupInfo(popupOriginator, popupInitiator));
         popup.show();
         if (popupOriginator instanceof JCommandButton) {
-            ((JCommandButton) popupOriginator).getPopupModel().setPopupShowing(
-                    true);
+            ((JCommandButton) popupOriginator).getPopupModel().setPopupShowing(true);
         }
         this.firePopupShown(popupInitiator, popupOriginator);
     }
@@ -217,15 +216,15 @@ public class PopupPanelManager {
      * Hides the last shown popup panel.
      */
     public void hideLastPopup() {
-        if (shownPath.size() == 0)
+        if (shownPath.size() == 0) {
             return;
+        }
         PopupInfo last = shownPath.removeLast();
         Popup popup = popupPanels.get(last.popupPanel);
         popup.hide();
         popupPanels.remove(last.popupPanel);
         if (last.popupOriginator instanceof JCommandButton) {
-            ((JCommandButton) last.popupOriginator).getPopupModel()
-                    .setPopupShowing(false);
+            ((JCommandButton) last.popupOriginator).getPopupModel().setPopupShowing(false);
         }
 
         // KeyTipManager.defaultManager().showChainBefore(last.popupPanel);
@@ -273,8 +272,10 @@ public class PopupPanelManager {
             }
         }
         if (!foundAndDismissed || (comp == null)) {
+            Component lastOriginator = null;
             while (shownPath.size() > 0) {
                 PopupInfo last = shownPath.removeLast();
+                lastOriginator = last.popupOriginator;
                 Popup popup = popupPanels.get(last.popupPanel);
                 popup.hide();
                 if (last.popupOriginator instanceof JCommandButton) {
@@ -284,6 +285,9 @@ public class PopupPanelManager {
                 last.popupPanel.setInvoker(null);
                 this.firePopupHidden(last.popupPanel, last.popupOriginator);
                 popupPanels.remove(last.popupPanel);
+            }
+            if ((lastOriginator != null) && lastOriginator.isFocusable()) {
+                lastOriginator.requestFocus();
             }
         }
     }

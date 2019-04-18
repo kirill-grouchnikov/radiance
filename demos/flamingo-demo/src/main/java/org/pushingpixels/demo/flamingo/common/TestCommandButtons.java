@@ -127,23 +127,28 @@ public class TestCommandButtons extends JFrame {
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "1" }))
                 .setIconFactory(Address_book_new.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Popup action 1"))
                 .build());
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "2" }))
                 .setIconFactory(EmptyResizableIcon.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Popup action 2"))
                 .build());
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "3" }))
                 .setIconFactory(EmptyResizableIcon.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Popup action 3"))
                 .build());
 
         simpleEntries2.add(Command.builder()
                 .setText(mf.format(new Object[] { "4" }))
                 .setIconFactory(EmptyResizableIcon.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Popup action 4"))
                 .build());
         simpleEntries2.add(Command.builder()
                 .setText(mf.format(new Object[] { "5" }))
                 .setIconFactory(Text_x_generic.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Popup action 5"))
                 .build());
 
         return new CommandMenuContentModel(

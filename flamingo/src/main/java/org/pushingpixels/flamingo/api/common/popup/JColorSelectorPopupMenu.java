@@ -53,9 +53,6 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
     private ColorSelectorPopupMenuContentModel contentModel;
     private ColorSelectorPopupMenuPresentationModel presentationModel;
 
-    private ColorSelectorPopupMenuContentModel.ColorPreviewListener colorPreviewListener;
-    private ColorSelectorPopupMenuContentModel.ColorActivationListener colorActivationListener;
-
     private int colorColumns;
     private JColorSelectorPanel lastColorSelectorPanel;
 
@@ -66,8 +63,6 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
         this.projection = projection;
         this.contentModel = projection.getContentModel();
         this.presentationModel = projection.getPresentationModel();
-        this.colorPreviewListener = this.contentModel.getColorPreviewListener();
-        this.colorActivationListener = this.contentModel.getColorActivationListener();
         this.colorColumns = this.presentationModel.getColorColumns();
 
         this.populateContent();
@@ -146,7 +141,7 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
             throw new IllegalArgumentException("Must pass exactly " + this.colorColumns +
                     " colors");
         }
-        JPanel selectorContainer = new MultiRowSelector(this, primaryColors);
+        JPanel selectorContainer = new ColorSelectorPopupMenuMultiRowSelector(this, primaryColors);
         JColorSelectorPanel selector = new JColorSelectorPanel(label, selectorContainer);
         this.addMenuPanel(selector);
 
@@ -158,14 +153,15 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
             throw new IllegalArgumentException("Must pass exactly " + this.colorColumns +
                     " colors");
         }
-        JPanel selectorContainer = new SingleRowSelector(this, primaryColors);
+        JPanel selectorContainer = new ColorSelectorPopupMenuSingleRowSelector(this, primaryColors);
         JColorSelectorPanel selector = new JColorSelectorPanel(label, selectorContainer);
         this.addMenuPanel(selector);
         this.lastColorSelectorPanel = selector;
     }
 
     private void addRecentSection(String label) {
-        JPanel recent = new SingleRowSelector(this, recentlySelected.toArray(new Color[0]));
+        JPanel recent = new ColorSelectorPopupMenuSingleRowSelector(
+                this, recentlySelected.toArray(new Color[0]));
         JColorSelectorPanel recentPanel = new JColorSelectorPanel(label, recent);
         recentPanel.setLastPanel(true);
         this.addMenuPanel(recentPanel);
@@ -197,10 +193,6 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
         }
     }
 
-    private static void wireToLRU(JColorSelectorComponent colorSelector) {
-        colorSelector.addColorActivationListener((Color color) -> addColorToRecentlyUsed(color));
-    }
-
     public synchronized static List<Color> getRecentlyUsedColors() {
         return Collections.unmodifiableList(recentlySelected);
     }
@@ -221,170 +213,4 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
         recentlySelected.addLast(color);
     }
 
-    private class SingleRowSelector extends JPanel {
-        private SingleRowSelector(final JColorSelectorPopupMenu colorSelectorPopupMenu,
-                final Color... colors) {
-            final JColorSelectorComponent[] comps = new JColorSelectorComponent[colors.length];
-            for (int i = 0; i < colors.length; i++) {
-                comps[i] = new JColorSelectorComponent(colors[i], colorPreviewListener,
-                        colorActivationListener);
-                wireToLRU(comps[i]);
-                this.add(comps[i]);
-            }
-
-            this.setLayout(new LayoutManager() {
-                @Override
-                public void addLayoutComponent(String name, Component comp) {
-                }
-
-                @Override
-                public void removeLayoutComponent(Component comp) {
-                }
-
-                @Override
-                public Dimension minimumLayoutSize(Container parent) {
-                    return new Dimension(10, 10);
-                }
-
-                @Override
-                public Dimension preferredLayoutSize(Container parent) {
-                    BasicColorSelectorPopupMenuUI ui =
-                            (BasicColorSelectorPopupMenuUI) colorSelectorPopupMenu.getUI();
-                    int gap = ui.getColorSelectorCellGap();
-                    int size = ui.getColorSelectorCellSize();
-                    return new Dimension(colors.length * size
-                            + (colors.length + 1) * gap, size + 2 * gap);
-                }
-
-                @Override
-                public void layoutContainer(Container parent) {
-                    BasicColorSelectorPopupMenuUI ui =
-                            (BasicColorSelectorPopupMenuUI) colorSelectorPopupMenu.getUI();
-                    int gap = ui.getColorSelectorCellGap();
-                    int size = ui.getColorSelectorCellSize();
-
-                    if (parent.getComponentOrientation().isLeftToRight()) {
-                        int x = gap;
-                        int y = gap;
-                        for (int i = 0; i < colors.length; i++) {
-                            comps[i].setBounds(x, y, size, size);
-                            x += (size + gap);
-                        }
-                    } else {
-                        int x = getWidth() - gap;
-                        int y = gap;
-                        for (int i = 0; i < colors.length; i++) {
-                            comps[i].setBounds(x - size, y, size, size);
-                            x -= (size + gap);
-                        }
-                    }
-                }
-            });
-        }
-    }
-
-    private class MultiRowSelector extends JPanel {
-        private static final int SECONDARY_ROWS = 5;
-
-        private MultiRowSelector(final JColorSelectorPopupMenu colorSelectorPopupMenu,
-                final Color... colors) {
-            final JColorSelectorComponent[][] comps =
-                    new JColorSelectorComponent[colors.length][1 + SECONDARY_ROWS];
-            for (int i = 0; i < colors.length; i++) {
-                Color primary = colors[i];
-
-                comps[i][0] = new JColorSelectorComponent(primary, colorPreviewListener,
-                        colorActivationListener);
-                wireToLRU(comps[i][0]);
-                this.add(comps[i][0]);
-
-                float[] primaryHsb = new float[3];
-                Color.RGBtoHSB(primary.getRed(), primary.getGreen(), primary.getBlue(), primaryHsb);
-
-                for (int row = 1; row <= SECONDARY_ROWS; row++) {
-                    float bFactor = (float) (row - 1) / (float) (SECONDARY_ROWS);
-                    bFactor = (float) Math.pow(bFactor, 1.4f);
-                    float brightness = 1.0f - bFactor;
-
-                    if (primaryHsb[1] == 0.0f) {
-                        // special handling for gray scale
-                        float max = 0.5f + 0.5f * primaryHsb[2];
-                        brightness = max * (SECONDARY_ROWS - row + 1) / SECONDARY_ROWS;
-                    }
-
-                    Color secondary = new Color(Color.HSBtoRGB(primaryHsb[0],
-                            primaryHsb[1] * (row + 1) / (SECONDARY_ROWS + 1), brightness));
-
-                    comps[i][row] = new JColorSelectorComponent(secondary, colorPreviewListener,
-                            colorActivationListener);
-                    comps[i][row].setTopOpen(row > 1);
-                    comps[i][row].setBottomOpen(row < SECONDARY_ROWS);
-                    wireToLRU(comps[i][row]);
-                    this.add(comps[i][row]);
-                }
-            }
-
-            this.setLayout(new LayoutManager() {
-                @Override
-                public void addLayoutComponent(String name, Component comp) {
-                }
-
-                @Override
-                public void removeLayoutComponent(Component comp) {
-                }
-
-                @Override
-                public Dimension minimumLayoutSize(Container parent) {
-                    return new Dimension(10, 10);
-                }
-
-                @Override
-                public Dimension preferredLayoutSize(Container parent) {
-                    BasicColorSelectorPopupMenuUI ui =
-                            (BasicColorSelectorPopupMenuUI) colorSelectorPopupMenu.getUI();
-                    int gap = ui.getColorSelectorCellGap();
-                    int size = ui.getColorSelectorCellSize();
-                    return new Dimension(colors.length * size + (colors.length + 1) * gap,
-                            gap + size + gap + SECONDARY_ROWS * size + gap);
-                }
-
-                @Override
-                public void layoutContainer(Container parent) {
-                    BasicColorSelectorPopupMenuUI ui =
-                            (BasicColorSelectorPopupMenuUI) colorSelectorPopupMenu.getUI();
-                    int gap = ui.getColorSelectorCellGap();
-                    int size = ui.getColorSelectorCellSize();
-
-                    if (parent.getComponentOrientation().isLeftToRight()) {
-                        int y = gap;
-                        for (int row = 0; row <= SECONDARY_ROWS; row++) {
-                            int x = gap;
-                            for (int i = 0; i < colors.length; i++) {
-                                comps[i][row].setBounds(x, y, size, size);
-                                x += (size + gap);
-                            }
-                            y += size;
-                            if (row == 0) {
-                                y += gap;
-                            }
-                        }
-                    } else {
-                        int y = gap;
-
-                        for (int row = 0; row <= SECONDARY_ROWS; row++) {
-                            int x = getWidth() - gap;
-                            for (int i = 0; i < colors.length; i++) {
-                                comps[i][row].setBounds(x - size, y, size, size);
-                                x -= (size + gap);
-                            }
-                            y += size;
-                            if (row == 0) {
-                                y += gap;
-                            }
-                        }
-                    }
-                }
-            });
-        }
-    }
 }

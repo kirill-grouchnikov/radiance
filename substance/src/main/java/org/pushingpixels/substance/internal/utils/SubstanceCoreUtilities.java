@@ -57,6 +57,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.*;
+import java.util.List;
 
 /**
  * Various utility functions. This class is <b>for internal use only</b>.
@@ -2027,5 +2028,19 @@ public class SubstanceCoreUtilities {
             c = c.getParent();
         }
         return topMostWithSameDecorationAreaType;
+    }
+
+    private static List<AWTEventListener> awtEventListeners = new ArrayList<>();
+
+    public static void registerAWTEventListener(AWTEventListener awtEventListener) {
+        awtEventListeners.add(awtEventListener);
+    }
+
+    public static void unregisterAWTEventListener(AWTEventListener awtEventListener) {
+        awtEventListeners.remove(awtEventListener);
+    }
+
+    public static List<AWTEventListener> getAwtEventListeners() {
+        return awtEventListeners;
     }
 }

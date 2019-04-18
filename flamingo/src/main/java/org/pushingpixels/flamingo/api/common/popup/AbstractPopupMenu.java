@@ -70,7 +70,9 @@ public abstract class AbstractPopupMenu extends JPopupPanel implements Scrollabl
     }
 
     void addMenuSeparator() {
-        this.menuComponents.add(new Separator());
+        Separator separator = new Separator();
+        separator.setFocusable(false);
+        this.menuComponents.add(separator);
         this.fireStateChanged();
     }
 

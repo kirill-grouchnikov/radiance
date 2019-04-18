@@ -33,8 +33,9 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.swing.Swing
+import org.pushingpixels.torch.TorchComponent
+import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.trident.Timeline
-import org.pushingpixels.trident.swing.SwingComponentTimeline
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.FlowLayout
@@ -94,10 +95,10 @@ fun main() {
         }
 
         button.foreground = Color.blue
-        SwingComponentTimeline.builder(button)
-                .addPropertyToInterpolate("foreground", Color.blue, Color.red)
-                .setDuration(1000)
-                .playLoop(Timeline.RepeatBehavior.REVERSE)
+        button.componentTimeline {
+            property(TorchComponent.foreground from Color.blue to Color.red)
+            duration = 1000
+        }.playLoop(Timeline.RepeatBehavior.REVERSE)
 
         frame.size = Dimension(600, 400)
         frame.setLocationRelativeTo(null)

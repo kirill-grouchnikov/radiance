@@ -37,7 +37,7 @@ public final class SubstanceInputMap {
 	private Map<String, String> mapping;
 
 	public SubstanceInputMap() {
-		this.mapping = new TreeMap<String, String>();
+		this.mapping = new TreeMap<>();
 	}
 
 	public void put(String keyStroke, String actionName) {

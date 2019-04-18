@@ -13,7 +13,7 @@ You can also build Substance locally:
 * [Build Radiance locally](../building.md) with Gradle.
 * Copy the binaries from `drop/X.Y.ZZ/core`. Specifically, add *radiance-substance-X.Y.ZZ.jar*, *radiance-trident-X.Y.ZZ.jar* and *radiance-neon-X.Y.ZZ.jar* to the place that has your local dependencies.
 
-For earlier versions of Substance, see [this page](../../drop/archive/older-releases.md) for the list of binaries to take for the specific pre-Radiance versions.
+For earlier versions of Substance, see [this page](../../archive/older-releases.md) for the list of binaries to take for the specific pre-Radiance versions.
 
 ### Using Substance
 

@@ -29,7 +29,8 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonListener;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
@@ -50,29 +51,36 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
 
     protected ButtonModel buttonModel;
 
-    protected MouseListener mouseListener;
+    private MouseListener mouseListener;
 
-    protected ChangeListener modelChangeListener;
+    private ChangeListener modelChangeListener;
 
-    protected ActionListener actionListener;
+    private ActionListener actionListener;
 
-    protected Timeline rolloverTimeline;
+    private Timeline rolloverTimeline;
 
     protected float rollover;
+
+    private FocusListener focusListener;
+
+    protected BasicColorSelectorComponentUI() {
+        this.buttonModel = new DefaultButtonModel();
+    }
 
     @Override
     public void installUI(JComponent c) {
         this.colorSelectorComponent = (JColorSelectorComponent) c;
-        this.buttonModel = new DefaultButtonModel();
 
         installDefaults();
         installComponents();
+        installKeyboardActions();
         installListeners();
     }
 
     @Override
     public void uninstallUI(JComponent c) {
         uninstallListeners();
+        uninstallKeyboardActions();
         uninstallComponents();
         uninstallDefaults();
 
@@ -129,6 +137,22 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
             PopupPanelManager.defaultManager().hidePopups(null);
         };
         this.buttonModel.addActionListener(this.actionListener);
+
+        this.focusListener = new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                colorSelectorComponent.onColorPreviewActivated(
+                        colorSelectorComponent.getColor());
+                colorSelectorComponent.repaint();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                colorSelectorComponent.onColorPreviewCanceled();
+                colorSelectorComponent.repaint();
+            }
+        };
+        this.colorSelectorComponent.addFocusListener(this.focusListener);
     }
 
     /**
@@ -143,6 +167,9 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
 
         this.colorSelectorComponent.removeMouseListener(this.mouseListener);
         this.mouseListener = null;
+
+        this.colorSelectorComponent.removeFocusListener(this.focusListener);
+        this.focusListener = null;
     }
 
     /**
@@ -174,6 +201,184 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
     protected void uninstallComponents() {
     }
 
+    private void installKeyboardActions() {
+        ActionMap actionMap = new ActionMap();
+        actionMap.put(PressAction.PRESS, new PressAction(this.colorSelectorComponent));
+        actionMap.put(ReleaseAction.RELEASE, new ReleaseAction(this.colorSelectorComponent));
+        actionMap.put(PopupDismissAction.DISMISS,
+                new PopupDismissAction(this.colorSelectorComponent));
+        actionMap.put(FocusUpAction.FOCUS_UP, new FocusUpAction(this.colorSelectorComponent));
+        actionMap.put(FocusDownAction.FOCUS_DOWN, new FocusDownAction(this.colorSelectorComponent));
+        actionMap.put(FocusRightAction.FOCUS_RIGHT,
+                new FocusRightAction(this.colorSelectorComponent));
+        actionMap.put(FocusLeftAction.FOCUS_LEFT, new FocusLeftAction(this.colorSelectorComponent));
+        SwingUtilities.replaceUIActionMap(this.colorSelectorComponent, actionMap);
+
+        InputMap focusedInputMap = LookAndFeel.makeInputMap(new Object[] {
+                "SPACE", PressAction.PRESS,
+                "released SPACE", ReleaseAction.RELEASE,
+                "ENTER", PressAction.PRESS,
+                "released ENTER", ReleaseAction.RELEASE,
+                "ESCAPE", PopupDismissAction.DISMISS,
+                "DOWN", FocusDownAction.FOCUS_DOWN,
+                "KP_DOWN", FocusDownAction.FOCUS_DOWN,
+                "UP", FocusUpAction.FOCUS_UP,
+                "KP_UP", FocusUpAction.FOCUS_UP,
+                "LEFT", FocusLeftAction.FOCUS_LEFT,
+                "KP_LEFT", FocusLeftAction.FOCUS_LEFT,
+                "RIGHT", FocusRightAction.FOCUS_RIGHT,
+                "KP_RIGHT", FocusRightAction.FOCUS_RIGHT,
+        });
+        SwingUtilities.replaceUIInputMap(this.colorSelectorComponent, JComponent.WHEN_FOCUSED,
+                focusedInputMap);
+    }
+
+    private void uninstallKeyboardActions() {
+        SwingUtilities.replaceUIInputMap(this.colorSelectorComponent, JComponent.WHEN_FOCUSED,
+                null);
+        SwingUtilities.replaceUIActionMap(this.colorSelectorComponent, null);
+    }
+
+    private abstract class ColorSelectorComponentAction extends AbstractAction {
+        protected final JColorSelectorComponent colorSelectorComponent;
+
+        ColorSelectorComponentAction(String actionName,
+                JColorSelectorComponent colorSelectorComponent) {
+            super(actionName);
+            this.colorSelectorComponent = colorSelectorComponent;
+        }
+    }
+
+    private class PressAction extends ColorSelectorComponentAction {
+        private static final String PRESS = "press";
+
+        PressAction(JColorSelectorComponent colorSelectorComponent) {
+            super(PRESS, colorSelectorComponent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            buttonModel.setArmed(true);
+            buttonModel.setPressed(true);
+            if (!this.colorSelectorComponent.hasFocus()) {
+                this.colorSelectorComponent.requestFocus();
+            }
+        }
+    }
+
+    private class ReleaseAction extends ColorSelectorComponentAction {
+        private static final String RELEASE = "release";
+
+        ReleaseAction(JColorSelectorComponent colorSelectorComponent) {
+            super(RELEASE, colorSelectorComponent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            buttonModel.setPressed(false);
+            buttonModel.setArmed(false);
+        }
+    }
+
+    private class PopupDismissAction extends ColorSelectorComponentAction {
+        private static final String DISMISS = "popupDismiss";
+
+        PopupDismissAction(JColorSelectorComponent colorSelectorComponent) {
+            super(DISMISS, colorSelectorComponent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            PopupPanelManager.defaultManager().hidePopups(null);
+        }
+    }
+
+    private abstract class FocusTraversalAction extends ColorSelectorComponentAction {
+        FocusTraversalAction(String actionName, JColorSelectorComponent colorSelectorComponent) {
+            super(actionName, colorSelectorComponent);
+        }
+
+        protected JPopupPanel getPopup() {
+            JPopupPanel popupPanel = (JPopupPanel) SwingUtilities.getAncestorOfClass(
+                    JPopupPanel.class, this.colorSelectorComponent);
+            if (popupPanel != null) {
+                return popupPanel;
+            }
+
+            PopupPanelManager popupPanelManager = PopupPanelManager.defaultManager();
+            for (PopupPanelManager.PopupInfo popupInfo : popupPanelManager.getShownPath()) {
+                if (popupInfo.getPopupOriginator() == this.colorSelectorComponent) {
+                    return popupInfo.getPopupPanel();
+                }
+            }
+            return null;
+        }
+    }
+
+    private class FocusUpAction extends FocusTraversalAction {
+        private static final String FOCUS_UP = "focusUp";
+
+        FocusUpAction(JColorSelectorComponent colorSelectorComponent) {
+            super(FOCUS_UP, colorSelectorComponent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JPopupPanel popupPanel = getPopup();
+            if (popupPanel != null) {
+                popupPanel.getUI().focusUp();
+            }
+        }
+    }
+
+    private class FocusDownAction extends FocusTraversalAction {
+        private static final String FOCUS_DOWN = "focusDown";
+
+        FocusDownAction(JColorSelectorComponent colorSelectorComponent) {
+            super(FOCUS_DOWN, colorSelectorComponent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JPopupPanel popupPanel = getPopup();
+            if (popupPanel != null) {
+                popupPanel.getUI().focusDown();
+            }
+        }
+    }
+
+    private class FocusRightAction extends FocusTraversalAction {
+        private static final String FOCUS_RIGHT = "focusRight";
+
+        FocusRightAction(JColorSelectorComponent colorSelectorComponent) {
+            super(FOCUS_RIGHT, colorSelectorComponent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JPopupPanel popupPanel = getPopup();
+            if (popupPanel != null) {
+                popupPanel.getUI().focusRight();
+            }
+        }
+    }
+
+    private class FocusLeftAction extends FocusTraversalAction {
+        private static final String FOCUS_LEFT = "focusLeft";
+
+        FocusLeftAction(JColorSelectorComponent colorSelectorComponent) {
+            super(FOCUS_LEFT, colorSelectorComponent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JPopupPanel popupPanel = getPopup();
+            if (popupPanel != null) {
+                popupPanel.getUI().focusLeft();
+            }
+        }
+    }
+
     public void setRollover(float rollover) {
         this.rollover = rollover;
     }
@@ -202,11 +407,17 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
                 new Rectangle2D.Double(0, -ty, w - borderThickness, h - borderThickness + ty + by));
 
         if (this.rollover > 0.0f) {
-            paintRolloverIndication(g2d);
+            this.paintRolloverIndication(g2d);
+        }
+
+        if (this.colorSelectorComponent.hasFocus()) {
+            this.paintFocus(g2d);
         }
 
         g2d.dispose();
     }
 
     protected abstract void paintRolloverIndication(Graphics g);
+
+    protected abstract void paintFocus(Graphics g);
 }

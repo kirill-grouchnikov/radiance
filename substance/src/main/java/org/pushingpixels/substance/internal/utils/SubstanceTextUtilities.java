@@ -116,6 +116,38 @@ public class SubstanceTextUtilities {
         graphics.dispose();
     }
 
+    public static void paintTextWithDropShadowSimple(JComponent c, Graphics g, Color foregroundColor,
+            Color echoColor, String text, int width, int height, int xOffset, int yOffset) {
+        Graphics2D graphics = (Graphics2D) g.create();
+        NeonCortex.installDesktopHints(graphics, c.getFont());
+
+        FontMetrics fm = graphics.getFontMetrics();
+        graphics.setComposite(WidgetUtilities.getAlphaComposite(c, 0.6f, g));
+        SubstanceTextUtilities.paintText(graphics, c,
+                new Rectangle(xOffset - 1, yOffset - fm.getAscent(), width - xOffset,
+                        fm.getHeight()),
+                text, -1, graphics.getFont(), echoColor, graphics.getClipBounds());
+        SubstanceTextUtilities.paintText(graphics, c,
+                new Rectangle(xOffset + 1, yOffset - fm.getAscent(), width - xOffset,
+                        fm.getHeight()),
+                text, -1, graphics.getFont(), echoColor, graphics.getClipBounds());
+        SubstanceTextUtilities.paintText(graphics, c,
+                new Rectangle(xOffset, yOffset - fm.getAscent() - 1, width - xOffset,
+                        fm.getHeight()),
+                text, -1, graphics.getFont(), echoColor, graphics.getClipBounds());
+        SubstanceTextUtilities.paintText(graphics, c,
+                new Rectangle(xOffset, yOffset - fm.getAscent() + 1, width - xOffset,
+                        fm.getHeight()),
+                text, -1, graphics.getFont(), echoColor, graphics.getClipBounds());
+
+        graphics.setComposite(WidgetUtilities.getAlphaComposite(c, g));
+        SubstanceTextUtilities.paintText(graphics, c,
+                new Rectangle(xOffset, yOffset - fm.getAscent(), width - xOffset, fm.getHeight()),
+                text, -1, graphics.getFont(), foregroundColor, graphics.getClipBounds());
+
+        graphics.dispose();
+    }
+
     /**
      * Paints the specified text.
      * 

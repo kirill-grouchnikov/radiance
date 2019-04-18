@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
+import org.pushingpixels.flamingo.api.common.popup.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -116,8 +117,6 @@ public class BasicCommandButtonListener implements MouseListener,
         }
     }
 
-    ;
-
     @Override
     public void mouseReleased(MouseEvent e) {
         if (SwingUtilities.isLeftMouseButton(e)) {
@@ -132,8 +131,6 @@ public class BasicCommandButtonListener implements MouseListener,
             }
         }
     }
-
-    ;
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -220,44 +217,62 @@ public class BasicCommandButtonListener implements MouseListener,
      * @param button Command button.
      */
     public void installKeyboardActions(AbstractCommandButton button) {
-        ActionMap map = new ActionMap();
-        map.put(PressAction.PRESS, new PressAction(button));
-        map.put(ReleaseAction.RELEASE, new ReleaseAction(button));
+        ActionMap actionMap = new ActionMap();
+        actionMap.put(PressAction.PRESS, new PressAction(button));
+        actionMap.put(ReleaseAction.RELEASE, new ReleaseAction(button));
+        actionMap.put(PopupDismissAction.DISMISS, new PopupDismissAction(button));
+        actionMap.put(PopupToggleAction.TOGGLE, new PopupToggleAction(button));
+        actionMap.put(FocusHomeAction.FOCUS_HOME, new FocusHomeAction(button));
+        actionMap.put(FocusEndAction.FOCUS_END, new FocusEndAction(button));
+        actionMap.put(FocusUpAction.FOCUS_UP, new FocusUpAction(button));
+        actionMap.put(FocusDownAction.FOCUS_DOWN, new FocusDownAction(button));
+        actionMap.put(FocusRightAction.FOCUS_RIGHT, new FocusRightAction(button));
+        actionMap.put(FocusLeftAction.FOCUS_LEFT, new FocusLeftAction(button));
+        SwingUtilities.replaceUIActionMap(button, actionMap);
 
-        SwingUtilities.replaceUIActionMap(button, map);
-        InputMap km = LookAndFeel.makeInputMap(new Object[] {
-                "SPACE", "pressed",
-                "released SPACE", "released",
-                "ENTER", "pressed",
-                "released ENTER", "released" });
+        InputMap focusedInputMap = LookAndFeel.makeInputMap(new Object[] {
+                "SPACE", PressAction.PRESS,
+                "released SPACE", ReleaseAction.RELEASE,
+                "ENTER", PressAction.PRESS,
+                "released ENTER", ReleaseAction.RELEASE,
+                "DOWN", FocusDownAction.FOCUS_DOWN,
+                "KP_DOWN", FocusDownAction.FOCUS_DOWN,
+                "UP", FocusUpAction.FOCUS_UP,
+                "KP_UP", FocusUpAction.FOCUS_UP,
+                "LEFT", FocusLeftAction.FOCUS_LEFT,
+                "KP_LEFT", FocusLeftAction.FOCUS_LEFT,
+                "RIGHT", FocusRightAction.FOCUS_RIGHT,
+                "KP_RIGHT", FocusRightAction.FOCUS_RIGHT,
+        });
+        SwingUtilities.replaceUIInputMap(button, JComponent.WHEN_FOCUSED, focusedInputMap);
 
-        SwingUtilities.replaceUIInputMap(button, JComponent.WHEN_FOCUSED, km);
+        InputMap ancestorOfFocusedInputMap = LookAndFeel.makeInputMap(new Object[] {
+                "ESCAPE", PopupDismissAction.DISMISS,
+                "alt DOWN", PopupToggleAction.TOGGLE,
+                "alt KP_DOWN", PopupToggleAction.TOGGLE,
+                "alt UP", PopupToggleAction.TOGGLE,
+                "alt KP_UP", PopupToggleAction.TOGGLE,
+                "HOME", FocusHomeAction.FOCUS_HOME,
+                "END", FocusEndAction.FOCUS_END,
+        });
+        SwingUtilities.replaceUIInputMap(button, JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT,
+                ancestorOfFocusedInputMap);
     }
 
-    /**
-     * Button press action.
-     *
-     * @author Kirill Grouchnikov
-     */
-    private static class PressAction extends AbstractAction {
-        /**
-         * Press action name.
-         */
-        private static final String PRESS = "pressed";
+    private static abstract class ButtonAction extends AbstractAction {
+        protected final AbstractCommandButton button;
 
-        /**
-         * Associated command button.
-         */
-        AbstractCommandButton button;
-
-        /**
-         * Creates a new press action.
-         *
-         * @param button Associated command button.
-         */
-        PressAction(AbstractCommandButton button) {
-            super(PRESS);
+        ButtonAction(String actionName, AbstractCommandButton button) {
+            super(actionName);
             this.button = button;
+        }
+    }
+
+    private static class PressAction extends ButtonAction {
+        private static final String PRESS = "press";
+
+        PressAction(AbstractCommandButton button) {
+            super(PRESS, button);
         }
 
         @Override
@@ -277,30 +292,11 @@ public class BasicCommandButtonListener implements MouseListener,
         }
     }
 
-    /**
-     * Button release action.
-     *
-     * @author Kirill Grouchnikov
-     */
-    private static class ReleaseAction extends AbstractAction {
-        /**
-         * Release action name.
-         */
-        private static final String RELEASE = "released";
+    private static class ReleaseAction extends ButtonAction {
+        private static final String RELEASE = "release";
 
-        /**
-         * Associated command button.
-         */
-        AbstractCommandButton button;
-
-        /**
-         * Creates a new release action.
-         *
-         * @param button Associated command button.
-         */
         ReleaseAction(AbstractCommandButton button) {
-            super(RELEASE);
-            this.button = button;
+            super(RELEASE, button);
         }
 
         @Override
@@ -317,15 +313,187 @@ public class BasicCommandButtonListener implements MouseListener,
         }
     }
 
+    private static class PopupDismissAction extends ButtonAction {
+        private static final String DISMISS = "popupDismiss";
+
+        PopupDismissAction(AbstractCommandButton button) {
+            super(DISMISS, button);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            PopupPanelManager.defaultManager().hidePopups(null);
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return true;
+        }
+    }
+
+    private static class PopupToggleAction extends ButtonAction {
+        private static final String TOGGLE = "popupToggle";
+
+        PopupToggleAction(AbstractCommandButton button) {
+            super(TOGGLE, button);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (this.button instanceof JCommandButton &&
+                    !this.button.getUI().isInnerFocusOnAction()) {
+                ButtonModel model = ((JCommandButton) button).getPopupModel();
+                if (PopupPanelManager.defaultManager().getShownPath().isEmpty()) {
+                    model.setArmed(true);
+                    model.setPressed(true);
+                } else {
+                    PopupPanelManager.defaultManager().hidePopups(null);
+                    model.setArmed(false);
+                    model.setPressed(false);
+                }
+            }
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return ((this.button instanceof JCommandButton) &&
+                    ((JCommandButton) this.button).getPopupModel().isEnabled());
+        }
+    }
+
+    private static abstract class FocusTraversalAction extends ButtonAction {
+        FocusTraversalAction(String actionName, AbstractCommandButton button) {
+            super(actionName, button);
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return true;
+        }
+
+        protected JPopupPanel getPopup() {
+            JPopupPanel popupPanel = (JPopupPanel) SwingUtilities.getAncestorOfClass(
+                    JPopupPanel.class, this.button);
+            if (popupPanel != null) {
+                return popupPanel;
+            }
+
+            PopupPanelManager popupPanelManager = PopupPanelManager.defaultManager();
+            for (PopupPanelManager.PopupInfo popupInfo : popupPanelManager.getShownPath()) {
+                if (popupInfo.getPopupOriginator() == this.button) {
+                    return popupInfo.getPopupPanel();
+                }
+            }
+            return null;
+        }
+    }
+
+    private static class FocusHomeAction extends FocusTraversalAction {
+        private static final String FOCUS_HOME = "focusHome";
+
+        FocusHomeAction(AbstractCommandButton button) {
+            super(FOCUS_HOME, button);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JPopupPanel popupPanel = getPopup();
+            if (popupPanel != null) {
+                popupPanel.getUI().focusFirst();
+            }
+        }
+    }
+
+    private static class FocusEndAction extends FocusTraversalAction {
+        private static final String FOCUS_END = "focusEnd";
+
+        FocusEndAction(AbstractCommandButton button) {
+            super(FOCUS_END, button);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JPopupPanel popupPanel = getPopup();
+            if (popupPanel != null) {
+                popupPanel.getUI().focusLast();
+            }
+        }
+    }
+
+    private static class FocusUpAction extends FocusTraversalAction {
+        private static final String FOCUS_UP = "focusUp";
+
+        FocusUpAction(AbstractCommandButton button) {
+            super(FOCUS_UP, button);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JPopupPanel popupPanel = getPopup();
+            if (popupPanel != null) {
+                popupPanel.getUI().focusUp();
+            }
+        }
+    }
+
+    private static class FocusDownAction extends FocusTraversalAction {
+        private static final String FOCUS_DOWN = "focusDown";
+
+        FocusDownAction(AbstractCommandButton button) {
+            super(FOCUS_DOWN, button);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JPopupPanel popupPanel = getPopup();
+            if (popupPanel != null) {
+                popupPanel.getUI().focusDown();
+            }
+        }
+    }
+
+    private static class FocusRightAction extends FocusTraversalAction {
+        private static final String FOCUS_RIGHT = "focusRight";
+
+        FocusRightAction(AbstractCommandButton button) {
+            super(FOCUS_RIGHT, button);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JPopupPanel popupPanel = getPopup();
+            if (popupPanel != null) {
+                popupPanel.getUI().focusRight();
+            }
+        }
+    }
+
+    private static class FocusLeftAction extends FocusTraversalAction {
+        private static final String FOCUS_LEFT = "focusLeft";
+
+        FocusLeftAction(AbstractCommandButton button) {
+            super(FOCUS_LEFT, button);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JPopupPanel popupPanel = getPopup();
+            if (popupPanel != null) {
+                popupPanel.getUI().focusLeft();
+            }
+        }
+    }
+
     /**
-     * Uninstalls keyboard action (space / enter keys) from the specified
-     * command button.
+     * Uninstalls keyboard action from the specified command button.
      *
      * @param button Command button.
      */
     public void uninstallKeyboardActions(AbstractCommandButton button) {
         SwingUtilities.replaceUIInputMap(button,
                 JComponent.WHEN_IN_FOCUSED_WINDOW, null);
+        SwingUtilities.replaceUIInputMap(button, JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT,
+                null);
         SwingUtilities.replaceUIInputMap(button, JComponent.WHEN_FOCUSED, null);
         SwingUtilities.replaceUIActionMap(button, null);
     }

@@ -44,6 +44,7 @@ import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * Command button.
@@ -843,5 +844,16 @@ public class JCommandButton extends AbstractCommandButton {
         popupModel.setArmed(false);
         popupModel.setPopupShowing(true);
         paintImmediately(new Rectangle(0, 0, size.width, size.height));
+    }
+
+    public boolean isPopupVisible() {
+        List<PopupPanelManager.PopupInfo> popupInfos =
+                PopupPanelManager.defaultManager().getShownPath();
+        for (PopupPanelManager.PopupInfo popupInfo : popupInfos) {
+            if (popupInfo.getPopupOriginator() == this) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -365,7 +365,7 @@ public class JRibbonFrame extends JFrame {
         this.add(this.ribbon, BorderLayout.NORTH);
 
         final KeyTipManager keyTipManager = KeyTipManager.defaultManager();
-        Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
+        SubstanceCoreUtilities.registerAWTEventListener(new AWTEventListener() {
             private boolean prevAltModif = false;
 
             @Override
@@ -408,11 +408,9 @@ public class JRibbonFrame extends JFrame {
                                         }
                                     }
                                     if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                                        // Dismiss keytips if showing, and popups otherwise
+                                        // Dismiss keytips if showing
                                         if (keyTipManager.isShowingKeyTips()) {
                                             keyTipManager.showPreviousChain();
-                                        } else {
-                                            PopupPanelManager.defaultManager().hidePopups(null);
                                         }
                                     }
                                     if (keyTipManager.isShowingKeyTips()) {
@@ -468,7 +466,7 @@ public class JRibbonFrame extends JFrame {
                     }
                 }
             }
-        }, AWTEvent.KEY_EVENT_MASK | AWTEvent.MOUSE_EVENT_MASK);
+        });
 
         final KeyTipLayer keyTipLayer = new KeyTipLayer();
         JRootPane rootPane = this.getRootPane();

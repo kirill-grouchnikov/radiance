@@ -100,7 +100,7 @@ Alternatively, for a more manual process:
 * Build Radiance locally with *gradlew* command.
 * Copy the binaries with *gradlew copyJars* command. For version *X.Y.ZZ* of Radiance, add *radiance-substance-X.Y.ZZ.jar*, *radiance-trident-X.Y.ZZ.jar* and *radiance-neon-X.Y.ZZ.jar* to the place that has your local dependencies.
 
-For earlier versions of Substance, see [this page](../drop/archive/older-releases.md) for the list of binaries to take for the specific pre-Radiance versions.
+For earlier versions of Substance, see [this page](../archive/older-releases.md) for the list of binaries to take for the specific pre-Radiance versions.
 
 Assuming that you have saved *radiance-substance.jar*, *radiance-trident.jar* and *radiance-neon.jar* to the *C:/temp* folder, use the following script in order to run the frame under Substance:
 

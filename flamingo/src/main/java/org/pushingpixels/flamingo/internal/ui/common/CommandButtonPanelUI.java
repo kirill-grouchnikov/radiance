@@ -39,4 +39,11 @@ import javax.swing.plaf.PanelUI;
  * @author Kirill Grouchnikov
  */
 public abstract class CommandButtonPanelUI extends PanelUI {
+    public abstract boolean hasFocus();
+    public abstract boolean focusFirst();
+    public abstract boolean focusLast();
+    public abstract boolean focusUp();
+    public abstract boolean focusDown();
+    public abstract boolean focusRight();
+    public abstract boolean focusLeft();
 }

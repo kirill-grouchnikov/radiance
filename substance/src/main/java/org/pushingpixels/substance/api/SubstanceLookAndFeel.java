@@ -38,6 +38,7 @@ import org.pushingpixels.substance.internal.utils.*;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicLookAndFeel;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.beans.*;
 
@@ -62,16 +63,6 @@ import java.beans.*;
  */
 public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
     /**
-     * Change listener on keyboard focus manager - fix for defect 208.
-     */
-    private PropertyChangeListener focusOwnerChangeListener;
-
-    /**
-     * The current keyboard focus manager - fix for defect 208.
-     */
-    private KeyboardFocusManager currentKeyboardFocusManager;
-
-    /**
      * The skin of this look-and-feel instance.
      */
     private SubstanceSkin skin;
@@ -80,6 +71,8 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
      * The name of this look-and-feel instance.
      */
     private String name;
+
+    private AWTEventListener awtEventListener;
 
     /**
      * Creates a new skin-based Substance look-and-feel.
@@ -208,41 +201,20 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
         // initialize component plugins
         SubstancePluginRepository.getInstance().initializeAllComponentPlugins();
 
-        // fix for defect 208 - tracking changes to focus owner
-        // and repainting the default button
-        this.focusOwnerChangeListener = (PropertyChangeEvent evt) -> {
-            if ("focusOwner".equals(evt.getPropertyName())) {
-                Component newFocusOwner = (Component) evt.getNewValue();
-                if (newFocusOwner != null) {
-                    JRootPane rootPane = SwingUtilities.getRootPane(newFocusOwner);
-                    if (rootPane == null) {
-                        return;
-                    }
-                    JButton defaultButton = rootPane.getDefaultButton();
-                    if (defaultButton == null) {
-                        return;
-                    }
-                    defaultButton.repaint();
-                }
-            }
-            if ("managingFocus".equals(evt.getPropertyName())) {
-                if (Boolean.FALSE.equals(evt.getNewValue())) {
-                    // new keyboard focus manager has been installed
-                    currentKeyboardFocusManager
-                            .removePropertyChangeListener(focusOwnerChangeListener);
-                    currentKeyboardFocusManager = KeyboardFocusManager
-                            .getCurrentKeyboardFocusManager();
-                    currentKeyboardFocusManager.addPropertyChangeListener(focusOwnerChangeListener);
-                }
+        this.awtEventListener = (AWTEvent event) -> {
+            for (AWTEventListener awtEventListener : SubstanceCoreUtilities.getAwtEventListeners()) {
+                awtEventListener.eventDispatched(event);
             }
         };
-        this.currentKeyboardFocusManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        this.currentKeyboardFocusManager.addPropertyChangeListener(this.focusOwnerChangeListener);
+        Toolkit.getDefaultToolkit().addAWTEventListener(this.awtEventListener,
+                AWTEvent.KEY_EVENT_MASK | AWTEvent.MOUSE_EVENT_MASK);
     }
 
     @Override
     public void uninitialize() {
         super.uninitialize();
+
+        Toolkit.getDefaultToolkit().removeAWTEventListener(this.awtEventListener);
 
         SubstanceCortex.GlobalScope.unsetSkin();
 
@@ -260,11 +232,6 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
 
         // clear caches
         LazyResettableHashMap.reset();
-
-        this.currentKeyboardFocusManager
-                .removePropertyChangeListener(this.focusOwnerChangeListener);
-        this.focusOwnerChangeListener = null;
-        this.currentKeyboardFocusManager = null;
     }
 
     @Override

@@ -69,6 +69,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
     private ChangeListener presentationModelChangeListener;
 
+    private CommandButtonPanelLayout layoutManager;
+
     /**
      * Default insets of button panel groups.
      */
@@ -87,7 +89,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      * Installs defaults on the associated button panel.
      */
     protected void installDefaults() {
-        this.buttonPanel.setLayout(this.createLayoutManager());
+        this.updateLayoutManager();
         Font currFont = this.buttonPanel.getFont();
         if ((currFont == null) || (currFont instanceof UIResource)) {
             Font controlFont = SubstanceCortex.GlobalScope.getFontPolicy()
@@ -126,7 +128,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                             }
                         }
 
-                        buttonPanel.setLayout(createLayoutManager());
+                        updateLayoutManager();
                         buttonPanel.revalidate();
                         buttonPanel.doLayout();
                     }
@@ -191,16 +193,17 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      *
      * @return The layout manager for the associated button panel.
      */
-    protected LayoutManager createLayoutManager() {
+    private void updateLayoutManager() {
         CommandPanelPresentationModel panelPresentationModel =
                 this.buttonPanel.getProjection().getPresentationModel();
         if ((panelPresentationModel != null)
                 && (panelPresentationModel.getLayoutKind() ==
                 CommandPanelPresentationModel.LayoutKind.COLUMN_FILL)) {
-            return new ColumnFillLayout();
+            this.layoutManager = new ColumnFillLayout();
         } else {
-            return new RowFillLayout();
+            this.layoutManager = new RowFillLayout();
         }
+        this.buttonPanel.setLayout(this.layoutManager);
     }
 
     @Override
@@ -273,12 +276,29 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      */
     protected abstract Insets getGroupInsets();
 
+    private abstract class CommandButtonPanelLayout implements LayoutManager {
+        protected int commandButtonGridRowCount = -1;
+        protected int commandButtonGridColumnCount = -1;
+        protected AbstractCommandButton[][] commandButtonGrid;
+
+        protected void setCommandButtonGridSize(int rowCount, int columnCount) {
+            if ((this.commandButtonGrid == null) ||
+                    (this.commandButtonGridRowCount != rowCount) ||
+                    (this.commandButtonGridColumnCount != columnCount)) {
+                this.commandButtonGridRowCount = rowCount;
+                this.commandButtonGridColumnCount = columnCount;
+                this.commandButtonGrid =
+                        new AbstractCommandButton[this.commandButtonGridRowCount][this.commandButtonGridColumnCount];
+            }
+        }
+    }
+
     /**
      * Row-fill layout for the button panel.
      *
      * @author Kirill Grouchnikov
      */
-    protected class RowFillLayout implements LayoutManager {
+    protected class RowFillLayout extends CommandButtonPanelLayout {
         @Override
         public void addLayoutComponent(String name, Component comp) {
         }
@@ -325,6 +345,17 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 buttonsInRow = Math.min(buttonsInRow, maxButtonColumnsToUse);
             }
 
+            int totalRowCount = 0;
+            for (int i = 0; i < groupCount; i++) {
+                int buttonRows = (buttonsInRow == 0) ? 0
+                        : (int) (Math.ceil((double) panel.getGroupButtons(i).size()
+                        / buttonsInRow));
+                totalRowCount += buttonRows;
+            }
+
+            this.setCommandButtonGridSize(totalRowCount, buttonsInRow);
+
+            int currRowIndex = 0;
             for (int i = 0; i < groupCount; i++) {
                 int topGroupY = y;
                 y += groupInsets.top;
@@ -360,34 +391,45 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
                 if (ltr) {
                     int currX = left + groupInsets.left;
+                    int currColumnIndex = 0;
                     for (AbstractCommandButton button : panel.getGroupButtons(i)) {
                         int endX = currX + actualButtonWidth;
                         if (endX > (parent.getWidth() - right - groupInsets.right)) {
+                            currRowIndex++;
+                            currColumnIndex = 0;
                             currX = left + groupInsets.left;
                             y += maxButtonHeight;
                             y += gap;
                         }
                         button.setBounds(currX, y, actualButtonWidth, maxButtonHeight);
+                        this.commandButtonGrid[currRowIndex][currColumnIndex] = button;
+                        currColumnIndex++;
                         currX += actualButtonWidth;
                         currX += gap;
                     }
                 } else {
                     int currX = parent.getWidth() - right - groupInsets.right;
+                    int currColumnIndex = buttonsInRow - 1;
                     for (AbstractCommandButton button : panel.getGroupButtons(i)) {
                         int startX = currX - actualButtonWidth;
                         if (startX < (left + groupInsets.left)) {
+                            currRowIndex++;
+                            currColumnIndex = buttonsInRow - 1;
                             currX = parent.getWidth() - right - groupInsets.right;
                             y += maxButtonHeight;
                             y += gap;
                         }
                         button.setBounds(currX - actualButtonWidth, y, actualButtonWidth,
                                 maxButtonHeight);
+                        this.commandButtonGrid[currRowIndex][currColumnIndex] = button;
+                        currColumnIndex--;
                         currX -= actualButtonWidth;
                         currX -= gap;
                     }
                 }
 
                 y += maxButtonHeight + groupInsets.bottom;
+                currRowIndex++;
                 int bottomGroupY = y;
                 groupRects[i] = new Rectangle(left, topGroupY, (parent.getWidth() - left - right),
                         (bottomGroupY - topGroupY));
@@ -457,7 +499,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      *
      * @author Kirill Grouchnikov
      */
-    protected class ColumnFillLayout implements LayoutManager {
+    protected class ColumnFillLayout extends CommandButtonPanelLayout {
         @Override
         public void addLayoutComponent(String name, Component comp) {
         }
@@ -493,70 +535,94 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                     - groupInsets.bottom;
             // for N buttons, there are N-1 gaps. Add the gap to the
             // available width and divide by the max button width + gap.
-            int buttonsInRow = (maxButtonHeight == 0) ? 0
+            int buttonsInColumn = (maxButtonHeight == 0) ? 0
                     : (maxHeight + gap) / (maxButtonHeight + gap);
+
+            int totalColumnCount = 0;
+            for (int i = 0; i < groupCount; i++) {
+                int buttonColumns = (buttonsInColumn == 0) ? 0
+                        : (int) (Math.ceil((double) panel.getGroupButtons(i).size()
+                        / buttonsInColumn));
+                totalColumnCount += buttonColumns;
+            }
+
+            this.setCommandButtonGridSize(buttonsInColumn, totalColumnCount);
 
             if (ltr) {
                 int x = bInsets.left + groupInsets.left;
+                int currColumnIndex = 0;
                 for (int i = 0; i < groupCount; i++) {
                     int leftGroupX = x;
                     x += groupInsets.left;
                     int currY = top + groupInsets.top;
 
-                    int buttonColumns = (buttonsInRow == 0) ? 0
+                    int buttonColumns = (buttonsInColumn == 0) ? 0
                             : (int) (Math.ceil((double) panel.getGroupButtons(i).size()
-                            / buttonsInRow));
+                            / buttonsInColumn));
                     // spread the buttons so that we don't have extra space
                     // on the bottom
                     int actualButtonHeight = (buttonColumns > 1)
-                            ? (maxHeight - (buttonsInRow - 1) * gap) / buttonsInRow
+                            ? (maxHeight - (buttonsInColumn - 1) * gap) / buttonsInColumn
                             : maxButtonWidth;
 
+                    int currRowIndex = 0;
                     for (AbstractCommandButton button : panel.getGroupButtons(i)) {
                         int endY = currY + actualButtonHeight;
                         if (endY > (parent.getHeight() - bottom - groupInsets.bottom)) {
                             currY = top + groupInsets.top;
+                            currRowIndex = 0;
+                            currColumnIndex++;
                             x += maxButtonWidth;
                             x += gap;
                         }
                         button.setBounds(x, currY, maxButtonWidth, actualButtonHeight);
+                        this.commandButtonGrid[currRowIndex][currColumnIndex] = button;
+                        currRowIndex++;
                         currY += actualButtonHeight;
                         currY += gap;
                     }
                     x += maxButtonWidth + groupInsets.bottom;
+                    currColumnIndex++;
                     int rightGroupX = x;
                     groupRects[i] = new Rectangle(leftGroupX, top, (rightGroupX - leftGroupX),
                             (parent.getHeight() - top - bottom));
                 }
             } else {
                 int x = panel.getWidth() - bInsets.right - groupInsets.right;
+                int currColumnIndex = this.commandButtonGridColumnCount - 1;
                 for (int i = 0; i < groupCount; i++) {
                     int rightGroupX = x;
                     x -= groupInsets.left;
                     int currY = top + groupInsets.top;
 
-                    int buttonColumns = (buttonsInRow == 0) ? 0
+                    int buttonColumns = (buttonsInColumn == 0) ? 0
                             : (int) (Math.ceil((double) panel.getGroupButtons(i).size()
-                            / buttonsInRow));
+                            / buttonsInColumn));
                     // spread the buttons so that we don't have extra space
                     // on the bottom
                     int actualButtonHeight = (buttonColumns > 1)
-                            ? (maxHeight - (buttonsInRow - 1) * gap) / buttonsInRow
+                            ? (maxHeight - (buttonsInColumn - 1) * gap) / buttonsInColumn
                             : maxButtonWidth;
 
+                    int currRowIndex = 0;
                     for (AbstractCommandButton button : panel.getGroupButtons(i)) {
                         int endY = currY + actualButtonHeight;
                         if (endY > (parent.getHeight() - bottom - groupInsets.bottom)) {
                             currY = top + groupInsets.top;
+                            currRowIndex = 0;
+                            currColumnIndex--;
                             x -= maxButtonWidth;
                             x -= gap;
                         }
                         button.setBounds(x - maxButtonWidth, currY, maxButtonWidth,
                                 actualButtonHeight);
+                        this.commandButtonGrid[currRowIndex][currColumnIndex] = button;
+                        currRowIndex++;
                         currY += actualButtonHeight;
                         currY += gap;
                     }
                     x -= (maxButtonWidth + groupInsets.bottom);
+                    currColumnIndex--;
                     int leftGroupX = x;
                     groupRects[i] = new Rectangle(leftGroupX, top, (rightGroupX - leftGroupX),
                             (parent.getHeight() - top - bottom));
@@ -682,5 +748,185 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         totalHeight += (titleVisibleRows - 1) * (groupInsets.top + groupInsets.bottom);
 
         return totalHeight;
+    }
+
+    private AbstractCommandButton findFirstFocusableRight(int row, int column) {
+        int currColumn = column + 1;
+        while (currColumn < this.layoutManager.commandButtonGridColumnCount) {
+            AbstractCommandButton currButton =
+                    this.layoutManager.commandButtonGrid[row][currColumn];
+            if ((currButton != null) && currButton.isFocusable()) {
+                return currButton;
+            }
+            currColumn++;
+        }
+        return null;
+    }
+
+    private AbstractCommandButton findLastFocusableLeft(int row, int column) {
+        int currColumn = column - 1;
+        while (currColumn >= 0) {
+            AbstractCommandButton currButton =
+                    this.layoutManager.commandButtonGrid[row][currColumn];
+            if ((currButton != null) && currButton.isFocusable()) {
+                return currButton;
+            }
+            currColumn--;
+        }
+        return null;
+    }
+
+    private AbstractCommandButton findLastFocusableUp(int row, int column) {
+        int currRow = row - 1;
+        while (currRow >= 0) {
+            AbstractCommandButton currButton =
+                    this.layoutManager.commandButtonGrid[currRow][column];
+            if ((currButton != null) && currButton.isFocusable()) {
+                return currButton;
+            }
+            currRow--;
+        }
+        return null;
+    }
+
+    private AbstractCommandButton findFirstFocusableDown(int row, int column) {
+        int currRow = row + 1;
+        while (currRow < this.layoutManager.commandButtonGridRowCount) {
+            AbstractCommandButton currButton =
+                    this.layoutManager.commandButtonGrid[currRow][column];
+            if ((currButton != null) && currButton.isFocusable()) {
+                return currButton;
+            }
+            currRow++;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean focusFirst() {
+        AbstractCommandButton first = this.findFirstFocusableRight(0, -1);
+        if (first != null) {
+            first.requestFocus();
+            this.buttonPanel.scrollRectToVisible(first.getBounds());
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean focusLast() {
+        AbstractCommandButton last = this.findLastFocusableLeft(
+                this.layoutManager.commandButtonGridRowCount - 1,
+                this.layoutManager.commandButtonGridColumnCount);
+        if (last != null) {
+            last.requestFocus();
+            this.buttonPanel.scrollRectToVisible(last.getBounds());
+            return true;
+        }
+        return false;
+    }
+
+    private enum FocusMoveDirection {
+        UP, DOWN, LEFT, RIGHT
+    }
+
+    @Override
+    public boolean hasFocus() {
+        for (int row = 0; row < this.layoutManager.commandButtonGridRowCount; row++) {
+            for (int column = 0; column < this.layoutManager.commandButtonGridColumnCount; column++) {
+                AbstractCommandButton button = this.layoutManager.commandButtonGrid[row][column];
+                if ((button != null) && button.hasFocus()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean focusMove(FocusMoveDirection focusMoveDirection) {
+        int focusedRow = -1;
+        int focusedColumn = -1;
+        for (int row = 0; row < this.layoutManager.commandButtonGridRowCount; row++) {
+            for (int column = 0; column < this.layoutManager.commandButtonGridColumnCount; column++) {
+                AbstractCommandButton button = this.layoutManager.commandButtonGrid[row][column];
+                if ((button != null) && button.hasFocus()) {
+                    focusedRow = row;
+                    focusedColumn = column;
+                }
+            }
+        }
+
+        if (focusedRow < 0) {
+            return false;
+//            switch (focusMoveDirection) {
+//                case DOWN:
+//                    return this.focusFirst();
+//                case UP:
+//                    return this.focusLast();
+//                default:
+//                    return false;
+//            }
+        }
+
+        switch (focusMoveDirection) {
+            case DOWN:
+                AbstractCommandButton nextDown = findFirstFocusableDown(focusedRow, focusedColumn);
+                if ((nextDown != null) && nextDown.isFocusable()) {
+                    nextDown.requestFocus();
+                    this.buttonPanel.scrollRectToVisible(nextDown.getBounds());
+                    return true;
+                } else {
+                    return false;
+                }
+            case UP:
+                AbstractCommandButton nextUp = findLastFocusableUp(focusedRow, focusedColumn);
+                if ((nextUp != null) && nextUp.isFocusable()) {
+                    nextUp.requestFocus();
+                    this.buttonPanel.scrollRectToVisible(nextUp.getBounds());
+                    return true;
+                } else {
+                    return false;
+                }
+            case RIGHT:
+                AbstractCommandButton nextRight = findFirstFocusableRight(focusedRow, focusedColumn);
+                if ((nextRight != null) && nextRight.isFocusable()) {
+                    nextRight.requestFocus();
+                    this.buttonPanel.scrollRectToVisible(nextRight.getBounds());
+                    return true;
+                } else {
+                    return false;
+                }
+            case LEFT:
+                AbstractCommandButton nextLeft = findLastFocusableLeft(focusedRow, focusedColumn);
+                if ((nextLeft != null) && nextLeft.isFocusable()) {
+                    nextLeft.requestFocus();
+                    this.buttonPanel.scrollRectToVisible(nextLeft.getBounds());
+                    return true;
+                } else {
+                    return false;
+                }
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean focusUp() {
+        return focusMove(FocusMoveDirection.UP);
+    }
+
+    @Override
+    public boolean focusDown() {
+        return focusMove(FocusMoveDirection.DOWN);
+    }
+
+    @Override
+    public boolean focusRight() {
+        return focusMove(FocusMoveDirection.RIGHT);
+    }
+
+    @Override
+    public boolean focusLeft() {
+        return focusMove(FocusMoveDirection.LEFT);
     }
 }

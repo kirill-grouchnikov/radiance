@@ -62,6 +62,8 @@ public class JColorSelectorComponent extends JComponent {
         this.colorActivationListeners = new ArrayList<>();
         this.colorActivationListeners.add(colorActivationListener);
 
+        this.setFocusable(true);
+
         this.updateUI();
     }
 

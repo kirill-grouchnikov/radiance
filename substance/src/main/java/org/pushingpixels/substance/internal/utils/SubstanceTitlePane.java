@@ -263,15 +263,21 @@ public class SubstanceTitlePane extends JComponent {
             int strW = fm.stringWidth(longFormat.toString());
             int strH = fm.getAscent() + fm.getDescent();
 
-            graphics.setColor(scheme.getForegroundColor());
+            Color textColor = SubstanceColorUtilities.getForegroundColor(scheme);
+            Color echoColor = scheme.getExtraLightColor();
+
             NeonCortex.installDesktopHints(graphics, this.font);
             if (strW < (w - 5)) {
-                graphics.drawString(longFormat.toString(), (w - strW) / 2, (h + strH) / 2 - 2);
+                SubstanceTextUtilities.paintTextWithDropShadowSimple(this, graphics,
+                        textColor, echoColor, longFormat.toString(),
+                        strW, strH, (w - strW) / 2, (h + strH) / 2 - 2);
             } else {
                 String shortFormat = (this.currTakenHeapSizeKB / 1024) + "MB / "
                         + (this.currHeapSizeKB / 1024) + "MB";
                 strW = fm.stringWidth(shortFormat);
-                graphics.drawString(shortFormat, (w - strW) / 2, (h + strH) / 2 - 2);
+                SubstanceTextUtilities.paintTextWithDropShadowSimple(this, graphics,
+                        textColor, echoColor, shortFormat,
+                        strW, strH, (w - strW) / 2, (h + strH) / 2 - 2);
             }
 
             graphics.dispose();
@@ -1083,8 +1089,6 @@ public class SubstanceTitlePane extends JComponent {
                     .getBackgroundColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE);
             Color echoColor = !fillScheme.isDark() ? fillScheme.getUltraDarkColor()
                     : fillScheme.getUltraLightColor();
-            // graphics.setColor(Color.yellow);
-            // graphics.fill(titleTextRect);
             SubstanceTextUtilities.paintTextWithDropShadow(this, graphics,
                     SubstanceColorUtilities.getForegroundColor(scheme), echoColor, displayTitle,
                     width, height, xOffset, yOffset);
