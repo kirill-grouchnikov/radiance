@@ -17,6 +17,7 @@ Substance provides a powerful and flexible set of APIs that can be used to skin 
 * [Animations](animations.md)
 * [Renderers](renderers.md)
 * [Plugins](plugin.md)
+* [Title pane](titlepane.md)
 * [Extras](extras.md)
 * [Internals](internals.md)
 
