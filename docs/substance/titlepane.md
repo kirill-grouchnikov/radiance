@@ -1,109 +1,115 @@
-## Substance look and feel - renderers
+## Substance look and feel - title pane
 
-### Basics
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/visor-mail.png" width="720" border=0 align="right"/>
 
-Swing's core approach to visualizing large sets of data as lists, trees or tables is to use renderers that "rubber stamp" individuals cells during the drawing pass.
+### Introduction
 
-For example, a table with 20 rows and 10 columns does not contain 200 child views (or one for each cell). Instead, the `JTableColumn.setCellRenderer` and `JTable.setDefaultRenderer` APIs are used to configure the renderer(s) for specific data types (checkbox for boolean values, labels for strings, etc). At runtime, the same renderer instance is used to paint (or rubber stamp) the visuals for all the cells in the column or of the specific data type. Transitioning to the edit mode (usually double-clicking a cell) adds an actual interactive child hierarchy configured by `JTableColumn.setCellEditor`, `JTable.setDefaultEditor` and `JTable.setCellEditor`.
+Substance provides a collection of APIs to configure the layout inside and around the title pane area of application windows.
 
-### Substance label-based renderers
+In the screenshot above, the title pane control buttons (minimize, maximize, close) are on the left. In addition, each one of the three panes (folders, thread list, email thread) "pushes" some of its content into the title pane area:
 
-The `org.pushingpixels.substance.api.renderer` package provides base renderer classes for consistent layout metrics and visuals. The following classes extend the matching default core renderers and apply consistent margins, paddings, fonts, foreground and background colors (including highlight animations), as well as odd-even background striping:
+* The refresh icon in the folders pane
+* The search box in the thread list pane
+* Action icons in the email thread pane
 
-* `SubstanceDefaultListCellRenderer` for `JList`
-* `SubstanceDefaultComboBoxRenderer` for `JComboBox`
-* `SubstanceDefaultTreeCellRenderer` for `JTree`
-* `SubstanceDefaultTableCellRenderer` for `JTable`
-* `SubstanceDefaultTableHeaderCellRenderer` for `JTableHeader`
+Let's see what APIs Substance provides to achieve this functionality.
 
-If you do not configure a custom renderer for one of your data containers, a matching default renderer provided by Substance will be used. Otherwise, it is highly recommended to extend the matching renderer classes for consistent visuals throughout your app.
+### Title content gravity
 
-### Complex Substance list renderers
+Use `SubstanceCortex.GlobalScope.configureTitleContentGravity()` API to configure the overall layout of the "core" content of the title pane - title text, application icon and control buttons:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/complex-list-renderer.png" width="946" border=0 align="right"/>
+* The first parameter controls the gravity of the title text itself - leading, centered, trailing, platform-based or default Swing.
+* The second parameter controls the gravity of the control buttons - leading, trailing, platform-based or default Swing.
+* The third parameter controls the gravity of the application icon - none (icon not shown), next to title text, opposite of control buttons, platform-based or default Swing.
 
-[VisorMail](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/mail) demo app illustrates the usage of `SubstancePanelListCellRenderer` base class for more complex `JList` content. It is used in the destinations list on the left to host three labels (icon, destination name, unread count) and in the threads list in the middle to host six labels across three rows.
+### Extending application content into the title pane
 
-In both cases the [highlights](painters/highlight.md) configured on the matching [decoration areas](painters/decoration.md) provide "special" visuals for highlighted rows - those that are in selected, rollover, armed or pressed state. In addition to configuring the background and foreground colors for the highlights at the skin level, the flow of layout and data binding when you use the `SubstancePanelListCellRenderer` base class is:
+The following APIs are available on `SubstanceCortex.WindowScope`:
 
-* In your renderer constructor, add all sub-components to your renderer and define the layout constraints.
-* In `bindData(JList, Object, int)` bind the relevant data fields to those sub-components.
-* Use `registerThemeAwareLabelsWithText(JLabel...)` in the constructor to "mark" those sub-component labels that should participate in highlight animations on their text based on the current state (rollover, selection, etc). In case a specific label is using a fixed foreground / text color for some of the rows in your list, use `registerThemeAwareLabelsWithText(JLabel...)` and `unregisterThemeAwareLabelsWithText(JLabel...)` in `onPreRender(JList, Object, int)` instead of in the constructor.
-* Use `registerThemeAwareLabelWithIcon(JLabel, ResizableIcon.Factory, Dimension)}` in the constructor to "mark" those sub-component labels that should participate in highlight animations on their icons based on the current state (rollover, selection, etc). In case a specific label is using a fixed icon for some of the rows in your list or different icon sources for different rows, use `registerThemeAwareLabelWithIcon(JLabel, ResizableIcon.Factory, Dimension)` and `unregisterThemeAwareLabelWithIcon(JLabel)` in `onPreRender(JList, Object, int)` instead of in the constructor.
 
-Here is how this flow looks like for the leftmost destinations list. The data model content is configured statically in this sample app:
+* `extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity, SubstanceSlices.VerticalGravity)` to marks the specified window to have its content extend vertically into the title pane area.
+* `getTitlePaneControlInsets(Window)` to query the insets that should be reserved for the main control buttons – close / maximize / minimize.
+* `setPreferredTitlePaneHeight(Window, int)` to increase the preferred height of the title pane area in case the content you extend into that area is taller than the main control buttons.
+* `getTitleControlButtonGroupHorizontalGravity(Window window)` to get the horizontal gravity for the control button group.
+* `createTitlePaneControlButton(Window)` to get a button that has consistent visual appearance and preferred size with the main control buttons.
 
-```java
-JList<DestinationInfo> destinationList = new JList<>(new DestinationListModel(
-    new DestinationInfo(ic_inbox_black_24px.factory(), "Inbox", 6),
-    new DestinationInfo(ic_send_black_24px.factory(), "Sent", 3),
-    new DestinationInfo(ic_watch_later_black_24px.factory(), "Send later", 5),
-    new DestinationInfo(ic_drafts_black_24px.factory(), "Drafts", -1),
-    new DestinationInfo(ic_star_border_black_24px.factory(), "Starred", -1),
-    new DestinationInfo(ic_delete_black_24px.factory(), "Trash", -1)));
-destinationList.setCellRenderer(new DestinationRenderer());
-```
+Let's see a couple of examples.
 
-We extend the base Substance panel-based renderer:
+### Example A
+
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/visor-mail.png" width="720" border=0 align="right"/>
+
+In this example, we configure the frame as:
 
 ```java
-private static class DestinationRenderer extends
-       SubstancePanelListCellRenderer<DestinationInfo> {
-    private JLabel iconLabel;
-    private JLabel titleLabel;
-    private JLabel unreadLabel;
+// Extend our content into the title pane and configure the title control buttons to be
+// vertically centered and in the leading horizontal position (in our main selector
+// pane).
+SubstanceCortex.WindowScope.extendContentIntoTitlePane(visorMail,
+        SubstanceSlices.HorizontalGravity.LEADING,
+        SubstanceSlices.VerticalGravity.CENTERED);
+
+// And increase the height of the title pane to play nicer with additional
+// content that we are displaying in that area.
+SubstanceCortex.WindowScope.setPreferredTitlePaneHeight(visorMail, 40);
 ```
 
-The constructor uses `FormLayout` to configure the layout constraints and registers the three labels to be theme-aware so that at runtime these labels will participate in correct highlight animation sequences driven by Substance:
+The first call "moves" the control buttons to the leading position - which is the left edge of the title pane under left-to-right orientation. The second call increases the title pane height to 40 pixels to accommodate taller content - such as the search box. Note the second parameter in the first call, instructing Substance to vertically center the control buttons in the taller title pane.
+
+In addition, we're also using `SubstanceCortex.WindowScope.createTitlePaneControlButton()` API to create the refresh button in the first (folders) pane:
 
 ```java
-public DestinationRenderer() {
-    FormBuilder builder = FormBuilder.create().
-          columns("center:pref, 4dlu, fill:pref:grow, 4dlu, center:pref").
-          rows("p").
-          padding(new EmptyBorder(8, 8, 8, 8));
+// Use Substance API to create a button that has consistent look with the
+// title pane control buttons
+JButton refreshButton = SubstanceCortex.WindowScope.createTitlePaneControlButton(window);
 
-    this.iconLabel = new JLabel();
-    this.titleLabel = new JLabel();
-    this.unreadLabel = new JLabel();
-    builder.add(this.iconLabel).xy(1, 1);
-    builder.add(this.titleLabel).xy(3, 1);
-    builder.add(this.unreadLabel).xy(5, 1);
-
-    // Register the text labels so that they get the right colors on rollover,
-    // selection and other highight effects
-    this.registerThemeAwareLabelsWithText(this.iconLabel, this.titleLabel, this.unreadLabel);
-
-    this.setLayout(new BorderLayout());
-    this.add(builder.build(), BorderLayout.CENTER);
-
-    this.setOpaque(false);
-}
+refreshButton.setIcon(icon);
+refreshButton.setToolTipText("Refresh mail");
+builder.add(refreshButton).xy(1, 1);
 ```
 
-The data binding pass wires the data from the data model to the labels that are part of our renderer:
+### Example B
+
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/visor-chat.png" width="720" border=0 align="right"/>
+
+We first configure the gravity of the control buttons to leading, along with increased title pane height to accommodate custom content:
 
 ```java
-@Override
-protected void bindData(JList<? extends DestinationInfo> list,
-        DestinationInfo value, int index) {
-    this.titleLabel.setText(value.title);
-    this.unreadLabel.setText(value.unread > 0 ? Integer.toString(value.unread) : "");
-}
+SubstanceCortex.WindowScope.extendContentIntoTitlePane(this,
+        SubstanceSlices.HorizontalGravity.LEADING,
+        SubstanceSlices.VerticalGravity.CENTERED);
+SubstanceCortex.WindowScope.setPreferredTitlePaneHeight(this, 40);
 ```
 
-And finally, we configure the icon factory for the renderer based on the data model so that it is properly colorized for highlight animations:
+And now we want to make sure that the leading "New chat" button does not go into the area reserved for the control buttons. Here is the full code for the layout of this custom title pane:
 
 ```java
-@Override
-protected void onPreRender(JList<? extends DestinationInfo> list,
-        DestinationInfo value, int index) {
-    // Register the matching icon factory here without setting the actual icon. The
-    // icon will be created and colorized by Substance runtime based on the highlight
-    // state of the specific row at render time
-    this.registerThemeAwareLabelWithIcon(this.iconLabel, value.iconFactory,
-            new Dimension(16, 16));
-}
+FormBuilder builder = FormBuilder.create().
+        columns("pref, 8dlu, center:0dlu:grow, 8dlu, pref, 8dlu, pref, 8dlu, pref").
+        rows("p").
+        padding(new EmptyBorder(8,
+                12 + SubstanceCortex.WindowScope.getTitlePaneControlInsets(this).left,
+                0, 12));
+
+builder.add(new JButton("New chat")).xy(1, 1);
+
+JLabel titleLabel = new JLabel("Chat", ic_chat_black_24px.of(16, 16), JLabel.CENTER);
+titleLabel.setIconTextGap(6);
+titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
+        .getWindowTitleFont().deriveFont(16.0f));
+builder.add(titleLabel).xy(3, 1);
+
+builder.add(new JTextField(12)).xy(5, 1);
+builder.add(new JLabel(ic_help_outline_black_24px.of(14, 14))).xy(7, 1);
+builder.add(new JLabel(ic_person_black_24px.of(12, 12))).xy(9, 1);
+
+JPanel titlePane = builder.build();
+titlePane.setPreferredSize(new Dimension(100, 40));
+titlePane.setOpaque(true);
+ComponentOrParentChainScope.setDecorationType(titlePane,
+        DecorationAreaType.PRIMARY_TITLE_PANE);
+
+this.getContentPane().add(titlePane, BorderLayout.NORTH);
 ```
 
-At runtime, the highlighted destination is using the light-yellow background fill and slightly darker text / icon foreground colors. The same flow applies to the threads list that is using white-on-blue highlight visuals for its content.
+The important part is the call to `SubstanceCortex.WindowScope.getTitlePaneControlInsets` which is then used to configure the padding on the `FormBuilder`.
