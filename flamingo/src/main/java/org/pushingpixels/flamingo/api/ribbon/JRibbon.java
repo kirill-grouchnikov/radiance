@@ -269,7 +269,6 @@ public class JRibbon extends JComponent {
     public synchronized void addTaskbarCommand(Command command) {
         CommandButtonPresentationModel presentationModel = CommandButtonPresentationModel.builder()
                 .setPresentationState(CommandButtonPresentationState.SMALL)
-                .setFocusable(false)
                 .setHorizontalGapScaleFactor(0.5)
                 .setVerticalGapScaleFactor(0.5)
                 .build();
@@ -338,7 +337,6 @@ public class JRibbon extends JComponent {
                 .build();
         CommandButtonPresentationModel presentationModel = CommandButtonPresentationModel.builder()
                 .setPresentationState(CommandButtonPresentationState.SMALL)
-                .setFocusable(false)
                 .setHorizontalGapScaleFactor(0.5)
                 .setVerticalGapScaleFactor(0.5)
                 .build();

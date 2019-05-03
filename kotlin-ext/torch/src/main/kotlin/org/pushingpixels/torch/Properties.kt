@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.torch
 
-import java.awt.Color
 import kotlin.reflect.*
 
 

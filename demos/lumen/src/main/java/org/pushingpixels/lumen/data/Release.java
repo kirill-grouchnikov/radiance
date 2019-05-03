@@ -42,7 +42,7 @@ public class Release {
     public String date;
 
     @Json(name = "media")
-    public List<Medium> mediums;
+    public List<Medium> media;
 
     public String asin;
 }

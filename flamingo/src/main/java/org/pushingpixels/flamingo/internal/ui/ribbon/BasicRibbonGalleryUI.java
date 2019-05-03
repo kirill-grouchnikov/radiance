@@ -208,7 +208,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 CommandStripPresentationModel.builder()
                         .setOrientation(StripOrientation.VERTICAL)
                         .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
-                        .setFocusable(false)
                         .setFlat(false)
                         .setToDismissPopupsOnActivation(false)
                         .build());

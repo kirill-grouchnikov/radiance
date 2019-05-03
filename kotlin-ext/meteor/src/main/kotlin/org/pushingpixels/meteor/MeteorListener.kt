@@ -816,7 +816,6 @@ fun DelayedUndoableEditListener(listener: (UndoableEditEvent) -> Unit): Undoable
     }
 }
 
-
 fun DelayedVetoableChangeListener(listener: (PropertyChangeEvent) -> Unit): VetoableChangeListener {
     return VetoableChangeListener { event ->
         GlobalScope.launch(Dispatchers.Swing) {
@@ -979,6 +978,14 @@ inline fun Window.addDelayedWindowListener(
             onWindowDeactivated, onWindowDeiconified, onWindowIconified,
             onWindowOpened)
     this.addWindowListener(listener)
+    return listener
+}
+
+inline fun  Window.addDelayedWindowFocusListener(
+        crossinline onWindowGainedFocus: (event: WindowEvent?) -> Unit = {},
+        crossinline onWindowLostFocus: (event: WindowEvent?) -> Unit = {}): WindowFocusListener {
+    val listener = DelayedWindowFocusListener(onWindowGainedFocus, onWindowLostFocus)
+    this.addWindowFocusListener(listener)
     return listener
 }
 

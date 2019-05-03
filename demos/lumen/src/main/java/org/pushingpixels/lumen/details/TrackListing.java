@@ -145,13 +145,13 @@ public class TrackListing extends JPanel implements Scrollable {
 
     @Override
     protected void paintComponent(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-
         if (this.artist == null) {
             return;
         }
+
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
 
         Font controlFont = NeonCortex.getDefaultFontPolicy().getFontSet().getControlFont();
         Font keyFont = controlFont.deriveFont(15.0f);

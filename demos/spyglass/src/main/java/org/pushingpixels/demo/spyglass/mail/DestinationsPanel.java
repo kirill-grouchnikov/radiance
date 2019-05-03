@@ -190,8 +190,7 @@ public class DestinationsPanel extends PanelWithRightLine {
 
         // Use Substance API to create a button that has consistent look with the
         // title pane control buttons
-        JButton refreshButton = SubstanceCortex.WindowScope.createTitlePaneControlButton(
-                window);
+        JButton refreshButton = SubstanceCortex.WindowScope.createTitlePaneControlButton(window);
 
         refreshButton.setIcon(icon);
         refreshButton.setToolTipText("Refresh mail");

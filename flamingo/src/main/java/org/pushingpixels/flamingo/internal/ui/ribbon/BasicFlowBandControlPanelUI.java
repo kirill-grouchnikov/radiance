@@ -29,12 +29,14 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
+import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI.CollapsedButtonPopupPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -96,8 +98,9 @@ public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPan
 					.getRibbonBand();
 			RibbonBandResizePolicy currentResizePolicy = ribbonBand
 					.getCurrentResizePolicy();
-			if (currentResizePolicy == null)
+			if (currentResizePolicy == null) {
 				return;
+			}
 
 			boolean ltr = c.getComponentOrientation().isLeftToRight();
 			// need place for border
@@ -106,10 +109,8 @@ public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPan
 			int gap = getLayoutGap();
 			int availableHeight = c.getHeight() - ins.top - ins.bottom;
 
-			if (SwingUtilities.getAncestorOfClass(
-					CollapsedButtonPopupPanel.class, c) != null) {
-				List<RibbonBandResizePolicy> resizePolicies = ribbonBand
-						.getResizePolicies();
+			if (SwingUtilities.getAncestorOfClass(CollapsedButtonPopupPanel.class, c) != null) {
+				List<RibbonBandResizePolicy> resizePolicies = ribbonBand.getResizePolicies();
 				// install the most permissive resize policy on the popup
 				// panel of a collapsed ribbon band
 				resizePolicies.get(0).install(availableHeight, gap);
@@ -126,8 +127,7 @@ public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPan
 			// number of rows
 			int maxHeight = 0;
 			int rowCount = 1;
-			for (JComponent flowComponent : flowBandControlPanel
-					.getFlowComponents()) {
+			for (JComponent flowComponent : flowBandControlPanel.getFlowComponents()) {
 				Dimension prefSize = flowComponent.getPreferredSize();
 				if ((x + prefSize.width) > (c.getWidth() - ins.right)) {
 					x = ins.left;
@@ -141,14 +141,12 @@ public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPan
 			int vGap = (availableHeight - rowCount * maxHeight) / rowCount;
 			if (vGap < 0) {
 				vGap = 2;
-				maxHeight = (availableHeight - vGap * (rowCount - 1))
-						/ rowCount;
+				maxHeight = (availableHeight - vGap * (rowCount - 1)) / rowCount;
 			}
 			int y = ins.top + vGap / 2;
 			x = ltr ? ins.left : c.getWidth() - ins.right;
 			int rowIndex = 0;
-			for (JComponent flowComponent : flowBandControlPanel
-					.getFlowComponents()) {
+			for (JComponent flowComponent : flowBandControlPanel.getFlowComponents()) {
 				Dimension prefSize = flowComponent.getPreferredSize();
 				if (ltr) {
 					if ((x + prefSize.width) > (c.getWidth() - ins.right)) {
@@ -168,19 +166,17 @@ public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPan
 					flowComponent.setBounds(x, y + (maxHeight - height) / 2,
 							prefSize.width, height);
 				} else {
-					flowComponent.setBounds(x - prefSize.width, y
-							+ (maxHeight - height) / 2, prefSize.width, height);
+					flowComponent.setBounds(x - prefSize.width,
+							y + (maxHeight - height) / 2, prefSize.width, height);
 				}
 				flowComponent.putClientProperty(
-						AbstractBandControlPanelUI.TOP_ROW, Boolean
-								.valueOf(rowIndex == 0));
+						AbstractBandControlPanelUI.TOP_ROW, Boolean.valueOf(rowIndex == 0));
 				flowComponent.putClientProperty(
-						AbstractBandControlPanelUI.MID_ROW, Boolean
-								.valueOf((rowIndex > 0)
-										&& (rowIndex < (rowCount - 1))));
+						AbstractBandControlPanelUI.MID_ROW,
+						Boolean.valueOf((rowIndex > 0) && (rowIndex < (rowCount - 1))));
 				flowComponent.putClientProperty(
-						AbstractBandControlPanelUI.BOTTOM_ROW, Boolean
-								.valueOf(rowIndex == (rowCount - 1)));
+						AbstractBandControlPanelUI.BOTTOM_ROW,
+						Boolean.valueOf(rowIndex == (rowCount - 1)));
 				if (ltr) {
 					x += (prefSize.width + gap);
 				} else {
@@ -188,6 +184,21 @@ public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPan
 				}
 			}
 
+			List<Component> components = new ArrayList<>();
+			for (Component flow : flowBandControlPanel.getFlowComponents()) {
+				if (flow instanceof JRibbonComponent) {
+					components.add(((JRibbonComponent) flow).getMainComponent());
+				} else if (flow instanceof JCommandButtonStrip) {
+					JCommandButtonStrip buttonStrip = (JCommandButtonStrip) flow;
+					for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
+						components.add(buttonStrip.getButton(i));
+					}
+				} else {
+					components.add(flow);
+				}
+			}
+			c.setFocusTraversalPolicyProvider(true);
+			c.setFocusTraversalPolicy(new SequentialFocusTraversalPolicy(components));
 		}
 	}
 }

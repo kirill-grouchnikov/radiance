@@ -811,6 +811,10 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
             }
             // System.out.println();
+
+//            c.setFocusCycleRoot(true);
+//            c.setFocusTraversalPolicy(new SequentialFocusTraversalPolicy(
+//                    selectedTask.getBands()));
         }
     }
 
@@ -1351,29 +1355,35 @@ public abstract class BasicRibbonUI extends RibbonUI {
     @Override
     public void handleMouseWheelEvent(MouseWheelEvent e) {
         // no mouse wheel scrolling when the ribbon is minimized
-        if (ribbon.isMinimized())
+        if (ribbon.isMinimized()) {
             return;
+        }
 
         // get the visible tasks
         final List<RibbonTask> visibleTasks = getCurrentlyShownRibbonTasks();
-        if (visibleTasks.size() == 0)
+        if (visibleTasks.size() == 0) {
             return;
+        }
 
         int delta = e.getWheelRotation();
-        if (delta == 0)
+        if (delta == 0) {
             return;
+        }
 
         // find the index of the currently selected task
         int currSelectedTaskIndex = visibleTasks.indexOf(ribbon.getSelectedTask());
 
         // compute the next task
-        if (!ribbon.getComponentOrientation().isLeftToRight())
+        if (!ribbon.getComponentOrientation().isLeftToRight()) {
             delta = -delta;
+        }
         int newSelectedTaskIndex = currSelectedTaskIndex + ((delta > 0) ? 1 : -1);
-        if (newSelectedTaskIndex < 0)
+        if (newSelectedTaskIndex < 0) {
             return;
-        if (newSelectedTaskIndex >= visibleTasks.size())
+        }
+        if (newSelectedTaskIndex >= visibleTasks.size()) {
             return;
+        }
 
         final int indexToSet = newSelectedTaskIndex;
         SwingUtilities.invokeLater(() -> {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2019 Radiance Lumen Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2019 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- *  o Neither the name of Radiance Lumen Kirill Grouchnikov nor the names of
+ *  o Neither the name of Radiance Kirill Grouchnikov nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
@@ -27,18 +27,15 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.lucent
 
-apply plugin: 'java'
+import javax.swing.SwingUtilities
 
-dependencies {
-    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
-    compile "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    compile project(':trident')
-    compile project(':neon')
-}
+fun main() {
+    SwingUtilities.invokeLater {
+        val mainWindow = MainWindow()
+        mainWindow.isVisible = true
 
-ext.designation = "demo"
-
-jar {
-    archiveBaseName = "${rootProject.name}-${project.name}"
+        mainWindow.doLoad("Sarah McLachlan", "ce58d854-7430-4231-aa44-97f0144b3372")
+    }
 }

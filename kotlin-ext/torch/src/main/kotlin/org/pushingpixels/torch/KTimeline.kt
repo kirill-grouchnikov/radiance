@@ -35,12 +35,13 @@ import org.pushingpixels.trident.callback.TimelineCallbackAdapter
 import org.pushingpixels.trident.ease.TimelineEase
 import org.pushingpixels.trident.interpolator.KeyFrames
 import org.pushingpixels.trident.swing.SwingComponentTimeline
+import org.pushingpixels.trident.swing.SwingRepaintCallback
 import org.pushingpixels.trident.swing.SwingRepaintTimeline
-import java.awt.Color
 import java.awt.Component
 import java.awt.Rectangle
 import java.awt.Window
-import kotlin.reflect.*
+import kotlin.reflect.KMutableProperty
+import kotlin.reflect.KProperty
 
 // Annotation to control the receiver scoping in the DSL
 @DslMarker
@@ -102,14 +103,21 @@ open class KTimeline {
         builder.setEase(this.ease)
 
         for (prop in this.properties) {
-            builder.addPropertyToInterpolate(Timeline.property<Any>(prop.property.name)
-                    .from(prop.from)
-                    .to(prop.to)
-                    .setWith { _, _, value -> (prop.property as? KMutableProperty)?.setter?.call(value) })
+            val propBuilder = Timeline.property<Any>(prop.property.name)
+            if (prop.from == null) {
+                propBuilder.fromCurrent()
+            } else {
+                propBuilder.from(prop.from)
+            }
+            propBuilder.to(prop.to)
+            propBuilder.getWith { _, _ -> prop.property.getter.call() }
+            propBuilder.setWith { _, _, value -> (prop.property as? KMutableProperty)?.setter?.call(value) }
+            builder.addPropertyToInterpolate(propBuilder)
         }
         for (prop in this.propertiesGoingThrough) {
             builder.addPropertyToInterpolate(Timeline.property<Any>(prop.property.name)
                     .goingThrough(prop.keyFrames)
+                    .getWith { _, _ -> prop.property.getter.call() }
                     .setWith { _, _, value -> (prop.property as? KMutableProperty)?.setter?.call(value) })
         }
 
@@ -137,7 +145,25 @@ open class KTimeline {
 
 class KSwingComponentTimeline(val component: Component) : KTimeline() {
     fun property(fromTo: PropertyFactoryFromTo<*, in Component>) {
-        properties.add(fromTo.property.property(component) from fromTo.from to fromTo.to)
+        if (fromTo.from == null) {
+            properties.add(fromTo.property.property(component) fromCurrentTo fromTo.to)
+        } else {
+            properties.add(fromTo.property.property(component) from fromTo.from to fromTo.to)
+        }
+    }
+
+    fun repaintCallback() {
+        callback(SwingRepaintCallback(component))
+    }
+}
+
+class KSwingWindowTimeline(val window: Window) : KTimeline() {
+    fun property(fromTo: PropertyFactoryFromTo<*, in Window>) {
+        if (fromTo.from == null) {
+            properties.add(fromTo.property.property(window) fromCurrentTo fromTo.to)
+        } else {
+            properties.add(fromTo.property.property(window) from fromTo.from to fromTo.to)
+        }
     }
 }
 
@@ -150,6 +176,17 @@ fun timeline(property: KProperty<Any>, from: Any, to: Any): Timeline {
     val builder = Timeline.Builder()
     builder.addPropertyToInterpolate(Timeline.property<Any>(property.name)
             .from(from)
+            .to(to)
+            .getWith { _, _ -> property.getter.call() }
+            .setWith { _, _, value -> (property as? KMutableProperty)?.setter?.call(value) })
+
+    return builder.build()
+}
+
+fun timeline(property: KProperty<Any>, to: Any): Timeline {
+    val builder = Timeline.Builder()
+    builder.addPropertyToInterpolate(Timeline.property<Any>(property.name)
+            .fromCurrent()
             .to(to)
             .getWith { _, _ -> property.getter.call() }
             .setWith { _, _, value -> (property as? KMutableProperty)?.setter?.call(value) })
@@ -184,6 +221,15 @@ fun Component.componentTimeline(init: KSwingComponentTimeline.() -> Unit): Swing
     return builder.build()
 }
 
+fun Window.windowTimeline(init: KSwingWindowTimeline.() -> Unit): SwingComponentTimeline {
+    val timeline = KSwingWindowTimeline(this)
+    timeline.init()
+
+    val builder = SwingComponentTimeline.componentBuilder(this)
+    timeline.populateBuilder(builder)
+    return builder.build()
+}
+
 fun Component.repaintTimeline(init: (KSwingRepaintTimeline.() -> Unit)? = null): SwingRepaintTimeline {
     val timeline = KSwingRepaintTimeline(this)
     if (init != null) {
@@ -205,12 +251,16 @@ data class PropertyFrom<R>(val property: KProperty<R>, val from: R) {
     }
 }
 
-data class PropertyFromTo<R>(val property: KProperty<R>, val from: R, val to: R)
+data class PropertyFromTo<R>(val property: KProperty<R>, val from: R?, val to: R)
 
 data class PropertyGoingThrough<R>(val property: KProperty<R>, val keyFrames: KeyFrames<R>)
 
 infix fun <R> KProperty<R>.from(from: R): PropertyFrom<R> {
     return PropertyFrom(this, from)
+}
+
+infix fun <R> KProperty<R>.fromCurrentTo(to: R): PropertyFromTo<R> {
+    return PropertyFromTo(this, null, to)
 }
 
 infix fun <R> KProperty<R>.goingThrough(keyFrames: KeyFrames<R>): PropertyGoingThrough<R> {
@@ -223,6 +273,10 @@ abstract class PropertyFactory<T, R> {
     infix fun from(from: T): PropertyFactoryFrom<T, R> {
         return PropertyFactoryFrom(this, from)
     }
+
+    infix fun fromCurrentTo(to: T) : PropertyFactoryFromTo<T, R> {
+        return PropertyFactoryFromTo(this, null, to)
+    }
 }
 
 data class PropertyFactoryFrom<T, R>(val property: PropertyFactory<T, R>, val from: T) {
@@ -231,4 +285,4 @@ data class PropertyFactoryFrom<T, R>(val property: PropertyFactory<T, R>, val fr
     }
 }
 
-data class PropertyFactoryFromTo<T, R>(val property: PropertyFactory<T, R>, val from: T, val to: T)
+data class PropertyFactoryFromTo<T, R>(val property: PropertyFactory<T, R>, val from: T?, val to: T)

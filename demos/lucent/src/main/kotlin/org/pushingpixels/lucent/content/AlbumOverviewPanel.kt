@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2019 Lumen Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2019 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- *  o Neither the name of Lumen Kirill Grouchnikov nor the names of
+ *  o Neither the name of Radiance Kirill Grouchnikov nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
@@ -27,10 +27,6 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.lumen.data;
+package org.pushingpixels.lucent.content
 
-public class TextRepresentation {
-    public String language;
-
-    public String script;
-}
+class AlbumOverviewPanel : Stage3AnimatedScrolling()

@@ -36,7 +36,7 @@ import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -477,15 +477,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         public static void install() {
             if (instance == null) {
                 instance = new AWTRibbonEventListener();
-                java.security.AccessController
-                        .doPrivileged(new java.security.PrivilegedAction<Object>() {
-                            public Object run() {
-                                Toolkit.getDefaultToolkit().addAWTEventListener(instance,
-                                        AWTEvent.MOUSE_EVENT_MASK
-                                                | AWTEvent.MOUSE_WHEEL_EVENT_MASK);
-                                return null;
-                            }
-                        });
+                SubstanceCoreUtilities.registerAWTEventListener(instance);
             }
             instance.installCount++;
         }
@@ -494,8 +486,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             if (instance != null) {
                 instance.installCount--;
                 if (instance.installCount == 0) {
-                    // really uninstall
-                    Toolkit.getDefaultToolkit().removeAWTEventListener(instance);
+                    SubstanceCoreUtilities.unregisterAWTEventListener(instance);
                     instance = null;
                 }
                 return true;
@@ -504,11 +495,16 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         }
 
         public void eventDispatched(AWTEvent event) {
+            if (!(event instanceof MouseEvent)) {
+                return;
+            }
+
             MouseEvent mouseEvent = (MouseEvent) event;
 
             if (mouseEvent.getID() == MouseEvent.MOUSE_WHEEL) {
-                if (PopupPanelManager.defaultManager().getShownPath().size() > 0)
+                if (PopupPanelManager.defaultManager().getShownPath().size() > 0) {
                     return;
+                }
 
                 Object object = event.getSource();
                 if (!(object instanceof Component)) {

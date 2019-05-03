@@ -170,7 +170,6 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         CommandButtonProjection<Command> expandCommandProjection =
                 new CommandButtonProjection<>(this.expandCommand,
                         CommandButtonPresentationModel.builder()
-                                .setFocusable(false)
                                 .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
                                 .build());
         expandCommandProjection.setComponentSupplier(projection -> RibbonBandExpandButton::new);

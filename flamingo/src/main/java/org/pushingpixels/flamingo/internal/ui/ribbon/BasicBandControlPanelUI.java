@@ -216,6 +216,8 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                 currentResizePolicy.install(availableHeight, gap);
             }
 
+            List<Component> focusSequence = new ArrayList<>();
+
             int controlPanelGroupIndex = 0;
             for (JBandControlPanel.ControlPanelGroup controlPanelGroup : ((JBandControlPanel) controlPanel)
                     .getControlPanelGroups()) {
@@ -257,7 +259,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         maxWidthInCurrColumn = gap + pw;
                     }
                     List<JRibbonComponent> ribbonComps = controlPanelGroup.getRibbonComps();
-                    List<JRibbonComponent> currColumn = new ArrayList<JRibbonComponent>();
+                    List<JRibbonComponent> currColumn = new ArrayList<>();
 
                     // if a group has a title, then the core components in that
                     // group will take two rows instead of three
@@ -298,6 +300,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         } else {
                             coreComp.setBounds(x - prefWidth, y + yNudge, prefWidth, compHeight);
                         }
+                        focusSequence.add(coreComp);
                         maxWidthInCurrColumn = Math.max(maxWidthInCurrColumn, prefWidth);
                         currColumn.add(coreComp);
 
@@ -343,8 +346,8 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                 } else {
                     // The galleries
                     for (JRibbonBand.PresentationPriority elementPriority : JRibbonBand.PresentationPriority.values()) {
-                        for (JRibbonGallery gallery : controlPanelGroup
-                                .getRibbonGalleries(elementPriority)) {
+                        for (JRibbonGallery gallery :
+                                controlPanelGroup.getRibbonGalleries(elementPriority)) {
                             int pw = gallery.getPreferredWidth(gallery.getPresentationPriority(),
                                     availableHeight);
                             if (ltr) {
@@ -362,13 +365,13 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         }
                     }
 
-                    Map<CommandButtonPresentationState, List<AbstractCommandButton>> buttonMap = new HashMap<CommandButtonPresentationState, List<AbstractCommandButton>>();
+                    Map<CommandButtonPresentationState, List<AbstractCommandButton>> buttonMap = new HashMap<>();
                     for (JRibbonBand.PresentationPriority elementPriority : JRibbonBand.PresentationPriority.values()) {
                         for (AbstractCommandButton commandButton : controlPanelGroup
                                 .getRibbonButtons(elementPriority)) {
                             CommandButtonPresentationState state = commandButton.getPresentationState();
                             if (buttonMap.get(state) == null) {
-                                buttonMap.put(state, new ArrayList<AbstractCommandButton>());
+                                buttonMap.put(state, new ArrayList<>());
                             }
                             buttonMap.get(state).add(commandButton);
                         }
@@ -392,6 +395,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                                 bigButton.setBounds(x - bigButtonWidth, ins.top, bigButtonWidth,
                                         availableHeight);
                             }
+                            focusSequence.add(bigButton);
                             bigButton.putClientProperty(TOP_ROW, Boolean.FALSE);
                             bigButton.putClientProperty(MID_ROW, Boolean.FALSE);
                             bigButton.putClientProperty(BOTTOM_ROW, Boolean.FALSE);
@@ -433,6 +437,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                                 mediumButton.setBounds(x - medWidth, ins.top + buttonTop, medWidth,
                                         buttonBottom - buttonTop);
                             }
+                            focusSequence.add(mediumButton);
                             mediumButton.putClientProperty(TOP_ROW, Boolean.valueOf(index3 == 0));
                             mediumButton.putClientProperty(MID_ROW, Boolean.valueOf(index3 == 1));
                             mediumButton.putClientProperty(BOTTOM_ROW,
@@ -488,6 +493,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                                 smallButton.setBounds(x - lowWidth, ins.top + buttonTop, lowWidth,
                                         buttonBottom - buttonTop);
                             }
+                            focusSequence.add(smallButton);
                             smallButton.putClientProperty(TOP_ROW, Boolean.valueOf(index3 == 0));
                             smallButton.putClientProperty(MID_ROW, Boolean.valueOf(index3 == 1));
                             smallButton.putClientProperty(BOTTOM_ROW, Boolean.valueOf(index3 == 2));
@@ -523,6 +529,8 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                 }
                 controlPanelGroupIndex++;
             }
+//            c.setFocusTraversalPolicyProvider(true);
+//            c.setFocusTraversalPolicy(new SequentialFocusTraversalPolicy(focusSequence));
         }
     }
 }

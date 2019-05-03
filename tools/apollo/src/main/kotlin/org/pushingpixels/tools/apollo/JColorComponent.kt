@@ -95,7 +95,7 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
             rolloverTimeline = this.componentTimeline {
                 duration = 80
                 property(::borderThickness from 1.0f to 2.0f)
-                callback(SwingRepaintCallback(this@ColorVisualizer))
+                repaintCallback()
             }
 
             this.addDelayedMouseListener(

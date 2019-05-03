@@ -112,7 +112,7 @@ public class BackendConnector {
         Response<Release> releaseResponse = service.getRelease(releaseId).execute();
         Release release = releaseResponse.body();
 
-        return release.mediums.get(0).tracks;
+        return release.media.get(0).tracks;
     }
 
     public static BufferedImage getLargeAlbumArt(String asin) throws Exception {

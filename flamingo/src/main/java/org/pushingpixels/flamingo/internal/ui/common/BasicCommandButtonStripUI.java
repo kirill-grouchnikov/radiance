@@ -32,11 +32,13 @@ package org.pushingpixels.flamingo.internal.ui.common;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.internal.ui.ribbon.SequentialFocusTraversalPolicy;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
+import java.util.List;
 import java.util.*;
 
 /**
