@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2019 Trident Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2019 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- *  o Neither the name of Trident Kirill Grouchnikov nor the names of
+ *  o Neither the name of the copyright holder nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
@@ -408,6 +408,12 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         if ((this.initialDelay + this.duration) < msToSkip) {
             throw new IllegalArgumentException(
                     "Required skip longer than initial delay + duration");
+        }
+        for (AbstractFieldInfo fieldInfo : this.propertiesToInterpolate) {
+            if (fieldInfo.isFromCurrent()) {
+                throw new IllegalArgumentException(
+                        "Can't loop a timeline that has at least one property with .fromCurrent()");
+            }
         }
         TimelineEngine.getInstance().runTimelineOperation(this, TimelineOperationKind.PLAY, () -> {
             Timeline.this.isLooping = true;

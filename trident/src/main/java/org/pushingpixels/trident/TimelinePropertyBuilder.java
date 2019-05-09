@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2019 Trident Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2019 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- *  o Neither the name of Trident Kirill Grouchnikov nor the names of
+ *  o Neither the name of the copyright holder nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
@@ -253,7 +253,6 @@ public class TimelinePropertyBuilder<T> {
         protected PropertySetter setter;
 
         protected F from;
-
         protected F to;
 
         AbstractFieldInfo(Object obj, String fieldName, PropertyGetter<F> pGetter,
@@ -271,6 +270,8 @@ public class TimelinePropertyBuilder<T> {
         }
 
         abstract void onStart();
+
+        abstract boolean isFromCurrent();
 
         abstract void updateFieldValue(float timelinePosition);
     }
@@ -311,6 +312,11 @@ public class TimelinePropertyBuilder<T> {
         }
 
         @Override
+        boolean isFromCurrent() {
+            return true;
+        }
+
+        @Override
         void updateFieldValue(float timelinePosition) {
             //System.out.println("updateFieldValue on @" + hashCode());
             try {
@@ -341,6 +347,11 @@ public class TimelinePropertyBuilder<T> {
         }
 
         @Override
+        boolean isFromCurrent() {
+            return false;
+        }
+
+        @Override
         void updateFieldValue(float timelinePosition) {
             try {
                 Object value = this.propertyInterpolator.interpolate(from, to, timelinePosition);
@@ -366,6 +377,11 @@ public class TimelinePropertyBuilder<T> {
 
         @Override
         void onStart() {
+        }
+
+        @Override
+        boolean isFromCurrent() {
+            return false;
         }
 
         @Override

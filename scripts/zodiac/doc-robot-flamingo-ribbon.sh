@@ -1,5 +1,5 @@
 #
-#  Copyright (c) 2018-2019 Radiance Kirill Grouchnikov. All Rights Reserved.
+#  Copyright (c) 2005-2019 Radiance Kirill Grouchnikov. All Rights Reserved.
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
 #     this list of conditions and the following disclaimer in the documentation
 #     and/or other materials provided with the distribution.
 #
-#   o Neither the name of Radiance Kirill Grouchnikov nor the names of
+#   o Neither the name of the copyright holder nor the names of
 #     its contributors may be used to endorse or promote products derived
 #     from this software without specific prior written permission.
 #
@@ -31,7 +31,7 @@ export JAVA_HOME=`/usr/libexec/java_home -v 9`
 alias JAVA="java"
 
 RADIANCE_VERSION=2.5-SNAPSHOT
-KOTLIN_VERSION=1.3.21
+KOTLIN_VERSION=1.3.31
 CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-zodiac-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/tools/radiance-tools-common-$RADIANCE_VERSION.jar:../../build/libs-tools/fest-swing-1.2.1.jar:../../build/libs-tools/fest-reflect-1.2.jar:../../build/libs-tools/fest-util-1.1.3.jar:../../drop/$RADIANCE_VERSION/core/radiance-substance-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-neon-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-trident-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/demo/radiance-flamingo-demo-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-flamingo-$RADIANCE_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar
 
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.Autumn ../../docs/images/
