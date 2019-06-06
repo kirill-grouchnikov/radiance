@@ -144,9 +144,12 @@ public class RolloverButtonListener extends BasicButtonListener {
 			}
 			try {
 				PointerInfo pi = MouseInfo.getPointerInfo();
-				int px = pi.getLocation().x - this.button.getLocationOnScreen().x;
-				int py = pi.getLocation().y - this.button.getLocationOnScreen().y;
-				this.button.getModel().setRollover(this.button.contains(px, py));
+				if (pi != null)
+				{
+					int px = pi.getLocation().x - this.button.getLocationOnScreen().x;
+					int py = pi.getLocation().y - this.button.getLocationOnScreen().y;
+					this.button.getModel().setRollover(this.button.contains(px, py));
+				}
 			} catch (AccessControlException ace) {
 				// sandbox - give up
 			}
