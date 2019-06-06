@@ -72,6 +72,12 @@ public final class LookUtils {
 	// Requesting the Operating System Name ***********************************
 
 	/**
+	 * True if this is Mac Mojave or later
+	 */
+	public static final boolean IS_OS_MAC_MOJAVE_OR_LATER = LookUtils.IS_OS_MAC
+            || startsWith(OS_VERSION, "10.14");
+
+	/**
 	 * True if this is the Mac OS X.
 	 */
 	public static final boolean IS_OS_MAC = startsWith(OS_NAME, "Mac");
