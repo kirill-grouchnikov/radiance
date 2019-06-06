@@ -143,7 +143,7 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     /**
      * Simple constructor.
      */
-    private SubstanceButtonUI(AbstractButton button) {
+    public SubstanceButtonUI(AbstractButton button) {
         this.button = button;
         this.delegate = new ButtonBackgroundDelegate();
     }

@@ -182,6 +182,9 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         return new SubstanceProgressBarUI();
     }
 
+    public SubstanceProgressBarUI() {
+    }
+
     @Override
     protected void installDefaults() {
         super.installDefaults();

@@ -73,7 +73,7 @@ public class SubstanceMenuItemUI extends BasicMenuItemUI implements
 		return new SubstanceMenuItemUI((JMenuItem) comp);
 	}
 
-	private SubstanceMenuItemUI(JMenuItem menuItem) {
+	public SubstanceMenuItemUI(JMenuItem menuItem) {
 		this.stateTransitionTracker = new StateTransitionTracker(menuItem,
 				menuItem.getModel());
 	}

@@ -240,7 +240,7 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
      * @param button
      *            Associated radio button.
      */
-    SubstanceRadioButtonUI(JToggleButton button) {
+    public SubstanceRadioButtonUI(JToggleButton button) {
         this.button = button;
         button.setRolloverEnabled(true);
         this.stateTransitionTracker = new StateTransitionTracker(this.button,

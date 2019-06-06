@@ -64,7 +64,7 @@ public class SubstanceInternalFrameUI extends BasicInternalFrameUI {
      * @param b
      *            Associated internal frame.
      */
-    private SubstanceInternalFrameUI(JInternalFrame b) {
+    public SubstanceInternalFrameUI(JInternalFrame b) {
         super(b);
     }
 

@@ -106,7 +106,7 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 	/**
 	 * Simple constructor.
 	 */
-	private SubstanceToggleButtonUI(JToggleButton toggleButton) {
+	public SubstanceToggleButtonUI(JToggleButton toggleButton) {
 		this.toggleButton = toggleButton;
 		this.delegate = new ButtonBackgroundDelegate();
 	}

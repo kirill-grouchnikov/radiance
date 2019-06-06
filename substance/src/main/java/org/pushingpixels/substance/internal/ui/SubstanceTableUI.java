@@ -137,7 +137,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
     /**
      * Creates a UI delegate for table.
      */
-    private SubstanceTableUI() {
+    public SubstanceTableUI() {
         super();
         this.selectedIndices = new HashMap<TableCellId, Object>();
         this.rolledOverIndices = new HashSet<TableCellId>();
@@ -914,8 +914,8 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
             rendererComponent = this.table.prepareRenderer(renderer, row, column);
             boolean isSubstanceRendererComponent = isSubstanceDefaultRenderer(rendererComponent);
             if (isSubstanceRenderer && !isSubstanceRendererComponent) {
-                throw new IllegalArgumentException(
-                        "Renderer extends the SubstanceDefaultTableCellRenderer but does not return one in its getTableCellRendererComponent() method");
+                // throw new IllegalArgumentException(
+                //         "Renderer extends the SubstanceDefaultTableCellRenderer but does not return one in its getTableCellRendererComponent() method");
             }
 
             if (!isSubstanceRenderer) {

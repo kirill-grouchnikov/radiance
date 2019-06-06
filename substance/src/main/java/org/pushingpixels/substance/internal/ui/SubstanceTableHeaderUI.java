@@ -138,7 +138,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
     /**
      * Creates a new UI delegate.
      */
-    private SubstanceTableHeaderUI() {
+    public SubstanceTableHeaderUI() {
         this.stateTransitionMultiTracker = new StateTransitionMultiTracker<>();
         selectedIndices = new HashMap<>();
     }

@@ -52,6 +52,9 @@ public class SubstanceSeparatorUI extends BasicSeparatorUI {
 		return new SubstanceSeparatorUI();
 	}
 
+	public SubstanceSeparatorUI() {
+	}
+
 	@Override
 	public void paint(Graphics g, JComponent c) {
 

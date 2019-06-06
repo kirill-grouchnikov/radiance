@@ -68,6 +68,9 @@ public class SubstanceDesktopIconUI extends BasicDesktopIconUI {
 		return new SubstanceDesktopIconUI();
 	}
 
+	public SubstanceDesktopIconUI() {
+	}
+
 	@Override
 	protected void installDefaults() {
 		super.installDefaults();

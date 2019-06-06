@@ -89,6 +89,9 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
         return new SubstanceOptionPaneUI();
     }
 
+    public SubstanceOptionPaneUI() {
+    }
+
     @Override
     public void paint(Graphics g, JComponent c) {
         BackgroundPaintingUtils.updateIfOpaque(g, c);

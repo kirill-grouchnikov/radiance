@@ -52,6 +52,9 @@ public class SubstancePopupMenuSeparatorUI extends BasicPopupMenuSeparatorUI {
 		return new SubstancePopupMenuSeparatorUI();
 	}
 
+	public SubstancePopupMenuSeparatorUI() {
+	}
+
 	@Override
 	public void paint(Graphics g, JComponent c) {
 		Graphics2D graphics = (Graphics2D) g.create();

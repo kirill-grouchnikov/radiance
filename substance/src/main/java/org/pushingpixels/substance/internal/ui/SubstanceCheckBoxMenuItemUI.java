@@ -72,7 +72,7 @@ public class SubstanceCheckBoxMenuItemUI extends BasicCheckBoxMenuItemUI
         return new SubstanceCheckBoxMenuItemUI((JCheckBoxMenuItem) comp);
     }
 
-    private SubstanceCheckBoxMenuItemUI(JCheckBoxMenuItem menuItem) {
+    public SubstanceCheckBoxMenuItemUI(JCheckBoxMenuItem menuItem) {
         this.stateTransitionTracker = new StateTransitionTracker(menuItem,
                 menuItem.getModel());
     }

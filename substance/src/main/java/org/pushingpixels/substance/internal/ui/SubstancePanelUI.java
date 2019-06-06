@@ -52,6 +52,9 @@ public class SubstancePanelUI extends BasicPanelUI {
 		return new SubstancePanelUI();
 	}
 
+	public SubstancePanelUI() {
+	}
+
 	@Override
 	protected void installDefaults(JPanel p) {
 		super.installDefaults(p);

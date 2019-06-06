@@ -82,6 +82,9 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
         return new SubstanceScrollPaneUI();
     }
 
+    public SubstanceScrollPaneUI() {
+    }
+
     @Override
     public void installUI(JComponent c) {
         this.lafWidgets = SubstanceWidgetRepository.getRepository().getMatchingWidgets(c);

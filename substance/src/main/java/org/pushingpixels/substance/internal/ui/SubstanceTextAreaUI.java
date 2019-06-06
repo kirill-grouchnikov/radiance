@@ -92,7 +92,7 @@ public class SubstanceTextAreaUI extends BasicTextAreaUI implements TransitionAw
      * @param c
      *            Component (text area).
      */
-    private SubstanceTextAreaUI(JComponent c) {
+    public SubstanceTextAreaUI(JComponent c) {
         super();
         this.textArea = (JTextArea) c;
 

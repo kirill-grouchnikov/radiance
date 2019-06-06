@@ -92,7 +92,7 @@ public class SubstanceTextPaneUI extends BasicTextPaneUI implements TransitionAw
      * @param c
      *            Component (text pane).
      */
-    private SubstanceTextPaneUI(JComponent c) {
+    public SubstanceTextPaneUI(JComponent c) {
         super();
         this.textPane = (JTextPane) c;
 

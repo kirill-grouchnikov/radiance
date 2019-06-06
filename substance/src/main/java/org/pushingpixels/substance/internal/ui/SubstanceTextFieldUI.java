@@ -93,7 +93,7 @@ public class SubstanceTextFieldUI extends BasicTextFieldUI implements Transition
      * @param c
      *            Component (text field).
      */
-    private SubstanceTextFieldUI(JComponent c) {
+    public SubstanceTextFieldUI(JComponent c) {
         super();
         this.textField = (JTextField) c;
 

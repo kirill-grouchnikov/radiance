@@ -94,7 +94,7 @@ public class SubstanceFormattedTextFieldUI extends BasicFormattedTextFieldUI
      * @param c
      *            Component (formatted text field).
      */
-    private SubstanceFormattedTextFieldUI(JComponent c) {
+    public SubstanceFormattedTextFieldUI(JComponent c) {
         super();
         this.textField = (JFormattedTextField) c;
 

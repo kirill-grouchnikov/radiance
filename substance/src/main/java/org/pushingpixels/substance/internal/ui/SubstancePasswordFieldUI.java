@@ -295,7 +295,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
      * @param c
      *            Component.
      */
-    private SubstancePasswordFieldUI(JComponent c) {
+    public SubstancePasswordFieldUI(JComponent c) {
         super();
         this.passwordField = (JPasswordField) c;
 

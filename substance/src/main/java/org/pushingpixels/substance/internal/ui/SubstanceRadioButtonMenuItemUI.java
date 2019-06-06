@@ -76,7 +76,7 @@ public class SubstanceRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
         return new SubstanceRadioButtonMenuItemUI((JRadioButtonMenuItem) comp);
     }
 
-    private SubstanceRadioButtonMenuItemUI(JRadioButtonMenuItem menuItem) {
+    public SubstanceRadioButtonMenuItemUI(JRadioButtonMenuItem menuItem) {
         this.stateTransitionTracker = new StateTransitionTracker(menuItem, menuItem.getModel());
     }
 

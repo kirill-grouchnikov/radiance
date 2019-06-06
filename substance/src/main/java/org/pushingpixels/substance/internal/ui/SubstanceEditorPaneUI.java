@@ -92,7 +92,7 @@ public class SubstanceEditorPaneUI extends BasicEditorPaneUI implements Transiti
      * @param c
      *            Component (editor pane).
      */
-    private SubstanceEditorPaneUI(JComponent c) {
+    public SubstanceEditorPaneUI(JComponent c) {
         super();
         this.editorPane = (JEditorPane) c;
 

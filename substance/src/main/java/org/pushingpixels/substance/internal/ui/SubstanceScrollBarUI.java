@@ -123,7 +123,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      * @param b
      *            Associated component.
      */
-    private SubstanceScrollBarUI(JComponent b) {
+    public SubstanceScrollBarUI(JComponent b) {
         super();
         this.thumbModel = new DefaultButtonModel();
         this.thumbModel.setArmed(false);

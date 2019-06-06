@@ -48,13 +48,13 @@ import java.util.Map;
 
 /**
  * Various color-related utilities. This class is <b>for internal use only</b>.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceColorUtilities {
 	/**
 	 * Returns the color of the top portion of border in control backgrounds.
-	 * 
+	 *
 	 * @param scheme
 	 *            The color scheme.
 	 * @return The color of the top portion of border in control backgrounds.
@@ -65,7 +65,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns the color of the middle portion of border in control backgrounds.
-	 * 
+	 *
 	 * @param scheme
 	 *            The color scheme.
 	 * @return The color of the middle portion of border in control backgrounds.
@@ -76,7 +76,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns the color of the bottom portion of border in control backgrounds.
-	 * 
+	 *
 	 * @param scheme
 	 *            The color scheme.
 	 * @return The color of the bottom portion of border in control backgrounds.
@@ -88,7 +88,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns the color of the top portion of fill in control backgrounds.
-	 * 
+	 *
 	 * @param scheme
 	 *            The color scheme.
 	 * @return The color of the top portion of fill in control backgrounds.
@@ -144,7 +144,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Interpolates color.
-	 * 
+	 *
 	 * @param color1
 	 *            The first color
 	 * @param color2
@@ -172,7 +172,7 @@ public class SubstanceColorUtilities {
 
 		return (a << 24) | (r << 16) | (g << 8) | b;
 	}
-	
+
 	private static int getInterpolatedChannelValue(int value1, int value2, double value1Likeness) {
 		if (value1 == value2) {
 			return value1;
@@ -183,18 +183,18 @@ public class SubstanceColorUtilities {
 		if (value1Likeness == 0.0f) {
 			return value2;
 		}
-		
+
 		// Step 1 - convert channel from electro to optical
 		double optical1 = EOCF_sRGB(value1 / 255.0f);
 		double optical2 = EOCF_sRGB(value2 / 255.0f);
-		
+
 		// Step 2 - interpolate
-		double interpolatedOptical = value1Likeness * optical1 + 
+		double interpolatedOptical = value1Likeness * optical1 +
 				(1.0f - value1Likeness) * optical2;
-		
+
 		// Step 3 - convert interpolated from optical to electro
 		double interpolatedElectro = OECF_sRGB(interpolatedOptical);
-		
+
 		// Step 4 - convert to 0..255 range
 		// using some interpolation values (such as 0.29 from issue 401)
 		// results in an incorrect final value without Math.round.
@@ -207,7 +207,7 @@ public class SubstanceColorUtilities {
 		}
 		return result;
 	}
-	
+
 	// Opto-electronic conversion function for the sRGB color space
 	// Takes a gamma-encoded sRGB value and converts it to a linear sRGB value
 	private static double OECF_sRGB(double linear) {
@@ -225,7 +225,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Interpolates color.
-	 * 
+	 *
 	 * @param color1
 	 *            The first color
 	 * @param color2
@@ -251,7 +251,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Inverts the specified color.
-	 * 
+	 *
 	 * @param color
 	 *            The original color.
 	 * @return The inverted color.
@@ -263,7 +263,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns a negative of the specified color.
-	 * 
+	 *
 	 * @param rgb
 	 *            Color RGB.
 	 * @return Negative of the specified color.
@@ -279,7 +279,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns a translucent of the specified color.
-	 * 
+	 *
 	 * @param color
 	 *            Color.
 	 * @param alpha
@@ -293,7 +293,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns saturated version of the specified color.
-	 * 
+	 *
 	 * @param color
 	 *            Color.
 	 * @param factor
@@ -322,7 +322,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns hue-shifted (in HSV space) version of the specified color.
-	 * 
+	 *
 	 * @param color
 	 *            Color.
 	 * @param hueShift
@@ -349,7 +349,7 @@ public class SubstanceColorUtilities {
 	 * but its brightness is shifted towards the brightness of the brightness
 	 * source. Thus, a light red color shifted towards dark green will become
 	 * dark red.
-	 * 
+	 *
 	 * @param original
 	 *            Original color.
 	 * @param brightnessSource
@@ -371,7 +371,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns the foreground color of the specified color scheme.
-	 * 
+	 *
 	 * @param scheme
 	 *            Color scheme.
 	 * @return Color scheme foreground color.
@@ -382,7 +382,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns lighter version of the specified color.
-	 * 
+	 *
 	 * @param color
 	 *            Color.
 	 * @param diff
@@ -396,7 +396,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns darker version of the specified color.
-	 * 
+	 *
 	 * @param color
 	 *            Color.
 	 * @param diff
@@ -410,7 +410,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns the brightness of the specified color.
-	 * 
+	 *
 	 * @param rgb
 	 *            RGB value of a color.
 	 * @return The brightness of the specified color.
@@ -425,7 +425,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns the color of the focus ring for the specified component.
-	 * 
+	 *
 	 * @param comp
 	 *            Component.
 	 * @return The color of the focus ring for the specified component.
@@ -433,11 +433,11 @@ public class SubstanceColorUtilities {
 	public static Color getFocusColor(Component comp,
 			TransitionAwareUI transitionAwareUI) {
 		StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
-		StateTransitionTracker.ModelStateInfo modelStateInfo = 
+		StateTransitionTracker.ModelStateInfo modelStateInfo =
 				stateTransitionTracker.getModelStateInfo();
 
 		ComponentState currState = modelStateInfo.getCurrModelState();
-		Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = 
+		Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
 				modelStateInfo.getStateContributionMap();
 
 		SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(
@@ -465,7 +465,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns the color strength.
-	 * 
+	 *
 	 * @param color
 	 *            Color.
 	 * @return Color strength.
@@ -478,7 +478,7 @@ public class SubstanceColorUtilities {
 	/**
 	 * Returns the color of mark icons (checkbox, radio button, scrollbar
 	 * arrows, combo arrows, menu arrows etc) for the specified color scheme.
-	 * 
+	 *
 	 * @param colorScheme
 	 *            Color scheme.
 	 * @param isEnabled
@@ -502,7 +502,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns the foreground text color of the specified component.
-	 * 
+	 *
 	 * @param component
 	 *            Component.
 	 * @param modelStateInfo
@@ -559,7 +559,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns the foreground text color of the specified menu component.
-	 * 
+	 *
 	 * @param menuComponent
 	 *            Menu component.
 	 * @param modelStateInfo
@@ -569,7 +569,7 @@ public class SubstanceColorUtilities {
 	public static Color getMenuComponentForegroundColor(JMenuItem menuComponent,
 			StateTransitionTracker.ModelStateInfo modelStateInfo) {
 		ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
-		Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = 
+		Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
 				modelStateInfo.getStateNoSelectionContributionMap();
 
 		ColorSchemeAssociationKind currAssocKind = ColorSchemeAssociationKind.FILL;
@@ -607,7 +607,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns the background fill color of the specified component.
-	 * 
+	 *
 	 * @param component
 	 *            Component.
 	 * @return The background fill color of the specified component.
@@ -622,10 +622,13 @@ public class SubstanceColorUtilities {
 		} else {
 			// Fix for 325 - respect the opacity setting of the text
 			// component
-			if (component instanceof JTextComponent && 
-					(!component.isOpaque() || !((JTextComponent) component).isEditable())) {
-				component = component.getParent();
-			}
+			// if (component instanceof JTextComponent) {
+			// 	if (!component.isOpaque()){
+			// 		component = component.getParent();
+			// 	}
+
+			// 	return component.getBackground();
+			// }
 		}
 
 		Color backgr = component.getBackground();
@@ -645,7 +648,7 @@ public class SubstanceColorUtilities {
 			}
 
 			SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(component,
-					component.isEnabled() ? ComponentState.ENABLED 
+					component.isEnabled() ? ComponentState.ENABLED
 							: ComponentState.DISABLED_UNSELECTED);
 			backgr = scheme.getBackgroundFillColor();
 		} else {
@@ -657,7 +660,7 @@ public class SubstanceColorUtilities {
 				component = matchingTextComp;
 				boolean isEditable = matchingTextComp.isEditable();
 				if (!isEditable) {
-					return getBackgroundFillColor(component.getParent());
+					return SubstanceColorUtilities.getDefaultBackgroundColor(component, ComponentState.DISABLED_DEFAULT);
 				}
 			}
 			// menu items always use the same background color so that the
@@ -695,19 +698,19 @@ public class SubstanceColorUtilities {
 			}
 		}
 
-		SubstanceColorScheme colorScheme = 
+		SubstanceColorScheme colorScheme =
 				SubstanceColorSchemeUtilities.getColorScheme(scrollbar, state);
-		backgr = SubstanceColorUtilities.getInterpolatedColor(backgr, 
-				SubstanceColorUtilities.getAlphaColor(colorScheme.getForegroundColor(), 
+		backgr = SubstanceColorUtilities.getInterpolatedColor(backgr,
+				SubstanceColorUtilities.getAlphaColor(colorScheme.getForegroundColor(),
 						backgr.getAlpha()),
 				0.9);
 		return backgr;
 	}
-	
+
 	/**
 	 * Returns the default background color for the components of the specified
 	 * class.
-	 * 
+	 *
 	 * @param toTreatAsTextComponent
 	 *            Indication whether to treat this as a text component.
 	 * @param skin
@@ -731,7 +734,7 @@ public class SubstanceColorUtilities {
 
 	/**
 	 * Returns the default background color for the specified component.
-	 * 
+	 *
 	 * @param comp
 	 *            Component.
 	 * @param compState
@@ -757,7 +760,7 @@ public class SubstanceColorUtilities {
 	 * Returns the striped background for the specified component. This method
 	 * is relevant for components such as trees, tables and lists that use
 	 * odd-even striping for the alternating rows.
-	 * 
+	 *
 	 * @param component
 	 *            Component.
 	 * @param rowIndex

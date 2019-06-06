@@ -214,12 +214,31 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
         table.putDefaults(uiDefaults);
     }
 
-    @Override
     protected void initComponentDefaults(UIDefaults table) {
         super.initComponentDefaults(table);
 
         SubstanceCortex.GlobalScope.initFontDefaults(table);
         this.skin.addCustomEntriesToTable(table);
+
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        if ((NeonCortex.getPlatform() != NeonCortex.Platform.MACOS)
+                || !LookUtils.IS_OS_MAC_MOJAVE_OR_LATER) {
+            Map<Object, Object> desktopHints =
+                    (Map<Object, Object>) toolkit.getDesktopProperty("awt.font.desktophints");
+
+            Object aaHint = desktopHints.get(RenderingHints.KEY_TEXT_ANTIALIASING);
+            if (aaHint == null
+                    || aaHint == RenderingHints.VALUE_TEXT_ANTIALIAS_OFF
+                    || aaHint == RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT) {
+                // do nothing
+            } else {
+                // This is needed for consistent text rendering / measurement, especially
+                // in text components.
+                table.put(RenderingHints.KEY_TEXT_ANTIALIASING, aaHint);
+                table.put(RenderingHints.KEY_TEXT_LCD_CONTRAST,
+                        desktopHints.get(RenderingHints.KEY_TEXT_LCD_CONTRAST));
+            }
+        }
     }
 
     @Override

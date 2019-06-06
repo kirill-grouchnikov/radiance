@@ -51,6 +51,9 @@ public class SubstanceViewportUI extends BasicViewportUI {
 		return new SubstanceViewportUI();
 	}
 
+	public SubstanceViewportUI() {
+	}
+
 	@Override
 	protected void installDefaults(JComponent c) {
 		super.installDefaults(c);

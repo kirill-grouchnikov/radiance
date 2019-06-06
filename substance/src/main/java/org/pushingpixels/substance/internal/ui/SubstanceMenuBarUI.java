@@ -57,6 +57,9 @@ public class SubstanceMenuBarUI extends BasicMenuBarUI {
         return new SubstanceMenuBarUI();
     }
 
+    public SubstanceMenuBarUI() {
+    }
+
     @Override
     public void installUI(JComponent c) {
         this.lafWidgets = SubstanceWidgetRepository.getRepository().getMatchingWidgets(c);

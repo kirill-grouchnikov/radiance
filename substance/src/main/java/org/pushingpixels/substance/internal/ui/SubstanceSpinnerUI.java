@@ -72,6 +72,9 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 		return new SubstanceSpinnerUI();
 	}
 
+	public SubstanceSpinnerUI() {
+	}
+
 	@Override
 	public void installUI(JComponent c) {
 		super.installUI(c);

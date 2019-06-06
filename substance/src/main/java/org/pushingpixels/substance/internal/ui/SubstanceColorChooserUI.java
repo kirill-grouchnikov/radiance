@@ -55,6 +55,9 @@ public class SubstanceColorChooserUI extends Quaqua14ColorChooserUI {
 		return new SubstanceColorChooserUI();
 	}
 
+	public SubstanceColorChooserUI() {
+	}
+
 	@Override
 	protected AbstractColorChooserPanel[] createDefaultChoosers() {
 		String[] defaultChoosers = (String[]) UIManager

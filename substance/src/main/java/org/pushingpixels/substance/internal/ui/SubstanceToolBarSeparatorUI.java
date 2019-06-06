@@ -48,6 +48,9 @@ public class SubstanceToolBarSeparatorUI extends BasicToolBarSeparatorUI {
 		return new SubstanceToolBarSeparatorUI();
 	}
 
+	public SubstanceToolBarSeparatorUI() {
+	}
+
 	@Override
 	public void paint(Graphics g, JComponent c) {
 		Graphics2D graphics = (Graphics2D) g.create();

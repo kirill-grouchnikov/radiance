@@ -297,7 +297,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
     /**
      * Creates a UI delegate for list.
      */
-    private SubstanceListUI() {
+    public SubstanceListUI() {
         super();
         rolledOverIndex = -1;
         selectedIndices = new HashMap<>();

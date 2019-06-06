@@ -116,7 +116,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         super.uninstallUI(c);
     }
 
-    private SubstanceComboBoxUI(JComboBox combo) {
+    public SubstanceComboBoxUI(JComboBox combo) {
         this.comboBox = combo;
 
         this.transitionModel = new DefaultButtonModel();

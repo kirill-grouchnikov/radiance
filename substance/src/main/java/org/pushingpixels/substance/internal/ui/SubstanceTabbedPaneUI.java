@@ -507,7 +507,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Creates the new UI delegate.
      */
-    private SubstanceTabbedPaneUI() {
+    public SubstanceTabbedPaneUI() {
         super();
         this.stateTransitionMultiTracker = new StateTransitionMultiTracker<Integer>();
         this.currSelectedIndex = -1;

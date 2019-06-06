@@ -74,7 +74,7 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
      *
      * @param button The associated button.
      */
-    private SubstanceCheckBoxUI(JToggleButton button) {
+    public SubstanceCheckBoxUI(JToggleButton button) {
         super(button);
     }
 
