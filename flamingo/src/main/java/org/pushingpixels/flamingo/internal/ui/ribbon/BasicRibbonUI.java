@@ -555,7 +555,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     applicationMenuButton.setBounds(x + 2, y + 1, appMenuButtonWidth,
                             taskToggleButtonHeight - 1);
                 }
-                applicationMenuButton.setVisible(false);
             }
 
             TaskToggleButtonsHostPanel taskToggleButtonsHostPanel =
