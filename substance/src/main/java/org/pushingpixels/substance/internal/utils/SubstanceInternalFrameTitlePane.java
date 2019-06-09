@@ -600,6 +600,8 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
 
             x = controlButtonsOnRight ? w : 0;
             spacing = 3;
+
+            closeButton.setVisible(frame.isClosable());
             if (frame.isClosable()) {
                 x += controlButtonsOnRight ? -spacing - buttonWidth : spacing;
                 closeButton.setBounds(x, y, buttonWidth, buttonHeight);
@@ -608,6 +610,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
                 }
             }
 
+            maxButton.setVisible(frame.isMaximizable());
             if (frame.isMaximizable()) {
                 spacing = frame.isClosable() ? 10 : 4;
                 x += controlButtonsOnRight ? -spacing - buttonWidth : spacing;
@@ -617,6 +620,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
                 }
             }
 
+            iconButton.setVisible(frame.isIconifiable());
             if (frame.isIconifiable()) {
                 spacing = frame.isMaximizable() ? 2 : (frame.isClosable() ? 10 : 4);
                 x += controlButtonsOnRight ? -spacing - buttonWidth : spacing;
