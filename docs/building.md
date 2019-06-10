@@ -2,6 +2,10 @@
 
 Radiance libraries are built with [Gradle](https://docs.gradle.org/). Each library has its own `build.gradle` file, and the top-level `build.gradle` has tasks to build, package and deploy Radiance artifacts.
 
+### Java requirements
+
+Radiance requires Java 9 for building. Search for "Java 9 download" in your favorite search engine, or browse [this page](https://www.oracle.com/technetwork/java/javase/downloads/index.html) (and perhaps the archives that it points to) to get the JDK distribution for your environment.
+
 ### Local artifacts
 
 Radiance artifacts are split into three groups - `core`, `demo` and `tools`. Core artifacts are binaries that provide application-facing functionality of Neon, Trident, Substance, Flamingo etc. Demo artifacts are binaries that provide the bundled test / demo applications for local testing of the various core Radiance libraries. Tools artifacts are binaries for general maintenance of various Radiance libraries.
