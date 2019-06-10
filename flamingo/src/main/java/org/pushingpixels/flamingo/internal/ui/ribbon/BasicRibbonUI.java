@@ -467,12 +467,15 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
             // the application menu button width
             boolean isShowingAppMenuButton = (ribbon.getApplicationMenuProjection() != null);
-            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                    applicationMenuButton.getFont());
-            int appMenuButtonWidth = isShowingAppMenuButton
-                    ? fm.stringWidth(ribbon.getApplicationMenuCommandProjection()
-                    .getContentModel().getText()) + 40
-                    : 0;
+            
+            int appMenuButtonWidth = 0;
+            if (isShowingAppMenuButton) {
+                FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                        applicationMenuButton.getFont());
+                
+                appMenuButtonWidth = fm.stringWidth(ribbon.getApplicationMenuCommandProjection()
+                    .getContentModel().getText()) + 40;
+            }
 
             x = ltr ? x + 2 : x - 2;
             if (isShowingAppMenuButton) {
@@ -552,8 +555,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     applicationMenuButton.setBounds(x + 2, y + 1, appMenuButtonWidth,
                             taskToggleButtonHeight - 1);
                 }
-            } else {
-                applicationMenuButton.setVisible(false);
             }
 
             TaskToggleButtonsHostPanel taskToggleButtonsHostPanel =
