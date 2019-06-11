@@ -34,6 +34,7 @@ import org.pushingpixels.neon.font.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.StringTokenizer;
 
@@ -47,14 +48,28 @@ public class DefaultGnomeFontPolicy implements FontPolicy {
 	 * Font scale.
 	 */
 	private static double fontScale;
+	private static double nativeScale;
 
 	static {
 		GraphicsEnvironment ge = GraphicsEnvironment
 				.getLocalGraphicsEnvironment();
+		GraphicsDevice device = ge.getDefaultScreenDevice();
 		GraphicsConfiguration gc = ge.getDefaultScreenDevice()
 				.getDefaultConfiguration();
 		AffineTransform at = gc.getNormalizingTransform();
 		fontScale = at.getScaleY();
+
+		try {
+			Method getNativeScale = device.getClass().getDeclaredMethod("getNativeScale");
+
+			nativeScale = ((Number)getNativeScale.invoke(device)).doubleValue();
+			if (nativeScale < 1) {
+				nativeScale = 1;
+			}
+		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			nativeScale = 1;
+		}
 	}
 
 	@Override
@@ -96,7 +111,7 @@ public class DefaultGnomeFontPolicy implements FontPolicy {
 			}
 		}
 
-		double dsize = size * getPointsToPixelsRatio();
+		double dsize = (size * getPointsToPixelsRatio()) / nativeScale;
 
 		size = (int) (dsize + 0.5);
 		if (size < 1) {
