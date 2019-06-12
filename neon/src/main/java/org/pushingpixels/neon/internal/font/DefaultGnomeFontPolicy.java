@@ -60,14 +60,28 @@ public class DefaultGnomeFontPolicy implements FontPolicy {
 		fontScale = at.getScaleY();
 
 		try {
+			// Attempt to get the native scale factor from the X11GraphicsDevice instance
+			// Unfortunately, this has to be done via reflection as the class is not
+			// exposed by the java.desktop module
 			Method getNativeScale = device.getClass().getDeclaredMethod("getNativeScale");
 
+			// note that the method currently returns an int, but we treat it as a double
+			// because the underlying OS uses a double and so if Java changes to respect
+			// this in future versions we will start to get the right value automagically
+			
+			// an unfortunate side effect of the value being returned as an int is that
+			// the scaling won't always match the OS accurate. For example, under Ubuntu
+			// the scaling can be set to a double with two decimal places. Most people
+			// seem to set the value to 2 which isn't a problem, however, 1.5 is also
+			// a common option. In that case the method rounds the number up to 2 meaning
+			// that the fonts are shown slightly larger than necessary. While not perfect
+			// this is still better than not adjusting for the native scaling at all.
 			nativeScale = ((Number)getNativeScale.invoke(device)).doubleValue();
 			if (nativeScale < 1) {
 				nativeScale = 1;
 			}
-		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
+		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+			// if we can't get the scale then just assume there isn't one
 			nativeScale = 1;
 		}
 	}
@@ -111,6 +125,11 @@ public class DefaultGnomeFontPolicy implements FontPolicy {
 			}
 		}
 
+		// adjust the font size to take into account any native scaling being
+		// performed by the underlying OS. This fix comes from a proposed
+		// fix to PangoFonts on which this class was originally based.
+		// Bug Report: https://bugs.openjdk.java.net/browse/JDK-8058742
+		// Proposed Fix: http://cr.openjdk.java.net/~ssadetsky/8058742/webrev.01/
 		double dsize = (size * getPointsToPixelsRatio()) / nativeScale;
 
 		size = (int) (dsize + 0.5);
