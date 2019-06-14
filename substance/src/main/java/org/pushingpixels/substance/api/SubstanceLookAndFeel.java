@@ -176,7 +176,8 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
             Map<Object, Object> desktopHints =
                     (Map<Object, Object>) toolkit.getDesktopProperty("awt.font.desktophints");
 
-            Object aaHint = desktopHints.get(RenderingHints.KEY_TEXT_ANTIALIASING);
+            Object aaHint = (desktopHints == null) ? null :
+                    desktopHints.get(RenderingHints.KEY_TEXT_ANTIALIASING);
             if (aaHint == null
                     || aaHint == RenderingHints.VALUE_TEXT_ANTIALIAS_OFF
                     || aaHint == RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT) {
