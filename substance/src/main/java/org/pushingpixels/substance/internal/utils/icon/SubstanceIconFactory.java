@@ -271,7 +271,7 @@ public class SubstanceIconFactory {
             g2d.dispose();
 
             if (this.isMirrorred)
-                stateImage = SubstanceImageCreator.getRotated(stateImage, 2, false);
+                stateImage = SubstanceImageCreator.getRotated(stateImage, 2);
 
             return new ImageWrapperIcon(stateImage);
         }
@@ -608,13 +608,14 @@ public class SubstanceIconFactory {
             borderPainter.paintBorder(g2d, slider, height, this.size - 1, contour, contourInner,
                     borderScheme);
 
-            if (this.isMirrorred)
-                stateImage = SubstanceImageCreator.getRotated(stateImage, 1, false);
-            else
-                stateImage = SubstanceImageCreator.getRotated(stateImage, 3, false);
+            if (this.isMirrorred) {
+                stateImage = SubstanceImageCreator.getRotated(stateImage, 1);
+            } else {
+                stateImage = SubstanceImageCreator.getRotated(stateImage, 3);
+            }
 
             if (!slider.getComponentOrientation().isLeftToRight()) {
-                stateImage = SubstanceImageCreator.getRotated(stateImage, 2, false);
+                stateImage = SubstanceImageCreator.getRotated(stateImage, 2);
             }
 
             return new ImageWrapperIcon(stateImage);
@@ -628,8 +629,7 @@ public class SubstanceIconFactory {
 
             JSlider slider = (JSlider) c;
             TransitionAwareUI transitionAwareUI = (TransitionAwareUI) slider.getUI();
-            StateTransitionTracker stateTransitionTracker = transitionAwareUI
-                    .getTransitionTracker();
+            StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
             Icon iconToDraw = getIcon(slider, stateTransitionTracker);
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.translate(x, y);

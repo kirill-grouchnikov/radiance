@@ -371,8 +371,7 @@ public final class SubstanceImageCreator {
      *            times this value.
      * @return Rotated image.
      */
-    public static BufferedImage getRotated(BufferedImage bi, int quadrantClockwise,
-            boolean respectScaleFactorDuringRotation) {
+    public static BufferedImage getRotated(BufferedImage bi, int quadrantClockwise) {
         if (quadrantClockwise == 0) {
             return bi;
         }
@@ -387,24 +386,20 @@ public final class SubstanceImageCreator {
         BufferedImage biRot = SubstanceCoreUtilities.getBlankImage((int) (width / factor),
                 (int) (height / factor));
         AffineTransform at = null;
-        double factorForRotation = respectScaleFactorDuringRotation ? factor : 1;
         switch (quadrantClockwise) {
             case 1:
-                at = AffineTransform.getTranslateInstance(width / factorForRotation, 0);
+                at = AffineTransform.getTranslateInstance(width, 0);
                 at.rotate(Math.PI / 2);
                 break;
             case 2:
-                at = AffineTransform.getTranslateInstance(width / factorForRotation,
-                        height / factorForRotation);
+                at = AffineTransform.getTranslateInstance(width, height);
                 at.rotate(Math.PI);
                 break;
             case 3:
-                at = AffineTransform.getTranslateInstance(0, height / factorForRotation);
+                at = AffineTransform.getTranslateInstance(0, height);
                 at.rotate(-Math.PI / 2);
         }
         Graphics2D rotg = biRot.createGraphics();
-        // rotg.setColor(new Color(0, 0, 255, 255));
-        // rotg.fillRect(0, 0, biRot.getWidth(), biRot.getHeight());
         rotg.scale(1.0f / factor, 1.0f / factor);
         if (at != null) {
             rotg.setTransform(at);

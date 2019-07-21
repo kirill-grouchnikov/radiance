@@ -260,7 +260,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
 
             borderPainter.paintBorder(result.getGraphics(), scrollBar, height, width, contour, null,
                     borderScheme);
-            result = SubstanceImageCreator.getRotated(result, 3, false);
+            result = SubstanceImageCreator.getRotated(result, 3);
             // System.out.println(key);
             SubstanceScrollBarUI.thumbVerticalMap.put(key, result);
         }

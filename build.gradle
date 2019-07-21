@@ -34,12 +34,12 @@ ext.isRelease = false
 
 buildscript {
     ext {
-        kotlin_version = '1.3.31'
+        kotlin_version = '1.3.41'
         kotlinx_coroutines_version = '1.2.1'
         gradle_nexus_plugin_version = '2.3.1'
         dokka_plugin_version = '0.9.18'
         batik_version = '1.11'
-        retrofit_version = '2.5.0'
+        retrofit_version = '2.6.0'
     }
     repositories {
         mavenCentral()
@@ -53,7 +53,7 @@ buildscript {
 }
 
 wrapper {
-    gradleVersion = "5.4.1"
+    gradleVersion = "5.5.1"
 }
 
 allprojects {

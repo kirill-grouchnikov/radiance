@@ -741,7 +741,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 case BOTTOM:
                     BufferedImage unrotated = getFinalTabBackgroundImage(tabPane, tabIndex, x, y,
                             width, height, SwingConstants.TOP, side, colorScheme, borderScheme);
-                    BufferedImage rotated = SubstanceImageCreator.getRotated(unrotated, 2, true);
+                    BufferedImage rotated = SubstanceImageCreator.getRotated(unrotated, 2);
                     return rotated;
                 case TOP:
                 case LEFT:
