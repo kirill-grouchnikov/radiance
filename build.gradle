@@ -39,7 +39,7 @@ buildscript {
         gradle_nexus_plugin_version = '2.3.1'
         dokka_plugin_version = '0.9.18'
         batik_version = '1.11'
-        retrofit_version = '2.6.0'
+        retrofit_version = '2.6.1'
     }
     repositories {
         mavenCentral()

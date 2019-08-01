@@ -414,7 +414,7 @@ public class JRibbonFrame extends JFrame {
                                         }
                                     }
                                     if (keyTipManager.isShowingKeyTips()) {
-                                        // Traversal of ribbon content while keytips are showing
+                                        // Traversal of ribbon tasks while keytips are showing
                                         switch (keyEvent.getKeyCode()) {
                                             case KeyEvent.VK_LEFT:
                                                 RibbonTask previous = getPreviousRibbonTask();
@@ -427,9 +427,6 @@ public class JRibbonFrame extends JFrame {
                                                 if (next != null) {
                                                     ribbon.setSelectedTask(next);
                                                 }
-                                                break;
-                                            case KeyEvent.VK_TAB:
-                                                System.out.println("TAB!" + keyEvent.isShiftDown());
                                                 break;
                                         }
                                     }

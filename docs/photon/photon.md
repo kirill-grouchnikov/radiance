@@ -71,19 +71,19 @@ The following table summarizes the level of support for different SVG elements.
 | `<ellipse>` | Radiance 1.0+ |
 | `<filter>` | Out of scope |
 | `<hatch>` | [Not supported](https://issues.apache.org/jira/browse/BATIK-1259) by Batik |
-| `<image>` | Radiance 3.0+ |
+| `<image>` | Radiance 2.5+ |
 | `<line>` | Radiance 1.0+ |
 | `<linearGradient>` | Radiance 1.0+ |
-| `<marker>` | Radiance 3.0+ |
+| `<marker>` | Radiance 2.5+ |
 | `<mask>` | Out of scope |
 | `<path>` | Radiance 1.0+ |
-| `<pattern>` | Radiance 3.0+ |
+| `<pattern>` | Radiance 2.5+ |
 | `<polygon>` | Radiance 1.0+ |
 | `<polyline>` | Radiance 1.0+ |
 | `<radialGradient>` | Radiance 1.0+ |
 | `<rect>` | Radiance 1.0+ |
 | `<solidcolor>` | Radiance 1.0+ |
-| `<text>` | Radiance 3.0+ |
+| `<text>` | Radiance 2.5+ |
 
 ### Taking a deeper look at Photon internals
 

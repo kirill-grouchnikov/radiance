@@ -59,23 +59,23 @@ object BackendConnector {
         val releases = releaseResponse.body()
 
         val result = ArrayList<SearchResultRelease>()
-        for (release in releases!!.releases!!) {
-            if (release.asin == null || release.asin!!.isEmpty()) {
+        for (release in releases!!.releases) {
+            if (release.asin == null || release.asin.isEmpty()) {
                 continue
             }
-            if (release.releaseEvents == null || release.releaseEvents!!.isEmpty()) {
+            if (release.releaseEvents.isEmpty()) {
                 continue
             }
 
             var foundUsRelease = false
-            for (releaseEvent in release.releaseEvents!!) {
+            for (releaseEvent in release.releaseEvents) {
                 if (releaseEvent.area == null) {
                     continue
                 }
-                if ("United States" != releaseEvent.area!!.name) {
+                if ("United States" != releaseEvent.area.name) {
                     continue
                 }
-                if (releaseEvent.date == null || releaseEvent.date!!.isEmpty()) {
+                if (releaseEvent.date == null || releaseEvent.date.isEmpty()) {
                     continue
                 }
                 foundUsRelease = true
@@ -117,7 +117,7 @@ object BackendConnector {
         val releaseResponse = service.getRelease(releaseId).execute()
         val release = releaseResponse.body()
 
-        return release!!.media!![0].tracks!!
+        return release!!.media[0].tracks
     }
 
     @Throws(Exception::class)

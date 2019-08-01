@@ -46,6 +46,7 @@ public class MainWindow extends JFrame {
         super("Lumen demo");
         this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
+        this.getRootPane().putClientProperty("Window.shadow", java.lang.Boolean.FALSE);
 
         this.contentPanel = new AlbumOverviewPanel();
         this.closeButton = new CloseButton();

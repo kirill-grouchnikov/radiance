@@ -31,6 +31,7 @@ package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
+import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.*;
@@ -57,18 +58,33 @@ public class MultiLevelMenu extends JFrame {
         List<Command> menuCommands2 = new ArrayList<>();
 
         menuCommands1.add(Command.builder()
-                .setText("Copy").setIconFactory(Edit_copy.factory()).build());
+                .setText("Copy")
+                .setIconFactory(Edit_copy.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Copy"))
+                .build());
         menuCommands1.add(Command.builder()
-                .setText("Cut").setIconFactory(Edit_cut.factory()).build());
+                .setText("Cut")
+                .setIconFactory(Edit_cut.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Cut"))
+                .build());
         menuCommands1.add(Command.builder()
-                .setText("Paste").setIconFactory(Edit_paste.factory()).build());
+                .setText("Paste")
+                .setIconFactory(Edit_paste.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Paste"))
+                .build());
 
         List<Command> menuCommandsSecondary = new ArrayList<>();
 
         menuCommandsSecondary.add(Command.builder()
-                .setText("Find").setIconFactory(Edit_find.factory()).build());
+                .setText("Find")
+                .setIconFactory(Edit_find.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Find"))
+                .build());
         menuCommandsSecondary.add(Command.builder()
-                .setText("Find replace").setIconFactory(Edit_find_replace.factory()).build());
+                .setText("Find replace")
+                .setIconFactory(Edit_find_replace.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Find replace"))
+                .build());
 
         menuCommands2.add(Command.builder()
                 .setText("Find")

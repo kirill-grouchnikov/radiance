@@ -174,7 +174,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.commandButton.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS,
                 forwardFocusKeys);
 
-        // Only register SHIFT+TAB for forward traversal
+        // Only register SHIFT+TAB for backward traversal
         Set<AWTKeyStroke> backwardFocusKeys = new HashSet<>();
         backwardFocusKeys.add(shiftTab);
         this.commandButton.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS,

@@ -204,7 +204,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             if ("title".equals(evt.getPropertyName()))
                 ribbonBand.repaint();
             if ("expandButtonKeyTip".equals(evt.getPropertyName())) {
-                // TODO - remove this when ribbon bands are constructed from models
                 if (expandButton != null) {
                     expandButton.setActionKeyTip((String) evt.getNewValue());
                 }

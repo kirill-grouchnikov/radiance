@@ -67,23 +67,23 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
         /**
          * Maximum dimension of <code>this</code> popup gallery.
          */
-        protected Dimension maxDimension;
+        private Dimension maxDimension;
 
         /**
          * The internal panel that hosts the icon command buttons. Is hosted in
          * the {@link #scroll}.
          */
-        protected JCommandButtonPanel buttonPanel;
+        private JCommandButtonPanel buttonPanel;
 
         /**
          * The maximum number of visible button rows.
          */
-        protected int maxVisibleButtonRows;
+        private int maxVisibleButtonRows;
 
         /**
          * Scroll panel that hosts {@link #buttonPanel}.
          */
-        protected JScrollPane scroll;
+        private JScrollPane scroll;
 
         /**
          * Creates new a icon popup panel.
@@ -92,8 +92,8 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
          * @param maxButtonColumns     The maximum number of button columns.
          * @param maxVisibleButtonRows The maximum number of visible button rows.
          */
-        public ScrollableCommandButtonPanel(JCommandButtonPanel iconPanel, int maxButtonColumns,
-                int maxVisibleButtonRows) {
+        private ScrollableCommandButtonPanel(JCommandButtonPanel iconPanel, int maxButtonColumns,
+                                            int maxVisibleButtonRows) {
             this.buttonPanel = iconPanel;
             this.buttonPanel.getProjection().getPresentationModel().setMaxColumns(maxButtonColumns);
             this.maxVisibleButtonRows = maxVisibleButtonRows;
@@ -133,7 +133,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
                 @Override
                 public void paintBorder(Component c, Graphics g, int x, int y, int width,
-                        int height) {
+                                        int height) {
                     g.setColor(SubstanceColorSchemeUtilities.getColorScheme(c,
                             SubstanceSlices.ColorSchemeAssociationKind.FILL,
                             ComponentState.ENABLED).getDarkColor());
@@ -664,10 +664,33 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
         }
     }
 
+    private boolean maybeMoveFocusToAnotherPopup() {
+        // Who has the focus now?
+        for (Component popupMenuComponent : this.popupMenu.getMenuComponents()) {
+            if (popupMenuComponent.hasFocus()) {
+                java.util.List<PopupPanelManager.PopupInfo> popups =
+                        PopupPanelManager.defaultManager().getShownPath();
+                for (PopupPanelManager.PopupInfo popup : popups) {
+                    if (popup.getPopupOriginator() == popupMenuComponent) {
+                        // We have a popup originating in the current focus owner.
+                        // Transfer the focus into the popup.
+                        popup.getPopupPanel().getUI().focusFirst();
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public void focusRight() {
         if (this.commandButtonPanel != null) {
             this.commandButtonPanel.buttonPanel.getUI().focusRight();
+        } else {
+            if (this.popupMenu.getComponentOrientation().isLeftToRight()) {
+                maybeMoveFocusToAnotherPopup();
+            }
         }
     }
 
@@ -675,6 +698,10 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
     public void focusLeft() {
         if (this.commandButtonPanel != null) {
             this.commandButtonPanel.buttonPanel.getUI().focusLeft();
+        } else {
+            if (!this.popupMenu.getComponentOrientation().isLeftToRight()) {
+                maybeMoveFocusToAnotherPopup();
+            }
         }
     }
 }

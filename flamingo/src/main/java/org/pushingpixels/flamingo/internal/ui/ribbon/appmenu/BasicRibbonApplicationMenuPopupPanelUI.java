@@ -322,7 +322,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
     }
 
     private boolean getCommandPath(CommandMenuContentModel commandMenuContentModel,
-            Command command, List<Command> pathTo) {
+                                   Command command, List<Command> pathTo) {
         // Is the command in this menu?
         for (CommandGroup group : commandMenuContentModel.getCommandGroups()) {
             if (group.getCommands().contains(command)) {
@@ -538,4 +538,218 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         };
     }
 
+    private int getFocusedIndex(Component[] components) {
+        if (components != null) {
+            for (int i = 0; i < components.length; i++) {
+                if (components[i].hasFocus()) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    private Component findFirstFocusableAfter(Component[] components, int index, boolean onlyMenuButtons) {
+        if (components == null) {
+            return null;
+        }
+        for (int i = index + 1; i < components.length; i++) {
+            if (components[i].isFocusable()) {
+                if (onlyMenuButtons) {
+                    if (!(components[i] instanceof JCommandMenuButton) &&
+                            !(components[i] instanceof JCommandToggleMenuButton)) {
+                        continue;
+                    }
+                }
+                return components[i];
+            }
+        }
+        return null;
+    }
+
+    private Component findLastFocusableBefore(Component[] components, int index, boolean onlyMenuButtons) {
+        if (components == null) {
+            return null;
+        }
+        for (int i = index - 1; i >= 0; i--) {
+            if (components[i].isFocusable()) {
+                if (onlyMenuButtons) {
+                    if (!(components[i] instanceof JCommandMenuButton) &&
+                            !(components[i] instanceof JCommandToggleMenuButton)) {
+                        continue;
+                    }
+                }
+                return components[i];
+            }
+        }
+        return null;
+    }
+
+    private int getSecondaryFocusedIndex() {
+        if (this.panelLevel2.getComponentCount() == 0) {
+            return -1;
+        }
+        JRibbonApplicationMenuPopupPanelSecondary secondary =
+                (JRibbonApplicationMenuPopupPanelSecondary) this.panelLevel2.getComponent(0);
+        return getFocusedIndex(secondary.getComponents());
+    }
+
+    @Override
+    public void focusDown() {
+        int primaryFocused = getFocusedIndex(this.panelLevel1.getComponents());
+        int secondaryFocused = getSecondaryFocusedIndex();
+        int footerFocused = getFocusedIndex(this.footerPanel.getComponents());
+        List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();
+
+        // Special case - only one popup showing (which is the ribbon application menu),
+        // and no focus in primary, secondary or footer
+        if ((popups.size() == 1) && (primaryFocused < 0) && (secondaryFocused < 0) && (footerFocused < 0)) {
+            // Focus on the first focusable primary
+            Component firstFocusablePrimary = findFirstFocusableAfter(this.panelLevel1.getComponents(), -1, true);
+            if (firstFocusablePrimary != null) {
+                firstFocusablePrimary.requestFocus();
+                ((JCommandMenuButton) firstFocusablePrimary).doActionRollover();
+            }
+            return;
+        }
+
+        if (primaryFocused >= 0) {
+            // Focus is in primary. Go down if we can
+            Component nextFocusablePrimary = findFirstFocusableAfter(this.panelLevel1.getComponents(),
+                    primaryFocused, true);
+            if (nextFocusablePrimary != null) {
+                nextFocusablePrimary.requestFocus();
+                ((JCommandMenuButton) nextFocusablePrimary).doActionRollover();
+            } else {
+                // Try to find a focusable footer
+                Component firstFocusableFooter = findFirstFocusableAfter(this.footerPanel.getComponents(), -1, false);
+                if (firstFocusableFooter != null) {
+                    firstFocusableFooter.requestFocus();
+                }
+            }
+            return;
+        }
+
+        if (secondaryFocused >= 0) {
+            // Focus is in secondary. Go down if we can
+            JRibbonApplicationMenuPopupPanelSecondary secondary =
+                    (JRibbonApplicationMenuPopupPanelSecondary) this.panelLevel2.getComponent(0);
+            Component nextFocusableSecondary = findFirstFocusableAfter(secondary.getComponents(),
+                    secondaryFocused, true);
+            if (nextFocusableSecondary != null) {
+                nextFocusableSecondary.requestFocus();
+                this.panelScrollerLevel2.scrollToIfNecessary(nextFocusableSecondary.getY(),
+                        nextFocusableSecondary.getHeight());
+            } else {
+                // Try to find a focusable footer
+                Component firstFocusableFooter = findFirstFocusableAfter(this.footerPanel.getComponents(), -1, false);
+                if (firstFocusableFooter != null) {
+                    firstFocusableFooter.requestFocus();
+                }
+            }
+        }
+    }
+
+
+    @Override
+    public void focusUp() {
+        int primaryFocused = getFocusedIndex(this.panelLevel1.getComponents());
+        int secondaryFocused = getSecondaryFocusedIndex();
+        int footerFocused = getFocusedIndex(this.footerPanel.getComponents());
+        List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();
+
+        // Special case - only one popup showing (which is the ribbon application menu),
+        // and no focus in primary, secondary or footer
+        if ((popups.size() == 1) && (primaryFocused < 0) && (secondaryFocused < 0) && (footerFocused < 0)) {
+            // Focus on the first focusable footer
+            Component firstFocusableFooter = findFirstFocusableAfter(this.footerPanel.getComponents(), -1, false);
+            if (firstFocusableFooter != null) {
+                firstFocusableFooter.requestFocus();
+            }
+            return;
+        }
+
+        if (footerFocused >= 0) {
+            // Focus is in footer. Go to last focusable primary
+            Component lastFocusablePrimary = findLastFocusableBefore(this.panelLevel1.getComponents(),
+                    this.panelLevel1.getComponentCount(), true);
+            if (lastFocusablePrimary != null) {
+                lastFocusablePrimary.requestFocus();
+                ((JCommandMenuButton) lastFocusablePrimary).doActionRollover();
+            }
+            return;
+        }
+
+        if (primaryFocused >= 0) {
+            // Focus is in primary. Go up if we can
+            Component nextFocusablePrimary = findLastFocusableBefore(this.panelLevel1.getComponents(),
+                    primaryFocused, true);
+            if (nextFocusablePrimary != null) {
+                nextFocusablePrimary.requestFocus();
+                ((JCommandMenuButton) nextFocusablePrimary).doActionRollover();
+            }
+            return;
+        }
+
+        if (secondaryFocused >= 0) {
+            // Focus is in secondary. Go up if we can
+            JRibbonApplicationMenuPopupPanelSecondary secondary =
+                    (JRibbonApplicationMenuPopupPanelSecondary) this.panelLevel2.getComponent(0);
+            Component nextFocusableSecondary = findLastFocusableBefore(secondary.getComponents(),
+                    secondaryFocused, true);
+            if (nextFocusableSecondary != null) {
+                nextFocusableSecondary.requestFocus();
+                this.panelScrollerLevel2.scrollToIfNecessary(nextFocusableSecondary.getY(),
+                        nextFocusableSecondary.getHeight());
+            }
+        }
+    }
+
+    @Override
+    public void focusRight() {
+        int primaryFocused = getFocusedIndex(this.panelLevel1.getComponents());
+        int secondaryFocused = getSecondaryFocusedIndex();
+        int footerFocused = getFocusedIndex(this.footerPanel.getComponents());
+        boolean isLtr = this.mainPanel.getComponentOrientation().isLeftToRight();
+
+        if (footerFocused >= 0) {
+            // Focus is in footer
+            Component nextFocusableFooter = isLtr
+                    ? findFirstFocusableAfter(this.footerPanel.getComponents(), footerFocused, false)
+                    : findLastFocusableBefore(this.footerPanel.getComponents(), footerFocused, false);
+            if (nextFocusableFooter != null) {
+                nextFocusableFooter.requestFocus();
+            }
+            return;
+        }
+
+        if ((primaryFocused >= 0) && isLtr) {
+            // Do we have secondary content for this primary?
+            if (this.panelLevel2.getComponentCount() > 0) {
+                JRibbonApplicationMenuPopupPanelSecondary secondary =
+                        (JRibbonApplicationMenuPopupPanelSecondary) this.panelLevel2.getComponent(0);
+                Component firstFocusableSecondary = findFirstFocusableAfter(secondary.getComponents(), -1, true);
+                if (firstFocusableSecondary != null) {
+                    firstFocusableSecondary.requestFocus();
+                    JCommandMenuButton secondaryMenuButton = (JCommandMenuButton) firstFocusableSecondary;
+                    secondaryMenuButton.getActionModel().setRollover(true);
+                    secondaryMenuButton.getActionModel().setArmed(true);
+                }
+                return;
+            }
+        }
+
+        if ((secondaryFocused >= 0) && isLtr) {
+            JRibbonApplicationMenuPopupPanelSecondary secondary =
+                    (JRibbonApplicationMenuPopupPanelSecondary) this.panelLevel2.getComponent(0);
+            JCommandMenuButton secondaryMenuButton =
+                    (JCommandMenuButton) secondary.getComponent(secondaryFocused);
+            secondaryMenuButton.getPopupModel().setRollover(true);
+            secondaryMenuButton.getPopupModel().setArmed(true);
+
+            SubstanceCommandMenuButtonUI secondaryMenuButtonUI =
+                    (SubstanceCommandMenuButtonUI) secondaryMenuButton.getUI();
+            secondaryMenuButtonUI.processPopupAction();
+        }
+    }
 }

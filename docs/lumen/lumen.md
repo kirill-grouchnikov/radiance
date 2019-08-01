@@ -8,6 +8,8 @@ Lumen aims to provide blueprints for adding animation to Swing applications usin
 * [Neon](../neon/neon.md) for consistent text appearance and correct high-DPI rendering
 * [Retrofit](https://github.com/square/retrofit) for fetching information from MusicBrainz without manual handling of endpoints and JSON parsing
 
+[Lucent](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/lucent) is a port of Lumen to Kotlin.
+
 ### Deeper dives
 
 * [Part 1](part1-simple.md) - window structure and simple animations such as component appearance (fade in), rollovers and window disposal (fade-out) using built in and custom class attributes and setters.
