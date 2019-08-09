@@ -91,6 +91,19 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteGoldSkin`. In add
 <img alt="GraphiteGold" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitegold1.png" width="340" height="254">
 <img alt="GraphiteGold" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitegold2.png" width="340" height="254">
 
+### Graphite Sunset
+
+Available in the `org.pushingpixels.substance.api.skin.GraphiteSunsetSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteSunsetLookAndFeel` can be used with one of the following options:
+
+* `SubstanceCortex.GlobalScope.setSkin(new GraphiteSunsetSkin())`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.GraphiteSunsetSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceGraphiteSunsetLookAndFeel`
+* `UIManager.setLookAndFeel(new SubstanceGraphiteSunsetLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteSunsetLookAndFeel");`
+
+<img alt="GraphiteSunset" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitesunset1.png" width="340" height="254">
+<img alt="GraphiteSunset" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitesunset2.png" width="340" height="254">
+
 ### Graphite Glass
 
 Available in the `org.pushingpixels.substance.api.skin.GraphiteGlassSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel` can be used with one of the following options:

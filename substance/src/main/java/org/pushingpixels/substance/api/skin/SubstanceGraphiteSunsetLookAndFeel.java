@@ -27,90 +27,29 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.substance.api.colorscheme;
+package org.pushingpixels.substance.api.skin;
 
-import java.awt.*;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
 /**
- * <b>Sunset</b> color scheme.
+ * Standalone look-and-feel that uses the <code>Graphite Sunset</code> skin from
+ * {@link GraphiteSunsetSkin}. You can set this look-and-feel by:
+ * <ul>
+ * <li>-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.
+ * SubstanceGraphiteSunsetLookAndFeel</li>
+ * <li>UIManager.setLookAndFeel(
+ * "org.pushingpixels.substance.api.skin.SubstanceGraphiteSunsetLookAndFeel"
+ * );</li>
+ * <li>UIManager.setLookAndFeel(new SubstanceGraphiteSunsetLookAndFeel());</li>
+ * </ul>
  * 
  * @author Kirill Grouchnikov
  */
-public class SunsetColorScheme extends BaseLightColorScheme {
+public class SubstanceGraphiteSunsetLookAndFeel extends SubstanceLookAndFeel {
 	/**
-	 * The main ultra-light color.
+	 * Creates a new <code>Graphite Sunset</code> look-and-feel.
 	 */
-	private static final Color mainUltraLightColor = new Color(255, 142, 48);
-
-	/**
-	 * The main extra-light color.
-	 */
-	private static final Color mainExtraLightColor = new Color(255, 134, 44);
-
-	/**
-	 * The main light color.
-	 */
-	private static final Color mainLightColor = new Color(255, 120, 41);
-
-	/**
-	 * The main medium color.
-	 */
-	private static final Color mainMidColor = new Color(254, 97, 30);
-
-	/**
-	 * The main dark color.
-	 */
-	private static final Color mainDarkColor = new Color(197, 19, 55);
-
-	/**
-	 * The main ultra-dark color.
-	 */
-	private static final Color mainUltraDarkColor = new Color(115, 38, 80);
-
-	/**
-	 * The foreground color.
-	 */
-	private static final Color foregroundColor = Color.black;
-
-	/**
-	 * Creates a new <code>Sunset</code> color scheme.
-	 */
-	public SunsetColorScheme() {
-		super("Sunset");
-	}
-
-	@Override
-	public Color getForegroundColor() {
-		return SunsetColorScheme.foregroundColor;
-	}
-
-	@Override
-	public Color getUltraLightColor() {
-		return SunsetColorScheme.mainUltraLightColor;
-	}
-
-	@Override
-	public Color getExtraLightColor() {
-		return SunsetColorScheme.mainExtraLightColor;
-	}
-
-	@Override
-	public Color getLightColor() {
-		return SunsetColorScheme.mainLightColor;
-	}
-
-	@Override
-	public Color getMidColor() {
-		return SunsetColorScheme.mainMidColor;
-	}
-
-	@Override
-	public Color getDarkColor() {
-		return SunsetColorScheme.mainDarkColor;
-	}
-
-	@Override
-	public Color getUltraDarkColor() {
-		return SunsetColorScheme.mainUltraDarkColor;
+	public SubstanceGraphiteSunsetLookAndFeel() {
+		super(new GraphiteSunsetSkin());
 	}
 }

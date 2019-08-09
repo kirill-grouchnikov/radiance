@@ -29,34 +29,33 @@
  */
 package org.pushingpixels.substance.api.skin;
 
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SunfireRedColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SunsetColorScheme;
 
 /**
- * <code>Graphite Electric</code> skin. This class is part of officially supported
+ * <code>Graphite Sunset</code> skin. This class is part of officially supported
  * API.
  * 
  * @author Kirill Grouchnikov
  */
-public class GraphiteElectricSkin extends GraphiteSkin {
+public class GraphiteSunsetSkin extends GraphiteSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
-	public static final String NAME = "Graphite Electric";
+	public static final String NAME = "Graphite Sunset";
 
 	/**
-	 * Creates a new <code>Graphite Electric</code> skin.
+	 * Creates a new <code>Graphite Sunset</code> skin.
 	 */
-	public GraphiteElectricSkin() {
+	public GraphiteSunsetSkin() {
 		super();
 
-		ColorSchemes schemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/graphite.colorschemes");
-
 		// highlight fill scheme + custom alpha for rollover unselected state
-		SubstanceColorScheme highlightScheme = schemes.get("Graphite Electric");
+		SubstanceColorScheme highlightScheme = new SunsetColorScheme();
 		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme,
 				0.8f, ComponentState.ROLLOVER_UNSELECTED);
 		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, 0.9f,
@@ -90,7 +89,7 @@ public class GraphiteElectricSkin extends GraphiteSkin {
 		defaultSchemeBundle.registerColorScheme(highlightScheme,
 				ColorSchemeAssociationKind.MARK,
 				ComponentState.SELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme, 0.5f,
+		defaultSchemeBundle.registerColorScheme(highlightScheme.shade(0.4), 0.7f,
 				ColorSchemeAssociationKind.MARK,
 				ComponentState.DISABLED_SELECTED);
 

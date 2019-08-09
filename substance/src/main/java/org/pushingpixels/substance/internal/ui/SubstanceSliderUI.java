@@ -588,17 +588,16 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 				this.slider.isEnabled() ? ComponentState.ENABLED
 						: ComponentState.DISABLED_UNSELECTED);
 		if (this.slider.getOrientation() == JSlider.HORIZONTAL) {
-			int value = this.slider.getMinimum() + this.slider.getMinorTickSpacing();
-			int xPos = 0;
+			long value = this.slider.getMinimum() + this.slider.getMinorTickSpacing();
 
 			if ((this.slider.getMinorTickSpacing() > 0)
 					&& (this.slider.getMajorTickSpacing() > 0)) {
 				// collect x's of the minor ticks
-				java.util.List<Integer> minorXs = new ArrayList<Integer>();
+				java.util.List<Integer> minorXs = new ArrayList<>();
 				while (value < this.slider.getMaximum()) {
-					int delta = value - this.slider.getMinimum();
+					long delta = value - this.slider.getMinimum();
 					if (delta % this.slider.getMajorTickSpacing() != 0) {
-						xPos = this.xPositionForValue(value);
+						int xPos = this.xPositionForValue((int) value);
 						minorXs.add(xPos - 1);
 					}
 					value += this.slider.getMinorTickSpacing();
@@ -610,10 +609,10 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 
 			if (this.slider.getMajorTickSpacing() > 0) {
 				// collect x's of the major ticks
-				java.util.List<Integer> majorXs = new ArrayList<Integer>();
+				java.util.List<Integer> majorXs = new ArrayList<>();
 				value = this.slider.getMinimum() + this.slider.getMajorTickSpacing();
 				while (value < this.slider.getMaximum()) {
-					xPos = this.xPositionForValue(value);
+					int xPos = this.xPositionForValue((int) value);
 					majorXs.add(xPos - 1);
 					value += this.slider.getMajorTickSpacing();
 				}
@@ -624,20 +623,19 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 		} else {
 			g.translate(tickBounds.x, 0);
 
-			int value = this.slider.getMinimum() + this.slider.getMinorTickSpacing();
-			int yPos = 0;
+			long value = this.slider.getMinimum() + this.slider.getMinorTickSpacing();
 
 			boolean ltr = this.slider.getComponentOrientation().isLeftToRight();
 			if (this.slider.getMinorTickSpacing() > 0) {
 				// collect y's of the minor ticks
-				java.util.List<Integer> minorYs = new ArrayList<Integer>();
+				java.util.List<Integer> minorYs = new ArrayList<>();
 				int offset = 0;
 				if (!ltr) {
 					offset = tickBounds.width - tickBounds.width / 2;
 				}
 
 				while (value < this.slider.getMaximum()) {
-					yPos = this.yPositionForValue(value);
+					int yPos = this.yPositionForValue((int) value);
 					minorYs.add(yPos);
 					value += this.slider.getMinorTickSpacing();
 				}
@@ -653,7 +651,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 				value = this.slider.getMinimum() + this.slider.getMajorTickSpacing();
 
 				while (value < this.slider.getMaximum()) {
-					yPos = this.yPositionForValue(value);
+					int yPos = this.yPositionForValue((int) value);
 					majorYs.add(yPos);
 					value += this.slider.getMajorTickSpacing();
 				}

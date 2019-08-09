@@ -59,7 +59,7 @@ class ShapesPanel : JComponent() {
 
         this.addDelayedMouseListener(onMousePressed = { e -> addShape(e!!.point) })
 
-        // animate the gradient endpoint colors in an infinite componentTimeline
+        // animate the gradient endpoint colors in an infinite repaintTimeline
         this.repaintTimeline {
             property(::topColor from COLOR_BLUE to COLOR_GREEN)
             property(::bottomColor from COLOR_GREEN to COLOR_BLUE)
