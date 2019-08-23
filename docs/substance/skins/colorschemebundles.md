@@ -80,18 +80,13 @@ Here is the relevant code snippet:
 It is possible to specify a custom alpha value for controls in some states. This can be useful if you want to use the same color scheme for both default and disabled states, and have disabled controls painted with a custom alpha translucency (making them blend with the background). Use the following API:
 
 ```java
-  /**
-   * Registers a color scheme for the specific component state.
-   *
-   * @param stateColorScheme
-   *     Color scheme for the specified component state.
-   * @param alpha
-   *     Alpha channel for the color scheme.
-   * @param states
-   *     Component states.
-   */
-  public void registerColorScheme(SubstanceColorScheme stateColorScheme,
-      float alpha, ComponentState... states)
+/**
+ * Registers an alpha channel value for the specific component states.
+ *
+ * @param alpha  Alpha channel value.
+ * @param states Component states.
+ */
+public void registerAlpha(float alpha, ComponentState... states)
 ```      
 Here is sample code from the [Autumn skin](toneddown.md#autumn) that uses the same color scheme for default and disabled states, setting alpha channel to 60% for the disabled states:
 
@@ -105,10 +100,9 @@ SubstanceColorScheme disabledScheme = enabledScheme;
 
 SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
     activeScheme, enabledScheme, disabledScheme);
-defaultSchemeBundle.registerColorScheme(disabledScheme, 0.6f,
-    ComponentState.DISABLED_UNSELECTED);
-defaultSchemeBundle.registerColorScheme(activeScheme, 0.6f,
-    ComponentState.DISABLED_SELECTED);
+defaultSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+defaultSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
+defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
 ```
 
 ### Highlights
@@ -131,51 +125,26 @@ The [highlight painters](../painters/highlight.md) are used to paint highlight a
       SubstanceColorScheme stateHighlightScheme, ComponentState... states)
 
   /**
-   * Registers a highlight color scheme for the specific component state if
-   * the component state is not <code>null</code>, or a global highlight color
-   * scheme otherwise.
+   * Registers a highlight alpha channel value for the specific component states.
    *
-   * @param stateHighlightScheme
-   *     Highlight color scheme for the specified component state.
-   * @param alpha
-   *     Alpha channel for the highlight color scheme.
-   * @param states
-   *     Component states. If <code>null</code>, the specified color scheme
-   *     will be applied for all states left unspecified.
+   * @param alpha  Highlight alpha channel value.
+   * @param states Component states.
    */
-  public void registerHighlightColorScheme(
-      SubstanceColorScheme stateHighlightScheme, float alpha,
-      ComponentState... states)
+  public void registerHighlightAlpha(float alpha, ComponentState... states)
 ```
 
-Here is an example of using the first API to specify a custom highlight color scheme in the [Business Blue Steel skin](toneddown.md#business-blue-steel):
-
-```java
-SubstanceSkin.ColorSchemes businessSchemes = SubstanceSkin
-    .getColorSchemes("org/pushingpixels/substance/api/skin/
-    business.colorschemes");
-...
-SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
-    activeScheme, enabledScheme, disabledScheme);
-
-SubstanceColorScheme highlightColorScheme = businessSchemes
-    .get("Business Blue Steel Highlight");
-defaultSchemeBundle.registerHighlightColorScheme(highlightColorScheme);
-```
-
-And here is an example of using the second API to set state-specific alpha values for highlights in the [Business Black Steel skin](toneddown.md#business-black-steel):
+Here is an example of using these APIs to set state-specific alpha values for highlights in the [Business Black Steel skin](toneddown.md#business-black-steel):
 
 ```java
 SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
     activeScheme, enabledScheme, disabledScheme);
-defaultSchemeBundle.registerHighlightColorScheme(activeScheme, 0.6f,
-    ComponentState.ROLLOVER_UNSELECTED);
-defaultSchemeBundle.registerHighlightColorScheme(activeScheme, 0.8f,
-    ComponentState.SELECTED);
-defaultSchemeBundle.registerHighlightColorScheme(activeScheme, 0.95f,
-    ComponentState.ROLLOVER_SELECTED);
-defaultSchemeBundle.registerHighlightColorScheme(activeScheme, 0.8f, ComponentState.ARMED,
-    ComponentState.ROLLOVER_ARMED);
+defaultSchemeBundle.registerHighlightAlpha(0.6f, ComponentState.ROLLOVER_UNSELECTED);
+defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED);
+defaultSchemeBundle.registerHighlightAlpha(0.95f, ComponentState.ROLLOVER_SELECTED);
+defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+defaultSchemeBundle.registerHighlightColorScheme(activeScheme, ComponentState.ROLLOVER_UNSELECTED,
+    ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
+    ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 ```        
 
 ### Finer grained control

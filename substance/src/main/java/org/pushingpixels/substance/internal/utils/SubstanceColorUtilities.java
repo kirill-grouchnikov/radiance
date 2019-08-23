@@ -33,6 +33,7 @@ import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -709,10 +710,11 @@ public class SubstanceColorUtilities {
 
         SubstanceColorScheme colorScheme =
                 SubstanceColorSchemeUtilities.getColorScheme(scrollbar, state);
+        float factor = colorScheme.isDark() ? 0.98f : 0.9f;
         backgr = SubstanceColorUtilities.getInterpolatedColor(backgr,
                 SubstanceColorUtilities.getAlphaColor(colorScheme.getForegroundColor(),
                         backgr.getAlpha()),
-                0.9);
+                factor);
         return backgr;
     }
 

@@ -72,10 +72,10 @@ public class StreetlightsSkin extends SubstanceSkin {
                 activeScheme, defaultScheme, disabledScheme);
         // use charcoal for borders on active states
         defaultSchemeBundle.registerColorScheme(new CharcoalColorScheme(),
-                ColorSchemeAssociationKind.BORDER, ComponentState
-                        .getActiveStates());
+                ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
         // and 60% alpha on disabled controls
-        defaultSchemeBundle.registerColorScheme(disabledScheme, 0.6f,
+        defaultSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+        defaultSchemeBundle.registerColorScheme(disabledScheme,
                 ComponentState.DISABLED_UNSELECTED,
                 ComponentState.DISABLED_SELECTED);
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,

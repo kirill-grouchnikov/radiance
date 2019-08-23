@@ -13,6 +13,19 @@ Available in the `org.pushingpixels.substance.api.skin.TwilightSkin`. In additio
 <img alt="Twilight" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/twilight1.png" width="340" height="254">
 <img alt="Twilight" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/twilight2.png" width="340" height="254">
 
+### Night Shade
+
+Available in the `org.pushingpixels.substance.api.skin.NightShadeSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel` can be used with one of the following options:
+
+* `SubstanceCortex.GlobalScope.setSkin(new NightShadeSkin())`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.NightShadeSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel`
+* `UIManager.setLookAndFeel(new SubstanceNightShadeLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel");`
+
+<img alt="Night Shade" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nightshade1.png" width="340" height="254">
+<img alt="Night Shade" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nightshade2.png" width="340" height="254">
+
 ### Magellan
 
 Available in the `org.pushingpixels.substance.api.skin.MagellanSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceMagellanLookAndFeel` can be used with one of the following options:

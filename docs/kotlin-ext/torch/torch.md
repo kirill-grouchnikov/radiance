@@ -182,19 +182,17 @@ star.timeline {
     property(star::rotation from 0.0f to (2.0 * Math.PI * Math.random()).toFloat())
     property(star::outerSpan from outerStartSpan to outerFinalSpan)
     property(star::color from Color.white to Color(Color.HSBtoRGB(currHue, 0.8f, 0.7f)))
-    onTimelineStateChanged { _, newState, _, _ ->
-        if (newState == TimelineState.DONE) {
-            // should be the last one in the list
-            synchronized(stars) {
-                stars.removeLast()
-            }
+    onTimelineDone {
+        // should be the last one in the list
+        synchronized(stars) {
+            stars.removeLast()
         }
     }
     duration = 3000
 }.play()
 ```
 
-Note how much unnecessary syntactic overhead has been removed - compare the `addCallback` lines in the Java version and the `onTimelineStateChanged` lines in the Kotlin version.
+Note how much unnecessary syntactic overhead has been removed - compare the `addCallback` lines in the Java version and the `onTimelineDone` lines in the Kotlin version.
 
 Another example of how Torch makes the timeline code easier to follow. This is Java code that animates properties on different objects:
 

@@ -74,10 +74,9 @@ public class OfficeSilver2007Skin extends SubstanceSkin {
 
 		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
 				activeScheme, enabledScheme, enabledScheme);
-		defaultSchemeBundle.registerColorScheme(enabledScheme, 0.5f,
-				ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(activeScheme, 0.5f,
-				ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
 
 		SubstanceColorScheme rolloverScheme = colorSchemes
 				.get("Office Silver Rollover");
@@ -101,19 +100,18 @@ public class OfficeSilver2007Skin extends SubstanceSkin {
 				ComponentState.PRESSED_UNSELECTED);
 		defaultSchemeBundle.registerColorScheme(pressedSelectedScheme,
 				ComponentState.PRESSED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(selectedScheme.tone(0.2f), 0.5f,
+		defaultSchemeBundle.registerColorScheme(selectedScheme.tone(0.2f),
 				ComponentState.DISABLED_SELECTED);
 
 		// register state-specific highlight color schemes on rollover and
 		// selections
-		defaultSchemeBundle.registerHighlightColorScheme(rolloverScheme, 0.8f,
-				ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(selectedScheme, 0.8f,
-				ComponentState.SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(
-				rolloverSelectedScheme, 0.8f, ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(selectedScheme, 0.8f,
+		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ROLLOVER_UNSELECTED,
+				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED, ComponentState.ARMED,
+				ComponentState.ROLLOVER_ARMED);
+		defaultSchemeBundle.registerHighlightColorScheme(rolloverScheme, ComponentState.ROLLOVER_UNSELECTED);
+		defaultSchemeBundle.registerHighlightColorScheme(selectedScheme, ComponentState.SELECTED,
 				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+		defaultSchemeBundle.registerHighlightColorScheme(rolloverSelectedScheme, ComponentState.ROLLOVER_SELECTED);
 
 		// borders and marks
 		SubstanceColorScheme borderEnabledScheme = colorSchemes

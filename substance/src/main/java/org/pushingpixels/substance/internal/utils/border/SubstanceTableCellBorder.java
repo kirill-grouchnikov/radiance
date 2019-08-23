@@ -101,8 +101,6 @@ public class SubstanceTableCellBorder implements Border, UIResource {
 	 *            Component height.
 	 * @param isEnabled
 	 *            Component enabled status.
-	 * @param hasFocus
-	 *            Component focus ownership status.
 	 * @param alpha
 	 *            Alpha value.
 	 */
@@ -174,8 +172,7 @@ public class SubstanceTableCellBorder implements Border, UIResource {
 						SubstanceSizeUtils.getComponentFontSize(c), width,
 						height, radius, borderScheme.getDisplayName());
 				BufferedImage layer = smallImageCache.get(key);
-				float activeAlpha = SubstanceColorSchemeUtilities.getAlpha(c,
-						activeState);
+				float activeAlpha = SubstanceColorSchemeUtilities.getAlpha(c, activeState);
 
 				if (layer == null) {
 					layer = SubstanceCoreUtilities.getBlankImage(width, height);

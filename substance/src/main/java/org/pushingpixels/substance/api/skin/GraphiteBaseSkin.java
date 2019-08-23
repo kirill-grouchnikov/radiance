@@ -67,13 +67,12 @@ abstract class GraphiteBaseSkin extends SubstanceSkin {
 
 		// highlight fill scheme + custom alpha for rollover unselected state
 		SubstanceColorScheme highlightScheme = schemes.get("Graphite Highlight");
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, 0.6f,
-				ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, 0.8f,
-				ComponentState.SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, 1.0f,
-				ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, 0.75f,
+		defaultSchemeBundle.registerHighlightAlpha(0.6f, ComponentState.ROLLOVER_UNSELECTED);
+		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED);
+		defaultSchemeBundle.registerHighlightAlpha(1.0f, ComponentState.ROLLOVER_SELECTED);
+		defaultSchemeBundle.registerHighlightAlpha(0.75f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, ComponentState.ROLLOVER_UNSELECTED,
+				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
 				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
 		// highlight border scheme
@@ -103,10 +102,10 @@ abstract class GraphiteBaseSkin extends SubstanceSkin {
 		defaultSchemeBundle.registerColorScheme(borderScheme, ColorSchemeAssociationKind.MARK,
 				ComponentState.SELECTED);
 
-		defaultSchemeBundle.registerColorScheme(disabledScheme, 0.5f,
-				ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(selectedDisabledScheme, 0.65f,
-				ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerAlpha(0.65f, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerColorScheme(selectedDisabledScheme, ComponentState.DISABLED_SELECTED);
 		defaultSchemeBundle.registerColorScheme(disabledScheme, ColorSchemeAssociationKind.MARK,
 				ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
 

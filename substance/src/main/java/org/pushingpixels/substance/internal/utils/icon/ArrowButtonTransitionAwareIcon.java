@@ -139,7 +139,7 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
 				: modelStateInfo.getCurrModelState();
 
 		// Use HIGHLIGHT for rollover menus (arrow icons) and MARK for the rest
-		ColorSchemeAssociationKind baseAssociationKind = 
+		ColorSchemeAssociationKind baseAssociationKind =
 				isMenu && currState.isFacetActive(ComponentStateFacet.ROLLOVER) 
 					? ColorSchemeAssociationKind.HIGHLIGHT
 					: ColorSchemeAssociationKind.MARK;

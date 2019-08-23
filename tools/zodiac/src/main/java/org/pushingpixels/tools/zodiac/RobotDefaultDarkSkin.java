@@ -29,16 +29,22 @@
  */
 package org.pushingpixels.tools.zodiac;
 
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.DarkMetallicColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.substance.api.painter.decoration.*;
+import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
+import org.pushingpixels.substance.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.api.watermark.*;
+import org.pushingpixels.substance.api.watermark.SubstanceNullWatermark;
+import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 
 /**
  * The default dark skin for the docrobot scripts.
@@ -61,7 +67,8 @@ public class RobotDefaultDarkSkin extends SubstanceSkin {
                 colorScheme.blendWith(new DarkMetallicColorScheme(), 0.6);
         SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
                 colorScheme, inactiveScheme, inactiveScheme);
-        defaultSchemeBundle.registerColorScheme(inactiveScheme, 0.5f,
+        defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+        defaultSchemeBundle.registerColorScheme(inactiveScheme,
                 ComponentState.DISABLED_UNSELECTED,
                 ComponentState.DISABLED_SELECTED);
 

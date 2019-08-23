@@ -74,8 +74,9 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
 
 		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
 				activeScheme, enabledScheme, enabledScheme);
-		defaultSchemeBundle.registerColorScheme(enabledScheme, 0.5f,
-				ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED,
+				ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
 
 		SubstanceColorScheme rolloverScheme = colorSchemes
 				.get("Office Silver Rollover");
@@ -99,19 +100,18 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
 				ComponentState.PRESSED_UNSELECTED);
 		defaultSchemeBundle.registerColorScheme(pressedSelectedScheme,
 				ComponentState.PRESSED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(selectedScheme.tone(0.2f), 0.5f,
+		defaultSchemeBundle.registerColorScheme(selectedScheme.tone(0.2f),
 				ComponentState.DISABLED_SELECTED);
 
 		// register state-specific highlight color schemes on rollover and
 		// selections
-		defaultSchemeBundle.registerHighlightColorScheme(rolloverScheme, 0.8f,
-				ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(selectedScheme, 0.8f,
-				ComponentState.SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(
-				rolloverSelectedScheme, 0.8f, ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(selectedScheme, 0.8f,
+		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ROLLOVER_UNSELECTED,
+				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED, ComponentState.ARMED,
+				ComponentState.ROLLOVER_ARMED);
+		defaultSchemeBundle.registerHighlightColorScheme(rolloverScheme, ComponentState.ROLLOVER_UNSELECTED);
+		defaultSchemeBundle.registerHighlightColorScheme(selectedScheme, ComponentState.SELECTED,
 				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+		defaultSchemeBundle.registerHighlightColorScheme(rolloverSelectedScheme, ComponentState.ROLLOVER_SELECTED);
 
 		// borders and marks
 		SubstanceColorScheme borderEnabledScheme = colorSchemes
@@ -216,16 +216,17 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
 				ComponentState.DISABLED_SELECTED,
 				ComponentState.DISABLED_UNSELECTED);
 
-		headerSchemeBundle.registerColorScheme(disabledHeaderScheme, 0.5f,
-				ComponentState.DISABLED_UNSELECTED,
-				ComponentState.DISABLED_SELECTED);
-		headerSchemeBundle.registerHighlightColorScheme(activeScheme, 0.6f,
-				ComponentState.ROLLOVER_UNSELECTED);
-		headerSchemeBundle.registerHighlightColorScheme(activeScheme, 0.8f,
-				ComponentState.SELECTED);
-		headerSchemeBundle.registerHighlightColorScheme(activeScheme, 0.95f,
-				ComponentState.ROLLOVER_SELECTED);
-		headerSchemeBundle.registerHighlightColorScheme(activeScheme, 0.8f,
+		headerSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		headerSchemeBundle.registerHighlightAlpha(0.6f,
+				ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		headerSchemeBundle.registerColorScheme(disabledHeaderScheme,
+				ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		headerSchemeBundle.registerHighlightAlpha(0.6f, ComponentState.ROLLOVER_UNSELECTED);
+		headerSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED);
+		headerSchemeBundle.registerHighlightAlpha(0.95f, ComponentState.ROLLOVER_SELECTED);
+		headerSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+		headerSchemeBundle.registerHighlightColorScheme(activeScheme, ComponentState.ROLLOVER_UNSELECTED,
+				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
 				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
 		this.registerDecorationAreaSchemeBundle(headerSchemeBundle,

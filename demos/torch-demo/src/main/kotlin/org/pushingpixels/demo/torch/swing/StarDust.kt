@@ -133,12 +133,10 @@ fun main() {
                     property(star::rotation from 0.0f to (2.0 * Math.PI * Math.random()).toFloat())
                     property(star::outerSpan from outerStartSpan to outerFinalSpan)
                     property(star::color from Color.white to Color(Color.HSBtoRGB(currHue, 0.8f, 0.7f)))
-                    onTimelineStateChanged { _, newState, _, _ ->
-                        if (newState == TimelineState.DONE) {
-                            // should be the last one in the list
-                            synchronized(stars) {
-                                stars.removeLast()
-                            }
+                    onTimelineDone {
+                        // should be the last one in the list
+                        synchronized(stars) {
+                            stars.removeLast()
                         }
                     }
                     duration = 3000

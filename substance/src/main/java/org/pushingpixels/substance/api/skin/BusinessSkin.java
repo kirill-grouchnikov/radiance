@@ -75,11 +75,10 @@ public class BusinessSkin extends SubstanceSkin {
 		SubstanceColorScheme highlightColorScheme = businessSchemes.get("Business Highlight");
 		defaultSchemeBundle.registerHighlightColorScheme(highlightColorScheme);
 
-		defaultSchemeBundle.registerColorScheme(disabledScheme, 0.7f,
-				ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(activeScheme, 0.7f,
-				ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.SELECTED);
+		defaultSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED,
+				ComponentState.SELECTED);
 
 		defaultSchemeBundle.registerColorScheme(enabledScheme.shade(0.1),
 				ColorSchemeAssociationKind.TAB, ComponentState.SELECTED,

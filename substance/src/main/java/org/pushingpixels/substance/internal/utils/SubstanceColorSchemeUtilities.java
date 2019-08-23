@@ -95,8 +95,6 @@ public class SubstanceColorSchemeUtilities {
      *            Component.
      * @param scheme
      *            Color scheme.
-     * @param support
-     *            Used to compute the colorized scheme.
      * @param isEnabled
      *            Indicates whether the component is enabled.
      * @return Colorized version of the specified color scheme.
@@ -287,13 +285,12 @@ public class SubstanceColorSchemeUtilities {
      * @return Highlight color scheme alpha channel.
      */
     public static float getHighlightAlpha(Component component, ComponentState componentState) {
-        return SubstanceCoreUtilities.getSkin(component).getHighlightAlpha(component,
-                componentState);
+        return SubstanceCoreUtilities.getSkin(component).getHighlightAlpha(component, componentState);
     }
 
     /**
      * Returns the alpha channel of the color scheme of the component.
-     * 
+     *
      * @param component
      *            Component.
      * @param componentState

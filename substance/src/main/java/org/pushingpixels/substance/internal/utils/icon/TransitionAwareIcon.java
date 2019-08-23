@@ -208,8 +208,8 @@ public class TransitionAwareIcon implements Icon {
                         ? ColorSchemeAssociationKind.MARK
                         : this.colorSchemeAssociationKindDelegate
                                 .getColorSchemeAssociationKind(activeState);
-                SubstanceColorScheme scheme = SubstanceColorSchemeUtilities
-                        .getColorScheme(this.comp, associationKind, activeState);
+                SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(
+                        this.comp, associationKind, activeState);
                 float alpha = SubstanceColorSchemeUtilities.getAlpha(this.comp, activeState);
 
                 HashMapKey key = SubstanceCoreUtilities.getHashKey(this.uniqueIconTypeId,

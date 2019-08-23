@@ -58,11 +58,11 @@ open class KTimeline {
     private val callbacks: MutableList<TimelineCallback> = ArrayList()
     var name: String? = null
     internal val properties: MutableList<PropertyFromTo<*>> = ArrayList()
-    private val propertiesGoingThrough : MutableList<PropertyGoingThrough<*>> = ArrayList()
+    private val propertiesGoingThrough: MutableList<PropertyGoingThrough<*>> = ArrayList()
     var ease: TimelineEase = Timeline.DEFAULT_EASE
 
     var onTimelineStateChangedList: MutableList<(Timeline.TimelineState, Timeline.TimelineState,
-            Float, Float) -> Unit> = ArrayList()
+                                                 Float, Float) -> Unit> = ArrayList()
     var onTimelinePulseList: MutableList<(Float, Float) -> Unit> = ArrayList()
 
     fun property(fromTo: PropertyFromTo<*>) {
@@ -78,8 +78,16 @@ open class KTimeline {
     }
 
     fun onTimelineStateChanged(callback: (Timeline.TimelineState, Timeline.TimelineState,
-            Float, Float) -> Unit) {
+                                          Float, Float) -> Unit) {
         onTimelineStateChangedList.add(callback)
+    }
+
+    fun onTimelineDone(callback: () -> Unit) {
+        onTimelineStateChangedList.add { _, newState, _, _ ->
+            if (newState == Timeline.TimelineState.DONE) {
+                callback.invoke()
+            }
+        }
     }
 
     fun onTimelinePulse(callback: (Float, Float) -> Unit) {
@@ -127,7 +135,7 @@ open class KTimeline {
         if (this.onTimelineStateChangedList.isNotEmpty() || this.onTimelinePulseList.isNotEmpty()) {
             builder.addCallback(object : TimelineCallbackAdapter() {
                 override fun onTimelineStateChanged(oldState: Timeline.TimelineState,
-                        newState: Timeline.TimelineState, durationFraction: Float, timelinePosition: Float) {
+                                                    newState: Timeline.TimelineState, durationFraction: Float, timelinePosition: Float) {
                     for (callback in onTimelineStateChangedList) {
                         callback.invoke(oldState, newState, durationFraction, timelinePosition)
                     }
@@ -274,7 +282,7 @@ abstract class PropertyFactory<T, R> {
         return PropertyFactoryFrom(this, from)
     }
 
-    infix fun fromCurrentTo(to: T) : PropertyFactoryFromTo<T, R> {
+    infix fun fromCurrentTo(to: T): PropertyFactoryFromTo<T, R> {
         return PropertyFactoryFromTo(this, null, to)
     }
 }

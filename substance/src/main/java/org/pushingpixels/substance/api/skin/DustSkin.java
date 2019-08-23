@@ -79,10 +79,9 @@ public class DustSkin extends SubstanceSkin {
 
 		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
 				activeScheme, enabledScheme, enabledScheme);
-		defaultSchemeBundle.registerColorScheme(enabledScheme, 0.5f,
-				ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(activeScheme, 0.5f,
-				ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
 
 		// borders
 		SubstanceColorScheme borderEnabledScheme = schemes.get("Dust Border Enabled");
@@ -111,7 +110,8 @@ public class DustSkin extends SubstanceSkin {
 
 		SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(
 				headerActiveScheme, headerEnabledScheme, headerDisabledScheme);
-		headerSchemeBundle.registerColorScheme(headerDisabledScheme, 0.7f,
+		headerSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		headerSchemeBundle.registerColorScheme(headerDisabledScheme,
 				ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
 
 		headerSchemeBundle.registerColorScheme(headerBorderScheme,
@@ -119,11 +119,11 @@ public class DustSkin extends SubstanceSkin {
 		headerSchemeBundle.registerColorScheme(headerSeparatorScheme,
 				ColorSchemeAssociationKind.SEPARATOR);
 
-		headerSchemeBundle.registerHighlightColorScheme(headerActiveScheme, 1.0f);
+		headerSchemeBundle.registerHighlightAlpha(1.0f);
+		headerSchemeBundle.registerHighlightColorScheme(headerActiveScheme);
 		// the next line is to have consistent coloring during the rollover
 		// menu animations
-		headerSchemeBundle.registerHighlightColorScheme(headerActiveScheme, 0.0f,
-				ComponentState.ENABLED);
+		headerSchemeBundle.registerHighlightAlpha(0.0f, ComponentState.ENABLED);
 
 		this.registerDecorationAreaSchemeBundle(headerSchemeBundle, DecorationAreaType.TOOLBAR);
 

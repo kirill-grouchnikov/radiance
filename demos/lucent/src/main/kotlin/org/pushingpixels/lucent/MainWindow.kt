@@ -114,7 +114,7 @@ class MainWindow : JFrame("Lumen demo") {
                 result
             }
 
-            // await() will suspend until the data is loaded, freeing EDT in the meanwhile/
+            // await() will suspend until the data is loaded, freeing EDT in the meanwhile.
             // Once the data is loaded, it will come back here to populate the list of albums
             for (album in data.await()) {
                 val albumOverviewComp = addAlbumItem(album)

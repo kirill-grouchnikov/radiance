@@ -29,16 +29,22 @@
  */
 package org.pushingpixels.substance.extras.api.skinpack;
 
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.colorscheme.CharcoalColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SunsetColorScheme;
 import org.pushingpixels.substance.api.painter.border.GlassBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.extras.api.watermarkpack.SubstancePlanktonWatermark;
-import org.pushingpixels.substance.internal.colorscheme.*;
+import org.pushingpixels.substance.internal.colorscheme.ShadeColorScheme;
+import org.pushingpixels.substance.internal.colorscheme.ShiftColorScheme;
 
 import java.awt.*;
 
@@ -81,19 +87,21 @@ public class MagmaSkin extends SubstanceSkin {
         defaultSchemeBundle.registerColorScheme(activeScheme,
                 ColorSchemeAssociationKind.MARK, ComponentState
                         .getActiveStates());
-        defaultSchemeBundle.registerColorScheme(disabledScheme, 0.7f,
+        defaultSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_UNSELECTED,
+                ComponentState.DISABLED_SELECTED);
+        defaultSchemeBundle.registerColorScheme(disabledScheme,
                 ComponentState.DISABLED_UNSELECTED,
                 ComponentState.DISABLED_SELECTED);
 
-        defaultSchemeBundle.registerHighlightColorScheme(activeScheme
-                .saturate(-0.2), 0.7f, ComponentState.ROLLOVER_UNSELECTED);
-        defaultSchemeBundle.registerHighlightColorScheme(activeScheme, 0.7f,
-                ComponentState.SELECTED);
-        defaultSchemeBundle.registerHighlightColorScheme(activeScheme, 0.9f,
-                ComponentState.ROLLOVER_SELECTED);
-        defaultSchemeBundle.registerHighlightColorScheme(activeScheme
-                        .saturate(-0.2), 0.7f, ComponentState.ARMED,
+        defaultSchemeBundle.registerHighlightAlpha(0.7f, ComponentState.ROLLOVER_UNSELECTED);
+        defaultSchemeBundle.registerHighlightAlpha(0.7f, ComponentState.SELECTED);
+        defaultSchemeBundle.registerHighlightAlpha(0.9f, ComponentState.ROLLOVER_SELECTED);
+        defaultSchemeBundle.registerHighlightAlpha(0.7f, ComponentState.ARMED,
                 ComponentState.ROLLOVER_ARMED);
+        defaultSchemeBundle.registerHighlightColorScheme(activeScheme,
+                ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
+        defaultSchemeBundle.registerHighlightColorScheme(activeScheme.saturate(-0.2),
+                ComponentState.ROLLOVER_UNSELECTED, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 DecorationAreaType.NONE);

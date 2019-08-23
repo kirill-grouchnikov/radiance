@@ -77,12 +77,12 @@ Twilight Highlight {
 
 Twilight Watermark {
     kind=Light
-    colorUltraLight=#4C4A41
-    colorExtraLight=#4C4A41
-    colorLight=#4C4A41
-    colorMid=#4C4A41
-    colorDark=#4C4A41
-    colorUltraDark=#4C4A41
+    colorUltraLight=#47443C
+    colorExtraLight=#47443C
+    colorLight=#47443C
+    colorMid=#47443C
+    colorDark=#47443C
+    colorUltraDark=#47443C
     colorForeground=#24231F
 }
 
@@ -95,6 +95,17 @@ Twilight Decorations Watermark {
     colorDark=#414038
     colorUltraDark=#413F37
     colorForeground=#F1F1F2
+}
+
+Twilight General Watermark {
+    kind=Light
+    colorUltraLight=#504E46
+    colorExtraLight=#504E46
+    colorLight=#504E46
+    colorMid=#504E46
+    colorDark=#504E46
+    colorUltraDark=#504E46
+    colorForeground=#F4F4F6
 }
 
 Twilight Separator {

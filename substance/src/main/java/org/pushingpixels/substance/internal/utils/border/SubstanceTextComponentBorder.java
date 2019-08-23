@@ -93,8 +93,6 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
      *            Component enabled status.
      * @param hasFocus
      *            Component focus ownership status.
-     * @param alpha
-     *            Alpha value.
      */
     private void paintBorder(JComponent c, Graphics g, int x, int y, int width, int height,
             boolean isEnabled, boolean hasFocus) {

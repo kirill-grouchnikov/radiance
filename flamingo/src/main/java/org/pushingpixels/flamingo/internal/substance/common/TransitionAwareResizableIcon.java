@@ -142,8 +142,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
         SubstanceColorScheme baseScheme = SubstanceColorSchemeUtilities
                 .getColorScheme(this.comp, ColorSchemeAssociationKind.MARK,
                         currState);
-        float baseAlpha = SubstanceColorSchemeUtilities.getAlpha(this.comp,
-                currState);
+        float baseAlpha = SubstanceColorSchemeUtilities.getAlpha(this.comp, currState);
 
         HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(baseScheme.getDisplayName(),
                 baseAlpha, this.width, this.height);
@@ -198,8 +197,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
                 SubstanceColorScheme scheme = SubstanceColorSchemeUtilities
                         .getColorScheme(this.comp,
                                 ColorSchemeAssociationKind.MARK, activeState);
-                float alpha = SubstanceColorSchemeUtilities.getAlpha(this.comp,
-                        activeState);
+                float alpha = SubstanceColorSchemeUtilities.getAlpha(this.comp, activeState);
 
                 HashMapKey key = SubstanceCoreUtilities.getHashKey(scheme.getDisplayName(), alpha,
                         this.width, this.height);

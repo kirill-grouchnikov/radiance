@@ -94,10 +94,10 @@ public class MagellanSkin extends SubstanceSkin {
 
 		SubstanceColorSchemeBundle defaultColorSchemeBundle = new SubstanceColorSchemeBundle(
 				blueControlsActive, blueControlsEnabled, blueControlsEnabled);
-		defaultColorSchemeBundle.registerColorScheme(blueControlsEnabled, 0.5f,
+		defaultColorSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED,
 				ComponentState.DISABLED_UNSELECTED);
-		defaultColorSchemeBundle.registerColorScheme(blueControlsActive, 0.5f,
-				ComponentState.DISABLED_SELECTED);
+		defaultColorSchemeBundle.registerColorScheme(blueControlsEnabled, ComponentState.DISABLED_UNSELECTED);
+		defaultColorSchemeBundle.registerColorScheme(blueControlsActive, ComponentState.DISABLED_SELECTED);
 
 		// color schemes for the active states
 		SubstanceColorScheme blueControlsActiveBorder = colorSchemes
@@ -116,9 +116,9 @@ public class MagellanSkin extends SubstanceSkin {
 		defaultColorSchemeBundle.registerColorScheme(blueControlsActiveBorder,
 				ColorSchemeAssociationKind.MARK,
 				ComponentState.SELECTED);
+		defaultColorSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
 		defaultColorSchemeBundle.registerColorScheme(blueControlsActiveBorder,
-				0.5f, ColorSchemeAssociationKind.MARK,
-				ComponentState.DISABLED_SELECTED);
+				ColorSchemeAssociationKind.MARK, ComponentState.DISABLED_SELECTED);
 
 		// color schemes for the pressed states
 		SubstanceColorScheme blueControlsPressed = colorSchemes
@@ -172,14 +172,13 @@ public class MagellanSkin extends SubstanceSkin {
 				ColorSchemeAssociationKind.FILL, ComponentState.SELECTED);
 
 		// highlight alphas
-		defaultColorSchemeBundle.registerHighlightColorScheme(greenControls,
-				0.75f, ComponentState.ROLLOVER_UNSELECTED);
-		defaultColorSchemeBundle.registerHighlightColorScheme(greenControls,
-				0.85f, ComponentState.SELECTED);
-		defaultColorSchemeBundle.registerHighlightColorScheme(greenControls,
-				0.95f, ComponentState.ROLLOVER_SELECTED);
-		defaultColorSchemeBundle.registerHighlightColorScheme(greenControls,
-				1.0f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+		defaultColorSchemeBundle.registerHighlightAlpha(0.75f, ComponentState.ROLLOVER_UNSELECTED);
+		defaultColorSchemeBundle.registerHighlightAlpha(0.85f, ComponentState.SELECTED);
+		defaultColorSchemeBundle.registerHighlightAlpha(0.95f, ComponentState.ROLLOVER_SELECTED);
+		defaultColorSchemeBundle.registerHighlightAlpha(1.0f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+		defaultColorSchemeBundle.registerHighlightColorScheme(greenControls, ComponentState.ROLLOVER_UNSELECTED,
+				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
+				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
 		defaultColorSchemeBundle.registerColorScheme(blueControlsActive.tint(0.2),
 				ColorSchemeAssociationKind.TAB,
@@ -211,10 +210,12 @@ public class MagellanSkin extends SubstanceSkin {
 		SubstanceColorSchemeBundle footerColorSchemeBundle = new SubstanceColorSchemeBundle(
 				lightBlueControlsActive, lightBlueControlsEnabled,
 				lightBlueControlsEnabled);
+		footerColorSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED,
+				ComponentState.DISABLED_UNSELECTED);
 		footerColorSchemeBundle.registerColorScheme(lightBlueControlsEnabled,
-				0.5f, ComponentState.DISABLED_UNSELECTED);
+				ComponentState.DISABLED_UNSELECTED);
 		footerColorSchemeBundle.registerColorScheme(lightBlueControlsActive,
-				0.5f, ComponentState.DISABLED_SELECTED);
+				ComponentState.DISABLED_SELECTED);
 		footerColorSchemeBundle.registerColorScheme(lightBlueBordersEnabled,
 				ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
 

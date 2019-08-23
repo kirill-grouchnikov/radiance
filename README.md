@@ -29,6 +29,8 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 [Flamingo](docs/flamingo/flamingo.md) provides a robust set of additional Swing components that can be used as building blocks for creating modern, rich Swing applications. In addition to providing powerful command button and breadcrumb bar components, Flamingo packs an Office Command Bar (ribbon) container that can host a complex hierarchy of flexible, scalable application control surface.
 
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1181" border=0/>
+
 ## Core Kotlin libraries
 
 ### Meteor

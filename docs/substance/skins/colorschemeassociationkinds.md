@@ -21,7 +21,7 @@ In our case, we want to specify different color schemes for different visual are
   /**
    * Registers the color scheme to be used for the specified visual area of
    * controls under the specified states. For example, if the light orange
-   * scheme has to be used for gradient fill of rollover selected and rollover
+   * scheme has to be used for gradient fill for rollover selected and rollover
    * controls, the parameters would be:
    *
    * <ul>

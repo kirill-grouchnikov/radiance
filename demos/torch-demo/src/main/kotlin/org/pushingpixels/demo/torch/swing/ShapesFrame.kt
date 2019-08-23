@@ -106,11 +106,7 @@ class ShapesPanel : JComponent() {
                 property(shape::height from 0 to 200)
                 property(shape::rotation from 0 to 180)
                 property(shape::opacity from 1.0f to 0.0f)
-                onTimelineStateChanged { _, newState, _, _ ->
-                    if (newState == TimelineState.DONE) {
-                        removeShape(shape)
-                    }
-                }
+                onTimelineDone { removeShape(shape) }
                 duration = 1000
             }.play()
         } else {
@@ -119,11 +115,7 @@ class ShapesPanel : JComponent() {
             shape.timeline {
                 property(shape::radius from 0 to 100)
                 property(shape::opacity from 1.0f to 0.0f)
-                onTimelineStateChanged { _, newState, _, _ ->
-                    if (newState == TimelineState.DONE) {
-                        removeShape(shape)
-                    }
-                }
+                onTimelineDone { removeShape(shape) }
                 duration = 1000
             }.play()
         }
@@ -136,7 +128,7 @@ interface MyShape {
 }
 
 class MyRectangle(internal var x: Float, internal var y: Float, internal var width: Float,
-        internal var height: Float) : MyShape {
+                  internal var height: Float) : MyShape {
     internal var opacity = 1.0f
     internal var rotation = 0.0f
 

@@ -32,6 +32,7 @@ package org.pushingpixels.substance.internal.utils;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -602,8 +603,7 @@ public class SubstanceTextUtilities {
                     continue;
                 }
 
-                float alpha = SubstanceColorSchemeUtilities.getAlpha(componentForTransitions,
-                        activeState);
+                float alpha = SubstanceColorSchemeUtilities.getAlpha(componentForTransitions, activeState);
                 if (alpha == 0.0f) {
                     continue;
                 }

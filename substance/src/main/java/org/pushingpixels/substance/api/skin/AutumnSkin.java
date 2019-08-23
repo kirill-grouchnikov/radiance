@@ -70,20 +70,18 @@ public class AutumnSkin extends SubstanceSkin {
 
 		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
 				activeScheme, enabledScheme, disabledScheme);
-		defaultSchemeBundle.registerColorScheme(disabledScheme, 0.6f,
-				ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(activeScheme, 0.6f,
-				ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
 
 		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
 				DecorationAreaType.NONE);
 
 		SubstanceColorSchemeBundle titlePaneSchemeBundle = new SubstanceColorSchemeBundle(
 				activeScheme, enabledScheme, disabledScheme);
-		titlePaneSchemeBundle.registerColorScheme(disabledScheme, 0.6f,
-				ComponentState.DISABLED_UNSELECTED);
-		titlePaneSchemeBundle.registerColorScheme(activeScheme, 0.6f,
-				ComponentState.DISABLED_SELECTED);
+		titlePaneSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		titlePaneSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
+		titlePaneSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
 
 		SubstanceColorScheme borderScheme = enabledScheme.saturate(0.2f);
 		titlePaneSchemeBundle.registerColorScheme(borderScheme,

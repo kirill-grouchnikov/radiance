@@ -57,16 +57,16 @@ public class GraphiteAquaSkin extends GraphiteSkin {
 
 		// highlight fill scheme + custom alpha for rollover unselected state
 		SubstanceColorScheme highlightScheme = schemes.get("Graphite Aqua");
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme,
-				0.8f, ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, 0.9f,
-				ComponentState.SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, 1.0f,
-				ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, 1.0f,
+		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ROLLOVER_UNSELECTED);
+		defaultSchemeBundle.registerHighlightAlpha(0.9f, ComponentState.SELECTED);
+		defaultSchemeBundle.registerHighlightAlpha(1.0f, ComponentState.ROLLOVER_SELECTED,
+				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, ComponentState.ROLLOVER_UNSELECTED,
+				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
 				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
-		defaultSchemeBundle.registerColorScheme(highlightScheme, 0.5f, 
+		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(highlightScheme,
 				ComponentState.DISABLED_SELECTED);
 		defaultSchemeBundle.registerColorScheme(highlightScheme,
 				ColorSchemeAssociationKind.BORDER,

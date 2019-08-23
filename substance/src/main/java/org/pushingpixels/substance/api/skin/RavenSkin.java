@@ -69,16 +69,14 @@ public class RavenSkin extends SubstanceSkin {
 				activeScheme, enabledScheme, disabledScheme);
 
 		// highlight fill scheme + custom alpha for rollover unselected state
-		SubstanceColorScheme highlightScheme = schemes
-				.get("Graphite Highlight");
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, 0.6f,
-				ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, 0.8f,
-				ComponentState.SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, 1.0f,
-				ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme,
-				0.75f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+		SubstanceColorScheme highlightScheme = schemes.get("Graphite Highlight");
+		defaultSchemeBundle.registerHighlightAlpha(0.6f, ComponentState.ROLLOVER_UNSELECTED);
+		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED);
+		defaultSchemeBundle.registerHighlightAlpha(1.0f, ComponentState.ROLLOVER_SELECTED);
+		defaultSchemeBundle.registerHighlightAlpha(0.75f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, ComponentState.ROLLOVER_UNSELECTED,
+				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
+				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
 		// highlight border scheme
 		defaultSchemeBundle.registerColorScheme(new EbonyColorScheme(),
@@ -101,10 +99,9 @@ public class RavenSkin extends SubstanceSkin {
 				ColorSchemeAssociationKind.HIGHLIGHT_MARK, ComponentState
 						.getActiveStates());
 
-		defaultSchemeBundle.registerColorScheme(disabledScheme, 0.5f,
-				ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme, 0.5f,
-				ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerColorScheme(highlightScheme, ComponentState.DISABLED_SELECTED);
 
 		SubstanceColorScheme tabHighlightScheme = schemes
 				.get("Graphite Tab Highlight");

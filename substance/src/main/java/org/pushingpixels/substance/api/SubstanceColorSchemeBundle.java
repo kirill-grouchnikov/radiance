@@ -29,8 +29,11 @@
  */
 package org.pushingpixels.substance.api;
 
-import org.pushingpixels.substance.api.SubstanceSlices.*;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import java.awt.*;
 import java.util.*;
@@ -76,8 +79,11 @@ public class SubstanceColorSchemeBundle {
 
     /**
      * If there is no explicitly registered color scheme for pressed component
-     * state, this field will contain a synthesized color scheme for a pressed
+     * state, this field will contain a synthesized color scheme for the pressed
      * state.
+     *
+     * @see ComponentState#PRESSED_SELECTED
+     * @see ComponentState#PRESSED_UNSELECTED
      */
     private SubstanceColorScheme pressedScheme;
 
@@ -85,6 +91,8 @@ public class SubstanceColorSchemeBundle {
      * If there is no explicitly registered color scheme for the disabled
      * selected component state, this field will contain a synthesized color
      * scheme for the disabled selected state.
+     *
+     * @see ComponentState#DISABLED_SELECTED
      */
     private SubstanceColorScheme disabledSelectedScheme;
 
@@ -92,6 +100,8 @@ public class SubstanceColorSchemeBundle {
      * If there is no explicitly registered color scheme for the selected
      * component state, this field will contain a synthesized color scheme for
      * the selected state.
+     *
+     * @see ComponentState#SELECTED
      */
     private SubstanceColorScheme selectedScheme;
 
@@ -99,6 +109,8 @@ public class SubstanceColorSchemeBundle {
      * If there is no explicitly registered color scheme for the rollover
      * selected component state, this field will contain a synthesized color
      * scheme for the rollover selected state.
+     *
+     * @see ComponentState#ROLLOVER_SELECTED
      */
     private SubstanceColorScheme rolloverSelectedScheme;
 
@@ -155,34 +167,18 @@ public class SubstanceColorSchemeBundle {
     }
 
     /**
-     * Registers a color scheme for the specific component state.
+     * Registers an alpha channel value for the specific component states.
      *
-     * @param stateColorScheme Color scheme for the specified component state.
-     * @param alpha            Alpha channel for the color scheme.
-     * @param states           Component states.
+     * @param alpha  Alpha channel value.
+     * @param states Component states.
      */
-    public void registerColorScheme(SubstanceColorScheme stateColorScheme,
-            float alpha, ComponentState... states) {
-        this.registerColorScheme(stateColorScheme, alpha, ColorSchemeAssociationKind.FILL, states);
-    }
-
-    /**
-     * Registers a color scheme for the specific component state.
-     *
-     * @param stateColorScheme Color scheme for the specified component state.
-     * @param alpha            Alpha channel for the color scheme.
-     * @param associationKind  Color scheme association kind that specifies the visual areas
-     *                         of controls to be painted with this color scheme.
-     * @param states           Component states.
-     */
-    public void registerColorScheme(SubstanceColorScheme stateColorScheme,
-            float alpha, ColorSchemeAssociationKind associationKind, ComponentState... states) {
-        if (stateColorScheme == null) {
-            throw new IllegalArgumentException("Cannot pass null color scheme");
-        }
-        if (states != null) {
+    public void registerAlpha(float alpha, ComponentState... states) {
+        if ((states == null) || (states.length == 0)) {
+            for (ComponentState state : ComponentState.getAllStates()) {
+                this.stateAlphaMap.put(state, alpha);
+            }
+        } else {
             for (ComponentState state : states) {
-                this.colorSchemeMap.get(associationKind).put(state, stateColorScheme);
                 this.stateAlphaMap.put(state, alpha);
             }
         }
@@ -196,7 +192,7 @@ public class SubstanceColorSchemeBundle {
      */
     public void registerColorScheme(SubstanceColorScheme stateColorScheme,
             ComponentState... states) {
-        this.registerColorScheme(stateColorScheme, 1.0f, states);
+        this.registerColorScheme(stateColorScheme, ColorSchemeAssociationKind.FILL, states);
     }
 
     /**
@@ -208,15 +204,13 @@ public class SubstanceColorSchemeBundle {
      * @param states               Component states. If <code>null</code>, the specified color
      *                             scheme will be applied for all states left unspecified.
      */
-    public void registerHighlightColorScheme(
-            SubstanceColorScheme stateHighlightScheme, ComponentState... states) {
+    public void registerHighlightColorScheme(SubstanceColorScheme stateHighlightScheme, ComponentState... states) {
         if (stateHighlightScheme == null) {
             throw new IllegalArgumentException("Cannot pass null color scheme");
         }
         if ((states == null) || (states.length == 0)) {
             for (ComponentState state : ComponentState.getAllStates()) {
-                if (this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT).containsKey(
-                        state)) {
+                if (this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT).containsKey(state)) {
                     continue;
                 }
                 if (state.isDisabled()) {
@@ -225,55 +219,28 @@ public class SubstanceColorSchemeBundle {
                 if (state == ComponentState.ENABLED) {
                     continue;
                 }
-                this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT)
-                        .put(state, stateHighlightScheme);
+                this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT).put(state, stateHighlightScheme);
             }
         } else {
             for (ComponentState state : states) {
-                this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT)
-                        .put(state, stateHighlightScheme);
+                this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT).put(state, stateHighlightScheme);
             }
         }
     }
 
     /**
-     * Registers a highlight color scheme for the specific component state if
-     * the component state is not <code>null</code>, or a global highlight color
-     * scheme otherwise.
+     * Registers a highlight alpha channel value for the specific component states.
      *
-     * @param highlightScheme Highlight color scheme for the specified component states.
-     * @param alpha           Alpha channel for the highlight color scheme.
-     * @param states          Component states. If <code>null</code>, the specified color
-     *                        scheme will be applied for all states left unspecified.
+     * @param alpha  Highlight alpha channel value.
+     * @param states Component states.
      */
-    public void registerHighlightColorScheme(
-            SubstanceColorScheme highlightScheme, float alpha,
-            ComponentState... states) {
-        if (highlightScheme == null) {
-            throw new IllegalArgumentException("Cannot pass null color scheme");
-        }
-
+    public void registerHighlightAlpha(float alpha, ComponentState... states) {
         if ((states == null) || (states.length == 0)) {
             for (ComponentState state : ComponentState.getAllStates()) {
-                if (state.isDisabled()) {
-                    continue;
-                }
-                if (state == ComponentState.ENABLED) {
-                    continue;
-                }
-                if (!this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT)
-                        .containsKey(state)) {
-                    this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT).
-                            put(state, highlightScheme);
-                }
-                if (!this.stateHighlightSchemeAlphaMap.containsKey(state)) {
-                    this.stateHighlightSchemeAlphaMap.put(state, alpha);
-                }
+                this.stateHighlightSchemeAlphaMap.put(state, alpha);
             }
         } else {
             for (ComponentState state : states) {
-                this.colorSchemeMap.get(ColorSchemeAssociationKind.HIGHLIGHT)
-                        .put(state, highlightScheme);
                 this.stateHighlightSchemeAlphaMap.put(state, alpha);
             }
         }
@@ -389,7 +356,7 @@ public class SubstanceColorSchemeBundle {
      * @return The active color scheme of this bundle.
      */
     public SubstanceColorScheme getActiveColorScheme() {
-        return activeColorScheme;
+        return this.activeColorScheme;
     }
 
     /**
@@ -398,7 +365,7 @@ public class SubstanceColorSchemeBundle {
      * @return The enabled color scheme of this bundle.
      */
     public SubstanceColorScheme getEnabledColorScheme() {
-        return enabledColorScheme;
+        return this.enabledColorScheme;
     }
 
     /**
@@ -407,13 +374,13 @@ public class SubstanceColorSchemeBundle {
      * @return The disabled color scheme of this bundle.
      */
     public SubstanceColorScheme getDisabledColorScheme() {
-        return disabledColorScheme;
+        return this.disabledColorScheme;
     }
 
     /**
      * Registers the color scheme to be used for the specified visual area of
      * controls under the specified states. For example, if the light orange
-     * scheme has to be used for gradient fill of rollover selected and rollover
+     * scheme has to be used for gradient fill for rollover selected and rollover
      * controls, the parameters would be:
      *
      * <ul>
@@ -458,8 +425,8 @@ public class SubstanceColorSchemeBundle {
      *
      * @param associationKind Color scheme association kind.
      * @param componentState  Component state.
-     * @param allowFallback If true, this method will return a color scheme for the fallback
-     *                      association kind.
+     * @param allowFallback   If true, this method will return a color scheme for the fallback
+     *                        association kind.
      * @return Color scheme to be used for painting the specified visual area of
      * the component under the specified component state.
      * @see #registerColorScheme(SubstanceColorScheme, ComponentState...)
@@ -517,12 +484,12 @@ public class SubstanceColorSchemeBundle {
     SubstanceColorSchemeBundle transform(ColorSchemeTransform transform) {
         // transform the basic schemes
         SubstanceColorSchemeBundle result = new SubstanceColorSchemeBundle(
-                transform.transform(this.activeColorScheme), transform
-                .transform(this.enabledColorScheme), transform
-                .transform(this.disabledColorScheme));
+                transform.transform(this.activeColorScheme),
+                transform.transform(this.enabledColorScheme),
+                transform.transform(this.disabledColorScheme));
 
-        for (Map.Entry<ColorSchemeAssociationKind, Map<ComponentState, SubstanceColorScheme>> entry : this.colorSchemeMap
-                .entrySet()) {
+        for (Map.Entry<ColorSchemeAssociationKind, Map<ComponentState, SubstanceColorScheme>> entry :
+                this.colorSchemeMap.entrySet()) {
             for (Map.Entry<ComponentState, SubstanceColorScheme> subEntry : entry
                     .getValue().entrySet()) {
                 result.colorSchemeMap.get(entry.getKey()).put(
@@ -548,8 +515,7 @@ public class SubstanceColorSchemeBundle {
      * associated with them. Non-trivial alpha is a value that is strictly less
      * than 1.0.
      *
-     * @return All component states that have associated non-trivial alpha
-     * values.
+     * @return All component states that have associated non-trivial alpha values.
      */
     Set<ComponentState> getStatesWithAlpha() {
         Set<ComponentState> result = new HashSet<>();

@@ -114,10 +114,9 @@ public class GeminiSkin extends SubstanceSkin {
 				ColorSchemeAssociationKind.SEPARATOR);
 		defaultSchemeBundle.registerColorScheme(grayScheme, ColorSchemeAssociationKind.MARK);
 
-		defaultSchemeBundle.registerColorScheme(lightGrayScheme, 0.5f,
-				ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme.tone(0.2f), 0.5f,
-				ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(lightGrayScheme, ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerColorScheme(highlightScheme.tone(0.2f), ComponentState.DISABLED_SELECTED);
 
 		SubstanceColorScheme whiteBackgroundScheme = schemes.get("Gemini White Background");
 
@@ -142,7 +141,8 @@ public class GeminiSkin extends SubstanceSkin {
 		SubstanceColorScheme disabledHeaderScheme = schemes.get("Gemini Black Disabled Header");
 		SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(
 				activeHeaderScheme, blackColorScheme, blackColorScheme);
-		headerSchemeBundle.registerColorScheme(disabledHeaderScheme, 0.5f,
+		headerSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		headerSchemeBundle.registerColorScheme(disabledHeaderScheme,
 				ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
 		headerSchemeBundle.registerColorScheme(blackColorScheme,
 				ComponentState.ROLLOVER_UNSELECTED);
@@ -160,10 +160,9 @@ public class GeminiSkin extends SubstanceSkin {
 				.get("Gemini Dark Blue Background");
 		SubstanceColorSchemeBundle toolbarSchemeBundle = new SubstanceColorSchemeBundle(
 				blackColorScheme, darkBlueColorScheme, darkBlueColorScheme);
-		toolbarSchemeBundle.registerColorScheme(blackColorScheme, 0.5f,
-				ComponentState.DISABLED_SELECTED);
-		toolbarSchemeBundle.registerColorScheme(darkBlueColorScheme, 0.5f,
-				ComponentState.DISABLED_UNSELECTED);
+		toolbarSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		toolbarSchemeBundle.registerColorScheme(blackColorScheme, ComponentState.DISABLED_SELECTED);
+		toolbarSchemeBundle.registerColorScheme(darkBlueColorScheme, ComponentState.DISABLED_UNSELECTED);
 		toolbarSchemeBundle.registerColorScheme(blackColorScheme,
 				ComponentState.ROLLOVER_UNSELECTED);
 		toolbarSchemeBundle.registerColorScheme(darkBlueColorScheme,
@@ -246,15 +245,14 @@ public class GeminiSkin extends SubstanceSkin {
 	 */
 	private static void applyHighlightColorScheme(SubstanceColorSchemeBundle schemeBundle,
 			SubstanceColorScheme highlightScheme, SubstanceColorScheme highlightBorderScheme) {
-
 		// specify custom alpha values for the highlights
-		schemeBundle.registerHighlightColorScheme(highlightScheme, 0.85f,
-				ComponentState.ROLLOVER_UNSELECTED);
-		schemeBundle.registerHighlightColorScheme(highlightScheme, 0.9f, ComponentState.SELECTED);
-		schemeBundle.registerHighlightColorScheme(highlightScheme, 1.0f,
-				ComponentState.ROLLOVER_SELECTED);
-		schemeBundle.registerHighlightColorScheme(highlightScheme, 1.0f, ComponentState.ARMED,
-				ComponentState.ROLLOVER_ARMED);
+		schemeBundle.registerHighlightAlpha(0.85f, ComponentState.ROLLOVER_UNSELECTED);
+		schemeBundle.registerHighlightAlpha(0.9f, ComponentState.SELECTED);
+		schemeBundle.registerHighlightAlpha(1.0f, ComponentState.ROLLOVER_SELECTED,
+				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+		schemeBundle.registerHighlightColorScheme(highlightScheme, ComponentState.ROLLOVER_UNSELECTED,
+				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
+				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 	}
 
 	private static void applyHighlightAsFill(SubstanceColorSchemeBundle schemeBundle,

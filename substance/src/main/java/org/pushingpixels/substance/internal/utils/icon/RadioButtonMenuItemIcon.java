@@ -45,162 +45,157 @@ import java.util.Map;
 
 /**
  * Icon for the {@link JRadioButtonMenuItem}s.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class RadioButtonMenuItemIcon implements Icon, UIResource {
-	/**
-	 * The size of <code>this</code> icon.
-	 */
-	private int size;
+    /**
+     * The size of <code>this</code> icon.
+     */
+    private int size;
 
-	/**
-	 * The associated menu item.
-	 */
-	private JMenuItem menuItem;
+    /**
+     * The associated menu item.
+     */
+    private JMenuItem menuItem;
 
-	/**
-	 * Icon cache to speed up the painting.
-	 */
-	private static LazyResettableHashMap<ImageWrapperIcon> iconMap =
-			new LazyResettableHashMap<>("RadioButtonMenuItemIcon");
+    /**
+     * Icon cache to speed up the painting.
+     */
+    private static LazyResettableHashMap<ImageWrapperIcon> iconMap =
+            new LazyResettableHashMap<>("RadioButtonMenuItemIcon");
 
-	/**
-	 * Creates a new icon.
-	 * 
-	 * @param menuItem
-	 *            The corresponding menu item.
-	 * @param size
-	 *            The size of <code>this</code> icon.
-	 */
-	public RadioButtonMenuItemIcon(JMenuItem menuItem, int size) {
-		this.menuItem = menuItem;
-		this.size = size;
-	}
+    /**
+     * Creates a new icon.
+     *
+     * @param menuItem The corresponding menu item.
+     * @param size     The size of <code>this</code> icon.
+     */
+    public RadioButtonMenuItemIcon(JMenuItem menuItem, int size) {
+        this.menuItem = menuItem;
+        this.size = size;
+    }
 
-	/**
-	 * Returns the current icon to paint.
-	 * 
-	 * @return Icon to paint.
-	 */
-	private ImageWrapperIcon getIconToPaint() {
-		if (this.menuItem == null)
-			return null;
-		TransitionAwareUI transitionAwareUI = (TransitionAwareUI) this.menuItem
-				.getUI();
-		StateTransitionTracker stateTransitionTracker = transitionAwareUI
-				.getTransitionTracker();
+    /**
+     * Returns the current icon to paint.
+     *
+     * @return Icon to paint.
+     */
+    private ImageWrapperIcon getIconToPaint() {
+        if (this.menuItem == null)
+            return null;
+        TransitionAwareUI transitionAwareUI = (TransitionAwareUI) this.menuItem
+                .getUI();
+        StateTransitionTracker stateTransitionTracker = transitionAwareUI
+                .getTransitionTracker();
 
-		StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
-				.getModelStateInfo();
-		Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-				.getStateContributionMap();
+        StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
+                .getModelStateInfo();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
+                .getStateContributionMap();
 
-		int fontSize = SubstanceSizeUtils.getComponentFontSize(this.menuItem);
-		int checkMarkSize = this.size;
+        int fontSize = SubstanceSizeUtils.getComponentFontSize(this.menuItem);
+        int checkMarkSize = this.size;
 
-		SubstanceFillPainter fillPainter = SubstanceCoreUtilities
-				.getFillPainter(this.menuItem);
-		SubstanceBorderPainter borderPainter = SubstanceCoreUtilities
-				.getBorderPainter(this.menuItem);
-		ComponentState currState = modelStateInfo.getCurrModelState();
+        SubstanceFillPainter fillPainter = SubstanceCoreUtilities
+                .getFillPainter(this.menuItem);
+        SubstanceBorderPainter borderPainter = SubstanceCoreUtilities
+                .getBorderPainter(this.menuItem);
+        ComponentState currState = modelStateInfo.getCurrModelState();
 
-		SubstanceColorScheme baseFillColorScheme = SubstanceColorSchemeUtilities
-				.getColorScheme(this.menuItem, ColorSchemeAssociationKind.FILL,
-						currState);
-		SubstanceColorScheme baseMarkColorScheme = SubstanceColorSchemeUtilities
-				.getColorScheme(this.menuItem, ColorSchemeAssociationKind.MARK,
-						currState);
-		SubstanceColorScheme baseBorderColorScheme = SubstanceColorSchemeUtilities
-				.getColorScheme(this.menuItem,
-						ColorSchemeAssociationKind.BORDER, currState);
-		float visibility = stateTransitionTracker
-				.getFacetStrength(ComponentStateFacet.SELECTION);
-		float alpha = SubstanceColorSchemeUtilities.getAlpha(this.menuItem, currState);
+        SubstanceColorScheme baseFillColorScheme = SubstanceColorSchemeUtilities
+                .getColorScheme(this.menuItem, ColorSchemeAssociationKind.FILL, currState);
+        SubstanceColorScheme baseMarkColorScheme = SubstanceColorSchemeUtilities
+                .getColorScheme(this.menuItem, ColorSchemeAssociationKind.MARK, currState);
+        SubstanceColorScheme baseBorderColorScheme = SubstanceColorSchemeUtilities
+                .getColorScheme(this.menuItem, ColorSchemeAssociationKind.BORDER, currState);
+        float visibility = stateTransitionTracker
+                .getFacetStrength(ComponentStateFacet.SELECTION);
+        float alpha = SubstanceColorSchemeUtilities.getAlpha(this.menuItem, currState);
 
-		HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(fontSize,
-				checkMarkSize, fillPainter.getDisplayName(), borderPainter.getDisplayName(),
-				baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
-				baseBorderColorScheme.getDisplayName(), visibility, alpha);
-		ImageWrapperIcon iconBase = iconMap.get(keyBase);
-		if (iconBase == null) {
-			iconBase = new ImageWrapperIcon(SubstanceImageCreator.getRadioButton(
-					this.menuItem, fillPainter, borderPainter, checkMarkSize,
-					currState, 0, baseFillColorScheme, baseMarkColorScheme,
-					baseBorderColorScheme, visibility, alpha));
-			iconMap.put(keyBase, iconBase);
-		}
-		if (currState.isDisabled() || (activeStates.size() == 1)) {
-			return iconBase;
-		}
+        HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(fontSize,
+                checkMarkSize, fillPainter.getDisplayName(), borderPainter.getDisplayName(),
+                baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
+                baseBorderColorScheme.getDisplayName(), visibility, alpha);
+        ImageWrapperIcon iconBase = iconMap.get(keyBase);
+        if (iconBase == null) {
+            iconBase = new ImageWrapperIcon(SubstanceImageCreator.getRadioButton(
+                    this.menuItem, fillPainter, borderPainter, checkMarkSize,
+                    currState, 0, baseFillColorScheme, baseMarkColorScheme,
+                    baseBorderColorScheme, visibility, alpha));
+            iconMap.put(keyBase, iconBase);
+        }
+        if (currState.isDisabled() || (activeStates.size() == 1)) {
+            return iconBase;
+        }
 
-		BufferedImage result = SubstanceCoreUtilities.getBlankImage(iconBase
-				.getIconWidth(), iconBase.getIconHeight());
-		Graphics2D g2d = result.createGraphics();
-		// draw the base layer
-		iconBase.paintIcon(this.menuItem, g2d, 0, 0);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(iconBase
+                .getIconWidth(), iconBase.getIconHeight());
+        Graphics2D g2d = result.createGraphics();
+        // draw the base layer
+        iconBase.paintIcon(this.menuItem, g2d, 0, 0);
 
-		// draw other active layers
-		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-				.entrySet()) {
-			ComponentState activeState = activeEntry.getKey();
-			// System.out.println("Painting state " + activeState + "[curr is "
-			// + currState + "] with " + activeEntry.getValue());
-			if (activeState == currState)
-				continue;
+        // draw other active layers
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
+                .entrySet()) {
+            ComponentState activeState = activeEntry.getKey();
+            // System.out.println("Painting state " + activeState + "[curr is "
+            // + currState + "] with " + activeEntry.getValue());
+            if (activeState == currState)
+                continue;
 
-			float stateContribution = activeEntry.getValue().getContribution();
-			if (stateContribution > 0.0f) {
-				g2d.setComposite(AlphaComposite.SrcOver
-						.derive(stateContribution));
-				SubstanceColorScheme fillColorScheme = SubstanceColorSchemeUtilities
-						.getColorScheme(this.menuItem,
-								ColorSchemeAssociationKind.FILL, activeState);
-				SubstanceColorScheme markColorScheme = SubstanceColorSchemeUtilities
-						.getColorScheme(this.menuItem,
-								ColorSchemeAssociationKind.MARK, activeState);
-				SubstanceColorScheme borderColorScheme = SubstanceColorSchemeUtilities
-						.getColorScheme(this.menuItem,
-								ColorSchemeAssociationKind.BORDER, activeState);
+            float stateContribution = activeEntry.getValue().getContribution();
+            if (stateContribution > 0.0f) {
+                g2d.setComposite(AlphaComposite.SrcOver
+                        .derive(stateContribution));
+                SubstanceColorScheme fillColorScheme = SubstanceColorSchemeUtilities
+                        .getColorScheme(this.menuItem,
+                                ColorSchemeAssociationKind.FILL, activeState);
+                SubstanceColorScheme markColorScheme = SubstanceColorSchemeUtilities
+                        .getColorScheme(this.menuItem,
+                                ColorSchemeAssociationKind.MARK, activeState);
+                SubstanceColorScheme borderColorScheme = SubstanceColorSchemeUtilities
+                        .getColorScheme(this.menuItem,
+                                ColorSchemeAssociationKind.BORDER, activeState);
 
-				HashMapKey keyLayer = SubstanceCoreUtilities.getHashKey(
-						fontSize, checkMarkSize, fillPainter.getDisplayName(), borderPainter.getDisplayName(),
-						fillColorScheme.getDisplayName(), markColorScheme.getDisplayName(),
-						borderColorScheme.getDisplayName(), visibility, alpha);
-				ImageWrapperIcon iconLayer = iconMap.get(keyLayer);
-				if (iconLayer == null) {
-					iconLayer = new ImageWrapperIcon(SubstanceImageCreator
-							.getRadioButton(this.menuItem, fillPainter,
-									borderPainter, checkMarkSize, currState, 0,
-									fillColorScheme, markColorScheme,
-									borderColorScheme, visibility, alpha));
-					iconMap.put(keyLayer, iconLayer);
-				}
+                HashMapKey keyLayer = SubstanceCoreUtilities.getHashKey(
+                        fontSize, checkMarkSize, fillPainter.getDisplayName(), borderPainter.getDisplayName(),
+                        fillColorScheme.getDisplayName(), markColorScheme.getDisplayName(),
+                        borderColorScheme.getDisplayName(), visibility, alpha);
+                ImageWrapperIcon iconLayer = iconMap.get(keyLayer);
+                if (iconLayer == null) {
+                    iconLayer = new ImageWrapperIcon(SubstanceImageCreator
+                            .getRadioButton(this.menuItem, fillPainter,
+                                    borderPainter, checkMarkSize, currState, 0,
+                                    fillColorScheme, markColorScheme,
+                                    borderColorScheme, visibility, alpha));
+                    iconMap.put(keyLayer, iconLayer);
+                }
 
-				iconLayer.paintIcon(this.menuItem, g2d, 0, 0);
-			}
-		}
+                iconLayer.paintIcon(this.menuItem, g2d, 0, 0);
+            }
+        }
 
-		g2d.dispose();
-		return new ImageWrapperIcon(result);
-	}
+        g2d.dispose();
+        return new ImageWrapperIcon(result);
+    }
 
-	@Override
-	public void paintIcon(Component c, Graphics g, int x, int y) {
-		Icon iconToDraw = this.getIconToPaint();
-		if (iconToDraw != null)
-			iconToDraw.paintIcon(c, g, x, y);
-	}
+    @Override
+    public void paintIcon(Component c, Graphics g, int x, int y) {
+        Icon iconToDraw = this.getIconToPaint();
+        if (iconToDraw != null)
+            iconToDraw.paintIcon(c, g, x, y);
+    }
 
-	@Override
-	public int getIconWidth() {
-		Icon iconToDraw = this.getIconToPaint();
+    @Override
+    public int getIconWidth() {
+        Icon iconToDraw = this.getIconToPaint();
         return (iconToDraw == null) ? 0 : iconToDraw.getIconWidth();
-	}
+    }
 
-	@Override
-	public int getIconHeight() {
-		Icon iconToDraw = this.getIconToPaint();
+    @Override
+    public int getIconHeight() {
+        Icon iconToDraw = this.getIconToPaint();
         return (iconToDraw == null) ? 0 : iconToDraw.getIconHeight();
-	}
+    }
 }

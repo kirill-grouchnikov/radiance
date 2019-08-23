@@ -61,7 +61,9 @@ public class GraphiteChalkSkin extends GraphiteSkin {
 				ComponentState.ENABLED);
 		defaultSchemeBundle.registerColorScheme(chalkScheme, ColorSchemeAssociationKind.BORDER,
 				ComponentState.getActiveStates());
-		defaultSchemeBundle.registerColorScheme(chalkScheme, 0.5f,
+		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED,
+				ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_DEFAULT);
+		defaultSchemeBundle.registerColorScheme(chalkScheme,
 				ColorSchemeAssociationKind.BORDER, ComponentState.DISABLED_UNSELECTED,
 				ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_DEFAULT);
 		defaultSchemeBundle.registerColorScheme(chalkScheme,

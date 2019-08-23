@@ -92,13 +92,12 @@ public class NebulaSkin extends SubstanceSkin {
 		defaultSchemeBundle.registerColorScheme(rolloverUnselectedScheme,
 				ColorSchemeAssociationKind.BORDER, ComponentState.SELECTED);
 
-		defaultSchemeBundle.registerHighlightColorScheme(pressedScheme, 0.6f,
-				ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(pressedScheme, 0.8f,
-				ComponentState.SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(pressedScheme, 0.95f,
-				ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(pressedScheme, 0.8f,
+		defaultSchemeBundle.registerHighlightAlpha(0.6f, ComponentState.ROLLOVER_UNSELECTED);
+		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED, ComponentState.ARMED,
+				ComponentState.ROLLOVER_ARMED);
+		defaultSchemeBundle.registerHighlightAlpha(0.95f, ComponentState.ROLLOVER_SELECTED);
+		defaultSchemeBundle.registerHighlightColorScheme(pressedScheme, ComponentState.ROLLOVER_UNSELECTED,
+				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
 				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
 		// for progress bars

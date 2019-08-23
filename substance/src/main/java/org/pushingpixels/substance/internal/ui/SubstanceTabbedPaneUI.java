@@ -2191,8 +2191,8 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             if (currState.isDisabled()) {
                 Color bgFillColor = SubstanceColorUtilities.getBackgroundFillColor(this.tabPane);
                 fg = SubstanceColorUtilities.getInterpolatedColor(fg, bgFillColor,
-                        SubstanceColorSchemeUtilities
-                                .getAlpha(this.tabPane.getComponentAt(tabIndex), currState));
+                        SubstanceColorSchemeUtilities.getAlpha(
+                                this.tabPane.getComponentAt(tabIndex), currState));
             }
             graphics.clip(getTabRectangle(tabIndex));
             SubstanceTextUtilities.paintText(graphics, this.tabPane, textRect, title, mnemIndex,

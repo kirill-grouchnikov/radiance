@@ -69,8 +69,8 @@ public class BusinessBlueSteelSkin extends SubstanceSkin {
 
 		SubstanceColorScheme highlightColorScheme = businessSchemes
 				.get("Business Blue Steel Highlight");
-		defaultSchemeBundle.registerColorScheme(activeScheme, 0.5f,
-				ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
 		defaultSchemeBundle.registerHighlightColorScheme(highlightColorScheme);
 		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE);
 
@@ -80,7 +80,8 @@ public class BusinessBlueSteelSkin extends SubstanceSkin {
 				.get("Business Blue Steel Enabled Header");
 		SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(
 				activeHeaderScheme, enabledHeaderScheme, enabledHeaderScheme);
-		headerSchemeBundle.registerColorScheme(enabledHeaderScheme, 0.5f,
+		headerSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+		headerSchemeBundle.registerColorScheme(enabledHeaderScheme,
 				ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
 		this.registerDecorationAreaSchemeBundle(headerSchemeBundle,
 				DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
@@ -92,8 +93,8 @@ public class BusinessBlueSteelSkin extends SubstanceSkin {
 				.get("Business Blue Steel Enabled General");
 		SubstanceColorSchemeBundle generalSchemeBundle = new SubstanceColorSchemeBundle(
 				activeGeneralScheme, enabledGeneralScheme, disabledScheme);
-		generalSchemeBundle.registerColorScheme(enabledGeneralScheme, 0.7f,
-				ComponentState.DISABLED_UNSELECTED);
+		generalSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_UNSELECTED);
+		generalSchemeBundle.registerColorScheme(enabledGeneralScheme, ComponentState.DISABLED_UNSELECTED);
 		this.registerDecorationAreaSchemeBundle(generalSchemeBundle, DecorationAreaType.FOOTER,
 				DecorationAreaType.GENERAL);
 

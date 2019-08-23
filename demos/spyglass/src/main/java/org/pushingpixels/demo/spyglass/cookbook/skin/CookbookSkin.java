@@ -29,12 +29,20 @@
  */
 package org.pushingpixels.demo.spyglass.cookbook.skin;
 
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.CremeColorScheme;
+import org.pushingpixels.substance.api.colorscheme.LightGrayColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.*;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
-import org.pushingpixels.substance.api.painter.overlay.*;
+import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.substance.api.painter.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 
 import java.awt.*;
@@ -65,7 +73,8 @@ public class CookbookSkin extends SubstanceSkin {
 
         SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(
                 darkBrownColorScheme, goldenBrownScheme, goldenBrownScheme);
-        headerSchemeBundle.registerColorScheme(goldenBrownScheme, 0.7f,
+        headerSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
+        headerSchemeBundle.registerColorScheme(goldenBrownScheme,
                 ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
         this.registerDecorationAreaSchemeBundle(headerSchemeBundle,
                 DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
@@ -76,7 +85,8 @@ public class CookbookSkin extends SubstanceSkin {
                 goldenBrownScheme.shiftBackground(new Color(127, 58, 11), 0.7f),
                 darkBrownColorScheme, darkBrownColorScheme);
         // use translucency on disabled controls
-        generalSchemeBundle.registerColorScheme(darkBrownColorScheme, 0.7f,
+        generalSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
+        generalSchemeBundle.registerColorScheme(darkBrownColorScheme,
                 ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
         // use dark color scheme for borders of active controls
         generalSchemeBundle.registerColorScheme(darkBrownColorScheme,

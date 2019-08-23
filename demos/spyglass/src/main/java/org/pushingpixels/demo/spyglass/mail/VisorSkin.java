@@ -29,11 +29,18 @@
  */
 package org.pushingpixels.demo.spyglass.mail;
 
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SunGlareColorScheme;
+import org.pushingpixels.substance.api.colorscheme.TerracottaColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.substance.api.painter.decoration.*;
+import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
+import org.pushingpixels.substance.api.painter.decoration.BrushedMetalDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.FractionBasedHighlightPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
@@ -58,8 +65,8 @@ public class VisorSkin extends SubstanceSkin {
         SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
                 activeScheme, enabledScheme, disabledScheme);
 
-        defaultSchemeBundle.registerColorScheme(activeScheme, 0.5f,
-                ComponentState.DISABLED_SELECTED);
+        defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
+        defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE);
 
         SubstanceColorScheme activeDestinationsScheme =
@@ -68,18 +75,22 @@ public class VisorSkin extends SubstanceSkin {
                 visorSchemes.get("Visor Enabled Destinations");
         SubstanceColorSchemeBundle destinationsSchemeBundle = new SubstanceColorSchemeBundle(
                 activeDestinationsScheme, enabledDestinationsScheme, disabledScheme);
-        destinationsSchemeBundle.registerColorScheme(enabledDestinationsScheme, 0.7f,
-                ComponentState.DISABLED_UNSELECTED);
+        destinationsSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_UNSELECTED);
+        destinationsSchemeBundle.registerColorScheme(enabledDestinationsScheme, ComponentState.DISABLED_UNSELECTED);
 
         // use SunGlare for destinations highlights
         SubstanceColorScheme destinationsHighlight = new SunGlareColorScheme();
-        destinationsSchemeBundle.registerHighlightColorScheme(destinationsHighlight, 0.75f,
+        destinationsSchemeBundle.registerAlpha(0.75f, ComponentState.ROLLOVER_UNSELECTED);
+        destinationsSchemeBundle.registerHighlightColorScheme(destinationsHighlight,
                 ComponentState.ROLLOVER_UNSELECTED);
-        destinationsSchemeBundle.registerHighlightColorScheme(destinationsHighlight, 0.9f,
+        destinationsSchemeBundle.registerAlpha(0.9f, ComponentState.SELECTED);
+        destinationsSchemeBundle.registerHighlightColorScheme(destinationsHighlight,
                 ComponentState.SELECTED);
-        destinationsSchemeBundle.registerHighlightColorScheme(destinationsHighlight, 1.0f,
+        destinationsSchemeBundle.registerAlpha(1.0f, ComponentState.ROLLOVER_SELECTED);
+        destinationsSchemeBundle.registerHighlightColorScheme(destinationsHighlight,
                 ComponentState.ROLLOVER_SELECTED);
-        destinationsSchemeBundle.registerHighlightColorScheme(destinationsHighlight, 0.8f,
+        destinationsSchemeBundle.registerAlpha(0.8f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+        destinationsSchemeBundle.registerHighlightColorScheme(destinationsHighlight,
                 ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
         // use Terracotta for borders of destinations highlights
         destinationsSchemeBundle.registerColorScheme(new TerracottaColorScheme(),
@@ -92,17 +103,21 @@ public class VisorSkin extends SubstanceSkin {
         SubstanceColorSchemeBundle threadsSchemeBundle = new SubstanceColorSchemeBundle(
                 activeScheme, enabledScheme, disabledScheme);
 
-        threadsSchemeBundle.registerColorScheme(activeScheme, 0.5f,
-                ComponentState.DISABLED_SELECTED);
+        threadsSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
+        threadsSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
         // Configure white-on-dark-blue highlights for the threads view
         SubstanceColorScheme threadsHighlight = visorSchemes.get("Visor Threads Highlight");
-        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight, 0.75f,
+        threadsSchemeBundle.registerAlpha(0.75f, ComponentState.ROLLOVER_UNSELECTED);
+        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight,
                 ComponentState.ROLLOVER_UNSELECTED);
-        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight, 0.9f,
+        threadsSchemeBundle.registerAlpha(0.9f, ComponentState.SELECTED);
+        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight,
                 ComponentState.SELECTED);
-        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight, 1.0f,
+        threadsSchemeBundle.registerAlpha(1.0f, ComponentState.ROLLOVER_SELECTED);
+        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight,
                 ComponentState.ROLLOVER_SELECTED);
-        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight, 0.8f,
+        threadsSchemeBundle.registerAlpha(0.8f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight,
                 ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
         this.registerDecorationAreaSchemeBundle(threadsSchemeBundle, VisorMail.THREADS);

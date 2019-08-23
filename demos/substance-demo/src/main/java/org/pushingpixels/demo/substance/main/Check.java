@@ -30,25 +30,43 @@
 package org.pushingpixels.demo.substance.main;
 
 import org.pushingpixels.demo.substance.main.check.*;
-import org.pushingpixels.demo.substance.main.check.selector.*;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceFontSelector;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceLocaleSelector;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceSkinSelector;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceTitlePaneGravitySelector;
 import org.pushingpixels.demo.substance.main.check.svg.tango.*;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.Side;
+import org.pushingpixels.substance.api.SubstanceSlices.TabCloseKind;
 import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
-import org.pushingpixels.substance.api.skin.*;
-import org.pushingpixels.substance.api.tabbed.*;
+import org.pushingpixels.substance.api.skin.SkinInfo;
+import org.pushingpixels.substance.api.skin.SubstanceGeminiLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel;
+import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
+import org.pushingpixels.substance.api.tabbed.TabCloseListener;
+import org.pushingpixels.substance.api.tabbed.VetoableMultipleTabCloseListener;
+import org.pushingpixels.substance.api.tabbed.VetoableTabCloseListener;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasCortex;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
 import org.pushingpixels.substance.extras.api.tabbed.DefaultTabPreviewPainter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Set;
 
 public class Check extends JFrame {
     private JTabbedPane jtp;
@@ -459,7 +477,7 @@ public class Check extends JFrame {
             try {
                 System.out.println(" CREATING LAF ");
                 long time0 = System.currentTimeMillis();
-                LookAndFeel laf = new SubstanceGeminiLookAndFeel();
+                LookAndFeel laf = new SubstanceNightShadeLookAndFeel();
                 long time1 = System.currentTimeMillis();
                 System.out.println(" LAF CREATED " + (time1 - time0));
                 System.out.println(" SETTING LAF ");

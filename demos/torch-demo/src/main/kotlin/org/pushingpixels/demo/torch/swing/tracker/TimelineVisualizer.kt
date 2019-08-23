@@ -51,11 +51,9 @@ class TimelineVisualizer : JComponent() {
 
             dot.timeline {
                 property(dot::opacity from 1.0f to 0.0f)
-                onTimelineStateChanged { _, newState, _, _ ->
-                    if (newState == TimelineState.DONE) {
-                        synchronized(dots) {
-                            dots.remove(dot)
-                        }
+                onTimelineDone {
+                    synchronized(dots) {
+                        dots.remove(dot)
                     }
                 }
                 duration = 10000

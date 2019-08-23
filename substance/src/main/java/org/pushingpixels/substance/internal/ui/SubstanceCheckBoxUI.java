@@ -130,13 +130,15 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
         HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(fontSize, checkMarkSize,
                 fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                 baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
-                baseBorderColorScheme.getDisplayName(), visibility, isCheckMarkFadingOut, alpha);
+                baseBorderColorScheme.getDisplayName(), visibility, isCheckMarkFadingOut,
+                alpha);
         ImageWrapperIcon iconBase = icons.get(keyBase);
         if (iconBase == null) {
             iconBase = new ImageWrapperIcon(
                     SubstanceImageCreator.getCheckBox(button, fillPainter, borderPainter,
                             checkMarkSize, currState, baseFillColorScheme, baseMarkColorScheme,
-                            baseBorderColorScheme, visibility, isCheckMarkFadingOut, alpha));
+                            baseBorderColorScheme, visibility, isCheckMarkFadingOut,
+                            alpha));
             icons.put(keyBase, iconBase);
         }
         if (currState.isDisabled() || (activeStates.size() == 1)) {

@@ -30,7 +30,10 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
@@ -41,8 +44,12 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 
 import javax.swing.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * Factory that creates menus for the test applications.
@@ -250,13 +257,12 @@ public class SampleMenuFactory {
 
             SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
                     activeScheme, enabledScheme, disabledScheme);
-            defaultSchemeBundle.registerHighlightColorScheme(activeScheme, 0.6f,
-                    ComponentState.ROLLOVER_UNSELECTED);
-            defaultSchemeBundle.registerHighlightColorScheme(activeScheme, 0.8f,
-                    ComponentState.SELECTED);
-            defaultSchemeBundle.registerHighlightColorScheme(activeScheme, 0.95f,
-                    ComponentState.ROLLOVER_SELECTED);
-            defaultSchemeBundle.registerHighlightColorScheme(activeScheme, 0.8f,
+            defaultSchemeBundle.registerHighlightAlpha(0.6f, ComponentState.ROLLOVER_UNSELECTED);
+            defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED);
+            defaultSchemeBundle.registerHighlightAlpha(0.95f, ComponentState.ROLLOVER_SELECTED);
+            defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+            defaultSchemeBundle.registerHighlightColorScheme(activeScheme, ComponentState.ROLLOVER_SELECTED,
+                    ComponentState.ROLLOVER_UNSELECTED, ComponentState.SELECTED,
                     ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
             this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE);
 

@@ -116,7 +116,8 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
         HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(fontSize, checkMarkSize,
                 fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                 baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
-                baseBorderColorScheme.getDisplayName(), visibility, isCheckMarkFadingOut, alpha);
+                baseBorderColorScheme.getDisplayName(), visibility, isCheckMarkFadingOut,
+                alpha);
         ImageWrapperIcon iconBase = iconMap.get(keyBase);
         if (iconBase == null) {
             iconBase = new ImageWrapperIcon(

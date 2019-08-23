@@ -135,9 +135,11 @@ public class CeruleanSkin extends SubstanceSkin {
 		SubstanceColorScheme disabledHeaderScheme = ceruleanSchemes.get("Cerulean Header Disabled");
 		SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(
 				activeHeaderScheme, headerScheme, disabledHeaderScheme);
-		headerSchemeBundle.registerColorScheme(activeHeaderScheme, 0.6f,
+		headerSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED,
+				ComponentState.DISABLED_SELECTED);
+		headerSchemeBundle.registerColorScheme(activeHeaderScheme,
 				ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
-		headerSchemeBundle.registerColorScheme(activeHeaderScheme, 0.6f,
+		headerSchemeBundle.registerColorScheme(activeHeaderScheme,
 				ColorSchemeAssociationKind.MARK, ComponentState.DISABLED_SELECTED,
 				ComponentState.DISABLED_UNSELECTED);
 		registerDecorationAreaSchemeBundle(headerSchemeBundle, headerScheme,

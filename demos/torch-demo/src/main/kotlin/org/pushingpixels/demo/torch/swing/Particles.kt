@@ -104,13 +104,13 @@ private class AddContext(private val add: Add) : CompositeContext {
 
 class Add(val alpha: Float) : Composite {
     override fun createContext(srcColorModel: ColorModel, dstColorModel: ColorModel,
-            hints: RenderingHints): CompositeContext {
+                               hints: RenderingHints): CompositeContext {
         return AddContext(this)
     }
 }
 
 class Particle(internal var x: Float, internal var y: Float, internal var size: Int,
-        internal var color: Color, internal var angle: Float) {
+               internal var color: Color, internal var angle: Float) {
 
     internal var opacity = 1.0f
 
@@ -221,11 +221,9 @@ class ParticlesPanel : JPanel() {
                 property(particle::y from startY to goalY)
                 property(particle::opacity from 1.0f to 0.0f)
                 property(particle::angle from startAngle to endAngle)
-                onTimelineStateChanged { _, newState, _, _ ->
-                    if (newState == TimelineState.DONE) {
-                        synchronized(this@ParticlesPanel) {
-                            particles.remove(particle)
-                        }
+                onTimelineDone {
+                    synchronized(this@ParticlesPanel) {
+                        particles.remove(particle)
                     }
                 }
                 duration = animationDuration

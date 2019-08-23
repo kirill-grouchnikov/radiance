@@ -90,10 +90,10 @@ public class MarinerSkin extends SubstanceSkin {
 		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
 				activeScheme, enabledScheme, disabledScheme);
 
-		defaultSchemeBundle.registerColorScheme(activeScheme, 0.5f,
-				ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(disabledScheme, 0.8f,
-				ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerAlpha(0.8f, ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
 
 		// borders
 		SubstanceColorScheme activeBorderScheme = schemes.get("Mariner Active Border");
@@ -127,7 +127,8 @@ public class MarinerSkin extends SubstanceSkin {
 		SubstanceColorScheme headerBorderColorScheme = schemes.get("Mariner Header Border");
 		SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(
 				headerColorScheme, headerColorScheme, headerColorScheme);
-		headerSchemeBundle.registerColorScheme(headerColorScheme, 0.4f,
+		headerSchemeBundle.registerAlpha(0.4f, ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
+		headerSchemeBundle.registerColorScheme(headerColorScheme,
 				ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
 		headerSchemeBundle.registerColorScheme(headerColorScheme,
 				ComponentState.ROLLOVER_UNSELECTED);
@@ -145,10 +146,10 @@ public class MarinerSkin extends SubstanceSkin {
 		SubstanceColorSchemeBundle footerSchemeBundle = new SubstanceColorSchemeBundle(activeScheme,
 				enabledFooterScheme, disabledFooterScheme);
 
-		footerSchemeBundle.registerColorScheme(activeScheme, 0.5f,
-				ComponentState.DISABLED_SELECTED);
-		footerSchemeBundle.registerColorScheme(disabledFooterScheme, 0.8f,
-				ComponentState.DISABLED_UNSELECTED);
+		footerSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
+		footerSchemeBundle.registerAlpha(0.8f, ComponentState.DISABLED_UNSELECTED);
+		footerSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
+		footerSchemeBundle.registerColorScheme(disabledFooterScheme, ComponentState.DISABLED_UNSELECTED);
 
 		// borders
 		SubstanceColorScheme footerEnabledBorderScheme = schemes

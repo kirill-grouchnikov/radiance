@@ -70,7 +70,7 @@ object LucentUtils {
     }
 
     fun paintMultilineText(g2d: Graphics2D, text: String,
-            textX: Int, textWidth: Int, textY: Int, maxTextLineCount: Int): Int {
+                           textX: Int, textWidth: Int, textY: Int, maxTextLineCount: Int): Int {
         var textY = textY
         NeonCortex.installDesktopHints(g2d, g2d.font)
         val frc = FontRenderContext(AffineTransform(), true, false)
@@ -109,11 +109,7 @@ object LucentUtils {
     fun fadeOutAndDispose(window: Window, fadeOutDuration: Long) {
         window.windowTimeline {
             property(TorchWindow.opacity from 1.0f to 0.0f)
-            onTimelineStateChanged { _, newState, _, _ ->
-                if (newState == TimelineState.DONE) {
-                    window.dispose()
-                }
-            }
+            onTimelineDone { window.dispose() }
             duration = fadeOutDuration
         }.play()
     }

@@ -30,6 +30,7 @@
 package org.pushingpixels.substance.internal.utils.menu;
 
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
