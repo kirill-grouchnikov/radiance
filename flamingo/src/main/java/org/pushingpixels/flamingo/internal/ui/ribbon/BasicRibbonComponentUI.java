@@ -36,7 +36,8 @@ import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
     /**

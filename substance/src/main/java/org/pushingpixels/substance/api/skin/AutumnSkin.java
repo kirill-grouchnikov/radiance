@@ -104,7 +104,7 @@ public class AutumnSkin extends SubstanceSkin {
 
 		// add an overlay painter to paint a drop shadow along the top
 		// edge of toolbars
-		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(),
+		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(50),
 				DecorationAreaType.TOOLBAR);
 
 		// add an overlay painter to paint separator lines along the bottom

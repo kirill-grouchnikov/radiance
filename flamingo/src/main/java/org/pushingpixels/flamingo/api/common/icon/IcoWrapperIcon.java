@@ -29,7 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.neon.*;
+import org.pushingpixels.neon.AsynchronousLoadListener;
+import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.neon.NeonCortex;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -29,14 +29,17 @@
  */
 package org.pushingpixels.flamingo.internal.substance.common;
 
-import org.pushingpixels.neon.*;
+import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.internal.animation.IconGlowTracker;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class GlowingResizableIcon implements ResizableIcon {
     /**

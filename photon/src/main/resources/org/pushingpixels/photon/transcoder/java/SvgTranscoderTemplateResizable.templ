@@ -170,6 +170,6 @@ public class TOKEN_CLASSNAME implements ResizableIcon {
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return () -> new TOKEN_CLASSNAME();
+        return TOKEN_CLASSNAME::new;
     }
 }

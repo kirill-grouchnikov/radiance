@@ -29,7 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Generic key-value pair with optional property map.

@@ -36,12 +36,15 @@ import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentB
 import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
 
 import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicSpinnerUI;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.beans.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * UI for spinners in <b>Substance</b> look and feel.

@@ -33,7 +33,8 @@ import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainSco
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
-import org.pushingpixels.substance.internal.painter.*;
+import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 

@@ -34,8 +34,9 @@ import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
-import org.pushingpixels.flamingo.internal.ui.ribbon.*;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.flamingo.internal.ui.ribbon.JFlowBandControlPanel;
+import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonComponent;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
 

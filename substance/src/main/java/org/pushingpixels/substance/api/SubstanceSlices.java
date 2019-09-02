@@ -34,13 +34,17 @@ import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceOutlineUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Various constants and data classes used in scope-defined APIs provided by

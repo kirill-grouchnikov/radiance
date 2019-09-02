@@ -29,11 +29,18 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.model;
 
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandGroup;
+import org.pushingpixels.flamingo.api.common.model.ContentModel;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
-import javax.swing.event.*;
-import java.util.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.EventListenerList;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EventListener;
+import java.util.List;
 
 public class RibbonGalleryContentModel implements ContentModel {
     private List<CommandGroup> commandGroups;

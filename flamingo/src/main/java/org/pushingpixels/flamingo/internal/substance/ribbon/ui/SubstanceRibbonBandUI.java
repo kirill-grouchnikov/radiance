@@ -29,26 +29,35 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.flamingo.internal.ui.common.FlamingoInternalButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.painter.*;
+import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
+import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.*;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.util.EnumSet;
 

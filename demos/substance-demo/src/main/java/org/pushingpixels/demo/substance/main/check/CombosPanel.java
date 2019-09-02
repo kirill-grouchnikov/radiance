@@ -218,7 +218,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         comboEditable.setEditable(true);
         builder.append("Editable", comboEditable);
 
-        JComboBox comboColors = new FlexiComboBox<Color>(new Color(255, 128, 128),
+        JComboBox comboColors = new FlexiComboBox<>(new Color(255, 128, 128),
                 new Color(128, 255, 128), new Color(128, 128, 255), new Color(255, 255, 128),
                 new Color(255, 128, 255), new Color(128, 255, 255)) {
             @Override

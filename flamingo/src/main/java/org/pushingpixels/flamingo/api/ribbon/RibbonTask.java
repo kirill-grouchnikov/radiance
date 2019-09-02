@@ -29,9 +29,12 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.ribbon.resize.*;
+import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies;
+import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizeSequencingPolicy;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Single ribbon task in {@link JRibbon}. This is a logical entity that groups

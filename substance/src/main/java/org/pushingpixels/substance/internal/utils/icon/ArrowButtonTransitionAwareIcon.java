@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;

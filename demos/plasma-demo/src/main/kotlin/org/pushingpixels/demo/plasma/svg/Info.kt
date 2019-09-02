@@ -2,6 +2,11 @@ package org.pushingpixels.demo.plasma.svg
 
 import java.awt.*
 import java.awt.geom.*
+import java.awt.image.BufferedImage
+import java.io.*
+import java.lang.ref.WeakReference
+import java.util.Base64
+import javax.imageio.ImageIO
 import javax.swing.plaf.UIResource
 
 import org.pushingpixels.neon.icon.ResizableIcon
@@ -14,11 +19,14 @@ import org.pushingpixels.neon.icon.ResizableIconUIResource
  */
 class Info private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
+    
+
 	private fun innerPaint(g : Graphics2D) {
         @Suppress("UNUSED_VARIABLE") var shape: Shape?
         @Suppress("UNUSED_VARIABLE") var paint: Paint?
         @Suppress("UNUSED_VARIABLE") var stroke: Stroke?
-         
+        @Suppress("UNUSED_VARIABLE") var clip: Shape?
+
         var origAlpha = 1.0f
         val origComposite = g.composite
         if (origComposite is AlphaComposite) {
@@ -41,7 +49,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_0
-paint = Color(139, 183, 240, 255)
 shape = GeneralPath()
 shape.moveTo(40.0, 77.5)
 shape.curveTo(19.322, 77.5, 2.5, 60.678, 2.5, 40.0)
@@ -49,6 +56,7 @@ shape.curveTo(2.5, 19.321999, 19.322, 2.5, 40.0, 2.5)
 shape.curveTo(60.678, 2.5, 77.5, 19.322, 77.5, 40.0)
 shape.curveTo(77.5, 60.678, 60.678, 77.5, 40.0, 77.5)
 shape.closePath()
+paint = Color(139, 183, 240, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_0_0
@@ -60,7 +68,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_0_1_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_1_0
-paint = Color(78, 122, 181, 255)
 shape = GeneralPath()
 shape.moveTo(40.0, 3.0)
 shape.curveTo(60.402, 3.0, 77.0, 19.598, 77.0, 40.0)
@@ -74,6 +81,7 @@ shape.curveTo(60.987, 78.0, 78.0, 60.987, 78.0, 40.0)
 shape.curveTo(78.0, 19.013, 60.987, 2.0, 40.0, 2.0)
 shape.lineTo(40.0, 2.0)
 shape.closePath()
+paint = Color(78, 122, 181, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_0_1_0
@@ -83,8 +91,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_1 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1
-paint = Color(255, 255, 255, 255)
 shape = Ellipse2D.Double(37.0, 21.0, 6.0, 6.0)
+paint = Color(255, 255, 255, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_1
@@ -96,7 +104,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0
-paint = Color(255, 255, 255, 255)
 shape = GeneralPath()
 shape.moveTo(43.0, 56.0)
 shape.lineTo(43.0, 31.0)
@@ -109,6 +116,7 @@ shape.lineTo(35.0, 58.0)
 shape.lineTo(45.0, 58.0)
 shape.lineTo(45.0, 56.0)
 shape.closePath()
+paint = Color(255, 255, 255, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0
@@ -183,7 +191,7 @@ g.transform = defaultTransform_
          * @return Factory that returns instances of this icon on demand.
          */
         fun factory(): Factory {
-            return Factory { Info(16, 16) }
+            return Factory { Info(getOrigWidth().toInt(), getOrigHeight().toInt()) }
         }
     }
 
@@ -227,7 +235,6 @@ g.transform = defaultTransform_
         innerPaint(g2ForInner)
         g2ForInner.dispose()
         g2d.dispose()
-
     }
 }
 

@@ -29,19 +29,27 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.internal.*;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.internal.SubstanceSynapse;
+import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.plaf.*;
+import javax.swing.event.MouseInputAdapter;
+import javax.swing.event.MouseInputListener;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicRootPaneUI;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.*;
-import java.security.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.security.AccessController;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.util.Set;
 
 /**

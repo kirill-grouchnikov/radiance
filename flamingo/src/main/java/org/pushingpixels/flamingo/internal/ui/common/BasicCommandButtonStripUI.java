@@ -29,17 +29,22 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
-import org.pushingpixels.flamingo.internal.ui.ribbon.SequentialFocusTraversalPolicy;
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.CommandAction;
+import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.flamingo.api.common.model.CommandGroup;
+import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
-import java.util.List;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Basic UI for button strip {@link JCommandButtonStrip}.

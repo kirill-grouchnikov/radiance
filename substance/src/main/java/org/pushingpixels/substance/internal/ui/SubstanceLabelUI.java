@@ -31,16 +31,17 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.*;
+import javax.swing.plaf.basic.BasicHTML;
+import javax.swing.plaf.basic.BasicLabelUI;
 import javax.swing.text.View;
 import java.awt.*;
-import java.beans.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * UI for labels in <b>Substance</b> look and feel.

@@ -2,6 +2,11 @@ package org.pushingpixels.demo.plasma.svg
 
 import java.awt.*
 import java.awt.geom.*
+import java.awt.image.BufferedImage
+import java.io.*
+import java.lang.ref.WeakReference
+import java.util.Base64
+import javax.imageio.ImageIO
 import javax.swing.plaf.UIResource
 
 import org.pushingpixels.neon.icon.ResizableIcon
@@ -14,11 +19,14 @@ import org.pushingpixels.neon.icon.ResizableIconUIResource
  */
 class Help_browser private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
+    
+
 	private fun innerPaint(g : Graphics2D) {
         @Suppress("UNUSED_VARIABLE") var shape: Shape?
         @Suppress("UNUSED_VARIABLE") var paint: Paint?
         @Suppress("UNUSED_VARIABLE") var stroke: Stroke?
-         
+        @Suppress("UNUSED_VARIABLE") var clip: Shape?
+
         var origAlpha = 1.0f
         val origComposite = g.composite
         if (origComposite is AlphaComposite) {
@@ -41,7 +49,6 @@ g.composite = AlphaComposite.getInstance(3, 0.6306818f * origAlpha)
 val defaultTransform__0_0_0 = g.transform
 g.transform(AffineTransform(1.1738029718399048f, 0.0f, 0.0f, 0.6000000238418579f, -5.004403114318848f, 20.325000762939453f))
 // _0_0_0
-paint = RadialGradientPaint(Point2D.Double(25.125, 36.75), 15.75f, Point2D.Double(25.125, 36.75), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 0.5952379703521729f, 3.369686058403963E-16f, 14.875f))
 shape = GeneralPath()
 shape.moveTo(40.875, 36.75)
 shape.curveTo(40.900238, 40.109352, 37.90384, 43.21997, 33.020405, 44.904)
@@ -51,6 +58,7 @@ shape.curveTo(9.34976, 33.390648, 12.346162, 30.28003, 17.229597, 28.596)
 shape.curveTo(22.113031, 26.911972, 28.136969, 26.911972, 33.020405, 28.596)
 shape.curveTo(37.90384, 30.28003, 40.900238, 33.390648, 40.875, 36.75)
 shape.closePath()
+paint = RadialGradientPaint(Point2D.Double(25.125, 36.75), 15.75f, Point2D.Double(25.125, 36.75), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 0.5952379703521729f, 3.369686058403963E-16f, 14.875f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_0_0
@@ -58,7 +66,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_0_1 = g.transform
 g.transform(AffineTransform(0.9384419918060303f, 0.0f, 0.0f, 0.9386799931526184f, 1.564074993133545f, 1.6339060068130493f))
 // _0_0_1
-paint = RadialGradientPaint(Point2D.Double(26.544321060180664, 28.458724975585938), 22.376116f, Point2D.Double(26.544321060180664, 28.458724975585938), floatArrayOf(0.0f,1.0f), arrayOf(Color(156, 188, 222, 255),Color(32, 74, 135, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.238342046737671f, 0.005954845808446407f, -0.006507761776447296f, 1.3512719869613647f, -6.992513179779053f, -9.744841575622559f))
 shape = GeneralPath()
 shape.moveTo(45.785164, 23.825787)
 shape.curveTo(45.82022, 31.664677, 41.65834, 38.923157, 34.875446, 42.852757)
@@ -68,6 +75,7 @@ shape.curveTo(1.9978756, 15.986897, 6.1597557, 8.728418, 12.942651, 4.7988186)
 shape.curveTo(19.725546, 0.8692189, 28.09255, 0.8692189, 34.875446, 4.7988186)
 shape.curveTo(41.65834, 8.728418, 45.82022, 15.986897, 45.785164, 23.825787)
 shape.closePath()
+paint = RadialGradientPaint(Point2D.Double(26.544321060180664, 28.458724975585938), 22.376116f, Point2D.Double(26.544321060180664, 28.458724975585938), floatArrayOf(0.0f,1.0f), arrayOf(Color(156, 188, 222, 255),Color(32, 74, 135, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.238342046737671f, 0.005954845808446407f, -0.006507761776447296f, 1.3512719869613647f, -6.992513179779053f, -9.744841575622559f))
 g.paint = paint
 g.fill(shape)
 paint = Color(32, 74, 135, 255)
@@ -108,7 +116,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_0_3 = g.transform
 g.transform(AffineTransform(0.8498950004577637f, 0.0f, 0.0f, 0.8352050185203552f, 41.72980880737305f, 8.548327445983887f))
 // _0_0_3
-paint = RadialGradientPaint(Point2D.Double(-19.51563835144043, 16.855663299560547), 8.753643f, Point2D.Double(-19.51563835144043, 16.855663299560547), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(184, 184, 184, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(4.445991039276123f, -8.852599147408013E-16f, 1.3672169501077291E-15f, 6.866499900817871f, 67.2507095336914f, -104.66790008544922f))
 shape = GeneralPath()
 shape.moveTo(-20.25, 5.875)
 shape.curveTo(-21.30902, 5.875026, -22.397636, 5.9982357, -23.53125, 6.21875)
@@ -189,6 +196,7 @@ shape.lineTo(-23.75, 25.03125)
 shape.curveTo(-23.760382, 25.03004, -23.770868, 25.03004, -23.78125, 25.03125)
 shape.curveTo(-23.791632, 25.03004, -23.802118, 25.03004, -23.8125, 25.03125)
 shape.closePath()
+paint = RadialGradientPaint(Point2D.Double(-19.51563835144043, 16.855663299560547), 8.753643f, Point2D.Double(-19.51563835144043, 16.855663299560547), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(184, 184, 184, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(4.445991039276123f, -8.852599147408013E-16f, 1.3672169501077291E-15f, 6.866499900817871f, 67.2507095336914f, -104.66790008544922f))
 g.paint = paint
 g.fill(shape)
 paint = Color(255, 255, 255, 200)
@@ -348,7 +356,7 @@ g.transform = defaultTransform_
          * @return Factory that returns instances of this icon on demand.
          */
         fun factory(): Factory {
-            return Factory { Help_browser(16, 16) }
+            return Factory { Help_browser(getOrigWidth().toInt(), getOrigHeight().toInt()) }
         }
     }
 
@@ -392,7 +400,6 @@ g.transform = defaultTransform_
         innerPaint(g2ForInner)
         g2ForInner.dispose()
         g2d.dispose()
-
     }
 }
 

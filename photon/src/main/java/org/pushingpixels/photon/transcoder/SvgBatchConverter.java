@@ -125,8 +125,10 @@ public class SvgBatchConverter {
 
         System.out.println(
                 "******************************************************************************");
-        System.out.println("Processing " + sourceFolderName + " to " + outputPackageName + " in "
-                + outputLanguage);
+        System.out.println("Processing");
+        System.out.println("\t  source folder: " + sourceFolderName);
+        System.out.println("\t   package name: " + outputPackageName);
+        System.out.println("\toutput language: " + outputLanguage);
         System.out.println(
                 "******************************************************************************");
 
@@ -167,5 +169,7 @@ public class SvgBatchConverter {
                 e.printStackTrace();
             }
         }
+
+        System.out.println();
     }
 }

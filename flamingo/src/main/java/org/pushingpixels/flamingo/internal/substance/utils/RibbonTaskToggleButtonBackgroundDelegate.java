@@ -29,15 +29,23 @@
  */
 package org.pushingpixels.flamingo.internal.substance.utils;
 
-import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
+import org.pushingpixels.flamingo.api.ribbon.JRibbon;
+import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
+import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter;
-import org.pushingpixels.substance.internal.animation.*;
+import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
+import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.*;
 
@@ -45,7 +53,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Delegate class for painting backgrounds of {@link JRibbonTaskToggleButton}s.

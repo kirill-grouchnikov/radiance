@@ -29,17 +29,17 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.painter.preview.PreviewPainter;
 import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
-import org.pushingpixels.substance.internal.*;
+import org.pushingpixels.substance.internal.AnimationConfigurationManager;
+import org.pushingpixels.substance.internal.SubstanceSynapse;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.beans.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Map;
 
 /**

@@ -30,7 +30,8 @@
 package org.pushingpixels.flamingo.api.common.projection;
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.ColorSelectorCommand;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.internal.ui.common.JColorSelectorCommandButton;
 
 public class ColorSelectorCommandButtonProjection extends

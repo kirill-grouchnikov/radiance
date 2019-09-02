@@ -34,7 +34,8 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.icon.SubstanceIconPack;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -44,7 +45,8 @@ import javax.swing.plaf.basic.BasicFileChooserUI;
 import javax.swing.plaf.metal.MetalFileChooserUI;
 import java.awt.*;
 import java.io.File;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * UI for file chooser in <b>Substance</b> look and feel. The {@link BasicFileChooserUI} can't be

@@ -29,13 +29,16 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.neon.*;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 
 import java.awt.*;
-import java.awt.image.*;
-import java.util.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Implementation of {@link ResizableIcon} that allows applying a

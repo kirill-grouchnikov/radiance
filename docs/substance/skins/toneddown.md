@@ -104,6 +104,19 @@ Available in the `org.pushingpixels.substance.api.skin.NebulaSkin`. In addition,
 <img alt="Nebula" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebula1.png" width="340" height="254">
 <img alt="Nebula" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebula2.png" width="340" height="254">
 
+### Nebula Amethyst
+
+Available in the `org.pushingpixels.substance.api.skin.NebulaAmethystSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceNebulaAmethystLookAndFeel` can be used with one of the following options:
+
+* `SubstanceCortex.GlobalScope.setSkin(new NebulaAmethystSkin())`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.NebulaAmethystSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceNebulaAmethystLookAndFeel`
+* `UIManager.setLookAndFeel(new SubstanceNebulaAmethystLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceNebulaAmethystLookAndFeel");`
+
+<img alt="Nebula Amethyst" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulaamethyst1.png" width="340" height="254">
+<img alt="Nebula Amethyst" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulaamethyst2.png" width="340" height="254">
+
 ### Nebula Brick Wall
 
 Available in the `org.pushingpixels.substance.api.skin.NebulaBrickWallSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceNebulaBrickWallLookAndFeel` can be used with one of the following options:

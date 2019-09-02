@@ -29,18 +29,27 @@
  */
 package org.pushingpixels.flamingo.api.common.popup;
 
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
+import org.pushingpixels.flamingo.api.common.JCommandToggleMenuButton;
+import org.pushingpixels.flamingo.api.common.KeyValuePair;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel;
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel;
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceColorSelectorPopupMenuUI;
-import org.pushingpixels.flamingo.internal.ui.common.popup.*;
+import org.pushingpixels.flamingo.internal.ui.common.popup.ColorSelectorPopupMenuMultiRowSelector;
+import org.pushingpixels.flamingo.internal.ui.common.popup.ColorSelectorPopupMenuSingleRowSelector;
+import org.pushingpixels.flamingo.internal.ui.common.popup.JColorSelectorPanel;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.*;
 
 public class JColorSelectorPopupMenu extends AbstractPopupMenu {
     /**

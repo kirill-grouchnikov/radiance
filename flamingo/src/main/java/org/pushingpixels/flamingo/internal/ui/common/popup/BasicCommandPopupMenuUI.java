@@ -31,15 +31,22 @@ package org.pushingpixels.flamingo.internal.ui.common.popup;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
-import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonPanelUI;
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {

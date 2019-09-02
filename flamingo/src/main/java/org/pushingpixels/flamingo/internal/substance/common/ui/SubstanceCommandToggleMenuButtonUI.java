@@ -29,21 +29,31 @@
  */
 package org.pushingpixels.flamingo.internal.substance.common.ui;
 
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandToggleMenuButton;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker.ModelStateInfo;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.*;
-import javax.swing.plaf.*;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.geom.*;
-import java.util.*;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
+import java.util.EnumSet;
+import java.util.Map;
 
 /**
  * UI for {@link JCommandToggleMenuButton} components in <b>Substance</b> look and feel.

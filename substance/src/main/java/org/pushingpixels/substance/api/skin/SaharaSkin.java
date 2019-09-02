@@ -40,6 +40,9 @@ import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.substance.internal.colorscheme.ShiftColorScheme;
+
+import java.awt.*;
 
 /**
  * <code>Sahara</code> skin. This class is part of officially supported API.
@@ -63,8 +66,9 @@ public class SaharaSkin extends SubstanceSkin {
 				.getColorSchemes("org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes");
 		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
 				activeScheme, enabledScheme, kitchenSinkSchemes.get("Gray Disabled"));
-		defaultSchemeBundle.registerHighlightColorScheme(new OliveColorScheme()
-				.tint(0.2).named("Sahara Highlight"));
+		defaultSchemeBundle.registerHighlightColorScheme(
+				new ShiftColorScheme(new OliveColorScheme(), Color.white, 0.2f, Color.black, 0.0f, false)
+						.named("Sahara Highlight"));
 		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
 				DecorationAreaType.NONE);
 
@@ -75,7 +79,7 @@ public class SaharaSkin extends SubstanceSkin {
 
 		// add an overlay painter to paint a drop shadow along the top
 		// edge of toolbars
-		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(),
+		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(100),
 				DecorationAreaType.TOOLBAR);
 
 		// add an overlay painter to paint separator lines along the bottom

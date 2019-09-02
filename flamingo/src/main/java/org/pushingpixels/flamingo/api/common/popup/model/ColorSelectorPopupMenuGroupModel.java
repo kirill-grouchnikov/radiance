@@ -32,10 +32,14 @@ package org.pushingpixels.flamingo.api.common.popup.model;
 import org.pushingpixels.flamingo.api.common.KeyValuePair;
 import org.pushingpixels.flamingo.api.common.model.Command;
 
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.EventListenerList;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.*;
 
 public class ColorSelectorPopupMenuGroupModel {
     public enum GroupEntryKind {

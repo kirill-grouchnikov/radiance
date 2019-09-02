@@ -30,8 +30,11 @@
 package org.pushingpixels.substance.api;
 
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
@@ -40,13 +43,15 @@ import org.pushingpixels.substance.api.painter.overlay.SubstanceOverlayPainter;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
 import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SkinUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * Base abstract class for Substance skins.
@@ -644,6 +649,21 @@ public abstract class SubstanceSkin implements SubstanceTrait {
             if (this.overlayPaintersMap.get(areaType).size() == 0) {
                 this.overlayPaintersMap.remove(areaType);
             }
+        }
+    }
+
+    /**
+     * Removes all overlay painters associated with the specified decoration area types.
+     *
+     * @param areaTypes      Decoration area types.
+     */
+    public void clearOverlayPainters(DecorationAreaType... areaTypes) {
+        for (DecorationAreaType areaType : areaTypes) {
+            if (!this.overlayPaintersMap.containsKey(areaType)) {
+                return;
+            }
+            this.overlayPaintersMap.get(areaType).clear();
+            this.overlayPaintersMap.remove(areaType);
         }
     }
 

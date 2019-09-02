@@ -30,27 +30,40 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.icon.*;
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.icon.ResizableIconUIResource;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
+import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTreeCellRenderer;
-import org.pushingpixels.substance.internal.*;
-import org.pushingpixels.substance.internal.animation.*;
-import org.pushingpixels.substance.internal.painter.*;
+import org.pushingpixels.substance.internal.SubstanceSynapse;
+import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
+import org.pushingpixels.substance.internal.animation.StateTransitionMultiTracker;
+import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
+import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.icon.SubstanceIconFactory;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicTreeUI;
-import javax.swing.tree.*;
+import javax.swing.tree.TreeCellRenderer;
+import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.awt.event.*;
-import java.beans.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.*;
 
 /**

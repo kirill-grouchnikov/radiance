@@ -29,14 +29,15 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
-import org.pushingpixels.flamingo.api.common.popup.*;
-import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonListener;
+import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;

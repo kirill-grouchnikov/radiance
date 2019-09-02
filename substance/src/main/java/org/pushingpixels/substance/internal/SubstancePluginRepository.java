@@ -32,8 +32,8 @@ package org.pushingpixels.substance.internal;
 import org.pushingpixels.substance.api.SubstanceComponentPlugin;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSkinPlugin;
-import org.pushingpixels.substance.internal.plugin.ColorChooserPlugin;
 import org.pushingpixels.substance.internal.plugin.BaseSkinPlugin;
+import org.pushingpixels.substance.internal.plugin.ColorChooserPlugin;
 
 import javax.swing.*;
 import java.util.Collections;

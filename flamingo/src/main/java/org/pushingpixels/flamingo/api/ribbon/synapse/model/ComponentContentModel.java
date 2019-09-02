@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.common.model.ContentModel;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.beans.PropertyChangeListener;
 

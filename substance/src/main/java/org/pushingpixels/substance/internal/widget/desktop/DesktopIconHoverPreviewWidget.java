@@ -32,7 +32,8 @@ package org.pushingpixels.substance.internal.widget.desktop;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.internal.ui.SubstanceDesktopIconUI;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.ImageWrapperIcon;
+import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
 import javax.swing.JInternalFrame.JDesktopIcon;
@@ -42,8 +43,10 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.beans.*;
-import java.util.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Adds internal frame thumbnail preview on desktop icon mouse hover.

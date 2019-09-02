@@ -30,15 +30,20 @@
 package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.ui.*;
-import org.pushingpixels.substance.internal.utils.icon.*;
+import org.pushingpixels.substance.internal.ui.SubstanceButtonUI;
+import org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI;
+import org.pushingpixels.substance.internal.utils.icon.SubstanceIconFactory;
+import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 
 import javax.swing.*;
@@ -47,8 +52,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.beans.*;
-import java.io.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.*;

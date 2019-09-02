@@ -30,7 +30,8 @@
 package org.pushingpixels.flamingo.api.common.projection;
 
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
+import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 
 public class CommandPanelProjection extends Projection<JCommandButtonPanel,
         CommandPanelContentModel, CommandPanelPresentationModel> {

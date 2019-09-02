@@ -30,7 +30,8 @@
 package org.pushingpixels.flamingo.api.common.model;
 
 import javax.swing.event.EventListenerList;
-import java.beans.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.*;
 
 public class CommandGroup implements ContentModel {

@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 
-import javax.swing.event.*;
+import javax.swing.event.EventListenerList;
 
 public class CommandStripPresentationModel implements ImmutablePresentationModel {
     public static final double DEFAULT_GAP_SCALE_FACTOR_PRIMARY_AXIS = 0.75;

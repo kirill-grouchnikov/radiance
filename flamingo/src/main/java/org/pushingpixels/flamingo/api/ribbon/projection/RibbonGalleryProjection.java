@@ -30,7 +30,8 @@
 package org.pushingpixels.flamingo.api.ribbon.projection;
 
 import org.pushingpixels.flamingo.api.common.projection.BlackboxProjection;
-import org.pushingpixels.flamingo.api.ribbon.model.*;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel;
 
 public class RibbonGalleryProjection extends BlackboxProjection<RibbonGalleryContentModel,
         RibbonGalleryPresentationModel> {

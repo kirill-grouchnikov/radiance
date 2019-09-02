@@ -36,7 +36,10 @@ import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 /**
  * Transition layout.

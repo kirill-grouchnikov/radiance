@@ -35,7 +35,6 @@ import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.colorscheme.LightGrayColorScheme;
 import org.pushingpixels.substance.api.colorscheme.MetallicColorScheme;
 import org.pushingpixels.substance.internal.utils.NoiseFactory;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 
 /**
  * Implementation of {@link SubstanceDecorationPainter} that uses marble noise

@@ -30,10 +30,11 @@
 package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
-import java.beans.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E>
         implements RibbonComboBoxContentModel<E> {

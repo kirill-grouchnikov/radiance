@@ -29,22 +29,32 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.internal.*;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.internal.AnimationConfigurationManager;
+import org.pushingpixels.substance.internal.SubstanceSynapse;
+import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.plaf.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.TableHeaderUI;
+import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicScrollPaneUI;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.beans.*;
-import java.util.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * UI for scroll panes in <b>Substance</b> look and feel.

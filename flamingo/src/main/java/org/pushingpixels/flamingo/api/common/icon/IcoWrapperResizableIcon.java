@@ -32,7 +32,8 @@ package org.pushingpixels.flamingo.api.common.icon;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 /**

@@ -29,11 +29,18 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.resize;
 
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
+import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand;
+import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
+import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
-import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.*;
+import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.BaseCoreRibbonBandResizePolicy;
+import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.FlowThreeRows;
+import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.FlowTwoRows;
+import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.IconRibbonBandResizePolicy;
 
 /**
  * Defines the resize policies for the {@link JRibbonBand}s and

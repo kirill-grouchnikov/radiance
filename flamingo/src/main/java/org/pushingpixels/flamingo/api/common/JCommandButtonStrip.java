@@ -29,9 +29,11 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.CommandGroup;
+import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.Projection;
-import org.pushingpixels.flamingo.internal.ui.common.*;
+import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonStripUI;
+import org.pushingpixels.flamingo.internal.ui.common.CommandButtonStripUI;
 
 import javax.swing.*;
 import java.awt.*;

@@ -36,8 +36,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * Tracer for memory usage patterns of <b>Substance</b> look-and-feel. The

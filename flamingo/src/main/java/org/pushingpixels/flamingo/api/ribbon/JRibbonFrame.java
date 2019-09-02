@@ -29,20 +29,31 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.RichTooltipManager;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonFrameTitlePane;
 import org.pushingpixels.flamingo.internal.ui.common.FlamingoInternalButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
-import org.pushingpixels.flamingo.internal.utils.*;
+import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager.KeyTipEvent;
-import org.pushingpixels.neon.*;
+import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
+import org.pushingpixels.neon.AsynchronousLoadListener;
+import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 

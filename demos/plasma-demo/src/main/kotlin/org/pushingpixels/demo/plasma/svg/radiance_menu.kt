@@ -2,6 +2,11 @@ package org.pushingpixels.demo.plasma.svg
 
 import java.awt.*
 import java.awt.geom.*
+import java.awt.image.BufferedImage
+import java.io.*
+import java.lang.ref.WeakReference
+import java.util.Base64
+import javax.imageio.ImageIO
 import javax.swing.plaf.UIResource
 
 import org.pushingpixels.neon.icon.ResizableIcon
@@ -14,11 +19,14 @@ import org.pushingpixels.neon.icon.ResizableIconUIResource
  */
 class radiance_menu private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
+    
+
 	private fun innerPaint(g : Graphics2D) {
         @Suppress("UNUSED_VARIABLE") var shape: Shape?
         @Suppress("UNUSED_VARIABLE") var paint: Paint?
         @Suppress("UNUSED_VARIABLE") var stroke: Stroke?
-         
+        @Suppress("UNUSED_VARIABLE") var clip: Shape?
+
         var origAlpha = 1.0f
         val origComposite = g.composite
         if (origComposite is AlphaComposite) {
@@ -37,7 +45,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 2.0f, 2.0f))
 // _0_0
-paint = Color(0, 0, 0, 255)
 shape = GeneralPath()
 shape.moveTo(10.0, 0.0)
 shape.lineTo(20.0, 10.0)
@@ -67,6 +74,7 @@ shape.lineTo(12.8789, 5.70718)
 shape.lineTo(10.0, 2.82843)
 shape.lineTo(7.12158, 5.70715)
 shape.closePath()
+paint = Color(0, 0, 0, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_0
@@ -140,7 +148,7 @@ g.transform = defaultTransform_
          * @return Factory that returns instances of this icon on demand.
          */
         fun factory(): Factory {
-            return Factory { radiance_menu(16, 16) }
+            return Factory { radiance_menu(getOrigWidth().toInt(), getOrigHeight().toInt()) }
         }
     }
 
@@ -184,7 +192,6 @@ g.transform = defaultTransform_
         innerPaint(g2ForInner)
         g2ForInner.dispose()
         g2d.dispose()
-
     }
 }
 

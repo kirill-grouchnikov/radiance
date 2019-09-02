@@ -29,15 +29,20 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.ribbon.resize.*;
+import org.pushingpixels.flamingo.api.common.CommandAction;
+import org.pushingpixels.flamingo.api.common.RichTooltip;
+import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
+import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonBandUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.*;
+import org.pushingpixels.flamingo.internal.ui.ribbon.AbstractBandControlPanel;
+import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
+import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonBandUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.swing.*;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Ribbon band. Is part of a logical {@link RibbonTask}. This is an abstract

@@ -30,11 +30,14 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.*;
+import javax.swing.plaf.basic.BasicHTML;
+import javax.swing.plaf.basic.BasicToolTipUI;
 import javax.swing.text.View;
 import java.awt.*;
 

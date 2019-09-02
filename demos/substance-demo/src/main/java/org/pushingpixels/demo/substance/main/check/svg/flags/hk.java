@@ -2,6 +2,11 @@ package org.pushingpixels.demo.substance.main.check.svg.flags;
 
 import java.awt.*;
 import java.awt.geom.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.lang.ref.WeakReference;
+import java.util.Base64;
+import javax.imageio.ImageIO;
 import javax.swing.plaf.UIResource;
 
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -12,12 +17,15 @@ import org.pushingpixels.neon.icon.ResizableIconUIResource;
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
 public class hk implements ResizableIcon {
+    
+
     @SuppressWarnings("unused")
 	private void innerPaint(Graphics2D g) {
         Shape shape = null;
         Paint paint = null;
         Stroke stroke = null;
-         
+        Shape clip = null;
+
         float origAlpha = 1.0f;
         Composite origComposite = g.getComposite();
         if (origComposite instanceof AlphaComposite) {
@@ -42,13 +50,13 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_0 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_0
-paint = new Color(186, 0, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(1063.0, 744.094);
 ((GeneralPath)shape).lineTo(0.0, 744.094);
 ((GeneralPath)shape).lineTo(0.0, 0.004);
 ((GeneralPath)shape).lineTo(1063.0, 0.004);
 ((GeneralPath)shape).closePath();
+paint = new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_0);
@@ -56,7 +64,6 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_1 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_1
-paint = new Color(255, 255, 255, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(516.372, 360.137);
 ((GeneralPath)shape).curveTo(516.372, 360.137, 441.35202, 327.837, 452.117, 244.137);
@@ -70,6 +77,7 @@ shape = new GeneralPath();
 ((GeneralPath)shape).curveTo(508.49805, 301.90897, 504.09906, 308.972, 502.47806, 321.24197);
 ((GeneralPath)shape).curveTo(502.24606, 344.62897, 508.61505, 347.87198, 516.3721, 360.14197);
 ((GeneralPath)shape).closePath();
+paint = new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_1);
@@ -77,10 +85,10 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_2 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_2
-paint = new Color(186, 0, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(502.132, 239.037);
 ((GeneralPath)shape).lineTo(502.132, 238.69);
+paint = new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 paint = new Color(0, 0, 0, 255);
@@ -109,7 +117,6 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_4 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_4
-paint = new Color(186, 0, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(501.898, 223.064);
 ((GeneralPath)shape).lineTo(511.508, 220.899);
@@ -121,6 +128,7 @@ shape = new GeneralPath();
 ((GeneralPath)shape).lineTo(516.283, 228.90402);
 ((GeneralPath)shape).lineTo(509.63702, 236.04002);
 ((GeneralPath)shape).lineTo(510.79703, 226.67502);
+paint = new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_4);
@@ -128,7 +136,6 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_5 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_5
-paint = new Color(255, 255, 255, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(522.747, 354.6);
 ((GeneralPath)shape).curveTo(522.747, 354.6, 531.64703, 273.406, 614.827, 259.174);
@@ -142,6 +149,7 @@ shape = new GeneralPath();
 ((GeneralPath)shape).curveTo(576.11206, 330.00803, 568.06903, 327.872, 555.8641, 329.91702);
 ((GeneralPath)shape).curveTo(533.4361, 336.54703, 532.2021, 343.58704, 522.7441, 354.60004);
 ((GeneralPath)shape).closePath();
+paint = new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_5);
@@ -149,10 +157,10 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_6 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_6
-paint = new Color(186, 0, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(634.36, 305.5);
 ((GeneralPath)shape).lineTo(634.69, 305.397);
+paint = new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 paint = new Color(0, 0, 0, 255);
@@ -181,7 +189,6 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_8 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_8
-paint = new Color(186, 0, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(649.563, 300.594);
 ((GeneralPath)shape).lineTo(654.449, 309.15);
@@ -193,6 +200,7 @@ shape = new GeneralPath();
 ((GeneralPath)shape).lineTo(648.19196, 316.061);
 ((GeneralPath)shape).lineTo(639.42194, 311.798);
 ((GeneralPath)shape).lineTo(648.7169, 310.163);
+paint = new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_8);
@@ -200,7 +208,6 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_9 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_9
-paint = new Color(255, 255, 255, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(528.353, 360.463);
 ((GeneralPath)shape).curveTo(528.353, 360.463, 608.16705, 343.117, 648.08105, 417.46902);
@@ -214,6 +221,7 @@ shape = new GeneralPath();
 ((GeneralPath)shape).curveTo(568.62006, 403.25397, 568.0921, 394.951, 562.27606, 384.02597);
 ((GeneralPath)shape).curveTo(548.8661, 364.86597, 541.7991, 365.93097, 528.35205, 360.45798);
 ((GeneralPath)shape).closePath();
+paint = new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_9);
@@ -221,10 +229,10 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_10 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_10
-paint = new Color(186, 0, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(610.357, 450.702);
 ((GeneralPath)shape).lineTo(610.559, 450.984);
+paint = new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 paint = new Color(0, 0, 0, 255);
@@ -253,7 +261,6 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_12 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_12
-paint = new Color(186, 0, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(619.836, 463.56);
 ((GeneralPath)shape).lineTo(613.276, 470.91);
@@ -265,6 +272,7 @@ shape = new GeneralPath();
 ((GeneralPath)shape).lineTo(604.737, 467.17297);
 ((GeneralPath)shape).lineTo(605.993, 457.50296);
 ((GeneralPath)shape).lineTo(610.495, 465.79797);
+paint = new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_12);
@@ -276,7 +284,6 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_13_0 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_13_0
-paint = new Color(255, 255, 255, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(526.556, 368.693);
 ((GeneralPath)shape).curveTo(526.556, 368.693, 565.61804, 440.425, 505.46603, 499.61298);
@@ -290,6 +297,7 @@ shape = new GeneralPath();
 ((GeneralPath)shape).curveTo(496.79306, 419.35794, 504.61407, 416.51892, 513.46606, 407.86893);
 ((GeneralPath)shape).curveTo(528.08905, 389.61893, 525.0821, 383.1339, 526.55804, 368.69193);
 ((GeneralPath)shape).closePath();
+paint = new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_13_0);
@@ -297,10 +305,10 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_13_1 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_13_1
-paint = new Color(186, 0, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(462.977, 472.74);
 ((GeneralPath)shape).lineTo(462.763, 473.013);
+paint = new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 paint = new Color(0, 0, 0, 255);
@@ -329,7 +337,6 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_13_3 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_13_3
-paint = new Color(186, 0, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(453.298, 485.45);
 ((GeneralPath)shape).lineTo(444.402, 481.216);
@@ -341,6 +348,7 @@ shape = new GeneralPath();
 ((GeneralPath)shape).lineTo(445.58902, 471.971);
 ((GeneralPath)shape).lineTo(455.22302, 470.463);
 ((GeneralPath)shape).lineTo(448.52603, 477.113);
+paint = new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_13_3);
@@ -353,7 +361,6 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_14_0 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_14_0
-paint = new Color(255, 255, 255, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(517.706, 367.138);
 ((GeneralPath)shape).curveTo(517.706, 367.138, 463.029, 427.815, 387.218, 390.748);
@@ -367,6 +374,7 @@ shape = new GeneralPath();
 ((GeneralPath)shape).curveTo(460.03, 355.9, 465.30698, 362.33298, 476.40698, 367.80798);
 ((GeneralPath)shape).curveTo(498.47897, 375.53598, 503.59497, 370.546, 517.707, 367.13797);
 ((GeneralPath)shape).closePath();
+paint = new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_14_0);
@@ -374,10 +382,10 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_14_1 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_14_1
-paint = new Color(186, 0, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(398.446, 341.743);
 ((GeneralPath)shape).lineTo(398.118, 341.631);
+paint = new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 paint = new Color(0, 0, 0, 255);
@@ -406,7 +414,6 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_14_3 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_14_3
-paint = new Color(186, 0, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(383.244, 336.836);
 ((GeneralPath)shape).lineTo(384.28, 327.039);
@@ -418,6 +425,7 @@ shape = new GeneralPath();
 ((GeneralPath)shape).lineTo(393.395, 325.08698);
 ((GeneralPath)shape).lineTo(398.02, 333.67197);
 ((GeneralPath)shape).lineTo(389.52, 329.56497);
+paint = new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_14_3);
@@ -559,7 +567,7 @@ g.setTransform(defaultTransform_);
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return () -> new hk();
+        return hk::new;
     }
 }
 

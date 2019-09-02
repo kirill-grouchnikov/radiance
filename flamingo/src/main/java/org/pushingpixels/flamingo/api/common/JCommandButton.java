@@ -30,9 +30,14 @@
 package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.*;
-import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonUI;
@@ -40,10 +45,13 @@ import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelProjection;
 
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.EventListenerList;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 /**

@@ -15,7 +15,7 @@
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
 
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 

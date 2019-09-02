@@ -48,12 +48,12 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.ext.kotlin_version}"
         classpath "com.bmuschko:gradle-nexus-plugin:${rootProject.ext.gradle_nexus_plugin_version}"
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.22.0"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.23.0"
     }
 }
 
 wrapper {
-    gradleVersion = "5.6"
+    gradleVersion = "5.6.1"
 }
 
 allprojects {

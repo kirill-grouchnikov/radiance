@@ -31,7 +31,8 @@ package org.pushingpixels.flamingo.api.ribbon.synapse.projection;
 
 import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.JRibbonComboBox;
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.*;
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentationModel;
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonComboBoxContentModel;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 
 public class RibbonComboBoxProjection extends ComponentProjection<JRibbonComboBox,

@@ -29,7 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.util.*;
 
 /**

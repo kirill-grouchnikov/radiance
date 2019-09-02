@@ -29,23 +29,39 @@
  */
 package org.pushingpixels.flamingo.internal.utils;
 
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
+import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupInfo;
-import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.*;
-import org.pushingpixels.flamingo.internal.ui.ribbon.*;
-import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.*;
+import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
+import org.pushingpixels.flamingo.api.ribbon.JRibbon;
+import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
+import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
+import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonFrameTitlePane;
+import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonRootPaneUI;
+import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonUI;
+import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonComponent;
+import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
+import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
+import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 
 import javax.swing.FocusManager;
 import javax.swing.*;
 import javax.swing.event.EventListenerList;
 import java.awt.*;
-import java.awt.event.*;
-import java.lang.annotation.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.List;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class KeyTipManager {
     private List<KeyTipChain> keyTipChains;

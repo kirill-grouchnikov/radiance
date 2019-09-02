@@ -31,20 +31,32 @@ package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager.CommandButtonLayoutInfo;
-import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.*;
-import org.pushingpixels.neon.*;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
+import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.neon.AsynchronousLoading;
+import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.*;
-import javax.swing.plaf.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.plaf.BorderUIResource;
+import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.event.*;
-import java.beans.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Basic UI for command button {@link JCommandButton}.

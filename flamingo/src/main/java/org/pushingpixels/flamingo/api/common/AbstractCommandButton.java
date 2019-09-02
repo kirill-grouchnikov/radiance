@@ -29,16 +29,24 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
-import org.pushingpixels.flamingo.internal.ui.common.*;
+import org.pushingpixels.flamingo.api.common.model.ActionButtonModel;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
+import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
+import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.neon.icon.ResizableIcon;
 
 import javax.accessibility.AccessibleContext;
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.EventListenerList;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 /**
  * Base class for command buttons.

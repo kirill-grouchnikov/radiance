@@ -30,7 +30,8 @@
 package org.pushingpixels.flamingo.api.ribbon.synapse.projection;
 
 import org.pushingpixels.flamingo.api.common.projection.Projection;
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.*;
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentationModel;
 
 import javax.swing.*;
 

@@ -35,16 +35,20 @@ import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKin
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.internal.animation.*;
-import org.pushingpixels.substance.internal.ui.*;
+import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
+import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
+import org.pushingpixels.substance.internal.ui.SubstanceSliderUI;
+import org.pushingpixels.substance.internal.ui.SubstanceTreeUI;
 import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.geom.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Icon factory for dynamically-changing icons. This class is <b>for internal use only</b>.

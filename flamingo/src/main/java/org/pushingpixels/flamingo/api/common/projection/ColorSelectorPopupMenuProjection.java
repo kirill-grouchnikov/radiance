@@ -30,7 +30,8 @@
 package org.pushingpixels.flamingo.api.common.projection;
 
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
-import org.pushingpixels.flamingo.api.common.popup.model.*;
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel;
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
 
 public class ColorSelectorPopupMenuProjection extends AbstractPopupMenuProjection<
         JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,

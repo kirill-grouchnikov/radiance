@@ -1,9 +1,14 @@
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.model.ColorSelectorCommand;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel;
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
+import org.pushingpixels.flamingo.api.common.projection.ColorSelectorPopupMenuProjection;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 
 public class JColorSelectorCommandButton extends JCommandButton {
     public JColorSelectorCommandButton(

@@ -97,7 +97,7 @@ public class BusinessSkin extends SubstanceSkin {
 
 		// add an overlay painter to paint a drop shadow along the top
 		// edge of toolbars
-		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(), DecorationAreaType.TOOLBAR);
+		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(80), DecorationAreaType.TOOLBAR);
 
 		// add an overlay painter to paint separator lines along the bottom
 		// edges of title panes and menu bars

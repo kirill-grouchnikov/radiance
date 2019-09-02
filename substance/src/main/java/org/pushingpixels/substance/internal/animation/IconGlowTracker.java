@@ -31,7 +31,8 @@ package org.pushingpixels.substance.internal.animation;
 
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.*;
+import org.pushingpixels.trident.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import java.awt.*;

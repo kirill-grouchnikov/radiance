@@ -29,22 +29,29 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
-import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.api.ribbon.model.*;
+import org.pushingpixels.flamingo.api.ribbon.JRibbon;
+import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonGalleryUI;
 
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
 
 /**
  * In-ribbon gallery. This class is for internal use only and should not be directly used by the

@@ -30,10 +30,14 @@
 package org.pushingpixels.flamingo.api.common.projection;
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.flamingo.api.common.model.ContentModel;
+import org.pushingpixels.flamingo.api.common.model.PresentationModel;
 
 import javax.swing.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 public abstract class Projection<T extends JComponent, C extends ContentModel,

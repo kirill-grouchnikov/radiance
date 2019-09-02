@@ -33,9 +33,6 @@ package org.pushingpixels.substance.internal.contrib.jgoodies.looks;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopup;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Provides access to several optional properties for the JGoodies L&amp;Fs,

@@ -14,7 +14,8 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.*;
 import java.awt.*;

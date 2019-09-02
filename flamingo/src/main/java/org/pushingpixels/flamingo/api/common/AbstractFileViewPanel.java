@@ -30,7 +30,10 @@
 package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandGroup;
+import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
+import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.neon.AsynchronousLoading;
 import org.pushingpixels.neon.icon.ResizableIcon;

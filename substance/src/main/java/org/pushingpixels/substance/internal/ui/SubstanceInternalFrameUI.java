@@ -30,14 +30,17 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceInternalFrameTitlePane;
 
 import javax.swing.*;
 import javax.swing.JInternalFrame.JDesktopIcon;
-import javax.swing.plaf.*;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.awt.*;
-import java.beans.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * UI for internal frames in <b>Substance</b> look and feel.

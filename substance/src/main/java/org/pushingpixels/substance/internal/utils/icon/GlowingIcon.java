@@ -30,12 +30,15 @@
 package org.pushingpixels.substance.internal.utils.icon;
 
 import org.pushingpixels.substance.internal.animation.IconGlowTracker;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.ImageWrapperIcon;
+import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GlowingIcon implements Icon {
 	protected Icon delegate;

@@ -29,9 +29,13 @@
  */
 package org.pushingpixels.flamingo.api.common.projection;
 
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.flamingo.api.common.model.ContentModel;
+import org.pushingpixels.flamingo.api.common.model.PresentationModel;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class BlackboxProjection<C extends ContentModel, P extends PresentationModel> {
     private C contentModel;

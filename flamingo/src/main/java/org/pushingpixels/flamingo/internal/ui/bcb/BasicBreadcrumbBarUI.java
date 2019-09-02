@@ -42,15 +42,19 @@ import org.pushingpixels.flamingo.internal.ui.common.JCircularProgress;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
-import javax.swing.Timer;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

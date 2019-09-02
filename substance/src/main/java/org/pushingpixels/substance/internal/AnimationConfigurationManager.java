@@ -34,7 +34,10 @@ import org.pushingpixels.trident.ease.Spline;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import java.awt.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Animation configuration manager. Note that while this class provides a variety of ways to enable

@@ -2,6 +2,11 @@ package org.pushingpixels.demo.plasma.svg
 
 import java.awt.*
 import java.awt.geom.*
+import java.awt.image.BufferedImage
+import java.io.*
+import java.lang.ref.WeakReference
+import java.util.Base64
+import javax.imageio.ImageIO
 import javax.swing.plaf.UIResource
 
 import org.pushingpixels.neon.icon.ResizableIcon
@@ -14,11 +19,14 @@ import org.pushingpixels.neon.icon.ResizableIconUIResource
  */
 class Text_html private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
+    
+
 	private fun innerPaint(g : Graphics2D) {
         @Suppress("UNUSED_VARIABLE") var shape: Shape?
         @Suppress("UNUSED_VARIABLE") var paint: Paint?
         @Suppress("UNUSED_VARIABLE") var stroke: Stroke?
-         
+        @Suppress("UNUSED_VARIABLE") var clip: Shape?
+
         var origAlpha = 1.0f
         val origComposite = g.composite
         if (origComposite is AlphaComposite) {
@@ -41,7 +49,6 @@ g.composite = AlphaComposite.getInstance(3, 0.56725144f * origAlpha)
 val defaultTransform__0_0_0 = g.transform
 g.transform(AffineTransform(1.167598009109497f, 0.0f, 0.0f, 1.0f, -4.880565166473389f, 0.17202000319957733f))
 // _0_0_0
-paint = RadialGradientPaint(Point2D.Double(24.306795120239258, 42.077980041503906), 15.821514f, Point2D.Double(24.306795120239258, 42.077980041503906), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 0.2849160134792328f, -7.702171174545839E-16f, 30.089279174804688f))
 shape = GeneralPath()
 shape.moveTo(40.128307, 42.07798)
 shape.curveTo(40.15366, 43.693268, 37.143654, 45.188953, 32.23805, 45.998688)
@@ -51,6 +58,7 @@ shape.curveTo(8.459927, 40.462692, 11.469933, 38.967007, 16.375542, 38.157272)
 shape.curveTo(21.28115, 37.347534, 27.332438, 37.347534, 32.23805, 38.157272)
 shape.curveTo(37.143654, 38.967007, 40.15366, 40.462692, 40.128307, 42.07798)
 shape.closePath()
+paint = RadialGradientPaint(Point2D.Double(24.306795120239258, 42.077980041503906), 15.821514f, Point2D.Double(24.306795120239258, 42.077980041503906), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 0.2849160134792328f, -7.702171174545839E-16f, 30.089279174804688f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_0_0
@@ -63,8 +71,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_1_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1_0
-paint = RadialGradientPaint(Point2D.Double(33.966678619384766, 35.736915588378906), 86.70845f, Point2D.Double(33.966678619384766, 35.736915588378906), floatArrayOf(0.0f,1.0f), arrayOf(Color(250, 250, 250, 255),Color(187, 187, 187, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.9604930281639099f, 0.0f, 0.0f, 1.0411319732666016f, 0.0f, 0.0f))
 shape = RoundRectangle2D.Double(6.60355281829834, 3.6464462280273438, 34.875, 40.920494079589844, 2.2980971336364746, 2.2980971336364746)
+paint = RadialGradientPaint(Point2D.Double(33.966678619384766, 35.736915588378906), 86.70845f, Point2D.Double(33.966678619384766, 35.736915588378906), floatArrayOf(0.0f,1.0f), arrayOf(Color(250, 250, 250, 255),Color(187, 187, 187, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.9604930281639099f, 0.0f, 0.0f, 1.0411319732666016f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 paint = RadialGradientPaint(Point2D.Double(8.824419021606445, 3.7561285495758057), 37.751713f, Point2D.Double(8.824419021606445, 3.7561285495758057), floatArrayOf(0.0f,1.0f), arrayOf(Color(163, 163, 163, 255),Color(76, 76, 76, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.9682729840278625f, 0.0f, 0.0f, 1.0327670574188232f, 3.353553056716919f, 0.6464470028877258f))
@@ -97,7 +105,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_1_2_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1_2_0_0
-paint = Color(255, 255, 255, 255)
 shape = GeneralPath()
 shape.moveTo(23.428, 113.07)
 shape.curveTo(23.428, 115.043, 21.828, 116.642, 19.855, 116.642)
@@ -105,6 +112,7 @@ shape.curveTo(17.881, 116.642, 16.282, 115.042, 16.282, 113.07)
 shape.curveTo(16.282, 111.096, 17.882, 109.497, 19.855, 109.497)
 shape.curveTo(21.828, 109.497, 23.428, 111.097, 23.428, 113.07)
 shape.closePath()
+paint = Color(255, 255, 255, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_1_2_0_0
@@ -112,7 +120,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_1_2_0_1 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1_2_0_1
-paint = Color(255, 255, 255, 255)
 shape = GeneralPath()
 shape.moveTo(23.428, 63.07)
 shape.curveTo(23.428, 65.043, 21.828, 66.643, 19.855, 66.643)
@@ -120,6 +127,7 @@ shape.curveTo(17.881, 66.643, 16.282, 65.043, 16.282, 63.07)
 shape.curveTo(16.282, 61.096, 17.882, 59.497, 19.855, 59.497)
 shape.curveTo(21.828, 59.497, 23.428, 61.097, 23.428, 63.07)
 shape.closePath()
+paint = Color(255, 255, 255, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_1_2_0_1
@@ -128,7 +136,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_1_2_1 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1_2_1
-paint = RadialGradientPaint(Point2D.Double(20.892099380493164, 114.56839752197266), 5.256f, Point2D.Double(20.892099380493164, 114.56839752197266), floatArrayOf(0.0f,1.0f), arrayOf(Color(240, 240, 240, 255),Color(154, 154, 154, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.22970299422740936f, 0.0f, 0.0f, 0.22970299422740936f, 4.613529205322266f, 3.9798080921173096f))
 shape = GeneralPath()
 shape.moveTo(9.995011, 29.952326)
 shape.curveTo(9.995011, 30.40553, 9.627486, 30.772825, 9.174282, 30.772825)
@@ -136,6 +143,7 @@ shape.curveTo(8.720848, 30.772825, 8.353554, 30.4053, 8.353554, 29.952326)
 shape.curveTo(8.353554, 29.498892, 8.721078, 29.131598, 9.174282, 29.131598)
 shape.curveTo(9.627486, 29.131598, 9.995011, 29.499123, 9.995011, 29.952326)
 shape.closePath()
+paint = RadialGradientPaint(Point2D.Double(20.892099380493164, 114.56839752197266), 5.256f, Point2D.Double(20.892099380493164, 114.56839752197266), floatArrayOf(0.0f,1.0f), arrayOf(Color(240, 240, 240, 255),Color(154, 154, 154, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.22970299422740936f, 0.0f, 0.0f, 0.22970299422740936f, 4.613529205322266f, 3.9798080921173096f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_1_2_1
@@ -143,7 +151,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_1_2_2 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1_2_2
-paint = RadialGradientPaint(Point2D.Double(20.892099380493164, 64.56790161132812), 5.257f, Point2D.Double(20.892099380493164, 64.56790161132812), floatArrayOf(0.0f,1.0f), arrayOf(Color(240, 240, 240, 255),Color(154, 154, 154, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.22970299422740936f, 0.0f, 0.0f, 0.22970299422740936f, 4.613529205322266f, 3.9798080921173096f))
 shape = GeneralPath()
 shape.moveTo(9.995011, 18.467176)
 shape.curveTo(9.995011, 18.92038, 9.627486, 19.287905, 9.174282, 19.287905)
@@ -151,6 +158,7 @@ shape.curveTo(8.720848, 19.287905, 8.353554, 18.92038, 8.353554, 18.467176)
 shape.curveTo(8.353554, 18.013742, 8.721078, 17.646446, 9.174282, 17.646446)
 shape.curveTo(9.627486, 17.646446, 9.995011, 18.013971, 9.995011, 18.467176)
 shape.closePath()
+paint = RadialGradientPaint(Point2D.Double(20.892099380493164, 64.56790161132812), 5.257f, Point2D.Double(20.892099380493164, 64.56790161132812), floatArrayOf(0.0f,1.0f), arrayOf(Color(240, 240, 240, 255),Color(154, 154, 154, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.22970299422740936f, 0.0f, 0.0f, 0.22970299422740936f, 4.613529205322266f, 3.9798080921173096f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_1_2_2
@@ -194,8 +202,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_0
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(15.000001907348633, 9.0, 22.000003814697266, 1.0, 0.3031298518180847, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_0
@@ -203,8 +211,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_1 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_1
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(15.000001907348633, 11.0, 22.000003814697266, 1.0, 0.3031298518180847, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_1
@@ -212,8 +220,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_2 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_2
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(15.000001907348633, 13.0, 22.000003814697266, 1.0, 0.3031298518180847, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_2
@@ -221,8 +229,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_3 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_3
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(15.000001907348633, 15.0, 22.000003814697266, 1.0, 0.3031298518180847, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_3
@@ -230,8 +238,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_4 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_4
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(15.000001907348633, 17.0, 22.000003814697266, 1.0, 0.3031298518180847, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_4
@@ -239,8 +247,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_5 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_5
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(15.000001907348633, 19.0, 22.000003814697266, 1.0, 0.3031298518180847, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_5
@@ -248,8 +256,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_6 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_6
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(15.000001907348633, 21.0, 22.000003814697266, 1.0, 0.3031298518180847, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_6
@@ -257,8 +265,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_7 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_7
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(15.000001907348633, 23.0, 22.000003814697266, 1.0, 0.3031298518180847, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_7
@@ -266,8 +274,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_8 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_8
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(14.999992370605469, 25.0, 9.900005340576172, 1.0, 0.1364084780216217, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_8
@@ -275,8 +283,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_9 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_9
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(14.999992370605469, 29.0, 22.000003814697266, 1.0, 0.3031298518180847, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_9
@@ -284,8 +292,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_10 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_10
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(14.999992370605469, 31.0, 22.000003814697266, 1.0, 0.3031298518180847, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_10
@@ -293,8 +301,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_11 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_11
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(14.999992370605469, 33.0, 22.000003814697266, 1.0, 0.3031298518180847, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_11
@@ -302,8 +310,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_12 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_12
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(14.999992370605469, 35.0, 22.000003814697266, 1.0, 0.3031298518180847, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_12
@@ -311,8 +319,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_0_13 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0_13
-paint = Color(155, 155, 155, 140)
 shape = RoundRectangle2D.Double(14.999992370605469, 37.0, 15.40001392364502, 1.0, 0.21219104528427124, 0.13078175485134125)
+paint = Color(155, 155, 155, 140)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_0_13
@@ -325,7 +333,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_0 = g.transform
 g.transform(AffineTransform(0.5871359705924988f, 0.0f, 0.0f, 0.7299540042877197f, 11.299189567565918f, 4.3983588218688965f))
 // _0_2_1_0
-paint = RadialGradientPaint(Point2D.Double(15.115513801574707, 63.965389251708984), 12.289036f, Point2D.Double(15.115513801574707, 63.965389251708984), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.6439900398254395f, 0.0f, 0.0f, 0.6082760095596313f, 0.0f, 0.0f))
 shape = GeneralPath()
 shape.moveTo(45.052803, 38.908627)
 shape.curveTo(45.08518, 41.587196, 41.241596, 44.06744, 34.97745, 45.410194)
@@ -335,6 +342,7 @@ shape.curveTo(4.6143265, 36.230057, 8.45791, 33.749813, 14.722055, 32.40706)
 shape.curveTo(20.9862, 31.064304, 28.713305, 31.064304, 34.97745, 32.40706)
 shape.curveTo(41.241596, 33.749813, 45.08518, 36.230057, 45.052803, 38.908627)
 shape.closePath()
+paint = RadialGradientPaint(Point2D.Double(15.115513801574707, 63.965389251708984), 12.289036f, Point2D.Double(15.115513801574707, 63.965389251708984), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.6439900398254395f, 0.0f, 0.0f, 0.6082760095596313f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_0
@@ -342,7 +350,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_1 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_1
-paint = RadialGradientPaint(Point2D.Double(18.247644424438477, 15.716078758239746), 29.99335f, Point2D.Double(18.247644424438477, 15.716078758239746), floatArrayOf(0.0f,0.15517241f,0.75f,1.0f), arrayOf(Color(211, 233, 255, 255),Color(211, 233, 255, 255),Color(64, 116, 174, 255),Color(54, 72, 108, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.5871300101280212f, 0.0f, 0.0f, 0.5871419906616211f, 11.299189567565918f, 10.429670333862305f))
 shape = GeneralPath()
 shape.moveTo(37.109608, 24.218857)
 shape.curveTo(37.109608, 30.50692, 32.012028, 35.60444, 25.72483, 35.60444)
@@ -351,6 +358,7 @@ shape.curveTo(14.339767, 17.931082, 19.437057, 12.834081, 25.72483, 12.834081)
 shape.curveTo(32.012028, 12.834081, 37.109608, 17.931082, 37.109608, 24.218857)
 shape.lineTo(37.109608, 24.218857)
 shape.closePath()
+paint = RadialGradientPaint(Point2D.Double(18.247644424438477, 15.716078758239746), 29.99335f, Point2D.Double(18.247644424438477, 15.716078758239746), floatArrayOf(0.0f,0.15517241f,0.75f,1.0f), arrayOf(Color(211, 233, 255, 255),Color(211, 233, 255, 255),Color(64, 116, 174, 255),Color(54, 72, 108, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.5871300101280212f, 0.0f, 0.0f, 0.5871419906616211f, 11.299189567565918f, 10.429670333862305f))
 g.paint = paint
 g.fill(shape)
 paint = Color(57, 57, 108, 255)
@@ -371,7 +379,6 @@ g.composite = AlphaComposite.getInstance(3, 0.42159382f * origAlpha)
 val defaultTransform__0_2_1_2 = g.transform
 g.transform(AffineTransform(0.49080899357795715f, 0.0f, 0.0f, 0.5871359705924988f, 17.104129791259766f, 10.429670333862305f))
 // _0_2_1_2
-paint = RadialGradientPaint(Point2D.Double(11.82690715789795, 10.476452827453613), 32.66485f, Point2D.Double(11.82690715789795, 10.476452827453613), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(255, 255, 255, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.179535984992981f, 0.0f, 0.0f, 0.8477910161018372f, 0.0f, 0.0f))
 shape = GeneralPath()
 shape.moveTo(30.708637, 15.271057)
 shape.curveTo(30.729357, 18.601171, 28.269464, 21.684715, 24.26041, 23.354086)
@@ -381,6 +388,7 @@ shape.curveTo(4.8280115, 11.940943, 7.287905, 8.857399, 11.296958, 7.1880274)
 shape.curveTo(15.306011, 5.5186563, 20.251358, 5.5186563, 24.26041, 7.1880274)
 shape.curveTo(28.269464, 8.857399, 30.729357, 11.940943, 30.708637, 15.271057)
 shape.closePath()
+paint = RadialGradientPaint(Point2D.Double(11.82690715789795, 10.476452827453613), 32.66485f, Point2D.Double(11.82690715789795, 10.476452827453613), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(255, 255, 255, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.179535984992981f, 0.0f, 0.0f, 0.8477910161018372f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_2
@@ -400,7 +408,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_0_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_0_0_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
 shape.moveTo(44.0713, 20.7144)
 shape.curveTo(44.0713, 20.9771, 44.0713, 20.7144, 44.0713, 20.7144)
@@ -538,6 +545,7 @@ shape.lineTo(37.3506, 8.8745)
 shape.curveTo(37.3506, 8.8745, 40.1377, 11.3725, 41.7305, 14.105)
 shape.curveTo(43.3233, 16.8384, 44.0713, 20.0601, 44.0713, 20.7144)
 shape.closePath()
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_0_0_0
@@ -555,7 +563,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_1_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_1_0_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
 shape.moveTo(26.0703, 9.2363)
 shape.lineTo(25.9971, 9.7295)
@@ -564,6 +571,7 @@ shape.lineTo(27.378, 9.4829)
 shape.lineTo(26.9425, 8.9892)
 shape.lineTo(26.3605, 9.3188)
 shape.lineTo(26.0705, 9.2363)
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_1_0_0
@@ -581,7 +589,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_2_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_2_0_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
 shape.moveTo(26.8701, 5.8633)
 shape.lineTo(24.9795, 5.1226)
@@ -596,6 +603,7 @@ shape.lineTo(22.0713, 10.4702)
 shape.lineTo(22.7998, 9.3188)
 shape.curveTo(23.9228, 8.971601, 24.9297, 8.5781, 25.9971, 8.0844)
 shape.lineTo(26.8701, 5.8632)
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_2_0_0
@@ -613,13 +621,13 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_3_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_3_0_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
 shape.moveTo(28.833, 12.7749)
 shape.lineTo(28.542, 12.0337)
 shape.lineTo(28.0322, 12.1987)
 shape.lineTo(28.1787, 13.103)
 shape.lineTo(28.833, 12.7749)
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_3_0_0
@@ -637,7 +645,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_4_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_4_0_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
 shape.moveTo(29.123, 12.6089)
 shape.lineTo(28.9775, 13.5972)
@@ -649,6 +656,7 @@ shape.lineTo(28.833, 11.0465)
 shape.lineTo(28.833, 11.5397)
 shape.lineTo(29.123, 11.8688)
 shape.lineTo(29.123, 12.609)
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_4_0_0
@@ -666,7 +674,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_5_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_5_0_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
 shape.moveTo(18.3652, 28.2422)
 shape.lineTo(17.7832, 27.0899)
@@ -760,6 +767,7 @@ shape.lineTo(20.9089, 32.5213)
 shape.lineTo(21.781, 31.2869)
 shape.lineTo(21.9265, 30.0525)
 shape.curveTo(20.7331, 29.4607, 19.5495, 28.8513, 18.365, 28.242)
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_5_0_0
@@ -777,7 +785,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_6_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_6_0_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
 shape.moveTo(16.7656, 9.5649)
 shape.lineTo(17.4922, 10.0586)
@@ -785,6 +792,7 @@ shape.lineTo(18.0742, 10.0586)
 shape.lineTo(18.0742, 9.4829)
 shape.lineTo(17.3476, 9.1538)
 shape.lineTo(16.7656, 9.5649)
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_6_0_0
@@ -802,7 +810,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_7_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_7_0_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
 shape.moveTo(14.876, 8.9072)
 shape.lineTo(14.5122, 9.812)
@@ -822,6 +829,7 @@ shape.lineTo(15.5298, 7.2613)
 shape.lineTo(15.3848, 7.5904)
 shape.lineTo(15.4576, 8.4132)
 shape.lineTo(14.876, 8.9072)
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_7_0_0
@@ -839,8 +847,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_8_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_8_0_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_8_0_0
@@ -853,8 +861,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_8_1_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_8_1_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_8_1_0
@@ -872,8 +880,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_9_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_9_0_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_9_0_0
@@ -886,8 +894,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_9_1_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_9_1_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_9_1_0
@@ -905,7 +913,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_10_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_10_0_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
 shape.moveTo(17.4922, 6.8496003)
 shape.lineTo(17.856, 6.521)
@@ -919,6 +926,7 @@ shape.lineTo(17.0567, 6.2744)
 shape.lineTo(16.7408, 6.4272)
 shape.lineTo(16.5479, 6.6855)
 shape.lineTo(17.4922, 6.8496003)
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_10_0_0
@@ -936,12 +944,12 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_3_11_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_3_11_0_0
-paint = Color(0, 0, 0, 182)
 shape = GeneralPath()
 shape.moveTo(18.7285, 14.6665)
 shape.lineTo(19.165, 14.0083)
 shape.lineTo(18.5102, 13.5151)
 shape.lineTo(18.7285, 14.6665)
+paint = Color(0, 0, 0, 182)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_3_11_0_0
@@ -964,7 +972,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_0_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_0_0_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
 shape.moveTo(44.0713, 20.7144)
 shape.curveTo(44.0713, 20.9771, 44.0713, 20.7144, 44.0713, 20.7144)
@@ -1102,6 +1109,7 @@ shape.lineTo(37.3506, 8.8745)
 shape.curveTo(37.3506, 8.8745, 40.1377, 11.3725, 41.7305, 14.105)
 shape.curveTo(43.3233, 16.8384, 44.0713, 20.0601, 44.0713, 20.7144)
 shape.closePath()
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_0_0_0
@@ -1119,7 +1127,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_1_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_1_0_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
 shape.moveTo(26.0703, 9.2363)
 shape.lineTo(25.9971, 9.7295)
@@ -1128,6 +1135,7 @@ shape.lineTo(27.378, 9.4829)
 shape.lineTo(26.9425, 8.9892)
 shape.lineTo(26.3605, 9.3188)
 shape.lineTo(26.0705, 9.2363)
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_1_0_0
@@ -1145,7 +1153,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_2_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_2_0_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
 shape.moveTo(26.8701, 5.8633)
 shape.lineTo(24.9795, 5.1226)
@@ -1160,6 +1167,7 @@ shape.lineTo(22.0713, 10.4702)
 shape.lineTo(22.7998, 9.3188)
 shape.curveTo(23.9228, 8.971601, 24.9297, 8.5781, 25.9971, 8.0844)
 shape.lineTo(26.8701, 5.8632)
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_2_0_0
@@ -1177,13 +1185,13 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_3_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_3_0_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
 shape.moveTo(28.833, 12.7749)
 shape.lineTo(28.542, 12.0337)
 shape.lineTo(28.0322, 12.1987)
 shape.lineTo(28.1787, 13.103)
 shape.lineTo(28.833, 12.7749)
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_3_0_0
@@ -1201,7 +1209,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_4_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_4_0_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
 shape.moveTo(29.123, 12.6089)
 shape.lineTo(28.9775, 13.5972)
@@ -1213,6 +1220,7 @@ shape.lineTo(28.833, 11.0465)
 shape.lineTo(28.833, 11.5397)
 shape.lineTo(29.123, 11.8688)
 shape.lineTo(29.123, 12.609)
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_4_0_0
@@ -1230,7 +1238,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_5_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_5_0_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
 shape.moveTo(18.3652, 28.2422)
 shape.lineTo(17.7832, 27.0899)
@@ -1324,6 +1331,7 @@ shape.lineTo(20.9089, 32.5213)
 shape.lineTo(21.781, 31.2869)
 shape.lineTo(21.9265, 30.0525)
 shape.curveTo(20.7331, 29.4607, 19.5495, 28.8513, 18.365, 28.242)
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_5_0_0
@@ -1341,7 +1349,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_6_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_6_0_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
 shape.moveTo(16.7656, 9.5649)
 shape.lineTo(17.4922, 10.0586)
@@ -1349,6 +1356,7 @@ shape.lineTo(18.0742, 10.0586)
 shape.lineTo(18.0742, 9.4829)
 shape.lineTo(17.3476, 9.1538)
 shape.lineTo(16.7656, 9.5649)
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_6_0_0
@@ -1366,7 +1374,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_7_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_7_0_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
 shape.moveTo(14.876, 8.9072)
 shape.lineTo(14.5122, 9.812)
@@ -1386,6 +1393,7 @@ shape.lineTo(15.5298, 7.2613)
 shape.lineTo(15.3848, 7.5904)
 shape.lineTo(15.4576, 8.4132)
 shape.lineTo(14.876, 8.9072)
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_7_0_0
@@ -1403,8 +1411,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_8_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_8_0_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_8_0_0
@@ -1417,8 +1425,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_8_1_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_8_1_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_8_1_0
@@ -1436,8 +1444,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_9_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_9_0_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_9_0_0
@@ -1450,8 +1458,8 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_9_1_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_9_1_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_9_1_0
@@ -1469,7 +1477,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_10_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_10_0_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
 shape.moveTo(17.4922, 6.8496003)
 shape.lineTo(17.856, 6.521)
@@ -1483,6 +1490,7 @@ shape.lineTo(17.0567, 6.2744)
 shape.lineTo(16.7408, 6.4272)
 shape.lineTo(16.5479, 6.6855)
 shape.lineTo(17.4922, 6.8496003)
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_10_0_0
@@ -1500,12 +1508,12 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_2_1_4_11_0_0 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_1_4_11_0_0
-paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 shape = GeneralPath()
 shape.moveTo(18.7285, 14.6665)
 shape.lineTo(19.165, 14.0083)
 shape.lineTo(18.5102, 13.5151)
 shape.lineTo(18.7285, 14.6665)
+paint = RadialGradientPaint(Point2D.Double(18.633779525756836, 17.486207962036133), 40.692665f, Point2D.Double(18.93430519104004, 17.810213088989258), floatArrayOf(0.0f,0.37931034f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(254, 254, 254, 255),Color(29, 29, 29, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.036821961402893f, 0.0f, 0.0f, 0.9644860029220581f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_2_1_4_11_0_0
@@ -1602,7 +1610,7 @@ g.transform = defaultTransform_
          * @return Factory that returns instances of this icon on demand.
          */
         fun factory(): Factory {
-            return Factory { Text_html(16, 16) }
+            return Factory { Text_html(getOrigWidth().toInt(), getOrigHeight().toInt()) }
         }
     }
 
@@ -1646,7 +1654,6 @@ g.transform = defaultTransform_
         innerPaint(g2ForInner)
         g2ForInner.dispose()
         g2d.dispose()
-
     }
 }
 

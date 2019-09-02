@@ -29,23 +29,32 @@
  */
 package org.pushingpixels.substance.internal.animation;
 
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
+import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
+import org.pushingpixels.substance.api.UiThreadingViolationException;
 import org.pushingpixels.substance.api.renderer.SubstanceRenderer;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.*;
-import org.pushingpixels.trident.callback.*;
-import org.pushingpixels.trident.swing.*;
+import org.pushingpixels.trident.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.Timeline.TimelineState;
+import org.pushingpixels.trident.callback.TimelineCallback;
+import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.SwingComponentTimeline;
+import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.EventListenerList;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StateTransitionTracker {
     public interface RepaintCallback {

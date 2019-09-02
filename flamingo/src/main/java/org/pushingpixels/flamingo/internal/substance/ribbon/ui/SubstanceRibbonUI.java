@@ -29,19 +29,31 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.internal.ui.ribbon.*;
+import org.pushingpixels.flamingo.api.ribbon.JRibbon;
+import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
+import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
+import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
+import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonUI;
+import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonRootPane;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.painter.*;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
+import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
+import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.*;
-import javax.swing.plaf.*;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * UI for ribbon in <b>Substance</b> look and feel.

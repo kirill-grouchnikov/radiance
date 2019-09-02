@@ -29,16 +29,20 @@
  */
 package org.pushingpixels.flamingo.api.common.popup;
 
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
+import org.pushingpixels.flamingo.api.common.JCommandToggleMenuButton;
+import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
 
 import javax.swing.*;
 import javax.swing.JPopupMenu.Separator;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.*;
 
 /**
  * Popup menu with groups of command buttons. Use the

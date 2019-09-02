@@ -30,21 +30,30 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.flamingo.api.common.model.CommandGroup;
+import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel.StripOrientation;
-import org.pushingpixels.flamingo.api.common.popup.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
-import org.pushingpixels.flamingo.internal.utils.*;
+import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.*;
-import javax.swing.plaf.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.plaf.BorderUIResource;
+import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Basic UI for ribbon gallery {@link JRibbonGallery}.

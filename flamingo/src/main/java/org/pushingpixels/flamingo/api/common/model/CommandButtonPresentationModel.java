@@ -29,7 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 

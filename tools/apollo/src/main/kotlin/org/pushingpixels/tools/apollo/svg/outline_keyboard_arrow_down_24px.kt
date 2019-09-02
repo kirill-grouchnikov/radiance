@@ -2,6 +2,11 @@ package org.pushingpixels.tools.apollo.svg
 
 import java.awt.*
 import java.awt.geom.*
+import java.awt.image.BufferedImage
+import java.io.*
+import java.lang.ref.WeakReference
+import java.util.Base64
+import javax.imageio.ImageIO
 import javax.swing.plaf.UIResource
 
 import org.pushingpixels.neon.icon.ResizableIcon
@@ -14,11 +19,14 @@ import org.pushingpixels.neon.icon.ResizableIconUIResource
  */
 class outline_keyboard_arrow_down_24px private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
+    
+
 	private fun innerPaint(g : Graphics2D) {
         @Suppress("UNUSED_VARIABLE") var shape: Shape?
         @Suppress("UNUSED_VARIABLE") var paint: Paint?
         @Suppress("UNUSED_VARIABLE") var stroke: Stroke?
-         
+        @Suppress("UNUSED_VARIABLE") var clip: Shape?
+
         var origAlpha = 1.0f
         val origComposite = g.composite
         if (origComposite is AlphaComposite) {
@@ -61,7 +69,6 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 val defaultTransform__0_1_1 = g.transform
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1_1
-paint = Color(0, 0, 0, 255)
 shape = GeneralPath()
 shape.moveTo(7.41, 8.59)
 shape.lineTo(12.0, 13.17)
@@ -71,6 +78,7 @@ shape.lineTo(12.0, 16.0)
 shape.lineTo(6.0, 10.0)
 shape.lineTo(7.41, 8.59)
 shape.closePath()
+paint = Color(0, 0, 0, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = defaultTransform__0_1_1
@@ -145,7 +153,7 @@ g.transform = defaultTransform_
          * @return Factory that returns instances of this icon on demand.
          */
         fun factory(): Factory {
-            return Factory { outline_keyboard_arrow_down_24px(16, 16) }
+            return Factory { outline_keyboard_arrow_down_24px(getOrigWidth().toInt(), getOrigHeight().toInt()) }
         }
     }
 
@@ -189,7 +197,6 @@ g.transform = defaultTransform_
         innerPaint(g2ForInner)
         g2ForInner.dispose()
         g2d.dispose()
-
     }
 }
 

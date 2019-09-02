@@ -2,6 +2,11 @@ package org.pushingpixels.demo.substance.main.check.svg.flags;
 
 import java.awt.*;
 import java.awt.geom.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.lang.ref.WeakReference;
+import java.util.Base64;
+import javax.imageio.ImageIO;
 import javax.swing.plaf.UIResource;
 
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -12,12 +17,15 @@ import org.pushingpixels.neon.icon.ResizableIconUIResource;
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
 public class pl implements ResizableIcon {
+    
+
     @SuppressWarnings("unused")
 	private void innerPaint(Graphics2D g) {
         Shape shape = null;
         Paint paint = null;
         Stroke stroke = null;
-         
+        Shape clip = null;
+
         float origAlpha = 1.0f;
         Composite origComposite = g.getComposite();
         if (origComposite instanceof AlphaComposite) {
@@ -42,13 +50,13 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_0 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_0
-paint = new Color(233, 232, 231, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(512.0, 512.0);
 ((GeneralPath)shape).lineTo(0.0, 512.0);
 ((GeneralPath)shape).lineTo(0.0, 0.0);
 ((GeneralPath)shape).lineTo(512.0, 0.0);
 ((GeneralPath)shape).closePath();
+paint = new Color(233, 232, 231, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_0);
@@ -56,13 +64,13 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_1 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_1
-paint = new Color(212, 33, 61, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(512.0, 512.0);
 ((GeneralPath)shape).lineTo(0.0, 512.0);
 ((GeneralPath)shape).lineTo(0.0, 256.0);
 ((GeneralPath)shape).lineTo(512.0, 256.0);
 ((GeneralPath)shape).closePath();
+paint = new Color(212, 33, 61, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_1);
@@ -203,7 +211,7 @@ g.setTransform(defaultTransform_);
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return () -> new pl();
+        return pl::new;
     }
 }
 

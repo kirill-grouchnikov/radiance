@@ -30,17 +30,24 @@
 package org.pushingpixels.substance.api.renderer;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.icon.*;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.ui.SubstanceListUI;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
+import org.pushingpixels.substance.internal.utils.UpdateOptimizationInfo;
 
 import javax.swing.*;
-import javax.swing.plaf.*;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.ListUI;
 import java.awt.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Base class for list renderers that are more complex than what is provided by

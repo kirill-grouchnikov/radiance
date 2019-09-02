@@ -32,7 +32,10 @@
  */
 package org.pushingpixels.flamingo.api.bcb;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Model for the breadcrumb bar component ({@link JBreadcrumbBar}).

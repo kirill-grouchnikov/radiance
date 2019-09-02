@@ -30,7 +30,6 @@
 package org.pushingpixels.substance.internal.utils.menu;
 
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
@@ -42,7 +41,8 @@ import javax.swing.plaf.ButtonUI;
 import javax.swing.plaf.basic.BasicHTML;
 import javax.swing.text.View;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

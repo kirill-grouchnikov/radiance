@@ -29,7 +29,9 @@
  */
 package org.pushingpixels.substance.api.renderer;
 
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
@@ -40,11 +42,16 @@ import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.border.SubstanceTableCellBorder;
 
 import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.*;
-import javax.swing.table.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.TableUI;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.text.*;
+import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.util.Map;
 
 /**

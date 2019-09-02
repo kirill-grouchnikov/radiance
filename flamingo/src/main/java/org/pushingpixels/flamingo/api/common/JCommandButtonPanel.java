@@ -30,15 +30,18 @@
 package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonPanelUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonPanelUI;
 
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.*;
 
 /**
  * Panel that hosts command buttons. Provides support for button groups, single

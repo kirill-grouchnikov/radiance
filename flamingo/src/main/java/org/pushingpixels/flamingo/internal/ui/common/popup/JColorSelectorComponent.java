@@ -34,8 +34,8 @@ import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceColorSel
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
 
 public class JColorSelectorComponent extends JComponent {
     private Color color;

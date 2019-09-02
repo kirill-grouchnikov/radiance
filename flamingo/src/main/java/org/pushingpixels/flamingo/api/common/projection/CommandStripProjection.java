@@ -30,7 +30,8 @@
 package org.pushingpixels.flamingo.api.common.projection;
 
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.CommandGroup;
+import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
 
 public class CommandStripProjection extends Projection<JCommandButtonStrip,
         CommandGroup, CommandStripPresentationModel> {

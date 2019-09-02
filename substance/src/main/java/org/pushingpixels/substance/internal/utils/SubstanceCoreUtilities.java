@@ -43,21 +43,27 @@ import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
-import org.pushingpixels.substance.internal.ui.*;
+import org.pushingpixels.substance.internal.ui.SubstanceButtonUI;
+import org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI;
 import org.pushingpixels.substance.internal.utils.combo.SubstanceComboPopup;
-import org.pushingpixels.substance.internal.utils.icon.*;
+import org.pushingpixels.substance.internal.utils.icon.ArrowButtonTransitionAwareIcon;
+import org.pushingpixels.substance.internal.utils.icon.TransitionAware;
+import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
 import org.pushingpixels.substance.internal.utils.menu.SubstanceMenu;
 import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollButton;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
-import javax.swing.plaf.*;
+import javax.swing.plaf.ButtonUI;
+import javax.swing.plaf.UIResource;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.AWTEventListener;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * Various utility functions. This class is <b>for internal use only</b>.

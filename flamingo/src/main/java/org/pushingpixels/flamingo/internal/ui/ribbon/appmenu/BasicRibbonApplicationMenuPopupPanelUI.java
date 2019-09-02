@@ -30,8 +30,13 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.*;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.flamingo.api.common.model.CommandGroup;
+import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandMenuButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicPopupPanelUI;
@@ -39,13 +44,15 @@ import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
 
 /**
  * Basic UI for ribbon application menu button {@link JRibbonApplicationMenuButton}.

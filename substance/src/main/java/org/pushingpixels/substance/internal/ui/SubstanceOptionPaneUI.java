@@ -31,12 +31,14 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.colorscheme.SteelBlueColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SunsetColorScheme;
 import org.pushingpixels.substance.api.icon.SubstanceIconPack;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.animation.IconGlowTracker;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.icon.GlowingIcon;
 
 import javax.swing.*;

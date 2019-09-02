@@ -32,21 +32,27 @@ package org.pushingpixels.substance.internal.ui;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
-import org.pushingpixels.substance.internal.*;
-import org.pushingpixels.substance.internal.animation.*;
+import org.pushingpixels.substance.internal.AnimationConfigurationManager;
+import org.pushingpixels.substance.internal.SubstanceSynapse;
+import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
+import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.border.SubstanceButtonBorder;
 import org.pushingpixels.substance.internal.utils.icon.GlowingIcon;
-import org.pushingpixels.substance.internal.widget.animation.effects.*;
+import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
+import org.pushingpixels.substance.internal.widget.animation.effects.GhostingListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.*;
+import javax.swing.plaf.basic.BasicButtonListener;
+import javax.swing.plaf.basic.BasicHTML;
+import javax.swing.plaf.basic.BasicToggleButtonUI;
 import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * UI for toggle buttons in <b>Substance</b> look and feel.

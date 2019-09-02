@@ -30,12 +30,17 @@
 package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.border.*;
+import org.pushingpixels.substance.api.painter.border.FlatBorderPainter;
+import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.painter.SimplisticFillPainter;
-import org.pushingpixels.substance.internal.utils.filters.*;
+import org.pushingpixels.substance.internal.utils.filters.ColorFilter;
+import org.pushingpixels.substance.internal.utils.filters.ColorSchemeFilter;
+import org.pushingpixels.substance.internal.utils.filters.GrayscaleFilter;
+import org.pushingpixels.substance.internal.utils.filters.TranslucentFilter;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;

@@ -30,13 +30,20 @@
 package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.icon.ResizableIconUIResource;
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.inputmap.*;
+import org.pushingpixels.substance.api.inputmap.InputMapSet;
+import org.pushingpixels.substance.api.inputmap.SubstanceInputMapUtilities;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 import org.pushingpixels.substance.internal.utils.border.*;
-import org.pushingpixels.substance.internal.utils.icon.*;
+import org.pushingpixels.substance.internal.utils.icon.CheckBoxMenuItemIcon;
+import org.pushingpixels.substance.internal.utils.icon.MenuArrowIcon;
+import org.pushingpixels.substance.internal.utils.icon.RadioButtonMenuItemIcon;
+import org.pushingpixels.substance.internal.utils.icon.SubstanceIconFactory;
 import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollPaneBorder;
 
 import javax.swing.*;

@@ -31,27 +31,33 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
-import org.pushingpixels.substance.api.colorscheme.*;
-import org.pushingpixels.substance.api.painter.fill.*;
+import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
+import org.pushingpixels.substance.api.SubstanceSlices.Side;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.*;
+import org.pushingpixels.trident.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.TimelineCallback;
 import org.pushingpixels.trident.ease.Spline;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import java.beans.*;
-import java.util.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * UI for progress bars in <b>Substance</b> look and feel.

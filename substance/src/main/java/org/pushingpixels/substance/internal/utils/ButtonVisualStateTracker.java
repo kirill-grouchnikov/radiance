@@ -34,7 +34,8 @@ import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollButton;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
-import java.beans.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * Utility class to track transitions in visual state of buttons.

@@ -31,7 +31,8 @@ package org.pushingpixels.flamingo.api.ribbon.synapse.projection;
 
 import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.JRibbonCheckBox;
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.*;
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentationModel;
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonCheckBoxContentModel;
 
 public class RibbonCheckBoxProjection extends ComponentProjection<JRibbonCheckBox,
         RibbonCheckBoxContentModel> {

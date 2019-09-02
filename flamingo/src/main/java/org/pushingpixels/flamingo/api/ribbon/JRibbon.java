@@ -29,21 +29,32 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.CommandActionEvent;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
-import org.pushingpixels.flamingo.api.ribbon.projection.*;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
-import org.pushingpixels.flamingo.internal.ui.ribbon.*;
-import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.*;
+import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonComponent;
+import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonGallery;
+import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
+import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
+import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuProjection;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.List;
 import java.util.*;

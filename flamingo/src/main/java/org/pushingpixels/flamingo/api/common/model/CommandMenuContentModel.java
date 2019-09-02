@@ -29,8 +29,13 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import javax.swing.event.*;
-import java.util.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.EventListenerList;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class CommandMenuContentModel implements ContentModel {
     private CommandPanelContentModel panelContentModel;

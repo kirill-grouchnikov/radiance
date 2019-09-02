@@ -116,7 +116,7 @@ public class BusinessBlackSteelSkin extends SubstanceSkin {
 
 		// add an overlay painter to paint a drop shadow along the top
 		// edge of toolbars
-		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(), DecorationAreaType.TOOLBAR);
+		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(100), DecorationAreaType.TOOLBAR);
 
 		this.buttonShaper = new ClassicButtonShaper();
 		this.fillPainter = new ClassicFillPainter();

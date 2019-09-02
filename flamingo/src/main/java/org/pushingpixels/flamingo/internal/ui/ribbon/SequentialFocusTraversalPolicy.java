@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SequentialFocusTraversalPolicy extends FocusTraversalPolicy {

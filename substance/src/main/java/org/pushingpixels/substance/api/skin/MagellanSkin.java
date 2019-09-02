@@ -250,7 +250,7 @@ public class MagellanSkin extends SubstanceSkin {
 
 		// add an overlay painter to paint a bezel line along the top
 		// edge of footer
-		this.footerTopShadowOverlayPainter = TopShadowOverlayPainter.getInstance();
+		this.footerTopShadowOverlayPainter = TopShadowOverlayPainter.getInstance(100);
 		this.addOverlayPainter(this.footerTopShadowOverlayPainter, DecorationAreaType.FOOTER);
 
 		this.setTabFadeStart(0.18);

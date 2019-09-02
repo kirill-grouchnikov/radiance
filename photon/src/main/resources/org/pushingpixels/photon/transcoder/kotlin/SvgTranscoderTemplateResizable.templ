@@ -103,7 +103,7 @@ class TOKEN_CLASSNAME private constructor(private var width: Int, private var he
          * @return Factory that returns instances of this icon on demand.
          */
         fun factory(): Factory {
-            return Factory { TOKEN_CLASSNAME(16, 16) }
+            return Factory { TOKEN_CLASSNAME(getOrigWidth().toInt(), getOrigHeight().toInt()) }
         }
     }
 
@@ -147,6 +147,5 @@ class TOKEN_CLASSNAME private constructor(private var width: Int, private var he
         innerPaint(g2ForInner)
         g2ForInner.dispose()
         g2d.dispose()
-
     }
 }

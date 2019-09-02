@@ -60,7 +60,7 @@ public class NebulaSkin extends SubstanceSkin {
 	/**
 	 * Overlay painter to paint separator lines on some decoration areas.
 	 */
-	private BottomLineOverlayPainter bottomLineOverlayPainter;
+	protected BottomLineOverlayPainter bottomLineOverlayPainter;
 
 	/**
 	 * Creates a new <code>Nebula</code> skin.
@@ -85,9 +85,8 @@ public class NebulaSkin extends SubstanceSkin {
 		defaultSchemeBundle.registerColorScheme(rolloverSelectedScheme,
 				ComponentState.ROLLOVER_SELECTED);
 		defaultSchemeBundle.registerColorScheme(pressedScheme,
-				ComponentState.PRESSED_SELECTED,
-				ComponentState.PRESSED_UNSELECTED, ComponentState.ARMED,
-				ComponentState.ROLLOVER_ARMED);
+				ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED,
+				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
 		defaultSchemeBundle.registerColorScheme(rolloverUnselectedScheme,
 				ColorSchemeAssociationKind.BORDER, ComponentState.SELECTED);
@@ -107,10 +106,8 @@ public class NebulaSkin extends SubstanceSkin {
 		ComponentState indeterminateState = new ComponentState("indeterminate",
 				new ComponentStateFacet[] { ComponentStateFacet.ENABLE },
 				new ComponentStateFacet[] { ComponentStateFacet.DETERMINATE });
-		SubstanceColorScheme determinateScheme = schemes
-				.get("Nebula Determinate");
-		SubstanceColorScheme determinateBorderScheme = schemes
-				.get("Nebula Determinate Border");
+		SubstanceColorScheme determinateScheme = schemes.get("Nebula Determinate");
+		SubstanceColorScheme determinateBorderScheme = schemes.get("Nebula Determinate Border");
 		defaultSchemeBundle.registerColorScheme(determinateScheme,
 				determinateState, indeterminateState);
 		defaultSchemeBundle.registerColorScheme(determinateBorderScheme,
@@ -147,7 +144,7 @@ public class NebulaSkin extends SubstanceSkin {
 
 		// add an overlay painter to paint a drop shadow along the top
 		// edge of toolbars
-		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(),
+		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(60),
 				DecorationAreaType.TOOLBAR);
 
 		// add an overlay painter to paint separator lines along the bottom

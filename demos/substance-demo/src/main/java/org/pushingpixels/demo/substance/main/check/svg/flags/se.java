@@ -2,6 +2,11 @@ package org.pushingpixels.demo.substance.main.check.svg.flags;
 
 import java.awt.*;
 import java.awt.geom.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.lang.ref.WeakReference;
+import java.util.Base64;
+import javax.imageio.ImageIO;
 import javax.swing.plaf.UIResource;
 
 import org.pushingpixels.neon.icon.ResizableIcon;
@@ -12,12 +17,15 @@ import org.pushingpixels.neon.icon.ResizableIconUIResource;
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
 public class se implements ResizableIcon {
+    
+
     @SuppressWarnings("unused")
 	private void innerPaint(Graphics2D g) {
         Shape shape = null;
         Paint paint = null;
         Stroke stroke = null;
-         
+        Shape clip = null;
+
         float origAlpha = 1.0f;
         Composite origComposite = g.getComposite();
         if (origComposite instanceof AlphaComposite) {
@@ -46,7 +54,6 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_0_0 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_0_0
-paint = new Color(0, 106, 167, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(2.904, 7.598);
 ((GeneralPath)shape).lineTo(248.272, 7.598);
@@ -58,6 +65,7 @@ shape = new GeneralPath();
 ((GeneralPath)shape).lineTo(248.272, 498.02502);
 ((GeneralPath)shape).lineTo(2.904, 498.02502);
 ((GeneralPath)shape).closePath();
+paint = new Color(0, 106, 167, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_0_0);
@@ -65,13 +73,13 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_0_1 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_0_1
-paint = new Color(254, 204, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(2.904, 203.78);
 ((GeneralPath)shape).lineTo(248.272, 203.78);
 ((GeneralPath)shape).lineTo(248.272, 301.927);
 ((GeneralPath)shape).lineTo(2.904, 301.927);
 ((GeneralPath)shape).closePath();
+paint = new Color(254, 204, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_0_1);
@@ -79,13 +87,13 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_0_2 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_0_2
-paint = new Color(254, 204, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(247.262, 7.318);
 ((GeneralPath)shape).lineTo(345.409, 7.318);
 ((GeneralPath)shape).lineTo(345.409, 498.05298);
 ((GeneralPath)shape).lineTo(247.262, 498.05298);
 ((GeneralPath)shape).closePath();
+paint = new Color(254, 204, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_0_2);
@@ -93,13 +101,13 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_0_3 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_0_3
-paint = new Color(254, 204, 0, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(342.296, 203.808);
 ((GeneralPath)shape).lineTo(783.958, 203.808);
 ((GeneralPath)shape).lineTo(783.958, 301.95502);
 ((GeneralPath)shape).lineTo(342.296, 301.95502);
 ((GeneralPath)shape).closePath();
+paint = new Color(254, 204, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_0_3);
@@ -107,7 +115,6 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_0_4 = g.getTransform();
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_0_4
-paint = new Color(0, 106, 167, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(345.325, 301.759);
 ((GeneralPath)shape).lineTo(786.986, 301.759);
@@ -119,6 +126,7 @@ shape = new GeneralPath();
 ((GeneralPath)shape).lineTo(786.986, 203.89201);
 ((GeneralPath)shape).lineTo(345.325, 203.89201);
 ((GeneralPath)shape).closePath();
+paint = new Color(0, 106, 167, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(defaultTransform__0_0_0_4);
@@ -260,7 +268,7 @@ g.setTransform(defaultTransform_);
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return () -> new se();
+        return se::new;
     }
 }
 

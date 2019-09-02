@@ -30,7 +30,7 @@
 package org.pushingpixels.substance.api.painter.preview;
 
 import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;

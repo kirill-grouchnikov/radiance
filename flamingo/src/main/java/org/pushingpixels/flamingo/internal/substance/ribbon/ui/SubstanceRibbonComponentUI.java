@@ -30,7 +30,8 @@
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
 import org.pushingpixels.flamingo.internal.substance.utils.SubstanceDisabledResizableIcon;
-import org.pushingpixels.flamingo.internal.ui.ribbon.*;
+import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonComponentUI;
+import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.neon.icon.ResizableIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 

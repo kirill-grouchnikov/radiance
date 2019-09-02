@@ -35,7 +35,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.Map;
 
 /**
  * Utility methods to keep component preferred size and component painting in sync.

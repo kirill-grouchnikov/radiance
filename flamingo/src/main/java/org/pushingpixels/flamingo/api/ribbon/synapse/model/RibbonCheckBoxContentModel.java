@@ -30,10 +30,11 @@
 package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.event.ActionListener;
-import java.beans.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public class RibbonCheckBoxContentModel implements ComponentContentModel {
     private boolean isEnabled;

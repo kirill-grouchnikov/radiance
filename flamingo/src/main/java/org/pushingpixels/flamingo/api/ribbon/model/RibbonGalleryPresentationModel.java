@@ -33,7 +33,8 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.ImmutablePresentationModel;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
 
 public class RibbonGalleryPresentationModel implements ImmutablePresentationModel {
     private Map<JRibbonBand.PresentationPriority, Integer> preferredVisibleCommandCounts;

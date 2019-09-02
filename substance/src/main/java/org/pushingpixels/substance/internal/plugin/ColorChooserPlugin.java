@@ -30,19 +30,27 @@
 package org.pushingpixels.substance.internal.plugin;
 
 import org.pushingpixels.neon.font.FontSet;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceComponentPlugin;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.ui.SubstanceColorChooserUI;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.icon.SubstanceIconFactory;
 
 import javax.swing.*;
-import javax.swing.plaf.*;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.DimensionUIResource;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.InsetsUIResource;
 import java.awt.*;
+import java.util.Enumeration;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.*;
+import java.util.ResourceBundle;
 
 /**
  * Core plugin for color chooser UI delegates. Contains information on Quaqua and

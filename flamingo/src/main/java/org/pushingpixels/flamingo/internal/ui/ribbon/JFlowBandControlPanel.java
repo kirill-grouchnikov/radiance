@@ -33,7 +33,8 @@ import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceFlowBand
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Control panel of a single {@link org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand}. This

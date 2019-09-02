@@ -29,7 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.common.projection;
 
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.ContentModel;
+import org.pushingpixels.flamingo.api.common.model.PresentationModel;
 import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu;
 
 public abstract class AbstractPopupMenuProjection<M extends AbstractPopupMenu,
