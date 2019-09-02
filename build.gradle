@@ -28,9 +28,9 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = '2.5-SNAPSHOT'
+version = '2.5.0'
 ext.codename = 'Coral'
-ext.isRelease = false
+ext.isRelease = true
 
 buildscript {
     ext {
