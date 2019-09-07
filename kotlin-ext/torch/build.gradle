@@ -65,8 +65,8 @@ group = 'org.pushing-pixels'
 
 modifyPom {
     project {
-        name 'plasma'
-        description 'Plasma Kotlin extensions and DSL for Flamingo components'
+        name 'torch'
+        description 'Torch Kotlin extensions and DSL for Trident animations'
         url 'https://github.com/kirill-grouchnikov/radiance'
         inceptionYear '2018'
         scm {
@@ -96,7 +96,7 @@ modifyPom {
             }
             dependency {
                 groupId = project.group
-                artifactId = project.archivesBaseName + '-flamingo'
+                artifactId = project.archivesBaseName + '-trident'
                 version = project.version
             }
         }
