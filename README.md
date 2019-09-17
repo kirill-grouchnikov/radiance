@@ -92,7 +92,7 @@ Radiance artifacts are available in the central Maven repository under `groupId=
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ember/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ember) `radiance-ember` for [Ember](docs/kotlin-ext/ember/ember.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor) `radiance-meteor` for [Meteor](docs/kotlin-ext/meteor/meteor.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma) `radiance-plasma` for [Plasma](docs/kotlin-ext/plasma/plasma.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-torch/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-torch) `radiance-torch` for [Torch](docs/kotlin-ext/plasma/torch.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-torch/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-torch) `radiance-torch` for [Torch](docs/kotlin-ext/torch/torch.md)
 
 ### Tools artifacts
 

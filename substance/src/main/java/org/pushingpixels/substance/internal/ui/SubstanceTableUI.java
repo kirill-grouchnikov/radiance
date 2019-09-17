@@ -47,7 +47,7 @@ import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
 import javax.swing.RowSorter.SortKey;
@@ -1324,7 +1324,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
      * 
      * @author Kirill Grouchnikov
      */
-    protected class CellRepaintCallback extends UIThreadTimelineCallbackAdapter {
+    protected class CellRepaintCallback extends EventDispatchThreadTimelineCallbackAdapter {
         /**
          * Associated table.
          */
@@ -1398,7 +1398,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
      * 
      * @author Kirill Grouchnikov
      */
-    protected class RowRepaintCallback extends UIThreadTimelineCallbackAdapter {
+    protected class RowRepaintCallback extends EventDispatchThreadTimelineCallbackAdapter {
         /**
          * Associated table.
          */
@@ -1471,7 +1471,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
      * 
      * @author Kirill Grouchnikov
      */
-    protected class ColumnRepaintCallback extends UIThreadTimelineCallbackAdapter {
+    protected class ColumnRepaintCallback extends EventDispatchThreadTimelineCallbackAdapter {
         /**
          * Associated table.
          */

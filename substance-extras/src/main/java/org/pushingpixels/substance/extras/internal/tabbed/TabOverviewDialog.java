@@ -40,7 +40,7 @@ import org.pushingpixels.substance.internal.contrib.jgoodies.looks.ShadowPopupBo
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
 
 import javax.swing.*;
@@ -754,7 +754,7 @@ public class TabOverviewDialog extends JDialog {
                         .addPropertyToInterpolate("zoom", 1.0f, 1.2f)
                         .addCallback(new SwingRepaintCallback(
                                 SwingUtilities.getRootPane(overviewPanel)))
-                        .addCallback(new UIThreadTimelineCallbackAdapter() {
+                        .addCallback(new EventDispatchThreadTimelineCallbackAdapter() {
                             @Override
                             public void onTimelineStateChanged(TimelineState oldState,
                                     TimelineState newState, float durationFraction,

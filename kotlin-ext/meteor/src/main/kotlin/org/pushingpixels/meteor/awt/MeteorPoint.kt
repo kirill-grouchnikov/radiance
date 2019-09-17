@@ -74,3 +74,23 @@ inline operator fun Point2D.component1() = this.x
  */
 inline operator fun Point2D.component2() = this.y
 
+/**
+ * Returns the X component of the point. This method enables the usage of destructuring
+ * declarations such as:
+ *
+ * ```
+ * val (x, y) = point
+ * ```
+ */
+inline operator fun Point2D.Float.component1() = this.x
+
+/**
+ * Returns the Y component of the point. This method enables the usage of destructuring
+ * declarations such as:
+ *
+ * ```
+ * val (x, y) = point
+ * ```
+ */
+inline operator fun Point2D.Float.component2() = this.y
+

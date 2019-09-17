@@ -139,13 +139,7 @@ public class JRibbonFrame extends JFrame {
 
             // Support placing heavyweight components in the ribbon frame. See
             // https://community.oracle.com/docs/DOC-982814.
-            try {
-                Class awtUtilitiesClass = Class.forName("com.sun.awt.AWTUtilities");
-                Method mSetComponentMixing = awtUtilitiesClass
-                        .getMethod("setComponentMixingCutoutShape", Component.class, Shape.class);
-                mSetComponentMixing.invoke(null, this, new Rectangle());
-            } catch (Throwable t) {
-            }
+            this.setMixingCutoutShape(new Rectangle());
         }
 
         @Override

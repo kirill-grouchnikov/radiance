@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.internal.ui.common;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.trident.ease.Spline;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.swing.SwingRepaintCallback;
@@ -112,7 +112,7 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
                         .to(300.0))
                 .setEase(new Spline(0.5f))
                 .setDuration(600)
-                .addCallback(new UIThreadTimelineCallbackAdapter() {
+                .addCallback(new EventDispatchThreadTimelineCallbackAdapter() {
                     private void update() {
                         if (goFromStart) {
                             arcStart -= 8;

@@ -59,6 +59,9 @@ import java.util.*;
  * @author Kirill Grouchnikov
  */
 public abstract class SubstanceSkin implements SubstanceTrait {
+    public static final double DEFAULT_TAB_FADE_START = 0.1;
+    public static final double DEFAULT_TAB_FADE_END = 0.3;
+
     /**
      * Maps decoration area type to the color scheme bundles. Must contain an
      * entry for {@link DecorationAreaType#NONE}.
@@ -165,8 +168,8 @@ public abstract class SubstanceSkin implements SubstanceTrait {
         this.decoratedAreaSet.add(DecorationAreaType.PRIMARY_TITLE_PANE);
         this.decoratedAreaSet.add(DecorationAreaType.SECONDARY_TITLE_PANE);
 
-        this.tabFadeStart = 0.1;
-        this.tabFadeEnd = 0.3;
+        this.tabFadeStart = DEFAULT_TAB_FADE_START;
+        this.tabFadeEnd = DEFAULT_TAB_FADE_END;
 
         this.statesWithAlpha = new HashSet<>();
     }
@@ -185,8 +188,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      *
      * @return The border painter of this skin. A valid skin cannot have a
      * <code>null</code> value returned from this method. Call
-     * {@link #isValid()
-     * } to verify that the skin is valid.
+     * {@link #isValid()} to verify that the skin is valid.
      * @see #isValid()
      */
     public final SubstanceBorderPainter getBorderPainter() {
@@ -275,8 +277,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      *
      * @param comp           Component.
      * @param componentState Component state.
-     * @return The color scheme of the component in the specified component
-     * state.
+     * @return The color scheme of the component in the specified component state.
      */
     public final SubstanceColorScheme getColorScheme(Component comp,
             ComponentState componentState) {
@@ -295,9 +296,6 @@ public abstract class SubstanceSkin implements SubstanceTrait {
                 return registered;
             }
         }
-
-        // if (componentState == ComponentState.DEFAULT)
-        // return this.defaultColorScheme;
 
         SubstanceColorScheme registered = this.colorSchemeBundleMap.get(
                 DecorationAreaType.NONE).getColorScheme(componentState);
@@ -323,7 +321,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
                     ComponentOrParentChainScope.getDecorationType(comp);
             if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
                 float registered = this.colorSchemeBundleMap.get(decorationAreaType)
-                        .getHighlightAlpha(comp, componentState);
+                        .getHighlightAlpha(componentState);
                 if (registered >= 0.0) {
                     return registered;
                 }
@@ -331,7 +329,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
         }
 
         float registered = this.colorSchemeBundleMap.get(DecorationAreaType.NONE)
-                .getHighlightAlpha(comp, componentState);
+                .getHighlightAlpha(componentState);
         if (registered >= 0.0) {
             return registered;
         }
@@ -379,16 +377,14 @@ public abstract class SubstanceSkin implements SubstanceTrait {
             DecorationAreaType decorationAreaType = (comp == null) ? DecorationAreaType.NONE :
                     ComponentOrParentChainScope.getDecorationType(comp);
             if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-                float registered = this.colorSchemeBundleMap.get(
-                        decorationAreaType).getAlpha(comp, componentState);
+                float registered = this.colorSchemeBundleMap.get(decorationAreaType).getAlpha(componentState);
                 if (registered >= 0.0) {
                     return registered;
                 }
             }
         }
 
-        float registered = this.colorSchemeBundleMap.get(
-                DecorationAreaType.NONE).getAlpha(comp, componentState);
+        float registered = this.colorSchemeBundleMap.get(DecorationAreaType.NONE).getAlpha(componentState);
         if (registered >= 0.0) {
             return registered;
         }
@@ -453,7 +449,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      *                              decoration areas.
      * @param areaTypes             Enumerates the area types that are affected by the parameters.
      *                              Each decoration area type will be painted by
-     * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, SubstanceSlices.DecorationAreaType, int, int, SubstanceSkin)}
+     *                              {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, SubstanceSlices.DecorationAreaType, int, int, SubstanceSkin)}
      */
     public void registerAsDecorationArea(SubstanceColorScheme backgroundColorScheme,
             DecorationAreaType... areaTypes) {
@@ -561,9 +557,9 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      * {@link JTabbedPane}s. This value can be used to create XP-like "headers"
      * on the selected tabs.
      *
-     * @return The start of fade effect on the selected tabs in
-     * {@link JTabbedPane}s.
+     * @return The start of fade effect on the selected tabs in {@link JTabbedPane}s.
      * @see #getTabFadeEnd()
+     * @see #DEFAULT_TAB_FADE_START
      */
     public final double getTabFadeStart() {
         return this.tabFadeStart;
@@ -571,24 +567,22 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 
     /**
      * Returns the end of fade effect on tabs in
-     * {@link JTabbedPane
-     *}s. This value can be used to create XP-like "headers"
+     * {@link JTabbedPane}s. This value can be used to create XP-like "headers"
      * on the selected tabs.
      *
-     * @return The end of fade effect on the selected tabs in
-     * {@link JTabbedPane}s.
+     * @return The end of fade effect on the selected tabs in {@link JTabbedPane}s.
      * @see #getTabFadeStart()
+     * @see #DEFAULT_TAB_FADE_END
      */
     public final double getTabFadeEnd() {
         return this.tabFadeEnd;
     }
 
     /**
-     * Sets the end of fade effect on tabs in {@link JTabbedPane}s.
-     * The value should be in 0.0-1.0 range.
+     * Sets the end of fade effect on tabs in {@link JTabbedPane}s. The value should be in 0.0-1.0 range.
      *
-     * @param tabFadeEnd The end of fade effect on tabs in
-     *                   {@link JTabbedPane}s. Should be in 0.0-1.0 range.
+     * @param tabFadeEnd The end of fade effect on tabs in {@link JTabbedPane}s. Should be in 0.0-1.0 range.
+     * @see #DEFAULT_TAB_FADE_END
      */
     public void setTabFadeEnd(double tabFadeEnd) {
         if ((tabFadeEnd < 0.0) || (tabFadeEnd > 1.0)) {
@@ -599,11 +593,10 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     }
 
     /**
-     * Sets the start of fade effect on selected tabs in {@link JTabbedPane}
-     * s. The value should be in 0.0-1.0 range.
+     * Sets the start of fade effect on selected tabs in {@link JTabbedPane}s. The value should be in 0.0-1.0 range.
      *
-     * @param tabFadeStart The start of fade effect on tabs in
-     *                     {@link JTabbedPane} s. Should be in 0.0-1.0 range.
+     * @param tabFadeStart The start of fade effect on tabs in {@link JTabbedPane} s. Should be in 0.0-1.0 range.
+     * @see #DEFAULT_TAB_FADE_START
      */
     public void setTabFadeStart(double tabFadeStart) {
         if ((tabFadeStart < 0.0) || (tabFadeStart > 1.0)) {
@@ -655,7 +648,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     /**
      * Removes all overlay painters associated with the specified decoration area types.
      *
-     * @param areaTypes      Decoration area types.
+     * @param areaTypes Decoration area types.
      */
     public void clearOverlayPainters(DecorationAreaType... areaTypes) {
         for (DecorationAreaType areaType : areaTypes) {
@@ -675,8 +668,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      * @return A non-null, non-modifiable list of overlay painters associated
      * with the specified decoration area type.
      */
-    public List<SubstanceOverlayPainter> getOverlayPainters(
-            DecorationAreaType decorationAreaType) {
+    public List<SubstanceOverlayPainter> getOverlayPainters(DecorationAreaType decorationAreaType) {
         if (!this.overlayPaintersMap.containsKey(decorationAreaType)) {
             return Collections.emptyList();
         }
@@ -770,8 +762,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      * @param name      The name of the new skin.
      * @return The new skin.
      */
-    public SubstanceSkin transform(ColorSchemeTransform transform,
-            final String name) {
+    public SubstanceSkin transform(ColorSchemeTransform transform, final String name) {
         SubstanceSkin result = new SubstanceSkin() {
             @Override
             public String getDisplayName() {
@@ -814,8 +805,8 @@ public abstract class SubstanceSkin implements SubstanceTrait {
             result.backgroundColorSchemeMap = new HashMap<>();
             for (Map.Entry<DecorationAreaType, SubstanceColorScheme> entry :
                     this.backgroundColorSchemeMap.entrySet()) {
-                result.backgroundColorSchemeMap.put(entry.getKey(), transform
-                        .transform(entry.getValue()));
+                result.backgroundColorSchemeMap.put(entry.getKey(),
+                        transform.transform(entry.getValue()));
             }
         }
         // same map of overlay painters
@@ -836,8 +827,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      */
     public final SubstanceColorScheme getBackgroundColorScheme(
             DecorationAreaType decorationAreaType) {
-        // 1 - check the registered background scheme for this specific area
-        // type.
+        // 1 - check the registered background scheme for this specific area type.
         if (this.backgroundColorSchemeMap.containsKey(decorationAreaType)) {
             return this.backgroundColorSchemeMap.get(decorationAreaType);
         }

@@ -91,14 +91,14 @@ public class AutumnSkin extends SubstanceSkin {
 				activeScheme, DecorationAreaType.PRIMARY_TITLE_PANE,
 				DecorationAreaType.SECONDARY_TITLE_PANE);
 
-		SubstanceColorScheme watermarkScheme = schemes.get("Autumn Watermark");
+		SubstanceColorScheme backgroundScheme = schemes.get("Autumn Background");
 
 		this.registerAsDecorationArea(activeScheme,
 				DecorationAreaType.PRIMARY_TITLE_PANE,
 				DecorationAreaType.SECONDARY_TITLE_PANE,
 				DecorationAreaType.HEADER);
 
-		this.registerAsDecorationArea(watermarkScheme,
+		this.registerAsDecorationArea(backgroundScheme,
 				DecorationAreaType.GENERAL, DecorationAreaType.FOOTER,
 				DecorationAreaType.TOOLBAR);
 

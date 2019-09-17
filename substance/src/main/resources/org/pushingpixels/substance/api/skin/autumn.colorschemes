@@ -20,7 +20,7 @@ Autumn Enabled {
     colorForeground=#AC623B
 }
 
-Autumn Watermark {
+Autumn Background {
     kind=Light
     colorUltraLight=#FFF2DF
     colorExtraLight=#FFE3C5

@@ -47,8 +47,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Various constants and data classes used in scope-defined APIs provided by
- * {@link SubstanceCortex}.
+ * Various constants and data classes used in scope-defined APIs provided by {@link SubstanceCortex}.
  *
  * @author Kirill Grouchnikov
  */
@@ -545,11 +544,6 @@ public final class SubstanceSlices {
          * Menu search widget.
          */
         MENU_SEARCH,
-
-        /**
-         * Title pane heap status widget.
-         */
-        TITLE_PANE_HEAP_STATUS
     }
 
     /**
@@ -1046,8 +1040,7 @@ public final class SubstanceSlices {
         /**
          * Facet that describes the selection bit.
          */
-        public static final ComponentStateFacet SELECTION = new ComponentStateFacet("selection",
-                10);
+        public static final ComponentStateFacet SELECTION = new ComponentStateFacet("selection", 10);
 
         /**
          * Facet that describes the press bit.
@@ -1069,8 +1062,7 @@ public final class SubstanceSlices {
          * Facet that describes the determinate bit. This is relevant for {@link JProgressBar}
          * control and its {@link JProgressBar#setIndeterminate(boolean)} API.
          */
-        public static final ComponentStateFacet DETERMINATE = new ComponentStateFacet("determinate",
-                10);
+        public static final ComponentStateFacet DETERMINATE = new ComponentStateFacet("determinate", 10);
 
         /**
          * Facet that describes the editable bit. This is relevant for {@link JTextComponent}

@@ -44,7 +44,7 @@ import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
@@ -341,7 +341,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
      *
      * @author Kirill Grouchnikov
      */
-    private class CellRepaintCallback extends UIThreadTimelineCallbackAdapter {
+    private class CellRepaintCallback extends EventDispatchThreadTimelineCallbackAdapter {
         /**
          * Associated list.
          */

@@ -46,9 +46,8 @@ public class SwingComponentTimeline extends Timeline {
      * @param mainTimelineComp Main component for this timeline. Must not be <code>null</code>,
      *                         otherwise an exception will be thrown.
      * @param forceUiUpdate    If this is <code>true</code>, updates to the timeline (pulse and
-     *                         state changes) will be forced to run even if the
-     *                         {@link SwingToolkitHandler}
-     *                         considers the associated component to not be in the ready state.
+     *                         state changes) will be forced to run even if main component is not
+     *                         displayable.
      */
     private SwingComponentTimeline(Component mainTimelineComp, boolean forceUiUpdate) {
         super(mainTimelineComp);

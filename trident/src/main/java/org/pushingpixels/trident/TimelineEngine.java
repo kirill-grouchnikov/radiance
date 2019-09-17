@@ -31,7 +31,8 @@ package org.pushingpixels.trident;
 
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.TimelineScenario.TimelineScenarioState;
-import org.pushingpixels.trident.callback.RunOnUIThread;
+import org.pushingpixels.trident.swing.RunOnEventDispatchThread;
+import org.pushingpixels.trident.internal.swing.SwingUtils;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -41,7 +42,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * The Trident timeline engine. This is the main entry point to play {@link Timeline}s and
- * {@link TimelineScenario}s. Use the {@link #getInstance()} method to get the timeline engine.
+ * {@link TimelineScenario}s. This class is for internal use only.
  * 
  * @author Kirill Grouchnikov
  */
@@ -473,16 +474,16 @@ class TimelineEngine {
             boolean shouldRunOnUIThread = false;
             Class<?> clazz = timeline.callbackChain.getClass();
             while ((clazz != null) && !shouldRunOnUIThread) {
-                shouldRunOnUIThread = clazz.isAnnotationPresent(RunOnUIThread.class);
+                shouldRunOnUIThread = clazz.isAnnotationPresent(RunOnEventDispatchThread.class);
                 clazz = clazz.getSuperclass();
             }
-            if (shouldRunOnUIThread && (timeline.uiToolkitHandler != null)) {
+            if (shouldRunOnUIThread && SwingUtils.isUiComponent(timeline.getMainObject())) {
                 if (DEBUG_MODE) {
                     System.out.println("Scheduling callback state change from " + oldState.name()
                             + " to " + newState.name() + " on timeline " + timeline.id);
                 }
                 // System.out.println("Will update from " + oldState + " to " + newState);
-                timeline.uiToolkitHandler.runOnUIThread(timeline.getMainObject(),
+                SwingUtils.runOnEventDispatchThread(
                         () -> timeline.callbackChain.onTimelineStateChanged(oldState, newState,
                                 durationFraction, timelinePosition));
             } else {
@@ -509,11 +510,11 @@ class TimelineEngine {
             boolean shouldRunOnUIThread = false;
             Class<?> clazz = timeline.callbackChain.getClass();
             while ((clazz != null) && !shouldRunOnUIThread) {
-                shouldRunOnUIThread = clazz.isAnnotationPresent(RunOnUIThread.class);
+                shouldRunOnUIThread = clazz.isAnnotationPresent(RunOnEventDispatchThread.class);
                 clazz = clazz.getSuperclass();
             }
-            if (shouldRunOnUIThread && (timeline.uiToolkitHandler != null)) {
-                timeline.uiToolkitHandler.runOnUIThread(timeline.getMainObject(),
+            if (shouldRunOnUIThread && SwingUtils.isUiComponent(timeline.getMainObject())) {
+                SwingUtils.runOnEventDispatchThread(
                         () -> timeline.callbackChain.onTimelinePulse(durationFraction,
                                 timelinePosition));
             } else {

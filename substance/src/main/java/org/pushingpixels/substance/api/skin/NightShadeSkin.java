@@ -89,9 +89,6 @@ public class NightShadeSkin extends SubstanceSkin {
 
         // borders
         SubstanceColorScheme borderScheme = schemes.get("Night Shade Border");
-        defaultSchemeBundle.registerColorScheme(borderScheme,
-                ColorSchemeAssociationKind.BORDER, ComponentState.DISABLED_SELECTED,
-                ComponentState.DISABLED_UNSELECTED);
         defaultSchemeBundle.registerColorScheme(borderScheme, ColorSchemeAssociationKind.BORDER);
 
         // marks
@@ -104,17 +101,15 @@ public class NightShadeSkin extends SubstanceSkin {
 
         // separators
         SubstanceColorScheme separatorScheme = schemes.get("Night Shade Separator");
-        defaultSchemeBundle.registerColorScheme(separatorScheme,
-                ColorSchemeAssociationKind.SEPARATOR);
+        defaultSchemeBundle.registerColorScheme(separatorScheme, ColorSchemeAssociationKind.SEPARATOR);
 
         // tab borders
         defaultSchemeBundle.registerColorScheme(schemes.get("Night Shade Tab Border"),
                 ColorSchemeAssociationKind.TAB_BORDER, ComponentState.getActiveStates());
 
-        SubstanceColorScheme watermarkScheme = schemes.get("Night Shade Watermark");
+        SubstanceColorScheme backgroundScheme = schemes.get("Night Shade Background");
 
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, watermarkScheme,
-                DecorationAreaType.NONE);
+        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, backgroundScheme, DecorationAreaType.NONE);
 
         SubstanceColorSchemeBundle decorationsSchemeBundle = new SubstanceColorSchemeBundle(
                 activeScheme, enabledScheme, disabledScheme);
@@ -122,27 +117,23 @@ public class NightShadeSkin extends SubstanceSkin {
         decorationsSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
 
         // borders
-        decorationsSchemeBundle.registerColorScheme(borderScheme,
-                ColorSchemeAssociationKind.BORDER, ComponentState.DISABLED_SELECTED);
-        decorationsSchemeBundle.registerColorScheme(borderScheme,
-                ColorSchemeAssociationKind.BORDER);
+        decorationsSchemeBundle.registerColorScheme(borderScheme, ColorSchemeAssociationKind.BORDER);
 
         // marks
         decorationsSchemeBundle.registerColorScheme(markActiveScheme,
                 ColorSchemeAssociationKind.MARK, ComponentState.getActiveStates());
 
         // separators
-        SubstanceColorScheme separatorDecorationsScheme = schemes
-                .get("Night Shade Decorations Separator");
+        SubstanceColorScheme separatorDecorationsScheme = schemes.get("Night Shade Decorations Separator");
         decorationsSchemeBundle.registerColorScheme(separatorDecorationsScheme,
                 ColorSchemeAssociationKind.SEPARATOR);
 
-        SubstanceColorScheme decorationsWatermarkScheme = schemes.get("Night Shade Decorations Watermark");
-        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, decorationsWatermarkScheme,
+        SubstanceColorScheme decorationsBackgroundScheme = schemes.get("Night Shade Decorations Background");
+        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, decorationsBackgroundScheme,
                 DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
-        SubstanceColorScheme generalWatermarkScheme = schemes.get("Night Shade General Watermark");
-        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, generalWatermarkScheme,
+        SubstanceColorScheme generalBackgroundScheme = schemes.get("Night Shade General Background");
+        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, generalBackgroundScheme,
                 DecorationAreaType.GENERAL);
 
         SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(activeScheme,
@@ -152,10 +143,7 @@ public class NightShadeSkin extends SubstanceSkin {
 
         // borders
         SubstanceColorScheme headerBorderScheme = schemes.get("Night Shade Header Border");
-        headerSchemeBundle.registerColorScheme(borderScheme,
-                ColorSchemeAssociationKind.BORDER, ComponentState.DISABLED_SELECTED);
-        headerSchemeBundle.registerColorScheme(headerBorderScheme,
-                ColorSchemeAssociationKind.BORDER);
+        headerSchemeBundle.registerColorScheme(headerBorderScheme, ColorSchemeAssociationKind.BORDER);
         // marks
         headerSchemeBundle.registerColorScheme(markActiveScheme, ColorSchemeAssociationKind.MARK,
                 ComponentState.getActiveStates());
@@ -168,9 +156,9 @@ public class NightShadeSkin extends SubstanceSkin {
                 ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_ARMED,
                 ComponentState.ARMED, ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 
-        SubstanceColorScheme headerWatermarkScheme = schemes.get("Night Shade Header Watermark");
+        SubstanceColorScheme headerBackgroundScheme = schemes.get("Night Shade Header Background");
 
-        this.registerDecorationAreaSchemeBundle(headerSchemeBundle, headerWatermarkScheme,
+        this.registerDecorationAreaSchemeBundle(headerSchemeBundle, headerBackgroundScheme,
                 DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER);
 
@@ -180,8 +168,7 @@ public class NightShadeSkin extends SubstanceSkin {
         // Add overlay painters to paint drop shadows along the bottom
         // edges of toolbars and footers
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(),
-                DecorationAreaType.TOOLBAR);
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(), DecorationAreaType.FOOTER);
+                DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars

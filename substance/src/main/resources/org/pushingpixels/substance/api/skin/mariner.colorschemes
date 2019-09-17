@@ -75,7 +75,7 @@ Mariner Active Mark {
     colorForeground=#573620
 }
 
-Mariner Watermark {
+Mariner Background {
     kind=Dark
     colorUltraLight=#7D7C81
     colorExtraLight=#777279
@@ -174,7 +174,7 @@ Mariner Footer Separator {
     colorForeground=#000000
 }
 
-Mariner Footer Watermark {
+Mariner Footer Background {
     kind=Light
     colorUltraLight=#CCCCCE
     colorExtraLight=#C4C4C6

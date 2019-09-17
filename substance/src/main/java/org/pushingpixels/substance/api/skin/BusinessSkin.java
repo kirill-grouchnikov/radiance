@@ -92,7 +92,7 @@ public class BusinessSkin extends SubstanceSkin {
 
 		SubstanceSkin.ColorSchemes kitchenSinkSchemes = SubstanceSkin
 				.getColorSchemes("org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes");
-		this.registerAsDecorationArea(kitchenSinkSchemes.get("LightGray General Watermark"),
+		this.registerAsDecorationArea(kitchenSinkSchemes.get("LightGray General Background"),
 				DecorationAreaType.GENERAL);
 
 		// add an overlay painter to paint a drop shadow along the top

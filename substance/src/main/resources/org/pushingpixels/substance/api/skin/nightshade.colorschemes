@@ -86,7 +86,7 @@ Night Shade Highlight {
     colorForeground=#FCFDFF
 }
 
-Night Shade Watermark {
+Night Shade Background {
     kind=Light
     colorUltraLight=#292A32
     colorExtraLight=#292A32
@@ -97,7 +97,7 @@ Night Shade Watermark {
     colorForeground=#D8DAE0
 }
 
-Night Shade Decorations Watermark {
+Night Shade Decorations Background {
     kind=Light
     colorUltraLight=#22252A
     colorExtraLight=#22252A
@@ -108,7 +108,7 @@ Night Shade Decorations Watermark {
     colorForeground=#D8DAE0
 }
 
-Night Shade General Watermark {
+Night Shade General Background {
     kind=Light
     colorUltraLight=#22252A
     colorExtraLight=#22252A
@@ -141,7 +141,7 @@ Night Shade Decorations Separator {
     colorForeground=#D8DAE0
 }
 
-Night Shade Header Watermark {
+Night Shade Header Background {
     kind=Dark
     colorUltraLight=#22252A
     colorExtraLight=#22252A

@@ -62,11 +62,11 @@ import java.util.*;
  * <p>
  * The {@link ComponentStateFacet} class defines a number of core facets. The
  * {@link ComponentStateFacet#ENABLE} facet is universal - it is relevant for
- * all Swing controls. Other facets apply to a wider range of controls. For
+ * all Swing controls. Some facets apply to a wider range of controls. For
  * example, {@link ComponentStateFacet#ROLLOVER} facet applies to all controls
  * that can show rollover effects - including buttons, menu items, comboboxes,
  * sliders, scrollbars and many more. Some facets apply to a very narrow range
- * of controls. For exaple, {@link ComponentStateFacet#EDITABLE} is only
+ * of controls. For example, {@link ComponentStateFacet#EDITABLE} is only
  * relevant for editable controls, such as text components, editable comboboxes
  * or spinners.
  * </p>
@@ -74,7 +74,7 @@ import java.util.*;
  * <p>
  * The static instances of {@link ComponentState} defined in this class do not
  * aim to cover all possible combinations of on and off facets. In addition to
- * making this class to unwieldy, it is not possible to do since application
+ * making this class too unwieldy, it is not possible to do since application
  * code can define its own facets. Instead, Substance provides three ways to
  * fine-tune the mapping between the component states and the color schemes used
  * to paint the components.
@@ -421,7 +421,8 @@ public final class ComponentState {
 	}
 
 	/**
-	 * Returns all active component states.
+	 * Returns all active component states. Note that the result will <b>not</b> contain
+	 * {@link ComponentState#ENABLED}.
 	 * 
 	 * @return All active component states.
 	 */
@@ -498,9 +499,6 @@ public final class ComponentState {
 	 */
 	public static ComponentState getState(ButtonModel model,
 			JComponent component, boolean toIgnoreSelection) {
-		// if (!SwingUtilities.isEventDispatchThread())
-		// throw new IllegalArgumentException("Accessing outside EDT");
-
 		boolean isRollover = model.isRollover();
 
 		// fix for defect 103 - no rollover effects on menu items

@@ -102,7 +102,7 @@ public class DustSkin extends SubstanceSkin {
 		SubstanceColorScheme headerEnabledScheme = schemes.get("Dust Header Enabled");
 		SubstanceColorScheme headerDisabledScheme = schemes.get("Dust Header Disabled");
 
-		SubstanceColorScheme headerWatermarkScheme = schemes.get("Dust Header Watermark");
+		SubstanceColorScheme headerBackgroundScheme = schemes.get("Dust Header Background");
 
 		SubstanceColorScheme headerSeparatorScheme = schemes.get("Dust Header Separator");
 
@@ -127,7 +127,7 @@ public class DustSkin extends SubstanceSkin {
 
 		this.registerDecorationAreaSchemeBundle(headerSchemeBundle, DecorationAreaType.TOOLBAR);
 
-		this.registerDecorationAreaSchemeBundle(headerSchemeBundle, headerWatermarkScheme,
+		this.registerDecorationAreaSchemeBundle(headerSchemeBundle, headerBackgroundScheme,
 				DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
 				DecorationAreaType.HEADER, DecorationAreaType.FOOTER);
 

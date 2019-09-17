@@ -32,7 +32,6 @@ The goal of this project is to provide a powerful and extensible animation libra
 * [Extension points](ExtensionPoints.md)
 * [Custom pulse source](CustomPulseSource.md)
 * [Custom property interpolators](CustomPropertyInterpolators.md)
-* [Supporting additional Java-based UI toolkits](CustomUIToolkitHandlers.md)
 
 ### Advanced samples
 

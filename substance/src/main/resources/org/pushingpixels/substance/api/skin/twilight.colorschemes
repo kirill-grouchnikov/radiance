@@ -75,7 +75,7 @@ Twilight Highlight {
     colorForeground=#28201B
 }
 
-Twilight Watermark {
+Twilight Background {
     kind=Light
     colorUltraLight=#47443C
     colorExtraLight=#47443C
@@ -86,7 +86,7 @@ Twilight Watermark {
     colorForeground=#24231F
 }
 
-Twilight Decorations Watermark {
+Twilight Decorations Background {
     kind=Light
     colorUltraLight=#4B4940
     colorExtraLight=#4A483F
@@ -97,7 +97,7 @@ Twilight Decorations Watermark {
     colorForeground=#F1F1F2
 }
 
-Twilight General Watermark {
+Twilight General Background {
     kind=Light
     colorUltraLight=#504E46
     colorExtraLight=#504E46
@@ -130,7 +130,7 @@ Twilight Decorations Separator {
     colorForeground=#F1F1F2
 }
 
-Twilight Header Watermark {
+Twilight Header Background {
     kind=Dark
     colorUltraLight=#141414
     colorExtraLight=#121212

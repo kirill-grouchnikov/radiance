@@ -39,8 +39,7 @@ import java.awt.*;
 import java.util.*;
 
 /**
- * Color scheme bundle. Defines the visual appearance of a single decoration
- * area of a skin.
+ * Color scheme bundle. Defines the visual appearance of a single decoration area of a skin.
  *
  * @author Kirill Grouchnikov
  * @see DecorationAreaType
@@ -190,8 +189,7 @@ public class SubstanceColorSchemeBundle {
      * @param stateColorScheme Color scheme for the specified component state.
      * @param states           Component states.
      */
-    public void registerColorScheme(SubstanceColorScheme stateColorScheme,
-            ComponentState... states) {
+    public void registerColorScheme(SubstanceColorScheme stateColorScheme, ComponentState... states) {
         this.registerColorScheme(stateColorScheme, ColorSchemeAssociationKind.FILL, states);
     }
 
@@ -319,13 +317,12 @@ public class SubstanceColorSchemeBundle {
     }
 
     /**
-     * Returns the alpha channel of the highlight color scheme of the component.
+     * Returns the alpha channel of the highlight color schemes for the specified component state.
      *
-     * @param comp           Component.
      * @param componentState Component state.
      * @return Highlight color scheme alpha channel.
      */
-    public float getHighlightAlpha(Component comp, ComponentState componentState) {
+    public float getHighlightAlpha(ComponentState componentState) {
         Float registered = this.stateHighlightSchemeAlphaMap.get(componentState);
         if (registered != null) {
             return registered.floatValue();
@@ -335,13 +332,12 @@ public class SubstanceColorSchemeBundle {
     }
 
     /**
-     * Returns the alpha channel of the color scheme of the component.
+     * Returns the alpha channel of color schemes for the specified component state.
      *
-     * @param comp           Component.
      * @param componentState Component state.
      * @return Color scheme alpha channel.
      */
-    public float getAlpha(Component comp, ComponentState componentState) {
+    public float getAlpha(ComponentState componentState) {
         Float registered = this.stateAlphaMap.get(componentState);
         if (registered != null) {
             return registered.floatValue();

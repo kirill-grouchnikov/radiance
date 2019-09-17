@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.api.layout;
 
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
@@ -140,7 +140,7 @@ public class TransitionLayout implements LayoutManager {
                         boundsTimeline.abort();
                     }
                     boundsTimeline = SwingComponentTimeline.componentBuilder(jc)
-                            .addCallback(new UIThreadTimelineCallbackAdapter() {
+                            .addCallback(new EventDispatchThreadTimelineCallbackAdapter() {
                                 @Override
                                 public void onTimelineStateChanged(
                                         TimelineState oldState,

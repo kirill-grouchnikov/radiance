@@ -390,8 +390,7 @@ public class SubstanceTextUtilities {
         if ((text == null) || (text.length() == 0))
             return null;
 
-        boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class,
-                component) != null)
+        boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null)
                 || Boolean.TRUE.equals(component.getClientProperty(ENFORCE_FG_COLOR));
 
         Color fgColor = toEnforceFgColor ? component.getForeground()
@@ -426,8 +425,7 @@ public class SubstanceTextUtilities {
         if ((text == null) || (text.length() == 0))
             return null;
 
-        boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class,
-                component) != null)
+        boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null)
                 || Boolean.TRUE.equals(component.getClientProperty(ENFORCE_FG_COLOR));
 
         Color fgColor = null;

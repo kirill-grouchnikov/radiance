@@ -45,7 +45,7 @@ import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -867,7 +867,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
      * 
      * @author Kirill Grouchnikov
      */
-    protected class ColumnHeaderRepaintCallback extends UIThreadTimelineCallbackAdapter {
+    protected class ColumnHeaderRepaintCallback extends EventDispatchThreadTimelineCallbackAdapter {
         /**
          * Associated table header.
          */

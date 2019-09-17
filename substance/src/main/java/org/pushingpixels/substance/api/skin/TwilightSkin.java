@@ -101,10 +101,10 @@ public class TwilightSkin extends SubstanceSkin {
 
         // marks
         SubstanceColorScheme markActiveScheme = schemes.get("Twilight Mark Active");
-        defaultSchemeBundle.registerColorScheme(markActiveScheme, ColorSchemeAssociationKind.MARK,
-                ComponentState.getActiveStates());
         defaultSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED,
                 ComponentState.DISABLED_SELECTED);
+        defaultSchemeBundle.registerColorScheme(markActiveScheme, ColorSchemeAssociationKind.MARK,
+                ComponentState.getActiveStates());
         defaultSchemeBundle.registerColorScheme(markActiveScheme,
                 ColorSchemeAssociationKind.MARK, ComponentState.DISABLED_SELECTED,
                 ComponentState.DISABLED_UNSELECTED);
@@ -118,9 +118,9 @@ public class TwilightSkin extends SubstanceSkin {
         defaultSchemeBundle.registerColorScheme(schemes.get("Twilight Tab Border"),
                 ColorSchemeAssociationKind.TAB_BORDER, ComponentState.getActiveStates());
 
-        SubstanceColorScheme watermarkScheme = schemes.get("Twilight Watermark");
+        SubstanceColorScheme backgroundScheme = schemes.get("Twilight Background");
 
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, watermarkScheme,
+        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, backgroundScheme,
                 DecorationAreaType.NONE);
 
         SubstanceColorSchemeBundle decorationsSchemeBundle = new SubstanceColorSchemeBundle(
@@ -139,17 +139,16 @@ public class TwilightSkin extends SubstanceSkin {
                 ColorSchemeAssociationKind.MARK, ComponentState.getActiveStates());
 
         // separators
-        SubstanceColorScheme separatorDecorationsScheme = schemes
-                .get("Twilight Decorations Separator");
+        SubstanceColorScheme separatorDecorationsScheme = schemes.get("Twilight Decorations Separator");
         decorationsSchemeBundle.registerColorScheme(separatorDecorationsScheme,
                 ColorSchemeAssociationKind.SEPARATOR);
 
-        SubstanceColorScheme decorationsWatermarkScheme = schemes.get("Twilight Decorations Watermark");
-        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, decorationsWatermarkScheme,
+        SubstanceColorScheme decorationsBackgroundScheme = schemes.get("Twilight Decorations Background");
+        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, decorationsBackgroundScheme,
                 DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
-        SubstanceColorScheme generalWatermarkScheme = schemes.get("Twilight General Watermark");
-        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, generalWatermarkScheme,
+        SubstanceColorScheme generalBackgroundScheme = schemes.get("Twilight General Background");
+        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, generalBackgroundScheme,
                 DecorationAreaType.GENERAL);
 
         SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(activeScheme,
@@ -175,9 +174,9 @@ public class TwilightSkin extends SubstanceSkin {
                 ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_ARMED,
                 ComponentState.ARMED, ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 
-        SubstanceColorScheme headerWatermarkScheme = schemes.get("Twilight Header Watermark");
+        SubstanceColorScheme headerBackgroundScheme = schemes.get("Twilight Header Background");
 
-        this.registerDecorationAreaSchemeBundle(headerSchemeBundle, headerWatermarkScheme,
+        this.registerDecorationAreaSchemeBundle(headerSchemeBundle, headerBackgroundScheme,
                 DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER);
 

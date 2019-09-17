@@ -28,14 +28,14 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = '2.5.1'
-ext.codename = 'Coral'
-ext.isRelease = true
+version = '3.0-SNAPSHOT'
+ext.codename = 'Diamond'
+ext.isRelease = false
 
 buildscript {
     ext {
         kotlin_version = '1.3.50'
-        kotlinx_coroutines_version = '1.3.0'
+        kotlinx_coroutines_version = '1.3.1'
         gradle_nexus_plugin_version = '2.3.1'
         dokka_plugin_version = '0.9.18'
         batik_version = '1.11'
@@ -48,12 +48,12 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.ext.kotlin_version}"
         classpath "com.bmuschko:gradle-nexus-plugin:${rootProject.ext.gradle_nexus_plugin_version}"
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.23.0"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.25.0"
     }
 }
 
 wrapper {
-    gradleVersion = "5.6.1"
+    gradleVersion = "5.6.2"
 }
 
 allprojects {
@@ -98,17 +98,9 @@ allprojects {
 
         manifest {
             // add radiance version, build JDK and build JDK vendor into the manifest file
-            if (rootProject.ext.isRelease) {
-                // only add build time info into the release versions
-                attributes("Radiance-Version": "${rootProject.version} [${rootProject.ext.codename}]",    \
-                     "Build-JDK": System.getProperty('java.version'),    \
-                     "Build-JDK-Vendor": System.getProperty('java.vendor'),    \
-                     "Build-Time": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"))
-            } else {
-                attributes("Radiance-Version": "${rootProject.version} [${rootProject.ext.codename}]",    \
-                     "Build-JDK": System.getProperty('java.version'),    \
-                     "Build-JDK-Vendor": System.getProperty('java.vendor'))
-            }
+            attributes("Radiance-Version": "${rootProject.version} [${rootProject.ext.codename}]",    \
+                 "Build-JDK": System.getProperty('java.version'),    \
+                 "Build-JDK-Vendor": System.getProperty('java.vendor'))
         }
     }
 }

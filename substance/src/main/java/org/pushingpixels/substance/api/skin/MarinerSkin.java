@@ -173,8 +173,8 @@ public class MarinerSkin extends SubstanceSkin {
 		footerSchemeBundle.registerColorScheme(footerSeparatorScheme,
 				ColorSchemeAssociationKind.SEPARATOR);
 
-		SubstanceColorScheme footerWatermarkColorScheme = schemes.get("Mariner Footer Watermark");
-		this.registerDecorationAreaSchemeBundle(footerSchemeBundle, footerWatermarkColorScheme,
+		SubstanceColorScheme footerBackgroundColorScheme = schemes.get("Mariner Footer Background");
+		this.registerDecorationAreaSchemeBundle(footerSchemeBundle, footerBackgroundColorScheme,
 				DecorationAreaType.FOOTER, DecorationAreaType.TOOLBAR, DecorationAreaType.GENERAL);
 
 		this.setTabFadeStart(0.15);

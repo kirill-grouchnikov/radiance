@@ -196,8 +196,7 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
     public UIDefaults getDefaults() {
         UIDefaults table = super.getDefaults();
 
-        SubstancePluginRepository.getInstance().processAllDefaultsEntriesComponentPlugins(table,
-                this.skin);
+        SubstancePluginRepository.getInstance().processAllDefaultsEntriesComponentPlugins(table, this.skin);
         return table;
     }
 
@@ -212,15 +211,9 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
         String traceFilename = (String) UIManager.get(SubstanceSynapse.TRACE_FILE);
         if (traceFilename != null) {
             MemoryAnalyzer.commence(1000, traceFilename);
-            for (SubstanceComponentPlugin plugin : SubstancePluginRepository.getInstance()
-                    .getComponentPlugins())
+            for (SubstanceComponentPlugin plugin : SubstancePluginRepository.getInstance().getComponentPlugins())
                 MemoryAnalyzer.enqueueUsage("Has plugin '" + plugin.getClass().getName() + "'");
         }
-
-        // to show heap status panel in title pane?
-        String heapStatusTraceFilename =
-                (String) UIManager.get(SubstanceSynapse.HEAP_STATUS_TRACE_FILE);
-        SubstanceTitlePane.setHeapStatusLogfileName(heapStatusTraceFilename);
 
         // initialize component plugins
         SubstancePluginRepository.getInstance().initializeAllComponentPlugins();
@@ -231,8 +224,7 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
             }
         };
         Toolkit.getDefaultToolkit().addAWTEventListener(this.awtEventListener,
-                AWTEvent.KEY_EVENT_MASK | AWTEvent.MOUSE_EVENT_MASK
-                        | AWTEvent.MOUSE_WHEEL_EVENT_MASK);
+                AWTEvent.KEY_EVENT_MASK | AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_WHEEL_EVENT_MASK);
     }
 
     @Override
@@ -271,8 +263,7 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
         }
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(component,
                 ComponentState.DISABLED_UNSELECTED);
-        BufferedImage result = SubstanceImageCreator.getColorSchemeImage(component, icon,
-                colorScheme, 0.5f);
+        BufferedImage result = SubstanceImageCreator.getColorSchemeImage(component, icon, colorScheme, 0.5f);
         float alpha = SubstanceColorSchemeUtilities.getAlpha(component,
                 ComponentState.DISABLED_UNSELECTED);
         if (alpha < 1.0f) {

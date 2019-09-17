@@ -39,7 +39,7 @@ import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
@@ -217,7 +217,7 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
                             horizontalScrollTimeline.abort();
                         }
                         horizontalScrollTimeline = SwingComponentTimeline.componentBuilder(tree)
-                                .addCallback(new UIThreadTimelineCallbackAdapter() {
+                                .addCallback(new EventDispatchThreadTimelineCallbackAdapter() {
                                     @Override
                                     public void onTimelinePulse(float durationFraction,
                                             float timelinePosition) {

@@ -33,6 +33,7 @@ import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.callback.*;
+import org.pushingpixels.trident.swing.RunOnEventDispatchThread;
 import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
@@ -151,7 +152,7 @@ public class ProgressBarPanel extends JPanel {
         JPanel buttons = new JPanel();
         buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        @RunOnUIThread
+        @RunOnEventDispatchThread
         class ProgressCallback extends TimelineCallbackAdapter {
             @Override
             public void onTimelinePulse(float durationFraction, float timelinePosition) {

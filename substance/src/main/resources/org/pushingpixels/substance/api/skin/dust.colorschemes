@@ -97,7 +97,7 @@ Dust Header Separator {
     colorForeground=#21201D
 }
 
-Dust Header Watermark {
+Dust Header Background {
     kind=Dark
     colorUltraLight=#2C2B29
     colorExtraLight=#2C2B29
@@ -119,7 +119,7 @@ Dust Coffee Enabled {
     colorForeground=#433C32
 }
 
-Dust Coffee Watermark {
+Dust Coffee Background {
     kind=Light
     colorUltraLight=#E8D9B9
     colorExtraLight=#E8D9B9

@@ -34,6 +34,8 @@ import org.pushingpixels.trident.TimelinePropertyBuilder.AbstractFieldInfo;
 import org.pushingpixels.trident.callback.*;
 import org.pushingpixels.trident.ease.*;
 import org.pushingpixels.trident.interpolator.KeyFrames;
+import org.pushingpixels.trident.swing.RunOnEventDispatchThread;
+import org.pushingpixels.trident.internal.swing.SwingUtils;
 
 import java.util.*;
 import java.util.List;
@@ -78,7 +80,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
     private RepeatBehavior repeatBehavior;
 
-    UIToolkitHandler uiToolkitHandler;
+    private boolean mainObjectIsUiComponent;
 
     Chain callbackChain;
 
@@ -147,8 +149,8 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             if (newState == TimelineState.READY) {
                 for (AbstractFieldInfo fInfo : propertiesToInterpolate) {
                     // check whether the object is in the ready state
-                    if ((uiToolkitHandler != null)
-                            && !uiToolkitHandler.isInReadyState(fInfo.object)) {
+                    if (mainObjectIsUiComponent
+                            && !SwingUtils.isComponentInReadyState(fInfo.object)) {
                         continue;
                     }
                     fInfo.onStart();
@@ -162,8 +164,8 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             if (oldState.isActive || newState.isActive) {
                 for (AbstractFieldInfo fInfo : propertiesToInterpolate) {
                     // check whether the object is in the ready state
-                    if ((uiToolkitHandler != null)
-                            && !uiToolkitHandler.isInReadyState(fInfo.object)) {
+                    if (mainObjectIsUiComponent
+                            && !SwingUtils.isComponentInReadyState(fInfo.object)) {
                         continue;
                     }
                     fInfo.updateFieldValue(timelinePosition);
@@ -175,7 +177,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         public void onTimelinePulse(float durationFraction, float timelinePosition) {
             for (AbstractFieldInfo fInfo : propertiesToInterpolate) {
                 // check whether the object is in the ready state
-                if ((uiToolkitHandler != null) && !uiToolkitHandler.isInReadyState(fInfo.object)) {
+                if (mainObjectIsUiComponent && !SwingUtils.isComponentInReadyState(fInfo.object)) {
                     continue;
                 }
                 // System.err.println("Timeline @" + Timeline.this.hashCode()
@@ -185,7 +187,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         }
     }
 
-    @RunOnUIThread
+    @RunOnEventDispatchThread
     private class UISetter extends Setter {
     }
 
@@ -214,11 +216,11 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             boolean shouldRunOnUIThread = false;
             Class<?> clazz = callback.getClass();
             while ((clazz != null) && !shouldRunOnUIThread) {
-                shouldRunOnUIThread = clazz.isAnnotationPresent(RunOnUIThread.class);
+                shouldRunOnUIThread = clazz.isAnnotationPresent(RunOnEventDispatchThread.class);
                 clazz = clazz.getSuperclass();
             }
-            if (shouldRunOnUIThread && (Timeline.this.uiToolkitHandler != null)) {
-                Timeline.this.uiToolkitHandler.runOnUIThread(mainObject,
+            if (shouldRunOnUIThread && Timeline.this.mainObjectIsUiComponent) {
+                SwingUtils.runOnEventDispatchThread(
                         () -> callback.onTimelineStateChanged(oldState, newState, durationFraction,
                                 timelinePosition));
             } else {
@@ -231,8 +233,8 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         public void onTimelineStateChanged(final TimelineState oldState,
                 final TimelineState newState, final float durationFraction,
                 final float timelinePosition) {
-            if ((uiToolkitHandler != null) && !shouldForceUiUpdate() &&
-                    !uiToolkitHandler.isInReadyState(mainObject)) {
+            if (mainObjectIsUiComponent && !shouldForceUiUpdate() &&
+                    !SwingUtils.isComponentInReadyState(mainObject)) {
                 if (TimelineEngine.DEBUG_MODE) {
                     System.out.println("Main object [" + mainObject.getClass().getSimpleName()
                             + "@" + mainObject.hashCode()
@@ -257,11 +259,11 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             boolean shouldRunOnUIThread = false;
             Class<?> clazz = callback.getClass();
             while ((clazz != null) && !shouldRunOnUIThread) {
-                shouldRunOnUIThread = clazz.isAnnotationPresent(RunOnUIThread.class);
+                shouldRunOnUIThread = clazz.isAnnotationPresent(RunOnEventDispatchThread.class);
                 clazz = clazz.getSuperclass();
             }
-            if (shouldRunOnUIThread && (Timeline.this.uiToolkitHandler != null)) {
-                Timeline.this.uiToolkitHandler.runOnUIThread(mainObject, () -> {
+            if (shouldRunOnUIThread && Timeline.this.mainObjectIsUiComponent) {
+                SwingUtils.runOnEventDispatchThread(() -> {
                     if (Timeline.this.getState() == TimelineState.CANCELLED) {
                         return;
                     }
@@ -278,8 +280,8 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
         @Override
         public void onTimelinePulse(final float durationFraction, final float timelinePosition) {
-            if ((uiToolkitHandler != null) && !shouldForceUiUpdate() &&
-                    !uiToolkitHandler.isInReadyState(mainObject)) {
+            if (mainObjectIsUiComponent && !shouldForceUiUpdate() &&
+                    !SwingUtils.isComponentInReadyState(mainObject)) {
                 if (TimelineEngine.DEBUG_MODE) {
                     System.out.println(
                             "Main object is not in ready state for pulse " + durationFraction);
@@ -304,19 +306,12 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
     protected Timeline(Object mainTimelineObject) {
         this.mainObject = mainTimelineObject;
-
-        for (UIToolkitHandler uiToolkitHandler : TridentConfig.getInstance()
-                .getUIToolkitHandlers()) {
-            if (uiToolkitHandler.isHandlerFor(mainTimelineObject)) {
-                this.uiToolkitHandler = uiToolkitHandler;
-                break;
-            }
-        }
+        this.mainObjectIsUiComponent = SwingUtils.isUiComponent(this.mainObject);
 
         // if the main timeline object is handled by a UI toolkit handler,
         // the setters registered with the different addProperty
         // APIs need to run with the matching threading policy
-        Setter setterCallback = (this.uiToolkitHandler != null) ? new UISetter() : new Setter();
+        Setter setterCallback = this.mainObjectIsUiComponent ? new UISetter() : new Setter();
         this.callbackChain = new Chain(setterCallback);
 
         this.duration = DEFAULT_DURATION;

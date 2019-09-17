@@ -9,7 +9,7 @@ Coffee Active {
     colorForeground=#32220F
 }
 
-LightGray General Watermark {
+LightGray General Background {
     kind=Light
     colorUltraLight=#E9EEF7
     colorExtraLight=#E5E8ED

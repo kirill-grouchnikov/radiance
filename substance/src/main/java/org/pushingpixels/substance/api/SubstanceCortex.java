@@ -1280,16 +1280,6 @@ public class SubstanceCortex {
         }
 
         /**
-         * Specifies the heap status trace filename. The trace file will contain information on the
-         * status of heap.
-         *
-         * @param heapStatusTraceFilename Filename for tracing the heap status.
-         */
-        public static void setHeapStatusTraceFilename(String heapStatusTraceFilename) {
-            UIManager.put(SubstanceSynapse.HEAP_STATUS_TRACE_FILE, heapStatusTraceFilename);
-        }
-
-        /**
          * Specifies the kind of focus indication to be used on application components.
          *
          * @param focusKind Kind of focus indication to be used on application components.

@@ -35,7 +35,6 @@ import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainSco
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
@@ -49,17 +48,13 @@ import org.pushingpixels.substance.internal.widget.animation.effects.GhostPainti
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Map;
 
 /**
  * Title pane for <b>Substance</b> look and feel.
@@ -143,17 +138,6 @@ public class SubstanceTitlePane extends JComponent {
     private SubstanceRootPaneUI rootPaneUI;
 
     /**
-     * The logfile name for the heap status panel. Can be <code>null</code> - in this case the
-     * {@link HeapStatusThread} will not write heap information.
-     */
-    private static String heapStatusLogfileName;
-
-    /**
-     * The heap status panel of <code>this</code> title pane.
-     */
-    protected HeapStatusPanel heapStatusPanel;
-
-    /**
      * The heap status toggle menu item of <code>this</code> title pane.
      */
     protected JCheckBoxMenuItem heapStatusMenuItem;
@@ -168,286 +152,6 @@ public class SubstanceTitlePane extends JComponent {
      * The application icon to be displayed.
      */
     private Image appIcon;
-
-    /**
-     * Panel that shows heap status and allows running the garbage collector.
-     * 
-     * @author Kirill Grouchnikov
-     */
-    private static class HeapStatusPanel extends JPanel {
-        /**
-         * The current heap size in kilobytes.
-         */
-        private int currHeapSizeKB;
-
-        /**
-         * The current used portion of heap in kilobytes.
-         */
-        private int currTakenHeapSizeKB;
-
-        /**
-         * History of used heap portion (in percents). Each value is in 0.0-1.0 range.
-         */
-        private LinkedList<Double> graphValues;
-
-        private Font font;
-
-        /**
-         * Creates new heap status panel.
-         */
-        private HeapStatusPanel() {
-            this.graphValues = new LinkedList<>();
-            this.font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().
-                    getControlFont();
-            this.setOpaque(false);
-            HeapStatusThread.getInstance();
-        }
-
-        /**
-         * Updates the values for <code>this</code> heap status panel.
-         * 
-         * @param currHeapSizeKB
-         *            The current heap size in kilobytes.
-         * @param currTakenHeapSizeKB
-         *            The current used portion of heap in kilobytes.
-         */
-        private synchronized void updateStatus(int currHeapSizeKB, int currTakenHeapSizeKB) {
-            this.currHeapSizeKB = currHeapSizeKB;
-            this.currTakenHeapSizeKB = currTakenHeapSizeKB;
-            double newGraphValue = (double) currTakenHeapSizeKB / (double) currHeapSizeKB;
-            this.graphValues.addLast(newGraphValue);
-            this.repaint();
-        }
-
-        @Override
-        public synchronized void paint(Graphics g) {
-            Graphics2D graphics = (Graphics2D) g.create();
-
-            SubstanceColorScheme scheme = SubstanceCoreUtilities.getSkin(this)
-                    .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE);
-
-            graphics.setColor(scheme.getDarkColor());
-            int w = this.getWidth();
-            int h = this.getHeight();
-
-            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
-            graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-                    RenderingHints.VALUE_STROKE_PURE);
-
-            float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
-            graphics.setStroke(
-                    new BasicStroke(borderThickness, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
-            graphics.draw(new Rectangle2D.Float(borderThickness / 2.0f, borderThickness / 2.0f,
-                    w - borderThickness, h - borderThickness));
-
-            graphics.setColor(scheme.getExtraLightColor());
-            graphics.draw(new Rectangle2D.Float(borderThickness, borderThickness,
-                    w - 2 * borderThickness, h - 2 * borderThickness));
-
-            graphics.setStroke(new BasicStroke(1.0f));
-
-            while (this.graphValues.size() > (w - 2)) {
-                this.graphValues.removeFirst();
-            }
-
-            int xOff = w - this.graphValues.size() - 1;
-            graphics.setColor(scheme.getMidColor());
-            int count = 0;
-            for (double value : this.graphValues) {
-                int valueH = (int) (value * (h - 2));
-                graphics.drawLine(xOff + count, h - 1 - valueH, xOff + count, h - 2);
-                count++;
-            }
-
-            graphics.setFont(this.font);
-            FontMetrics fm = graphics.getFontMetrics();
-
-            StringBuffer longFormat = new StringBuffer();
-            Formatter longFormatter = new Formatter(longFormat);
-            longFormatter.format("%.1fMB / %.1fMB", this.currTakenHeapSizeKB / 1024.f,
-                    this.currHeapSizeKB / 1024.f);
-            longFormatter.close();
-            int strW = fm.stringWidth(longFormat.toString());
-            int strH = fm.getAscent() + fm.getDescent();
-
-            Color textColor = SubstanceColorUtilities.getForegroundColor(scheme);
-            Color echoColor = scheme.getExtraLightColor();
-
-            NeonCortex.installDesktopHints(graphics, this.font);
-            if (strW < (w - 5)) {
-                SubstanceTextUtilities.paintTextWithDropShadowSimple(this, graphics,
-                        textColor, echoColor, longFormat.toString(),
-                        strW, strH, (w - strW) / 2, (h + strH) / 2 - 2);
-            } else {
-                String shortFormat = (this.currTakenHeapSizeKB / 1024) + "MB / "
-                        + (this.currHeapSizeKB / 1024) + "MB";
-                strW = fm.stringWidth(shortFormat);
-                SubstanceTextUtilities.paintTextWithDropShadowSimple(this, graphics,
-                        textColor, echoColor, shortFormat,
-                        strW, strH, (w - strW) / 2, (h + strH) / 2 - 2);
-            }
-
-            graphics.dispose();
-        }
-
-        /**
-         * Returns the preferred width of this panel.
-         * 
-         * @return Preferred width of this panel.
-         */
-        public int getPreferredWidth() {
-            BufferedImage dummy = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2d = dummy.createGraphics();
-            NeonCortex.installDesktopHints(g2d, this.font);
-            g2d.setFont(this.font);
-            FontMetrics fm = g2d.getFontMetrics();
-            int result = fm.stringWidth("100.9MB / 200.9MB");
-            g2d.dispose();
-            return result;
-        }
-    }
-
-    /**
-     * Thread for heap status panel.
-     */
-    public static class HeapStatusThread extends TrackableThread {
-        /**
-         * Current heap size in kilobytes.
-         */
-        private int heapSizeKB;
-
-        /**
-         * Current used portion of heap in kilobytes.
-         */
-        private int takenHeapSizeKB;
-
-        /**
-         * All heap status panels.
-         */
-        private static Set<WeakReference<HeapStatusPanel>> panels = new HashSet<>();
-
-        /**
-         * Single instance of <code>this</code> thread.
-         */
-        private static HeapStatusThread instance;
-
-        /**
-         * Formatter object (for logfile).
-         */
-        private SimpleDateFormat format;
-
-        /**
-         * Signifies whether a stop request has been issued on <code>this</code> thread using the
-         * {@link #requestStop()} call.
-         */
-        private boolean isStopRequested;
-
-        /**
-         * Simple constructor. Defined private for singleton.
-         * 
-         * @see #getInstance()
-         */
-        private HeapStatusThread() {
-            this.format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
-            this.isStopRequested = false;
-            this.setName("Substance heap status");
-        }
-
-        /**
-         * Gets singleton instance of <code>this</code> thread.
-         * 
-         * @return Singleton instance of <code>this</code> thread.
-         */
-        public synchronized static HeapStatusThread getInstance() {
-            if (HeapStatusThread.instance == null) {
-                HeapStatusThread.instance = new HeapStatusThread();
-                HeapStatusThread.instance.start();
-            }
-            return HeapStatusThread.instance;
-        }
-
-        /**
-         * Registers new heap status panel with <code>this</code> thread.
-         * 
-         * @param panel
-         *            Heap statuc panel.
-         */
-        private static synchronized void registerPanel(HeapStatusPanel panel) {
-            panels.add(new WeakReference<>(panel));
-        }
-
-        /**
-         * Unregisters new heap status panel from <code>this</code> thread.
-         * 
-         * @param panel
-         *            Heap statuc panel.
-         */
-        private static synchronized void unregisterPanel(HeapStatusPanel panel) {
-            for (Iterator<WeakReference<HeapStatusPanel>> it = panels.iterator(); it.hasNext();) {
-                WeakReference<HeapStatusPanel> ref = it.next();
-                HeapStatusPanel currPanel = ref.get();
-                if (panel == currPanel) {
-                    it.remove();
-                    return;
-                }
-            }
-        }
-
-        /**
-         * Updates the values of heap status.
-         */
-        private synchronized void updateHeapCounts() {
-            long heapSize = Runtime.getRuntime().totalMemory();
-            long heapFreeSize = Runtime.getRuntime().freeMemory();
-
-            this.heapSizeKB = (int) (heapSize / 1024);
-            this.takenHeapSizeKB = (int) ((heapSize - heapFreeSize) / 1024);
-        }
-
-        @Override
-        public void run() {
-            while (!this.isStopRequested) {
-                try {
-                    // update every 0.5 seconds
-                    Thread.sleep(500);
-                } catch (InterruptedException ie) {
-                }
-                if (!SubstanceWidgetManager.getInstance()
-                        .isAllowedAnywhere(SubstanceWidgetType.TITLE_PANE_HEAP_STATUS)) {
-                    continue;
-                }
-                this.updateHeapCounts();
-                for (Iterator<WeakReference<HeapStatusPanel>> it = panels.iterator();
-                     it.hasNext();) {
-                    WeakReference<HeapStatusPanel> refPanel = it.next();
-                    HeapStatusPanel panel = refPanel.get();
-                    if (panel == null) {
-                        // prune
-                        it.remove();
-                        continue;
-                    }
-
-                    panel.updateStatus(this.heapSizeKB, this.takenHeapSizeKB);
-                }
-                // see if need to put info in log file
-                if (SubstanceTitlePane.heapStatusLogfileName != null) {
-                    try (PrintWriter pw = new PrintWriter(
-                            new FileWriter(SubstanceTitlePane.heapStatusLogfileName, true))) {
-                        pw.println(this.format.format(new Date()) + " " + this.takenHeapSizeKB
-                                + "KB / " + this.heapSizeKB + "KB");
-                    } catch (IOException ioe) {
-                    }
-                }
-            }
-        }
-
-        @Override
-        protected void requestStop() {
-            this.isStopRequested = true;
-            HeapStatusThread.instance = null;
-        }
-    }
 
     /**
      * Creates a new title pane.
@@ -482,8 +186,6 @@ public class SubstanceTitlePane extends JComponent {
         this.uninstallListeners();
         this.window = null;
 
-        HeapStatusThread.unregisterPanel(this.heapStatusPanel);
-
         // Swing bug (?) - the updateComponentTree never gets to the
         // system menu (and in our case we have radio menu items with
         // rollover listeners). Fix for defect 109 - memory leak on skin
@@ -491,13 +193,6 @@ public class SubstanceTitlePane extends JComponent {
         if ((this.menuBar != null) && (this.menuBar.getMenuCount() > 0)) {
             this.menuBar.getUI().uninstallUI(this.menuBar);
             SubstanceCoreUtilities.uninstallMenu(this.menuBar.getMenu(0));
-        }
-
-        if (this.heapStatusPanel != null) {
-            for (MouseListener listener : this.heapStatusPanel.getMouseListeners())
-                this.heapStatusPanel.removeMouseListener(listener);
-            HeapStatusThread.unregisterPanel(this.heapStatusPanel);
-            this.remove(this.heapStatusPanel);
         }
 
         if (this.menuBar != null) {
@@ -626,26 +321,6 @@ public class SubstanceTitlePane extends JComponent {
             this.add(this.minimizeButton);
             this.add(this.toggleButton);
             this.add(this.closeButton);
-
-            this.heapStatusPanel = new HeapStatusPanel();
-            SubstanceTitlePaneUtilities.markTitlePaneExtraComponent(this.heapStatusPanel,
-                    SubstanceTitlePaneUtilities.ExtraComponentKind.TRAILING);
-            this.add(this.heapStatusPanel);
-            boolean isHeapStatusPanelShowing = SubstanceWidgetManager.getInstance()
-                    .isAllowed(rootPane, SubstanceWidgetType.TITLE_PANE_HEAP_STATUS);
-            this.heapStatusPanel.setVisible(isHeapStatusPanelShowing);
-            this.heapStatusPanel
-                    .setPreferredSize(new Dimension(80, this.getPreferredSize().height));
-            this.heapStatusPanel.setToolTipText(SubstanceCortex.GlobalScope.getLabelBundle()
-                    .getString("Tooltip.heapStatusPanel"));
-            this.heapStatusPanel.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    System.gc();
-                }
-            });
-
-            HeapStatusThread.registerPanel(this.heapStatusPanel);
         } else {
             if ((decorationStyle == JRootPane.PLAIN_DIALOG)
                     || (decorationStyle == JRootPane.INFORMATION_DIALOG)
@@ -1390,18 +1065,6 @@ public class SubstanceTitlePane extends JComponent {
                         x += buttonSize;
                     }
                 }
-
-                if ((SubstanceTitlePane.this.heapStatusPanel != null)
-                        && SubstanceTitlePane.this.heapStatusPanel.isVisible()) {
-                    spacing = getControlButtonsLargeGap();
-                    x += controlButtonsOnRight
-                            ? (-spacing
-                                    - SubstanceTitlePane.this.heapStatusPanel.getPreferredWidth())
-                            : spacing;
-                    SubstanceTitlePane.this.heapStatusPanel.setBounds(x, 1,
-                            SubstanceTitlePane.this.heapStatusPanel.getPreferredWidth(),
-                            SubstanceTitlePane.this.getHeight() - 3);
-                }
             }
         }
     }
@@ -1454,16 +1117,6 @@ public class SubstanceTitlePane extends JComponent {
         public void windowDeactivated(WindowEvent ev) {
             SubstanceTitlePane.this.setActive(false);
         }
-    }
-
-    /**
-     * Sets location for heap status logfile.
-     * 
-     * @param heapStatusLogfileName
-     *            Logfile for the heap status panel.
-     */
-    public static void setHeapStatusLogfileName(String heapStatusLogfileName) {
-        SubstanceTitlePane.heapStatusLogfileName = heapStatusLogfileName;
     }
 
     /**
@@ -1582,12 +1235,6 @@ public class SubstanceTitlePane extends JComponent {
                 // Minimize button
                 controlInsets += getControlButtonsSmallGap();
                 controlInsets += buttonSize;
-            }
-
-            if ((this.heapStatusPanel != null) && this.heapStatusPanel.isVisible()) {
-                // Heap status panel
-                controlInsets += getControlButtonsLargeGap();
-                controlInsets += this.heapStatusPanel.getPreferredWidth();
             }
         }
 

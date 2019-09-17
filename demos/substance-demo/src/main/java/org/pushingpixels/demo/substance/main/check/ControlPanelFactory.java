@@ -88,12 +88,6 @@ public class ControlPanelFactory {
                         markAsModified.isSelected() ? Boolean.TRUE : false));
         builder.append("Modified", markAsModified);
 
-        final JCheckBox heapPanel = new JCheckBox("Has heap panel");
-        heapPanel.setSelected(false);
-        heapPanel.addActionListener((ActionEvent e) -> SubstanceCortex.WindowScope.setWidgetVisible(
-                mainFrame, heapPanel.isSelected(), SubstanceWidgetType.TITLE_PANE_HEAP_STATUS));
-        builder.append("Heap panel", heapPanel);
-
         JButton changeTitleButton = new JButton("Change");
         changeTitleButton.addActionListener((ActionEvent e) -> {
             String random = "abcdefghijklmnopqrstuvwxyz ";

@@ -34,7 +34,7 @@ import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.*;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -434,7 +434,7 @@ public class TabPagerManager {
                         .from(new Rectangle(nextWindowLocation, nextWindowSize))
                         .to(new Rectangle(nextWindowLocation.x + nextWindowSize.width / 2,
                                 nextWindowLocation.y + nextWindowSize.height / 2, 0, 0)))
-                .addCallback(new UIThreadTimelineCallbackAdapter() {
+                .addCallback(new EventDispatchThreadTimelineCallbackAdapter() {
                     @Override
                     public void onTimelineStateChanged(TimelineState oldState,
                             TimelineState newState, float durationFraction,

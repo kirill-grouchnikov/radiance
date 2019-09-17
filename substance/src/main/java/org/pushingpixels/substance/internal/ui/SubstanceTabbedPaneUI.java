@@ -51,7 +51,7 @@ import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollButton;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -1313,7 +1313,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
      * 
      * @author Kirill Grouchnikov
      */
-    protected class TabRepaintCallback extends UIThreadTimelineCallbackAdapter {
+    protected class TabRepaintCallback extends EventDispatchThreadTimelineCallbackAdapter {
         /**
          * The associated tabbed pane.
          */

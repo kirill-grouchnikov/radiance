@@ -32,7 +32,7 @@ package org.pushingpixels.lumen;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import java.awt.*;
 import java.awt.font.*;
@@ -112,7 +112,7 @@ public class LumenUtils {
     public static void fadeOutAndDispose(final Window window, int fadeOutDuration) {
         Timeline.builder(window)
                 .addPropertyToInterpolate(Timeline.<Float>property("opacity").from(1.0f).to(0.0f))
-                .addCallback(new UIThreadTimelineCallbackAdapter() {
+                .addCallback(new EventDispatchThreadTimelineCallbackAdapter() {
                     @Override
                     public void onTimelineStateChanged(TimelineState oldState,
                             TimelineState newState, float durationFraction,

@@ -77,7 +77,7 @@ public class ModerateSkin extends SubstanceSkin {
                 DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER);
 
-        this.registerAsDecorationArea(kitchenSinkSchemes.get("LightGray General Watermark"),
+        this.registerAsDecorationArea(kitchenSinkSchemes.get("LightGray General Background"),
                 DecorationAreaType.GENERAL);
 
         // add an overlay painter to paint a drop shadow along the top

@@ -48,7 +48,7 @@ import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.icon.SubstanceIconFactory;
 import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
@@ -619,7 +619,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 	 * 
 	 * @author Kirill Grouchnikov
 	 */
-	protected class PathRepaintCallback extends UIThreadTimelineCallbackAdapter {
+	protected class PathRepaintCallback extends EventDispatchThreadTimelineCallbackAdapter {
 		/**
 		 * Associated tree.
 		 */

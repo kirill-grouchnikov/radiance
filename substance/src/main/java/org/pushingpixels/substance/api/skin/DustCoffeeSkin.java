@@ -62,8 +62,7 @@ public class DustCoffeeSkin extends DustSkin {
                 .getColorSchemes("org/pushingpixels/substance/api/skin/dust.colorschemes");
         SubstanceColorScheme enabledScheme = schemes.get("Dust Coffee Enabled");
 
-        SubstanceColorScheme watermarkScheme = schemes
-                .get("Dust Coffee Watermark");
+        SubstanceColorScheme backgroundScheme = schemes.get("Dust Coffee Background");
 
         SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
                 activeScheme, enabledScheme, enabledScheme);
@@ -99,7 +98,7 @@ public class DustCoffeeSkin extends DustSkin {
                 ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_ARMED);
 
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
-                watermarkScheme, DecorationAreaType.NONE);
+                backgroundScheme, DecorationAreaType.NONE);
 
         this.fillPainter = new MatteFillPainter();
     }
