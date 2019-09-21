@@ -27,7 +27,7 @@ Substance provides a powerful and flexible set of APIs that can be used to skin 
 * [Component states](skins/componentstates.md)
 * [Color schemes](skins/colorschemes.md)
 * [Color scheme association kinds](skins/colorschemeassociationkinds.md)
-* [Color scheme file format](skins/colorscheme-fileformat.md)
+* [Color scheme file format](skins/colorschemes-fileformat.md)
 * [Color scheme bundles](skins/colorschemebundles.md)
 * [Color scheme extras](skins/colorschemes-extras.md)
 * [Light skins](skins/toneddown.md)
