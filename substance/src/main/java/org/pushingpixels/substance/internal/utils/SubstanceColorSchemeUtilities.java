@@ -43,11 +43,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Utilities related to color schemes. This class is for internal use only.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceColorSchemeUtilities {
@@ -63,13 +65,10 @@ public class SubstanceColorSchemeUtilities {
 
     /**
      * Returns a colorized version of the specified color scheme.
-     * 
-     * @param component
-     *            Component.
-     * @param scheme
-     *            Color scheme.
-     * @param isEnabled
-     *            Indicates whether the component is enabled.
+     *
+     * @param component Component.
+     * @param scheme    Color scheme.
+     * @param isEnabled Indicates whether the component is enabled.
      * @return Colorized version of the specified color scheme.
      */
     private static SubstanceColorScheme getColorizedScheme(Component component,
@@ -77,7 +76,7 @@ public class SubstanceColorSchemeUtilities {
         Component forQuerying = component;
         if ((component != null) && (component.getParent() != null)
                 && ((component.getClass().isAnnotationPresent(SubstanceInternalArrowButton.class)
-                        || (component instanceof SubstanceTitleButton)))) {
+                || (component instanceof SubstanceTitleButton)))) {
             forQuerying = component.getParent();
         }
         return getColorizedScheme(component, scheme,
@@ -87,13 +86,10 @@ public class SubstanceColorSchemeUtilities {
 
     /**
      * Returns a colorized version of the specified color scheme.
-     * 
-     * @param component
-     *            Component.
-     * @param scheme
-     *            Color scheme.
-     * @param isEnabled
-     *            Indicates whether the component is enabled.
+     *
+     * @param component Component.
+     * @param scheme    Color scheme.
+     * @param isEnabled Indicates whether the component is enabled.
      * @return Colorized version of the specified color scheme.
      */
     private static SubstanceColorScheme getColorizedScheme(Component component,
@@ -123,13 +119,10 @@ public class SubstanceColorSchemeUtilities {
 
     /**
      * Returns the color scheme of the specified tabbed pane tab.
-     * 
-     * @param jtp
-     *            Tabbed pane.
-     * @param tabIndex
-     *            Tab index.
-     * @param componentState
-     *            Tab component state.
+     *
+     * @param jtp            Tabbed pane.
+     * @param tabIndex       Tab index.
+     * @param componentState Tab component state.
      * @return The color scheme of the specified tabbed pane tab.
      */
     public static SubstanceColorScheme getColorScheme(final JTabbedPane jtp, final int tabIndex,
@@ -154,11 +147,9 @@ public class SubstanceColorSchemeUtilities {
 
     /**
      * Returns the color scheme of the specified component.
-     * 
-     * @param component
-     *            Component.
-     * @param componentState
-     *            Component state.
+     *
+     * @param component      Component.
+     * @param componentState Component state.
      * @return Component color scheme.
      */
     public static SubstanceColorScheme getColorScheme(Component component,
@@ -172,7 +163,7 @@ public class SubstanceColorSchemeUtilities {
                 && SubstanceCoreUtilities.isButtonNeverPainted((AbstractButton) component));
         if (isButtonThatIsNeverPainted
                 || (SubstanceCoreUtilities.hasFlatAppearance(component, false)
-                        && (componentState == ComponentState.ENABLED))) {
+                && (componentState == ComponentState.ENABLED))) {
             component = component.getParent();
         }
 
@@ -188,13 +179,10 @@ public class SubstanceColorSchemeUtilities {
 
     /**
      * Returns the color scheme of the component.
-     * 
-     * @param component
-     *            Component.
-     * @param associationKind
-     *            Association kind.
-     * @param componentState
-     *            Component state.
+     *
+     * @param component       Component.
+     * @param associationKind Association kind.
+     * @param componentState  Component state.
      * @return Component color scheme.
      */
     public static SubstanceColorScheme getColorScheme(Component component,
@@ -220,13 +208,10 @@ public class SubstanceColorSchemeUtilities {
 
     /**
      * Returns the color scheme of the component.
-     * 
-     * @param component
-     *            Component.
-     * @param associationKind
-     *            Association kind.
-     * @param componentState
-     *            Component state.
+     *
+     * @param component       Component.
+     * @param associationKind Association kind.
+     * @param componentState  Component state.
      * @return Component color scheme.
      */
     public static SubstanceColorScheme getDirectColorScheme(Component component,
@@ -248,11 +233,9 @@ public class SubstanceColorSchemeUtilities {
 
     /**
      * Returns the active color scheme of the component.
-     * 
-     * @param component
-     *            Component.
-     * @param componentState
-     *            Component state.
+     *
+     * @param component      Component.
+     * @param componentState Component state.
      * @return Component color scheme.
      */
     public static SubstanceColorScheme getActiveColorScheme(Component component,
@@ -274,11 +257,9 @@ public class SubstanceColorSchemeUtilities {
 
     /**
      * Returns the alpha channel of the highlight color scheme of the component.
-     * 
-     * @param component
-     *            Component.
-     * @param componentState
-     *            Component state.
+     *
+     * @param component      Component.
+     * @param componentState Component state.
      * @return Highlight color scheme alpha channel.
      */
     public static float getHighlightAlpha(Component component, ComponentState componentState) {
@@ -288,10 +269,8 @@ public class SubstanceColorSchemeUtilities {
     /**
      * Returns the alpha channel of the color scheme of the component.
      *
-     * @param component
-     *            Component.
-     * @param componentState
-     *            Component state.
+     * @param component      Component.
+     * @param componentState Component state.
      * @return Color scheme alpha channel.
      */
     public static float getAlpha(Component component, ComponentState componentState) {
@@ -391,8 +370,17 @@ public class SubstanceColorSchemeUtilities {
         };
     }
 
+    private static Color decodeColor(String value, Map<String, Color> colorMap) {
+        if (value.startsWith("@")) {
+            return colorMap.get(value.substring(1));
+        }
+        return Color.decode(value);
+    }
+
     public static SubstanceSkin.ColorSchemes getColorSchemes(URL url) {
         List<SubstanceColorScheme> schemes = new ArrayList<>();
+
+        Map<String, Color> colorMap = new HashMap<>();
 
         Color ultraLight = null;
         Color extraLight = null;
@@ -401,9 +389,11 @@ public class SubstanceColorSchemeUtilities {
         Color dark = null;
         Color ultraDark = null;
         Color foreground = null;
+        Color background = null;
         String name = null;
         ColorSchemeKind kind = null;
         boolean inColorSchemeBlock = false;
+        boolean inColorsBlock = false;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
             while (true) {
                 String line = reader.readLine();
@@ -420,27 +410,47 @@ public class SubstanceColorSchemeUtilities {
                 }
 
                 if (line.indexOf("{") >= 0) {
-                    if (inColorSchemeBlock) {
-                        throw new IllegalArgumentException("Already in color scheme definition");
+                    if (inColorSchemeBlock || inColorsBlock) {
+                        throw new IllegalArgumentException("Already in color scheme or colors definition");
                     }
-                    inColorSchemeBlock = true;
                     name = line.substring(0, line.indexOf("{")).trim();
+                    if (name.equals("@colors")) {
+                        inColorsBlock = true;
+                    } else {
+                        inColorSchemeBlock = true;
+                    }
                     continue;
                 }
 
                 if (line.indexOf("}") >= 0) {
-                    if (!inColorSchemeBlock) {
-                        throw new IllegalArgumentException("Not in color scheme definition");
+                    if (!inColorSchemeBlock && !inColorsBlock) {
+                        throw new IllegalArgumentException("Not in color scheme or colors definition");
                     }
+
+                    if (inColorsBlock) {
+                        // Colors have already been processed
+                        inColorsBlock = false;
+                        continue;
+                    }
+
                     inColorSchemeBlock = false;
 
-                    if ((name == null) || (kind == null) || (ultraLight == null)
-                            || (extraLight == null) || (light == null) || (mid == null)
-                            || (dark == null) || (ultraDark == null) || (foreground == null)) {
-                        throw new IllegalArgumentException("Incomplete specification");
+                    if (background == null) {
+                        if ((name == null) || (kind == null) || (ultraLight == null)
+                                || (extraLight == null) || (light == null) || (mid == null)
+                                || (dark == null) || (ultraDark == null) || (foreground == null)) {
+                            throw new IllegalArgumentException("Incomplete specification");
+                        }
+                    } else {
+                        if ((name == null) || (foreground == null)) {
+                            throw new IllegalArgumentException("Incomplete specification");
+                        }
                     }
-                    Color[] colors = new Color[] { ultraLight, extraLight, light, mid, dark,
-                                    ultraDark, foreground };
+                    Color[] colors = (background != null)
+                            ? new Color[] {background, background, background, background, background, background,
+                            foreground}
+                            : new Color[] {ultraLight, extraLight, light, mid, dark, ultraDark, foreground};
+
                     if (kind == ColorSchemeKind.LIGHT) {
                         schemes.add(getLightColorScheme(name, colors));
                     } else {
@@ -455,6 +465,7 @@ public class SubstanceColorSchemeUtilities {
                     dark = null;
                     ultraDark = null;
                     foreground = null;
+                    background = null;
                     continue;
                 }
 
@@ -462,8 +473,15 @@ public class SubstanceColorSchemeUtilities {
                 if (split.length != 2) {
                     throw new IllegalArgumentException("Unsupported format in line " + line);
                 }
+
                 String key = split[0].trim();
                 String value = split[1].trim();
+
+                if (inColorsBlock) {
+                    colorMap.put(key, Color.decode(value));
+                    continue;
+                }
+
                 if ("kind".equals(key)) {
                     if (kind == null) {
                         if ("Light".equals(value)) {
@@ -480,56 +498,75 @@ public class SubstanceColorSchemeUtilities {
                 }
                 if ("colorUltraLight".equals(key)) {
                     if (ultraLight == null) {
-                        ultraLight = Color.decode(value);
+                        ultraLight = decodeColor(value, colorMap);
                         continue;
                     }
                     throw new IllegalArgumentException("'ultraLight' should only be defined once");
                 }
                 if ("colorExtraLight".equals(key)) {
                     if (extraLight == null) {
-                        extraLight = Color.decode(value);
+                        extraLight = decodeColor(value, colorMap);
                         continue;
                     }
                     throw new IllegalArgumentException("'extraLight' should only be defined once");
                 }
                 if ("colorLight".equals(key)) {
                     if (light == null) {
-                        light = Color.decode(value);
+                        light = decodeColor(value, colorMap);
                         continue;
                     }
                     throw new IllegalArgumentException("'light' should only be defined once");
                 }
                 if ("colorMid".equals(key)) {
                     if (mid == null) {
-                        mid = Color.decode(value);
+                        mid = decodeColor(value, colorMap);
                         continue;
                     }
                     throw new IllegalArgumentException("'mid' should only be defined once");
                 }
                 if ("colorDark".equals(key)) {
                     if (dark == null) {
-                        dark = Color.decode(value);
+                        dark = decodeColor(value, colorMap);
                         continue;
                     }
                     throw new IllegalArgumentException("'dark' should only be defined once");
                 }
                 if ("colorUltraDark".equals(key)) {
                     if (ultraDark == null) {
-                        ultraDark = Color.decode(value);
+                        ultraDark = decodeColor(value, colorMap);
                         continue;
                     }
                     throw new IllegalArgumentException("'ultraDark' should only be defined once");
                 }
                 if ("colorForeground".equals(key)) {
                     if (foreground == null) {
-                        foreground = Color.decode(value);
+                        foreground = decodeColor(value, colorMap);
                         continue;
+                    }
+                    throw new IllegalArgumentException("'foreground' should only be defined once");
+                }
+                if ("colorBackground".equals(key)) {
+                    if (value.contains("->")) {
+                        String[] splitInner = value.split("->");
+                        Color colorStart = decodeColor(splitInner[0].trim(), colorMap);
+                        Color colorEnd = decodeColor(splitInner[1].trim(), colorMap);
+                        ultraLight = colorStart;
+                        extraLight = SubstanceColorUtilities.getInterpolatedColor(colorStart, colorEnd, 0.9f);
+                        light = SubstanceColorUtilities.getInterpolatedColor(colorStart, colorEnd, 0.7f);
+                        mid = SubstanceColorUtilities.getInterpolatedColor(colorStart, colorEnd, 0.5f);
+                        dark = SubstanceColorUtilities.getInterpolatedColor(colorStart, colorEnd, 0.2f);
+                        ultraDark = colorEnd;
+                        continue;
+                    } else {
+                        if (background == null) {
+                            background = decodeColor(value, colorMap);
+                            continue;
+                        }
                     }
                     throw new IllegalArgumentException("'foreground' should only be defined once");
                 }
                 throw new IllegalArgumentException("Unsupported format in line " + line);
             }
-            ;
         } catch (IOException ioe) {
             throw new IllegalArgumentException(ioe);
         }
@@ -538,21 +575,16 @@ public class SubstanceColorSchemeUtilities {
 
     /**
      * Returns a shifted color scheme. This method is for internal use only.
-     * 
-     * @param orig
-     *            The original color scheme.
-     * @param backgroundShiftColor
-     *            Shift color for the background color scheme colors. May be <code>null</code> - in
-     *            this case, the background color scheme colors will not be shifted.
-     * @param backgroundShiftFactor
-     *            Shift factor for the background color scheme colors. If the shift color for the
-     *            background color scheme colors is <code>null</code>, this value is ignored.
-     * @param foregroundShiftColor
-     *            Shift color for the foreground color scheme colors. May be <code>null</code> - in
-     *            this case, the foreground color scheme colors will not be shifted.
-     * @param foregroundShiftFactor
-     *            Shift factor for the foreground color scheme colors. If the shift color for the
-     *            foreground color scheme colors is <code>null</code>, this value is ignored.
+     *
+     * @param orig                  The original color scheme.
+     * @param backgroundShiftColor  Shift color for the background color scheme colors. May be <code>null</code> - in
+     *                              this case, the background color scheme colors will not be shifted.
+     * @param backgroundShiftFactor Shift factor for the background color scheme colors. If the shift color for the
+     *                              background color scheme colors is <code>null</code>, this value is ignored.
+     * @param foregroundShiftColor  Shift color for the foreground color scheme colors. May be <code>null</code> - in
+     *                              this case, the foreground color scheme colors will not be shifted.
+     * @param foregroundShiftFactor Shift factor for the foreground color scheme colors. If the shift color for the
+     *                              foreground color scheme colors is <code>null</code>, this value is ignored.
      * @return Shifted scheme.
      */
     public static SubstanceColorScheme getShiftedScheme(SubstanceColorScheme orig,

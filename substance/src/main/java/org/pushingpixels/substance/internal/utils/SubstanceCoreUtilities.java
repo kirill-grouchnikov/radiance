@@ -2038,15 +2038,15 @@ public class SubstanceCoreUtilities {
 
     private static List<AWTEventListener> awtEventListeners = new ArrayList<>();
 
-    public static void registerAWTEventListener(AWTEventListener awtEventListener) {
+    public synchronized static void registerAWTEventListener(AWTEventListener awtEventListener) {
         awtEventListeners.add(awtEventListener);
     }
 
-    public static void unregisterAWTEventListener(AWTEventListener awtEventListener) {
+    public synchronized static void unregisterAWTEventListener(AWTEventListener awtEventListener) {
         awtEventListeners.remove(awtEventListener);
     }
 
-    public static List<AWTEventListener> getAwtEventListeners() {
+    public synchronized static List<AWTEventListener> getAwtEventListeners() {
         return awtEventListeners;
     }
 }

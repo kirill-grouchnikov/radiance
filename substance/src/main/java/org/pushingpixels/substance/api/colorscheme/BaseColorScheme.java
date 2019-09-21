@@ -66,8 +66,7 @@ public abstract class BaseColorScheme implements SubstanceColorScheme {
 	protected BaseColorScheme(String displayName, boolean isDark) {
 		this.displayName = displayName;
 		this.isDark = isDark;
-		this.derivedColorsResolver = this.isDark ? new DerivedColorsResolverDark(
-				this)
+		this.derivedColorsResolver = this.isDark ? new DerivedColorsResolverDark(this)
 				: new DerivedColorsResolverLight(this);
 	}
 
@@ -93,8 +92,7 @@ public abstract class BaseColorScheme implements SubstanceColorScheme {
 	@Override
 	public final SubstanceColorScheme shiftBackground(
 			Color backgroundShiftColor, double backgroundShiftFactor) {
-		return this.shift(backgroundShiftColor, backgroundShiftFactor, null,
-				0.0);
+		return this.shift(backgroundShiftColor, backgroundShiftFactor, null, 0.0);
 	}
 
 	@Override

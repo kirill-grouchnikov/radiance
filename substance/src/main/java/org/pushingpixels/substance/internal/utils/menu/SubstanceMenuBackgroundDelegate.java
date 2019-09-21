@@ -61,9 +61,7 @@ public class SubstanceMenuBackgroundDelegate {
 	}
 	
 	public static Color getGutterHardFillColor(SubstanceColorScheme colorScheme) {
-		return colorScheme.isDark() 
-				? SubstanceColorUtilities.getLighterColor(colorScheme.getUltraLightColor(), 0.05) 
-				: colorScheme.getUltraLightColor();
+		return colorScheme.getUltraLightColor();
 	}
 	
 	/**
@@ -74,10 +72,6 @@ public class SubstanceMenuBackgroundDelegate {
 	 *            Graphic context.
 	 * @param menuItem
 	 *            Menu item.
-	 * @param bgColor
-	 *            Current background color.
-	 * @param borderAlpha
-	 *            Border alpha.
 	 * @param textOffset
 	 *            The offset of the menu item text.
 	 */

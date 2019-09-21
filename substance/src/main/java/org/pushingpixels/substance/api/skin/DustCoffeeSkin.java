@@ -55,8 +55,7 @@ public class DustCoffeeSkin extends DustSkin {
     public DustCoffeeSkin() {
         SubstanceSkin.ColorSchemes kitchenSinkSchemes = SubstanceSkin
                 .getColorSchemes("org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes");
-        SubstanceColorScheme activeScheme = kitchenSinkSchemes
-                .get("Coffee Active");
+        SubstanceColorScheme activeScheme = kitchenSinkSchemes.get("Coffee Active");
 
         SubstanceSkin.ColorSchemes schemes = SubstanceSkin
                 .getColorSchemes("org/pushingpixels/substance/api/skin/dust.colorschemes");

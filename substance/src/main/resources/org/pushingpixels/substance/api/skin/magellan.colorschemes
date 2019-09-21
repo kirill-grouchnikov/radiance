@@ -22,12 +22,7 @@ Magellan Medium Blue Background {
 
 Magellan Light Blue Background {
     kind=Light
-    colorUltraLight=#0C5AB0
-    colorExtraLight=#0C5AB0
-    colorLight=#0C5AB0
-    colorMid=#0C5AB1
-    colorDark=#0C5AB0
-    colorUltraDark=#0C5AB1
+    colorBackground=#0C5AB1
     colorForeground=#021C3A
 }
 
@@ -165,12 +160,7 @@ Magellan Green Controls Mark {
 
 Magellan Green Controls Border {
     kind=Dark
-    colorUltraLight=#1E4600
-    colorExtraLight=#1E4600
-    colorLight=#1E4600
-    colorMid=#1E4600
-    colorDark=#1E4600
-    colorUltraDark=#1E4600
+    colorBackground=#1E4600
     colorForeground=#3E7A0D
 }
 
@@ -187,12 +177,7 @@ Magellan Light Green Controls {
 
 Magellan Light Green Controls Border {
     kind=Light
-    colorUltraLight=#DDFF66
-    colorExtraLight=#DDFF66
-    colorLight=#DDFF66
-    colorMid=#DDFF66
-    colorDark=#DDFF66
-    colorUltraDark=#DDFF66
+    colorBackground=#DDFF66
     colorForeground=#333333
 }
 

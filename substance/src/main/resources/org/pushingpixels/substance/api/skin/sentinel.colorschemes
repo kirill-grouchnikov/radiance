@@ -1,0 +1,189 @@
+@colors {
+    XDarkBrown=#260E07
+    DarkBrown=#4D2A1D
+    DarkSaturatedBrown=#693A28
+    MediumBrown=#876250
+    MediumSaturatedBrown=#875740
+    MediumDarkBrown=#6E4436
+    Light=#F9D9BA
+    ControlLight=#E2C4AA
+    BorderLight=#8C725B
+    LightPink=#F3BAA2
+    DarkPink=#CA797C
+}
+
+Sentinel Enabled {
+    kind=Light
+    colorBackground=@ControlLight
+    colorForeground=@DarkBrown
+}
+
+Sentinel Disabled {
+    kind=Light
+    colorBackground=@ControlLight
+    colorForeground=@MediumBrown
+}
+
+Sentinel Active {
+    kind=Light
+    colorBackground=@LightPink
+    colorForeground=@DarkBrown
+}
+
+Sentinel Disabled Selected {
+    kind=Light
+    colorBackground=@LightPink
+    colorForeground=@MediumBrown
+}
+
+Sentinel Border {
+    kind=Light
+    colorBackground=@BorderLight
+    colorForeground=@Light
+}
+
+Sentinel Tab Border {
+    kind=Light
+    colorBackground=@BorderLight
+    colorForeground=@Light
+}
+
+Sentinel Mark {
+    kind=Light
+    colorBackground=@DarkPink
+    colorForeground=@DarkBrown
+}
+
+Sentinel Separator {
+    kind=Light
+    colorBackground=@Light->@BorderLight
+    colorForeground=@Light
+}
+
+Sentinel Highlight { 
+    kind=Light
+    colorBackground=@LightPink
+    colorForeground=@DarkBrown
+}
+
+Sentinel Background {
+    kind=Light
+    colorBackground=@Light
+    colorForeground=@MediumBrown
+}
+
+Sentinel Decorations Enabled {
+    kind=Dark
+    colorBackground=@DarkSaturatedBrown
+    colorForeground=@Light
+}
+
+Sentinel Decorations Active {
+    kind=Dark
+    colorBackground=@MediumSaturatedBrown
+    colorForeground=@LightPink
+}
+
+Sentinel Decorations Mark {
+    kind=Dark
+    colorBackground=@DarkBrown
+    colorForeground=@ControlLight
+}
+
+Sentinel Decorations Border {
+    kind=Dark
+    colorBackground=@DarkBrown
+    colorForeground=@ControlLight
+}
+
+Sentinel Decorations Separator {
+    kind=Dark
+    colorBackground=@MediumDarkBrown->@XDarkBrown
+    colorForeground=@DarkBrown
+}
+
+Sentinel Decorations Background {
+    kind=Dark
+    colorBackground=@DarkBrown
+    colorForeground=@Light
+}
+
+Sentinel General Enabled {
+    kind=Dark
+    colorBackground=@MediumSaturatedBrown
+    colorForeground=@Light
+}
+
+Sentinel General Active {
+    kind=Light
+    colorBackground=@LightPink
+    colorForeground=@DarkBrown
+}
+
+Sentinel General Mark {
+    kind=Dark
+    colorBackground=@DarkSaturatedBrown
+    colorForeground=@DarkSaturatedBrown
+}
+
+Sentinel General Border {
+    kind=Dark
+    colorBackground=@DarkBrown
+    colorForeground=@ControlLight
+}
+
+Sentinel General Separator {
+    kind=Dark
+    colorBackground=@MediumSaturatedBrown->@MediumDarkBrown
+    colorForeground=@MediumDarkBrown
+}
+
+Sentinel General Background {
+    kind=Dark
+    colorBackground=@MediumDarkBrown
+    colorForeground=@Light
+}
+
+Sentinel Header Enabled {
+    kind=Dark
+    colorBackground=@DarkBrown
+    colorForeground=@ControlLight
+}
+
+Sentinel Header Disabled {
+    kind=Dark
+    colorBackground=@DarkBrown
+    colorForeground=@MediumSaturatedBrown
+}
+
+Sentinel Header Active {
+    kind=Dark
+    colorBackground=@XDarkBrown
+    colorForeground=@LightPink
+}
+
+Sentinel Header Background {
+    kind=Dark
+    colorBackground=@XDarkBrown
+    colorForeground=@Light
+}
+
+Sentinel Header Border {
+    kind=Light
+    colorBackground=@BorderLight
+    colorForeground=@DarkBrown
+}
+
+Sentinel Header Separator {
+    kind=Light
+    colorBackground=@DarkBrown->@XDarkBrown
+    colorForeground=@DarkBrown
+}
+
+Sentinel Header Mark {
+    kind=Light
+    colorBackground=@ControlLight
+    colorForeground=@Light
+}
+
+

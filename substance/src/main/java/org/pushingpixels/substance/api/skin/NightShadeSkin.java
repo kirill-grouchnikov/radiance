@@ -138,7 +138,7 @@ public class NightShadeSkin extends SubstanceSkin {
 
         SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(activeScheme,
                 enabledScheme, disabledScheme);
-        decorationsSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED);
+        headerSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED);
         headerSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
 
         // borders

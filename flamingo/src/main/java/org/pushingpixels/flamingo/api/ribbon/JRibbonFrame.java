@@ -763,6 +763,13 @@ public class JRibbonFrame extends JFrame {
             SwingUtilities.invokeLater(() -> setLegacyIconImages(Arrays.asList(icon16,
                     getImage(iconFactory, 32), getImage(iconFactory, 64))));
         }
+        // Set the taskbar / dock icon
+        SwingUtilities.invokeLater(() -> {
+            Taskbar taskbar = Taskbar.getTaskbar();
+            if (taskbar.isSupported(Taskbar.Feature.ICON_IMAGE)) {
+                taskbar.setIconImage(getImage(iconFactory, 256));
+            }
+        });
     }
 
     private void setLegacyIconImages(List<Image> images) {

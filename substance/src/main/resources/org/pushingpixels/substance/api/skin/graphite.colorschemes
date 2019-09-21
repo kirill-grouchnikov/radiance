@@ -154,23 +154,13 @@ Graphite Aqua {
 
 Raven Selected Mark {
     kind=Dark
-    colorUltraLight=#000000
-    colorExtraLight=#000000
-    colorLight=#000000
-    colorMid=#000000
-    colorDark=#000000
-    colorUltraDark=#000000
+    colorBackground=#000000
     colorForeground=#000000
 }
 
 Raven Highlight Mark {
     kind=Dark
-    colorUltraLight=#1E1E1E
-    colorExtraLight=#1E1E1E
-    colorLight=#1E1E1E
-    colorMid=#1E1E1E
-    colorDark=#1E1E1E
-    colorUltraDark=#1E1E1E
+    colorBackground=#1E1E1E
     colorForeground=#1E1E1E
 }
 
@@ -220,12 +210,7 @@ Graphite Gold Light Text {
 
 Chalk {
     kind=Light
-    colorUltraLight=#959595
-    colorExtraLight=#959595
-    colorLight=#959595
-    colorMid=#959595
-    colorDark=#959595
-    colorUltraDark=#959595
+    colorBackground=#959595
     colorForeground=#959595
 }
 

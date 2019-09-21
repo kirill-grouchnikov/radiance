@@ -22,67 +22,37 @@ Twilight Active {
 
 Twilight Selected Disabled Border {
 	kind=Dark
-	colorUltraLight=#3B3932
-	colorExtraLight=#3B3932
-	colorLight=#3B3932
-	colorMid=#3B3932
-	colorDark=#3B3932
-	colorUltraDark=#3B3932
+	colorBackground=#3B3932
 	colorForeground=#B9B49E
 }
 
 Twilight Border {
     kind=Dark
-    colorUltraLight=#191813
-    colorExtraLight=#191813
-    colorLight=#191813
-    colorMid=#191813
-    colorDark=#191813
-    colorUltraDark=#191813
+    colorBackground=#191813
     colorForeground=#B9B49E
 }
 
 Twilight Tab Border {
     kind=Light
-    colorUltraLight=#969280
-    colorExtraLight=#969280
-    colorLight=#969280
-    colorMid=#969280
-    colorDark=#969280
-    colorUltraDark=#969280
+    colorBackground=#969280
     colorForeground=#969280
 }
 
 Twilight Mark Active {
     kind=Dark
-    colorUltraLight=#292823
-    colorExtraLight=#292823
-    colorLight=#292823
-    colorMid=#292823
-    colorDark=#292823
-    colorUltraDark=#292823
+    colorBackground=#292823
     colorForeground=#292823
 }
 
 Twilight Highlight { 
     kind=Light
-    colorUltraLight=#C7AD81
-    colorExtraLight=#C7AE81
-    colorLight=#C7AE82
-    colorMid=#C7AE81
-    colorDark=#C7AE82
-    colorUltraDark=#C7AE81
+    colorBackground=#C7AE81
     colorForeground=#28201B
 }
 
 Twilight Background {
     kind=Light
-    colorUltraLight=#47443C
-    colorExtraLight=#47443C
-    colorLight=#47443C
-    colorMid=#47443C
-    colorDark=#47443C
-    colorUltraDark=#47443C
+    colorBackground=#47443C
     colorForeground=#24231F
 }
 
@@ -99,12 +69,7 @@ Twilight Decorations Background {
 
 Twilight General Background {
     kind=Light
-    colorUltraLight=#504E46
-    colorExtraLight=#504E46
-    colorLight=#504E46
-    colorMid=#504E46
-    colorDark=#504E46
-    colorUltraDark=#504E46
+    colorBackground=#504E46
     colorForeground=#F4F4F6
 }
 
@@ -143,12 +108,7 @@ Twilight Header Background {
 
 Twilight Header Border {
     kind=Dark
-    colorUltraLight=#000000
-    colorExtraLight=#000000
-    colorLight=#000000
-    colorMid=#000000
-    colorDark=#000000
-    colorUltraDark=#000000
+    colorBackground=#000000
     colorForeground=#B9B49E
 }
 

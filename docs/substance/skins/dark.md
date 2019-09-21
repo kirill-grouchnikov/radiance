@@ -10,8 +10,10 @@ Available in the `org.pushingpixels.substance.api.skin.TwilightSkin`. In additio
 * `UIManager.setLookAndFeel(new SubstanceTwilightLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceTwilightLookAndFeel");`
 
+<p align="left">
 <img alt="Twilight" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/twilight1.png" width="340" height="254">
 <img alt="Twilight" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/twilight2.png" width="340" height="254">
+</p>
 
 ### Night Shade
 
@@ -23,8 +25,10 @@ Available in the `org.pushingpixels.substance.api.skin.NightShadeSkin`. In addit
 * `UIManager.setLookAndFeel(new SubstanceNightShadeLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel");`
 
+<p align="left">
 <img alt="Night Shade" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nightshade1.png" width="340" height="254">
 <img alt="Night Shade" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nightshade2.png" width="340" height="254">
+</p>
 
 ### Magellan
 
@@ -36,8 +40,10 @@ Available in the `org.pushingpixels.substance.api.skin.MagellanSkin`. In additio
 * `UIManager.setLookAndFeel(new SubstanceMagellanLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceMagellanLookAndFeel");`
 
+<p align="left">
 <img alt="Magellan" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/magellan1.png" width="340" height="254">
 <img alt="Magellan" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/magellan2.png" width="340" height="254">
+</p>
 
 ### Graphite
 
@@ -49,8 +55,10 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteSkin`. In additio
 * `UIManager.setLookAndFeel(new SubstanceGraphiteLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel");`
 
+<p align="left">
 <img alt="Graphite" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphite1.png" width="340" height="254">
 <img alt="Graphite" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphite2.png" width="340" height="254">
+</p>
 
 ### Graphite Chalk
 
@@ -62,8 +70,10 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteChalkSkin`. In ad
 * `UIManager.setLookAndFeel(new SubstanceGraphiteChalkLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteChalkLookAndFeel");`
 
+<p align="left">
 <img alt="GraphiteChalk" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitechalk1.png" width="340" height="254">
 <img alt="GraphiteChalk" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitechalk2.png" width="340" height="254">
+</p>
 
 ### Graphite Aqua
 
@@ -75,8 +85,10 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteAquaSkin`. In add
 * `UIManager.setLookAndFeel(new SubstanceGraphiteAquaLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteAquaLookAndFeel");`
 
+<p align="left">
 <img alt="GraphiteAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphiteaqua1.png" width="340" height="254">
 <img alt="GraphiteAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphiteaqua2.png" width="340" height="254">
+</p>
 
 ### Graphite Electric
 
@@ -88,8 +100,10 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteElectricSkin`. In
 * `UIManager.setLookAndFeel(new SubstanceGraphiteElectricLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteElectricLookAndFeel");`
 
+<p align="left">
 <img alt="GraphiteElectric" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphiteelectric1.png" width="340" height="254">
 <img alt="GraphiteElectric" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphiteelectric2.png" width="340" height="254">
+</p>
 
 ### Graphite Gold
 
@@ -101,8 +115,10 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteGoldSkin`. In add
 * `UIManager.setLookAndFeel(new SubstanceGraphiteGoldLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteGoldLookAndFeel");`
 
+<p align="left">
 <img alt="GraphiteGold" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitegold1.png" width="340" height="254">
 <img alt="GraphiteGold" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitegold2.png" width="340" height="254">
+</p>
 
 ### Graphite Sunset
 
@@ -114,8 +130,10 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteSunsetSkin`. In a
 * `UIManager.setLookAndFeel(new SubstanceGraphiteSunsetLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteSunsetLookAndFeel");`
 
+<p align="left">
 <img alt="GraphiteSunset" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitesunset1.png" width="340" height="254">
 <img alt="GraphiteSunset" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitesunset2.png" width="340" height="254">
+</p>
 
 ### Graphite Glass
 
@@ -127,8 +145,10 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteGlassSkin`. In ad
 * `UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel");`
 
+<p align="left">
 <img alt="GraphiteGlass" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphiteglass1.png" width="340" height="254">
 <img alt="GraphiteGlass" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphiteglass2.png" width="340" height="254">
+</p>
 
 ### Raven
 
@@ -140,5 +160,7 @@ Available in the `org.pushingpixels.substance.api.skin.RavenSkin`. In addition, 
 * `UIManager.setLookAndFeel(new SubstanceRavenLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceRavenLookAndFeel");`
 
+<p align="left">
 <img alt="Raven" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/raven1.png" width="340" height="254">
 <img alt="Raven" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/raven2.png" width="340" height="254">
+</p>

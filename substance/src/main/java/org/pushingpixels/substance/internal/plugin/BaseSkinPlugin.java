@@ -76,6 +76,7 @@ public class BaseSkinPlugin implements SubstanceSkinPlugin {
         result.add(new SkinInfo(CeruleanSkin.NAME, CeruleanSkin.class::getName));
         result.add(new SkinInfo(NightShadeSkin.NAME, NightShadeSkin.class::getName));
         result.add(new SkinInfo(NebulaAmethystSkin.NAME, NebulaAmethystSkin.class::getName));
+        result.add(new SkinInfo(SentinelSkin.NAME, SentinelSkin.class::getName));
 
         return result;
     }

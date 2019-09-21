@@ -121,12 +121,7 @@ Dust Coffee Enabled {
 
 Dust Coffee Background {
     kind=Light
-    colorUltraLight=#E8D9B9
-    colorExtraLight=#E8D9B9
-    colorLight=#E8D9B9
-    colorMid=#E8D9B9
-    colorDark=#E8D9B9
-    colorUltraDark=#E8D9B9
+    colorBackground=#E8D9B9
     colorForeground=#433C32
 }
 

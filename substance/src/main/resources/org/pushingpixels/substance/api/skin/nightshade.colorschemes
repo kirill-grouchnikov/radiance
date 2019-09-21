@@ -44,78 +44,43 @@ Night Shade Disabled Selected {
 
 Night Shade Border {
     kind=Dark
-    colorUltraLight=#191A1F
-    colorExtraLight=#191A1F
-    colorLight=#191A1F
-    colorMid=#191A1F
-    colorDark=#191A1F
-    colorUltraDark=#191A1F
+    colorBackground=#191A1F
     colorForeground=#D8DAE0
 }
 
 Night Shade Tab Border {
     kind=Dark
-    colorUltraLight=#4C5360
-    colorExtraLight=#4C5360
-    colorLight=#4C5360
-    colorMid=#4C5360
-    colorDark=#4C5360
-    colorUltraDark=#4C5360
+    colorBackground=#4C5360
     colorForeground=#FCFDFF
 }
 
 Night Shade Mark Active {
     kind=Dark
-    colorUltraLight=#D8DAE0
-    colorExtraLight=#D8DAE0
-    colorLight=#D8DAE0
-    colorMid=#D8DAE0
-    colorDark=#D8DAE0
-    colorUltraDark=#D8DAE0
+    colorBackground=#D8DAE0
     colorForeground=#D8DAE0
 }
 
 Night Shade Highlight { 
     kind=Light
-    colorUltraLight=#3A3F49
-    colorExtraLight=#3A3F49
-    colorLight=#3A3F49
-    colorMid=#3A3F49
-    colorDark=#3A3F49
-    colorUltraDark=#3A3F49
+    colorBackground=#3A3F49
     colorForeground=#FCFDFF
 }
 
 Night Shade Background {
     kind=Light
-    colorUltraLight=#292A32
-    colorExtraLight=#292A32
-    colorLight=#292A32
-    colorMid=#292A32
-    colorDark=#292A32
-    colorUltraDark=#292A32
+    colorBackground=#292A32
     colorForeground=#D8DAE0
 }
 
 Night Shade Decorations Background {
     kind=Light
-    colorUltraLight=#22252A
-    colorExtraLight=#22252A
-    colorLight=#22252A
-    colorMid=#22252A
-    colorDark=#22252A
-    colorUltraDark=#22252A
+    colorBackground=#22252A
     colorForeground=#D8DAE0
 }
 
 Night Shade General Background {
     kind=Light
-    colorUltraLight=#22252A
-    colorExtraLight=#22252A
-    colorLight=#22252A
-    colorMid=#22252A
-    colorDark=#22252A
-    colorUltraDark=#22252A
+    colorBackground=#22252A
     colorForeground=#D8DAE0
 }
 
@@ -143,23 +108,13 @@ Night Shade Decorations Separator {
 
 Night Shade Header Background {
     kind=Dark
-    colorUltraLight=#22252A
-    colorExtraLight=#22252A
-    colorLight=#22252A
-    colorMid=#22252A
-    colorDark=#22252A
-    colorUltraDark=#22252A
+    colorBackground=#22252A
     colorForeground=#D8DAE0
 }
 
 Night Shade Header Border {
     kind=Dark
-    colorUltraLight=#000000
-    colorExtraLight=#000000
-    colorLight=#000000
-    colorMid=#000000
-    colorDark=#000000
-    colorUltraDark=#000000
+    colorBackground=#000000
     colorForeground=#D8DAE0
 }
 

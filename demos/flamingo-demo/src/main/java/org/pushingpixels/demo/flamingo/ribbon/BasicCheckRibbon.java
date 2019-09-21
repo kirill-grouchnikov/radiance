@@ -30,36 +30,60 @@
 package org.pushingpixels.demo.flamingo.ribbon;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import org.pushingpixels.demo.flamingo.*;
+import org.pushingpixels.demo.flamingo.LocaleSwitcher;
+import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.common.QuickStylesPanel;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.icon.*;
+import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.flamingo.api.common.popup.*;
-import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.*;
-import org.pushingpixels.flamingo.api.common.popup.model.*;
-import org.pushingpixels.flamingo.api.common.projection.*;
+import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupListener;
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel;
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel;
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
+import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection;
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
+import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.api.ribbon.model.*;
-import org.pushingpixels.flamingo.api.ribbon.projection.*;
-import org.pushingpixels.flamingo.api.ribbon.resize.*;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
+import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
+import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies;
+import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.*;
-import org.pushingpixels.flamingo.api.ribbon.synapse.projection.*;
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonCheckBoxProjection;
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonComboBoxProjection;
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonSpinnerProjection;
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.*;
-import javax.swing.text.*;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.lang.reflect.Method;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.*;
@@ -1613,24 +1637,6 @@ public class BasicCheckRibbon extends JRibbonFrame {
     public BasicCheckRibbon() {
         super();
         setApplicationIcon(Applications_internet.factory());
-        if (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS) {
-            // A nice to have on the Mac - try to set the dock icon
-            try {
-                Class appClass = Class.forName("com.apple.eawt.Application");
-                if (appClass != null) {
-                    Object appInstance = appClass.getDeclaredConstructor().newInstance();
-                    Method setDockImageMethod = appClass
-                            .getDeclaredMethod("setDockIconImage", Image.class);
-                    if (setDockImageMethod != null) {
-                        setDockImageMethod.invoke(appInstance,
-                                Applications_internet.of(256, 256).toImage());
-                    }
-                }
-            } catch (Throwable t) {
-                t.printStackTrace();
-                // give up
-            }
-        }
 
         currLocale = Locale.getDefault();
         resourceBundle = ResourceBundle
