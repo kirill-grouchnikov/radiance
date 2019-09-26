@@ -85,24 +85,46 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
 
         // collect the brightness factors of the color scheme
         Map<Integer, Color> schemeColorMapping = new TreeMap<>();
-        schemeColorMapping.put(
-                SubstanceColorUtilities.getColorBrightness(scheme.getUltraLightColor().getRGB()),
-                scheme.getUltraLightColor());
-        schemeColorMapping.put(
-                SubstanceColorUtilities.getColorBrightness(scheme.getExtraLightColor().getRGB()),
-                scheme.getExtraLightColor());
-        schemeColorMapping.put(
-                SubstanceColorUtilities.getColorBrightness(scheme.getLightColor().getRGB()),
-                scheme.getLightColor());
-        schemeColorMapping.put(
-                SubstanceColorUtilities.getColorBrightness(scheme.getMidColor().getRGB()),
-                scheme.getMidColor());
-        schemeColorMapping.put(
-                SubstanceColorUtilities.getColorBrightness(scheme.getDarkColor().getRGB()),
-                scheme.getDarkColor());
-        schemeColorMapping.put(
-                SubstanceColorUtilities.getColorBrightness(scheme.getUltraDarkColor().getRGB()),
-                scheme.getUltraDarkColor());
+        int ultraLight = scheme.getUltraLightColor().getRGB();
+        int extraLight = scheme.getExtraLightColor().getRGB();
+        int light = scheme.getLightColor().getRGB();
+        int mid = scheme.getMidColor().getRGB();
+        int dark = scheme.getDarkColor().getRGB();
+        int ultraDark = scheme.getUltraDarkColor().getRGB();
+        // Are the color identical?
+        if ((ultraLight == extraLight) && (ultraLight == light) && (ultraLight == mid) &&
+                (ultraLight == dark) && (ultraLight == ultraDark)) {
+            Color lighter = SubstanceColorUtilities.deriveByBrightness(scheme.getLightColor(), 0.2f);
+            Color darker = SubstanceColorUtilities.deriveByBrightness(scheme.getLightColor(), -0.2f);
+            schemeColorMapping.put(
+                    SubstanceColorUtilities.getColorBrightness(lighter.getRGB()),
+                    lighter);
+            schemeColorMapping.put(
+                    SubstanceColorUtilities.getColorBrightness(light),
+                    scheme.getLightColor());
+            schemeColorMapping.put(
+                    SubstanceColorUtilities.getColorBrightness(darker.getRGB()),
+                    darker);
+        } else {
+            schemeColorMapping.put(
+                    SubstanceColorUtilities.getColorBrightness(ultraLight),
+                    scheme.getUltraLightColor());
+            schemeColorMapping.put(
+                    SubstanceColorUtilities.getColorBrightness(extraLight),
+                    scheme.getExtraLightColor());
+            schemeColorMapping.put(
+                    SubstanceColorUtilities.getColorBrightness(light),
+                    scheme.getLightColor());
+            schemeColorMapping.put(
+                    SubstanceColorUtilities.getColorBrightness(mid),
+                    scheme.getMidColor());
+            schemeColorMapping.put(
+                    SubstanceColorUtilities.getColorBrightness(dark),
+                    scheme.getDarkColor());
+            schemeColorMapping.put(
+                    SubstanceColorUtilities.getColorBrightness(ultraDark),
+                    scheme.getUltraDarkColor());
+        }
 
         List<Integer> schemeBrightness = new ArrayList<>(schemeColorMapping.keySet());
         Collections.sort(schemeBrightness);

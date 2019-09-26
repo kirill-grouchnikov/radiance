@@ -51,7 +51,7 @@ public class ClassicButtonShaper implements SubstanceButtonShaper, RectangularBu
     /**
      * Cache of already computed contours.
      */
-    private final static LazyResettableHashMap<GeneralPath> contours = new LazyResettableHashMap<GeneralPath>(
+    private final static LazyResettableHashMap<GeneralPath> contours = new LazyResettableHashMap<>(
             "ClassicButtonShaper");
 
     /**
@@ -111,21 +111,13 @@ public class ClassicButtonShaper implements SubstanceButtonShaper, RectangularBu
                 Set<SubstanceSlices.Side> openSides = SubstanceCoreUtilities.getSides(button,
                         SubstanceSynapse.BUTTON_OPEN_SIDE);
                 int left = lrPadding + buttonInsets.left + (int) focusPadding
-                        + ((openSides != null) && openSides.contains(SubstanceSlices.Side.LEFT)
-                                ? -1
-                                : 0);
+                        + ((openSides != null) && openSides.contains(SubstanceSlices.Side.LEFT) ? -1 : 0);
                 int right = lrPadding + buttonInsets.right + (int) focusPadding
-                        + ((openSides != null) && openSides.contains(SubstanceSlices.Side.RIGHT)
-                                ? -1
-                                : 0);
+                        + ((openSides != null) && openSides.contains(SubstanceSlices.Side.RIGHT) ? -1 : 0);
                 int top = buttonInsets.top
-                        + ((openSides != null) && openSides.contains(SubstanceSlices.Side.TOP)
-                                ? -1
-                                : 0);
+                        + ((openSides != null) && openSides.contains(SubstanceSlices.Side.TOP) ? -1 : 0);
                 int bottom = buttonInsets.bottom
-                        + ((openSides != null) && openSides.contains(SubstanceSlices.Side.BOTTOM)
-                                ? -1
-                                : 0);
+                        + ((openSides != null) && openSides.contains(SubstanceSlices.Side.BOTTOM) ? -1 : 0);
                 return new Insets(top, left, bottom, right);
             }
         };

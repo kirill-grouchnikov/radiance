@@ -185,9 +185,8 @@ public class TwilightSkin extends SubstanceSkin {
 
         // Add overlay painters to paint drop shadows along the bottom
         // edges of toolbars and footers
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(),
-                DecorationAreaType.TOOLBAR);
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(), DecorationAreaType.FOOTER);
+        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), DecorationAreaType.TOOLBAR);
+        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), DecorationAreaType.FOOTER);
 
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars

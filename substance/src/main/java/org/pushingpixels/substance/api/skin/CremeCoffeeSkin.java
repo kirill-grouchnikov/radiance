@@ -33,6 +33,7 @@ import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.CremeColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SchemeBaseColors;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.substance.api.painter.border.DelegateBorderPainter;
@@ -40,6 +41,9 @@ import org.pushingpixels.substance.api.painter.border.GlassBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
+import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.substance.api.painter.overlay.SubstanceOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 
 /**
@@ -74,6 +78,16 @@ public class CremeCoffeeSkin extends SubstanceSkin {
 				DecorationAreaType.SECONDARY_TITLE_PANE,
 				DecorationAreaType.HEADER, DecorationAreaType.FOOTER,
 				DecorationAreaType.GENERAL, DecorationAreaType.TOOLBAR);
+
+		// Add overlay painters to paint drop shadows along the bottom
+		// edges of toolbars
+		this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(40), DecorationAreaType.TOOLBAR);
+
+		// add an overlay painter to paint a dark line along the bottom
+		// edge of toolbars
+		SubstanceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
+				SchemeBaseColors::getMidColor);
+		this.addOverlayPainter(toolbarBottomLineOverlayPainter, DecorationAreaType.TOOLBAR);
 
 		this.buttonShaper = new ClassicButtonShaper();
 		this.fillPainter = new MatteFillPainter();

@@ -31,15 +31,16 @@
 apply plugin: 'java'
 
 dependencies {
-    compile ("com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}")
-    compile ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")
-    compile ('org.easytesting:fest-swing:1.2.1')
-    compile project(':substance')
-    compile project(':substance-extras')
-    compile project(':flamingo')
-    compile project(':demos:substance-demo')
-    compile project(':demos:flamingo-demo')
-    compile project(':tools:tools-common')
+    implementation ("com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}")
+    implementation ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")
+    implementation ('org.easytesting:fest-swing:1.2.1')
+    implementation project(':neon')
+    implementation project(':substance')
+    implementation project(':substance-extras')
+    implementation project(':flamingo')
+    implementation project(':demos:substance-demo')
+    implementation project(':demos:flamingo-demo')
+    implementation project(':tools:tools-common')
 }
 
 ext.designation = "tools"

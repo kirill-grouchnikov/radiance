@@ -195,7 +195,7 @@ public class MarinerSkin extends SubstanceSkin {
 
 		// add overlay painter to paint drop shadows along the bottom
 		// edges of toolbars
-		this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(),
+		this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
 				DecorationAreaType.TOOLBAR);
 
 		// add overlay painter to paint a dark line along the bottom

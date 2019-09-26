@@ -31,17 +31,19 @@
 apply plugin: 'kotlin'
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$kotlinx_coroutines_version"
-    compile ("com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}")
-    compile ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")
-    compile project(':substance')
-    compile project(':kotlin-ext:torch')
-    compile project(':kotlin-ext:meteor')
-    compile project(':kotlin-ext:ember')
-    compile project(':tools:tools-common')
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
+    implementation ("com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}")
+    implementation ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")
+    implementation project(':neon')
+    implementation project(':trident')
+    implementation project(':substance')
+    implementation project(':kotlin-ext:torch')
+    implementation project(':kotlin-ext:meteor')
+    implementation project(':kotlin-ext:ember')
+    implementation project(':tools:tools-common')
 }
 
 ext.designation = "tools"

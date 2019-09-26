@@ -124,8 +124,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     /**
      * Set of all decoration area types that are not explicitly registered in
      * {@link #colorSchemeBundleMap} but still are considered as decoration
-     * areas in this skin. Controls lying in such areas will have their
-     * background painted by
+     * areas in this skin. Controls in such areas will have their background painted by
      * <p>
      * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, DecorationAreaType, int, int, SubstanceSkin)}
      * instead of a simple background fill.
@@ -136,6 +135,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      * The start of fade effect on tabs in {@link JTabbedPane}s.
      *
      * @see #tabFadeEnd
+     * @see #DEFAULT_TAB_FADE_START
      */
     protected double tabFadeStart;
 
@@ -143,6 +143,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      * The end of fade effect on tabs in {@link JTabbedPane}s.
      *
      * @see #tabFadeStart
+     * @see #DEFAULT_TAB_FADE_END
      */
     protected double tabFadeEnd;
 

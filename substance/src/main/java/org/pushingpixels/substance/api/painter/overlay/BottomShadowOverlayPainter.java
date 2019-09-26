@@ -36,6 +36,8 @@ import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Overlay painter that paints a few pixel-high drop shadow at the bottom edge
@@ -44,12 +46,13 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
-public final class BottomShadowOverlayPainter implements
-		SubstanceOverlayPainter {
-	/**
-	 * Singleton instance.
-	 */
-	private static BottomShadowOverlayPainter INSTANCE;
+public final class BottomShadowOverlayPainter implements SubstanceOverlayPainter {
+	private static Map<Integer, BottomShadowOverlayPainter> MAP = new HashMap<>();
+
+	private static final int DEFAULT_SHADOW_END_ALPHA = 128;
+	private static final int MIN_SHADOW_END_ALPHA = 32;
+
+	private int endAlpha = DEFAULT_SHADOW_END_ALPHA;
 
 	/**
 	 * Returns the single instance of this class.
@@ -57,13 +60,30 @@ public final class BottomShadowOverlayPainter implements
 	 * @return Single instance of this class.
 	 */
 	public synchronized static BottomShadowOverlayPainter getInstance() {
-		if (INSTANCE == null)
-			INSTANCE = new BottomShadowOverlayPainter();
-		return INSTANCE;
+		return getInstance(100);
 	}
 
 	/**
-	 * Private constructor to enforce that {@link #getInstance()} is the only
+	 * Returns an instance of bottom shadow overlay painter with the requested strength.
+	 *
+	 * @param strength Drop shadow strength. Must be in [0..100] range.
+	 * @return Bottom shadow overlay painter with the requested strength.
+	 */
+	public synchronized static BottomShadowOverlayPainter getInstance(int strength) {
+		if ((strength < 0) || (strength > 100)) {
+			throw new IllegalArgumentException("Strength must be in [0..100] range");
+		}
+		if (!MAP.containsKey(strength)) {
+			BottomShadowOverlayPainter painter = new BottomShadowOverlayPainter();
+			painter.endAlpha = MIN_SHADOW_END_ALPHA +
+					(DEFAULT_SHADOW_END_ALPHA - MIN_SHADOW_END_ALPHA) * strength / 100;
+			MAP.put(strength, painter);
+		}
+		return MAP.get(strength);
+	}
+
+	/**
+	 * Private constructor to enforce that {@link #getInstance(int)} is the only
 	 * way an application can get an instance of this class.
 	 */
 	private BottomShadowOverlayPainter() {
@@ -91,7 +111,7 @@ public final class BottomShadowOverlayPainter implements
 		int shadowHeight = 4;
 		GradientPaint fillPaint = new GradientPaint(0, topHeight - shadowHeight, 
 				SubstanceColorUtilities.getAlphaColor(shadowColor, 0), 0, topHeight,
-				SubstanceColorUtilities.getAlphaColor(shadowColor, 128));
+				SubstanceColorUtilities.getAlphaColor(shadowColor, this.endAlpha));
 		fillGraphics.setPaint(fillPaint);
 		fillGraphics.fillRect(0, topHeight - shadowHeight, width, shadowHeight);
 		fillGraphics.dispose();

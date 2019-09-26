@@ -31,10 +31,10 @@
 apply plugin: 'java'
 
 dependencies {
-    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
-    compile "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    compile project(':trident')
-    compile project(':neon')
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation project(':trident')
+    implementation project(':neon')
 }
 
 ext.designation = "demo"

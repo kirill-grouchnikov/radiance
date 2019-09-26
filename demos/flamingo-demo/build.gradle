@@ -31,10 +31,13 @@
 apply plugin: 'java'
 
 dependencies {
-    compile ("com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}")
-    compile ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")
-    compile project(':flamingo')
-    compile project(':photon')
+    implementation ("com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}")
+    implementation ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")
+    implementation project(':neon')
+    implementation project(':trident')
+    implementation project(':substance')
+    implementation project(':flamingo')
+    implementation project(':photon')
 }
 
 ext.designation = "demo"

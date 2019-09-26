@@ -46,25 +46,12 @@ import java.util.Map;
  * @author Kirill Grouchnikov
  */
 public final class TopShadowOverlayPainter implements SubstanceOverlayPainter {
-    /**
-     * Singleton instance.
-     */
     private static Map<Integer, TopShadowOverlayPainter> MAP = new HashMap<>();
 
     private static final int DEFAULT_SHADOW_START_ALPHA = 160;
     private static final int MIN_SHADOW_START_ALPHA = 32;
 
     private int startAlpha = DEFAULT_SHADOW_START_ALPHA;
-
-    /**
-     * Returns the single instance of this class.
-     *
-     * @return Single instance of this class.
-     */
-    @Deprecated
-    public synchronized static TopShadowOverlayPainter getInstance() {
-        return getInstance(100);
-    }
 
     /**
      * Returns an instance of top shadow overlay painter with the requested strength.

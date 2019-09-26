@@ -97,3 +97,19 @@ inline fun Color.brightness() = Color.RGBtoHSB(this.red, this.green, this.blue, 
 inline fun Color.withAlpha(alpha: Int) : Color {
     return Color(this.red, this.green, this.blue, alpha)
 }
+
+/**
+ * Returns a derived color based on the passed brightness factor.
+ */
+inline fun Color.deriveByBrightness(brightnessFactor: Double) : Color {
+    val hsb = Color.RGBtoHSB(this.red, this.green, this.blue, null)
+
+    // Brightness factor is in -1.0...1.0 range. Negative values are treated as darkening
+    // and positive values are treated as brightening - leaving the hue and saturation intact
+    val newBrightness = if (brightnessFactor > 0.0f) {
+        hsb[2] + (1.0f - hsb[2]) * brightnessFactor
+    } else {
+        hsb[2] + hsb[2] * brightnessFactor
+    }
+    return Color(Color.HSBtoRGB(hsb[0], hsb[1], newBrightness.toFloat()))
+}

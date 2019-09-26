@@ -44,6 +44,7 @@ import org.pushingpixels.substance.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.substance.api.painter.overlay.SubstanceOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
@@ -58,17 +59,6 @@ public class NightShadeSkin extends SubstanceSkin {
      * Display name for <code>this</code> skin.
      */
     public static final String NAME = "Night Shade";
-
-    /**
-     * Overlay painter to paint a dark line along the bottom edge of the
-     * toolbars.
-     */
-    private BottomLineOverlayPainter toolbarBottomLineOverlayPainter;
-
-    /**
-     * Overlay painter to paint a bezel line along the top edge of the footer.
-     */
-    private TopBezelOverlayPainter footerTopBezelOverlayPainter;
 
     /**
      * Creates a new <code>Night Shade</code> skin.
@@ -167,24 +157,24 @@ public class NightShadeSkin extends SubstanceSkin {
 
         // Add overlay painters to paint drop shadows along the bottom
         // edges of toolbars and footers
-        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(),
+        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
                 DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars
-        this.toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
+        SubstanceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
                 (SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
                         scheme.getUltraDarkColor(), -0.5f));
-        this.addOverlayPainter(this.toolbarBottomLineOverlayPainter, DecorationAreaType.TOOLBAR);
+        this.addOverlayPainter(toolbarBottomLineOverlayPainter, DecorationAreaType.TOOLBAR);
 
         // add an overlay painter to paint a bezel line along the top
         // edge of footer
-        this.footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
+        SubstanceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
                 (SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
                         scheme.getUltraDarkColor(), -0.5f),
                 (SubstanceColorScheme scheme) -> SubstanceColorUtilities
                         .getAlphaColor(scheme.getForegroundColor(), 32));
-        this.addOverlayPainter(this.footerTopBezelOverlayPainter, DecorationAreaType.FOOTER);
+        this.addOverlayPainter(footerTopBezelOverlayPainter, DecorationAreaType.FOOTER);
 
         this.setTabFadeStart(0.18);
         this.setTabFadeEnd(0.18);

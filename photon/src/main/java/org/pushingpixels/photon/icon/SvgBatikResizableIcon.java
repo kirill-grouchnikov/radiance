@@ -57,7 +57,7 @@ public class SvgBatikResizableIcon extends SvgBatikIcon implements
 	/**
 	 * The listeners.
 	 */
-	protected EventListenerList listenerList;
+	private EventListenerList listenerList;
 
 	/**
 	 * Constructs an input stream with uncompressed contents from the specified
@@ -181,12 +181,12 @@ public class SvgBatikResizableIcon extends SvgBatikIcon implements
 		this.addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
 			@Override
 			public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
-				fireAsyncCompleted(Boolean.valueOf(true));
+				fireAsyncCompleted(Boolean.TRUE);
 			}
 
 			@Override
 			public void gvtRenderingFailed(GVTTreeRendererEvent arg0) {
-				fireAsyncCompleted(Boolean.valueOf(false));
+				fireAsyncCompleted(Boolean.FALSE);
 			}
 		});
 	}
@@ -210,7 +210,7 @@ public class SvgBatikResizableIcon extends SvgBatikIcon implements
 	protected boolean renderGVTTree(int renderWidth, int renderHeight) {
 		boolean cached = super.renderGVTTree(renderWidth, renderHeight);
 		if (cached) {
-			this.fireAsyncCompleted(Boolean.valueOf(true));
+			this.fireAsyncCompleted(Boolean.TRUE);
 		}
 		return cached;
 	}
@@ -221,7 +221,7 @@ public class SvgBatikResizableIcon extends SvgBatikIcon implements
 	 * @param event
 	 *            Event object.
 	 */
-	protected void fireAsyncCompleted(Boolean event) {
+	private void fireAsyncCompleted(Boolean event) {
 		// Guaranteed to return a non-null array
 		Object[] listeners = listenerList.getListenerList();
 		// Process the listeners last to first, notifying
@@ -232,15 +232,6 @@ public class SvgBatikResizableIcon extends SvgBatikIcon implements
 			}
 		}
 	}
-
-	/**
-	 * Dispatcher for GVT tree rendering completion.
-	 */
-	static Dispatcher asyncCompletedDispatcher = new Dispatcher() {
-		public void dispatch(Object listener, Object event) {
-			((AsynchronousLoadListener) listener).completed((Boolean) event);
-		}
-	};
 
 	@Override
 	public synchronized boolean isLoading() {

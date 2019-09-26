@@ -31,7 +31,7 @@
 apply plugin: 'java'
 
 dependencies {
-    compile project(':trident')
+    implementation project(':trident')
 }
 
 ext.designation = "demo"

@@ -43,8 +43,8 @@ buildscript {
 apply plugin: 'org.jetbrains.dokka'
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile project(':substance')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation project(':substance')
 }
 
 ext.designation = "core"

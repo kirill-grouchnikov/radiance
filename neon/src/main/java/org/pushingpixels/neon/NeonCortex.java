@@ -309,8 +309,7 @@ public class NeonCortex {
      * @param color         Color for colorization.
      * @return The colorized version of the icon.
      */
-    public static ResizableIcon colorizeIcon(ResizableIcon.Factory sourceFactory,
-            Color color) {
+    public static ResizableIcon colorizeIcon(ResizableIcon.Factory sourceFactory, Color color) {
         return new ResizableIcon() {
             private int width;
             private int height;

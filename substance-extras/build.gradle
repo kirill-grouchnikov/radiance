@@ -31,7 +31,9 @@
 apply plugin: 'java'
 
 dependencies {
-    compile project(':substance')
+    implementation project(':neon')
+    implementation project(':trident')
+    implementation project(':substance')
 }
 
 ext.designation = "core"

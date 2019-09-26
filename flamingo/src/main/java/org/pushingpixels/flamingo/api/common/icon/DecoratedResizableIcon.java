@@ -35,6 +35,7 @@ import org.pushingpixels.neon.icon.ResizableIcon;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Implementation of {@link ResizableIcon} that adds decorations to a main icon.
@@ -45,7 +46,7 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
     /**
      * The main delegate icon.
      */
-    protected ResizableIcon delegate;
+    private ResizableIcon delegate;
 
     /**
      * List of icon decorators.
@@ -82,9 +83,7 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
         this.delegate = delegate;
         this.decorators = new ArrayList<>();
         if (decorators != null) {
-            for (IconDecorator decorator : decorators) {
-                this.decorators.add(decorator);
-            }
+            this.decorators.addAll(Arrays.asList(decorators));
         }
     }
 
@@ -176,8 +175,7 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
         return false;
     }
 
-    public static Factory factory(Factory original,
-            IconDecorator... decorators) {
+    public static Factory factory(Factory original, IconDecorator... decorators) {
         return () -> new DecoratedResizableIcon(original.createNewIcon(), decorators);
     }
 }

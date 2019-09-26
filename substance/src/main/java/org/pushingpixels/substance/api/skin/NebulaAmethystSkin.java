@@ -33,11 +33,9 @@ import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.OrangeColorScheme;
 import org.pushingpixels.substance.api.colorscheme.PurpleColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.substance.api.painter.overlay.TopShadowOverlayPainter;
 
 /**
  * <code>Nebula Amethyst</code> skin. This class is part of officially
@@ -66,7 +64,7 @@ public class NebulaAmethystSkin extends NebulaSkin {
 				DecorationAreaType.HEADER);
 
 		this.clearOverlayPainters(DecorationAreaType.TOOLBAR);
-		this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(),
+		this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
 				DecorationAreaType.TOOLBAR);
 		this.addOverlayPainter(this.bottomLineOverlayPainter,
 				DecorationAreaType.TOOLBAR);
