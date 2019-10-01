@@ -97,12 +97,7 @@ Night Shade Separator {
 
 Night Shade Decorations Separator {
     kind=Dark
-    colorUltraLight=#3A3E48
-    colorExtraLight=#393D47
-    colorLight=#373B45
-    colorMid=#363A44
-    colorDark=#343842
-    colorUltraDark=#333741
+    colorBackground=#4F525F->#232731
     colorForeground=#D8DAE0
 }
 

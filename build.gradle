@@ -35,7 +35,7 @@ ext.isRelease = false
 buildscript {
     ext {
         kotlin_version = '1.3.50'
-        kotlinx_coroutines_version = '1.3.1'
+        kotlinx_coroutines_version = '1.3.2'
         gradle_nexus_plugin_version = '2.3.1'
         dokka_plugin_version = '0.9.18'
         batik_version = '1.11'
@@ -138,7 +138,7 @@ task copyJars(type: Copy) {
 task getCoreDependencies(type: Copy) {
     into 'build/libs-core'
     from {
-        subprojects.findAll { it.designation == "core" && it.name != "kotlin-ext" }.collect { it.configurations.runtime }
+        subprojects.findAll { it.designation == "core" && it.name != "kotlin-ext" }.collect { it.configurations.compileClasspath }
     }
     doLast {
         println("Copied all core dependencies to build/libs-core")
@@ -149,7 +149,7 @@ task getCoreDependencies(type: Copy) {
 task getDemoDependencies(type: Copy) {
     into 'build/libs-demo'
     from {
-        subprojects.findAll { it.designation == "demo" && it.name != "demos" }.collect { it.configurations.runtime }
+        subprojects.findAll { it.designation == "demo" && it.name != "demos" }.collect { it.configurations.compileClasspath }
     }
     doLast {
         println("Copied all demo dependencies to build/libs-demo")
@@ -160,7 +160,7 @@ task getDemoDependencies(type: Copy) {
 task getToolsDependencies(type: Copy) {
     into 'build/libs-tools'
     from {
-        subprojects.findAll { it.designation == "tools" && it.name != "tools" }.collect { it.configurations.runtime }
+        subprojects.findAll { it.designation == "tools" && it.name != "tools" }.collect { it.configurations.compileClasspath }
     }
     doLast {
         println("Copied all tools dependencies to build/libs-tools")

@@ -31,9 +31,9 @@
 apply plugin: 'java'
 
 dependencies {
-    implementation ("com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}")
-    implementation ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")
-    implementation ('com.jhlabs:filters:2.0.235')
+    implementation "com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}"
+    implementation "com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}"
+    implementation "com.jhlabs:filters:2.0.235"
     implementation project(':neon')
     implementation project(':substance')
     implementation project(':flamingo')

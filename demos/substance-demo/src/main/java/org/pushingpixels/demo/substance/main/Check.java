@@ -45,9 +45,7 @@ import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import org.pushingpixels.substance.api.SubstanceSlices.TabCloseKind;
 import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
 import org.pushingpixels.substance.api.skin.SkinInfo;
-import org.pushingpixels.substance.api.skin.SubstanceGeminiLookAndFeel;
 import org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel;
-import org.pushingpixels.substance.api.skin.SubstanceSentinelLookAndFeel;
 import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
 import org.pushingpixels.substance.api.tabbed.TabCloseListener;
 import org.pushingpixels.substance.api.tabbed.VetoableMultipleTabCloseListener;
@@ -478,7 +476,7 @@ public class Check extends JFrame {
             try {
                 System.out.println(" CREATING LAF ");
                 long time0 = System.currentTimeMillis();
-                LookAndFeel laf = new SubstanceSentinelLookAndFeel();
+                LookAndFeel laf = new SubstanceNightShadeLookAndFeel();
                 long time1 = System.currentTimeMillis();
                 System.out.println(" LAF CREATED " + (time1 - time0));
                 System.out.println(" SETTING LAF ");

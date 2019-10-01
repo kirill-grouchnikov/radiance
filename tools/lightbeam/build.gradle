@@ -31,8 +31,8 @@
 apply plugin: 'java'
 
 dependencies {
-    implementation ("com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}")
-    implementation ("com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}")
+    implementation "com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}"
+    implementation "com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}"
 }
 
 ext.designation = "tools"
