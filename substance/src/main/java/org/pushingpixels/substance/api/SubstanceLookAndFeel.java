@@ -43,6 +43,7 @@ import javax.swing.plaf.basic.BasicLookAndFeel;
 import java.awt.*;
 import java.awt.event.AWTEventListener;
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -219,8 +220,9 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
         SubstancePluginRepository.getInstance().initializeAllComponentPlugins();
 
         this.awtEventListener = (AWTEvent event) -> {
-            for (AWTEventListener awtEventListener : SubstanceCoreUtilities.getAwtEventListeners()) {
-                awtEventListener.eventDispatched(event);
+            List<AWTEventListener> eventListeners = SubstanceCoreUtilities.getAwtEventListeners();
+            for (int i = eventListeners.size() - 1; i >= 0; i--) {
+                eventListeners.get(i).eventDispatched(event);
             }
         };
         Toolkit.getDefaultToolkit().addAWTEventListener(this.awtEventListener,

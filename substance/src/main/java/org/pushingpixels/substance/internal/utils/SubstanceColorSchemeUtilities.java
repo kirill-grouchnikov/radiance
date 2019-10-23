@@ -439,11 +439,11 @@ public class SubstanceColorSchemeUtilities {
                         if ((name == null) || (kind == null) || (ultraLight == null)
                                 || (extraLight == null) || (light == null) || (mid == null)
                                 || (dark == null) || (ultraDark == null) || (foreground == null)) {
-                            throw new IllegalArgumentException("Incomplete specification");
+                            throw new IllegalArgumentException("Incomplete specification of '" + name + "'");
                         }
                     } else {
                         if ((name == null) || (foreground == null)) {
-                            throw new IllegalArgumentException("Incomplete specification");
+                            throw new IllegalArgumentException("Incomplete specification '" + name + "'");
                         }
                     }
                     Color[] colors = (background != null)

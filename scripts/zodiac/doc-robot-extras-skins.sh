@@ -38,6 +38,7 @@ CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-zodiac-$RADIANCE_VERSION.j
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.FieldOfWheat ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.FindingNemo ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.GreenMagic ../../docs/images/
+JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.Harvest ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.Magma ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.Mango ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.Streetlights ../../docs/images/

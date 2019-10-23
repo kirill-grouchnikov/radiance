@@ -89,10 +89,9 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     private static final String ICON_ORIGINAL = "substancelaf.buttoniconoriginal";
 
     /**
-     * Property used to store the original (pre-<b>Substance</b>) button
-     * opacity.
+     * Property used to store the original (pre-<b>Substance</b>) control opacity.
      */
-    static final String OPACITY_ORIGINAL = "substancelaf.buttonopacityoriginal";
+    static final String OPACITY_ORIGINAL = "substancelaf.controlopacityoriginal";
 
     /**
      * Property used to lock the original (pre-<b>Substance</b>) button opacity.
@@ -218,14 +217,12 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     protected void uninstallDefaults(AbstractButton b) {
         super.uninstallDefaults(b);
 
-        b.setBorder((Border) b
-                .getClientProperty(SubstanceButtonUI.BORDER_ORIGINAL));
-        b.setOpaque((Boolean) b
-                .getClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL));
-        Icon origIcon = (Icon) b
-                .getClientProperty(SubstanceButtonUI.ICON_ORIGINAL);
-        if (origIcon != null)
+        b.setBorder((Border) b.getClientProperty(SubstanceButtonUI.BORDER_ORIGINAL));
+        b.setOpaque((Boolean) b.getClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL));
+        Icon origIcon = (Icon) b.getClientProperty(SubstanceButtonUI.ICON_ORIGINAL);
+        if (origIcon != null) {
             b.setIcon(origIcon);
+        }
         b.putClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL, null);
 
         for (SubstanceWidget lafWidget : this.lafWidgets) {

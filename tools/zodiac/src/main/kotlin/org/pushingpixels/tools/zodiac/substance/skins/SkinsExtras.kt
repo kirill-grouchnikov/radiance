@@ -40,6 +40,7 @@ import org.pushingpixels.tools.zodiac.substance.SkinRobot
 class FieldOfWheat : SkinRobot(FieldOfWheatSkin(), "substance-extras/skins/fieldofwheat")
 class FindingNemo : SkinRobot(FindingNemoSkin(), "substance-extras/skins/findingnemo")
 class GreenMagic : SkinRobot(GreenMagicSkin(), "substance-extras/skins/greenmagic")
+class Harvest : SkinRobot(HarvestSkin(), "substance-extras/skins/harvest")
 class Magma : SkinRobot(MagmaSkin(), "substance-extras/skins/magma")
 class Mango : SkinRobot(MangoSkin(), "substance-extras/skins/mango")
 class OfficeBlack2007 : SkinRobot(OfficeBlack2007Skin(), "substance-extras/skins/officeblack2007")

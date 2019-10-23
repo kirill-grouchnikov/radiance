@@ -46,7 +46,7 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
  */
 public class SubstanceSentinelLookAndFeel extends SubstanceLookAndFeel {
     /**
-     * Creates a new <code>Night Shade</code> look-and-feel.
+     * Creates a new <code>Sentinel</code> look-and-feel.
      */
     public SubstanceSentinelLookAndFeel() {
         super(new SentinelSkin());

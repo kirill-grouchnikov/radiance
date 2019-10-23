@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
+import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.neon.icon.ResizableIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;

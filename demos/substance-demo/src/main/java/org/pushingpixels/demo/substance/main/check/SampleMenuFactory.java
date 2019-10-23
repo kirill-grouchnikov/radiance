@@ -418,6 +418,17 @@ public class SampleMenuFactory {
         syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica WhiteVision",
                 "de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel"));
 
+        JMenu flatMenu = new JMenu("Flat family");
+        customLafMenus.add(flatMenu);
+        flatMenu.add(SubstanceLafChanger.getMenuItem(frame, "Flat Light",
+                "com.formdev.flatlaf.FlatLightLaf"));
+        flatMenu.add(SubstanceLafChanger.getMenuItem(frame, "Flat Dark",
+                "com.formdev.flatlaf.FlatDarkLaf"));
+        flatMenu.add(SubstanceLafChanger.getMenuItem(frame, "Flat IntelliJ",
+                "com.formdev.flatlaf.FlatIntelliJLaf"));
+        flatMenu.add(SubstanceLafChanger.getMenuItem(frame, "Flat Darcula",
+                "com.formdev.flatlaf.FlatDarculaLaf"));
+
         JMenu officeMenu = new JMenu("Office family");
         customLafMenus.add(officeMenu);
         officeMenu.add(SubstanceLafChanger.getMenuItem(frame, "Office 2003",

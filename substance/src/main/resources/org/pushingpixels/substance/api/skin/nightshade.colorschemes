@@ -97,7 +97,7 @@ Night Shade Separator {
 
 Night Shade Decorations Separator {
     kind=Dark
-    colorBackground=#4F525F->#232731
+    colorBackground=#4F5764->#232731
     colorForeground=#D8DAE0
 }
 

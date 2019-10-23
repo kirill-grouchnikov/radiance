@@ -92,6 +92,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
         SubstanceComboBoxUI ui = new SubstanceComboBoxUI((JComboBox) comp);
         ui.comboBox = (JComboBox) comp;
+        ui.comboBox.putClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL, ui.comboBox.isOpaque());
         ui.comboBox.setOpaque(false);
         return ui;
     }
@@ -118,6 +119,8 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
     @Override
     public void uninstallUI(JComponent c) {
         c.putClientProperty(SubstanceCoreUtilities.TEXT_COMPONENT_AWARE, null);
+        c.setOpaque((Boolean) c.getClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL));
+        c.putClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL, null);
 
         super.uninstallUI(c);
     }

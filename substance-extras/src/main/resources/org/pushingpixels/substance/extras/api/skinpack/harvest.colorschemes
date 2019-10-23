@@ -1,0 +1,148 @@
+@colors {
+    FillLight=#FFFDF2
+    FillMedium=#FFF9DB
+    YellowLight=#FCEFD5
+    YellowLightMedium=#FCFADA
+    YellowMedium=#FFF5B9
+    YellowGeneral=#FBF7C6
+    BorderLight=#C9BB8E
+    BorderActive=#9E8A00
+    Red=#DE5150
+    RedDark=#282212
+    RedLight=#FECECA
+    MidGrey=#70706A
+    MidDarkGrey=#50504A
+    DarkGrey=#1A1A19
+    XDarkGrey=#070706
+    MidBrown=#2B120C
+    PeachLight=#F6C59A
+    PeachMedium=#F5BF9B
+}
+
+Harvest Enabled {
+    kind=Light
+    colorBackground=@FillLight->@FillMedium
+    colorForeground=@DarkGrey
+}
+
+Harvest Disabled {
+    kind=Light
+    colorBackground=@FillLight->@FillMedium
+    colorForeground=@MidBrown
+}
+
+Harvest Active {
+    kind=Light
+    colorBackground=@YellowMedium
+    colorForeground=@DarkGrey
+}
+
+Harvest Selected {
+    kind=Light
+    colorBackground=@RedLight
+    colorForeground=@DarkGrey
+}
+
+Harvest Disabled Selected {
+    kind=Light
+    colorBackground=@RedLight
+    colorForeground=@DarkGrey
+}
+
+Harvest Rollover Selected {
+    kind=Light
+    colorBackground=@PeachLight->@PeachMedium
+    colorForeground=@MidBrown
+}
+
+Harvest Border {
+    kind=Light
+    colorBackground=@BorderLight
+    colorForeground=@PeachLight
+}
+
+Harvest Border Active {
+    kind=Light
+    colorBackground=@BorderActive
+    colorForeground=@YellowLight
+}
+
+Harvest Tab Border {
+    kind=Light
+    colorBackground=@BorderLight
+    colorForeground=@YellowLight
+}
+
+Harvest Mark {
+    kind=Light
+    colorBackground=@MidBrown
+    colorForeground=@MidBrown
+}
+
+Harvest Separator {
+    kind=Light
+    colorBackground=#FFFDF2->@BorderLight
+    colorForeground=@BorderLight
+}
+
+Harvest Highlight { 
+    kind=Light
+    colorBackground=@RedLight
+    colorForeground=@DarkGrey
+}
+
+Harvest Background {
+    kind=Light
+    colorBackground=@YellowLightMedium
+    colorForeground=@DarkGrey
+}
+
+Harvest General Background {
+    kind=Light
+    colorBackground=@YellowGeneral
+    colorForeground=@DarkGrey
+}
+
+Harvest Header Enabled {
+    kind=Dark
+    colorBackground=@MidDarkGrey->@MidGrey
+    colorForeground=@YellowLight
+}
+
+Harvest Header Disabled {
+    kind=Dark
+    colorBackground=@RedDark
+    colorForeground=#A2A099
+}
+
+Harvest Header Active {
+    kind=Dark
+    colorBackground=@Red
+    colorForeground=@YellowLight
+}
+
+Harvest Header Background {
+    kind=Dark
+    colorBackground=#3A3A39
+    colorForeground=@YellowLight
+}
+
+Harvest Header Border {
+    kind=Dark
+    colorBackground=@RedDark
+    colorForeground=@RedDark
+}
+
+Harvest Header Separator {
+    kind=Dark
+    colorBackground=@MidDarkGrey->@XDarkGrey
+    colorForeground=@MidGrey
+}
+
+Harvest Header Mark {
+    kind=Light
+    colorBackground=@YellowLight
+    colorForeground=@YellowLight
+}
+
+

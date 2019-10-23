@@ -76,8 +76,7 @@ public class DustCoffeeSkin extends DustSkin {
                 ComponentState.DISABLED_SELECTED,
                 ComponentState.DISABLED_UNSELECTED);
         defaultSchemeBundle.registerColorScheme(activeScheme,
-                ColorSchemeAssociationKind.BORDER, ComponentState
-                        .getActiveStates());
+                ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
         defaultSchemeBundle.registerColorScheme(borderEnabledScheme,
                 ColorSchemeAssociationKind.MARK);
 

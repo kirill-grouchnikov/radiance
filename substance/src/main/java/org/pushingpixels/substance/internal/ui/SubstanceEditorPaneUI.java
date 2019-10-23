@@ -129,7 +129,6 @@ public class SubstanceEditorPaneUI extends BasicEditorPaneUI implements Transiti
     @Override
     protected void installListeners() {
         super.installListeners();
-        super.installListeners();
 
         this.substanceRolloverListener = new RolloverTextControlListener(this.editorPane, this,
                 this.transitionModel);

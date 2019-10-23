@@ -37,7 +37,7 @@ buildscript {
         kotlin_version = '1.3.50'
         kotlinx_coroutines_version = '1.3.2'
         gradle_nexus_plugin_version = '2.3.1'
-        dokka_plugin_version = '0.9.18'
+        dokka_plugin_version = '0.10.0'
         batik_version = '1.11'
         retrofit_version = '2.6.2'
     }
@@ -48,12 +48,12 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.ext.kotlin_version}"
         classpath "com.bmuschko:gradle-nexus-plugin:${rootProject.ext.gradle_nexus_plugin_version}"
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.25.0"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.27.0"
     }
 }
 
 wrapper {
-    gradleVersion = "5.6.2"
+    gradleVersion = "5.6.3"
 }
 
 allprojects {

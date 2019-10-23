@@ -99,6 +99,10 @@ Radiance artifacts are available in the central Maven repository under `groupId=
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite) `radiance-ignite` for [Ignite](docs/tools/ignite/ignite.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon) `radiance-beacon` for [Beacon](docs/tools/beacon/beacon.md)
 
+### Snapshots
+
+Radiance snapshot artifacts are available in the [Sonatype repository](https://oss.sonatype.org/content/repositories/snapshots/org/pushing-pixels/).
+
 ## Building Radiance
 
 [This document](docs/building.md) is an overview of how to build Radiance artifacts locally.
