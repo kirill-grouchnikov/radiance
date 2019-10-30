@@ -29,8 +29,11 @@
  */
 package org.pushingpixels.tools.zodiac.substance
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
+import kotlinx.coroutines.withContext
 import org.pushingpixels.demo.substance.main.check.SampleFrame
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.substance.api.ComponentState

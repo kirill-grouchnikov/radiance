@@ -29,8 +29,11 @@
  */
 package org.pushingpixels.tools.zodiac.flamingo
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
+import kotlinx.coroutines.withContext
 import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.substance.api.SubstanceCortex

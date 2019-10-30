@@ -269,7 +269,7 @@ public class TabControlPanel extends JPanel {
         builder.addSeparator("Single Tab").xyw(1, row, 5);
 
         final JComboBox tabSelectorCombo = new JComboBox(new TabComboBoxModel(this.jtp));
-        tabSelectorCombo.setRenderer(new TabCellRenderer());
+        //tabSelectorCombo.setRenderer(new TabCellRenderer());
         jtp.addContainerListener(new ContainerAdapter() {
             @Override
             public void componentAdded(ContainerEvent e) {
@@ -399,7 +399,7 @@ public class TabControlPanel extends JPanel {
     public TabControlPanel(JTabbedPane jtp, MyTabPreviewPainter previewPainter) {
         super();
         this.jtp = jtp;
-        this.closed = new LinkedList<Component>();
+        this.closed = new LinkedList<>();
 
         this.setLayout(new BorderLayout());
         JPanel contents = getContents(jtp, previewPainter);
@@ -407,66 +407,4 @@ public class TabControlPanel extends JPanel {
         SubstanceCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(contents, true);
         this.add(contents, BorderLayout.CENTER);
     }
-
-    // @Override
-    // public Dimension getPreferredSize() {
-    // Dimension result = super.getPreferredSize();
-    // return new Dimension(190, result.height);
-    // }
-    //
-    // private class TabControlPanelLayout implements LayoutManager {
-    // public void addLayoutComponent(String name, Component comp) {
-    // }
-    //
-    // public void removeLayoutComponent(Component comp) {
-    // }
-    //
-    // public void layoutContainer(Container parent) {
-    // Insets pIns = paneControls.getInsets();
-    // Insets tIns = tabControls.getInsets();
-    // int width = Math.max(paneControls.getPreferredSize().width
-    // + pIns.left + pIns.right,
-    // tabControls.getPreferredSize().width + tIns.left
-    // + tIns.right);
-    // width = Math.min(parent.getWidth(), width);
-    //
-    // int h = paneControls.getPreferredSize().height + pIns.top
-    // + pIns.bottom;
-    // paneControls.setBounds(0, 0, width, h);
-    //
-    // tabControls.setBounds(0, h, width,
-    // tabControls.getPreferredSize().height + tIns.top
-    // + tIns.bottom);
-    // }
-    //
-    // public Dimension minimumLayoutSize(Container parent) {
-    // int w = Math.max(tabControls.getMinimumSize().width, paneControls
-    // .getMinimumSize().width);
-    // Insets tIns = tabControls.getInsets();
-    // Insets pIns = paneControls.getInsets();
-    // int h = tabControls.getMinimumSize().height
-    // + paneControls.getMinimumSize().height + tIns.top
-    // + tIns.bottom + pIns.top + pIns.bottom;
-    // return new Dimension(w, h);
-    // }
-    //
-    // public Dimension preferredLayoutSize(Container parent) {
-    // int w = Math.max(tabControls.getPreferredSize().width, paneControls
-    // .getPreferredSize().width);
-    // Insets tIns = tabControls.getInsets();
-    // Insets pIns = paneControls.getInsets();
-    // int h = tabControls.getPreferredSize().height
-    // + paneControls.getPreferredSize().height + tIns.top
-    // + tIns.bottom + pIns.top + pIns.bottom;
-    // return new Dimension(w, h);
-    // }
-    // }
-    //
-    // private void addSeparator(JPanel panel, String text) {
-    // JLabel l = new JLabel(text, SwingConstants.LEADING);
-    // l.setFont(l.getFont().deriveFont(Font.BOLD));
-    //
-    // panel.add(l, "gapbottom 1,gaptop para, span, split 2");
-    // panel.add(new JSeparator(), "gapleft rel, gaptop para, growx");
-    // }
 }

@@ -717,6 +717,12 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 	}
 
 	@Override
+	protected int getHeightOfTallestLabel() {
+		int result = super.getHeightOfTallestLabel();
+		return result;
+	}
+
+	@Override
 	protected void calculateThumbLocation() {
 		super.calculateThumbLocation();
 		Rectangle trackRect = this.getPaintTrackRect();

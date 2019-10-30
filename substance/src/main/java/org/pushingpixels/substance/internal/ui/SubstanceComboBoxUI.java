@@ -119,7 +119,10 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
     @Override
     public void uninstallUI(JComponent c) {
         c.putClientProperty(SubstanceCoreUtilities.TEXT_COMPONENT_AWARE, null);
-        c.setOpaque((Boolean) c.getClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL));
+        Object originalOpacity = c.getClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL);
+        if (originalOpacity instanceof Boolean) {
+            c.setOpaque((Boolean) originalOpacity);
+        }
         c.putClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL, null);
 
         super.uninstallUI(c);

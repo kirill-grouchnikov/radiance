@@ -40,7 +40,6 @@ import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.internal.colorscheme.ShiftColorScheme;
 
 import java.awt.*;
 
@@ -67,8 +66,7 @@ public class SaharaSkin extends SubstanceSkin {
 		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
 				activeScheme, enabledScheme, kitchenSinkSchemes.get("Gray Disabled"));
 		defaultSchemeBundle.registerHighlightColorScheme(
-				new ShiftColorScheme(new OliveColorScheme(), Color.white, 0.2f, Color.black, 0.0f, false)
-						.named("Sahara Highlight"));
+				new OliveColorScheme().shift(Color.white, 0.2f, Color.black, 0.0f).named("Sahara Highlight"));
 		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
 				DecorationAreaType.NONE);
 

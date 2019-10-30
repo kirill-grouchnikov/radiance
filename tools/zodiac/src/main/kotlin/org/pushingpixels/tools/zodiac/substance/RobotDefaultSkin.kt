@@ -29,11 +29,16 @@
  */
 package org.pushingpixels.tools.zodiac.substance
 
-import org.pushingpixels.substance.api.*
+import org.pushingpixels.substance.api.SubstanceColorSchemeBundle
+import org.pushingpixels.substance.api.SubstanceSkin
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
-import org.pushingpixels.substance.api.colorscheme.*
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery
+import org.pushingpixels.substance.api.colorscheme.LightGrayColorScheme
+import org.pushingpixels.substance.api.colorscheme.MetallicColorScheme
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter
-import org.pushingpixels.substance.api.painter.decoration.*
+import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter
+import org.pushingpixels.substance.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.substance.api.painter.fill.ClassicFillPainter
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter

@@ -281,8 +281,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         changeFirstColumn.addActionListener((ActionEvent e) -> {
             new Thread(() -> {
                 for (int i = 0; i < table.getModel().getRowCount(); i++) {
-                    table.getModel().setValueAt(Thread.currentThread().getName() + " " + i, i,
-                            0);
+                    table.getModel().setValueAt(Thread.currentThread().getName() + " " + i, i, 0);
                     try {
                         Thread.sleep(200);
                     } catch (InterruptedException exc) {
@@ -292,7 +291,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         });
         builder.append("Change values", changeFirstColumn);
 
-        final JSlider rowCountSlider = new JSlider(20, 1000, this.table.getModel().getRowCount());
+        final JSlider rowCountSlider = new JSlider(20, 10000, this.table.getModel().getRowCount());
         rowCountSlider.setPaintLabels(false);
         rowCountSlider.setPaintTicks(false);
         rowCountSlider.addChangeListener((ChangeEvent e) -> {
@@ -300,7 +299,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
                 return;
             TablePanel.this.table.setModel(new MyTableModel(rowCountSlider.getValue()));
         });
-        builder.append("Row count", rowCountSlider);
+        builder.append("Row count (->10K)", rowCountSlider);
 
         final JCheckBox areRowsSelectable = new JCheckBox("Rows selectable");
         areRowsSelectable.setSelected(this.table.getRowSelectionAllowed());

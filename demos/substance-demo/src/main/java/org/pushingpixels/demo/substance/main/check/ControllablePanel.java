@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * Abstract implementation of a controllable panel.
@@ -45,5 +45,13 @@ public abstract class ControllablePanel extends JPanel implements Controllable {
 	@Override
 	public JPanel getControlPanel() {
 		return this.controlPanel;
+	}
+
+	@Override
+	public void updateUI() {
+		super.updateUI();
+		if (this.controlPanel != null) {
+			SwingUtilities.updateComponentTreeUI(this.controlPanel);
+		}
 	}
 }

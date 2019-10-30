@@ -48,7 +48,10 @@ public class ResizableIconUIResource implements ResizableIcon, UIResource {
 	}
 
 	public void paintIcon(Component c, Graphics g, int x, int y) {
-		delegate.paintIcon(c, g, x, y);
+		Graphics2D g2d = (Graphics2D) g.create();
+		g2d.translate(x, y);
+		delegate.paintIcon(c, g2d, 0, 0);
+		g2d.dispose();
 	}
 
 	public void setDimension(Dimension newDimension) {

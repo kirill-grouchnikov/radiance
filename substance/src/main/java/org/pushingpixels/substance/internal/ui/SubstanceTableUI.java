@@ -66,9 +66,7 @@ import java.util.List;
 import java.util.*;
 
 /**
- * UI for tables in <b>Substance</b> look and feel. Unfortunately, the entire painting stack has
- * been copied from {@link BasicTableUI} since the methods are private. The animation effects are
- * implemented in the {@link #paintCell(Graphics, Rectangle, int, int)}.
+ * UI for tables in <b>Substance</b> look and feel.
  * 
  * @author Kirill Grouchnikov
  */
@@ -90,6 +88,8 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
      * for the table header animations.
      */
     private int rolledOverColumn;
+
+    private int rolledOverRow;
 
     /**
      * Map of default renderers.
@@ -942,10 +942,26 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                 : modelStateInfo.getStateContributionMap());
         // optimize for tables that don't initiate rollover
         // or selection animations
-        if (!updateInfo.hasRolloverAnimations && !updateInfo.hasSelectionAnimations)
+        ComponentState currState = null;
+        if (!updateInfo.hasRolloverAnimations && !updateInfo.hasSelectionAnimations) {
             activeStates = null;
-        ComponentState currState = ((modelStateInfo == null) ? this.getCellState(cellId)
-                : modelStateInfo.getCurrModelState());
+            boolean isRollover = false;
+            if (table.getRowSelectionAllowed()) {
+                isRollover = (row == rolledOverRow);
+                if (table.getColumnSelectionAllowed()) {
+                    isRollover = isRollover && (column == rolledOverColumn);
+                }
+            } else {
+                isRollover = (column == rolledOverColumn);
+            }
+            boolean isSelected = table.isCellSelected(row, column);
+            currState = isRollover
+                    ? (isSelected ? ComponentState.ROLLOVER_SELECTED : ComponentState.ROLLOVER_UNSELECTED)
+                    : (isSelected ? ComponentState.SELECTED : ComponentState.ENABLED);
+        } else {
+            currState = ((modelStateInfo == null) ? this.getCellState(cellId)
+                    : modelStateInfo.getCurrModelState());
+        }
 
         boolean hasHighlights = (currState != ComponentState.ENABLED) || (activeStates != null);
         if (activeStates != null) {
@@ -1683,6 +1699,9 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
      * @author Kirill Grouchnikov
      */
     private class RolloverFadeListener implements MouseListener, MouseMotionListener {
+        private int lastRow = -1;
+        private int lastColumn = -1;
+
         public void mouseClicked(MouseEvent e) {
         }
 
@@ -1812,18 +1831,31 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
         /**
          * Handles various mouse move events and initiates the fade animation if necessary.
          * 
-         * @param e
-         *            Mouse event.
+         * @param mousePoint
+         *            Mouse event location.
          */
         private void handleMouseMove(Point mousePoint) {
             // synchronized (SubstanceTableUI.this.table) {
             int row = table.rowAtPoint(mousePoint);
             int column = table.columnAtPoint(mousePoint);
+
+            if ((row == this.lastRow) && (column == this.lastColumn)) {
+                return;
+            }
+            this.lastRow = row;
+            this.lastColumn = column;
+
+            rolledOverRow = row;
+
+            boolean hasRolloverAnimations = _hasRolloverAnimations();
+            if (!hasRolloverAnimations) {
+                table.repaint();
+                return;
+            }
+
             if ((row < 0) || (row >= table.getRowCount()) || (column < 0)
                     || (column >= table.getColumnCount())) {
                 this.fadeOutAllRollovers();
-                // System.out.println("Nulling RO index in handleMove()");
-                // table.putClientProperty(ROLLED_OVER_INDEX, null);
                 rolledOverIndices.clear();
             } else {
                 // check if this is the same index
@@ -1926,9 +1958,6 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
 
     /**
      * Synchronizes the current selection state.
-     * 
-     * @param e
-     *            Selection event.
      */
     // @SuppressWarnings("unchecked")
     protected void syncSelection(boolean enforceNoAnimations) {

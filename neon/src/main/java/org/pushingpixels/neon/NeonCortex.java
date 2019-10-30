@@ -332,7 +332,7 @@ public class NeonCortex {
             public void paintIcon(Component c, Graphics g, int x, int y) {
                 Graphics2D g2d = (Graphics2D) g.create();
                 g2d.translate(x, y);
-                NeonCortex.drawImage(g2d, this.colorized, x, y);
+                NeonCortex.drawImage(g2d, this.colorized, 0, 0);
                 g2d.dispose();
             }
 

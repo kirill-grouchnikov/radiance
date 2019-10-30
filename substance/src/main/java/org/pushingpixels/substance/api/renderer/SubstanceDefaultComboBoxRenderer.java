@@ -95,30 +95,21 @@ public class SubstanceDefaultComboBoxRenderer extends SubstanceDefaultListCellRe
             if (index == -1) {
                 StateTransitionTracker stateTransitionTracker = comboUI
                         .getTransitionTracker();
-                ModelStateInfo modelStateInfo = stateTransitionTracker
-                        .getModelStateInfo();
+                ModelStateInfo modelStateInfo = stateTransitionTracker.getModelStateInfo();
                 ComponentState currState = modelStateInfo.getCurrModelState();
                 float comboAlpha = SubstanceColorSchemeUtilities.getAlpha(combo, currState);
                 Color fg = SubstanceTextUtilities.getForegroundColor(combo,
                         ((JLabel) result).getText(), modelStateInfo, comboAlpha);
                 result.setForeground(fg);
 
-                if (modelStateInfo == null) {
-                    this.rolloverArmAmount = currState.isFacetActive(
-                            SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
-                            currState.isFacetActive(SubstanceSlices.ComponentStateFacet.ARM) ?
-                            1.0f : 0.0f;
-                } else {
-                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : modelStateInfo
-                            .getStateContributionMap().entrySet()) {
-                        ComponentState activeState = activeEntry.getKey();
-                        float contribution = activeEntry.getValue().getContribution();
-                        if (activeState.isFacetActive(ComponentStateFacet.SELECTION) ||
-                                activeState.isFacetActive(ComponentStateFacet.ROLLOVER) ||
-                                activeState.isFacetActive(
-                                        SubstanceSlices.ComponentStateFacet.ARM)) {
-                            this.rolloverArmAmount = Math.max(this.rolloverArmAmount, contribution);
-                        }
+                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                        modelStateInfo.getStateContributionMap().entrySet()) {
+                    ComponentState activeState = activeEntry.getKey();
+                    float contribution = activeEntry.getValue().getContribution();
+                    if (activeState.isFacetActive(ComponentStateFacet.SELECTION) ||
+                            activeState.isFacetActive(ComponentStateFacet.ROLLOVER) ||
+                            activeState.isFacetActive(SubstanceSlices.ComponentStateFacet.ARM)) {
+                        this.rolloverArmAmount = Math.max(this.rolloverArmAmount, contribution);
                     }
                 }
             } else {
@@ -157,8 +148,7 @@ public class SubstanceDefaultComboBoxRenderer extends SubstanceDefaultListCellRe
                                     list, index, listUI, activeState);
                             Color schemeFg = scheme.getForegroundColor();
                             aggrRed += schemeFg.getRed() * activeContribution;
-                            aggrGreen += schemeFg.getGreen()
-                                    * activeContribution;
+                            aggrGreen += schemeFg.getGreen() * activeContribution;
                             aggrBlue += schemeFg.getBlue() * activeContribution;
                         }
                         result.setForeground(new ColorUIResource(new Color(
