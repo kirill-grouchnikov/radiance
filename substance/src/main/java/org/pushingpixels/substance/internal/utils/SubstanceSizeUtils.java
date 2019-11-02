@@ -935,6 +935,15 @@ public class SubstanceSizeUtils {
 		return 10 + extraPadding2;
 	}
 
+	public static int getTreeLeftIndent(int fontSize) {
+		int extraPadding = SubstanceSizeUtils.getExtraPadding(fontSize);
+		return 8 + extraPadding;
+	}
+
+	public static int getTreeRightIndent(int fontSize) {
+		int extraPadding = SubstanceSizeUtils.getExtraPadding(fontSize);
+		return 12 + extraPadding;
+	}
 
     /**
      * Returns the size of the lookup button. 
@@ -944,4 +953,8 @@ public class SubstanceSizeUtils {
     public static int getLookupButtonSize() {
         return 4 + SubstanceSizeUtils.getControlFontSize();
     }
+
+    public static int getTitlePaneHorizontalPadding(int fontSize) {
+    	return (int) SubstanceSizeUtils.getAdjustedSize(fontSize, 5, 2, 1);
+	}
 }

@@ -119,6 +119,7 @@ public class JRibbonGallery extends JComponent {
             this.removeAll();
 
             populateContent();
+            this.updateUI();
         });
 
         this.updateUI();
@@ -275,7 +276,11 @@ public class JRibbonGallery extends JComponent {
      * @return The currently selected gallery button.
      */
     public JCommandToggleButton getSelectedButton() {
-        int buttonIndex = this.commands.indexOf(this.commandToggleGroupModel.getSelected());
+        Command selectedCommand = this.commandToggleGroupModel.getSelected();
+        if (selectedCommand == null) {
+            return null;
+        }
+        int buttonIndex = this.commands.indexOf(selectedCommand);
         return this.buttons.get(buttonIndex);
     }
 

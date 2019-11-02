@@ -215,8 +215,7 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
                 if (scheme != null) {
                     super.setForeground(new ColorUIResource(scheme.getForegroundColor()));
                 }
-                boolean isActive = currState.isFacetActive(
-                        SubstanceSlices.ComponentStateFacet.ROLLOVER)
+                boolean isActive = currState.isFacetActive(SubstanceSlices.ComponentStateFacet.ROLLOVER)
                         || currState.isFacetActive(SubstanceSlices.ComponentStateFacet.SELECTION)
                         || currState.isFacetActive(SubstanceSlices.ComponentStateFacet.ARM);
                 this.rolloverArmAmount = isActive ? 1.0f : 0.0f;

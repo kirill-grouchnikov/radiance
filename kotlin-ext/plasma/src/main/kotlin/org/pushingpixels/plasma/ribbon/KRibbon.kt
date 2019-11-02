@@ -33,6 +33,7 @@ import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup
+import org.pushingpixels.flamingo.api.ribbon.RibbonTask
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
@@ -119,6 +120,7 @@ class KRibbonFrame {
     private val anchoredCommands = KCommandGroup()
     private val taskbar = KRibbonTaskbar()
     private val applicationMenu = KRibbonApplicationMenu()
+    var onTaskSelectionChange: ((ribbonTask: RibbonTask) -> Unit)? by NullableDelegate { hasBeenConverted }
 
     private lateinit var ribbonFrame: JRibbonFrame
     private var hasBeenConverted: Boolean = false
@@ -175,6 +177,10 @@ class KRibbonFrame {
                             contextualTaskGroup.color,
                             contextualTaskGroup.tasks.tasks.map { it -> it.asJavaRibbonTask() })
             )
+        }
+
+        if (onTaskSelectionChange != null) {
+            ribbonFrame.ribbon.addOnTaskSelectionChangedListener(onTaskSelectionChange)
         }
 
         val ribbonMenuCommandProjection =

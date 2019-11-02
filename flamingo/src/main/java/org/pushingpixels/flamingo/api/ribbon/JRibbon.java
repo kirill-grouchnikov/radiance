@@ -211,6 +211,8 @@ public class JRibbon extends JComponent {
 
     private OnShowContextualMenuListener onShowContextualMenuListener;
 
+    private List<OnTaskSelectionChangeListener> onTaskSelectionChangeListeners;
+
     private RibbonTaskbarKeyTipPolicy taskbarKeyTipPolicy;
 
     /**
@@ -228,6 +230,10 @@ public class JRibbon extends JComponent {
         CommandMenuContentModel getContextualMenuContentModel(Command command);
 
         CommandMenuContentModel getContextualMenuContentModel();
+    }
+
+    public interface OnTaskSelectionChangeListener {
+        void onTaskSelectionChanged(RibbonTask newSelection);
     }
 
     /**
@@ -619,6 +625,7 @@ public class JRibbon extends JComponent {
         this.repaint();
 
         this.firePropertyChange("selectedTask", old, this.currentlySelectedTask);
+        this.fireTaskSelectionChanged();
     }
 
     /**
@@ -833,5 +840,28 @@ public class JRibbon extends JComponent {
 
     public OnShowContextualMenuListener getOnShowContextualMenuListener() {
         return this.onShowContextualMenuListener;
+    }
+
+    public synchronized void addOnTaskSelectionChangedListener(OnTaskSelectionChangeListener listener) {
+        if (this.onTaskSelectionChangeListeners == null) {
+            this.onTaskSelectionChangeListeners = new ArrayList<>();
+        }
+        this.onTaskSelectionChangeListeners.add(listener);
+    }
+
+    public synchronized void removeOnTaskSelectionChangedListener(OnTaskSelectionChangeListener listener) {
+        if (this.onTaskSelectionChangeListeners == null) {
+            return;
+        }
+        this.onTaskSelectionChangeListeners.remove(listener);
+    }
+
+    private synchronized void fireTaskSelectionChanged() {
+        if (this.onTaskSelectionChangeListeners == null) {
+            return;
+        }
+        for (int i = this.onTaskSelectionChangeListeners.size() - 1; i >= 0; i--) {
+            this.onTaskSelectionChangeListeners.get(i).onTaskSelectionChanged(this.currentlySelectedTask);
+        }
     }
 }

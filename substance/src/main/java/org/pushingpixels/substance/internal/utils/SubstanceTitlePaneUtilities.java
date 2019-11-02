@@ -234,6 +234,8 @@ public class SubstanceTitlePaneUtilities {
             Component rootComponent) {
         boolean leftToRight = rootComponent.getComponentOrientation().isLeftToRight();
 
+        int horizontalPadding = SubstanceSizeUtils.getTitlePaneHorizontalPadding(
+                SubstanceSizeUtils.getComponentFontSize(titlePane));
         if (leftToRight) {
             int maxLeadingX = 0;
             int minTrailingX = titlePane.getWidth();
@@ -268,8 +270,8 @@ public class SubstanceTitlePaneUtilities {
                 }
             }
 
-            int start = maxLeadingX + 5 + extraWidthTaken;
-            int end = minTrailingX - 5;
+            int start = maxLeadingX + horizontalPadding + extraWidthTaken;
+            int end = minTrailingX - horizontalPadding;
             return new Rectangle(start, 0, end - start, titlePane.getHeight());
         } else {
             int minLeadingX = titlePane.getWidth();
@@ -305,8 +307,8 @@ public class SubstanceTitlePaneUtilities {
                 }
             }
 
-            int start = maxTrailingX + 5;
-            int end = minLeadingX - 5 - extraWidthTaken;
+            int start = maxTrailingX + horizontalPadding;
+            int end = minLeadingX - horizontalPadding - extraWidthTaken;
             return new Rectangle(start, 0, end - start, titlePane.getHeight());
         }
     }

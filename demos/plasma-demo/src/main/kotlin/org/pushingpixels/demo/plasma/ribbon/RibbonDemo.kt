@@ -2038,6 +2038,8 @@ fun main() {
                     }
                 }
             }
+
+            onTaskSelectionChange = { task -> println("Task [${task.title}] selected") }
         }
 
         val javaRibbonFrame = ribbonFrame.asJavaRibbonFrame()

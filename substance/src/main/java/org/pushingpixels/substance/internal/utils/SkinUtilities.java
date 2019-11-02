@@ -1035,6 +1035,12 @@ public class SkinUtilities {
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
                         new ResizableIconUIResource(SubstanceIconFactory.getTreeIcon(null, false))),
 
+                "Tree.leftChildIndent", SubstanceSizeUtils.getTreeLeftIndent(
+                        SubstanceSizeUtils.getControlFontSize()),
+
+                "Tree.rightChildIndent", SubstanceSizeUtils.getTreeRightIndent(
+                    SubstanceSizeUtils.getControlFontSize()),
+
                 "Tree.leafIcon",
                 emptyIcon,
 

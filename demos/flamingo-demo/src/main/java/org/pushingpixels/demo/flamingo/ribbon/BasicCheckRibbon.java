@@ -80,9 +80,7 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.text.MessageFormat;
 import java.util.List;
@@ -94,6 +92,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private ResourceBundle resourceBundle;
 
     private RibbonGalleryContentModel styleGalleryContentModel;
+    private CommandGroup styleGalleryCommandGroup1;
+    private CommandGroup styleGalleryCommandGroup2;
 
     private Command pasteCommand;
 
@@ -407,7 +407,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         applicationsBand.addRibbonComponent(new RibbonComboBoxProjection(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] { "Tetris", "Minesweeper", "Doom" })
+                        .setItems(new String[] {"Tetris", "Minesweeper", "Doom"})
                         .setIconFactory(Applications_games.factory())
                         .setCaption(resourceBundle.getString("Games.text"))
                         .build(),
@@ -419,7 +419,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         applicationsBand.addRibbonComponent(new RibbonComboBoxProjection(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] { "Firefox", "Opera", "Konqueror" })
+                        .setItems(new String[] {"Firefox", "Opera", "Konqueror"})
                         .setEnabled(false)
                         .setIconFactory(Applications_internet.factory())
                         .setCaption(resourceBundle.getString("Internet.text"))
@@ -435,7 +435,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setItems(new String[] {
                                 resourceBundle.getString("Pictures.text"),
                                 resourceBundle.getString("Video.text"),
-                                resourceBundle.getString("Audio.text") })
+                                resourceBundle.getString("Audio.text")})
                         .setCaption(resourceBundle.getString("Multimedia.text"))
                         .build(),
                 ComponentPresentationModel.builder()
@@ -837,20 +837,20 @@ public class BasicCheckRibbon extends JRibbonFrame {
         selectorBuilder.addColorSectionWithDerived(
                 new ColorSelectorPopupMenuGroupModel.ColorSectionModel(
                         resourceBundle.getString("ColorSelector.textThemeCaption"),
-                        new Color[] { new Color(255, 255, 255), new Color(0, 0, 0),
+                        new Color[] {new Color(255, 255, 255), new Color(0, 0, 0),
                                 new Color(160, 160, 160), new Color(16, 64, 128),
                                 new Color(80, 128, 192), new Color(180, 80, 80),
                                 new Color(160, 192, 80), new Color(128, 92, 160),
-                                new Color(80, 160, 208), new Color(255, 144, 64) }));
+                                new Color(80, 160, 208), new Color(255, 144, 64)}));
 
         selectorBuilder.addColorSection(
                 new ColorSelectorPopupMenuGroupModel.ColorSectionModel(
                         resourceBundle.getString("ColorSelector.textStandardCaption"),
-                        new Color[] { new Color(140, 0, 0), new Color(253, 0, 0),
+                        new Color[] {new Color(140, 0, 0), new Color(253, 0, 0),
                                 new Color(255, 160, 0), new Color(255, 255, 0),
                                 new Color(144, 240, 144), new Color(0, 128, 0),
                                 new Color(160, 224, 224), new Color(0, 0, 255),
-                                new Color(0, 0, 128), new Color(128, 0, 128) }));
+                                new Color(0, 0, 128), new Color(128, 0, 128)}));
 
         selectorBuilder.addRecentsSection(
                 new ColorSelectorPopupMenuGroupModel.ColorSectionModel(
@@ -925,7 +925,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         alignmentBand.addRibbonComponent(new RibbonComboBoxProjection(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] { resourceBundle.getString("VeryLong.text") })
+                        .setItems(new String[] {resourceBundle.getString("VeryLong.text")})
                         .build(),
                 ComponentPresentationModel.builder()
                         .setHorizontalAlignment(HorizontalAlignment.FILL)
@@ -951,7 +951,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         alignmentBand.addRibbonComponent(new RibbonComboBoxProjection(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] { resourceBundle.getString("VeryLong.text") })
+                        .setItems(new String[] {resourceBundle.getString("VeryLong.text")})
                         .build(),
                 ComponentPresentationModel.builder()
                         .setHorizontalAlignment(HorizontalAlignment.FILL)
@@ -979,7 +979,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         alignmentBand.addRibbonComponent(new RibbonComboBoxProjection(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] { resourceBundle.getString("Long.text") })
+                        .setItems(new String[] {resourceBundle.getString("Long.text")})
                         .build(),
                 ComponentPresentationModel.builder()
                         .setHorizontalAlignment(HorizontalAlignment.FILL)
@@ -1003,7 +1003,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         alignmentBand.addRibbonComponent(new RibbonComboBoxProjection(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] { resourceBundle.getString("Long.text") })
+                        .setItems(new String[] {resourceBundle.getString("Long.text")})
                         .build(),
                 ComponentPresentationModel.builder()
                         .setHorizontalAlignment(HorizontalAlignment.FILL)
@@ -1169,7 +1169,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 new RibbonComboBoxProjection(
                         RibbonDefaultComboBoxContentModel.<String>builder()
                                 .setItems(new String[] {
-                                        "[" + resourceBundle.getString("NoSound.text") + "]     " })
+                                        "[" + resourceBundle.getString("NoSound.text") + "]     "})
                                 .setIconFactory(new SimpleResizableIcon.FactoryTop())
                                 .build(),
                         ComponentPresentationModel.withDefaults()));
@@ -1177,7 +1177,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 new RibbonComboBoxProjection(
                         RibbonDefaultComboBoxContentModel.<String>builder()
                                 .setItems(new String[] {
-                                        resourceBundle.getString("Medium.text") + "           " })
+                                        resourceBundle.getString("Medium.text") + "           "})
                                 .setCaption(resourceBundle.getString("Speed.text"))
                                 .build(),
                         ComponentPresentationModel.withDefaults()));
@@ -1252,31 +1252,31 @@ public class BasicCheckRibbon extends JRibbonFrame {
         mf.setLocale(currLocale);
 
         this.popupCommand1 = Command.builder()
-                .setText(mf.format(new Object[] { "1" }))
+                .setText(mf.format(new Object[] {"1"}))
                 .setIconFactory(ColorResizableIcon.factory(new Color(0xFF80DEEA)))
                 .setAction((CommandActionEvent e) ->
                         System.out.println("Test menu item 1 activated"))
                 .build();
         this.popupCommand2 = Command.builder()
-                .setText(mf.format(new Object[] { "2" }))
+                .setText(mf.format(new Object[] {"2"}))
                 .setIconFactory(ColorResizableIcon.factory(new Color(0xFF80CBC4)))
                 .setAction((CommandActionEvent e) ->
                         System.out.println("Test menu item 2 activated"))
                 .build();
         this.popupCommand3 = Command.builder()
-                .setText(mf.format(new Object[] { "3" }))
+                .setText(mf.format(new Object[] {"3"}))
                 .setIconFactory(ColorResizableIcon.factory(new Color(0xFFA5D6A7)))
                 .setAction((CommandActionEvent e) ->
                         System.out.println("Test menu item 3 activated"))
                 .build();
         this.popupCommand4 = Command.builder()
-                .setText(mf.format(new Object[] { "4" }))
+                .setText(mf.format(new Object[] {"4"}))
                 .setIconFactory(ColorResizableIcon.factory(new Color(0xFFC5E1A5)))
                 .setAction((CommandActionEvent e) ->
                         System.out.println("Test menu item 4 activated"))
                 .build();
         this.popupCommand5 = Command.builder()
-                .setText(mf.format(new Object[] { "5" }))
+                .setText(mf.format(new Object[] {"5"}))
                 .setIconFactory(ColorResizableIcon.factory(new Color(0xFFE6EE9C)))
                 .setAction((CommandActionEvent e) ->
                         System.out.println("Test menu item 5 activated"))
@@ -1511,7 +1511,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         "+ Minor (California)   ", "+ Minor (Calendula)   ",
                         "+ Minor (Coriander)   ", "+ Minor (Callisto)   ",
                         "+ Minor (Cajun)   ", "+ Minor (Congola)   ",
-                        "+ Minor (Candella)   ", "+ Minor (Cambria)   " })
+                        "+ Minor (Candella)   ", "+ Minor (Cambria)   "})
                 .setRichTooltip(RichTooltip.builder()
                         .setTitle(resourceBundle.getString("Fonts.tooltip.title"))
                         .build())
@@ -1581,7 +1581,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     });
 
             Command ribbonCommand = Command.builder()
-                    .setText(mfButtonText.format(new Object[] { i }))
+                    .setText(mfButtonText.format(new Object[] {i}))
                     .setIconFactory(iconFactory)
                     .setToggle()
                     .build();
@@ -1593,19 +1593,22 @@ public class BasicCheckRibbon extends JRibbonFrame {
             }
         }
 
-        stylesGalleryCommands.add(new CommandGroup(
+        this.styleGalleryCommandGroup1 = new CommandGroup(
                 resourceBundle.getString("StylesGallery.textGroupTitle1"),
-                stylesGalleryCommandsList));
-        stylesGalleryCommands.add(new CommandGroup(
+                stylesGalleryCommandsList);
+        stylesGalleryCommands.add(this.styleGalleryCommandGroup1);
+        this.styleGalleryCommandGroup2 = new CommandGroup(
                 resourceBundle.getString("StylesGallery.textGroupTitle2"),
-                stylesGalleryCommandsList2));
+                stylesGalleryCommandsList2);
+        stylesGalleryCommands.add(this.styleGalleryCommandGroup2);
 
         this.styleGalleryContentModel = new RibbonGalleryContentModel(Font_x_generic.factory(),
                 stylesGalleryCommands);
         this.styleGalleryContentModel.setSelectedCommand(
                 stylesGalleryCommandsList.get(1));
         this.styleGalleryContentModel.addCommandActivationListener((Command activated) ->
-                System.out.println("*** Command '" + activated.getText() + "' activated! ***"));
+                System.out.println("*** Command '" + ((activated == null) ? "[null]" : activated.getText()) +
+                        "' activated! ***"));
         this.styleGalleryContentModel.addCommandPreviewListener(
                 new RibbonGalleryContentModel.GalleryCommandActionPreview() {
                     @Override
@@ -1840,6 +1843,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     }
                 });
 
+        this.getRibbon().addOnTaskSelectionChangedListener((RibbonTask task) ->
+                System.out.println("Task [" + task.getTitle() + "] is selected"));
+
         this.add(getControlPanel(), BorderLayout.EAST);
 
         this.rulerPanel = new RulerPanel();
@@ -1933,7 +1939,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         mfDefault.setLocale(currLocale);
         for (int i = 0; i < 5; i++) {
             Command command = Command.builder()
-                    .setText(mfDefault.format(new Object[] { i }))
+                    .setText(mfDefault.format(new Object[] {i}))
                     .setIconFactory(Text_html.factory())
                     .setAction((CommandActionEvent e) ->
                             System.out.println("Creating " + e.getCommand().getText()))
@@ -1965,7 +1971,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         mf.setLocale(currLocale);
         for (int i = 0; i < 5; i++) {
             Command command = Command.builder()
-                    .setText(mf.format(new Object[] { i }))
+                    .setText(mf.format(new Object[] {i}))
                     .setIconFactory(Text_html.factory())
                     .setAction((CommandActionEvent e) ->
                             System.out.println("Opening " + e.getCommand().getText()))
@@ -2237,7 +2243,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JPanel getControlPanel() {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 8dlu, fill:pref:grow").
-                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(new EmptyBorder(20, 4, 0, 4));
 
         final JCheckBox group1Visible = new JCheckBox("visible");
@@ -2307,6 +2313,46 @@ public class BasicCheckRibbon extends JRibbonFrame {
         });
         builder.add("Locale").xy(1, 13).add(localeSwitcher).xy(3, 13);
 
+        JButton galleryUpdate = new JButton("update");
+        galleryUpdate.addActionListener((ActionEvent ae) -> {
+            this.styleGalleryContentModel.setSelectedCommand(null);
+
+            MessageFormat mfButtonText = new MessageFormat("New {0}");
+            mfButtonText.setLocale(currLocale);
+
+            // Remove all commands from the first gallery command group
+            this.styleGalleryCommandGroup1.removeAllCommands();
+
+            // Add between 5 and 15 new commands to the first gallery command group
+            int count = 5 + (int) (10 * Math.random());
+            for (int i = 0; i < count; i++) {
+                final int index = i;
+                ResizableIcon.Factory iconFactory = DecoratedResizableIcon.factory(
+                        Font_x_generic.factory(),
+                        (Component c, Graphics g, int x, int y, int width, int height) -> {
+                            Graphics2D g2d = (Graphics2D) g.create();
+                            g2d.setColor(Color.black);
+                            g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().
+                                    getControlFont());
+                            NeonCortex.installDesktopHints(g2d, g2d.getFont());
+                            g2d.drawString("" + index, x + 2, y + height - 2);
+                            g2d.dispose();
+                        });
+
+                Command ribbonCommand = Command.builder()
+                        .setText(mfButtonText.format(new Object[] {i}))
+                        .setIconFactory(iconFactory)
+                        .setToggle()
+                        .build();
+
+                this.styleGalleryCommandGroup1.addCommand(ribbonCommand);
+            }
+
+            // And mark the second new command as the new selection in the gallery
+            this.styleGalleryContentModel.setSelectedCommand(this.styleGalleryCommandGroup1.getCommands().get(1));
+        });
+        builder.add("Update gallery").xy(1, 15).add(galleryUpdate).xy(3, 15);
+
         return builder.build();
     }
 
@@ -2322,7 +2368,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         fontBand.addFlowComponent(new RibbonComboBoxProjection(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] { "11  " })
+                        .setItems(new String[] {"11  "})
                         .build(),
                 ComponentPresentationModel.builder().setKeyTip("SS").build()));
 

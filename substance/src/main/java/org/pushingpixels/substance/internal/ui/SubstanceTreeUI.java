@@ -337,7 +337,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		if (SubstanceCoreUtilities.toDrawWatermark(this.tree))
 			newOpaque = false;
 
-		Map<Component, Boolean> opacity = new HashMap<Component, Boolean>();
+		Map<Component, Boolean> opacity = new HashMap<>();
 		if (!newOpaque)
 			SubstanceCoreUtilities.makeNonOpaque(jRenderer, opacity);
 		this.rendererPane.paintComponent(g2d, renderer, this.tree, bounds.x, bounds.y,
@@ -396,7 +396,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 	 * @param isLeaf
 	 *            Indication whether this row is a leaf.
 	 */
-	protected void paintExpandControlEnforce(Graphics g, Rectangle clipBounds, Insets insets,
+	private void paintExpandControlEnforce(Graphics g, Rectangle clipBounds, Insets insets,
 			Rectangle bounds, TreePath path, int row, boolean isExpanded, boolean hasBeenExpanded,
 			boolean isLeaf) {
 
@@ -435,7 +435,13 @@ public class SubstanceTreeUI extends BasicTreeUI {
 				tree.setOpaque(!SubstanceCoreUtilities.toDrawWatermark(tree));
 			}
 			if ("font".equals(evt.getPropertyName())) {
-				SwingUtilities.invokeLater(() -> tree.updateUI());
+				SwingUtilities.invokeLater(() -> {
+					tree.updateUI();
+					// Update indents so that the expand / collapse icons are not cut off
+					int fontSize = SubstanceSizeUtils.getComponentFontSize(tree);
+					setLeftChildIndent(SubstanceSizeUtils.getTreeLeftIndent(fontSize));
+					setRightChildIndent(SubstanceSizeUtils.getTreeRightIndent(fontSize));
+				});
 			}
 			if ("dropLocation".equals(evt.getPropertyName())) {
 				JTree.DropLocation oldValue = (JTree.DropLocation) evt.getOldValue();
@@ -519,7 +525,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 	 * 
 	 * @author Kirill Grouchnikov
 	 */
-	public static class TreePathId implements Comparable {
+	public static class TreePathId implements Comparable<TreePathId> {
 		/**
 		 * Tree path.
 		 */
@@ -536,27 +542,22 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		}
 
 		@Override
-		public int compareTo(Object o) {
-			if (o instanceof TreePathId) {
-				TreePathId otherId = (TreePathId) o;
-				if ((this.path == null) && (otherId.path != null))
+		public int compareTo(TreePathId otherId) {
+			if ((this.path == null) && (otherId.path != null))
+				return 1;
+			if ((otherId.path == null) && (this.path != null))
+				return -1;
+			Object[] path1Objs = this.path.getPath();
+			Object[] path2Objs = otherId.path.getPath();
+			if (path1Objs.length != path2Objs.length)
+				return 1;
+			for (int i = 0; i < path1Objs.length; i++)
+				if (!path1Objs[i].equals(path2Objs[i]))
 					return 1;
-				if ((otherId.path == null) && (this.path != null))
-					return -1;
-				Object[] path1Objs = this.path.getPath();
-				Object[] path2Objs = otherId.path.getPath();
-				if (path1Objs.length != path2Objs.length)
-					return 1;
-				for (int i = 0; i < path1Objs.length; i++)
-					if (!path1Objs[i].equals(path2Objs[i]))
-						return 1;
-				return 0;
-			}
-			return -1;
+			return 0;
 		}
 
-		@Override
-		public boolean equals(Object obj) {
+		public boolean equals(TreePathId obj) {
 			return this.compareTo(obj) == 0;
 		}
 
@@ -698,9 +699,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		}
 
 		public void mouseEntered(MouseEvent e) {
-			if (!tree.isEnabled())
-				return;
-			// isInside = true;
 		}
 
 		public void mousePressed(MouseEvent e) {
@@ -948,11 +946,11 @@ public class SubstanceTreeUI extends BasicTreeUI {
 				if (path != null) {
 					// respect the background color of the renderer.
 					boolean isLeaf = treeModel.isLeaf(path.getLastPathComponent());
-					boolean isExpanded = isLeaf ? false : treeState.getExpandedState(path);
+					boolean isExpanded = !isLeaf && treeState.getExpandedState(path);
 					Component renderer = this.currentCellRenderer.getTreeCellRendererComponent(
 							this.tree, path.getLastPathComponent(), this.tree.isRowSelected(row),
 							isExpanded, isLeaf, row,
-							tree.hasFocus() ? (tree.getLeadSelectionRow() == row) : false);
+							tree.hasFocus() && (tree.getLeadSelectionRow() == row));
 					Color background = renderer.getBackground();
 					if (background == null)
 						background = tree.getBackground();
@@ -1028,9 +1026,4 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		}
 		return tracker;
 	}
-
-	public StateTransitionTracker getStateTransitionTracker(TreePathId pathId) {
-		return this.stateTransitionMultiTracker.getTracker(pathId);
-	}
-
 }

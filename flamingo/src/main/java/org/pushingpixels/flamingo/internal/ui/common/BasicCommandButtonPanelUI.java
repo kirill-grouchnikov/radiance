@@ -357,6 +357,10 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
             this.setCommandButtonGridSize(totalRowCount, buttonsInRow);
 
+            if (totalRowCount == 0) {
+                return;
+            }
+
             int currRowIndex = 0;
             for (int i = 0; i < groupCount; i++) {
                 int topGroupY = y;
@@ -549,6 +553,10 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             }
 
             this.setCommandButtonGridSize(buttonsInColumn, totalColumnCount);
+
+            if (totalColumnCount == 0) {
+                return;
+            }
 
             if (ltr) {
                 int x = bInsets.left + groupInsets.left;

@@ -262,8 +262,10 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     protected void installListeners() {
         this.galleryCommandSelectionListener = (Command activated) ->
                 SwingUtilities.invokeLater(() -> {
-                    scrollToSelected();
-                    ribbonGallery.revalidate();
+                    if (ribbonGallery != null) {
+                        scrollToSelected();
+                        ribbonGallery.revalidate();
+                    }
                 });
         this.ribbonGallery.getProjection().getContentModel().addCommandActivationListener(
                 this.galleryCommandSelectionListener);

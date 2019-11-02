@@ -49,7 +49,7 @@ import java.awt.*;
 
 /**
  * UI for option panes in <b>Substance</b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
@@ -67,7 +67,7 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
      * specific component, it's better to enable it on the component class (to make the lookups
      * faster). So, when the option pane icon label is created (in addIcon method), we use this
      * class.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class OptionPaneLabel extends JLabel {
@@ -122,16 +122,17 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
     @Override
     protected Icon getIconForType(int messageType) {
         SubstanceIconPack iconPack = SubstanceCortex.GlobalScope.getIconPack();
-        int size = ICON_SIZE;
+        int size = (int) SubstanceSizeUtils.getAdjustedSize(
+                SubstanceSizeUtils.getControlFontSize(), ICON_SIZE, 3, 2);
         switch (messageType) {
-        case JOptionPane.ERROR_MESSAGE:
-            return iconPack.getOptionPaneErrorIcon(size, new SunsetColorScheme());
-        case JOptionPane.INFORMATION_MESSAGE:
-            return iconPack.getOptionPaneInformationIcon(size, new SteelBlueColorScheme());
-        case JOptionPane.WARNING_MESSAGE:
-            return iconPack.getOptionPaneWarningIcon(size, new SunsetColorScheme());
-        case JOptionPane.QUESTION_MESSAGE:
-            return iconPack.getOptionPaneQuestionIcon(size, new SteelBlueColorScheme());
+            case JOptionPane.ERROR_MESSAGE:
+                return iconPack.getOptionPaneErrorIcon(size, new SunsetColorScheme());
+            case JOptionPane.INFORMATION_MESSAGE:
+                return iconPack.getOptionPaneInformationIcon(size, new SteelBlueColorScheme());
+            case JOptionPane.WARNING_MESSAGE:
+                return iconPack.getOptionPaneWarningIcon(size, new SunsetColorScheme());
+            case JOptionPane.QUESTION_MESSAGE:
+                return iconPack.getOptionPaneQuestionIcon(size, new SteelBlueColorScheme());
         }
         return null;
     }
@@ -205,14 +206,14 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
                 int buttonAlignment = SubstanceCoreUtilities.getButtonBarGravity(container);
                 int x;
                 switch (buttonAlignment) {
-                case SwingConstants.LEFT:
-                    x = insets.left;
-                    break;
-                case SwingConstants.CENTER:
-                    x = (container.getWidth() - insets.left - insets.right - totalButtonWidth) / 2;
-                    break;
-                default:
-                    x = container.getWidth() - insets.right - totalButtonWidth;
+                    case SwingConstants.LEFT:
+                        x = insets.left;
+                        break;
+                    case SwingConstants.CENTER:
+                        x = (container.getWidth() - insets.left - insets.right - totalButtonWidth) / 2;
+                        break;
+                    default:
+                        x = container.getWidth() - insets.right - totalButtonWidth;
                 }
 
                 // Here we have four cases:

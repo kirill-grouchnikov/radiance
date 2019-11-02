@@ -987,7 +987,8 @@ public class SubstanceTitlePane extends JComponent {
             SubstanceSlices.HorizontalGravity titleTextHorizontalGravity = SubstanceTitlePaneUtilities
                     .getTitlePaneTextGravity();
             if (SubstanceTitlePane.this.menuBar != null) {
-                spacing = 5;
+                spacing = SubstanceSizeUtils.getTitlePaneHorizontalPadding(
+                        SubstanceSizeUtils.getComponentFontSize(SubstanceTitlePane.this));
                 int menuBarLeft;
                 switch (iconHorizontalGravity) {
                     case OPPOSITE_CONTROL_BUTTONS:
@@ -1168,7 +1169,8 @@ public class SubstanceTitlePane extends JComponent {
     }
 
     private int getControlButtonsSmallGap() {
-        return 3;
+        return (int) SubstanceSizeUtils.getAdjustedSize(
+                SubstanceSizeUtils.getComponentFontSize(this), 3, 2, 1);
     }
 
     private int getControlButtonsLargeGap() {

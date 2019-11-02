@@ -229,41 +229,43 @@ public class KeyTipManager {
         // taskbar panel components
         SubstanceRibbonFrameTitlePane titlePane = (SubstanceRibbonFrameTitlePane)
                 ((SubstanceRibbonRootPaneUI) ribbonFrame.getRootPane().getUI()).getTitlePane();
-        for (Component taskbarComp : titlePane.getTaskbarPanel().getComponents()) {
-            if (taskbarComp instanceof AbstractCommandButton) {
-                AbstractCommandButton cb = (AbstractCommandButton) taskbarComp;
-                KeyTipLink actionLink = getCommandButtonActionLink(cb);
-                if (actionLink != null) {
-                    if (taskbarComp instanceof SubstanceRibbonFrameTitlePane.TaskbarOverflowButton) {
-                        actionLink.traversal = () -> {
-                            // collect key tips of all controls in the taskbar overflow popup
-                            List<PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();
-                            if (popups.size() > 0) {
-                                PopupInfo last = popups.get(popups.size() - 1);
-                                JPopupPanel popupPanel = last.getPopupPanel();
-                                KeyTipChain chain = new KeyTipChain(popupPanel);
-                                populateChain(last.getPopupPanel(), chain);
-                                chain.parent = actionLink.traversal;
-                                return chain;
-                            }
-                            return null;
-                        };
-                    }
+        if (titlePane != null) {
+            for (Component taskbarComp : titlePane.getTaskbarPanel().getComponents()) {
+                if (taskbarComp instanceof AbstractCommandButton) {
+                    AbstractCommandButton cb = (AbstractCommandButton) taskbarComp;
+                    KeyTipLink actionLink = getCommandButtonActionLink(cb);
+                    if (actionLink != null) {
+                        if (taskbarComp instanceof SubstanceRibbonFrameTitlePane.TaskbarOverflowButton) {
+                            actionLink.traversal = () -> {
+                                // collect key tips of all controls in the taskbar overflow popup
+                                List<PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();
+                                if (popups.size() > 0) {
+                                    PopupInfo last = popups.get(popups.size() - 1);
+                                    JPopupPanel popupPanel = last.getPopupPanel();
+                                    KeyTipChain chain = new KeyTipChain(popupPanel);
+                                    populateChain(last.getPopupPanel(), chain);
+                                    chain.parent = actionLink.traversal;
+                                    return chain;
+                                }
+                                return null;
+                            };
+                        }
 
-                    root.addLink(actionLink);
-                }
-                if (taskbarComp instanceof JCommandButton) {
-                    JCommandButton jcb = (JCommandButton) taskbarComp;
-                    KeyTipLink popupLink = getCommandButtonPopupLink(jcb);
-                    if (popupLink != null) {
-                        root.addLink(popupLink);
+                        root.addLink(actionLink);
                     }
-                }
-            } else if (taskbarComp instanceof JRibbonComponent) {
-                JRibbonComponent rc = (JRibbonComponent) taskbarComp;
-                KeyTipLink link = getRibbonComponentLink(rc);
-                if (link != null) {
-                    root.addLink(link);
+                    if (taskbarComp instanceof JCommandButton) {
+                        JCommandButton jcb = (JCommandButton) taskbarComp;
+                        KeyTipLink popupLink = getCommandButtonPopupLink(jcb);
+                        if (popupLink != null) {
+                            root.addLink(popupLink);
+                        }
+                    }
+                } else if (taskbarComp instanceof JRibbonComponent) {
+                    JRibbonComponent rc = (JRibbonComponent) taskbarComp;
+                    KeyTipLink link = getRibbonComponentLink(rc);
+                    if (link != null) {
+                        root.addLink(link);
+                    }
                 }
             }
         }

@@ -513,6 +513,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                     return;
                 }
 
+                System.out.println("Mouse wheel event!");
+
                 Object object = event.getSource();
                 if (!(object instanceof Component)) {
                     return;
@@ -528,6 +530,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                     // if the mouse wheel scroll has happened inside a ribbon,
                     // ask the UI delegate to handle it
                     ribbon.getUI().handleMouseWheelEvent((MouseWheelEvent) mouseEvent);
+                    mouseEvent.consume();
                 }
             }
         }
