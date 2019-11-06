@@ -80,8 +80,9 @@ public class TwilightSkin extends SubstanceSkin {
      * Creates a new <code>Twilight</code> skin.
      */
     public TwilightSkin() {
-        SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-                .getColorSchemes("org/pushingpixels/substance/api/skin/twilight.colorschemes");
+        SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+                this.getClass().getClassLoader().getResourceAsStream(
+                        "org/pushingpixels/substance/api/skin/twilight.colorschemes"));
         SubstanceColorScheme activeScheme = schemes.get("Twilight Active");
         SubstanceColorScheme enabledScheme = schemes.get("Twilight Enabled");
 

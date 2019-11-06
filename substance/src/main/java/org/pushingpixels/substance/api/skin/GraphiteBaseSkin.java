@@ -51,8 +51,9 @@ abstract class GraphiteBaseSkin extends SubstanceSkin {
 	SubstanceColorSchemeBundle defaultSchemeBundle;
 
 	public GraphiteBaseSkin() {
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/graphite.colorschemes");
+		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/graphite.colorschemes"));
 
 		SubstanceColorScheme activeScheme = schemes.get("Graphite Active");
 		SubstanceColorScheme selectedDisabledScheme = schemes.get("Graphite Selected Disabled");

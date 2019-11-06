@@ -62,8 +62,9 @@ public class BusinessSkin extends SubstanceSkin {
 	 * Creates a new <code>Business</code> skin.
 	 */
 	public BusinessSkin() {
-		SubstanceSkin.ColorSchemes businessSchemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/business.colorschemes");
+		SubstanceSkin.ColorSchemes businessSchemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/business.colorschemes"));
 
 		SubstanceColorScheme activeScheme = businessSchemes.get("Business Active");
 		SubstanceColorScheme enabledScheme = businessSchemes.get("Business Enabled");
@@ -90,8 +91,9 @@ public class BusinessSkin extends SubstanceSkin {
 				DecorationAreaType.SECONDARY_TITLE_PANE, DecorationAreaType.HEADER,
 				DecorationAreaType.FOOTER);
 
-		SubstanceSkin.ColorSchemes kitchenSinkSchemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes");
+		SubstanceSkin.ColorSchemes kitchenSinkSchemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes"));
 		this.registerAsDecorationArea(kitchenSinkSchemes.get("LightGray General Background"),
 				DecorationAreaType.GENERAL);
 

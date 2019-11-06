@@ -39,6 +39,7 @@ import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer
 import org.pushingpixels.tools.apollo.svg.*
 import java.awt.*
 import java.io.File
+import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.PrintStream
 import java.util.regex.Pattern
@@ -313,7 +314,7 @@ class JColorSchemeList : JComponent() {
         try {
             this.currentFile = file
             if (file != null) {
-                this.schemes = SubstanceSkin.getColorSchemes(file.toURI().toURL())
+                this.schemes = SubstanceSkin.getColorSchemes(FileInputStream(file))
             } else {
                 this.schemes = SubstanceSkin.ColorSchemes()
             }

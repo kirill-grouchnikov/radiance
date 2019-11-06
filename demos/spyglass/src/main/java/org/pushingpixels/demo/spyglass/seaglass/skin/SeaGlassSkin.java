@@ -52,7 +52,8 @@ public class SeaGlassSkin extends SubstanceSkin {
 	 */
 	public SeaGlassSkin() {
 		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
-                "org/pushingpixels/demo/spyglass/seaglass/skin/seaglass.colorschemes");
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/demo/spyglass/seaglass/skin/seaglass.colorschemes"));
 
 		SubstanceColorScheme activeScheme = schemes.get("Sea Glass Active");
 		SubstanceColorScheme enabledScheme = schemes.get("Sea Glass Enabled");

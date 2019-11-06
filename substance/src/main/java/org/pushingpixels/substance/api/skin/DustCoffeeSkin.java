@@ -53,12 +53,14 @@ public class DustCoffeeSkin extends DustSkin {
      * Creates a new <code>Dust Coffee</code> skin.
      */
     public DustCoffeeSkin() {
-        SubstanceSkin.ColorSchemes kitchenSinkSchemes = SubstanceSkin
-                .getColorSchemes("org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes");
+        SubstanceSkin.ColorSchemes kitchenSinkSchemes = SubstanceSkin.getColorSchemes(
+                this.getClass().getClassLoader().getResourceAsStream(
+                        "org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes"));
         SubstanceColorScheme activeScheme = kitchenSinkSchemes.get("Coffee Active");
 
-        SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-                .getColorSchemes("org/pushingpixels/substance/api/skin/dust.colorschemes");
+        SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+                this.getClass().getClassLoader().getResourceAsStream(
+                        "org/pushingpixels/substance/api/skin/dust.colorschemes"));
         SubstanceColorScheme enabledScheme = schemes.get("Dust Coffee Enabled");
 
         SubstanceColorScheme backgroundScheme = schemes.get("Dust Coffee Background");

@@ -52,8 +52,9 @@ public class GraphiteAquaSkin extends GraphiteSkin {
 	public GraphiteAquaSkin() {
 		super();
 		
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/graphite.colorschemes");
+		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/graphite.colorschemes"));
 
 		// highlight fill scheme + custom alpha for rollover unselected state
 		SubstanceColorScheme highlightScheme = schemes.get("Graphite Aqua");

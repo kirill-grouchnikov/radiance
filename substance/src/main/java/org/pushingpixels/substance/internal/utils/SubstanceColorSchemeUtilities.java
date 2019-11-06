@@ -40,6 +40,7 @@ import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
@@ -377,7 +378,7 @@ public class SubstanceColorSchemeUtilities {
         return Color.decode(value);
     }
 
-    public static SubstanceSkin.ColorSchemes getColorSchemes(URL url) {
+    public static SubstanceSkin.ColorSchemes getColorSchemes(InputStream inputStream) {
         List<SubstanceColorScheme> schemes = new ArrayList<>();
 
         Map<String, Color> colorMap = new HashMap<>();
@@ -394,7 +395,7 @@ public class SubstanceColorSchemeUtilities {
         ColorSchemeKind kind = null;
         boolean inColorSchemeBlock = false;
         boolean inColorsBlock = false;
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             while (true) {
                 String line = reader.readLine();
                 if (line == null)

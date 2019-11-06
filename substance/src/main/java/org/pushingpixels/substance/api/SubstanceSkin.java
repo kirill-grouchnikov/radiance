@@ -49,6 +49,8 @@ import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.*;
@@ -881,8 +883,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 
     /**
      * Contains information on color schemes loaded by the
-     * {@link SubstanceSkin#getColorSchemes(URL)} and
-     * {@link SubstanceSkin#getColorSchemes(String)} APIs. Note that the custom
+     * {@link SubstanceSkin#getColorSchemes(InputStream)} API. Note that the custom
      * skins should only use the {@link #get(String)} API. The rest of the API
      * is currently internal and is used in the <strong>Apollo</strong>
      * visual editor.
@@ -1053,25 +1054,16 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     }
 
     /**
-     * Returns the collection of color schemes in the specified URL.
+     * Returns the collection of color schemes in the specified input stream.
      *
-     * @param url URL that points to a resource containing the description of
+     * @param inputStream Input stream for the resource containing the description of
      *            Substance color schemes.
-     * @return The collection of color schemes in the specified URL.
+     * @return The collection of color schemes in the specified input stream.
      */
-    public static ColorSchemes getColorSchemes(URL url) {
-        return SubstanceColorSchemeUtilities.getColorSchemes(url);
-    }
-
-    /**
-     * Returns the collection of color schemes in the specified URL.
-     *
-     * @param resourceName Name of the resource containing the description of Substance
-     *                     color schemes.
-     * @return The collection of color schemes in the specified URL.
-     */
-    public static ColorSchemes getColorSchemes(String resourceName) {
-        ClassLoader cl = SubstanceCoreUtilities.getClassLoaderForResources();
-        return SubstanceColorSchemeUtilities.getColorSchemes(cl.getResource(resourceName));
+    public static ColorSchemes getColorSchemes(InputStream inputStream) {
+        if (inputStream == null) {
+            throw new IllegalArgumentException("Can't read color schemes from a null stream");
+        }
+        return SubstanceColorSchemeUtilities.getColorSchemes(inputStream);
     }
 }

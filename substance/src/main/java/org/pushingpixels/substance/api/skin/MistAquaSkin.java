@@ -55,8 +55,9 @@ public class MistAquaSkin extends SubstanceSkin {
 	 * Creates a new <code>Silver Aqua</code> skin.
 	 */
 	public MistAquaSkin() {
-		SubstanceSkin.ColorSchemes colorSchemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/mist.colorschemes");
+		SubstanceSkin.ColorSchemes colorSchemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/mist.colorschemes"));
 
 		SubstanceColorScheme activeScheme = new AquaColorScheme();
 		SubstanceColorScheme enabledScheme = colorSchemes.get("Mist Enabled");

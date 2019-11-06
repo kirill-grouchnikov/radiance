@@ -66,8 +66,9 @@ public class NebulaSkin extends SubstanceSkin {
 	 * Creates a new <code>Nebula</code> skin.
 	 */
 	public NebulaSkin() {
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/nebula.colorschemes");
+		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/nebula.colorschemes"));
 
 		SubstanceColorScheme activeScheme = schemes.get("Nebula Active");
 		SubstanceColorScheme enabledScheme = schemes.get("Nebula Enabled");

@@ -50,8 +50,9 @@ public class GraphiteGoldSkin extends GraphiteSkin {
 	 * Creates a new <code>Graphite Gold</code> skin.
 	 */
 	public GraphiteGoldSkin() {
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/graphite.colorschemes");
+		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/graphite.colorschemes"));
 
 		// highlight fill scheme + custom alphas for states
 		SubstanceColorScheme highlightScheme = schemes.get("Graphite Gold");

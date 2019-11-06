@@ -61,8 +61,9 @@ public class SentinelSkin extends SubstanceSkin {
      * Creates a new <code>Sentinel</code> skin.
      */
     public SentinelSkin() {
-        ColorSchemes schemes = SubstanceSkin
-                .getColorSchemes("org/pushingpixels/substance/api/skin/sentinel.colorschemes");
+        ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+                this.getClass().getClassLoader().getResourceAsStream(
+                        "org/pushingpixels/substance/api/skin/sentinel.colorschemes"));
         SubstanceColorScheme activeScheme = schemes.get("Sentinel Active");
         SubstanceColorScheme enabledScheme = schemes.get("Sentinel Enabled");
         SubstanceColorScheme disabledScheme = schemes.get("Sentinel Disabled");

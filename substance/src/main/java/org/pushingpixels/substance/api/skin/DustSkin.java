@@ -72,8 +72,9 @@ public class DustSkin extends SubstanceSkin {
 	 * Creates a new <code>Dust</code> skin.
 	 */
 	public DustSkin() {
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/dust.colorschemes");
+		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/dust.colorschemes"));
 		SubstanceColorScheme activeScheme = schemes.get("Dust Active");
 		SubstanceColorScheme enabledScheme = schemes.get("Dust Enabled");
 

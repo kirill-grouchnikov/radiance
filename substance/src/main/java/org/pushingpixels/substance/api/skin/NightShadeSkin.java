@@ -64,8 +64,9 @@ public class NightShadeSkin extends SubstanceSkin {
      * Creates a new <code>Night Shade</code> skin.
      */
     public NightShadeSkin() {
-        ColorSchemes schemes = SubstanceSkin
-                .getColorSchemes("org/pushingpixels/substance/api/skin/nightshade.colorschemes");
+        ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+                this.getClass().getClassLoader().getResourceAsStream(
+                        "org/pushingpixels/substance/api/skin/nightshade.colorschemes"));
         SubstanceColorScheme activeScheme = schemes.get("Night Shade Active");
         SubstanceColorScheme enabledScheme = schemes.get("Night Shade Enabled");
         SubstanceColorScheme disabledScheme = schemes.get("Night Shade Disabled");

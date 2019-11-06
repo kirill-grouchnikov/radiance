@@ -58,8 +58,9 @@ public class RavenSkin extends SubstanceSkin {
 	 * Creates a new <code>Raven</code> skin.
 	 */
 	public RavenSkin() {
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/graphite.colorschemes");
+		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/graphite.colorschemes"));
 
 		SubstanceColorScheme activeScheme = new EbonyColorScheme();
 		SubstanceColorScheme enabledScheme = new DarkMetallicColorScheme();

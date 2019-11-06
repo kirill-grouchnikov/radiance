@@ -52,8 +52,9 @@ public class GraphiteElectricSkin extends GraphiteSkin {
 	public GraphiteElectricSkin() {
 		super();
 
-		ColorSchemes schemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/graphite.colorschemes");
+		ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/graphite.colorschemes"));
 
 		// highlight fill scheme + custom alpha for rollover unselected state
 		SubstanceColorScheme highlightScheme = schemes.get("Graphite Electric");

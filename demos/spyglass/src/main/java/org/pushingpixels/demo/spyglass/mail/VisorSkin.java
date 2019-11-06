@@ -55,8 +55,9 @@ public class VisorSkin extends SubstanceSkin {
      * Creates a new <code>Visor</code> skin.
      */
     public VisorSkin() {
-        ColorSchemes visorSchemes = SubstanceSkin
-                .getColorSchemes("org/pushingpixels/demo/spyglass/mail/skin/visor.colorschemes");
+        ColorSchemes visorSchemes = SubstanceSkin.getColorSchemes(
+                this.getClass().getClassLoader().getResourceAsStream(
+                        "org/pushingpixels/demo/spyglass/mail/skin/visor.colorschemes"));
 
         SubstanceColorScheme activeScheme = visorSchemes.get("Visor Active");
         SubstanceColorScheme enabledScheme = visorSchemes.get("Visor Enabled");

@@ -61,8 +61,9 @@ public class HarvestSkin extends SubstanceSkin {
      * Creates a new <code>Harvest</code> skin.
      */
     public HarvestSkin() {
-        ColorSchemes schemes = SubstanceSkin
-                .getColorSchemes("org/pushingpixels/substance/extras/api/skinpack/harvest.colorschemes");
+        ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+                this.getClass().getClassLoader().getResourceAsStream(
+                        "org/pushingpixels/substance/extras/api/skinpack/harvest.colorschemes"));
         SubstanceColorScheme activeScheme = schemes.get("Harvest Active");
         SubstanceColorScheme enabledScheme = schemes.get("Harvest Enabled");
         SubstanceColorScheme disabledScheme = schemes.get("Harvest Disabled");

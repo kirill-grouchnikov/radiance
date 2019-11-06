@@ -51,8 +51,9 @@ public class GraphiteChalkSkin extends GraphiteSkin {
 	 * Creates a new <code>Graphite Chalk</code> skin.
 	 */
 	public GraphiteChalkSkin() {
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/graphite.colorschemes");
+		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/graphite.colorschemes"));
 
 		SubstanceColorScheme chalkScheme = schemes.get("Chalk");
 		defaultSchemeBundle.registerColorScheme(chalkScheme,

@@ -84,8 +84,9 @@ public class GeminiSkin extends SubstanceSkin {
 	 * Creates a new <code>Gemini</code> skin.
 	 */
 	public GeminiSkin() {
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/gemini.colorschemes");
+		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/gemini.colorschemes"));
 
 		SubstanceColorScheme grayScheme = schemes.get("Gemini Gray");
 		SubstanceColorScheme lightGrayScheme = schemes.get("Gemini Light Gray");

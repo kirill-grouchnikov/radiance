@@ -80,8 +80,9 @@ public class MarinerSkin extends SubstanceSkin {
 	 * Creates a new <code>Mariner</code> skin.
 	 */
 	public MarinerSkin() {
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/mariner.colorschemes");
+		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/mariner.colorschemes"));
 
 		SubstanceColorScheme activeScheme = schemes.get("Mariner Active");
 		SubstanceColorScheme enabledScheme = schemes.get("Mariner Enabled");

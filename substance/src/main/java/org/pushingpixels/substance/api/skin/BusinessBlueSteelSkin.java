@@ -57,8 +57,9 @@ public class BusinessBlueSteelSkin extends SubstanceSkin {
 	 * Creates a new <code>Business Blue Steel</code> skin.
 	 */
 	public BusinessBlueSteelSkin() {
-		SubstanceSkin.ColorSchemes businessSchemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/business.colorschemes");
+		SubstanceSkin.ColorSchemes businessSchemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/business.colorschemes"));
 
 		SubstanceColorScheme activeScheme = businessSchemes.get("Business Blue Steel Active");
 		SubstanceColorScheme enabledScheme = businessSchemes.get("Business Blue Steel Enabled");

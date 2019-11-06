@@ -85,8 +85,9 @@ public class MagellanSkin extends SubstanceSkin {
 	 * Creates a new instance of Magellan skin.
 	 */
 	public MagellanSkin() {
-		SubstanceSkin.ColorSchemes colorSchemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/magellan.colorschemes");
+		SubstanceSkin.ColorSchemes colorSchemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/magellan.colorschemes"));
 
 		SubstanceColorScheme blueControlsActive = colorSchemes
 				.get("Magellan Blue Controls Active");

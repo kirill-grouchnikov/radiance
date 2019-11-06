@@ -60,8 +60,9 @@ public class CeruleanSkin extends SubstanceSkin {
 	public CeruleanSkin() {
 		super();
 
-		SubstanceSkin.ColorSchemes ceruleanSchemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/cerulean.colorschemes");
+		SubstanceSkin.ColorSchemes ceruleanSchemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/cerulean.colorschemes"));
 
 		SubstanceColorScheme activeScheme = ceruleanSchemes.get("Cerulean Active");
 		SubstanceColorScheme enabledScheme = ceruleanSchemes.get("Cerulean Enabled");
@@ -123,8 +124,9 @@ public class CeruleanSkin extends SubstanceSkin {
 				ColorSchemeAssociationKind.FILL, uneditable);
 
 		// for text highlight
-		ColorSchemes kitchenSinkSchemes = SubstanceSkin
-				.getColorSchemes("org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes");
+		ColorSchemes kitchenSinkSchemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes"));
 		SubstanceColorScheme highlightColorScheme = kitchenSinkSchemes.get("Moderate Highlight");
 		defaultSchemeBundle.registerHighlightColorScheme(highlightColorScheme);
 
