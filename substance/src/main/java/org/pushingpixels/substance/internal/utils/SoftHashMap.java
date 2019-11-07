@@ -48,10 +48,10 @@ import java.util.*;
  */
 class SoftHashMap<K, V> extends AbstractMap<K, V> implements Serializable {
 	/** The internal HashMap that will hold the SoftReference. */
-	private final Map<K, KeySoftReference<K, V>> hash = new HashMap<K, KeySoftReference<K, V>>();
+	private final Map<K, KeySoftReference<K, V>> hash = new HashMap<>();
 
 	/** Reference queue for cleared SoftReference objects. */
-	private final ReferenceQueue<V> queue = new ReferenceQueue<V>();
+	private final ReferenceQueue<V> queue = new ReferenceQueue<>();
 
 	public static class KeySoftReference<K, V> extends SoftReference<V> {
 		final K key;
@@ -92,7 +92,7 @@ class SoftHashMap<K, V> extends AbstractMap<K, V> implements Serializable {
 	@Override
 	public V put(K key, V value) {
 		expungeStaleEntries();
-		KeySoftReference<K, V> keyRef = new KeySoftReference<K, V>(key, value,
+		KeySoftReference<K, V> keyRef = new KeySoftReference<>(key, value,
 				queue);
 		SoftReference<V> result = hash.put(key, keyRef);
 		if (result == null)
@@ -145,11 +145,11 @@ class SoftHashMap<K, V> extends AbstractMap<K, V> implements Serializable {
 	@Override
 	public Set<Entry<K, V>> entrySet() {
 		expungeStaleEntries();
-		Set<Entry<K, V>> result = new LinkedHashSet<Entry<K, V>>();
+		Set<Entry<K, V>> result = new LinkedHashSet<>();
 		for (final Entry<K, KeySoftReference<K, V>> entry : hash.entrySet()) {
 			final V value = entry.getValue().get();
 			if (value != null) {
-				result.add(new Entry<K, V>() {
+				result.add(new Entry<>() {
 					public K getKey() {
 						return entry.getKey();
 					}
@@ -159,7 +159,7 @@ class SoftHashMap<K, V> extends AbstractMap<K, V> implements Serializable {
 					}
 
 					public V setValue(V v) {
-						entry.setValue(new KeySoftReference<K, V>(entry
+						entry.setValue(new KeySoftReference<>(entry
 								.getKey(), v, queue));
 						return value;
 					}

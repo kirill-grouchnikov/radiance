@@ -175,7 +175,7 @@ class KRibbonFrame {
             ribbonFrame.ribbon.addContextualTaskGroup(
                     RibbonContextualTaskGroup(contextualTaskGroup.title,
                             contextualTaskGroup.color,
-                            contextualTaskGroup.tasks.tasks.map { it -> it.asJavaRibbonTask() })
+                            contextualTaskGroup.tasks.tasks.map { it.asJavaRibbonTask() })
             )
         }
 

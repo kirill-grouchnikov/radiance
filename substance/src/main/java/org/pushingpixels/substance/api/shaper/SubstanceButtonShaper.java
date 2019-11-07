@@ -58,8 +58,8 @@ public interface SubstanceButtonShaper extends SubstanceTrait {
 	 *            contour.
 	 * @return The outline path for the specified button.
 	 */
-	public Shape getButtonOutline(AbstractButton button, float extraInsets,
-			float width, float height, boolean isInner);
+    Shape getButtonOutline(AbstractButton button, float extraInsets,
+            float width, float height, boolean isInner);
 
 	/**
 	 * Returns the border for the specified button.
@@ -68,7 +68,7 @@ public interface SubstanceButtonShaper extends SubstanceTrait {
 	 *            A button.
 	 * @return The border for the specified button.
 	 */
-	public Border getButtonBorder(AbstractButton button);
+    Border getButtonBorder(AbstractButton button);
 
 	/**
 	 * Returns the preferred size for the specified button.
@@ -80,8 +80,8 @@ public interface SubstanceButtonShaper extends SubstanceTrait {
 	 *            (plain rectangular button).
 	 * @return The preferred size for the specified button.
 	 */
-	public Dimension getPreferredSize(AbstractButton button,
-			Dimension uiPreferredSize);
+    Dimension getPreferredSize(AbstractButton button,
+            Dimension uiPreferredSize);
 
 	/**
 	 * Returns the boolean indication whether the shaper should maintain button
@@ -92,5 +92,5 @@ public interface SubstanceButtonShaper extends SubstanceTrait {
 	 *         button proportions on the resize, <code>false</code> otherwise.
 	 * 
 	 */
-	public boolean isProportionate();
+    boolean isProportionate();
 }

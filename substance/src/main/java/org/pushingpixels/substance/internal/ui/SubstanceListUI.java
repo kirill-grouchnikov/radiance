@@ -194,7 +194,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
         private void _syncModelContents() {
             // fix for issue 469/474 - update the inner structures
             // in a separate event
-            SwingUtilities.invokeLater(() -> syncModelContents());
+            SwingUtilities.invokeLater(SubstanceListUI.this::syncModelContents);
         }
 
         @Override

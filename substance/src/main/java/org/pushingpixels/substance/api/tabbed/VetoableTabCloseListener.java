@@ -49,5 +49,5 @@ public interface VetoableTabCloseListener extends TabCloseListener {
 	 * @return <code>true</code> if the corresponding tab shouldn't be closed,
 	 *         <code>false</code> otherwise.
 	 */
-	public boolean vetoTabClosing(JTabbedPane tabbedPane, Component tabComponent);
+    boolean vetoTabClosing(JTabbedPane tabbedPane, Component tabComponent);
 }

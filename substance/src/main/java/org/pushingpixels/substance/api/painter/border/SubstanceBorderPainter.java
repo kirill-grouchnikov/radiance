@@ -65,8 +65,8 @@ public interface SubstanceBorderPainter extends SubstanceTrait {
 	 * @param borderScheme
 	 *            The border color scheme.
 	 */
-	public void paintBorder(Graphics g, Component c, float width, float height,
-			Shape contour, Shape innerContour, SubstanceColorScheme borderScheme);
+    void paintBorder(Graphics g, Component c, float width, float height,
+            Shape contour, Shape innerContour, SubstanceColorScheme borderScheme);
 
 	/**
 	 * Returns boolean indication whether this border painter is painting the
@@ -75,7 +75,7 @@ public interface SubstanceBorderPainter extends SubstanceTrait {
 	 * @return <code>true</code> if this border painter is painting the inner
 	 *         contours, <code>false</code> otherwise.
 	 */
-	public boolean isPaintingInnerContour();
+    boolean isPaintingInnerContour();
 	
-	public Color getRepresentativeColor(SubstanceColorScheme borderScheme);
+	Color getRepresentativeColor(SubstanceColorScheme borderScheme);
 }

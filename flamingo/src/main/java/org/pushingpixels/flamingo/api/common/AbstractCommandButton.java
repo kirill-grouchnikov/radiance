@@ -825,12 +825,6 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      */
     public void setActionRichTooltip(RichTooltip richTooltip) {
         this.actionRichTooltip = richTooltip;
-        RichTooltipManager richToolTipManager = RichTooltipManager.sharedInstance();
-        if (this.hasRichTooltips()) {
-            richToolTipManager.registerComponent(this);
-        } else {
-            richToolTipManager.unregisterComponent(this);
-        }
     }
 
     @Override

@@ -154,13 +154,13 @@ public class ModelColor {
 	/**
 	 * Set an RGB color
 	 * 
-	 * @param R
+	 * @param r
 	 *            the red value in the range 0-255
-	 * @param G
+	 * @param g
 	 *            the green value in the range 0-255
-	 * @param B
+	 * @param b
 	 *            the blue value in the range 0-255
-	 * @param H
+	 * @param h
 	 *            the hue value in the range 0-255
 	 */
 	public void setRGB(int r, int g, int b, int h) {
@@ -268,7 +268,7 @@ public class ModelColor {
 			// G = 120 G = 180
 			// B == 240 B = 240
 			// Fractional values = degrees / 360.0
-			float values[] = new float[3];
+			float[] values = new float[3];
 			values = Color.RGBtoHSB(R, G, B, values);
 			float h = values[0];
 			S = (rgbMaxValue > 0) ? 1.0 * (rgbMaxValue - rgbMinValue)

@@ -102,9 +102,9 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("KP_UP", ComboActions.UP);
 
 		return result;
-	};
+	}
 
-	/**
+    /**
 	 * Taken from BasicDesktopPaneUI.Actions
 	 */
 	protected static class DesktopPaneActions {
@@ -265,9 +265,9 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("control shift O", TextComponentActions.TOGGLE_COMPONENT_ORIENTATION);
 
 		return result;
-	};
+	}
 
-	public SubstanceInputMap getEditorPaneFocusInputMap() {
+    public SubstanceInputMap getEditorPaneFocusInputMap() {
 		return this.getMultilineTextComponentFocusInputMap();
 	}
 
@@ -654,9 +654,9 @@ public class BaseInputMapSet implements InputMapSet {
 
 		return result;
 
-	};
+	}
 
-	protected static class SplitPaneActions {
+    protected static class SplitPaneActions {
 		public static final String NEGATIVE_INCREMENT = "negativeIncrement";
 		public static final String POSITIVE_INCREMENT = "positiveIncrement";
 		public static final String SELECT_MIN = "selectMin";
@@ -1139,5 +1139,5 @@ public class BaseInputMapSet implements InputMapSet {
 		result.put("ctrl shift SPACE", TreeActions.MOVE_SELECTION_TO);
 
 		return result;
-	};
+	}
 }

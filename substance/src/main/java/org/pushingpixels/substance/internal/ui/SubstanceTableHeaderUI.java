@@ -188,7 +188,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
             }
 
             // Set<Long> initiatedFadeSequences = new HashSet<Long>();
-            Set<StateTransitionTracker> initiatedTrackers = new HashSet<StateTransitionTracker>();
+            Set<StateTransitionTracker> initiatedTrackers = new HashSet<>();
             boolean fadeCanceled = false;
 
             // if (SubstanceCoreUtilities.toBleedWatermark(list))
@@ -330,7 +330,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
 
         TableColumnModel cm = header.getColumnModel();
         int[] selectedColumns = cm.getSelectedColumns();
-        Set<Integer> selected = new HashSet<Integer>();
+        Set<Integer> selected = new HashSet<>();
         for (int sel : selectedColumns)
             selected.add(sel);
 
@@ -867,7 +867,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
      * 
      * @author Kirill Grouchnikov
      */
-    protected class ColumnHeaderRepaintCallback extends EventDispatchThreadTimelineCallbackAdapter {
+    protected static class ColumnHeaderRepaintCallback extends EventDispatchThreadTimelineCallbackAdapter {
         /**
          * Associated table header.
          */
@@ -923,7 +923,6 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
                         header.repaint(damaged);
                     }
                 } catch (RuntimeException re) {
-                    return;
                 }
             });
         }

@@ -961,7 +961,7 @@ public class SubstanceCoreUtilities {
                     + " and " + imageRight.getHeight());
 
         BufferedImage result = getBlankUnscaledImage(imageLeft);
-        Graphics2D graphics = (Graphics2D) result.createGraphics();
+        Graphics2D graphics = result.createGraphics();
 
         int startX = (int) (start * width);
         int endX = (int) (end * width);
@@ -1115,14 +1115,14 @@ public class SubstanceCoreUtilities {
      */
     public static int getEchoPerChar(JPasswordField jpf) {
         Object obj = jpf.getClientProperty(SubstanceSynapse.PASSWORD_ECHO_PER_CHAR);
-        if ((obj != null) && (obj instanceof Integer)) {
+        if ((obj instanceof Integer)) {
             int result = (Integer) obj;
             if (result >= 1)
                 return result;
         }
 
         obj = UIManager.get(SubstanceSynapse.PASSWORD_ECHO_PER_CHAR);
-        if ((obj != null) && (obj instanceof Integer)) {
+        if ((obj instanceof Integer)) {
             int result = (Integer) obj;
             if (result >= 1)
                 return result;
@@ -1642,7 +1642,7 @@ public class SubstanceCoreUtilities {
             // use correct root pane for painting the
             // title panes of internal frames
             Component frame = c.getParent();
-            if ((frame != null) && (frame instanceof JInternalFrame)) {
+            if (frame instanceof JInternalFrame) {
                 rootPane = ((JInternalFrame) frame).getRootPane();
             }
         }
@@ -1650,7 +1650,7 @@ public class SubstanceCoreUtilities {
             // use correct root pane for painting the
             // title buttons of internal frames
             Component frame = c.getParent().getParent();
-            if ((frame != null) && (frame instanceof JInternalFrame)) {
+            if ((frame instanceof JInternalFrame)) {
                 rootPane = ((JInternalFrame) frame).getRootPane();
             }
         }

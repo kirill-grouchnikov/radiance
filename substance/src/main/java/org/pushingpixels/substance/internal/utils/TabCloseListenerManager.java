@@ -171,14 +171,10 @@ public class TabCloseListenerManager {
         }
 
         Set<BaseTabCloseListener> result = new HashSet<>();
-        for (BaseTabCloseListener listener : this.generalListeners) {
-            result.add(listener);
-        }
+        result.addAll(this.generalListeners);
         Set<BaseTabCloseListener> listeners = this.specificListeners.get(tabbedPane);
         if (listeners != null) {
-            for (BaseTabCloseListener listener : listeners) {
-                result.add(listener);
-            }
+            result.addAll(listeners);
         }
 
         return Collections.unmodifiableSet(result);

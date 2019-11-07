@@ -102,17 +102,14 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         super.installUI(c);
 
         c.putClientProperty(SubstanceCoreUtilities.TEXT_COMPONENT_AWARE,
-                new TextComponentAware<JComboBox>() {
-                    @Override
-                    public JTextComponent getTextComponent(JComboBox t) {
-                        if (t.isEditable()) {
-                            Component editorComp = t.getEditor().getEditorComponent();
-                            if (editorComp instanceof JTextComponent) {
-                                return (JTextComponent) editorComp;
-                            }
+                (TextComponentAware<JComboBox>) t -> {
+                    if (t.isEditable()) {
+                        Component editorComp = t.getEditor().getEditorComponent();
+                        if (editorComp instanceof JTextComponent) {
+                            return (JTextComponent) editorComp;
                         }
-                        return null;
                     }
+                    return null;
                 });
     }
 

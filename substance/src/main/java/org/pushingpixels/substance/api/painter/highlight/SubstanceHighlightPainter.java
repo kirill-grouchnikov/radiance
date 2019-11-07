@@ -56,6 +56,6 @@ public interface SubstanceHighlightPainter extends SubstanceTrait {
 	 * @param colorScheme
 	 *            The color scheme for painting the highlight.
 	 */
-	public void paintHighlight(Graphics2D graphics, Component comp, int width,
-			int height, SubstanceColorScheme colorScheme);
+    void paintHighlight(Graphics2D graphics, Component comp, int width,
+            int height, SubstanceColorScheme colorScheme);
 }

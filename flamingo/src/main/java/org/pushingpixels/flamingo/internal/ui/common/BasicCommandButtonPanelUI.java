@@ -191,9 +191,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
     }
 
     /**
-     * Returns the layout manager for the associated button panel.
-     *
-     * @return The layout manager for the associated button panel.
+     * Updates the layout manager for the associated button panel.
      */
     private void updateLayoutManager() {
         CommandPanelPresentationModel panelPresentationModel =
@@ -278,7 +276,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      */
     protected abstract Insets getGroupInsets();
 
-    private abstract class CommandButtonPanelLayout implements LayoutManager {
+    private abstract static class CommandButtonPanelLayout implements LayoutManager {
         protected int commandButtonGridRowCount = -1;
         protected int commandButtonGridColumnCount = -1;
         protected AbstractCommandButton[][] commandButtonGrid;

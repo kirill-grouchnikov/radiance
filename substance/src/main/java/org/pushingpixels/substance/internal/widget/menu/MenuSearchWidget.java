@@ -116,18 +116,16 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
             // Add action listener on the toggle button. Based on the
             // state of the toggle button, the search field and result buttons
             // will be set visible or invisible.
-            this.searchButton.addActionListener((ActionEvent e) -> {
-                SwingUtilities.invokeLater(() -> {
-                    boolean toShow = SearchPanel.this.searchButton.isSelected();
-                    SearchPanel.this.searchStringField.setVisible(toShow);
-                    SearchPanel.this.searchStringField.requestFocus();
-                    for (JButton resultButton : SearchPanel.this.resultButtons.values()) {
-                        resultButton.setVisible(toShow);
-                    }
-                    SearchPanel.this.repaint();
-                    SearchPanel.this.revalidate();
-                });
-            });
+            this.searchButton.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                boolean toShow = SearchPanel.this.searchButton.isSelected();
+                SearchPanel.this.searchStringField.setVisible(toShow);
+                SearchPanel.this.searchStringField.requestFocus();
+                for (JButton resultButton : SearchPanel.this.resultButtons.values()) {
+                    resultButton.setVisible(toShow);
+                }
+                SearchPanel.this.repaint();
+                SearchPanel.this.revalidate();
+            }));
             // add mouse listener to remove the search panel on mouse
             // click when CTRL button is pressed.
             this.searchButton.addMouseListener(new MouseAdapter() {
@@ -152,7 +150,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
             // Map to hold the result buttons (need for the icon reset
             // on theme change and layout manager).
-            this.resultButtons = new HashMap<Integer, JButton>();
+            this.resultButtons = new HashMap<>();
             this.searchStringField.addActionListener((ActionEvent e) -> {
                 String searchString = SearchPanel.this.searchStringField.getText().toLowerCase();
                 // See if there is at least one non-white space character.
@@ -216,9 +214,9 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
          *         associated menu bar.
          */
         private LinkedList<SearchResult> findOccurences(String searchPattern) {
-            LinkedList<SearchResult> result = new LinkedList<SearchResult>();
+            LinkedList<SearchResult> result = new LinkedList<>();
 
-            LinkedList<JMenu> currentPath = new LinkedList<JMenu>();
+            LinkedList<JMenu> currentPath = new LinkedList<>();
 
             for (int i = 0; i < jcomp.getComponentCount(); i++) {
                 Component component = jcomp.getComponent(i);
@@ -249,7 +247,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
         private void checkMenu(LinkedList<JMenu> currentPath, JMenuItem menuItem,
                 String searchPattern, LinkedList<SearchResult> matchingResults) {
             String menuItemText = menuItem.getText();
-            if (menuItemText.toLowerCase().indexOf(searchPattern) >= 0) {
+            if (menuItemText.toLowerCase().contains(searchPattern)) {
                 matchingResults.addLast(new SearchResult(jcomp, currentPath, menuItem));
             }
             if (menuItem instanceof JMenu) {
@@ -521,7 +519,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
                 });
             }
             if ("locale".equals(evt.getPropertyName())) {
-                SwingUtilities.invokeLater(() -> reset());
+                SwingUtilities.invokeLater(this::reset);
             }
         };
         this.jcomp.addPropertyChangeListener(this.propertyListener);

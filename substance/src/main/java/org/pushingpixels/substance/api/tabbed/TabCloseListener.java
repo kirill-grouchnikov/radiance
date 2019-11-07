@@ -46,7 +46,7 @@ public interface TabCloseListener extends BaseTabCloseListener {
 	 * @param tabComponent
 	 *            Tab component to be closed.
 	 */
-	public void tabClosing(JTabbedPane tabbedPane, Component tabComponent);
+    void tabClosing(JTabbedPane tabbedPane, Component tabComponent);
 
 	/**
 	 * Called when a tab is closed.
@@ -56,5 +56,5 @@ public interface TabCloseListener extends BaseTabCloseListener {
 	 * @param tabComponent
 	 *            Tab component closed.
 	 */
-	public void tabClosed(JTabbedPane tabbedPane, Component tabComponent);
+    void tabClosed(JTabbedPane tabbedPane, Component tabComponent);
 }

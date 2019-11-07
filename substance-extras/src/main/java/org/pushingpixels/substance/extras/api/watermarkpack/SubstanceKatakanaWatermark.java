@@ -54,11 +54,6 @@ public class SubstanceKatakanaWatermark implements SubstanceWatermark {
     private static BufferedImage watermarkImage = null;
 
     /**
-     * Font size.
-     */
-    private static int fontSize = 14;
-
-    /**
      * Font instance.
      */
     private static Font font = getFont();
@@ -163,6 +158,10 @@ public class SubstanceKatakanaWatermark implements SubstanceWatermark {
         graphics.setColor(stampColor);
 
         graphics.setFont(font);
+        /**
+         * Font size.
+         */
+        int fontSize = 14;
         int fontWidth = fontSize;
         int fontHeight = fontSize - 2;
         int rows = height / fontHeight;

@@ -36,11 +36,11 @@ public abstract class ColorSliderModel {
 	/**
 	 * JSlider's associated to this ColorSliderModel.
 	 */
-	private LinkedList<JSlider> sliders = new LinkedList<JSlider>();
+	private LinkedList<JSlider> sliders = new LinkedList<>();
 	/**
 	 * ChangeListener's listening to changes in this ColorSliderModel.
 	 */
-	private LinkedList<ChangeListener> listeners = new LinkedList<ChangeListener>();
+	private LinkedList<ChangeListener> listeners = new LinkedList<>();
 
 	/**
 	 * Components of the color model.
@@ -166,7 +166,7 @@ public abstract class ColorSliderModel {
 		Integer index = Integer.valueOf(componentIndex);
 		Color value = getColor();
 		for (Iterator<JSlider> i = sliders.iterator(); i.hasNext();) {
-			JSlider slider = (JSlider) i.next();
+			JSlider slider = i.next();
 			slider.putClientProperty("ColorComponentChange", index);
 			slider.putClientProperty("ColorComponentValue", value);
 		}
@@ -175,7 +175,7 @@ public abstract class ColorSliderModel {
 	public void fireStateChanged() {
 		ChangeEvent event = new ChangeEvent(this);
 		for (Iterator<ChangeListener> i = listeners.iterator(); i.hasNext();) {
-			ChangeListener l = (ChangeListener) i.next();
+			ChangeListener l = i.next();
 			l.stateChanged(event);
 		}
 	}

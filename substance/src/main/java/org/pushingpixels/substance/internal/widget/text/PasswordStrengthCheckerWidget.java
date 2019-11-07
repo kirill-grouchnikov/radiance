@@ -147,7 +147,7 @@ public class PasswordStrengthCheckerWidget extends SubstanceWidget<JPasswordFiel
             if (SubstanceSynapse.PASSWORD_STRENGTH_CHECKER.equals(evt.getPropertyName())) {
                 Object newValue = evt.getNewValue();
                 Object oldValue = evt.getOldValue();
-                if ((newValue != null) && (newValue instanceof PasswordStrengthChecker)
+                if ((newValue instanceof PasswordStrengthChecker)
                         && (!(oldValue instanceof PasswordStrengthChecker))) {
                     jcomp.setBorder(
                             new WrappedBorder(jcomp.getBorder(), new StrengthCheckedBorder()));

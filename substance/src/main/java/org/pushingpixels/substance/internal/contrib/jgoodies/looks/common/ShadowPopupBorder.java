@@ -45,7 +45,7 @@ import java.awt.*;
  * @see ShadowPopup
  * @see ShadowPopupFactory
  */
-final class ShadowPopupBorder extends AbstractBorder {
+public final class ShadowPopupBorder extends AbstractBorder {
 
     /**
      * The drop shadow needs 5 pixels at the bottom and the right hand side.

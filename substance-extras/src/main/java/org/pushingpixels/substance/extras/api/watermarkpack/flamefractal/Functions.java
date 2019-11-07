@@ -45,12 +45,10 @@ public class Functions {
 	public static class SphericalFunction extends AffineFunction {
 		public SphericalFunction(double a, double b, double c, double d,
 				double e, double f) {
-			super(new IteratedFunction() {
-				public void apply(Point2D coord) {
-					double r2 = (coord.getX() * coord.getX())
-							+ (coord.getY() * coord.getY());
-					coord.setLocation(coord.getX() / r2, coord.getY() / r2);
-				}
+			super(coord -> {
+				double r2 = (coord.getX() * coord.getX())
+						+ (coord.getY() * coord.getY());
+				coord.setLocation(coord.getX() / r2, coord.getY() / r2);
 			}, a, b, c, d, e, f);
 		}
 	}
@@ -58,20 +56,18 @@ public class Functions {
 	public static class HorseShoeFunction extends AffineFunction {
 		public HorseShoeFunction(double a, double b, double c, double d,
 				double e, double f) {
-			super(new IteratedFunction() {
-				public void apply(Point2D coord) {
-					double r2 = Math.min(1.0, coord.getX() * coord.getX()
-							+ coord.getY() * coord.getY());
-					double r = Math.sqrt(r2);
-					// double theta = Math.atan2(coord.getY(), coord.getX());
-					// coord.getX() = r * Math.cos(2.0 * theta);
-					// coord.getY() = r * Math.sin(2.0 * theta);
-					double nx = (coord.getX() * coord.getX() - coord.getY()
-							* coord.getY())
-							/ r;
-					double ny = 2.0 * coord.getX() * coord.getY() / r;
-					coord.setLocation(nx, ny);
-				}
+			super(coord -> {
+				double r2 = Math.min(1.0, coord.getX() * coord.getX()
+						+ coord.getY() * coord.getY());
+				double r = Math.sqrt(r2);
+				// double theta = Math.atan2(coord.getY(), coord.getX());
+				// coord.getX() = r * Math.cos(2.0 * theta);
+				// coord.getY() = r * Math.sin(2.0 * theta);
+				double nx = (coord.getX() * coord.getX() - coord.getY()
+						* coord.getY())
+						/ r;
+				double ny = 2.0 * coord.getX() * coord.getY() / r;
+				coord.setLocation(nx, ny);
 			}, a, b, c, d, e, f);
 		}
 	}
@@ -79,16 +75,14 @@ public class Functions {
 	public static class ExFunction extends AffineFunction {
 		public ExFunction(double a, double b, double c, double d, double e,
 				double f) {
-			super(new IteratedFunction() {
-				public void apply(Point2D coord) {
-					double r2 = coord.getX() * coord.getX() + coord.getY()
-							* coord.getY();
-					double r = Math.min(1.0, Math.sqrt(r2));
-					double theta = Math.atan2(coord.getY(), coord.getX());
-					double s = Math.sin(theta + r);
-					double c = Math.cos(theta - r);
-					coord.setLocation(r * s * s * s, r * c * c * c);
-				}
+			super(coord -> {
+				double r2 = coord.getX() * coord.getX() + coord.getY()
+						* coord.getY();
+				double r = Math.min(1.0, Math.sqrt(r2));
+				double theta = Math.atan2(coord.getY(), coord.getX());
+				double s = Math.sin(theta + r);
+				double c1 = Math.cos(theta - r);
+				coord.setLocation(r * s * s * s, r * c1 * c1 * c1);
 			}, a, b, c, d, e, f);
 		}
 	}
@@ -96,15 +90,13 @@ public class Functions {
 	public static class SwirlFunction extends AffineFunction {
 		public SwirlFunction(double a, double b, double c, double d, double e,
 				double f) {
-			super(new IteratedFunction() {
-				public void apply(Point2D coord) {
-					double r2 = coord.getX() * coord.getX() + coord.getY()
-							* coord.getY();
-					double r = Math.min(1.0, Math.sqrt(r2));
-					double theta = Math.atan2(coord.getY(), coord.getX());
-					coord.setLocation(r * Math.cos(theta + r), r
-							* Math.sin(theta + r));
-				}
+			super(coord -> {
+				double r2 = coord.getX() * coord.getX() + coord.getY()
+						* coord.getY();
+				double r = Math.min(1.0, Math.sqrt(r2));
+				double theta = Math.atan2(coord.getY(), coord.getX());
+				coord.setLocation(r * Math.cos(theta + r), r
+						* Math.sin(theta + r));
 			}, a, b, c, d, e, f);
 		}
 	}
@@ -112,15 +104,13 @@ public class Functions {
 	public static class SpiralFunction extends AffineFunction {
 		public SpiralFunction(double a, double b, double c, double d, double e,
 				double f) {
-			super(new IteratedFunction() {
-				public void apply(Point2D coord) {
-					double r2 = coord.getX() * coord.getX() + coord.getY()
-							* coord.getY();
-					double r = Math.min(1.0, Math.sqrt(r2));
-					double theta = Math.atan2(coord.getY(), coord.getX());
-					coord.setLocation((Math.cos(theta) + Math.sin(r)) / r,
-							(Math.sin(theta) - Math.cos(r)) / r);
-				}
+			super(coord -> {
+				double r2 = coord.getX() * coord.getX() + coord.getY()
+						* coord.getY();
+				double r = Math.min(1.0, Math.sqrt(r2));
+				double theta = Math.atan2(coord.getY(), coord.getX());
+				coord.setLocation((Math.cos(theta) + Math.sin(r)) / r,
+						(Math.sin(theta) - Math.cos(r)) / r);
 			}, a, b, c, d, e, f);
 		}
 	}

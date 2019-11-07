@@ -56,7 +56,7 @@ public class ComboBoxBackgroundDelegate {
     /**
      * Cache for background images.
      */
-    private static LazyResettableHashMap<BufferedImage> regularBackgrounds = new LazyResettableHashMap<BufferedImage>(
+    private static LazyResettableHashMap<BufferedImage> regularBackgrounds = new LazyResettableHashMap<>(
             "ComboBoxBackgroundDelegate");
 
     public static BufferedImage getFullAlphaBackground(JComboBox combo, ButtonModel model,

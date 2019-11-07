@@ -102,7 +102,6 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
                 return size() > 5;
             }
 
-            ;
         };
         this.renderImage(this.width, this.height);
     }
@@ -126,7 +125,6 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
                 return size() > 5;
             }
 
-            ;
         };
         this.renderImage(this.width, this.height);
     }

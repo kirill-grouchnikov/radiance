@@ -49,7 +49,7 @@ public class PopupPanelManager {
      *
      * @author Kirill Grouchnikov
      */
-    public static interface PopupListener extends EventListener {
+    public interface PopupListener extends EventListener {
         /**
          * Fired when a popup panel has been shown.
          *

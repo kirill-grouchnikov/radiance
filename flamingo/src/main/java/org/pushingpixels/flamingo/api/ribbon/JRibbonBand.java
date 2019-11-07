@@ -130,7 +130,7 @@ public class JRibbonBand extends AbstractRibbonBand {
         /**
          * Low priority.
          */
-        LOW;
+        LOW
     }
 
     /**

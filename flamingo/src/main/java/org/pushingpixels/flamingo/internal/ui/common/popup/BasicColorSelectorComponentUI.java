@@ -240,7 +240,7 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
         SwingUtilities.replaceUIActionMap(this.colorSelectorComponent, null);
     }
 
-    private abstract class ColorSelectorComponentAction extends AbstractAction {
+    private abstract static class ColorSelectorComponentAction extends AbstractAction {
         protected final JColorSelectorComponent colorSelectorComponent;
 
         ColorSelectorComponentAction(String actionName,

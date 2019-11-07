@@ -69,9 +69,9 @@ public class SubstanceColorChooserUI extends Quaqua14ColorChooserUI {
 		for (int i = 0; i < defaultChoosers.length; i++) {
 			try {
 				Method setBundleMethod = Class.forName(defaultChoosers[i])
-						.getMethod("setLabelBundle", new Class[] { ResourceBundle.class });
+						.getMethod("setLabelBundle", ResourceBundle.class);
 				setBundleMethod.invoke(null,
-						new Object[] { SubstanceCortex.GlobalScope.getLabelBundle() });
+						SubstanceCortex.GlobalScope.getLabelBundle());
 			} catch (Throwable t) {
 				// ignore - either the method doesn't exist or the invocation
 				// failed. Nothing to do in both cases.

@@ -637,18 +637,13 @@ public final class SubstanceImageCreator {
      *            The input image.
      * @param echoAlpha
      *            Alpha channel for the echo image.
-     * @param offsetX
-     *            X offset of the echo.
-     * @param offsetY
-     *            Y offset of the echo.
      * @return Image with overlayed echo.
      */
-    private static BufferedImage overlayEcho(BufferedImage image, float echoAlpha, Color echoColor,
-            int offsetX, int offsetY) {
+    private static BufferedImage overlayEcho(BufferedImage image, float echoAlpha, Color echoColor) {
         int width = image.getWidth();
         int height = image.getHeight();
 
-        offsetX = offsetY = 0;
+        int offsetX = 0, offsetY = 0;
         BufferedImage echo = new ColorFilter(echoColor).filter(image, null);
         double factor = NeonCortex.getScaleFactor();
         int tweakedWidth = (int) (width / factor);
@@ -714,7 +709,7 @@ public final class SubstanceImageCreator {
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());
         boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
         return new ImageWrapperIcon(SubstanceImageCreator.overlayEcho(image,
-                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor, 1, 1));
+                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor));
     }
 
     /**
@@ -768,7 +763,7 @@ public final class SubstanceImageCreator {
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());
         boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
         return new ImageWrapperIcon(SubstanceImageCreator.overlayEcho(image,
-                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor, 1, 1));
+                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor));
     }
 
     /**
@@ -819,7 +814,7 @@ public final class SubstanceImageCreator {
         boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
 
         return new ImageWrapperIcon(SubstanceImageCreator.overlayEcho(image,
-                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor, 1, 1));
+                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor));
     }
 
     /**
@@ -875,7 +870,7 @@ public final class SubstanceImageCreator {
         boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
 
         return new ImageWrapperIcon(SubstanceImageCreator.overlayEcho(image,
-                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor, 1, 1));
+                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor));
     }
 
     /**

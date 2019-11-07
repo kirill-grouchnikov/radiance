@@ -32,5 +32,5 @@ package org.pushingpixels.flamingo.api.layout;
 import java.util.EventListener;
 
 public interface TransitionLayoutListener extends EventListener {
-	public void onTransitionLayoutEvent(TransitionLayoutEvent e);
+	void onTransitionLayoutEvent(TransitionLayoutEvent e);
 }

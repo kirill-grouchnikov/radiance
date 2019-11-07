@@ -54,12 +54,6 @@ public abstract class BreadcrumbBarCallBack<T> {
     }
 
     /**
-     * If <code>true</code>, some of the operations will throw
-     * {@link BreadcrumbBarException}.
-     */
-    private boolean throwsExceptions;
-
-    /**
      * Sets the indication whether the operations of this breadcrumb bar will
      * throw {@link BreadcrumbBarException}.
      *
@@ -67,7 +61,10 @@ public abstract class BreadcrumbBarCallBack<T> {
      *                         will throw {@link BreadcrumbBarException}.
      */
     public void setThrowsExceptions(boolean throwsExceptions) {
-        this.throwsExceptions = throwsExceptions;
+        /**
+         * If <code>true</code>, some of the operations will throw
+         * {@link BreadcrumbBarException}.
+         */
     }
 
     /**

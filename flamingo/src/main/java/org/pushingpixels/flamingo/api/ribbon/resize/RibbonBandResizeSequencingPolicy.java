@@ -64,12 +64,12 @@ public interface RibbonBandResizeSequencingPolicy {
 	 * Resets this policy. Note that this method is for internal use only and
 	 * should not be called by the application code.
 	 */
-	public void reset();
+    void reset();
 
 	/**
 	 * Returns the next ribbon band for collapse.
 	 * 
 	 * @return The next ribbon band for collapse.
 	 */
-	public AbstractRibbonBand next();
+    AbstractRibbonBand next();
 }

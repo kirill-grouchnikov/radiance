@@ -30,28 +30,28 @@ public interface RichComponent {
      *
      * @param image         The URL of the image
      */
-    public void setRichImage(URL image);
+    void setRichImage(URL image);
     
     /** 
      * Assigns an image to the component, the width and height taken from the supplied image
      *
      * @param image A file referencing the image
      */
-    public void setRichImage(File image);
+    void setRichImage(File image);
 
     /** 
      * Assisgns an image to the component, the width and height taken from the supplied image
      *
      * @param image An image object containing the image
      */
-    public void setRichImage(Image image);    
+    void setRichImage(Image image);
     
     /** 
      * Allows a RichContainer to request that the component pre-renders anything
      * that might provide peak performance. It is expected that most implementations will 
      * do this automatically after the image has been specified
      */
-    public void prePaintImage();
+    void prePaintImage();
     
     /**
      * Specifies text that should be displayed by the rich component when 
@@ -59,7 +59,7 @@ public interface RichComponent {
      * @param text The text to be displayed. This may be different to that of the component
      * being enriched.
      */
-    public void setRichText(String text);
+    void setRichText(String text);
     
     /**
      * Gets the text to be displayed by the RichContainer for the component. May
@@ -67,7 +67,7 @@ public interface RichComponent {
      *
      * @return The text to be displayed
      */
-    public String getRichText();
+    String getRichText();
     
     /** 
      * Assisgns a uniform alpha to the component
@@ -75,7 +75,7 @@ public interface RichComponent {
      * @param alpha A value from 0.0 to 1.0 where 1.0 is fully visible, and 0.0
      * is completely invisible.
      */
-    public void setAlpha(float alpha);
+    void setAlpha(float alpha);
     
     
 }

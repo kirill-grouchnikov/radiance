@@ -92,8 +92,8 @@ public class SubstanceWidgetRepository {
      * Creates a new repository. Marked private to enforce single instance.
      */
     private SubstanceWidgetRepository() {
-        this.widgets = new HashMap<Class<?>, Set<WidgetClassInfo>>();
-        this.widgetClassesToIgnore = new HashSet<String>();
+        this.widgets = new HashMap<>();
+        this.widgetClassesToIgnore = new HashSet<>();
     }
 
     /**

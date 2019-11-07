@@ -52,7 +52,7 @@ public class GlowingIcon implements Icon {
 	public GlowingIcon(Icon delegate, IconGlowTracker iconGlowTracker) {
 		this.delegate = delegate;
 		this.iconGlowTracker = iconGlowTracker;
-		this.iconMap = new HashMap<Float, Icon>();
+		this.iconMap = new HashMap<>();
 	}
 	
 	public void setDampeningFactor(float dampeningFactor) {

@@ -503,7 +503,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
 
             if (title_length > 2) {
                 int subtitle_w = fm.stringWidth(frame.getTitle().substring(0, 2) + "...");
-                width += (title_w < subtitle_w) ? title_w : subtitle_w;
+                width += Math.min(title_w, subtitle_w);
             } else {
                 width += title_w;
             }
@@ -662,7 +662,21 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
             Icon icon = frame.getFrameIcon();
 
             if (icon != null) {
-                icon.paintIcon(this, g, 0, 0);
+                int width = this.getWidth();
+                int height = this.getHeight();
+                int iconWidth = icon.getIconWidth();
+                int iconHeight = icon.getIconHeight();
+                if ((iconWidth <= width) && (iconHeight <= height)) {
+                    // paint the icon unscaled
+                    icon.paintIcon(this, g, 0, 0);
+                } else {
+                    // need to scale the icon
+                    float scale = Math.min((float) width / iconWidth, (float) height / iconHeight);
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.scale(scale, scale);
+                    icon.paintIcon(this, g2d, 0, 0);
+                    g2d.dispose();
+                }
             }
         }
 

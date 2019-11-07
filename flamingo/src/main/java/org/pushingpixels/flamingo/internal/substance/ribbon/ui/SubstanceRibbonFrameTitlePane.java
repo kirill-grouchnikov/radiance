@@ -154,7 +154,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         }
     }
 
-    private class CommandButtonLayoutManagerTaskbarOverflow
+    private static class CommandButtonLayoutManagerTaskbarOverflow
             extends CommandButtonLayoutManagerSmall {
         @Override
         public int getPreferredIconSize(AbstractCommandButton commandButton) {

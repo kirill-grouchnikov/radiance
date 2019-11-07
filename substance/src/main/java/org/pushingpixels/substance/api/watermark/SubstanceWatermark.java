@@ -57,8 +57,8 @@ public interface SubstanceWatermark extends SubstanceTrait {
 	 * @param height
 	 *            Region height.
 	 */
-	public void drawWatermarkImage(Graphics graphics, Component c, int x,
-			int y, int width, int height);
+    void drawWatermarkImage(Graphics graphics, Component c, int x,
+            int y, int width, int height);
 
 	/**
 	 * Updates the current watermark image.
@@ -68,7 +68,7 @@ public interface SubstanceWatermark extends SubstanceTrait {
 	 * @return <code>true</code> if the watermark has been updated successfully,
 	 *         <code>false</code> otherwise.
 	 */
-	public boolean updateWatermarkImage(SubstanceSkin skin);
+    boolean updateWatermarkImage(SubstanceSkin skin);
 
 	/**
 	 * Draws the preview of the watermark image.
@@ -87,11 +87,11 @@ public interface SubstanceWatermark extends SubstanceTrait {
 	 * @param height
 	 *            The height of the watermark to be drawn.
 	 */
-	public void previewWatermark(Graphics g, SubstanceSkin skin, int x, int y,
-			int width, int height);
+    void previewWatermark(Graphics g, SubstanceSkin skin, int x, int y,
+            int width, int height);
 
 	/**
 	 * Disposes the memory associated with <code>this</code> watermark.
 	 */
-	public void dispose();
+    void dispose();
 }

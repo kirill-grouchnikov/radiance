@@ -42,7 +42,7 @@ import java.util.ArrayList;
  */
 class KeyInterpolators {
 
-    private ArrayList<TimelineEase> interpolators = new ArrayList<TimelineEase>();
+    private ArrayList<TimelineEase> interpolators = new ArrayList<>();
 
     /**
      * Creates a new instance of KeyInterpolators

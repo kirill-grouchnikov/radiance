@@ -148,7 +148,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
          * <p/>
          * Fixes defect 135 - memory leaks on tabbed panes.
          */
-        private Map<Component, List<PropertyChangeListener>> listeners = new HashMap<Component, List<PropertyChangeListener>>();
+        private Map<Component, List<PropertyChangeListener>> listeners = new HashMap<>();
 
         /**
          * Creates a new container listener.
@@ -514,7 +514,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
      */
     private SubstanceTabbedPaneUI() {
         super();
-        this.stateTransitionMultiTracker = new StateTransitionMultiTracker<Integer>();
+        this.stateTransitionMultiTracker = new StateTransitionMultiTracker<>();
         this.currSelectedIndex = -1;
     }
 
@@ -560,30 +560,28 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
         this.tabPane.addContainerListener(this.substanceContainerListener);
 
-        this.substanceSelectionListener = (ChangeEvent e) -> {
-            SwingUtilities.invokeLater(() -> {
-                if (SubstanceTabbedPaneUI.this.tabPane == null)
-                    return;
-                int selected = SubstanceTabbedPaneUI.this.tabPane.getSelectedIndex();
+        this.substanceSelectionListener = (ChangeEvent e) -> SwingUtilities.invokeLater(() -> {
+            if (SubstanceTabbedPaneUI.this.tabPane == null)
+                return;
+            int selected = SubstanceTabbedPaneUI.this.tabPane.getSelectedIndex();
 
-                // fix for issue 437 - track the selection change,
-                // fading out the previously selected tab
-                if ((currSelectedIndex >= 0)
-                        && (currSelectedIndex < SubstanceTabbedPaneUI.this.tabPane.getTabCount())
-                        && SubstanceTabbedPaneUI.this.tabPane.isEnabledAt(currSelectedIndex)) {
-                    StateTransitionTracker tracker = getTracker(currSelectedIndex,
-                            getRolloverTabIndex() == currSelectedIndex, true);
-                    tracker.getModel().setSelected(false);
-                }
-                currSelectedIndex = selected;
-                if ((selected >= 0) && (selected < SubstanceTabbedPaneUI.this.tabPane.getTabCount())
-                        && SubstanceTabbedPaneUI.this.tabPane.isEnabledAt(selected)) {
-                    StateTransitionTracker tracker = getTracker(selected,
-                            getRolloverTabIndex() == selected, false);
-                    tracker.getModel().setSelected(true);
-                }
-            });
-        };
+            // fix for issue 437 - track the selection change,
+            // fading out the previously selected tab
+            if ((currSelectedIndex >= 0)
+                    && (currSelectedIndex < SubstanceTabbedPaneUI.this.tabPane.getTabCount())
+                    && SubstanceTabbedPaneUI.this.tabPane.isEnabledAt(currSelectedIndex)) {
+                StateTransitionTracker tracker = getTracker(currSelectedIndex,
+                        getRolloverTabIndex() == currSelectedIndex, true);
+                tracker.getModel().setSelected(false);
+            }
+            currSelectedIndex = selected;
+            if ((selected >= 0) && (selected < SubstanceTabbedPaneUI.this.tabPane.getTabCount())
+                    && SubstanceTabbedPaneUI.this.tabPane.isEnabledAt(selected)) {
+                StateTransitionTracker tracker = getTracker(selected,
+                        getRolloverTabIndex() == selected, false);
+                tracker.getModel().setSelected(true);
+            }
+        });
         this.tabPane.getModel().addChangeListener(this.substanceSelectionListener);
 
         for (SubstanceWidget lafWidget : this.lafWidgets) {
@@ -628,7 +626,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
         this.substanceContentOpaque = UIManager.getBoolean("TabbedPane.contentOpaque");
 
-        this.modifiedTimelines = new HashMap<Component, Timeline>();
+        this.modifiedTimelines = new HashMap<>();
         this.currSelectedIndex = this.tabPane.getSelectedIndex();
 
         for (SubstanceWidget lafWidget : this.lafWidgets) {
@@ -1082,7 +1080,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     @Override
     protected JButton createScrollButton(final int direction) {
-        SubstanceScrollButton ssb = new SubstanceScrollButton(direction);
+        SubstanceScrollButton ssb = new SubstanceScrollButton();
         Icon icon = new TransitionAwareIcon(ssb, (SubstanceColorScheme scheme) -> {
             // fix for defect 279 - tab pane might not yet have the font installed.
             int fontSize = SubstanceSizeUtils.getComponentFontSize(tabPane);
@@ -1409,7 +1407,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
         if (tabCloseKind == TabCloseKind.ALL_BUT_THIS) {
             // close all but this
-            Set<Integer> indexes = new HashSet<Integer>();
+            Set<Integer> indexes = new HashSet<>();
             for (int i = 0; i < this.tabPane.getTabCount(); i++)
                 if (i != tabIndex)
                     indexes.add(i);
@@ -1418,7 +1416,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         }
         if (tabCloseKind == TabCloseKind.ALL) {
             // close all
-            Set<Integer> indexes = new HashSet<Integer>();
+            Set<Integer> indexes = new HashSet<>();
             for (int i = 0; i < this.tabPane.getTabCount(); i++)
                 indexes.add(i);
             this.tryCloseTabs(indexes);
@@ -1435,7 +1433,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
      */
     protected void tryCloseTab(int tabIndex) {
         Component component = this.tabPane.getComponentAt(tabIndex);
-        Set<Component> componentSet = new HashSet<Component>();
+        Set<Component> componentSet = new HashSet<>();
         componentSet.add(component);
 
         // check if there's at least one listener
@@ -1486,7 +1484,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
      *            Tab indexes.
      */
     protected void tryCloseTabs(Set<Integer> tabIndexes) {
-        Set<Component> componentSet = new HashSet<Component>();
+        Set<Component> componentSet = new HashSet<>();
         for (int tabIndex : tabIndexes) {
             componentSet.add(this.tabPane.getComponentAt(tabIndex));
         }

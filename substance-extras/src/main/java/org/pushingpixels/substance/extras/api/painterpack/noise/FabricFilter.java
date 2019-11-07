@@ -138,7 +138,7 @@ public class FabricFilter implements NoiseFilter {
 	 *            Fabric links.
 	 */
 	public FabricFilter(FabricFilterLink... links) {
-		this.links = new LinkedList<FabricFilterLink>();
+		this.links = new LinkedList<>();
 		for (FabricFilterLink link : links) {
 			this.links.add(link);
 		}

@@ -36,7 +36,7 @@ import org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter;
 import org.pushingpixels.substance.extras.internal.contrib.blogofbug.swing.components.*;
 import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.TabPreviewInfo;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.substance.internal.contrib.jgoodies.looks.ShadowPopupBorder;
+import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopupBorder;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
@@ -793,11 +793,6 @@ public class TabOverviewDialog extends JDialog {
         private int currHoverIndex;
 
         /**
-         * Mouse listeneres (one for each tab thumbnail).
-         */
-        private MouseListener[] mouseListeners;
-
-        /**
          * The associated overview panel.
          */
         private TabGridOverviewPanel overviewPanel;
@@ -812,12 +807,15 @@ public class TabOverviewDialog extends JDialog {
             this.overviewPanel = overviewPanel;
 
             int size = this.overviewPanel.previewControls.length;
-            this.mouseListeners = new MouseListener[size];
+            /**
+             * Mouse listeneres (one for each tab thumbnail).
+             */
+            MouseListener[] mouseListeners = new MouseListener[size];
             this.currHoverIndex = -1;
             for (int i = 0; i < size; i++) {
                 final int index = i;
-                this.mouseListeners[i] = new RolloverMouseListener(index, overviewPanel);
-                this.overviewPanel.previewControls[i].addMouseListener(this.mouseListeners[i]);
+                mouseListeners[i] = new RolloverMouseListener(index, overviewPanel);
+                this.overviewPanel.previewControls[i].addMouseListener(mouseListeners[i]);
             }
         }
 

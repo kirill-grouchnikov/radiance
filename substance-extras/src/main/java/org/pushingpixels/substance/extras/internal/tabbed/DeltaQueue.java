@@ -105,7 +105,7 @@ public class DeltaQueue {
 	 * 
 	 * @author Kirill Grouchnikov.
 	 */
-	public static interface DeltaMatcher {
+	public interface DeltaMatcher {
 		/**
 		 * Returns <code>true</code> if the specified delta matches some
 		 * criteria.
@@ -115,7 +115,7 @@ public class DeltaQueue {
 		 * @return <code>true</code> if the specified delta matches some
 		 *         criteria, <code>false</code> otherwise.
 		 */
-		public boolean matches(Deltable deltable);
+		boolean matches(Deltable deltable);
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class DeltaQueue {
 	 * Constructs a new empty non-blocking synchronized delta queue.
 	 */
 	public DeltaQueue() {
-		this.queue = new ArrayList<Deltable>();
+		this.queue = new ArrayList<>();
 	}
 
 	/**
@@ -187,7 +187,7 @@ public class DeltaQueue {
 	 *         specified delay left.
 	 */
 	public synchronized List<Deltable> dequeue(int delay) {
-		List<Deltable> result = new LinkedList<Deltable>();
+		List<Deltable> result = new LinkedList<>();
 		while (this.queue.size() > 0) {
 			Deltable next = this.queue.get(0);
 			int timeToExpire = next.getDelta();
@@ -327,11 +327,7 @@ public class DeltaQueue {
 		}
 		dq.dump();
 
-		dq.removeMatching(new DeltaMatcher() {
-			public boolean matches(Deltable deltable) {
-				return ((DeltableTest) deltable).id < 30;
-			}
-		});
+		dq.removeMatching(deltable -> ((DeltableTest) deltable).id < 30);
 		dq.dump();
 
 		TrackableThread.requestStopAllThreads();

@@ -48,9 +48,9 @@ import java.awt.font.LineMetrics;
 import java.util.Collection;
 
 public class KeyTipRenderingUtilities {
-    private static int INSETS = 3;
 
     public static Dimension getPrefSize(FontMetrics fm, String keyTip) {
+        int INSETS = 3;
         int prefWidth = fm.stringWidth(keyTip) + 2 * INSETS + 1;
         int prefHeight = fm.getHeight() + INSETS - 1;
         return new Dimension(prefWidth, prefHeight);

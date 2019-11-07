@@ -74,10 +74,6 @@ import java.util.Map;
  */
 public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
         implements ActionPopupTransitionAwareUI {
-    /**
-     * Delegate for painting the background.
-     */
-    private ButtonBackgroundDelegate backgroundDelegate;
 
     /**
      * Property change listener.
@@ -111,7 +107,10 @@ public class SubstanceCommandToggleButtonUI extends BasicCommandToggleButtonUI
      */
     SubstanceCommandToggleButtonUI() {
         super();
-        this.backgroundDelegate = new ButtonBackgroundDelegate();
+        /**
+         * Delegate for painting the background.
+         */
+        ButtonBackgroundDelegate backgroundDelegate = new ButtonBackgroundDelegate();
 
         this.substanceVisualStateTracker = new CommandButtonVisualStateTracker();
     }

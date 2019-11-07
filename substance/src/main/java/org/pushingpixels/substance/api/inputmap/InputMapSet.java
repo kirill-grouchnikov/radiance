@@ -30,57 +30,57 @@
 package org.pushingpixels.substance.api.inputmap;
 
 public interface InputMapSet {
-	public SubstanceInputMap getButtonFocusInputMap();
+	SubstanceInputMap getButtonFocusInputMap();
 
-	public SubstanceInputMap getCheckBoxFocusInputMap();
+	SubstanceInputMap getCheckBoxFocusInputMap();
 
-	public SubstanceInputMap getComboBoxAncestorInputMap();
+	SubstanceInputMap getComboBoxAncestorInputMap();
 
-	public SubstanceInputMap getDesktopAncestorInputMap();
+	SubstanceInputMap getDesktopAncestorInputMap();
 
-	public SubstanceInputMap getEditorPaneFocusInputMap();
+	SubstanceInputMap getEditorPaneFocusInputMap();
 
-	public SubstanceInputMap getFileChooserAncestorInputMap();
+	SubstanceInputMap getFileChooserAncestorInputMap();
 
-	public SubstanceInputMap getFormattedTextFieldFocusInputMap();
+	SubstanceInputMap getFormattedTextFieldFocusInputMap();
 
-	public SubstanceInputMap getListFocusInputMap();
+	SubstanceInputMap getListFocusInputMap();
 
-	public SubstanceInputMap getPasswordFieldFocusInputMap();
+	SubstanceInputMap getPasswordFieldFocusInputMap();
 
-	public SubstanceInputMap getRadioButtonFocusInputMap();
+	SubstanceInputMap getRadioButtonFocusInputMap();
 
-	public SubstanceInputMap getRootPaneAncestorInputMap();
+	SubstanceInputMap getRootPaneAncestorInputMap();
 
-	public SubstanceInputMap getScrollBarAncestorInputMap();
+	SubstanceInputMap getScrollBarAncestorInputMap();
 
-	public SubstanceInputMap getScrollPaneAncestorInputMap();
+	SubstanceInputMap getScrollPaneAncestorInputMap();
 
-	public SubstanceInputMap getSliderFocusInputMap();
+	SubstanceInputMap getSliderFocusInputMap();
 
-	public SubstanceInputMap getSpinnerAncestorInputMap();
+	SubstanceInputMap getSpinnerAncestorInputMap();
 
-	public SubstanceInputMap getSplitPaneAncestorInputMap();
+	SubstanceInputMap getSplitPaneAncestorInputMap();
 
-	public SubstanceInputMap getTabbedPaneAncestorInputMap();
+	SubstanceInputMap getTabbedPaneAncestorInputMap();
 
-	public SubstanceInputMap getTabbedPaneFocusInputMap();
+	SubstanceInputMap getTabbedPaneFocusInputMap();
 
-	public SubstanceInputMap getTableAncestorInputMap();
+	SubstanceInputMap getTableAncestorInputMap();
 
-	public SubstanceInputMap getTableHeaderAncestorInputMap();
+	SubstanceInputMap getTableHeaderAncestorInputMap();
 
-	public SubstanceInputMap getTextAreaFocusInputMap();
+	SubstanceInputMap getTextAreaFocusInputMap();
 
-	public SubstanceInputMap getTextFieldFocusInputMap();
+	SubstanceInputMap getTextFieldFocusInputMap();
 
-	public SubstanceInputMap getTextPaneFocusInputMap();
+	SubstanceInputMap getTextPaneFocusInputMap();
 
-	public SubstanceInputMap getToggleButtonFocusInputMap();
+	SubstanceInputMap getToggleButtonFocusInputMap();
 
-	public SubstanceInputMap getToolBarAncestorInputMap();
+	SubstanceInputMap getToolBarAncestorInputMap();
 
-	public SubstanceInputMap getTreeAncestorInputMap();
+	SubstanceInputMap getTreeAncestorInputMap();
 
-	public SubstanceInputMap getTreeFocusInputMap();
+	SubstanceInputMap getTreeFocusInputMap();
 }

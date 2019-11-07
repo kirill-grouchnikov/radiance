@@ -32,5 +32,5 @@ package org.pushingpixels.substance.internal.utils.border;
 import javax.swing.border.Border;
 
 public interface BorderWrapper {
-	public Border getOriginalBorder();
+	Border getOriginalBorder();
 }

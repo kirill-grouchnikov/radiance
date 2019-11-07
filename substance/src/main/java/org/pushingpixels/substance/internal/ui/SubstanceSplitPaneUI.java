@@ -68,7 +68,6 @@ public class SubstanceSplitPaneUI extends BasicSplitPaneUI {
                 SubstanceSplitPaneDivider substanceDivider = (SubstanceSplitPaneDivider) SubstanceSplitPaneUI.this.divider;
                 substanceDivider.updateOneTouchButtons((Integer) evt.getNewValue());
             }
-            ;
         };
         this.splitPane.addPropertyChangeListener(this.substancePropertyListener);
     }

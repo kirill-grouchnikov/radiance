@@ -67,7 +67,7 @@ public class SubstanceBorder implements Border, UIResource {
 	 * Cache of small border images.
 	 */
 	private static LazyResettableHashMap<BufferedImage> smallImageCache =
-			new LazyResettableHashMap<BufferedImage>("SubstanceBorder");
+			new LazyResettableHashMap<>("SubstanceBorder");
 
 	/**
 	 * Creates a new border with dynamic insets (computed at the invocation time

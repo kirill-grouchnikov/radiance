@@ -50,48 +50,41 @@ public interface ColorSchemeSingleColorQuery {
 	 * Core implementation of the {@link ColorSchemeSingleColorQuery} interface
 	 * that returns the ultra light color of the specified color scheme.
 	 */
-	ColorSchemeSingleColorQuery ULTRALIGHT =
-			(SubstanceColorScheme scheme) -> scheme.getUltraLightColor();
+	ColorSchemeSingleColorQuery ULTRALIGHT = SchemeBaseColors::getUltraLightColor;
 
 	/**
 	 * Core implementation of the {@link ColorSchemeSingleColorQuery} interface
 	 * that returns the extra light color of the specified color scheme.
 	 */
-	ColorSchemeSingleColorQuery EXTRALIGHT =
-			(SubstanceColorScheme scheme) -> scheme.getExtraLightColor();
+	ColorSchemeSingleColorQuery EXTRALIGHT = SchemeBaseColors::getExtraLightColor;
 
 	/**
 	 * Core implementation of the {@link ColorSchemeSingleColorQuery} interface
 	 * that returns the light color of the specified color scheme.
 	 */
-	ColorSchemeSingleColorQuery LIGHT =
-			(SubstanceColorScheme scheme) -> scheme.getLightColor();
+	ColorSchemeSingleColorQuery LIGHT = SchemeBaseColors::getLightColor;
 
 	/**
 	 * Core implementation of the {@link ColorSchemeSingleColorQuery} interface
 	 * that returns the mid color of the specified color scheme.
 	 */
-	ColorSchemeSingleColorQuery MID =
-			(SubstanceColorScheme scheme) -> scheme.getMidColor();
+	ColorSchemeSingleColorQuery MID = SchemeBaseColors::getMidColor;
 
 	/**
 	 * Core implementation of the {@link ColorSchemeSingleColorQuery} interface
 	 * that returns the dark color of the specified color scheme.
 	 */
-	ColorSchemeSingleColorQuery DARK =
-			(SubstanceColorScheme scheme) -> scheme.getDarkColor();
+	ColorSchemeSingleColorQuery DARK = SchemeBaseColors::getDarkColor;
 
 	/**
 	 * Core implementation of the {@link ColorSchemeSingleColorQuery} interface
 	 * that returns the ultra dark color of the specified color scheme.
 	 */
-	ColorSchemeSingleColorQuery ULTRADARK =
-			(SubstanceColorScheme scheme) -> scheme.getUltraDarkColor();
+	ColorSchemeSingleColorQuery ULTRADARK = SchemeBaseColors::getUltraDarkColor;
 
 	/**
 	 * Core implementation of the {@link ColorSchemeSingleColorQuery} interface
 	 * that returns the foreground color of the specified color scheme.
 	 */
-	ColorSchemeSingleColorQuery FOREGROUND =
-			(SubstanceColorScheme scheme) -> scheme.getForegroundColor();
+	ColorSchemeSingleColorQuery FOREGROUND = SchemeBaseColors::getForegroundColor;
 }

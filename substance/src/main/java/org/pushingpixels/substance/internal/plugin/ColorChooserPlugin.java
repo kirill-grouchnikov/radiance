@@ -149,9 +149,7 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
 
             Object[] labelDefaults = new Object[mainDefaults.length
                     + labelsList.size()];
-            for (int i = 0; i < mainDefaults.length; i++) {
-                labelDefaults[i] = mainDefaults[i];
-            }
+            System.arraycopy(mainDefaults, 0, labelDefaults, 0, mainDefaults.length);
             int start = mainDefaults.length;
             for (int i = 0; i < labelsList.size(); i++) {
                 labelDefaults[start + i] = labelsList.get(i);
@@ -159,13 +157,9 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
             mainDefaults = labelDefaults;
 
             Object[] defaults = new Object[mainDefaults.length + colorDefaults.length];
-            for (int i = 0; i < mainDefaults.length; i++) {
-                defaults[i] = mainDefaults[i];
-            }
+            System.arraycopy(mainDefaults, 0, defaults, 0, mainDefaults.length);
             start = mainDefaults.length;
-            for (int i = 0; i < colorDefaults.length; i++) {
-                defaults[start + i] = colorDefaults[i];
-            }
+            System.arraycopy(colorDefaults, 0, defaults, start + 0, colorDefaults.length);
             return defaults;
         } else {
             return new Object[0];

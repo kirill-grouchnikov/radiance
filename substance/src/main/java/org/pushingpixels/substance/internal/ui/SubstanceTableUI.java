@@ -139,9 +139,9 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
      */
     private SubstanceTableUI() {
         super();
-        this.selectedIndices = new HashMap<TableCellId, Object>();
-        this.rolledOverIndices = new HashSet<TableCellId>();
-        this.stateTransitionMultiTracker = new StateTransitionMultiTracker<TableCellId>();
+        this.selectedIndices = new HashMap<>();
+        this.rolledOverIndices = new HashSet<>();
+        this.stateTransitionMultiTracker = new StateTransitionMultiTracker<>();
         this.rolledOverColumn = -1;
 
         this.cellId = new TableCellId(-1, -1);
@@ -182,7 +182,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
 
         // fix for defect 117 - need to restore default table cell
         // renderers when Substance is unset
-        this.defaultRenderers = new HashMap<Class<?>, TableCellRenderer>();
+        this.defaultRenderers = new HashMap<>();
 
         Class<?>[] defClasses = new Class[] { Object.class, Icon.class, ImageIcon.class,
                         Number.class, Float.class, Double.class, Date.class, Boolean.class };
@@ -211,7 +211,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
         this.installRendererIfNecessary(Boolean.class,
                 new SubstanceDefaultTableCellRenderer.BooleanRenderer());
 
-        this.defaultEditors = new HashMap<Class<?>, TableCellEditor>();
+        this.defaultEditors = new HashMap<>();
 
         Class<?>[] defEditorClasses = new Class[] { Boolean.class };
         for (Class<?> clazz : defEditorClasses) {
@@ -1193,7 +1193,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                 if (this.updateInfo.toDrawWatermark)
                     newOpaque = false;
 
-                Map<Component, Boolean> opacity = new HashMap<Component, Boolean>();
+                Map<Component, Boolean> opacity = new HashMap<>();
                 if (!newOpaque)
                     SubstanceCoreUtilities.makeNonOpaque(jRenderer, opacity);
                 this.rendererPane.paintComponent(g2d, rendererComponent, this.table, cellRect.x,
@@ -1654,7 +1654,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
             if (sortKeys == null) {
                 oldSortKeys = null;
             } else {
-                oldSortKeys = new ArrayList<SortKey>();
+                oldSortKeys = new ArrayList<>();
                 for (SortKey sortKey : sortKeys) {
                     SortKey copy = new SortKey(sortKey.getColumn(), sortKey.getSortOrder());
                     oldSortKeys.add(copy);
@@ -1873,7 +1873,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                     startRolloverRow = 0;
                     endRolloverRow = table.getRowCount() - 1;
                 }
-                Set<TableCellId> toRemove = new HashSet<TableCellId>();
+                Set<TableCellId> toRemove = new HashSet<>();
                 for (TableCellId currRolloverId : rolledOverIndices) {
                     if ((currRolloverId.row < startRolloverRow)
                             || (currRolloverId.row > endRolloverRow)
@@ -1991,7 +1991,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
             return;
         }
 
-        Set<StateTransitionTracker> initiatedTrackers = new HashSet<StateTransitionTracker>();
+        Set<StateTransitionTracker> initiatedTrackers = new HashSet<>();
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {

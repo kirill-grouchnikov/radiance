@@ -108,9 +108,8 @@ public class JRibbonGallery extends JComponent {
 
         this.populateContent();
 
-        this.galleryContentModel.addCommandActivationListener((Command activated) -> {
-            this.commandToggleGroupModel.setSelected(activated, true);
-        });
+        this.galleryContentModel.addCommandActivationListener(
+                (Command activated) -> this.commandToggleGroupModel.setSelected(activated, true));
 
         this.galleryContentModel.addChangeListener((ChangeEvent changeEvent) -> {
             this.buttons.clear();

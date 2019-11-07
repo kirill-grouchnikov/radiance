@@ -80,7 +80,7 @@ public class GhostPaintingUtils {
     /**
      * Cache of component ghost images. Used to speed up the rendering of the ghost effects.
      */
-    private static LinkedHashMap<String, BufferedImage> componentGhostCache = new LinkedHashMap<String, BufferedImage>() {
+    private static LinkedHashMap<String, BufferedImage> componentGhostCache = new LinkedHashMap<>() {
         @Override
         protected boolean removeEldestEntry(java.util.Map.Entry<String, BufferedImage> eldest) {
             return this.size() > 50;
@@ -90,7 +90,7 @@ public class GhostPaintingUtils {
     /**
      * Cache of icon ghost images. Used to speed up the rendering of the ghost effects.
      */
-    private static LinkedHashMap<String, BufferedImage> iconGhostCache = new LinkedHashMap<String, BufferedImage>() {
+    private static LinkedHashMap<String, BufferedImage> iconGhostCache = new LinkedHashMap<>() {
         @Override
         protected boolean removeEldestEntry(java.util.Map.Entry<String, BufferedImage> eldest) {
             return this.size() > 50;

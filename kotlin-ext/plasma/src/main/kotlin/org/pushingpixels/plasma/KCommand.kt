@@ -474,8 +474,7 @@ class KCommandGroup {
     }
 
     fun toCommandGroupModel(): CommandGroup {
-        return CommandGroup(title,
-                commands.map { it -> it.toJavaCommand() })
+        return CommandGroup(title, commands.map { it.toJavaCommand() })
     }
 
     fun toPresentationOverlays(): Map<Command, CommandButtonPresentationModel.Overlay> {

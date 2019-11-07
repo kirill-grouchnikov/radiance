@@ -212,7 +212,7 @@ public class JCommandButton extends AbstractCommandButton {
          * @param hasAction Indicates whether the command button kind has an action.
          * @param hasPopup  Indicates whether the command button kind has a popup.
          */
-        private CommandButtonKind(boolean hasAction, boolean hasPopup) {
+        CommandButtonKind(boolean hasAction, boolean hasPopup) {
             this.hasAction = hasAction;
             this.hasPopup = hasPopup;
         }

@@ -60,9 +60,6 @@ public class ImageUtilities {
         Image image = null;
         try {
             image = ImageIO.read(new URL(imageURL));
-        } catch (MalformedURLException ex) {
-            ex.printStackTrace();
-            return null;
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;
@@ -196,7 +193,7 @@ public class ImageUtilities {
      */
     public static BufferedImage renderTextToImage(Font font, Color textColor, String text[],
             int width) {
-        LinkedList<BufferedImage> images = new LinkedList<BufferedImage>();
+        LinkedList<BufferedImage> images = new LinkedList<>();
 
         int totalHeight = 0;
 

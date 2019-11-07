@@ -84,11 +84,11 @@ public class JCarouselMenu extends GradientPanel implements ListSelectionListene
     /**
      * Linked list of the items in the menu
      */
-    private LinkedList<MenuItem>    menuItems=new LinkedList<MenuItem>();
+    private LinkedList<MenuItem>    menuItems= new LinkedList<>();
     /**
      * A hashtable connecting the actions to the components in the carousel
      */
-    private Map<Component, MenuItem> menuMap = new HashMap<Component, MenuItem>();
+    private Map<Component, MenuItem> menuMap = new HashMap<>();
     /**
      * The last item selected
      */
@@ -210,7 +210,7 @@ public class JCarouselMenu extends GradientPanel implements ListSelectionListene
      */
     public Component add(Component component,String label){
         carousel.add(label,component);
-        MenuItem item = new MenuItem(component,label,null);
+        MenuItem item = new MenuItem(component, label, null);
         menuItems.addLast(item);
         menuModel.addElement(item);
         menuMap.put(component, item);
@@ -285,7 +285,7 @@ public class JCarouselMenu extends GradientPanel implements ListSelectionListene
                     );
         }
         Component comp = carousel.add(url.toString());
-        MenuItem item = new MenuItem(comp,(String) action.getValue(Action.SHORT_DESCRIPTION),action);
+        MenuItem item = new MenuItem(comp, (String) action.getValue(Action.SHORT_DESCRIPTION), action);
         menuItems.addLast(item);
         menuMap.put(comp, item);
         menuModel.addElement(item);
@@ -305,7 +305,7 @@ public class JCarouselMenu extends GradientPanel implements ListSelectionListene
                     );
         }
         Component comp = carousel.add(url.toString());
-        MenuItem item = new MenuItem(comp,(String) action.getValue(Action.SHORT_DESCRIPTION),action);
+        MenuItem item = new MenuItem(comp, (String) action.getValue(Action.SHORT_DESCRIPTION), action);
         menuItems.addLast(item);
         menuMap.put(comp, item);
         menuModel.addElement(item);
@@ -325,7 +325,7 @@ public class JCarouselMenu extends GradientPanel implements ListSelectionListene
     @Deprecated
     public Component add(String imageURL, String label, int width, int height){
         Component comp = carousel.add(imageURL);
-        MenuItem item = new MenuItem(comp,label,null);
+        MenuItem item = new MenuItem(comp, label, null);
         menuMap.put(comp, item);
         menuItems.addLast(item);
         menuModel.addElement(item);
@@ -341,7 +341,7 @@ public class JCarouselMenu extends GradientPanel implements ListSelectionListene
      */
     public Component add(String imageURL, String label){
         Component comp = carousel.add(imageURL);
-        MenuItem item = new MenuItem(comp,label,null);
+        MenuItem item = new MenuItem(comp, label, null);
         menuMap.put(comp, item);
         menuItems.addLast(item);
         menuModel.addElement(item);
@@ -627,7 +627,7 @@ public class JCarouselMenu extends GradientPanel implements ListSelectionListene
     /**
      * A menu item inside the carousel
      */
-    public class MenuItem{
+    public static class MenuItem{
         /**
          * The component inside the caroulse
          */

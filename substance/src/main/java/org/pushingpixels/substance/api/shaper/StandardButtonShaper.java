@@ -51,7 +51,7 @@ public class StandardButtonShaper implements SubstanceButtonShaper, RectangularB
     /**
      * Cache of already computed contours.
      */
-    private final static LazyResettableHashMap<GeneralPath> contours = new LazyResettableHashMap<GeneralPath>(
+    private final static LazyResettableHashMap<GeneralPath> contours = new LazyResettableHashMap<>(
             "StandardButtonShaper");
 
     @Override

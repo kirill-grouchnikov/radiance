@@ -132,7 +132,7 @@ public class DecorationPainterUtils {
     /**
      * Returns the immediate decoration area type of the specified component. The component is
      * checked for the registered decoration area type. If
-     * {@link #setDecorationType(JComponent, DecorationAreaType, boolean)} was not called on this
+     * {@link #setDecorationType(JComponent, DecorationAreaType)} was not called on this
      * component, this method returns <code>null</code>.
      * 
      * @param comp

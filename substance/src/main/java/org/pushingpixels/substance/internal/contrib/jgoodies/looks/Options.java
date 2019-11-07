@@ -88,7 +88,6 @@ public final class Options {
 	 * @return true if drop shadows are active, false if inactive
 	 * 
 	 * @see #isPopupDropShadowEnabled()
-	 * @see #setPopupDropShadowEnabled(boolean)
 	 */
 	public static boolean isPopupDropShadowActive() {
 		return !LookUtils.getToolkitUsesNativeDropShadows()
@@ -102,7 +101,6 @@ public final class Options {
 	 * @return true if drop shadows are enabled, false if disabled
 	 * 
 	 * @see #isPopupDropShadowActive()
-	 * @see #setPopupDropShadowEnabled(boolean)
 	 */
 	public static boolean isPopupDropShadowEnabled() {
 		if (POPUP_DROP_SHADOW_ENABLED_SYSTEM_VALUE != null)

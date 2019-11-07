@@ -62,7 +62,7 @@ public class ColorWheelPanel extends SubstanceColorChooserPanel implements
 	protected ModelColor chooserColor;
 	protected ModelColor[] selectedIttenColours;
 
-	private float values[] = new float[3];
+	private float[] values = new float[3];
 	private double h, s, b;
 
 	private int colorScheme = 0;
@@ -98,7 +98,7 @@ public class ColorWheelPanel extends SubstanceColorChooserPanel implements
 	 */
 	public ColorWheelPanel() {
 		saturationMultipler = brightnessMultipler = 1.0;
-		changeListeners = new ArrayList<ChangeListener>();
+		changeListeners = new ArrayList<>();
 		adjustWheel = CTRL_ADJUST;
 		adjustRollover = true;
 		ctrlKeyDown = false;
@@ -530,9 +530,9 @@ public class ColorWheelPanel extends SubstanceColorChooserPanel implements
 		String colorStr;
 		if (decimalRGB.isSelected()) {
 			// Output decimal values
-			colorStr = " " + Integer.toString(c.getRed()) + "."
-					+ Integer.toString(c.getGreen()) + "."
-					+ Integer.toString(c.getBlue());
+			colorStr = " " + c.getRed() + "."
+					+ c.getGreen() + "."
+					+ c.getBlue();
 		} else {
 			// Output HEX values
 			colorStr = " " + ModelColor.toHexString(c.getRed())
@@ -565,8 +565,7 @@ public class ColorWheelPanel extends SubstanceColorChooserPanel implements
 	/**
 	 * Get the chooser color
 	 * 
-	 * @param return
-	 *            the chooser color
+	 * @return the chooser color
 	 */
 	public ModelColor getChooserColour() {
 		return chooserColor;
@@ -1366,93 +1365,93 @@ public class ColorWheelPanel extends SubstanceColorChooserPanel implements
 	/**
 	 * Get the named system color
 	 * 
-	 * @param name
+	 * @param temp
 	 *            the color name
-	 * @retrun the color value or null if the name is not recognized
+	 * @return the color value or null if the name is not recognized
 	 */
 	public Color getSystemColor(String temp) {
-		Color clr = null;
-		if (temp.equals("activeCaption"))
-			clr = SystemColor.activeCaption;
-		else if (temp.equals("desktop"))
-			clr = SystemColor.desktop;
-		else if (temp.equals("activeCaptionText"))
-			clr = SystemColor.activeCaptionText;
-		else if (temp.equals("activeCaptionBorder"))
-			clr = SystemColor.activeCaptionBorder;
-		else if (temp.equals("inactiveCaption"))
-			clr = SystemColor.inactiveCaption;
-		else if (temp.equals("inactiveCaptionText"))
-			clr = SystemColor.inactiveCaptionText;
-		else if (temp.equals("inactiveCaptionBorder"))
-			clr = SystemColor.inactiveCaptionBorder;
-		else if (temp.equals("window"))
-			clr = SystemColor.window;
-		else if (temp.equals("windowBorder"))
-			clr = SystemColor.windowBorder;
-		else if (temp.equals("windowText"))
-			clr = SystemColor.windowText;
-		else if (temp.equals("menu"))
-			clr = SystemColor.menu;
-		else if (temp.equals("menuText"))
-			clr = SystemColor.menuText;
-		else if (temp.equals("text"))
-			clr = SystemColor.text;
-		else if (temp.equals("textText"))
-			clr = SystemColor.textText;
-		else if (temp.equals("textHighlight"))
-			clr = SystemColor.textHighlight;
-		else if (temp.equals("textHighlightText"))
-			clr = SystemColor.textHighlightText;
-		else if (temp.equals("textInactiveText"))
-			clr = SystemColor.textInactiveText;
-		else if (temp.equals("control"))
-			clr = SystemColor.control;
-		else if (temp.equals("controlText"))
-			clr = SystemColor.controlText;
-		else if (temp.equals("controlHighlight"))
-			clr = SystemColor.controlHighlight;
-		else if (temp.equals("controlLtHighlight"))
-			clr = SystemColor.controlLtHighlight;
-		else if (temp.equals("controlShadow"))
-			clr = SystemColor.controlShadow;
-		else if (temp.equals("controlDkShadow"))
-			clr = SystemColor.controlDkShadow;
-		else if (temp.equals("scrollbar"))
-			clr = SystemColor.scrollbar;
-		else if (temp.equals("info"))
-			clr = SystemColor.info;
-		else if (temp.equals("infoText"))
-			clr = SystemColor.infoText;
+		switch (temp) {
+			case "activeCaption":
+				return SystemColor.activeCaption;
+			case "desktop":
+				return SystemColor.desktop;
+			case "activeCaptionText":
+				return SystemColor.activeCaptionText;
+			case "activeCaptionBorder":
+				return SystemColor.activeCaptionBorder;
+			case "inactiveCaption":
+				return SystemColor.inactiveCaption;
+			case "inactiveCaptionText":
+				return SystemColor.inactiveCaptionText;
+			case "inactiveCaptionBorder":
+				return SystemColor.inactiveCaptionBorder;
+			case "window":
+				return SystemColor.window;
+			case "windowBorder":
+				return SystemColor.windowBorder;
+			case "windowText":
+				return SystemColor.windowText;
+			case "menu":
+				return SystemColor.menu;
+			case "menuText":
+				return SystemColor.menuText;
+			case "text":
+				return SystemColor.text;
+			case "textText":
+				return SystemColor.textText;
+			case "textHighlight":
+				return SystemColor.textHighlight;
+			case "textHighlightText":
+				return SystemColor.textHighlightText;
+			case "textInactiveText":
+				return SystemColor.textInactiveText;
+			case "control":
+				return SystemColor.control;
+			case "controlText":
+				return SystemColor.controlText;
+			case "controlHighlight":
+				return SystemColor.controlHighlight;
+			case "controlLtHighlight":
+				return SystemColor.controlLtHighlight;
+			case "controlShadow":
+				return SystemColor.controlShadow;
+			case "controlDkShadow":
+				return SystemColor.controlDkShadow;
+			case "scrollbar":
+				return SystemColor.scrollbar;
+			case "info":
+				return SystemColor.info;
+			case "infoText":
+				return SystemColor.infoText;
+			case "white":
+				return Color.white;
+			case "lightGray":
+				return Color.lightGray;
+			case "gray":
+				return Color.gray;
+			case "darkGray":
+				return Color.darkGray;
+			case "black":
+				return Color.black;
+			case "red":
+				return Color.red;
+			case "pink":
+				return Color.pink;
+			case "orange":
+				return Color.orange;
+			case "yellow":
+				return Color.yellow;
+			case "green":
+				return Color.green;
+			case "magenta":
+				return Color.magenta;
+			case "cyan":
+				return Color.cyan;
+			case "blue":
+				return Color.blue;
+		}
 
-		else if (temp.equals("white"))
-			clr = Color.white;
-		else if (temp.equals("lightGray"))
-			clr = Color.lightGray;
-		else if (temp.equals("gray"))
-			clr = Color.gray;
-		else if (temp.equals("darkGray"))
-			clr = Color.darkGray;
-		else if (temp.equals("black"))
-			clr = Color.black;
-		else if (temp.equals("red"))
-			clr = Color.red;
-		else if (temp.equals("pink"))
-			clr = Color.pink;
-		else if (temp.equals("orange"))
-			clr = Color.orange;
-		else if (temp.equals("yellow"))
-			clr = Color.yellow;
-		else if (temp.equals("green"))
-			clr = Color.green;
-		else if (temp.equals("magenta"))
-			clr = Color.magenta;
-		else if (temp.equals("cyan"))
-			clr = Color.green;
-		else if (temp.equals("blue"))
-			clr = Color.blue;
-
-		return clr;
+		return null;
 	}
 
 	/**

@@ -61,9 +61,6 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
 
     private AbstractCommandButton trailingScroller;
 
-    private Command leadingScrollCommand;
-    private Command trailingScrollCommand;
-
     private int viewOffset;
 
     private MouseWheelListener mouseWheelListener;
@@ -158,14 +155,14 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         }
         this.scrollablePanel.add(this.viewport);
 
-        this.leadingScrollCommand = Command.builder()
+        Command leadingScrollCommand = Command.builder()
                 .setAction((CommandActionEvent e) -> {
                     viewOffset -= 12;
                     syncScrolling();
                 })
                 .build();
 
-        this.trailingScrollCommand = Command.builder()
+        Command trailingScrollCommand = Command.builder()
                 .setAction((CommandActionEvent e) -> {
                     viewOffset += 12;
                     syncScrolling();
@@ -186,14 +183,12 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         // Create command projections for scroller commands and set button customizers for
         // icons and additional straight sides
         CommandButtonProjection<Command> leadingScrollerProjection =
-                this.leadingScrollCommand.project(scrollerActionsPresentation);
-        leadingScrollerProjection.setComponentCustomizer((AbstractCommandButton button) ->
-                configureLeadingScrollerButton(button));
+                leadingScrollCommand.project(scrollerActionsPresentation);
+        leadingScrollerProjection.setComponentCustomizer(this::configureLeadingScrollerButton);
 
         CommandButtonProjection<Command> trailingScrollerProjection =
-                this.trailingScrollCommand.project(scrollerActionsPresentation);
-        trailingScrollerProjection.setComponentCustomizer((AbstractCommandButton button) ->
-                configureTrailingScrollerButton(button));
+                trailingScrollCommand.project(scrollerActionsPresentation);
+        trailingScrollerProjection.setComponentCustomizer(this::configureTrailingScrollerButton);
 
         this.leadingScroller = leadingScrollerProjection.buildComponent();
         this.scrollablePanel.add(this.leadingScroller);

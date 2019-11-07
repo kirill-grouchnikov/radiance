@@ -803,7 +803,6 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
                 rootPanesWithCustomSkin--;
             }
         }
-        return;
     }
 
     /**
@@ -1109,11 +1108,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
          * PrivilegedExceptionAction needed by mouseDragged method to obtain new location of window
          * on screen during the drag.
          */
-        private final PrivilegedExceptionAction getLocationAction = new PrivilegedExceptionAction() {
-            public Object run() throws HeadlessException {
-                return MouseInfo.getPointerInfo().getLocation();
-            }
-        };
+        private final PrivilegedExceptionAction getLocationAction = () -> MouseInfo.getPointerInfo().getLocation();
 
         public void mousePressed(MouseEvent ev) {
             JRootPane rootPane = SubstanceRootPaneUI.this.getRootPane();
@@ -1371,7 +1366,6 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
                             setMaximized();
                             f.setExtendedState(state | Frame.MAXIMIZED_BOTH);
                         }
-                        return;
                     }
                 }
             }

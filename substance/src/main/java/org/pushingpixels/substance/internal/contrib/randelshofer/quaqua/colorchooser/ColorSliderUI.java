@@ -405,27 +405,35 @@ public class ColorSliderUI extends SubstanceSliderUI implements TransitionAwareU
 		public void propertyChange(PropertyChangeEvent e) {
 			String propertyName = e.getPropertyName();
 
-			if (propertyName.equals("Frame.active")) {
-				// calculateGeometry();
-				slider.repaint();
-			} else if (propertyName.equals("ColorSliderModel")) {
-				colorSliderModel = (ColorSliderModel) e.getNewValue();
-				slider.repaint();
-			} else if (propertyName.equals("snapToTicks")) {
-				slider.repaint();
-			} else if (propertyName.equals("ColorComponentIndex")) {
-				componentIndex = (Integer) e.getNewValue();
-				slider.repaint();
-			} else if (propertyName.equals("ColorComponentChange")) {
-				slider.repaint();
-			} else if (propertyName.equals("ColorComponentValue")) {
-				slider.repaint();
-			} else if (propertyName.equals("Orientation")) {
-				if (slider.getOrientation() == JSlider.HORIZONTAL) {
-					slider.setBorder(new VisualMargin(0, 1, -1, 1));
-				} else {
-					slider.setBorder(new VisualMargin(0, 0, 0, 1));
-				}
+			switch (propertyName) {
+				case "Frame.active":
+					// calculateGeometry();
+					slider.repaint();
+					break;
+				case "ColorSliderModel":
+					colorSliderModel = (ColorSliderModel) e.getNewValue();
+					slider.repaint();
+					break;
+				case "snapToTicks":
+					slider.repaint();
+					break;
+				case "ColorComponentIndex":
+					componentIndex = (Integer) e.getNewValue();
+					slider.repaint();
+					break;
+				case "ColorComponentChange":
+					slider.repaint();
+					break;
+				case "ColorComponentValue":
+					slider.repaint();
+					break;
+				case "Orientation":
+					if (slider.getOrientation() == JSlider.HORIZONTAL) {
+						slider.setBorder(new VisualMargin(0, 1, -1, 1));
+					} else {
+						slider.setBorder(new VisualMargin(0, 0, 0, 1));
+					}
+					break;
 			}
 
 			super.propertyChange(e);

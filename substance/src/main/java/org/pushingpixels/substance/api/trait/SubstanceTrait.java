@@ -45,5 +45,5 @@ public interface SubstanceTrait {
 	 * 
 	 * @return The display name of <code>this</code> trait.
 	 */
-	public String getDisplayName();
+	String getDisplayName();
 }

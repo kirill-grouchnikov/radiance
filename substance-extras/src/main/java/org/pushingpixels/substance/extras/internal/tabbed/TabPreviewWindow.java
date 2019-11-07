@@ -34,8 +34,6 @@ import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.TabPr
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.ui.SubstanceTabbedPaneUI;
 import org.pushingpixels.substance.internal.utils.ImageWrapperIcon;
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import java.awt.*;

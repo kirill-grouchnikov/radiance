@@ -228,11 +228,7 @@ public class ColorPalettesChooser extends SubstanceColorChooserPanel implements 
         gridBagConstraints.gridy = 0;
         add(paletteLabel, gridBagConstraints);
 
-        paletteCombo.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                paletteChanged(evt);
-            }
-        });
+        paletteCombo.addItemListener(this::paletteChanged);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;

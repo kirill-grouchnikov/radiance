@@ -57,7 +57,7 @@ public class Crayons extends javax.swing.JPanel {
     /**
      * Crayon.
      */
-    private class Crayon {
+    private static class Crayon {
         Polygon shape;
         Color color;
         String name;
@@ -125,7 +125,7 @@ public class Crayons extends javax.swing.JPanel {
             crayons[i] = new Crayon(colors[i],
                     UIManager.getString("ColorChooser.crayon."
                             + Integer.toHexString(0xff000000 | colors[i].getRGB()).substring(2)),
-                    new Polygon((int[]) crayonXPoints.clone(), (int[]) crayonYPoints.clone(),
+                    new Polygon(crayonXPoints.clone(), crayonYPoints.clone(),
                             crayonXPoints.length));
             crayons[i].shape.translate((i % 8) * 22 + 4 + ((i / 8) % 2) * 11, (i / 8) * 20 + 23);
         }

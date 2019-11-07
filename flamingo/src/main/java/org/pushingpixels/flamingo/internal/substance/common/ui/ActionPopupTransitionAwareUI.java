@@ -33,7 +33,7 @@ import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 
 public interface ActionPopupTransitionAwareUI extends TransitionAwareUI {
-	public StateTransitionTracker getActionTransitionTracker();
+	StateTransitionTracker getActionTransitionTracker();
 
-	public StateTransitionTracker getPopupTransitionTracker();
+	StateTransitionTracker getPopupTransitionTracker();
 }

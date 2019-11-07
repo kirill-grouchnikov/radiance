@@ -43,7 +43,7 @@ public class IteratedFunctionSystem {
 	private int rotIndex;
 
 	public IteratedFunctionSystem(int rotationDegree, IteratedFunction... fs) {
-		this.functions = new ArrayList<IteratedFunction>();
+		this.functions = new ArrayList<>();
 		for (IteratedFunction f : fs) {
 			this.functions.add(f);
 		}

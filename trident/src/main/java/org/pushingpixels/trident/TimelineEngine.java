@@ -67,7 +67,7 @@ class TimelineEngine {
         PLAY, CANCEL, RESUME, SUSPEND, ABORT, END
     }
 
-    class TimelineOperation {
+    static class TimelineOperation {
         public TimelineOperationKind operationKind;
 
         Runnable operationRunnable;
@@ -97,7 +97,6 @@ class TimelineEngine {
          * ID to distinguish between different sub-components of {@link #mainObj}. For example, the
          * tabbed pane uses this field to make tab-specific animations.
          */
-        @SuppressWarnings("unchecked")
         public Comparable subID;
 
         /**
@@ -109,7 +108,6 @@ class TimelineEngine {
          *            ID to distinguish between different sub-components of <code>mainObj</code>.
          *            Can be <code>null</code>.
          */
-        @SuppressWarnings("unchecked")
         public FullObjectID(Object mainObj, Comparable subID) {
             this.mainObj = mainObj;
             this.subID = subID;
@@ -209,10 +207,10 @@ class TimelineEngine {
      * @see #getInstance()
      */
     private TimelineEngine() {
-        this.runningTimelines = new HashSet<Timeline>();
-        this.runningScenarios = new HashSet<TimelineScenario>();
+        this.runningTimelines = new HashSet<>();
+        this.runningScenarios = new HashSet<>();
 
-        this.callbackQueue = new LinkedBlockingQueue<Runnable>();
+        this.callbackQueue = new LinkedBlockingQueue<>();
         this.callbackThread = this.getCallbackThread();
     }
 

@@ -48,11 +48,6 @@ public class SvgTranscoder extends SvgBaseTranscoder {
     protected String uri;
 
     /**
-     * Batik bridge context.
-     */
-    private BridgeContext batikBridgeContext;
-
-    /**
      * Creates a new transcoder.
      *
      * @param uri              URI of the SVG image.
@@ -76,7 +71,10 @@ public class SvgTranscoder extends SvgBaseTranscoder {
 
         UserAgentAdapter ua = new UserAgentAdapter();
         DocumentLoader loader = new DocumentLoader(ua);
-        batikBridgeContext = new BridgeContext(ua, loader);
+        /**
+         * Batik bridge context.
+         */
+        BridgeContext batikBridgeContext = new BridgeContext(ua, loader);
         batikBridgeContext.setDynamicState(BridgeContext.DYNAMIC);
         ua.setBridgeContext(batikBridgeContext);
 

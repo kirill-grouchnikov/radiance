@@ -82,7 +82,7 @@ public class OffsetCaroselLayout extends CaroselLayout{
      * @return The size (in a bounding box) of the carousel
      */
     protected Dimension getCarouselRadius(Container target, Insets insets, int width, int height, int widestComponent){
-        width = target.getSize().width - (insets.left + insets.right+(widestComponent/2));;
+        width = target.getSize().width - (insets.left + insets.right+(widestComponent/2));
         height = (int) (height/2.5);
         
         return new Dimension(width,height);

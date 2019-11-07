@@ -50,7 +50,7 @@ public class CommandMenuContentModel implements ContentModel {
     private CommandGroup.CommandGroupListener commandGroupListener;
 
     public CommandMenuContentModel(CommandGroup commands) {
-        this(null, Arrays.asList(commands));
+        this(null, Collections.singletonList(commands));
     }
 
     public CommandMenuContentModel(CommandGroup... commandGroups) {

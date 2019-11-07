@@ -94,11 +94,7 @@ public class AutoScrollActivator {
         iconPopupMenu.setFocusable(false);
         iconPopupMenu.setOpaque(false);
         JLabel iconLabel = new JLabel(getAutoScrollIcon());
-        iconLabel.addMouseWheelListener(new MouseWheelListener() {
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                deactivateAutoScroll();
-            }
-        });
+        iconLabel.addMouseWheelListener(e1 -> deactivateAutoScroll());
         iconPopupMenu.add(iconLabel);
         iconPopupMenu.addMouseListener(new MouseAdapter() {
             @Override

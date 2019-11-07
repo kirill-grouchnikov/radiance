@@ -35,7 +35,6 @@ import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
-import java.awt.*;
 import java.util.*;
 
 /**

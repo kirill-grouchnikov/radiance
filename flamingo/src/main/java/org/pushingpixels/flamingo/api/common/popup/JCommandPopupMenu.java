@@ -65,7 +65,6 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
     private CommandPopupMenuPresentationModel popupMenuPresentationModel;
 
     private CommandPanelContentModel popupMenuPanelContentModel;
-    private CommandPanelPresentationModel popupMenuPanelPresentationModel;
 
     /**
      * The main button panel.
@@ -83,7 +82,7 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
         this.popupMenuPresentationModel = projection.getPresentationModel();
         this.popupMenuPanelContentModel = (this.popupMenuContentModel != null) ?
                 this.popupMenuContentModel.getPanelContentModel() : null;
-        this.popupMenuPanelPresentationModel = (this.popupMenuPresentationModel != null) ?
+        CommandPanelPresentationModel popupMenuPanelPresentationModel = (this.popupMenuPresentationModel != null) ?
                 this.popupMenuPresentationModel.getPanelPresentationModel() : null;
 
         this.populateContent();

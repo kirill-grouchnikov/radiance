@@ -54,11 +54,11 @@ public class TimelineScenario {
         DONE, PLAYING, IDLE, SUSPENDED
     }
 
-    class Chain implements TimelineScenarioCallback {
+    static class Chain implements TimelineScenarioCallback {
         private List<TimelineScenarioCallback> callbacks;
 
         public Chain(TimelineScenarioCallback... callbacks) {
-            this.callbacks = new ArrayList<TimelineScenarioCallback>();
+            this.callbacks = new ArrayList<>();
             for (TimelineScenarioCallback callback : callbacks)
                 this.callbacks.add(callback);
         }
@@ -74,22 +74,22 @@ public class TimelineScenario {
         }
     }
 
-    public static interface TimelineScenarioActor {
-        public boolean isDone();
+    public interface TimelineScenarioActor {
+        boolean isDone();
 
-        public boolean supportsReplay();
+        boolean supportsReplay();
 
-        public void resetDoneFlag();
+        void resetDoneFlag();
 
-        public void play();
+        void play();
     }
 
     public TimelineScenario() {
-        this.waitingActors = new HashSet<TimelineScenarioActor>();
-        this.runningActors = new HashSet<TimelineScenarioActor>();
-        this.doneActors = new HashSet<TimelineScenarioActor>();
+        this.waitingActors = new HashSet<>();
+        this.runningActors = new HashSet<>();
+        this.doneActors = new HashSet<>();
 
-        this.dependencies = new HashMap<TimelineScenarioActor, Set<TimelineScenarioActor>>();
+        this.dependencies = new HashMap<>();
         this.callback = new Chain();
         this.state = TimelineScenarioState.IDLE;
     }
@@ -143,11 +143,11 @@ public class TimelineScenario {
     Set<TimelineScenarioActor> getReadyActors() {
         synchronized (TimelineEngine.LOCK) {
             if (this.state == TimelineScenarioState.SUSPENDED)
-                return new HashSet<TimelineScenarioActor>();
+                return new HashSet<>();
 
             this.checkDoneActors();
 
-            Set<TimelineScenarioActor> result = new HashSet<TimelineScenarioActor>();
+            Set<TimelineScenarioActor> result = new HashSet<>();
             for (Iterator<TimelineScenarioActor> itWaiting = this.waitingActors
                     .iterator(); itWaiting.hasNext();) {
                 TimelineScenarioActor waitingActor = itWaiting.next();
@@ -286,8 +286,8 @@ public class TimelineScenario {
         private Set<TimelineScenarioActor> addedPriorToLastRendezvous;
 
         public RendezvousSequence() {
-            this.addedSinceLastRendezvous = new HashSet<TimelineScenarioActor>();
-            this.addedPriorToLastRendezvous = new HashSet<TimelineScenarioActor>();
+            this.addedSinceLastRendezvous = new HashSet<>();
+            this.addedPriorToLastRendezvous = new HashSet<>();
         }
 
         @Override

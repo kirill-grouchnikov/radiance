@@ -46,5 +46,5 @@ public interface RectangularButtonShaper {
 	 *            Button insets.
 	 * @return Corner radius of the specified button.
 	 */
-	public float getCornerRadius(AbstractButton button, float insets);
+    float getCornerRadius(AbstractButton button, float insets);
 }

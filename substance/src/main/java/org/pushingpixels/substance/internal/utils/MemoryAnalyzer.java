@@ -108,7 +108,7 @@ public class MemoryAnalyzer extends TrackableThread {
 	public static synchronized void commence(long delay, String filename) {
 		if (instance == null) {
 			instance = new MemoryAnalyzer(delay, filename);
-			usages = new ArrayList<String>();
+			usages = new ArrayList<>();
 			// yeah, yeah, it's not multi-thread safe.
 			sdf = new SimpleDateFormat("HH:mm:ss.SSS");
 			instance.start();
@@ -163,9 +163,7 @@ public class MemoryAnalyzer extends TrackableThread {
 	 */
 	public static synchronized ArrayList<String> getUsages() {
 		ArrayList<String> copy = new ArrayList<>();
-		for (String usage : usages) {
-			copy.add(usage);
-		}
+		copy.addAll(usages);
 		usages.clear();
 		return copy;
 	}
@@ -184,7 +182,7 @@ public class MemoryAnalyzer extends TrackableThread {
 					// map may be modified during the iteration. So retrieve
 					// all at once.
 					Set<Object> keySet = uidefs.keySet();
-					List<String> keyList = new LinkedList<String>();
+					List<String> keyList = new LinkedList<>();
 					for (Object key : keySet) {
 						keyList.add((String) key);
 					}

@@ -77,7 +77,7 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
     public ImageWrapperDecorationPainter() {
         this.textureAlpha = 0.2f;
 
-        this.colorizedTileMap = new LinkedHashMap<String, BufferedImage>() {
+        this.colorizedTileMap = new LinkedHashMap<>() {
             @Override
             protected boolean removeEldestEntry(Entry<String, BufferedImage> eldest) {
                 return this.size() > 10;

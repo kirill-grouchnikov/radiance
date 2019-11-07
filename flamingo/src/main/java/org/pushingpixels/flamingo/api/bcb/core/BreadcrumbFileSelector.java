@@ -188,20 +188,19 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                     }
                     lResult.add(pair);
                 }
-                Collections.sort(lResult,
-                        new Comparator<StringValuePair<File>>() {
-                            @Override
-                            public int compare(StringValuePair<File> o1,
-                                    StringValuePair<File> o2) {
-                                return o1.getKey().toLowerCase().compareTo(
-                                        o2.getKey().toLowerCase());
-                            }
+                lResult.sort(new Comparator<StringValuePair<File>>() {
+                    @Override
+                    public int compare(StringValuePair<File> o1,
+                            StringValuePair<File> o2) {
+                        return o1.getKey().toLowerCase().compareTo(
+                                o2.getKey().toLowerCase());
+                    }
 
-                            @Override
-                            public boolean equals(Object obj) {
-                                return super.equals(obj);
-                            }
-                        });
+                    @Override
+                    public boolean equals(Object obj) {
+                        return super.equals(obj);
+                    }
+                });
                 return lResult;
             }
         }

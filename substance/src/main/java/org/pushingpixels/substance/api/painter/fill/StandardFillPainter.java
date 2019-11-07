@@ -135,7 +135,7 @@ public class StandardFillPainter implements SubstanceFillPainter {
 
             BufferedImage overGhostContour = SubstanceCoreUtilities
                     .getBlankImage(iWidth + 2 * kernelSize, iHeight + 2 * kernelSize);
-            Graphics2D overGraphics = (Graphics2D) overGhostContour.createGraphics();
+            Graphics2D overGraphics = overGhostContour.createGraphics();
             overGraphics.scale(1.0f / scaleFactor, 1.0f / scaleFactor);
             overGraphics.setPaint(new GradientPaint(0, kernelSize, topFillColor, 0,
                     kernelSize + height / 2, midFillColorTop, true));

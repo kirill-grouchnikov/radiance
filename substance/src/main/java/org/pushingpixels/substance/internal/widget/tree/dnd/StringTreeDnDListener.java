@@ -48,7 +48,7 @@ public interface StringTreeDnDListener extends EventListener {
 	 * @throws DnDVetoException
 	 *             if the drag and drop operation is not valid.
 	 */
-	public void mayDrop(StringTreeDnDEvent anEvent) throws DnDVetoException;
+    void mayDrop(StringTreeDnDEvent anEvent) throws DnDVetoException;
 
 	/**
 	 * Invoked when the drop operation happens.
@@ -59,5 +59,5 @@ public interface StringTreeDnDListener extends EventListener {
 	 * @throws DnDVetoException
 	 *             if the drag and drop operation is not valid.
 	 */
-	public void drop(StringTreeDnDEvent anEvent) throws DnDVetoException;
+    void drop(StringTreeDnDEvent anEvent) throws DnDVetoException;
 }

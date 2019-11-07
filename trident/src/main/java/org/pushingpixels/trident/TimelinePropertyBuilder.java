@@ -244,7 +244,7 @@ public class TimelinePropertyBuilder<T> {
                 this.interpolator, this.setter);
     }
 
-    abstract class AbstractFieldInfo<F> {
+    abstract static class AbstractFieldInfo<F> {
         protected Object object;
 
         protected String fieldName;

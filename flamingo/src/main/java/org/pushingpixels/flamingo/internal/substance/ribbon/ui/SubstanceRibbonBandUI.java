@@ -242,7 +242,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     }
 
     @SubstanceInternalButton
-    private class RibbonBandExpandButton extends JCommandButton implements FlamingoInternalButton {
+    private static class RibbonBandExpandButton extends JCommandButton implements FlamingoInternalButton {
         private RibbonBandExpandButton(Projection<AbstractCommandButton, Command,
                 CommandButtonPresentationModel> projection) {
             super(projection);

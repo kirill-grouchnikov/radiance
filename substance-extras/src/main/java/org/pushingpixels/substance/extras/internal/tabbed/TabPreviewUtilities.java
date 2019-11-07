@@ -63,8 +63,6 @@ public class TabPreviewUtilities {
     /**
      * Retrieves the label bundle for the default locale.
      * 
-     * @param locale
-     *            Locale.
      * @return The label bundle for the default locale.
      */
     static synchronized ResourceBundle getLabelBundle() {

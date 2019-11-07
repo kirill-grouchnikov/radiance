@@ -53,14 +53,15 @@ class KColorSelectorPopupMenuGroup {
     internal val content = arrayListOf<Any>()
 
     operator fun KCommand.unaryPlus() {
-        this@KColorSelectorPopupMenuGroup.content.add(KCommandGroup.CommandConfig(this, null, null, false, false))
+        this@KColorSelectorPopupMenuGroup.content.add(KCommandGroup.CommandConfig(this, null, null,
+                isTextClickAction = false, isTextClickSecondary = false))
     }
 
     fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        content.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, false, false))
+        content.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, false, isTextClickSecondary = false))
         return command
     }
 

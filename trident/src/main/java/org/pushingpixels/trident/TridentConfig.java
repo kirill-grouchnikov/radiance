@@ -48,7 +48,7 @@ public class TridentConfig {
     private TridentConfig.PulseSource pulseSource;
 
     public interface PulseSource {
-        public void waitUntilNextPulse();
+        void waitUntilNextPulse();
     }
 
     public static class FixedRatePulseSource implements TridentConfig.PulseSource {
@@ -68,7 +68,7 @@ public class TridentConfig {
         }
     }
 
-    private class DefaultPulseSource extends FixedRatePulseSource {
+    private static class DefaultPulseSource extends FixedRatePulseSource {
         DefaultPulseSource() {
             super(40);
         }
@@ -102,13 +102,12 @@ public class TridentConfig {
                 for (Object value : values) {
                     if (!basePropertyClass.isAssignableFrom(value.getClass())) {
                         hasMatch = false;
-                        continue;
                     }
                 }
-                if (hasMatch)
+                if (hasMatch) {
                     return interpolator;
+                }
             } catch (NoClassDefFoundError ncdfe) {
-                continue;
             }
         }
         return null;

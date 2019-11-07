@@ -434,7 +434,7 @@ public class WidgetUtilities {
      */
     public static PasswordStrengthChecker getPasswordStrengthChecker(JPasswordField jpf) {
         Object obj = jpf.getClientProperty(SubstanceSynapse.PASSWORD_STRENGTH_CHECKER);
-        if ((obj != null) && (obj instanceof PasswordStrengthChecker)) {
+        if (obj instanceof PasswordStrengthChecker) {
             return (PasswordStrengthChecker) obj;
         }
         return null;

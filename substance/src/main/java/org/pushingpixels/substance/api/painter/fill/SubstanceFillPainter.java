@@ -62,7 +62,7 @@ public interface SubstanceFillPainter extends SubstanceTrait {
 	 *            Indication whether the returned image should have a 3D shine
 	 *            spot in its top half.
 	 */
-	public void paintContourBackground(Graphics g, Component comp, float width,
+	void paintContourBackground(Graphics g, Component comp, float width,
 			float height, Shape contour, boolean isFocused,
 			SubstanceColorScheme fillScheme, boolean hasShine);
 }

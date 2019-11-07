@@ -57,13 +57,8 @@ public class SubstanceScrollButton extends JButton implements UIResource {
 
 	/**
 	 * Simple constructor.
-	 * 
-	 * @param scrollBarIcon
-	 *            The icon.
-	 * @param orientation
-	 *            The button icon arrow orientation.
 	 */
-	public SubstanceScrollButton(int orientation) {
+	public SubstanceScrollButton() {
 		super();
 		this.setRequestFocusEnabled(false);
 		this.setIconTextGap(0);

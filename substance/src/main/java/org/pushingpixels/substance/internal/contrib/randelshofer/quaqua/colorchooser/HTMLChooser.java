@@ -363,11 +363,7 @@ public class HTMLChooser extends AbstractColorChooserPanel implements UIResource
         add(htmlPanel, gridBagConstraints);
 
         webSaveCheckBox.setText(UIManager.getString("ColorChooser.htmlChooseOnlyWebSaveColorsText"));
-        webSaveCheckBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                webSaveChanged(evt);
-            }
-        });
+        webSaveCheckBox.addItemListener(this::webSaveChanged);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

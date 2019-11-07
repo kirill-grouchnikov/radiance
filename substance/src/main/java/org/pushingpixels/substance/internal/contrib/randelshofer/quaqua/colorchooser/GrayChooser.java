@@ -206,11 +206,7 @@ public class GrayChooser extends AbstractColorChooserPanel implements UIResource
 
         zeroPercentButton.setBackground(new java.awt.Color(0, 0, 0));
         zeroPercentButton.setToolTipText("0 %");
-        zeroPercentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                percentActionPerformed(evt);
-            }
-        });
+        zeroPercentButton.addActionListener(this::percentActionPerformed);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -219,11 +215,7 @@ public class GrayChooser extends AbstractColorChooserPanel implements UIResource
 
         twentyFivePercentButton.setBackground(new java.awt.Color(64, 64, 64));
         twentyFivePercentButton.setToolTipText("25 %");
-        twentyFivePercentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                percentActionPerformed(evt);
-            }
-        });
+        twentyFivePercentButton.addActionListener(this::percentActionPerformed);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -232,11 +224,7 @@ public class GrayChooser extends AbstractColorChooserPanel implements UIResource
 
         fiftyPercentButton.setBackground(new java.awt.Color(128, 128, 128));
         fiftyPercentButton.setToolTipText("50 %");
-        fiftyPercentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                percentActionPerformed(evt);
-            }
-        });
+        fiftyPercentButton.addActionListener(this::percentActionPerformed);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -244,11 +232,7 @@ public class GrayChooser extends AbstractColorChooserPanel implements UIResource
 
         seventyFivePercentButton.setBackground(new java.awt.Color(192, 192, 192));
         seventyFivePercentButton.setToolTipText("75 %");
-        seventyFivePercentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                percentActionPerformed(evt);
-            }
-        });
+        seventyFivePercentButton.addActionListener(this::percentActionPerformed);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
@@ -257,11 +241,7 @@ public class GrayChooser extends AbstractColorChooserPanel implements UIResource
 
         hundredPercentButton.setBackground(new java.awt.Color(255, 255, 255));
         hundredPercentButton.setToolTipText("100 %");
-        hundredPercentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                percentActionPerformed(evt);
-            }
-        });
+        hundredPercentButton.addActionListener(this::percentActionPerformed);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;

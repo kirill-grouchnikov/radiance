@@ -53,8 +53,7 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
             comps[i][0] = new JColorSelectorComponent(primary,
                     contentModel.getColorPreviewListener(),
                     contentModel.getColorActivationListener());
-            comps[i][0].addColorActivationListener((Color color) ->
-                    JColorSelectorPopupMenu.addColorToRecentlyUsed(color));
+            comps[i][0].addColorActivationListener(JColorSelectorPopupMenu::addColorToRecentlyUsed);
             this.add(comps[i][0]);
 
             float[] primaryHsb = new float[3];
@@ -79,8 +78,7 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
                         contentModel.getColorActivationListener());
                 comps[i][row].setTopOpen(row > 1);
                 comps[i][row].setBottomOpen(row < SECONDARY_ROWS);
-                comps[i][row].addColorActivationListener((Color color) ->
-                        JColorSelectorPopupMenu.addColorToRecentlyUsed(color));
+                comps[i][row].addColorActivationListener(JColorSelectorPopupMenu::addColorToRecentlyUsed);
                 this.add(comps[i][row]);
             }
         }

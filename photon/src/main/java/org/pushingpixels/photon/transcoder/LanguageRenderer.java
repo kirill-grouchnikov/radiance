@@ -30,25 +30,25 @@
 package org.pushingpixels.photon.transcoder;
 
 public interface LanguageRenderer {
-    public String getStatementEnd();
+    String getStatementEnd();
 
-    public String getObjectCreation(String className);
+    String getObjectCreation(String className);
 
-    public String getObjectCreationNoParams(String className);
+    String getObjectCreationNoParams(String className);
 
-    public String getObjectCast(String objectName, String classToCastTo);
+    String getObjectCast(String objectName, String classToCastTo);
 
-    public String startPrimitiveArrayOf(String primitiveTypeName);
+    String startPrimitiveArrayOf(String primitiveTypeName);
 
-    public String startGenericArrayOf(String className);
+    String startGenericArrayOf(String className);
 
-    public String endArray();
+    String endArray();
     
-    public String startVariableDefinition(String variableTypeName);
+    String startVariableDefinition(String variableTypeName);
     
-    public String startSetterAssignment(String propertyName);
+    String startSetterAssignment(String propertyName);
     
-    public String endSetterAssignment();
+    String endSetterAssignment();
     
-    public String getGetter(String propertyName);
+    String getGetter(String propertyName);
 }

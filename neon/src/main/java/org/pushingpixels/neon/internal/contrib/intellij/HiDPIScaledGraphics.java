@@ -48,7 +48,8 @@ class HiDPIScaledGraphics extends Graphics2D {
 
   public HiDPIScaledGraphics(/*scaled*/ Graphics g) {
     myPeer = (Graphics2D)g;
-    GraphicsUtil.setupAAPainting(myPeer);
+    myPeer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    myPeer.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
   }
 
   @Override

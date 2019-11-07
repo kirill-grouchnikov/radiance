@@ -73,13 +73,13 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
     /**
      * Stores computed images for vertical thumbs.
      */
-    private static LazyResettableHashMap<BufferedImage> thumbVerticalMap = new LazyResettableHashMap<BufferedImage>(
+    private static LazyResettableHashMap<BufferedImage> thumbVerticalMap = new LazyResettableHashMap<>(
             "SubstanceScrollBarUI.thumbVertical");
 
     /**
      * Stores computed images for horizontal thumbs.
      */
-    private static LazyResettableHashMap<BufferedImage> thumbHorizontalMap = new LazyResettableHashMap<BufferedImage>(
+    private static LazyResettableHashMap<BufferedImage> thumbHorizontalMap = new LazyResettableHashMap<>(
             "SubstanceScrollBarUI.thumbHorizontal");
 
     /**

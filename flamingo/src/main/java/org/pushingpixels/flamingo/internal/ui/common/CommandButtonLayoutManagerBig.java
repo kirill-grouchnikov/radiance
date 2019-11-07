@@ -173,10 +173,10 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                         : 2 * FlamingoUtilities.getHLayoutGap(commandButton)
                         + (fm.getAscent() + fm.getDescent()) / 2;
 
-                String currLeading = "";
+                StringBuilder currLeading = new StringBuilder();
                 while (tokenizer.hasMoreTokens()) {
-                    currLeading += tokenizer.nextToken();
-                    String part1 = currLeading;
+                    currLeading.append(tokenizer.nextToken());
+                    String part1 = currLeading.toString();
                     String part2 = title.substring(currLeading.length());
 
                     int len1 = fm.stringWidth(part1);

@@ -61,7 +61,7 @@ import java.util.List;
  */
 public class KeyValues<T> {
 
-    private final List<T> values = new ArrayList<T>();
+    private final List<T> values = new ArrayList<>();
     private final PropertyInterpolator<T> interpolator;
     private final Class<?> type;
     private T startValue;

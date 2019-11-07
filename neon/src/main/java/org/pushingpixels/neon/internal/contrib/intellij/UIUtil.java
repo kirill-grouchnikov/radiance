@@ -24,39 +24,11 @@ import java.util.*;
  */
 public class UIUtil {
     /**
-     * Tries to look up the System property for the given key. In untrusted
-     * environments this may throw a SecurityException. In this case we catch
-     * the exception and answer <code>null</code>.
-     *
-     * @param key
-     *            the name of the system property
-     * @return the system property's String value, or <code>null</code> if
-     *         there's no such value, or a SecurityException has been caught
-     */
-    public static String getSystemProperty(String key) {
-        try {
-            return System.getProperty(key);
-        } catch (SecurityException e) {
-            // log("Can't read the System property " + key + ".");
-            return null;
-        }
-    }
-
-    private static boolean containsIgnoreCase(String str, String searchFor) {
-        return str != null
-                && str.toUpperCase(Locale.ENGLISH).contains(
-                searchFor.toUpperCase(Locale.ENGLISH));
-    }
-
-    private static final String JAVA_VENDOR = getSystemProperty("java.vendor");
-    public static final boolean IS_VENDOR_APPLE = containsIgnoreCase(JAVA_VENDOR, "Apple");
-
-    /**
      * Utility class for retina routine
      */
     private final static class DetectRetinaKit {
 
-        private final static WeakHashMap<GraphicsDevice, Double> devicesScaleFactorCacheMap = new WeakHashMap<GraphicsDevice, Double>();
+        private final static WeakHashMap<GraphicsDevice, Double> devicesScaleFactorCacheMap = new WeakHashMap<>();
 
         /**
          * This uses {@link GraphicsConfiguration}'s default transform as detailed at
@@ -72,10 +44,6 @@ public class UIUtil {
         }
 
         private static double getScaleFactor(GraphicsDevice device) {
-            if (IS_VENDOR_APPLE) {
-                return 1.0;
-            }
-
             if (devicesScaleFactorCacheMap.containsKey(device)) {
                 return devicesScaleFactorCacheMap.get(device);
             }
@@ -88,33 +56,12 @@ public class UIUtil {
 
         }
 
-        /**
-         * This method perfectly detects retina Graphics2D for jdk7+ For Apple JDK6 it returns
-         * false.
-         * 
-         * @param g
-         *            graphics to be tested
-         * @return false if the device of the Graphics2D is not a retina device, jdk is an Apple JDK
-         *         or Oracle API has been changed.
-         */
         private static double getScaleFactor(Graphics2D g) {
             GraphicsDevice device = g.getDeviceConfiguration().getDevice();
             return getScaleFactor(device);
         }
 
-        /**
-         * Checks that at least one retina device is present. Do not use this method if your are
-         * going to make decision for a particular screen. isRetina(Graphics2D) is more preferable
-         *
-         * @return true if at least one device is a retina device
-         */
         private static double getScaleFactor() {
-            if (IS_VENDOR_APPLE) {
-                return 1.0f;
-            }
-
-            // Oracle JDK
-
             double result = 1.0;
             GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
 

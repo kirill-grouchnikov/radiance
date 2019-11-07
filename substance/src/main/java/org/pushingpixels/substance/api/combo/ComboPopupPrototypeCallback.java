@@ -45,5 +45,5 @@ public interface ComboPopupPrototypeCallback {
 	 *            Combo box.
 	 * @return Prototype entry for combo popup of the specified combobox.
 	 */
-	public Object getPopupPrototypeDisplayValue(JComboBox jc);
+	Object getPopupPrototypeDisplayValue(JComboBox jc);
 }

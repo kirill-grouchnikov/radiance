@@ -36,6 +36,7 @@ import org.pushingpixels.trident.swing.SwingRepaintCallback;
 import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Objects;
 
 /**
  * Utility class to track transitions in visual state of buttons.
@@ -69,10 +70,7 @@ public class ButtonVisualStateTracker {
 			this.stateTransitionTracker.setRepaintCallback(() -> {
 					JScrollBar scrollBar = (JScrollBar) SwingUtilities
 							.getAncestorOfClass(JScrollBar.class, b);
-					if (scrollBar != null) {
-						return new SwingRepaintCallback(scrollBar);
-					}
-					return new SwingRepaintCallback(b);
+				return new SwingRepaintCallback(Objects.requireNonNullElse(scrollBar, b));
 			});
 		}
 		this.stateTransitionTracker.registerModelListeners();

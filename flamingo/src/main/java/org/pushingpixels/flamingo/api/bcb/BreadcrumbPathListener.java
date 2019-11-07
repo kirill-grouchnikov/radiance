@@ -43,5 +43,5 @@ public interface BreadcrumbPathListener<T> extends EventListener {
      *
      * @param event Breadcrumb bar event.
      */
-    public void breadcrumbPathEvent(BreadcrumbPathEvent<T> event);
+    void breadcrumbPathEvent(BreadcrumbPathEvent<T> event);
 }

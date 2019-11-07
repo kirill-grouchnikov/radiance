@@ -38,7 +38,6 @@ import org.pushingpixels.trident.swing.RunOnEventDispatchThread;
 import org.pushingpixels.trident.internal.swing.SwingUtils;
 
 import java.util.*;
-import java.util.List;
 
 /**
  * The main entry point into Trident. Use {@link #builder()} or {@link #builder(Object)}
@@ -137,7 +136,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
         private boolean isActive;
 
-        private TimelineState(boolean isActive) {
+        TimelineState(boolean isActive) {
             this.isActive = isActive;
         }
     }
@@ -197,7 +196,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
         public Chain(Setter setterCallback) {
             this.setterCallback = setterCallback;
-            this.callbacks = new ArrayList<TimelineCallback>();
+            this.callbacks = new ArrayList<>();
         }
 
         public void addCallback(TimelineCallback callback) {
@@ -587,8 +586,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         return this.secondaryId;
     }
 
-    public abstract static class BaseBuilder<T extends Timeline, B extends BaseBuilder,
-            M extends Object> {
+    public abstract static class BaseBuilder<T extends Timeline, B extends BaseBuilder, M> {
         protected M mainObject;
         protected Comparable<?> secondaryId;
         protected long duration = Timeline.DEFAULT_DURATION;

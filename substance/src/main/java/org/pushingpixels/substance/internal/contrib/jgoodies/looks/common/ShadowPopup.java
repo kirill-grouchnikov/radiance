@@ -46,8 +46,8 @@ import java.util.List;
  * @author Karsten Lentzsch
  * @version $Revision: 1.12 $
  *
- * @see org.pushingpixels.substance.internal.contrib.jgoodies.looks.jgoodies.looks.common.ShadowPopupBorder
- * @see com.jgoodies.looks.common.ShadowPopupFactory
+ * @see ShadowPopupBorder
+ * @see ShadowPopupFactory
  */
 public final class ShadowPopup extends Popup {
 
@@ -121,7 +121,7 @@ public final class ShadowPopup extends Popup {
         ShadowPopup result;
         synchronized (ShadowPopup.class) {
             if (cache == null) {
-                cache = new ArrayList<ShadowPopup>(MAX_CACHE_SIZE);
+                cache = new ArrayList<>(MAX_CACHE_SIZE);
             }
             if (cache.size() > 0) {
                 result = cache.remove(0);
@@ -267,7 +267,7 @@ public final class ShadowPopup extends Popup {
      * device.
      *
      * @see #show()
-     * @see org.pushingpixels.substance.internal.contrib.jgoodies.looks.jgoodies.looks.common.ShadowPopupBorder
+     * @see ShadowPopupBorder
      * @see Robot#createScreenCapture(Rectangle)
      */
     private void snapshot() {

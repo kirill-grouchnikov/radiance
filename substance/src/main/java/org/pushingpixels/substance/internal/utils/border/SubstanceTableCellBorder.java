@@ -66,7 +66,7 @@ public class SubstanceTableCellBorder implements Border, UIResource {
 	/**
 	 * Cache of small border images.
 	 */
-	private static LazyResettableHashMap<BufferedImage> smallImageCache = new LazyResettableHashMap<BufferedImage>(
+	private static LazyResettableHashMap<BufferedImage> smallImageCache = new LazyResettableHashMap<>(
 			"SubstanceTableCellBorder");
 
 	/**
@@ -101,8 +101,6 @@ public class SubstanceTableCellBorder implements Border, UIResource {
 	 *            Component height.
 	 * @param isEnabled
 	 *            Component enabled status.
-	 * @param alpha
-	 *            Alpha value.
 	 */
 	private void paintBorder(JComponent c, Graphics g, int x, int y, int width,
 			int height, boolean isEnabled, boolean hasFocus) {

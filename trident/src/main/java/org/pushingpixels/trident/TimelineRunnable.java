@@ -35,7 +35,7 @@ import java.util.concurrent.*;
 
 public abstract class TimelineRunnable implements Runnable, TimelineScenarioActor {
     private static ExecutorService service = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 10L,
-            TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
+            TimeUnit.SECONDS, new SynchronousQueue<>());
 
     private Future<?> future;
 

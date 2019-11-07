@@ -94,7 +94,7 @@ class DnDBorderFactory {
      * 
      * @author Antonio Vieiro (antonio@antonioshome.net), $Author: kirillcool $
      */
-    class OffsetBorder implements Border {
+    static class OffsetBorder implements Border {
         private Insets insets = new Insets(5, 0, 0, 0);
 
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
@@ -116,7 +116,7 @@ class DnDBorderFactory {
      * 
      * @author Antonio Vieiro (antonio@antonioshome.net), $Author: kirillcool $
      */
-    class DropNotAllowedBorder implements Border {
+    static class DropNotAllowedBorder implements Border {
         private Insets insets = new Insets(0, 0, 0, 0);
         private Icon icon;
 

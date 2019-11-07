@@ -128,13 +128,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
     @Override
     protected void calculateTrackRect() {
         super.calculateTrackRect();
-        if (this.slider.getOrientation() == SwingConstants.HORIZONTAL) {
-            // this.trackRect.y = 3
-            // + (int) Math.ceil(SubstanceSizeUtils
-            // .getFocusStrokeWidth(SubstanceSizeUtils
-            // .getComponentFontSize(this.slider)))
-            // + this.insetCache.top;
-        } else {
+        if (this.slider.getOrientation() == SwingConstants.VERTICAL) {
             if (this.slider.getComponentOrientation().isLeftToRight()) {
                 this.trackRect.x += 2;
             } else {
@@ -533,7 +527,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
                 SubstanceSliderUI.this.thumbModel.setEnabled(slider.isEnabled());
             }
             if ("font".equals(evt.getPropertyName())) {
-                SwingUtilities.invokeLater(() -> slider.updateUI());
+                SwingUtilities.invokeLater(slider::updateUI);
             }
         };
         this.slider.addPropertyChangeListener(this.substancePropertyChangeListener);
@@ -647,7 +641,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
 
             if (this.slider.getMajorTickSpacing() > 0) {
                 // collect y's of the major ticks
-                java.util.List<Integer> majorYs = new ArrayList<Integer>();
+                java.util.List<Integer> majorYs = new ArrayList<>();
                 value = this.slider.getMinimum() + this.slider.getMajorTickSpacing();
 
                 while (value < this.slider.getMaximum()) {

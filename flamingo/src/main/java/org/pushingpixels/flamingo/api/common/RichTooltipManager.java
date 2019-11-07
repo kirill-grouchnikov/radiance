@@ -272,29 +272,6 @@ public class RichTooltipManager {
         return sharedInstance;
     }
 
-    /**
-     * Registers a component for tooltip management.
-     * <p>
-     * This will register key bindings to show and hide the tooltip text only if
-     * <code>component</code> has focus bindings. This is done so that
-     * components that are not normally focus traversable, such as
-     * <code>JLabel</code>, are not made focus traversable as a result of
-     * invoking this method.
-     *
-     * @param comp a <code>JComponent</code> object to add
-     * @see JComponent#isFocusTraversable
-     */
-    public void registerComponent(JTrackableComponent comp) {
-    }
-
-    /**
-     * Removes a component from tooltip control.
-     *
-     * @param comp a <code>JComponent</code> object to remove
-     */
-    public void unregisterComponent(JTrackableComponent comp) {
-    }
-
     public void hideCurrentlyShowingTipIfNecessary() {
         this.hideTipWindow();
     }

@@ -44,7 +44,7 @@ public interface PasswordStrengthChecker {
 	 *            Password.
 	 * @return Password strength.
 	 */
-	public SubstanceSlices.PasswordStrength getStrength(char[] password);
+    SubstanceSlices.PasswordStrength getStrength(char[] password);
 
 	/**
 	 * Returns the description of the password strength. The returned value can
@@ -55,5 +55,5 @@ public interface PasswordStrengthChecker {
 	 *            Password strength.
 	 * @return The description of the specified password strength.
 	 */
-	public String getDescription(SubstanceSlices.PasswordStrength strength);
+    String getDescription(SubstanceSlices.PasswordStrength strength);
 }

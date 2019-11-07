@@ -2,9 +2,7 @@ package org.pushingpixels.substance.extras.internal.tabbed;
 
 import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.substance.internal.contrib.jgoodies.looks.ShadowPopupBorder;
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
+import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopupBorder;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -70,7 +68,7 @@ public class TabPreviewControl extends JPanel {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 paintTabThumbnail(g);
-            };
+            }
         };
         this.add(this.iconLabel);
         this.add(this.titleLabel);

@@ -98,7 +98,7 @@ abstract class IcoWrapperIcon implements Icon, AsynchronousLoading {
 			protected boolean removeEldestEntry(
 					Map.Entry<String, BufferedImage> eldest) {
 				return size() > 5;
-			};
+			}
 		};
 		this.renderImage(this.width, this.height);
 	}

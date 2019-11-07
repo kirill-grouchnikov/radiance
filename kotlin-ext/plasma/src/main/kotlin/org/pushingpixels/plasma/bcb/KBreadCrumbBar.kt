@@ -38,7 +38,7 @@ import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathListener
 
 fun <T> DelayedBreadcrumbPathListener(listener: (BreadcrumbPathEvent<T>) -> Unit): BreadcrumbPathListener<T> {
-    return BreadcrumbPathListener<T> { event ->
+    return BreadcrumbPathListener { event ->
         GlobalScope.launch(Dispatchers.Swing) {
             listener.invoke(event)
         }

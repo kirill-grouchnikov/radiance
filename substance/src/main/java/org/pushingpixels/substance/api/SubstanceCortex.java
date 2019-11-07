@@ -113,13 +113,13 @@ public class SubstanceCortex {
          * List of all listeners on skin changes.
          */
         private final static Set<SkinChangeListener> skinChangeListeners = new
-                HashSet<SkinChangeListener>();
+                HashSet<>();
 
         /**
          * List of all listeners on changing locales.
          */
         private final static Set<LocaleChangeListener> localeChangeListeners = new
-                HashSet<LocaleChangeListener>();
+                HashSet<>();
 
         private static SubstanceIconPack iconPack;
 
@@ -208,7 +208,7 @@ public class SubstanceCortex {
                 Enumeration<String> keyEn = substanceBundle.getKeys();
                 while (keyEn.hasMoreElements()) {
                     String key = keyEn.nextElement();
-                    if (key.indexOf("FileChooser") != -1) {
+                    if (key.contains("FileChooser")) {
                         String value = substanceBundle.getString(key);
                         UIManager.put(key, value);
                     }
@@ -457,10 +457,10 @@ public class SubstanceCortex {
          * @return All available skins. Key - skin display name, value - skin information.
          */
         public static Map<String, SkinInfo> getAllSkins() {
-            Map<String, SkinInfo> result = new TreeMap<String, SkinInfo>();
+            Map<String, SkinInfo> result = new TreeMap<>();
             for (SubstanceSkinPlugin skinPlugin : SubstancePluginRepository.getInstance()
                     .getSkinPlugins()) {
-                for (SkinInfo skinInfo : ((SubstanceSkinPlugin) skinPlugin).getSkins()) {
+                for (SkinInfo skinInfo : skinPlugin.getSkins()) {
                     result.put(skinInfo.getDisplayName(), skinInfo);
                 }
             }

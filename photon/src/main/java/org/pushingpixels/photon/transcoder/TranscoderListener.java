@@ -42,10 +42,10 @@ public interface TranscoderListener {
 	 * 
 	 * @return Writer for the Java2D contents.
 	 */
-	public Writer getWriter();
+    Writer getWriter();
 
 	/**
 	 * Called when the transcoding process is finished.
 	 */
-	public void finished();
+    void finished();
 }

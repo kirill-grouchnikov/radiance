@@ -46,8 +46,7 @@ public class ColorSelectorPopupMenuSingleRowSelector extends JPanel {
             comps[i] = new JColorSelectorComponent(colors[i],
                     contentModel.getColorPreviewListener(),
                     contentModel.getColorActivationListener());
-            comps[i].addColorActivationListener((Color color) ->
-                    JColorSelectorPopupMenu.addColorToRecentlyUsed(color));
+            comps[i].addColorActivationListener(JColorSelectorPopupMenu::addColorToRecentlyUsed);
             this.add(comps[i]);
         }
 

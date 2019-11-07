@@ -234,7 +234,7 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
                     BufferedImage.TYPE_INT_ARGB);
             Graphics tempCanvasGraphics = tempCanvas.getGraphics();
             tempCanvasGraphics.translate(-dx, -dy);
-            Map<Component, Boolean> dbSnapshot = new HashMap<Component, Boolean>();
+            Map<Component, Boolean> dbSnapshot = new HashMap<>();
             WidgetUtilities.makePreviewable(frame, dbSnapshot);
             frame.paint(tempCanvasGraphics);
             WidgetUtilities.restorePreviewable(frame, dbSnapshot);

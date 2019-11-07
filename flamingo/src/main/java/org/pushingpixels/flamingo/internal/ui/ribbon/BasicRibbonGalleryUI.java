@@ -195,11 +195,11 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         // straight sides)
         Map<Command, Projection.ComponentCustomizer<AbstractCommandButton>> galleryScrollerCustomizers = new HashMap<>();
         galleryScrollerCustomizers.put(this.scrollUpCommand,
-                (AbstractCommandButton button) -> configureScrollUpButton(button));
+                this::configureScrollUpButton);
         galleryScrollerCustomizers.put(this.scrollDownCommand,
-                (AbstractCommandButton button) -> configureScrollDownButton(button));
+                this::configureScrollDownButton);
         galleryScrollerCustomizers.put(this.expandCommand,
-                (AbstractCommandButton button) -> configureExpandButton(button));
+                this::configureExpandButton);
 
         // Configure the component supplier for the expand command to return our own subclass
         Map<Command, Projection.ComponentSupplier<AbstractCommandButton, Command,

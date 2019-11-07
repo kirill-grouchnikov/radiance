@@ -32,9 +32,7 @@
 package org.pushingpixels.meteor.awt
 
 import java.awt.Dimension
-import java.awt.Point
 import java.awt.geom.Dimension2D
-import java.awt.geom.Point2D
 
 /**
  * Returns the width component of the dimension. This method enables the usage of destructuring

@@ -65,7 +65,7 @@ By default, **all** Substance watermarks are screen-bound (also true under multi
 
 **I don't like Substance.**
 
-That's not really a question. If you don't like it, you can either help improve it by suggesting additional features in the forums and mailing lists, or use any other core or third-party look-and-feel. The landscape of third-party look-and-feels was a bit more vibrant when Substance started. Some of those are still around.
+That's not really a question. If you don't like it, you can either help improve it by suggesting additional features in the [issue tracker](https://github.com/kirill-grouchnikov/radiance/issues), or use any other core or third-party look-and-feel. The landscape of third-party look-and-feels was a bit more vibrant when Substance started. Some of those are still around, and some new have appeared recently.
 
 **Are there any known issues in Substance?**
 
@@ -112,7 +112,11 @@ No. Substance in particular, and Java look and feels in general are not designed
 
 **How do i make Substance to paint the title panes?**
 
-In case you wish to use cross-platform frame and dialog decorations, use the following before you instantiate your first top-level window: `JFrame.setDefaultLookAndFeelDecorated(true);` and `JDialog.setDefaultLookAndFeelDecorated(true);`. This, however, causes flicker on resize due to a known Swing bug. For Windows, there is a workaround, using `System.setProperty("sun.awt.noerasebackground", "true");`. You can set this property along with the above two lines.
+In case you wish to use cross-platform frame and dialog decorations, use the following before you instantiate your first top-level window:
+* `JFrame.setDefaultLookAndFeelDecorated(true);`
+* `JDialog.setDefaultLookAndFeelDecorated(true);`.
+
+This, however, causes flicker on resize due to a known Swing bug. For Windows, there is a workaround, using `System.setProperty("sun.awt.noerasebackground", "true");`. You can set this property along with the above two lines.
 
 **I'm using `setOpaque()` method and i see visual artifacts in my UI**
 

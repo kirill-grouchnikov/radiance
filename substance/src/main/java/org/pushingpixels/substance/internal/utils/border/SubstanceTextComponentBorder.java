@@ -61,7 +61,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
     /**
      * Cache of small border images.
      */
-    private static LazyResettableHashMap<BufferedImage> smallImageCache = new LazyResettableHashMap<BufferedImage>(
+    private static LazyResettableHashMap<BufferedImage> smallImageCache = new LazyResettableHashMap<>(
             "SubstanceTextComponentBorder");
 
     /**

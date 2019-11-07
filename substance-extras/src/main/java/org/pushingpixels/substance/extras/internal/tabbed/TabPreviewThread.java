@@ -131,7 +131,7 @@ public class TabPreviewThread extends TrackableThread {
 	 * 
 	 * @author Kirill Grouchnikov
 	 */
-	public static interface TabPreviewCallback {
+	public interface TabPreviewCallback {
 		/**
 		 * Starts the current cycle of
 		 * {@link #offer(JTabbedPane, int, BufferedImage)} calls. This can be
@@ -147,7 +147,7 @@ public class TabPreviewThread extends TrackableThread {
 		 *            Tab preview info. Can be changed in the implementation
 		 *            code.
 		 */
-		public void start(JTabbedPane tabPane, int tabCount,
+		void start(JTabbedPane tabPane, int tabCount,
 				TabPreviewInfo tabPreviewInfo);
 
 		/**
@@ -161,7 +161,7 @@ public class TabPreviewThread extends TrackableThread {
 		 * @param componentSnap
 		 *            Tab preview image.
 		 */
-		public void offer(JTabbedPane tabPane, int tabIndex,
+		void offer(JTabbedPane tabPane, int tabIndex,
 				BufferedImage componentSnap);
 	}
 
@@ -259,7 +259,7 @@ public class TabPreviewThread extends TrackableThread {
 		Component comp = tabPane.getComponentAt(tabIndex);
 
 		if (previewPainter.hasPreview(tabPane, tabIndex)) {
-			Map<Component, Boolean> dbSnapshot = new HashMap<Component, Boolean>();
+			Map<Component, Boolean> dbSnapshot = new HashMap<>();
 			WidgetUtilities.makePreviewable(comp, dbSnapshot);
 			previewPainter.previewTab(tabPane, tabIndex, previewImage, 0, 0, pWidth, pHeight);
 			WidgetUtilities.restorePreviewable(comp, dbSnapshot);
@@ -304,11 +304,9 @@ public class TabPreviewThread extends TrackableThread {
 	 *            Initiator.
 	 */
 	public void cancelTabPreviewRequests(final Object initiator) {
-		DeltaMatcher matcher = new DeltaMatcher() {
-			public boolean matches(Deltable deltable) {
-				TabPreviewInfo currInfo = (TabPreviewInfo) deltable;
-				return (currInfo.initiator == initiator);
-			}
+		DeltaMatcher matcher = deltable -> {
+			TabPreviewInfo currInfo = (TabPreviewInfo) deltable;
+			return (currInfo.initiator == initiator);
 		};
 		this.previewQueue.removeMatching(matcher);
 	}

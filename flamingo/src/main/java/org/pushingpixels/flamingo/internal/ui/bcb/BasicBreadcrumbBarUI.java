@@ -214,7 +214,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                             }
                         }
 
-                        SwingUtilities.invokeLater(() -> updateComponents());
+                        SwingUtilities.invokeLater(BasicBreadcrumbBarUI.this::updateComponents);
 
                         if (indexOfFirstChange == 0) {
                             List<StringValuePair> rootChoices = breadcrumbBar.getCallback()
@@ -573,23 +573,21 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
             final int biIndex = i;
 
-            commandBuilder.setAction((CommandActionEvent e) -> {
-                SwingUtilities.invokeLater(() -> {
-                    BreadcrumbBarModel barModel = breadcrumbBar.getModel();
-                    barModel.setCumulative(true);
-                    int itemIndex = barModel.indexOf(bic.getAncestor());
-                    int toLeave = ((bic.getAncestor() == null) || (itemIndex < 0)) ? 0
-                            : itemIndex + 1;
-                    while (barModel.getItemCount() > toLeave) {
-                        barModel.removeLast();
-                    }
-                    barModel.addLast(bi);
+            commandBuilder.setAction((CommandActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                BreadcrumbBarModel barModel = breadcrumbBar.getModel();
+                barModel.setCumulative(true);
+                int itemIndex = barModel.indexOf(bic.getAncestor());
+                int toLeave = ((bic.getAncestor() == null) || (itemIndex < 0)) ? 0
+                        : itemIndex + 1;
+                while (barModel.getItemCount() > toLeave) {
+                    barModel.removeLast();
+                }
+                barModel.addLast(bi);
 
-                    bic.setSelectedIndex(biIndex);
+                bic.setSelectedIndex(biIndex);
 
-                    barModel.setCumulative(false);
-                });
-            });
+                barModel.setCumulative(false);
+            }));
 
             Command menuCommand = commandBuilder.build();
             menuCommands.add(menuCommand);

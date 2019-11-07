@@ -94,8 +94,8 @@ public class DelegateFractionBasedBorderPainter implements SubstanceBorderPainte
 	/**
 	 * Map of transformed color schemes (to speed up the subsequent lookups).
 	 */
-	protected final static LazyResettableHashMap<SubstanceColorScheme> transformMap = new LazyResettableHashMap<SubstanceColorScheme>(
-			"DelegateBorderPainter");
+	protected final static LazyResettableHashMap<SubstanceColorScheme> transformMap = new LazyResettableHashMap<>(
+            "DelegateBorderPainter");
 
 	@Override
 	public boolean isPaintingInnerContour() {

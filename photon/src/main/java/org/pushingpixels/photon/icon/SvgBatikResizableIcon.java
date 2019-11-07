@@ -31,7 +31,6 @@ package org.pushingpixels.photon.icon;
 
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
-import org.apache.batik.util.EventDispatcher.Dispatcher;
 import org.pushingpixels.neon.AsynchronousLoadListener;
 import org.pushingpixels.neon.AsynchronousLoading;
 import org.pushingpixels.neon.icon.ResizableIcon;

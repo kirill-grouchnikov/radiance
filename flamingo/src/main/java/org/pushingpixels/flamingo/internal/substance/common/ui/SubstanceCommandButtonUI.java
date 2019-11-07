@@ -401,7 +401,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         int arrowIconHeight = (int) SubstanceSizeUtils.getArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getArrowIconWidth(fontSize);
         ResizableIcon icon = new TransitionAwareResizableIcon(this.commandButton,
-                () -> getPopupTransitionTracker(),
+                this::getPopupTransitionTracker,
                 (SubstanceColorScheme scheme, int width, int height) -> {
                     CommandButtonPresentationModel.PopupOrientationKind orientation =
                             ((JCommandButton) commandButton)

@@ -51,6 +51,6 @@ public interface VetoableMultipleTabCloseListener extends
 	 * @return <code>true</code> if the corresponding tabs shouldn't be closed,
 	 *         <code>false</code> otherwise.
 	 */
-	public boolean vetoTabsClosing(JTabbedPane tabbedPane,
-			Set<Component> tabComponents);
+    boolean vetoTabsClosing(JTabbedPane tabbedPane,
+            Set<Component> tabComponents);
 }

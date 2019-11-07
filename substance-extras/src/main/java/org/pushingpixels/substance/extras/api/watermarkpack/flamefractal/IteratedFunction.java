@@ -32,5 +32,5 @@ package org.pushingpixels.substance.extras.api.watermarkpack.flamefractal;
 import java.awt.geom.Point2D;
 
 public interface IteratedFunction {
-	public void apply(Point2D coord);
+	void apply(Point2D coord);
 }

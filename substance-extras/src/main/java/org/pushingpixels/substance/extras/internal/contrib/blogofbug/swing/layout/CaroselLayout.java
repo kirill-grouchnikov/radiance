@@ -47,7 +47,7 @@ public class CaroselLayout implements LayoutManager,ActionListener{
     /**
      * List of components being laid out
      */
-    protected LinkedList<Component>    components = new LinkedList<Component>();
+    protected LinkedList<Component>    components = new LinkedList<>();
     
     /**
      * List of additional information held on components in the carousel
@@ -610,7 +610,7 @@ public class CaroselLayout implements LayoutManager,ActionListener{
     public int getNeutralContentWidth() {
         return neutralContentWidth;
     }
-class CaroselPosition{
+static class CaroselPosition{
         protected double  angle;
         protected double  scale;
         protected double  z;

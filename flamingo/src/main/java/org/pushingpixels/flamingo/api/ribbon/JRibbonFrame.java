@@ -101,7 +101,7 @@ public class JRibbonFrame extends JFrame {
      *
      * @author Kirill Grouchnikov
      */
-    private class RibbonFrameLayout extends BorderLayout {
+    private static class RibbonFrameLayout extends BorderLayout {
         @Override
         public void addLayoutComponent(Component comp, Object constraints) {
             if ((constraints != null) && constraints.equals(BorderLayout.NORTH)) {
@@ -130,7 +130,7 @@ public class JRibbonFrame extends JFrame {
      *
      * @author Kirill Grouchnikov
      */
-    private class KeyTipLayer extends JComponent {
+    private static class KeyTipLayer extends JComponent {
         /**
          * Creates a new key tip layer.
          */

@@ -52,8 +52,8 @@ public interface TabCloseCallback {
 	 *            Mouse event.
 	 * @return Tab close kind.
 	 */
-	public TabCloseKind onAreaClick(JTabbedPane tabbedPane, int tabIndex,
-			MouseEvent mouseEvent);
+    TabCloseKind onAreaClick(JTabbedPane tabbedPane, int tabIndex,
+            MouseEvent mouseEvent);
 
 	/**
 	 * Invoked when the tab close button is clicked.
@@ -66,8 +66,8 @@ public interface TabCloseCallback {
 	 *            Mouse event.
 	 * @return Tab close kind.
 	 */
-	public TabCloseKind onCloseButtonClick(JTabbedPane tabbedPane,
-			int tabIndex, MouseEvent mouseEvent);
+    TabCloseKind onCloseButtonClick(JTabbedPane tabbedPane,
+            int tabIndex, MouseEvent mouseEvent);
 
 	/**
 	 * Returns the tooltip for the tab area (not close button).
@@ -78,7 +78,7 @@ public interface TabCloseCallback {
 	 *            Index of the tab under the mouse.
 	 * @return Tooltip for the tab area.
 	 */
-	public String getAreaTooltip(JTabbedPane tabbedPane, int tabIndex);
+    String getAreaTooltip(JTabbedPane tabbedPane, int tabIndex);
 
 	/**
 	 * Returns the tooltip for the tab close button.
@@ -89,5 +89,5 @@ public interface TabCloseCallback {
 	 *            Index of the tab under the mouse.
 	 * @return Tooltip for the tab close button.
 	 */
-	public String getCloseButtonTooltip(JTabbedPane tabbedPane, int tabIndex);
+    String getCloseButtonTooltip(JTabbedPane tabbedPane, int tabIndex);
 }

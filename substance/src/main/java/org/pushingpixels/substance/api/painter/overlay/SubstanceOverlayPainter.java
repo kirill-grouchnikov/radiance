@@ -58,7 +58,7 @@ public interface SubstanceOverlayPainter extends SubstanceTrait {
 	 * @param skin
 	 *            Skin for painting the overlay.
 	 */
-	public void paintOverlay(Graphics2D graphics, Component comp,
-			DecorationAreaType decorationAreaType, int width, int height,
-			SubstanceSkin skin);
+    void paintOverlay(Graphics2D graphics, Component comp,
+            DecorationAreaType decorationAreaType, int width, int height,
+            SubstanceSkin skin);
 }

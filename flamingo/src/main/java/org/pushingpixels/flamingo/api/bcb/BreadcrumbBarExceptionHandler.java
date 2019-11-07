@@ -44,5 +44,5 @@ public interface BreadcrumbBarExceptionHandler {
 	 * @param t
 	 *            Throwable.
 	 */
-	public void onException(Throwable t);
+    void onException(Throwable t);
 }

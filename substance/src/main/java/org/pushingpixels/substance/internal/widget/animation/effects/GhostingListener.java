@@ -82,9 +82,9 @@ public class GhostingListener {
 
     private Timeline ghostComponentPressedTimeline;
 
-    private static Map<JComponent, Timeline> runningGhostRolloverTimelines = new HashMap<JComponent, Timeline>();
+    private static Map<JComponent, Timeline> runningGhostRolloverTimelines = new HashMap<>();
 
-    private static Map<JComponent, Timeline> runningGhostPressTimelines = new HashMap<JComponent, Timeline>();
+    private static Map<JComponent, Timeline> runningGhostPressTimelines = new HashMap<>();
 
     /**
      * Creates a new listener on model changes that can cause ghost animation transitions.

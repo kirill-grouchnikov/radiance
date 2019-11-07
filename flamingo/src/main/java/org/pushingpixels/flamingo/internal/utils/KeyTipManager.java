@@ -69,7 +69,6 @@ public class KeyTipManager {
     private EventListenerList listenerList;
 
     private BlockingQueue<Character> processingQueue;
-    private ProcessingThread processingThread;
 
     private JRibbonFrame rootOwner;
 
@@ -105,7 +104,7 @@ public class KeyTipManager {
     public @interface HasNextKeyTipChain {
     }
 
-    public class KeyTipLink {
+    public static class KeyTipLink {
         public String keyTipString;
 
         public JComponent comp;
@@ -147,8 +146,8 @@ public class KeyTipManager {
         this.keyTipChains = new ArrayList<>();
         this.listenerList = new EventListenerList();
         this.processingQueue = new LinkedBlockingQueue<>();
-        this.processingThread = new ProcessingThread();
-        this.processingThread.start();
+        ProcessingThread processingThread = new ProcessingThread();
+        processingThread.start();
     }
 
     public boolean isShowingKeyTips() {

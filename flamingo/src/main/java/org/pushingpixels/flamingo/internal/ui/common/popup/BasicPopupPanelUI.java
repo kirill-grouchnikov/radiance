@@ -52,6 +52,7 @@ import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.ComboPopup;
 import java.awt.*;
 import java.awt.event.*;
+import java.security.PrivilegedAction;
 import java.util.List;
 
 /**
@@ -455,15 +456,13 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
         void grabWindow(List<PopupPanelManager.PopupInfo> shownPath) {
             final Toolkit tk = Toolkit.getDefaultToolkit();
             java.security.AccessController
-                    .doPrivileged(new java.security.PrivilegedAction() {
-                        public Object run() {
-                            tk.addAWTEventListener(WindowTracker.this,
-                                    AWTEvent.MOUSE_EVENT_MASK
-                                            | AWTEvent.MOUSE_MOTION_EVENT_MASK
-                                            | AWTEvent.MOUSE_WHEEL_EVENT_MASK
-                                            | AWTEvent.WINDOW_EVENT_MASK);
-                            return null;
-                        }
+                    .doPrivileged((PrivilegedAction) () -> {
+                        tk.addAWTEventListener(WindowTracker.this,
+                                AWTEvent.MOUSE_EVENT_MASK
+                                        | AWTEvent.MOUSE_MOTION_EVENT_MASK
+                                        | AWTEvent.MOUSE_WHEEL_EVENT_MASK
+                                        | AWTEvent.WINDOW_EVENT_MASK);
+                        return null;
                     });
 
             Component invoker = shownPath.get(0).getPopupOriginator();
@@ -481,12 +480,9 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
         void ungrabWindow() {
             final Toolkit tk = Toolkit.getDefaultToolkit();
             // The grab should be removed
-            java.security.AccessController
-                    .doPrivileged(new java.security.PrivilegedAction() {
-                        public Object run() {
-                            tk.removeAWTEventListener(WindowTracker.this);
-                            return null;
-                        }
+            java.security.AccessController.doPrivileged((PrivilegedAction) () -> {
+                        tk.removeAWTEventListener(WindowTracker.this);
+                        return null;
                     });
             if (grabbedWindow != null) {
                 grabbedWindow.removeComponentListener(this);

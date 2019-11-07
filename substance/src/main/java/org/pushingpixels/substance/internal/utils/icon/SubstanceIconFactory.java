@@ -59,25 +59,25 @@ public class SubstanceIconFactory {
     /**
      * Icons for horizontal slider in {@link SubstanceSliderUI}.
      */
-    private static LazyResettableHashMap<Icon> sliderHorizontalIcons = new LazyResettableHashMap<Icon>(
+    private static LazyResettableHashMap<Icon> sliderHorizontalIcons = new LazyResettableHashMap<>(
             "SubstanceIconFactory.sliderHorizontalIcon");
 
     /**
      * Icons for horizontal slider in {@link SubstanceSliderUI}.
      */
-    private static LazyResettableHashMap<Icon> sliderRoundIcons = new LazyResettableHashMap<Icon>(
+    private static LazyResettableHashMap<Icon> sliderRoundIcons = new LazyResettableHashMap<>(
             "SubstanceIconFactory.sliderRoundIcon");
 
     /**
      * Icons for vertical slider in {@link SubstanceSliderUI}.
      */
-    private static LazyResettableHashMap<Icon> sliderVerticalIcons = new LazyResettableHashMap<Icon>(
+    private static LazyResettableHashMap<Icon> sliderVerticalIcons = new LazyResettableHashMap<>(
             "SubstanceIconFactory.sliderVerticalIcon");
 
     /**
      * Icons for tree collapse / expand in {@link SubstanceTreeUI}.
      */
-    private static LazyResettableHashMap<ResizableIcon> treeIcons = new LazyResettableHashMap<ResizableIcon>(
+    private static LazyResettableHashMap<ResizableIcon> treeIcons = new LazyResettableHashMap<>(
             "SubstanceIconFactory.treeIcon");
 
     /**
@@ -770,7 +770,7 @@ public class SubstanceIconFactory {
         /**
          * Icon of a restore button.
          */
-        RESTORE;
+        RESTORE
     }
 
     /**

@@ -49,14 +49,14 @@ public interface NoiseFilter {
 	 *            The original noise value.
 	 * @return New noise value.
 	 */
-	public double apply(double x, double y, double z, double origValue);
+    double apply(double x, double y, double z, double origValue);
 
 	/**
 	 * Kind of trigonometric function.
 	 * 
 	 * @author Kirill Grouchnikov
 	 */
-	public enum TrigKind {
+    enum TrigKind {
 		/**
 		 * Sine.
 		 */

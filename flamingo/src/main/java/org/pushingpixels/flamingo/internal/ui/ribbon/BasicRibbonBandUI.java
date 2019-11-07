@@ -68,7 +68,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      * The button for collapsed state.
      */
     private JCommandButton collapsedButton;
-    private Command collapseCommand;
 
     /**
      * The band expand button. Is visible when the {@link JRibbonBand#getExpandCommandListener()} of
@@ -168,12 +167,12 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      * Installs subcomponents on the associated ribbon band.
      */
     protected void installComponents() {
-        this.collapseCommand = Command.builder()
+        Command collapseCommand = Command.builder()
                 .setText(this.ribbonBand.getTitle())
                 .setIconFactory(this.ribbonBand.getIconFactory())
                 .build();
 
-        this.collapsedButton = (JCommandButton) this.collapseCommand.project(
+        this.collapsedButton = (JCommandButton) collapseCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.BIG)
                         .setPopupKeyTip(this.ribbonBand.getCollapsedStateKeyTip())

@@ -89,13 +89,12 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
     }
 
     fun toJavaProjection(): CommandStripProjection {
-        val commandGroupModel = CommandGroup(
-                commandConfigs.map { it -> it.command.asJavaCommand() })
+        val commandGroupModel = CommandGroup(commandConfigs.map { it.command.asJavaCommand() })
         val commandStripPresentationModel = presentation.toCommandStripPresentationModel()
         val commandOverlays = commandConfigs.map { it.command.asJavaCommand() to it.toJavaPresentationOverlay() }.toMap()
 
         val commandStripProjection = CommandStripProjection(commandGroupModel, commandStripPresentationModel)
-        commandStripProjection.setCommandOverlays(commandOverlays)
+        commandStripProjection.commandOverlays = commandOverlays
 
         return commandStripProjection
     }

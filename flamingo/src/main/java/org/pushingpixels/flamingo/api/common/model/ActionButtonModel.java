@@ -48,7 +48,7 @@ public interface ActionButtonModel extends ButtonModel {
 	 *            mouse press, otherwise the associated actions will be fired on
 	 *            mouse release.
 	 */
-	public void setFireActionOnPress(boolean toFireActionOnPress);
+    void setFireActionOnPress(boolean toFireActionOnPress);
 
 	/**
 	 * Returns indication whether the associated actions should be fired on
@@ -58,5 +58,5 @@ public interface ActionButtonModel extends ButtonModel {
 	 *         press, <code>false</code> if the associated actions are fired on
 	 *         mouse release.
 	 */
-	public boolean isFireActionOnPress();
+    boolean isFireActionOnPress();
 }

@@ -41,7 +41,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicSpinnerUI;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -80,15 +79,12 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 		super.installUI(c);
 
 		c.putClientProperty(SubstanceCoreUtilities.TEXT_COMPONENT_AWARE,
-				new TextComponentAware<JSpinner>() {
-					@Override
-					public JTextComponent getTextComponent(JSpinner t) {
-						JComponent editor = t.getEditor();
-						if ((editor != null) && (editor instanceof JSpinner.DefaultEditor)) {
-							return ((JSpinner.DefaultEditor) editor).getTextField();
-						}
-						return null;
+				(TextComponentAware<JSpinner>) t -> {
+					JComponent editor = t.getEditor();
+					if (editor instanceof JSpinner.DefaultEditor) {
+						return ((JSpinner.DefaultEditor) editor).getTextField();
 					}
+					return null;
 				});
 	}
 
@@ -163,7 +159,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 	protected void installDefaults() {
 		super.installDefaults();
 		JComponent editor = this.spinner.getEditor();
-		if ((editor != null) && (editor instanceof JSpinner.DefaultEditor)) {
+		if ((editor instanceof JSpinner.DefaultEditor)) {
 			JTextField tf = ((JSpinner.DefaultEditor) editor).getTextField();
 			if (tf != null) {
 				int fontSize = SubstanceSizeUtils.getComponentFontSize(this.spinner);
@@ -195,7 +191,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 					if (spinner == null)
 						return;
 					JComponent editor = spinner.getEditor();
-					if ((editor != null) && (editor instanceof JSpinner.DefaultEditor)) {
+					if ((editor instanceof JSpinner.DefaultEditor)) {
 						JTextField tf = ((JSpinner.DefaultEditor) editor).getTextField();
 						if (tf != null) {
 							Insets ins = SubstanceSizeUtils.getSpinnerTextBorderInsets(
@@ -217,7 +213,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 
 			if ("background".equals(evt.getPropertyName())) {
 				JComponent editor = spinner.getEditor();
-				if ((editor != null) && (editor instanceof JSpinner.DefaultEditor)) {
+				if ((editor instanceof JSpinner.DefaultEditor)) {
 					JTextField tf = ((JSpinner.DefaultEditor) editor).getTextField();
 					if (tf != null) {
 						// Use SubstanceColorResource to distingish between

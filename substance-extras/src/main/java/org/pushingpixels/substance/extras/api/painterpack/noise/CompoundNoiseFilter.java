@@ -50,7 +50,7 @@ public class CompoundNoiseFilter implements NoiseFilter {
 	 *            Filter chain.
 	 */
 	public CompoundNoiseFilter(NoiseFilter... chain) {
-		this.chain = new LinkedList<NoiseFilter>();
+		this.chain = new LinkedList<>();
 		for (NoiseFilter link : chain) {
 			this.chain.add(link);
 		}

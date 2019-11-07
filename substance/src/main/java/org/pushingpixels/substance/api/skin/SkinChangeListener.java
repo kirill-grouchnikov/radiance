@@ -46,5 +46,5 @@ public interface SkinChangeListener {
 	 * @see SubstanceCortex.GlobalScope#setSkin(String)
 	 * @see SubstanceCortex.GlobalScope#setSkin(SubstanceSkin)
 	 */
-	public void skinChanged();
+    void skinChanged();
 }

@@ -135,7 +135,7 @@ public class Quaqua14ColorChooserUI extends Quaqua13ColorChooserUI {
             if (e.getPropertyName().equals("componentOrientation")) {
                 ComponentOrientation o = (ComponentOrientation)e.getNewValue();
                 JColorChooser cc = (JColorChooser)e.getSource();
-                if (o != (ComponentOrientation)e.getOldValue()) {
+                if (o != e.getOldValue()) {
                     cc.applyComponentOrientation(o);
                     cc.updateUI();
                 }
