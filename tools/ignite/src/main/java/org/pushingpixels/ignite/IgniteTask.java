@@ -32,6 +32,7 @@ package org.pushingpixels.ignite;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.tasks.*;
+import org.gradle.api.tasks.options.Option;
 import org.pushingpixels.photon.transcoder.*;
 import org.pushingpixels.photon.transcoder.java.JavaLanguageRenderer;
 import org.pushingpixels.photon.transcoder.kotlin.KotlinLanguageRenderer;
@@ -40,23 +41,77 @@ import java.io.*;
 import java.util.concurrent.CountDownLatch;
 
 public class IgniteTask extends DefaultTask {
-    @Input
-    public String outputPackageName;
+    private String outputPackageName;
+
+    private String outputLanguage;
+
+    private String outputClassNamePrefix = "";
+
+    private boolean useResizableTemplate;
+
+    private File inputDirectory;
+
+    private File outputDirectory;
 
     @Input
-    public String outputLanguage;
+    public String getOutputPackageName() {
+        return outputPackageName;
+    }
+
+    @Option(option = "outputPackageName", description = "Configures the output package name.")
+    public void setOutputPackageName(String outputPackageName) {
+        this.outputPackageName = outputPackageName;
+    }
 
     @Input
-    public String outputClassNamePrefix = "";
+    public String getOutputLanguage() {
+        return outputLanguage;
+    }
+
+    @Option(option = "outputPackageName", description = "Configures the output package name.")
+    public void setOutputLanguage(String outputLanguage) {
+        this.outputLanguage = outputLanguage;
+    }
 
     @Input
-    public boolean useResizableTemplate;
+    public String getOutputClassNamePrefix() {
+        return outputClassNamePrefix;
+    }
+
+    @Option(option = "outputClassNamePrefix", description = "Configures the output class name prefix.")
+    public void setOutputClassNamePrefix(String outputClassNamePrefix) {
+        this.outputClassNamePrefix = outputClassNamePrefix;
+    }
+
+    @Input
+    public boolean isUseResizableTemplate() {
+        return useResizableTemplate;
+    }
+
+    @Option(option = "useResizableTemplate", description = "Configures the usage of resizable template.")
+    public void setUseResizableTemplate(boolean useResizableTemplate) {
+        this.useResizableTemplate = useResizableTemplate;
+    }
 
     @InputDirectory
-    public File inputDirectory;
+    public File getInputDirectory() {
+        return inputDirectory;
+    }
+
+    @Option(option = "inputDirectory", description = "Configures the input directory.")
+    public void setInputDirectory(File inputDirectory) {
+        this.inputDirectory = inputDirectory;
+    }
 
     @InputDirectory
-    public File outputDirectory;
+    public File getOutputDirectory() {
+        return outputDirectory;
+    }
+
+    @Option(option = "outputDirectory", description = "Configures the output directory.")
+    public void setOutputDirectory(File outputDirectory) {
+        this.outputDirectory = outputDirectory;
+    }
 
     @TaskAction
     public void transcode() {
@@ -77,52 +132,54 @@ public class IgniteTask extends DefaultTask {
                 : new JavaLanguageRenderer();
         String outputFileNameExtension = ("java".compareTo(outputLanguage) == 0) ? ".java" : ".kt";
 
-        logger.trace(
-                "Processing " + inputDirectory.getAbsolutePath() + " to " + outputPackageName +
-                        " in " + outputLanguage);
+        logger.trace("Processing " + inputDirectory.getAbsolutePath() + " to " + outputPackageName +
+                " in " + outputLanguage);
 
         String templateFileName = "/org/pushingpixels/photon/transcoder/" + outputLanguage + "/"
                 + "SvgTranscoderTemplate";
         templateFileName += (useResizableTemplate ? "Resizable" : "Plain");
         templateFileName += ".templ";
 
-        for (File file : inputDirectory.listFiles(
-                (File dir, String name) -> name.endsWith(".svg"))) {
-            String svgClassName = outputClassNamePrefix
-                    + file.getName().substring(0, file.getName().length() - 4);
-            svgClassName = svgClassName.replace('-', '_');
-            svgClassName = svgClassName.replace(' ', '_');
-            String classFilename =
-                    outputDirectory + File.separator + svgClassName + outputFileNameExtension;
+        File[] svgFiles = inputDirectory.listFiles(
+                (File dir, String name) -> name.endsWith(".svg"));
+        if (svgFiles != null) {
+            for (File file : svgFiles) {
+                String svgClassName = outputClassNamePrefix
+                        + file.getName().substring(0, file.getName().length() - 4);
+                svgClassName = svgClassName.replace('-', '_');
+                svgClassName = svgClassName.replace(' ', '_');
+                String classFilename =
+                        outputDirectory + File.separator + svgClassName + outputFileNameExtension;
 
-            logger.trace("Processing " + file.getName());
+                logger.trace("Processing " + file.getName());
 
-            try (PrintWriter pw = new PrintWriter(classFilename);
-                 InputStream templateStream = SvgBatchConverter.class
-                         .getResourceAsStream(templateFileName)) {
-                if (templateStream == null) {
-                    logger.error("Couldn't load " + templateFileName);
-                    return;
+                try (PrintWriter pw = new PrintWriter(classFilename);
+                     InputStream templateStream = SvgBatchConverter.class
+                             .getResourceAsStream(templateFileName)) {
+                    if (templateStream == null) {
+                        logger.error("Couldn't load " + templateFileName);
+                        return;
+                    }
+
+                    final CountDownLatch latch = new CountDownLatch(1);
+
+                    SvgTranscoder transcoder = new SvgTranscoder(file.toURI().toURL().toString(),
+                            svgClassName, languageRenderer);
+                    transcoder.setPackageName(outputPackageName);
+                    transcoder.setListener(new TranscoderListener() {
+                        public Writer getWriter() {
+                            return pw;
+                        }
+
+                        public void finished() {
+                            latch.countDown();
+                        }
+                    });
+                    transcoder.transcode(templateStream);
+                    latch.await();
+                } catch (Exception e) {
+                    logger.error("Transcoding failed", e);
                 }
-
-                final CountDownLatch latch = new CountDownLatch(1);
-
-                SvgTranscoder transcoder = new SvgTranscoder(file.toURI().toURL().toString(),
-                        svgClassName, languageRenderer);
-                transcoder.setPackageName(outputPackageName);
-                transcoder.setListener(new TranscoderListener() {
-                    public Writer getWriter() {
-                        return pw;
-                    }
-
-                    public void finished() {
-                        latch.countDown();
-                    }
-                });
-                transcoder.transcode(templateStream);
-                latch.await();
-            } catch (Exception e) {
-                logger.error("Transcoding failed", e);
             }
         }
     }

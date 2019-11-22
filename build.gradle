@@ -34,7 +34,7 @@ ext.isRelease = false
 
 buildscript {
     ext {
-        kotlin_version = '1.3.50'
+        kotlin_version = '1.3.60'
         kotlinx_coroutines_version = '1.3.2'
         gradle_nexus_plugin_version = '2.3.1'
         dokka_plugin_version = '0.10.0'
@@ -53,7 +53,7 @@ buildscript {
 }
 
 wrapper {
-    gradleVersion = "5.6.4"
+    gradleVersion = "6.0.1"
 }
 
 allprojects {
@@ -107,6 +107,10 @@ allprojects {
 
 mkdir {
     "drop/${version}"
+}
+
+subprojects {
+    task allDeps(type: DependencyReportTask) {}
 }
 
 // To generate report about available dependency updates, run
@@ -175,7 +179,7 @@ task printRuntimeDependencies {
         allprojects.each { p ->
             println()
             println " $p.name ".center(45, '-')
-            p.configurations.findAll { it.name == "runtime" }.findAll { !it.allDependencies.empty }.each { c ->
+            p.configurations.findAll { it.name == "runtimeClasspath" }.findAll { !it.allDependencies.empty }.each { c ->
                 c.allDependencies.each { dep ->
                     if (dep.group != null) {
                         println "$dep.group:$dep.name:$dep.version"

@@ -2,9 +2,9 @@
 
 This document describes the steps to create a sample Swing application and run it under Substance look and feel.
 
-Since **Substance** requires JDK 9 or later to run, if you don't have such an installation on your machine, you need to download it from [this site](http://www.oracle.com/technetwork/java/javase/downloads/index.html) and install it. The command-prompt examples below assume that **java** executable is in the path. This executable is part of JRE (under **bin** folder) as well as part of JDK (under **bin** folder). Consult your OS manual on how to add the relevant folder to the path. Alternatively, you can put the entire path to the **java** executable in the scripts below.
+**Substance** requires JDK 9 or later to run. If you don't have such an installation on your machine, you need to download it from [this site](http://www.oracle.com/technetwork/java/javase/downloads/index.html) and install it. All terminal-based examples below assume that **java** executable is in the path. This executable is part of JRE (under **bin** folder) as well as part of JDK (under **bin** folder). Consult your OS manual on how to add the relevant folder to the path. Alternatively, you can put the entire path to the **java** executable in the scripts below.
 
-After you have JDK 9 installed on your machine, create the following `Walkthrough.java` class:
+After you have JDK 9 installed on your machine, create the following `Walkthrough.java` file:
 
 ```java
 import java.awt.*;
@@ -36,7 +36,7 @@ public class Walkthrough extends JFrame {
 }
 ```
 
-This is a simple frame (that does nothing) with a button, a checkbox and a label. You can create this class in your favourite IDE or in any text editor. Once this class is created, compile it. If you're using an IDE, consult the IDE help on the compilation process. If you're using a simple text editor, you can compile this class by using:
+This is a simple frame (that does nothing) with a button, a checkbox and a label. You can create this file in your favourite IDE or in any text editor. Once this file is created, compile it. If you're using an IDE, consult the IDE help on the compilation process. If you're using a simple text editor, you can compile this file by using:
 
 `javac Walkthrough.java`
 
@@ -97,7 +97,7 @@ The recommended way to add Substance to your project is to declare dependency on
 
 Alternatively, for a more manual process:
 * Download a local copy of the latest Radiance.
-* Build Radiance locally with *gradlew* command.
+* [Build](../building.md) Radiance locally with *gradlew* command.
 * Copy the binaries with *gradlew copyJars* command. For version *X.Y.ZZ* of Radiance, add *radiance-substance-X.Y.ZZ.jar*, *radiance-trident-X.Y.ZZ.jar* and *radiance-neon-X.Y.ZZ.jar* to the place that has your local dependencies.
 
 For earlier versions of Substance, see [this page](../archive/older-releases.md) for the list of binaries to take for the specific pre-Radiance versions.
