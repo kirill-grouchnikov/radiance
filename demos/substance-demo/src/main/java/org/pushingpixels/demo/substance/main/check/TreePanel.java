@@ -215,11 +215,9 @@ public class TreePanel extends ControllablePanel {
         builder.append("Bottom", bottomInsets);
         builder.append("Right", rightInsets);
 
-        ChangeListener cl = (ChangeEvent e) -> {
-            tree.setBorder(
-                    new EmptyBorder((Integer) topInsets.getValue(), (Integer) leftInsets.getValue(),
-                            (Integer) bottomInsets.getValue(), (Integer) rightInsets.getValue()));
-        };
+        ChangeListener cl = (ChangeEvent e) -> tree.setBorder(
+                new EmptyBorder((Integer) topInsets.getValue(), (Integer) leftInsets.getValue(),
+                        (Integer) bottomInsets.getValue(), (Integer) rightInsets.getValue()));
         topInsets.addChangeListener(cl);
         leftInsets.addChangeListener(cl);
         bottomInsets.addChangeListener(cl);

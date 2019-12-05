@@ -88,8 +88,8 @@ public class SampleMenuFactory {
      * @return Menu items for a sample test menu.
      */
     public static LinkedList<LinkedList<JMenuItem>> getTestMenuItems() {
-        LinkedList<LinkedList<JMenuItem>> result = new LinkedList<LinkedList<JMenuItem>>();
-        LinkedList<JMenuItem> list1 = new LinkedList<JMenuItem>();
+        LinkedList<LinkedList<JMenuItem>> result = new LinkedList<>();
+        LinkedList<JMenuItem> list1 = new LinkedList<>();
         final JMenuItem jmi1 = new JMenuItem("Menu item enabled", se.of(16, 16));
         jmi1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK));
         JMenuItem jmi2 = new JMenuItem("Menu item disabled");
@@ -123,7 +123,7 @@ public class SampleMenuFactory {
         list2.add(jcbmi4);
         result.add(list2);
 
-        LinkedList<JMenuItem> list3 = new LinkedList<JMenuItem>();
+        LinkedList<JMenuItem> list3 = new LinkedList<>();
         final JRadioButtonMenuItem jrbmi1 = new JRadioButtonMenuItem("Radio enabled selected",
                 il.of(16, 16));
         jrbmi1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_DOWN_MASK));
@@ -152,7 +152,7 @@ public class SampleMenuFactory {
         list3.add(jrbmi4);
         result.add(list3);
 
-        LinkedList<JMenuItem> list4 = new LinkedList<JMenuItem>();
+        LinkedList<JMenuItem> list4 = new LinkedList<>();
         JMenu submenu1 = new JMenu("submenu1");
         submenu1.setIcon(de.of(16, 16));
         submenu1.add(new JMenuItem("submenu item1", fi.of(16, 16)));
@@ -319,12 +319,12 @@ public class SampleMenuFactory {
 
         JMenuItem itemNegate = new JMenuItem("Negate");
         itemNegate.addActionListener(new SkinChanger(
-                (SubstanceColorScheme scheme) -> scheme.negate(), "Negated current"));
+                SubstanceColorScheme::negate, "Negated current"));
         jmTransform.add(itemNegate);
 
         JMenuItem itemInvert = new JMenuItem("Invert");
         itemInvert.addActionListener(new SkinChanger(
-                (SubstanceColorScheme scheme) -> scheme.invert(), "Inverted current"));
+                SubstanceColorScheme::invert, "Inverted current"));
         jmTransform.add(itemInvert);
 
         return jmTransform;

@@ -106,10 +106,8 @@ public class ControlPanelFactory {
         final JCheckBox useConstantThemesOnOptionPanes = new JCheckBox("use constant themes");
         useConstantThemesOnOptionPanes.setSelected(true);
         useConstantThemesOnOptionPanes
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-                    SubstanceCortex.GlobalScope.setUseConstantThemesOnOptionPanes(
-                            useConstantThemesOnOptionPanes.isSelected());
-                }));
+                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> SubstanceCortex.GlobalScope.setUseConstantThemesOnOptionPanes(
+                        useConstantThemesOnOptionPanes.isSelected())));
         builder.append("Option pane icons", useConstantThemesOnOptionPanes);
 
         final JComboBox placementCombo = new JComboBox(
@@ -128,7 +126,7 @@ public class ControlPanelFactory {
         builder.append("Placement", placementCombo);
 
         try {
-            final JComboBox overviewKindCombo = new FlexiComboBox<TabOverviewKind>(
+            final JComboBox overviewKindCombo = new FlexiComboBox<>(
                     TabOverviewKind.GRID, TabOverviewKind.MENU_CAROUSEL,
                     TabOverviewKind.ROUND_CAROUSEL) {
                 @Override
@@ -143,7 +141,7 @@ public class ControlPanelFactory {
         } catch (NoClassDefFoundError ncdfe) {
         }
 
-        final JComboBox menuGutterFillCombo = new FlexiComboBox<MenuGutterFillKind>(
+        final JComboBox menuGutterFillCombo = new FlexiComboBox<>(
                 MenuGutterFillKind.NONE, MenuGutterFillKind.SOFT, MenuGutterFillKind.HARD,
                 MenuGutterFillKind.SOFT_FILL, MenuGutterFillKind.HARD_FILL) {
 
@@ -159,7 +157,7 @@ public class ControlPanelFactory {
                 (MenuGutterFillKind) menuGutterFillCombo.getSelectedItem()));
         builder.append("Menu fill", menuGutterFillCombo);
 
-        final JComboBox focusKindCombo = new FlexiComboBox<FocusKind>(FocusKind.values()) {
+        final JComboBox focusKindCombo = new FlexiComboBox<>(FocusKind.values()) {
             @Override
             public String getCaption(FocusKind item) {
                 return item.name();
@@ -197,18 +195,15 @@ public class ControlPanelFactory {
             glassPane.addKeyListener(new KeyAdapter() {
             });
             mainFrame.setGlassPane(glassPane);
-            new Thread() {
-                @Override
-                public void run() {
-                    glassPane.setVisible(true);
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException ie) {
-                        ie.printStackTrace();
-                    }
-                    glassPane.setVisible(false);
+            new Thread(() -> {
+                glassPane.setVisible(true);
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ie) {
+                    ie.printStackTrace();
                 }
-            }.start();
+                glassPane.setVisible(false);
+            }).start();
         });
         builder.append("Glass pane", buttonGlassPane);
 
@@ -339,20 +334,18 @@ public class ControlPanelFactory {
 
         builder.appendSeparator("Button bars");
 
-        final JComboBox buttonBarOrderCombo = new FlexiComboBox<ButtonOrder>(ButtonOrder.values()) {
+        final JComboBox buttonBarOrderCombo = new FlexiComboBox<>(ButtonOrder.values()) {
             @Override
             public String getCaption(ButtonOrder item) {
                 return item.name();
             }
         };
         buttonBarOrderCombo.setSelectedItem(SubstanceCortex.GlobalScope.getButtonBarOrder());
-        buttonBarOrderCombo.addActionListener((ActionEvent e) -> {
-            SubstanceCortex.GlobalScope
-                    .setButtonBarOrder((ButtonOrder) buttonBarOrderCombo.getSelectedItem());
-        });
+        buttonBarOrderCombo.addActionListener((ActionEvent e) -> SubstanceCortex.GlobalScope
+                .setButtonBarOrder((ButtonOrder) buttonBarOrderCombo.getSelectedItem()));
         builder.append("Button bar order", buttonBarOrderCombo);
 
-        final JComboBox buttonBarGravityCombo = new FlexiComboBox<HorizontalGravity>(
+        final JComboBox buttonBarGravityCombo = new FlexiComboBox<>(
                 HorizontalGravity.values()) {
             @Override
             public String getCaption(HorizontalGravity item) {
@@ -463,50 +456,46 @@ public class ControlPanelFactory {
         builder.appendSeparator("Default buttons");
 
         JButton openDisposable = new JButton("Open");
-        openDisposable.addActionListener((ActionEvent e) -> {
-            SwingUtilities.invokeLater(() -> {
-                if (disposableDialog != null) {
-                    disposableDialog.setVisible(true);
-                    return;
-                }
-                disposableDialog = new JDialog();
-                disposableDialog.setTitle("Disposable");
-
-                JTree tree = new JTree();
-                JScrollPane jsp = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-                SubstanceCortex.ComponentOrParentScope.setComponentPreviewPainter(jsp,
-                        new DefaultPreviewPainter());
-
-                disposableDialog.setLayout(new BorderLayout());
-                disposableDialog.add(jsp, BorderLayout.CENTER);
-
-                disposableDialog.setSize(200, 100);
-                disposableDialog.setLocationRelativeTo(null);
-                disposableDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        openDisposable.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            if (disposableDialog != null) {
                 disposableDialog.setVisible(true);
-            });
-        });
+                return;
+            }
+            disposableDialog = new JDialog();
+            disposableDialog.setTitle("Disposable");
+
+            JTree tree = new JTree();
+            JScrollPane jsp = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                    JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+            SubstanceCortex.ComponentOrParentScope.setComponentPreviewPainter(jsp,
+                    new DefaultPreviewPainter());
+
+            disposableDialog.setLayout(new BorderLayout());
+            disposableDialog.add(jsp, BorderLayout.CENTER);
+
+            disposableDialog.setSize(200, 100);
+            disposableDialog.setLocationRelativeTo(null);
+            disposableDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            disposableDialog.setVisible(true);
+        }));
         builder.append("Disposable dialog", openDisposable);
 
         JButton launchFrameDialogWithIcon = new JButton("Open");
-        launchFrameDialogWithIcon.addActionListener((ActionEvent e) -> {
-            SwingUtilities.invokeLater(() -> {
-                SimpleDialog sd = new SimpleDialog();
-                if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-                    sd.setIconImage(RadianceLogo.getLogoImage(SubstanceCortex.ComponentScope
-                            .getCurrentSkin(sd.getRootPane())
-                            .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                                    ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
-                }
-                sd.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
-                sd.setModal(false);
-                sd.pack();
-                sd.setLocationRelativeTo(null);
-                sd.setVisible(true);
-                sd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-            });
-        });
+        launchFrameDialogWithIcon.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            SimpleDialog sd = new SimpleDialog();
+            if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
+                sd.setIconImage(RadianceLogo.getLogoImage(SubstanceCortex.ComponentScope
+                        .getCurrentSkin(sd.getRootPane())
+                        .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
+                                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+            }
+            sd.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+            sd.setModal(false);
+            sd.pack();
+            sd.setLocationRelativeTo(null);
+            sd.setVisible(true);
+            sd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        }));
         builder.append("Dialog with icon", launchFrameDialogWithIcon);
 
         JButton bd = new JButton("Open");
@@ -525,8 +514,8 @@ public class ControlPanelFactory {
             if (simpleDialog != null) {
                 simpleDialog.removeAll();
                 simpleDialog.dispose();
-                ReferenceQueue<JButton> weakQueue = new ReferenceQueue<JButton>();
-                WeakReference<JButton> weakRef = new WeakReference<JButton>(simpleDialog.b1,
+                ReferenceQueue<JButton> weakQueue = new ReferenceQueue<>();
+                WeakReference<JButton> weakRef = new WeakReference<>(simpleDialog.b1,
                         weakQueue);
                 weakRef.enqueue();
                 simpleDialog.b1 = null;

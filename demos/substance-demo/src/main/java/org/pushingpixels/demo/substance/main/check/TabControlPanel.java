@@ -182,7 +182,7 @@ public class TabControlPanel extends JPanel {
         builder.add(placementCombo).xyw(3, row, 3);
 
         try {
-            final JComboBox overviewKindCombo = new FlexiComboBox<TabOverviewKind>(
+            final JComboBox overviewKindCombo = new FlexiComboBox<>(
                     TabOverviewKind.GRID, TabOverviewKind.MENU_CAROUSEL,
                     TabOverviewKind.ROUND_CAROUSEL) {
                 @Override
@@ -244,7 +244,7 @@ public class TabControlPanel extends JPanel {
 
         JButton closeAllEnabled = new JButton("Close");
         closeAllEnabled.addActionListener((ActionEvent e) -> {
-            Set<Component> toRemove = new HashSet<Component>();
+            Set<Component> toRemove = new HashSet<>();
             for (int i = 0; i < jtp.getTabCount(); i++) {
                 if (jtp.isEnabledAt(i))
                     toRemove.add(jtp.getComponentAt(i));

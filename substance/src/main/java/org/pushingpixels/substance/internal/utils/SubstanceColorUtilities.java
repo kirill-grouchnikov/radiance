@@ -666,10 +666,15 @@ public class SubstanceColorUtilities {
             JTextComponent matchingTextComp = SubstanceCoreUtilities
                     .getTextComponentForTransitions(component);
             if (matchingTextComp != null) {
+                Component original = component;
                 component = matchingTextComp;
                 boolean isEditable = matchingTextComp.isEditable();
                 if (!isEditable) {
-                    return getBackgroundFillColor(component.getParent());
+                    Component parent = component.getParent();
+                    if (original == parent) {
+                        return getBackgroundFillColor(original.getParent());
+                    }
+                    return getBackgroundFillColor(parent);
                 }
             }
             // menu items always use the same background color so that the

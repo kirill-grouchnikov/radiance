@@ -61,7 +61,7 @@ public class DesktopPanel extends ControllablePanel {
     /**
      * A set of disposed internal frames.
      */
-    private Set<JInternalFrame> disposed = new HashSet<JInternalFrame>();
+    private Set<JInternalFrame> disposed = new HashSet<>();
 
     /**
      * Creates the desktop panel.
@@ -116,12 +116,10 @@ public class DesktopPanel extends ControllablePanel {
                     .getLogoIcon(SubstanceCortex.ComponentScope.getCurrentSkin(jif.getRootPane())
                             .getColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE,
                                     ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
-            SubstanceCortex.GlobalScope.registerSkinChangeListener(() -> {
-                jif.setFrameIcon(RadianceLogo.getLogoIcon(
-                        SubstanceCortex.ComponentScope.getCurrentSkin(jif.getRootPane())
-                                .getColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE,
-                                        ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
-            });
+            SubstanceCortex.GlobalScope.registerSkinChangeListener(() -> jif.setFrameIcon(RadianceLogo.getLogoIcon(
+                    SubstanceCortex.ComponentScope.getCurrentSkin(jif.getRootPane())
+                            .getColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE,
+                                    ColorSchemeAssociationKind.FILL, ComponentState.ENABLED))));
             jif.setLayout(new BorderLayout());
             JPanel controls = new JPanel(new FlowLayout());
             int comps = 5 + (int) (10 * Math.random());

@@ -64,33 +64,27 @@ public class CellsPanel extends JPanel implements Deferrable {
         builderCells.append(new JLabel("HEADER"), new JLabel("FOOTER"));
 
         builderCells.appendSeparator("Lists");
-        addControlRow(builderCells, "List", new CreationCommand<JComponent>() {
-            public JComponent create() {
-                JList list = new JList(new Object[] { "entry1", "entry2", "entry3" });
-                return list;
-            }
+        addControlRow(builderCells, "List", () -> {
+            JList list = new JList(new Object[] {"entry1", "entry2", "entry3"});
+            return list;
         }, null);
-        addControlRow(builderCells, "List watermark", new CreationCommand<JComponent>() {
-            public JComponent create() {
-                JList list = new JList(new Object[] { "entry1", "entry2", "entry3" });
-                return list;
-            }
+        addControlRow(builderCells, "List watermark", () -> {
+            JList list = new JList(new Object[] {"entry1", "entry2", "entry3"});
+            return list;
         }, (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jc,
                 true));
-        addControlRow(builderCells, "List disabled", new CreationCommand<JComponent>() {
-            public JComponent create() {
-                JList list = new JList(new Object[] { "entry1", "entry2", "entry3" });
-                return list;
-            }
+        addControlRow(builderCells, "List disabled", () -> {
+            JList list = new JList(new Object[] {"entry1", "entry2", "entry3"});
+            return list;
         }, new DisableCommand());
 
-        CreationCommand<JComponent> tableCreationCmd = new CreationCommand<JComponent>() {
+        CreationCommand<JComponent> tableCreationCmd = new CreationCommand<>() {
             public JComponent create() {
                 final JTable table = new JTable(
-                        new Object[][] { { "entry11", "entry12", "entry13" },
-                                        { "entry21", "entry22", "entry23" },
-                                        { "entry31", "entry32", "entry33" } },
-                        new Object[] { "Column1", "Column2", "Column3" });
+                        new Object[][] {{"entry11", "entry12", "entry13"},
+                                {"entry21", "entry22", "entry23"},
+                                {"entry31", "entry32", "entry33"}},
+                        new Object[] {"Column1", "Column2", "Column3"});
                 table.setName("Table ");
                 JScrollPane tableScroll = new JScrollPane(table) {
                     @Override
@@ -120,8 +114,8 @@ public class CellsPanel extends JPanel implements Deferrable {
         addControlRow(builderCells, "Table disabled", tableCreationCmd,
                 new DisableViewportCommand());
 
-        CreationCommand<JComponent> treeCreationCmd = new CreationCommand<JComponent>() {
-            public void expandAll(JTree tree, boolean expand) {
+        CreationCommand<JComponent> treeCreationCmd = new CreationCommand<>() {
+            private void expandAll(JTree tree, boolean expand) {
                 TreeNode root = (TreeNode) tree.getModel().getRoot();
 
                 // Traverse tree from root
@@ -132,7 +126,7 @@ public class CellsPanel extends JPanel implements Deferrable {
                 // Traverse children
                 TreeNode node = (TreeNode) parent.getLastPathComponent();
                 if (node.getChildCount() >= 0) {
-                    for (Enumeration e = node.children(); e.hasMoreElements();) {
+                    for (Enumeration e = node.children(); e.hasMoreElements(); ) {
                         TreeNode n = (TreeNode) e.nextElement();
                         TreePath path = parent.pathByAddingChild(n);
                         expandAll(tree, path, expand);

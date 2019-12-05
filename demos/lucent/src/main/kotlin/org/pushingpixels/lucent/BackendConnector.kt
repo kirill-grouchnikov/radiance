@@ -134,7 +134,7 @@ object BackendConnector {
         fun getRelease(@Path("release") releaseId: String): Call<Release>
 
         companion object {
-            val API_URL = "http://musicbrainz.org/"
+            const val API_URL = "http://musicbrainz.org/"
         }
     }
 }

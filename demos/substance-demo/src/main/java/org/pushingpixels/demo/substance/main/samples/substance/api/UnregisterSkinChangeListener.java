@@ -74,13 +74,13 @@ public class UnregisterSkinChangeListener extends JFrame {
 
         // Get all skin display names and set the vector as a model
         // for combobox.
-        final JComboBox cb = new JComboBox(
-                new Vector<String>(SubstanceCortex.GlobalScope.getAllSkins().keySet()));
+        final JComboBox<String> cb = new JComboBox<>(
+                new Vector<>(SubstanceCortex.GlobalScope.getAllSkins().keySet()));
         cb.setSelectedIndex(-1);
 
         cb.addItemListener((ItemEvent evt) -> {
             // Get the affected item
-            final Object item = evt.getItem();
+            final String item = (String) evt.getItem();
 
             if (evt.getStateChange() == ItemEvent.SELECTED) {
                 SwingUtilities.invokeLater(() -> {
@@ -116,9 +116,7 @@ public class UnregisterSkinChangeListener extends JFrame {
         // register listener
         SubstanceCortex.GlobalScope.registerSkinChangeListener(listener = () -> {
             // show dialog with skin changed message.
-            SwingUtilities.invokeLater(() -> {
-                JOptionPane.showMessageDialog(UnregisterSkinChangeListener.this, "Skin changed");
-            });
+            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(UnregisterSkinChangeListener.this, "Skin changed"));
         });
 
         this.setSize(400, 200);

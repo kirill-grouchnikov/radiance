@@ -38,6 +38,7 @@ import org.pushingpixels.trident.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
+import javax.swing.plaf.basic.BasicComboBoxEditor;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.datatransfer.*;
@@ -116,7 +117,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         /**
          * The column count.
          */
-        private int cols = 10;
+        private int cols = 11;
 
         /**
          * The table data.
@@ -126,7 +127,8 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         /**
          * The table column classes.
          */
-        private Class<?>[] columns = new Class<?>[] { String.class, JComboBox.class, Boolean.class,
+        private Class<?>[] columns = new Class<?>[] { String.class, JComboBox.class,
+                JComboBox.class, Boolean.class,
                 Byte.class, Float.class, Double.class, String.class, Date.class,
                 Color.class, ImageIcon.class };
 
@@ -145,23 +147,24 @@ public class TablePanel extends ControllablePanel implements Deferrable {
             for (int i = 0; i < rows; i++) {
                 this.data[i][0] = "cell " + i + ":" + 0;
                 this.data[i][1] = "predef";
-                this.data[i][2] = Boolean.valueOf(i % 2 == 0);
-                this.data[i][3] = Byte.valueOf((byte) i);
-                this.data[i][4] = Float.valueOf(i);
-                this.data[i][5] = Double.valueOf(i);
-                this.data[i][6] = "cell " + i + ":" + 6;
+                this.data[i][2] = "predef";
+                this.data[i][3] = Boolean.valueOf(i % 2 == 0);
+                this.data[i][4] = Byte.valueOf((byte) i);
+                this.data[i][5] = Float.valueOf(i);
+                this.data[i][6] = Double.valueOf(i);
+                this.data[i][7] = "cell " + i + ":" + 6;
 
                 Calendar cal = Calendar.getInstance();
                 cal.set(2000 + i, 1 + i, 1 + i);
-                this.data[i][7] = cal.getTime();
+                this.data[i][8] = cal.getTime();
 
                 int comp = i * 20;
                 int red = (comp / 3) % 255;
                 int green = (comp / 2) % 255;
                 int blue = comp % 255;
-                this.data[i][8] = new Color(red, green, blue);
+                this.data[i][9] = new Color(red, green, blue);
 
-                this.data[i][9] = icons[i % icons.length];
+                this.data[i][10] = icons[i % icons.length];
             }
         }
 
@@ -199,6 +202,12 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         public void setValueAt(Object value, int row, int col) {
             this.data[row][col] = value;
             this.fireTableCellUpdated(row, col);
+        }
+    }
+
+    private class TheComboBoxEditor extends BasicComboBoxEditor {
+        public TheComboBoxEditor() {
+            editor.setEditable(false);
         }
     }
 
@@ -243,6 +252,13 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         combo.setBorder(null);
         this.table.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(combo));
 
+        JComboBox combo2 = new JComboBox(new Object[] { "aa2", "bb2", "cc2" });
+        combo2.setBorder(null);
+        TheComboBoxEditor editor = new TheComboBoxEditor();
+        combo2.setEditor(editor);
+        combo2.setEditable(true);
+        this.table.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(combo2));
+
         this.table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         // We allow row selection as the default
         this.table.setCellSelectionEnabled(true);
@@ -278,17 +294,15 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         builder.append("Enabled", isEnabled);
 
         JButton changeFirstColumn = new JButton("change 1st column");
-        changeFirstColumn.addActionListener((ActionEvent e) -> {
-            new Thread(() -> {
-                for (int i = 0; i < table.getModel().getRowCount(); i++) {
-                    table.getModel().setValueAt(Thread.currentThread().getName() + " " + i, i, 0);
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException exc) {
-                    }
+        changeFirstColumn.addActionListener((ActionEvent e) -> new Thread(() -> {
+            for (int i = 0; i < table.getModel().getRowCount(); i++) {
+                table.getModel().setValueAt(Thread.currentThread().getName() + " " + i, i, 0);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException exc) {
                 }
-            }).start();
-        });
+            }
+        }).start());
         builder.append("Change values", changeFirstColumn);
 
         final JSlider rowCountSlider = new JSlider(20, 10000, this.table.getModel().getRowCount());
@@ -386,7 +400,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
                 .setShowHorizontalLines(linesHorizontal.isSelected()));
         builder.append("", linesHorizontal);
 
-        final JComboBox resizeModeCombo = new FlexiComboBox<Integer>(JTable.AUTO_RESIZE_OFF,
+        final JComboBox resizeModeCombo = new FlexiComboBox<>(JTable.AUTO_RESIZE_OFF,
                 JTable.AUTO_RESIZE_NEXT_COLUMN, JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS,
                 JTable.AUTO_RESIZE_LAST_COLUMN, JTable.AUTO_RESIZE_ALL_COLUMNS) {
             @Override

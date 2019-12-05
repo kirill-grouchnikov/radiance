@@ -75,7 +75,7 @@ public class ListPanel extends ControllablePanel {
          */
         public MoveableListModel(int modelSize) {
             super();
-            model = new ArrayList<ModelEntry>();
+            model = new ArrayList<>();
             for (int i = 0; i < modelSize; i++) {
                 model.add(new ModelEntry("element " + i, se.of(16, 16)));
             }
@@ -256,7 +256,7 @@ public class ListPanel extends ControllablePanel {
         synchronize();
 
         list.getSelectionModel().addListSelectionListener((ListSelectionEvent e) ->
-                SwingUtilities.invokeLater(() -> synchronize()));
+                SwingUtilities.invokeLater(this::synchronize));
 
         final JComboBox selectionModelCb = new JComboBox(
                 new Object[] { "single", "single interval", "multiple interval" });

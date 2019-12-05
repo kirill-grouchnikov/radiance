@@ -57,7 +57,7 @@ public class ButtonsPanel extends JPanel {
      * 
      * @author Kirill Grouchnikov
      */
-    private class NoFocusCommand implements ConfigurationCommand<AbstractButton> {
+    private static class NoFocusCommand implements ConfigurationCommand<AbstractButton> {
         @Override
         public void configure(AbstractButton ab) {
             ab.setFocusPainted(false);
@@ -69,7 +69,7 @@ public class ButtonsPanel extends JPanel {
      * 
      * @author Kirill Grouchnikov
      */
-    private class MarginCommand implements ConfigurationCommand<AbstractButton> {
+    private static class MarginCommand implements ConfigurationCommand<AbstractButton> {
         @Override
         public void configure(AbstractButton ab) {
             ab.setMargin(new Insets(5, 5, 5, 5));
@@ -81,7 +81,7 @@ public class ButtonsPanel extends JPanel {
      * 
      * @author Kirill Grouchnikov
      */
-    private class TextCommand implements ConfigurationCommand<AbstractButton> {
+    private static class TextCommand implements ConfigurationCommand<AbstractButton> {
         /**
          * Text to set.
          */
@@ -108,7 +108,7 @@ public class ButtonsPanel extends JPanel {
      * 
      * @author Kirill Grouchnikov
      */
-    private class TooltipTextCommand implements ConfigurationCommand<AbstractButton> {
+    private static class TooltipTextCommand implements ConfigurationCommand<AbstractButton> {
         /**
          * Tooltip text to set.
          */
@@ -135,7 +135,7 @@ public class ButtonsPanel extends JPanel {
      * 
      * @author Kirill Grouchnikov
      */
-    private class PopupMenuCommand implements ConfigurationCommand<AbstractButton> {
+    private static class PopupMenuCommand implements ConfigurationCommand<AbstractButton> {
         @Override
         public void configure(AbstractButton ab) {
             ab.addMouseListener(new MousePopupListener(ab));
@@ -147,7 +147,7 @@ public class ButtonsPanel extends JPanel {
      * 
      * @author Kirill Grouchnikov
      */
-    private class FontCommand implements ConfigurationCommand<AbstractButton> {
+    private static class FontCommand implements ConfigurationCommand<AbstractButton> {
         /**
          * Font to set.
          */
@@ -174,7 +174,7 @@ public class ButtonsPanel extends JPanel {
      * 
      * @author Kirill Grouchnikov
      */
-    private class IconCommand implements ConfigurationCommand<AbstractButton> {
+    private static class IconCommand implements ConfigurationCommand<AbstractButton> {
         /**
          * Icon to set.
          */
@@ -203,7 +203,7 @@ public class ButtonsPanel extends JPanel {
      * 
      * @author Kirill Grouchnikov
      */
-    private class NoContentAreaFilledCommand implements ConfigurationCommand<AbstractButton> {
+    private static class NoContentAreaFilledCommand implements ConfigurationCommand<AbstractButton> {
         @Override
         public void configure(AbstractButton ab) {
             ab.setContentAreaFilled(false);
@@ -215,7 +215,7 @@ public class ButtonsPanel extends JPanel {
      * 
      * @author Kirill Grouchnikov
      */
-    private class NoBorderPaintedCommand implements ConfigurationCommand<AbstractButton> {
+    private static class NoBorderPaintedCommand implements ConfigurationCommand<AbstractButton> {
         @Override
         public void configure(AbstractButton ab) {
             ab.setBorderPainted(false);
@@ -310,7 +310,7 @@ public class ButtonsPanel extends JPanel {
         this.addRow(builder, "Disabled", null, new DisableCommand());
         this.addRow(builder, "Selected", null, new SelectCommand());
         this.addRow(builder, "Disabled selected", null,
-                new ChainCommand<JComponent>(new DisableCommand(), new SelectCommand()));
+                new ChainCommand<>(new DisableCommand(), new SelectCommand()));
         this.addRow(builder, "HTML text", null,
                 new TextCommand("<html>text <b>text</b> <font color='red'>text</font>"));
         this.addRow(builder, "Long text", null, new TextCommand("Some long long text"));
@@ -365,48 +365,48 @@ public class ButtonsPanel extends JPanel {
                         EnumSet.of(Side.RIGHT)));
 
         this.addRow(builder, "Open top", null,
-                new ChainCommand<AbstractButton>(
+                new ChainCommand<>(
                         (AbstractButton ab) -> SubstanceCortex.ComponentScope
                                 .setButtonStraightSide(ab, Side.TOP),
                         (AbstractButton ab) -> SubstanceCortex.ComponentScope.setButtonOpenSide(ab,
                                 Side.TOP)));
         this.addRow(builder, "Open bottom", null,
-                new ChainCommand<AbstractButton>(
+                new ChainCommand<>(
                         (AbstractButton ab) -> SubstanceCortex.ComponentScope
                                 .setButtonStraightSide(ab, Side.BOTTOM),
                         (AbstractButton ab) -> SubstanceCortex.ComponentScope.setButtonOpenSide(ab,
                                 Side.BOTTOM)));
         this.addRow(builder, "Open left", null,
-                new ChainCommand<AbstractButton>(
+                new ChainCommand<>(
                         (AbstractButton ab) -> SubstanceCortex.ComponentScope
                                 .setButtonStraightSides(ab, EnumSet.of(Side.LEFT)),
                         (AbstractButton ab) -> SubstanceCortex.ComponentScope.setButtonOpenSides(ab,
                                 EnumSet.of(Side.LEFT))));
         this.addRow(builder, "Open right", null,
-                new ChainCommand<AbstractButton>(
+                new ChainCommand<>(
                         (AbstractButton ab) -> SubstanceCortex.ComponentScope
                                 .setButtonStraightSides(ab, EnumSet.of(Side.RIGHT)),
                         (AbstractButton ab) -> SubstanceCortex.ComponentScope.setButtonOpenSides(ab,
                                 EnumSet.of(Side.RIGHT))));
 
         builder.appendSeparator("Unicode texts");
-        this.addRow(builder, "Hebrew", null, new ChainCommand<AbstractButton>(
+        this.addRow(builder, "Hebrew", null, new ChainCommand<>(
                 new TextCommand("\u05D0\u05D1\u05D2"), new IconCommand(il.of(16, 16))));
         this.addRow(builder, "Chinese", null,
-                new ChainCommand<AbstractButton>(
+                new ChainCommand<>(
                         new FontCommand(new Font("Arial Unicode MS", Font.PLAIN, 11)),
                         new TextCommand("\u4E01\u4E02\u4E03"), new IconCommand(cn.of(16, 16))));
-        this.addRow(builder, "Cyrillic", null, new ChainCommand<AbstractButton>(
+        this.addRow(builder, "Cyrillic", null, new ChainCommand<>(
                 new TextCommand("\u0430\u0431\u0432"), new IconCommand(ru.of(16, 16))));
-        this.addRow(builder, "Greek", null, new ChainCommand<AbstractButton>(
+        this.addRow(builder, "Greek", null, new ChainCommand<>(
                 new TextCommand("\u03B1\u03B2\u03B3"), new IconCommand(gr.of(16, 16))));
-        this.addRow(builder, "Latin", null, new ChainCommand<AbstractButton>(
+        this.addRow(builder, "Latin", null, new ChainCommand<>(
                 new TextCommand("\u00E6\u00F0\u0127\u2248"), new IconCommand(it.of(16, 16))));
 
         builder.appendSeparator("Misc settings");
         this.addRow(builder, "No content area", null, new NoContentAreaFilledCommand());
         this.addRow(builder, "No border", null, new NoBorderPaintedCommand());
-        this.addRow(builder, "No background", null, new ChainCommand<AbstractButton>(
+        this.addRow(builder, "No background", null, new ChainCommand<>(
                 new NoContentAreaFilledCommand(), new NoBorderPaintedCommand()));
         this.addRow(builder, "Flat", null, (JComponent jc) -> SubstanceCortex.ComponentOrParentScope
                 .setFlatBackground(jc, true));

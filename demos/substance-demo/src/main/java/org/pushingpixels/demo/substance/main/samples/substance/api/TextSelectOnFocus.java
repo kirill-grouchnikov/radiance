@@ -70,10 +70,8 @@ public class TextSelectOnFocus extends JFrame {
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         final JCheckBox hasSelectOnFocus = new JCheckBox("Has \"select on focus\" behaviour");
-        hasSelectOnFocus.addActionListener((ActionEvent e) -> {
-            SubstanceCortex.ComponentOrParentChainScope.setSelectTextOnFocus(jtf,
-                    hasSelectOnFocus.isSelected());
-        });
+        hasSelectOnFocus.addActionListener((ActionEvent e) -> SubstanceCortex.ComponentOrParentChainScope.setSelectTextOnFocus(jtf,
+                hasSelectOnFocus.isSelected()));
 
         controls.add(hasSelectOnFocus);
         this.add(controls, BorderLayout.SOUTH);

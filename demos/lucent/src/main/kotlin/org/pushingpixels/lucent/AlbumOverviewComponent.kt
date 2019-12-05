@@ -45,6 +45,7 @@ import java.awt.*
 import java.awt.image.BufferedImage
 import javax.swing.JComponent
 import javax.swing.SwingUtilities
+import kotlin.math.min
 
 /**
  * Displays the overview information on the specific album.
@@ -157,7 +158,7 @@ class AlbumOverviewComponent(albumItem: SearchResultRelease) : JComponent() {
                 if (image != null) {
                     val vFactor = OVERVIEW_IMAGE_DIM.toFloat() / image!!.height.toFloat()
                     val hFactor = OVERVIEW_IMAGE_DIM.toFloat() / image!!.width.toFloat()
-                    val factor = Math.min(1.0f, Math.min(vFactor, hFactor))
+                    val factor = min(1.0f, min(vFactor, hFactor))
                     if (factor < 1.0f) {
                         // scaled to fit available area
                         image = NeonCortex.createThumbnail(image!!,
@@ -243,18 +244,18 @@ class AlbumOverviewComponent(albumItem: SearchResultRelease) : JComponent() {
         /**
          * The dimensions of the overview image.
          */
-        val OVERVIEW_IMAGE_DIM = 132
+        const val OVERVIEW_IMAGE_DIM = 132
         /**
          * Default width of this component.
          */
-        val DEFAULT_WIDTH = 160
+        const val DEFAULT_WIDTH = 160
         /**
          * Default height of this component.
          */
-        val DEFAULT_HEIGHT = 200
+        const val DEFAULT_HEIGHT = 200
         /**
          * Component insets.
          */
-        private val INSETS = 8
+        private const val INSETS = 8
     }
 }

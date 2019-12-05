@@ -39,7 +39,7 @@ public class ColorComboBox extends JComboBox {
 
 	public static final Value CUSTOM_COLOR = new Value(loc("Custom"), null); // NOI18N
 
-	private static Map<Color, String> colorMap = new HashMap<Color, String>();
+	private static Map<Color, String> colorMap = new HashMap<>();
 	static {
 		colorMap.put(Color.BLACK, loc("Black")); // NOI18N
 		colorMap.put(Color.BLUE, loc("Blue")); // NOI18N

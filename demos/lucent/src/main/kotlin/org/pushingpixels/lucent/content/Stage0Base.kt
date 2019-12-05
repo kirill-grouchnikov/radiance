@@ -40,6 +40,7 @@ import java.awt.event.MouseEvent
 import java.awt.geom.RoundRectangle2D
 import javax.swing.JComponent
 import javax.swing.SwingUtilities
+import kotlin.math.pow
 
 /**
  * The basis of the album scroller container. Provides the functionality of:
@@ -141,8 +142,7 @@ open class Stage0Base : JComponent() {
             val innerContour = RoundRectangle2D.Double(1.0, 1.0, (width - 3).toDouble(),
                     (height - 3).toDouble(), (radius - 1).toDouble(), (radius - 1).toDouble())
 
-            it.composite = AlphaComposite.SrcOver.derive(1.0f - Math.pow(
-                    (1.0f - alpha).toDouble(), 3.0).toFloat())
+            it.composite = AlphaComposite.SrcOver.derive(1.0f - (1.0f - alpha).toDouble().pow(3.0).toFloat())
 
             // top part
             it.clipRect(0, 0, width, TITLE_HEIGHT)
@@ -192,6 +192,6 @@ open class Stage0Base : JComponent() {
     }
 
     companion object {
-        val TITLE_HEIGHT = 24
+        const val TITLE_HEIGHT = 24
     }
 }

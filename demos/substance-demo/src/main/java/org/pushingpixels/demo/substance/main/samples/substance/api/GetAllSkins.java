@@ -65,7 +65,7 @@ public class GetAllSkins extends JFrame {
         // Get all skins and set the vector as a model
         // for combobox.
         final JComboBox cb = new JComboBox(
-                new Vector<SkinInfo>(SubstanceCortex.GlobalScope.getAllSkins().values()));
+                new Vector<>(SubstanceCortex.GlobalScope.getAllSkins().values()));
         cb.setRenderer(new SubstanceDefaultComboBoxRenderer(cb) {
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,

@@ -172,11 +172,11 @@ open class Stage1LoadingProgress : Stage0Base() {
         /**
          * The pixel width of the load progress visuals.
          */
-        private val PROGRESS_WIDTH = 300
+        private const val PROGRESS_WIDTH = 300
 
         /**
          * The pixel height of the load progress visuals.
          */
-        private val PROGRESS_HEIGHT = 32
+        private const val PROGRESS_HEIGHT = 32
     }
 }

@@ -55,7 +55,7 @@ public class SampleFrame extends JFrame {
 
         public MyListModel() {
             super();
-            this.model = new ArrayList<String>();
+            this.model = new ArrayList<>();
             this.model.add("Ohio State [Buckeyes]");
             this.model.add("Auburn [Tigers]");
             this.model.add("University of South California [Trojans]");

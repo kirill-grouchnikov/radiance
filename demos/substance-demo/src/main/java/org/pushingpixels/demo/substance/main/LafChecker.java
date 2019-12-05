@@ -66,7 +66,7 @@ public class LafChecker {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		Set<EntryInfo> defaultSet = new HashSet<EntryInfo>();
+		Set<EntryInfo> defaultSet = new HashSet<>();
 		UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		UIDefaults defaultUid = UIManager.getLookAndFeelDefaults();
 		Enumeration<Object> defaultKeys = defaultUid.keys();
@@ -75,7 +75,7 @@ public class LafChecker {
 			defaultSet.add(new EntryInfo(key, defaultUid.get(key)));
 		}
 		
-		Set<EntryInfo> metalSet = new HashSet<EntryInfo>();
+		Set<EntryInfo> metalSet = new HashSet<>();
 		UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
 		UIDefaults metalUid = UIManager.getLookAndFeelDefaults();
 		Enumeration<Object> metalKeys = metalUid.keys();

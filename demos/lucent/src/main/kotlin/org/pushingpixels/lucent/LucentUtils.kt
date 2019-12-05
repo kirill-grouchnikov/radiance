@@ -32,7 +32,6 @@ package org.pushingpixels.lucent
 import org.pushingpixels.neon.NeonCortex
 import org.pushingpixels.torch.TorchWindow
 import org.pushingpixels.torch.windowTimeline
-import org.pushingpixels.trident.Timeline.TimelineState
 import java.awt.Font
 import java.awt.Graphics2D
 import java.awt.Window

@@ -218,7 +218,7 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
             this.file = file;
             this.isFileSystemRoot = isFileSystemRoot;
             this.parent = parent;
-            this.children = new ArrayList<File>();
+            this.children = new ArrayList<>();
             File[] children = file.listFiles();
             if (children != null) {
                 for (File child : file.listFiles()) {
@@ -227,7 +227,7 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
                     }
                     this.children.add(child);
                 }
-                Collections.sort(this.children, (File o1, File o2) -> {
+                this.children.sort((File o1, File o2) -> {
                     if (o1.equals(o2)) {
                         return 0;
                     }
@@ -329,10 +329,8 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
     }
 
     public synchronized void initialize() {
-        List<File> rootsList = new ArrayList<File>();
-        for (File child : File.listRoots()) {
-            rootsList.add(child);
-        }
+        List<File> rootsList = new ArrayList<>();
+        Collections.addAll(rootsList, File.listRoots());
         FileTreeNode rootTreeNode = new FileTreeNode(rootsList);
         this.tree = new JTree(rootTreeNode);
         this.tree.setCellRenderer((UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)

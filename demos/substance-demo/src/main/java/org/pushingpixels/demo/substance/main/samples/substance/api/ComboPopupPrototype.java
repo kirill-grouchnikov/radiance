@@ -93,11 +93,7 @@ public class ComboPopupPrototype extends JFrame {
         // set popup prototype as custom implementation of
         // ComboPopupPrototypeCallback interface
         SubstanceCortex.ComponentScope.setComboBoxPrototypeDisplayValue(comboProto3,
-                new ComboPopupPrototypeCallback() {
-                    public Object getPopupPrototypeDisplayValue(JComboBox jc) {
-                        return jc.getModel().getElementAt(jc.getModel().getSize() - 1);
-                    }
-                });
+                (ComboPopupPrototypeCallback) jc -> jc.getModel().getElementAt(jc.getModel().getSize() - 1));
         panel3.add(new JLabel("Custom callback"));
         panel3.add(comboProto3);
         this.add(panel3);

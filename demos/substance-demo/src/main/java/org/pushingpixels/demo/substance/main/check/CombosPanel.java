@@ -153,7 +153,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
      * 
      * @author Kirill Grouchnikov
      */
-    private class EditableDocument151 extends javax.swing.text.PlainDocument {
+    private static class EditableDocument151 extends javax.swing.text.PlainDocument {
         /**
          * Creates the document.
          */
@@ -260,7 +260,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         builder.append("RTL (Hebrew)", comboHebrew);
 
         final Icon israelFlag = il.of(16, 16);
-        JComboBox comboHebrewCustomRenderer = new FlexiComboBox<String>(
+        JComboBox comboHebrewCustomRenderer = new FlexiComboBox<>(
                 "\u05e8\u05d0\u05e9\u05d9 1", "\u05e8\u05d0\u05e9\u05d9 2",
                 "\u05e8\u05d0\u05e9\u05d9 3", "\u05e8\u05d0\u05e9\u05d9 4",
                 "\u05e8\u05d0\u05e9\u05d9 5", "\u05e8\u05d0\u05e9\u05d9 6",
@@ -299,18 +299,16 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         combo151.addItem("Default");
         combo151.addItem("No Sound");
 
-        combo151.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                editor.setCaretPosition(0);
-                if (combo151.getSelectedItem() instanceof String) {
-                    combo151.setEditable(false);
+        combo151.addActionListener(e -> {
+            editor.setCaretPosition(0);
+            if (combo151.getSelectedItem() instanceof String) {
+                combo151.setEditable(false);
 
-                } else {
-                    combo151.setEditable(true);
+            } else {
+                combo151.setEditable(true);
 
-                }
-                editor.setCaretPosition(0);
             }
+            editor.setCaretPosition(0);
         });
         builder.append("Defect 151", combo151);
 
@@ -388,11 +386,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
                         "this one is not it", "this one is it that is for the popup" });
         comboProto3.setPrototypeDisplayValue("aaaaa");
         SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(comboProto3,
-                new ComboPopupPrototypeCallback() {
-                    public Object getPopupPrototypeDisplayValue(JComboBox jc) {
-                        return jc.getModel().getElementAt(jc.getModel().getSize() - 1);
-                    }
-                });
+                jc -> jc.getModel().getElementAt(jc.getModel().getSize() - 1));
         builder.append("Custom callback", comboProto3);
 
         builder.appendSeparator("Empty combos");

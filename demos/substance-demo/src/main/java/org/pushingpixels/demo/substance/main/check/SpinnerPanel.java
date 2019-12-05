@@ -84,13 +84,13 @@ public class SpinnerPanel extends JPanel {
         addSpinner(builder, "Date", dateCr, new DisableCommand());
         addSpinner(builder, "Weekdays", weekdaysCr, new DisableCommand());
         addSpinner(builder, "Weekdays select on focus", weekdaysCr,
-                new ChainCommand<JComponent>(
+                new ChainCommand<>(
                         (JComponent control) -> SubstanceCortex.ComponentOrParentChainScope
                                 .setSelectTextOnFocus(control, true),
                         new DisableCommand()));
         addSpinner(builder, "Number", numberCr, new DisableCommand());
         addSpinner(builder, "Number flat", numberCr,
-                new ChainCommand<JComponent>(
+                new ChainCommand<>(
                         (JComponent jc) -> SubstanceCortex.ComponentOrParentScope
                                 .setFlatBackground(jc, true),
                         new DisableCommand()));

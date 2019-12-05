@@ -33,6 +33,7 @@ import org.pushingpixels.neon.NeonCortex
 import java.awt.*
 import java.awt.image.BufferedImage
 import javax.swing.JComponent
+import kotlin.math.min
 
 /**
  * Shows the big album art for Amazon album items.
@@ -82,7 +83,7 @@ class BigAlbumArt : JComponent() {
         this.imageAlpha = 0.0f
         val vFactor = ALBUM_ART_DIM.toFloat() / image.height.toFloat()
         val hFactor = ALBUM_ART_DIM.toFloat() / image.width.toFloat()
-        val factor = Math.min(1.0f, Math.min(vFactor, hFactor))
+        val factor = min(1.0f, min(vFactor, hFactor))
         if (factor < 1.0f) {
             // scaled to fit available area
             this.image = NeonCortex.createThumbnail(image, (factor * image.width).toInt())
@@ -142,11 +143,11 @@ class BigAlbumArt : JComponent() {
         /**
          * The maximum dimension of the album art.
          */
-        val ALBUM_ART_DIM = 220
+        const val ALBUM_ART_DIM = 220
         /**
          * Album art insets.
          */
-        val INSETS = 3
+        const val INSETS = 3
         /**
          * The total dimension required to display album art and track listing side
          * by side.
