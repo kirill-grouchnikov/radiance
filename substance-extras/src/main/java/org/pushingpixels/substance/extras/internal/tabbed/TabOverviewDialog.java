@@ -38,10 +38,10 @@ import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.TabPr
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopupBorder;
 import org.pushingpixels.substance.internal.utils.*;
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
-import org.pushingpixels.trident.swing.SwingRepaintCallback;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.Timeline.TimelineState;
+import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import javax.swing.border.*;

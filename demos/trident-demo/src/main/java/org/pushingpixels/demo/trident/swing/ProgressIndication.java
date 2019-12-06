@@ -29,14 +29,20 @@
  */
 package org.pushingpixels.demo.trident.swing;
 
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.interpolator.*;
-import org.pushingpixels.trident.swing.*;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.api.interpolator.KeyFrames;
+import org.pushingpixels.trident.api.interpolator.KeyTimes;
+import org.pushingpixels.trident.api.interpolator.KeyValues;
+import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
+import org.pushingpixels.trident.api.swing.SwingRepaintTimeline;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 
 public class ProgressIndication extends JFrame {

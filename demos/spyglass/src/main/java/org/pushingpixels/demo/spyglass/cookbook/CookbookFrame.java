@@ -31,9 +31,11 @@ package org.pushingpixels.demo.spyglass.cookbook;
 
 import org.pushingpixels.demo.spyglass.cookbook.panels.*;
 import org.pushingpixels.demo.spyglass.cookbook.skin.CookbookSkin;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;

@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.lumen;
 
-import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
+import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.Timeline.TimelineState;
+import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import java.awt.*;
 import java.awt.font.*;

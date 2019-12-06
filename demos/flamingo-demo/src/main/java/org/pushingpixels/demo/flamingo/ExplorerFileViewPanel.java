@@ -31,18 +31,23 @@
 package org.pushingpixels.demo.flamingo;
 
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.icon.*;
+import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.StringValuePair;
+import org.pushingpixels.flamingo.api.common.icon.IcoWrapperResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
-import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.photon.icon.SvgBatikResizableIcon;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.photon.api.icon.SvgBatikResizableIcon;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.InputStream;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Panel that hosts image-based buttons.

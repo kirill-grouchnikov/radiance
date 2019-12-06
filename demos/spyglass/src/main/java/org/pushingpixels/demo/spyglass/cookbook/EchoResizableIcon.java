@@ -29,14 +29,18 @@
  */
 package org.pushingpixels.demo.spyglass.cookbook;
 
-import com.jhlabs.image.*;
+import com.jhlabs.image.BlurFilter;
+import com.jhlabs.image.CompoundFilter;
+import com.jhlabs.image.Gradient;
+import com.jhlabs.image.PointFilter;
 import org.pushingpixels.demo.spyglass.cookbook.skin.GoldenBrownColorScheme;
 import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import java.awt.*;
-import java.awt.image.*;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.Kernel;
 
 public class EchoResizableIcon implements ResizableIcon {
     private ResizableIcon echo;

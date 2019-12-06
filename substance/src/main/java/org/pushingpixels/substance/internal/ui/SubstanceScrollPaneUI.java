@@ -38,9 +38,9 @@ import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

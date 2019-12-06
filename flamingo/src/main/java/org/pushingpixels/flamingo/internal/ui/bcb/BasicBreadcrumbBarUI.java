@@ -39,7 +39,7 @@ import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.internal.ui.common.JCircularProgress;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;

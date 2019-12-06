@@ -33,7 +33,7 @@ import org.pushingpixels.meteor.addTypedDelayedPropertyChangeListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.meteor.swing.addAction
 import org.pushingpixels.meteor.swing.wireActionToKeyStroke
-import org.pushingpixels.neon.NeonCortex
+import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.tools.common.JImageComponent
 import java.awt.*

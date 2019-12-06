@@ -14,7 +14,7 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.api.NeonCortex;
 
 import javax.swing.*;
 import java.awt.*;

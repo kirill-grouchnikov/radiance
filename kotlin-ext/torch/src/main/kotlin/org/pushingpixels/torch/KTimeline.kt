@@ -29,14 +29,14 @@
  */
 package org.pushingpixels.torch
 
-import org.pushingpixels.trident.Timeline
-import org.pushingpixels.trident.callback.TimelineCallback
-import org.pushingpixels.trident.callback.TimelineCallbackAdapter
-import org.pushingpixels.trident.ease.TimelineEase
-import org.pushingpixels.trident.interpolator.KeyFrames
-import org.pushingpixels.trident.swing.SwingComponentTimeline
-import org.pushingpixels.trident.swing.SwingRepaintCallback
-import org.pushingpixels.trident.swing.SwingRepaintTimeline
+import org.pushingpixels.trident.api.Timeline
+import org.pushingpixels.trident.api.callback.TimelineCallback
+import org.pushingpixels.trident.api.callback.TimelineCallbackAdapter
+import org.pushingpixels.trident.api.ease.TimelineEase
+import org.pushingpixels.trident.api.interpolator.KeyFrames
+import org.pushingpixels.trident.api.swing.SwingComponentTimeline
+import org.pushingpixels.trident.api.swing.SwingRepaintCallback
+import org.pushingpixels.trident.api.swing.SwingRepaintTimeline
 import java.awt.Component
 import java.awt.Rectangle
 import java.awt.Window

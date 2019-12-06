@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 

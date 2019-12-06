@@ -29,9 +29,7 @@
  */
 package org.pushingpixels.demo.substance.main.check.command;
 
-import javax.swing.AbstractButton;
-import javax.swing.JButton;
-import javax.swing.JComponent;
+import javax.swing.*;
 
 
 /**

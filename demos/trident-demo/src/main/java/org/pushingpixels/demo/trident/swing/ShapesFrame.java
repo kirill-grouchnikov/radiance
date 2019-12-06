@@ -29,17 +29,20 @@
  */
 package org.pushingpixels.demo.trident.swing;
 
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.*;
-import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
-import org.pushingpixels.trident.swing.SwingRepaintTimeline;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.api.Timeline.TimelineState;
+import org.pushingpixels.trident.api.callback.TimelineCallbackAdapter;
+import org.pushingpixels.trident.api.swing.SwingRepaintTimeline;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
 
 public class ShapesFrame extends JFrame {
     public static final Color COLOR_BLUE = new Color(128, 128, 255);

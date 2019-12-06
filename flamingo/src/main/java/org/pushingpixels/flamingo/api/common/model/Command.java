@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandAction;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;

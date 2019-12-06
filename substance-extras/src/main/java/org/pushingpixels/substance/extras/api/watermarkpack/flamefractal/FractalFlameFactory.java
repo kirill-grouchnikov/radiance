@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.extras.api.watermarkpack.flamefractal;
 
-import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 

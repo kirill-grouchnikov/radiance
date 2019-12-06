@@ -36,7 +36,7 @@ import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 
 import javax.accessibility.AccessibleContext;
 import javax.swing.*;

@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.flamingo.api.layout;
 
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.swing.EventDispatchThreadTimelineCallbackAdapter;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.Timeline.TimelineState;
+import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
+import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import java.awt.*;

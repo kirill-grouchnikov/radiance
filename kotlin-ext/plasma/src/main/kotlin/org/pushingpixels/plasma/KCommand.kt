@@ -44,7 +44,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandGroup
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
 import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection
-import org.pushingpixels.neon.icon.ResizableIcon.Factory
+import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
 
 @FlamingoElementMarker
 open class KCommand {

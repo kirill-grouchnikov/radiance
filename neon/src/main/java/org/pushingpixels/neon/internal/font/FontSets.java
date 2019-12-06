@@ -30,9 +30,11 @@
 
 package org.pushingpixels.neon.internal.font;
 
-import org.pushingpixels.neon.font.*;
+import org.pushingpixels.neon.api.font.FontPolicy;
+import org.pushingpixels.neon.api.font.FontSet;
 
-import javax.swing.plaf.*;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.text.AttributedCharacterIterator;

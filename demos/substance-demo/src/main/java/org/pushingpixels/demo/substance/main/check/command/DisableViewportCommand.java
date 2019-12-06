@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.demo.substance.main.check.command;
 
-import javax.swing.JComponent;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
 /**
  * A configure command that disables the viewport component specified component.

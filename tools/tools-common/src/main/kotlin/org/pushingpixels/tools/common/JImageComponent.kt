@@ -32,7 +32,7 @@ package org.pushingpixels.tools.common
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.meteor.swing.KeyboardActionScopeType
 import org.pushingpixels.meteor.swing.wireActionToKeyStroke
-import org.pushingpixels.neon.NeonCortex
+import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
 
 import javax.imageio.ImageIO

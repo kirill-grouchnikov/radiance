@@ -29,16 +29,26 @@
  */
 package org.pushingpixels.demo.flamingo.group;
 
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_center;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_fill;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_left;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_right;
+import org.pushingpixels.flamingo.api.common.CommandActionEvent;
+import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandGroup;
+import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
+import org.pushingpixels.flamingo.api.common.model.CommandToggleGroupModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.skin.*;
+import org.pushingpixels.substance.api.skin.MarinerSkin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.*;
+import javax.swing.text.DefaultCaret;
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 

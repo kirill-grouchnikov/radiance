@@ -32,10 +32,9 @@ package org.pushingpixels.demo.torch.swing
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.timeline
-import org.pushingpixels.trident.Timeline.RepeatBehavior
-import org.pushingpixels.trident.Timeline.TimelineState
-import org.pushingpixels.trident.TridentConfig
-import org.pushingpixels.trident.swing.SwingRepaintTimeline
+import org.pushingpixels.trident.api.Timeline.RepeatBehavior
+import org.pushingpixels.trident.api.TridentConfig
+import org.pushingpixels.trident.api.swing.SwingRepaintTimeline
 import java.awt.*
 import java.awt.geom.GeneralPath
 import java.util.*

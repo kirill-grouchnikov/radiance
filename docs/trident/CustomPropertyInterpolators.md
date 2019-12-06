@@ -2,7 +2,7 @@
 
 Trident supports interpolation of primitive values - such as integers, floats and point / color / rectangle classes of supported [UI toolkits](UIToolkitSupport.md). Application code that needs to interpolate fields of these types does not need to explicitly state how the field value is interpolated between the start / current and end value. For other field types the application code can either register custom property interpolators, or [explicitly state](TimelineInterpolatingFields.md) the property interpolator to be used for computing the field value.
 
-For both cases the application code needs to provide one or more implementations of the `org.pushingpixels.trident.interpolator.PropertyInterpolator` interface. This interface has two methods.
+For both cases the application code needs to provide one or more implementations of the `PropertyInterpolator` interface. This interface has two methods.
 
 The `public Class getBasePropertyClass()` is used to choose the property interpolator in the `Timeline.addPropertyToInterpolate(String, Object, Object)`. Internally, all registered property interpolators are queried to check whether they support the specified *from* and *to* values using the `Class.isAssignableFrom(Class)`. The **first** property interpolator that has a match for both values will be used.
 

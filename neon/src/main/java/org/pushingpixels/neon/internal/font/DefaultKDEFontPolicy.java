@@ -29,10 +29,14 @@
  */
 package org.pushingpixels.neon.internal.font;
 
-import org.pushingpixels.neon.font.*;
+import org.pushingpixels.neon.api.font.FontPolicy;
+import org.pushingpixels.neon.api.font.FontSet;
 
 import java.awt.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 /**

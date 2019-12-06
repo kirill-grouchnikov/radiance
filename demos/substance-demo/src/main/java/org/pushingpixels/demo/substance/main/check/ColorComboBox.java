@@ -13,25 +13,12 @@
 
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dialog;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.SystemColor;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.ComboBoxEditor;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
-import javax.swing.SwingUtilities;
 
 public class ColorComboBox extends JComboBox {
 
@@ -88,20 +75,6 @@ public class ColorComboBox extends JComboBox {
 		});
 	}
 
-	public void setInheritedColor(Color color) {
-		Object[] ncontent = new Object[content.length];
-		System.arraycopy(content, 0, ncontent, 0, content.length);
-		if (color != null)
-			ncontent[content.length - 1] = new Value(
-					loc("CTL_Inherited_Color"), color // NOI18N
-			);
-		else
-			ncontent[content.length - 1] = new Value(loc("CTL_None_Color"),
-					null // NOI18N
-			);
-		setModel(new DefaultComboBoxModel(ncontent));
-	}
-
 	public void setColor(Color color) {
 		if (color == null) {
 			setSelectedIndex(content.length - 1);
@@ -110,12 +83,6 @@ public class ColorComboBox extends JComboBox {
 			setSelectedItem(new Value(color));
 			lastColor = color;
 		}
-	}
-
-	public Color getColor() {
-		if (getSelectedIndex() == (content.length - 1))
-			return null;
-		return ((Value) getSelectedItem()).color;
 	}
 
 	private static String loc(String key) {

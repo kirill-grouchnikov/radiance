@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.spyglass.mail;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VerticalStackLayout implements LayoutManager2 {

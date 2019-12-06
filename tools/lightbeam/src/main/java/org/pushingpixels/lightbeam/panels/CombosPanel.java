@@ -29,12 +29,16 @@
  */
 package org.pushingpixels.lightbeam.panels;
 
-import com.jgoodies.forms.factories.*;
-import org.pushingpixels.lightbeam.*;
+import com.jgoodies.forms.factories.Paddings;
+import org.pushingpixels.lightbeam.BasePerformanceScenario;
+import org.pushingpixels.lightbeam.LightbeamUtils;
+import org.pushingpixels.lightbeam.PerformanceScenario;
+import org.pushingpixels.lightbeam.PerformanceScenarioParticipant;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Test application panel for testing {@link JComboBox} component.

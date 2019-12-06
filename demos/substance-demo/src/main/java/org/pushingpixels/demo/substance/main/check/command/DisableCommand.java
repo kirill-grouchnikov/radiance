@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.substance.main.check.command;
 
-import javax.swing.JComponent;
+import javax.swing.*;
 
 
 /**

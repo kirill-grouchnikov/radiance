@@ -3,7 +3,7 @@
 **Timeline** is the most important concept in Trident. Here is a simple example that illustrates the basic timeline terms:
 
 ```java
-import org.pushingpixels.trident.Timeline;
+import org.pushingpixels.trident.api.Timeline;
 
 public class HelloWorld {
 	private float value;

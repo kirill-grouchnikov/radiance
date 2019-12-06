@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.demo.trident;
 
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.TimelinePropertyBuilder.PropertyAccessor;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.TimelinePropertyBuilder.PropertyAccessor;
 
 public class CustomAccessor {
     private Map<String, Float> values = new HashMap<>();

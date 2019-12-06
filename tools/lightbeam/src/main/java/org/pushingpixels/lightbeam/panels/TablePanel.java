@@ -29,12 +29,19 @@
  */
 package org.pushingpixels.lightbeam.panels;
 
-import org.pushingpixels.lightbeam.*;
+import org.pushingpixels.lightbeam.IconManager;
+import org.pushingpixels.lightbeam.LightbeamUtils;
+import org.pushingpixels.lightbeam.PerformanceScenario;
+import org.pushingpixels.lightbeam.PerformanceScenarioParticipant;
 
 import javax.swing.*;
-import javax.swing.table.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Test application panel for testing {@link JTable} component.

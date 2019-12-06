@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.api.ribbon.model;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.ContentModel;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;

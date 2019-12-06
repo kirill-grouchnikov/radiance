@@ -29,23 +29,33 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import org.pushingpixels.demo.substance.main.*;
+import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.Check.MyMainTabPreviewPainter;
-import org.pushingpixels.demo.substance.main.check.svg.*;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.demo.substance.main.RadianceLogo;
+import org.pushingpixels.demo.substance.main.check.svg.ic_error_black_24px;
+import org.pushingpixels.demo.substance.main.check.svg.ic_help_black_24px;
+import org.pushingpixels.demo.substance.main.check.svg.ic_info_black_24px;
+import org.pushingpixels.demo.substance.main.check.svg.ic_warning_black_24px;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.icon.SubstanceDefaultIconPack;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
+import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.*;
-import java.lang.ref.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.MouseAdapter;
+import java.lang.ref.Reference;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
 import java.util.Locale;
 
 /**

@@ -29,13 +29,15 @@
  */
 package org.pushingpixels.lumen.content;
 
-import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.swing.SwingRepaintCallback;
+import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 
 /**

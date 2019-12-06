@@ -29,15 +29,10 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  * Test application panel that test {@link CardLayout}.

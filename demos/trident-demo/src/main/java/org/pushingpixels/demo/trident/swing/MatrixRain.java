@@ -29,16 +29,19 @@
  */
 package org.pushingpixels.demo.trident.swing;
 
-import org.pushingpixels.trident.*;
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.swing.SwingRepaintTimeline;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.api.TimelineScenario;
+import org.pushingpixels.trident.api.swing.SwingRepaintTimeline;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
+import java.util.Random;
 
 public class MatrixRain {
     private static Font font;

@@ -30,8 +30,8 @@
 package org.pushingpixels.substance.internal;
 
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
-import org.pushingpixels.trident.ease.Spline;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
+import org.pushingpixels.trident.api.ease.Spline;
+import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
 
 import java.awt.*;
 import java.util.HashMap;

@@ -30,15 +30,17 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import com.jgoodies.forms.factories.Paddings;
-import com.jgoodies.forms.layout.FormLayout;
-import org.pushingpixels.demo.substance.main.check.command.*;
+import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
+import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
+import org.pushingpixels.demo.substance.main.check.command.EnableCommand;
 import org.pushingpixels.demo.substance.main.check.svg.flags.il;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.combo.*;
+import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 /**
  * Test application panel for testing {@link JComboBox} component.
@@ -321,7 +323,6 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
      * @return The right panel with comboboxes.
      */
     private JPanel getRightComboPanel() {
-        FormLayout lm = new FormLayout("right:pref, 4dlu, left:pref:grow", "");
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, left:pref:grow", 2, 18)
                 .border(Paddings.DIALOG);
 

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.substance.main.check.command;
 
-import java.awt.Component;
+import java.awt.*;
 
 /**
  * A configure command that enables the specified component.

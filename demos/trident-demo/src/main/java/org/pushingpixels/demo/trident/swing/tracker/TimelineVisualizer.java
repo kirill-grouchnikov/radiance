@@ -29,14 +29,14 @@
  */
 package org.pushingpixels.demo.trident.swing.tracker;
 
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.Timeline.TimelineState;
+import org.pushingpixels.trident.api.callback.TimelineCallbackAdapter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
 
 public class TimelineVisualizer extends JComponent {
     private List<TimelineVisualizerDot> dots;

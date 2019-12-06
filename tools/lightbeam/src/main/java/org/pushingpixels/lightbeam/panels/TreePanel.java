@@ -29,10 +29,15 @@
  */
 package org.pushingpixels.lightbeam.panels;
 
-import org.pushingpixels.lightbeam.*;
+import org.pushingpixels.lightbeam.LightbeamUtils;
+import org.pushingpixels.lightbeam.PerformanceScenario;
+import org.pushingpixels.lightbeam.PerformanceScenarioParticipant;
 
 import javax.swing.*;
-import javax.swing.tree.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import java.awt.*;
 
 /**

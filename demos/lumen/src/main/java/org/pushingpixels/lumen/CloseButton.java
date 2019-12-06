@@ -30,12 +30,15 @@
 package org.pushingpixels.lumen;
 
 import org.pushingpixels.lumen.details.DetailsWindowManager;
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.swing.SwingRepaintCallback;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 
 /**

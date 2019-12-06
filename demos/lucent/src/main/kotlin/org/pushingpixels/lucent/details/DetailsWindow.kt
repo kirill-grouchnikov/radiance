@@ -35,9 +35,9 @@ import org.pushingpixels.lucent.data.Track
 import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.fromCurrentTo
-import org.pushingpixels.trident.TimelineRunnable
-import org.pushingpixels.trident.TimelineScenario
-import org.pushingpixels.trident.swing.TimelineSwingWorker
+import org.pushingpixels.trident.api.TimelineRunnable
+import org.pushingpixels.trident.api.TimelineScenario
+import org.pushingpixels.trident.api.swing.TimelineSwingWorker
 import java.awt.Component
 import java.awt.Container
 import java.awt.Dimension

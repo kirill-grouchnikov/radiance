@@ -29,8 +29,9 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_copy;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_cut;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 

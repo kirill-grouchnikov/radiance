@@ -29,11 +29,12 @@
  */
 package org.pushingpixels.demo.spyglass.cookbook.panels;
 
-import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.api.NeonCortex;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 
 public class LightsHolderPanel extends JComponent {
     @Override

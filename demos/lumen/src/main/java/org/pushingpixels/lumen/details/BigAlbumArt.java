@@ -29,8 +29,7 @@
  */
 package org.pushingpixels.lumen.details;
 
-import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.lumen.LumenUtils;
+import org.pushingpixels.neon.api.NeonCortex;
 
 import javax.swing.*;
 import java.awt.*;

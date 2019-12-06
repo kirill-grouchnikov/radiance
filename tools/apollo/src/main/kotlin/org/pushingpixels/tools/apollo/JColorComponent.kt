@@ -31,12 +31,11 @@ package org.pushingpixels.tools.apollo
 
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.neon.NeonCortex
+import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
-import org.pushingpixels.trident.swing.SwingComponentTimeline
-import org.pushingpixels.trident.swing.SwingRepaintCallback
+import org.pushingpixels.trident.api.swing.SwingComponentTimeline
 import java.awt.*
 import javax.swing.JColorChooser
 import javax.swing.JComponent

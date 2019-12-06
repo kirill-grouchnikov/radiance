@@ -29,13 +29,6 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
 import org.pushingpixels.demo.substance.main.RadianceLogo;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -43,6 +36,9 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A simple dialog for the test application.

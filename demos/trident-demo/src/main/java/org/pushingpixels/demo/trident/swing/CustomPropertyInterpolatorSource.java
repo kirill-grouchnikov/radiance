@@ -29,11 +29,12 @@
  */
 package org.pushingpixels.demo.trident.swing;
 
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.TridentConfig;
-import org.pushingpixels.trident.ease.Sine;
-import org.pushingpixels.trident.interpolator.PropertyInterpolator;
-import org.pushingpixels.trident.swing.*;
+import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.api.TridentConfig;
+import org.pushingpixels.trident.api.ease.Sine;
+import org.pushingpixels.trident.api.interpolator.PropertyInterpolator;
+import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
+import org.pushingpixels.trident.api.swing.SwingRepaintTimeline;
 
 import javax.swing.*;
 import java.awt.*;

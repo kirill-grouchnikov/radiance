@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.extras.api.painterpack.fill;
 
-import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.extras.api.colorschemepack.MixColorScheme;

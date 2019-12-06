@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
@@ -44,9 +44,9 @@ import org.pushingpixels.substance.internal.utils.border.SubstanceButtonBorder;
 import org.pushingpixels.substance.internal.utils.icon.GlowingIcon;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostingListener;
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.swing.SwingRepaintCallback;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import javax.swing.border.Border;

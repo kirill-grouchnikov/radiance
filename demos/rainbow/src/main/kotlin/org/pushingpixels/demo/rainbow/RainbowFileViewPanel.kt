@@ -35,8 +35,7 @@ import org.pushingpixels.flamingo.api.common.*
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutManager
-import org.pushingpixels.neon.icon.ResizableIcon
-import org.pushingpixels.photon.icon.SvgBatikResizableIcon
+import org.pushingpixels.photon.api.icon.SvgBatikResizableIcon
 import java.awt.Dimension
 import java.io.InputStream
 import javax.swing.SwingUtilities
@@ -52,7 +51,7 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
         TransitionLayoutManager.getInstance().track(this, true)
     }
 
-    override fun configureCommand(leaf: Leaf, command: Command, icon: ResizableIcon?) {
+    override fun configureCommand(leaf: Leaf, command: Command, icon: org.pushingpixels.neon.api.icon.ResizableIcon?) {
         command.actionRichTooltip = RichTooltip.builder()
                 .setTitle("Transcode")
                 .addDescriptionSection("Click to generate Java2D class")
@@ -77,7 +76,7 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
     }
 
     override fun getResizableIcon(leaf: AbstractFileViewPanel.Leaf, stream: InputStream,
-            state: CommandButtonPresentationState, dimension: Dimension): ResizableIcon? {
+            state: CommandButtonPresentationState, dimension: Dimension): org.pushingpixels.neon.api.icon.ResizableIcon? {
         val name = leaf.leafName
         return if (name.endsWith(".svg"))
             SvgBatikResizableIcon.getSvgIcon(leaf.leafStream, dimension)

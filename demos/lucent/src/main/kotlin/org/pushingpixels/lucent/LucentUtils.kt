@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.lucent
 
-import org.pushingpixels.neon.NeonCortex
+import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.torch.TorchWindow
 import org.pushingpixels.torch.windowTimeline
 import java.awt.Font

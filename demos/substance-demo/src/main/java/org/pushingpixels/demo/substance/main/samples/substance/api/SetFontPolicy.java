@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
-import org.pushingpixels.neon.font.FontPolicy;
-import org.pushingpixels.neon.font.FontSet;
+import org.pushingpixels.neon.api.font.FontPolicy;
+import org.pushingpixels.neon.api.font.FontSet;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 

@@ -30,8 +30,10 @@
 package org.pushingpixels.lightbeam.panels;
 
 import com.jgoodies.forms.factories.Paddings;
-import com.jgoodies.forms.layout.FormLayout;
-import org.pushingpixels.lightbeam.*;
+import org.pushingpixels.lightbeam.BasePerformanceScenario;
+import org.pushingpixels.lightbeam.LightbeamUtils;
+import org.pushingpixels.lightbeam.PerformanceScenario;
+import org.pushingpixels.lightbeam.PerformanceScenarioParticipant;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;

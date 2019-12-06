@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import javax.swing.JTabbedPane;
-
 import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
 import org.pushingpixels.substance.extras.api.tabbed.DefaultTabPreviewPainter;
+
+import javax.swing.*;
 
 /**
  * A custom tab preview painter for the test application.

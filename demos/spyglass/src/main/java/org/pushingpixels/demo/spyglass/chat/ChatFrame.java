@@ -30,10 +30,14 @@
 package org.pushingpixels.demo.spyglass.chat;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import org.pushingpixels.demo.spyglass.chat.svg.*;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.demo.spyglass.chat.svg.ic_chat_black_24px;
+import org.pushingpixels.demo.spyglass.chat.svg.ic_help_outline_black_24px;
+import org.pushingpixels.demo.spyglass.chat.svg.ic_person_black_24px;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
 import org.pushingpixels.substance.api.skin.ModerateSkin;
 
 import javax.swing.*;

@@ -30,7 +30,8 @@
 package org.pushingpixels.demo.substance.main.check.selector;
 
 import org.pushingpixels.demo.substance.main.check.FlexiComboBox;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

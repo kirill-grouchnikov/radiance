@@ -29,15 +29,18 @@
  */
 package org.pushingpixels.demo.trident.swing;
 
-import org.pushingpixels.trident.*;
-import org.pushingpixels.trident.Timeline.*;
-import org.pushingpixels.trident.callback.*;
-import org.pushingpixels.trident.swing.SwingRepaintTimeline;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.api.Timeline.TimelineState;
+import org.pushingpixels.trident.api.TridentConfig;
+import org.pushingpixels.trident.api.callback.TimelineCallbackAdapter;
+import org.pushingpixels.trident.api.swing.SwingRepaintTimeline;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
-import java.util.*;
+import java.util.Deque;
+import java.util.LinkedList;
 
 public class StarDust extends JFrame {
     public class Star {

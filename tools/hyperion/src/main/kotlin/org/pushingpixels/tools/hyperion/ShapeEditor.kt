@@ -32,7 +32,7 @@ package org.pushingpixels.tools.hyperion
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.addDelayedMouseMotionListener
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.neon.NeonCortex
+import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin
 import org.pushingpixels.substance.extras.api.shaperpack.CanonicalPath

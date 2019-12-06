@@ -30,12 +30,18 @@
 package org.pushingpixels.lightbeam.panels;
 
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.lightbeam.*;
-import org.pushingpixels.lightbeam.commands.*;
+import org.pushingpixels.lightbeam.BasePerformanceScenario;
+import org.pushingpixels.lightbeam.LightbeamUtils;
+import org.pushingpixels.lightbeam.PerformanceScenario;
+import org.pushingpixels.lightbeam.PerformanceScenarioParticipant;
+import org.pushingpixels.lightbeam.commands.ConfigurationCommand;
+import org.pushingpixels.lightbeam.commands.CreationCommand;
+import org.pushingpixels.lightbeam.commands.DisableCommand;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Test application panel for testing {@link JSpinner} component.

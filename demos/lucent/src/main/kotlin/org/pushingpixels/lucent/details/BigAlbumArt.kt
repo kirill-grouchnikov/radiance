@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.lucent.details
 
-import org.pushingpixels.neon.NeonCortex
+import org.pushingpixels.neon.api.NeonCortex
 import java.awt.*
 import java.awt.image.BufferedImage
 import javax.swing.JComponent

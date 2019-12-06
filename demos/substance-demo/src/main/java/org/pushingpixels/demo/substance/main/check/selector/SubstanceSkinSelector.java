@@ -30,8 +30,8 @@
 package org.pushingpixels.demo.substance.main.check.selector;
 
 import org.pushingpixels.demo.substance.main.check.FlexiComboBox;
-import org.pushingpixels.demo.substance.main.samples.substance.api.RegisterSkinChangeListener;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 
 import javax.swing.*;

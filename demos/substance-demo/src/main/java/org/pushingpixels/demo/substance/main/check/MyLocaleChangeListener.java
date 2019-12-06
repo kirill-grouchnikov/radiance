@@ -29,13 +29,15 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import org.pushingpixels.neon.font.FontSet;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.neon.api.font.FontSet;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Locale;
 
 /**

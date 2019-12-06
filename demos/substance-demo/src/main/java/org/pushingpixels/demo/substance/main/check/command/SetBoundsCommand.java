@@ -29,9 +29,8 @@
  */
 package org.pushingpixels.demo.substance.main.check.command;
 
-import java.awt.Rectangle;
-
-import javax.swing.JComponent;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A configure command that sets bounds for the specified component.

@@ -30,8 +30,8 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import com.jgoodies.forms.factories.Paddings;
-import com.jgoodies.forms.layout.FormLayout;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 
 import javax.swing.*;
@@ -58,8 +58,6 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
      * @return The panel contents.
      */
     private JPanel getContents() {
-        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:default:grow(1), 4dlu,"
-                + "fill:default:grow(1), 4dlu, fill:default:grow(1)", "");
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
                 "right:pref, 4dlu, fill:default:grow(1), 4dlu,"
                 + "fill:default:grow(1), 4dlu, fill:default:grow(1)", 4, 30)

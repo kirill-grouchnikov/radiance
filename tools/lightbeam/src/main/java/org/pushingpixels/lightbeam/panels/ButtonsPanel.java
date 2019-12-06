@@ -31,11 +31,13 @@ package org.pushingpixels.lightbeam.panels;
 
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.lightbeam.*;
-import org.pushingpixels.lightbeam.commands.*;
+import org.pushingpixels.lightbeam.commands.ChainCommand;
+import org.pushingpixels.lightbeam.commands.ConfigurationCommand;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Test application panel for testing {@link JButton}, {@link JToggleButton},

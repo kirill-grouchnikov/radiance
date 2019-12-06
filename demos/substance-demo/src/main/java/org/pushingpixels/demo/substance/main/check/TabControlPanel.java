@@ -36,8 +36,12 @@ import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewK
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
 
 /**
  * Control panel for the tabbed panes.
@@ -96,26 +100,6 @@ public class TabControlPanel extends JPanel {
          */
         public void changed() {
             this.fireContentsChanged(this, 0, this.getSize() - 1);
-        }
-    }
-
-    /**
-     * Cell renderer for the combobox that lists the tabs.
-     * 
-     * @author Kirill Grouchnikov
-     */
-    private class TabCellRenderer extends JLabel implements ListCellRenderer {
-        @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index,
-                boolean isSelected, boolean cellHasFocus) {
-            if (value == null) {
-                this.setText("");
-                this.setIcon(null);
-            } else {
-                this.setText(jtp.getTitleAt((Integer) value));
-                this.setIcon(jtp.getIconAt((Integer) value));
-            }
-            return this;
         }
     }
 

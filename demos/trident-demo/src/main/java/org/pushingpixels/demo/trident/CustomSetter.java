@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.demo.trident;
 
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.TimelinePropertyBuilder.PropertySetter;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.TimelinePropertyBuilder.PropertySetter;
 
 public class CustomSetter {
     private float value;

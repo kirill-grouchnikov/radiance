@@ -37,9 +37,9 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
-import org.pushingpixels.neon.AsynchronousLoading;
-import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.api.AsynchronousLoading;
+import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;

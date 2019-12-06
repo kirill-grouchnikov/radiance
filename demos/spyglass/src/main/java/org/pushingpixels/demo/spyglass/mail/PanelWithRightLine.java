@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.spyglass.mail;
 
-import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.api.NeonCortex;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

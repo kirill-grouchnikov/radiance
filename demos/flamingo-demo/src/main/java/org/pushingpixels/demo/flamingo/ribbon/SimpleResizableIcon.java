@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.demo.flamingo.ribbon;
 
-import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 
 import java.awt.*;
 

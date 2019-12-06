@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.demo.plasma.common
 
-import org.pushingpixels.neon.icon.ResizableIcon
+import org.pushingpixels.neon.api.icon.ResizableIcon
 import java.awt.Component
 import java.awt.Dimension
 import java.awt.Graphics
 import javax.swing.Icon
 
-class IconWrapperResizableIcon(val delegate: Icon) : ResizableIcon {
+class IconWrapperResizableIcon(val delegate: Icon) : org.pushingpixels.neon.api.icon.ResizableIcon {
     override fun getIconHeight(): Int {
         return delegate.getIconHeight()
     }

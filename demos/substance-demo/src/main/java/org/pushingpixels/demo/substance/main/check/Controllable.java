@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * Base interface for test application panels that wish to contribute a control

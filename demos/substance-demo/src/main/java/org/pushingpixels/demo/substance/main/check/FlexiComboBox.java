@@ -29,18 +29,11 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.Color;
-import java.awt.Component;
-
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.Icon;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.UIManager;
-
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
+
+import javax.swing.*;
+import java.awt.*;
 
 public abstract class FlexiComboBox<T> extends JComboBox {
 	public FlexiComboBox(T... items) {

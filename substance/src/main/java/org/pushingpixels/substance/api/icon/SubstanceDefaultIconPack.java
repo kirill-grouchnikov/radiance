@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.substance.api.icon;
 
-import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.svg.*;

@@ -35,8 +35,11 @@ import org.pushingpixels.lumen.details.DetailsWindowManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 /**

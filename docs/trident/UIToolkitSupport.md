@@ -43,6 +43,6 @@ If you put a breakpoint in the `JComponent.setForeground(Color)` - which is call
 
 ### Running custom application code on UI thread
 
-The flow described above works for the fields registered with the `Timeline.Builder.addPropertyToInterpolate` methods. What about the custom [application callbacks](TimelineLifecycle.md) registered with the `Timeline.Builder.addCallback()`? If the callback methods need to respect the Swing threading rules, the `TimelineCallback` implementation class needs to be tagged with the `org.pushingpixels.trident.swing.RunOnEventDispatchThread` annotation.
+The flow described above works for the fields registered with the `Timeline.Builder.addPropertyToInterpolate` methods. What about the custom [application callbacks](TimelineLifecycle.md) registered with the `Timeline.Builder.addCallback()`? If the callback methods need to respect the Swing threading rules, the `TimelineCallback` implementation class needs to be tagged with the `RunOnEventDispatchThread` annotation.
 
 Callback implementations marked with this annotation will have both `onTimelineStateChanged` and `onTimelinePulse` invoked on the event dispatch thread, making it safe to query and change the UI. The `EventDispatchThreadTimelineCallbackAdapter` is a core adapter class that is marked with this annotation.

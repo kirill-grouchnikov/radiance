@@ -47,9 +47,9 @@ import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonVisualSt
 import org.pushingpixels.flamingo.internal.substance.utils.SubstanceDisabledResizableIcon;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.neon.icon.ResizableIconUIResource;
+import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;

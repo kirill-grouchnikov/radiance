@@ -36,7 +36,9 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
-import javax.swing.tree.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.Enumeration;
@@ -47,11 +49,6 @@ import java.util.Enumeration;
  * @author Kirill Grouchnikov
  */
 public class ColorizedControlsPanel extends JPanel implements Deferrable {
-    /**
-     * The default button.
-     */
-    public JButton defaultButton;
-
     private boolean isInitialized;
 
     @Override

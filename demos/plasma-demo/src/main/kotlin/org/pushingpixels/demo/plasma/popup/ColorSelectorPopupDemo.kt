@@ -34,9 +34,9 @@ import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.neon.NeonCortex
-import org.pushingpixels.neon.icon.ResizableIcon
-import org.pushingpixels.neon.icon.ResizableIcon.Factory
+import org.pushingpixels.neon.api.NeonCortex
+import org.pushingpixels.neon.api.icon.ResizableIcon
+import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
 import org.pushingpixels.plasma.DelayedCommandListener
 import org.pushingpixels.plasma.KColorSelectorCommand
 import org.pushingpixels.plasma.colorSelectorCommandButton
@@ -49,7 +49,7 @@ import java.awt.image.BufferedImage
 import java.util.*
 import javax.swing.*
 
-class ColorIcon(private var color: Color) : ResizableIcon {
+class ColorIcon(private var color: Color) : org.pushingpixels.neon.api.icon.ResizableIcon {
     private var w: Int = 0
     private var h: Int = 0
 

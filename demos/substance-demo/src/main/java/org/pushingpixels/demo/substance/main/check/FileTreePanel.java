@@ -29,20 +29,23 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTreeCellRenderer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileSystemView;
-import javax.swing.tree.*;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeNode;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.lang.reflect.Method;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * Test application panel for testing {@link JTree} component and

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.spyglass.cookbook;
 
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 
 import java.awt.*;
 

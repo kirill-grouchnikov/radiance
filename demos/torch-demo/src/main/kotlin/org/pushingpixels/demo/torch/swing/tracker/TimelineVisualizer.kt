@@ -32,7 +32,6 @@ package org.pushingpixels.demo.torch.swing.tracker
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.timeline
-import org.pushingpixels.trident.Timeline.TimelineState
 import java.awt.Color
 import java.awt.Graphics
 import java.awt.Point

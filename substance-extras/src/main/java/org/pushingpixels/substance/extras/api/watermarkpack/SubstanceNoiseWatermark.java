@@ -1,6 +1,6 @@
 package org.pushingpixels.substance.extras.api.watermarkpack;
 
-import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.watermark.SubstanceWatermark;

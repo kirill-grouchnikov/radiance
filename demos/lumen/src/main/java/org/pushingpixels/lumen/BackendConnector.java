@@ -30,15 +30,20 @@
 package org.pushingpixels.lumen;
 
 import org.pushingpixels.lumen.data.*;
-import retrofit2.*;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
-import retrofit2.http.*;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BackendConnector {
     public static List<SearchResultRelease> doAlbumSearch(String artistId, String artistName)

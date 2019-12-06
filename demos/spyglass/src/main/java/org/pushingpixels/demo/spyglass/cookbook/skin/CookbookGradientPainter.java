@@ -33,9 +33,11 @@ import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter;
-import org.pushingpixels.substance.api.painter.fill.*;
+import org.pushingpixels.substance.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 
 import javax.swing.*;
 import java.awt.*;

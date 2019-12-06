@@ -36,11 +36,11 @@ import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.goingThrough
 import org.pushingpixels.torch.repaintTimeline
-import org.pushingpixels.trident.Timeline
-import org.pushingpixels.trident.Timeline.RepeatBehavior
-import org.pushingpixels.trident.interpolator.KeyFrames
-import org.pushingpixels.trident.interpolator.KeyTimes
-import org.pushingpixels.trident.interpolator.KeyValues
+import org.pushingpixels.trident.api.Timeline
+import org.pushingpixels.trident.api.Timeline.RepeatBehavior
+import org.pushingpixels.trident.api.interpolator.KeyFrames
+import org.pushingpixels.trident.api.interpolator.KeyTimes
+import org.pushingpixels.trident.api.interpolator.KeyValues
 import java.awt.*
 import java.awt.geom.RoundRectangle2D
 import javax.swing.JFrame

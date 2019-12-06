@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.neon.AsynchronousLoading;
-import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.api.AsynchronousLoading;
+import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 
 import java.awt.*;

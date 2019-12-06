@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.flamingo;
 
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 
 import javax.swing.*;
 import java.awt.*;

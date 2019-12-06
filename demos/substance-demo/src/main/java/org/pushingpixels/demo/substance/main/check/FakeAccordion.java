@@ -32,7 +32,7 @@ package org.pushingpixels.demo.substance.main.check;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FakeAccordion extends JPanel {

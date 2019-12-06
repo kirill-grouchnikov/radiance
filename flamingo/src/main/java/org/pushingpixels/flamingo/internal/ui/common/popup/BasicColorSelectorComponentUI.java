@@ -31,9 +31,9 @@ package org.pushingpixels.flamingo.internal.ui.common.popup;
 
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
-import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.swing.SwingRepaintCallback;
+import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

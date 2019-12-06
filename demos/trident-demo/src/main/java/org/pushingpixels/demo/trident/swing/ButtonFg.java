@@ -29,15 +29,13 @@
  */
 package org.pushingpixels.demo.trident.swing;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
 
 import javax.swing.*;
-
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ButtonFg extends JFrame {
     private ButtonFg() {

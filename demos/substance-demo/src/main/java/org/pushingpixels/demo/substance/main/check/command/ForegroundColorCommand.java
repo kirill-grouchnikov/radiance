@@ -29,9 +29,8 @@
  */
 package org.pushingpixels.demo.substance.main.check.command;
 
-import java.awt.Color;
-
-import javax.swing.JComponent;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A configure command that sets the specified foreground color on the specified component.

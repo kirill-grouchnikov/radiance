@@ -32,7 +32,7 @@ package org.pushingpixels.demo.torch.swing
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.torch.TorchComponent
 import org.pushingpixels.torch.componentTimeline
-import org.pushingpixels.trident.Timeline
+import org.pushingpixels.trident.api.Timeline
 import java.awt.Color
 import java.awt.FlowLayout
 import javax.swing.JButton

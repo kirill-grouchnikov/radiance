@@ -29,16 +29,19 @@
  */
 package org.pushingpixels.lumen.details;
 
-import org.pushingpixels.neon.NeonCortex;
 import org.pushingpixels.lumen.LumenUtils;
-import org.pushingpixels.lumen.data.*;
+import org.pushingpixels.lumen.data.SearchResultRelease;
+import org.pushingpixels.lumen.data.Track;
+import org.pushingpixels.neon.api.NeonCortex;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
-import java.awt.geom.*;
-import java.util.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**

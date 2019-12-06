@@ -9,8 +9,8 @@ import java.util.Base64;
 import javax.imageio.ImageIO;
 import javax.swing.plaf.UIResource;
 
-import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.neon.icon.ResizableIconUIResource;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
 
 /**
  * This class has been automatically generated using <a

@@ -41,7 +41,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.StringValuePair
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon
 import org.pushingpixels.plasma.bcb.addDelayedPathListener
-import org.pushingpixels.neon.icon.ResizableIcon
+import org.pushingpixels.neon.api.icon.ResizableIcon
 import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSlices
@@ -79,7 +79,7 @@ fun main() {
 
             override fun getResizableIcon(leaf: AbstractFileViewPanel.Leaf,
                     stream: InputStream, state: CommandButtonPresentationState,
-                    dimension: Dimension): ResizableIcon {
+                    dimension: Dimension): org.pushingpixels.neon.api.icon.ResizableIcon {
                 var dimensionForIcon = dimension
                 val prefSize = state.preferredIconSize
                 if (prefSize > 0) {

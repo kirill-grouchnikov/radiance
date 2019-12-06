@@ -29,9 +29,10 @@
  */
 package org.pushingpixels.lumen.content;
 
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.*;
-import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.api.Timeline.TimelineState;
+import org.pushingpixels.trident.api.callback.TimelineCallbackAdapter;
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;

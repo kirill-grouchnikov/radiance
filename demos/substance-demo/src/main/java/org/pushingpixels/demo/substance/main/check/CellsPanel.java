@@ -30,13 +30,18 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.demo.substance.main.check.command.*;
+import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
+import org.pushingpixels.demo.substance.main.check.command.CreationCommand;
+import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
+import org.pushingpixels.demo.substance.main.check.command.DisableViewportCommand;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 
 import javax.swing.*;
-import javax.swing.tree.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.util.Enumeration;
 

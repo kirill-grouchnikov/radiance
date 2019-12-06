@@ -39,7 +39,7 @@ import org.pushingpixels.plasma.FlamingoElementMarker
 import org.pushingpixels.plasma.KCommand
 import org.pushingpixels.plasma.KCommandGroup
 import org.pushingpixels.plasma.NullableDelegate
-import org.pushingpixels.neon.icon.ResizableIcon.Factory
+import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
 
 @FlamingoElementMarker
 class GalleryCommandVisibilityContainer {

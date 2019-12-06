@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.trident.internal.interpolator;
 
-import org.pushingpixels.trident.interpolator.PropertyInterpolator;
-import org.pushingpixels.trident.interpolator.PropertyInterpolatorSource;
+import org.pushingpixels.trident.api.interpolator.PropertyInterpolator;
+import org.pushingpixels.trident.api.interpolator.PropertyInterpolatorSource;
 
 import java.util.Collections;
 import java.util.HashSet;

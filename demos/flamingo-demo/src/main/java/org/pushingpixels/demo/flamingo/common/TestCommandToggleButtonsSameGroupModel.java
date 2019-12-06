@@ -30,19 +30,26 @@
 package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_center;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_fill;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_left;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_justify_right;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandGroup;
+import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
+import org.pushingpixels.flamingo.api.common.model.CommandToggleGroupModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.skin.MarinerSkin;
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.swing.SwingComponentTimeline;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.Arrays;
 
 public class TestCommandToggleButtonsSameGroupModel extends JFrame {
     private TestCommandToggleButtonsSameGroupModel() {

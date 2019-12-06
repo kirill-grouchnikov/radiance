@@ -29,11 +29,8 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
-
-import javax.swing.JPanel;
-import javax.swing.Scrollable;
+import javax.swing.*;
+import java.awt.*;
 
 public class ScrollablePanel extends JPanel implements Scrollable {
 

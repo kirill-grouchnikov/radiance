@@ -41,7 +41,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.plasma.*
-import org.pushingpixels.neon.icon.ResizableIcon.Factory
+import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
 import javax.swing.JComponent
 
 @FlamingoElementMarker

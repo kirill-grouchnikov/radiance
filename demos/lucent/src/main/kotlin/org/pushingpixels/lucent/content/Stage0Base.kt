@@ -31,7 +31,7 @@ package org.pushingpixels.lucent.content
 
 import org.pushingpixels.meteor.addDelayedHierarchyListener
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.neon.NeonCortex
+import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
 import java.awt.*

@@ -24,7 +24,7 @@ The **timeline position** is a fractional number between `0.0` and `1.0` that in
 	public float map(float durationFraction);
 ```
 
-The `org.pushingpixels.trident.ease` package has a number of core ease functions. To illustrate the difference between the different ease functions, we will use the core `Spline` ease function. The following screenshot shows the mapping between duration fraction and timeline position under `Spline` with factor of `0.5`:
+The `org.pushingpixels.trident.api.ease` package has a number of core ease functions. To illustrate the difference between the different ease functions, we will use the core `Spline` ease function. The following screenshot shows the mapping between duration fraction and timeline position under `Spline` with factor of `0.5`:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/trident/ease-50.png" width="500" height="289" />
 

@@ -31,13 +31,21 @@ package org.pushingpixels.ignite;
 
 import org.gradle.api.DefaultTask;
 import org.gradle.api.logging.Logger;
-import org.gradle.api.tasks.*;
+import org.gradle.api.tasks.Input;
+import org.gradle.api.tasks.InputDirectory;
+import org.gradle.api.tasks.TaskAction;
 import org.gradle.api.tasks.options.Option;
-import org.pushingpixels.photon.transcoder.*;
-import org.pushingpixels.photon.transcoder.java.JavaLanguageRenderer;
-import org.pushingpixels.photon.transcoder.kotlin.KotlinLanguageRenderer;
+import org.pushingpixels.photon.api.transcoder.LanguageRenderer;
+import org.pushingpixels.photon.api.transcoder.SvgBatchConverter;
+import org.pushingpixels.photon.api.transcoder.SvgTranscoder;
+import org.pushingpixels.photon.api.transcoder.TranscoderListener;
+import org.pushingpixels.photon.api.transcoder.java.JavaLanguageRenderer;
+import org.pushingpixels.photon.api.transcoder.kotlin.KotlinLanguageRenderer;
 
-import java.io.*;
+import java.io.File;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.concurrent.CountDownLatch;
 
 public class IgniteTask extends DefaultTask {
@@ -135,7 +143,7 @@ public class IgniteTask extends DefaultTask {
         logger.trace("Processing " + inputDirectory.getAbsolutePath() + " to " + outputPackageName +
                 " in " + outputLanguage);
 
-        String templateFileName = "/org/pushingpixels/photon/transcoder/" + outputLanguage + "/"
+        String templateFileName = "/org/pushingpixels/photon/api/transcoder/" + outputLanguage + "/"
                 + "SvgTranscoderTemplate";
         templateFileName += (useResizableTemplate ? "Resizable" : "Plain");
         templateFileName += ".templ";

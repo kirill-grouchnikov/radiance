@@ -34,7 +34,7 @@
 
 package org.pushingpixels.substance.internal.utils.filters;
 
-import org.pushingpixels.neon.filter.NeonAbstractFilter;
+import org.pushingpixels.neon.api.filter.NeonAbstractFilter;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.HashMapKey;
 import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;

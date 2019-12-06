@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.neon.internal.font;
 
-import org.pushingpixels.neon.font.FontSet;
+import org.pushingpixels.neon.api.font.FontSet;
 
 import javax.swing.plaf.FontUIResource;
 

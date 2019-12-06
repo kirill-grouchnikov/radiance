@@ -29,11 +29,8 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Colored panel for the test application.

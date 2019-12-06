@@ -85,7 +85,7 @@ this.scrollTimeline = Timeline.builder(this)
 ```
 
 ### Custom property interpolators
-Trident supports interpolation of primitive values - such as integers, floats and point / color / rectangle classes of [supported UI toolkits](TimelineAdditionalConfiguration.md). Application code that needs to interpolate fields of these types does not need to explicitly state how the field value is interpolated between the start / current and end value. In order to use a custom property interpolator, configure your `TimelinePropertyBuilder` with the call to `interpolatedWith(PropertyInterpolator)` API. The `org.pushingpixels.trident.interpolator.PropertyInterpolator` interface is:
+Trident supports interpolation of primitive values - such as integers, floats and point / color / rectangle classes of [supported UI toolkits](TimelineAdditionalConfiguration.md). Application code that needs to interpolate fields of these types does not need to explicitly state how the field value is interpolated between the start / current and end value. In order to use a custom property interpolator, configure your `TimelinePropertyBuilder` with the call to `interpolatedWith(PropertyInterpolator)` API. The `PropertyInterpolator` interface is:
 
 ```java
 public interface PropertyInterpolator<T> {

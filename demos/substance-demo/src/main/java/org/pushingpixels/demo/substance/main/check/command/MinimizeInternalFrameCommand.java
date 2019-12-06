@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.demo.substance.main.check.command;
 
+import javax.swing.*;
 import java.beans.PropertyVetoException;
-
-import javax.swing.JComponent;
-import javax.swing.JInternalFrame;
 
 /**
  * A configure command that minimizes internal frames.

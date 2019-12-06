@@ -54,9 +54,9 @@ import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.addDelayedItemListener
 import org.pushingpixels.meteor.awt.brightness
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.neon.NeonCortex
-import org.pushingpixels.neon.icon.ResizableIcon
-import org.pushingpixels.neon.icon.ResizableIcon.Factory
+import org.pushingpixels.neon.api.NeonCortex
+import org.pushingpixels.neon.api.icon.ResizableIcon
+import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.*
@@ -243,7 +243,7 @@ private class ExpandCommandListener : CommandAction {
 }
 
 private class SimpleResizableIcon(private val priority: PresentationPriority,
-        private var currWidth: Int, private var currHeight: Int) : ResizableIcon {
+        private var currWidth: Int, private var currHeight: Int) : org.pushingpixels.neon.api.icon.ResizableIcon {
 
     override fun setDimension(newDimension: Dimension) {
         this.currWidth = newDimension.width
@@ -284,7 +284,7 @@ private class SimpleResizableIcon(private val priority: PresentationPriority,
     }
 
     class FactoryTop : Factory {
-        override fun createNewIcon(): ResizableIcon {
+        override fun createNewIcon(): org.pushingpixels.neon.api.icon.ResizableIcon {
             return SimpleResizableIcon(PresentationPriority.TOP, 16, 16)
         }
     }
@@ -1638,7 +1638,7 @@ fun getApplicationMenuRichTooltipIcon(): Factory {
     val appMenuButtonTooltipImageInitialWidth = 160
     val appMenuButtonTooltipImageInitialHeight =
             (appMenuButtonTooltipImageInitialWidth / appMenuButtonTooltipImageRatio).toInt()
-    val appMenuRichTooltipMainIcon = object : ResizableIcon {
+    val appMenuRichTooltipMainIcon = object : org.pushingpixels.neon.api.icon.ResizableIcon {
         private var width: Int = 0
         private var height: Int = 0
 

@@ -29,21 +29,14 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A simple panel that paints the current time on itself.

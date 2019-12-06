@@ -3,16 +3,22 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Font_x_generic;
+import org.pushingpixels.flamingo.api.common.CommandActionEvent;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon;
-import org.pushingpixels.flamingo.api.common.model.*;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandGroup;
+import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
+import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 
 import java.awt.*;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class QuickStylesPanel {
     public static CommandPanelContentModel getQuickStylesContentModel(

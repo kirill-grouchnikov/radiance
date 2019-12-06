@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.neon.internal;
 
-import org.pushingpixels.neon.filter.NeonAbstractFilter;
+import org.pushingpixels.neon.api.filter.NeonAbstractFilter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

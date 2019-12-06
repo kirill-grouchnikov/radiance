@@ -29,14 +29,18 @@
  */
 package org.pushingpixels.demo.trident.swing;
 
-import org.pushingpixels.trident.*;
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.ease.Spline;
-import org.pushingpixels.trident.swing.SwingRepaintTimeline;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.api.TimelineScenario;
+import org.pushingpixels.trident.api.ease.Spline;
+import org.pushingpixels.trident.api.swing.SwingRepaintTimeline;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;

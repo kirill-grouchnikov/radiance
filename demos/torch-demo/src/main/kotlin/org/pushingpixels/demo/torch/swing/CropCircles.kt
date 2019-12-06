@@ -34,12 +34,9 @@ import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.repaintTimeline
 import org.pushingpixels.torch.timeline
-import org.pushingpixels.trident.Timeline
-import org.pushingpixels.trident.Timeline.RepeatBehavior
-import org.pushingpixels.trident.TimelineScenario
-import org.pushingpixels.trident.ease.Spline
-import org.pushingpixels.trident.swing.SwingComponentTimeline
-import org.pushingpixels.trident.swing.SwingRepaintTimeline
+import org.pushingpixels.trident.api.Timeline.RepeatBehavior
+import org.pushingpixels.trident.api.TimelineScenario
+import org.pushingpixels.trident.api.ease.Spline
 import java.awt.*
 import java.awt.geom.Ellipse2D
 import java.util.*

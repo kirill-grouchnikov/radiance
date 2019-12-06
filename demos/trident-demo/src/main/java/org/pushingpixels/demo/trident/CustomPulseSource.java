@@ -29,7 +29,8 @@
  */
 package org.pushingpixels.demo.trident;
 
-import org.pushingpixels.trident.*;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.TridentConfig;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

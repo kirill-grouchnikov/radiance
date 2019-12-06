@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.extras.api.tabbed;
 
-import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.api.NeonCortex;
 
 import javax.swing.*;
 import java.awt.*;

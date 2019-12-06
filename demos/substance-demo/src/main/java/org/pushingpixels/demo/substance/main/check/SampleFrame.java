@@ -30,18 +30,23 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import org.pushingpixels.demo.substance.main.*;
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.demo.substance.main.Check;
+import org.pushingpixels.demo.substance.main.RadianceLogo;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SampleFrame extends JFrame {
@@ -190,7 +195,6 @@ public class SampleFrame extends JFrame {
                 columns("fill:default:grow(1), 2dlu," + "fill:default:grow(1)").
                 rows("pref, 3dlu, pref, 3dlu, pref, 3dlu, pref").
                 border(new EmptyBorder(2, 2, 2, 2));
-        CellConstraints cc = new CellConstraints();
 
         JCheckBox cbes = new JCheckBox("Enabled selected");
         cbes.setSelected(true);

@@ -29,15 +29,13 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-
 import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
 import org.pushingpixels.demo.substance.main.check.svg.flags.ru;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasCortex;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Test application panel for testing {@link JTabbedPane} component.

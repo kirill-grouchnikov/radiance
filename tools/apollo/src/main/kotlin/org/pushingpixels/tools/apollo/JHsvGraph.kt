@@ -33,7 +33,7 @@ import org.pushingpixels.meteor.awt.brightness
 import org.pushingpixels.meteor.awt.hue
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.meteor.awt.saturation
-import org.pushingpixels.neon.NeonCortex
+import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
 import java.awt.Color
 import java.awt.Font

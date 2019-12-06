@@ -29,9 +29,10 @@
  */
 package org.pushingpixels.demo.substance.main.check.selector;
 
-import org.pushingpixels.demo.substance.main.check.*;
+import org.pushingpixels.demo.substance.main.check.FlexiComboBox;
+import org.pushingpixels.demo.substance.main.check.MyLocaleChangeListener;
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
-import org.pushingpixels.neon.icon.*;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -31,21 +31,32 @@ package org.pushingpixels.demo.flamingo.svg;
 
 import org.apache.batik.ext.awt.LinearGradientPaint;
 import org.apache.batik.ext.awt.MultipleGradientPaint;
-import org.apache.batik.ext.awt.MultipleGradientPaint.*;
+import org.apache.batik.ext.awt.MultipleGradientPaint.ColorSpaceEnum;
+import org.apache.batik.ext.awt.MultipleGradientPaint.CycleMethodEnum;
 import org.apache.batik.ext.awt.RadialGradientPaint;
 import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
 import org.apache.batik.gvt.*;
 import org.apache.batik.swing.JSVGCanvas;
-import org.apache.batik.swing.gvt.*;
-import org.apache.batik.swing.svg.*;
-import org.pushingpixels.photon.transcoder.*;
-import org.pushingpixels.photon.transcoder.java.JavaLanguageRenderer;
+import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
+import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
+import org.apache.batik.swing.svg.GVTTreeBuilderAdapter;
+import org.apache.batik.swing.svg.GVTTreeBuilderEvent;
+import org.apache.batik.swing.svg.SVGDocumentLoaderAdapter;
+import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
+import org.pushingpixels.photon.api.transcoder.SvgTranscoder;
+import org.pushingpixels.photon.api.transcoder.TranscoderListener;
+import org.pushingpixels.photon.api.transcoder.java.JavaLanguageRenderer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.geom.*;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.lang.reflect.Field;
 
 public class SVGApplication {
@@ -125,9 +136,9 @@ public class SVGApplication {
                             JOptionPane.showMessageDialog(null, "Finished");
                         }
                     });
-                    transcoder.transcode(this.getClass()
-                            .getResourceAsStream("SvgTranscoderTemplateResizable.templ"));
-
+                    transcoder.transcode(this.getClass().getResourceAsStream(
+                            "/org/pushingpixels/photon/api/transcoder/java" +
+                                    "/SvgTranscoderTemplateResizable.templ"));
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

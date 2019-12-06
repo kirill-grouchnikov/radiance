@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.trident;
 
-import org.pushingpixels.trident.Timeline;
+import org.pushingpixels.trident.api.Timeline;
 
 public class HelloWorld {
     private float value;

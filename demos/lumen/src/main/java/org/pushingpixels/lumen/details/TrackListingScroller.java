@@ -29,7 +29,8 @@
  */
 package org.pushingpixels.lumen.details;
 
-import org.pushingpixels.lumen.data.*;
+import org.pushingpixels.lumen.data.SearchResultRelease;
+import org.pushingpixels.lumen.data.Track;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

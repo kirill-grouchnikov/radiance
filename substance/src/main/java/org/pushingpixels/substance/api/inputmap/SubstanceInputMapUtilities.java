@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.inputmap;
 
-import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.internal.inputmaps.AquaInputMapSet;
 import org.pushingpixels.substance.internal.inputmaps.BaseInputMapSet;
 import org.pushingpixels.substance.internal.inputmaps.GnomeInputMapSet;

@@ -30,10 +30,15 @@
 package org.pushingpixels.demo.spyglass.cookbook.panels;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import org.pushingpixels.demo.spyglass.cookbook.*;
-import org.pushingpixels.demo.spyglass.cookbook.svg.*;
-import org.pushingpixels.flamingo.api.common.model.*;
+import org.pushingpixels.demo.spyglass.cookbook.EchoResizableIcon;
+import org.pushingpixels.demo.spyglass.cookbook.ScaledResizableIcon;
+import org.pushingpixels.demo.spyglass.cookbook.svg.ic_add_white_24px;
+import org.pushingpixels.demo.spyglass.cookbook.svg.ic_remove_white_24px;
+import org.pushingpixels.demo.spyglass.cookbook.svg.ic_settings_white_24px;
+import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
 
 import javax.swing.*;

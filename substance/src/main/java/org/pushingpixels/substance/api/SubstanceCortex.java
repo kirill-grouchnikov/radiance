@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.substance.api;
 
-import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.neon.font.FontPolicy;
-import org.pushingpixels.neon.font.FontSet;
-import org.pushingpixels.neon.icon.ResizableIcon;
-import org.pushingpixels.neon.icon.ResizableIconUIResource;
+import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.neon.api.font.FontPolicy;
+import org.pushingpixels.neon.api.font.FontSet;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;

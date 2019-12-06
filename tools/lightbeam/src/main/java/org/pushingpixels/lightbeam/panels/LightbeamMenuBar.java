@@ -29,11 +29,14 @@
  */
 package org.pushingpixels.lightbeam.panels;
 
-import org.pushingpixels.lightbeam.*;
+import org.pushingpixels.lightbeam.LightbeamUtils;
+import org.pushingpixels.lightbeam.PerformanceScenario;
+import org.pushingpixels.lightbeam.PerformanceScenarioParticipant;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class LightbeamMenuBar extends JMenuBar {

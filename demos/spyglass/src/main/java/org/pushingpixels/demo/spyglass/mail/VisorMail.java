@@ -29,7 +29,8 @@
  */
 package org.pushingpixels.demo.spyglass.mail;
 
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
 
 import javax.swing.*;

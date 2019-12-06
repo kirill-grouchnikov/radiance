@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
-import org.pushingpixels.trident.Timeline;
+import org.pushingpixels.trident.api.Timeline;
 
 public class ButtonFg extends JFrame {
 	public ButtonFg() {

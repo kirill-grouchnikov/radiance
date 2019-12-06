@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.widget.tree.dnd;
 
-import org.pushingpixels.neon.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;

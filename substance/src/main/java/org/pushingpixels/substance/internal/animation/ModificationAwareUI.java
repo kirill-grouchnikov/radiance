@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.animation;
 
-import org.pushingpixels.trident.Timeline;
+import org.pushingpixels.trident.api.Timeline;
 
 public interface ModificationAwareUI {
 	Timeline getModificationTimeline();

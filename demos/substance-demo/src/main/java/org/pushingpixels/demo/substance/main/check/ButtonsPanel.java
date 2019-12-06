@@ -31,10 +31,14 @@ package org.pushingpixels.demo.substance.main.check;
 
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.substance.main.Check;
-import org.pushingpixels.demo.substance.main.check.command.*;
+import org.pushingpixels.demo.substance.main.check.command.ChainCommand;
+import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
+import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
+import org.pushingpixels.demo.substance.main.check.command.SelectCommand;
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
+import org.pushingpixels.substance.api.SubstanceSlices.Side;
 
 import javax.swing.*;
 import java.awt.*;

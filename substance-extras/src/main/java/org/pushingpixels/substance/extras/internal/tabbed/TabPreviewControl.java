@@ -1,6 +1,6 @@
 package org.pushingpixels.substance.extras.internal.tabbed;
 
-import org.pushingpixels.neon.NeonCortex;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopupBorder;
 

@@ -33,7 +33,7 @@ import org.pushingpixels.lucent.LucentUtils
 import org.pushingpixels.lucent.data.SearchResultRelease
 import org.pushingpixels.lucent.data.Track
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.neon.NeonCortex
+import org.pushingpixels.neon.api.NeonCortex
 import java.awt.*
 import java.awt.font.FontRenderContext
 import java.awt.geom.AffineTransform

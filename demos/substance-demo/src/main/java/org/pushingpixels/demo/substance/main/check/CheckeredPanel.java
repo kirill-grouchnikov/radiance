@@ -29,17 +29,12 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import javax.swing.UIManager;
-
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+
+import javax.swing.*;
+import java.awt.*;
 
 final class CheckeredPanel extends ScrollablePanel {
     @Override

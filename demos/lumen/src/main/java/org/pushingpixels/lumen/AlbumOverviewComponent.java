@@ -30,11 +30,15 @@
 package org.pushingpixels.lumen;
 
 import org.pushingpixels.lumen.data.SearchResultRelease;
-import org.pushingpixels.neon.NeonCortex;
-import org.pushingpixels.trident.*;
-import org.pushingpixels.trident.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.ease.Spline;
-import org.pushingpixels.trident.swing.*;
+import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
+import org.pushingpixels.trident.api.TimelineRunnable;
+import org.pushingpixels.trident.api.TimelineScenario;
+import org.pushingpixels.trident.api.ease.Spline;
+import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
+import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
+import org.pushingpixels.trident.api.swing.TimelineSwingWorker;
 
 import javax.swing.*;
 import java.awt.*;
