@@ -38,6 +38,8 @@ import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicComboBoxEditor;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
@@ -47,6 +49,7 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -132,10 +135,10 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         /**
          * The table column classes.
          */
-        private Class<?>[] columns = new Class<?>[] { String.class, JComboBox.class,
+        private Class<?>[] columns = new Class<?>[] {String.class, JComboBox.class,
                 JComboBox.class, Boolean.class,
                 Byte.class, Float.class, Double.class, String.class, Date.class,
-                Color.class, ImageIcon.class };
+                Color.class, ImageIcon.class};
 
         /**
          * Creates the custom table model.
@@ -145,10 +148,10 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         public MyTableModel(int rows) {
             this.rows = rows;
             this.data = new Object[rows][this.cols];
-            Icon[] icons = new Icon[] { br.of(16, 16), bg.of(16, 16), ca.of(16, 16), cn.of(16, 16),
+            Icon[] icons = new Icon[] {br.of(16, 16), bg.of(16, 16), ca.of(16, 16), cn.of(16, 16),
                     dk.of(16, 16), fi.of(16, 16), fr.of(16, 16), de.of(16, 16),
                     gr.of(16, 16), hu.of(16, 16), il.of(16, 16), it.of(16, 16),
-                    jp.of(16, 16), mx.of(16, 16), nl.of(16, 16), no.of(16, 16) };
+                    jp.of(16, 16), mx.of(16, 16), nl.of(16, 16), no.of(16, 16)};
             for (int i = 0; i < rows; i++) {
                 this.data[i][0] = "cell " + i + ":" + 0;
                 this.data[i][1] = "predef";
@@ -253,11 +256,11 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         final JScrollPane tableScrollpane = new JScrollPane(this.table);
         tableScrollpane.setName("Main table in table panel");
 
-        JComboBox combo = new JComboBox(new Object[] { "aa", "bb", "cc" });
+        JComboBox combo = new JComboBox(new Object[] {"aa", "bb", "cc"});
         combo.setBorder(null);
         this.table.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(combo));
 
-        JComboBox combo2 = new JComboBox(new Object[] { "aa2", "bb2", "cc2" });
+        JComboBox combo2 = new JComboBox(new Object[] {"aa2", "bb2", "cc2"});
         combo2.setBorder(null);
         TheComboBoxEditor editor = new TheComboBoxEditor();
         combo2.setEditor(editor);
@@ -274,6 +277,10 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         this.table.setDragEnabled(false);
         this.table.setTableHeader(new JTableHeader(this.table.getColumnModel()));
 
+        this.table.getSelectionModel().addListSelectionListener(e ->
+                System.out.println("Selected rows " + Arrays.toString(table.getSelectedRows()) +
+                        " selected columns " + Arrays.toString(table.getSelectedColumns())));
+
         this.setLayout(new BorderLayout());
         this.add(tableScrollpane, BorderLayout.CENTER);
 
@@ -284,7 +291,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         // create a looping animation to change the label foreground
         // from black to blue and back to draw some attention.
         SwingComponentTimeline.componentBuilder(instructional)
-                .addPropertyToInterpolate("foreground", Color.black, Color.blue)
+                .addPropertyToInterpolate("foreground", Color.black, new Color(224, 20, 10))
                 .setDuration(1000)
                 .playLoop(RepeatBehavior.REVERSE);
 

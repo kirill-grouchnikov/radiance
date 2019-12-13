@@ -34,6 +34,9 @@ import org.pushingpixels.neon.api.font.FontSet;
 import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
 
 import java.awt.*;
+import java.awt.font.TextAttribute;
+import java.text.AttributedCharacterIterator;
+import java.util.HashMap;
 
 /**
  * The default font policy for Mac OS.
@@ -44,16 +47,33 @@ public class DefaultMacFontPolicy implements FontPolicy {
     @Override
     public FontSet getFontSet() {
         String fontFamily = "Lucida Grande";
-        if (LookUtils.IS_OS_MAC_EL_CAPITAN_OR_LATER) {
+        if (LookUtils.IS_OS_MAC_CATALINA_OR_LATER) {
+            // fontFamily = ".AppleSystemUIFont";
+            // Use Helvetica Neue instead of .AppleSystemUIFont until kerning fixes
+            // have been submitted to OpenJDK
+            fontFamily = "Helvetica Neue";
+        } else if (LookUtils.IS_OS_MAC_EL_CAPITAN_OR_LATER) {
             fontFamily = ".SF NS Text";
         } else if (LookUtils.IS_OS_MAC_YOSEMITE) {
             fontFamily = ".Helvetica Neue DeskInterface";
         }
+
         Font controlFont = new FontSets.DefaultUIResourceFont(fontFamily, Font.PLAIN, 13);
         Font menuFont = new FontSets.DefaultUIResourceFont(fontFamily, Font.PLAIN, 14);
+        Font smallFont = controlFont.deriveFont(controlFont.getSize2D() - 2f);
+
+        if (LookUtils.IS_OS_MAC_CATALINA_OR_LATER) {
+            // Enable the following block when the code is switched back to .AppleSystemUIFont
+            // on Catalina
+//            HashMap<AttributedCharacterIterator.Attribute, Object> attributes = new HashMap<>();
+//            attributes.put(TextAttribute.KERNING, TextAttribute.KERNING_ON);
+//            controlFont = controlFont.deriveFont(attributes);
+//            menuFont = menuFont.deriveFont(attributes);
+//            smallFont = smallFont.deriveFont(attributes);
+        }
+
         Font titleFont = menuFont;
         Font messageFont = controlFont;
-        Font smallFont = controlFont.deriveFont(controlFont.getSize2D() - 2f);
         Font windowTitleFont = titleFont;
         return FontSets.createDefaultFontSet(controlFont, menuFont, titleFont,
                 messageFont, smallFont, windowTitleFont);

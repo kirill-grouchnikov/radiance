@@ -302,7 +302,7 @@ public class KeyTipManager {
             }
 
             // anchored commands
-            for (JCommandButton anchored : brui.getAnchoredCommandButtons()) {
+            for (AbstractCommandButton anchored : brui.getAnchoredCommandButtons()) {
                 KeyTipLink actionLink = getCommandButtonActionLink(anchored);
                 if (actionLink != null) {
                     root.addLink(actionLink);

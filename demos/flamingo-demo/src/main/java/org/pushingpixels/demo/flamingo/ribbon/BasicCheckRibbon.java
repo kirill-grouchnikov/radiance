@@ -1705,6 +1705,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIconFactory(Internet_group_chat.factory())
                 .setAction((CommandActionEvent e) -> JOptionPane
                         .showMessageDialog(BasicCheckRibbon.this, "Chat button clicked"))
+                .setToggle()
                 .build()
                 .project(CommandButtonPresentationModel.builder().setActionKeyTip("GC").build()));
 

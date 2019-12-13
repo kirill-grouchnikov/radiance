@@ -73,7 +73,7 @@ object SkinSwitcher {
         val skinInfoMap = SubstanceCortex.GlobalScope.getAllSkins()
         val skinNames = skinInfoMap.keys.toTypedArray()
         val result = JComboBox<String>(skinNames)
-        result.selectedIndex = skinNames.indexOfFirst { it ->
+        result.selectedIndex = skinNames.indexOfFirst {
             it == SubstanceCortex.GlobalScope.getCurrentSkin()!!.displayName
         }
 
@@ -243,7 +243,7 @@ private class ExpandCommandListener : CommandAction {
 }
 
 private class SimpleResizableIcon(private val priority: PresentationPriority,
-        private var currWidth: Int, private var currHeight: Int) : org.pushingpixels.neon.api.icon.ResizableIcon {
+        private var currWidth: Int, private var currHeight: Int) : ResizableIcon {
 
     override fun setDimension(newDimension: Dimension) {
         this.currWidth = newDimension.width
@@ -284,7 +284,7 @@ private class SimpleResizableIcon(private val priority: PresentationPriority,
     }
 
     class FactoryTop : Factory {
-        override fun createNewIcon(): org.pushingpixels.neon.api.icon.ResizableIcon {
+        override fun createNewIcon(): ResizableIcon {
             return SimpleResizableIcon(PresentationPriority.TOP, 16, 16)
         }
     }
@@ -1720,6 +1720,7 @@ fun main() {
 
                 command(actionKeyTip = "GC") {
                     iconFactory = Internet_group_chat.factory()
+                    isToggle = true
                     action = CommandAction {
                         JOptionPane.showMessageDialog(null, "Chat button clicked")
                     }

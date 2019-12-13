@@ -1343,10 +1343,10 @@ public abstract class BasicRibbonUI extends RibbonUI {
         return Collections.unmodifiableMap(taskToggleButtons);
     }
 
-    public List<JCommandButton> getAnchoredCommandButtons() {
-        List<JCommandButton> result = new ArrayList<>();
+    public List<AbstractCommandButton> getAnchoredCommandButtons() {
+        List<AbstractCommandButton> result = new ArrayList<>();
         for (Component anchored : this.anchoredButtons.getComponents()) {
-            result.add((JCommandButton) anchored);
+            result.add((AbstractCommandButton) anchored);
         }
         return Collections.unmodifiableList(result);
     }
