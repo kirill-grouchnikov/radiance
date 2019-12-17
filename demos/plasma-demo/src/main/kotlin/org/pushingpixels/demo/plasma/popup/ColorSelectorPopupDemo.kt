@@ -49,7 +49,7 @@ import java.awt.image.BufferedImage
 import java.util.*
 import javax.swing.*
 
-class ColorIcon(private var color: Color) : org.pushingpixels.neon.api.icon.ResizableIcon {
+class ColorIcon(private var color: Color) : ResizableIcon {
     private var w: Int = 0
     private var h: Int = 0
 

@@ -31,13 +31,47 @@ package org.pushingpixels.flamingo.api.ribbon.synapse;
 
 import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentationModel;
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonCheckBoxContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonComboBoxContentModel;
 
 import javax.swing.*;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+import java.util.WeakHashMap;
 
 public class JRibbonComboBox<E> extends JComboBox<E> {
-    public JRibbonComboBox(Projection<JRibbonComboBox,
-            RibbonComboBoxContentModel, ComponentPresentationModel> projection) {
+    public JRibbonComboBox(Projection<JRibbonComboBox<E>,
+            RibbonComboBoxContentModel<E>, ComponentPresentationModel> projection) {
         super(projection.getContentModel());
+
+        final RibbonComboBoxContentModel<E> contentModel = projection.getContentModel();
+        if (contentModel.getSelectionChangeListener() != null) {
+            contentModel.addListDataListener(new ListDataListener() {
+                Object selected = contentModel.getSelectedItem();
+
+                @Override
+                public void intervalAdded(ListDataEvent e) {
+                }
+
+                @Override
+                public void intervalRemoved(ListDataEvent e) {
+                }
+
+                @Override
+                public void contentsChanged(ListDataEvent e) {
+                    Object newSelection = contentModel.getSelectedItem();
+                    if (this.selected != newSelection) {
+                        contentModel.getSelectionChangeListener().onSelectionChanged(this.selected,
+                                newSelection);
+                        this.selected = newSelection;
+                    }
+                }
+            });
+            // Notify the listener on initial selection
+            if (contentModel.getSelectedItem() != null) {
+                contentModel.getSelectionChangeListener().onSelectionChanged(null,
+                        contentModel.getSelectedItem());
+            }
+        }
     }
 }

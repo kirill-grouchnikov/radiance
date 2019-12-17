@@ -169,5 +169,4 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
             return model;
         }
     }
-
 }

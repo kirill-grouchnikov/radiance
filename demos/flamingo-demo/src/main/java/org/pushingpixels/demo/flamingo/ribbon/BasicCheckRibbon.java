@@ -1517,27 +1517,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setRichTooltip(RichTooltip.builder()
                         .setTitle(resourceBundle.getString("Fonts.tooltip.title"))
                         .build())
-                .build();
-        this.fontComboBoxModel.addListDataListener(new ListDataListener() {
-            Object selected = fontComboBoxModel.getSelectedItem();
-
-            @Override
-            public void intervalAdded(ListDataEvent e) {
-            }
-
-            @Override
-            public void intervalRemoved(ListDataEvent e) {
-            }
-
-            @Override
-            public void contentsChanged(ListDataEvent e) {
-                Object newSelection = fontComboBoxModel.getSelectedItem();
-                if (this.selected != newSelection) {
+                .setSelectionChangeListener((oldSelection, newSelection) -> {
                     System.out.println("New font selection -> " + newSelection);
-                    this.selected = newSelection;
-                }
-            }
-        });
+                })
+                .build();
 
         this.rulerCheckBoxModel = RibbonCheckBoxContentModel.builder()
                 .setText(resourceBundle.getString("Ruler.text"))

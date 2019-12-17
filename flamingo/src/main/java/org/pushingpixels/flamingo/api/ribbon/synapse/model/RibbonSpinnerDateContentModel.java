@@ -52,7 +52,7 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
     public RibbonSpinnerDateContentModel() {
     }
 
-    public RibbonSpinnerDateContentModel(Date value, Comparable start, Comparable end,
+    public RibbonSpinnerDateContentModel(Date value, Comparable<Date> start, Comparable<Date> end,
             int calendarField) {
         super(value, start, end, calendarField);
     }
@@ -98,14 +98,14 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
     public static class Builder {
         private boolean isEnabled = true;
         private Date value;
-        private Comparable start;
-        private Comparable end;
+        private Comparable<Date> start;
+        private Comparable<Date> end;
         private int calendarField;
         private ResizableIcon.Factory iconFactory;
         private String caption;
         private RichTooltip richTooltip;
 
-        public Builder setValues(Date value, Comparable start, Comparable end, int calendarField) {
+        public Builder setValues(Date value, Comparable<Date> start, Comparable<Date> end, int calendarField) {
             this.value = value;
             this.start = start;
             this.end = end;

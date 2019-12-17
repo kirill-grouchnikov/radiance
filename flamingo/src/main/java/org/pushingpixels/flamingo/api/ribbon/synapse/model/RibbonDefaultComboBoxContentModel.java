@@ -42,6 +42,7 @@ public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E
     private ResizableIcon.Factory iconFactory;
     private String caption;
     private RichTooltip richTooltip;
+    private ComboBoxSelectionChangeListener selectionChangeListener;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public static <E> Builder<E> builder() {
@@ -86,6 +87,11 @@ public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E
     }
 
     @Override
+    public ComboBoxSelectionChangeListener getSelectionChangeListener() {
+        return this.selectionChangeListener;
+    }
+
+    @Override
     public RichTooltip getRichTooltip() {
         return this.richTooltip;
     }
@@ -95,6 +101,7 @@ public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E
         private E[] items;
         private ResizableIcon.Factory iconFactory;
         private String caption;
+        private ComboBoxSelectionChangeListener selectionChangeListener;
         private RichTooltip richTooltip;
 
         public Builder<E> setItems(E[] items) {
@@ -117,6 +124,11 @@ public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E
             return this;
         }
 
+        public Builder<E>  setSelectionChangeListener(ComboBoxSelectionChangeListener selectionChangeListener) {
+            this.selectionChangeListener = selectionChangeListener;
+            return this;
+        }
+
         public Builder<E> setRichTooltip(RichTooltip richTooltip) {
             this.richTooltip = richTooltip;
             return this;
@@ -128,6 +140,21 @@ public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E
             model.isEnabled = this.isEnabled;
             model.iconFactory = this.iconFactory;
             model.caption = this.caption;
+            if (this.selectionChangeListener != null) {
+                // Wrap the original application-provided selection change listener
+                model.selectionChangeListener = new ComboBoxSelectionChangeListener() {
+                    private Object lastSelection = null;
+                    @Override
+                    public void onSelectionChanged(Object oldSelection, Object newSelection) {
+                        if (lastSelection == newSelection) {
+                            // de-dupe changes from multiple comboboxes created from this content model
+                            return;
+                        }
+                        selectionChangeListener.onSelectionChanged(oldSelection, newSelection);
+                        lastSelection = newSelection;
+                    }
+                };
+            }
             model.richTooltip = this.richTooltip;
             return model;
         }

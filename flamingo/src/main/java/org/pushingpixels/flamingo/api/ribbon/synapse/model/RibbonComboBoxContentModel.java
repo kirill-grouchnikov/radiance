@@ -30,6 +30,14 @@
 package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import javax.swing.*;
+import java.util.EventListener;
 
 public interface RibbonComboBoxContentModel<E> extends ComboBoxModel<E>, ComponentContentModel {
+    public interface ComboBoxSelectionChangeListener extends EventListener {
+        void onSelectionChanged(Object oldSelection, Object newSelection);
+    }
+
+    default ComboBoxSelectionChangeListener getSelectionChangeListener() {
+        return null;
+    }
 }

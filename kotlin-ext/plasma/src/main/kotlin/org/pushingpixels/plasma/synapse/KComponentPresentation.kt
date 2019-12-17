@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2019 Radiance Plasma Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2019 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -27,26 +27,26 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.demo.plasma.common
+package org.pushingpixels.plasma.synapse
 
-import org.pushingpixels.neon.api.icon.ResizableIcon
-import java.awt.Component
-import java.awt.Dimension
-import java.awt.Graphics
-import javax.swing.Icon
+import org.pushingpixels.flamingo.api.common.HorizontalAlignment
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentationModel
+import org.pushingpixels.plasma.FlamingoElementMarker
 
-class IconWrapperResizableIcon(val delegate: Icon) : ResizableIcon {
-    override fun getIconHeight(): Int {
-        return delegate.getIconHeight()
+@FlamingoElementMarker
+open class KComponentPresentation {
+    var isFlat: Boolean = true
+    var horizontalAlignment: HorizontalAlignment = HorizontalAlignment.FILL
+    var isResizingAware: Boolean = false
+    var keyTip: String? = null
+
+    fun toComponentPresentation(): ComponentPresentationModel {
+        val result = ComponentPresentationModel.builder()
+                .setFlat(isFlat)
+                .setHorizontalAlignment(horizontalAlignment)
+                .setResizingAware(isResizingAware)
+                .setKeyTip(keyTip)
+
+        return result.build()
     }
-
-    override fun getIconWidth(): Int {
-        return delegate.getIconHeight()
-    }
-
-    override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
-        delegate.paintIcon(c, g, x, y)
-    }
-
-    override fun setDimension(dim: Dimension) {}
 }

@@ -37,7 +37,7 @@ import java.awt.Dimension
 import java.awt.image.BufferedImage
 
 object RadianceLogo {
-    fun getLogoIcon(scheme: SubstanceColorScheme): org.pushingpixels.neon.api.icon.ResizableIcon {
+    fun getLogoIcon(scheme: SubstanceColorScheme): ResizableIcon {
         // Step 1 - create a colorized version of the transcoded Radiance logo
         val base = NeonCortex.colorizeIcon(radiance_menu.factory(), scheme.foregroundColor)
         // Step 2 - configure the colorized version to be 16x16

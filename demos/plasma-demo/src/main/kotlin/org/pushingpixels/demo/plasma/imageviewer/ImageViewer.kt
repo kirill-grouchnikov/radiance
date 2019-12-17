@@ -79,7 +79,7 @@ fun main() {
 
             override fun getResizableIcon(leaf: AbstractFileViewPanel.Leaf,
                     stream: InputStream, state: CommandButtonPresentationState,
-                    dimension: Dimension): org.pushingpixels.neon.api.icon.ResizableIcon {
+                    dimension: Dimension): ResizableIcon {
                 var dimensionForIcon = dimension
                 val prefSize = state.preferredIconSize
                 if (prefSize > 0) {
