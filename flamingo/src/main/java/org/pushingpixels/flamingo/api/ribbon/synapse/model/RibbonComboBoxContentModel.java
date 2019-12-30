@@ -33,7 +33,7 @@ import javax.swing.*;
 import java.util.EventListener;
 
 public interface RibbonComboBoxContentModel<E> extends ComboBoxModel<E>, ComponentContentModel {
-    public interface ComboBoxSelectionChangeListener extends EventListener {
+    interface ComboBoxSelectionChangeListener extends EventListener {
         void onSelectionChanged(Object oldSelection, Object newSelection);
     }
 

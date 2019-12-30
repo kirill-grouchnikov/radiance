@@ -33,7 +33,6 @@ import org.pushingpixels.demo.plasma.svg.Format_justify_center
 import org.pushingpixels.demo.plasma.svg.Format_justify_fill
 import org.pushingpixels.demo.plasma.svg.Format_justify_left
 import org.pushingpixels.demo.plasma.svg.Format_justify_right
-import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.meteor.swing.AlignType
 import org.pushingpixels.meteor.swing.setAlignment
@@ -71,27 +70,19 @@ fun main() {
             command {
                 iconFactory = Format_justify_left.factory()
                 isToggleSelected = true
-                action = CommandAction {
-                    textPane.setAlignment(AlignType.ALIGN_LEFT)
-                }
+                action = { textPane.setAlignment(AlignType.ALIGN_LEFT) }
             }
             command {
                 iconFactory = Format_justify_center.factory()
-                action = CommandAction {
-                    textPane.setAlignment(AlignType.ALIGN_CENTER)
-                }
+                action = { textPane.setAlignment(AlignType.ALIGN_CENTER) }
             }
             command {
                 iconFactory = Format_justify_right.factory()
-                action = CommandAction {
-                    textPane.setAlignment(AlignType.ALIGN_RIGHT)
-                }
+                action = { textPane.setAlignment(AlignType.ALIGN_RIGHT) }
             }
             command {
                 iconFactory = Format_justify_fill.factory()
-                action = CommandAction {
-                    textPane.setAlignment(AlignType.ALIGN_JUSTIFIED)
-                }
+                action = { textPane.setAlignment(AlignType.ALIGN_JUSTIFIED) }
             }
             presentation {
                 orientation = CommandStripPresentationModel.StripOrientation.VERTICAL

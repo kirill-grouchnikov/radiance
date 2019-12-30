@@ -30,7 +30,6 @@
 package org.pushingpixels.demo.plasma.popup
 
 import org.pushingpixels.demo.plasma.svg.*
-import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.plasma.commandButton
@@ -68,9 +67,7 @@ fun main() {
                         +resourceBundle.getString("Tooltip.textParagraph1")
                         +resourceBundle.getString("Tooltip.textParagraph2")
                     }
-                    footer {
-                        +resourceBundle.getString("Tooltip.textFooterParagraph1")
-                    }
+                    footer = resourceBundle.getString("Tooltip.textFooterParagraph1")
                 }
                 menu = commandPopupMenu {
                     val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
@@ -78,23 +75,17 @@ fun main() {
                         command {
                             title = mf.format(arrayOf("1"))
                             iconFactory = Applications_games.factory()
-                            action = CommandAction {
-                                println("First!")
-                            }
+                            action = { println("First!") }
                         }
                         command {
                             title = mf.format(arrayOf("2"))
                             iconFactory = Applications_graphics.factory()
-                            action = CommandAction {
-                                println("Second!")
-                            }
+                            action = { println("Second!") }
                         }
                         command {
                             title = mf.format(arrayOf("3"))
                             iconFactory = Applications_internet.factory()
-                            action = CommandAction {
-                                println("Third!")
-                            }
+                            action = { println("Third!") }
                         }
                     }
 
@@ -102,16 +93,12 @@ fun main() {
                         command {
                             title = mf.format(arrayOf("4"))
                             iconFactory = Applications_multimedia.factory()
-                            action = CommandAction {
-                                println("Fourth!")
-                            }
+                            action = { println("Fourth!") }
                         }
                         command {
                             title = mf.format(arrayOf("5"))
                             iconFactory = Applications_office.factory()
-                            action = CommandAction {
-                                println("Fifth!")
-                            }
+                            action = { println("Fifth!") }
                         }
                     }
                 }

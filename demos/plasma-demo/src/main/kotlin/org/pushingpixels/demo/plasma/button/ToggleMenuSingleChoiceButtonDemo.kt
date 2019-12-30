@@ -33,7 +33,6 @@ import org.pushingpixels.demo.plasma.svg.Format_justify_center
 import org.pushingpixels.demo.plasma.svg.Format_justify_fill
 import org.pushingpixels.demo.plasma.svg.Format_justify_left
 import org.pushingpixels.demo.plasma.svg.Format_justify_right
-import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.plasma.commandButton
 import org.pushingpixels.plasma.commandPopupMenu
@@ -66,7 +65,7 @@ fun main() {
                     command {
                         title = "left"
                         iconFactory = Format_justify_left.factory()
-                        action = CommandAction {
+                        action = {
                             println("Justify left")
                             currentAlignment = StyleConstants.ALIGN_LEFT
                         }
@@ -77,7 +76,7 @@ fun main() {
                     command {
                         title = "center"
                         iconFactory = Format_justify_center.factory()
-                        action = CommandAction {
+                        action = {
                             println("Justify center")
                             currentAlignment = StyleConstants.ALIGN_CENTER
                         }
@@ -88,7 +87,7 @@ fun main() {
                     command {
                         title = "right"
                         iconFactory = Format_justify_right.factory()
-                        action = CommandAction {
+                        action = {
                             println("Justify right")
                             currentAlignment = StyleConstants.ALIGN_RIGHT
                         }
@@ -99,7 +98,7 @@ fun main() {
                     command {
                         title = "fill"
                         iconFactory = Format_justify_fill.factory()
-                        action = CommandAction {
+                        action = {
                             println("Justify fill")
                             currentAlignment = StyleConstants.ALIGN_JUSTIFIED
                         }

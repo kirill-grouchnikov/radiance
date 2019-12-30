@@ -32,13 +32,11 @@ And here is how the same code would look like in Kotlin using the Plasma-provide
 commandButtonStrip {
     command {
         iconFactory = Format_text_bold.factory()
-        action = CommandAction { println("Bold toggled") }
+        action = { println("Bold toggled") }
         isToggleSelected = true
         actionRichTooltip {
             title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
-            description {
-                +resourceBundle.getString("FontBold.tooltip.textActionParagraph1")
-            }
+            description = resourceBundle.getString("FontBold.tooltip.textActionParagraph1")
         }
         actionKeyTip = "1"
     }
@@ -68,26 +66,26 @@ fun getFindBand(): KRibbonBand {
         command(RibbonElementPriority.TOP, actionKeyTip = "FD") {
             title = resourceBundle.getString("Search.text")
             iconFactory = System_search.factory()
-            action = CommandAction { println("Search activated") }
+            action = { println("Search activated") }
         }
 
         command(RibbonElementPriority.MEDIUM) {
             title = resourceBundle.getString("Find.text")
             iconFactory = Edit_find.factory()
-            action = CommandAction { println("Find activated") }
+            action = { println("Find activated") }
         }
 
         command(RibbonElementPriority.MEDIUM) {
             title = resourceBundle.getString("FindReplace.text")
             iconFactory = Edit_find_replace.factory()
-            action = CommandAction { println("Find Replace activated") }
+            action = { println("Find Replace activated") }
             isActionEnabled = false
         }
 
         command(RibbonElementPriority.MEDIUM) {
             title = resourceBundle.getString("SelectAll.text")
             iconFactory = Edit_select_all.factory()
-            action = CommandAction { println("Select All activated") }
+            action = { println("Select All activated") }
         }
 
         resizePolicies = { ribbonBand ->

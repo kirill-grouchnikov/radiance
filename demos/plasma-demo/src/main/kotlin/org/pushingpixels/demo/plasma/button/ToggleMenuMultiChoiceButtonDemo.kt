@@ -33,7 +33,6 @@ import org.pushingpixels.demo.plasma.svg.Format_text_bold
 import org.pushingpixels.demo.plasma.svg.Format_text_italic
 import org.pushingpixels.demo.plasma.svg.Format_text_strikethrough
 import org.pushingpixels.demo.plasma.svg.Format_text_underline
-import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.plasma.commandButton
 import org.pushingpixels.plasma.commandPopupMenu
@@ -69,7 +68,7 @@ fun main() {
                     command {
                         title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
                         iconFactory = Format_text_bold.factory()
-                        action = CommandAction {
+                        action = {
                             println("Toggle bold")
                             isBold = !isBold
                         }
@@ -79,7 +78,7 @@ fun main() {
                     command {
                         title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
                         iconFactory = Format_text_italic.factory()
-                        action = CommandAction {
+                        action = {
                             println("Toggle italic")
                             isItalic = !isItalic
                         }
@@ -89,7 +88,7 @@ fun main() {
                     command {
                         title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
                         iconFactory = Format_text_underline.factory()
-                        action = CommandAction {
+                        action = {
                             println("Toggle underline")
                             isUnderline = !isUnderline
                         }
@@ -99,7 +98,7 @@ fun main() {
                     command {
                         title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
                         iconFactory = Format_text_strikethrough.factory()
-                        action = CommandAction {
+                        action = {
                             println("Toggle strikethrough")
                             isStrikeThrough = !isStrikeThrough
                         }

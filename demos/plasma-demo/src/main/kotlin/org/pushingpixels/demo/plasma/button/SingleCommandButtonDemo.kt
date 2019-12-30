@@ -31,7 +31,6 @@ package org.pushingpixels.demo.plasma.button
 
 import org.pushingpixels.demo.plasma.svg.Help_browser
 import org.pushingpixels.demo.plasma.svg.Image_x_generic
-import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.plasma.commandButton
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -59,9 +58,7 @@ fun main() {
                 title = resourceBundle.getString("Paste.text")
                 iconFactory = Help_browser.factory()
                 extraText = resourceBundle.getString("Paste.textExtra")
-                action = CommandAction {
-                    println("Activated at " + System.currentTimeMillis() + "!")
-                }
+                action = { println("Activated at " + System.currentTimeMillis() + "!") }
                 actionRichTooltip {
                     title = resourceBundle.getString("Tooltip.textActionTitle")
                     mainIconFactory = Image_x_generic.factory()
@@ -69,9 +66,7 @@ fun main() {
                         +resourceBundle.getString("Tooltip.textParagraph1")
                         +resourceBundle.getString("Tooltip.textParagraph2")
                     }
-                    footer {
-                        +resourceBundle.getString("Tooltip.textFooterParagraph1")
-                    }
+                    footer = resourceBundle.getString("Tooltip.textFooterParagraph1")
                 }
             }
             presentation {

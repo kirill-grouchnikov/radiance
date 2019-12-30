@@ -31,7 +31,6 @@ package org.pushingpixels.demo.plasma.popup
 
 import org.pushingpixels.demo.plasma.svg.Help_browser
 import org.pushingpixels.demo.plasma.svg.Text_x_generic
-import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.plasma.commandButton
 import org.pushingpixels.plasma.commandPopupMenu
@@ -67,9 +66,7 @@ fun main() {
                         command {
                             title = mf.format(arrayOf<Any>(i))
                             iconFactory = Text_x_generic.factory()
-                            action = CommandAction {
-                                println("Invoked action on '$i'")
-                            }
+                            action = { println("Invoked action on '$i'") }
                         }
                     }
                     maxVisibleMenuCommands = 8

@@ -101,9 +101,23 @@ class KRichTooltip {
     var footerIconFactory: Factory? = null
     private val footerSections = TextContainer()
 
+    var description: String? = null
+    set(value) {
+        if (value != null) {
+            descriptionSections.strings.add(value)
+        }
+    }
+
     fun description(init: TextContainer.() -> Unit) {
         descriptionSections.init()
     }
+
+    var footer: String? = null
+        set(value) {
+            if (value != null) {
+                footerSections.strings.add(value)
+            }
+        }
 
     fun footer(init: TextContainer.() -> Unit) {
         footerSections.init()

@@ -30,6 +30,14 @@
 package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import javax.swing.*;
+import java.util.EventListener;
 
 public interface RibbonSpinnerContentModel extends SpinnerModel, ComponentContentModel {
+    interface SpinnerSelectionChangeListener extends EventListener {
+        void onSelectionChanged(Object oldSelection, Object newSelection);
+    }
+
+    default RibbonSpinnerContentModel.SpinnerSelectionChangeListener getSelectionChangeListener() {
+        return null;
+    }
 }

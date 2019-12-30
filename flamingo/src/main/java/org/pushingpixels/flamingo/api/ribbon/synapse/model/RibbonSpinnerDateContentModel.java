@@ -42,6 +42,7 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
     private boolean isEnabled;
     private ResizableIcon.Factory iconFactory;
     private String caption;
+    private SpinnerSelectionChangeListener selectionChangeListener;
     private RichTooltip richTooltip;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
@@ -91,6 +92,11 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
     }
 
     @Override
+    public SpinnerSelectionChangeListener getSelectionChangeListener() {
+        return this.selectionChangeListener;
+    }
+
+    @Override
     public RichTooltip getRichTooltip() {
         return this.richTooltip;
     }
@@ -103,6 +109,7 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
         private int calendarField;
         private ResizableIcon.Factory iconFactory;
         private String caption;
+        private RibbonSpinnerContentModel.SpinnerSelectionChangeListener selectionChangeListener;
         private RichTooltip richTooltip;
 
         public Builder setValues(Date value, Comparable<Date> start, Comparable<Date> end, int calendarField) {
@@ -128,6 +135,11 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
             return this;
         }
 
+        public Builder setSelectionChangeListener(SpinnerSelectionChangeListener selectionChangeListener) {
+            this.selectionChangeListener = selectionChangeListener;
+            return this;
+        }
+
         public Builder setRichTooltip(RichTooltip richTooltip) {
             this.richTooltip = richTooltip;
             return this;
@@ -141,6 +153,21 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
             model.isEnabled = this.isEnabled;
             model.iconFactory = this.iconFactory;
             model.caption = this.caption;
+            if (this.selectionChangeListener != null) {
+                // Wrap the original application-provided selection change listener
+                model.selectionChangeListener = new SpinnerSelectionChangeListener() {
+                    private Object lastSelection = null;
+                    @Override
+                    public void onSelectionChanged(Object oldSelection, Object newSelection) {
+                        if (lastSelection == newSelection) {
+                            // de-dupe changes from multiple comboboxes created from this content model
+                            return;
+                        }
+                        selectionChangeListener.onSelectionChanged(oldSelection, newSelection);
+                        lastSelection = newSelection;
+                    }
+                };
+            }
             model.richTooltip = this.richTooltip;
             return model;
         }

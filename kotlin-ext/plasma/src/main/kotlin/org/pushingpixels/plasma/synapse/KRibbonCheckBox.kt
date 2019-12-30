@@ -36,10 +36,11 @@ import org.pushingpixels.plasma.FlamingoElementMarker
 import org.pushingpixels.plasma.KRichTooltip
 import org.pushingpixels.plasma.NullableDelegate
 import org.pushingpixels.plasma.ribbon.*
+import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 
 @FlamingoElementMarker
-class KRibbonCheckBoxContentModel() {
+class KRibbonCheckBoxContentModel {
     private val builder = RibbonCheckBoxContentModel.builder()
     internal lateinit var javaContentModel: RibbonCheckBoxContentModel
     internal var hasBeenConverted: Boolean = false
@@ -48,7 +49,7 @@ class KRibbonCheckBoxContentModel() {
     var iconFactory: ResizableIcon.Factory? by NullableDelegate { false }
     var caption: String? by NullableDelegate { false }
     var text: String? by NullableDelegate { false }
-    var actionListener: ActionListener? by NullableDelegate { false }
+    var actionListener: ((event: ActionEvent) -> Unit)? by NullableDelegate { false }
 
     // The "isEnabled" property can be modified even after [KRibbonCheckBox.toJavaProjection] has
     // been called multiple times. Internally, the setter propagates the new value to the underlying
@@ -108,7 +109,7 @@ class KRibbonCheckBoxContentModel() {
 }
 
 @FlamingoElementMarker
-class KRibbonCheckBox() {
+class KRibbonCheckBox {
     internal var content: KRibbonCheckBoxContentModel = KRibbonCheckBoxContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()
 

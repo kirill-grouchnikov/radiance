@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.plasma.synapse
 
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonComboBoxContentModel
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerDateContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerNumberContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonSpinnerProjection
@@ -44,7 +46,7 @@ import org.pushingpixels.plasma.ribbon.KRibbonTaskbar
 import java.util.*
 
 @FlamingoElementMarker
-class KRibbonSpinnerNumberContentModel() {
+class KRibbonSpinnerNumberContentModel {
     private val builder = RibbonSpinnerNumberContentModel.builder()
     internal lateinit var javaContentModel: RibbonSpinnerNumberContentModel
     internal var hasBeenConverted: Boolean = false
@@ -56,6 +58,7 @@ class KRibbonSpinnerNumberContentModel() {
     var minimum : Int by NonNullDelegate { false }
     var maximum : Int by NonNullDelegate { false }
     var stepSize : Int by NonNullDelegate { false }
+    var selectionChangeListener: ((oldSelection: Any?, newSelection: Any?) -> Unit)? by NullableDelegate { false }
 
     // The "isEnabled" property can be modified even after [KRibbonSpinnerNumber.toJavaProjection] has
     // been called multiple times. Internally, the setter propagates the new value to the underlying
@@ -96,6 +99,7 @@ class KRibbonSpinnerNumberContentModel() {
                 .setCaption(this.caption)
                 .setEnabled(this.isEnabled)
                 .setValues(this.value, this.minimum, this.maximum, this.stepSize)
+                .setSelectionChangeListener(this.selectionChangeListener)
                 .setRichTooltip(this.richTooltip?.toJavaRichTooltip())
         javaContentModel = javaBuilder.build()
         hasBeenConverted = true
@@ -105,7 +109,7 @@ class KRibbonSpinnerNumberContentModel() {
 }
 
 @FlamingoElementMarker
-class KRibbonSpinnerNumber() {
+class KRibbonSpinnerNumber {
     internal var content: KRibbonSpinnerNumberContentModel = KRibbonSpinnerNumberContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()
 
@@ -159,7 +163,7 @@ fun KRibbonTaskbar.spinnerNumber(init: KRibbonSpinnerNumber.() -> Unit) {
 }
 
 @FlamingoElementMarker
-class KRibbonSpinnerDateContentModel() {
+class KRibbonSpinnerDateContentModel {
     private val builder = RibbonSpinnerDateContentModel.builder()
     internal lateinit var javaContentModel: RibbonSpinnerDateContentModel
     internal var hasBeenConverted: Boolean = false
@@ -172,6 +176,7 @@ class KRibbonSpinnerDateContentModel() {
     var start : Comparable<Date>? by NullableDelegate { false }
     var end : Comparable<Date>? by NullableDelegate { false }
     var calendarField : Int? by NullableDelegate { false }
+    var selectionChangeListener: ((oldSelection: Any?, newSelection: Any?) -> Unit)? by NullableDelegate { false }
 
     // The "isEnabled" property can be modified even after [KRibbonSpinnerNumber.toJavaProjection] has
     // been called multiple times. Internally, the setter propagates the new value to the underlying
@@ -204,6 +209,7 @@ class KRibbonSpinnerDateContentModel() {
                 .setIconFactory(this.iconFactory)
                 .setCaption(this.caption)
                 .setEnabled(this.isEnabled)
+                .setSelectionChangeListener(this.selectionChangeListener)
                 .setRichTooltip(this.richTooltip?.toJavaRichTooltip())
 
         if ((this.value != null) && (this.start != null) && (this.end != null) && (this.calendarField != null)) {
@@ -218,7 +224,7 @@ class KRibbonSpinnerDateContentModel() {
 }
 
 @FlamingoElementMarker
-class KRibbonSpinnerDate() {
+class KRibbonSpinnerDate {
     internal var content: KRibbonSpinnerDateContentModel = KRibbonSpinnerDateContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()
 

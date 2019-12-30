@@ -30,7 +30,6 @@
 package org.pushingpixels.demo.plasma.popup
 
 import org.pushingpixels.ember.setColorizationFactor
-import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.meteor.awt.render
@@ -137,7 +136,7 @@ fun main() {
                     command {
                         title = resourceBundle.getString("ColorSelector.textAutomatic")
                         iconFactory = ColorIcon.factory(defaultPanelColor)
-                        action = CommandAction {
+                        action = {
                             onColorActivatedListener.invoke(defaultPanelColor)
                             JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor)
                         }

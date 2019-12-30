@@ -34,10 +34,36 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentation
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerContentModel;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class JRibbonSpinner extends JSpinner {
     public JRibbonSpinner(Projection<JRibbonSpinner,
             RibbonSpinnerContentModel, ComponentPresentationModel> projection) {
         super(projection.getContentModel());
+
+        RibbonSpinnerContentModel contentModel = projection.getContentModel();
+        if (contentModel.getSelectionChangeListener() != null) {
+            Object initialValue = this.getValue();
+
+            this.addChangeListener(new ChangeListener() {
+                Object prevValue = initialValue;
+
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    Object newValue = getValue();
+                    if (newValue == this.prevValue) {
+                        return;
+                    }
+                    contentModel.getSelectionChangeListener().onSelectionChanged(this.prevValue, newValue);
+                    this.prevValue = newValue;
+                }
+            });
+
+            // Notify the listener on initial selection
+            if (initialValue != null) {
+                contentModel.getSelectionChangeListener().onSelectionChanged(null, initialValue);
+            }
+        }
     }
 }

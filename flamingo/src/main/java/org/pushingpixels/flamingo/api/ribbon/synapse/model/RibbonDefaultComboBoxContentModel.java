@@ -124,7 +124,7 @@ public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E
             return this;
         }
 
-        public Builder<E>  setSelectionChangeListener(ComboBoxSelectionChangeListener selectionChangeListener) {
+        public Builder<E> setSelectionChangeListener(ComboBoxSelectionChangeListener selectionChangeListener) {
             this.selectionChangeListener = selectionChangeListener;
             return this;
         }

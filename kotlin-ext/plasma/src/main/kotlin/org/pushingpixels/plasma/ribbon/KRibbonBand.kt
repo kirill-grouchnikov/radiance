@@ -30,6 +30,7 @@
 package org.pushingpixels.plasma.ribbon
 
 import org.pushingpixels.flamingo.api.common.CommandAction
+import org.pushingpixels.flamingo.api.common.CommandActionEvent
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
@@ -46,7 +47,7 @@ import javax.swing.JComponent
 
 @FlamingoElementMarker
 class KRibbonBandExpandCommand {
-    var action: CommandAction? by NullableDelegate { false }
+    var action: ((event: CommandActionEvent) -> Unit)? by NullableDelegate { false }
     internal var richTooltip: KRichTooltip? by NullableDelegate { false }
     var keyTip: String? by NullableDelegate { false }
 
@@ -189,7 +190,9 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         }
         ribbonBand = JRibbonBand(title, iconFactory)
         if (expandCommand != null) {
-            ribbonBand.expandCommandListener = expandCommand!!.action
+            if (expandCommand!!.action != null) {
+                ribbonBand.expandCommandListener = CommandAction { e -> expandCommand!!.action!!.invoke(e) }
+            }
             ribbonBand.expandButtonKeyTip = expandCommand!!.keyTip
             if (expandCommand!!.richTooltip != null) {
                 ribbonBand.expandButtonRichTooltip = expandCommand!!.richTooltip!!.toJavaRichTooltip()
@@ -283,7 +286,9 @@ class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
         }
         ribbonBand = JFlowRibbonBand(title, iconFactory)
         if (expandCommand != null) {
-            ribbonBand.expandCommandListener = expandCommand!!.action
+            if (expandCommand!!.action != null) {
+                ribbonBand.expandCommandListener = CommandAction { e -> expandCommand!!.action!!.invoke(e) }
+            }
             ribbonBand.expandButtonKeyTip = expandCommand!!.keyTip
             if (expandCommand!!.richTooltip != null) {
                 ribbonBand.expandButtonRichTooltip = expandCommand!!.richTooltip!!.toJavaRichTooltip()

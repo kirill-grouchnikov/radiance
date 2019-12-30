@@ -31,6 +31,8 @@ package org.pushingpixels.plasma.synapse
 
 import org.pushingpixels.flamingo.api.common.model.CommandGroup
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection
+import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
+import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy
 import org.pushingpixels.flamingo.api.ribbon.synapse.JRibbonComboBox
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonComboBoxContentModel
@@ -46,7 +48,7 @@ import org.pushingpixels.plasma.ribbon.KRibbonTaskbar
 import javax.swing.JComponent
 
 @FlamingoElementMarker
-class KRibbonComboBoxContentModel<T>() {
+class KRibbonComboBoxContentModel<T> {
     private val builder = RibbonDefaultComboBoxContentModel.builder<T>()
     internal lateinit var javaContentModel: RibbonDefaultComboBoxContentModel<T>
     internal var hasBeenConverted: Boolean = false
@@ -55,7 +57,8 @@ class KRibbonComboBoxContentModel<T>() {
     internal var items: List<T>? = null
     var iconFactory: ResizableIcon.Factory? by NullableDelegate { false }
     var caption: String? by NullableDelegate { false }
-    var selectionChangeListener: RibbonComboBoxContentModel.ComboBoxSelectionChangeListener? by NullableDelegate { false }
+    var selectionChangeListener: ((oldSelection: Any?, newSelection: Any?) -> Unit)?
+            by NullableDelegate { hasBeenConverted }
 
     // The "isEnabled" property can be modified even after [KRibbonComboBox.toJavaProjection] has
     // been called multiple times. Internally, the setter propagates the new value to the underlying
@@ -105,7 +108,7 @@ class KRibbonComboBoxContentModel<T>() {
 }
 
 @FlamingoElementMarker
-class KRibbonComboBox<T>() {
+class KRibbonComboBox<T> {
     internal var content: KRibbonComboBoxContentModel<T> = KRibbonComboBoxContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()
 

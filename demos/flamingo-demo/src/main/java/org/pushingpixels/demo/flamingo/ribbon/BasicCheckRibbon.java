@@ -1517,17 +1517,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setRichTooltip(RichTooltip.builder()
                         .setTitle(resourceBundle.getString("Fonts.tooltip.title"))
                         .build())
-                .setSelectionChangeListener((oldSelection, newSelection) -> {
-                    System.out.println("New font selection -> " + newSelection);
-                })
+                .setSelectionChangeListener((oldSelection, newSelection) ->
+                        System.out.println("New font selection -> " + newSelection))
                 .build();
 
         this.rulerCheckBoxModel = RibbonCheckBoxContentModel.builder()
                 .setText(resourceBundle.getString("Ruler.text"))
                 .setSelected(true)
                 .setActionListener((ActionEvent ae) ->
-                        System.out.println(
-                                "Ruler selection --> " + rulerCheckBoxModel.isSelected()))
+                        System.out.println("Ruler selection --> " + rulerCheckBoxModel.isSelected()))
                 .build();
 
         this.indentLeftSpinnerModel = RibbonSpinnerNumberContentModel.builder()
@@ -1541,6 +1539,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .addDescriptionSection(resourceBundle.getString(
                                 "IndentLeft.tooltip.actionParagraph2"))
                         .build())
+                .setSelectionChangeListener(((oldSelection, newSelection) ->
+                        System.out.println("New indent left -> " + newSelection)))
                 .build();
     }
 

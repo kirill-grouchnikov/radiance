@@ -119,14 +119,18 @@ open class KCommand {
     // multiple times. Internally, the setter propagates the new value to the underlying
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
-    private var _action: CommandAction? = null
-    var action: CommandAction?
+    private var _action: ((event: CommandActionEvent) -> Unit)? = null
+    var action: ((event: CommandActionEvent) -> Unit)?
         get() = _action
         set(value) {
             _action = value
             builder.setAction(value)
             if (hasBeenConverted) {
-                javaCommand.action = value
+                if (value == null) {
+                    javaCommand.action = null
+                } else {
+                    javaCommand.action = CommandAction { e -> value.invoke(e) }
+                }
             }
         }
 
@@ -482,8 +486,8 @@ class KCommandGroup {
     }
 }
 
-fun DelayedCommandListener(listener: (CommandActionEvent) -> Unit): CommandAction {
-    return CommandAction { event ->
+fun DelayedCommandListener(listener: (CommandActionEvent) -> Unit): (CommandActionEvent) -> Unit {
+    return { event ->
         GlobalScope.launch(Dispatchers.Swing) {
             listener.invoke(event)
         }

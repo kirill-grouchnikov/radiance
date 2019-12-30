@@ -42,6 +42,7 @@ public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
     private ResizableIcon.Factory iconFactory;
     private String caption;
     private RichTooltip richTooltip;
+    private SpinnerSelectionChangeListener selectionChangeListener;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public static Builder builder() {
@@ -86,6 +87,11 @@ public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
     }
 
     @Override
+    public SpinnerSelectionChangeListener getSelectionChangeListener() {
+        return this.selectionChangeListener;
+    }
+
+    @Override
     public RichTooltip getRichTooltip() {
         return this.richTooltip;
     }
@@ -98,6 +104,7 @@ public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
         private int stepSize;
         private ResizableIcon.Factory iconFactory;
         private String caption;
+        private RibbonSpinnerContentModel.SpinnerSelectionChangeListener selectionChangeListener;
         private RichTooltip richTooltip;
 
         public Builder setValues(int value, int minimum, int maximum, int stepSize) {
@@ -123,6 +130,11 @@ public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
             return this;
         }
 
+        public Builder setSelectionChangeListener(SpinnerSelectionChangeListener selectionChangeListener) {
+            this.selectionChangeListener = selectionChangeListener;
+            return this;
+        }
+
         public Builder setRichTooltip(RichTooltip richTooltip) {
             this.richTooltip = richTooltip;
             return this;
@@ -134,6 +146,21 @@ public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
             model.isEnabled = this.isEnabled;
             model.iconFactory = this.iconFactory;
             model.caption = this.caption;
+            if (this.selectionChangeListener != null) {
+                // Wrap the original application-provided selection change listener
+                model.selectionChangeListener = new SpinnerSelectionChangeListener() {
+                    private Object lastSelection = null;
+                    @Override
+                    public void onSelectionChanged(Object oldSelection, Object newSelection) {
+                        if (lastSelection == newSelection) {
+                            // de-dupe changes from multiple comboboxes created from this content model
+                            return;
+                        }
+                        selectionChangeListener.onSelectionChanged(oldSelection, newSelection);
+                        lastSelection = newSelection;
+                    }
+                };
+            }
             model.richTooltip = this.richTooltip;
             return model;
         }

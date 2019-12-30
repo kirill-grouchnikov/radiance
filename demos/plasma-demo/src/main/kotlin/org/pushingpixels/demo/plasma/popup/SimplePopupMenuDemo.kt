@@ -30,7 +30,6 @@
 package org.pushingpixels.demo.plasma.popup
 
 import org.pushingpixels.demo.plasma.svg.*
-import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.plasma.commandButton
 import org.pushingpixels.plasma.commandPopupMenu
@@ -66,23 +65,17 @@ fun main() {
                         command {
                             title = mf.format(arrayOf("1"))
                             iconFactory = Applications_games.factory()
-                            action = CommandAction {
-                                println("First!")
-                            }
+                            action = { println("First!") }
                         }
                         command {
                             title = mf.format(arrayOf("2"))
                             iconFactory = Applications_graphics.factory()
-                            action = CommandAction {
-                                println("Second!")
-                            }
+                            action = { println("Second!") }
                         }
                         command {
                             title = mf.format(arrayOf("3"))
                             iconFactory = Applications_internet.factory()
-                            action = CommandAction {
-                                println("Third!")
-                            }
+                            action = { println("Third!") }
                         }
                     }
 
@@ -90,16 +83,12 @@ fun main() {
                         command {
                             title = mf.format(arrayOf("4"))
                             iconFactory = Applications_multimedia.factory()
-                            action = CommandAction {
-                                println("Fourth!")
-                            }
+                            action = { println("Fourth!") }
                         }
                         command {
                             title = mf.format(arrayOf("5"))
                             iconFactory = Applications_office.factory()
-                            action = CommandAction {
-                                println("Fifth!")
-                            }
+                            action = { println("Fifth!") }
                         }
                     }
                 }
