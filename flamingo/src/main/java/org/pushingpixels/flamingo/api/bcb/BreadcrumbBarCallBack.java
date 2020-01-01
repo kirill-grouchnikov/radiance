@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2019 Flamingo Kirill Grouchnikov
+ * Copyright (c) 2003-2020 Flamingo Kirill Grouchnikov
  * and <a href="http://www.topologi.com">Topologi</a>.
  * Contributed by <b>Rick Jelliffe</b> of <b>Topologi</b>
  * in January 2006.

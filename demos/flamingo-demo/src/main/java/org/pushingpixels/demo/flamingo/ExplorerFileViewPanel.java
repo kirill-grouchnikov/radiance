@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2019 Flamingo Kirill Grouchnikov.
+ * Copyright (c) 2005-2020 Flamingo Kirill Grouchnikov.
  * All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
