@@ -71,13 +71,13 @@ public class GetDecorationType extends JFrame {
 
         JPanel tab1 = new JPanel(new FlowLayout());
         tab1.add(new JTextField("sample"));
-        final JComboBox combo = new JComboBox(new Object[] { "sample" });
+        final JComboBox<String> combo = new JComboBox<>(new String[] { "sample" });
         tab1.add(combo);
         ComponentOrParentChainScope.setDecorationType(tab1, DecorationAreaType.GENERAL);
 
         JPanel tab2 = new JPanel(new FlowLayout());
         tab2.add(new JTextField("sample2"));
-        tab2.add(new JComboBox(new Object[] { "sample2" }));
+        tab2.add(new JComboBox<>(new String[] { "sample2" }));
         ComponentOrParentChainScope.setDecorationType(tab2, DecorationAreaType.GENERAL);
 
         tabs.addTab("tab1", tab1);

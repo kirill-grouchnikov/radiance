@@ -407,7 +407,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 resourceBundle.getString("Applications.textBandTitle"),
                 Applications_other.factory(), new ExpandActionListener());
 
-        applicationsBand.addRibbonComponent(new RibbonComboBoxProjection(
+        applicationsBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
                         .setItems(new String[] {"Tetris", "Minesweeper", "Doom"})
                         .setIconFactory(Applications_games.factory())
@@ -419,7 +419,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setHorizontalAlignment(HorizontalAlignment.FILL)
                         .build()));
 
-        applicationsBand.addRibbonComponent(new RibbonComboBoxProjection(
+        applicationsBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
                         .setItems(new String[] {"Firefox", "Opera", "Konqueror"})
                         .setEnabled(false)
@@ -432,7 +432,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setHorizontalAlignment(HorizontalAlignment.FILL)
                         .build()));
 
-        applicationsBand.addRibbonComponent(new RibbonComboBoxProjection(
+        applicationsBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
                         .setItems(new String[] {
                                 resourceBundle.getString("Pictures.text"),
@@ -567,7 +567,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         clipboardBand.setCollapsedStateKeyTip("ZC");
 
-        CommandButtonProjection pasteCommandProjection = this.pasteCommand.project(
+        CommandButtonProjection<Command> pasteCommandProjection = this.pasteCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setTextClickAction()
                         .setActionKeyTip("Y")
@@ -626,7 +626,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 this.menuClearSelection));
         formatMenuEntries.add(new CommandGroup(this.applyStyles));
 
-        CommandButtonProjection formatCommandProjection = Command.builder()
+        CommandButtonProjection<Command> formatCommandProjection = Command.builder()
                 .setText(resourceBundle.getString("Format.text"))
                 .setIconFactory(Edit_paste.factory())
                 .setSecondaryContentModel(new CommandMenuContentModel(
@@ -925,7 +925,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         alignmentBand.startGroup();
 
-        alignmentBand.addRibbonComponent(new RibbonComboBoxProjection(
+        alignmentBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
                         .setItems(new String[] {resourceBundle.getString("VeryLong.text")})
                         .build(),
@@ -951,7 +951,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setHorizontalAlignment(HorizontalAlignment.TRAILING)
                         .build()));
 
-        alignmentBand.addRibbonComponent(new RibbonComboBoxProjection(
+        alignmentBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
                         .setItems(new String[] {resourceBundle.getString("VeryLong.text")})
                         .build(),
@@ -979,7 +979,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         alignmentBand.startGroup();
 
-        alignmentBand.addRibbonComponent(new RibbonComboBoxProjection(
+        alignmentBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
                         .setItems(new String[] {resourceBundle.getString("Long.text")})
                         .build(),
@@ -1003,7 +1003,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setHorizontalAlignment(HorizontalAlignment.TRAILING)
                         .build()));
 
-        alignmentBand.addRibbonComponent(new RibbonComboBoxProjection(
+        alignmentBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
                         .setItems(new String[] {resourceBundle.getString("Long.text")})
                         .build(),
@@ -1168,7 +1168,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         transitionBand.startGroup();
         transitionBand.addRibbonComponent(
-                new RibbonComboBoxProjection(
+                new RibbonComboBoxProjection<>(
                         RibbonDefaultComboBoxContentModel.<String>builder()
                                 .setItems(new String[] {
                                         "[" + resourceBundle.getString("NoSound.text") + "]     "})
@@ -1176,7 +1176,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 .build(),
                         ComponentPresentationModel.withDefaults()));
         transitionBand.addRibbonComponent(
-                new RibbonComboBoxProjection(
+                new RibbonComboBoxProjection<>(
                         RibbonDefaultComboBoxContentModel.<String>builder()
                                 .setItems(new String[] {
                                         resourceBundle.getString("Medium.text") + "           "})
@@ -1885,7 +1885,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setActionEnabled(false)
                 .build());
 
-        ribbon.addTaskbarComponent(new RibbonComboBoxProjection(this.fontComboBoxModel,
+        ribbon.addTaskbarComponent(new RibbonComboBoxProjection<>(this.fontComboBoxModel,
                 ComponentPresentationModel.withDefaults()));
 
         ribbon.addTaskbarAppMenuLink(this.amFooterProps);
@@ -2349,10 +2349,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
         fontBand.setExpandButtonKeyTip("FN");
         fontBand.setCollapsedStateKeyTip("ZF");
 
-        fontBand.addFlowComponent(new RibbonComboBoxProjection(this.fontComboBoxModel,
+        fontBand.addFlowComponent(new RibbonComboBoxProjection<>(this.fontComboBoxModel,
                 ComponentPresentationModel.builder().setKeyTip("SF").build()));
 
-        fontBand.addFlowComponent(new RibbonComboBoxProjection(
+        fontBand.addFlowComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
                         .setItems(new String[] {"11  "})
                         .build(),

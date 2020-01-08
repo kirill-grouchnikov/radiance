@@ -55,9 +55,10 @@ public class LocaleSwitcher {
     }
 
     public static JComboBox getLocaleSwitcher(final LocaleCallback callback) {
-        Object[] locales = new Object[]{new LocaleInfo(new Locale("en", "US"), "English"),
+        LocaleInfo[] locales = new LocaleInfo[] {
+                new LocaleInfo(new Locale("en", "US"), "English"),
                 new LocaleInfo(new Locale("iw", "IL"), "Hebrew")};
-        final JComboBox result = new JComboBox(locales);
+        final JComboBox<LocaleInfo> result = new JComboBox<>(locales);
         result.setSelectedIndex(0);
         result.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
             LocaleInfo selected = (LocaleInfo) result.getSelectedItem();

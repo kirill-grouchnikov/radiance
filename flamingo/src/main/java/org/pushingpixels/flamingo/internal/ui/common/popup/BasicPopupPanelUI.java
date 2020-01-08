@@ -456,7 +456,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
         void grabWindow(List<PopupPanelManager.PopupInfo> shownPath) {
             final Toolkit tk = Toolkit.getDefaultToolkit();
             java.security.AccessController
-                    .doPrivileged((PrivilegedAction) () -> {
+                    .doPrivileged((PrivilegedAction<Object>) () -> {
                         tk.addAWTEventListener(WindowTracker.this,
                                 AWTEvent.MOUSE_EVENT_MASK
                                         | AWTEvent.MOUSE_MOTION_EVENT_MASK
@@ -466,8 +466,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
                     });
 
             Component invoker = shownPath.get(0).getPopupOriginator();
-            grabbedWindow = invoker instanceof Window ? (Window) invoker
-                    : SwingUtilities.getWindowAncestor(invoker);
+            grabbedWindow = SwingUtilities.getWindowAncestor(invoker);
             if (grabbedWindow != null) {
                 grabbedWindow.addComponentListener(this);
                 grabbedWindow.addWindowListener(this);
@@ -480,10 +479,10 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
         void ungrabWindow() {
             final Toolkit tk = Toolkit.getDefaultToolkit();
             // The grab should be removed
-            java.security.AccessController.doPrivileged((PrivilegedAction) () -> {
-                        tk.removeAWTEventListener(WindowTracker.this);
-                        return null;
-                    });
+            java.security.AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+                tk.removeAWTEventListener(WindowTracker.this);
+                return null;
+            });
             if (grabbedWindow != null) {
                 grabbedWindow.removeComponentListener(this);
                 grabbedWindow.removeWindowListener(this);

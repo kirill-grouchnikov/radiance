@@ -37,6 +37,7 @@ import java.util.HashMap;
  * <br>1.1 2005-04-18 Localized form.
  * <br>1.0  29 March 2005  Created.
  */
+@SuppressWarnings("unchecked")
 public class HTMLChooser extends AbstractColorChooserPanel implements UIResource {
     private HTMLColorSliderModel ccModel = new HTMLColorSliderModel();
     private ChangeListener htmlListener;

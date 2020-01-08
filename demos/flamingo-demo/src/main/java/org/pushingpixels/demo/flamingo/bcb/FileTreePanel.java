@@ -148,9 +148,9 @@ public class FileTreePanel extends JPanel {
         }
 
         @Override
-        public Enumeration children() {
+        public Enumeration<FileTreeNode> children() {
             final int elementCount = this.children.length;
-            return new Enumeration<File>() {
+            return new Enumeration<>() {
                 int count = 0;
 
                 @Override
@@ -159,9 +159,10 @@ public class FileTreePanel extends JPanel {
                 }
 
                 @Override
-                public File nextElement() {
+                public FileTreeNode nextElement() {
                     if (this.count < elementCount) {
-                        return FileTreeNode.this.children[this.count++];
+                        return new FileTreeNode(FileTreeNode.this.children[this.count++], false,
+                                FileTreeNode.this);
                     }
                     throw new NoSuchElementException("Vector Enumeration");
                 }

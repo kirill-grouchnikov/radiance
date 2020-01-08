@@ -70,16 +70,16 @@ public class CellsPanel extends JPanel implements Deferrable {
 
         builderCells.appendSeparator("Lists");
         addControlRow(builderCells, "List", () -> {
-            JList list = new JList(new Object[] {"entry1", "entry2", "entry3"});
+            JList<String> list = new JList<>(new String[] {"entry1", "entry2", "entry3"});
             return list;
         }, null);
         addControlRow(builderCells, "List watermark", () -> {
-            JList list = new JList(new Object[] {"entry1", "entry2", "entry3"});
+            JList<String> list = new JList<>(new String[] {"entry1", "entry2", "entry3"});
             return list;
         }, (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jc,
                 true));
         addControlRow(builderCells, "List disabled", () -> {
-            JList list = new JList(new Object[] {"entry1", "entry2", "entry3"});
+            JList<String> list = new JList<>(new String[] {"entry1", "entry2", "entry3"});
             return list;
         }, new DisableCommand());
 
@@ -131,7 +131,7 @@ public class CellsPanel extends JPanel implements Deferrable {
                 // Traverse children
                 TreeNode node = (TreeNode) parent.getLastPathComponent();
                 if (node.getChildCount() >= 0) {
-                    for (Enumeration e = node.children(); e.hasMoreElements(); ) {
+                    for (Enumeration<?> e = node.children(); e.hasMoreElements(); ) {
                         TreeNode n = (TreeNode) e.nextElement();
                         TreePath path = parent.pathByAddingChild(n);
                         expandAll(tree, path, expand);
@@ -216,22 +216,22 @@ public class CellsPanel extends JPanel implements Deferrable {
 
         JComponent[] row = new JComponent[4];
         row[0] = creationCmd.create();
-        ComponentOrParentChainScope.setDecorationType(((JComponent) row[0]),
+        ComponentOrParentChainScope.setDecorationType((row[0]),
                 DecorationAreaType.NONE);
         row[0].setName(row[0].getName() + ": NONE");
 
         row[1] = creationCmd.create();
-        ComponentOrParentChainScope.setDecorationType(((JComponent) row[1]),
+        ComponentOrParentChainScope.setDecorationType((row[1]),
                 DecorationAreaType.GENERAL);
         row[1].setName(row[1].getName() + ": GENERAL");
 
         row[2] = creationCmd.create();
-        ComponentOrParentChainScope.setDecorationType(((JComponent) row[2]),
+        ComponentOrParentChainScope.setDecorationType((row[2]),
                 DecorationAreaType.HEADER);
         row[2].setName(row[2].getName() + ": HEADER");
 
         row[3] = creationCmd.create();
-        ComponentOrParentChainScope.setDecorationType(((JComponent) row[3]),
+        ComponentOrParentChainScope.setDecorationType((row[3]),
                 DecorationAreaType.FOOTER);
         row[3].setName(row[3].getName() + ": FOOTER");
 

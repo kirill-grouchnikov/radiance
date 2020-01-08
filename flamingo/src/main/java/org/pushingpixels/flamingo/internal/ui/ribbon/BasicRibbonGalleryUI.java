@@ -113,6 +113,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     /**
      * Installs subcomponents on the associated ribbon gallery.
      */
+    @SuppressWarnings("unchecked")
     protected void installComponents() {
         // Gallery scroller commands
         this.scrollUpCommand = Command.builder()

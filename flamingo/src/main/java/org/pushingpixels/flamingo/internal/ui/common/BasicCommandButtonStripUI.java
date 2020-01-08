@@ -191,12 +191,13 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
         }
 
         CommandButtonProjection<Command> commandProjection = command.project(presentation);
-        CommandButtonProjection.ComponentCustomizer componentCustomizer =
+        CommandButtonProjection.ComponentCustomizer<AbstractCommandButton> componentCustomizer =
                 this.buttonStrip.getProjection().getCommandComponentCustomizers().get(command);
         if (componentCustomizer != null) {
             commandProjection.setComponentCustomizer(componentCustomizer);
         }
-        Projection.ComponentSupplier componentSupplier =
+        Projection.ComponentSupplier<AbstractCommandButton, Command,
+                CommandButtonPresentationModel> componentSupplier =
                 this.buttonStrip.getProjection().getCommandComponentSuppliers().get(command);
         if (componentSupplier != null) {
             commandProjection.setComponentSupplier(componentSupplier);

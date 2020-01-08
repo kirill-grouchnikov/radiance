@@ -53,7 +53,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class TreeModelAdapterBreadCrumbTest extends JFrame {
-    private JList fileList;
+    private JList<File> fileList;
 
     private BreadcrumbTreeAdapterSelector<FileTreeNode> bar;
 
@@ -64,7 +64,7 @@ public class TreeModelAdapterBreadCrumbTest extends JFrame {
         FileTreeNode rootTreeNode = new FileTreeNode(roots);
 
         this.bar = new BreadcrumbTreeAdapterSelector<>(new DefaultTreeModel(rootTreeNode),
-                new BreadcrumbTreeAdapterSelector.TreeAdapter<FileTreeNode>() {
+                new BreadcrumbTreeAdapterSelector.TreeAdapter<>() {
                     @Override
                     public String toString(FileTreeNode node) {
                         if (node.file == null)
@@ -97,7 +97,7 @@ public class TreeModelAdapterBreadCrumbTest extends JFrame {
 
                 if (newPath.size() > 0) {
                     SwingWorker<List<StringValuePair<FileTreeNode>>, Void> worker = new
-                            SwingWorker<List<StringValuePair<FileTreeNode>>, Void>() {
+                            SwingWorker<>() {
                                 @Override
                                 protected List<StringValuePair<FileTreeNode>> doInBackground() throws
                                         Exception {
@@ -110,7 +110,7 @@ public class TreeModelAdapterBreadCrumbTest extends JFrame {
                                         FileListModel model = new FileListModel();
                                         List<StringValuePair<FileTreeNode>> leafs = get();
                                         for (StringValuePair<FileTreeNode> leaf : leafs) {
-                                            FileTreeNode node = (FileTreeNode) leaf.getValue();
+                                            FileTreeNode node = leaf.getValue();
                                             model.add(node.file);
                                         }
                                         model.sort();
@@ -127,7 +127,7 @@ public class TreeModelAdapterBreadCrumbTest extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(bar, BorderLayout.NORTH);
 
-        this.fileList = new JList();
+        this.fileList = new JList<>();
         this.fileList.setCellRenderer(new FileListRenderer());
         JScrollPane fileListScrollPane = new JScrollPane(this.fileList);
         fileListScrollPane.setBorder(new TitledBorder("File list"));
@@ -182,9 +182,9 @@ public class TreeModelAdapterBreadCrumbTest extends JFrame {
         }
 
         @Override
-        public Enumeration children() {
+        public Enumeration<FileTreeNode> children() {
             final int elementCount = this.children.length;
-            return new Enumeration<File>() {
+            return new Enumeration<>() {
                 int count = 0;
 
                 @Override
@@ -193,14 +193,13 @@ public class TreeModelAdapterBreadCrumbTest extends JFrame {
                 }
 
                 @Override
-                public File nextElement() {
+                public FileTreeNode nextElement() {
                     if (this.count < elementCount) {
-                        return FileTreeNode.this.children[this.count++];
+                        return new FileTreeNode(FileTreeNode.this.children[this.count++], FileTreeNode.this);
                     }
                     throw new NoSuchElementException("Vector Enumeration");
                 }
             };
-
         }
 
         @Override
@@ -240,7 +239,7 @@ public class TreeModelAdapterBreadCrumbTest extends JFrame {
         }
     }
 
-    public static class FileListModel extends AbstractListModel {
+    public static class FileListModel extends AbstractListModel<File> {
         private ArrayList<File> files = new ArrayList<>();
 
         public void add(File file) {
@@ -258,7 +257,7 @@ public class TreeModelAdapterBreadCrumbTest extends JFrame {
         }
 
         @Override
-        public Object getElementAt(int index) {
+        public File getElementAt(int index) {
             return files.get(index);
         }
 

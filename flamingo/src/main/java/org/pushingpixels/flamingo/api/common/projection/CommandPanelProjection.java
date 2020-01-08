@@ -36,6 +36,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
 public class CommandPanelProjection extends Projection<JCommandButtonPanel,
         CommandPanelContentModel, CommandPanelPresentationModel> {
 
+    @SuppressWarnings("unchecked")
     private static ComponentSupplier<JCommandButtonPanel,
                 CommandPanelContentModel, CommandPanelPresentationModel> DEFAULT_SUPPLIER =
             (Projection<JCommandButtonPanel,

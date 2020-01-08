@@ -59,8 +59,8 @@ public class ComboBoxPopupFlyoutOrientation extends JFrame {
 
         this.setLayout(new BorderLayout());
 
-        final JComboBox cb = new JComboBox(
-                new Object[] { "Ester", "Jordi", "Jordina", "Jorge", "Sergi" });
+        final JComboBox<String> cb = new JComboBox<>(
+                new String[] { "Ester", "Jordi", "Jordina", "Jorge", "Sergi" });
 
         JPanel main = new JPanel(new FlowLayout(FlowLayout.CENTER));
         this.add(main, BorderLayout.CENTER);
@@ -68,8 +68,8 @@ public class ComboBoxPopupFlyoutOrientation extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-        final JComboBox flyoutCombo = new JComboBox(
-                new Object[] { "default", "center", "north", "east", "west", "south" });
+        final JComboBox<String> flyoutCombo = new JComboBox<>(
+                new String[] { "default", "center", "north", "east", "west", "south" });
         flyoutCombo.addActionListener((ActionEvent e) -> {
             Object selected = flyoutCombo.getSelectedItem();
             // set popup flyout orientation based on the selected

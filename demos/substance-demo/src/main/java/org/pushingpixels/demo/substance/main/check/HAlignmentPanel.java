@@ -146,7 +146,7 @@ public class HAlignmentPanel extends ControllablePanel implements Deferrable {
         pf.setFont(font);
         result.add(pf);
 
-        JComboBox ecb = new JComboBox(new Object[] { "sample" }) {
+        JComboBox<String> ecb = new JComboBox<>(new String[] { "sample" }) {
             @Override
             public void updateUI() {
                 super.updateUI();
@@ -160,12 +160,12 @@ public class HAlignmentPanel extends ControllablePanel implements Deferrable {
         result.add(ecb);
 
         JSpinner s = new JSpinner(
-                new SpinnerListModel(new Object[] { "sample0", "sample", "sample2" }));
+                new SpinnerListModel(new String[] { "sample0", "sample", "sample2" }));
         s.getModel().setValue("sample");
         s.setFont(font);
         result.add(s);
 
-        JComboBox cb = new JComboBox(new Object[] { "sample" });
+        JComboBox<String> cb = new JComboBox<>(new String[] { "sample" });
         cb.setFont(font);
         result.add(cb);
 
@@ -185,7 +185,7 @@ public class HAlignmentPanel extends ControllablePanel implements Deferrable {
         return result;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());

@@ -85,17 +85,18 @@ public class LightbeamUtils {
 		return result;
 	}
 
-	public static void collectFromContainer(Container cont,
-			Class<?> componentClass, boolean isStrictMatch,
-			Collection toPopulate) {
+	@SuppressWarnings("unchecked")
+	public static <T extends Component> void collectFromContainer(Container cont,
+			Class<T> componentClass, boolean isStrictMatch,
+			Collection<T> toPopulate) {
 		for (int i = 0; i < cont.getComponentCount(); i++) {
 			Component child = cont.getComponent(i);
 			if (isStrictMatch) {
 				if (componentClass == child.getClass())
-					toPopulate.add(child);
+					toPopulate.add((T) child);
 			} else {
 				if (componentClass.isAssignableFrom(child.getClass()))
-					toPopulate.add(child);
+					toPopulate.add((T) child);
 			}
 			if (child instanceof Container) {
 				collectFromContainer((Container) child, componentClass,

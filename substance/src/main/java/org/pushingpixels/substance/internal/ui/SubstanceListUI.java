@@ -482,7 +482,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
 
     @Override
     protected void paintCell(Graphics g, int row, Rectangle rowBounds,
-            ListCellRenderer cellRenderer, ListModel dataModel, ListSelectionModel selModel,
+            ListCellRenderer<Object> cellRenderer, ListModel<Object> dataModel, ListSelectionModel selModel,
             int leadIndex) {
         Object value = dataModel.getElementAt(row);
         boolean cellHasFocus = list.hasFocus() && (row == leadIndex);

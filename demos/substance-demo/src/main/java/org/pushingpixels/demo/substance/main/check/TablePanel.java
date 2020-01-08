@@ -156,10 +156,10 @@ public class TablePanel extends ControllablePanel implements Deferrable {
                 this.data[i][0] = "cell " + i + ":" + 0;
                 this.data[i][1] = "predef";
                 this.data[i][2] = "predef";
-                this.data[i][3] = Boolean.valueOf(i % 2 == 0);
-                this.data[i][4] = Byte.valueOf((byte) i);
-                this.data[i][5] = Float.valueOf(i);
-                this.data[i][6] = Double.valueOf(i);
+                this.data[i][3] = (i % 2 == 0);
+                this.data[i][4] = (byte) i;
+                this.data[i][5] = (float) i;
+                this.data[i][6] = (double) i;
                 this.data[i][7] = "cell " + i + ":" + 6;
 
                 Calendar cal = Calendar.getInstance();
@@ -225,6 +225,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
     public TablePanel() {
     }
 
+    @SuppressWarnings("unchecked")
     public synchronized void initialize() {
         this.table = new JTable(new MyTableModel(20));
 
@@ -256,11 +257,11 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         final JScrollPane tableScrollpane = new JScrollPane(this.table);
         tableScrollpane.setName("Main table in table panel");
 
-        JComboBox combo = new JComboBox(new Object[] {"aa", "bb", "cc"});
+        JComboBox<String> combo = new JComboBox<>(new String[] {"aa", "bb", "cc"});
         combo.setBorder(null);
         this.table.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(combo));
 
-        JComboBox combo2 = new JComboBox(new Object[] {"aa2", "bb2", "cc2"});
+        JComboBox<String> combo2 = new JComboBox<>(new String[] {"aa2", "bb2", "cc2"});
         combo2.setBorder(null);
         TheComboBoxEditor editor = new TheComboBoxEditor();
         combo2.setEditor(editor);
@@ -343,7 +344,7 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         final JCheckBox toHideOddModelRows = new JCheckBox("Hide odd rows");
         isSorted.addActionListener((ActionEvent e) -> {
             if (isSorted.isSelected()) {
-                table.setRowSorter(new TableRowSorter(table.getModel()));
+                table.setRowSorter(new TableRowSorter<>(table.getModel()));
                 toHideOddModelRows.setEnabled(true);
             } else {
                 table.setRowSorter(null);
@@ -357,16 +358,16 @@ public class TablePanel extends ControllablePanel implements Deferrable {
 
         toHideOddModelRows.setEnabled(false);
         toHideOddModelRows.addActionListener((ActionEvent e) -> {
-            TableRowSorter rowSorter = (TableRowSorter) table.getRowSorter();
+            TableRowSorter<MyTableModel> rowSorter = (TableRowSorter<MyTableModel>) table.getRowSorter();
             if (toHideOddModelRows.isSelected()) {
-                rowSorter.setRowFilter(new RowFilter() {
+                rowSorter.setRowFilter(new RowFilter<>() {
                     @Override
                     public boolean include(Entry entry) {
                         return (((Integer) entry.getIdentifier()) % 2 == 0);
                     }
                 });
             } else {
-                rowSorter.setRowFilter(new RowFilter() {
+                rowSorter.setRowFilter(new RowFilter<>() {
                     @Override
                     public boolean include(Entry entry) {
                         return true;

@@ -175,6 +175,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected AbstractCommandButton createExpandButton() {
         CommandButtonProjection<Command> expandCommandProjection =
                 new CommandButtonProjection<>(this.expandCommand,

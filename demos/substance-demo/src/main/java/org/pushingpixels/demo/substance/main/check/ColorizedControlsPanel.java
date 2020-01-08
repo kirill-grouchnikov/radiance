@@ -385,29 +385,29 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 
         builderOther.appendSeparator("Combo boxes");
         addControlRow(builderOther, "Regular", () -> {
-            JComboBox jcb = new JComboBox(
-                    new Object[] {"Ester", "Jordi", "Jordina", "Jorge", "Sergi"});
+            JComboBox<String> jcb = new JComboBox<>(
+                    new String[] {"Ester", "Jordi", "Jordina", "Jorge", "Sergi"});
             return jcb;
         }, null);
         addControlRow(builderOther, "Flat", () -> {
-            JComboBox jcb = new JComboBox(
-                    new Object[] {"Ester", "Jordi", "Jordina", "Jorge", "Sergi"});
+            JComboBox<String> jcb = new JComboBox<>(
+                    new String[] {"Ester", "Jordi", "Jordina", "Jorge", "Sergi"});
             return jcb;
         }, (JComponent jc) -> SubstanceCortex.ComponentOrParentScope.setFlatBackground(jc, true));
         addControlRow(builderOther, "Disabled", () -> {
-            JComboBox jcb = new JComboBox(
-                    new Object[] {"Ester", "Jordi", "Jordina", "Jorge", "Sergi"});
+            JComboBox<String> jcb = new JComboBox<>(
+                    new String[] {"Ester", "Jordi", "Jordina", "Jorge", "Sergi"});
             return jcb;
         }, new DisableCommand());
         addControlRow(builderOther, "Editable", () -> {
-            JComboBox jcb = new JComboBox(
-                    new Object[] {"Ester", "Jordi", "Jordina", "Jorge", "Sergi"});
+            JComboBox<String> jcb = new JComboBox<>(
+                    new String[] {"Ester", "Jordi", "Jordina", "Jorge", "Sergi"});
             jcb.setEditable(true);
             return jcb;
         }, null);
         addControlRow(builderOther, "Disabled editable", () -> {
-            JComboBox jcb = new JComboBox(
-                    new Object[] {"Ester", "Jordi", "Jordina", "Jorge", "Sergi"});
+            JComboBox<String> jcb = new JComboBox<>(
+                    new String[] {"Ester", "Jordi", "Jordina", "Jorge", "Sergi"});
             jcb.setEditable(true);
             return jcb;
         }, new DisableCommand());
@@ -601,26 +601,26 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 
         builderCells.appendSeparator("Lists");
         addControlRow(builderCells, "List", () -> {
-            JList list = new JList(new Object[] {"entry1", "entry2", "entry3"});
+            JList<String> list = new JList<>(new String[] {"entry1", "entry2", "entry3"});
             return list;
         }, null);
         addControlRow(builderCells, "List watermark", () -> {
-            JList list = new JList(new Object[] {"entry1", "entry2", "entry3"});
+            JList<String> list = new JList<>(new String[] {"entry1", "entry2", "entry3"});
             return list;
         }, (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jc,
                 true));
         addControlRow(builderCells, "List disabled", () -> {
-            JList list = new JList(new Object[] {"entry1", "entry2", "entry3"});
+            JList<String> list = new JList<>(new String[] {"entry1", "entry2", "entry3"});
             return list;
         }, new DisableCommand());
 
         CreationCommand<JComponent> tableCreationCmd = new CreationCommand<>() {
             public JComponent create() {
                 final JTable table = new JTable(
-                        new Object[][] {{"entry11", "entry12", "entry13"},
+                        new String[][] {{"entry11", "entry12", "entry13"},
                                 {"entry21", "entry22", "entry23"},
                                 {"entry31", "entry32", "entry33"}},
-                        new Object[] {"Column1", "Column2", "Column3"});
+                        new String[] {"Column1", "Column2", "Column3"});
                 table.setName("Table ");
                 JScrollPane tableScroll = new JScrollPane(table) {
                     @Override

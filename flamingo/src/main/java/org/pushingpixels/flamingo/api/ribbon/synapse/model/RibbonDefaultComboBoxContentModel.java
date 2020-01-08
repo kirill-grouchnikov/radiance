@@ -136,7 +136,7 @@ public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E
 
         public RibbonDefaultComboBoxContentModel<E> build() {
             RibbonDefaultComboBoxContentModel<E> model =
-                    new RibbonDefaultComboBoxContentModel<E>(this.items);
+                    new RibbonDefaultComboBoxContentModel<>(this.items);
             model.isEnabled = this.isEnabled;
             model.iconFactory = this.iconFactory;
             model.caption = this.caption;

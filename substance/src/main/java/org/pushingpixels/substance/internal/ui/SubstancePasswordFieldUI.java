@@ -83,7 +83,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
      */
     private ButtonModel transitionModel;
 
-    private Set<SubstanceWidget> lafWidgets;
+    private Set<SubstanceWidget<JComponent>> lafWidgets;
 
     /**
      * Custom password view.

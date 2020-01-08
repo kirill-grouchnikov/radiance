@@ -61,8 +61,8 @@ public class CardPanel extends JPanel implements ItemListener {
 	public CardPanel() {
 		// Put the JComboBox in a JPanel to get a nicer look.
 		JPanel comboBoxPane = new JPanel(); // use FlowLayout
-		String comboBoxItems[] = { BUTTONPANEL, TEXTPANEL };
-		JComboBox cb = new JComboBox(comboBoxItems);
+		String[] comboBoxItems = { BUTTONPANEL, TEXTPANEL };
+		JComboBox<String> cb = new JComboBox<>(comboBoxItems);
 		cb.setEditable(false);
 		cb.addItemListener(this);
 		comboBoxPane.add(cb);

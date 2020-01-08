@@ -151,9 +151,8 @@ public class ProgressBarPanel extends JPanel {
 	}
 
 	public void setValue(int value) {
-		List<JProgressBar> bars = new ArrayList<JProgressBar>();
-		LightbeamUtils.collectFromContainer(this, JProgressBar.class, true,
-				bars);
+		List<JProgressBar> bars = new ArrayList<>();
+		LightbeamUtils.collectFromContainer(this, JProgressBar.class, true, bars);
 		for (JProgressBar bar : bars) {
 			bar.setValue(value);
 		}

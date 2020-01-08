@@ -35,9 +35,11 @@ import org.pushingpixels.neon.api.icon.ResizableIcon
 import org.pushingpixels.plasma.FlamingoElementMarker
 import org.pushingpixels.plasma.KRichTooltip
 import org.pushingpixels.plasma.NullableDelegate
-import org.pushingpixels.plasma.ribbon.*
+import org.pushingpixels.plasma.ribbon.KFlowRibbonBand
+import org.pushingpixels.plasma.ribbon.KRibbonBand
+import org.pushingpixels.plasma.ribbon.KRibbonBandGroup
+import org.pushingpixels.plasma.ribbon.KRibbonTaskbar
 import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
 
 @FlamingoElementMarker
 class KRibbonCheckBoxContentModel {

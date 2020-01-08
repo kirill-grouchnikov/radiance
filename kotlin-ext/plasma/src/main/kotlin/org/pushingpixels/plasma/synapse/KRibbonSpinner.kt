@@ -29,8 +29,6 @@
  */
 package org.pushingpixels.plasma.synapse
 
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonComboBoxContentModel
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerDateContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerNumberContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonSpinnerProjection

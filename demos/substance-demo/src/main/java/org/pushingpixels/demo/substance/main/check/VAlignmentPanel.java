@@ -145,11 +145,11 @@ public class VAlignmentPanel extends ControllablePanel implements Deferrable {
         button.setFont(font);
         builder.append(button);
 
-        JComboBox cb = new JComboBox(new Object[] { "sample" });
+        JComboBox<String> cb = new JComboBox<>(new String[] { "sample" });
         cb.setFont(font);
         builder.append(cb);
 
-        JComboBox ecb = new JComboBox(new Object[] { "sample" }) {
+        JComboBox<String> ecb = new JComboBox<>(new String[] { "sample" }) {
             @Override
             public void updateUI() {
                 super.updateUI();
@@ -183,7 +183,7 @@ public class VAlignmentPanel extends ControllablePanel implements Deferrable {
         return result;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());

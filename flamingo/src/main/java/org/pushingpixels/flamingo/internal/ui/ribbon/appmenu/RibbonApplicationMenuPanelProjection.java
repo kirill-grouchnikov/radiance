@@ -43,6 +43,7 @@ public class RibbonApplicationMenuPanelProjection extends AbstractPopupMenuProje
         CommandPopupMenuPresentationModel> {
     private Map<Command, CommandButtonPresentationState> secondaryLevelCommandPresentationState;
 
+    @SuppressWarnings("unchecked")
     private static ComponentSupplier<JRibbonApplicationMenuPopupPanel, RibbonApplicationMenu,
             CommandPopupMenuPresentationModel> DEFAULT_SUPPLIER =
             (Projection<JRibbonApplicationMenuPopupPanel, RibbonApplicationMenu,

@@ -146,7 +146,7 @@ public class KeyFrames<T> {
         int numFrames = keyValues.getSize();
         // If keyTimes null, create our own
         if (keyTimes == null) {
-            float keyTimesArray[] = new float[numFrames];
+            float[] keyTimesArray = new float[numFrames];
             float timeVal = 0.0f;
             keyTimesArray[0] = timeVal;
             for (int i = 1; i < (numFrames - 1); ++i) {
@@ -209,7 +209,7 @@ public class KeyFrames<T> {
      * @param fraction Fraction
      * @return Value for the given fraction elapsed of the animation cycle.
      */
-    public Object getValue(float fraction) {
+    public T getValue(float fraction) {
         // First, figure out the real fraction to use, given the
         // interpolation type and keyTimes
         int interval = getInterval(fraction);

@@ -58,8 +58,8 @@ public class TestCommandButtonsSizing extends JPanel {
             }
         }
 
-        final JList list = new JList(new AbstractListModel() {
-            public Object getElementAt(int index) {
+        final JList<Mapping> list = new JList<>(new AbstractListModel<Mapping>() {
+            public Mapping getElementAt(int index) {
                 return model.get(index);
             }
 

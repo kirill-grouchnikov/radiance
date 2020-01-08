@@ -222,3 +222,15 @@ timeline {
 ```
 
 which makes it easier to see that the same `opacity` property is being animated on three different objects - in a compile-time safe manner that would be flagged much earlier if there is a typo in any of the object / property names.
+
+One more example is how compact the code to fade out and dismiss a top-level `Window` is:
+
+```kotlin
+window.windowTimeline {
+    property(TorchWindow.opacity from 1.0f to 0.0f)
+    onTimelineDone { window.dispose() }
+    duration = timeInMs
+}.play()
+```
+
+Here we're using the synthetic property accessor for interpolating the window opacity from 1.0f (full opacity) to 0.0f (full transparency), combined with calling `Window.dispose()` when the timeline is done.

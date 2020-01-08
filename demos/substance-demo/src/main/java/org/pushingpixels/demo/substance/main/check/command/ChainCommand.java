@@ -48,6 +48,7 @@ public class ChainCommand<T> implements ConfigurationCommand<T> {
 	 * @param commands
 	 *            Command chain.
 	 */
+	@SafeVarargs
 	public ChainCommand(ConfigurationCommand<T>... commands) {
 		super();
 		this.commands = commands;

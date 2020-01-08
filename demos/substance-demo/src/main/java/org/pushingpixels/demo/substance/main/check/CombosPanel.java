@@ -198,29 +198,29 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
 
         builder.appendSeparator("Simple combos");
 
-        JComboBox comboRegular = new JComboBox(
-                new Object[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        JComboBox<String> comboRegular = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
         comboRegular.setToolTipText("This is my combo 1");
         comboRegular.setMaximumRowCount(4);
         builder.append("Regular", comboRegular);
 
-        JComboBox comboDisabled = new JComboBox(new Object[] { "entry1", "entry2", "entry3" });
+        JComboBox<String> comboDisabled = new JComboBox<>(new String[] { "entry1", "entry2", "entry3" });
         comboDisabled.setEnabled(false);
         builder.append(new JLabel("Disabled"), comboDisabled);
 
-        JComboBox comboColored = new JComboBox(new Object[] { "entry31", "entry32", "entry33",
+        JComboBox<String> comboColored = new JComboBox<>(new String[] { "entry31", "entry32", "entry33",
                         "entry34", "entry35", "entry36", "aaa", "abb", "abc" });
         comboColored.setName("Colored combo");
         comboColored.setBackground(new Color(255, 128, 128));
         comboColored.setForeground(new Color(0, 0, 128));
         builder.append("Pink background", comboColored);
 
-        JComboBox comboEditable = new JComboBox(
-                new Object[] { "Ester", "Jordi", "Jordina", "Jorge", "Sergi" });
+        JComboBox<String> comboEditable = new JComboBox<>(
+                new String[] { "Ester", "Jordi", "Jordina", "Jorge", "Sergi" });
         comboEditable.setEditable(true);
         builder.append("Editable", comboEditable);
 
-        JComboBox comboColors = new FlexiComboBox<>(new Color(255, 128, 128),
+        JComboBox<Color> comboColors = new FlexiComboBox<>(new Color(255, 128, 128),
                 new Color(128, 255, 128), new Color(128, 128, 255), new Color(255, 255, 128),
                 new Color(255, 128, 255), new Color(128, 255, 255)) {
             @Override
@@ -236,22 +236,22 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         comboColors.setName("Colors combo");
         builder.append("Colors", comboColors);
 
-        JComboBox comboFlat = new JComboBox(
-                new Object[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        JComboBox<String> comboFlat = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
         SubstanceCortex.ComponentOrParentScope.setFlatBackground(comboFlat, true);
         builder.append("Flat", comboFlat);
 
-        JComboBox comboDefaultCoreRenderer = new JComboBox(
-                new Object[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        JComboBox<String> comboDefaultCoreRenderer = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
         comboDefaultCoreRenderer.setRenderer(new DefaultListCellRenderer());
         builder.append("Default core renderer", comboDefaultCoreRenderer);
 
         builder.appendSeparator("Miscellaneous");
 
-        JComboBox colorCombo = new ColorComboBox();
+        ColorComboBox colorCombo = new ColorComboBox();
         builder.append("Color chooser", colorCombo);
 
-        JComboBox comboHebrew = new JComboBox(new Object[] { "\u05e8\u05d0\u05e9\u05d9 1",
+        JComboBox<String> comboHebrew = new JComboBox<>(new String[] { "\u05e8\u05d0\u05e9\u05d9 1",
                         "\u05e8\u05d0\u05e9\u05d9 2", "\u05e8\u05d0\u05e9\u05d9 3",
                         "\u05e8\u05d0\u05e9\u05d9 4", "\u05e8\u05d0\u05e9\u05d9 5",
                         "\u05e8\u05d0\u05e9\u05d9 6", "\u05e8\u05d0\u05e9\u05d9 7",
@@ -262,7 +262,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         builder.append("RTL (Hebrew)", comboHebrew);
 
         final Icon israelFlag = il.of(16, 16);
-        JComboBox comboHebrewCustomRenderer = new FlexiComboBox<>(
+        JComboBox<String> comboHebrewCustomRenderer = new FlexiComboBox<>(
                 "\u05e8\u05d0\u05e9\u05d9 1", "\u05e8\u05d0\u05e9\u05d9 2",
                 "\u05e8\u05d0\u05e9\u05d9 3", "\u05e8\u05d0\u05e9\u05d9 4",
                 "\u05e8\u05d0\u05e9\u05d9 5", "\u05e8\u05d0\u05e9\u05d9 6",
@@ -283,7 +283,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         comboHebrewCustomRenderer.setMaximumRowCount(6);
         builder.append("RTL (Hebrew) with icon", comboHebrewCustomRenderer);
 
-        JComboBox comboHebrewEditable = new JComboBox(new Object[] { "\u05e8\u05d0\u05e9\u05d9 1",
+        JComboBox<String> comboHebrewEditable = new JComboBox<>(new String[] { "\u05e8\u05d0\u05e9\u05d9 1",
                         "\u05e8\u05d0\u05e9\u05d9 2", "\u05e8\u05d0\u05e9\u05d9 3",
                         "\u05e8\u05d0\u05e9\u05d9 4", "\u05e8\u05d0\u05e9\u05d9 5",
                         "\u05e8\u05d0\u05e9\u05d9 6", "\u05e8\u05d0\u05e9\u05d9 7",
@@ -294,7 +294,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         comboHebrewEditable.setEditable(true);
         builder.append("RTL (Hebrew) editable", comboHebrewEditable);
 
-        final JComboBox combo151 = new JComboBox();
+        final JComboBox<Object> combo151 = new JComboBox<>();
         final ComboBoxTextEditor151 editor = new ComboBoxTextEditor151();
         combo151.setEditor(editor);
         combo151.addItem(new EditableDocument151());
@@ -328,62 +328,62 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
 
         builder.appendSeparator("Popup flyout");
 
-        JComboBox comboFlyoutDefault = new JComboBox(
-                new Object[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        JComboBox<String> comboFlyoutDefault = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
         comboFlyoutDefault.setMaximumRowCount(4);
         builder.append("Default", comboFlyoutDefault);
 
-        JComboBox comboFlyoutNorth = new JComboBox(
-                new Object[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        JComboBox<String> comboFlyoutNorth = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
         comboFlyoutNorth.setMaximumRowCount(4);
         SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(comboFlyoutNorth,
                 SwingConstants.NORTH);
         builder.append("North", comboFlyoutNorth);
 
-        JComboBox comboFlyoutEast = new JComboBox(
-                new Object[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        JComboBox<String> comboFlyoutEast = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
         comboFlyoutEast.setMaximumRowCount(4);
         SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(comboFlyoutEast,
                 SwingConstants.EAST);
         builder.append("East", comboFlyoutEast);
 
-        JComboBox comboFlyoutSouth = new JComboBox(
-                new Object[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        JComboBox<String> comboFlyoutSouth = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
         comboFlyoutSouth.setMaximumRowCount(4);
         SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(comboFlyoutSouth,
                 SwingConstants.SOUTH);
         builder.append("South", comboFlyoutSouth);
 
-        JComboBox comboFlyoutWest = new JComboBox(
-                new Object[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        JComboBox<String> comboFlyoutWest = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
         comboFlyoutWest.setMaximumRowCount(4);
         SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(comboFlyoutWest,
                 SwingConstants.WEST);
         builder.append("West", comboFlyoutWest);
 
-        JComboBox comboFlyoutCenter = new JComboBox(
-                new Object[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        JComboBox<String> comboFlyoutCenter = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
         comboFlyoutCenter.setMaximumRowCount(4);
         SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(comboFlyoutCenter,
                 SwingConstants.CENTER);
         builder.append("Center", comboFlyoutCenter);
 
         builder.appendSeparator("Popup prototype");
-        JComboBox comboProto1 = new JComboBox(new Object[] { "aa", "aaaaa", "aaaaaaaaaa",
+        JComboBox<String> comboProto1 = new JComboBox<>(new String[] { "aa", "aaaaa", "aaaaaaaaaa",
                         "this one is the one", "abcdefghijklmnopqrstuvwxyz" });
         comboProto1.setPrototypeDisplayValue("aaaaa");
         SubstanceCortex.ComponentScope.setComboBoxPrototypeDisplayValue(comboProto1,
                 "this one is the one");
         builder.append("Hard-coded value", comboProto1);
 
-        JComboBox comboProto2 = new JComboBox(new Object[] { "aa", "aaaaa", "aaaaaaaaaa",
+        JComboBox<String> comboProto2 = new JComboBox<>(new String[] { "aa", "aaaaa", "aaaaaaaaaa",
                         "another one (not it)", "abcdefghijklmnopqrstuvwxyz" });
         comboProto2.setPrototypeDisplayValue("aaaaa");
         SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(comboProto2,
-                new WidestComboPopupPrototype());
+                new WidestComboPopupPrototype<>());
         builder.append("Widest core callback", comboProto2);
 
-        JComboBox comboProto3 = new JComboBox(new Object[] { "aa", "aaaaa", "this is not",
+        JComboBox<String> comboProto3 = new JComboBox<>(new String[] { "aa", "aaaaa", "this is not",
                         "this one is not it", "this one is it that is for the popup" });
         comboProto3.setPrototypeDisplayValue("aaaaa");
         SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(comboProto3,
@@ -391,24 +391,24 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         builder.append("Custom callback", comboProto3);
 
         builder.appendSeparator("Empty combos");
-        JComboBox emptyModelCombo = new JComboBox(new String[] {});
+        JComboBox<String> emptyModelCombo = new JComboBox<>(new String[] {});
         builder.append("Empty model", emptyModelCombo);
 
-        JComboBox emptyStringCombo = new JComboBox(new String[] { "" });
+        JComboBox<String> emptyStringCombo = new JComboBox<>(new String[] { "" });
         builder.append("Empty string", emptyStringCombo);
 
-        JComboBox spaceCombo = new JComboBox(new String[] { " " });
+        JComboBox<String> spaceCombo = new JComboBox<>(new String[] { " " });
         builder.append("Space string", spaceCombo);
 
-        JComboBox emptyEditableCombo = new JComboBox(new String[] {});
+        JComboBox<String> emptyEditableCombo = new JComboBox<>(new String[] {});
         emptyEditableCombo.setEditable(true);
         builder.append("Empty model + editable", emptyEditableCombo);
 
-        JComboBox emptyStringEditableCombo = new JComboBox(new String[] { "" });
+        JComboBox<String> emptyStringEditableCombo = new JComboBox<>(new String[] { "" });
         emptyStringEditableCombo.setEditable(true);
         builder.append("Empty string + editable", emptyStringEditableCombo);
 
-        JComboBox spaceEditableCombo = new JComboBox(new String[] { " " });
+        JComboBox<String> spaceEditableCombo = new JComboBox<>(new String[] { " " });
         spaceEditableCombo.setEditable(true);
         builder.append("Space string + editable", spaceEditableCombo);
 
@@ -438,8 +438,8 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
             final JDialog dialog = new JDialog();
             dialog.setTitle("Press ESC key when combo is focused");
             dialog.setLayout(new FlowLayout());
-            JComboBox sampleCombo = new JComboBox(
-                    new Object[] { "Ester", "Jordi", "Jordina", "Jorge", "Sergi" });
+            JComboBox<String> sampleCombo = new JComboBox<>(
+                    new String[] { "Ester", "Jordi", "Jordina", "Jorge", "Sergi" });
             sampleCombo.setEditable(true);
             dialog.add(sampleCombo);
             dialog.add(new JCheckBox("Sample checkbox"));

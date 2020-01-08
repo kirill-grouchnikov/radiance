@@ -53,7 +53,7 @@ public class Alignment extends JFrame {
         JSpinner spinner = new JSpinner(
                 new SpinnerListModel(new Object[] { "test1", "test", "test2" }));
         spinner.setValue("test");
-        JComboBox editableCombo = new JComboBox(new Object[] { "test" }) {
+        JComboBox<String> editableCombo = new JComboBox<>(new String[] { "test" }) {
             @Override
             public void updateUI() {
                 super.updateUI();
@@ -62,7 +62,7 @@ public class Alignment extends JFrame {
         };
         editableCombo.setEditable(true);
         final JButton button = new JButton("test");
-        JComboBox combo = new JComboBox(new Object[] { "test" });
+        JComboBox<String> combo = new JComboBox<>(new String[] { "test" });
 
         JPanel content = new JPanel() {
             @Override
@@ -110,7 +110,7 @@ public class Alignment extends JFrame {
         for (int i = 0; i < lafs.length; i++) {
             lafNames[i] = lafs[i].getName();
         }
-        final JComboBox lafSwitchCombo = new JComboBox(lafNames);
+        final JComboBox<String> lafSwitchCombo = new JComboBox<>(lafNames);
         for (LookAndFeelInfo lafi : lafs) {
             if (UIManager.getLookAndFeel().getName().equals(lafi.getName())) {
                 lafSwitchCombo.setSelectedItem(lafi.getName());

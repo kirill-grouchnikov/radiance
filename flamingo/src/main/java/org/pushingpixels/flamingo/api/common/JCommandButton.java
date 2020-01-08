@@ -344,6 +344,7 @@ public class JCommandButton extends AbstractCommandButton {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public JCommandButton(Projection<AbstractCommandButton, ? extends Command,
             CommandButtonPresentationModel> projection) {
         super(projection);

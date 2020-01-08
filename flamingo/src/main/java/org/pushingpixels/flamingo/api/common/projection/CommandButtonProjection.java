@@ -39,6 +39,7 @@ import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresen
 public class CommandButtonProjection<M extends Command>
         extends Projection<AbstractCommandButton, M, CommandButtonPresentationModel> {
 
+    @SuppressWarnings("unchecked")
     private static <M extends Command>
     ComponentSupplier<AbstractCommandButton, M, CommandButtonPresentationModel> getDefaultSupplier() {
         return (Projection<AbstractCommandButton, M, CommandButtonPresentationModel> projection) -> {
@@ -67,12 +68,14 @@ public class CommandButtonProjection<M extends Command>
         super(command, commandPresentation, componentSupplier);
     }
 
+    @SuppressWarnings("unchecked")
     public CommandButtonProjection<M> reproject(CommandButtonPresentationModel newCommandPresentation) {
-        CommandButtonProjection result = this.getContentModel().project(newCommandPresentation);
+        CommandButtonProjection<M> result =
+                (CommandButtonProjection<M>) this.getContentModel().project(newCommandPresentation);
         result.setComponentSupplier(this.getComponentSupplier());
         result.setComponentCustomizer(this.getComponentCustomizer());
         result.setCommandOverlays(this.getCommandOverlays());
-        return (CommandButtonProjection<M>) result;
+        return result;
     }
 
     public void setPopupMenuCustomizer(

@@ -79,7 +79,7 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
      */
     private Timeline horizontalScrollTimeline;
 
-    private Set<SubstanceWidget> lafWidgets;
+    private Set<SubstanceWidget<JComponent>> lafWidgets;
 
     /**
      * Creates new UI delegate.

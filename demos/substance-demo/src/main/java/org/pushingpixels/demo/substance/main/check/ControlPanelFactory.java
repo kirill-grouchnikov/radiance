@@ -120,8 +120,8 @@ public class ControlPanelFactory {
                         useConstantThemesOnOptionPanes.isSelected())));
         builder.append("Option pane icons", useConstantThemesOnOptionPanes);
 
-        final JComboBox placementCombo = new JComboBox(
-                new Object[] { "top", "bottom", "left", "right" });
+        final JComboBox<String> placementCombo = new JComboBox<>(
+                new String[] { "top", "bottom", "left", "right" });
         placementCombo.addActionListener((ActionEvent e) -> {
             String selected = (String) placementCombo.getSelectedItem();
             if ("top".equals(selected))
@@ -136,7 +136,7 @@ public class ControlPanelFactory {
         builder.append("Placement", placementCombo);
 
         try {
-            final JComboBox overviewKindCombo = new FlexiComboBox<>(
+            final JComboBox<TabOverviewKind> overviewKindCombo = new FlexiComboBox<>(
                     TabOverviewKind.GRID, TabOverviewKind.MENU_CAROUSEL,
                     TabOverviewKind.ROUND_CAROUSEL) {
                 @Override
@@ -151,7 +151,7 @@ public class ControlPanelFactory {
         } catch (NoClassDefFoundError ncdfe) {
         }
 
-        final JComboBox menuGutterFillCombo = new FlexiComboBox<>(
+        final JComboBox<MenuGutterFillKind> menuGutterFillCombo = new FlexiComboBox<>(
                 MenuGutterFillKind.NONE, MenuGutterFillKind.SOFT, MenuGutterFillKind.HARD,
                 MenuGutterFillKind.SOFT_FILL, MenuGutterFillKind.HARD_FILL) {
 
@@ -167,7 +167,7 @@ public class ControlPanelFactory {
                 (MenuGutterFillKind) menuGutterFillCombo.getSelectedItem()));
         builder.append("Menu fill", menuGutterFillCombo);
 
-        final JComboBox focusKindCombo = new FlexiComboBox<>(FocusKind.values()) {
+        final JComboBox<FocusKind> focusKindCombo = new FlexiComboBox<>(FocusKind.values()) {
             @Override
             public String getCaption(FocusKind item) {
                 return item.name();
@@ -344,7 +344,7 @@ public class ControlPanelFactory {
 
         builder.appendSeparator("Button bars");
 
-        final JComboBox buttonBarOrderCombo = new FlexiComboBox<>(ButtonOrder.values()) {
+        final JComboBox<ButtonOrder> buttonBarOrderCombo = new FlexiComboBox<>(ButtonOrder.values()) {
             @Override
             public String getCaption(ButtonOrder item) {
                 return item.name();
@@ -355,7 +355,7 @@ public class ControlPanelFactory {
                 .setButtonBarOrder((ButtonOrder) buttonBarOrderCombo.getSelectedItem()));
         builder.append("Button bar order", buttonBarOrderCombo);
 
-        final JComboBox buttonBarGravityCombo = new FlexiComboBox<>(
+        final JComboBox<HorizontalGravity> buttonBarGravityCombo = new FlexiComboBox<>(
                 HorizontalGravity.values()) {
             @Override
             public String getCaption(HorizontalGravity item) {
@@ -437,8 +437,7 @@ public class ControlPanelFactory {
                             ComponentOrientation.getOrientation(Locale.getDefault()));
                     dialog.add(panel, BorderLayout.CENTER);
                     // dialog.setVisible(true);
-                    String optionChoices[] = new String[] { "entry1", "entry2", "entry3",
-                            "entry4" };
+                    String[] optionChoices = new String[] { "entry1", "entry2", "entry3", "entry4" };
                     JOptionPane.showInputDialog(panel, "Sample Question Message", "Title Goes Here",
                             JOptionPane.QUESTION_MESSAGE, null, optionChoices, "entry1");
                     dialog.dispose();

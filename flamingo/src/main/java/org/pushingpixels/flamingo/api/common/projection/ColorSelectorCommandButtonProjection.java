@@ -36,6 +36,7 @@ import org.pushingpixels.flamingo.internal.ui.common.JColorSelectorCommandButton
 
 public class ColorSelectorCommandButtonProjection extends
         CommandButtonProjection<ColorSelectorCommand> {
+    @SuppressWarnings("unchecked")
     private static ComponentSupplier<AbstractCommandButton, ColorSelectorCommand,
             CommandButtonPresentationModel> DEFAULT_SUPPLIER =
             (Projection<AbstractCommandButton, ColorSelectorCommand,

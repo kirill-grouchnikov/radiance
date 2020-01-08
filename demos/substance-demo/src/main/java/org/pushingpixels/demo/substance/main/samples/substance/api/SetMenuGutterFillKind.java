@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2020 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of the copyright holder nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
@@ -53,10 +53,10 @@ import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.GlobalScope#setMenuGutterFillKind(SetMenuGutterFillKind)} API.
- * 
+ * {@link SubstanceCortex.GlobalScope#setMenuGutterFillKind(MenuGutterFillKind)} API.
+ *
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.GlobalScope#setMenuGutterFillKind(SetMenuGutterFillKind)
+ * @see SubstanceCortex.GlobalScope#setMenuGutterFillKind(MenuGutterFillKind)
  */
 public class SetMenuGutterFillKind extends JFrame {
     /**
@@ -70,12 +70,12 @@ public class SetMenuGutterFillKind extends JFrame {
         // create sample menu bar with one menu and a few menu items
         JMenuBar jmb = new JMenuBar();
         JMenu menu = new JMenu("menu");
-        menu.add(new JMenuItem("test item 1", mx.of(16,  16)));
+        menu.add(new JMenuItem("test item 1", mx.of(16, 16)));
         menu.add(new JMenuItem("test item 2"));
         menu.add(new JMenuItem("test item 3"));
         menu.addSeparator();
         menu.add(new JMenuItem("test menu item 4"));
-        menu.add(new JMenuItem("test menu item 5", se.of(16,  16)));
+        menu.add(new JMenuItem("test menu item 5", se.of(16, 16)));
         menu.add(new JMenuItem("test menu item 6"));
         jmb.add(menu);
 
@@ -83,9 +83,13 @@ public class SetMenuGutterFillKind extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-        final JComboBox menuGutterFillCombo = new JComboBox(new Object[] { MenuGutterFillKind.NONE,
-                        MenuGutterFillKind.SOFT, MenuGutterFillKind.HARD,
-                        MenuGutterFillKind.SOFT_FILL, MenuGutterFillKind.HARD_FILL });
+        final JComboBox<MenuGutterFillKind> menuGutterFillCombo = new JComboBox<>(
+                new MenuGutterFillKind[] {
+                        MenuGutterFillKind.NONE,
+                        MenuGutterFillKind.SOFT,
+                        MenuGutterFillKind.HARD,
+                        MenuGutterFillKind.SOFT_FILL,
+                        MenuGutterFillKind.HARD_FILL});
         menuGutterFillCombo.setRenderer(new SubstanceDefaultComboBoxRenderer(menuGutterFillCombo) {
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
@@ -111,9 +115,8 @@ public class SetMenuGutterFillKind extends JFrame {
 
     /**
      * The main method for <code>this</code> sample. The arguments are ignored.
-     * 
-     * @param args
-     *            Ignored.
+     *
+     * @param args Ignored.
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);

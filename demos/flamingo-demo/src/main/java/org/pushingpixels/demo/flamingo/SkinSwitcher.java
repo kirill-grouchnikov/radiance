@@ -40,7 +40,7 @@ public class SkinSwitcher {
     public static JComboBox getSkinSwitcher(final JFrame frame) {
         Map<String, SkinInfo> skinInfoMap = SubstanceCortex.GlobalScope.getAllSkins();
         String[] skinNames = skinInfoMap.keySet().toArray(new String[0]);
-        final JComboBox result = new JComboBox(skinNames);
+        final JComboBox<String> result = new JComboBox<>(skinNames);
         for (int i = 0; i < skinNames.length; i++) {
             if (skinNames[i].equals(
                     SubstanceCortex.GlobalScope.getCurrentSkin().getDisplayName())) {

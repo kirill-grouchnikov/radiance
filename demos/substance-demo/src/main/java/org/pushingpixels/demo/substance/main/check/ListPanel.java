@@ -67,7 +67,7 @@ public class ListPanel extends ControllablePanel {
      *
      * @author Kirill Grouchnikov
      */
-    private static class MoveableListModel extends AbstractListModel {
+    private static class MoveableListModel extends AbstractListModel<ModelEntry> {
         /**
          * The string list backing up the model.
          */
@@ -85,7 +85,7 @@ public class ListPanel extends ControllablePanel {
         }
 
         @Override
-        public Object getElementAt(int index) {
+        public ModelEntry getElementAt(int index) {
             return model.get(index);
         }
 
@@ -132,7 +132,7 @@ public class ListPanel extends ControllablePanel {
     /**
      * List.
      */
-    private JList list;
+    private JList<ModelEntry> list;
 
     /**
      * Button to move the selected element up.
@@ -162,7 +162,7 @@ public class ListPanel extends ControllablePanel {
     public ListPanel() {
         super();
         setLayout(new BorderLayout());
-        list = new JList(new MoveableListModel(100));
+        list = new JList<>(new MoveableListModel(100));
 
         list.setTransferHandler(new TransferHandler() {
             @Override
@@ -261,12 +261,12 @@ public class ListPanel extends ControllablePanel {
         list.getSelectionModel().addListSelectionListener((ListSelectionEvent e) ->
                 SwingUtilities.invokeLater(this::synchronize));
 
-        final JComboBox selectionModelCb = new JComboBox(
-                new Object[] { "single", "single interval", "multiple interval" });
+        final JComboBox<String> selectionModelCb = new JComboBox<>(
+                new String[] { "single", "single interval", "multiple interval" });
         selectionModelCb.setSelectedIndex(0);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(selectionModelCb,
-                new WidestComboPopupPrototype());
+                new WidestComboPopupPrototype<>());
         selectionModelCb.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
             String selected = (String) selectionModelCb.getSelectedItem();
             if ("single".equals(selected))
@@ -373,19 +373,18 @@ public class ListPanel extends ControllablePanel {
         }
     }
 
-    private class CustomCoreRenderer extends JLabel implements ListCellRenderer {
+    private class CustomCoreRenderer extends JLabel implements ListCellRenderer<ModelEntry> {
         public CustomCoreRenderer() {
             super();
             setOpaque(true);
         }
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value,
+        public Component getListCellRendererComponent(JList list, ModelEntry value,
                 int index, boolean isSelected, boolean cellHasFocus) {
-            ModelEntry entry = (ModelEntry) value;
-            setText(entry.text);
+            setText(value.text);
             if (showIcons) {
-                setIcon(entry.icon);
+                setIcon(value.icon);
             } else {
                 setIcon(null);
             }

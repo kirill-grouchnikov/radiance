@@ -413,40 +413,38 @@ public class Check extends JFrame {
         SubstanceCortex.ComponentOrParentChainScope.setDecorationType(statusBar,
                 DecorationAreaType.FOOTER);
 
-        JComboBox<SkinInfo> skinSelector = new SubstanceSkinSelector();
+        SubstanceSkinSelector skinSelector = new SubstanceSkinSelector();
         SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(skinSelector,
                 SwingUtilities.NORTH);
         SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(skinSelector,
-                new WidestComboPopupPrototype());
+                new WidestComboPopupPrototype<SkinInfo>());
         skinSelector.setToolTipText("Substance skin");
         statusBar.add(skinSelector);
 
-        JComboBox<SubstanceLocaleSelector.LocaleInfo> localeSelector =
-                new SubstanceLocaleSelector(this);
+        SubstanceLocaleSelector localeSelector = new SubstanceLocaleSelector(this);
         SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(localeSelector,
                 SwingUtilities.NORTH);
         SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(localeSelector,
-                new WidestComboPopupPrototype());
+                new WidestComboPopupPrototype<SubstanceLocaleSelector.LocaleInfo>());
         localeSelector.setToolTipText("Application locale");
         statusBar.add(localeSelector);
 
         try {
-            JComboBox<SubstanceFontSelector.FontInfo> fontSelector = new SubstanceFontSelector();
+            SubstanceFontSelector fontSelector = new SubstanceFontSelector();
             SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(fontSelector,
                     SwingUtilities.NORTH);
             SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(fontSelector,
-                    new WidestComboPopupPrototype());
+                    new WidestComboPopupPrototype<SubstanceFontSelector.FontInfo>());
             fontSelector.setToolTipText("Substance font set");
             statusBar.add(fontSelector);
         } catch (Throwable t) {
         }
 
-        JComboBox<SubstanceTitlePaneGravitySelector.TitlePaneConfiguration> titlePaneGravitySelector =
-                new SubstanceTitlePaneGravitySelector();
+        SubstanceTitlePaneGravitySelector titlePaneGravitySelector = new SubstanceTitlePaneGravitySelector();
         SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(titlePaneGravitySelector,
                 SwingUtilities.NORTH);
         SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(titlePaneGravitySelector,
-                new WidestComboPopupPrototype());
+                new WidestComboPopupPrototype<SubstanceTitlePaneGravitySelector.TitlePaneConfiguration>());
         titlePaneGravitySelector.setToolTipText("Application title pane gravity");
         statusBar.add(titlePaneGravitySelector);
 

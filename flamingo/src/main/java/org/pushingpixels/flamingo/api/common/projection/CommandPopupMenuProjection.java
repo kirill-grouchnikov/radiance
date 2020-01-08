@@ -36,6 +36,7 @@ import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresent
 public class CommandPopupMenuProjection extends AbstractPopupMenuProjection<
         JCommandPopupMenu, CommandMenuContentModel, CommandPopupMenuPresentationModel> {
 
+    @SuppressWarnings("unchecked")
     private static ComponentSupplier<JCommandPopupMenu, CommandMenuContentModel,
                 CommandPopupMenuPresentationModel> DEFAULT_SUPPLIER =
             (Projection<JCommandPopupMenu, CommandMenuContentModel,

@@ -43,8 +43,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SizesPanel extends JPanel {
-    private static interface Creator {
-        public JComponent create(int fontSize);
+    private interface Creator {
+        JComponent create(int fontSize);
     }
 
     private static class Mapping {
@@ -92,12 +92,12 @@ public class SizesPanel extends JPanel {
             return result;
         }));
         this.model.add(new Mapping("combo boxes", fontSize -> {
-            JComboBox result = new JComboBox(new Object[] { "size " + fontSize });
+            JComboBox<String> result = new JComboBox<>(new String[] { "size " + fontSize });
             result.setFont(baseFinal.deriveFont((float) fontSize));
             return result;
         }));
         this.model.add(new Mapping("editable combo boxes", fontSize -> {
-            JComboBox result = new JComboBox(new Object[] { "size " + fontSize });
+            JComboBox<String> result = new JComboBox<>(new String[] { "size " + fontSize });
             result.setEditable(true);
             result.setFont(baseFinal.deriveFont((float) fontSize));
             return result;
@@ -192,7 +192,7 @@ public class SizesPanel extends JPanel {
             return result;
         }));
         this.model.add(new Mapping("lists", fontSize -> {
-            JList result = new JList(new Object[] { "item1", "item2" });
+            JList<String> result = new JList<>(new String[] { "item1", "item2" });
             result.setFont(baseFinal.deriveFont((float) fontSize));
             return result;
         }));
@@ -228,8 +228,8 @@ public class SizesPanel extends JPanel {
             return result;
         }));
 
-        final JList list = new JList(new AbstractListModel() {
-            public Object getElementAt(int index) {
+        final JList<Mapping> list = new JList<>(new AbstractListModel<Mapping>() {
+            public Mapping getElementAt(int index) {
                 return model.get(index);
             }
 
@@ -260,7 +260,7 @@ public class SizesPanel extends JPanel {
 
                     int selIndex = list.getSelectedIndex();
                     if (selIndex >= 0) {
-                        Mapping sel = (Mapping) list.getSelectedValue();
+                        Mapping sel = list.getSelectedValue();
                         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
                                 "right:pref, 4dlu, left:pref:grow", 2, 16).border(Paddings.DIALOG);
                         for (int fontSize = 11; fontSize < 25; fontSize++) {

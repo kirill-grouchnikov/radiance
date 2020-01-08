@@ -117,7 +117,7 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
                     try {
                         String className = "org.pushingpixels.demo.substance.main.check.svg.filetypes.ext_"
                                 + ext;
-                        Class transcodedClass = Class.forName(className);
+                        Class<?> transcodedClass = Class.forName(className);
                         if (transcodedClass != null) {
                             Method of = transcodedClass.getDeclaredMethod("of", int.class, int.class);
                             icon = (ResizableIcon) of.invoke(null, 16, 16);
@@ -262,9 +262,9 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
         }
 
         @Override
-        public Enumeration children() {
+        public Enumeration<FileTreeNode> children() {
             final int elementCount = this.children.size();
-            return new Enumeration<File>() {
+            return new Enumeration<>() {
                 int count = 0;
 
                 @Override
@@ -273,9 +273,9 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
                 }
 
                 @Override
-                public File nextElement() {
+                public FileTreeNode nextElement() {
                     if (count < elementCount) {
-                        return children.get(count++);
+                        return new FileTreeNode(children.get(count++), false, FileTreeNode.this);
                     }
                     throw new NoSuchElementException("Vector Enumeration");
                 }

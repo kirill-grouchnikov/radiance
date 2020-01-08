@@ -41,14 +41,15 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
-public class WidestComboPopupPrototype implements ComboPopupPrototypeCallback {
+public class WidestComboPopupPrototype<T> implements ComboPopupPrototypeCallback<T> {
+	@SuppressWarnings("unchecked")
     @Override
-	public Object getPopupPrototypeDisplayValue(JComboBox jc) {
+	public T getPopupPrototypeDisplayValue(JComboBox<T> jc) {
 		int maxWidth = -1;
-		Object prototype = null;
-		JList list = ((SubstanceComboBoxUI) jc.getUI()).getPopup().getList();
+		T prototype = null;
+		JList<T> list = (JList<T>) ((SubstanceComboBoxUI) jc.getUI()).getPopup().getList();
 		for (int i = 0; i < jc.getModel().getSize(); i++) {
-			Object elem = jc.getModel().getElementAt(i);
+			T elem = jc.getModel().getElementAt(i);
 			Component renderer = jc.getRenderer().getListCellRendererComponent(
 					list, elem, i, false, false);
 			if (renderer != null) {

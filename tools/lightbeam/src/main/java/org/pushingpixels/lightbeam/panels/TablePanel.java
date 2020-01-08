@@ -129,16 +129,16 @@ public class TablePanel extends JPanel {
 		 */
 		public MyTableModel(int rows) {
 			this.rows = rows;
-			this.data = new ArrayList<Object[]>();
+			this.data = new ArrayList<>();
 			for (int i = 0; i < rows; i++) {
 				Object[] row = new Object[this.cols];
 				this.data.add(row);
 				row[0] = "cell " + i + ":" + 0;
 				row[1] = "predef";
-				row[2] = Boolean.valueOf(i % 2 == 0);
-				row[3] = Byte.valueOf((byte) i);
-				row[4] = Float.valueOf(i);
-				row[5] = Double.valueOf(i);
+				row[2] = (i % 2 == 0);
+				row[3] = (byte) i;
+				row[4] = (float) i;
+				row[5] = (double) i;
 				row[6] = "cell " + i + ":" + 6;
 				Calendar cal = Calendar.getInstance();
 				cal.set(2000 + i, 1 + i, 1 + i);
@@ -207,21 +207,10 @@ public class TablePanel extends JPanel {
 		this.table.setDefaultRenderer(Color.class, new MyColorTableRenderer());
 		this.table.setDefaultRenderer(Float.class, new MyFloatTableRenderer());
 
-		// this.table.setDefaultRenderer(Object.class, new NullTableRenderer());
-		// this.table.setDefaultRenderer(Icon.class, new NullTableRenderer());
-		// this.table.setDefaultRenderer(ImageIcon.class, new NullTableRenderer(
-		// ));
-		// this.table.setDefaultRenderer(Number.class, new NullTableRenderer());
-		// this.table.setDefaultRenderer(Float.class, new NullTableRenderer());
-		// this.table.setDefaultRenderer(Double.class, new NullTableRenderer());
-		// this.table.setDefaultRenderer(Date.class, new NullTableRenderer());
-		// this.table.setDefaultRenderer(Boolean.class, new NullTableRenderer())
-		// ;
-
 		JScrollPane tableScrollpane = new JScrollPane(this.table);
 		tableScrollpane.setName("Main table in table panel");
 
-		JComboBox combo = new JComboBox(new Object[] { "aa", "bb", "cc" });
+		JComboBox<String> combo = new JComboBox<>(new String[] { "aa", "bb", "cc" });
 		combo.setBorder(null);
 		this.table.getColumnModel().getColumn(1).setCellEditor(
 				new DefaultCellEditor(combo));

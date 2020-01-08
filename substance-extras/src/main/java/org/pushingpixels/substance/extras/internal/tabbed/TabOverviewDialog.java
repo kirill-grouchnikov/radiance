@@ -374,36 +374,31 @@ public class TabOverviewDialog extends JDialog {
          *
          * @author Kirill Grouchnikov
          */
-        protected class MenuCarouselListCellRenderer extends JLabel implements ListCellRenderer {
+        protected class MenuCarouselListCellRenderer extends JLabel implements ListCellRenderer<JCarouselMenu.MenuItem> {
             /**
              * The cell renderer from the currently installed LAF.
              */
-            protected ListCellRenderer lafDefaultCellRenderer;
+            protected ListCellRenderer<Object> lafDefaultCellRenderer;
 
             /**
              * Creates the cell renderer for the carosel menu.
              *
              * @param lafDefaultCellRenderer The cell renderer from the currently installed LAF.
              */
-            public MenuCarouselListCellRenderer(ListCellRenderer lafDefaultCellRenderer) {
+            public MenuCarouselListCellRenderer(ListCellRenderer<Object> lafDefaultCellRenderer) {
                 this.lafDefaultCellRenderer = lafDefaultCellRenderer;
-                // if (lafDefaultCellRenderer instanceof Component) {
-                // JComponent jc = (JComponent) lafDefaultCellRenderer;
-                // jc.setBorder(new EmptyBorder(5, 5, 5, 5));
-                // jc.setFont(super.getFont().deriveFont(Font.BOLD, 14.0f));
-                // }
             }
 
             /**
              * Sets up the component for stamping
              */
-            public Component getListCellRendererComponent(JList jList, Object object, int i,
-                    boolean isSelected, boolean cellHasFocus) {
-                JCarouselMenu.MenuItem item = (JCarouselMenu.MenuItem) object;
-                Component result = this.lafDefaultCellRenderer.getListCellRendererComponent(jList,
-                        item.getLabel(), i, isSelected, cellHasFocus);
+            @Override
+            public Component getListCellRendererComponent(JList<? extends JCarouselMenu.MenuItem> list,
+                    JCarouselMenu.MenuItem value, int index, boolean isSelected, boolean cellHasFocus) {
+                Component result = this.lafDefaultCellRenderer.getListCellRendererComponent(list,
+                        value.getLabel(), index, isSelected, cellHasFocus);
 
-                if (result instanceof Component) {
+                if (result instanceof JComponent) {
                     JComponent jc = (JComponent) result;
                     jc.setBorder(new EmptyBorder(5, 5, 5, 5));
                     jc.setFont(super.getFont().deriveFont(Font.BOLD, 14.0f));
@@ -513,8 +508,8 @@ public class TabOverviewDialog extends JDialog {
                     };
 
             this.caroselMenu = new JCarouselMenu(null);
-            JList dummyList = new JList();
-            ListCellRenderer lcr = dummyList.getCellRenderer();
+            JList<Object> dummyList = new JList<>();
+            ListCellRenderer<Object> lcr = dummyList.getCellRenderer();
             this.caroselMenu.setCellRenderer(new MenuCarouselListCellRenderer(lcr));
             this.caroselMenu.setMenuScrollColor(UIManager.getColor("Panel.background"));
             this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
@@ -546,8 +541,8 @@ public class TabOverviewDialog extends JDialog {
         public void updateUI() {
             super.updateUI();
             if (this.caroselMenu != null) {
-                JList dummyList = new JList();
-                ListCellRenderer lcr = dummyList.getCellRenderer();
+                JList<Object> dummyList = new JList<>();
+                ListCellRenderer<Object> lcr = dummyList.getCellRenderer();
                 this.caroselMenu.setCellRenderer(new MenuCarouselListCellRenderer(lcr));
                 this.caroselMenu.setMenuScrollColor(UIManager.getColor("Panel.background"));
                 this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
@@ -984,7 +979,7 @@ public class TabOverviewDialog extends JDialog {
                 ? MessageFormat.format(
                 TabPreviewUtilities.getLabelBundle()
                         .getString("TabbedPane.overviewDialogTitleRefresh"),
-                new Object[] { Integer.valueOf(previewPainter.getUpdateCycle(tabPane) / 1000) })
+                new Object[] {Integer.valueOf(previewPainter.getUpdateCycle(tabPane) / 1000)})
                 : TabPreviewUtilities.getLabelBundle().getString("TabbedPane.overviewDialogTitle");
         JFrame frameForModality = previewPainter.getModalOwner(tabPane);
         boolean isModal = (frameForModality != null);

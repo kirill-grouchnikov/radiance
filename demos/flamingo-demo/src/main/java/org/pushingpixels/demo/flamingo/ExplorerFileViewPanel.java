@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2005-2020 Flamingo Kirill Grouchnikov.
- * All Rights Reserved.
+ * Copyright (c) 2005-2020 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -133,7 +132,7 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
             try {
                 String className = "org.pushingpixels.demo.flamingo.svg.filetypes.transcoded.ext_"
                         + ext;
-                Class transcodedClass = Class.forName(className);
+                Class<?> transcodedClass = Class.forName(className);
                 if (transcodedClass != null) {
                     Method of = transcodedClass.getDeclaredMethod("of", int.class, int.class);
                     icon = (ResizableIcon) of.invoke(null, prefSize, prefSize);

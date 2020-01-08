@@ -50,7 +50,7 @@ public class ListPanel extends JPanel {
 	 * 
 	 * @author Kirill Grouchnikov
 	 */
-	private static class MoveableListModel extends AbstractListModel {
+	private static class MoveableListModel extends AbstractListModel<String> {
 		/**
 		 * The string list backing up the model.
 		 */
@@ -71,7 +71,7 @@ public class ListPanel extends JPanel {
 		}
 
 		@Override
-		public Object getElementAt(int index) {
+		public String getElementAt(int index) {
 			return model.get(index);
 		}
 
@@ -106,7 +106,7 @@ public class ListPanel extends JPanel {
 	public ListPanel() {
 		super();
 		setLayout(new BorderLayout());
-		list = new JList(new MoveableListModel(1000));
+		list = new JList<>(new MoveableListModel(1000));
 
 		final JScrollPane jsp = new JScrollPane(list);
 		this.add(jsp, BorderLayout.CENTER);

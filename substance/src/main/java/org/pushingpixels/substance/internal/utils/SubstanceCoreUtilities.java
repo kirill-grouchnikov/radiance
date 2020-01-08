@@ -67,7 +67,7 @@ import java.util.*;
 
 /**
  * Various utility functions. This class is <b>for internal use only</b>.
- * 
+ *
  * @author Kirill Grouchnikov
  * @author Romain Guy
  */
@@ -81,7 +81,7 @@ public class SubstanceCoreUtilities {
 
     public static final String TEXT_COMPONENT_AWARE = "substancelaf.internal.textComponentAware";
 
-    public interface TextComponentAware<T> {
+    public interface TextComponentAware<T extends JComponent> {
         JTextComponent getTextComponent(T t);
     }
 
@@ -96,16 +96,13 @@ public class SubstanceCoreUtilities {
      * clipped string, which contains the beginning and the end of the input string separated by
      * ellipses (...) in case the string is too long to fit into the specified width, and the
      * original string otherwise.
-     * 
-     * @param metrics
-     *            Font metrics.
-     * @param availableWidth
-     *            Available width in pixels.
-     * @param fullText
-     *            String to clip.
+     *
+     * @param metrics        Font metrics.
+     * @param availableWidth Available width in pixels.
+     * @param fullText       String to clip.
      * @return The clipped string, which contains the beginning and the end of the input string
-     *         separated by ellipses (...) in case the string is too long to fit into the specified
-     *         width, and the original string otherwise.
+     * separated by ellipses (...) in case the string is too long to fit into the specified
+     * width, and the original string otherwise.
      */
     public static String clipString(FontMetrics metrics, int availableWidth, String fullText) {
 
@@ -145,11 +142,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks whether the specified button has associated icon.
-     * 
-     * @param button
-     *            Button.
+     *
+     * @param button Button.
      * @return If the button has associated icon, <code>true</code> is returned, otherwise
-     *         <code>false</code>.
+     * <code>false</code>.
      */
     public static boolean hasIcon(AbstractButton button) {
         return (button.getIcon() != null);
@@ -157,11 +153,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks whether the specified button has associated text.
-     * 
-     * @param button
-     *            Button.
+     *
+     * @param button Button.
      * @return If the button has associated text, <code>true</code> is returned, otherwise
-     *         <code>false</code>.
+     * <code>false</code>.
      */
     public static boolean hasText(AbstractButton button) {
         String text = button.getText();
@@ -173,9 +168,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks and answers if the specified button is in a combo box.
-     * 
-     * @param button
-     *            the button to check
+     *
+     * @param button the button to check
      * @return <code>true</code> if in combo box, <code>false</code> otherwise
      */
     public static boolean isComboBoxButton(AbstractButton button) {
@@ -184,9 +178,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks and answers if the specified button is in a scroll bar.
-     * 
-     * @param button
-     *            the button to check
+     *
+     * @param button the button to check
      * @return <code>true</code> if in scroll bar, <code>false</code> otherwise
      */
     public static boolean isScrollBarButton(AbstractButton button) {
@@ -195,9 +188,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks and answers if the specified button is in a spinner.
-     * 
-     * @param button
-     *            the button to check
+     *
+     * @param button the button to check
      * @return <code>true</code> if in spinner, <code>false</code> otherwise
      */
     public static boolean isSpinnerButton(AbstractButton button) {
@@ -209,9 +201,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks and answers if the specified button is in a toolbar.
-     * 
-     * @param component
-     *            the button to check
+     *
+     * @param component the button to check
      * @return <code>true</code> if in toolbar, <code>false</code> otherwise
      */
     public static boolean isToolBarButton(JComponent component) {
@@ -224,11 +215,10 @@ public class SubstanceCoreUtilities {
     /**
      * Checks answers if the specified component is a button in a scroll control, such as scroll bar
      * or tabbed pane (as tab scroller).
-     * 
-     * @param comp
-     *            The component to check
+     *
+     * @param comp The component to check
      * @return <code>true</code> if the specified component is a button in a scroll control,
-     *         <code>false</code> otherwise
+     * <code>false</code> otherwise
      */
     public static boolean isScrollButton(JComponent comp) {
         return (comp instanceof SubstanceScrollButton);
@@ -236,11 +226,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks whether the specified button never paints its background.
-     * 
-     * @param button
-     *            Button.
+     *
+     * @param button Button.
      * @return <code>true</code> if the specified button never paints its background,
-     *         <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      * @see SubstanceCortex.GlobalScope#setButtonNeverPaintBackground(Boolean)
      */
     public static boolean isButtonNeverPainted(JComponent button) {
@@ -284,9 +273,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the focus ring kind of the specified component.
-     * 
-     * @param component
-     *            Component.
+     *
+     * @param component Component.
      * @return The focus ring kind of the specified component.
      */
     public static FocusKind getFocusKind(Component component) {
@@ -309,11 +297,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns indication whether the watermark should be drawn on the specified component.
-     * 
-     * @param component
-     *            Component.
+     *
+     * @param component Component.
      * @return <code>true</code> if the watermark should be drawn on the specified component,
-     *         <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      * @see SubstanceCortex.GlobalScope#setWatermarkVisible(Boolean)
      */
     public static boolean toDrawWatermark(Component component) {
@@ -355,9 +342,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the button shaper of the specified button.
-     * 
-     * @param comp
-     *            The button.
+     *
+     * @param comp The button.
      * @return The button shaper of the specified button.
      * @see SubstanceCortex.ComponentScope#setButtonShaper(JComponent, SubstanceButtonShaper)
      * @see SubstanceSkin#getButtonShaper()
@@ -376,9 +362,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the fill painter of the specified component.
-     * 
-     * @param comp
-     *            Component.
+     *
+     * @param comp Component.
      * @return The fill painter of the specified component.
      * @see SubstanceSkin#getFillPainter()
      */
@@ -388,11 +373,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Retrieves the <code>modified</code> state for the specified component in a tabbed pane.
-     * 
-     * @param tabComponent
-     *            The associated tab component.
+     *
+     * @param tabComponent The associated tab component.
      * @return <code>true</code> if the specified component in a tabbed pane is marked as modified,
-     *         <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      * @see SubstanceCortex.ComponentScope#setTabContentsModified(JComponent, Boolean)
      */
     public static boolean isTabModified(Component tabComponent) {
@@ -405,11 +389,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Retrieves the <code>modified</code> state for the specified root pane.
-     * 
-     * @param rootPane
-     *            The root pane.
+     *
+     * @param rootPane The root pane.
      * @return <code>true</code> if the specified root pane is marked as modified,
-     *         <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      * @see SubstanceCortex.RootPaneScope#setContentsModified(JRootPane, Boolean)
      */
     public static boolean isRootPaneModified(JRootPane rootPane) {
@@ -418,13 +401,11 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks whether the specified tab has a close button.
-     * 
-     * @param tabbedPane
-     *            Tabbed pane.
-     * @param tabIndex
-     *            Tab index.
+     *
+     * @param tabbedPane Tabbed pane.
+     * @param tabIndex   Tab index.
      * @return <code>true</code> if the specified tab has a close button, <code>false</code>
-     *         otherwise.
+     * otherwise.
      */
     public static boolean hasCloseButton(JTabbedPane tabbedPane, int tabIndex) {
         int tabCount = tabbedPane.getTabCount();
@@ -457,11 +438,9 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the size of the close button for a tab in the specified tabbed pane.
-     * 
-     * @param tabbedPane
-     *            Tabbed pane.
-     * @param tabIndex
-     *            Tab index.
+     *
+     * @param tabbedPane Tabbed pane.
+     * @param tabIndex   Tab index.
      * @return The size of the close button for a tab in the specified tabbed pane.
      */
     public static int getCloseButtonSize(JTabbedPane tabbedPane, int tabIndex) {
@@ -473,9 +452,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the content border kind of the specified tabbed pane.
-     * 
-     * @param tabbedPane
-     *            Tabbed pane.
+     *
+     * @param tabbedPane Tabbed pane.
      * @return Content border kind of the specified tabbed pane.
      * @see SubstanceCortex.GlobalScope#setTabContentPaneBorderKind(TabContentPaneBorderKind)
      * @see SubstanceCortex.ComponentScope#setTabContentPaneBorderKind(JTabbedPane, TabContentPaneBorderKind)
@@ -495,13 +473,11 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks whether the specified tab should show modified animation only on its close button.
-     * 
-     * @param tabbedPane
-     *            Tabbed pane.
-     * @param tabIndex
-     *            Tab index.
+     *
+     * @param tabbedPane Tabbed pane.
+     * @param tabIndex   Tab index.
      * @return <code>true</code> if the specified tab should show modified animation only on its
-     *         close button, <code>false</code> otherwise.
+     * close button, <code>false</code> otherwise.
      */
     public static boolean toAnimateCloseIconOfModifiedTab(JTabbedPane tabbedPane, int tabIndex) {
         int tabCount = tabbedPane.getTabCount();
@@ -534,11 +510,9 @@ public class SubstanceCoreUtilities {
 
     /**
      * Retrieves transparent image of specified dimension.
-     * 
-     * @param width
-     *            Image width.
-     * @param height
-     *            Image height.
+     *
+     * @param width  Image width.
+     * @param height Image height.
      * @return Transparent image of specified dimension.
      */
     public static BufferedImage getBlankImage(int width, int height) {
@@ -565,11 +539,9 @@ public class SubstanceCoreUtilities {
 
     /**
      * Retrieves transparent image of specified dimension.
-     * 
-     * @param width
-     *            Image width.
-     * @param height
-     *            Image height.
+     *
+     * @param width  Image width.
+     * @param height Image height.
      * @return Transparent image of specified dimension.
      */
     public static BufferedImage getBlankUnscaledImage(int width, int height) {
@@ -596,7 +568,7 @@ public class SubstanceCoreUtilities {
 
     /**
      * Retrieves transparent image of specified dimension.
-     * 
+     *
      * @return Transparent image of specified dimension.
      */
     public static BufferedImage getBlankUnscaledImage(BufferedImage image) {
@@ -626,11 +598,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks whether the specified button should have minimal size.
-     * 
-     * @param button
-     *            Button.
+     *
+     * @param button Button.
      * @return <code>false</code> if the specified button should have minimal size,
-     *         <code>true</code> otherwise.
+     * <code>true</code> otherwise.
      * @see SubstanceCortex.ComponentOrParentScope#setButtonIgnoreMinimumSize(JComponent, Boolean)
      * @see SubstanceCortex.GlobalScope#setButtonIgnoreMinimumSize(Boolean)
      */
@@ -655,9 +626,8 @@ public class SubstanceCoreUtilities {
     /**
      * Marks the specified button as <code>flat</code>. A flat button doesn't show its background
      * unless selected, armed, pressed or (possibly) hovered over.
-     * 
-     * @param button
-     *            Button to mark as flat.
+     *
+     * @param button Button to mark as flat.
      */
     public static void markButtonAsFlat(AbstractButton button) {
         SubstanceCortex.ComponentOrParentScope.setFlatBackground(button, true);
@@ -666,11 +636,9 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks whether the specified component is flat.
-     * 
-     * @param comp
-     *            Component.
-     * @param defaultValue
-     *            The value to return.
+     *
+     * @param comp         Component.
+     * @param defaultValue The value to return.
      * @return <code>false</code> if the specified button is flat, <code>true</code> otherwise.
      * @see SubstanceCortex.ComponentOrParentScope#setFlatBackground(JComponent, Boolean)
      * @see SubstanceCortex.GlobalScope#setFlatBackground(Boolean)
@@ -719,9 +687,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Computes whether the specified button has flat appearance.
-     * 
-     * @param button
-     *            Button.
+     *
+     * @param button Button.
      * @return <code>true</code> if the button has flat appearance, <code>false</code> otherwise.
      */
     public static boolean hasFlatAppearance(AbstractButton button) {
@@ -737,9 +704,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the popup flyout orientation for the specified combobox.
-     * 
-     * @param combobox
-     *            Combobox.
+     *
+     * @param combobox Combobox.
      * @return The popup flyout orientation for the specified combobox.
      * @see SubstanceCortex.ComponentScope#setComboBoxPopupFlyoutOrientation(JComboBox, Integer)
      * @see SubstanceCortex.GlobalScope#setComboBoxPopupFlyoutOrientation(int)
@@ -757,12 +723,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Makes the specified component and all its descendants non-opaque.
-     * 
-     * @param comp
-     *            Component.
-     * @param opacitySnapshot
-     *            The "snapshot" map that will contain the original opacity status of the specified
-     *            component and all its descendants.
+     *
+     * @param comp            Component.
+     * @param opacitySnapshot The "snapshot" map that will contain the original opacity status of the specified
+     *                        component and all its descendants.
      */
     public static void makeNonOpaque(Component comp, Map<Component, Boolean> opacitySnapshot) {
         if (comp instanceof JComponent) {
@@ -779,12 +743,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Restores the opacity of the specified component and all its descendants.
-     * 
-     * @param comp
-     *            Component.
-     * @param opacitySnapshot
-     *            The "snapshot" map that contains the original opacity status of the specified
-     *            component and all its descendants.
+     *
+     * @param comp            Component.
+     * @param opacitySnapshot The "snapshot" map that contains the original opacity status of the specified
+     *                        component and all its descendants.
      */
     public static void restoreOpaque(Component comp, Map<Component, Boolean> opacitySnapshot) {
         if (comp instanceof JComponent) {
@@ -806,9 +768,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Creates a compatible image (for efficient processing and drawing).
-     * 
-     * @param image
-     *            The original image.
+     *
+     * @param image The original image.
      * @return Compatible version of the original image.
      * @author Romain Guy
      */
@@ -826,11 +787,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks whether the specified component will show scheme-colorized icon in the default state.
-     * 
-     * @param comp
-     *            Component.
+     *
+     * @param comp Component.
      * @return <code>true</code> if the specified component will show scheme-colorized icon in the
-     *         default state, <code>false</code> otherwise.
+     * default state, <code>false</code> otherwise.
      */
     public static boolean useThemedDefaultIcon(JComponent comp) {
         if ((comp == null) || comp.getClass().isAnnotationPresent(SubstanceInternalButton.class)) {
@@ -841,13 +801,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the callback to be called upon tab closing (using the tab close button).
-     * 
-     * @param me
-     *            Mouse event.
-     * @param tabbedPane
-     *            Tabbed pane.
-     * @param tabIndex
-     *            Tab index.
+     *
+     * @param me         Mouse event.
+     * @param tabbedPane Tabbed pane.
+     * @param tabIndex   Tab index.
      * @return Callback to be called upon tab closing (using the tab close button).
      * @see SubstanceCortex.ComponentScope#setTabCloseCallback(JTabbedPane, TabCloseCallback)
      * @see SubstanceCortex.GlobalScope#setTabCloseCallback(TabCloseCallback)
@@ -881,15 +838,11 @@ public class SubstanceCoreUtilities {
 
     /**
      * Blends two images along Y-axis.
-     * 
-     * @param imageTop
-     *            The left image.
-     * @param imageBottom
-     *            The right image.
-     * @param start
-     *            Relative start of the blend area (in 0.0-1.0 range).
-     * @param end
-     *            Relative end of the blend area (in 0.0-1.0 range).
+     *
+     * @param imageTop    The left image.
+     * @param imageBottom The right image.
+     * @param start       Relative start of the blend area (in 0.0-1.0 range).
+     * @param end         Relative end of the blend area (in 0.0-1.0 range).
      * @return Blended image.
      */
     public static BufferedImage blendImagesVertical(BufferedImage imageTop,
@@ -938,15 +891,11 @@ public class SubstanceCoreUtilities {
 
     /**
      * Blends two images along X-axis.
-     * 
-     * @param imageLeft
-     *            The left image.
-     * @param imageRight
-     *            The right image.
-     * @param start
-     *            Relative start of the blend area (in 0.0-1.0 range).
-     * @param end
-     *            Relative end of the blend area (in 0.0-1.0 range).
+     *
+     * @param imageLeft  The left image.
+     * @param imageRight The right image.
+     * @param start      Relative start of the blend area (in 0.0-1.0 range).
+     * @param end        Relative end of the blend area (in 0.0-1.0 range).
      * @return Blended image.
      */
     public static BufferedImage blendImagesHorizontal(BufferedImage imageLeft,
@@ -1006,18 +955,18 @@ public class SubstanceCoreUtilities {
     /**
      * Returns the popup prototype display value for the specified combo box. This value is used to
      * compute the width of the combo popup.
-     * 
-     * @param combo
-     *            Combo box.
+     *
+     * @param combo Combo box.
      * @return The popup prototype display value for the specified combo box.
      */
-    public static Object getComboPopupPrototypeDisplayValue(JComboBox combo) {
+    @SuppressWarnings("unchecked")
+    public static <T> T getComboPopupPrototypeDisplayValue(JComboBox<T> combo) {
         Object callback = combo
                 .getClientProperty(SubstanceSynapse.COMBOBOX_POPUP_PROTOTYPE_CALLBACK);
         if (callback == null)
             callback = UIManager.get(SubstanceSynapse.COMBOBOX_POPUP_PROTOTYPE_CALLBACK);
         if (callback instanceof ComboPopupPrototypeCallback) {
-            return ((ComboPopupPrototypeCallback) callback).getPopupPrototypeDisplayValue(combo);
+            return ((ComboPopupPrototypeCallback<T>) callback).getPopupPrototypeDisplayValue(combo);
         }
 
         Object displayValue = combo
@@ -1026,48 +975,44 @@ public class SubstanceCoreUtilities {
             displayValue = UIManager.get(SubstanceSynapse.COMBOBOX_POPUP_PROTOTYPE_OBJECT);
 
         // check if this object is in the model ???
-        return displayValue;
+        return (T) displayValue;
     }
 
     /**
      * Returns the set of sides registered on the specified button.
-     * 
-     * @param component
-     *            Button.
-     * @param propertyName
-     *            Client property name for retrieving the registered sides.
+     *
+     * @param component    Button.
+     * @param propertyName Client property name for retrieving the registered sides.
      * @return Set of sides registered on the specified button.
      */
+    @SuppressWarnings("unchecked")
     public static Set<Side> getSides(JComponent component, String propertyName) {
         if (component == null) {
             return null;
         }
 
         Object prop = component.getClientProperty(propertyName);
-        if (prop == null)
+        if (prop == null) {
             return null;
+        }
 
         if (prop instanceof Set) {
             return (Set<Side>) prop;
         }
 
-        if (prop != null) {
-            if (prop instanceof Side) {
-                Set<Side> result = EnumSet.noneOf(Side.class);
-                result.add((Side) prop);
-                return result;
-            }
+        if (prop instanceof Side) {
+            Set<Side> result = EnumSet.noneOf(Side.class);
+            result.add((Side) prop);
+            return result;
         }
         return null;
     }
 
     /**
      * Returns the corner radius of the specified toolbar button.
-     * 
-     * @param button
-     *            Toolbar button.
-     * @param insets
-     *            Button insets.
+     *
+     * @param button Toolbar button.
+     * @param insets Button insets.
      * @return Corner radius of the specified toolbar button.
      * @see SubstanceCortex.ComponentScope#setToolbarButtonCornerRadius(AbstractButton, float)
      * @see SubstanceCortex.GlobalScope#setToolbarButtonCornerRadius(float)
@@ -1108,9 +1053,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the number of echo characters per each password character.
-     * 
-     * @param jpf
-     *            Password field.
+     *
+     * @param jpf Password field.
      * @return The number of echo characters per each password character.
      */
     public static int getEchoPerChar(JPasswordField jpf) {
@@ -1134,7 +1078,7 @@ public class SubstanceCoreUtilities {
      * Creates a soft-clipped image. Code taken from
      * <a href= "https://community.oracle.com/blogs/campbell/2006/07/27/java-2d-trickery-light-and-shadow"
      * >here</a>.
-     * 
+     *
      * @author Chris Campbell.
      */
     public static BufferedImage softClip(int width, int height, BufferedImage source,
@@ -1174,11 +1118,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks whether the specified component has extra Substance-specific UI elements.
-     * 
-     * @param component
-     *            Component.
+     *
+     * @param component Component.
      * @return <code>true</code> if the specified component has extra Substance-specific UI
-     *         elements, <code>false</code> otherwise.
+     * elements, <code>false</code> otherwise.
      * @see SubstanceCortex.ComponentOrParentChainScope#setExtraWidgetsPresence(JComponent, Boolean)
      * @see SubstanceCortex.GlobalScope#setExtraWidgetsPresence(Boolean)
      */
@@ -1261,7 +1204,7 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the global menu gutter fill kind.
-     * 
+     *
      * @return The global menu gutter fill kind.
      */
     public static MenuGutterFillKind getMenuGutterFillKind() {
@@ -1273,9 +1216,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Given a component, returns the parent for computing the {@link SubstanceDecorationPainter}.
-     * 
-     * @param c
-     *            Component.
+     *
+     * @param c Component.
      * @return The parent for computing the {@link SubstanceDecorationPainter}.
      */
     public static Container getHeaderParent(Component c) {
@@ -1295,26 +1237,19 @@ public class SubstanceCoreUtilities {
 
     /**
      * Paints the focus ring on the specified component.
-     * 
-     * @param g
-     *            Graphics context.
-     * @param mainComp
-     *            The main component for the focus painting.
-     * @param focusedComp
-     *            The actual component that has the focus. For example, the main component can be a
-     *            {@link JSpinner}, while the focused component is a text field inside the the
-     *            spinner editor.
-     * @param focusShape
-     *            Focus shape. May be <code>null</code> - in this case, the bounds of
-     *            <code>mainComp</code> will be used.
-     * @param textRect
-     *            Text rectangle (if relevant).
-     * @param maxAlphaCoef
-     *            Maximum alpha coefficient for painting the focus. Values lower than 1.0 will
-     *            result in a translucent focus ring (can be used to paint a focus ring that doesn't
-     *            draw too much attention away from the content, for example on text components).
-     * @param extraPadding
-     *            Extra padding between the component bounds and the focus ring painting.
+     *
+     * @param g            Graphics context.
+     * @param mainComp     The main component for the focus painting.
+     * @param focusedComp  The actual component that has the focus. For example, the main component can be a
+     *                     {@link JSpinner}, while the focused component is a text field inside the the
+     *                     spinner editor.
+     * @param focusShape   Focus shape. May be <code>null</code> - in this case, the bounds of
+     *                     <code>mainComp</code> will be used.
+     * @param textRect     Text rectangle (if relevant).
+     * @param maxAlphaCoef Maximum alpha coefficient for painting the focus. Values lower than 1.0 will
+     *                     result in a translucent focus ring (can be used to paint a focus ring that doesn't
+     *                     draw too much attention away from the content, for example on text components).
+     * @param extraPadding Extra padding between the component bounds and the focus ring painting.
      */
     public static void paintFocus(Graphics g, Component mainComp, Component focusedComp,
             TransitionAwareUI transitionAwareUI, Shape focusShape, Rectangle textRect,
@@ -1344,11 +1279,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns indication whether the specified button is a close button on some title pane.
-     * 
-     * @param ab
-     *            Button.
+     *
+     * @param ab Button.
      * @return <code>true</code> if the specified button is a close button on some title pane,
-     *         <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      */
     public static boolean isTitleCloseButton(JComponent ab) {
         if ((ab instanceof SubstanceTitleButton) && Boolean.TRUE
@@ -1359,9 +1293,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Uninstalls the specified menu item.
-     * 
-     * @param menuItem
-     *            Menu item.
+     *
+     * @param menuItem Menu item.
      */
     public static void uninstallMenu(JMenuItem menuItem) {
         if (menuItem instanceof JMenu) {
@@ -1392,7 +1325,7 @@ public class SubstanceCoreUtilities {
      * function properly that classes will be properly loaded regardless of whether the lib is added
      * to the system class path, the extension class path and regardless of the class loader
      * architecture set up by some frameworks.
-     * 
+     *
      * @return The class loader for loading the resource files.
      */
     public static ClassLoader getClassLoaderForResources() {
@@ -1442,13 +1375,11 @@ public class SubstanceCoreUtilities {
     /**
      * Gets a component and a list of popups and returns the index of the popup that is a parent of
      * the specified component. Is used to track issue 297 and prevent visual artifacts.
-     * 
-     * @param comp
-     *            Component.
-     * @param popups
-     *            List of popups.
+     *
+     * @param comp   Component.
+     * @param popups List of popups.
      * @return Index of the popup which is component's parent if any, or the popup list length
-     *         otherwise.
+     * otherwise.
      */
     public static int getPopupParentIndexOf(Component comp, Component[] popups) {
         for (int i = 0; i < popups.length; i++) {
@@ -1467,9 +1398,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the border painter for the specified component.
-     * 
-     * @param comp
-     *            Component.
+     *
+     * @param comp Component.
      * @return Border painter for the specified component.
      * @see SubstanceSkin#getBorderPainter()
      */
@@ -1479,9 +1409,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the highlight border painter for the specified component.
-     * 
-     * @param comp
-     *            Component.
+     *
+     * @param comp Component.
      * @return Highlight border painter for the specified component.
      * @see SubstanceSkin#getBorderPainter()
      * @see SubstanceSkin#getHighlightBorderPainter()
@@ -1496,9 +1425,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the component hierarchy.
-     * 
-     * @param comp
-     *            Component.
+     *
+     * @param comp Component.
      * @return Component hierarchy string.
      */
     public static String getHierarchy(Component comp) {
@@ -1521,13 +1449,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Computes the component hierarchy.
-     * 
-     * @param comp
-     *            Component.
-     * @param buffer
-     *            Hierarchy representation buffer.
-     * @param level
-     *            Hierarchy level.
+     *
+     * @param comp   Component.
+     * @param buffer Hierarchy representation buffer.
+     * @param level  Hierarchy level.
      */
     public static void getHierarchy(Component comp, StringBuffer buffer, int level) {
         for (int i = 0; i < level; i++)
@@ -1547,11 +1472,9 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the arrow icon.
-     * 
-     * @param button
-     *            Button.
-     * @param orientation
-     *            Arrow orientation.
+     *
+     * @param button      Button.
+     * @param orientation Arrow orientation.
      * @return Arrow icon.
      */
     public static Icon getArrowIcon(AbstractButton button, int orientation) {
@@ -1561,11 +1484,9 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the arrow icon.
-     * 
-     * @param comp
-     *            Component.
-     * @param orientation
-     *            Arrow orientation.
+     *
+     * @param comp        Component.
+     * @param orientation Arrow orientation.
      * @return Arrow icon.
      */
     public static Icon getArrowIcon(JComponent comp,
@@ -1578,9 +1499,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the colorization factor for the specified component.
-     * 
-     * @param c
-     *            Component.
+     *
+     * @param c Component.
      * @return The colorization factor for the specified component.
      * @see SubstanceCortex.ComponentOrParentChainScope#setColorizationFactor(JComponent, double)
      * @see SubstanceCortex.GlobalScope#setColorizationFactor(double)
@@ -1616,9 +1536,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the skin of the specified component.
-     * 
-     * @param c
-     *            Component.
+     *
+     * @param c Component.
      * @return The skin of the specified component.
      */
     public static SubstanceSkin getSkin(Component c) {
@@ -1664,9 +1583,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns a hash key for the specified parameters.
-     * 
-     * @param objects
-     *            Key components.
+     *
+     * @param objects Key components.
      * @return Hash key.
      */
     public static HashMapKey getHashKey(Object... objects) {
@@ -1682,9 +1600,8 @@ public class SubstanceCoreUtilities {
 
     /**
      * Retrieves a single parameter from the VM flags.
-     * 
-     * @param parameterName
-     *            Parameter name.
+     *
+     * @param parameterName Parameter name.
      * @return Parameter value.
      */
     public static String getVmParameter(String parameterName) {
@@ -1700,11 +1617,9 @@ public class SubstanceCoreUtilities {
 
     /**
      * Tests UI threading violations on creating the specified component.
-     * 
-     * @param comp
-     *            Component.
-     * @throws UiThreadingViolationException
-     *             If the component is created off Event Dispatch Thread.
+     *
+     * @param comp Component.
+     * @throws UiThreadingViolationException If the component is created off Event Dispatch Thread.
      */
     public static void testComponentCreationThreadingViolation(Component comp) {
         if (!SwingUtilities.isEventDispatchThread()) {
@@ -1717,11 +1632,9 @@ public class SubstanceCoreUtilities {
 
     /**
      * Tests UI threading violations on changing the state the specified component.
-     * 
-     * @param comp
-     *            Component.
-     * @throws UiThreadingViolationException
-     *             If the component is changing state off Event Dispatch Thread.
+     *
+     * @param comp Component.
+     * @throws UiThreadingViolationException If the component is changing state off Event Dispatch Thread.
      */
     public static void testComponentStateChangeThreadingViolation(Component comp) {
         if (!SwingUtilities.isEventDispatchThread()) {
@@ -1734,11 +1647,9 @@ public class SubstanceCoreUtilities {
 
     /**
      * Tests UI threading violations on closing the specified window.
-     * 
-     * @param w
-     *            Window.
-     * @throws UiThreadingViolationException
-     *             If the window is closed off Event Dispatch Thread.
+     *
+     * @param w Window.
+     * @throws UiThreadingViolationException If the window is closed off Event Dispatch Thread.
      */
     public static void testWindowCloseThreadingViolation(Window w) {
         if (!SwingUtilities.isEventDispatchThread()) {
@@ -1777,7 +1688,7 @@ public class SubstanceCoreUtilities {
         int bestWidth = 0;
         int bestHeight = 0;
         double bestSimilarity = 3; // Impossibly high value
-        for (Iterator<Image> i = imageList.iterator(); i.hasNext();) {
+        for (Iterator<Image> i = imageList.iterator(); i.hasNext(); ) {
             // Iterate imageList looking for best matching image.
             // 'Similarity' measure is defined as good scale factor and small
             // insets.
@@ -1877,14 +1788,16 @@ public class SubstanceCoreUtilities {
         return (background instanceof UIResource) || (background instanceof SubstanceColorResource);
     }
 
+    @SuppressWarnings("unchecked")
     public static JTextComponent getTextComponentForTransitions(Component c) {
         if (!(c instanceof JComponent))
             return null;
 
-        TextComponentAware tcaui = (TextComponentAware) ((JComponent) c)
-                .getClientProperty(TEXT_COMPONENT_AWARE);
+        JComponent jc = (JComponent) c;
+        TextComponentAware<JComponent> tcaui = (TextComponentAware<JComponent>)
+                jc.getClientProperty(TEXT_COMPONENT_AWARE);
         if (tcaui != null) {
-            return tcaui.getTextComponent(c);
+            return tcaui.getTextComponent(jc);
         }
 
         if (c instanceof JTextComponent) {
@@ -1915,9 +1828,9 @@ public class SubstanceCoreUtilities {
 
     /**
      * Checks whether Substance is the current look-and-feel. This method is for internal use only.
-     * 
+     *
      * @return <code>true</code> if Substance is the current look-and-feel, <code>false</code>
-     *         otherwise.
+     * otherwise.
      */
     public static boolean isCurrentLookAndFeel() {
         return (SubstanceCortex.GlobalScope.getCurrentSkin() != null);
@@ -1947,11 +1860,10 @@ public class SubstanceCoreUtilities {
 
     /**
      * Returns the title pane of the specified top-level window.
-     * 
-     * @param window
-     *            Top-level window.
+     *
+     * @param window Top-level window.
      * @return If the parameter is either {@link JFrame} or {@link JDialog} and has custom
-     *         decorations, the result is the title pane, <code>null</code> otherwise.
+     * decorations, the result is the title pane, <code>null</code> otherwise.
      */
     public static JComponent getTitlePaneComponent(Window window) {
         JRootPane rootPane = SwingUtilities.getRootPane(window);
@@ -1981,10 +1893,10 @@ public class SubstanceCoreUtilities {
         JRootPane rootPane = SwingUtilities.getRootPane(comp);
         int dx = 0;
         int dy = 0;
-    
+
         if (rootPane != null) {
             JLayeredPane layeredPane = rootPane.getLayeredPane();
-    
+
             if (layeredPane != null) {
                 Insets layeredPaneInsets = layeredPane.getInsets();
                 if (comp.isShowing() && layeredPane.isShowing()) {
@@ -2015,7 +1927,7 @@ public class SubstanceCoreUtilities {
                 }
             }
         }
-    
+
         return new Point(dx, dy);
     }
 

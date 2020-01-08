@@ -37,6 +37,7 @@ public class ColorSelectorPopupMenuProjection extends AbstractPopupMenuProjectio
         JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
         ColorSelectorPopupMenuPresentationModel> {
 
+    @SuppressWarnings("unchecked")
     private static ComponentSupplier<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
                 ColorSelectorPopupMenuPresentationModel> DEFAULT_SUPPLIER =
             (Projection<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,

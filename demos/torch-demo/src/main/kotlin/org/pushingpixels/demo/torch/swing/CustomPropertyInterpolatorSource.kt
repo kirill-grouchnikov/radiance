@@ -46,7 +46,7 @@ import javax.swing.JPanel
 import javax.swing.SwingUtilities
 
 private class Ellipse2DPropertyInterpolator : PropertyInterpolator<Ellipse2D> {
-    override fun getBasePropertyClass(): Class<*> {
+    override fun getBasePropertyClass(): Class<Ellipse2D> {
         return Ellipse2D::class.java
     }
 

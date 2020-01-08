@@ -64,7 +64,7 @@ public class ComboPopupPrototype extends JFrame {
         this.setLayout(new GridLayout(1, 3));
 
         JPanel panel1 = new JPanel(new FlowLayout());
-        JComboBox comboProto1 = new JComboBox(new Object[] { "aa", "aaaaa", "aaaaaaaaaa",
+        JComboBox<String> comboProto1 = new JComboBox<>(new String[] { "aa", "aaaaa", "aaaaaaaaaa",
                         "this one is the one", "abcdefghijklmnopqrstuvwxyz" });
         comboProto1.setPrototypeDisplayValue("aaaaa");
         // set popup prototype as hard-code value in the model
@@ -75,25 +75,25 @@ public class ComboPopupPrototype extends JFrame {
         this.add(panel1);
 
         JPanel panel2 = new JPanel(new FlowLayout());
-        JComboBox comboProto2 = new JComboBox(new Object[] { "aa", "aaaaa", "aaaaaaaaaa",
+        JComboBox<String> comboProto2 = new JComboBox<>(new String[] { "aa", "aaaaa", "aaaaaaaaaa",
                         "another one (not it)", "abcdefghijklmnopqrstuvwxyz" });
         comboProto2.setPrototypeDisplayValue("aaaaa");
         // set popup prototype as widest value (core implementation of
         // ComboPopupPrototypeCallback interface)
         SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(comboProto2,
-                new WidestComboPopupPrototype());
+                new WidestComboPopupPrototype<String>());
         panel2.add(new JLabel("Widest core callback"));
         panel2.add(comboProto2);
         this.add(panel2);
 
         JPanel panel3 = new JPanel(new FlowLayout());
-        JComboBox comboProto3 = new JComboBox(new Object[] { "aa", "aaaaa", "this is not",
+        JComboBox<String> comboProto3 = new JComboBox<>(new String[] { "aa", "aaaaa", "this is not",
                         "this one is not it", "this one is it that is for the popup" });
         comboProto3.setPrototypeDisplayValue("aaaaa");
         // set popup prototype as custom implementation of
         // ComboPopupPrototypeCallback interface
         SubstanceCortex.ComponentScope.setComboBoxPrototypeDisplayValue(comboProto3,
-                (ComboPopupPrototypeCallback) jc -> jc.getModel().getElementAt(jc.getModel().getSize() - 1));
+                (ComboPopupPrototypeCallback<String>) jc -> jc.getModel().getElementAt(jc.getModel().getSize() - 1));
         panel3.add(new JLabel("Custom callback"));
         panel3.add(comboProto3);
         this.add(panel3);

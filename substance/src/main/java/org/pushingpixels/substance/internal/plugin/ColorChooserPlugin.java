@@ -64,9 +64,9 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
         if (!Boolean.TRUE.equals(UIManager.getBoolean(SubstanceSynapse.USE_DEFAULT_COLOR_CHOOSER))) {
             ResourceBundle bundle = ResourceBundle.getBundle(
                     "org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.Labels");
-            List labelsList = new LinkedList();
-            for (Enumeration i = bundle.getKeys(); i.hasMoreElements(); ) {
-                String key = (String) i.nextElement();
+            List<Object> labelsList = new LinkedList<>();
+            for (Enumeration<String> i = bundle.getKeys(); i.hasMoreElements(); ) {
+                String key = i.nextElement();
                 labelsList.add(key);
                 labelsList.add(bundle.getObject(key));
             }

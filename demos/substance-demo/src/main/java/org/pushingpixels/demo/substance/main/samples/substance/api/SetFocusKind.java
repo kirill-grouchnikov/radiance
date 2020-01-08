@@ -72,8 +72,8 @@ public class SetFocusKind extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-        final JComboBox focusKindCombo = new JComboBox(
-                new Object[] { FocusKind.NONE, FocusKind.ALL, FocusKind.ALL_INNER, FocusKind.TEXT,
+        final JComboBox<FocusKind> focusKindCombo = new JComboBox<>(
+                new FocusKind[] { FocusKind.NONE, FocusKind.ALL, FocusKind.ALL_INNER, FocusKind.TEXT,
                                 FocusKind.UNDERLINE, FocusKind.STRONG_UNDERLINE });
         focusKindCombo.setRenderer(new SubstanceDefaultComboBoxRenderer(focusKindCombo) {
             @Override

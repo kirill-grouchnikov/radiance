@@ -70,26 +70,20 @@ public class Quaqua13ColorChooserUI extends ColorChooserUI {
     
     protected AbstractColorChooserPanel[] createDefaultChoosers() {
         String[] defaultChoosers = (String[]) UIManager.get("ColorChooser.defaultChoosers");
-        ArrayList panels = new ArrayList(defaultChoosers.length);
-        for (int i=0; i < defaultChoosers.length; i++) {
+        ArrayList<AbstractColorChooserPanel> panels = new ArrayList<>(defaultChoosers.length);
+        for (String defaultChooser : defaultChoosers) {
             try {
-                
-            panels.add(Class.forName(defaultChoosers[i]).getDeclaredConstructor().newInstance());
-            } catch (AccessControlException e) {
+                panels.add((AbstractColorChooserPanel)
+                        Class.forName(defaultChooser).getDeclaredConstructor().newInstance());
+            } catch (AccessControlException | UnsupportedClassVersionError e) {
                 // suppress
                 System.err.println("Quaqua13ColorChooserUI warning: unable to instantiate "
-                        + defaultChoosers[i]);
+                        + defaultChooser);
             } catch (Exception e) {
-                throw new InternalError("Unable to instantiate "+defaultChoosers[i]);
-            } catch (UnsupportedClassVersionError e) {
-                // suppress
-                System.err.println("Quaqua13ColorChooserUI warning: unable to instantiate "
-                        + defaultChoosers[i]);
+                throw new InternalError("Unable to instantiate " + defaultChooser);
             }
         }
-        //AbstractColorChooserPanel[] panels = new AbstractColorChooserPanel[defaultChoosers.length];
-        return (AbstractColorChooserPanel[]) panels.toArray(
-                new AbstractColorChooserPanel[panels.size()]);
+        return panels.toArray(new AbstractColorChooserPanel[0]);
     }
     
     

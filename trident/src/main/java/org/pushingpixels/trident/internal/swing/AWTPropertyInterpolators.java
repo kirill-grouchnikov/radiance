@@ -43,7 +43,7 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class AWTPropertyInterpolators implements PropertyInterpolatorSource {
-    private Set<PropertyInterpolator> interpolators;
+    private Set<PropertyInterpolator<?>> interpolators;
 
     public AWTPropertyInterpolators() {
         this.interpolators = new HashSet<>();
@@ -54,13 +54,13 @@ public class AWTPropertyInterpolators implements PropertyInterpolatorSource {
     }
 
     @Override
-    public Set<PropertyInterpolator> getPropertyInterpolators() {
+    public Set<PropertyInterpolator<?>> getPropertyInterpolators() {
         return Collections.unmodifiableSet(this.interpolators);
     }
 
     static class ColorInterpolator implements PropertyInterpolator<Color> {
         @Override
-        public Class getBasePropertyClass() {
+        public Class<Color> getBasePropertyClass() {
             return Color.class;
         }
 
@@ -158,7 +158,7 @@ public class AWTPropertyInterpolators implements PropertyInterpolatorSource {
         }
 
         @Override
-        public Class getBasePropertyClass() {
+        public Class<Point> getBasePropertyClass() {
             return Point.class;
         }
     }
@@ -173,7 +173,7 @@ public class AWTPropertyInterpolators implements PropertyInterpolatorSource {
         }
 
         @Override
-        public Class getBasePropertyClass() {
+        public Class<Rectangle> getBasePropertyClass() {
             return Rectangle.class;
         }
     }
@@ -185,7 +185,7 @@ public class AWTPropertyInterpolators implements PropertyInterpolatorSource {
             return new Dimension(w, h);
         }
 
-        public Class getBasePropertyClass() {
+        public Class<Dimension> getBasePropertyClass() {
             return Dimension.class;
         }
     }

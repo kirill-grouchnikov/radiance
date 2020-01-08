@@ -60,7 +60,7 @@ public final class MessageListDialog extends JDialog {
         super(owner, "Message list");
 
         JLabel messageLabel = new JLabel(mainMessage);
-        JList messageList = new JList(messages.toArray());
+        JList<String> messageList = new JList<>(messages.toArray(new String[0]));
         messageList.setForeground(Color.red);
         messageList.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont().deriveFont(Font.BOLD));

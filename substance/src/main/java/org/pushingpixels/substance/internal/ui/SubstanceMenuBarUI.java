@@ -50,7 +50,7 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class SubstanceMenuBarUI extends BasicMenuBarUI {
-    private Set<SubstanceWidget> lafWidgets;
+    private Set<SubstanceWidget<JComponent>> lafWidgets;
 
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);

@@ -36,6 +36,7 @@ import java.awt.event.ItemEvent;
  * <br>1.1.1 2005-04-23 Localized form.
  * <br>1.0  30 March 2005  Created.
  */
+@SuppressWarnings("unchecked")
 public class ColorSlidersChooser extends SubstanceColorChooserPanel implements UIResource {
     
     /**

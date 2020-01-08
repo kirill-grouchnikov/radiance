@@ -202,8 +202,9 @@ public class SubstanceWidgetRepository {
      *            UI component.
      * @return Set of widgets that match the specified component.
      */
-    public synchronized Set<SubstanceWidget> getMatchingWidgets(JComponent jcomp) {
-        Set<SubstanceWidget> result = new HashSet<>();
+    @SuppressWarnings("unchecked")
+    public synchronized <T extends JComponent> Set<SubstanceWidget<T>> getMatchingWidgets(T jcomp) {
+        Set<SubstanceWidget<T>> result = new HashSet<>();
         Class<?> clazz = jcomp.getClass();
         boolean isOriginator = true;
         while (clazz != null) {
@@ -227,7 +228,7 @@ public class SubstanceWidgetRepository {
                         Object widgetObj = Class.forName(widgetClassName)
                                 .getDeclaredConstructor().newInstance();
                         if (widgetObj instanceof SubstanceWidget) {
-                            SubstanceWidget widget = (SubstanceWidget) widgetObj;
+                            SubstanceWidget<T> widget = (SubstanceWidget<T>) widgetObj;
                             widget.setComponent(jcomp);
                             result.add(widget);
                         }

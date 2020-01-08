@@ -70,13 +70,13 @@ object LucentUtils {
 
     fun paintMultilineText(g2d: Graphics2D, text: String,
                            textX: Int, textWidth: Int, textY: Int, maxTextLineCount: Int): Int {
-        var textY = textY
+        var currTextY = textY
         NeonCortex.installDesktopHints(g2d, g2d.font)
         val frc = FontRenderContext(AffineTransform(), true, false)
         val fa = g2d.fontMetrics.ascent
 
         if (text.isEmpty()) {
-            return textY
+            return currTextY
         }
 
         var currOffset = 0
@@ -91,9 +91,9 @@ object LucentUtils {
             val charCount = tl.characterCount
             val line = text.substring(currOffset, currOffset + charCount)
 
-            g2d.drawString(line, textX, textY)
+            g2d.drawString(line, textX, currTextY)
 
-            textY += fa
+            currTextY += fa
             currOffset += charCount
 
             lineCount++
@@ -102,7 +102,7 @@ object LucentUtils {
             }
         }
 
-        return textY
+        return currTextY
     }
 
     fun fadeOutAndDispose(window: Window, fadeOutDuration: Long) {

@@ -53,9 +53,9 @@ public class SampleFrame extends JFrame {
     protected JButton prev;
     private JTabbedPane tabbed;
     private JTree tree;
-    private JList list;
+    private JList<String> list;
 
-    private static class MyListModel extends AbstractListModel {
+    private static class MyListModel extends AbstractListModel<String> {
         protected List<String> model;
 
         public MyListModel() {
@@ -80,7 +80,7 @@ public class SampleFrame extends JFrame {
             this.model.add("Texas Christian University [Horned Frogs]");
         }
 
-        public Object getElementAt(int index) {
+        public String getElementAt(int index) {
             return this.model.get(index);
         }
 
@@ -216,7 +216,7 @@ public class SampleFrame extends JFrame {
         builder.add(cbeu).xy(1, 5);
         builder.add(rb3).xy(3, 5);
 
-        JComboBox combo = new JComboBox(new Object[] { "item1" });
+        JComboBox<String> combo = new JComboBox<>(new String[] { "item1" });
         combo.setSelectedIndex(0);
         JTextField text = new JTextField("Text field");
 
@@ -290,7 +290,7 @@ public class SampleFrame extends JFrame {
         this.tree.setBorder(new EmptyBorder(0, 0, 0, 0));
         JScrollPane jspTree = new JScrollPane(this.tree);
 
-        this.list = new JList(new MyListModel());
+        this.list = new JList<>(new MyListModel());
         this.list.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         JScrollPane jspList = new JScrollPane(this.list);
@@ -330,7 +330,7 @@ public class SampleFrame extends JFrame {
         });
     }
 
-    public static void main(String... args) throws Exception {
+    public static void main(String... args) {
         SwingUtilities.invokeLater(() -> {
             if (System.getProperty("swing.defaultlaf") == null) {
                 SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());

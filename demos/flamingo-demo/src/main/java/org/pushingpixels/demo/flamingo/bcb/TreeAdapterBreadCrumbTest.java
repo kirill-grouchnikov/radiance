@@ -53,7 +53,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class TreeAdapterBreadCrumbTest extends JFrame {
-    private JList fileList;
+    private JList<File> fileList;
 
     private BreadcrumbTreeAdapterSelector<FileTreeNode> bar;
 
@@ -64,7 +64,7 @@ public class TreeAdapterBreadCrumbTest extends JFrame {
         FileTreeNode rootTreeNode = new FileTreeNode(roots);
 
         this.bar = new BreadcrumbTreeAdapterSelector<>(new DefaultTreeModel(rootTreeNode),
-                new BreadcrumbTreeAdapterSelector.TreeAdapter<FileTreeNode>() {
+                new BreadcrumbTreeAdapterSelector.TreeAdapter<>() {
                     @Override
                     public String toString(FileTreeNode node) {
                         if (node.file == null)
@@ -110,7 +110,7 @@ public class TreeAdapterBreadCrumbTest extends JFrame {
                                         FileListModel model = new FileListModel();
                                         List<StringValuePair<FileTreeNode>> leafs = get();
                                         for (StringValuePair<FileTreeNode> leaf : leafs) {
-                                            FileTreeNode node = (FileTreeNode) leaf.getValue();
+                                            FileTreeNode node = leaf.getValue();
                                             model.add(node.file);
                                         }
                                         model.sort();
@@ -127,7 +127,7 @@ public class TreeAdapterBreadCrumbTest extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(bar, BorderLayout.NORTH);
 
-        this.fileList = new JList();
+        this.fileList = new JList<>();
         this.fileList.setCellRenderer(new FileListRenderer());
         JScrollPane fileListScrollPane = new JScrollPane(this.fileList);
         fileListScrollPane.setBorder(new TitledBorder("File list"));
@@ -184,7 +184,7 @@ public class TreeAdapterBreadCrumbTest extends JFrame {
         @Override
         public Enumeration<FileTreeNode> children() {
             final int elementCount = this.children.length;
-            return new Enumeration<FileTreeNode>() {
+            return new Enumeration<>() {
                 int count = 0;
 
                 @Override
@@ -241,7 +241,7 @@ public class TreeAdapterBreadCrumbTest extends JFrame {
         }
     }
 
-    public static class FileListModel extends AbstractListModel {
+    public static class FileListModel extends AbstractListModel<File> {
         private ArrayList<File> files = new ArrayList<>();
 
         public void add(File file) {
@@ -259,7 +259,7 @@ public class TreeAdapterBreadCrumbTest extends JFrame {
         }
 
         @Override
-        public Object getElementAt(int index) {
+        public File getElementAt(int index) {
             return files.get(index);
         }
 

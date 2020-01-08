@@ -33,7 +33,6 @@ package org.pushingpixels.lightbeam.commands;
  * Chain command - applies a chain of configure commands on a component.
  * 
  * @author Kirill Grouchnikov
- * @param T Component class.
  */
 public class ChainCommand<T> implements ConfigurationCommand<T> {
 	/**
@@ -47,7 +46,7 @@ public class ChainCommand<T> implements ConfigurationCommand<T> {
 	 * @param commands
 	 * 		Command chain.
 	 */
-	public ChainCommand(ConfigurationCommand<T>... commands) {
+	public ChainCommand(ConfigurationCommand<T>[] commands) {
 		super();
 		this.commands = commands;
 	}

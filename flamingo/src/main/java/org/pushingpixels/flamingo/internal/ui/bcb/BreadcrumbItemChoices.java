@@ -36,6 +36,8 @@ import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
 
 import javax.swing.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,28 +48,28 @@ final class BreadcrumbItemChoices<T> {
 	/**
 	 * Contains all possible choices.
 	 */
-	private BreadcrumbItem<T>[] choices;
+	private List<BreadcrumbItem<T>> choices;
 
 	/**
 	 * The ancestor item. This can be <code>null</code> only for the root
 	 * choices element.
 	 */
-	private BreadcrumbItem ancestor;
+	private BreadcrumbItem<T> ancestor;
 
 	/**
 	 * The index of <code>this</code> element.
 	 */
 	private int selectedIndex = 0;
 
-	public BreadcrumbItemChoices(BreadcrumbItem ancestor,
+	public BreadcrumbItemChoices(BreadcrumbItem<T> ancestor,
 			List<StringValuePair<T>> entries) {
 		this.ancestor = ancestor;
-		this.choices = new BreadcrumbItem[entries.size()];
+		this.choices = new ArrayList<>(entries.size());
 		int index = 0;
 		for (StringValuePair<T> pair : entries) {
-			this.choices[index] = new BreadcrumbItem<T>(pair.getKey(), pair
-					.getValue());
-			this.choices[index].setIcon((Icon) pair.get("icon"));
+			BreadcrumbItem<T> li = new BreadcrumbItem<>(pair.getKey(), pair.getValue());
+			li.setIcon((Icon) pair.get("icon"));
+			this.choices.add(index, li);
 			index++;
 		}
 		this.selectedIndex = -1;
@@ -84,8 +86,8 @@ final class BreadcrumbItemChoices<T> {
 	 */
 	public int getPosition(String s) {
 		assert (s != null && s.length() > 0);
-		for (int i = 0; i < choices.length; i++) {
-			BreadcrumbItem it = choices[i];
+		for (int i = 0; i < choices.size(); i++) {
+			BreadcrumbItem<T> it = choices.get(i);
 			if (s.equals(it.getKey()))
 				return i;
 		}
@@ -105,11 +107,11 @@ final class BreadcrumbItemChoices<T> {
 	 * 
 	 * @return The item array of <code>true</code>his element.
 	 */
-	public BreadcrumbItem[] getChoices() {
+	public List<BreadcrumbItem<T>> getChoices() {
 		return choices;
 	}
 
-	public BreadcrumbItem getAncestor() {
+	public BreadcrumbItem<T> getAncestor() {
 		return ancestor;
 	}
 }

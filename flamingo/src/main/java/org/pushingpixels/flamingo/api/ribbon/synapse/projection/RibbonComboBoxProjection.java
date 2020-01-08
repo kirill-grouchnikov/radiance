@@ -35,21 +35,23 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentation
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonComboBoxContentModel;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 
-public class RibbonComboBoxProjection extends ComponentProjection<JRibbonComboBox,
-        RibbonComboBoxContentModel> {
+public class RibbonComboBoxProjection<E> extends ComponentProjection<JRibbonComboBox<E>,
+        RibbonComboBoxContentModel<E>> {
 
-    private static ComponentSupplier<JRibbonComboBox,
-            RibbonComboBoxContentModel, ComponentPresentationModel> DEFAULT_SUPPLIER =
-            (Projection<JRibbonComboBox, RibbonComboBoxContentModel,
-                    ComponentPresentationModel> projection) -> JRibbonComboBox::new;
+    @SuppressWarnings("unchecked")
+    private static <E> ComponentSupplier<JRibbonComboBox<E>,
+            RibbonComboBoxContentModel<E>, ComponentPresentationModel> getDefaultSupplier() {
+        return (Projection<JRibbonComboBox<E>, RibbonComboBoxContentModel<E>,
+                ComponentPresentationModel> projection) -> JRibbonComboBox<E>::new;
+    }
 
-    public RibbonComboBoxProjection(RibbonComboBoxContentModel contentModel,
+    public RibbonComboBoxProjection(RibbonComboBoxContentModel<E> contentModel,
             ComponentPresentationModel presentationModel) {
-        super(contentModel, presentationModel, DEFAULT_SUPPLIER);
+        super(contentModel, presentationModel, getDefaultSupplier());
     }
 
     @Override
-    protected void configureComponent(JRibbonComboBox component) {
+    protected void configureComponent(JRibbonComboBox<E> component) {
         component.setRenderer(new SubstanceDefaultComboBoxRenderer(component));
     }
 }

@@ -157,7 +157,7 @@ public class SetFontPolicy extends JFrame {
         panel.add(fontSizeSlider);
 
         panel.add(new JButton("button"));
-        panel.add(new JComboBox(new Object[] { "item1", "item2" }));
+        panel.add(new JComboBox<>(new String[] { "item1", "item2" }));
 
         this.add(panel, BorderLayout.CENTER);
 

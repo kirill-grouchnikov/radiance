@@ -30,22 +30,23 @@
 package org.pushingpixels.lightbeam;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
-public abstract class BasePerformanceScenario<T> extends PerformanceScenario {
+public abstract class BasePerformanceScenario<T extends Component> extends PerformanceScenario {
 	protected java.util.List<T> controls;
 
 	JPanel topPanel;
 
-	Class<?> clazz;
+	Class<T> clazz;
 
 	boolean isStrictMatch;
 
-	public BasePerformanceScenario(JPanel topPanel, Class<?> clz) {
+	public BasePerformanceScenario(JPanel topPanel, Class<T> clz) {
 		this(topPanel, clz, false);
 	}
 
-	public BasePerformanceScenario(JPanel topPanel, Class<?> clz,
+	public BasePerformanceScenario(JPanel topPanel, Class<T> clz,
 			boolean isStrictMatch) {
 		this.topPanel = topPanel;
 		this.clazz = clz;
@@ -54,7 +55,7 @@ public abstract class BasePerformanceScenario<T> extends PerformanceScenario {
 
 	@Override
 	public void setup() {
-		this.controls = new ArrayList<T>();
+		this.controls = new ArrayList<>();
 		LightbeamUtils.collectFromContainer(this.topPanel, this.clazz,
 				this.isStrictMatch, this.controls);
 	}

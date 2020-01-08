@@ -64,6 +64,7 @@ import org.pushingpixels.substance.extras.internal.contrib.blogofbug.swing.layou
  * Shows a carousel offset to the left with a menu of actions on the right.
  * @author nigel
  */
+@SuppressWarnings("unchecked")
 public class JCarouselMenu extends GradientPanel implements ListSelectionListener,MouseListener,KeyListener, ChangeListener, MouseWheelListener{
     /**
      * The carousel used and drawn on the left.

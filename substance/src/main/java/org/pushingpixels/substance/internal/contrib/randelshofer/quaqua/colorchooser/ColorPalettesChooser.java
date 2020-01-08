@@ -34,6 +34,7 @@ import java.util.Vector;
  * <br>1.0.1 2005-11-07 Load "UIManager" resource bundle from UIManager.
  * <br>1.0 September 18, 2005 Created.
  */
+@SuppressWarnings("unchecked")
 public class ColorPalettesChooser extends SubstanceColorChooserPanel implements UIResource {
     
     /**

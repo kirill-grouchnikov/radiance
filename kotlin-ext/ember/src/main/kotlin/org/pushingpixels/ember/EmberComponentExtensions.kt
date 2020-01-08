@@ -438,7 +438,7 @@ fun JPasswordField.setNumberOfPasswordEchoesPerCharacter(echoCount: Int) {
  */
 @EmberComponentScope
 fun JComboBox<*>.setComboBoxPrototypeCallback(
-        comboPopupPrototypeCallback: ComboPopupPrototypeCallback) {
+        comboPopupPrototypeCallback: ComboPopupPrototypeCallback<*>) {
     SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(this, comboPopupPrototypeCallback)
 }
 

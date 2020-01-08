@@ -25,7 +25,7 @@ import java.util.List;
 public class IcoViewer extends JFrame {
     private BreadcrumbFileSelector bar;
 
-    private AbstractFileViewPanel fileViewPanel;
+    private AbstractFileViewPanel<File> fileViewPanel;
 
     private JSlider iconSizeSlider;
 
@@ -53,7 +53,7 @@ public class IcoViewer extends JFrame {
 
                             if (newPath.size() > 0) {
                                 SwingWorker<List<StringValuePair<File>>, Void> worker = new
-                                        SwingWorker<List<StringValuePair<File>>, Void>() {
+                                        SwingWorker<>() {
                                             @Override
                                             protected List<StringValuePair<File>> doInBackground() {
                                                 return bar.getCallback().getLeafs(newPath);
@@ -75,7 +75,7 @@ public class IcoViewer extends JFrame {
         this.add(bar, BorderLayout.NORTH);
 
         int initialSize = 32;
-        this.fileViewPanel = new AbstractFileViewPanel<File>(32) {
+        this.fileViewPanel = new AbstractFileViewPanel<>(32) {
             @Override
             protected InputStream getLeafContent(File leaf) {
                 try {

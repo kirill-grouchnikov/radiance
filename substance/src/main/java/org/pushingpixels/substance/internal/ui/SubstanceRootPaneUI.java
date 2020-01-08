@@ -153,7 +153,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
      */
     private static int rootPanesWithCustomSkin = 0;
 
-    private Set<SubstanceWidget> lafWidgets;
+    private Set<SubstanceWidget<JComponent>> lafWidgets;
 
     /**
      * Creates a UI for a <code>JRootPane</code>.
@@ -1108,7 +1108,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
          * PrivilegedExceptionAction needed by mouseDragged method to obtain new location of window
          * on screen during the drag.
          */
-        private final PrivilegedExceptionAction getLocationAction = () -> MouseInfo.getPointerInfo().getLocation();
+        private final PrivilegedExceptionAction<Point> getLocationAction = () -> MouseInfo.getPointerInfo().getLocation();
 
         public void mousePressed(MouseEvent ev) {
             JRootPane rootPane = SubstanceRootPaneUI.this.getRootPane();
@@ -1249,7 +1249,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
             if (this.isMovingWindow) {
                 Point windowPt;
                 try {
-                    windowPt = (Point) AccessController.doPrivileged(this.getLocationAction);
+                    windowPt = AccessController.doPrivileged(this.getLocationAction);
                     windowPt.x = windowPt.x - this.dragOffsetX;
                     windowPt.y = windowPt.y - this.dragOffsetY;
                     w.setLocation(windowPt);

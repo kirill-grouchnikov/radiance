@@ -43,7 +43,7 @@ import java.util.Set;
 public class TridentConfig {
     private static TridentConfig config;
 
-    private Set<PropertyInterpolator> propertyInterpolators;
+    private Set<PropertyInterpolator<?>> propertyInterpolators;
 
     private TridentConfig.PulseSource pulseSource;
 
@@ -90,14 +90,15 @@ public class TridentConfig {
         return config;
     }
 
-    public synchronized Collection<PropertyInterpolator> getPropertyInterpolators() {
+    public synchronized Collection<PropertyInterpolator<?>> getPropertyInterpolators() {
         return Collections.unmodifiableSet(this.propertyInterpolators);
     }
 
-    public synchronized PropertyInterpolator getPropertyInterpolator(Object... values) {
-        for (PropertyInterpolator interpolator : this.propertyInterpolators) {
+    @SuppressWarnings("unchecked")
+    public synchronized <T> PropertyInterpolator<T> getPropertyInterpolator(Collection<T> values) {
+        for (PropertyInterpolator<?> interpolator : this.propertyInterpolators) {
             try {
-                Class basePropertyClass = interpolator.getBasePropertyClass();
+                Class<?> basePropertyClass = interpolator.getBasePropertyClass();
                 boolean hasMatch = true;
                 for (Object value : values) {
                     if (!basePropertyClass.isAssignableFrom(value.getClass())) {
@@ -105,7 +106,7 @@ public class TridentConfig {
                     }
                 }
                 if (hasMatch) {
-                    return interpolator;
+                    return (PropertyInterpolator<T>) interpolator;
                 }
             } catch (NoClassDefFoundError ncdfe) {
             }
@@ -113,7 +114,7 @@ public class TridentConfig {
         return null;
     }
 
-    public synchronized void addPropertyInterpolator(PropertyInterpolator pInterpolator) {
+    public synchronized void addPropertyInterpolator(PropertyInterpolator<?> pInterpolator) {
         this.propertyInterpolators.add(pInterpolator);
     }
 
@@ -122,7 +123,7 @@ public class TridentConfig {
         this.propertyInterpolators.addAll(pInterpolatorSource.getPropertyInterpolators());
     }
 
-    public synchronized void removePropertyInterpolator(PropertyInterpolator pInterpolator) {
+    public synchronized void removePropertyInterpolator(PropertyInterpolator<?> pInterpolator) {
         this.propertyInterpolators.remove(pInterpolator);
     }
 

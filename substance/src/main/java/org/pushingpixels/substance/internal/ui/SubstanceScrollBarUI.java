@@ -105,7 +105,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      */
     private AdjustmentListener substanceAdjustmentListener;
 
-    private Set<SubstanceWidget> lafWidgets;
+    private Set<SubstanceWidget<JComponent>> lafWidgets;
 
     private static int THUMB_DELTA = 2;
 

@@ -39,11 +39,8 @@ import java.util.ArrayList;
  * @author Kirill Grouchnikov
  */
 public class Spline implements TimelineEase {
-    // private float easeAmount;
-
     public Spline(float easeAmount) {
         this(easeAmount, 0, 1 - easeAmount, 1);
-        // this.easeAmount = easeAmount;
     }
 
     private static class FloatPoint {
@@ -58,7 +55,7 @@ public class Spline implements TimelineEase {
 
     // Note: (x0,y0) and (x1,y1) are implicitly (0, 0) and (1,1) respectively
     private float x1, y1, x2, y2;
-    private ArrayList lengths = new ArrayList();
+    private ArrayList<LengthItem> lengths = new ArrayList<>();
 
     /**
      * Creates a new instance of SplineInterpolator with the control points
@@ -101,8 +98,7 @@ public class Spline implements TimelineEase {
         // Now calculate the fractions so that we can access the lengths
         // array with values in [0,1]. prevLength now holds the total
         // length of the spline.
-        for (int i = 0; i < lengths.size(); ++i) {
-            LengthItem lengthItem = (LengthItem) lengths.get(i);
+        for (LengthItem lengthItem : lengths) {
             lengthItem.setFraction(prevLength);
         }
     }
@@ -158,7 +154,7 @@ public class Spline implements TimelineEase {
         float prevT = 0.0f;
         float prevLength = 0.0f;
         for (int i = 0; i < lengths.size(); ++i) {
-            LengthItem lengthItem = (LengthItem) lengths.get(i);
+            LengthItem lengthItem = lengths.get(i);
             float fraction = lengthItem.getFraction();
             float t = lengthItem.getT();
             if (lengthFraction <= fraction) {

@@ -64,7 +64,7 @@ public class TabControlPanel extends JPanel {
      * 
      * @author Kirill Grouchnikov
      */
-    private static class TabComboBoxModel extends DefaultComboBoxModel {
+    private static class TabComboBoxModel extends DefaultComboBoxModel<Integer> {
         /**
          * Tabbed pane.
          */
@@ -86,7 +86,7 @@ public class TabControlPanel extends JPanel {
         }
 
         @Override
-        public Object getElementAt(int index) {
+        public Integer getElementAt(int index) {
             return index;
         }
 
@@ -125,8 +125,8 @@ public class TabControlPanel extends JPanel {
         int row = 1;
         builder.addSeparator("General").xyw(1, row, 5);
 
-        final JComboBox addKindCombo = new JComboBox(
-                new Object[] { "regular", "null", "modified" });
+        final JComboBox<String> addKindCombo = new JComboBox<>(
+                new String[] { "regular", "null", "modified" });
         JButton addNewTabButton = new JButton("Add");
         addNewTabButton.addActionListener((ActionEvent e) -> {
             String selectedKind = (String) addKindCombo.getSelectedItem();
@@ -148,8 +148,8 @@ public class TabControlPanel extends JPanel {
         builder.add(addKindCombo).xy(3, row);
         builder.add(addNewTabButton).xy(5, row);
 
-        final JComboBox placementCombo = new JComboBox(
-                new Object[] { "top", "bottom", "left", "right" });
+        final JComboBox<String> placementCombo = new JComboBox<>(
+                new String[] { "top", "bottom", "left", "right" });
         placementCombo.addActionListener((ActionEvent e) -> {
             String selected = (String) placementCombo.getSelectedItem();
             if ("top".equals(selected))
@@ -166,7 +166,7 @@ public class TabControlPanel extends JPanel {
         builder.add(placementCombo).xyw(3, row, 3);
 
         try {
-            final JComboBox overviewKindCombo = new FlexiComboBox<>(
+            final JComboBox<TabOverviewKind> overviewKindCombo = new FlexiComboBox<>(
                     TabOverviewKind.GRID, TabOverviewKind.MENU_CAROUSEL,
                     TabOverviewKind.ROUND_CAROUSEL) {
                 @Override
@@ -191,7 +191,7 @@ public class TabControlPanel extends JPanel {
         builder.addLabel("Layout").xy(1, row);
         builder.add(useScrollLayout).xyw(3, row, 3);
 
-        final JComboBox contentBorderCombo = new JComboBox(new Object[] {
+        final JComboBox<TabContentPaneBorderKind> contentBorderCombo = new JComboBox<>(new TabContentPaneBorderKind[] {
                         TabContentPaneBorderKind.DOUBLE_FULL, TabContentPaneBorderKind.SINGLE_FULL,
                         TabContentPaneBorderKind.DOUBLE_PLACEMENT,
                         TabContentPaneBorderKind.SINGLE_PLACEMENT });
@@ -252,7 +252,7 @@ public class TabControlPanel extends JPanel {
         row += 2;
         builder.addSeparator("Single Tab").xyw(1, row, 5);
 
-        final JComboBox tabSelectorCombo = new JComboBox(new TabComboBoxModel(this.jtp));
+        final JComboBox<Integer> tabSelectorCombo = new JComboBox<>(new TabComboBoxModel(this.jtp));
         //tabSelectorCombo.setRenderer(new TabCellRenderer());
         jtp.addContainerListener(new ContainerAdapter() {
             @Override

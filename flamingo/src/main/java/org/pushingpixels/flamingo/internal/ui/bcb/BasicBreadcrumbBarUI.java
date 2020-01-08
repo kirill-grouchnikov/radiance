@@ -68,7 +68,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     /**
      * The associated breadcrumb bar.
      */
-    private JBreadcrumbBar breadcrumbBar;
+    private JBreadcrumbBar<Object> breadcrumbBar;
 
     private JCircularProgress circularProgress;
 
@@ -83,12 +83,12 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     /**
      * Contains the item path.
      */
-    private LinkedList modelStack;
+    private LinkedList<Object> modelStack;
 
     private LinkedList<JCommandButton> buttonStack;
     private LinkedList<Command> commandStack;
 
-    private BreadcrumbPathListener pathListener;
+    private BreadcrumbPathListener<Object> pathListener;
 
     private AtomicInteger atomicCounter;
 
@@ -96,11 +96,12 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
     private boolean isShowingProgress;
 
+    @SuppressWarnings("unchecked")
     @Override
     public void installUI(JComponent c) {
-        this.breadcrumbBar = (JBreadcrumbBar) c;
+        this.breadcrumbBar = (JBreadcrumbBar<Object>) c;
 
-        this.modelStack = new LinkedList();
+        this.modelStack = new LinkedList<>();
         this.buttonStack = new LinkedList<>();
         this.commandStack = new LinkedList<>();
 
@@ -111,10 +112,10 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         c.setLayout(createLayoutManager());
 
         if (this.breadcrumbBar.getCallback() != null) {
-            SwingWorker<List<StringValuePair>, Void> worker =
-                    new SwingWorker<List<StringValuePair>, Void>() {
+            SwingWorker<List<StringValuePair<Object>>, Void> worker =
+                    new SwingWorker<>() {
                         @Override
-                        protected List<StringValuePair> doInBackground() throws Exception {
+                        protected List<StringValuePair<Object>> doInBackground() throws Exception {
                             startLoadingTimer();
                             return breadcrumbBar.getCallback().getPathChoices(null);
                         }
@@ -123,7 +124,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                         protected void done() {
                             try {
                                 stopLoadingTimer();
-                                pushChoices(new BreadcrumbItemChoices(null, get()));
+                                pushChoices(new BreadcrumbItemChoices<>(null, get()));
                             } catch (Exception exc) {
                                 exc.printStackTrace(System.err);
                             }
@@ -149,13 +150,13 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     public void uninstallUI(JComponent c) {
         c.setLayout(null);
 
-        uninstallListeners((JBreadcrumbBar) c);
-        uninstallComponents((JBreadcrumbBar) c);
-        uninstallDefaults((JBreadcrumbBar) c);
+        uninstallListeners((JBreadcrumbBar<?>) c);
+        uninstallComponents((JBreadcrumbBar<?>) c);
+        uninstallDefaults((JBreadcrumbBar<?>) c);
         this.breadcrumbBar = null;
     }
 
-    protected void installDefaults(JBreadcrumbBar bar) {
+    protected void installDefaults(JBreadcrumbBar<?> bar) {
         Font currFont = bar.getFont();
         if ((currFont == null) || (currFont instanceof UIResource)) {
             bar.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
@@ -163,7 +164,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         }
     }
 
-    protected void installComponents(JBreadcrumbBar bar) {
+    protected void installComponents(JBreadcrumbBar<?> bar) {
         FlowLayout mainPanelLayout = new FlowLayout(FlowLayout.LEFT, 0, 0);
         mainPanelLayout.setAlignOnBaseline(true);
         this.mainPanel = new JPanel(mainPanelLayout);
@@ -176,7 +177,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         bar.add(this.scrollerPanel, BorderLayout.CENTER);
     }
 
-    protected void installListeners(final JBreadcrumbBar bar) {
+    protected void installListeners(final JBreadcrumbBar<?> bar) {
         this.atomicCounter = new AtomicInteger(0);
 
         this.componentListener = new ComponentAdapter() {
@@ -187,18 +188,18 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         };
         bar.addComponentListener(this.componentListener);
 
-        this.pathListener = new BreadcrumbPathListener() {
+        this.pathListener = new BreadcrumbPathListener<>() {
             private SwingWorker<Void, Object> pathChangeWorker;
 
             @Override
-            public void breadcrumbPathEvent(BreadcrumbPathEvent event) {
+            public void breadcrumbPathEvent(BreadcrumbPathEvent<Object> event) {
                 startLoadingTimer();
                 final int indexOfFirstChange = event.getIndexOfFirstChange();
 
                 if ((this.pathChangeWorker != null) && !this.pathChangeWorker.isDone()) {
                     this.pathChangeWorker.cancel(true);
                 }
-                this.pathChangeWorker = new SwingWorker<Void, Object>() {
+                this.pathChangeWorker = new SwingWorker<>() {
                     @Override
                     protected Void doInBackground() throws Exception {
                         atomicCounter.incrementAndGet();
@@ -217,33 +218,33 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                         SwingUtilities.invokeLater(BasicBreadcrumbBarUI.this::updateComponents);
 
                         if (indexOfFirstChange == 0) {
-                            List<StringValuePair> rootChoices = breadcrumbBar.getCallback()
+                            List<StringValuePair<Object>> rootChoices = breadcrumbBar.getCallback()
                                     .getPathChoices(null);
-                            BreadcrumbItemChoices bic = new BreadcrumbItemChoices(null,
+                            BreadcrumbItemChoices<Object> bic = new BreadcrumbItemChoices<>(null,
                                     rootChoices);
                             if (!this.isCancelled()) {
                                 publish(bic);
                             }
                         }
 
-                        List<BreadcrumbItem> items = breadcrumbBar.getModel().getItems();
+                        List<BreadcrumbItem<Object>> items = breadcrumbBar.getModel().getItems();
                         if (items != null) {
                             for (int itemIndex = indexOfFirstChange; itemIndex < items
                                     .size(); itemIndex++) {
                                 if (this.isCancelled())
                                     break;
 
-                                BreadcrumbItem item = items.get(itemIndex);
+                                BreadcrumbItem<Object> item = items.get(itemIndex);
                                 publish(item);
 
                                 // now check if it has any children
-                                List<BreadcrumbItem> subPath = new ArrayList<BreadcrumbItem>();
+                                List<BreadcrumbItem<Object>> subPath = new ArrayList<>();
                                 for (int j = 0; j <= itemIndex; j++) {
                                     subPath.add(items.get(j));
                                 }
-                                BreadcrumbItemChoices bic = new BreadcrumbItemChoices(item,
+                                BreadcrumbItemChoices<Object> bic = new BreadcrumbItemChoices<>(item,
                                         breadcrumbBar.getCallback().getPathChoices(subPath));
-                                if ((bic.getChoices() != null) && (bic.getChoices().length > 0)) {
+                                if ((bic.getChoices() != null) && (bic.getChoices().size() > 0)) {
                                     // add the selector - the current item has
                                     // children
                                     publish(bic);
@@ -253,6 +254,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                         return null;
                     }
 
+                    @SuppressWarnings("unchecked")
                     @Override
                     protected void process(List<Object> chunks) {
                         if (chunks != null) {
@@ -261,10 +263,10 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                                     break;
 
                                 if (chunk instanceof BreadcrumbItemChoices) {
-                                    pushChoices((BreadcrumbItemChoices) chunk, false);
+                                    pushChoices((BreadcrumbItemChoices<Object>) chunk, false);
                                 }
                                 if (chunk instanceof BreadcrumbItem) {
-                                    pushChoice((BreadcrumbItem) chunk, false);
+                                    pushChoice((BreadcrumbItem<?>) chunk, false);
                                 }
                             }
                         }
@@ -283,10 +285,10 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         this.breadcrumbBar.getModel().addPathListener(this.pathListener);
     }
 
-    protected void uninstallDefaults(JBreadcrumbBar bar) {
+    protected void uninstallDefaults(JBreadcrumbBar<?> bar) {
     }
 
-    protected void uninstallComponents(JBreadcrumbBar bar) {
+    protected void uninstallComponents(JBreadcrumbBar<?> bar) {
         this.stopLoadingTimer();
         this.mainPanel.removeAll();
         this.buttonStack.clear();
@@ -295,7 +297,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         bar.remove(this.scrollerPanel);
     }
 
-    protected void uninstallListeners(JBreadcrumbBar bar) {
+    protected void uninstallListeners(JBreadcrumbBar<?> bar) {
         bar.removeComponentListener(this.componentListener);
         this.componentListener = null;
 
@@ -391,6 +393,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected synchronized void updateComponents() {
         if (!this.breadcrumbBar.isVisible()) {
             return;
@@ -414,7 +417,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         for (int i = 0; i < modelStack.size(); i++) {
             Object element = modelStack.get(i);
             if (element instanceof BreadcrumbItemChoices) {
-                BreadcrumbItemChoices bic = (BreadcrumbItemChoices) element;
+                BreadcrumbItemChoices<Object> bic = (BreadcrumbItemChoices<Object>) element;
                 if (buttonStack.isEmpty()) {
                     Command command = Command.builder()
                             .setSecondaryContentModel(new CommandMenuContentModel(
@@ -436,7 +439,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                     configurePopupRollover(button);
                 }
             } else if (element instanceof BreadcrumbItem) {
-                BreadcrumbItem bi = (BreadcrumbItem) element;
+                BreadcrumbItem<Object> bi = (BreadcrumbItem<Object>) element;
 
                 Command command = Command.builder()
                         .setText(bi.getKey())
@@ -480,11 +483,11 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                 }
 
                 if (i > 0) {
-                    BreadcrumbItemChoices lastBic = (BreadcrumbItemChoices) modelStack.get(i - 1);
-                    BreadcrumbItem[] choices = lastBic.getChoices();
+                    BreadcrumbItemChoices<Object> lastBic = (BreadcrumbItemChoices<Object>) modelStack.get(i - 1);
+                    List<BreadcrumbItem<Object>> choices = lastBic.getChoices();
                     if (choices != null) {
-                        for (int j = 0; j < choices.length; j++) {
-                            if (bi.getKey().equals(choices[j].getKey())) {
+                        for (int j = 0; j < choices.size(); j++) {
+                            if (bi.getKey().equals(choices.get(j).getKey())) {
                                 lastBic.setSelectedIndex(j);
                                 break;
                             }
@@ -513,10 +516,10 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         });
     }
 
-    private void configureMainAction(Command command, final BreadcrumbItem bi) {
+    private void configureMainAction(Command command, final BreadcrumbItem<Object> bi) {
         command.setAction((CommandActionEvent e) ->
                 SwingUtilities.invokeLater(() -> {
-                    BreadcrumbBarModel barModel = breadcrumbBar.getModel();
+                    BreadcrumbBarModel<Object> barModel = breadcrumbBar.getModel();
                     int itemIndex = barModel.indexOf(bi);
                     int toLeave = (itemIndex < 0) ? 0 : itemIndex + 1;
                     barModel.setCumulative(true);
@@ -528,13 +531,14 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         );
     }
 
-    private void configurePopupAction(Command command, final BreadcrumbItemChoices bic) {
+    private void configurePopupAction(Command command, final BreadcrumbItemChoices<Object> bic) {
         List<Command> menuCommands = new ArrayList<>();
 
         CommandPopupMenuPresentationModel.Builder menuPresentationModel =
                 CommandPopupMenuPresentationModel.builder();
-        for (int i = 0; i < bic.getChoices().length; i++) {
-            final BreadcrumbItem bi = bic.getChoices()[i];
+        List<BreadcrumbItem<Object>> items = bic.getChoices();
+        for (int i = 0; i < items.size(); i++) {
+            final BreadcrumbItem<Object> bi = items.get(i);
 
             Command.Builder commandBuilder = Command.builder();
 
@@ -574,7 +578,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             final int biIndex = i;
 
             commandBuilder.setAction((CommandActionEvent e) -> SwingUtilities.invokeLater(() -> {
-                BreadcrumbBarModel barModel = breadcrumbBar.getModel();
+                BreadcrumbBarModel<Object> barModel = breadcrumbBar.getModel();
                 barModel.setCumulative(true);
                 int itemIndex = barModel.indexOf(bic.getAncestor());
                 int toLeave = ((bic.getAncestor() == null) || (itemIndex < 0)) ? 0
@@ -601,8 +605,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             popupMenuContentModel.setHighlightedCommand(menuCommands.get(bic.getSelectedIndex()));
         }
 
-        CommandMenuContentModel commandPopupMenuContentModel =
-                (CommandMenuContentModel) command.getSecondaryContentModel();
+        CommandMenuContentModel commandPopupMenuContentModel = command.getSecondaryContentModel();
         commandPopupMenuContentModel.removeAllCommandGroups();
         commandPopupMenuContentModel.addCommandGroup(new CommandGroup(menuCommands));
     }
@@ -660,7 +663,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
      * @param bic The choice item to push.
      * @return The item that has been pushed.
      */
-    protected Object pushChoices(BreadcrumbItemChoices bic) {
+    protected Object pushChoices(BreadcrumbItemChoices<Object> bic) {
         return pushChoices(bic, true);
     }
 
@@ -672,7 +675,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
      * @param toUpdateUI Indication whether the bar should be repainted.
      * @return The item that has been pushed.
      */
-    protected synchronized Object pushChoices(BreadcrumbItemChoices bic, boolean toUpdateUI) {
+    protected synchronized Object pushChoices(BreadcrumbItemChoices<Object> bic, boolean toUpdateUI) {
         if (bic == null)
             return null;
         if (modelStack.size() % 2 == 1) {

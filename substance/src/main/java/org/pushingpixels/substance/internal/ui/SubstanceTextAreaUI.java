@@ -79,7 +79,7 @@ public class SubstanceTextAreaUI extends BasicTextAreaUI implements TransitionAw
      */
     private ButtonModel transitionModel;
 
-    private Set<SubstanceWidget> lafWidgets;
+    private Set<SubstanceWidget<JComponent>> lafWidgets;
 
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);

@@ -67,7 +67,7 @@ public class RegisterSkinChangeListener extends JFrame {
 
         // Get all skin display names and set the vector as a model
         // for combobox.
-        final JComboBox cb = new JComboBox(
+        final JComboBox<String> cb = new JComboBox<>(
                 new Vector<>(SubstanceCortex.GlobalScope.getAllSkins().keySet()));
         cb.setSelectedIndex(-1);
 

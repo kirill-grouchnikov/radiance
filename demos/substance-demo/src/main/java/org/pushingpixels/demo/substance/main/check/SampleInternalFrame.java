@@ -81,7 +81,7 @@ public class SampleInternalFrame extends JInternalFrame {
         builder.append(cb1, rb1);
         builder.append(cb2, rb2);
         builder.append(cb3, rb3);
-        JComboBox combo = new JComboBox(new Object[] { "item1", "item2", "item3", "item4" });
+        JComboBox<String> combo = new JComboBox<>(new String[] { "item1", "item2", "item3", "item4" });
         combo.setSelectedIndex(0);
         combo.setEditable(true);
         JTextField text = new JTextField("Text field");

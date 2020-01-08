@@ -51,7 +51,7 @@ public class SubstanceComboPopup extends BasicComboPopup {
 	 * @param combo
 	 *            Combobox.
 	 */
-	public SubstanceComboPopup(JComboBox combo) {
+	public SubstanceComboPopup(JComboBox<Object> combo) {
 		super(combo);
 		// fix for defect 154
 		this.setOpaque(true);
@@ -160,7 +160,7 @@ public class SubstanceComboPopup extends BasicComboPopup {
 		Object popupPrototypeDisplayValue = SubstanceCoreUtilities
 				.getComboPopupPrototypeDisplayValue(this.comboBox);
 		if (popupPrototypeDisplayValue != null) {
-			ListCellRenderer renderer = this.list.getCellRenderer();
+			ListCellRenderer<Object> renderer = this.list.getCellRenderer();
 			Component c = renderer.getListCellRendererComponent(this.list,
 					popupPrototypeDisplayValue, -1, true, true);
 			int npw = c.getPreferredSize().width;
@@ -194,7 +194,7 @@ public class SubstanceComboPopup extends BasicComboPopup {
 		ui.resetRolloverIndex();
 	}
 
-	public JComboBox getCombobox() {
+	public JComboBox<Object> getCombobox() {
 		return this.comboBox;
 	}
 }

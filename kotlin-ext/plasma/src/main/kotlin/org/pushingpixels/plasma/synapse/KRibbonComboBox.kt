@@ -29,32 +29,25 @@
  */
 package org.pushingpixels.plasma.synapse
 
-import org.pushingpixels.flamingo.api.common.model.CommandGroup
-import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
-import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy
-import org.pushingpixels.flamingo.api.ribbon.synapse.JRibbonComboBox
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonComboBoxContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonDefaultComboBoxContentModel
-import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonComboBoxProjection
 import org.pushingpixels.neon.api.icon.ResizableIcon
-import org.pushingpixels.plasma.*
+import org.pushingpixels.plasma.FlamingoElementMarker
+import org.pushingpixels.plasma.KRichTooltip
+import org.pushingpixels.plasma.NullableDelegate
 import org.pushingpixels.plasma.ribbon.KFlowRibbonBand
 import org.pushingpixels.plasma.ribbon.KRibbonBand
 import org.pushingpixels.plasma.ribbon.KRibbonBandGroup
 import org.pushingpixels.plasma.ribbon.KRibbonTaskbar
-import javax.swing.JComponent
 
 @FlamingoElementMarker
 class KRibbonComboBoxContentModel<T> {
     private val builder = RibbonDefaultComboBoxContentModel.builder<T>()
-    internal lateinit var javaContentModel: RibbonDefaultComboBoxContentModel<T>
+    private lateinit var javaContentModel: RibbonDefaultComboBoxContentModel<T>
     internal var hasBeenConverted: Boolean = false
 
-    internal var richTooltip: KRichTooltip? by NullableDelegate { false }
-    internal var items: List<T>? = null
+    private var richTooltip: KRichTooltip? by NullableDelegate { false }
+    private var items: Array<out T>? = null
     var iconFactory: ResizableIcon.Factory? by NullableDelegate { false }
     var caption: String? by NullableDelegate { false }
     var selectionChangeListener: ((oldSelection: Any?, newSelection: Any?) -> Unit)?
@@ -83,7 +76,7 @@ class KRibbonComboBoxContentModel<T> {
     }
 
     fun items(vararg items: T) {
-        this.items = items.toList()
+        this.items = items
     }
 
     fun asJavaComboBoxContentModel(): RibbonDefaultComboBoxContentModel<T> {
@@ -91,10 +84,9 @@ class KRibbonComboBoxContentModel<T> {
             return javaContentModel
         }
 
-        val javaItems = ArrayList<T>(this.items).toArray()
 
         val javaBuilder = RibbonDefaultComboBoxContentModel.builder<T>()
-                .setItems(javaItems as Array<T>)
+                .setItems(this.items)
                 .setIconFactory(this.iconFactory)
                 .setCaption(this.caption)
                 .setEnabled(this.isEnabled)
@@ -124,7 +116,7 @@ class KRibbonComboBox<T> {
         presentation.init()
     }
 
-    fun toJavaProjection(): RibbonComboBoxProjection {
+    fun toJavaProjection(): RibbonComboBoxProjection<T> {
         val javaContent = content.asJavaComboBoxContentModel()
         val javaPresentation = presentation.toComponentPresentation()
         return RibbonComboBoxProjection(javaContent, javaPresentation)

@@ -69,7 +69,7 @@ public class WatermarkVisible extends JFrame {
         this.add(coloredPanel);
 
         // create list with a few values
-        final JList jlist = new JList(new Object[] { "value1", "value2", "value3", "value4" });
+        final JList<String> jlist = new JList<>(new String[] { "value1", "value2", "value3", "value4" });
         listPanel.add(jlist, BorderLayout.CENTER);
 
         JPanel listControls = new JPanel(new FlowLayout(FlowLayout.RIGHT));

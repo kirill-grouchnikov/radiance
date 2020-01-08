@@ -209,6 +209,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         /**
          * Creates the new taskbar panel.
          */
+        @SuppressWarnings("unchecked")
         private TaskbarPanel() {
             super(new TaskbarLayout());
 

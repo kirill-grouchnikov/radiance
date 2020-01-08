@@ -88,10 +88,11 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
 
     private Insets layoutInsets;
 
+    @SuppressWarnings("unchecked")
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
-        SubstanceComboBoxUI ui = new SubstanceComboBoxUI((JComboBox) comp);
-        ui.comboBox = (JComboBox) comp;
+        SubstanceComboBoxUI ui = new SubstanceComboBoxUI((JComboBox<Object>) comp);
+        ui.comboBox = (JComboBox<Object>) comp;
         ui.comboBox.putClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL, ui.comboBox.isOpaque());
         ui.comboBox.setOpaque(false);
         return ui;
@@ -102,7 +103,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         super.installUI(c);
 
         c.putClientProperty(SubstanceCoreUtilities.TEXT_COMPONENT_AWARE,
-                (TextComponentAware<JComboBox>) t -> {
+                (TextComponentAware<JComboBox<?>>) t -> {
                     if (t.isEditable()) {
                         Component editorComp = t.getEditor().getEditorComponent();
                         if (editorComp instanceof JTextComponent) {
@@ -125,7 +126,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         super.uninstallUI(c);
     }
 
-    private SubstanceComboBoxUI(JComboBox combo) {
+    private SubstanceComboBoxUI(JComboBox<Object> combo) {
         this.comboBox = combo;
 
         this.transitionModel = new DefaultButtonModel();
@@ -163,7 +164,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
     }
 
     @Override
-    protected ListCellRenderer createRenderer() {
+    protected ListCellRenderer<Object> createRenderer() {
         return new SubstanceDefaultComboBoxRenderer.SubstanceUIResource(this.comboBox);
     }
 
@@ -445,7 +446,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         if (!comboBox.isEditable()) {
             Rectangle r = rectangleForCurrentValue();
 
-            ListCellRenderer renderer = this.comboBox.getRenderer();
+            ListCellRenderer<Object> renderer = this.comboBox.getRenderer();
             Component rendererComponent;
             if (hasFocus) {
                 rendererComponent = renderer.getListCellRendererComponent(this.listBox,

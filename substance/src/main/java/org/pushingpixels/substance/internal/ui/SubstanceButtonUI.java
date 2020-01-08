@@ -130,7 +130,7 @@ public class SubstanceButtonUI extends BasicButtonUI implements
      */
     private GhostingListener ghostModelChangeListener;
 
-    private Set<SubstanceWidget> lafWidgets;
+    private Set<SubstanceWidget<JComponent>> lafWidgets;
 
     protected AbstractButton button;
 

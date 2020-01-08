@@ -87,9 +87,10 @@ public class FileExplorerStates extends JFrame {
                     }
                 }));
 
-        final JComboBox states = new JComboBox(new DefaultComboBoxModel(new Object[] {
-                CommandButtonPresentationState.BIG, CommandButtonPresentationState.TILE,
-                CommandButtonPresentationState.MEDIUM, CommandButtonPresentationState.SMALL }));
+        final JComboBox<CommandButtonPresentationState> states =
+                new JComboBox<>(new DefaultComboBoxModel<>(new CommandButtonPresentationState[] {
+                        CommandButtonPresentationState.BIG, CommandButtonPresentationState.TILE,
+                        CommandButtonPresentationState.MEDIUM, CommandButtonPresentationState.SMALL}));
         states.addItemListener((ItemEvent e) -> {
             CommandButtonPresentationState selected = (CommandButtonPresentationState) states
                     .getSelectedItem();

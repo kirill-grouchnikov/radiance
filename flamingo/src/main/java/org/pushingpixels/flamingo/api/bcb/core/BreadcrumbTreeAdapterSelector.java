@@ -103,7 +103,7 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
         /**
          * The corresponding tree adapter. Can not be <code>null</code>.
          */
-        private TreeAdapter treeAdapter;
+        private TreeAdapter<T> treeAdapter;
 
         /**
          * If <code>true</code>, the first selector shows the tree root node. If
@@ -122,13 +122,14 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
          *                      root node. If <code>false</code>, the first selector shows
          *                      the tree root child nodes.
          */
-        private TreeCallback(TreeModel treeModel, TreeAdapter treeAdapter,
+        private TreeCallback(TreeModel treeModel, TreeAdapter<T> treeAdapter,
                 boolean isRootVisible) {
             this.treeModel = treeModel;
             this.treeAdapter = treeAdapter;
             this.isRootVisible = isRootVisible;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public List<StringValuePair<T>> getPathChoices(List<BreadcrumbItem<T>> path) {
             if (path == null) {
@@ -173,6 +174,7 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
             return lResult;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public List<StringValuePair<T>> getLeafs(List<BreadcrumbItem<T>> path) {
             T lastInPath = path.get(path.size() - 1).getData();
@@ -210,7 +212,7 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
      *                      root child nodes.
      */
     public BreadcrumbTreeAdapterSelector(TreeModel treeModel,
-            TreeAdapter treeAdapter, boolean isRootVisible) {
+            TreeAdapter<T> treeAdapter, boolean isRootVisible) {
         super(null);
 
         this.model = new BreadcrumbBarModel<>();
@@ -226,7 +228,7 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
      * @param tree        Tree.
      * @param treeAdapter Tree adapter. Can not be <code>null</code>.
      */
-    public BreadcrumbTreeAdapterSelector(JTree tree, TreeAdapter treeAdapter) {
+    public BreadcrumbTreeAdapterSelector(JTree tree, TreeAdapter<T> treeAdapter) {
         this(tree.getModel(), treeAdapter, tree.isRootVisible());
     }
 
@@ -238,7 +240,7 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
      * @param tree Tree.
      */
     public BreadcrumbTreeAdapterSelector(final JTree tree) {
-        this(tree, new TreeAdapter() {
+        this(tree, new TreeAdapter<>() {
             private JLabel getRenderer(Object node) {
                 Component renderer = tree.getCellRenderer()
                         .getTreeCellRendererComponent(tree, node, false, false,

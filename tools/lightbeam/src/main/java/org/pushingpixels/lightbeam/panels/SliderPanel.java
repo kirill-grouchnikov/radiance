@@ -247,16 +247,16 @@ public class SliderPanel extends JPanel {
 		coloredLabels.setMaximum(2);
 		coloredLabels.setMajorTickSpacing(1);
 		coloredLabels.setPaintLabels(true);
-		Hashtable labels = new Hashtable();
+		Hashtable<Integer, JLabel> labels = new Hashtable<>();
 		JLabel l0 = new JLabel("Red");
 		l0.setForeground(new Color(255, 0, 0));
-		labels.put(Integer.valueOf(0), l0);
+		labels.put(0, l0);
 		JLabel l1 = new JLabel("Green");
 		l1.setForeground(new Color(0, 255, 0));
-		labels.put(Integer.valueOf(1), l1);
+		labels.put(1, l1);
 		JLabel l2 = new JLabel("Blue");
 		l2.setForeground(new Color(0, 0, 255));
-		labels.put(Integer.valueOf(2), l2);
+		labels.put(2, l2);
 		coloredLabels.setLabelTable(labels);
 		return coloredLabels;
 	}
@@ -267,17 +267,17 @@ public class SliderPanel extends JPanel {
 		htmlLabels.setMaximum(2);
 		htmlLabels.setMajorTickSpacing(1);
 		htmlLabels.setPaintLabels(true);
-		Hashtable labels = new Hashtable();
+		Hashtable<Integer, JLabel> labels = new Hashtable<>();
 		JLabel l0 = new JLabel(
 				"<html><body>0<br><b>0</b><br><i>0</i></body></html>");
 		l0.setForeground(new Color(255, 0, 0));
-		labels.put(Integer.valueOf(0), l0);
+		labels.put(0, l0);
 		JLabel l1 = new JLabel(
 				"<html><body>1<br><b>1</b><br><i>1</i></body></html>");
-		labels.put(Integer.valueOf(1), l1);
+		labels.put(1, l1);
 		JLabel l2 = new JLabel(
 				"<html><body>2<br><b>2</b><br><i>2</i></body></html>");
-		labels.put(Integer.valueOf(2), l2);
+		labels.put(2, l2);
 		htmlLabels.setLabelTable(labels);
 		return htmlLabels;
 	}
@@ -291,7 +291,7 @@ public class SliderPanel extends JPanel {
 			@Override
 			public String getName() {
 				return "Changing slider values";
-			};
+			}
 
 			@Override
 			public void setup() {
@@ -303,7 +303,7 @@ public class SliderPanel extends JPanel {
 			@Override
 			public int getIterationCount() {
 				return 10;
-			};
+			}
 
 			@Override
 			public void runSingleIteration(int iterationNumber) {
@@ -316,7 +316,7 @@ public class SliderPanel extends JPanel {
 					count++;
 				}
 				paintImmediately(new Rectangle(0, 0, getWidth(), getHeight()));
-			};
+			}
 		};
 	}
 }

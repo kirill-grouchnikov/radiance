@@ -55,7 +55,7 @@ public class JTreeAdapterBreadCrumbTest extends JFrame {
      * File system view.
      */
     private static FileSystemView fsv = FileSystemView.getFileSystemView();
-    private JList fileList;
+    private JList<File> fileList;
     private BreadcrumbTreeAdapterSelector<FileTreeNode> bar;
 
     private JTreeAdapterBreadCrumbTest() {
@@ -112,7 +112,7 @@ public class JTreeAdapterBreadCrumbTest extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(bar, BorderLayout.NORTH);
 
-        this.fileList = new JList();
+        this.fileList = new JList<>();
         this.fileList.setCellRenderer(new FileListRenderer());
         JScrollPane fileListScrollPane = new JScrollPane(this.fileList);
         fileListScrollPane.setBorder(new TitledBorder("File list"));
@@ -174,9 +174,9 @@ public class JTreeAdapterBreadCrumbTest extends JFrame {
         }
 
         @Override
-        public Enumeration children() {
+        public Enumeration<FileTreeNode> children() {
             final int elementCount = this.children.length;
-            return new Enumeration<File>() {
+            return new Enumeration<>() {
                 int count = 0;
 
                 @Override
@@ -185,14 +185,13 @@ public class JTreeAdapterBreadCrumbTest extends JFrame {
                 }
 
                 @Override
-                public File nextElement() {
+                public FileTreeNode nextElement() {
                     if (this.count < elementCount) {
-                        return FileTreeNode.this.children[this.count++];
+                        return new FileTreeNode(FileTreeNode.this.children[this.count++], false, FileTreeNode.this);
                     }
                     throw new NoSuchElementException("Vector Enumeration");
                 }
             };
-
         }
 
         @Override
@@ -232,7 +231,7 @@ public class JTreeAdapterBreadCrumbTest extends JFrame {
         }
     }
 
-    public class FileListModel extends AbstractListModel {
+    public class FileListModel extends AbstractListModel<File> {
         private ArrayList<File> files = new ArrayList<>();
 
         public void add(File file) {
@@ -250,7 +249,7 @@ public class JTreeAdapterBreadCrumbTest extends JFrame {
         }
 
         @Override
-        public Object getElementAt(int index) {
+        public File getElementAt(int index) {
             return files.get(index);
         }
 

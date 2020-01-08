@@ -30,6 +30,7 @@ import java.util.*;
  *
  * @author nigel
  */
+@SuppressWarnings("unchecked")
 public class ImageUtilities {
 
     /**

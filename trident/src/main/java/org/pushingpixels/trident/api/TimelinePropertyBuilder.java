@@ -34,6 +34,9 @@ import org.pushingpixels.trident.api.interpolator.PropertyInterpolator;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class TimelinePropertyBuilder<T> {
 
@@ -87,6 +90,7 @@ public class TimelinePropertyBuilder<T> {
             getterMethod = getGetter(obj, fieldName);
         }
 
+        @SuppressWarnings("unchecked")
         public T get(Object obj, String fieldName) {
             try {
                 return (T) getterMethod.invoke(obj);
@@ -208,39 +212,39 @@ public class TimelinePropertyBuilder<T> {
         return this;
     }
 
-    AbstractFieldInfo getFieldInfo(Object mainObject) {
+    AbstractFieldInfo<T> getFieldInfo(Object mainObject) {
         if (this.target == null) {
             this.target = mainObject;
         }
 
         if (this.keyFrames != null) {
-            return new KeyFramesFieldInfo(this.target, this.propertyName, this.keyFrames,
+            return new KeyFramesFieldInfo<>(this.target, this.propertyName, this.keyFrames,
                     this.setter);
         }
 
         if (this.isFromCurrent) {
             if (this.interpolator == null) {
-                this.interpolator = TridentConfig.getInstance().getPropertyInterpolator(this.to);
+                this.interpolator = TridentConfig.getInstance().getPropertyInterpolator(Collections.singleton(this.to));
 
                 if (this.interpolator == null) {
                     throw new IllegalArgumentException(
                             "No interpolator found for " + this.to.getClass().getName());
                 }
             }
-            return new GenericFieldInfoTo(this.target, this.propertyName, this.to,
+            return new GenericFieldInfoTo<>(this.target, this.propertyName, this.to,
                     this.interpolator, this.getter, this.setter);
         }
 
         if (this.interpolator == null) {
-            this.interpolator = TridentConfig.getInstance().getPropertyInterpolator(this.from,
-                    this.to);
+            this.interpolator = TridentConfig.getInstance().getPropertyInterpolator(
+                    Arrays.asList(this.from, this.to));
 
             if (this.interpolator == null) {
                 throw new IllegalArgumentException("No interpolator found for "
                         + this.from.getClass().getName() + ":" + this.to.getClass().getName());
             }
         }
-        return new GenericFieldInfo(this.target, this.propertyName, this.from, this.to,
+        return new GenericFieldInfo<>(this.target, this.propertyName, this.from, this.to,
                 this.interpolator, this.setter);
     }
 
@@ -249,8 +253,8 @@ public class TimelinePropertyBuilder<T> {
 
         protected String fieldName;
 
-        protected PropertyGetter getter;
-        protected PropertySetter setter;
+        protected PropertyGetter<F> getter;
+        protected PropertySetter<F> setter;
 
         protected F from;
         protected F to;
@@ -280,24 +284,24 @@ public class TimelinePropertyBuilder<T> {
             PropertyGetter<T> pGetter) {
         if (pGetter != null)
             return pGetter;
-        return new DefaultPropertyGetter(obj, fieldName);
+        return new DefaultPropertyGetter<>(obj, fieldName);
     }
 
     private static <T> PropertySetter<T> getPropertySetter(Object obj, String fieldName,
             PropertySetter<T> pSetter) {
         if (pSetter != null)
             return pSetter;
-        return new DefaultPropertySetter(obj, fieldName);
+        return new DefaultPropertySetter<>(obj, fieldName);
     }
 
-    private class GenericFieldInfoTo extends AbstractFieldInfo<Object> {
-        private PropertyInterpolator propertyInterpolator;
+    private static class GenericFieldInfoTo<T> extends AbstractFieldInfo<T> {
+        private PropertyInterpolator<T> propertyInterpolator;
 
-        private Object to;
+        private T to;
 
-        GenericFieldInfoTo(Object obj, String fieldName, Object to,
-                PropertyInterpolator propertyInterpolator, PropertyGetter propertyGetter,
-                PropertySetter propertySetter) {
+        GenericFieldInfoTo(Object obj, String fieldName, T to,
+                PropertyInterpolator<T> propertyInterpolator, PropertyGetter<T> propertyGetter,
+                PropertySetter<T> propertySetter) {
             super(obj, fieldName, getPropertyGetter(obj, fieldName, propertyGetter),
                     getPropertySetter(obj, fieldName, propertySetter));
             this.propertyInterpolator = propertyInterpolator;
@@ -320,7 +324,7 @@ public class TimelinePropertyBuilder<T> {
         void updateFieldValue(float timelinePosition) {
             //System.out.println("updateFieldValue on @" + hashCode());
             try {
-                Object value = this.propertyInterpolator.interpolate(from, to, timelinePosition);
+                T value = this.propertyInterpolator.interpolate(from, to, timelinePosition);
                 this.setter.set(this.object, this.fieldName, value);
             } catch (Throwable exc) {
                 System.err.println("Exception occurred in updating field '" + this.fieldName
@@ -332,11 +336,11 @@ public class TimelinePropertyBuilder<T> {
         }
     }
 
-    private class GenericFieldInfo extends AbstractFieldInfo<Object> {
-        private PropertyInterpolator propertyInterpolator;
+    private static class GenericFieldInfo<T> extends AbstractFieldInfo<T> {
+        private PropertyInterpolator<T> propertyInterpolator;
 
-        GenericFieldInfo(Object obj, String fieldName, Object from, Object to,
-                PropertyInterpolator propertyInterpolator, PropertySetter propertySetter) {
+        GenericFieldInfo(Object obj, String fieldName, T from, T to,
+                PropertyInterpolator<T> propertyInterpolator, PropertySetter<T> propertySetter) {
             super(obj, fieldName, null, getPropertySetter(obj, fieldName, propertySetter));
             this.propertyInterpolator = propertyInterpolator;
             this.setValues(from, to);
@@ -354,7 +358,7 @@ public class TimelinePropertyBuilder<T> {
         @Override
         void updateFieldValue(float timelinePosition) {
             try {
-                Object value = this.propertyInterpolator.interpolate(from, to, timelinePosition);
+                T value = this.propertyInterpolator.interpolate(from, to, timelinePosition);
                 this.setter.set(this.object, this.fieldName, value);
             } catch (Throwable exc) {
                 System.err.println("Exception occurred in updating field '" + this.fieldName
@@ -366,11 +370,11 @@ public class TimelinePropertyBuilder<T> {
         }
     }
 
-    private class KeyFramesFieldInfo extends AbstractFieldInfo<Object> {
-        KeyFrames keyFrames;
+    private static class KeyFramesFieldInfo<T> extends AbstractFieldInfo<T> {
+        KeyFrames<? extends T> keyFrames;
 
-        KeyFramesFieldInfo(Object obj, String fieldName, KeyFrames keyFrames,
-                PropertySetter propertySetter) {
+        KeyFramesFieldInfo(Object obj, String fieldName, KeyFrames<? extends T> keyFrames,
+                PropertySetter<T> propertySetter) {
             super(obj, fieldName, null, getPropertySetter(obj, fieldName, propertySetter));
             this.keyFrames = keyFrames;
         }
@@ -388,7 +392,7 @@ public class TimelinePropertyBuilder<T> {
         void updateFieldValue(float timelinePosition) {
             if (this.setter != null) {
                 try {
-                    Object value = this.keyFrames.getValue(timelinePosition);
+                    T value = this.keyFrames.getValue(timelinePosition);
                     this.setter.set(this.object, this.fieldName, value);
                 } catch (Throwable exc) {
                     exc.printStackTrace();
@@ -400,7 +404,7 @@ public class TimelinePropertyBuilder<T> {
     private static Method getSetter(Object object, String propertyName) {
         String setterMethodName = "set" + Character.toUpperCase(propertyName.charAt(0))
                 + propertyName.substring(1);
-        Class oClazz = object.getClass();
+        Class<?> oClazz = object.getClass();
         while (oClazz != null) {
             for (Method m : oClazz.getMethods()) {
                 if (setterMethodName.equals(m.getName()) && (m.getParameterTypes().length == 1)
@@ -417,7 +421,7 @@ public class TimelinePropertyBuilder<T> {
     private static Method getGetter(Object object, String propertyName) {
         String getterMethodName = "get" + Character.toUpperCase(propertyName.charAt(0))
                 + propertyName.substring(1);
-        Class oClazz = object.getClass();
+        Class<?> oClazz = object.getClass();
         while (oClazz != null) {
             for (Method m : oClazz.getMethods()) {
                 if (getterMethodName.equals(m.getName()) && (m.getParameterTypes().length == 0)

@@ -358,6 +358,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     private <T extends AbstractCommandButton> T getPrimaryForCommand(Command command) {
         for (int topLevelIndex = 0; topLevelIndex < this.panelLevel1.getComponentCount();
              topLevelIndex++) {
@@ -372,6 +373,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         return null;
     }
 
+    @SuppressWarnings("unchecked")
     private <T extends AbstractCommandButton> T getSecondaryForCommand(Command command) {
         JRibbonApplicationMenuPopupPanelSecondary secondaryPanel =
                 (JRibbonApplicationMenuPopupPanelSecondary) this.panelLevel2.getComponent(0);
@@ -391,6 +393,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         return null;
     }
 
+    @SuppressWarnings("unchecked")
     private <T extends AbstractCommandButton> T getMenuButtonForCommand(Command command) {
         List<PopupPanelManager.PopupInfo> popups =
                 PopupPanelManager.defaultManager().getShownPath();

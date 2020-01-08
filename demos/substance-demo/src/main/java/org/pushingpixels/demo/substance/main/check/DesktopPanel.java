@@ -145,7 +145,7 @@ public class DesktopPanel extends ControllablePanel {
                                     controls.add(new JToggleButton("toggle" + i));
                                 } else {
                                     if (r < 0.6) {
-                                        controls.add(new JComboBox(new Object[] { "combo" + i }));
+                                        controls.add(new JComboBox<>(new String[] { "combo" + i }));
                                     } else {
                                         if (r < 0.7) {
                                             controls.add(new JTextField("text field" + i));
@@ -156,8 +156,7 @@ public class DesktopPanel extends ControllablePanel {
                                                 if (r < 0.9) {
                                                     controls.add(new JSpinner());
                                                 } else {
-                                                    controls.add(
-                                                            new JList(new Object[] { "list" + i }));
+                                                    controls.add(new JList<>(new String[] { "list" + i }));
                                                 }
                                             }
                                         }

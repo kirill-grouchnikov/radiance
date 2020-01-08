@@ -35,7 +35,8 @@ import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class FlexiComboBox<T> extends JComboBox {
+public abstract class FlexiComboBox<T> extends JComboBox<T> {
+	@SafeVarargs
 	public FlexiComboBox(T... items) {
 		super(items);
 	}
@@ -44,6 +45,7 @@ public abstract class FlexiComboBox<T> extends JComboBox {
 	public void updateUI() {
 		if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
 			setRenderer(new SubstanceDefaultComboBoxRenderer(this) {
+				@SuppressWarnings("unchecked")
 				@Override
 				public Component getListCellRendererComponent(JList list,
 						Object value, int index, boolean isSelected,
@@ -63,6 +65,7 @@ public abstract class FlexiComboBox<T> extends JComboBox {
 			});
 		} else {
 			setRenderer(new DefaultListCellRenderer() {
+				@SuppressWarnings("unchecked")
 				@Override
 				public Component getListCellRendererComponent(JList list,
 						Object value, int index, boolean isSelected,

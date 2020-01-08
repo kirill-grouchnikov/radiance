@@ -166,7 +166,7 @@ public class GetFontPolicy extends JFrame {
                     "Message: " + fontSet.getMessageFont(),
                     "Small: " + fontSet.getSmallFont(), "Title: " + fontSet.getTitleFont(),
                     "Window title: " + fontSet.getWindowTitleFont() };
-            JList infoList = new JList(infoArray);
+            JList<String> infoList = new JList<>(infoArray);
             JDialog infoDialog = new JDialog(GetFontPolicy.this, "Font set info", true);
             infoDialog.setLayout(new BorderLayout());
             infoDialog.add(infoList, BorderLayout.CENTER);

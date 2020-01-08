@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ColorComboBox extends JComboBox {
+public class ColorComboBox extends JComboBox<ColorComboBox.Value> {
 
 	public static final String PROP_COLOR = "color"; // NOI18N
 
@@ -43,7 +43,7 @@ public class ColorComboBox extends JComboBox {
 		colorMap.put(Color.YELLOW, loc("Yellow")); // NOI18N
 	}
 
-	private static Object[] content = new Object[] { new Value(Color.BLACK),
+	private static Value[] content = new Value[] { new Value(Color.BLACK),
 			new Value(Color.BLUE), new Value(Color.CYAN),
 			new Value(Color.DARK_GRAY), new Value(Color.GRAY),
 			new Value(Color.GREEN), new Value(Color.LIGHT_GRAY),
@@ -114,7 +114,7 @@ public class ColorComboBox extends JComboBox {
 		}
 	}
 
-	private class Renderer extends JComponent implements ListCellRenderer,
+	private class Renderer extends JComponent implements ListCellRenderer<Value>,
 			ComboBoxEditor {
 
 		private int SIZE = 9;
@@ -164,23 +164,19 @@ public class ColorComboBox extends JComboBox {
 			super.setEnabled(enabled);
 		}
 
-		public Component getListCellRendererComponent(JList list, Object value,
+		public Component getListCellRendererComponent(JList list, Value value,
 				int index, boolean isSelected, boolean cellHasFocus) {
-			this.value = (Value) value;
+			this.value = value;
 			setEnabled(list.isEnabled());
-			setBackground(isSelected ? SystemColor.textHighlight
-					: SystemColor.text);
-			setForeground(isSelected ? SystemColor.textHighlightText
-					: SystemColor.textText);
+			setBackground(isSelected ? SystemColor.textHighlight : SystemColor.text);
+			setForeground(isSelected ? SystemColor.textHighlightText : SystemColor.textText);
 			return this;
 		}
 
 		public Component getEditorComponent() {
 			setEnabled(ColorComboBox.this.isEnabled());
-			setBackground(ColorComboBox.this.isFocusOwner() ? SystemColor.textHighlight
-					: SystemColor.text);
-			setForeground(ColorComboBox.this.isFocusOwner() ? SystemColor.textHighlightText
-					: SystemColor.textText);
+			setBackground(ColorComboBox.this.isFocusOwner() ? SystemColor.textHighlight : SystemColor.text);
+			setForeground(ColorComboBox.this.isFocusOwner() ? SystemColor.textHighlightText : SystemColor.textText);
 			return this;
 		}
 

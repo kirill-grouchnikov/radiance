@@ -164,6 +164,7 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
         table.putDefaults(uiDefaults);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void initComponentDefaults(UIDefaults table) {
         super.initComponentDefaults(table);

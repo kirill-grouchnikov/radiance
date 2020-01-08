@@ -37,6 +37,7 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerContentM
 public class RibbonSpinnerProjection extends ComponentProjection<JRibbonSpinner,
         RibbonSpinnerContentModel> {
 
+    @SuppressWarnings("unchecked")
     private static ComponentSupplier<JRibbonSpinner,
             RibbonSpinnerContentModel, ComponentPresentationModel> DEFAULT_SUPPLIER =
             (Projection<JRibbonSpinner, RibbonSpinnerContentModel,

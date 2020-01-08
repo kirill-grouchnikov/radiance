@@ -48,7 +48,7 @@ public class DecorationLists extends JFrame {
             Font font = captionLabel.getFont();
             captionLabel.setFont(font.deriveFont(Font.BOLD));
             this.add(captionLabel, BorderLayout.NORTH);
-            JList list = new JList(new Object[] { "entry1", "entry2", "entry3", "entry4" });
+            JList<String> list = new JList<>(new String[] { "entry1", "entry2", "entry3", "entry4" });
             list.setEnabled(isEnabled);
             this.add(list, BorderLayout.CENTER);
         }

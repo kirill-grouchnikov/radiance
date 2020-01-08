@@ -34,9 +34,7 @@ package org.pushingpixels.trident.api.interpolator;
 import org.pushingpixels.trident.api.TimelinePropertyBuilder.PropertySetter;
 import org.pushingpixels.trident.api.TridentConfig;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Stores a list of values that correspond to the times in a {@link KeyTimes}
@@ -81,8 +79,9 @@ public class KeyValues<T> {
      *             if an {@link PropertyInterpolator} cannot be found that can interpolate
      *             between the value types supplied
      */
+    @SafeVarargs
     public static <T> KeyValues<T> create(T... params) {
-        return new KeyValues(params);
+        return new KeyValues<>(params);
     }
 
     /**
@@ -99,21 +98,21 @@ public class KeyValues<T> {
      * @throws IllegalArgumentException
      *             if params does not have at least one value.
      */
-    public static <T> KeyValues<T> create(PropertyInterpolator interpolator, T... params) {
-        return new KeyValues(interpolator, params);
+    public static <T> KeyValues<T> create(PropertyInterpolator<T> interpolator, T[] params) {
+        return new KeyValues<>(interpolator, params);
     }
 
     /**
      * Private constructor, called by factory method
      */
-    private KeyValues(T... params) {
-        this(TridentConfig.getInstance().getPropertyInterpolator(params), params);
+    private KeyValues(T[] params) {
+        this(TridentConfig.getInstance().getPropertyInterpolator(Arrays.asList(params)), params);
     }
 
     /**
      * Private constructor, called by factory method
      */
-    private KeyValues(PropertyInterpolator interpolator, T... params) {
+    private KeyValues(PropertyInterpolator<T> interpolator, T[] params) {
         if (params == null) {
             throw new IllegalArgumentException("params array cannot be null");
         } else if (params.length == 0) {

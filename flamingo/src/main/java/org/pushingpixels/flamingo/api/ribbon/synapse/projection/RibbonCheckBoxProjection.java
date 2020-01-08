@@ -37,6 +37,7 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonCheckBoxContent
 public class RibbonCheckBoxProjection extends ComponentProjection<JRibbonCheckBox,
         RibbonCheckBoxContentModel> {
 
+    @SuppressWarnings("unchecked")
     private static ComponentSupplier<JRibbonCheckBox,
             RibbonCheckBoxContentModel, ComponentPresentationModel> DEFAULT_SUPPLIER =
             (Projection<JRibbonCheckBox, RibbonCheckBoxContentModel,

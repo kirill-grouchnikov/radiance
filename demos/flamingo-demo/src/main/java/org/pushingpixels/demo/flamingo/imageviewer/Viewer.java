@@ -25,7 +25,7 @@ import java.util.List;
 public class Viewer extends JFrame {
     private BreadcrumbFileSelector bar;
 
-    private AbstractFileViewPanel fileViewPanel;
+    private AbstractFileViewPanel<File> fileViewPanel;
 
     private JSlider iconSizeSlider;
 
@@ -50,7 +50,7 @@ public class Viewer extends JFrame {
 
                     if (newPath.size() > 0) {
                         SwingWorker<List<StringValuePair<File>>, Void> worker = new
-                                SwingWorker<List<StringValuePair<File>>, Void>() {
+                                SwingWorker<>() {
                                     @Override
                                     protected List<StringValuePair<File>> doInBackground() {
                                         return bar.getCallback().getLeafs(newPath);
@@ -72,7 +72,7 @@ public class Viewer extends JFrame {
         this.add(bar, BorderLayout.NORTH);
 
         int initialSize = 100;
-        this.fileViewPanel = new AbstractFileViewPanel<File>(64) {
+        this.fileViewPanel = new AbstractFileViewPanel<>(64) {
             @Override
             protected InputStream getLeafContent(File leaf) {
                 try {

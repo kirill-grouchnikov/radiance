@@ -363,73 +363,87 @@ public class Command implements ContentModel {
             }
         }
 
+        @SuppressWarnings("unchecked")
         public B setText(String text) {
             this.text = text;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B setIconFactory(ResizableIcon.Factory iconFactory) {
             this.iconFactory = iconFactory;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B setDisabledIconFactory(ResizableIcon.Factory iconFactory) {
             this.disabledIconFactory = iconFactory;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B setExtraText(String extraText) {
             this.extraText = extraText;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B setAction(CommandAction action) {
             this.action = action;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B setActionRichTooltip(RichTooltip actionRichTooltip) {
             this.actionRichTooltip = actionRichTooltip;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B setSecondaryContentModel(CommandMenuContentModel secondaryContentModel) {
             this.secondaryContentModel = secondaryContentModel;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B setSecondaryRichTooltip(RichTooltip secondaryRichTooltip) {
             this.secondaryRichTooltip = secondaryRichTooltip;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B setActionEnabled(boolean isActionEnabled) {
             this.isActionEnabled = isActionEnabled;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B setSecondaryEnabled(boolean isSecondaryEnabled) {
             this.isSecondaryEnabled = isSecondaryEnabled;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B setToggle() {
             this.isToggle = true;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B setToggleSelected(boolean toggleSelected) {
             this.isToggle = true;
             this.isToggleSelected = toggleSelected;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B inToggleGroup(CommandToggleGroupModel toggleGroup) {
             this.isToggle = true;
             this.toggleGroupModel = toggleGroup;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B inToggleGroupAsSelected(CommandToggleGroupModel toggleGroup) {
             this.isToggle = true;
             this.isToggleSelected = true;
@@ -437,6 +451,7 @@ public class Command implements ContentModel {
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B setActionPreview(CommandActionPreview actionPreview) {
             this.actionPreview = actionPreview;
             return (B) this;

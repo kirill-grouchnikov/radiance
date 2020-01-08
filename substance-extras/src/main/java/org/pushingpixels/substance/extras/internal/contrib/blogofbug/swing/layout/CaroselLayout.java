@@ -38,6 +38,7 @@ import org.pushingpixels.substance.extras.internal.contrib.blogofbug.swing.compo
  * It does have a closer than usual relationship with the container, sometimes causing the container to repaint.
  * @author bug
  */
+@SuppressWarnings("unchecked")
 public class CaroselLayout implements LayoutManager,ActionListener{
     /**
      * Number of items in the carousel (that are visible)
