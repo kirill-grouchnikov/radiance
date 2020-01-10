@@ -302,8 +302,8 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
             boolean atLeastOneButtonHasIcon = false;
             for (Component menuComponent : menuComponents) {
-                if (menuComponent instanceof JCommandMenuButton) {
-                    JCommandMenuButton menuButton = (JCommandMenuButton) menuComponent;
+                if (menuComponent instanceof JCommandButton) {
+                    JCommandButton menuButton = (JCommandButton) menuComponent;
                     if (menuButton.getIcon() != null) {
                         atLeastOneButtonHasIcon = true;
                     }
@@ -316,8 +316,8 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             this.popupMenu.putClientProperty(BasicCommandPopupMenuUI.FORCE_ICON,
                     atLeastOneButtonHasIcon ? Boolean.TRUE : null);
             for (Component menuComponent : menuComponents) {
-                if (menuComponent instanceof JCommandMenuButton) {
-                    JCommandMenuButton menuButton = (JCommandMenuButton) menuComponent;
+                if (menuComponent instanceof JCommandButton) {
+                    JCommandButton menuButton = (JCommandButton) menuComponent;
                     menuButton.putClientProperty(BasicCommandPopupMenuUI.FORCE_ICON,
                             atLeastOneButtonHasIcon ? Boolean.TRUE : null);
                 }
@@ -506,7 +506,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             java.util.List<Component> menuComponents = menu.getMenuComponents();
             if (menuComponents != null) {
                 for (Component menuComponent : menuComponents) {
-                    if (menuComponent instanceof JCommandMenuButton) {
+                    if (menuComponent instanceof JCommandButton) {
                         AbstractCommandButton button = (AbstractCommandButton) menuComponent;
                         if (!Boolean.TRUE.equals(button.getClientProperty(FORCE_ICON))) {
                             continue;

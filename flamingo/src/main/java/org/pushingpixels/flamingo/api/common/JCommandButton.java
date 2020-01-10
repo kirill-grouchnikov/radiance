@@ -55,7 +55,9 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 /**
- * Command button.
+ * Command button. Note that while this class is a part of public API, it is highly
+ * recommended to use the {@link Command} instance used to project the command button
+ * on screen for any dynamic manipulation of the state.
  *
  * @author Kirill Grouchnikov
  */
@@ -459,20 +461,6 @@ public class JCommandButton extends AbstractCommandButton {
             });
         }
 
-//        this.setFocusCycleRoot(true);
-////        this.setFocusTraversalPolicy(new LayoutFocusTraversalPolicy());
-//        Set<KeyStroke> managingFocusForwardTraversalKeys = new HashSet<>(1);
-//        managingFocusForwardTraversalKeys.add(
-//                KeyStroke.getKeyStroke(KeyEvent.VK_TAB, InputEvent.CTRL_DOWN_MASK));
-//
-//        LookAndFeel.installProperty(this,
-//                "focusTraversalKeysForward",
-//                managingFocusForwardTraversalKeys);
-//        LookAndFeel.installProperty(this,
-//                "focusTraversalKeysBackward",
-//                JComponent.
-//                        getManagingFocusBackwardTraversalKeys());
-
         this.updateUI();
     }
 
@@ -865,5 +853,43 @@ public class JCommandButton extends AbstractCommandButton {
             }
         }
         return false;
+    }
+
+    /**
+     * Adds a rollover action listener that will be called when the rollover
+     * state of this button becomes active.
+     *
+     * @param l The rollover action listener to add.
+     * @see #removeRolloverActionListener(RolloverActionListener)
+     */
+    public void addRolloverActionListener(RolloverActionListener l) {
+        this.listenerList.add(RolloverActionListener.class, l);
+    }
+
+    /**
+     * Removes the specified rollover action listener.
+     *
+     * @param l The listener to remove.
+     * @see #addRolloverActionListener(RolloverActionListener)
+     */
+    public void removeRolloverActionListener(RolloverActionListener l) {
+        this.listenerList.remove(RolloverActionListener.class, l);
+    }
+
+    /**
+     * Programmatically perform a "rollover" on the action area. This does the
+     * same thing as if the user had moved the mouse over the action area of the
+     * button.
+     */
+    public void doActionRollover() {
+        ActionEvent ae = new ActionEvent(this, ActionEvent.ACTION_PERFORMED,
+                this.getActionModel().getActionCommand());
+        // Guaranteed to return a non-null array
+        RolloverActionListener[] listeners = this.getListeners(RolloverActionListener.class);
+        // Process the listeners last to first, notifying
+        // those that are interested in this event
+        for (int i = listeners.length - 1; i >= 0; i--) {
+            (listeners[i]).actionPerformed(ae);
+        }
     }
 }

@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.common.popup;
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.KeyValuePair;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
@@ -103,8 +103,8 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
                         Command command = (Command) groupEntry.getValue();
                         AbstractCommandButton commandButton =
                                 command.project(presentation).buildComponent();
-                        if (commandButton instanceof JCommandMenuButton) {
-                            this.addMenuButton((JCommandMenuButton) commandButton);
+                        if (commandButton instanceof JCommandButton) {
+                            this.addMenuButton((JCommandButton) commandButton);
                         }
                         break;
                     case COLOR_SECTION:
@@ -174,7 +174,7 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
     }
 
     @Override
-    void addMenuButton(JCommandMenuButton menuButton) {
+    void addMenuButton(JCommandButton menuButton) {
         super.addMenuButton(menuButton);
         this.updateLastColorSelectorPanel();
     }

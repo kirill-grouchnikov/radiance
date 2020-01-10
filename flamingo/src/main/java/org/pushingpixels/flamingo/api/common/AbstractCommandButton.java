@@ -859,13 +859,11 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      *                          strips.
      * @see #getLocationOrderKind()
      */
-    public void setLocationOrderKind(
-            CommandButtonLocationOrderKind locationOrderKind) {
+    public void setLocationOrderKind(CommandButtonLocationOrderKind locationOrderKind) {
         CommandButtonLocationOrderKind old = this.locationOrderKind;
         if (old != locationOrderKind) {
             this.locationOrderKind = locationOrderKind;
-            this.firePropertyChange("locationOrderKind", old,
-                    this.locationOrderKind);
+            this.firePropertyChange("locationOrderKind", old, this.locationOrderKind);
         }
     }
 

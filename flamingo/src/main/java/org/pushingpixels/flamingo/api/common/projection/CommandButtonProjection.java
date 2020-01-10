@@ -34,29 +34,22 @@ import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel;
+import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
 
 public class CommandButtonProjection<M extends Command>
         extends Projection<AbstractCommandButton, M, CommandButtonPresentationModel> {
-
-    @SuppressWarnings("unchecked")
-    private static <M extends Command>
-    ComponentSupplier<AbstractCommandButton, M, CommandButtonPresentationModel> getDefaultSupplier() {
-        return (Projection<AbstractCommandButton, M, CommandButtonPresentationModel> projection) -> {
-            if (projection.getPresentationModel().isMenu()) {
-                return JCommandMenuButton::new;
-            } else {
-                return JCommandButton::new;
-            }
-        };
-    }
 
     private ComponentSupplier<? extends AbstractPopupMenu, ? extends CommandMenuContentModel,
             ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier;
     private ComponentCustomizer<? extends AbstractPopupMenu> popupMenuCustomizer;
 
+    @SuppressWarnings("unchecked")
     public CommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation) {
-        this(command, commandPresentation, getDefaultSupplier());
+        this(command, commandPresentation,
+                (Projection<AbstractCommandButton, M, CommandButtonPresentationModel> projection) -> JCommandButton::new);
     }
 
     public CommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation,

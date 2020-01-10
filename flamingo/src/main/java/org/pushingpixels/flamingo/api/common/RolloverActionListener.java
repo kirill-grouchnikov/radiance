@@ -33,7 +33,7 @@ import java.awt.event.ActionListener;
 
 /**
  * Rollover action listener. Is used to associate application logic with
- * rollover of {@link JCommandMenuButton} component.
+ * rollover of {@link JCommandButton} component.
  * 
  * @author Kirill Grouchnikov
  */

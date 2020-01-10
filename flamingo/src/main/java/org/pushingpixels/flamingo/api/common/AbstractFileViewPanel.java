@@ -229,7 +229,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
         this.repaint();
 
         final int totalCount = fileCount;
-        this.mainWorker = new SwingWorker<Void, Leaf>() {
+        this.mainWorker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
                 if ((totalCount > 0) && (progressListener != null)) {

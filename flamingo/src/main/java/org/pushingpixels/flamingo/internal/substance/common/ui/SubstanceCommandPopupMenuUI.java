@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.substance.common.ui;
 
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonLayoutManagerMedium;
@@ -100,8 +100,8 @@ public class SubstanceCommandPopupMenuUI extends BasicCommandPopupMenuUI {
             java.util.List<Component> menuComponents = popupMenu.getMenuComponents();
             if (menuComponents != null) {
                 for (Component menuComponent : menuComponents) {
-                    if (menuComponent instanceof JCommandMenuButton) {
-                        JCommandMenuButton menuButton = (JCommandMenuButton) menuComponent;
+                    if (menuComponent instanceof JCommandButton) {
+                        JCommandButton menuButton = (JCommandButton) menuComponent;
                         if (!(menuButton.getUI().getLayoutManager() instanceof
                                 CommandButtonLayoutManagerMedium)) {
                             return;

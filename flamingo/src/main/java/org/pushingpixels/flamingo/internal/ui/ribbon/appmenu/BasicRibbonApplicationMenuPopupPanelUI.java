@@ -38,7 +38,7 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
-import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandMenuButtonUI;
+import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicPopupPanelUI;
 import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.substance.api.ComponentState;
@@ -175,8 +175,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                         commandPresentation = commandPresentation.overlayWith(
                                 commandOverlays.get(menuEntry));
                     }
-                    final JCommandMenuButton commandButton =
-                            (JCommandMenuButton) menuEntry.project(commandPresentation)
+                    final JCommandButton commandButton =
+                            (JCommandButton) menuEntry.project(commandPresentation)
                                     .buildComponent();
 
                     if (menuEntry.getSecondaryContentModel() == null) {
@@ -474,8 +474,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 primary.getPopupModel().setRollover(true);
                 primary.getPopupModel().setArmed(true);
                 // Fire the rollover action so that the secondary menu content is populated
-                SubstanceCommandMenuButtonUI buttonUI =
-                        (SubstanceCommandMenuButtonUI) primary.getUI();
+                SubstanceCommandButtonUI buttonUI =
+                        (SubstanceCommandButtonUI) primary.getUI();
                 buttonUI.fireRolloverActionPerformed(new ActionEvent(this,
                         ActionEvent.ACTION_PERFORMED,
                         primary.getActionModel().getActionCommand(),
@@ -499,8 +499,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             primary.getPopupModel().setRollover(true);
             primary.getPopupModel().setArmed(true);
             // Fire the rollover action so that the secondary menu content is populated
-            SubstanceCommandMenuButtonUI buttonUI =
-                    (SubstanceCommandMenuButtonUI) primary.getUI();
+            SubstanceCommandButtonUI buttonUI =
+                    (SubstanceCommandButtonUI) primary.getUI();
             buttonUI.fireRolloverActionPerformed(new ActionEvent(this,
                     ActionEvent.ACTION_PERFORMED,
                     primary.getActionModel().getActionCommand(),
@@ -517,8 +517,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 secondLevelButton.getPopupModel().setRollover(true);
                 secondLevelButton.getPopupModel().setArmed(true);
 
-                SubstanceCommandMenuButtonUI secondLevelButtonUI =
-                        (SubstanceCommandMenuButtonUI) secondLevelButton.getUI();
+                SubstanceCommandButtonUI secondLevelButtonUI =
+                        (SubstanceCommandButtonUI) secondLevelButton.getUI();
                 secondLevelButtonUI.processPopupAction();
 
                 int levelsToGo = pathLength - 2;
@@ -532,14 +532,14 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                             lastLevelButton.getActionModel().setRollover(true);
                             lastLevelButton.getActionModel().setArmed(true);
                         } else {
-                            JCommandMenuButton currLevelButton =
+                            JCommandButton currLevelButton =
                                     getMenuButtonForCommand(pathToCommand.get(currLevel));
                             // we need to go deeper
                             currLevelButton.getPopupModel().setRollover(true);
                             currLevelButton.getPopupModel().setArmed(true);
 
-                            SubstanceCommandMenuButtonUI currLevelButtonUI =
-                                    (SubstanceCommandMenuButtonUI) currLevelButton.getUI();
+                            SubstanceCommandButtonUI currLevelButtonUI =
+                                    (SubstanceCommandButtonUI) currLevelButton.getUI();
                             currLevelButtonUI.processPopupAction();
                         }
                     });
@@ -566,7 +566,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         for (int i = index + 1; i < components.length; i++) {
             if (components[i].isFocusable()) {
                 if (onlyMenuButtons) {
-                    if (!(components[i] instanceof JCommandMenuButton)) {
+                    if (!(components[i] instanceof JCommandButton)) {
                         continue;
                     }
                 }
@@ -583,7 +583,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         for (int i = index - 1; i >= 0; i--) {
             if (components[i].isFocusable()) {
                 if (onlyMenuButtons) {
-                    if (!(components[i] instanceof JCommandMenuButton)) {
+                    if (!(components[i] instanceof JCommandButton)) {
                         continue;
                     }
                 }
@@ -616,7 +616,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             Component firstFocusablePrimary = findFirstFocusableAfter(this.panelLevel1.getComponents(), -1, true);
             if (firstFocusablePrimary != null) {
                 firstFocusablePrimary.requestFocus();
-                ((JCommandMenuButton) firstFocusablePrimary).doActionRollover();
+                ((JCommandButton) firstFocusablePrimary).doActionRollover();
             }
             return;
         }
@@ -627,7 +627,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     primaryFocused, true);
             if (nextFocusablePrimary != null) {
                 nextFocusablePrimary.requestFocus();
-                ((JCommandMenuButton) nextFocusablePrimary).doActionRollover();
+                ((JCommandButton) nextFocusablePrimary).doActionRollover();
             } else {
                 // Try to find a focusable footer
                 Component firstFocusableFooter = findFirstFocusableAfter(this.footerPanel.getComponents(), -1, false);
@@ -683,7 +683,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     this.panelLevel1.getComponentCount(), true);
             if (lastFocusablePrimary != null) {
                 lastFocusablePrimary.requestFocus();
-                ((JCommandMenuButton) lastFocusablePrimary).doActionRollover();
+                ((JCommandButton) lastFocusablePrimary).doActionRollover();
             }
             return;
         }
@@ -694,7 +694,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     primaryFocused, true);
             if (nextFocusablePrimary != null) {
                 nextFocusablePrimary.requestFocus();
-                ((JCommandMenuButton) nextFocusablePrimary).doActionRollover();
+                ((JCommandButton) nextFocusablePrimary).doActionRollover();
             }
             return;
         }
@@ -739,7 +739,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 Component firstFocusableSecondary = findFirstFocusableAfter(secondary.getComponents(), -1, true);
                 if (firstFocusableSecondary != null) {
                     firstFocusableSecondary.requestFocus();
-                    JCommandMenuButton secondaryMenuButton = (JCommandMenuButton) firstFocusableSecondary;
+                    JCommandButton secondaryMenuButton = (JCommandButton) firstFocusableSecondary;
                     secondaryMenuButton.getActionModel().setRollover(true);
                     secondaryMenuButton.getActionModel().setArmed(true);
                 }
@@ -750,13 +750,13 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         if ((secondaryFocused >= 0) && isLtr) {
             JRibbonApplicationMenuPopupPanelSecondary secondary =
                     (JRibbonApplicationMenuPopupPanelSecondary) this.panelLevel2.getComponent(0);
-            JCommandMenuButton secondaryMenuButton =
-                    (JCommandMenuButton) secondary.getComponent(secondaryFocused);
+            JCommandButton secondaryMenuButton =
+                    (JCommandButton) secondary.getComponent(secondaryFocused);
             secondaryMenuButton.getPopupModel().setRollover(true);
             secondaryMenuButton.getPopupModel().setArmed(true);
 
-            SubstanceCommandMenuButtonUI secondaryMenuButtonUI =
-                    (SubstanceCommandMenuButtonUI) secondaryMenuButton.getUI();
+            SubstanceCommandButtonUI secondaryMenuButtonUI =
+                    (SubstanceCommandButtonUI) secondaryMenuButton.getUI();
             secondaryMenuButtonUI.processPopupAction();
         }
     }

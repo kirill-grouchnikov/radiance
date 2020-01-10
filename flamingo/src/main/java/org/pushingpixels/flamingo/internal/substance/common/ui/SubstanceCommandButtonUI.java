@@ -30,16 +30,15 @@
 package org.pushingpixels.flamingo.internal.substance.common.ui;
 
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
+import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager.CommandButtonSeparatorOrientation;
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
+import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.internal.substance.common.GlowingResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonBackgroundDelegate;
@@ -47,15 +46,19 @@ import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonVisualSt
 import org.pushingpixels.flamingo.internal.substance.utils.SubstanceDisabledResizableIcon;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
+import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
@@ -73,7 +76,8 @@ import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
@@ -106,6 +110,11 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
     private ButtonModel overallRolloverModel;
 
     private RolloverControlListener substanceOverallRolloverListener;
+
+    /**
+     * Rollover menu mouse listener.
+     */
+    private MouseListener rolloverMenuMouseListener;
 
     private StateTransitionTracker overallStateTransitionTracker;
 
@@ -200,6 +209,41 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
 
         this.overallStateTransitionTracker.registerModelListeners();
 
+        this.rolloverMenuMouseListener = new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (commandButton.isEnabled() && commandButton.getProjection().getPresentationModel().isMenu()) {
+                    int modifiers = 0;
+                    AWTEvent currentEvent = EventQueue.getCurrentEvent();
+                    if (currentEvent instanceof InputEvent) {
+                        modifiers = ((InputEvent) currentEvent).getModifiersEx();
+                    } else if (currentEvent instanceof ActionEvent) {
+                        modifiers = ((ActionEvent) currentEvent).getModifiers();
+                    }
+                    fireRolloverActionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED,
+                            commandButton.getActionModel().getActionCommand(),
+                            EventQueue.getMostRecentEventTime(), modifiers));
+
+                    // Ignore mouse entered event to initiate displaying the popup content
+                    // if the currently displayed popup chain shows global ribbon context menu
+                    // that originates from this button.
+                    java.util.List<PopupPanelManager.PopupInfo> popupInfoList =
+                            PopupPanelManager.defaultManager().getShownPath();
+                    int popupInfoListSize = popupInfoList.size();
+                    if ((popupInfoListSize >= 1) &&
+                            (popupInfoList.get(popupInfoListSize - 1).getPopupPanel()
+                                    instanceof JRibbonFrame.GlobalPopupMenu) &&
+                            (popupInfoList.get(popupInfoListSize - 1).getPopupOriginator()
+                                    == commandButton)) {
+                        return;
+                    }
+
+                    processPopupAction();
+                }
+            }
+        };
+        this.commandButton.addMouseListener(this.rolloverMenuMouseListener);
+
         this.trackGlowingIcon();
     }
 
@@ -220,7 +264,26 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
 
         this.overallStateTransitionTracker.unregisterModelListeners();
 
+        this.commandButton.removeMouseListener(this.rolloverMenuMouseListener);
+        this.rolloverMenuMouseListener = null;
+
         super.uninstallListeners();
+    }
+
+    /**
+     * Fires the rollover action on all registered handlers.
+     *
+     * @param e Event object.
+     */
+    public void fireRolloverActionPerformed(ActionEvent e) {
+        // Guaranteed to return a non-null array
+        RolloverActionListener[] listeners = commandButton
+                .getListeners(RolloverActionListener.class);
+        // Process the listeners last to first, notifying
+        // those that are interested in this event
+        for (int i = listeners.length - 1; i >= 0; i--) {
+            (listeners[i]).actionPerformed(e);
+        }
     }
 
     /**
@@ -310,7 +373,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         }
     }
 
-    protected void paintButtonIcon(Graphics g, Rectangle iconRect) {
+    private void paintButtonIconRegular(Graphics g, Rectangle iconRect) {
         JCommandButton jcb = (JCommandButton) this.commandButton;
         Icon regular = jcb.getIcon();
         if (toUseDisabledIcon() && (jcb.getDisabledIcon() != null) && ((regular != null)
@@ -338,6 +401,72 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
             }
             CommandButtonBackgroundDelegate.paintCommandButtonIcon(g2d, iconRect, jcb, regular,
                     this.glowingIcon, model, tracker);
+            g2d.dispose();
+        }
+    }
+
+    protected void paintButtonIcon(Graphics g, Rectangle iconRect) {
+        boolean isSelectedMenu = this.commandButton.getActionModel().isSelected() &&
+                this.commandButton.getProjection().getPresentationModel().isMenu();
+        if (isSelectedMenu) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth();
+            Rectangle2D.Float extended = new Rectangle2D.Float(iconRect.x - borderDelta / 2.0f,
+                    iconRect.y - borderDelta / 2.0f, iconRect.width + borderDelta,
+                    iconRect.height + borderDelta);
+
+            ComponentState currState = this.commandButton.getActionModel().isEnabled()
+                    ? ComponentState.SELECTED
+                    : ComponentState.DISABLED_SELECTED;
+
+            SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                    this.commandButton, SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
+            SubstanceFillPainter fillPainter = SubstanceCoreUtilities
+                    .getFillPainter(this.commandButton);
+            fillPainter.paintContourBackground(g2d, this.commandButton,
+                    extended.x + extended.width, extended.y + extended.height,
+                    extended, false, fillScheme, false);
+
+            SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                    this.commandButton, SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
+            SubstanceBorderPainter borderPainter = SubstanceCoreUtilities
+                    .getBorderPainter(this.commandButton);
+            borderPainter.paintBorder(g2d, this.commandButton,
+                    extended.x + extended.width, extended.y + extended.height,
+                    extended, null, borderScheme);
+
+            g2d.dispose();
+        }
+        this.paintButtonIconRegular(g, iconRect);
+        // does it actually have an icon?
+        Icon iconToPaint = this.getIconToPaint();
+        if (isSelectedMenu && (iconToPaint == null)) {
+            // draw a checkmark
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            ComponentState currState = this.commandButton.getActionModel().isEnabled()
+                    ? ComponentState.SELECTED
+                    : ComponentState.DISABLED_SELECTED;
+            SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                    this.commandButton, SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
+            g2d.setColor(fillScheme.getForegroundColor());
+
+            int iw = iconRect.width;
+            int ih = iconRect.height;
+            GeneralPath path = new GeneralPath();
+
+            path.moveTo(0.2f * iw, 0.5f * ih);
+            path.lineTo(0.42f * iw, 0.8f * ih);
+            path.lineTo(0.8f * iw, 0.2f * ih);
+            g2d.translate(iconRect.x, iconRect.y);
+            Stroke stroke = new BasicStroke((float) 0.12 * iw, BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_ROUND);
+            g2d.setStroke(stroke);
+            g2d.draw(path);
+
             g2d.dispose();
         }
     }
@@ -378,6 +507,11 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
 
     @Override
     protected boolean isPaintingBackground() {
+        if (this.commandButton.getProjection().getPresentationModel().isMenu() &&
+                (this.commandButton.getActionModel().isRollover() || !this.commandButton.isFlat())) {
+            return true;
+        }
+
         if (super.isPaintingBackground()) {
             return true;
         }
@@ -542,8 +676,20 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         if (fgColor instanceof UIResource) {
             float buttonAlpha = SubstanceColorSchemeUtilities.getAlpha(this.commandButton,
                     modelStateInfo.getCurrModelState());
-            fgColor = SubstanceTextUtilities.getForegroundColor(this.commandButton,
-                    this.commandButton.getText(), modelStateInfo, buttonAlpha);
+
+            if (this.commandButton.getProjection().getPresentationModel().isMenu()) {
+                fgColor = getMenuButtonForegroundColor(this.commandButton, modelStateInfo);
+
+                if (buttonAlpha < 1.0f) {
+                    Color bgFillColor = SubstanceColorUtilities
+                            .getBackgroundFillColor(this.commandButton);
+                    fgColor = SubstanceColorUtilities.getInterpolatedColor(fgColor, bgFillColor,
+                            buttonAlpha);
+                }
+            } else {
+                fgColor = SubstanceTextUtilities.getForegroundColor(this.commandButton,
+                        this.commandButton.getText(), modelStateInfo, buttonAlpha);
+            }
         }
         return fgColor;
     }
@@ -553,6 +699,11 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         Graphics2D g2d = (Graphics2D) g.create();
         NeonCortex.installDesktopHints(g2d, this.commandButton.getFont());
         this.paint(g2d, c);
+
+        if (this.commandButton.getProjection().getPresentationModel().isMenu()) {
+            KeyTipRenderingUtilities.renderButtonKeyTips(g, this.commandButton, layoutManager);
+        }
+
         g2d.dispose();
     }
 
@@ -661,5 +812,45 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
     @Override
     public StateTransitionTracker getPopupTransitionTracker() {
         return this.substanceVisualStateTracker.getPopupStateTransitionTracker();
+    }
+
+
+    private static Color getMenuButtonForegroundColor(AbstractCommandButton menuButton,
+            StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
+                .getStateNoSelectionContributionMap();
+
+        SubstanceSlices.ColorSchemeAssociationKind currAssocKind = SubstanceSlices.ColorSchemeAssociationKind.FILL;
+        // use HIGHLIGHT on active and non-rollover menu items
+        if (!currState.isDisabled() && (currState != ComponentState.ENABLED)
+                && !currState.isFacetActive(SubstanceSlices.ComponentStateFacet.ROLLOVER))
+            currAssocKind = SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT;
+        SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(menuButton,
+                currAssocKind, currState);
+        if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+            return colorScheme.getForegroundColor();
+        }
+
+        float aggrRed = 0;
+        float aggrGreen = 0;
+        float aggrBlue = 0;
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
+                .entrySet()) {
+            ComponentState activeState = activeEntry.getKey();
+            float alpha = activeEntry.getValue().getContribution();
+            SubstanceSlices.ColorSchemeAssociationKind assocKind = SubstanceSlices.ColorSchemeAssociationKind.FILL;
+            // use HIGHLIGHT on active and non-rollover menu items
+            if (!activeState.isDisabled() && (activeState != ComponentState.ENABLED)
+                    && !activeState.isFacetActive(SubstanceSlices.ComponentStateFacet.ROLLOVER))
+                assocKind = SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT;
+            SubstanceColorScheme activeColorScheme = SubstanceColorSchemeUtilities
+                    .getColorScheme(menuButton, assocKind, activeState);
+            Color activeForeground = activeColorScheme.getForegroundColor();
+            aggrRed += alpha * activeForeground.getRed();
+            aggrGreen += alpha * activeForeground.getGreen();
+            aggrBlue += alpha * activeForeground.getBlue();
+        }
+        return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
     }
 }

@@ -46,9 +46,6 @@ commandButtonStrip {
 Plasma provides DSL constructs for the following Flamingo components:
 
 * `JCommandButton`
-* `JCommandToggleButton`
-* `JCommandMenuButton`
-* `JCommandToggleMenuButton`
 * `JCommandButtonPanel`
 * `JCommandButtonStrip`
 * `JCommandPopupMenu`

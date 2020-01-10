@@ -31,7 +31,6 @@ package org.pushingpixels.flamingo.internal.utils;
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupInfo;
@@ -466,8 +465,8 @@ public class KeyTipManager {
             link.keyTipString = cb.getPopupKeyTip();
             link.prefAnchorPoint = cb.getUI().getPopupKeyTipAnchorCenterPoint();
             link.onActivated = (ActionEvent e) -> {
-                if (cb instanceof JCommandMenuButton) {
-                    ((JCommandMenuButton) cb).doActionRollover();
+                if (cb instanceof JCommandButton) {
+                    ((JCommandButton) cb).doActionRollover();
                 }
                 cb.doPopupClick();
             };
@@ -564,7 +563,7 @@ public class KeyTipManager {
                                 if (prev != null) {
                                     // force repaint of all menu buttons
                                     for (KeyTipLink link2 : prev.links) {
-                                        if (link2.comp instanceof JCommandMenuButton) {
+                                        if (link2.comp instanceof JCommandButton) {
                                             link2.comp.repaint();
                                         }
                                     }

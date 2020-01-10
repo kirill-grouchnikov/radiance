@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
@@ -65,7 +65,7 @@ import java.util.List;
  * </p>
  *
  * <p>
- * At runtime, the application menu entries are implemented as {@link JCommandMenuButton}, but the
+ * At runtime, the application menu entries are implemented as {@link JCommandButton}, but the
  * application code does not operate on that level. Instead, the application code creates
  * metadata-driven description of the ribbon application menu with {@link Command.Builder}, and
  * those commands is used to create and populate the "real" controls of the application menu popup.

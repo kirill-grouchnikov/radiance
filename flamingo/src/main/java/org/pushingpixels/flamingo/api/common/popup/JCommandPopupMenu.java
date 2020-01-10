@@ -30,8 +30,8 @@
 package org.pushingpixels.flamingo.api.common.popup;
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
-import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
@@ -130,8 +130,8 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
                     commandButton.setFont(commandButton.getFont().deriveFont(Font.BOLD));
                 }
 
-                if (commandButton instanceof JCommandMenuButton) {
-                    JCommandMenuButton menuButton = (JCommandMenuButton) commandButton;
+                if (commandButton instanceof JCommandButton) {
+                    JCommandButton menuButton = (JCommandButton) commandButton;
                     menuButton.setPopupOrientationKind(
                             this.popupMenuPresentationModel.getPopupOrientationKind());
                     this.addMenuButton(menuButton);

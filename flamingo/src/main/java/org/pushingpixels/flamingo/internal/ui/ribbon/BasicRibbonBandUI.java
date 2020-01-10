@@ -512,8 +512,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                     return;
                 }
 
-                System.out.println("Mouse wheel event!");
-
                 Object object = event.getSource();
                 if (!(object instanceof Component)) {
                     return;

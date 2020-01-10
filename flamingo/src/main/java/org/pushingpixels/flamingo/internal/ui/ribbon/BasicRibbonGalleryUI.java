@@ -426,8 +426,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                             buttonHeight);
                     startX -= (singleButtonWidth + gap);
                 }
-                System.out.println(currButton.getText() + "  " + currButton.getProjection().getContentModel().isToggleSelected());
-                System.out.println(currButton.getText() + "  " + currButton.getActionModel().isSelected());
                 currCountInRow++;
                 if (currCountInRow == visibleButtonsInEachRow) {
                     currCountInRow = 0;
