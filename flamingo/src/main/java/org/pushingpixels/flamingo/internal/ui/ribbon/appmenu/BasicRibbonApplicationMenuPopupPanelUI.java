@@ -566,8 +566,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         for (int i = index + 1; i < components.length; i++) {
             if (components[i].isFocusable()) {
                 if (onlyMenuButtons) {
-                    if (!(components[i] instanceof JCommandMenuButton) &&
-                            !(components[i] instanceof JCommandToggleMenuButton)) {
+                    if (!(components[i] instanceof JCommandMenuButton)) {
                         continue;
                     }
                 }
@@ -584,8 +583,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         for (int i = index - 1; i >= 0; i--) {
             if (components[i].isFocusable()) {
                 if (onlyMenuButtons) {
-                    if (!(components[i] instanceof JCommandMenuButton) &&
-                            !(components[i] instanceof JCommandToggleMenuButton)) {
+                    if (!(components[i] instanceof JCommandMenuButton)) {
                         continue;
                     }
                 }

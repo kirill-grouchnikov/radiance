@@ -386,10 +386,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             List<Component> taskbarComponents = getRibbon().getTaskbarComponents();
             int index = 1;
             for (Component taskbarComp : taskbarComponents) {
-                if (taskbarComp instanceof JCommandToggleButton) {
-                    ((JCommandToggleButton) taskbarComp).setActionKeyTip(
-                            policy.getContentKeyTip(index++));
-                } else if (taskbarComp instanceof JCommandButton) {
+                if (taskbarComp instanceof JCommandButton) {
                     JCommandButton button = (JCommandButton) taskbarComp;
                     switch (button.getCommandButtonKind()) {
                         case ACTION_ONLY:

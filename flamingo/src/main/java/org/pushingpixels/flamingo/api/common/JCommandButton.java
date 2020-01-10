@@ -350,7 +350,8 @@ public class JCommandButton extends AbstractCommandButton {
         super(projection);
 
         ActionButtonModel actionButtonModel = new ActionRepeatableButtonModel(this);
-        actionButtonModel.setEnabled(projection.getContentModel().isActionEnabled());
+        actionButtonModel.setEnabled(command.isActionEnabled());
+        actionButtonModel.setSelected(command.isToggleSelected());
         this.setActionModel(actionButtonModel);
 
         // important - handler creation must be done before setting

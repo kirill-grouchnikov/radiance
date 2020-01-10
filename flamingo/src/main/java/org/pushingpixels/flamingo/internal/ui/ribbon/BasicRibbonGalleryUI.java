@@ -372,7 +372,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 maxButtonWidth = maxButtonWidth * 5 / 4;
             }
             for (int i = 0; i < ribbonGallery.getCommandCount(); i++) {
-                JCommandToggleButton currButton = ribbonGallery.getButtonAt(i);
+                AbstractCommandButton currButton = ribbonGallery.getButtonAt(i);
                 currButton.setVisible(false);
             }
 
@@ -414,7 +414,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
             int buttonY = margin.top + borderInsets.top;
             int singleButtonWidth = maxButtonWidth + toAddToButtonWidth;
             for (int i = firstVisibleButtonIndex; i <= lastVisibleButtonIndex; i++) {
-                JCommandToggleButton currButton = ribbonGallery.getButtonAt(i);
+                AbstractCommandButton currButton = ribbonGallery.getButtonAt(i);
 
                 // show button and set bounds
                 currButton.setVisible(true);
@@ -426,6 +426,8 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                             buttonHeight);
                     startX -= (singleButtonWidth + gap);
                 }
+                System.out.println(currButton.getText() + "  " + currButton.getProjection().getContentModel().isToggleSelected());
+                System.out.println(currButton.getText() + "  " + currButton.getActionModel().isSelected());
                 currCountInRow++;
                 if (currCountInRow == visibleButtonsInEachRow) {
                     currCountInRow = 0;
@@ -541,7 +543,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * Scrolls the contents of this ribbon gallery to reveal the currently selected button.
      */
     private void scrollToSelected() {
-        JCommandToggleButton selected = this.ribbonGallery.getSelectedButton();
+        AbstractCommandButton selected = this.ribbonGallery.getSelectedButton();
         if (selected == null) {
             return;
         }

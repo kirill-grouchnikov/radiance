@@ -37,6 +37,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
+import java.awt.event.ItemEvent;
 
 /**
  * Extension of the default button model that supports the
@@ -76,6 +77,37 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
     }
 
     @Override
+    public boolean isSelected() {
+        return (stateMask & SELECTED) != 0;
+    }
+
+    @Override
+    public void setSelected(boolean b) {
+        Command command = this.commandButton.getProjection().getContentModel();
+        CommandToggleGroupModel groupModel = command.getToggleGroupModel();
+        if (groupModel != null) {
+            groupModel.setSelected(command, b);
+            b = (groupModel.getSelected() == command);
+        }
+
+        if (this.isSelected() == b) {
+            return;
+        }
+
+        if (b) {
+            stateMask |= SELECTED;
+        } else {
+            stateMask &= ~SELECTED;
+        }
+
+        fireStateChanged();
+
+        fireItemStateChanged(new ItemEvent(this,
+                ItemEvent.ITEM_STATE_CHANGED, this,
+                this.isSelected() ?  ItemEvent.SELECTED : ItemEvent.DESELECTED));
+    }
+
+    @Override
     public void setPressed(boolean b) {
         if ((isPressed() == b) || !isEnabled()) {
             return;
@@ -85,6 +117,20 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
             stateMask |= PRESSED;
         } else {
             stateMask &= ~PRESSED;
+        }
+
+        Command command = this.commandButton.getProjection().getContentModel();
+        if (command.isToggle() && isArmed()) {
+            // change selection prior to firing the action event on a toggle button
+            if (!this.isFireActionOnPress()) {
+                if (!b) {
+                    setSelected(!this.isSelected());
+                }
+            } else {
+                if (b) {
+                    setSelected(!this.isSelected());
+                }
+            }
         }
 
         boolean toFireFirstAction = isArmed();
@@ -113,6 +159,9 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
         }
 
         if (toFireFirstAction) {
+            if (command.isToggle()) {
+                command.setToggleSelected(!command.isToggleSelected());
+            }
             this.commandButton.getUI().setInnerFocusOnAction(true);
             fireActionPerformed(new CommandActionEvent(this.commandButton,
                     ActionEvent.ACTION_PERFORMED,

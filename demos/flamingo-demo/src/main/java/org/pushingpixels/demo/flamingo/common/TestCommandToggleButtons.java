@@ -34,13 +34,18 @@ import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Address_book_new;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
+import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Text_x_generic;
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.flamingo.api.common.model.CommandGroup;
+import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -51,10 +56,10 @@ import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.event.ActionEvent;
 import java.awt.image.ColorConvertOp;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.List;
 
 public class TestCommandToggleButtons extends JFrame {
     ResourceBundle resourceBundle;
@@ -65,6 +70,7 @@ public class TestCommandToggleButtons extends JFrame {
 
     protected Command toggleCommandShort;
     protected Command toggleCommandLong;
+    protected Command toggleCommandLongWithSecondary;
 
     TestCommandToggleButtons() {
         super("Command button test");
@@ -107,16 +113,67 @@ public class TestCommandToggleButtons extends JFrame {
                                 + e.getCommand().isToggleSelected()))
                 .build();
 
+        this.toggleCommandLongWithSecondary = Command.builder()
+                .setText(resourceBundle.getString("LongerLines.text"))
+                .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
+                .setIconFactory(Edit_paste.factory())
+                .setDisabledIconFactory(FilteredResizableIcon.factory(Edit_paste.factory(),
+                        new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)))
+                .setToggle()
+                .setAction((CommandActionEvent e) -> System.out
+                        .println(stamp() + ": command activated, selection state is "
+                                + e.getCommand().isToggleSelected()))
+                .setSecondaryContentModel(getPopupMenuContentModel())
+                .build();
+
         buttonPanel = getButtonPanel();
         this.add(buttonPanel, BorderLayout.CENTER);
-
 
         this.add(controlPanel, BorderLayout.SOUTH);
     }
 
+    private CommandMenuContentModel getPopupMenuContentModel() {
+        MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
+        mf.setLocale(currLocale);
+
+        java.util.List<Command> simpleEntries1 = new ArrayList<>();
+        List<Command> simpleEntries2 = new ArrayList<>();
+
+        simpleEntries1.add(Command.builder()
+                .setText(mf.format(new Object[] { "1" }))
+                .setIconFactory(Address_book_new.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Popup action 1"))
+                .build());
+        simpleEntries1.add(Command.builder()
+                .setText(mf.format(new Object[] { "2" }))
+                .setIconFactory(EmptyResizableIcon.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Popup action 2"))
+                .build());
+        simpleEntries1.add(Command.builder()
+                .setText(mf.format(new Object[] { "3" }))
+                .setIconFactory(EmptyResizableIcon.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Popup action 3"))
+                .build());
+
+        simpleEntries2.add(Command.builder()
+                .setText(mf.format(new Object[] { "4" }))
+                .setIconFactory(EmptyResizableIcon.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Popup action 4"))
+                .build());
+        simpleEntries2.add(Command.builder()
+                .setText(mf.format(new Object[] { "5" }))
+                .setIconFactory(Text_x_generic.factory())
+                .setAction((CommandActionEvent e) -> System.out.println("Popup action 5"))
+                .build());
+
+        return new CommandMenuContentModel(
+                Arrays.asList(new CommandGroup(simpleEntries1),
+                        new CommandGroup(simpleEntries2)));
+    }
+
     private JPanel getButtonPanel() {
         FormBuilder builder = FormBuilder.create().
-                columns("right:pref, 10dlu, center:pref, 4dlu, center:pref").
+                columns("right:pref, 10dlu, center:pref, 4dlu, center:pref, 4dlu, center:pref").
                 rows("p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
 
@@ -155,6 +212,15 @@ public class TestCommandToggleButtons extends JFrame {
                                 .build())
                         .buildComponent();
         builder.add(buttonWithLongText).xy(5, row);
+
+        AbstractCommandButton buttonWithLongTextAndSecondary =
+                this.toggleCommandLongWithSecondary.project(
+                        CommandButtonPresentationModel.builder()
+                                .setPresentationState(state)
+                                .setFlat(false)
+                                .build())
+                        .buildComponent();
+        builder.add(buttonWithLongTextAndSecondary).xy(7, row);
     }
 
     protected void configureControlPanel(JPanel controlPanel) {

@@ -32,6 +32,7 @@ package org.pushingpixels.flamingo.internal.substance.utils;
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton.CommandButtonLocationOrderKind;
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
+import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
 import org.pushingpixels.flamingo.internal.substance.common.GlowingResizableIcon;
@@ -319,9 +320,11 @@ public class CommandButtonBackgroundDelegate {
         // layer number one - background with the combined enabled
         // state of both models. Full opacity
         // System.out.println("Background layer");
+        boolean ignoreSelections = commandButton.getProjection().getContentModel().isToggle()
+                && commandButton.getProjection().getPresentationModel().isMenu();
         BufferedImage fullAlphaBackground = CommandButtonBackgroundDelegate.getFullAlphaBackground(
                 commandButton, backgroundModel, fillPainter, borderPainter,
-                commandButton.getWidth(), commandButton.getHeight(), null, false);
+                commandButton.getWidth(), commandButton.getHeight(), null, ignoreSelections);
 
         BufferedImage layers = SubstanceCoreUtilities.getBlankImage(fullAlphaBackground.getWidth(),
                 fullAlphaBackground.getHeight());
@@ -342,19 +345,18 @@ public class CommandButtonBackgroundDelegate {
             BufferedImage rolloverBackground = CommandButtonBackgroundDelegate
                     .getFullAlphaBackground(commandButton, backgroundModel, fillPainter,
                             borderPainter, commandButton.getWidth(), commandButton.getHeight(),
-                            ui.getTransitionTracker(), false);
+                            ui.getTransitionTracker(), ignoreSelections);
             NeonCortex.drawImage(combinedGraphics, rolloverBackground, 0, 0);
         }
 
-        // Shape currClip = combinedGraphics.getClip();
         if ((actionArea != null) && !actionArea.isEmpty()) {
-            // layer number three - action area with its model. Opacity 40%
-            // for enabled popup area, 100% for disabled popup area
+            // layer number three - action area with its model. Opacity:
+            // * 40% for enabled popup area of non-selected action
+            // * 100% for enabled popup area of selected action
+            // * 100% for disabled popup area
             Graphics2D graphicsAction = (Graphics2D) combinedGraphics.create();
-            // System.out.println(actionArea);
             graphicsAction.clip(actionArea);
-            // System.out.println(graphicsAction.getClipBounds());
-            float actionAlpha = 0.4f;
+            float actionAlpha = actionModel.isSelected() ? 1.0f : 0.4f;
             if ((popupModel != null) && !popupModel.isEnabled())
                 actionAlpha = 1.0f;
             if (!actionModel.isEnabled())
@@ -363,7 +365,7 @@ public class CommandButtonBackgroundDelegate {
             BufferedImage actionAreaBackground = CommandButtonBackgroundDelegate
                     .getFullAlphaBackground(commandButton, null, fillPainter, borderPainter,
                             commandButton.getWidth(), commandButton.getHeight(),
-                            ui.getActionTransitionTracker(), false);
+                            ui.getActionTransitionTracker(), ignoreSelections);
             NeonCortex.drawImage(graphicsAction, actionAreaBackground, 0, 0);
             // graphicsAction.setColor(Color.red);
             // graphicsAction.fill(toFill);
@@ -388,7 +390,7 @@ public class CommandButtonBackgroundDelegate {
             BufferedImage popupAreaBackground = CommandButtonBackgroundDelegate
                     .getFullAlphaBackground(commandButton, null, fillPainter, borderPainter,
                             commandButton.getWidth(), commandButton.getHeight(),
-                            ui.getPopupTransitionTracker(), false);
+                            ui.getPopupTransitionTracker(), ignoreSelections);
             NeonCortex.drawImage(graphicsPopup, popupAreaBackground, 0, 0);
             // graphicsPopup.setColor(Color.blue);
             // graphicsPopup.fill(toFill);

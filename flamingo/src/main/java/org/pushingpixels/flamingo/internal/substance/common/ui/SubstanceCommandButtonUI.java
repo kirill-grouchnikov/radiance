@@ -310,7 +310,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         }
     }
 
-    private void paintButtonIcon(Graphics g, Rectangle iconRect) {
+    protected void paintButtonIcon(Graphics g, Rectangle iconRect) {
         JCommandButton jcb = (JCommandButton) this.commandButton;
         Icon regular = jcb.getIcon();
         if (toUseDisabledIcon() && (jcb.getDisabledIcon() != null) && ((regular != null)
@@ -444,14 +444,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                 : this.getPopupTransitionTracker();
         ModelStateInfo modelStateInfoForFg = transitionTrackerForFg.getModelStateInfo();
         ComponentState currStateForFg = modelStateInfoForFg.getCurrModelState();
-        Color fgColor = this.commandButton.getForeground();
-
-        if (fgColor instanceof UIResource) {
-            float buttonAlpha = SubstanceColorSchemeUtilities.getAlpha(this.commandButton,
-                    currStateForFg);
-            fgColor = SubstanceTextUtilities.getForegroundColor(this.commandButton,
-                    this.commandButton.getText(), modelStateInfoForFg, buttonAlpha);
-        }
+        Color fgColor = getForegroundColor(modelStateInfoForFg);
 
         if (layoutInfo.textLayoutInfoList != null) {
             for (CommandButtonLayoutManager.TextLayoutInfo mainTextLayoutInfo :
@@ -542,6 +535,17 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         // g2d.draw(layoutInfo.popupActionRect);
 
         g2d.dispose();
+    }
+
+    protected Color getForegroundColor(ModelStateInfo modelStateInfo) {
+        Color fgColor = this.commandButton.getForeground();
+        if (fgColor instanceof UIResource) {
+            float buttonAlpha = SubstanceColorSchemeUtilities.getAlpha(this.commandButton,
+                    modelStateInfo.getCurrModelState());
+            fgColor = SubstanceTextUtilities.getForegroundColor(this.commandButton,
+                    this.commandButton.getText(), modelStateInfo, buttonAlpha);
+        }
+        return fgColor;
     }
 
     @Override

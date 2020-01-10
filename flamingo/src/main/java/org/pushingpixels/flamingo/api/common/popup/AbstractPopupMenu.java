@@ -30,7 +30,6 @@
 package org.pushingpixels.flamingo.api.common.popup;
 
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
-import org.pushingpixels.flamingo.api.common.JCommandToggleMenuButton;
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
@@ -62,12 +61,6 @@ public abstract class AbstractPopupMenu extends JPopupPanel implements Scrollabl
     }
 
     void addMenuButton(JCommandMenuButton menuButton) {
-        menuButton.setHorizontalAlignment(SwingUtilities.LEADING);
-        this.menuComponents.add(menuButton);
-        this.fireStateChanged();
-    }
-
-    void addMenuButton(JCommandToggleMenuButton menuButton) {
         menuButton.setHorizontalAlignment(SwingUtilities.LEADING);
         this.menuComponents.add(menuButton);
         this.fireStateChanged();

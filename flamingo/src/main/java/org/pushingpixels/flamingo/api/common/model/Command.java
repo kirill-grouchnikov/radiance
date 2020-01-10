@@ -120,10 +120,6 @@ public class Command implements ContentModel {
             }
         }
 
-        if (isToggle && (secondaryContentModel != null)) {
-            throw new IllegalStateException("Command configured to be toggle can't have secondary");
-        }
-
         if (isToggleSelected && !isToggle) {
             throw new IllegalStateException(
                     "Command configured to not be a toggle but is selected");

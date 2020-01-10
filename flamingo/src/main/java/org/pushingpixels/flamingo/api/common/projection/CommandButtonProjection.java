@@ -44,13 +44,9 @@ public class CommandButtonProjection<M extends Command>
     ComponentSupplier<AbstractCommandButton, M, CommandButtonPresentationModel> getDefaultSupplier() {
         return (Projection<AbstractCommandButton, M, CommandButtonPresentationModel> projection) -> {
             if (projection.getPresentationModel().isMenu()) {
-                return projection.getContentModel().isToggle()
-                        ? JCommandToggleMenuButton::new
-                        : JCommandMenuButton::new;
+                return JCommandMenuButton::new;
             } else {
-                return projection.getContentModel().isToggle()
-                        ? JCommandToggleButton::new
-                        : JCommandButton::new;
+                return JCommandButton::new;
             }
         };
     }

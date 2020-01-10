@@ -307,9 +307,9 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
                     if (menuButton.getIcon() != null) {
                         atLeastOneButtonHasIcon = true;
                     }
-                }
-                if (menuComponent instanceof JCommandToggleMenuButton) {
-                    atLeastOneButtonHasIcon = true;
+                    if (menuButton.getProjection().getContentModel().isToggle()) {
+                        atLeastOneButtonHasIcon = true;
+                    }
                 }
             }
 
@@ -320,10 +320,6 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
                     JCommandMenuButton menuButton = (JCommandMenuButton) menuComponent;
                     menuButton.putClientProperty(BasicCommandPopupMenuUI.FORCE_ICON,
                             atLeastOneButtonHasIcon ? Boolean.TRUE : null);
-                }
-                if (menuComponent instanceof JCommandToggleMenuButton) {
-                    JCommandToggleMenuButton menuButton = (JCommandToggleMenuButton) menuComponent;
-                    menuButton.putClientProperty(BasicCommandPopupMenuUI.FORCE_ICON, Boolean.TRUE);
                 }
             }
         }
@@ -510,8 +506,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             java.util.List<Component> menuComponents = menu.getMenuComponents();
             if (menuComponents != null) {
                 for (Component menuComponent : menuComponents) {
-                    if (menuComponent instanceof JCommandMenuButton
-                            || menuComponent instanceof JCommandToggleMenuButton) {
+                    if (menuComponent instanceof JCommandMenuButton) {
                         AbstractCommandButton button = (AbstractCommandButton) menuComponent;
                         if (!Boolean.TRUE.equals(button.getClientProperty(FORCE_ICON))) {
                             continue;

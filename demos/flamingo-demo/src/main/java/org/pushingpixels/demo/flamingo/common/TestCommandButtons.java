@@ -165,7 +165,6 @@ public class TestCommandButtons extends JFrame {
                         new CommandGroup(simpleEntries2)));
     }
 
-
     private JPanel getButtonPanel() {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 10dlu, center:pref, 4dlu,"

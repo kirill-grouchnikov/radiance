@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
-import org.pushingpixels.flamingo.internal.ui.common.BasicCommandToggleButtonUI;
+import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
@@ -47,7 +47,7 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
-public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandToggleButtonUI {
+public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandButtonUI {
     private PopupPanelManager.PopupListener popupListener;
 
     @Override

@@ -29,20 +29,33 @@
  */
 package org.pushingpixels.flamingo.internal.substance.common.ui;
 
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
 import org.pushingpixels.flamingo.api.common.RolloverActionListener;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
+import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
+import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
+import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
 import java.util.EnumSet;
+import java.util.Map;
 
 /**
  * UI for {@link JCommandMenuButton} components in <b>Substance</b> look and feel.
@@ -136,5 +149,141 @@ public class SubstanceCommandMenuButtonUI extends SubstanceCommandButtonUI {
 
         JCommandMenuButton menuButton = (JCommandMenuButton) c;
         KeyTipRenderingUtilities.renderButtonKeyTips(g, menuButton, layoutManager);
+    }
+
+    @Override
+    protected void paintButtonIcon(Graphics g, Rectangle iconRect) {
+        boolean isSelected = this.commandButton.getActionModel().isSelected();
+        if (isSelected) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth();
+            Rectangle2D.Float extended = new Rectangle2D.Float(iconRect.x - borderDelta / 2.0f,
+                    iconRect.y - borderDelta / 2.0f, iconRect.width + borderDelta,
+                    iconRect.height + borderDelta);
+
+            ComponentState currState = this.commandButton.getActionModel().isEnabled()
+                    ? ComponentState.SELECTED
+                    : ComponentState.DISABLED_SELECTED;
+
+            SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                    this.commandButton, SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
+            SubstanceFillPainter fillPainter = SubstanceCoreUtilities
+                    .getFillPainter(this.commandButton);
+            fillPainter.paintContourBackground(g2d, this.commandButton,
+                    extended.x + extended.width, extended.y + extended.height,
+                    extended, false, fillScheme, false);
+
+            SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                    this.commandButton, SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
+            SubstanceBorderPainter borderPainter = SubstanceCoreUtilities
+                    .getBorderPainter(this.commandButton);
+            borderPainter.paintBorder(g2d, this.commandButton,
+                    extended.x + extended.width, extended.y + extended.height,
+                    extended, null, borderScheme);
+
+            g2d.dispose();
+        }
+        super.paintButtonIcon(g, iconRect);
+        // does it actually have an icon?
+        Icon iconToPaint = this.getIconToPaint();
+        if (isSelected && (iconToPaint == null)) {
+            // draw a checkmark
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            ComponentState currState = this.commandButton.getActionModel().isEnabled()
+                    ? ComponentState.SELECTED
+                    : ComponentState.DISABLED_SELECTED;
+            SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                    this.commandButton, SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
+            g2d.setColor(fillScheme.getForegroundColor());
+
+            int iw = iconRect.width;
+            int ih = iconRect.height;
+            GeneralPath path = new GeneralPath();
+
+            path.moveTo(0.2f * iw, 0.5f * ih);
+            path.lineTo(0.42f * iw, 0.8f * ih);
+            path.lineTo(0.8f * iw, 0.2f * ih);
+            g2d.translate(iconRect.x, iconRect.y);
+            Stroke stroke = new BasicStroke((float) 0.12 * iw, BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_ROUND);
+            g2d.setStroke(stroke);
+            g2d.draw(path);
+
+            g2d.dispose();
+        }
+    }
+
+    @Override
+    protected boolean isPaintingBackground() {
+        boolean isActionRollover = this.commandButton.getActionModel().isRollover();
+
+        if (isActionRollover || !this.commandButton.isFlat()) {
+            return true;
+        }
+
+        return (this.getActionTransitionTracker()
+                .getFacetStrength(SubstanceSlices.ComponentStateFacet.ROLLOVER) > 0.0f);
+    }
+
+    @Override
+    protected Color getForegroundColor(StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        Color fgColor = this.commandButton.getForeground();
+        if (fgColor instanceof UIResource) {
+            float buttonAlpha = SubstanceColorSchemeUtilities.getAlpha(this.commandButton,
+                    modelStateInfo.getCurrModelState());
+
+            fgColor = getMenuButtonForegroundColor(this.commandButton, modelStateInfo);
+
+            if (buttonAlpha < 1.0f) {
+                Color bgFillColor = SubstanceColorUtilities
+                        .getBackgroundFillColor(this.commandButton);
+                fgColor = SubstanceColorUtilities.getInterpolatedColor(fgColor, bgFillColor,
+                        buttonAlpha);
+            }
+        }
+        return fgColor;
+    }
+
+    private static Color getMenuButtonForegroundColor(AbstractCommandButton menuButton,
+            StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
+                .getStateNoSelectionContributionMap();
+
+        SubstanceSlices.ColorSchemeAssociationKind currAssocKind = SubstanceSlices.ColorSchemeAssociationKind.FILL;
+        // use HIGHLIGHT on active and non-rollover menu items
+        if (!currState.isDisabled() && (currState != ComponentState.ENABLED)
+                && !currState.isFacetActive(SubstanceSlices.ComponentStateFacet.ROLLOVER))
+            currAssocKind = SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT;
+        SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(menuButton,
+                currAssocKind, currState);
+        if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+            return colorScheme.getForegroundColor();
+        }
+
+        float aggrRed = 0;
+        float aggrGreen = 0;
+        float aggrBlue = 0;
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
+                .entrySet()) {
+            ComponentState activeState = activeEntry.getKey();
+            float alpha = activeEntry.getValue().getContribution();
+            SubstanceSlices.ColorSchemeAssociationKind assocKind = SubstanceSlices.ColorSchemeAssociationKind.FILL;
+            // use HIGHLIGHT on active and non-rollover menu items
+            if (!activeState.isDisabled() && (activeState != ComponentState.ENABLED)
+                    && !activeState.isFacetActive(SubstanceSlices.ComponentStateFacet.ROLLOVER))
+                assocKind = SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT;
+            SubstanceColorScheme activeColorScheme = SubstanceColorSchemeUtilities
+                    .getColorScheme(menuButton, assocKind, activeState);
+            Color activeForeground = activeColorScheme.getForegroundColor();
+            aggrRed += alpha * activeForeground.getRed();
+            aggrGreen += alpha * activeForeground.getGreen();
+            aggrBlue += alpha * activeForeground.getBlue();
+        }
+        return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
     }
 }

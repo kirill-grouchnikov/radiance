@@ -324,11 +324,9 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         if (this.panelContentModel.isSingleSelectionMode()) {
             for (List<AbstractCommandButton> ljrb : this.buttons) {
                 for (AbstractCommandButton jrb : ljrb) {
-                    if (jrb instanceof JCommandToggleButton) {
-                        JCommandToggleButton jctb = (JCommandToggleButton) jrb;
-                        if (jctb.getActionModel().isSelected()) {
-                            return jctb.getProjection().getContentModel();
-                        }
+                    Command curr = jrb.getProjection().getContentModel();
+                    if (curr.isToggleSelected()) {
+                        return curr;
                     }
                 }
             }
@@ -340,13 +338,11 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         if (this.panelContentModel.isSingleSelectionMode()) {
             for (List<AbstractCommandButton> ljrb : this.buttons) {
                 for (AbstractCommandButton jrb : ljrb) {
-                    if (jrb instanceof JCommandToggleButton) {
-                        JCommandToggleButton jctb = (JCommandToggleButton) jrb;
-                        if (jctb.getActionModel().isSelected()) {
-                            Rectangle selectionButtonBounds = jctb.getBounds();
-                            scrollRectToVisible(selectionButtonBounds);
-                            return;
-                        }
+                    Command curr = jrb.getProjection().getContentModel();
+                    if (curr.isToggleSelected()) {
+                        Rectangle selectionButtonBounds = jrb.getBounds();
+                        scrollRectToVisible(selectionButtonBounds);
+                        return;
                     }
                 }
             }
