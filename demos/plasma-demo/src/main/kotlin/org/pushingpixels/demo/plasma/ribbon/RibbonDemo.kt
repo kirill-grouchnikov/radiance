@@ -478,9 +478,9 @@ private class RibbonDemoBuilder {
             currLocale = selected
             resourceBundle = ResourceBundle.getBundle(
                     "org.pushingpixels.demo.plasma.resources.Resources", currLocale)
-            for (window in Window.getWindows()) {
-                window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale))
-                SwingUtilities.updateComponentTreeUI(window)
+            Window.getWindows().forEach {
+                it.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale))
+                SwingUtilities.updateComponentTreeUI(it)
             }
         }
         formBuilder.add("Locale").xy(1, 13).add(localeSwitcher).xy(3, 13)
@@ -706,10 +706,10 @@ private class RibbonDemoBuilder {
                         }
 
                         onActionPreviewActivated = {
-                            // Notify the callback that there is rollover with automatic
-                            // (black) color
-                            onColorPreviewActivatedListener.invoke(Color.black)
+                            // Notify the callback that there is rollover with the default color
+                            onColorPreviewActivatedListener.invoke(defaultColor)
                         }
+
                         onActionPreviewCanceled = {
                             // Notify the callback that there is no rollover
                             onColorPreviewCanceledListener.invoke()
@@ -755,7 +755,7 @@ private class RibbonDemoBuilder {
                     command {
                         title = resourceBundle.getString("ColorSelector.textMoreColor")
                         action = DelayedCommandListener {
-                            val newColor = JColorChooser.showDialog(it.source as Component,
+                            val newColor = JColorChooser.showDialog(it.buttonSource,
                                     "Color chooser", defaultColor)
                             if (newColor != null) {
                                 onColorActivatedListener.invoke(newColor)

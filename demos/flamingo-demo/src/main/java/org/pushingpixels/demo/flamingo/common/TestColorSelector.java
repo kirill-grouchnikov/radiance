@@ -195,7 +195,7 @@ public class TestColorSelector extends JFrame {
         top.add(hasStandard);
         top.add(hasRecent);
 
-        JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
+        JComboBox<LocaleSwitcher.LocaleInfo> localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle(
                     "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);

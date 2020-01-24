@@ -88,6 +88,10 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
         if (groupModel != null) {
             groupModel.setSelected(command, b);
             b = (groupModel.getSelected() == command);
+        } else {
+            if (command.isToggle()) {
+                command.setToggleSelected(b);
+            }
         }
 
         if (this.isSelected() == b) {
@@ -159,9 +163,6 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
         }
 
         if (toFireFirstAction) {
-            if (command.isToggle()) {
-                command.setToggleSelected(!command.isToggleSelected());
-            }
             this.commandButton.getUI().setInnerFocusOnAction(true);
             fireActionPerformed(new CommandActionEvent(this.commandButton,
                     ActionEvent.ACTION_PERFORMED,

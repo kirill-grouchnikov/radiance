@@ -65,11 +65,9 @@ public class BreadCrumbTest extends JFrame {
                     }
 
                     if (newPath.size() > 0) {
-                        SwingWorker<List<StringValuePair<File>>, Void> worker =
-                                new SwingWorker<>() {
+                        SwingWorker<List<StringValuePair<File>>, Void> worker = new SwingWorker<>() {
                             @Override
-                            protected List<StringValuePair<File>> doInBackground() throws
-                                    Exception {
+                            protected List<StringValuePair<File>> doInBackground() {
                                 return bar.getCallback().getLeafs(newPath);
                             }
 

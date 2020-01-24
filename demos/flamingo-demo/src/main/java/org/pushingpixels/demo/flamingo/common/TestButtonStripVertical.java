@@ -66,7 +66,7 @@ public class TestButtonStripVertical extends JFrame {
         this.add(buttonPanel, BorderLayout.CENTER);
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
+        JComboBox<LocaleSwitcher.LocaleInfo> localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
             currLocale = selected;
             remove(buttonPanel);
             buttonPanel = getButtonPanel();

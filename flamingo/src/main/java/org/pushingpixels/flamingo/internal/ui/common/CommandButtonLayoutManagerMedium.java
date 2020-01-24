@@ -275,13 +275,14 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                     x += 2 * layoutHGap;
                 }
 
+                if (!hasText && !hasIcon) {
+                    // horizontally center the popup icon
+                    x += (width - 2 * layoutHGap - 1 - labelHeight / 2) / 2;
+                }
                 result.popupActionRect.x = x;
                 result.popupActionRect.y = (height - labelHeight) / 2 - 1;
                 result.popupActionRect.width = 1 + labelHeight / 2;
                 result.popupActionRect.height = labelHeight + 2;
-                x += result.popupActionRect.width;
-
-                x += 2 * layoutHGap;
             }
 
             int xBorderBetweenActionAndPopup = 0;
@@ -430,13 +431,15 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                     x -= 2 * layoutHGap;
                 }
 
+                if (!hasText && !hasIcon) {
+                    // horizontally center the popup icon
+                    x -= (width - 2 * layoutHGap - 1 - labelHeight / 2) / 2;
+                }
+
                 result.popupActionRect.width = 1 + labelHeight / 2;
                 result.popupActionRect.x = x - result.popupActionRect.width;
                 result.popupActionRect.y = (height - labelHeight) / 2 - 1;
                 result.popupActionRect.height = labelHeight + 2;
-                x -= result.popupActionRect.width;
-
-                x -= 2 * layoutHGap;
             }
 
             int xBorderBetweenActionAndPopup = 0;

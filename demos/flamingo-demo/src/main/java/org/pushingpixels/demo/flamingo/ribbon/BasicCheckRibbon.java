@@ -2288,7 +2288,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 }));
         builder.add("Change 'Paragraph'").xy(1, 11).add(changeParagraph).xy(3, 11);
 
-        JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
+        JComboBox<LocaleSwitcher.LocaleInfo> localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
             currLocale = selected;
             resourceBundle = ResourceBundle
                     .getBundle("org.pushingpixels.demo.flamingo.resource.Resources", currLocale);

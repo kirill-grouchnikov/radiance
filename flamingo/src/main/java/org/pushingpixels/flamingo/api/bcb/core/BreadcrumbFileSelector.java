@@ -64,7 +64,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
         /**
          * File system view.
          */
-        private FileSystemView fsv;
+        private final FileSystemView fsv;
 
         /**
          * Creates a new callback.
@@ -137,7 +137,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                     }
                     lResult.add(pair);
                 }
-                Collections.sort(lResult, new Comparator<>() {
+                lResult.sort(new Comparator<>() {
                     @Override
                     public int compare(StringValuePair<File> o1, StringValuePair<File> o2) {
                         String key1 = fsv.isFileSystemRoot(o1.getValue()) ?
@@ -188,7 +188,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                     }
                     lResult.add(pair);
                 }
-                lResult.sort(new Comparator<StringValuePair<File>>() {
+                lResult.sort(new Comparator<>() {
                     @Override
                     public int compare(StringValuePair<File> o1,
                             StringValuePair<File> o2) {
@@ -270,29 +270,27 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
      * @param dir Points to a directory to be selected.
      */
     public void setPath(File dir) {
-        FileSystemView fsv = FileSystemView.getFileSystemView();
+        final FileSystemView fsv = FileSystemView.getFileSystemView();
 
-        synchronized (fsv) {
-            if ((dir == null) || !dir.isDirectory()) {
-                dir = fsv.getHomeDirectory();
-            }
-
-            ArrayList<BreadcrumbItem<File>> path = new ArrayList<>();
-            File parent = dir;
-            BreadcrumbItem<File> bci = new BreadcrumbItem<>(fsv.getSystemDisplayName(dir), dir);
-            bci.setIcon(fsv.getSystemIcon(dir));
-            path.add(bci);
-            while (true) {
-                parent = fsv.getParentDirectory(parent);
-                if (parent == null) {
-                    break;
-                }
-                bci = new BreadcrumbItem<>(fsv.getSystemDisplayName(parent), parent);
-                bci.setIcon(fsv.getSystemIcon(parent));
-                path.add(bci);
-            }
-            Collections.reverse(path);
-            this.setPath(path);
+        if ((dir == null) || !dir.isDirectory()) {
+            dir = fsv.getHomeDirectory();
         }
+
+        ArrayList<BreadcrumbItem<File>> path = new ArrayList<>();
+        File parent = dir;
+        BreadcrumbItem<File> bci = new BreadcrumbItem<>(fsv.getSystemDisplayName(dir), dir);
+        bci.setIcon(fsv.getSystemIcon(dir));
+        path.add(bci);
+        while (true) {
+            parent = fsv.getParentDirectory(parent);
+            if (parent == null) {
+                break;
+            }
+            bci = new BreadcrumbItem<>(fsv.getSystemDisplayName(parent), parent);
+            bci.setIcon(fsv.getSystemIcon(parent));
+            path.add(bci);
+        }
+        Collections.reverse(path);
+        this.setPath(path);
     }
 }

@@ -146,6 +146,7 @@ fun main() {
                             // (light gray) color
                             onColorPreviewActivatedListener.invoke(defaultPanelColor)
                         }
+
                         onActionPreviewCanceled = {
                             // Notify the callback that there is no rollover
                             onColorPreviewCanceledListener.invoke()
@@ -191,7 +192,7 @@ fun main() {
                     command {
                         title = resourceBundle.getString("ColorSelector.textMoreColor")
                         action = DelayedCommandListener {
-                            val color = JColorChooser.showDialog(it.source as Component,
+                            val color = JColorChooser.showDialog(it.buttonSource,
                                     "Color chooser", backgroundColor)
                             if (color != null) {
                                 onColorActivatedListener(color)

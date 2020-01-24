@@ -279,7 +279,7 @@ public class TestCommandButtons extends JFrame {
         }));
         controlPanel.add(popupEnabled);
 
-        JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
+        JComboBox<LocaleSwitcher.LocaleInfo> localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle("test.resource.Resources", currLocale);
             remove(buttonPanel);

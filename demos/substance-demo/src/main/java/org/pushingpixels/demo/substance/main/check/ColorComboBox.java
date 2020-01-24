@@ -78,7 +78,7 @@ public class ColorComboBox extends JComboBox<ColorComboBox.Value> {
 	public void setColor(Color color) {
 		if (color == null) {
 			setSelectedIndex(content.length - 1);
-			lastColor = ((Value) getItemAt(content.length - 1)).color;
+			lastColor = getItemAt(content.length - 1).color;
 		} else {
 			setSelectedItem(new Value(color));
 			lastColor = color;

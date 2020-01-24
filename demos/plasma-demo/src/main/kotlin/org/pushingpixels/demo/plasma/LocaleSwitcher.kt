@@ -34,13 +34,13 @@ import java.util.*
 import javax.swing.JComboBox
 
 object LocaleSwitcher {
-    internal class LocaleInfo(val locale: Locale, val displayName: String) {
+    data class LocaleInfo(val locale: Locale, val displayName: String) {
         override fun toString(): String {
             return displayName
         }
     }
 
-    fun getLocaleSwitcher(callback: (Locale) -> Unit): JComboBox<*> {
+    fun getLocaleSwitcher(callback: (Locale) -> Unit): JComboBox<LocaleInfo> {
         val locales = arrayOf(LocaleInfo(Locale("en", "US"), "English"),
                 LocaleInfo(Locale("iw", "IL"), "Hebrew"))
         val result = JComboBox<LocaleInfo>(locales)

@@ -234,7 +234,7 @@ public class TestCommandToggleButtons extends JFrame {
         }));
         controlPanel.add(actionEnabled);
 
-        JComboBox localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
+        JComboBox<LocaleSwitcher.LocaleInfo> localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle(
                     "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);

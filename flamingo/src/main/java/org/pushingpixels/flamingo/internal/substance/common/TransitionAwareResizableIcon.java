@@ -134,14 +134,12 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
         StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
                 .getModelStateInfo();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-                modelStateInfo
-                        .getStateContributionMap();
+                modelStateInfo.getStateContributionMap();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        SubstanceColorScheme baseScheme = SubstanceColorSchemeUtilities
-                .getColorScheme(this.comp, ColorSchemeAssociationKind.MARK,
-                        currState);
+        SubstanceColorScheme baseScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                this.comp, ColorSchemeAssociationKind.MARK, currState);
         float baseAlpha = SubstanceColorSchemeUtilities.getAlpha(this.comp, currState);
 
         HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(baseScheme.getDisplayName(),
@@ -149,15 +147,13 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
         // System.out.println(key);
         ResizableIcon layerBase = this.iconMap.get(keyBase);
         if (layerBase == null) {
-            ResizableIcon baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme,
-                    width, height);
+            ResizableIcon baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme, width, height);
             if (baseAlpha == 1.0f) {
                 layerBase = baseFullOpacity;
                 iconMap.put(keyBase, layerBase);
             } else {
                 BufferedImage baseImage = SubstanceCoreUtilities.getBlankImage(
-                        baseFullOpacity.getIconWidth(), baseFullOpacity
-                                .getIconHeight());
+                        baseFullOpacity.getIconWidth(), baseFullOpacity.getIconHeight());
                 Graphics2D g2base = baseImage.createGraphics();
                 g2base.setComposite(AlphaComposite.SrcOver.derive(baseAlpha));
                 baseFullOpacity.paintIcon(this.comp, g2base, 0, 0);
@@ -181,8 +177,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
 
         // draw the other active layers
         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
-                : activeStates
-                .entrySet()) {
+                : activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             // System.out.println("Painting state " + activeState + "[curr is "
             // + currState + "] with " + activeEntry.getValue());
@@ -191,30 +186,25 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
 
             float stateContribution = activeEntry.getValue().getContribution();
             if (stateContribution > 0.0f) {
-                g2d.setComposite(AlphaComposite.SrcOver
-                        .derive(stateContribution));
+                g2d.setComposite(AlphaComposite.SrcOver.derive(stateContribution));
 
-                SubstanceColorScheme scheme = SubstanceColorSchemeUtilities
-                        .getColorScheme(this.comp,
-                                ColorSchemeAssociationKind.MARK, activeState);
+                SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(this.comp,
+                        ColorSchemeAssociationKind.MARK, activeState);
                 float alpha = SubstanceColorSchemeUtilities.getAlpha(this.comp, activeState);
 
                 HashMapKey key = SubstanceCoreUtilities.getHashKey(scheme.getDisplayName(), alpha,
                         this.width, this.height);
                 ResizableIcon layer = iconMap.get(key);
                 if (layer == null) {
-                    ResizableIcon fullOpacity = this.delegate.getColorSchemeIcon(scheme,
-                            width, height);
+                    ResizableIcon fullOpacity = this.delegate.getColorSchemeIcon(scheme, width, height);
                     if (alpha == 1.0f) {
                         layer = fullOpacity;
                         iconMap.put(key, layer);
                     } else {
-                        BufferedImage image = SubstanceCoreUtilities
-                                .getBlankImage(fullOpacity.getIconWidth(),
-                                        fullOpacity.getIconHeight());
+                        BufferedImage image = SubstanceCoreUtilities.getBlankImage(
+                                fullOpacity.getIconWidth(), fullOpacity.getIconHeight());
                         Graphics2D g2layer = image.createGraphics();
-                        g2layer.setComposite(AlphaComposite.SrcOver
-                                .derive(alpha));
+                        g2layer.setComposite(AlphaComposite.SrcOver.derive(alpha));
                         fullOpacity.paintIcon(this.comp, g2layer, 0, 0);
                         g2layer.dispose();
                         layer = new ImageWrapperIcon(image);
@@ -229,7 +219,8 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
     }
 
     @Override
-    public void paintIcon(Component c, Graphics g, int x, int y) {this.getIconToPaint().paintIcon(c, g, x, y);
+    public void paintIcon(Component c, Graphics g, int x, int y) {
+        this.getIconToPaint().paintIcon(c, g, x, y);
     }
 
     @Override

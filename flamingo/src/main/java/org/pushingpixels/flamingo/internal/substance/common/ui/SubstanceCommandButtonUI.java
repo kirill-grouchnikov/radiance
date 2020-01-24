@@ -386,23 +386,21 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
             return;
         }
 
-        if (regular != null) {
-            Graphics2D g2d = (Graphics2D) g.create();
+        Graphics2D g2d = (Graphics2D) g.create();
 
-            GhostPaintingUtils.paintGhostIcon(g2d, jcb, regular, iconRect);
-            g2d.setComposite(WidgetUtilities.getAlphaComposite(jcb, g));
+        GhostPaintingUtils.paintGhostIcon(g2d, jcb, regular, iconRect);
+        g2d.setComposite(WidgetUtilities.getAlphaComposite(jcb, g));
 
-            StateTransitionTracker tracker = this.substanceVisualStateTracker
-                    .getActionStateTransitionTracker();
-            ButtonModel model = commandButton.getActionModel();
-            if (jcb.getCommandButtonKind() == CommandButtonKind.POPUP_ONLY) {
-                tracker = this.substanceVisualStateTracker.getPopupStateTransitionTracker();
-                model = jcb.getPopupModel();
-            }
-            CommandButtonBackgroundDelegate.paintCommandButtonIcon(g2d, iconRect, jcb, regular,
-                    this.glowingIcon, model, tracker);
-            g2d.dispose();
+        StateTransitionTracker tracker = this.substanceVisualStateTracker
+                .getActionStateTransitionTracker();
+        ButtonModel model = commandButton.getActionModel();
+        if (jcb.getCommandButtonKind() == CommandButtonKind.POPUP_ONLY) {
+            tracker = this.substanceVisualStateTracker.getPopupStateTransitionTracker();
+            model = jcb.getPopupModel();
         }
+        CommandButtonBackgroundDelegate.paintCommandButtonIcon(g2d, iconRect, jcb, regular,
+                this.glowingIcon, model, tracker);
+        g2d.dispose();
     }
 
     protected void paintButtonIcon(Graphics g, Rectangle iconRect) {
@@ -534,7 +532,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(this.commandButton);
         int arrowIconHeight = (int) SubstanceSizeUtils.getArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getArrowIconWidth(fontSize);
-        ResizableIcon icon = new TransitionAwareResizableIcon(this.commandButton,
+        return new TransitionAwareResizableIcon(this.commandButton,
                 this::getPopupTransitionTracker,
                 (SubstanceColorScheme scheme, int width, int height) -> {
                     CommandButtonPresentationModel.PopupOrientationKind orientation =
@@ -544,18 +542,15 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                             (orientation == CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD)
                                     ? SwingConstants.SOUTH
                                     : (commandButton.getComponentOrientation().isLeftToRight()
-                                    ? SwingConstants.EAST
-                                    : SwingConstants.WEST);
+                                    ? SwingConstants.EAST : SwingConstants.WEST);
                     // System.out.println(direction + ":" + width + ":"
                     // + height);
-                    ImageWrapperIcon result = SubstanceImageCreator.getArrowIcon(width,
+                    return SubstanceImageCreator.getArrowIcon(width,
                             height, SubstanceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f,
                             direction, scheme);
                     // System.out.println(" --> " + result.getIconWidth()
                     // + "*" + result.getIconHeight());
-                    return result;
                 }, new Dimension(arrowIconWidth, arrowIconHeight));
-        return icon;
     }
 
     @Override
@@ -711,6 +706,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
         popupActionIcon.paintIcon(this.commandButton, g2d,
                 popupActionRect.x + (popupActionRect.width - popupActionIcon.getIconWidth()) / 2,
                 popupActionRect.y + (popupActionRect.height - popupActionIcon.getIconHeight()) / 2);

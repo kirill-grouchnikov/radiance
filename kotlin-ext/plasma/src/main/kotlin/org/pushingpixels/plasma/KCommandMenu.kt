@@ -85,8 +85,6 @@ class KCommandMenu {
         groups.add(defaultGroup)
     }
 
-    class KCommandPopupMenuSeparator
-
     fun commandPanel(init: KCommandPopupMenuButtonPanel.() -> Unit) {
         if (commandPanel != null) {
             throw IllegalStateException("Command panel already configured")

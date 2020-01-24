@@ -34,7 +34,7 @@ import java.awt.event.ActionEvent;
 import java.util.Locale;
 
 public class LocaleSwitcher {
-    static class LocaleInfo {
+    public static class LocaleInfo {
         Locale locale;
 
         String displayName;
@@ -51,10 +51,10 @@ public class LocaleSwitcher {
     }
 
     public interface LocaleCallback {
-        public void onLocaleSelected(Locale selected);
+        void onLocaleSelected(Locale selected);
     }
 
-    public static JComboBox getLocaleSwitcher(final LocaleCallback callback) {
+    public static JComboBox<LocaleInfo> getLocaleSwitcher(final LocaleCallback callback) {
         LocaleInfo[] locales = new LocaleInfo[] {
                 new LocaleInfo(new Locale("en", "US"), "English"),
                 new LocaleInfo(new Locale("iw", "IL"), "Hebrew")};

@@ -76,9 +76,9 @@ fun main() {
                 presentationState = CommandButtonPresentationState.TILE
                 isFlat = false
             }
-        }
+        }.toButton()
 
-        frame.add(commandButton.toButton())
+        frame.add(commandButton)
 
         frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
         frame.size = Dimension(250, 200)
