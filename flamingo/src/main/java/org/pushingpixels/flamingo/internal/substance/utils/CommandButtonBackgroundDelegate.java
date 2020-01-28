@@ -106,8 +106,9 @@ public class CommandButtonBackgroundDelegate {
         SubstanceColorScheme baseBorderScheme = SubstanceColorSchemeUtilities
                 .getColorScheme(commandButton, ColorSchemeAssociationKind.BORDER, currState);
 
-        float radius = SubstanceSizeUtils.getClassicButtonCornerRadius(
-                SubstanceSizeUtils.getComponentFontSize(commandButton));
+        float radius = commandButton.getProjection().getPresentationModel().isMenu() ? 0 :
+                SubstanceSizeUtils.getClassicButtonCornerRadius(
+                        SubstanceSizeUtils.getComponentFontSize(commandButton));
 
         Set<SubstanceSlices.Side> straightSides = SubstanceCoreUtilities.getSides(commandButton,
                 SubstanceSynapse.BUTTON_STRAIGHT_SIDE);

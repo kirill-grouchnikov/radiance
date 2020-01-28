@@ -221,6 +221,9 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
         for (int i = 0; i < groupCount; i++) {
             Rectangle groupRect = this.groupRects[i];
+            if (groupRect == null) {
+                continue;
+            }
             if (!skipBackgroundFill) {
                 this.paintGroupBackground(g, i, groupRect.x, groupRect.y, groupRect.width,
                         groupRect.height);
@@ -344,12 +347,12 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             if (maxButtonColumnsToUse > 0) {
                 buttonsInRow = Math.min(buttonsInRow, maxButtonColumnsToUse);
             }
+            // Never end up with zero buttons in row
+            buttonsInRow = Math.max(buttonsInRow, 1);
 
             int totalRowCount = 0;
             for (int i = 0; i < groupCount; i++) {
-                int buttonRows = (buttonsInRow == 0) ? 0
-                        : (int) (Math.ceil((double) panel.getGroupButtons(i).size()
-                        / buttonsInRow));
+                int buttonRows = (int) (Math.ceil((double) panel.getGroupButtons(i).size() / buttonsInRow));
                 totalRowCount += buttonRows;
             }
 
@@ -378,9 +381,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                     y += labelHeight + gap;
                 }
 
-                int buttonRows = (buttonsInRow == 0) ? 0
-                        : (int) (Math.ceil((double) panel.getGroupButtons(i).size()
-                        / buttonsInRow));
+                int buttonRows = (int) (Math.ceil((double) panel.getGroupButtons(i).size() / buttonsInRow));
                 if (maxButtonColumnsToUse > 0) {
                     buttonsInRow = Math.min(buttonsInRow, maxButtonColumnsToUse);
                 }
@@ -390,8 +391,9 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 int actualButtonWidth = (buttonRows > 1)
                         ? (maxWidth - (buttonsInRow - 1) * gap) / buttonsInRow
                         : maxButtonWidth;
-                if (maxButtonColumnsToUse == 1)
+                if (maxButtonColumnsToUse == 1) {
                     actualButtonWidth = maxWidth;
+                }
 
                 if (ltr) {
                     int currX = left + groupInsets.left;
@@ -476,9 +478,10 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             if (usePanelWidth) {
                 // this hasn't been set. Compute using the available width
                 maxButtonColumnsToUse = (availableWidth + gap) / (maxButtonWidth + gap);
+                // Never end up with zero buttons in row
+                maxButtonColumnsToUse = Math.max(1, maxButtonColumnsToUse);
             }
             int height = bInsets.top + bInsets.bottom;
-            // System.out.print(height + "[" + maxButtonColumnsToUse + "]");
             for (int i = 0; i < groupCount; i++) {
                 if (groupLabels[i].isVisible()) {
                     height += (getGroupTitleHeight(i) + gap);
@@ -489,7 +492,6 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 int buttonRows = (int) (Math.ceil((double) panel.getGroupButtons(i).size()
                         / maxButtonColumnsToUse));
                 height += buttonRows * maxButtonHeight + (buttonRows - 1) * gap;
-                // System.out.print(" " + height);
             }
             int prefWidth = usePanelWidth ? availableWidth
                     : maxButtonColumnsToUse * maxButtonWidth + (maxButtonColumnsToUse - 1) * gap
