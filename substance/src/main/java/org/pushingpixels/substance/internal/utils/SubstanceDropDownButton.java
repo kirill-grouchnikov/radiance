@@ -35,6 +35,7 @@ import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.EnumSet;
@@ -78,6 +79,15 @@ public final class SubstanceDropDownButton extends JButton {
 
         SubstanceCoreUtilities.markButtonAsFlat(this);
         SubstanceCortex.ComponentScope.setButtonStraightSides(this, EnumSet.allOf(Side.class));
+    }
+
+    @Override
+    public void setBorder(Border border) {
+        if (!(border instanceof EmptyBorder)) {
+            // ignore
+            return;
+        }
+        super.setBorder(border);
     }
 
     @Override

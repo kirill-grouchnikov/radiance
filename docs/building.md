@@ -33,6 +33,8 @@ To locally copy these dependencies (in case you do not want to pull them at buil
 * `./gradlew getToolsDependencies` to copy third-party dependencies for tools artifacts into `build/libs-tools`
 * `./gradlew getAllDependencies` to copy third-party dependencies for all artifacts into the folders above
 
-Note that most core Radiance libraries do not have third-party runtime dependencies. Specifically, Neon, Trident, Substance and Flamingo are self-contained within Radiance. However, Photon requires [Batik](https://xmlgraphics.apache.org/batik/). In addition, core Kotlin libraries (Ember, Meteor, Plasma, Torch) require the [Kotlin standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html).
+For a more detailed tree of dependencies, run `./gradlew photon:dependencies` - substituting the relevant module name.
+
+Note that most core Radiance libraries do not have third-party runtime dependencies. Specifically, Neon, Trident, Substance and Flamingo are self-contained within Radiance. Photon requires [Batik](https://xmlgraphics.apache.org/batik/). In addition, core Kotlin libraries (Ember, Meteor, Plasma, Torch) require the [Kotlin standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html).
 
 Most of the Radiance demo and tools libraries rely on a few of third-party components, mainly [FormLayout](http://www.jgoodies.com/freeware/libraries/forms/) from [JGoodies](http://www.jgoodies.com/), and [Retrofit2](https://square.github.io/retrofit/) from Square. Those dependencies can be seen in the relevant `build.gradle` files.

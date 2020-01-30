@@ -37,6 +37,7 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonComboBoxContent
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
+import java.awt.*;
 import java.util.WeakHashMap;
 
 public class JRibbonComboBox<E> extends JComboBox<E> {

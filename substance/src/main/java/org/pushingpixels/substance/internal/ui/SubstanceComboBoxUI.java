@@ -280,9 +280,9 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
 
     @Override
     public Dimension getMinimumSize(JComponent c) {
-        if (!this.isMinimumSizeDirty) {
-            return new Dimension(this.cachedMinimumSize);
-        }
+//        if (!this.isMinimumSizeDirty) {
+//            return new Dimension(this.cachedMinimumSize);
+//        }
 
         // Dimension size = null;
         //
@@ -593,5 +593,10 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         NeonCortex.installDesktopHints(g2d, c.getFont());
         this.paint(g2d, c);
         g2d.dispose();
+    }
+
+    @Override
+    public Dimension getPreferredSize(JComponent c) {
+        return super.getPreferredSize(c);
     }
 }
