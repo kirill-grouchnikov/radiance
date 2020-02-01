@@ -33,8 +33,10 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonRootPane;
+import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuProjection;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -186,12 +188,16 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
         JRibbonFrame ribbonFrame = (JRibbonFrame) ribbonRootPane.getParent();
         JRibbon ribbon = ribbonFrame.getRibbon();
         if (ribbon != null) {
-            this.applicationMenuButton.setPopupRichTooltip(
-                    ribbon.getApplicationMenuCommandProjection()
-                            .getContentModel().getSecondaryRichTooltip());
-            this.applicationMenuButton.setPopupKeyTip(
-                    ribbon.getApplicationMenuCommandProjection()
-                            .getPresentationModel().getPopupKeyTip());
+            RibbonApplicationMenuCommandButtonProjection applicationMenuProjection =
+                    ribbon.getApplicationMenuCommandProjection();
+            if (applicationMenuProjection != null) {
+                this.applicationMenuButton.setPopupRichTooltip(
+                        ribbon.getApplicationMenuCommandProjection()
+                                .getContentModel().getSecondaryRichTooltip());
+                this.applicationMenuButton.setPopupKeyTip(
+                        ribbon.getApplicationMenuCommandProjection()
+                                .getPresentationModel().getPopupKeyTip());
+            }
         }
     }
 

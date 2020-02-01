@@ -35,6 +35,7 @@ import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonRo
 import org.pushingpixels.neon.api.NeonCortex;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
@@ -66,6 +67,11 @@ public class JRibbonRootPane extends JRootPane {
                 .Platform.MACOS) ? KeyStroke.getKeyStroke("meta alt R") :
                 KeyStroke.getKeyStroke("ctrl F1");
         inputMap.put(keyStroke, "toggleMinimized");
+
+        updateUI();
+
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().
+                setDefaultFocusTraversalPolicy(new LayoutFocusTraversalPolicy());
     }
 
     @Override

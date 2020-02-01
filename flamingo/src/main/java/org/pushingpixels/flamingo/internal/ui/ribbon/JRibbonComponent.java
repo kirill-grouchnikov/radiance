@@ -41,6 +41,7 @@ import org.pushingpixels.neon.api.icon.ResizableIcon;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  * Wrapper around core and 3rd party Swing controls to allow placing them in the ribbon.
@@ -121,6 +122,11 @@ public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
         this.setEnabled(projection.getContentModel().isEnabled());
 
         this.presentationPriority = JRibbonBand.PresentationPriority.TOP;
+
+        this.setFocusTraversalPolicyProvider(true);
+        java.util.List<Component> comps = new ArrayList<>();
+        comps.add(this.mainComponent);
+        this.setFocusTraversalPolicy(new SequentialFocusTraversalPolicy(comps));
 
         this.updateUI();
     }

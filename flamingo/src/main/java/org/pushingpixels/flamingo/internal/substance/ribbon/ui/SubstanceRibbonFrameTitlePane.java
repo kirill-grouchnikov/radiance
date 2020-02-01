@@ -341,7 +341,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             PopupPanelManager.defaultManager().addPopup(overflowButton, popup, overflowPopupPanel);
         }
 
-        private void showMore(int availableWidth) {
+        private void showAsMuchAsPossible(int availableWidth) {
             this.removeAll();
             this.overflowComponents.clear();
 
@@ -352,10 +352,10 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             int pw = ins.left + ins.right + this.overflowButton.getPreferredSize().width + gap;
             for (Component component : getRibbon().getTaskbarComponents()) {
                 int componentWidth = component.getPreferredSize().width;
-                if (!isInOverflow && (pw + componentWidth) <= availableWidth) {
+                if (!isInOverflow && (pw + componentWidth + gap) <= availableWidth) {
                     // can still fit
                     this.add(component);
-                    pw += componentWidth;
+                    pw += (componentWidth + gap);
                 } else {
                     isInOverflow = true;
                     this.overflowComponents.add(component);
@@ -456,7 +456,12 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
         this.syncRibbonState();
 
-        this.ribbonFrameChangeListener = (ChangeEvent e) -> syncRibbonState();
+        this.ribbonFrameChangeListener = (ChangeEvent e) -> {
+            syncRibbonState();
+            invalidate();
+            revalidate();
+            repaint();
+        };
         ribbon.addChangeListener(this.ribbonFrameChangeListener);
     }
 
@@ -571,7 +576,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                 if (pref.width <= availableForTaskbarPanel) {
                     taskbarPanel.showAll();
                 } else {
-                    taskbarPanel.showMore(availableForTaskbarPanel);
+                    taskbarPanel.showAsMuchAsPossible(availableForTaskbarPanel);
                     pref.width = availableForTaskbarPanel;
                 }
 
@@ -646,7 +651,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                 if (pref.width <= availableForTaskbarPanel) {
                     taskbarPanel.showAll();
                 } else {
-                    taskbarPanel.showMore(availableForTaskbarPanel);
+                    taskbarPanel.showAsMuchAsPossible(availableForTaskbarPanel);
                     pref.width = availableForTaskbarPanel;
                 }
 

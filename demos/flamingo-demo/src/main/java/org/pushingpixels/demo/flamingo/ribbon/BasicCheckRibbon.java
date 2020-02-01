@@ -30,6 +30,7 @@
 package org.pushingpixels.demo.flamingo.ribbon;
 
 import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.common.QuickStylesPanel;
@@ -59,6 +60,7 @@ import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
+import org.pushingpixels.flamingo.api.ribbon.synapse.JRibbonComboBox;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.*;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonCheckBoxProjection;
@@ -84,6 +86,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.*;
@@ -2453,12 +2457,53 @@ public class BasicCheckRibbon extends JRibbonFrame {
     }
 
     private void configureStatusBar() {
-        statusBar = new JPanel(new FlowLayout(FlowLayout.TRAILING));
-        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(statusBar,
-                SubstanceSlices.DecorationAreaType.FOOTER);
+        FormBuilder builder = FormBuilder.create().
+                columns("left:pref, 4dlu, left:pref, 4dlu, pref:grow, 4dlu, center:pref, 4dlu, center:pref").
+                rows("p").
+                padding(new EmptyBorder(4, 8, 4, 8));
+
+        final JLabel focusInfo = new JLabel();
+        final JLabel focusTracker = new JLabel();
+        final PropertyChangeListener globalFocusListener = (PropertyChangeEvent evt) -> {
+            if ("focusOwner".equals(evt.getPropertyName())) {
+                String toShow = "";
+                ResizableIcon icon = null;
+                Object owner = evt.getNewValue();
+                if (owner == null) {
+                    focusInfo.setText("No focus owner");
+                    focusTracker.setIcon(null);
+                    focusTracker.setText("");
+                    return;
+                } else {
+                    focusInfo.setText("Focus owner:");
+                }
+                Class<?> ownerClass = owner.getClass();
+                if (JCommandButton.class.isAssignableFrom(ownerClass)) {
+                    JCommandButton cb = (JCommandButton) owner;
+                    Command command = cb.getProjection().getContentModel();
+                    toShow = "[" + ownerClass.getSimpleName() + "] " + command.getText();
+                    if (command.getIconFactory() != null) {
+                        icon = command.getIconFactory().createNewIcon();
+                        int iconWidth = Math.min(cb.getIcon().getIconWidth(), 16);
+                        int iconHeight = Math.min(cb.getIcon().getIconHeight(), 16);
+                        icon.setDimension(new Dimension(iconWidth, iconHeight));
+                    }
+                } else if (JRibbonComboBox.class.isAssignableFrom(ownerClass)) {
+                    toShow = "Ribbon combo [" + ((JRibbonComboBox<?>) owner).getSelectedItem() + "]";
+                } else {
+                    toShow = ownerClass.getSimpleName();
+                }
+                focusTracker.setText(toShow);
+                focusTracker.setIcon(icon);
+            }
+        };
+        KeyboardFocusManager.getCurrentKeyboardFocusManager()
+                .addPropertyChangeListener(globalFocusListener);
+        builder.add(focusInfo).xy(1, 1);
+        builder.add(focusTracker).xy(3, 1);
 
         JLabel helper = new JLabel("Right click to show menu");
-        statusBar.add(helper);
+        builder.add(helper).xy(7, 1);
 
         JComponent alignStrip = new CommandStripProjection(
                 new CommandGroup(this.alignLeftCommand, this.alignCenterCommand,
@@ -2470,7 +2515,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build())
                 .buildComponent();
 
-        statusBar.add(alignStrip);
+        builder.add(alignStrip).xy(9, 1);
 
         // This set tracks the current selection in the popup menu for logging purposes.
         // The source of truth on which commands are selected is each individual command
@@ -2514,7 +2559,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         new CommandGroup(commands2),
                         new CommandGroup(commands3)));
 
-        statusBar.addMouseListener(new MouseAdapter() {
+        helper.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.isPopupTrigger()) {
@@ -2565,6 +2610,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 PopupPanelManager.defaultManager().addPopupListener(tracker);
             }
         });
+
+        statusBar = builder.build();
+        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(statusBar,
+                SubstanceSlices.DecorationAreaType.FOOTER);
 
         this.add(statusBar, BorderLayout.SOUTH);
     }
