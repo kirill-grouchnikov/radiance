@@ -52,7 +52,9 @@ import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -413,11 +415,13 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
             int currCountInRow = 0;
             int buttonY = margin.top + borderInsets.top;
             int singleButtonWidth = maxButtonWidth + toAddToButtonWidth;
+            List<Component> focusSequence = new ArrayList<>();
             for (int i = firstVisibleButtonIndex; i <= lastVisibleButtonIndex; i++) {
                 AbstractCommandButton currButton = ribbonGallery.getButtonAt(i);
 
                 // show button and set bounds
                 currButton.setVisible(true);
+                focusSequence.add(currButton);
                 if (ltr) {
                     currButton.setBounds(startX, buttonY, singleButtonWidth, buttonHeight);
                     startX += (singleButtonWidth + gap);
@@ -448,7 +452,13 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 // Scroll up command is enabled when the first button is not showing
                 scrollUpCommand.setActionEnabled(!ribbonGallery.getButtonAt(0).isVisible());
                 expandCommand.setActionEnabled(true);
+
+                focusSequence.add(buttonStrip.getComponent(0));
+                focusSequence.add(buttonStrip.getComponent(1));
+                focusSequence.add(buttonStrip.getComponent(2));
             }
+//            ribbonGallery.setFocusTraversalPolicyProvider(true);
+//            ribbonGallery.setFocusTraversalPolicy(new SequentialFocusTraversalPolicy(focusSequence));
         }
     }
 

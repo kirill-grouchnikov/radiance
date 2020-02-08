@@ -1749,6 +1749,13 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
             this.fadeOutTableHeader();
             rolledOverIndices.clear();
             rolledOverColumn = -1;
+            rolledOverRow = -1;
+            lastRow = -1;
+            lastColumn = -1;
+
+            if (!_hasRolloverAnimations()) {
+                table.repaint();
+            }
         }
 
         public void mouseMoved(MouseEvent e) {

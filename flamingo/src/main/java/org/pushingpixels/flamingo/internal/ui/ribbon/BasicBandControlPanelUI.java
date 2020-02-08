@@ -368,6 +368,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                                 x -= pw;
                             }
                             hasLeadingComponent = true;
+                            focusSequence.add(gallery);
                         }
                     }
 
