@@ -47,18 +47,17 @@ import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.EnumSet;
 import java.util.Map;
 
 /**
@@ -157,9 +156,19 @@ public class SubstanceRibbonTaskToggleButtonUI extends
     public void paint(Graphics g, JComponent c) {
         this.layoutInfo = this.layoutManager.getLayoutInfo(this.commandButton);
 
-        this.delegate.updateTaskToggleButtonBackground(g,
+        this.delegate.updateTaskToggleButtonBackground(g, (JRibbonTaskToggleButton) this.commandButton);
+        Rectangle textRect = this.paintText(g);
+
+        float radius = RibbonTaskToggleButtonBackgroundDelegate.getTaskToggleButtonCornerRadius(
                 (JRibbonTaskToggleButton) this.commandButton);
-        this.paintText(g);
+        float focusRingPadding = SubstanceSizeUtils.getFocusRingPadding(SubstanceSizeUtils
+                .getComponentFontSize(this.commandButton));
+        GeneralPath contour = SubstanceOutlineUtilities.getBaseOutline(this.commandButton.getWidth(),
+                this.commandButton.getHeight(), radius, EnumSet.of(SubstanceSlices.Side.BOTTOM),
+                focusRingPadding);
+
+        SubstanceCoreUtilities.paintFocus(g, this.commandButton, this.commandButton, this,
+                contour, textRect, 1.0f, 0);
     }
 
     @Override
@@ -170,7 +179,7 @@ public class SubstanceRibbonTaskToggleButtonUI extends
         g2d.dispose();
     }
 
-    private void paintText(Graphics g) {
+    private Rectangle paintText(Graphics g) {
         FontMetrics fm = g.getFontMetrics();
         String toPaint = this.commandButton.getText();
 
@@ -220,6 +229,8 @@ public class SubstanceRibbonTaskToggleButtonUI extends
 
         SubstanceTextUtilities.paintText(g, this.commandButton, textRect,
                 toPaint, -1, this.commandButton.getFont(), fgColor, null);
+
+        return textRect;
     }
 
     private static Color getForegroundColor(AbstractCommandButton button,

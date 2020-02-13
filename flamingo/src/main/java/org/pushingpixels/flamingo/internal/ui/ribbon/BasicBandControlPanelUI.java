@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
@@ -306,7 +307,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         } else {
                             coreComp.setBounds(x - prefWidth, y + yNudge, prefWidth, compHeight);
                         }
-                        focusSequence.add(coreComp);
+                        focusSequence.add(coreComp.getMainComponent());
                         maxWidthInCurrColumn = Math.max(maxWidthInCurrColumn, prefWidth);
                         currColumn.add(coreComp);
 
@@ -368,7 +369,17 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                                 x -= pw;
                             }
                             hasLeadingComponent = true;
-                            focusSequence.add(gallery);
+                            for (int ci = 0; ci < gallery.getComponentCount(); ci++) {
+                                Component child = gallery.getComponent(ci);
+                                if (child instanceof JCommandButtonStrip) {
+                                    JCommandButtonStrip strip = (JCommandButtonStrip) child;
+                                    for (int si = 0; si < strip.getButtonCount(); si++) {
+                                        focusSequence.add(strip.getButton(si));
+                                    }
+                                } else {
+                                    focusSequence.add(child);
+                                }
+                            }
                         }
                     }
 
@@ -536,8 +547,8 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                 }
                 controlPanelGroupIndex++;
             }
-//            c.setFocusTraversalPolicyProvider(true);
-//            c.setFocusTraversalPolicy(new SequentialFocusTraversalPolicy(focusSequence));
+            c.setFocusTraversalPolicyProvider(true);
+            c.setFocusTraversalPolicy(new SequentialFocusTraversalPolicy(focusSequence));
         }
     }
 }

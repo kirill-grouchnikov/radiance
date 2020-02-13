@@ -190,6 +190,11 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         return result;
     }
 
+    public static float getTaskToggleButtonCornerRadius(JRibbonTaskToggleButton button) {
+        return SubstanceSizeUtils.getAdjustedSize(
+                SubstanceSizeUtils.getComponentFontSize(button), 3.0f, 6, 1.0f);
+    }
+
     private static BufferedImage getSingleLayer(JRibbonTaskToggleButton button, int width,
             int height, SubstanceColorScheme fillScheme,
             SubstanceColorScheme borderScheme,
@@ -202,9 +207,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                     contextualGroupHueColor, RibbonContextualTaskGroup.HUE_ALPHA, null, 0.0f);
         }
 
-        float radius = SubstanceSizeUtils.getAdjustedSize(
-                SubstanceSizeUtils.getComponentFontSize(button),
-                3.0f, 6, 1.0f);
+        float radius = getTaskToggleButtonCornerRadius(button);
         float borderDelta = 2.0f * SubstanceSizeUtils.getBorderStrokeWidth();
         float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
         GeneralPath contour = SubstanceOutlineUtilities.getBaseOutline(width,

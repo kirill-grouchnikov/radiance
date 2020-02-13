@@ -373,10 +373,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
             if (galleryButtonPresentationState == JRibbonBand.BIG_FIXED_LANDSCAPE) {
                 maxButtonWidth = maxButtonWidth * 5 / 4;
             }
-            for (int i = 0; i < ribbonGallery.getCommandCount(); i++) {
-                AbstractCommandButton currButton = ribbonGallery.getButtonAt(i);
-                currButton.setVisible(false);
-            }
 
             int gap = getLayoutGap();
 
@@ -415,13 +411,22 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
             int currCountInRow = 0;
             int buttonY = margin.top + borderInsets.top;
             int singleButtonWidth = maxButtonWidth + toAddToButtonWidth;
-            List<Component> focusSequence = new ArrayList<>();
+            // Mark the buttons before the first visible and after the last visible as not visible
+            // Note that toggling visibility to false and then true messes up with focus traversal,
+            // which is why there's only one call to setVisible for every button in the gallery.
+            for (int i = 0; i < firstVisibleButtonIndex; i++) {
+                ribbonGallery.getButtonAt(i).setVisible(false);
+            }
+            if (lastVisibleButtonIndex >= 0) {
+                for (int i = lastVisibleButtonIndex + 1; i < ribbonGallery.getCommandCount(); i++) {
+                    ribbonGallery.getButtonAt(i).setVisible(false);
+                }
+            }
             for (int i = firstVisibleButtonIndex; i <= lastVisibleButtonIndex; i++) {
                 AbstractCommandButton currButton = ribbonGallery.getButtonAt(i);
 
                 // show button and set bounds
                 currButton.setVisible(true);
-                focusSequence.add(currButton);
                 if (ltr) {
                     currButton.setBounds(startX, buttonY, singleButtonWidth, buttonHeight);
                     startX += (singleButtonWidth + gap);
@@ -452,13 +457,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 // Scroll up command is enabled when the first button is not showing
                 scrollUpCommand.setActionEnabled(!ribbonGallery.getButtonAt(0).isVisible());
                 expandCommand.setActionEnabled(true);
-
-                focusSequence.add(buttonStrip.getComponent(0));
-                focusSequence.add(buttonStrip.getComponent(1));
-                focusSequence.add(buttonStrip.getComponent(2));
             }
-//            ribbonGallery.setFocusTraversalPolicyProvider(true);
-//            ribbonGallery.setFocusTraversalPolicy(new SequentialFocusTraversalPolicy(focusSequence));
         }
     }
 
