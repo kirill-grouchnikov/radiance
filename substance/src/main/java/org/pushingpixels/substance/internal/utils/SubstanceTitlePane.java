@@ -800,6 +800,7 @@ public class SubstanceTitlePane extends JComponent {
                                     DecorationAreaType.PRIMARY_TITLE_PANE)));
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             if (window != null) {
                 window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
@@ -823,6 +824,7 @@ public class SubstanceTitlePane extends JComponent {
                                     DecorationAreaType.PRIMARY_TITLE_PANE)));
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             Frame frame = SubstanceTitlePane.this.getFrame();
             if (frame != null) {
@@ -847,6 +849,7 @@ public class SubstanceTitlePane extends JComponent {
                                     DecorationAreaType.PRIMARY_TITLE_PANE)));
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             Frame frame = SubstanceTitlePane.this.getFrame();
 
@@ -878,14 +881,10 @@ public class SubstanceTitlePane extends JComponent {
                                     .getEnabledColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)));
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             Frame frame = SubstanceTitlePane.this.getFrame();
             if (frame != null) {
-                if (frame instanceof JFrame) {
-                    SubstanceRootPaneUI rpUI = (SubstanceRootPaneUI) ((JFrame) frame).getRootPane()
-                            .getUI();
-                    rpUI.setMaximized();
-                }
                 frame.setExtendedState(SubstanceTitlePane.this.state | Frame.MAXIMIZED_BOTH);
             }
         }
@@ -1075,6 +1074,7 @@ public class SubstanceTitlePane extends JComponent {
      * the Window changes.
      */
     private class PropertyChangeHandler implements PropertyChangeListener {
+        @Override
         public void propertyChange(PropertyChangeEvent pce) {
             String name = pce.getPropertyName();
 

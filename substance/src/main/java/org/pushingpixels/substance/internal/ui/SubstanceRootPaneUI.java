@@ -334,7 +334,6 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
                 this.titlePane.addMouseMotionListener(this.substanceTitleMouseInputListener);
                 this.titlePane.addMouseListener(this.substanceTitleMouseInputListener);
             }
-            this.setMaximized();
         }
     }
 
@@ -475,7 +474,6 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
                                 if (bounds.contains(midLoc)) {
                                     if (gc != currentRootPaneGC) {
                                         currentRootPaneGC = gc;
-                                        setMaximized();
                                     }
                                     break;
                                 }
@@ -685,31 +683,6 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
     }
 
     /**
-     * Sets maximized bounds according to the display screen insets.
-     */
-    public void setMaximized() {
-        Component tla = this.root.getTopLevelAncestor();
-        // fix for defect 213 - maximizing frame under multiple
-        // screens shouldn't always use insets of the primary
-        // screen.
-        GraphicsConfiguration gc = (currentRootPaneGC != null) ? currentRootPaneGC
-                : tla.getGraphicsConfiguration();
-        Rectangle screenBounds = gc.getBounds();
-        screenBounds.x = 0;
-        screenBounds.y = 0;
-        Insets screenInsets = Toolkit.getDefaultToolkit().getScreenInsets(gc);
-        Rectangle maxBounds = new Rectangle((screenBounds.x + screenInsets.left),
-                (screenBounds.y + screenInsets.top),
-                screenBounds.width - ((screenInsets.left + screenInsets.right)),
-                screenBounds.height - ((screenInsets.top + screenInsets.bottom)));
-        if (tla instanceof JFrame)
-            ((JFrame) tla).setMaximizedBounds(maxBounds);
-        if (MemoryAnalyzer.isRunning()) {
-            MemoryAnalyzer.enqueueUsage("Frame set to bounds " + maxBounds);
-        }
-    }
-
-    /**
      * Returns the <code>JComponent</code> rendering the title pane. If this returns null, it
      * implies there is no need to render window decorations. This method is <b>for internal use
      * only</b>.
@@ -818,6 +791,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
          * 
          * @return a Dimension object containing the layout's preferred size
          */
+        @Override
         public Dimension preferredLayoutSize(Container parent) {
             Dimension cpd, mbd, tpd;
             int cpWidth = 0;
@@ -871,6 +845,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
          * 
          * @return a Dimension object containing the layout's minimum size
          */
+        @Override
         public Dimension minimumLayoutSize(Container parent) {
             Dimension cpd, mbd, tpd;
             int cpWidth = 0;
@@ -923,6 +898,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
          * 
          * @return a Dimension object containing the layout's maximum size
          */
+        @Override
         public Dimension maximumLayoutSize(Container target) {
             Dimension cpd, mbd, tpd;
             int cpWidth = Integer.MAX_VALUE;
@@ -986,6 +962,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
          * 
          * aram the Container for which this layout manager is being used
          */
+        @Override
         public void layoutContainer(Container parent) {
             JRootPane root = (JRootPane) parent;
             Rectangle b = root.getBounds();
@@ -1034,23 +1011,29 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
             }
         }
 
+        @Override
         public void addLayoutComponent(String name, Component comp) {
         }
 
+        @Override
         public void removeLayoutComponent(Component comp) {
         }
 
+        @Override
         public void addLayoutComponent(Component comp, Object constraints) {
         }
 
+        @Override
         public float getLayoutAlignmentX(Container target) {
             return 0.0f;
         }
 
+        @Override
         public float getLayoutAlignmentY(Container target) {
             return 0.0f;
         }
 
+        @Override
         public void invalidateLayout(Container target) {
         }
     }
@@ -1110,6 +1093,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
          */
         private final PrivilegedExceptionAction<Point> getLocationAction = () -> MouseInfo.getPointerInfo().getLocation();
 
+        @Override
         public void mousePressed(MouseEvent ev) {
             JRootPane rootPane = SubstanceRootPaneUI.this.getRootPane();
             this.isMousePressed = true;
@@ -1157,6 +1141,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
             }
         }
 
+        @Override
         public void mouseReleased(MouseEvent ev) {
             if ((this.dragCursor != 0) && (SubstanceRootPaneUI.this.window != null)
                     && !SubstanceRootPaneUI.this.window.isValid()) {
@@ -1170,6 +1155,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
             this.dragCursor = 0;
         }
 
+        @Override
         public void mouseMoved(MouseEvent ev) {
             JRootPane root = SubstanceRootPaneUI.this.getRootPane();
 
@@ -1242,6 +1228,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
             }
         }
 
+        @Override
         public void mouseDragged(MouseEvent ev) {
             Window w = (Window) ev.getSource();
             Point pt = ev.getPoint();
@@ -1312,6 +1299,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
 
         private CursorState cursorState = CursorState.NIL;
 
+        @Override
         public void mouseEntered(MouseEvent ev) {
             if (isMousePressed) {
                 return;
@@ -1326,6 +1314,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
             this.mouseMoved(ev);
         }
 
+        @Override
         public void mouseExited(MouseEvent ev) {
             if (isMousePressed) {
                 return;
@@ -1336,6 +1325,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
             cursorState = CursorState.EXITED;
         }
 
+        @Override
         public void mouseClicked(MouseEvent ev) {
             Window w = (Window) ev.getSource();
             Frame f = null;
@@ -1360,10 +1350,8 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
                 if (((ev.getClickCount() % 2) == 0) && (ev.getButton() == MouseEvent.BUTTON1)) {
                     if (f.isResizable()) {
                         if ((state & Frame.MAXIMIZED_BOTH) != 0) {
-                            setMaximized();
                             f.setExtendedState(state & ~Frame.MAXIMIZED_BOTH);
                         } else {
-                            setMaximized();
                             f.setExtendedState(state | Frame.MAXIMIZED_BOTH);
                         }
                     }
@@ -1528,10 +1516,8 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
                 if (((ev.getClickCount() % 2) == 0) && (ev.getButton() == MouseEvent.BUTTON1)) {
                     if (f.isResizable()) {
                         if ((state & Frame.MAXIMIZED_BOTH) != 0) {
-                            setMaximized();
                             f.setExtendedState(state & ~Frame.MAXIMIZED_BOTH);
                         } else {
-                            setMaximized();
                             f.setExtendedState(state | Frame.MAXIMIZED_BOTH);
                         }
                         return;
