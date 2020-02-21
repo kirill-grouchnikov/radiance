@@ -108,8 +108,9 @@ public class VisorSkin extends SubstanceSkin {
         threadsSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
         // Configure white-on-dark-blue highlights for the threads view
         SubstanceColorScheme threadsHighlight = visorSchemes.get("Visor Threads Highlight");
-        threadsSchemeBundle.registerAlpha(0.75f, ComponentState.ROLLOVER_UNSELECTED);
-        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight,
+        SubstanceColorScheme threadsHighlightLight = visorSchemes.get("Visor Threads Highlight Light");
+        threadsSchemeBundle.registerAlpha(1.0f, ComponentState.ROLLOVER_UNSELECTED);
+        threadsSchemeBundle.registerHighlightColorScheme(threadsHighlightLight,
                 ComponentState.ROLLOVER_UNSELECTED);
         threadsSchemeBundle.registerAlpha(0.9f, ComponentState.SELECTED);
         threadsSchemeBundle.registerHighlightColorScheme(threadsHighlight,

@@ -32,7 +32,6 @@ package org.pushingpixels.meteor.awt
 
 import java.awt.Color
 
-
 /**
  * Returns the red component of the color. This method enables the usage of destructuring
  * declarations such as:

@@ -607,7 +607,7 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
         // We have to revalidate/repaint root if the style is JRootPane.NONE
         // only. When we needs to call revalidate/repaint with other styles
         // the installClientDecorations is always called after this method
-        // imediatly and it will cause the revalidate/repaint at the proper
+        // immediately and it will cause the revalidate/repaint at the proper
         // time.
         int style = root.getWindowDecorationStyle();
         if (style == JRootPane.NONE) {
@@ -666,14 +666,11 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
      */
     private void setTitlePane(JRootPane root, SubstanceTitlePane titlePane) {
         JLayeredPane layeredPane = root.getLayeredPane();
-        JComponent oldTitlePane = this.titlePane;
 
-        if (oldTitlePane != null) {
+        if (this.titlePane != null) {
             // fix for defect 109 - memory leak on skin change
-            if (oldTitlePane instanceof SubstanceTitlePane)
-                ((SubstanceTitlePane) oldTitlePane).uninstall();
-            // oldTitlePane.setVisible(false);
-            layeredPane.remove(oldTitlePane);
+            this.titlePane.uninstall();
+            layeredPane.remove(this.titlePane);
         }
         if (titlePane != null) {
             layeredPane.add(titlePane, JLayeredPane.FRAME_CONTENT_LAYER);

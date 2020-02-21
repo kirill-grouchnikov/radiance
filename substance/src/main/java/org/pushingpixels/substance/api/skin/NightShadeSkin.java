@@ -138,6 +138,8 @@ public class NightShadeSkin extends SubstanceSkin {
         // marks
         headerSchemeBundle.registerColorScheme(markActiveScheme, ColorSchemeAssociationKind.MARK,
                 ComponentState.getActiveStates());
+        headerSchemeBundle.registerColorScheme(separatorDecorationsScheme,
+                ColorSchemeAssociationKind.SEPARATOR);
 
         headerSchemeBundle.registerHighlightAlpha(0.7f, ComponentState.ROLLOVER_UNSELECTED,
                 ComponentState.ROLLOVER_ARMED, ComponentState.ARMED);

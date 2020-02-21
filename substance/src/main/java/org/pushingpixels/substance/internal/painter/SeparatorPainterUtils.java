@@ -146,8 +146,7 @@ public class SeparatorPainterUtils {
 					ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
 			if (compScheme == null) {
 				// Then get a background color scheme associated with the
-				// decoration type
-				// of that separator
+				// decoration type of that separator
 				compScheme = SubstanceCoreUtilities.getSkin(c)
 						.getBackgroundColorScheme(ComponentOrParentChainScope.getDecorationType(c));
 			}

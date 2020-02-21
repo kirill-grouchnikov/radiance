@@ -251,19 +251,17 @@ public class SubstanceCoreUtilities {
             }
         }
 
-        if (button != null) {
-            Container parent = button.getParent();
-            if (parent instanceof JComponent) {
-                JComponent jparent = (JComponent) parent;
-                Object flatProperty = jparent
-                        .getClientProperty(SubstanceSynapse.BUTTON_NEVER_PAINT_BACKGROUND);
-                if (flatProperty != null) {
-                    if (Boolean.TRUE.equals(flatProperty)) {
-                        return true;
-                    }
-                    if (Boolean.FALSE.equals(flatProperty)) {
-                        return false;
-                    }
+        Container parent = button.getParent();
+        if (parent instanceof JComponent) {
+            JComponent jparent = (JComponent) parent;
+            Object flatProperty = jparent
+                    .getClientProperty(SubstanceSynapse.BUTTON_NEVER_PAINT_BACKGROUND);
+            if (flatProperty != null) {
+                if (Boolean.TRUE.equals(flatProperty)) {
+                    return true;
+                }
+                if (Boolean.FALSE.equals(flatProperty)) {
+                    return false;
                 }
             }
         }
@@ -942,16 +940,6 @@ public class SubstanceCoreUtilities {
         return result;
     }
 
-    public static boolean shouldUseThemedIconsOnOptionPanes() {
-        Object globalSetting = UIManager.get(SubstanceSynapse.USE_THEMED_ICONS_ON_OPTION_PANES);
-        if (globalSetting instanceof Boolean) {
-            return (Boolean) globalSetting;
-        }
-
-        return true;
-    }
-
-
     /**
      * Returns the popup prototype display value for the specified combo box. This value is used to
      * compute the width of the combo popup.
@@ -1256,12 +1244,14 @@ public class SubstanceCoreUtilities {
             float maxAlphaCoef, float extraPadding) {
         float focusStrength = transitionAwareUI.getTransitionTracker()
                 .getFocusStrength(focusedComp.hasFocus());
-        if (focusStrength == 0.0f)
+        if (focusStrength == 0.0f) {
             return;
+        }
 
         FocusKind focusKind = SubstanceCoreUtilities.getFocusKind(mainComp);
-        if (focusKind == FocusKind.NONE)
+        if (focusKind == FocusKind.NONE) {
             return;
+        }
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -1277,18 +1267,31 @@ public class SubstanceCoreUtilities {
         graphics.dispose();
     }
 
-    /**
-     * Returns indication whether the specified button is a close button on some title pane.
-     *
-     * @param ab Button.
-     * @return <code>true</code> if the specified button is a close button on some title pane,
-     * <code>false</code> otherwise.
-     */
-    public static boolean isTitleCloseButton(JComponent ab) {
-        if ((ab instanceof SubstanceTitleButton) && Boolean.TRUE
-                .equals(ab.getClientProperty(SubstanceButtonUI.IS_TITLE_CLOSE_BUTTON)))
-            return true;
-        return false;
+    public static void paintFocus(Graphics g, Component mainComp, Component focusedComp,
+            TransitionAwareUI transitionAwareUI, Shape focusShape, Rectangle textRect,
+            Color focusColor, float maxAlphaCoef, float extraPadding) {
+        float focusStrength = transitionAwareUI.getTransitionTracker()
+                .getFocusStrength(focusedComp.hasFocus());
+        if (focusStrength == 0.0f) {
+            return;
+        }
+
+        FocusKind focusKind = SubstanceCoreUtilities.getFocusKind(mainComp);
+        if (focusKind == FocusKind.NONE) {
+            return;
+        }
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
+        float alpha = maxAlphaCoef * focusStrength;
+        graphics.setComposite(WidgetUtilities.getAlphaComposite(mainComp, alpha, g));
+
+        graphics.setColor(focusColor);
+        focusKind.paintFocus(mainComp, focusedComp, transitionAwareUI, graphics, focusShape,
+                textRect, extraPadding);
+        graphics.dispose();
     }
 
     /**

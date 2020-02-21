@@ -63,3 +63,9 @@ Visor Threads Highlight {
     colorUltraDark=#181C2A
     colorForeground=#FFFFFF
 }
+
+Visor Threads Highlight Light {
+    kind=Dark
+    colorBackground=#FF0000
+    colorForeground=#FFFFFF
+}

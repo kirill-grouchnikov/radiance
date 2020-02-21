@@ -1,13 +1,13 @@
 ## Radiance demos
 
 * For **Substance** - the `demos/substance-demo` module
-  * The main demo is `org.pushingpixels.demo.substance.main.Check` class
+  * The main demo is `org.pushingpixels.demo.substance.main.Check` class. In order to switch the demo to other third-party look-and-feels you will need to download the matching jar files locally and add them to the classpath.
   * Smaller demos for showing how to use individual APIs in `org.pushingpixels.demo.substance.main.samples.substance.api` package
 * For **Substance**, advanced - the `demos/spyglass` module
   * Skeleton of a chat app in `org.pushingpixels.demo.spyglass.chat.ChatFrame` class
   * Skeleton of a mail app in `org.pushingpixels.demo.spyglass.mail.VisorMail` class
   * Custom skin in `org.pushingpixels.demo.spyglass.seaglass` package
-  * Highly integrated custom design in the [cookbook](spyglass/cookbook/cookbook.md) sample
+  * Heavily integrated custom design in the [cookbook](spyglass/cookbook/cookbook.md) sample
 * For **Flamingo** - the `demos/flamingo-demo` module
   * The main ribbon demo is `org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon` class
   * Breadcrumb demos in `org.pushingpixels.demo.flamingo.bcb` package

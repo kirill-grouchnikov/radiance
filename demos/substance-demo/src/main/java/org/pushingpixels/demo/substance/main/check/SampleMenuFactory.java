@@ -360,29 +360,6 @@ public class SampleMenuFactory {
         jgoodiesMenu.add(SubstanceLafChanger.getMenuItem(frame, "JGoodies Windows",
                 "com.jgoodies.looks.windows.WindowsLookAndFeel"));
 
-        JMenu jtattooMenu = new JMenu("JTattoo family");
-        customLafMenus.add(jtattooMenu);
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Acryl",
-                "com.jtattoo.plaf.acryl.AcrylLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Aero",
-                "com.jtattoo.plaf.aero.AeroLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Aluminium",
-                "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Bernstein",
-                "com.jtattoo.plaf.bernstein.BernsteinLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Fast",
-                "com.jtattoo.plaf.fast.FastLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo HiFi",
-                "com.jtattoo.plaf.hifi.HiFiLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Luna",
-                "com.jtattoo.plaf.luna.LunaLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo McWin",
-                "com.jtattoo.plaf.mcwin.McWinLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Mint",
-                "com.jtattoo.plaf.mint.MintLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Smart",
-                "com.jtattoo.plaf.smart.SmartLookAndFeel"));
-
         JMenu syntheticaMenu = new JMenu("Synthetica family");
         customLafMenus.add(syntheticaMenu);
         syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica standard",
@@ -429,6 +406,41 @@ public class SampleMenuFactory {
         flatMenu.add(SubstanceLafChanger.getMenuItem(frame, "Flat Darcula",
                 "com.formdev.flatlaf.FlatDarculaLaf"));
 
+        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Darcula",
+                "com.bulenkov.darcula.DarculaLaf"));
+        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Dark",
+                "com.github.weisj.darklaf.DarkLaf"));
+        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Material",
+                "mdlaf.MaterialLookAndFeel"));
+        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "WebLaf",
+                "com.alee.laf.WebLookAndFeel"));
+
+        // From this point it's look-and-feels that are not actively developed anymore
+        customLafMenus.addSeparator();
+
+        JMenu jtattooMenu = new JMenu("JTattoo family");
+        customLafMenus.add(jtattooMenu);
+        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Acryl",
+                "com.jtattoo.plaf.acryl.AcrylLookAndFeel"));
+        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Aero",
+                "com.jtattoo.plaf.aero.AeroLookAndFeel"));
+        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Aluminium",
+                "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel"));
+        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Bernstein",
+                "com.jtattoo.plaf.bernstein.BernsteinLookAndFeel"));
+        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Fast",
+                "com.jtattoo.plaf.fast.FastLookAndFeel"));
+        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo HiFi",
+                "com.jtattoo.plaf.hifi.HiFiLookAndFeel"));
+        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Luna",
+                "com.jtattoo.plaf.luna.LunaLookAndFeel"));
+        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo McWin",
+                "com.jtattoo.plaf.mcwin.McWinLookAndFeel"));
+        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Mint",
+                "com.jtattoo.plaf.mint.MintLookAndFeel"));
+        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Smart",
+                "com.jtattoo.plaf.smart.SmartLookAndFeel"));
+
         JMenu officeMenu = new JMenu("Office family");
         customLafMenus.add(officeMenu);
         officeMenu.add(SubstanceLafChanger.getMenuItem(frame, "Office 2003",
@@ -448,8 +460,6 @@ public class SampleMenuFactory {
                 "org.jb2011.lnf.beautyeye.BeautyEyeLookAndFeelWin"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Cezanne Textile",
                 "de.centigrade.laf.textile.TextileLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Darcula",
-                "com.bulenkov.darcula.DarculaLaf"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "EaSynth",
                 "com.easynth.lookandfeel.EaSynthLookAndFeel"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "FH",
@@ -468,8 +478,6 @@ public class SampleMenuFactory {
                 "net.sourceforge.mlf.metouia.MetouiaLookAndFeel"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Napkin",
                 "napkin.NapkinLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Nimbus",
-                "org.jdesktop.swingx.plaf.nimbus.NimbusLookAndFeel"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "NimROD",
                 "com.nilo.plaf.nimrod.NimRODLookAndFeel"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Oyoaha",
@@ -494,10 +502,6 @@ public class SampleMenuFactory {
                 "com.digitprop.tonic.TonicLookAndFeel"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Trendy",
                 "com.Trendy.swing.plaf.TrendyLookAndFeel"));
-        customLafMenus.add(
-                SubstanceLafChanger.getMenuItem(frame, "WebLaf", "com.alee.laf.WebLookAndFeel"));
-        customLafMenus.add(
-                SubstanceLafChanger.getMenuItem(frame, "Material", "mdlaf.MaterialLookAndFeel"));
 
         return lafMenu;
     }

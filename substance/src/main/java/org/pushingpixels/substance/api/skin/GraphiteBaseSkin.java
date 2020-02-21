@@ -82,8 +82,7 @@ abstract class GraphiteBaseSkin extends SubstanceSkin {
 		defaultSchemeBundle.registerColorScheme(new EbonyColorScheme(),
 				ColorSchemeAssociationKind.HIGHLIGHT_BORDER, ComponentState.getActiveStates());
 		defaultSchemeBundle.registerColorScheme(borderScheme, ColorSchemeAssociationKind.BORDER);
-		defaultSchemeBundle.registerColorScheme(separatorScheme,
-				ColorSchemeAssociationKind.SEPARATOR);
+		defaultSchemeBundle.registerColorScheme(separatorScheme, ColorSchemeAssociationKind.SEPARATOR);
 
 		// text highlight scheme
 		SubstanceColorScheme textHighlightScheme = schemes.get("Graphite Text Highlight");

@@ -157,18 +157,7 @@ public class SubstanceRibbonTaskToggleButtonUI extends
         this.layoutInfo = this.layoutManager.getLayoutInfo(this.commandButton);
 
         this.delegate.updateTaskToggleButtonBackground(g, (JRibbonTaskToggleButton) this.commandButton);
-        Rectangle textRect = this.paintText(g);
-
-        float radius = RibbonTaskToggleButtonBackgroundDelegate.getTaskToggleButtonCornerRadius(
-                (JRibbonTaskToggleButton) this.commandButton);
-        float focusRingPadding = SubstanceSizeUtils.getFocusRingPadding(SubstanceSizeUtils
-                .getComponentFontSize(this.commandButton));
-        GeneralPath contour = SubstanceOutlineUtilities.getBaseOutline(this.commandButton.getWidth(),
-                this.commandButton.getHeight(), radius, EnumSet.of(SubstanceSlices.Side.BOTTOM),
-                focusRingPadding);
-
-        SubstanceCoreUtilities.paintFocus(g, this.commandButton, this.commandButton, this,
-                contour, textRect, 1.0f, 0);
+        this.paintTextAndFocus(g);
     }
 
     @Override
@@ -179,7 +168,7 @@ public class SubstanceRibbonTaskToggleButtonUI extends
         g2d.dispose();
     }
 
-    private Rectangle paintText(Graphics g) {
+    private void paintTextAndFocus(Graphics g) {
         FontMetrics fm = g.getFontMetrics();
         String toPaint = this.commandButton.getText();
 
@@ -230,7 +219,18 @@ public class SubstanceRibbonTaskToggleButtonUI extends
         SubstanceTextUtilities.paintText(g, this.commandButton, textRect,
                 toPaint, -1, this.commandButton.getFont(), fgColor, null);
 
-        return textRect;
+        // Use foreground color for consistency - since non-active task toggle buttons use parent's
+        // decoration background fill.
+        float radius = RibbonTaskToggleButtonBackgroundDelegate.getTaskToggleButtonCornerRadius(
+                (JRibbonTaskToggleButton) this.commandButton);
+        float focusRingPadding = SubstanceSizeUtils.getFocusRingPadding(SubstanceSizeUtils
+                .getComponentFontSize(this.commandButton));
+        GeneralPath contour = SubstanceOutlineUtilities.getBaseOutline(this.commandButton.getWidth(),
+                this.commandButton.getHeight(), radius, EnumSet.of(SubstanceSlices.Side.BOTTOM),
+                focusRingPadding);
+
+        SubstanceCoreUtilities.paintFocus(g, this.commandButton, this.commandButton, this,
+                contour, textRect, SubstanceColorUtilities.getAlphaColor(fgColor, 192), 1.0f, 0);
     }
 
     private static Color getForegroundColor(AbstractCommandButton button,

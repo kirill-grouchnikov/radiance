@@ -301,7 +301,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
      */
     private class MouseRolloverHandler implements MouseListener, MouseMotionListener {
         /**
-         * Index of the tab that was rolloed over on the previous mouse event.
+         * Index of the tab that was rolled over on the previous mouse event.
          */
         private int prevRolledOver = -1;
 
