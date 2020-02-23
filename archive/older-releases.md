@@ -106,3 +106,35 @@ The [`archive`](https://github.com/kirill-grouchnikov/radiance/tree/master/archi
 * 1.0 - Antares
 * 1.1 - Betelgeuse
 * 1.2 - Castor
+
+## A bit of history
+
+Substance started in [April 2005](https://markmail.org/browse/net.java.dev.substance.cvs/2005-04) on the now-defunct java.net community. The first release of Substance was on May 30, 2005.
+
+Flamingo started in [September 2005](https://community.oracle.com/people/kirillcool/blog/2005/09/16/who-who-does-not-want-wear-ribbon?customTheme=otn) as a proof-of-concept to implement the overall ribbon structure as a Swing component.
+
+Trident started in [February 2009](https://www.pushing-pixels.org/2009/02/14/introducing-trident-animation-library-for-java-applications.html) by extracting the animation layer from Substance and making it a proper library. It was hosted on the now-defunct kenai.com community.
+
+The library development was on hiatus from [August 2010](https://markmail.org/message/7lld2ckhvj4qjdu2) until [October 2016](https://www.pushing-pixels.org/2016/12/22/hello-substance-my-old-friend.html). [Insubstantial](https://github.com/Insubstantial) was a fork of the libraries from [April 2011](http://shemnon.com/speling/2011/04/insubstantial-62-release.html) until [June 2013](http://speling.shemnon.com/blog/2013/06/08/insubstantial-needs-a-new-maintainer/). It provided bug fixes, new configuration APIs and some visual tweaks.
+
+The original commit history from java.net and kenai.com was lost when those repositories were deleted (see below) Historical snapshots of all the libraries were uploaded to Github in December 2010. The commit history from October 2016 until May 2018 can be accessed in the now-archived individual [library projects](https://github.com/kirill-grouchnikov?tab=repositories) on Github. In [May 2018](https://www.pushing-pixels.org/2018/05/23/hello-radiance.html) all the libraries have been brought under the Radiance umbrella, where all new development is taking place.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/icon/radiance_product_256.png" width="128" height="128" border=0>
+</p>
+
+If you're determined enough, the full commit history of some of the libraries can be reconstructed.
+
+For Substance:
+
+* [The original](https://markmail.org/browse/net.java.dev.substance.cvs) CVS mailing list
+* [The now-archived](https://github.com/kirill-grouchnikov/substance/commits/master) Github project
+* [The combined](https://github.com/kirill-grouchnikov/radiance/commits/master) Radiance Github project
+
+For Flamingo:
+
+* [The original](https://markmail.org/browse/net.java.dev.flamingo.cvs) CVS mailing list
+* [The now-archived](https://github.com/kirill-grouchnikov/flamingo/commits/master) Github project
+* [The combined](https://github.com/kirill-grouchnikov/radiance/commits/master) Radiance Github project
+
+Trident's original source repository history from kenai.com looks to be lost.
