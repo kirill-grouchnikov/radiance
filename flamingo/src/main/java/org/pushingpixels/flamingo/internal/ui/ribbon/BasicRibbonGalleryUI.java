@@ -52,9 +52,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

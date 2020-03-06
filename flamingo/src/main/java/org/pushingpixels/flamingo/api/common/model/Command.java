@@ -321,7 +321,7 @@ public class Command implements ContentModel {
         return new CommandButtonProjection<>(this, commandPresentation);
     }
 
-    public abstract static class BaseBuilder<T extends Command, B extends BaseBuilder> {
+    public abstract static class BaseBuilder<T extends Command, B extends BaseBuilder<T, B>> {
         protected String text;
         protected String extraText;
         protected ResizableIcon.Factory iconFactory;

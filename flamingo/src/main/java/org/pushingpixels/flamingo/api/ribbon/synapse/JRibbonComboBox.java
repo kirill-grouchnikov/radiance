@@ -31,14 +31,11 @@ package org.pushingpixels.flamingo.api.ribbon.synapse;
 
 import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentationModel;
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonCheckBoxContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonComboBoxContentModel;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
-import java.awt.*;
-import java.util.WeakHashMap;
 
 public class JRibbonComboBox<E> extends JComboBox<E> {
     public JRibbonComboBox(Projection<JRibbonComboBox<E>,

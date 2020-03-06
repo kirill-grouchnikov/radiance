@@ -303,7 +303,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         this.glowingIcon = new GlowingResizableIcon(currIcon, tracker.getIconGlowTracker());
     }
 
-    private void paintButtonBackground(Graphics graphics, Rectangle toFill) {
+    private void paintButtonBackground(Graphics graphics) {
         if (SubstanceCoreUtilities.isButtonNeverPainted(this.commandButton)) {
             return;
         }
@@ -562,7 +562,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         commandButton.putClientProperty("icon.bounds", layoutInfo.iconRect);
 
         if (this.isPaintingBackground()) {
-            this.paintButtonBackground(g2d, new Rectangle(0, 0, c.getWidth(), c.getHeight()));
+            this.paintButtonBackground(g2d);
         }
 
         // decide which command button model should be used to

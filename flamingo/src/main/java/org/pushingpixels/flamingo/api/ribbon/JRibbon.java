@@ -51,7 +51,6 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuProjection;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

@@ -129,13 +129,6 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
                     getControlFont();
             this.controlPanel.setFont(toSet);
         }
-
-        Border b = this.controlPanel.getBorder();
-        if (b == null || b instanceof UIResource) {
-            Insets insets = SubstanceSizeUtils
-                    .getDefaultBorderInsets(SubstanceSizeUtils.getComponentFontSize(this.controlPanel));
-            //this.controlPanel.setBorder(new EmptyBorder(insets.top, 0, insets.bottom, 0));
-        }
     }
 
     /**

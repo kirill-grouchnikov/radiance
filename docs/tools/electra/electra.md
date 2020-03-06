@@ -8,4 +8,4 @@ Double-click anywhere in the left panel to add a new bubble. Click and drag clos
 
 Double-click a bubble to add a callout. Drag a callout to change its position. Right-click a callout to delete it or invert its colors.
 
-Click the "Save" button to save the screenshot with callouts.
+Click the `Save` button to save the screenshot with callouts.

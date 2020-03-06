@@ -239,16 +239,6 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         this.scrollablePanel.doLayout();
     }
 
-    public void removeScrollers() {
-        if (this.leadingScroller.getParent() == this.scrollablePanel) {
-            this.scrollablePanel.remove(this.leadingScroller);
-            this.scrollablePanel.remove(this.trailingScroller);
-            syncScrolling();
-            this.scrollablePanel.revalidate();
-            this.scrollablePanel.repaint();
-        }
-    }
-
     @Override
     public void scrollToIfNecessary(int startPosition, int span) {
         if (this.scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY) {

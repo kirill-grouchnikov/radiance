@@ -123,15 +123,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             this.remove(this.component);
             return this.component;
         }
-
-        /**
-         * Returns the main component of <code>this</code> popup gallery.
-         *
-         * @return The main component.
-         */
-        public Component getComponent() {
-            return this.component;
-        }
     }
 
     @Override

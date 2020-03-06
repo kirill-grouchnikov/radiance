@@ -32,7 +32,6 @@ package org.pushingpixels.flamingo.internal.substance.utils;
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton.CommandButtonLocationOrderKind;
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
-import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
 import org.pushingpixels.flamingo.internal.substance.common.GlowingResizableIcon;

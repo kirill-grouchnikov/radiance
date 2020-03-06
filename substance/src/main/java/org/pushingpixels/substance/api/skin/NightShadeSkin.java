@@ -129,8 +129,10 @@ public class NightShadeSkin extends SubstanceSkin {
 
         SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(activeScheme,
                 enabledScheme, disabledScheme);
-        headerSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED);
-        headerSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
+        headerSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED,
+                ComponentState.DISABLED_SELECTED);
+        headerSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
+        headerSchemeBundle.registerColorScheme(disabledSelectedScheme, ComponentState.DISABLED_SELECTED);
 
         // borders
         SubstanceColorScheme headerBorderScheme = schemes.get("Night Shade Header Border");
@@ -138,6 +140,9 @@ public class NightShadeSkin extends SubstanceSkin {
         // marks
         headerSchemeBundle.registerColorScheme(markActiveScheme, ColorSchemeAssociationKind.MARK,
                 ComponentState.getActiveStates());
+        headerSchemeBundle.registerColorScheme(markActiveScheme,
+                ColorSchemeAssociationKind.MARK, ComponentState.DISABLED_SELECTED,
+                ComponentState.DISABLED_UNSELECTED);
         headerSchemeBundle.registerColorScheme(separatorDecorationsScheme,
                 ColorSchemeAssociationKind.SEPARATOR);
 

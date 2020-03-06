@@ -34,10 +34,7 @@ import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu;
-import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
-import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel;
-import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
 
 public class CommandButtonProjection<M extends Command>
         extends Projection<AbstractCommandButton, M, CommandButtonPresentationModel> {

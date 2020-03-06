@@ -251,46 +251,6 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
         this.setOpaque(false);
     }
 
-    public AbstractCommandButton(Command command, CommandButtonPresentationModel commandPresentation) {
-        this.command = command;
-        this.commandPresentation = commandPresentation;
-
-        this.setText(command.getText());
-        this.setExtraText(command.getExtraText());
-
-        this.setIcon((command.getIconFactory() != null)
-                ? command.getIconFactory().createNewIcon()
-                : null);
-        this.setDisabledIcon((command.getDisabledIconFactory() != null)
-                ? command.getDisabledIconFactory().createNewIcon()
-                : null);
-
-        boolean hasAction = (command.getAction() != null);
-
-        if (hasAction) {
-            this.addCommandListener(command.getAction());
-            this.setActionRichTooltip(command.getActionRichTooltip());
-            this.setActionKeyTip(commandPresentation.getActionKeyTip());
-        }
-
-        if (!commandPresentation.isToDismissPopupsOnActivation()) {
-            this.putClientProperty(BasicCommandButtonUI.DONT_DISPOSE_POPUPS, Boolean.TRUE);
-        }
-
-        this.setPresentationState(commandPresentation.getPresentationState());
-        this.setHorizontalAlignment(commandPresentation.getHorizontalAlignment());
-        this.setHGapScaleFactor(commandPresentation.getHorizontalGapScaleFactor());
-        this.setVGapScaleFactor(commandPresentation.getVerticalGapScaleFactor());
-        this.setFlat(commandPresentation.isFlat());
-        this.setFocusable(commandPresentation.isFocusable());
-        if (commandPresentation.getIconDimension() != null) {
-            this.setIconDimension(commandPresentation.getIconDimension());
-        }
-
-        this.actionHandler = new ActionHandler();
-        this.setOpaque(false);
-    }
-
     /**
      * Sets the new UI delegate.
      *

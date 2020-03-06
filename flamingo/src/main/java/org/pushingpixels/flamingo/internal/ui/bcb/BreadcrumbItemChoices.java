@@ -36,7 +36,6 @@ import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
 
 import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

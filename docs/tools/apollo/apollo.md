@@ -2,7 +2,7 @@
 
 Apollo is a visual editor for creating and editing files that serve as color scheme lists.
 
-The `SubstanceSkin.getColorSchemes()` API can be used to load the resulting file at runtime and to fetch the matching color scheme for creating the relevant skin visuals.
+The `SubstanceSkin.getColorSchemes()` API can be used to load the resulting file at runtime and to obtain color schemes for creating the relevant skin visuals.
 
 Apollo has two panels - edit panel on the left and input image on the right.
 
@@ -14,4 +14,4 @@ Check one of the radio buttons on the left, and then click any part of the image
 
 Add as many color schemes as needed. Use the other control buttons to remove or rename existing color schemes, or to change their overall order.
 
-When you're done, click the Save or Save As button in the bottom left.
+When you're done, click the `Save` or `Save As` button in the bottom left.
