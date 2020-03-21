@@ -32,7 +32,15 @@ The `SvgBatchConverter` class is the entry point into the offline batch converte
 
 Assuming your `RADIANCE_VERSION` variable points to the latest version of the Radiance libraries, here is how you would run the converter pipeline for a single SVG source folder (note that the dependencies versions need to match the Radiance version, see [the list below](#dependency-versions-for-photon)):
 
-`java -cp ../drop/$RADIANCE_VERSION/core/radiance-photon-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.12.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.4.01.jar:../build/libs-core/xmlgraphics-commons-2.4.jar org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/flamingo-demo/src/main/java/org/pushingpixels/demo/flamingo/svg/tango/transcoded outputPackageName=org.pushingpixels.demo.flamingo.svg.tango.transcoded templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java`
+```
+java \
+  -cp ../drop/$RADIANCE_VERSION/core/radiance-photon-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.12.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.4.01.jar:../build/libs-core/xmlgraphics-commons-2.4.jar \
+  org.pushingpixels.photon.api.transcoder.SvgBatchConverter \
+  sourceFolder=../demos/flamingo-demo/src/main/java/org/pushingpixels/demo/flamingo/svg/tango/transcoded \
+  outputPackageName=org.pushingpixels.demo.flamingo.svg.tango.transcoded \
+  templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ \
+  outputLanguage=java
+```
 
 The first part is enumerating all the jar files required for the converter - Photon and Batik. In this sample script, the Photon jar is under `drop` folder after running the `gradlew copyJars` command. The Batik dependencies are under `build/libs-core` after running the `gradlew getCoreDependencies` command.
 
