@@ -37,12 +37,15 @@ import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 
 public class SvgBatchConverter {
+
+    private static final String CHECK_DOCUMENTATION = "Check the documentation for the parameters to pass";
+
     private static String getInputArgument(String[] args, String argumentName, String defaultValue) {
         for (String arg : args) {
             String[] split = arg.split("=");
             if (split.length != 2) {
                 System.out.println("Argument '" + arg + "' unsupported");
-                System.out.println("Check the documentation for the parameters to pass");
+                System.out.println(CHECK_DOCUMENTATION);
                 System.exit(1);
             }
             if (split[0].compareTo(argumentName) == 0) {
@@ -66,25 +69,21 @@ public class SvgBatchConverter {
      */
     public static void main(String[] args) throws IOException {
         if (args.length < 4) {
-            System.out.println("Check the documentation for the parameters to pass");
+            System.out.println(CHECK_DOCUMENTATION);
             System.exit(1);
         }
 
         String sourceFolderName = getInputArgument(args, "sourceFolder", null);
-        Objects.requireNonNull(sourceFolderName,
-                "Missing source folder. Check the documentation for the parameters to pass");
+        Objects.requireNonNull(sourceFolderName, "Missing source folder. " + CHECK_DOCUMENTATION);
 
         String outputPackageName = getInputArgument(args, "outputPackageName", null);
-        Objects.requireNonNull(outputPackageName,
-                "Missing output package name. Check the documentation for the parameters to pass");
+        Objects.requireNonNull(outputPackageName, "Missing output package name. " + CHECK_DOCUMENTATION);
 
         String templateFile = getInputArgument(args, "templateFile", null);
-        Objects.requireNonNull(templateFile,
-                "Missing template file. Check the documentation for the parameters to pass");
+        Objects.requireNonNull(templateFile, "Missing template file. " + CHECK_DOCUMENTATION);
 
         String outputLanguage = getInputArgument(args, "outputLanguage", null);
-        Objects.requireNonNull(outputLanguage,
-                "Missing output language. Check the documentation for the parameters to pass");
+        Objects.requireNonNull(outputLanguage, "Missing output language. " + CHECK_DOCUMENTATION);
 
         final LanguageRenderer languageRenderer;
         final String outputFileNameExtension;
@@ -95,9 +94,7 @@ public class SvgBatchConverter {
             languageRenderer = new KotlinLanguageRenderer();
             outputFileNameExtension = ".kt";
         } else {
-            throw new IllegalArgumentException(
-                    "Output language must be either Java or Kotlin. Check the documentation for " +
-                    "the parameters to pass");
+            throw new IllegalArgumentException("Output language must be either Java or Kotlin. " + CHECK_DOCUMENTATION);
         }
 
         String outputClassNamePrefix = getInputArgument(args, "outputClassNamePrefix", "");
