@@ -155,6 +155,18 @@ fun JComponent.setLockIconVisible(visible: Boolean?) {
 }
 
 /**
+ * Specifies component-level visibility of the caps lock indicator on this password field.
+ *
+ * @param visible If `true`, this password field will show an indicator icon
+ * when it is focused and caps lock is on. Pass `null` to reset to the default
+ * behavior.
+ */
+@EmberComponentScope
+fun JPasswordField.setCapsLockIconVisible(visible: Boolean?) {
+    SubstanceCortex.ComponentScope.setCapsLockIconVisible(this, visible)
+}
+
+/**
  * Specifies password strength checker for this password field.
  *
  * @param passwordStrengthChecker Password strength checker

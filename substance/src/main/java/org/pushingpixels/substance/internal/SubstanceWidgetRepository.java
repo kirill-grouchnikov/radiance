@@ -131,6 +131,9 @@ public class SubstanceWidgetRepository {
                     "org.pushingpixels.substance.internal.widget.text.LockBorderWidget",
                     JTextComponent.class, false);
             repository.registerWidget(
+                    "org.pushingpixels.substance.internal.widget.text.CapsLockPasswordBorderWidget",
+                    JPasswordField.class, false);
+            repository.registerWidget(
                     "org.pushingpixels.substance.internal.widget.text.SelectAllOnFocusGainWidget",
                     JTextComponent.class, false);
             repository.registerWidget(

@@ -8,7 +8,7 @@ Zodiac has a collection of classes for taking screenshots of Substance and Flami
 
 Zodiac depends on:
 * [JGoodies FormLayout](http://www.jgoodies.com/freeware/libraries/forms/) for layouts
-* Kotlin coroutines for driving the screenshot scenarios with robots
+* Kotlin coroutines for driving the screenshot scenarios
 
 ### Building
 

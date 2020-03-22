@@ -205,6 +205,16 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     }
 
     @Override
+    public ResizableIcon getCapsLockIcon(int preferredSize,
+            SubstanceColorScheme preferredIconColorScheme) {
+        ResizableIcon result = NeonCortex.colorizeIconAsUiResource(
+                keyboard_capslock_24px.factory(),
+                preferredIconColorScheme.getForegroundColor());
+        result.setDimension(new Dimension(preferredSize, preferredSize));
+        return result;
+    }
+
+    @Override
     public ResizableIcon getInspectIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         ResizableIcon result = NeonCortex.colorizeIconAsUiResource(

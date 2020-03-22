@@ -233,6 +233,11 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
         builder.append("Two echo chars", new JLabel());
         builder.append(new JLabel(), jpfTwoEchoChar);
 
+        JPasswordField jpfCapsLock = new JPasswordField("password", 10);
+        SubstanceCortex.ComponentScope.setCapsLockIconVisible(jpfCapsLock, true);
+        builder.append("Caps lock aware", new JLabel());
+        builder.append(new JLabel(), jpfCapsLock);
+
         JLabel editorPaneLabel = new JLabel("Editor panes");
         JLabel textAreaLabel = new JLabel("Text areas");
         JLabel textPaneLabel = new JLabel("Text panes");

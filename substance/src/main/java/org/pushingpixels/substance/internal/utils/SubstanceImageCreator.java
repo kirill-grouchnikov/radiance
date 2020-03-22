@@ -1576,7 +1576,7 @@ public final class SubstanceImageCreator {
 
     /**
      * Returns a lock icon that matches the specified scheme.
-     * 
+     *
      * @param scheme
      *            Scheme instance.
      * @return Lock icon that matches the specified scheme.
@@ -1587,6 +1587,21 @@ public final class SubstanceImageCreator {
         int size = 9 + 2 * extraPadding;
 
         return SubstanceCortex.GlobalScope.getIconPack().getLockIcon(size, scheme);
+    }
+
+    /**
+     * Returns a caps lock icon that matches the specified scheme.
+     *
+     * @param scheme
+     *            Scheme instance.
+     * @return Caps lock icon that matches the specified scheme.
+     */
+    public static Icon getCapsLockIcon(SubstanceColorScheme scheme, Component c) {
+        int componentFontSize = SubstanceSizeUtils.getComponentFontSize(c);
+        int extraPadding = SubstanceSizeUtils.getExtraPadding(componentFontSize);
+        int size = 11 + 2 * extraPadding;
+
+        return SubstanceCortex.GlobalScope.getIconPack().getCapsLockIcon(size, scheme);
     }
 
     /**

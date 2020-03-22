@@ -141,6 +141,12 @@ public class TangoIconPack implements SubstanceIconPack {
     }
 
     @Override
+    public ResizableIcon getCapsLockIcon(int preferredSize,
+            SubstanceColorScheme preferredIconColorScheme) {
+        return go_top.uiResourceOf(preferredSize, preferredSize);
+    }
+
+    @Override
     public ResizableIcon getInspectIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return system_search.uiResourceOf(preferredSize, preferredSize);

@@ -29,12 +29,18 @@
  */
 package org.pushingpixels.substance.internal.widget.text;
 
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
+import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
+import org.pushingpixels.substance.internal.utils.border.BorderWrapper;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.UIResource;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -49,17 +55,17 @@ public class LockBorderWidget extends SubstanceWidget<JTextComponent> {
     /**
      * Listens on all properties to decide whether a lock border should be shown / hidden.
      */
-    protected PropertyChangeListener propertyChangeListener;
+    private PropertyChangeListener propertyChangeListener;
 
     /**
      * <code>true</code> if this widget is uninstalling. Fix for defect 7.
      */
-    protected boolean isUninstalling = false;
+    private boolean isUninstalling = false;
 
     /**
      * Name for client property that stores the original border.
      */
-    private static String ORIGINAL_BORDER = "substance.internal.originalBorder";
+    private static String ORIGINAL_BORDER = "substance.internal.lockBorder.original";
 
     @Override
     public void installListeners() {
@@ -161,6 +167,10 @@ public class LockBorderWidget extends SubstanceWidget<JTextComponent> {
     private static boolean hasLockIcon(Component comp) {
         if (!SubstanceCoreUtilities.toShowExtraWidgets(comp))
             return false;
+        // Skip password fields
+        if (comp instanceof JPasswordField) {
+            return false;
+        }
         // check the HAS_LOCK_ICON property
         boolean isEditableTextComponent = (comp instanceof JTextComponent)
                 ? ((JTextComponent) comp).isEditable()
@@ -178,5 +188,89 @@ public class LockBorderWidget extends SubstanceWidget<JTextComponent> {
             return true;
 
         return false;
+    }
+
+    /**
+     * Border with "lock" indication.
+     *
+     * @author Kirill Grouchnikov
+     */
+    private static class LockBorder implements Border, UIResource, BorderWrapper {
+        /**
+         * The original (decorated) border.
+         */
+        private Border originalBorder;
+
+        /**
+         * Constructs a new lock border.
+         *
+         * @param originalBorder The original border.
+         */
+        public LockBorder(Border originalBorder) {
+            if (originalBorder != null) {
+                this.originalBorder = originalBorder;
+            } else {
+                this.originalBorder = new EmptyBorder(0, 0, 0, 0);
+            }
+        }
+
+        @Override
+        public Insets getBorderInsets(Component c) {
+            Icon lockIcon = SubstanceImageCreator.getSmallLockIcon(
+                    SubstanceColorSchemeUtilities.getColorScheme(c, ComponentState.ENABLED), c);
+
+            Insets origInsets = this.originalBorder.getBorderInsets(c);
+
+            if (c.getComponentOrientation().isLeftToRight()) {
+                return new Insets(origInsets.top, origInsets.left, origInsets.bottom,
+                        Math.max(origInsets.right, lockIcon.getIconWidth() + 2));
+            } else {
+                // support for RTL
+                return new Insets(origInsets.top,
+                        Math.max(origInsets.left, lockIcon.getIconWidth() + 2), origInsets.bottom,
+                        origInsets.right);
+            }
+        }
+
+        @Override
+        public boolean isBorderOpaque() {
+            return this.originalBorder.isBorderOpaque();
+        }
+
+        @Override
+        public Border getOriginalBorder() {
+            return originalBorder;
+        }
+
+        @Override
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            this.originalBorder.paintBorder(c, g, x, y, width, height);
+            Icon lockIcon = SubstanceImageCreator.getSmallLockIcon(
+                    SubstanceColorSchemeUtilities.getColorScheme(c, ComponentState.ENABLED), c);
+
+            int offsetY = 1;
+            if (c.getParent() instanceof JViewport) {
+                // enhancement 9 - show the lock icon of components
+                // in JScrollPane so that it is visible in the bottom
+                // corner of the scroll pane
+                JViewport viewport = (JViewport) c.getParent();
+                // have to set to simple scroll mode since the default (blit)
+                // results in visual artifacts due to optimized buffer-copy
+                // painting.
+                if (viewport.getScrollMode() != JViewport.SIMPLE_SCROLL_MODE) {
+                    viewport.setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
+                }
+                Rectangle viewRect = viewport.getViewRect();
+                offsetY = c.getHeight() - viewRect.y - viewRect.height;
+            }
+
+            int iconY = y + height - lockIcon.getIconHeight() - offsetY;
+            if (c.getComponentOrientation().isLeftToRight()) {
+                lockIcon.paintIcon(c, g, x + width - lockIcon.getIconWidth(), iconY);
+            } else {
+                // support for RTL
+                lockIcon.paintIcon(c, g, x, iconY);
+            }
+        }
     }
 }

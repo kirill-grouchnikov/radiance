@@ -29,13 +29,19 @@
  */
 package org.pushingpixels.substance.internal;
 
+import org.pushingpixels.substance.internal.widget.text.CapsLockPasswordBorderWidget;
 import org.pushingpixels.substance.internal.widget.text.LockBorderWidget;
 
 public class SubstanceSynapse {
     /**
-     * Client property name for specifying that the {@link LockBorderWidget} should put a lock icon.
+     * Client property name for specifying that the {@link LockBorderWidget} should put the lock icon.
      */
     public final static String HAS_LOCK_ICON = "substancelaf.internal.widget.hasLockIcon";
+
+    /**
+     * Client property name for specifying that the {@link CapsLockPasswordBorderWidget} should put the caps lock icon.
+     */
+    public final static String HAS_CAPS_LOCK_ICON = "substancelaf.internal.widget.hasCapsLockIcon";
 
     /**
      * Client property name for specifying the preview painter for a component.

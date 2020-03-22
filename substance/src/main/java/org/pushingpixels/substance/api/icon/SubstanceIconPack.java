@@ -94,6 +94,9 @@ public interface SubstanceIconPack {
     ResizableIcon getLockIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
+    ResizableIcon getCapsLockIcon(int preferredSize,
+            SubstanceColorScheme preferredIconColorScheme);
+
     ResizableIcon getInspectIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
