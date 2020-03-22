@@ -37,7 +37,7 @@ import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 
 public class SvgBatchConverter {
-    private static String getInputArgument(String[] args, String argumentName) {
+    private static String getInputArgument(String[] args, String argumentName, String defaultValue) {
         for (String arg : args) {
             String[] split = arg.split("=");
             if (split.length != 2) {
@@ -49,7 +49,7 @@ public class SvgBatchConverter {
                 return split[1];
             }
         }
-        return null;
+        return defaultValue;
     }
 
     /**
@@ -70,19 +70,19 @@ public class SvgBatchConverter {
             System.exit(1);
         }
 
-        String sourceFolderName = getInputArgument(args, "sourceFolder");
+        String sourceFolderName = getInputArgument(args, "sourceFolder", null);
         Objects.requireNonNull(sourceFolderName,
                 "Missing source folder. Check the documentation for the parameters to pass");
 
-        String outputPackageName = getInputArgument(args, "outputPackageName");
+        String outputPackageName = getInputArgument(args, "outputPackageName", null);
         Objects.requireNonNull(outputPackageName,
                 "Missing output package name. Check the documentation for the parameters to pass");
 
-        String templateFile = getInputArgument(args, "templateFile");
+        String templateFile = getInputArgument(args, "templateFile", null);
         Objects.requireNonNull(templateFile,
                 "Missing template file. Check the documentation for the parameters to pass");
 
-        String outputLanguage = getInputArgument(args, "outputLanguage");
+        String outputLanguage = getInputArgument(args, "outputLanguage", null);
         Objects.requireNonNull(outputLanguage,
                 "Missing output language. Check the documentation for the parameters to pass");
 
@@ -91,14 +91,9 @@ public class SvgBatchConverter {
                     "Output language must be either Java or Kotlin. Check the documentation for " +
                     "the parameters to pass");
         }
-        String outputClassNamePrefix = getInputArgument(args, "outputClassNamePrefix");
-        if (outputClassNamePrefix == null) {
-            outputClassNamePrefix = "";
-        }
-        String outputFolderName = getInputArgument(args, "outputFolder");
-        if (outputFolderName == null) {
-            outputFolderName = sourceFolderName;
-        }
+
+        String outputClassNamePrefix = getInputArgument(args, "outputClassNamePrefix", "");
+        String outputFolderName = getInputArgument(args, "outputFolder", sourceFolderName);
 
         File inputFolder = new File(sourceFolderName);
         if (!inputFolder.exists()) {
