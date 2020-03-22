@@ -33,6 +33,7 @@ import org.pushingpixels.photon.api.transcoder.java.JavaLanguageRenderer;
 import org.pushingpixels.photon.api.transcoder.kotlin.KotlinLanguageRenderer;
 
 import java.io.*;
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 
 public class SvgBatchConverter {
@@ -70,35 +71,25 @@ public class SvgBatchConverter {
         }
 
         String sourceFolderName = getInputArgument(args, "sourceFolder");
-        if (sourceFolderName == null) {
-            System.out.println(
-                    "Missing source folder. Check the documentation for the parameters to pass");
-            System.exit(1);
-        }
+        Objects.requireNonNull(sourceFolderName,
+                "Missing source folder. Check the documentation for the parameters to pass");
+
         String outputPackageName = getInputArgument(args, "outputPackageName");
-        if (outputPackageName == null) {
-            System.out.println(
-                    "Missing output package name. Check the documentation for the parameters to " +
-                            "pass");
-            System.exit(1);
-        }
+        Objects.requireNonNull(outputPackageName,
+                "Missing output package name. Check the documentation for the parameters to pass");
+
         String templateFile = getInputArgument(args, "templateFile");
-        if (templateFile == null) {
-            System.out.println(
-                    "Missing template file. Check the documentation for the parameters to pass");
-            System.exit(1);
-        }
+        Objects.requireNonNull(templateFile,
+                "Missing template file. Check the documentation for the parameters to pass");
+
         String outputLanguage = getInputArgument(args, "outputLanguage");
-        if (outputLanguage == null) {
-            System.out.println(
-                    "Missing output language. Check the documentation for the parameters to pass");
-            System.exit(1);
-        }
+        Objects.requireNonNull(outputLanguage,
+                "Missing output language. Check the documentation for the parameters to pass");
+
         if ((outputLanguage.compareTo("java") != 0) && (outputLanguage.compareTo("kotlin") != 0)) {
-            System.out.println(
+            throw new IllegalArgumentException(
                     "Output language must be either Java or Kotlin. Check the documentation for " +
-                            "the parameters to pass");
-            System.exit(1);
+                    "the parameters to pass");
         }
         String outputClassNamePrefix = getInputArgument(args, "outputClassNamePrefix");
         if (outputClassNamePrefix == null) {
@@ -143,8 +134,8 @@ public class SvgBatchConverter {
             System.err.println("Processing " + file.getName());
 
             try (PrintWriter pw = new PrintWriter(classFilename);
-                 InputStream templateStream = SvgBatchConverter.class
-                         .getResourceAsStream(templateFile)) {
+                 InputStream templateStream = SvgBatchConverter.class.getResourceAsStream(templateFile)) {
+                Objects.requireNonNull(templateStream, "Couldn't load " + templateFile);
                 final CountDownLatch latch = new CountDownLatch(1);
 
                 SvgTranscoder transcoder = new SvgTranscoder(file.toURI().toURL().toString(),
@@ -159,10 +150,6 @@ public class SvgBatchConverter {
                         latch.countDown();
                     }
                 });
-                if (templateStream == null) {
-                    System.err.println("Couldn't load " + templateFile);
-                    return;
-                }
                 transcoder.transcode(templateStream);
                 latch.await();
             } catch (Exception e) {
