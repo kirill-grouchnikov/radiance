@@ -62,20 +62,18 @@ public class SvgBatchConverter {
         return defaultValue;
     }
 
-    /**
-     * @param args <ul>
-     *             <li>sourceFolder=xyz - points to a folder with SVG images</li>
-     *             <li>outputPackageName=xyz - the package name for the transcoded classes</li>
-     *             <li>templateFile=xyz - the template file for creating the transcoded classes</li>
-     *             <li>outputLanguage=java|kotlin - the language for the transcoded classes</li>
-     *             <li>outputFolder=xyz - optional location of output files. If not specified,
-     *             output files will be placed in the 'sourceFolder'</li>
-     *             <li>outputClassNamePrefix=xyz - optional prefix for the class name of each
-     *             transcoded class</li>
-     *             </ul>
-     */
     public static void main(String[] args) throws IOException {
         if (args.length < 4) {
+            System.out.println("=== Usage ===");
+            Stream.of(
+                    "java " + SvgBatchConverter.class.getCanonicalName(),
+                    "  sourceFolder=xyz - points to a folder with SVG images",
+                    "  outputPackageName=xyz - the package name for the transcoded classes",
+                    "  templateFile=xyz - the template file for creating the transcoded classes",
+                    "  outputLanguage=java|kotlin - the language for the transcoded classes",
+                    "  outputFolder=xyz - optional location of output files. If not specified, output files will be placed in the 'sourceFolder'",
+                    "  outputClassNamePrefix=xyz - optional prefix for the class name of each transcoded class"
+            ).forEach(System.out::println);
             System.out.println(CHECK_DOCUMENTATION);
             System.exit(1);
         }
