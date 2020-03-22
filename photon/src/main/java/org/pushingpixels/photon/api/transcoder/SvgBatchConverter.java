@@ -64,7 +64,7 @@ public class SvgBatchConverter {
      *             transcoded class</li>
      *             </ul>
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         if (args.length < 4) {
             System.out.println("Check the documentation for the parameters to pass");
             System.exit(1);
@@ -105,11 +105,11 @@ public class SvgBatchConverter {
 
         File inputFolder = new File(sourceFolderName);
         if (!inputFolder.exists()) {
-            return;
+            throw new FileNotFoundException(inputFolder.toString());
         }
         File outputFolder = new File(outputFolderName);
         if (!outputFolder.exists()) {
-            return;
+            throw new FileNotFoundException(outputFolder.toString());
         }
 
         System.out.println(
