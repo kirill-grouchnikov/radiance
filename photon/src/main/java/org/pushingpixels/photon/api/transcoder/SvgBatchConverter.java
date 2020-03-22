@@ -86,7 +86,15 @@ public class SvgBatchConverter {
         Objects.requireNonNull(outputLanguage,
                 "Missing output language. Check the documentation for the parameters to pass");
 
-        if ((outputLanguage.compareTo("java") != 0) && (outputLanguage.compareTo("kotlin") != 0)) {
+        final LanguageRenderer languageRenderer;
+        final String outputFileNameExtension;
+        if ("java".equals(outputLanguage)) {
+            languageRenderer = new JavaLanguageRenderer();
+            outputFileNameExtension = ".java";
+        } else if ("kotlin".equals(outputLanguage)) {
+            languageRenderer = new KotlinLanguageRenderer();
+            outputFileNameExtension = ".kt";
+        } else {
             throw new IllegalArgumentException(
                     "Output language must be either Java or Kotlin. Check the documentation for " +
                     "the parameters to pass");
@@ -103,11 +111,6 @@ public class SvgBatchConverter {
         if (!outputFolder.exists()) {
             return;
         }
-
-        LanguageRenderer languageRenderer = ("java".compareTo(outputLanguage) == 0)
-                ? new JavaLanguageRenderer()
-                : new KotlinLanguageRenderer();
-        String outputFileNameExtension = ("java".compareTo(outputLanguage) == 0) ? ".java" : ".kt";
 
         System.out.println(
                 "******************************************************************************");
