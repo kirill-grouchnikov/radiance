@@ -41,7 +41,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class SvgBatchConverter {
 
@@ -68,6 +70,7 @@ public class SvgBatchConverter {
             Stream.of(
                     "java " + SvgBatchConverter.class.getCanonicalName(),
                     "  sourceFolder=xyz - points to a folder with SVG images",
+                    "  maxDepth=1|2|3|4|... - maximum number of directory levels to visit",
                     "  outputPackageName=xyz - the package name for the transcoded classes",
                     "  templateFile=xyz - the template file for creating the transcoded classes",
                     "  outputLanguage=java|kotlin - the language for the transcoded classes",
@@ -105,14 +108,12 @@ public class SvgBatchConverter {
         String outputClassNamePrefix = getInputArgument(args, "outputClassNamePrefix", "");
         String outputFolderName = getInputArgument(args, "outputFolder", sourceFolderName);
 
+        int maxDepth = Integer.parseInt(getInputArgument(args, "maxDepth", "1"));
         Path inputFolder = Paths.get(sourceFolderName);
         if (!Files.exists(inputFolder)) {
             throw new NoSuchFileException(inputFolder.toString());
         }
         Path outputFolder = Paths.get(outputFolderName);
-        if (!Files.exists(outputFolder)) {
-            throw new NoSuchFileException(outputFolder.toString());
-        }
 
         System.out.println(
                 "******************************************************************************");
@@ -123,14 +124,28 @@ public class SvgBatchConverter {
         System.out.println(
                 "******************************************************************************");
 
-        try (Stream<Path> pathStream = Files.list(inputFolder)) {
+        try (Stream<Path> pathStream = Files.walk(inputFolder, maxDepth)) {
             pathStream.filter(path -> path.toString().endsWith(".svg")).forEach(path -> {
                 final String filename = path.getFileName().toString();
-                final String svgClassName = (outputClassNamePrefix + filename.substring(0, filename.length() - 4))
+                final String svgClassName = (outputClassNamePrefix + filename.substring(0, filename.length() - ".svg".length()))
                         .replace('-', '_')
                         .replace(' ', '_');
 
-                final Path classFilename = outputFolder.resolve(svgClassName + outputFileNameExtension);
+                // the image ${inputFolder}/foo/bar/baz.svg is transcoded to ${inputFolder}/foo/bar/${outputClassNamePrefix + '_'}baz.java
+                // the class ${outputClassNamePrefix + '_'}baz is placed in package ${outputPackageName}.foo.bar
+                final Path relativeParent = inputFolder.relativize(path).getParent();
+                final String subPackage = relativeParent == null ? "" :
+                        StreamSupport.stream(relativeParent.spliterator(), false)
+                                .map(String::valueOf)
+                                .collect(Collectors.joining(".", ".", ""));
+                final Path outputSubFolder = relativeParent != null ? outputFolder.resolve(relativeParent) : outputFolder;
+                try {
+                    Files.createDirectories(outputSubFolder);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return;
+                }
+                final Path classFilename = outputSubFolder.resolve(svgClassName + outputFileNameExtension);
                 System.err.println("Processing " + path + " to " + classFilename);
 
                 try (Writer writer = Files.newBufferedWriter(classFilename);
@@ -140,7 +155,7 @@ public class SvgBatchConverter {
 
                     final String uri = path.toUri().toURL().toString();
                     final SvgTranscoder transcoder = new SvgTranscoder(uri, svgClassName, languageRenderer);
-                    transcoder.setPackageName(outputPackageName);
+                    transcoder.setPackageName(outputPackageName + subPackage);
                     transcoder.setListener(new TranscoderListener() {
                         public Writer getWriter() {
                             return writer;
