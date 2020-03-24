@@ -48,6 +48,12 @@ import java.util.stream.StreamSupport;
 public class SvgBatchConverter {
 
     private static final String CHECK_DOCUMENTATION = "Check the documentation for the parameters to pass";
+    private static String outputPackageName;
+    private static String templateFile;
+    private static LanguageRenderer languageRenderer;
+    private static String outputFileNameExtension;
+    private static Path inputFolder;
+    private static Path outputFolder;
 
     private static String getInputArgument(String[] args, String argumentName, String defaultValue) {
         for (String arg : args) {
@@ -84,17 +90,15 @@ public class SvgBatchConverter {
         String sourceFolderName = getInputArgument(args, "sourceFolder", null);
         Objects.requireNonNull(sourceFolderName, "Missing source folder. " + CHECK_DOCUMENTATION);
 
-        String outputPackageName = getInputArgument(args, "outputPackageName", null);
+        outputPackageName = getInputArgument(args, "outputPackageName", null);
         Objects.requireNonNull(outputPackageName, "Missing output package name. " + CHECK_DOCUMENTATION);
 
-        String templateFile = getInputArgument(args, "templateFile", null);
+        templateFile = getInputArgument(args, "templateFile", null);
         Objects.requireNonNull(templateFile, "Missing template file. " + CHECK_DOCUMENTATION);
 
         String outputLanguage = getInputArgument(args, "outputLanguage", null);
         Objects.requireNonNull(outputLanguage, "Missing output language. " + CHECK_DOCUMENTATION);
 
-        final LanguageRenderer languageRenderer;
-        final String outputFileNameExtension;
         if ("java".equals(outputLanguage)) {
             languageRenderer = new JavaLanguageRenderer();
             outputFileNameExtension = ".java";
@@ -109,11 +113,11 @@ public class SvgBatchConverter {
         String outputFolderName = getInputArgument(args, "outputFolder", sourceFolderName);
 
         int maxDepth = Integer.parseInt(getInputArgument(args, "maxDepth", "1"));
-        Path inputFolder = Paths.get(sourceFolderName);
+        inputFolder = Paths.get(sourceFolderName);
         if (!Files.exists(inputFolder)) {
             throw new NoSuchFileException(inputFolder.toString());
         }
-        Path outputFolder = Paths.get(outputFolderName);
+        outputFolder = Paths.get(outputFolderName);
 
         System.out.println(
                 "******************************************************************************");
@@ -131,48 +135,60 @@ public class SvgBatchConverter {
                         .replace('-', '_')
                         .replace(' ', '_');
 
-                // the image ${inputFolder}/foo/bar/baz.svg is transcoded to ${inputFolder}/foo/bar/${outputClassNamePrefix + '_'}baz.java
-                // the class ${outputClassNamePrefix + '_'}baz is placed in package ${outputPackageName}.foo.bar
-                final Path relativeParent = inputFolder.relativize(path).getParent();
-                final String subPackage = relativeParent == null ? "" :
-                        StreamSupport.stream(relativeParent.spliterator(), false)
-                                .map(String::valueOf)
-                                .collect(Collectors.joining(".", ".", ""));
-                final Path outputSubFolder = relativeParent != null ? outputFolder.resolve(relativeParent) : outputFolder;
-                try {
-                    Files.createDirectories(outputSubFolder);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return;
-                }
-                final Path classFilename = outputSubFolder.resolve(svgClassName + outputFileNameExtension);
-                System.err.println("Processing " + path + " to " + classFilename);
-
-                try (Writer writer = Files.newBufferedWriter(classFilename);
-                     InputStream templateStream = SvgBatchConverter.class.getResourceAsStream(templateFile)) {
-                    Objects.requireNonNull(templateStream, "Couldn't load " + templateFile);
-                    final CountDownLatch latch = new CountDownLatch(1);
-
-                    final String uri = path.toUri().toURL().toString();
-                    final SvgTranscoder transcoder = new SvgTranscoder(uri, svgClassName, languageRenderer);
-                    transcoder.setPackageName(outputPackageName + subPackage);
-                    transcoder.setListener(new TranscoderListener() {
-                        public Writer getWriter() {
-                            return writer;
-                        }
-
-                        public void finished() {
-                            latch.countDown();
-                        }
-                    });
-                    transcoder.transcode(templateStream);
-                    latch.await();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (maxDepth == 1) {
+                    convert(path, outputFolder.resolve(svgClassName + outputFileNameExtension), svgClassName, outputPackageName);
+                } else {
+                    convertSubPackage(path, svgClassName);
                 }
             });
         }
 
         System.out.println();
+    }
+    private static void convertSubPackage(Path path, String svgClassName) {
+        // the image ${inputFolder}/foo/bar/baz.svg is transcoded to ${inputFolder}/foo/bar/${outputClassNamePrefix + '_'}baz.java
+        // the class ${outputClassNamePrefix + '_'}baz is placed in package ${outputPackageName}.foo.bar
+        final Path relativeParent = inputFolder.relativize(path).getParent();
+        final String subPackage = relativeParent == null ? "" :
+                StreamSupport.stream(relativeParent.spliterator(), false)
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(".", ".", ""));
+        final Path outputSubFolder = relativeParent != null ? outputFolder.resolve(relativeParent) : outputFolder;
+        try {
+            Files.createDirectories(outputSubFolder);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        final Path classFilename = outputSubFolder.resolve(svgClassName + outputFileNameExtension);
+
+        convert(path, classFilename, svgClassName, outputPackageName + subPackage);
+    }
+
+    private static void convert(Path source, Path destination, String svgClassName, String outputPackageName) {
+        System.err.println("Processing " + source + " to " + destination);
+        try (Writer writer = Files.newBufferedWriter(destination);
+             InputStream templateStream = SvgBatchConverter.class.getResourceAsStream(templateFile)) {
+
+            Objects.requireNonNull(templateStream, "Couldn't load " + templateFile);
+            final CountDownLatch latch = new CountDownLatch(1);
+            final String uri = source.toUri().toURL().toString();
+
+            final SvgTranscoder transcoder = new SvgTranscoder(uri, svgClassName, languageRenderer);
+            transcoder.setPackageName(outputPackageName);
+            transcoder.setListener(new TranscoderListener() {
+                public Writer getWriter() {
+                    return writer;
+                }
+
+                public void finished() {
+                    latch.countDown();
+                }
+            });
+            transcoder.transcode(templateStream);
+            latch.await();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
