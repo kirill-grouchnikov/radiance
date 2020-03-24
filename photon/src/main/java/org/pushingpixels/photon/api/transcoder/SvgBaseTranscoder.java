@@ -1010,9 +1010,11 @@ abstract class SvgBaseTranscoder {
             double dy = firstPoint.getY() - startMarker.getRef().getY();
             printWriter.println("g.translate(" + dx + ", " + dy + ")"
                     + languageRenderer.getStatementEnd());
-            rotate(startMarker.getOrient());
+            printWriter.println("g.rotate(" + startMarker.getOrient() + ")"
+                    + languageRenderer.getStatementEnd());
             transcodeGraphicsNode(startMarker.getMarkerNode(), comment + "_" + "m0");
-            rotate(-startMarker.getOrient());
+            printWriter.println("g.rotate(" + (-startMarker.getOrient()) + ")"
+                    + languageRenderer.getStatementEnd());
             printWriter.println("g.translate(" + (-dx) + ", " + (-dy) + ")"
                     + languageRenderer.getStatementEnd());
         }
@@ -1028,9 +1030,11 @@ abstract class SvgBaseTranscoder {
                     double dy = middlePoint.getY() - middleMarker.getRef().getY();
                     printWriter.println("g.translate(" + dx + ", " + dy + ")"
                             + languageRenderer.getStatementEnd());
-                    rotate(middleMarker.getOrient());
+                    printWriter.println("g.rotate(" + middleMarker.getOrient() + ")"
+                            + languageRenderer.getStatementEnd());
                     transcodeGraphicsNode(middleMarker.getMarkerNode(), comment + "_" + "m" + i);
-                    rotate(-middleMarker.getOrient());
+                    printWriter.println("g.rotate(" + (-middleMarker.getOrient()) + ")"
+                            + languageRenderer.getStatementEnd());
                     printWriter.println("g.translate(" + (-dx) + ", " + (-dy) + ")"
                             + languageRenderer.getStatementEnd());
                 }
@@ -1045,18 +1049,14 @@ abstract class SvgBaseTranscoder {
             double dy = lastPoint.getY() - endMarker.getRef().getY();
             printWriter.println("g.translate(" + dx + ", " + dy + ")"
                     + languageRenderer.getStatementEnd());
-            rotate(endMarker.getOrient());
+            printWriter.println("g.rotate(" + endMarker.getOrient() + ")"
+                    + languageRenderer.getStatementEnd());
             transcodeGraphicsNode(endMarker.getMarkerNode(),
                     comment + "_" + "m" + (pathPointCount - 1));
-            rotate(-endMarker.getOrient());
+            printWriter.println("g.rotate(" + (-endMarker.getOrient()) + ")"
+                    + languageRenderer.getStatementEnd());
             printWriter.println("g.translate(" + (-dx) + ", " + (-dy) + ")"
                     + languageRenderer.getStatementEnd());
-        }
-    }
-
-    private void rotate(double angle) {
-        if (Double.isFinite(angle) && angle != 0.0) {
-            printWriter.println("g.rotate(" + angle + ")" + languageRenderer.getStatementEnd());
         }
     }
 

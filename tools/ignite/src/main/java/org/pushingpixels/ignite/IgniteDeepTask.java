@@ -29,26 +29,20 @@
  */
 package org.pushingpixels.ignite;
 
-import org.gradle.api.DefaultTask;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputDirectory;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.api.tasks.options.Option;
-import org.pushingpixels.photon.api.transcoder.*;
+import org.pushingpixels.photon.api.transcoder.LanguageRenderer;
 import org.pushingpixels.photon.api.transcoder.java.JavaLanguageRenderer;
 import org.pushingpixels.photon.api.transcoder.kotlin.KotlinLanguageRenderer;
 
 import java.io.File;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.Objects;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+import java.io.IOException;
 
-public class IgniteTask extends IgniteBaseTask {
-    private String outputPackageName;
+public class IgniteDeepTask extends IgniteBaseTask {
+    private String outputRootPackageName;
 
     private String outputLanguage;
 
@@ -56,18 +50,18 @@ public class IgniteTask extends IgniteBaseTask {
 
     private boolean useResizableTemplate;
 
-    private File inputDirectory;
+    private File inputRootDirectory;
 
-    private File outputDirectory;
+    private File outputRootDirectory;
 
     @Input
-    public String getOutputPackageName() {
-        return outputPackageName;
+    public String getOutputRootPackageName() {
+        return outputRootPackageName;
     }
 
-    @Option(option = "outputPackageName", description = "Configures the output package name.")
-    public void setOutputPackageName(String outputPackageName) {
-        this.outputPackageName = outputPackageName;
+    @Option(option = "outputRootPackageName", description = "Configures the output root package name.")
+    public void setOutputRootPackageName(String outputRootPackageName) {
+        this.outputRootPackageName = outputRootPackageName;
     }
 
     @Input
@@ -101,36 +95,36 @@ public class IgniteTask extends IgniteBaseTask {
     }
 
     @InputDirectory
-    public File getInputDirectory() {
-        return inputDirectory;
+    public File getInputRootDirectory() {
+        return inputRootDirectory;
     }
 
-    @Option(option = "inputDirectory", description = "Configures the input directory.")
-    public void setInputDirectory(File inputDirectory) {
-        this.inputDirectory = inputDirectory;
+    @Option(option = "inputRootDirectory", description = "Configures the input root directory.")
+    public void setInputRootDirectory(File inputRootDirectory) {
+        this.inputRootDirectory = inputRootDirectory;
     }
 
     @InputDirectory
-    public File getOutputDirectory() {
-        return outputDirectory;
+    public File getOutputRootDirectory() {
+        return outputRootDirectory;
     }
 
-    @Option(option = "outputDirectory", description = "Configures the output directory.")
-    public void setOutputDirectory(File outputDirectory) {
-        this.outputDirectory = outputDirectory;
+    @Option(option = "outputRootDirectory", description = "Configures the output root directory.")
+    public void setOutputRootDirectory(File outputRootDirectory) {
+        this.outputRootDirectory = outputRootDirectory;
     }
 
     @TaskAction
     public void transcode() {
         Logger logger = getLogger();
 
-        logger.trace("Working on files in " + inputDirectory.getAbsolutePath());
+        logger.trace("Working on files in " + inputRootDirectory.getAbsolutePath());
 
-        if (!this.inputDirectory.exists()) {
+        if (!this.inputRootDirectory.exists()) {
             return;
         }
 
-        this.outputDirectory.mkdirs();
+        this.outputRootDirectory.mkdirs();
 
         boolean renderAsKotlinCode = ("kotlin".compareTo(outputLanguage) == 0);
 
@@ -139,7 +133,7 @@ public class IgniteTask extends IgniteBaseTask {
                 : new JavaLanguageRenderer();
         String outputFileNameExtension = ("java".compareTo(outputLanguage) == 0) ? ".java" : ".kt";
 
-        logger.trace("Processing " + inputDirectory.getAbsolutePath() + " to " + outputPackageName +
+        logger.trace("Processing " + inputRootDirectory.getAbsolutePath() + " to " + outputRootPackageName +
                 " in " + outputLanguage);
 
         String templateFileName = "/org/pushingpixels/photon/api/transcoder/" + outputLanguage + "/"
@@ -147,8 +141,39 @@ public class IgniteTask extends IgniteBaseTask {
         templateFileName += (useResizableTemplate ? "Resizable" : "Plain");
         templateFileName += ".templ";
 
-        this.transcodeAllFilesInFolder(inputDirectory, outputDirectory,
-                outputClassNamePrefix, outputFileNameExtension,
-                outputPackageName, languageRenderer, templateFileName);
+        processFolder(inputRootDirectory, outputRootDirectory, outputClassNamePrefix, outputFileNameExtension,
+                outputRootPackageName, languageRenderer, templateFileName);
     }
+
+    protected void processFolder(File inputFolder, File outputFolder,
+            String outputClassNamePrefix, String outputFileNameExtension,
+            String outputPackageName, LanguageRenderer languageRenderer,
+            String templateFile) {
+
+        Logger logger = getLogger();
+        logger.trace("Working on files in " + inputFolder.getAbsolutePath());
+
+        // Transcode all SVG files in this folder
+        transcodeAllFilesInFolder(inputFolder, outputFolder, outputClassNamePrefix, outputFileNameExtension,
+                outputPackageName, languageRenderer, templateFile);
+
+        // Now scan the folder for sub-folders
+        for (File inputSubfolder : inputFolder.listFiles((File dir, String name) -> new File(dir, name).isDirectory())) {
+            String subfolderName = inputSubfolder.getName();
+            logger.trace("Going into sub-folder " + subfolderName);
+
+            // Mirror the input subfolder structure to the output
+            File outputSubfolder = new File(outputFolder, subfolderName);
+            if (!outputSubfolder.exists()) {
+                outputSubfolder.mkdir();
+            }
+
+            // And recursively process SVG content (and possible folders)
+            processFolder(inputSubfolder, outputSubfolder, outputClassNamePrefix, outputFileNameExtension,
+                    outputPackageName + "." + subfolderName, languageRenderer,
+                    templateFile);
+        }
+        System.out.println();
+    }
+
 }

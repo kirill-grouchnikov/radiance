@@ -41,30 +41,30 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public class SvgBatchConverter extends SvgBatchBaseConverter {
+public class SvgDeepBatchConverter extends SvgBatchBaseConverter {
     public static void main(String[] args) throws IOException {
         if (args.length < 4) {
             System.out.println("=== Usage ===");
             Stream.of(
-                    "java " + SvgBatchConverter.class.getCanonicalName(),
-                    "  sourceFolder=xyz - points to a folder with SVG images",
-                    "  outputPackageName=xyz - the package name for the transcoded classes",
+                    "java " + SvgDeepBatchConverter.class.getCanonicalName(),
+                    "  sourceRootFolder=xyz - points to the root folder to traverse for SVG images",
+                    "  outputRootPackageName=xyz - the root package name for the transcoded classes",
                     "  templateFile=xyz - the template file for creating the transcoded classes",
                     "  outputLanguage=java|kotlin - the language for the transcoded classes",
-                    "  outputFolder=xyz - optional location of output files. If not specified, output files will be placed in the 'sourceFolder'",
+                    "  outputRootFolder=xyz - optional root location of output files. If not specified, output files will be placed under the 'sourceRootFolder'",
                     "  outputClassNamePrefix=xyz - optional prefix for the class name of each transcoded class"
             ).forEach(System.out::println);
             System.out.println(CHECK_DOCUMENTATION);
             System.exit(1);
         }
 
-        SvgBatchConverter converter = new SvgBatchConverter();
+        SvgDeepBatchConverter converter = new SvgDeepBatchConverter();
 
-        String sourceFolderName = converter.getInputArgument(args, "sourceFolder", null);
-        Objects.requireNonNull(sourceFolderName, "Missing source folder. " + CHECK_DOCUMENTATION);
+        String sourceRootFolderName = converter.getInputArgument(args, "sourceRootFolder", null);
+        Objects.requireNonNull(sourceRootFolderName, "Missing source folder. " + CHECK_DOCUMENTATION);
 
-        String outputPackageName = converter.getInputArgument(args, "outputPackageName", null);
-        Objects.requireNonNull(outputPackageName, "Missing output package name. " + CHECK_DOCUMENTATION);
+        String outputRootPackageName = converter.getInputArgument(args, "outputRootPackageName", null);
+        Objects.requireNonNull(outputRootPackageName, "Missing output package name. " + CHECK_DOCUMENTATION);
 
         String templateFile = converter.getInputArgument(args, "templateFile", null);
         Objects.requireNonNull(templateFile, "Missing template file. " + CHECK_DOCUMENTATION);
@@ -85,27 +85,64 @@ public class SvgBatchConverter extends SvgBatchBaseConverter {
         }
 
         String outputClassNamePrefix = converter.getInputArgument(args, "outputClassNamePrefix", "");
-        String outputFolderName = converter.getInputArgument(args, "outputFolder", sourceFolderName);
+        String outputRootFolderName = converter.getInputArgument(args, "outputRootFolder", sourceRootFolderName);
 
-        File inputFolder = new File(sourceFolderName);
-        if (!inputFolder.exists()) {
-            throw new NoSuchFileException(sourceFolderName);
+        File inputRootFolder = new File(sourceRootFolderName);
+        if (!inputRootFolder.exists()) {
+            throw new NoSuchFileException(sourceRootFolderName);
         }
-        File outputFolder = new File(outputFolderName);
-        if (!outputFolder.exists()) {
-            throw new NoSuchFileException(outputFolderName);
+        File outputRootFolder = new File(outputRootFolderName);
+        if (!outputRootFolder.exists()) {
+            throw new NoSuchFileException(outputRootFolderName);
         }
 
         System.out.println(
                 "******************************************************************************");
         System.out.println("Processing");
-        System.out.println("\tsource folder: " + sourceFolderName);
-        System.out.println("\tpackage name: " + outputPackageName);
+        System.out.println("\tsource root folder: " + sourceRootFolderName);
+        System.out.println("\troot package name: " + outputRootPackageName);
         System.out.println("\toutput language: " + outputLanguage);
         System.out.println(
                 "******************************************************************************");
+        System.out.println();
 
-        converter.transcodeAllFilesInFolder(inputFolder, outputFolder, outputClassNamePrefix, outputFileNameExtension,
+        converter.processFolder(inputRootFolder, outputRootFolder, outputClassNamePrefix, outputFileNameExtension,
+                outputRootPackageName, languageRenderer, templateFile);
+    }
+
+    protected void processFolder(File inputFolder, File outputFolder,
+            String outputClassNamePrefix, String outputFileNameExtension,
+            String outputPackageName, LanguageRenderer languageRenderer,
+            String templateFile) {
+
+        System.out.println(
+                "******************************************************************************");
+        System.out.println("Processing");
+        System.out.println("\tsource folder: " + inputFolder.getAbsolutePath());
+        System.out.println("\tpackage name: " + outputPackageName);
+        System.out.println(
+                "******************************************************************************");
+
+        // Transcode all SVG files in this folder
+        transcodeAllFilesInFolder(inputFolder, outputFolder, outputClassNamePrefix, outputFileNameExtension,
                 outputPackageName, languageRenderer, templateFile);
+
+        // Now scan the folder for sub-folders
+        for (File inputSubfolder : inputFolder.listFiles((File dir, String name) -> new File(dir, name).isDirectory())) {
+            String subfolderName = inputSubfolder.getName();
+            System.out.println("Going into sub-folder " + subfolderName);
+
+            // Mirror the input subfolder structure to the output
+            File outputSubfolder = new File(outputFolder, subfolderName);
+            if (!outputSubfolder.exists()) {
+                outputSubfolder.mkdir();
+            }
+
+            // And recursively process SVG content (and possible folders)
+            processFolder(inputSubfolder, outputSubfolder, outputClassNamePrefix, outputFileNameExtension,
+                    outputPackageName + "." + subfolderName, languageRenderer,
+                    templateFile);
+        }
+        System.out.println();
     }
 }

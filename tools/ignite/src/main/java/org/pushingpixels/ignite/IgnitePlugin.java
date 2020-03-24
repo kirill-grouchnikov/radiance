@@ -35,6 +35,7 @@ public class IgnitePlugin implements Plugin<Project> {
 
     public void apply(Project project) {
         project.getTasks().create("ignite", IgniteTask.class);
+        project.getTasks().create("igniteDeep", IgniteDeepTask.class);
     }
 
 }
