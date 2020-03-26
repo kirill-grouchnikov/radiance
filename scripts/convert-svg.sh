@@ -32,6 +32,8 @@ CLASSPATH=../drop/$RADIANCE_VERSION/core/radiance-photon-$RADIANCE_VERSION.jar:.
 
 java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/plasma-demo/src/main/kotlin/org/pushingpixels/demo/plasma/svg outputPackageName=org.pushingpixels.demo.plasma.svg templateFile=/org/pushingpixels/photon/api/transcoder/kotlin/SvgTranscoderTemplateResizable.templ outputLanguage=kotlin
 
+# Don't convert the flamingo-demo transcoding to deep traversal since one of the
+# folders needs class name prefix while others don't
 java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/flamingo-demo/src/main/java/org/pushingpixels/demo/flamingo/svg/tango/transcoded outputPackageName=org.pushingpixels.demo.flamingo.svg.tango.transcoded templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
 java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/flamingo-demo/src/main/java/org/pushingpixels/demo/flamingo/svg/logo outputPackageName=org.pushingpixels.demo.flamingo.svg.logo templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
@@ -40,6 +42,8 @@ java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter so
 
 java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../substance/src/main/java/org/pushingpixels/substance/internal/svg outputPackageName=org.pushingpixels.substance.internal.svg templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
+# Don't convert the substance-demo transcoding to deep traversal since one of the
+# folders needs class name prefix while others don't
 java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/check/svg outputPackageName=org.pushingpixels.demo.substance.main.check.svg templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
 java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/check/svg/flags outputPackageName=org.pushingpixels.demo.substance.main.check.svg.flags templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
@@ -48,11 +52,8 @@ java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter so
 
 java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/check/svg/tango outputPackageName=org.pushingpixels.demo.substance.main.check.svg.tango templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
-java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/mail/svg outputPackageName=org.pushingpixels.demo.spyglass.mail.svg templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
-
-java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/cookbook/svg outputPackageName=org.pushingpixels.demo.spyglass.cookbook.svg templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
-
-java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/chat/svg outputPackageName=org.pushingpixels.demo.spyglass.chat.svg templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
+# Use deep traversal for all Spyglass demo SVG files
+java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgDeepBatchConverter sourceRootFolder=../demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/ outputRootPackageName=org.pushingpixels.demo.spyglass templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
 java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/rainbow/src/main/kotlin/org/pushingpixels/demo/rainbow/svg outputPackageName=org.pushingpixels.demo.rainbow.svg templateFile=/org/pushingpixels/photon/api/transcoder/kotlin/SvgTranscoderTemplateResizable.templ outputLanguage=kotlin
 
