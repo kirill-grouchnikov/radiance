@@ -8,6 +8,7 @@ import java.lang.ref.WeakReference;
 import java.util.Base64;
 import java.util.Stack;
 import javax.imageio.ImageIO;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.UIResource;
 
 import org.pushingpixels.neon.api.icon.ResizableIcon;
@@ -19,6 +20,7 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
  */
 public class ic_star_border_white_24px implements ResizableIcon {
     private Shape shape = null;
+    private GeneralPath generalPath = null;
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
@@ -37,31 +39,36 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0
-shape = new GeneralPath();
-((GeneralPath)shape).moveTo(22.0, 9.24);
-((GeneralPath)shape).lineTo(14.809999, 8.62);
-((GeneralPath)shape).lineTo(12.0, 2.0);
-((GeneralPath)shape).lineTo(9.19, 8.63);
-((GeneralPath)shape).lineTo(2.0, 9.24);
-((GeneralPath)shape).lineTo(7.46, 13.969999);
-((GeneralPath)shape).lineTo(5.82, 21.0);
-((GeneralPath)shape).lineTo(12.0, 17.27);
-((GeneralPath)shape).lineTo(18.18, 21.0);
-((GeneralPath)shape).lineTo(16.550001, 13.969999);
-((GeneralPath)shape).lineTo(22.0, 9.24);
-((GeneralPath)shape).closePath();
-((GeneralPath)shape).moveTo(12.0, 15.4);
-((GeneralPath)shape).lineTo(8.24, 17.67);
-((GeneralPath)shape).lineTo(9.24, 13.389999);
-((GeneralPath)shape).lineTo(5.92, 10.509999);
-((GeneralPath)shape).lineTo(10.3, 10.129999);
-((GeneralPath)shape).lineTo(12.0, 6.1);
-((GeneralPath)shape).lineTo(13.71, 10.139999);
-((GeneralPath)shape).lineTo(18.09, 10.5199995);
-((GeneralPath)shape).lineTo(14.77, 13.4);
-((GeneralPath)shape).lineTo(15.77, 17.68);
-((GeneralPath)shape).lineTo(12.0, 15.4);
-((GeneralPath)shape).closePath();
+if (generalPath == null) {
+   generalPath = new GeneralPath();
+} else {
+   generalPath.reset();
+}
+generalPath.moveTo(22.0, 9.24);
+generalPath.lineTo(14.809999, 8.62);
+generalPath.lineTo(12.0, 2.0);
+generalPath.lineTo(9.19, 8.63);
+generalPath.lineTo(2.0, 9.24);
+generalPath.lineTo(7.46, 13.969999);
+generalPath.lineTo(5.82, 21.0);
+generalPath.lineTo(12.0, 17.27);
+generalPath.lineTo(18.18, 21.0);
+generalPath.lineTo(16.550001, 13.969999);
+generalPath.lineTo(22.0, 9.24);
+generalPath.closePath();
+generalPath.moveTo(12.0, 15.4);
+generalPath.lineTo(8.24, 17.67);
+generalPath.lineTo(9.24, 13.389999);
+generalPath.lineTo(5.92, 10.509999);
+generalPath.lineTo(10.3, 10.129999);
+generalPath.lineTo(12.0, 6.1);
+generalPath.lineTo(13.71, 10.139999);
+generalPath.lineTo(18.09, 10.5199995);
+generalPath.lineTo(14.77, 13.4);
+generalPath.lineTo(15.77, 17.68);
+generalPath.lineTo(12.0, 15.4);
+generalPath.closePath();
+shape = generalPath;
 paint = new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
@@ -94,6 +101,7 @@ g.setTransform(transformsStack.pop());
 
 
 	    shape = null;
+	    generalPath = null;
 	    paint = null;
 	    stroke = null;
 	    clip = null;
@@ -162,13 +170,13 @@ g.setTransform(transformsStack.pop());
 	}
 
 	@Override
-	public void setDimension(Dimension newDimension) {
+	public synchronized void setDimension(Dimension newDimension) {
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
 
     @Override
-	public void paintIcon(Component c, Graphics g, int x, int y) {
+	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);

@@ -21,6 +21,7 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource
 class ic_zoom_out_black_24px private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
     @Suppress("UNUSED_VARIABLE") private var shape: Shape? = null
+    @Suppress("UNUSED_VARIABLE") private var generalPath: GeneralPath? = null
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
@@ -44,32 +45,37 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(15.5, 14.0)
-(shape as GeneralPath).lineTo(14.71, 14.0)
-(shape as GeneralPath).lineTo(14.43, 13.73)
-(shape as GeneralPath).curveTo(15.41, 12.59, 16.0, 11.11, 16.0, 9.5)
-(shape as GeneralPath).curveTo(16.0, 5.91, 13.09, 3.0, 9.5, 3.0)
-(shape as GeneralPath).curveTo(5.91, 3.0, 3.0, 5.91, 3.0, 9.5)
-(shape as GeneralPath).curveTo(3.0, 13.09, 5.91, 16.0, 9.5, 16.0)
-(shape as GeneralPath).curveTo(11.11, 16.0, 12.59, 15.41, 13.73, 14.43)
-(shape as GeneralPath).lineTo(14.0, 14.71)
-(shape as GeneralPath).lineTo(14.0, 15.5)
-(shape as GeneralPath).lineTo(19.0, 20.49)
-(shape as GeneralPath).lineTo(20.49, 19.0)
-(shape as GeneralPath).lineTo(15.5, 14.0)
-(shape as GeneralPath).closePath()
-(shape as GeneralPath).moveTo(9.5, 14.0)
-(shape as GeneralPath).curveTo(7.01, 14.0, 5.0, 11.99, 5.0, 9.5)
-(shape as GeneralPath).curveTo(5.0, 7.01, 7.01, 5.0, 9.5, 5.0)
-(shape as GeneralPath).curveTo(11.99, 5.0, 14.0, 7.01, 14.0, 9.5)
-(shape as GeneralPath).curveTo(14.0, 11.99, 11.99, 14.0, 9.5, 14.0)
-(shape as GeneralPath).closePath()
-(shape as GeneralPath).moveTo(7.0, 9.0)
-(shape as GeneralPath).lineTo(12.0, 9.0)
-(shape as GeneralPath).lineTo(12.0, 10.0)
-(shape as GeneralPath).lineTo(7.0, 10.0)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(15.5, 14.0)
+generalPath!!.lineTo(14.71, 14.0)
+generalPath!!.lineTo(14.43, 13.73)
+generalPath!!.curveTo(15.41, 12.59, 16.0, 11.11, 16.0, 9.5)
+generalPath!!.curveTo(16.0, 5.91, 13.09, 3.0, 9.5, 3.0)
+generalPath!!.curveTo(5.91, 3.0, 3.0, 5.91, 3.0, 9.5)
+generalPath!!.curveTo(3.0, 13.09, 5.91, 16.0, 9.5, 16.0)
+generalPath!!.curveTo(11.11, 16.0, 12.59, 15.41, 13.73, 14.43)
+generalPath!!.lineTo(14.0, 14.71)
+generalPath!!.lineTo(14.0, 15.5)
+generalPath!!.lineTo(19.0, 20.49)
+generalPath!!.lineTo(20.49, 19.0)
+generalPath!!.lineTo(15.5, 14.0)
+generalPath!!.closePath()
+generalPath!!.moveTo(9.5, 14.0)
+generalPath!!.curveTo(7.01, 14.0, 5.0, 11.99, 5.0, 9.5)
+generalPath!!.curveTo(5.0, 7.01, 7.01, 5.0, 9.5, 5.0)
+generalPath!!.curveTo(11.99, 5.0, 14.0, 7.01, 14.0, 9.5)
+generalPath!!.curveTo(14.0, 11.99, 11.99, 14.0, 9.5, 14.0)
+generalPath!!.closePath()
+generalPath!!.moveTo(7.0, 9.0)
+generalPath!!.lineTo(12.0, 9.0)
+generalPath!!.lineTo(12.0, 10.0)
+generalPath!!.lineTo(7.0, 10.0)
+generalPath!!.closePath()
+shape = generalPath
 paint = Color(0, 0, 0, 255)
 g.paint = paint
 g.fill(shape)
@@ -94,6 +100,7 @@ g.transform = transformsStack.pop()
 
 
 	    shape = null
+	    generalPath = null
 	    paint = null
 	    stroke = null
 	    clip = null
@@ -176,12 +183,12 @@ g.transform = transformsStack.pop()
         return height
     }
 
-    override fun setDimension(newDimension: Dimension) {
+    override @Synchronized fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
     }
 
-    override fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
+    override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
         val g2d = g.create() as Graphics2D
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON)

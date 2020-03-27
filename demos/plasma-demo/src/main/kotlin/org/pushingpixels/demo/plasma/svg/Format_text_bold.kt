@@ -21,6 +21,7 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource
 class Format_text_bold private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
     @Suppress("UNUSED_VARIABLE") private var shape: Shape? = null
+    @Suppress("UNUSED_VARIABLE") private var generalPath: GeneralPath? = null
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
@@ -43,15 +44,20 @@ g.composite = AlphaComposite.getInstance(3, 0.2f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.4701440334320068f, 0.0f, 0.0f, 0.5354740023612976f, -12.76416015625f, 20.915340423583984f))
 // _0_0_0
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(40.48186, 36.421127)
-(shape as GeneralPath).curveTo(40.50693, 39.429993, 37.530556, 42.216076, 32.67976, 43.724407)
-(shape as GeneralPath).curveTo(27.828962, 45.23274, 21.845287, 45.23274, 16.99449, 43.724407)
-(shape as GeneralPath).curveTo(12.143692, 42.216076, 9.167317, 39.429993, 9.192389, 36.421127)
-(shape as GeneralPath).curveTo(9.167317, 33.412262, 12.143692, 30.626177, 16.99449, 29.117847)
-(shape as GeneralPath).curveTo(21.845287, 27.609516, 27.828962, 27.609516, 32.67976, 29.117847)
-(shape as GeneralPath).curveTo(37.530556, 30.626177, 40.50693, 33.412262, 40.48186, 36.421127)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(40.48186, 36.421127)
+generalPath!!.curveTo(40.50693, 39.429993, 37.530556, 42.216076, 32.67976, 43.724407)
+generalPath!!.curveTo(27.828962, 45.23274, 21.845287, 45.23274, 16.99449, 43.724407)
+generalPath!!.curveTo(12.143692, 42.216076, 9.167317, 39.429993, 9.192389, 36.421127)
+generalPath!!.curveTo(9.167317, 33.412262, 12.143692, 30.626177, 16.99449, 29.117847)
+generalPath!!.curveTo(21.845287, 27.609516, 27.828962, 27.609516, 32.67976, 29.117847)
+generalPath!!.curveTo(37.530556, 30.626177, 40.50693, 33.412262, 40.48186, 36.421127)
+generalPath!!.closePath()
+shape = generalPath
 paint = RadialGradientPaint(Point2D.Double(24.837125778198242, 36.42112731933594), 15.644737f, Point2D.Double(24.837125778198242, 36.42112731933594), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 0.5367230176925659f, 6.419148134724885E-15f, 16.87306022644043f))
 g.paint = paint
 g.fill(shape)
@@ -69,47 +75,57 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1_0_0
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(18.0, 0.5)
-(shape as GeneralPath).lineTo(3.0, 37.5)
-(shape as GeneralPath).lineTo(13.0, 37.5)
-(shape as GeneralPath).lineTo(15.224112, 31.5)
-(shape as GeneralPath).lineTo(32.731693, 31.5)
-(shape as GeneralPath).lineTo(35.0, 37.5)
-(shape as GeneralPath).lineTo(45.0, 37.5)
-(shape as GeneralPath).lineTo(30.0, 0.5)
-(shape as GeneralPath).lineTo(27.0, 0.5)
-(shape as GeneralPath).lineTo(21.0, 0.5)
-(shape as GeneralPath).lineTo(18.0, 0.5)
-(shape as GeneralPath).closePath()
-(shape as GeneralPath).moveTo(24.0, 9.0)
-(shape as GeneralPath).lineTo(29.59375, 23.5)
-(shape as GeneralPath).lineTo(18.40625, 23.5)
-(shape as GeneralPath).lineTo(24.0, 9.0)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(18.0, 0.5)
+generalPath!!.lineTo(3.0, 37.5)
+generalPath!!.lineTo(13.0, 37.5)
+generalPath!!.lineTo(15.224112, 31.5)
+generalPath!!.lineTo(32.731693, 31.5)
+generalPath!!.lineTo(35.0, 37.5)
+generalPath!!.lineTo(45.0, 37.5)
+generalPath!!.lineTo(30.0, 0.5)
+generalPath!!.lineTo(27.0, 0.5)
+generalPath!!.lineTo(21.0, 0.5)
+generalPath!!.lineTo(18.0, 0.5)
+generalPath!!.closePath()
+generalPath!!.moveTo(24.0, 9.0)
+generalPath!!.lineTo(29.59375, 23.5)
+generalPath!!.lineTo(18.40625, 23.5)
+generalPath!!.lineTo(24.0, 9.0)
+generalPath!!.closePath()
+shape = generalPath
 paint = LinearGradientPaint(Point2D.Double(29.122220993041992, 33.43888854980469), Point2D.Double(14.29636287689209, 6.346399307250977), floatArrayOf(0.0f,1.0f), arrayOf(Color(73, 127, 198, 255),Color(144, 179, 217, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 paint = LinearGradientPaint(Point2D.Double(19.988433837890625, 34.98324966430664), Point2D.Double(19.988433837890625, 6.434155464172363), floatArrayOf(0.0f,1.0f), arrayOf(Color(42, 83, 135, 255),Color(52, 101, 164, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 stroke = BasicStroke(1.0f,0,0,4.0f,null,0.0f)
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(18.0, 0.5)
-(shape as GeneralPath).lineTo(3.0, 37.5)
-(shape as GeneralPath).lineTo(13.0, 37.5)
-(shape as GeneralPath).lineTo(15.224112, 31.5)
-(shape as GeneralPath).lineTo(32.731693, 31.5)
-(shape as GeneralPath).lineTo(35.0, 37.5)
-(shape as GeneralPath).lineTo(45.0, 37.5)
-(shape as GeneralPath).lineTo(30.0, 0.5)
-(shape as GeneralPath).lineTo(27.0, 0.5)
-(shape as GeneralPath).lineTo(21.0, 0.5)
-(shape as GeneralPath).lineTo(18.0, 0.5)
-(shape as GeneralPath).closePath()
-(shape as GeneralPath).moveTo(24.0, 9.0)
-(shape as GeneralPath).lineTo(29.59375, 23.5)
-(shape as GeneralPath).lineTo(18.40625, 23.5)
-(shape as GeneralPath).lineTo(24.0, 9.0)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(18.0, 0.5)
+generalPath!!.lineTo(3.0, 37.5)
+generalPath!!.lineTo(13.0, 37.5)
+generalPath!!.lineTo(15.224112, 31.5)
+generalPath!!.lineTo(32.731693, 31.5)
+generalPath!!.lineTo(35.0, 37.5)
+generalPath!!.lineTo(45.0, 37.5)
+generalPath!!.lineTo(30.0, 0.5)
+generalPath!!.lineTo(27.0, 0.5)
+generalPath!!.lineTo(21.0, 0.5)
+generalPath!!.lineTo(18.0, 0.5)
+generalPath!!.closePath()
+generalPath!!.moveTo(24.0, 9.0)
+generalPath!!.lineTo(29.59375, 23.5)
+generalPath!!.lineTo(18.40625, 23.5)
+generalPath!!.lineTo(24.0, 9.0)
+generalPath!!.closePath()
+shape = generalPath
 g.paint = paint
 g.stroke = stroke
 g.draw(shape)
@@ -120,17 +136,22 @@ g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1_0_1
 paint = LinearGradientPaint(Point2D.Double(19.89179229736328, 16.114627838134766), Point2D.Double(31.85671615600586, 72.78054809570312), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(179, 179, 179, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, -3.0f))
 stroke = BasicStroke(1.0f,0,0,4.0f,null,0.0f)
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(4.463434, 36.5)
-(shape as GeneralPath).lineTo(18.69856, 1.5)
-(shape as GeneralPath).lineTo(29.345564, 1.5)
-(shape as GeneralPath).lineTo(43.563927, 36.5)
-(shape as GeneralPath).lineTo(35.676777, 36.5)
-(shape as GeneralPath).lineTo(33.5, 30.5)
-(shape as GeneralPath).lineTo(14.5, 30.5)
-(shape as GeneralPath).lineTo(12.265165, 36.5)
-(shape as GeneralPath).lineTo(4.463434, 36.5)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(4.463434, 36.5)
+generalPath!!.lineTo(18.69856, 1.5)
+generalPath!!.lineTo(29.345564, 1.5)
+generalPath!!.lineTo(43.563927, 36.5)
+generalPath!!.lineTo(35.676777, 36.5)
+generalPath!!.lineTo(33.5, 30.5)
+generalPath!!.lineTo(14.5, 30.5)
+generalPath!!.lineTo(12.265165, 36.5)
+generalPath!!.lineTo(4.463434, 36.5)
+generalPath!!.closePath()
+shape = generalPath
 g.paint = paint
 g.stroke = stroke
 g.draw(shape)
@@ -141,12 +162,17 @@ g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1_0_2
 paint = LinearGradientPaint(Point2D.Double(25.0, 27.5), Point2D.Double(26.673967361450195, 10.0), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(255, 255, 255, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, -1.0f, -4.0f))
 stroke = BasicStroke(1.0f,0,0,4.0f,null,0.0f)
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(16.881283, 24.5)
-(shape as GeneralPath).lineTo(31.118717, 24.5)
-(shape as GeneralPath).lineTo(24.0, 6.5)
-(shape as GeneralPath).lineTo(16.881283, 24.5)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(16.881283, 24.5)
+generalPath!!.lineTo(31.118717, 24.5)
+generalPath!!.lineTo(24.0, 6.5)
+generalPath!!.lineTo(16.881283, 24.5)
+generalPath!!.closePath()
+shape = generalPath
 g.paint = paint
 g.stroke = stroke
 g.draw(shape)
@@ -173,6 +199,7 @@ g.transform = transformsStack.pop()
 
 
 	    shape = null
+	    generalPath = null
 	    paint = null
 	    stroke = null
 	    clip = null
@@ -255,12 +282,12 @@ g.transform = transformsStack.pop()
         return height
     }
 
-    override fun setDimension(newDimension: Dimension) {
+    override @Synchronized fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
     }
 
-    override fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
+    override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
         val g2d = g.create() as Graphics2D
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON)

@@ -21,6 +21,7 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource
 class outline_keyboard_arrow_up_24px private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
     @Suppress("UNUSED_VARIABLE") private var shape: Shape? = null
+    @Suppress("UNUSED_VARIABLE") private var generalPath: GeneralPath? = null
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
@@ -63,15 +64,20 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1_1
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(7.41, 15.41)
-(shape as GeneralPath).lineTo(12.0, 10.83)
-(shape as GeneralPath).lineTo(16.59, 15.41)
-(shape as GeneralPath).lineTo(18.0, 14.0)
-(shape as GeneralPath).lineTo(12.0, 8.0)
-(shape as GeneralPath).lineTo(6.0, 14.0)
-(shape as GeneralPath).lineTo(7.41, 15.41)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(7.41, 15.41)
+generalPath!!.lineTo(12.0, 10.83)
+generalPath!!.lineTo(16.59, 15.41)
+generalPath!!.lineTo(18.0, 14.0)
+generalPath!!.lineTo(12.0, 8.0)
+generalPath!!.lineTo(6.0, 14.0)
+generalPath!!.lineTo(7.41, 15.41)
+generalPath!!.closePath()
+shape = generalPath
 paint = Color(0, 0, 0, 255)
 g.paint = paint
 g.fill(shape)
@@ -97,6 +103,7 @@ g.transform = transformsStack.pop()
 
 
 	    shape = null
+	    generalPath = null
 	    paint = null
 	    stroke = null
 	    clip = null
@@ -179,12 +186,12 @@ g.transform = transformsStack.pop()
         return height
     }
 
-    override fun setDimension(newDimension: Dimension) {
+    override @Synchronized fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
     }
 
-    override fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
+    override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
         val g2d = g.create() as Graphics2D
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON)

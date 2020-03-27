@@ -27,15 +27,15 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.substance.api;
+package org.pushingpixels.neon.api;
 
 /**
- * This exception is thrown by Substance when it detects violations of Swing UI threading rules. See
+ * This exception is thrown by Radiance when it detects violations of Swing UI threading rules. See
  * <a href=
  * "http://www.pushing-pixels.org/2008/07/15/stricter-checks-on-edt-violations-in-substance.html">here</a>
  * and <a href=
  * "http://www.pushing-pixels.org/2010/02/16/your-application-will-be-with-you-momentarily.html">here</a>
- * for more information on why Substance enforces the Swing threading rules and throws this
+ * for more information on why Radiance enforces the Swing threading rules and throws this
  * exception.
  * 
  * @author Kirill Grouchnikov

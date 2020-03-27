@@ -50,6 +50,8 @@ public interface LanguageRenderer {
 
     String getObjectCast(String objectName, String classToCastTo);
 
+    String getObjectNoNull(String objectName);
+
     String startPrimitiveArrayOf(String primitiveTypeName);
 
     String startGenericArrayOf(String className);

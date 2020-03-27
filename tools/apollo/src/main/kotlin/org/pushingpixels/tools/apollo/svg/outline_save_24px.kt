@@ -21,6 +21,7 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource
 class outline_save_24px private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
     @Suppress("UNUSED_VARIABLE") private var shape: Shape? = null
+    @Suppress("UNUSED_VARIABLE") private var generalPath: GeneralPath? = null
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
@@ -57,24 +58,29 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1_0_0
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(17.0, 3.0)
-(shape as GeneralPath).lineTo(5.0, 3.0)
-(shape as GeneralPath).curveTo(3.89, 3.0, 3.0, 3.9, 3.0, 5.0)
-(shape as GeneralPath).lineTo(3.0, 19.0)
-(shape as GeneralPath).curveTo(3.0, 20.1, 3.8899999, 21.0, 5.0, 21.0)
-(shape as GeneralPath).lineTo(19.0, 21.0)
-(shape as GeneralPath).curveTo(20.1, 21.0, 21.0, 20.1, 21.0, 19.0)
-(shape as GeneralPath).lineTo(21.0, 7.0)
-(shape as GeneralPath).lineTo(17.0, 3.0)
-(shape as GeneralPath).closePath()
-(shape as GeneralPath).moveTo(19.0, 19.0)
-(shape as GeneralPath).lineTo(5.0, 19.0)
-(shape as GeneralPath).lineTo(5.0, 5.0)
-(shape as GeneralPath).lineTo(16.17, 5.0)
-(shape as GeneralPath).lineTo(19.0, 7.83)
-(shape as GeneralPath).lineTo(19.0, 19.0)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(17.0, 3.0)
+generalPath!!.lineTo(5.0, 3.0)
+generalPath!!.curveTo(3.89, 3.0, 3.0, 3.9, 3.0, 5.0)
+generalPath!!.lineTo(3.0, 19.0)
+generalPath!!.curveTo(3.0, 20.1, 3.8899999, 21.0, 5.0, 21.0)
+generalPath!!.lineTo(19.0, 21.0)
+generalPath!!.curveTo(20.1, 21.0, 21.0, 20.1, 21.0, 19.0)
+generalPath!!.lineTo(21.0, 7.0)
+generalPath!!.lineTo(17.0, 3.0)
+generalPath!!.closePath()
+generalPath!!.moveTo(19.0, 19.0)
+generalPath!!.lineTo(5.0, 19.0)
+generalPath!!.lineTo(5.0, 5.0)
+generalPath!!.lineTo(16.17, 5.0)
+generalPath!!.lineTo(19.0, 7.83)
+generalPath!!.lineTo(19.0, 19.0)
+generalPath!!.closePath()
+shape = generalPath
 paint = Color(0, 0, 0, 255)
 g.paint = paint
 g.fill(shape)
@@ -83,13 +89,18 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1_0_1
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(12.0, 12.0)
-(shape as GeneralPath).curveTo(10.34, 12.0, 9.0, 13.34, 9.0, 15.0)
-(shape as GeneralPath).curveTo(9.0, 16.66, 10.34, 18.0, 12.0, 18.0)
-(shape as GeneralPath).curveTo(13.66, 18.0, 15.0, 16.66, 15.0, 15.0)
-(shape as GeneralPath).curveTo(15.0, 13.34, 13.66, 12.0, 12.0, 12.0)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(12.0, 12.0)
+generalPath!!.curveTo(10.34, 12.0, 9.0, 13.34, 9.0, 15.0)
+generalPath!!.curveTo(9.0, 16.66, 10.34, 18.0, 12.0, 18.0)
+generalPath!!.curveTo(13.66, 18.0, 15.0, 16.66, 15.0, 15.0)
+generalPath!!.curveTo(15.0, 13.34, 13.66, 12.0, 12.0, 12.0)
+generalPath!!.closePath()
+shape = generalPath
 paint = Color(0, 0, 0, 255)
 g.paint = paint
 g.fill(shape)
@@ -125,6 +136,7 @@ g.transform = transformsStack.pop()
 
 
 	    shape = null
+	    generalPath = null
 	    paint = null
 	    stroke = null
 	    clip = null
@@ -207,12 +219,12 @@ g.transform = transformsStack.pop()
         return height
     }
 
-    override fun setDimension(newDimension: Dimension) {
+    override @Synchronized fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
     }
 
-    override fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
+    override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
         val g2d = g.create() as Graphics2D
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON)

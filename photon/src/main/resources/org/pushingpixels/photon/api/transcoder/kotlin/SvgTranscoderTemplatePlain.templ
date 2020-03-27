@@ -12,6 +12,7 @@ import java.util.Stack
 class TOKEN_CLASSNAME(private var width: Int, private var height: Int) {
     companion object {
         @Suppress("UNUSED_VARIABLE") private var shape: Shape? = null
+        @Suppress("UNUSED_VARIABLE") private var generalPath: GeneralPath? = null
         @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
         @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
         @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
@@ -41,6 +42,7 @@ class TOKEN_CLASSNAME(private var width: Int, private var height: Int) {
             TOKEN_PAINTING_INVOCATIONS
 
             shape = null
+            generalPath = null
             paint = null
             stroke = null
             clip = null

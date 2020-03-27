@@ -21,6 +21,7 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource
 class Address_book_new private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
     @Suppress("UNUSED_VARIABLE") private var shape: Shape? = null
+    @Suppress("UNUSED_VARIABLE") private var generalPath: GeneralPath? = null
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
@@ -43,29 +44,39 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_0
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(33.096455, 4.65202)
-(shape as GeneralPath).lineTo(40.521076, 4.65202)
-(shape as GeneralPath).curveTo(41.228184, 4.65202, 41.758514, 4.828797, 41.93529, 5.71268)
-(shape as GeneralPath).lineTo(42.819176, 12.606972)
-(shape as GeneralPath).curveTo(42.907562, 13.667632, 42.443523, 14.021185, 41.493347, 14.021185)
-(shape as GeneralPath).lineTo(32.919678, 14.021185)
-(shape as GeneralPath).lineTo(33.096455, 4.65202)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(33.096455, 4.65202)
+generalPath!!.lineTo(40.521076, 4.65202)
+generalPath!!.curveTo(41.228184, 4.65202, 41.758514, 4.828797, 41.93529, 5.71268)
+generalPath!!.lineTo(42.819176, 12.606972)
+generalPath!!.curveTo(42.907562, 13.667632, 42.443523, 14.021185, 41.493347, 14.021185)
+generalPath!!.lineTo(32.919678, 14.021185)
+generalPath!!.lineTo(33.096455, 4.65202)
+generalPath!!.closePath()
+shape = generalPath
 paint = Color(237, 212, 0, 255)
 g.paint = paint
 g.fill(shape)
 paint = Color(196, 160, 0, 255)
 stroke = BasicStroke(1.0f,1,1,4.0f,null,0.0f)
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(33.096455, 4.65202)
-(shape as GeneralPath).lineTo(40.521076, 4.65202)
-(shape as GeneralPath).curveTo(41.228184, 4.65202, 41.758514, 4.828797, 41.93529, 5.71268)
-(shape as GeneralPath).lineTo(42.819176, 12.606972)
-(shape as GeneralPath).curveTo(42.907562, 13.667632, 42.443523, 14.021185, 41.493347, 14.021185)
-(shape as GeneralPath).lineTo(32.919678, 14.021185)
-(shape as GeneralPath).lineTo(33.096455, 4.65202)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(33.096455, 4.65202)
+generalPath!!.lineTo(40.521076, 4.65202)
+generalPath!!.curveTo(41.228184, 4.65202, 41.758514, 4.828797, 41.93529, 5.71268)
+generalPath!!.lineTo(42.819176, 12.606972)
+generalPath!!.curveTo(42.907562, 13.667632, 42.443523, 14.021185, 41.493347, 14.021185)
+generalPath!!.lineTo(32.919678, 14.021185)
+generalPath!!.lineTo(33.096455, 4.65202)
+generalPath!!.closePath()
+shape = generalPath
 g.paint = paint
 g.stroke = stroke
 g.draw(shape)
@@ -76,15 +87,20 @@ g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_1
 paint = Color(255, 255, 255, 255)
 stroke = BasicStroke(1.0000006f,1,1,4.0f,null,0.0f)
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(34.10295, 5.638875)
-(shape as GeneralPath).lineTo(40.46351, 5.638875)
-(shape as GeneralPath).curveTo(40.771656, 5.638875, 40.940266, 5.669037, 40.986053, 5.960473)
-(shape as GeneralPath).lineTo(41.77749, 12.344449)
-(shape as GeneralPath).curveTo(41.84726, 12.775421, 41.959896, 13.019804, 41.63721, 13.034341)
-(shape as GeneralPath).lineTo(33.963413, 13.034341)
-(shape as GeneralPath).lineTo(34.10295, 5.638875)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(34.10295, 5.638875)
+generalPath!!.lineTo(40.46351, 5.638875)
+generalPath!!.curveTo(40.771656, 5.638875, 40.940266, 5.669037, 40.986053, 5.960473)
+generalPath!!.lineTo(41.77749, 12.344449)
+generalPath!!.curveTo(41.84726, 12.775421, 41.959896, 13.019804, 41.63721, 13.034341)
+generalPath!!.lineTo(33.963413, 13.034341)
+generalPath!!.lineTo(34.10295, 5.638875)
+generalPath!!.closePath()
+shape = generalPath
 g.paint = paint
 g.stroke = stroke
 g.draw(shape)
@@ -93,29 +109,39 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_2
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(35.596455, 12.40202)
-(shape as GeneralPath).lineTo(43.021076, 12.40202)
-(shape as GeneralPath).curveTo(43.728184, 12.40202, 44.258514, 12.578797, 44.43529, 13.46268)
-(shape as GeneralPath).lineTo(45.319176, 20.356972)
-(shape as GeneralPath).curveTo(45.407562, 21.417631, 44.943523, 21.771185, 43.993347, 21.771185)
-(shape as GeneralPath).lineTo(35.419678, 21.771185)
-(shape as GeneralPath).lineTo(35.596455, 12.40202)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(35.596455, 12.40202)
+generalPath!!.lineTo(43.021076, 12.40202)
+generalPath!!.curveTo(43.728184, 12.40202, 44.258514, 12.578797, 44.43529, 13.46268)
+generalPath!!.lineTo(45.319176, 20.356972)
+generalPath!!.curveTo(45.407562, 21.417631, 44.943523, 21.771185, 43.993347, 21.771185)
+generalPath!!.lineTo(35.419678, 21.771185)
+generalPath!!.lineTo(35.596455, 12.40202)
+generalPath!!.closePath()
+shape = generalPath
 paint = Color(157, 176, 41, 255)
 g.paint = paint
 g.fill(shape)
 paint = Color(114, 126, 10, 255)
 stroke = BasicStroke(1.0f,1,1,4.0f,null,0.0f)
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(35.596455, 12.40202)
-(shape as GeneralPath).lineTo(43.021076, 12.40202)
-(shape as GeneralPath).curveTo(43.728184, 12.40202, 44.258514, 12.578797, 44.43529, 13.46268)
-(shape as GeneralPath).lineTo(45.319176, 20.356972)
-(shape as GeneralPath).curveTo(45.407562, 21.417631, 44.943523, 21.771185, 43.993347, 21.771185)
-(shape as GeneralPath).lineTo(35.419678, 21.771185)
-(shape as GeneralPath).lineTo(35.596455, 12.40202)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(35.596455, 12.40202)
+generalPath!!.lineTo(43.021076, 12.40202)
+generalPath!!.curveTo(43.728184, 12.40202, 44.258514, 12.578797, 44.43529, 13.46268)
+generalPath!!.lineTo(45.319176, 20.356972)
+generalPath!!.curveTo(45.407562, 21.417631, 44.943523, 21.771185, 43.993347, 21.771185)
+generalPath!!.lineTo(35.419678, 21.771185)
+generalPath!!.lineTo(35.596455, 12.40202)
+generalPath!!.closePath()
+shape = generalPath
 g.paint = paint
 g.stroke = stroke
 g.draw(shape)
@@ -126,15 +152,20 @@ g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_3
 paint = Color(255, 255, 255, 255)
 stroke = BasicStroke(1.0000006f,1,1,4.0f,null,0.0f)
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(36.60295, 13.388875)
-(shape as GeneralPath).lineTo(42.96351, 13.388875)
-(shape as GeneralPath).curveTo(43.271656, 13.388875, 43.440266, 13.419037, 43.486053, 13.710473)
-(shape as GeneralPath).lineTo(44.27749, 20.094448)
-(shape as GeneralPath).curveTo(44.34726, 20.525421, 44.459896, 20.769804, 44.13721, 20.784342)
-(shape as GeneralPath).lineTo(36.463413, 20.784342)
-(shape as GeneralPath).lineTo(36.60295, 13.388875)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(36.60295, 13.388875)
+generalPath!!.lineTo(42.96351, 13.388875)
+generalPath!!.curveTo(43.271656, 13.388875, 43.440266, 13.419037, 43.486053, 13.710473)
+generalPath!!.lineTo(44.27749, 20.094448)
+generalPath!!.curveTo(44.34726, 20.525421, 44.459896, 20.769804, 44.13721, 20.784342)
+generalPath!!.lineTo(36.463413, 20.784342)
+generalPath!!.lineTo(36.60295, 13.388875)
+generalPath!!.closePath()
+shape = generalPath
 g.paint = paint
 g.stroke = stroke
 g.draw(shape)
@@ -143,15 +174,20 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.1507940292358398f, 0.0f, 0.0f, 1.0f, -4.913690090179443f, 0.625f))
 // _0_0_4
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(40.875, 36.75)
-(shape as GeneralPath).curveTo(40.900238, 40.109352, 37.90384, 43.21997, 33.020405, 44.904)
-(shape as GeneralPath).curveTo(28.136969, 46.588028, 22.113031, 46.588028, 17.229597, 44.904)
-(shape as GeneralPath).curveTo(12.346162, 43.21997, 9.34976, 40.109352, 9.375, 36.75)
-(shape as GeneralPath).curveTo(9.34976, 33.390648, 12.346162, 30.28003, 17.229597, 28.596)
-(shape as GeneralPath).curveTo(22.113031, 26.911972, 28.136969, 26.911972, 33.020405, 28.596)
-(shape as GeneralPath).curveTo(37.90384, 30.28003, 40.900238, 33.390648, 40.875, 36.75)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(40.875, 36.75)
+generalPath!!.curveTo(40.900238, 40.109352, 37.90384, 43.21997, 33.020405, 44.904)
+generalPath!!.curveTo(28.136969, 46.588028, 22.113031, 46.588028, 17.229597, 44.904)
+generalPath!!.curveTo(12.346162, 43.21997, 9.34976, 40.109352, 9.375, 36.75)
+generalPath!!.curveTo(9.34976, 33.390648, 12.346162, 30.28003, 17.229597, 28.596)
+generalPath!!.curveTo(22.113031, 26.911972, 28.136969, 26.911972, 33.020405, 28.596)
+generalPath!!.curveTo(37.90384, 30.28003, 40.900238, 33.390648, 40.875, 36.75)
+generalPath!!.closePath()
+shape = generalPath
 paint = RadialGradientPaint(Point2D.Double(25.125, 36.75), 15.75f, Point2D.Double(25.125, 36.75), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 0.5952379703521729f, -6.245005042912098E-16f, 14.875f))
 g.paint = paint
 g.fill(shape)
@@ -160,29 +196,39 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_5
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(36.06451, 20.776499)
-(shape as GeneralPath).lineTo(44.50992, 20.776499)
-(shape as GeneralPath).curveTo(45.314243, 20.776499, 45.91749, 20.995895, 46.11857, 22.092882)
-(shape as GeneralPath).lineTo(47.123974, 30.649382)
-(shape as GeneralPath).curveTo(47.224514, 31.965765, 46.69668, 32.40456, 45.615868, 32.40456)
-(shape as GeneralPath).lineTo(35.863426, 32.40456)
-(shape as GeneralPath).lineTo(36.06451, 20.776499)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(36.06451, 20.776499)
+generalPath!!.lineTo(44.50992, 20.776499)
+generalPath!!.curveTo(45.314243, 20.776499, 45.91749, 20.995895, 46.11857, 22.092882)
+generalPath!!.lineTo(47.123974, 30.649382)
+generalPath!!.curveTo(47.224514, 31.965765, 46.69668, 32.40456, 45.615868, 32.40456)
+generalPath!!.lineTo(35.863426, 32.40456)
+generalPath!!.lineTo(36.06451, 20.776499)
+generalPath!!.closePath()
+shape = generalPath
 paint = Color(239, 41, 41, 255)
 g.paint = paint
 g.fill(shape)
 paint = Color(204, 0, 0, 255)
 stroke = BasicStroke(0.9999999f,1,1,4.0f,null,0.0f)
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(36.06451, 20.776499)
-(shape as GeneralPath).lineTo(44.50992, 20.776499)
-(shape as GeneralPath).curveTo(45.314243, 20.776499, 45.91749, 20.995895, 46.11857, 22.092882)
-(shape as GeneralPath).lineTo(47.123974, 30.649382)
-(shape as GeneralPath).curveTo(47.224514, 31.965765, 46.69668, 32.40456, 45.615868, 32.40456)
-(shape as GeneralPath).lineTo(35.863426, 32.40456)
-(shape as GeneralPath).lineTo(36.06451, 20.776499)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(36.06451, 20.776499)
+generalPath!!.lineTo(44.50992, 20.776499)
+generalPath!!.curveTo(45.314243, 20.776499, 45.91749, 20.995895, 46.11857, 22.092882)
+generalPath!!.lineTo(47.123974, 30.649382)
+generalPath!!.curveTo(47.224514, 31.965765, 46.69668, 32.40456, 45.615868, 32.40456)
+generalPath!!.lineTo(35.863426, 32.40456)
+generalPath!!.lineTo(36.06451, 20.776499)
+generalPath!!.closePath()
+shape = generalPath
 g.paint = paint
 g.stroke = stroke
 g.draw(shape)
@@ -193,15 +239,20 @@ g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_6
 paint = Color(255, 255, 255, 255)
 stroke = BasicStroke(1.0000007f,1,1,4.0f,null,0.0f)
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(37.209385, 21.763575)
-(shape as GeneralPath).lineTo(44.444435, 21.763575)
-(shape as GeneralPath).curveTo(44.79495, 21.763575, 44.98674, 21.801928, 45.038826, 22.172512)
-(shape as GeneralPath).lineTo(45.93907, 30.290268)
-(shape as GeneralPath).curveTo(46.018433, 30.838284, 46.14656, 31.149038, 45.779507, 31.167522)
-(shape as GeneralPath).lineTo(37.05066, 31.167522)
-(shape as GeneralPath).lineTo(37.209385, 21.763575)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(37.209385, 21.763575)
+generalPath!!.lineTo(44.444435, 21.763575)
+generalPath!!.curveTo(44.79495, 21.763575, 44.98674, 21.801928, 45.038826, 22.172512)
+generalPath!!.lineTo(45.93907, 30.290268)
+generalPath!!.curveTo(46.018433, 30.838284, 46.14656, 31.149038, 45.779507, 31.167522)
+generalPath!!.lineTo(37.05066, 31.167522)
+generalPath!!.lineTo(37.209385, 21.763575)
+generalPath!!.closePath()
+shape = generalPath
 g.paint = paint
 g.stroke = stroke
 g.draw(shape)
@@ -210,37 +261,47 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_7
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(6.364322, 5.5185895)
-(shape as GeneralPath).curveTo(6.455105, 3.6036003, 7.371976, 2.5542815, 9.078878, 2.549044)
-(shape as GeneralPath).lineTo(38.405777, 2.4590578)
-(shape as GeneralPath).curveTo(38.652363, 2.458301, 38.974316, 2.659207, 38.999012, 2.9089887)
-(shape as GeneralPath).lineTo(42.257492, 35.86723)
-(shape as GeneralPath).lineTo(40.94219, 35.923862)
-(shape as GeneralPath).lineTo(41.57143, 42.369514)
-(shape as GeneralPath).curveTo(41.632442, 42.9945, 41.39006, 43.52882, 40.5, 43.533035)
-(shape as GeneralPath).lineTo(9.789305, 43.678474)
-(shape as GeneralPath).curveTo(7.25676, 43.690468, 4.6538453, 41.59976, 4.7759337, 39.024403)
-(shape as GeneralPath).lineTo(6.364322, 5.5185895)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(6.364322, 5.5185895)
+generalPath!!.curveTo(6.455105, 3.6036003, 7.371976, 2.5542815, 9.078878, 2.549044)
+generalPath!!.lineTo(38.405777, 2.4590578)
+generalPath!!.curveTo(38.652363, 2.458301, 38.974316, 2.659207, 38.999012, 2.9089887)
+generalPath!!.lineTo(42.257492, 35.86723)
+generalPath!!.lineTo(40.94219, 35.923862)
+generalPath!!.lineTo(41.57143, 42.369514)
+generalPath!!.curveTo(41.632442, 42.9945, 41.39006, 43.52882, 40.5, 43.533035)
+generalPath!!.lineTo(9.789305, 43.678474)
+generalPath!!.curveTo(7.25676, 43.690468, 4.6538453, 41.59976, 4.7759337, 39.024403)
+generalPath!!.lineTo(6.364322, 5.5185895)
+generalPath!!.closePath()
+shape = generalPath
 paint = Color(91, 107, 148, 255)
 g.paint = paint
 g.fill(shape)
 paint = Color(54, 72, 120, 255)
 stroke = BasicStroke(1.0000001f,1,1,4.0f,null,0.0f)
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(6.364322, 5.5185895)
-(shape as GeneralPath).curveTo(6.455105, 3.6036003, 7.371976, 2.5542815, 9.078878, 2.549044)
-(shape as GeneralPath).lineTo(38.405777, 2.4590578)
-(shape as GeneralPath).curveTo(38.652363, 2.458301, 38.974316, 2.659207, 38.999012, 2.9089887)
-(shape as GeneralPath).lineTo(42.257492, 35.86723)
-(shape as GeneralPath).lineTo(40.94219, 35.923862)
-(shape as GeneralPath).lineTo(41.57143, 42.369514)
-(shape as GeneralPath).curveTo(41.632442, 42.9945, 41.39006, 43.52882, 40.5, 43.533035)
-(shape as GeneralPath).lineTo(9.789305, 43.678474)
-(shape as GeneralPath).curveTo(7.25676, 43.690468, 4.6538453, 41.59976, 4.7759337, 39.024403)
-(shape as GeneralPath).lineTo(6.364322, 5.5185895)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(6.364322, 5.5185895)
+generalPath!!.curveTo(6.455105, 3.6036003, 7.371976, 2.5542815, 9.078878, 2.549044)
+generalPath!!.lineTo(38.405777, 2.4590578)
+generalPath!!.curveTo(38.652363, 2.458301, 38.974316, 2.659207, 38.999012, 2.9089887)
+generalPath!!.lineTo(42.257492, 35.86723)
+generalPath!!.lineTo(40.94219, 35.923862)
+generalPath!!.lineTo(41.57143, 42.369514)
+generalPath!!.curveTo(41.632442, 42.9945, 41.39006, 43.52882, 40.5, 43.533035)
+generalPath!!.lineTo(9.789305, 43.678474)
+generalPath!!.curveTo(7.25676, 43.690468, 4.6538453, 41.59976, 4.7759337, 39.024403)
+generalPath!!.lineTo(6.364322, 5.5185895)
+generalPath!!.closePath()
+shape = generalPath
 g.paint = paint
 g.stroke = stroke
 g.draw(shape)
@@ -249,17 +310,22 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_8
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(40.125, 34.875)
-(shape as GeneralPath).lineTo(10.9375, 35.0)
-(shape as GeneralPath).curveTo(9.380982, 35.177868, 8.125, 36.39612, 8.125, 38.0)
-(shape as GeneralPath).curveTo(8.125, 39.60388, 9.380982, 40.822132, 10.9375, 41.0)
-(shape as GeneralPath).lineTo(40.125, 41.125)
-(shape as GeneralPath).lineTo(40.125, 41.0625)
-(shape as GeneralPath).curveTo(38.46938, 40.98435, 37.125, 39.67485, 37.125, 38.0)
-(shape as GeneralPath).curveTo(37.125, 36.32515, 38.46938, 35.01565, 40.125, 34.9375)
-(shape as GeneralPath).lineTo(40.125, 34.875)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(40.125, 34.875)
+generalPath!!.lineTo(10.9375, 35.0)
+generalPath!!.curveTo(9.380982, 35.177868, 8.125, 36.39612, 8.125, 38.0)
+generalPath!!.curveTo(8.125, 39.60388, 9.380982, 40.822132, 10.9375, 41.0)
+generalPath!!.lineTo(40.125, 41.125)
+generalPath!!.lineTo(40.125, 41.0625)
+generalPath!!.curveTo(38.46938, 40.98435, 37.125, 39.67485, 37.125, 38.0)
+generalPath!!.curveTo(37.125, 36.32515, 38.46938, 35.01565, 40.125, 34.9375)
+generalPath!!.lineTo(40.125, 34.875)
+generalPath!!.closePath()
+shape = generalPath
 paint = LinearGradientPaint(Point2D.Double(10.496114730834961, 93.33804321289062), Point2D.Double(10.219901084899902, 84.28707885742188), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(203, 203, 203, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(2.262742042541504f, 0.0f, 0.0f, 0.4419420063495636f, 1.0f, -0.875f))
 g.paint = paint
 g.fill(shape)
@@ -268,17 +334,22 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_9
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(9.6875, 2.8125)
-(shape as GeneralPath).curveTo(7.98059, 2.8125, 7.050103, 3.8215063, 6.96875, 5.673866)
-(shape as GeneralPath).lineTo(5.3125, 37.82577)
-(shape as GeneralPath).curveTo(5.22054, 40.904198, 7.1393733, 42.654484, 9.125, 43.15625)
-(shape as GeneralPath).curveTo(4.875, 41.525578, 5.4375, 34.164455, 10.75, 34.19522)
-(shape as GeneralPath).lineTo(41.648285, 34.19522)
-(shape as GeneralPath).lineTo(38.335785, 3.2432432)
-(shape as GeneralPath).curveTo(38.310024, 3.0025303, 37.987877, 2.8125, 37.742035, 2.8125)
-(shape as GeneralPath).lineTo(9.6875, 2.8125)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(9.6875, 2.8125)
+generalPath!!.curveTo(7.98059, 2.8125, 7.050103, 3.8215063, 6.96875, 5.673866)
+generalPath!!.lineTo(5.3125, 37.82577)
+generalPath!!.curveTo(5.22054, 40.904198, 7.1393733, 42.654484, 9.125, 43.15625)
+generalPath!!.curveTo(4.875, 41.525578, 5.4375, 34.164455, 10.75, 34.19522)
+generalPath!!.lineTo(41.648285, 34.19522)
+generalPath!!.lineTo(38.335785, 3.2432432)
+generalPath!!.curveTo(38.310024, 3.0025303, 37.987877, 2.8125, 37.742035, 2.8125)
+generalPath!!.lineTo(9.6875, 2.8125)
+generalPath!!.closePath()
+shape = generalPath
 paint = LinearGradientPaint(Point2D.Double(6.587181091308594, 22.132999420166016), Point2D.Double(14.511404037475586, 22.132999420166016), floatArrayOf(0.0f,1.0f), arrayOf(Color(214, 227, 240, 255),Color(149, 177, 207, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.9577500224113464f, 0.0f, 0.0f, 1.0279890298843384f, 1.0f, -0.5719109773635864f))
 g.paint = paint
 g.fill(shape)
@@ -298,16 +369,21 @@ g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_11
 paint = LinearGradientPaint(Point2D.Double(73.36198425292969, 26.652196884155273), Point2D.Double(-2.7582900524139404, 21.270376205444336), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(255, 255, 255, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.025428056716919f, 0.0f, 0.0f, 0.957302987575531f, 0.0f, -0.8067579865455627f))
 stroke = BasicStroke(1.0000001f,1,0,20.0f,null,0.0f)
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(9.875101, 3.333683)
-(shape as GeneralPath).curveTo(8.191201, 3.333683, 7.5384235, 4.065846, 7.4581676, 5.887831)
-(shape as GeneralPath).lineTo(6.159263, 35.7772)
-(shape as GeneralPath).curveTo(7.092592, 34.170452, 8.598859, 33.594437, 11.011665, 33.594437)
-(shape as GeneralPath).lineTo(40.96308, 33.594437)
-(shape as GeneralPath).lineTo(38.13718, 3.757363)
-(shape as GeneralPath).curveTo(38.114727, 3.5203092, 37.79396, 3.333683, 37.551434, 3.333683)
-(shape as GeneralPath).lineTo(9.875101, 3.333683)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(9.875101, 3.333683)
+generalPath!!.curveTo(8.191201, 3.333683, 7.5384235, 4.065846, 7.4581676, 5.887831)
+generalPath!!.lineTo(6.159263, 35.7772)
+generalPath!!.curveTo(7.092592, 34.170452, 8.598859, 33.594437, 11.011665, 33.594437)
+generalPath!!.lineTo(40.96308, 33.594437)
+generalPath!!.lineTo(38.13718, 3.757363)
+generalPath!!.curveTo(38.114727, 3.5203092, 37.79396, 3.333683, 37.551434, 3.333683)
+generalPath!!.lineTo(9.875101, 3.333683)
+generalPath!!.closePath()
+shape = generalPath
 g.paint = paint
 g.stroke = stroke
 g.draw(shape)
@@ -316,62 +392,67 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_12
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(21.12553, 18.381289)
-(shape as GeneralPath).curveTo(21.050283, 19.50227, 21.269377, 20.384155, 21.782812, 21.026947)
-(shape as GeneralPath).curveTo(22.296751, 21.66191, 23.039742, 21.979387, 24.011787, 21.979387)
-(shape as GeneralPath).curveTo(24.97597, 21.979387, 25.754005, 21.65799, 26.345892, 21.01519)
-(shape as GeneralPath).curveTo(26.94559, 20.372398, 27.282799, 19.49443, 27.357529, 18.381289)
-(shape as GeneralPath).curveTo(27.431173, 17.283838, 27.207373, 16.41371, 26.686123, 15.770905)
-(shape as GeneralPath).curveTo(26.16537, 15.120279, 25.426826, 14.794959, 24.470482, 14.79495)
-(shape as GeneralPath).curveTo(23.521952, 14.794959, 22.743917, 15.11636, 22.136377, 15.759145)
-(shape as GeneralPath).curveTo(21.536655, 16.401953, 21.199707, 17.275997, 21.12553, 18.381289)
-(shape as GeneralPath).moveTo(27.29793, 21.897076)
-(shape as GeneralPath).curveTo(26.787062, 22.500679, 26.216183, 22.9475, 25.58529, 23.237543)
-(shape as GeneralPath).curveTo(24.962734, 23.519747, 24.247753, 23.66085, 23.44035, 23.660849)
-(shape as GeneralPath).curveTo(22.092031, 23.66085, 21.027197, 23.174831, 20.245834, 22.202797)
-(shape as GeneralPath).curveTo(19.472826, 21.222925, 19.138939, 19.949093, 19.244171, 18.381289)
-(shape as GeneralPath).curveTo(19.349396, 16.813498, 19.858196, 15.539665, 20.770584, 14.559781)
-(shape as GeneralPath).curveTo(21.682955, 13.579917, 22.809376, 13.089981, 24.149855, 13.089969)
-(shape as GeneralPath).curveTo(24.957256, 13.089981, 25.656689, 13.238924, 26.24815, 13.536791)
-(shape as GeneralPath).curveTo(26.840107, 13.826846, 27.347351, 14.269749, 27.76988, 14.865501)
-(shape as GeneralPath).lineTo(27.873266, 13.325141)
-(shape as GeneralPath).lineTo(29.554731, 13.325141)
-(shape as GeneralPath).lineTo(28.973867, 21.979387)
-(shape as GeneralPath).curveTo(30.129917, 21.80693, 31.058552, 21.285637, 31.75977, 20.415508)
-(shape as GeneralPath).curveTo(32.46931, 19.537544, 32.87066, 18.404812, 32.963806, 17.017303)
-(shape as GeneralPath).curveTo(33.02008, 16.178541, 32.947536, 15.390722, 32.746166, 14.653848)
-(shape as GeneralPath).curveTo(32.552597, 13.916994, 32.226017, 13.235002, 31.766436, 12.607873)
-(shape as GeneralPath).curveTo(31.020084, 11.580979, 30.07715, 10.79708, 28.937626, 10.256176)
-(shape as GeneralPath).curveTo(27.806429, 9.707462, 26.551006, 9.433097, 25.171362, 9.433081)
-(shape as GeneralPath).curveTo(24.207151, 9.433097, 23.27347, 9.56244, 22.370314, 9.821111)
-(shape as GeneralPath).curveTo(21.467663, 10.071974, 20.623234, 10.448244, 19.837027, 10.949925)
-(shape as GeneralPath).curveTo(18.55263, 11.749517, 17.517933, 12.79994, 16.73293, 14.101199)
-(shape as GeneralPath).curveTo(15.956279, 15.394643, 15.517185, 16.79782, 15.415642, 18.310738)
-(shape as GeneralPath).curveTo(15.331983, 19.557142, 15.476998, 20.725151, 15.85069, 21.814766)
-(shape as GeneralPath).curveTo(16.232212, 22.904387, 16.822315, 23.864664, 17.621, 24.695595)
-(shape as GeneralPath).curveTo(18.389368, 25.51085, 19.300238, 26.130129, 20.353615, 26.553434)
-(shape as GeneralPath).curveTo(21.406448, 26.984577, 22.54823, 27.20015, 23.778961, 27.200153)
-(shape as GeneralPath).curveTo(24.790178, 27.20015, 25.793385, 27.027693, 26.788584, 26.682781)
-(shape as GeneralPath).curveTo(27.791067, 26.345701, 28.72125, 25.859684, 29.57914, 25.224728)
-(shape as GeneralPath).lineTo(30.5498, 26.529919)
-(shape as GeneralPath).curveTo(29.518873, 27.2903, 28.409918, 27.870384, 27.222933, 28.270174)
-(shape as GeneralPath).curveTo(26.043226, 28.6778, 24.857618, 28.881613, 23.666103, 28.881617)
-(shape as GeneralPath).curveTo(22.215881, 28.881613, 20.865341, 28.622927, 19.614483, 28.105556)
-(shape as GeneralPath).curveTo(18.36308, 27.59602, 17.268572, 26.851316, 16.330956, 25.871445)
-(shape as GeneralPath).curveTo(15.393328, 24.89157, 14.705054, 23.758839, 14.266133, 22.47324)
-(shape as GeneralPath).curveTo(13.827731, 21.179813, 13.658252, 19.79231, 13.757696, 18.310738)
-(shape as GeneralPath).curveTo(13.853452, 16.88405, 14.211263, 15.523986, 14.831129, 14.230542)
-(shape as GeneralPath).curveTo(15.450993, 12.937121, 16.287663, 11.800469, 17.34115, 10.820582)
-(shape as GeneralPath).curveTo(18.419191, 9.825045, 19.638235, 9.064666, 20.998287, 8.539436)
-(shape as GeneralPath).curveTo(22.358843, 8.0064, 23.779907, 7.739876, 25.26149, 7.7398586)
-(shape as GeneralPath).curveTo(26.923342, 7.739876, 28.440813, 8.080872, 29.813913, 8.762847)
-(shape as GeneralPath).curveTo(31.194815, 9.444854, 32.325283, 10.41297, 33.205315, 11.667193)
-(shape as GeneralPath).curveTo(33.741657, 12.435425, 34.132442, 13.270279, 34.377678, 14.171752)
-(shape as GeneralPath).curveTo(34.630707, 15.073243, 34.724876, 16.006083, 34.660187, 16.97027)
-(shape as GeneralPath).curveTo(34.521786, 19.031929, 33.789413, 20.65852, 32.463062, 21.85004)
-(shape as GeneralPath).curveTo(31.136671, 23.04157, 29.374449, 23.66085, 27.17639, 23.707884)
-(shape as GeneralPath).lineTo(27.29793, 21.897076)
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(21.12553, 18.381289)
+generalPath!!.curveTo(21.050283, 19.50227, 21.269377, 20.384155, 21.782812, 21.026947)
+generalPath!!.curveTo(22.296751, 21.66191, 23.039742, 21.979387, 24.011787, 21.979387)
+generalPath!!.curveTo(24.97597, 21.979387, 25.754005, 21.65799, 26.345892, 21.01519)
+generalPath!!.curveTo(26.94559, 20.372398, 27.282799, 19.49443, 27.357529, 18.381289)
+generalPath!!.curveTo(27.431173, 17.283838, 27.207373, 16.41371, 26.686123, 15.770905)
+generalPath!!.curveTo(26.16537, 15.120279, 25.426826, 14.794959, 24.470482, 14.79495)
+generalPath!!.curveTo(23.521952, 14.794959, 22.743917, 15.11636, 22.136377, 15.759145)
+generalPath!!.curveTo(21.536655, 16.401953, 21.199707, 17.275997, 21.12553, 18.381289)
+generalPath!!.moveTo(27.29793, 21.897076)
+generalPath!!.curveTo(26.787062, 22.500679, 26.216183, 22.9475, 25.58529, 23.237543)
+generalPath!!.curveTo(24.962734, 23.519747, 24.247753, 23.66085, 23.44035, 23.660849)
+generalPath!!.curveTo(22.092031, 23.66085, 21.027197, 23.174831, 20.245834, 22.202797)
+generalPath!!.curveTo(19.472826, 21.222925, 19.138939, 19.949093, 19.244171, 18.381289)
+generalPath!!.curveTo(19.349396, 16.813498, 19.858196, 15.539665, 20.770584, 14.559781)
+generalPath!!.curveTo(21.682955, 13.579917, 22.809376, 13.089981, 24.149855, 13.089969)
+generalPath!!.curveTo(24.957256, 13.089981, 25.656689, 13.238924, 26.24815, 13.536791)
+generalPath!!.curveTo(26.840107, 13.826846, 27.347351, 14.269749, 27.76988, 14.865501)
+generalPath!!.lineTo(27.873266, 13.325141)
+generalPath!!.lineTo(29.554731, 13.325141)
+generalPath!!.lineTo(28.973867, 21.979387)
+generalPath!!.curveTo(30.129917, 21.80693, 31.058552, 21.285637, 31.75977, 20.415508)
+generalPath!!.curveTo(32.46931, 19.537544, 32.87066, 18.404812, 32.963806, 17.017303)
+generalPath!!.curveTo(33.02008, 16.178541, 32.947536, 15.390722, 32.746166, 14.653848)
+generalPath!!.curveTo(32.552597, 13.916994, 32.226017, 13.235002, 31.766436, 12.607873)
+generalPath!!.curveTo(31.020084, 11.580979, 30.07715, 10.79708, 28.937626, 10.256176)
+generalPath!!.curveTo(27.806429, 9.707462, 26.551006, 9.433097, 25.171362, 9.433081)
+generalPath!!.curveTo(24.207151, 9.433097, 23.27347, 9.56244, 22.370314, 9.821111)
+generalPath!!.curveTo(21.467663, 10.071974, 20.623234, 10.448244, 19.837027, 10.949925)
+generalPath!!.curveTo(18.55263, 11.749517, 17.517933, 12.79994, 16.73293, 14.101199)
+generalPath!!.curveTo(15.956279, 15.394643, 15.517185, 16.79782, 15.415642, 18.310738)
+generalPath!!.curveTo(15.331983, 19.557142, 15.476998, 20.725151, 15.85069, 21.814766)
+generalPath!!.curveTo(16.232212, 22.904387, 16.822315, 23.864664, 17.621, 24.695595)
+generalPath!!.curveTo(18.389368, 25.51085, 19.300238, 26.130129, 20.353615, 26.553434)
+generalPath!!.curveTo(21.406448, 26.984577, 22.54823, 27.20015, 23.778961, 27.200153)
+generalPath!!.curveTo(24.790178, 27.20015, 25.793385, 27.027693, 26.788584, 26.682781)
+generalPath!!.curveTo(27.791067, 26.345701, 28.72125, 25.859684, 29.57914, 25.224728)
+generalPath!!.lineTo(30.5498, 26.529919)
+generalPath!!.curveTo(29.518873, 27.2903, 28.409918, 27.870384, 27.222933, 28.270174)
+generalPath!!.curveTo(26.043226, 28.6778, 24.857618, 28.881613, 23.666103, 28.881617)
+generalPath!!.curveTo(22.215881, 28.881613, 20.865341, 28.622927, 19.614483, 28.105556)
+generalPath!!.curveTo(18.36308, 27.59602, 17.268572, 26.851316, 16.330956, 25.871445)
+generalPath!!.curveTo(15.393328, 24.89157, 14.705054, 23.758839, 14.266133, 22.47324)
+generalPath!!.curveTo(13.827731, 21.179813, 13.658252, 19.79231, 13.757696, 18.310738)
+generalPath!!.curveTo(13.853452, 16.88405, 14.211263, 15.523986, 14.831129, 14.230542)
+generalPath!!.curveTo(15.450993, 12.937121, 16.287663, 11.800469, 17.34115, 10.820582)
+generalPath!!.curveTo(18.419191, 9.825045, 19.638235, 9.064666, 20.998287, 8.539436)
+generalPath!!.curveTo(22.358843, 8.0064, 23.779907, 7.739876, 25.26149, 7.7398586)
+generalPath!!.curveTo(26.923342, 7.739876, 28.440813, 8.080872, 29.813913, 8.762847)
+generalPath!!.curveTo(31.194815, 9.444854, 32.325283, 10.41297, 33.205315, 11.667193)
+generalPath!!.curveTo(33.741657, 12.435425, 34.132442, 13.270279, 34.377678, 14.171752)
+generalPath!!.curveTo(34.630707, 15.073243, 34.724876, 16.006083, 34.660187, 16.97027)
+generalPath!!.curveTo(34.521786, 19.031929, 33.789413, 20.65852, 32.463062, 21.85004)
+generalPath!!.curveTo(31.136671, 23.04157, 29.374449, 23.66085, 27.17639, 23.707884)
+generalPath!!.lineTo(27.29793, 21.897076)
+shape = generalPath
 paint = Color(173, 127, 168, 255)
 g.paint = paint
 g.fill(shape)
@@ -380,15 +461,20 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(0.6111270189285278f, 0.0f, 0.0f, 0.6111270189285278f, -24.949920654296875f, -67.63529205322266f))
 // _0_0_13
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(69.375, 125.0)
-(shape as GeneralPath).curveTo(69.39803, 130.151, 66.66322, 134.92062, 62.206123, 137.50279)
-(shape as GeneralPath).curveTo(57.74902, 140.08498, 52.25098, 140.08498, 47.793877, 137.50279)
-(shape as GeneralPath).curveTo(43.336773, 134.92062, 40.601963, 130.151, 40.625, 125.0)
-(shape as GeneralPath).curveTo(40.601963, 119.84899, 43.336773, 115.07938, 47.793877, 112.4972)
-(shape as GeneralPath).curveTo(52.25098, 109.91502, 57.74902, 109.91502, 62.206123, 112.4972)
-(shape as GeneralPath).curveTo(66.66322, 115.07938, 69.39803, 119.84899, 69.375, 125.0)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(69.375, 125.0)
+generalPath!!.curveTo(69.39803, 130.151, 66.66322, 134.92062, 62.206123, 137.50279)
+generalPath!!.curveTo(57.74902, 140.08498, 52.25098, 140.08498, 47.793877, 137.50279)
+generalPath!!.curveTo(43.336773, 134.92062, 40.601963, 130.151, 40.625, 125.0)
+generalPath!!.curveTo(40.601963, 119.84899, 43.336773, 115.07938, 47.793877, 112.4972)
+generalPath!!.curveTo(52.25098, 109.91502, 57.74902, 109.91502, 62.206123, 112.4972)
+generalPath!!.curveTo(66.66322, 115.07938, 69.39803, 119.84899, 69.375, 125.0)
+generalPath!!.closePath()
+shape = generalPath
 paint = RadialGradientPaint(Point2D.Double(55.0, 125.0), 14.375f, Point2D.Double(55.0, 125.0), floatArrayOf(0.0f,0.5f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(255, 245, 32, 227),Color(255, 243, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
@@ -414,6 +500,7 @@ g.transform = transformsStack.pop()
 
 
 	    shape = null
+	    generalPath = null
 	    paint = null
 	    stroke = null
 	    clip = null
@@ -496,12 +583,12 @@ g.transform = transformsStack.pop()
         return height
     }
 
-    override fun setDimension(newDimension: Dimension) {
+    override @Synchronized fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
     }
 
-    override fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
+    override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
         val g2d = g.create() as Graphics2D
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON)

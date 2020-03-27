@@ -70,6 +70,14 @@ The second part passes the mandatory parameters:
 * `/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ` as the path of the template file
 * `outputLanguage=java` to specify that the transcoded classes should be Java code
 
+#### Important note for offline transcoding
+
+The intended usage and the scope of Photon is to convert reasonably sized icons for usages as supporting imagery without the additional overhead of bundling a full-fledged SVG parsing and rendering library.
+
+SVG content can be arbitrarily complex. For example, [this Spain flag](https://en.wikipedia.org/wiki/File:Flag_of_Spain.svg) is 59KB in the SVG format. It is transcoded by Photon to a 643KB Java file, and then compiled to a 319KB class file. There are more complex flags, such as [Ecuador](https://en.wikipedia.org/wiki/File:Flag_of_Ecuador.svg) with a lot more details or [Afghanistan](https://en.wikipedia.org/wiki/File:Flag_of_Afghanistan.svg) that has a huge path with more than 8K elements in it (all the white outlines of mosque, wheat and inscription is a single path). Such files produce a Java / Kotlin class that can't be compiled due to too many symbols in it.
+
+Photon **does not** provide support for such huge SVG files. At some point, the binary size of the compiled transcoded classes is at the same order of magnitude as simply bundling the original SVGs and the full Batik distribution.
+
 ### Dynamic display of SVG content at runtime
 
 The second option to display content of SVG icons is to use the `SvgBatikResizableIcon` class. It provides a number of static methods to load the SVG content from an `InputStream` or a `URL`. The source can be either uncompressed or compressed (use `getSvgIcon` or `getSvgzIcon` APIs respectively).

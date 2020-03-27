@@ -31,7 +31,6 @@ package org.pushingpixels.photon.api.transcoder.kotlin;
 
 import org.pushingpixels.photon.api.transcoder.LanguageRenderer;
 
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -54,6 +53,11 @@ public class KotlinLanguageRenderer implements LanguageRenderer {
     @Override
     public String getObjectCast(String objectName, String classToCastTo) {
         return "(" + objectName + " as " + classToCastTo + ")";
+    }
+
+    @Override
+    public String getObjectNoNull(String objectName) {
+        return objectName + "!!";
     }
 
     @Override

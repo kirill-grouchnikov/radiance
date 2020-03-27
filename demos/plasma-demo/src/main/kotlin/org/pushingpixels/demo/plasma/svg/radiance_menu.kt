@@ -21,6 +21,7 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource
 class radiance_menu private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
     @Suppress("UNUSED_VARIABLE") private var shape: Shape? = null
+    @Suppress("UNUSED_VARIABLE") private var generalPath: GeneralPath? = null
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
@@ -39,35 +40,40 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 2.0f, 2.0f))
 // _0_0
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(10.0, 0.0)
-(shape as GeneralPath).lineTo(20.0, 10.0)
-(shape as GeneralPath).lineTo(10.0, 20.0)
-(shape as GeneralPath).lineTo(0.0, 10.0)
-(shape as GeneralPath).lineTo(10.0, 0.0)
-(shape as GeneralPath).closePath()
-(shape as GeneralPath).moveTo(5.70703, 7.12131)
-(shape as GeneralPath).lineTo(2.82861, 10.0)
-(shape as GeneralPath).lineTo(5.70703, 12.8787)
-(shape as GeneralPath).lineTo(7.17188, 11.4141)
-(shape as GeneralPath).lineTo(8.58594, 12.8282)
-(shape as GeneralPath).lineTo(7.12109, 14.2928)
-(shape as GeneralPath).lineTo(10.0, 17.1716)
-(shape as GeneralPath).lineTo(12.8789, 14.2928)
-(shape as GeneralPath).lineTo(11.4141, 12.8282)
-(shape as GeneralPath).lineTo(12.8281, 11.4141)
-(shape as GeneralPath).lineTo(14.293, 12.8787)
-(shape as GeneralPath).lineTo(17.1714, 10.0)
-(shape as GeneralPath).lineTo(14.293, 7.12131)
-(shape as GeneralPath).lineTo(10.0, 11.4141)
-(shape as GeneralPath).lineTo(5.70703, 7.12131)
-(shape as GeneralPath).closePath()
-(shape as GeneralPath).moveTo(7.12158, 5.70715)
-(shape as GeneralPath).lineTo(10.0, 8.58591)
-(shape as GeneralPath).lineTo(12.8789, 5.70718)
-(shape as GeneralPath).lineTo(10.0, 2.82843)
-(shape as GeneralPath).lineTo(7.12158, 5.70715)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(10.0, 0.0)
+generalPath!!.lineTo(20.0, 10.0)
+generalPath!!.lineTo(10.0, 20.0)
+generalPath!!.lineTo(0.0, 10.0)
+generalPath!!.lineTo(10.0, 0.0)
+generalPath!!.closePath()
+generalPath!!.moveTo(5.70703, 7.12131)
+generalPath!!.lineTo(2.82861, 10.0)
+generalPath!!.lineTo(5.70703, 12.8787)
+generalPath!!.lineTo(7.17188, 11.4141)
+generalPath!!.lineTo(8.58594, 12.8282)
+generalPath!!.lineTo(7.12109, 14.2928)
+generalPath!!.lineTo(10.0, 17.1716)
+generalPath!!.lineTo(12.8789, 14.2928)
+generalPath!!.lineTo(11.4141, 12.8282)
+generalPath!!.lineTo(12.8281, 11.4141)
+generalPath!!.lineTo(14.293, 12.8787)
+generalPath!!.lineTo(17.1714, 10.0)
+generalPath!!.lineTo(14.293, 7.12131)
+generalPath!!.lineTo(10.0, 11.4141)
+generalPath!!.lineTo(5.70703, 7.12131)
+generalPath!!.closePath()
+generalPath!!.moveTo(7.12158, 5.70715)
+generalPath!!.lineTo(10.0, 8.58591)
+generalPath!!.lineTo(12.8789, 5.70718)
+generalPath!!.lineTo(10.0, 2.82843)
+generalPath!!.lineTo(7.12158, 5.70715)
+generalPath!!.closePath()
+shape = generalPath
 paint = Color(0, 0, 0, 255)
 g.paint = paint
 g.fill(shape)
@@ -92,6 +98,7 @@ g.transform = transformsStack.pop()
 
 
 	    shape = null
+	    generalPath = null
 	    paint = null
 	    stroke = null
 	    clip = null
@@ -174,12 +181,12 @@ g.transform = transformsStack.pop()
         return height
     }
 
-    override fun setDimension(newDimension: Dimension) {
+    override @Synchronized fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
     }
 
-    override fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
+    override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
         val g2d = g.create() as Graphics2D
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON)

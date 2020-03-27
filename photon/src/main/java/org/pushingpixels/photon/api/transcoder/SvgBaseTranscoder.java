@@ -65,15 +65,14 @@ abstract class SvgBaseTranscoder {
     /**
      * Print writer that is used during the transcoding traversal to buffer the rendering instructions.
      */
-    //protected PrintWriter printWriter;
-    protected PrintWriterManager printWriterManager;
+    private PrintWriterManager printWriterManager;
 
     private LanguageRenderer languageRenderer;
 
     /**
      * Class name for the generated Java2D code.
      */
-    protected String classname;
+    private String classname;
 
     /**
      * Package name for the generated Java2D code.
@@ -101,7 +100,6 @@ abstract class SvgBaseTranscoder {
     private static class PrintWriterManager {
         private static final int ROTATION_THRESHOLD = 1000;
 
-        private List<PrintWriter> writerList = new ArrayList<>();
         private List<ByteArrayOutputStream> streamList = new ArrayList<>();
 
         private PrintWriter currentWriter;
@@ -111,7 +109,6 @@ abstract class SvgBaseTranscoder {
             ByteArrayOutputStream paintingCodeStream = new ByteArrayOutputStream();
             this.streamList.add(paintingCodeStream);
             this.currentWriter = new PrintWriter(paintingCodeStream);
-            this.writerList.add(this.currentWriter);
         }
 
         public void println(String string) {
@@ -137,7 +134,6 @@ abstract class SvgBaseTranscoder {
                 ByteArrayOutputStream paintingCodeStream = new ByteArrayOutputStream();
                 this.streamList.add(paintingCodeStream);
                 this.currentWriter = new PrintWriter(paintingCodeStream);
-                this.writerList.add(this.currentWriter);
                 lines = 0;
             }
         }
@@ -224,11 +220,8 @@ abstract class SvgBaseTranscoder {
         templateString = templateString.replaceAll(TOKEN_RASTER_CODE, rasterCode);
 
         // Pass 2 - transcode the rest of the content
-//        ByteArrayOutputStream paintingCodeStream = new ByteArrayOutputStream();
-//        this.printWriter = new PrintWriter(paintingCodeStream);
         this.printWriterManager = new PrintWriterManager();
         transcodeGraphicsNode(gvtRoot, "");
-//        this.printWriter.close();
         this.printWriterManager.close();
 
         List<ByteArrayOutputStream> paintingCodeStreams = this.printWriterManager.getStreamList();
@@ -246,20 +239,11 @@ abstract class SvgBaseTranscoder {
         }
         templateString = templateString.replaceAll(TOKEN_PAINTING_CODE, combinedPaintingCode.toString());
 
-//        String paintingCode = new String(paintingCodeStream.toByteArray());
-//        String paintingCodeMethod = languageRenderer.startMethod("_paint",
-//                new LanguageRenderer.MethodArgument("g", "Graphics2D"),
-//                new LanguageRenderer.MethodArgument("origAlpha", languageRenderer.getPrimitiveTypeFor(float.class)))
-//                + "\n" + paintingCode + "\n" + languageRenderer.endMethod();
-//        templateString = templateString.replaceAll(TOKEN_PAINTING_CODE, paintingCodeMethod);
-
         StringBuffer combinedPaintingInvocations = new StringBuffer();
         for (int i = 0; i < streamCount; i++) {
             combinedPaintingInvocations.append("_paint" + i + "(g, origAlpha)" +
                     languageRenderer.getStatementEnd() + "\n");
         }
-//        templateString = templateString.replaceAll(TOKEN_PAINTING_INVOCATIONS,
-//                "_paint(g, origAlpha)" + languageRenderer.getStatementEnd());
         templateString = templateString.replaceAll(TOKEN_PAINTING_INVOCATIONS,
                 combinedPaintingInvocations.toString());
 
@@ -288,44 +272,53 @@ abstract class SvgBaseTranscoder {
      */
     private void transcodePathIterator(PathIterator pathIterator, String suffix) {
         float[] coords = new float[6];
-        printWriterManager.println("shape" + suffix + " = "
+        printWriterManager.println("if (generalPath == null) {");
+        printWriterManager.println("   generalPath" + suffix + " = "
                 + languageRenderer.getObjectCreationNoParams("GeneralPath")
                 + languageRenderer.getStatementEnd());
+        printWriterManager.println("} else {");
+        printWriterManager.println("   " + languageRenderer.getObjectNoNull("generalPath" + suffix)
+                + ".reset()" + languageRenderer.getStatementEnd());
+        printWriterManager.println("}");
+//        printWriterManager.println("shape" + suffix + " = "
+//                + languageRenderer.getObjectCreationNoParams("GeneralPath")
+//                + languageRenderer.getStatementEnd());
         for (; !pathIterator.isDone(); pathIterator.next()) {
+            // Check in - this is needed for extreme cases for paths that have thousands of segments.
+            // Probably the resulting class will run into "error: too many constants" in any case ¯\_(ツ)_/¯
+            printWriterManager.checkin();
             int type = pathIterator.currentSegment(coords);
             switch (type) {
                 case PathIterator.SEG_CUBICTO:
-                    printWriterManager.println(
-                            languageRenderer.getObjectCast("shape" + suffix, "GeneralPath")
-                                    + ".curveTo(" + coords[0] + ", " + coords[1] + ", " + coords[2] + ", "
-                                    + coords[3] + ", " + coords[4] + ", " + coords[5] + ")"
-                                    + languageRenderer.getStatementEnd());
+                    printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
+                            + ".curveTo(" + coords[0] + ", " + coords[1] + ", " + coords[2] + ", "
+                            + coords[3] + ", " + coords[4] + ", " + coords[5] + ")"
+                            + languageRenderer.getStatementEnd());
                     break;
                 case PathIterator.SEG_QUADTO:
-                    printWriterManager.println(
-                            languageRenderer.getObjectCast("shape" + suffix, "GeneralPath")
-                                    + ".quadTo(" + coords[0] + ", " + coords[1] + ", " + coords[2] + ", "
-                                    + coords[3] + ")" + languageRenderer.getStatementEnd());
+                    printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
+                            + ".quadTo(" + coords[0] + ", " + coords[1] + ", " + coords[2] + ", "
+                            + coords[3] + ")" + languageRenderer.getStatementEnd());
                     break;
                 case PathIterator.SEG_MOVETO:
-                    printWriterManager.println(
-                            languageRenderer.getObjectCast("shape" + suffix, "GeneralPath")
-                                    + ".moveTo(" + coords[0] + ", " + coords[1] + ")"
-                                    + languageRenderer.getStatementEnd());
+                    printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
+                            + ".moveTo(" + coords[0] + ", " + coords[1] + ")"
+                            + languageRenderer.getStatementEnd());
                     break;
                 case PathIterator.SEG_LINETO:
-                    printWriterManager.println(
-                            languageRenderer.getObjectCast("shape" + suffix, "GeneralPath")
-                                    + ".lineTo(" + coords[0] + ", " + coords[1] + ")"
-                                    + languageRenderer.getStatementEnd());
+                    printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
+                            + ".lineTo(" + coords[0] + ", " + coords[1] + ")"
+                            + languageRenderer.getStatementEnd());
                     break;
                 case PathIterator.SEG_CLOSE:
-                    printWriterManager.println(
-                            languageRenderer.getObjectCast("shape" + suffix, "GeneralPath")
-                                    + ".closePath()" + languageRenderer.getStatementEnd());
+                    printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
+                            + ".closePath()" + languageRenderer.getStatementEnd());
                     break;
             }
         }
+        printWriterManager.println("shape" + suffix + " = generalPath"
+                + languageRenderer.getStatementEnd());
+
     }
 
     /**

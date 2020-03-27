@@ -21,6 +21,7 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource
 class Format_justify_fill private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
     @Suppress("UNUSED_VARIABLE") private var shape: Shape? = null
+    @Suppress("UNUSED_VARIABLE") private var generalPath: GeneralPath? = null
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
@@ -43,15 +44,20 @@ g.composite = AlphaComposite.getInstance(3, 0.47368422f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.4723349809646606f, 0.0f, 0.0f, 0.2663849890232086f, -9.159070014953613f, 37.48202896118164f))
 // _0_0_0
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(38.142857, 30.857143)
-(shape as GeneralPath).curveTo(38.16781, 34.491642, 35.205383, 37.857037, 30.377314, 39.678993)
-(shape as GeneralPath).curveTo(25.549248, 41.500954, 19.593609, 41.500954, 14.765542, 39.678993)
-(shape as GeneralPath).curveTo(9.937474, 37.857037, 6.9750466, 34.491642, 7.0, 30.857143)
-(shape as GeneralPath).curveTo(6.9750466, 27.222643, 9.937474, 23.85725, 14.765542, 22.035294)
-(shape as GeneralPath).curveTo(19.593609, 20.213335, 25.549248, 20.213335, 30.377314, 22.035294)
-(shape as GeneralPath).curveTo(35.205383, 23.85725, 38.16781, 27.222643, 38.142857, 30.857143)
-(shape as GeneralPath).closePath()
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(38.142857, 30.857143)
+generalPath!!.curveTo(38.16781, 34.491642, 35.205383, 37.857037, 30.377314, 39.678993)
+generalPath!!.curveTo(25.549248, 41.500954, 19.593609, 41.500954, 14.765542, 39.678993)
+generalPath!!.curveTo(9.937474, 37.857037, 6.9750466, 34.491642, 7.0, 30.857143)
+generalPath!!.curveTo(6.9750466, 27.222643, 9.937474, 23.85725, 14.765542, 22.035294)
+generalPath!!.curveTo(19.593609, 20.213335, 25.549248, 20.213335, 30.377314, 22.035294)
+generalPath!!.curveTo(35.205383, 23.85725, 38.16781, 27.222643, 38.142857, 30.857143)
+generalPath!!.closePath()
+shape = generalPath
 paint = RadialGradientPaint(Point2D.Double(22.571428298950195, 30.85714340209961), 15.571428f, Point2D.Double(22.571428298950195, 30.85714340209961), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 0.6513760089874268f, 4.6386480336631404E-15f, 10.757539749145508f))
 g.paint = paint
 g.fill(shape)
@@ -148,6 +154,7 @@ g.transform = transformsStack.pop()
 
 
 	    shape = null
+	    generalPath = null
 	    paint = null
 	    stroke = null
 	    clip = null
@@ -230,12 +237,12 @@ g.transform = transformsStack.pop()
         return height
     }
 
-    override fun setDimension(newDimension: Dimension) {
+    override @Synchronized fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
     }
 
-    override fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
+    override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
         val g2d = g.create() as Graphics2D
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON)
