@@ -31,6 +31,10 @@ package org.pushingpixels.photon.api.transcoder.kotlin;
 
 import org.pushingpixels.photon.api.transcoder.LanguageRenderer;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class KotlinLanguageRenderer implements LanguageRenderer {
     @Override
     public String getStatementEnd() {
@@ -49,7 +53,7 @@ public class KotlinLanguageRenderer implements LanguageRenderer {
     
     @Override
     public String getObjectCast(String objectName, String classToCastTo) {
-        return objectName;//"(" + objectName + " as " + classToCastTo + ")"; 
+        return "(" + objectName + " as " + classToCastTo + ")";
     }
 
     @Override
@@ -86,5 +90,27 @@ public class KotlinLanguageRenderer implements LanguageRenderer {
     @Override
     public String getGetter(String propertyName) {
         return "." + propertyName;
+    }
+
+    @Override
+    public String startMethod(String methodName, MethodArgument... arguments) {
+        return "private fun " + methodName + "(" +
+                Stream.of(arguments).map(e -> e.name + " : " + e.type).collect(Collectors.joining(",")) +
+                ") {";
+    }
+
+    @Override
+    public String endMethod() {
+        return "}";
+    }
+
+    @Override
+    public String getPrimitiveTypeFor(Class<?> clazz) {
+        if (clazz == int.class) return "Int";
+        if (clazz == double.class) return "Double";
+        if (clazz == float.class) return "Float";
+        if (clazz == boolean.class) return "Boolean";
+        if (clazz == char.class) return "Char";
+        throw new UnsupportedOperationException(clazz.toString());
     }
 }

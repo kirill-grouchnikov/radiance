@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage
 import java.io.*
 import java.lang.ref.WeakReference
 import java.util.Base64
+import java.util.Stack
 import javax.imageio.ImageIO
 import javax.swing.plaf.UIResource
 
@@ -19,14 +20,17 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource
  */
 class TOKEN_CLASSNAME private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
+    @Suppress("UNUSED_VARIABLE") private var shape: Shape? = null
+    @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
+    @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
+    @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
+    private val transformsStack = Stack<AffineTransform>()
+
     TOKEN_RASTER_CODE
 
-	private fun innerPaint(g : Graphics2D) {
-        @Suppress("UNUSED_VARIABLE") var shape: Shape?
-        @Suppress("UNUSED_VARIABLE") var paint: Paint?
-        @Suppress("UNUSED_VARIABLE") var stroke: Stroke?
-        @Suppress("UNUSED_VARIABLE") var clip: Shape?
+	TOKEN_PAINTING_CODE
 
+	private fun innerPaint(g : Graphics2D) {
         var origAlpha = 1.0f
         val origComposite = g.composite
         if (origComposite is AlphaComposite) {
@@ -35,7 +39,12 @@ class TOKEN_CLASSNAME private constructor(private var width: Int, private var he
             }
         }
         
-	    TOKEN_PAINTING_CODE
+	    TOKEN_PAINTING_INVOCATIONS
+
+	    shape = null
+	    paint = null
+	    stroke = null
+	    clip = null
 	}
 	
     companion object {

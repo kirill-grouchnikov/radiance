@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage
 import java.io.*
 import java.lang.ref.WeakReference
 import java.util.Base64
+import java.util.Stack
 import javax.imageio.ImageIO
 import javax.swing.plaf.UIResource
 
@@ -19,14 +20,71 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource
  */
 class outline_keyboard_arrow_down_24px private constructor(private var width: Int, private var height: Int)
        : ResizableIcon {
+    @Suppress("UNUSED_VARIABLE") private var shape: Shape? = null
+    @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
+    @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
+    @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
+    private val transformsStack = Stack<AffineTransform>()
+
     
 
-	private fun innerPaint(g : Graphics2D) {
-        @Suppress("UNUSED_VARIABLE") var shape: Shape?
-        @Suppress("UNUSED_VARIABLE") var paint: Paint?
-        @Suppress("UNUSED_VARIABLE") var stroke: Stroke?
-        @Suppress("UNUSED_VARIABLE") var clip: Shape?
+	private fun _paint0(g : Graphics2D,origAlpha : Float) {
+transformsStack.push(g.transform)
+// 
+g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
+transformsStack.push(g.transform)
+g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, -0.0f, -0.0f))
+// _0
+g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
+transformsStack.push(g.transform)
+g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
+// _0_0
+g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
+transformsStack.push(g.transform)
+g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
+// _0_0_0
+g.transform = transformsStack.pop()
+g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
+transformsStack.push(g.transform)
+g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
+// _0_0_1
+g.transform = transformsStack.pop()
+g.transform = transformsStack.pop()
+g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
+transformsStack.push(g.transform)
+g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
+// _0_1
+g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
+transformsStack.push(g.transform)
+g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
+// _0_1_0
+g.transform = transformsStack.pop()
+g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
+transformsStack.push(g.transform)
+g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
+// _0_1_1
+shape = GeneralPath()
+(shape as GeneralPath).moveTo(7.41, 8.59)
+(shape as GeneralPath).lineTo(12.0, 13.17)
+(shape as GeneralPath).lineTo(16.59, 8.59)
+(shape as GeneralPath).lineTo(18.0, 10.0)
+(shape as GeneralPath).lineTo(12.0, 16.0)
+(shape as GeneralPath).lineTo(6.0, 10.0)
+(shape as GeneralPath).lineTo(7.41, 8.59)
+(shape as GeneralPath).closePath()
+paint = Color(0, 0, 0, 255)
+g.paint = paint
+g.fill(shape)
+g.transform = transformsStack.pop()
+g.transform = transformsStack.pop()
+g.transform = transformsStack.pop()
+g.transform = transformsStack.pop()
 
+}
+
+
+
+	private fun innerPaint(g : Graphics2D) {
         var origAlpha = 1.0f
         val origComposite = g.composite
         if (origComposite is AlphaComposite) {
@@ -35,57 +93,13 @@ class outline_keyboard_arrow_down_24px private constructor(private var width: In
             }
         }
         
-	    val defaultTransform_ = g.transform
-// 
-g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-val defaultTransform__0 = g.transform
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, -0.0f, -0.0f))
-// _0
-g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-val defaultTransform__0_0 = g.transform
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
-// _0_0
-g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-val defaultTransform__0_0_0 = g.transform
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
-// _0_0_0
-g.transform = defaultTransform__0_0_0
-g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-val defaultTransform__0_0_1 = g.transform
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
-// _0_0_1
-g.transform = defaultTransform__0_0_1
-g.transform = defaultTransform__0_0
-g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-val defaultTransform__0_1 = g.transform
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
-// _0_1
-g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-val defaultTransform__0_1_0 = g.transform
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
-// _0_1_0
-g.transform = defaultTransform__0_1_0
-g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-val defaultTransform__0_1_1 = g.transform
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
-// _0_1_1
-shape = GeneralPath()
-shape.moveTo(7.41, 8.59)
-shape.lineTo(12.0, 13.17)
-shape.lineTo(16.59, 8.59)
-shape.lineTo(18.0, 10.0)
-shape.lineTo(12.0, 16.0)
-shape.lineTo(6.0, 10.0)
-shape.lineTo(7.41, 8.59)
-shape.closePath()
-paint = Color(0, 0, 0, 255)
-g.paint = paint
-g.fill(shape)
-g.transform = defaultTransform__0_1_1
-g.transform = defaultTransform__0_1
-g.transform = defaultTransform__0
-g.transform = defaultTransform_
+	    _paint0(g, origAlpha)
 
+
+	    shape = null
+	    paint = null
+	    stroke = null
+	    clip = null
 	}
 	
     companion object {
