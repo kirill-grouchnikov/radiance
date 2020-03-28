@@ -66,10 +66,10 @@ if (generalPath == null) {
 } else {
    generalPath.reset();
 }
-generalPath.moveTo(0.0, 0.0);
-generalPath.lineTo(1063.0, 0.0);
-generalPath.lineTo(1063.0, 236.22);
-generalPath.lineTo(0.0, 236.22);
+generalPath.moveTo(0.0f, 0.0f);
+generalPath.lineTo(1063.0f, 0.0f);
+generalPath.lineTo(1063.0f, 236.22f);
+generalPath.lineTo(0.0f, 236.22f);
 generalPath.closePath();
 shape = generalPath;
 paint = new Color(174, 28, 40, 255);

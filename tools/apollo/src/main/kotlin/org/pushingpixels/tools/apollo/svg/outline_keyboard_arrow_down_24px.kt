@@ -69,13 +69,13 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(7.41, 8.59)
-generalPath!!.lineTo(12.0, 13.17)
-generalPath!!.lineTo(16.59, 8.59)
-generalPath!!.lineTo(18.0, 10.0)
-generalPath!!.lineTo(12.0, 16.0)
-generalPath!!.lineTo(6.0, 10.0)
-generalPath!!.lineTo(7.41, 8.59)
+generalPath!!.moveTo(7.41f, 8.59f)
+generalPath!!.lineTo(12.0f, 13.17f)
+generalPath!!.lineTo(16.59f, 8.59f)
+generalPath!!.lineTo(18.0f, 10.0f)
+generalPath!!.lineTo(12.0f, 16.0f)
+generalPath!!.lineTo(6.0f, 10.0f)
+generalPath!!.lineTo(7.41f, 8.59f)
 generalPath!!.closePath()
 shape = generalPath
 paint = Color(0, 0, 0, 255)

@@ -62,10 +62,10 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(-219.62, -150.68)
-generalPath!!.lineTo(-219.62, 327.65)
-generalPath!!.curveTo(-76.73999, 328.55, 125.78, 220.48, 125.78, 88.45)
-generalPath!!.curveTo(125.78, -43.570007, -33.660004, -150.68001, -219.62, -150.68001)
+generalPath!!.moveTo(-219.62f, -150.68f)
+generalPath!!.lineTo(-219.62f, 327.65f)
+generalPath!!.curveTo(-76.73999f, 328.55f, 125.78f, 220.48f, 125.78f, 88.45f)
+generalPath!!.curveTo(125.78f, -43.570007f, -33.660004f, -150.68001f, -219.62f, -150.68001f)
 generalPath!!.closePath()
 shape = generalPath
 paint = RadialGradientPaint(Point2D.Double(605.7100219726562, 486.6499938964844), 117.14f, Point2D.Double(605.7100219726562, 486.6499938964844), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(2.774399995803833f, 0.0f, 0.0f, 1.9696999788284302f, -1891.5999755859375f, -872.8900146484375f))
@@ -81,10 +81,10 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(-1559.3, -150.68)
-generalPath!!.lineTo(-1559.3, 327.65)
-generalPath!!.curveTo(-1702.1001, 328.55, -1904.7001, 220.48, -1904.7001, 88.45)
-generalPath!!.curveTo(-1904.7001, -43.570007, -1745.2001, -150.68001, -1559.3, -150.68001)
+generalPath!!.moveTo(-1559.3f, -150.68f)
+generalPath!!.lineTo(-1559.3f, 327.65f)
+generalPath!!.curveTo(-1702.1001f, 328.55f, -1904.7001f, 220.48f, -1904.7001f, 88.45f)
+generalPath!!.curveTo(-1904.7001f, -43.570007f, -1745.2001f, -150.68001f, -1559.3f, -150.68001f)
 generalPath!!.closePath()
 shape = generalPath
 paint = RadialGradientPaint(Point2D.Double(605.7100219726562, 486.6499938964844), 117.14f, Point2D.Double(605.7100219726562, 486.6499938964844), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(-2.774399995803833f, 0.0f, 0.0f, 1.9696999788284302f, 112.76000213623047f, -872.8900146484375f))
@@ -101,17 +101,17 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(7.1639, 4.5064)
-generalPath!!.lineTo(39.812897, 4.5064)
-generalPath!!.curveTo(40.575897, 4.5064, 41.189896, 5.0388002, 41.189896, 5.7002)
-generalPath!!.lineTo(43.590897, 39.869198)
-generalPath!!.lineTo(43.602898, 42.217197)
-generalPath!!.curveTo(43.602898, 42.878197, 42.9889, 43.4102, 42.2269, 43.4102)
-generalPath!!.lineTo(4.749897, 43.4102)
-generalPath!!.curveTo(3.987397, 43.4102, 3.373497, 42.878197, 3.373497, 42.217197)
-generalPath!!.lineTo(3.362297, 40.050198)
-generalPath!!.lineTo(5.7872972, 5.700199)
-generalPath!!.curveTo(5.7872972, 5.038999, 6.4011974, 4.506599, 7.1637974, 4.506599)
+generalPath!!.moveTo(7.1639f, 4.5064f)
+generalPath!!.lineTo(39.812897f, 4.5064f)
+generalPath!!.curveTo(40.575897f, 4.5064f, 41.189896f, 5.0388002f, 41.189896f, 5.7002f)
+generalPath!!.lineTo(43.590897f, 39.869198f)
+generalPath!!.lineTo(43.602898f, 42.217197f)
+generalPath!!.curveTo(43.602898f, 42.878197f, 42.9889f, 43.4102f, 42.2269f, 43.4102f)
+generalPath!!.lineTo(4.749897f, 43.4102f)
+generalPath!!.curveTo(3.987397f, 43.4102f, 3.373497f, 42.878197f, 3.373497f, 42.217197f)
+generalPath!!.lineTo(3.362297f, 40.050198f)
+generalPath!!.lineTo(5.7872972f, 5.700199f)
+generalPath!!.curveTo(5.7872972f, 5.038999f, 6.4011974f, 4.506599f, 7.1637974f, 4.506599f)
 generalPath!!.closePath()
 shape = generalPath
 paint = LinearGradientPaint(Point2D.Double(21.042999267578125, 42.83300018310547), Point2D.Double(14.284000396728516, 6.833399772644043), floatArrayOf(0.0f,1.0f), arrayOf(Color(223, 223, 223, 255),Color(255, 255, 255, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.1378999948501587f, 0.0f, 0.0f, 1.0f, -2.660900115966797f, 0.0f))
@@ -124,17 +124,17 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(7.1639, 4.5064)
-generalPath!!.lineTo(39.812897, 4.5064)
-generalPath!!.curveTo(40.575897, 4.5064, 41.189896, 5.0388002, 41.189896, 5.7002)
-generalPath!!.lineTo(43.590897, 39.869198)
-generalPath!!.lineTo(43.602898, 42.217197)
-generalPath!!.curveTo(43.602898, 42.878197, 42.9889, 43.4102, 42.2269, 43.4102)
-generalPath!!.lineTo(4.749897, 43.4102)
-generalPath!!.curveTo(3.987397, 43.4102, 3.373497, 42.878197, 3.373497, 42.217197)
-generalPath!!.lineTo(3.362297, 40.050198)
-generalPath!!.lineTo(5.7872972, 5.700199)
-generalPath!!.curveTo(5.7872972, 5.038999, 6.4011974, 4.506599, 7.1637974, 4.506599)
+generalPath!!.moveTo(7.1639f, 4.5064f)
+generalPath!!.lineTo(39.812897f, 4.5064f)
+generalPath!!.curveTo(40.575897f, 4.5064f, 41.189896f, 5.0388002f, 41.189896f, 5.7002f)
+generalPath!!.lineTo(43.590897f, 39.869198f)
+generalPath!!.lineTo(43.602898f, 42.217197f)
+generalPath!!.curveTo(43.602898f, 42.878197f, 42.9889f, 43.4102f, 42.2269f, 43.4102f)
+generalPath!!.lineTo(4.749897f, 43.4102f)
+generalPath!!.curveTo(3.987397f, 43.4102f, 3.373497f, 42.878197f, 3.373497f, 42.217197f)
+generalPath!!.lineTo(3.362297f, 40.050198f)
+generalPath!!.lineTo(5.7872972f, 5.700199f)
+generalPath!!.curveTo(5.7872972f, 5.038999f, 6.4011974f, 4.506599f, 7.1637974f, 4.506599f)
 generalPath!!.closePath()
 shape = generalPath
 g.paint = paint
@@ -150,13 +150,13 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(43.125, 40.438)
-generalPath!!.curveTo(43.15635, 42.879192, 39.434628, 45.139633, 33.36909, 46.36339)
-generalPath!!.curveTo(27.303555, 47.58715, 19.821445, 47.58715, 13.755908, 46.36339)
-generalPath!!.curveTo(7.690371, 45.139633, 3.9686508, 42.879192, 4.0, 40.438)
-generalPath!!.curveTo(3.9686508, 37.996807, 7.690371, 35.736366, 13.755908, 34.512608)
-generalPath!!.curveTo(19.821445, 33.28885, 27.303555, 33.28885, 33.36909, 34.512608)
-generalPath!!.curveTo(39.434628, 35.736366, 43.15635, 37.996807, 43.125, 40.438)
+generalPath!!.moveTo(43.125f, 40.438f)
+generalPath!!.curveTo(43.15635f, 42.879192f, 39.434628f, 45.139633f, 33.36909f, 46.36339f)
+generalPath!!.curveTo(27.303555f, 47.58715f, 19.821445f, 47.58715f, 13.755908f, 46.36339f)
+generalPath!!.curveTo(7.690371f, 45.139633f, 3.9686508f, 42.879192f, 4.0f, 40.438f)
+generalPath!!.curveTo(3.9686508f, 37.996807f, 7.690371f, 35.736366f, 13.755908f, 34.512608f)
+generalPath!!.curveTo(19.821445f, 33.28885f, 27.303555f, 33.28885f, 33.36909f, 34.512608f)
+generalPath!!.curveTo(39.434628f, 35.736366f, 43.15635f, 37.996807f, 43.125f, 40.438f)
 generalPath!!.closePath()
 shape = generalPath
 paint = RadialGradientPaint(Point2D.Double(23.562000274658203, 40.4379997253418), 19.562f, Point2D.Double(23.562000274658203, 40.4379997253418), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 0.3482399880886078f, 0.0f, 26.354999542236328f))
@@ -181,13 +181,13 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(3.9268, 40.443)
-generalPath!!.curveTo(3.9268, 40.443, 4.0776, 39.912003, 4.6308002, 39.868)
-generalPath!!.lineTo(42.1948, 39.868)
-generalPath!!.curveTo(42.949802, 39.868, 42.9998, 40.62, 42.9998, 40.62)
-generalPath!!.curveTo(42.9998, 40.62, 43.0238, 39.0, 41.7158, 39.0)
-generalPath!!.lineTo(5.3038025, 39.0)
-generalPath!!.curveTo(4.2983027, 39.088, 3.9266024, 39.78, 3.9266024, 40.443)
+generalPath!!.moveTo(3.9268f, 40.443f)
+generalPath!!.curveTo(3.9268f, 40.443f, 4.0776f, 39.912003f, 4.6308002f, 39.868f)
+generalPath!!.lineTo(42.1948f, 39.868f)
+generalPath!!.curveTo(42.949802f, 39.868f, 42.9998f, 40.62f, 42.9998f, 40.62f)
+generalPath!!.curveTo(42.9998f, 40.62f, 43.0238f, 39.0f, 41.7158f, 39.0f)
+generalPath!!.lineTo(5.3038025f, 39.0f)
+generalPath!!.curveTo(4.2983027f, 39.088f, 3.9266024f, 39.78f, 3.9266024f, 40.443f)
 generalPath!!.closePath()
 shape = generalPath
 paint = Color(255, 255, 255, 255)
@@ -203,15 +203,15 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(6.25, 5.7344)
-generalPath!!.lineTo(6.0, 10.125)
-generalPath!!.curveTo(6.0, 10.125, 6.3125, 9.0, 7.0, 9.0)
-generalPath!!.lineTo(40.125, 9.0)
-generalPath!!.curveTo(40.828, 8.9844, 40.859, 9.3125, 40.984, 9.8281)
-generalPath!!.lineTo(40.734, 5.9531)
-generalPath!!.curveTo(40.703003, 5.4062004, 40.516003, 5.0, 39.953003, 5.0)
-generalPath!!.lineTo(7.0630035, 5.0)
-generalPath!!.curveTo(6.6094036, 5.0, 6.2969036, 5.3437, 6.2500033, 5.7344)
+generalPath!!.moveTo(6.25f, 5.7344f)
+generalPath!!.lineTo(6.0f, 10.125f)
+generalPath!!.curveTo(6.0f, 10.125f, 6.3125f, 9.0f, 7.0f, 9.0f)
+generalPath!!.lineTo(40.125f, 9.0f)
+generalPath!!.curveTo(40.828f, 8.9844f, 40.859f, 9.3125f, 40.984f, 9.8281f)
+generalPath!!.lineTo(40.734f, 5.9531f)
+generalPath!!.curveTo(40.703003f, 5.4062004f, 40.516003f, 5.0f, 39.953003f, 5.0f)
+generalPath!!.lineTo(7.0630035f, 5.0f)
+generalPath!!.curveTo(6.6094036f, 5.0f, 6.2969036f, 5.3437f, 6.2500033f, 5.7344f)
 generalPath!!.closePath()
 shape = generalPath
 paint = LinearGradientPaint(Point2D.Double(6.0, 7.5625), Point2D.Double(40.98400115966797, 7.5625), floatArrayOf(0.0f,1.0f), arrayOf(Color(163, 164, 160, 255),Color(136, 138, 133, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
@@ -229,17 +229,17 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(7.8126, 5.5405)
-generalPath!!.lineTo(38.9446, 5.5405)
-generalPath!!.curveTo(39.6666, 5.5405, 40.2476, 5.3883, 40.2476, 6.0146003)
-generalPath!!.curveTo(40.2476, 6.0146003, 42.5216, 39.0226, 42.5216, 39.0226)
-generalPath!!.lineTo(42.621597, 41.731598)
-generalPath!!.curveTo(42.621597, 42.357597, 42.482597, 42.3756, 41.760597, 42.3756)
-generalPath!!.lineTo(4.861599, 42.3756)
-generalPath!!.curveTo(4.448999, 42.3756, 4.4421988, 42.2696, 4.4421988, 41.864597)
-generalPath!!.lineTo(4.4315987, 39.193596)
-generalPath!!.lineTo(6.7276983, 6.045597)
-generalPath!!.curveTo(6.7276983, 5.419197, 7.0901985, 5.540097, 7.812198, 5.540097)
+generalPath!!.moveTo(7.8126f, 5.5405f)
+generalPath!!.lineTo(38.9446f, 5.5405f)
+generalPath!!.curveTo(39.6666f, 5.5405f, 40.2476f, 5.3883f, 40.2476f, 6.0146003f)
+generalPath!!.curveTo(40.2476f, 6.0146003f, 42.5216f, 39.0226f, 42.5216f, 39.0226f)
+generalPath!!.lineTo(42.621597f, 41.731598f)
+generalPath!!.curveTo(42.621597f, 42.357597f, 42.482597f, 42.3756f, 41.760597f, 42.3756f)
+generalPath!!.lineTo(4.861599f, 42.3756f)
+generalPath!!.curveTo(4.448999f, 42.3756f, 4.4421988f, 42.2696f, 4.4421988f, 41.864597f)
+generalPath!!.lineTo(4.4315987f, 39.193596f)
+generalPath!!.lineTo(6.7276983f, 6.045597f)
+generalPath!!.curveTo(6.7276983f, 5.419197f, 7.0901985f, 5.540097f, 7.812198f, 5.540097f)
 generalPath!!.closePath()
 shape = generalPath
 g.paint = paint
@@ -448,12 +448,12 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(17.341, 32.5)
-generalPath!!.lineTo(22.966, 26.875)
-generalPath!!.lineTo(43.059998, 17.125)
-generalPath!!.curveTo(46.309998, 15.875, 48.246998, 20.5, 45.371998, 22.125)
-generalPath!!.lineTo(25.340998, 31.5)
-generalPath!!.lineTo(17.340998, 32.5)
+generalPath!!.moveTo(17.341f, 32.5f)
+generalPath!!.lineTo(22.966f, 26.875f)
+generalPath!!.lineTo(43.059998f, 17.125f)
+generalPath!!.curveTo(46.309998f, 15.875f, 48.246998f, 20.5f, 45.371998f, 22.125f)
+generalPath!!.lineTo(25.340998f, 31.5f)
+generalPath!!.lineTo(17.340998f, 32.5f)
 generalPath!!.closePath()
 shape = generalPath
 paint = Color(203, 144, 34, 255)
@@ -466,12 +466,12 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(17.341, 32.5)
-generalPath!!.lineTo(22.966, 26.875)
-generalPath!!.lineTo(43.059998, 17.125)
-generalPath!!.curveTo(46.309998, 15.875, 48.246998, 20.5, 45.371998, 22.125)
-generalPath!!.lineTo(25.340998, 31.5)
-generalPath!!.lineTo(17.340998, 32.5)
+generalPath!!.moveTo(17.341f, 32.5f)
+generalPath!!.lineTo(22.966f, 26.875f)
+generalPath!!.lineTo(43.059998f, 17.125f)
+generalPath!!.curveTo(46.309998f, 15.875f, 48.246998f, 20.5f, 45.371998f, 22.125f)
+generalPath!!.lineTo(25.340998f, 31.5f)
+generalPath!!.lineTo(17.340998f, 32.5f)
 generalPath!!.closePath()
 shape = generalPath
 g.paint = paint
@@ -487,13 +487,13 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(38.331, 20.0)
-generalPath!!.curveTo(38.331, 20.0, 39.768, 20.094, 40.331, 21.344)
-generalPath!!.curveTo(40.91, 22.632, 40.331, 24.0, 40.331, 24.0)
-generalPath!!.lineTo(45.362, 21.531)
-generalPath!!.curveTo(45.362, 21.531, 46.814, 20.65, 46.017998, 18.688)
-generalPath!!.curveTo(45.232998, 16.751999, 43.330997, 17.531, 43.330997, 17.531)
-generalPath!!.lineTo(38.330997, 20.0)
+generalPath!!.moveTo(38.331f, 20.0f)
+generalPath!!.curveTo(38.331f, 20.0f, 39.768f, 20.094f, 40.331f, 21.344f)
+generalPath!!.curveTo(40.91f, 22.632f, 40.331f, 24.0f, 40.331f, 24.0f)
+generalPath!!.lineTo(45.362f, 21.531f)
+generalPath!!.curveTo(45.362f, 21.531f, 46.814f, 20.65f, 46.017998f, 18.688f)
+generalPath!!.curveTo(45.232998f, 16.751999f, 43.330997f, 17.531f, 43.330997f, 17.531f)
+generalPath!!.lineTo(38.330997f, 20.0f)
 generalPath!!.closePath()
 shape = generalPath
 paint = LinearGradientPaint(Point2D.Double(48.90599822998047, 17.375999450683594), Point2D.Double(50.987998962402344, 22.250999450683594), floatArrayOf(0.0f,0.5f,1.0f), arrayOf(Color(255, 209, 209, 255),Color(255, 29, 29, 255),Color(111, 0, 0, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, -5.669300079345703f, 0.0f))
@@ -509,13 +509,13 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(38.331, 20.0)
-generalPath!!.curveTo(38.331, 20.0, 39.768, 20.094, 40.331, 21.344)
-generalPath!!.curveTo(40.91, 22.632, 40.331, 24.0, 40.331, 24.0)
-generalPath!!.lineTo(42.331, 23.0)
-generalPath!!.curveTo(42.331, 23.0, 43.158, 21.681, 42.549, 20.312)
-generalPath!!.curveTo(41.924, 18.906, 40.331, 19.0, 40.331, 19.0)
-generalPath!!.lineTo(38.331, 20.0)
+generalPath!!.moveTo(38.331f, 20.0f)
+generalPath!!.curveTo(38.331f, 20.0f, 39.768f, 20.094f, 40.331f, 21.344f)
+generalPath!!.curveTo(40.91f, 22.632f, 40.331f, 24.0f, 40.331f, 24.0f)
+generalPath!!.lineTo(42.331f, 23.0f)
+generalPath!!.curveTo(42.331f, 23.0f, 43.158f, 21.681f, 42.549f, 20.312f)
+generalPath!!.curveTo(41.924f, 18.906f, 40.331f, 19.0f, 40.331f, 19.0f)
+generalPath!!.lineTo(38.331f, 20.0f)
 generalPath!!.closePath()
 shape = generalPath
 paint = LinearGradientPaint(Point2D.Double(46.0, 19.812000274658203), Point2D.Double(47.6879997253418, 22.625), floatArrayOf(0.0f,1.0f), arrayOf(Color(193, 193, 193, 255),Color(172, 172, 172, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, -5.669300079345703f, 0.0f))
@@ -531,10 +531,10 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(18.768, 31.781)
-generalPath!!.lineTo(23.268, 27.281)
-generalPath!!.curveTo(24.768, 28.094, 25.549, 29.438, 25.143, 31.0)
-generalPath!!.lineTo(18.768, 31.781)
+generalPath!!.moveTo(18.768f, 31.781f)
+generalPath!!.lineTo(23.268f, 27.281f)
+generalPath!!.curveTo(24.768f, 28.094f, 25.549f, 29.438f, 25.143f, 31.0f)
+generalPath!!.lineTo(18.768f, 31.781f)
 generalPath!!.closePath()
 shape = generalPath
 paint = RadialGradientPaint(Point2D.Double(29.05299949645996, 27.641000747680664), 3.2409f, Point2D.Double(29.05299949645996, 27.641000747680664), floatArrayOf(0.0f,1.0f), arrayOf(Color(231, 226, 184, 255),Color(231, 226, 184, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(2.9235999584198f, 0.0f, 0.0f, 2.0297000408172607f, -61.55500030517578f, -27.884000778198242f))
@@ -550,10 +550,10 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(20.112, 30.375)
-generalPath!!.lineTo(18.487, 31.969)
-generalPath!!.lineTo(20.831, 31.656)
-generalPath!!.curveTo(21.049, 30.938, 20.643, 30.594, 20.112, 30.375)
+generalPath!!.moveTo(20.112f, 30.375f)
+generalPath!!.lineTo(18.487f, 31.969f)
+generalPath!!.lineTo(20.831f, 31.656f)
+generalPath!!.curveTo(21.049f, 30.938f, 20.643f, 30.594f, 20.112f, 30.375f)
 generalPath!!.closePath()
 shape = generalPath
 paint = LinearGradientPaint(Point2D.Double(25.7189998626709, 31.047000885009766), Point2D.Double(25.514999389648438, 30.702999114990234), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(201, 201, 201, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, -5.825500011444092f, 0.125f))
@@ -569,11 +569,11 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(23.268, 27.25)
-generalPath!!.lineTo(24.831, 28.5)
-generalPath!!.lineTo(40.218, 21.181)
-generalPath!!.curveTo(39.774, 20.324999, 38.975998, 20.097, 38.315, 20.019)
-generalPath!!.lineTo(23.267998, 27.25)
+generalPath!!.moveTo(23.268f, 27.25f)
+generalPath!!.lineTo(24.831f, 28.5f)
+generalPath!!.lineTo(40.218f, 21.181f)
+generalPath!!.curveTo(39.774f, 20.324999f, 38.975998f, 20.097f, 38.315f, 20.019f)
+generalPath!!.lineTo(23.267998f, 27.25f)
 generalPath!!.closePath()
 shape = generalPath
 paint = Color(255, 255, 255, 93)
@@ -589,11 +589,11 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(25.143, 31.062)
-generalPath!!.lineTo(25.331, 30.312)
-generalPath!!.lineTo(40.562, 23.183)
-generalPath!!.curveTo(40.562, 23.183, 40.452, 23.797, 40.346, 23.932001)
-generalPath!!.lineTo(25.143002, 31.062)
+generalPath!!.moveTo(25.143f, 31.062f)
+generalPath!!.lineTo(25.331f, 30.312f)
+generalPath!!.lineTo(40.562f, 23.183f)
+generalPath!!.curveTo(40.562f, 23.183f, 40.452f, 23.797f, 40.346f, 23.932001f)
+generalPath!!.lineTo(25.143002f, 31.062f)
 generalPath!!.closePath()
 shape = generalPath
 paint = Color(0, 0, 0, 93)

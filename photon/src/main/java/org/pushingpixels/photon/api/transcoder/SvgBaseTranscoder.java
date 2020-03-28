@@ -272,7 +272,7 @@ abstract class SvgBaseTranscoder {
      */
     private void transcodePathIterator(PathIterator pathIterator, String suffix) {
         float[] coords = new float[6];
-        printWriterManager.println("if (generalPath == null) {");
+        printWriterManager.println("if (generalPath" + suffix + " == null) {");
         printWriterManager.println("   generalPath" + suffix + " = "
                 + languageRenderer.getObjectCreationNoParams("GeneralPath")
                 + languageRenderer.getStatementEnd());
@@ -291,23 +291,23 @@ abstract class SvgBaseTranscoder {
             switch (type) {
                 case PathIterator.SEG_CUBICTO:
                     printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
-                            + ".curveTo(" + coords[0] + ", " + coords[1] + ", " + coords[2] + ", "
-                            + coords[3] + ", " + coords[4] + ", " + coords[5] + ")"
+                            + ".curveTo(" + coords[0] + "f, " + coords[1] + "f, " + coords[2] + "f, "
+                            + coords[3] + "f, " + coords[4] + "f, " + coords[5] + "f)"
                             + languageRenderer.getStatementEnd());
                     break;
                 case PathIterator.SEG_QUADTO:
                     printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
-                            + ".quadTo(" + coords[0] + ", " + coords[1] + ", " + coords[2] + ", "
-                            + coords[3] + ")" + languageRenderer.getStatementEnd());
+                            + ".quadTo(" + coords[0] + "f, " + coords[1] + "f, " + coords[2] + "f, "
+                            + coords[3] + "f)" + languageRenderer.getStatementEnd());
                     break;
                 case PathIterator.SEG_MOVETO:
                     printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
-                            + ".moveTo(" + coords[0] + ", " + coords[1] + ")"
+                            + ".moveTo(" + coords[0] + "f, " + coords[1] + "f)"
                             + languageRenderer.getStatementEnd());
                     break;
                 case PathIterator.SEG_LINETO:
                     printWriterManager.println(languageRenderer.getObjectNoNull("generalPath" + suffix)
-                            + ".lineTo(" + coords[0] + ", " + coords[1] + ")"
+                            + ".lineTo(" + coords[0] + "f, " + coords[1] + "f)"
                             + languageRenderer.getStatementEnd());
                     break;
                 case PathIterator.SEG_CLOSE:
@@ -1195,6 +1195,8 @@ abstract class SvgBaseTranscoder {
                 + languageRenderer.getStatementEnd());
         printWriterManager.println("            " + languageRenderer.startVariableDefinition("Shape")
                 + "shapeText = null" + languageRenderer.getStatementEnd());
+        printWriterManager.println("            " + languageRenderer.startVariableDefinition("GeneralPath")
+                + "generalPathText = null" + languageRenderer.getStatementEnd());
 
         node.primitivePaint(new McCrashyGraphics2D() {
             private Shape clip;

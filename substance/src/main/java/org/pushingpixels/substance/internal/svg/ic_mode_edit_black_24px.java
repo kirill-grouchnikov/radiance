@@ -44,20 +44,20 @@ if (generalPath == null) {
 } else {
    generalPath.reset();
 }
-generalPath.moveTo(3.0, 17.25);
-generalPath.lineTo(3.0, 21.0);
-generalPath.lineTo(6.75, 21.0);
-generalPath.lineTo(17.81, 9.94);
-generalPath.lineTo(14.059999, 6.1899996);
-generalPath.lineTo(3.0, 17.25);
+generalPath.moveTo(3.0f, 17.25f);
+generalPath.lineTo(3.0f, 21.0f);
+generalPath.lineTo(6.75f, 21.0f);
+generalPath.lineTo(17.81f, 9.94f);
+generalPath.lineTo(14.059999f, 6.1899996f);
+generalPath.lineTo(3.0f, 17.25f);
 generalPath.closePath();
-generalPath.moveTo(20.71, 7.04);
-generalPath.curveTo(21.099998, 6.65, 21.099998, 6.02, 20.71, 5.63);
-generalPath.lineTo(18.369999, 3.2900002);
-generalPath.curveTo(17.98, 2.9, 17.349998, 2.9, 16.96, 3.2900002);
-generalPath.lineTo(15.129999, 5.1200004);
-generalPath.lineTo(18.88, 8.870001);
-generalPath.lineTo(20.71, 7.040001);
+generalPath.moveTo(20.71f, 7.04f);
+generalPath.curveTo(21.099998f, 6.65f, 21.099998f, 6.02f, 20.71f, 5.63f);
+generalPath.lineTo(18.369999f, 3.2900002f);
+generalPath.curveTo(17.98f, 2.9f, 17.349998f, 2.9f, 16.96f, 3.2900002f);
+generalPath.lineTo(15.129999f, 5.1200004f);
+generalPath.lineTo(18.88f, 8.870001f);
+generalPath.lineTo(20.71f, 7.040001f);
 generalPath.closePath();
 shape = generalPath;
 paint = new Color(0, 0, 0, 255);

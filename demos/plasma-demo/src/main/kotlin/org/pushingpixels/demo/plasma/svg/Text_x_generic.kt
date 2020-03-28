@@ -86,8 +86,8 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(11.5, 5.4)
-generalPath!!.lineTo(11.5, 43.300003)
+generalPath!!.moveTo(11.5f, 5.4f)
+generalPath!!.lineTo(11.5f, 43.300003f)
 shape = generalPath
 g.paint = paint
 g.stroke = stroke
@@ -104,8 +104,8 @@ if (generalPath == null) {
 } else {
    generalPath!!.reset()
 }
-generalPath!!.moveTo(12.5, 5.0)
-generalPath!!.lineTo(12.5, 43.0)
+generalPath!!.moveTo(12.5f, 5.0f)
+generalPath!!.lineTo(12.5f, 43.0f)
 shape = generalPath
 g.paint = paint
 g.stroke = stroke
